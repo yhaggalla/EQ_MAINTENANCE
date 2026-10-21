@@ -4,6 +4,62 @@ Rolling handover for CICT EQ Maintenance. Each phase appends its record; the new
 
 ---
 
+## Repair-R01 Contract repair after R01 NEEDS FIXES - 21 October 2026
+
+### Runtime record
+
+| Item | Value |
+| --- | --- |
+| Recommended profile | Codex gpt-6.1-sol, high; Claude Code claude-opus-5-5, high, adaptive thinking (R01 profile inherited) |
+| Actual client | Claude Code subagent eq-build-opus-high (delegated by the `/eq-phase` orchestrator; prompt logged in `docs/runs/Repair-R01-20261021-1403.md`) |
+| Actual model / effort | claude-opus-5-5; effort high (per agent definition) |
+| Fallback / escalation | None |
+
+### Outcome
+
+Repair complete for all findings of `docs/evidence/R01/review-20261021-1357.md` (blocking F1, plus F2, F3, F4 and the F5 nits, per the user instruction). Documents-only; no application code, Portal file or other repository was changed. R01 was not re-run by this repair.
+
+### Finding IDs and changes
+
+- F1: invariant J6 and reopened-job rules (no EQ Team cancel; Admin cancel only after voiding committed lines; no kind change to repair; no target excluding committed lines; re-completion with zero new lines; CompletedOn vs committed ReplacedOn; `duplicate_position` for a committed position); test cases DATA s5.5; D-43.
+- F2: idempotency record re-checked under the job lock before the version check (DATA s5.1 step 3, s8; API s1.5); D-44.
+- F3: back-entry limit and Admin date-order re-entry procedure (DATA I2, s5.4); D-42.
+- F4: PORTAL_INTEGRATION_PLAN R-3 generalised, R-6 added for `scripts/final-identity-live-deploy.ps1` l.71-74; PI-2, U-17, ARCHITECTURE P-02 updated.
+- F5: semantic key frozen from confirmation (DATA and API aligned, 409 `position_key_frozen`); alternate keys declared for every composite FK, SceneBindingEntry tied to its equipment; SOURCE_MAP D-17 -> D-11; stale P01 Git note annotated.
+
+Requirement/acceptance IDs touched (design only, all still NOT RUN): JOB03, JOB05, JOB06, JOB09, JOB12, HIS03, ADM03, VIS05; Portal deployment risk PI-2 (no acceptance ID).
+
+### Files changed
+
+Modified: `docs/DATA_CONTRACT.md`, `docs/API_CONTRACT.md`, `docs/PORTAL_INTEGRATION_PLAN.md`, `docs/ARCHITECTURE.md` (s13 D-42..D-44, s16 P-02), `docs/DECISIONS.md` (D-42..D-44, U-17), `docs/SOURCE_MAP.md` (s5 reference), `tools/p01/check_contract_coverage.py` (decision range D-19..D-44), `docs/IMPLEMENTATION_STATUS.md`, `docs/HANDOVER.md`.
+New: `docs/evidence/R01/repair-20261021-1403.md`, `docs/evidence/R01/repair-contract-coverage.json`.
+Untouched: `documents/`, `As-bulit drawing/`, `tmp/`, `.claude/`, `F:\CODEX\CICT-ENG_MAIN_PAGE` (read-only, clean at `47f7bd9`).
+
+### Checks run and results
+
+| Check | Result |
+| --- | --- |
+| `python -I tools/p01/check_contract_coverage.py --root F:/CODEX/EQ_MAINTENANCE --out docs/evidence/R01/repair-contract-coverage.json` | 9/9 passed, exit 0 |
+| `python -I tools/p00/validate_mechanisms.py` (regression) | 215/215 passed |
+| Mermaid validation of the edited DATA s4.1 diagram | valid |
+| Portal `git status --short` | clean |
+
+Evidence type: source review and scripted document checks only. No automated application tests, browser, target-environment or production verification exist.
+
+### Open issues and impact
+
+No new blocking issue. Open items from P01 (D-02, U-13, U-16, U-17, U-18, PI-5, U-01..U-03, U-07, U-08) are unchanged in impact. No question for the user is pending.
+
+### Git
+
+Branch `main`, HEAD `e21e90a`; Repair-R01 changes are uncommitted (left for the orchestrator/user to commit).
+
+### Next prompt
+
+**R01 Scope and architecture review, repeated** (read-only, fresh context; Claude Code claude-opus-5-5, high). P02 follows only after PASS.
+
+---
+
 ## P01 Architecture, data, API and authorization contracts - 21 October 2026
 
 ### Runtime record
@@ -77,7 +133,7 @@ No genuinely missing business information blocks the next phase; no question for
 
 ### Git
 
-Repository `F:\CODEX\EQ_MAINTENANCE`, branch `main`, HEAD `c326b62`. P01 changes are **uncommitted** (left for the orchestrator/user to commit).
+Repository `F:\CODEX\EQ_MAINTENANCE`, branch `main`, HEAD `c326b62`. P01 changes are **uncommitted** (left for the orchestrator/user to commit). (Later note, Repair-R01: P01 was committed as `14e86d1`; this line was accurate when written.)
 
 ### Next prompt
 

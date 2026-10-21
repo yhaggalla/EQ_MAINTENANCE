@@ -4,7 +4,7 @@ Checks, without modifying any file:
   1. Every acceptance case ID in ACCEPTANCE_CHECKLIST.md appears in the ARCHITECTURE s15 ownership map
      (ranges such as JOB01-JOB13 are expanded).
   2. S01-S17 each have a row in that map.
-  3. Every P01 default D-19..D-41 is defined in ARCHITECTURE s13 and in docs/DECISIONS.md.
+  3. Every P01 default D-19..D-44 is defined in ARCHITECTURE s13 and in docs/DECISIONS.md.
   4. Cross-document section references (DATA s.., API s.., PORTAL plan s..) resolve to real headings.
   5. Taxonomy facts the contracts rely on still hold in mechanisms-approved.json.
   6. The approved role codes, audience and binding claim appear verbatim in the contracts.
@@ -95,11 +95,11 @@ def main() -> int:
 
     # 3: defaults defined
     arch_defaults = section(docs["ARCH"], "13")
-    d_ids = [f"D-{i}" for i in range(19, 42)]
+    d_ids = [f"D-{i}" for i in range(19, 45)]
     not_in_arch = [d for d in d_ids if not re.search(rf"^\|\s*{d}\s*\|", arch_defaults, re.M)]
     not_in_dec = [d for d in d_ids if not re.search(rf"^\|\s*{d}\s*\|", decisions, re.M)]
-    record("D-19..D-41 defined in ARCHITECTURE s13", not not_in_arch, {"missing": not_in_arch})
-    record("D-19..D-41 recorded in DECISIONS.md", not not_in_dec, {"missing": not_in_dec})
+    record("D-19..D-44 defined in ARCHITECTURE s13", not not_in_arch, {"missing": not_in_arch})
+    record("D-19..D-44 recorded in DECISIONS.md", not not_in_dec, {"missing": not_in_dec})
 
     # 4: cross references
     targets = {

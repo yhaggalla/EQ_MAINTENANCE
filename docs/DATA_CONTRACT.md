@@ -1,6 +1,6 @@
 # Data contract
 
-Prepared in P01 on 21 October 2026. Status: **design contract for R01 review**; P06/P07/P08/P10 implement it. Section numbers are referenced from `docs/ARCHITECTURE.md` and `docs/API_CONTRACT.md`. Requirement text quoted as "s<n>" refers to `documents/prompt-pack/APPROVED_REQUIREMENTS.md`.
+Prepared in P01 on 21 October 2026. Status: **design contract for R01 review**, revised by Repair-R01 on 21 October 2026 (findings F1, F2, F3, F5 of `docs/evidence/R01/review-20261021-1357.md`: J6, s4.1, s5.1, s5.3-s5.5, s8, alternate keys); P06/P07/P08/P10 implement it. Section numbers are referenced from `docs/ARCHITECTURE.md` and `docs/API_CONTRACT.md`. Requirement text quoted as "s<n>" refers to `documents/prompt-pack/APPROVED_REQUIREMENTS.md`.
 
 ## 1 Conventions
 
@@ -137,18 +137,20 @@ Invariants:
 
 ### 3.4 Equipment-specific instances and part positions
 
-**MainMechanismInstance**: Id; EquipmentId; MainDefinitionId; State (`active`, `deactivated`); CreatedUtc/ByProfileId. UQ (EquipmentId, MainDefinitionId). Alternate key (Id, EquipmentId, MainDefinitionId).
+**MainMechanismInstance**: Id; EquipmentId; MainDefinitionId; State (`active`, `deactivated`); CreatedUtc/ByProfileId. UQ (EquipmentId, MainDefinitionId). Alternate keys (unique constraints declared so composite FKs can reference them): (Id, EquipmentId) and (Id, EquipmentId, MainDefinitionId).
 
-**SubMechanismInstance**: Id; EquipmentId; MainInstanceId; MainDefinitionId; SubDefinitionId; State; InstantiatedFromTemplateRevision (int null). UQ (EquipmentId, SubDefinitionId). Alternate key (Id, EquipmentId, MainInstanceId).
+**SubMechanismInstance**: Id; EquipmentId; MainInstanceId; MainDefinitionId; SubDefinitionId; State; InstantiatedFromTemplateRevision (int null). UQ (EquipmentId, SubDefinitionId). Alternate keys: (Id, EquipmentId) and (Id, EquipmentId, MainInstanceId).
 Composite FKs: (MainInstanceId, EquipmentId, MainDefinitionId) -> MainMechanismInstance alternate key; (SubDefinitionId, MainDefinitionId) -> SubMechanismDefinition alternate key. This makes a sub instance under the wrong main, or under another equipment's main, impossible in the database (ADM03).
+
+Every composite FK in this contract references a key declared as a primary key or alternate key (unique constraint) on the referenced table. Declared alternate keys: SubMechanismDefinition (Id, MainDefinitionId); MainMechanismInstance (Id, EquipmentId), (Id, EquipmentId, MainDefinitionId); SubMechanismInstance (Id, EquipmentId), (Id, EquipmentId, MainInstanceId); PartPosition (Id, EquipmentId), (Id, EquipmentId, SubInstanceId, MainInstanceId); Job (Id, EquipmentId); EquipmentSceneBinding (Id, EquipmentId).
 
 **PartPosition** (a maintainable main-part position; owner of exact-position history):
 
 | Column | Type / constraint | Notes |
 | --- | --- | --- |
-| Id | PK; alternate key (Id, EquipmentId, SubInstanceId, MainInstanceId) | the stable history identity |
+| Id | PK; alternate keys (Id, EquipmentId) and (Id, EquipmentId, SubInstanceId, MainInstanceId) | the stable history identity |
 | EquipmentId, MainInstanceId, SubInstanceId | composite FK (SubInstanceId, EquipmentId, MainInstanceId) -> SubMechanismInstance alternate key | ancestor chain stored and enforced |
-| SemanticKey | nvarchar(128), UQ (EquipmentId, SemanticKey); immutable once State = `active` | grammar s10.2; used for scene binding, never as a database key elsewhere |
+| SemanticKey | nvarchar(128), UQ (EquipmentId, SemanticKey); editable only while State = `draft`, immutable from confirmation (`active`) onwards, including after deactivation | grammar s10.2; used for scene binding, never as a database key elsewhere |
 | DisplayName | nvarchar(200) | renameable with audit |
 | PositionKind | `serialized` / `quantityLot`; immutable once any InstallationEvent exists | D-29 |
 | Category | display category | |
@@ -164,7 +166,7 @@ Composite FKs: (MainInstanceId, EquipmentId, MainDefinitionId) -> MainMechanismI
 Invariants:
 
 - P1 Positions are per equipment. `QC-DEMO-01 / 011 / hoist.drive.motor.a` and `QC-DEMO-02 / 011 / hoist.drive.motor.a` are different rows with different IDs and independent history (ADM02, HIS01).
-- P2 Instantiating a template copies applicable sub instances and confirmed position templates into `draft` rows for that equipment; Admin confirms (all or selected) to make them `active`. Before any history exists Admin may add, rename, change kind/UOM or deactivate; positions in `draft` with no references may be deleted (s11).
+- P2 Instantiating a template copies applicable sub instances and confirmed position templates into `draft` rows for that equipment; Admin confirms (all or selected) to make them `active`. While a position is `draft` Admin may also edit its SemanticKey. Before any history exists Admin may add, rename, change kind/UOM or deactivate; positions in `draft` with no references may be deleted (s11). Once confirmed, the SemanticKey never changes (409 `position_key_frozen`); a wrong key on an active position is handled by deactivating it and adding a new position, so bindings and history never follow a re-keyed row.
 - P3 After history exists: DisplayName may be renamed (audited); SemanticKey, ancestor chain and PositionKind are frozen; deactivation is allowed (no new work) and keeps all history readable.
 - P4 Re-applying a newer template revision previews additions only (new sub instances/positions); it never deletes, renames or re-parents existing rows. Removing something requires an explicit Admin deactivation.
 - P5 A spatial container (machinery house, trolley assembly, portal frame) is never a PartPosition; it exists only in the scene manifest (s10.10).
@@ -175,7 +177,7 @@ Invariants:
 
 | Column | Notes |
 | --- | --- |
-| Id; PartPositionId + EquipmentId (composite FK) | |
+| Id; PartPositionId + EquipmentId (composite FK -> PartPosition (Id, EquipmentId)) | |
 | PositionKind | copied from the position (immutable) for the filtered unique index |
 | ItemDescription (required), Manufacturer, ModelOrPartNumber, SerialNumber | null = unknown; never fabricated |
 | InstalledQuantity decimal(12,3) > 0; Uom | serialized: exactly 1 `ea` |
@@ -191,7 +193,7 @@ Filtered unique index: at most one `open` installation per serialized position: 
 
 | Column | Notes |
 | --- | --- |
-| Id; PartPositionId + EquipmentId (composite FK) | |
+| Id; PartPositionId + EquipmentId (composite FK -> PartPosition (Id, EquipmentId)) | |
 | Sequence int | UQ (PartPositionId, Sequence); = position.LastEventSequence + 1 at commit |
 | Kind | `replacement` / `baselineRecorded` |
 | ReplacementLineId | FK, required for `replacement`, null for baseline |
@@ -205,7 +207,7 @@ Filtered unique index: at most one `open` installation per serialized position: 
 Invariants:
 
 - I1 A position's current state is derived from its non-voided events in Sequence order; the stored `Installation.State`/`RemainingQuantity` values are maintained in the same transaction and tests prove they equal the derivation (HIS03).
-- I2 Business dates are non-decreasing in Sequence order among non-voided events (D-32).
+- I2 Business dates are non-decreasing in Sequence order among non-voided events (D-32). Consequence for manual back-entry of past work (B-07): an event can only be appended after the latest non-voided event at that position, so an older replacement cannot be inserted below a newer one. The supported back-entry procedure is in s5.4.
 - I3 No event is created by template changes, model changes, mesh changes or imports.
 - I4 A position with no events shows "No work recorded" and "Installed item unknown"; this is never presented as original, healthy or never replaced (HIS04).
 
@@ -215,11 +217,11 @@ Invariants:
 
 | Column | Notes |
 | --- | --- |
-| Id; Number (`EQJ-yyyy-nnnnnn` from a SQL sequence; UQ; immutable) | alternate key (Id, EquipmentId) |
+| Id; Number (`EQJ-yyyy-nnnnnn` from a SQL sequence; UQ; immutable) | alternate key (Id, EquipmentId) (unique constraint) |
 | EquipmentId | immutable; exactly one equipment (s5) |
 | TargetLevel | `equipment` / `main` / `sub` / `part` |
 | MainInstanceId, SubInstanceId, PartPositionId | null per level; CHECK: equipment = all null; main = main only; sub = main + sub; part = main + sub + part |
-| (composite FKs) | (MainInstanceId, EquipmentId) -> MainMechanismInstance; (SubInstanceId, EquipmentId, MainInstanceId) -> SubMechanismInstance alternate key; (PartPositionId, EquipmentId, SubInstanceId, MainInstanceId) -> PartPosition alternate key |
+| (composite FKs) | (MainInstanceId, EquipmentId) -> MainMechanismInstance alternate key (Id, EquipmentId); (SubInstanceId, EquipmentId, MainInstanceId) -> SubMechanismInstance alternate key; (PartPositionId, EquipmentId, SubInstanceId, MainInstanceId) -> PartPosition alternate key |
 | Kind | `repair` / `replacement` |
 | Title (required <= 200), Description (<= 4000) | |
 | Priority | null / `low` / `normal` / `high` (simple field; no workflow) |
@@ -229,7 +231,7 @@ Invariants:
 | IsCancelled bit; CancelledUtc; CancelledByProfileId; CancellationReason | separate marker; WorkStatus keeps its last value (`pending`/`current`) |
 | CreatedByProfileId; CreatedUtc; UpdatedUtc; ReopenCount; RowVersion | |
 
-**ReplacementLine**: Id; JobId + EquipmentId (composite FK -> Job alternate key); PartPositionId + EquipmentId (composite FK -> PartPosition); Mode (`full`, `partial`; serialized always `full`); ExpectedCurrentInstallationId (what the user replaced; null = nothing tracked); RemovedQuantity (partial lots); RemovedItemKnown/RemovedItemDescription/RemovedItemSerial (untracked removed item); ItemDescription (required), Manufacturer, ModelOrPartNumber, SerialNumber (null = unknown); Quantity (> 0; serialized = 1); Uom; ReplacedOn (date); Note; State (`committed`, `voided`); InstallationEventId; CommittedUtc; RowVersion. UQ (JobId, PartPositionId) WHERE State = 'committed'.
+**ReplacementLine**: Id; JobId + EquipmentId (composite FK -> Job alternate key (Id, EquipmentId)); PartPositionId + EquipmentId (composite FK -> PartPosition alternate key (Id, EquipmentId); the shared EquipmentId column makes a line whose job and position belong to different equipment impossible); Mode (`full`, `partial`; serialized always `full`); ExpectedCurrentInstallationId (what the user replaced; null = nothing tracked); RemovedQuantity (partial lots); RemovedItemKnown/RemovedItemDescription/RemovedItemSerial (untracked removed item); ItemDescription (required), Manufacturer, ModelOrPartNumber, SerialNumber (null = unknown); Quantity (> 0; serialized = 1); Uom; ReplacedOn (date); Note; State (`committed`, `voided`); InstallationEventId; CommittedUtc; RowVersion. UQ (JobId, PartPositionId) WHERE State = 'committed'.
 
 **JobStatusEvent** (progress history, append-only): Id; JobId; Kind (`created`, `started`, `returnedToPending`, `completed`, `reopened`, `cancelled`, `corrected`, `edited`); FromStatus; ToStatus; Reason; BusinessDate (completion date when relevant); ActorProfileId; OccurredUtc.
 
@@ -244,6 +246,11 @@ Invariants:
 - J3 Replacement lines exist only on `replacement` jobs, are created only by completion or Admin correction (D-30), resolve an `active` position of the same equipment inside the job's target subtree (D-31), and a job cannot hold two committed lines for the same position (JOB05).
 - J4 Operational status is never changed by any job command (JOB02, B-10).
 - J5 A cancelled job keeps all rows; it is excluded from the three normal work views and counts unless `includeCancelled` is requested; it is never counted Completed (JOB12).
+- J6 **Committed work on an uncompleted job.** A job that was completed and then reopened (ReopenCount > 0) is "previously completed"; it may also hold committed, non-voided replacement lines and their installation events. While uncompleted it is protected as completed work (s5, requirement s5 "a completed job cannot be cancelled"; "a completed replacement cannot be silently undone"):
+  - it cannot be cancelled by EQ Team (409 `job_previously_completed`); Admin may cancel it only when it holds no committed, non-voided line (else 409 `job_has_committed_replacements`, listing the lines; Admin voids them first through a correction, s5.3, which enforces the latest-event rule);
+  - its kind cannot change to `repair` while committed, non-voided lines exist (409 `job_has_committed_replacements`);
+  - its target cannot change to a target whose subtree excludes the position of any committed, non-voided line (409 `committed_lines_outside_target`, listing the lines), so J3/D-31 keep holding;
+  - re-completion follows s5.1 with the reopened-job rules in s5.3.
 
 ### 3.7 Operational status history
 
@@ -277,9 +284,9 @@ Rules: originals are immutable (a new revision is a new Document); evidence belo
 
 **SceneNode** (one row per manifest node; immutable for a version): SceneModelVersionId + NodeKey (PK); Kind (`position`, `hotspot`, `container`, `decorative`); MainCode/SubCode (classification, null for containers/decorative); ParentNodeKey; Label; Pickable; PickPriority; ModesJson; ProvenanceJson; BoundsJson; CameraHintJson.
 
-**EquipmentSceneBinding**: Id; EquipmentId; SceneModelVersionId; Status (`draft`, `active`, `superseded`); ValidationReportJson; ActivatedByProfileId; ActivatedUtc; RowVersion. UQ (EquipmentId) WHERE Status = 'active'.
+**EquipmentSceneBinding**: Id; EquipmentId; SceneModelVersionId; Status (`draft`, `active`, `superseded`); ValidationReportJson; ActivatedByProfileId; ActivatedUtc; RowVersion. Alternate key (Id, EquipmentId). UQ (EquipmentId) WHERE Status = 'active'.
 
-**SceneBindingEntry**: BindingId; NodeKey null; PartPositionId null (composite FK with EquipmentId); SubInstanceId null (for hotspots); Source (`exactKey`, `adminMapping`, `noVisual`); Note. UQ (BindingId, NodeKey) WHERE NodeKey IS NOT NULL; UQ (BindingId, PartPositionId) WHERE PartPositionId IS NOT NULL.
+**SceneBindingEntry**: BindingId; EquipmentId; NodeKey null; PartPositionId null; SubInstanceId null (for hotspots); Source (`exactKey`, `adminMapping`, `noVisual`); Note. Composite FKs share the one EquipmentId column: (BindingId, EquipmentId) -> EquipmentSceneBinding alternate key (Id, EquipmentId); (PartPositionId, EquipmentId) -> PartPosition alternate key (Id, EquipmentId); (SubInstanceId, EquipmentId) -> SubMechanismInstance alternate key (Id, EquipmentId). An entry that binds another equipment's position or sub instance is therefore impossible in the database. CHECK: exactly one of PartPositionId and SubInstanceId is set. UQ (BindingId, NodeKey) WHERE NodeKey IS NOT NULL; UQ (BindingId, PartPositionId) WHERE PartPositionId IS NOT NULL.
 
 Detailed behaviour: s10.
 
@@ -316,20 +323,21 @@ stateDiagram-v2
   Completed --> Current: reopen (Admin, reason) - installations stay committed
   Completed --> Completed: correct (Admin, reason)
   Pending --> Cancelled: cancel (creator EQ Team or Admin, reason)
-  Current --> Cancelled: cancel (creator EQ Team or Admin, reason)
+  Current --> Cancelled: cancel (creator EQ Team or Admin, reason) - reopened job only Admin and only without committed lines
   Cancelled --> [*]
 ```
 
-`Cancelled` is the separate cancellation marker (WorkStatus keeps `pending`/`current`), shown as a state here for clarity.
+`Cancelled` is the separate cancellation marker (WorkStatus keeps `pending`/`current`), shown as a state here for clarity. A reopened job (ReopenCount > 0) is "previously completed" and keeps the protections of invariant J6 while it is `current` or `pending`.
 
 | From | Command | To | Allowed roles | Conditions / refusal |
 | --- | --- | --- | --- | --- |
 | - | create | pending or current | Admin, EQ Team | equipment active; target valid (J1); reason not needed |
-| pending / current | edit | same | Admin, EQ Team | `version`; equipment immutable; target may change within the equipment |
+| pending / current | edit | same | Admin, EQ Team | `version`; equipment immutable; target may change within the equipment. With committed, non-voided lines (reopened job, J6): kind cannot become `repair` (409 `job_has_committed_replacements`) and the new target must still contain every committed line's position (409 `committed_lines_outside_target`) |
 | pending | start | current | Admin, EQ Team | |
 | current | returnToPending | pending | Admin, EQ Team | |
-| pending / current | complete | completed | Admin, EQ Team | completion date <= today (Asia/Colombo) and >= 2000-01-01; completion note required; `replacement` jobs need >= 1 valid line; `repair` jobs take no lines; Idempotency-Key |
-| pending / current | cancel | cancelled marker | Admin (any job); EQ Team (only `CreatedByProfileId` = caller) | reason required; else 403 `not_job_creator` |
+| pending / current | complete | completed | Admin, EQ Team | completion date <= today (Asia/Colombo) and >= 2000-01-01; completion note required; `replacement` jobs need >= 1 line counting new lines **plus** the job's committed, non-voided lines (a reopened job may be re-completed with zero new lines); `repair` jobs take no lines; reopened-job rules in s5.3; Idempotency-Key |
+| pending / current | cancel | cancelled marker | Admin (any job); EQ Team (only `CreatedByProfileId` = caller) | reason required; EQ Team on another creator's job: 403 `not_job_creator`. Previously completed job (ReopenCount > 0): EQ Team 409 `job_previously_completed`; Admin only when no committed, non-voided line remains, else 409 `job_has_committed_replacements` (J6) |
+| pending / current, previously completed | correct | same | Admin | reason; s5.3 line amendments and line voids only (new lines are added by re-completing); job completion fields are not edited until re-completion |
 | completed | cancel | - | nobody | 409 `job_completed` (use correction) |
 | completed | edit | - | nobody | 409 `job_completed` (Admin uses correct) |
 | completed | reopen | current | Admin | reason; committed lines and installations unchanged; ReopenCount + 1 |
@@ -366,13 +374,16 @@ Moving a card on the jobs board calls exactly these commands; there is no separa
 
 All steps run in one database transaction inside the EF execution strategy (D-28). Any failure rolls everything back, including the idempotency record.
 
-1. Look up `IdempotencyRecord (caller, key)`. Found with the same RequestHash -> return the stored response with header `Idempotent-Replayed: true`, change nothing. Found with a different hash -> 422 `idempotency_key_reused`.
-2. Read the job `WITH (UPDLOCK, HOLDLOCK)`. Refuse if `version` differs (409 `version_conflict`), if cancelled (409 `job_cancelled`) or already completed (409 `job_already_completed`, body includes the job so a client whose earlier attempt succeeded can show it).
-3. Validate completion fields and the line set: no duplicate positions (422 `duplicate_position`); each position belongs to the job's equipment (422 `target_not_in_equipment`), is `active` (422 `position_not_active`) and lies in the job target subtree (422 `position_outside_job_target`); kind/quantity rules (s5.2); ReplacedOn <= CompletedOn (422 `replacement_after_completion`).
-4. Read all line positions `WITH (UPDLOCK, HOLDLOCK)` in ascending Id order (deadlock avoidance). For each line: the position's current open installation(s) must match `expectedCurrentInstallationId` (409 `installation_changed`, returns the current installation); ReplacedOn must be >= the latest non-voided event date (409 `out_of_order_installation`).
-5. For each line: create ReplacementLine (`committed`), InstallationEvent (Sequence = LastEventSequence + 1), the new Installation, close/reduce the removed installation; update PartPosition.LastEventSequence.
-6. Update the job (WorkStatus `completed`, completion fields), add JobStatusEvent, write AuditEntry rows, update Equipment.LastActivityUtc, insert the IdempotencyRecord with the response body.
-7. Commit. A unique-key violation on commit from a parallel identical request is caught: the transaction is rolled back, the winner's IdempotencyRecord is read and replayed. A parallel request with a different key loses on the job `version`/state check.
+1. Look up `IdempotencyRecord (caller, key)` (fast path for a retry after an earlier commit; no lock). Found with the same RequestHash -> return the stored response with header `Idempotent-Replayed: true`, change nothing. Found with a different hash -> 422 `idempotency_key_reused`.
+2. Read the job `WITH (UPDLOCK, HOLDLOCK)`. The lock is held until commit, so concurrent completions of the same job are serialized here.
+3. **Re-check `IdempotencyRecord (caller, key)` now that the job lock is held**, as a separate statement before any version or state check. A same-key request that waited on the lock (double-click, client retry after timeout while the first attempt was still running) now reads the winner's committed record: same RequestHash -> replay with `Idempotent-Replayed: true`; different hash -> 422 `idempotency_key_reused`. Only when no record exists: refuse if `version` differs (409 `version_conflict`), if cancelled (409 `job_cancelled`) or already completed (409 `job_already_completed`, body includes the job so a client whose earlier attempt succeeded can show it).
+4. Validate completion fields and the line set: no duplicate positions within the request, and none at a position that already holds a committed, non-voided line of this job (reopened job) (422 `duplicate_position`, naming the existing line); each position belongs to the job's equipment (422 `target_not_in_equipment`), is `active` (422 `position_not_active`) and lies in the job target subtree (422 `position_outside_job_target`); kind/quantity rules (s5.2); for a `replacement` job the new lines plus the job's committed, non-voided lines number >= 1 (422 `lines_required`); every new line's ReplacedOn and every committed, non-voided line's ReplacedOn is <= CompletedOn (422 `replacement_after_completion`).
+5. Read all line positions `WITH (UPDLOCK, HOLDLOCK)` in ascending Id order (deadlock avoidance). For each line: the position's current open installation(s) must match `expectedCurrentInstallationId` (409 `installation_changed`, returns the current installation); ReplacedOn must be >= the latest non-voided event date (409 `out_of_order_installation`).
+6. For each new line: create ReplacementLine (`committed`), InstallationEvent (Sequence = LastEventSequence + 1), the new Installation, close/reduce the removed installation; update PartPosition.LastEventSequence. Committed lines of a reopened job are not touched.
+7. Update the job (WorkStatus `completed`, completion fields), add JobStatusEvent, write AuditEntry rows (for a re-completion the before snapshot carries the previous completion fields), update Equipment.LastActivityUtc, insert the IdempotencyRecord with the response body.
+8. Commit. The step-3 re-check covers same-key races on the same job. A unique-key violation on the IdempotencyRecord primary key at commit can still occur when the same caller sends the same key concurrently for a **different** job (the job lock does not serialize those); it is caught: the transaction is rolled back, the winner's record is read and replayed if its RequestHash matches, else 422 `idempotency_key_reused`. A parallel request with a different key loses on the job `version`/state check in step 3.
+
+Every other command that takes an `Idempotency-Key` and locks an aggregate (start, return to pending, cancel, reopen, correction, status change, attachment add/remove) uses the same order: fast-path lookup, lock, re-check under the lock, then version/state checks.
 
 Test-only fault injection (JOB08) is an `ICompletionFaultInjector` registered only in the integration-test host; the production registration is a no-op that cannot be configured.
 
@@ -399,10 +410,44 @@ Every correction is one transaction with a mandatory reason, creates one JobCorr
 | Amend line ReplacedOn | Allowed only if it stays between the neighbouring non-voided events' dates at that position and <= the job completion date |
 | Amend line quantity | Allowed only if no later non-voided event at that position consumed the lot this line installed |
 | Void a committed line | Allowed **only if its event is the latest non-voided event at the position**. Effect: event `VoidedByCorrectionId` set, the installation it created becomes `voided`, the installation/lot it closed or reduced is restored. If a later event exists: 409 `later_installation_exists` listing the blocking events; the later work must be corrected first. The voided rows remain visible in history |
-| Add a line to a completed job | Same validation as completion steps 3-5 (append-only; refused with 409 `out_of_order_installation` if a later event exists at that position) |
+| Add a line to a completed job | Same validation as completion steps 4-6 (append-only; refused with 409 `out_of_order_installation` if a later event exists at that position; 422 `duplicate_position` if the job already holds a committed line there). Not offered on a reopened (uncompleted) job: its new lines are added by re-completing it |
 | Move a line to another position | Void + add in the same correction; both rules apply |
 
-Reopen sets WorkStatus `current` with a reason and leaves every committed line, event and installation unchanged; reopening never reverses an installation. A later completion of the reopened job commits only the new lines it carries; to change committed lines Admin uses a correction. Completed work cannot be cancelled.
+Reopen sets WorkStatus `current` with a reason and leaves every committed line, event and installation unchanged; reopening never reverses an installation. The previous completion fields (CompletedOn, CompletionNote, CompletedUtc, CompletedByProfileId) are recorded in the `reopened` JobStatusEvent and the AuditEntry before snapshot; they stay on the job, displayed as "previously completed", until re-completion replaces them. Completed work cannot be cancelled.
+
+Reopened job (J6) rules:
+
+| Command on a reopened job | Rule |
+| --- | --- |
+| Edit (EQ Team or Admin) | Title, description, priority, planned date, responsible person allowed. Kind cannot become `repair` while committed, non-voided lines exist (409 `job_has_committed_replacements`). A target change must keep every committed line's position inside the new target subtree (409 `committed_lines_outside_target`) |
+| Cancel | EQ Team: 409 `job_previously_completed`. Admin: allowed with reason only when no committed, non-voided line remains; else 409 `job_has_committed_replacements` with the line list and a pointer to the correction path |
+| Re-complete (EQ Team or Admin) | s5.1. Zero new lines are accepted when the job already holds >= 1 committed, non-voided line. CompletedOn must be >= every committed, non-voided line's ReplacedOn (422 `replacement_after_completion`). A new line at a position already holding a committed line of this job: 422 `duplicate_position` (that line is changed only by Admin correction). Committed lines and their events are never re-created or re-dated |
+| Correct (Admin) | Line amendments and line voids per the table above (latest-event rule unchanged); no new lines (use re-completion); job completion fields are not edited until re-completion |
+
+A reopened job with committed lines keeps appearing in scoped history through those lines (s9) while it is open, so the installation events it created stay explained.
+
+### 5.4 Manual back-entry of past work (B-07, D-32)
+
+B-07 allows earlier work to be entered manually as completed jobs with past business dates. Because events at a position are append-only in date order (I2), the order of entry matters:
+
+1. **Normal procedure.** Enter historical work for a position in chronological order, oldest first, before newer work is recorded there. Back-entry before or shortly after go-live, position by position, avoids any conflict. Back-dated work at a position that has no later event is accepted like any completion.
+2. **Older work discovered after a newer event exists.** The completion is refused with 409 `out_of_order_installation`, naming the later event. Re-entering the work as a `repair` job without lines is not a substitute, because it would hide a physical replacement. To record the older replacement, Admin performs a date-order re-entry: (a) void the later line(s) at that position, latest first, through corrections on their jobs (each void is audited and stays visible as voided history); (b) complete the older replacement job; (c) re-add the later line(s) through corrections on their jobs with the original values (oldest first). Each step is its own transaction, so between steps the position briefly shows the intermediate state; Admin does this when no other work is being recorded at that position.
+3. Nothing is overwritten: voided and re-added lines both stay in history with their correction records (JOB09, HIS03).
+
+Impact: correct, but laborious for a position with several later events. Stage 1 accepts this limit; an "insert earlier event" operation that re-sequences a position is not provided, because it would rewrite the derived installation state of later events (I1). If manual back-entry in arbitrary order turns out to be common, a later stage may add it (DECISIONS D-42).
+
+### 5.5 Required test cases for committed work and idempotency (P07)
+
+| Case | Expected | Acceptance |
+| --- | --- | --- |
+| EQ Team creator cancels a reopened replacement job holding committed lines | 409 `job_previously_completed`; job, lines, events unchanged | JOB12, JOB09 |
+| Admin cancels a reopened job holding committed lines | 409 `job_has_committed_replacements`; after Admin voids the lines (latest-event rule) the cancel succeeds and history keeps the voided rows | JOB12, JOB09 |
+| Edit a reopened job: kind to `repair` / target to a subtree excluding a committed line | 409 `job_has_committed_replacements` / 409 `committed_lines_outside_target` | JOB09, JOB03 |
+| Re-complete a reopened replacement job with zero new lines | 200 completed; no new event; previous completion fields in audit | JOB09 |
+| Re-complete with CompletedOn before a committed line's ReplacedOn | 422 `replacement_after_completion` | JOB09 |
+| Re-complete with a new line at a position already committed in the job | 422 `duplicate_position` | JOB09, JOB05 |
+| Two simultaneous completions with the same key | Exactly one completion; the second response is the stored one with `Idempotent-Replayed: true` (not 409) | JOB06 |
+| Older replacement entered after a newer one at the same position | 409 `out_of_order_installation`; date-order re-entry (s5.4) then succeeds with full audit | JOB09, HIS03 |
 
 ## 6 Server role matrix (exact)
 
@@ -415,7 +460,7 @@ Role codes in the token after `CictEng.Auth` restricts them to the EQ audience: 
 | `job.complete` - complete a valid job and its replacement lines | Complete a valid job | Yes | Yes | No | `EqWrite` + state rules |
 | `status.set` | Set equipment operational status | Yes | Yes | No | `EqWrite` |
 | `job.correct`, `job.reopen` | Correct or reopen completed work, with reason/history | Yes | No | No | `EqAdmin` |
-| `job.cancel` | Cancel an uncompleted job, with reason | Yes, any | Yes, own (`CreatedByProfileId`) | No | `EqWrite` + creator rule in Application layer |
+| `job.cancel` | Cancel an uncompleted job, with reason | Yes, any; a reopened job only after its committed lines are voided (J6) | Yes, own (`CreatedByProfileId`), never a reopened (previously completed) job | No | `EqWrite` + creator and J6 rules in Application layer |
 | `config.manage` - equipment, types, models/templates, catalogue, instances, positions | Add/update equipment, templates, classifications and main parts | Yes | No | No | `EqAdmin` |
 | `config.applicability`, `config.parameters`, `config.sceneBinding` | Set applicability, specifications and model bindings | Yes | No | No | `EqAdmin` |
 | `evidence.attach` | Attach work evidence | Yes | Yes, to any non-cancelled job | No | `EqWrite` + job state rule |
@@ -452,8 +497,9 @@ Convergence runs in a SERIALIZABLE transaction; a unique-key race on first creat
 | --- | --- | --- |
 | Two edits of the same job/equipment/definition/position from the same version | `rowversion` compared with request `version` | Second gets 409 `version_conflict` with `current` representation and its new `version` (JOB07) |
 | Status change racing another status change | `expectedCurrentStatusChangeId` + UPDLOCK on equipment | 409 `status_changed` with current status |
-| Two completions of the same job (double-click, retry after timeout) with the same key | IdempotencyRecord in the same transaction | One completion; the repeat returns the stored response (`Idempotent-Replayed: true`) (JOB06) |
+| Two completions of the same job (double-click, retry after timeout) with the same key | IdempotencyRecord in the same transaction, re-checked after the job UPDLOCK is granted and before the version check (s5.1 step 3) | One completion; the repeat, whether it arrives after the commit or waits on the lock while the first attempt runs, returns the stored response (`Idempotent-Replayed: true`), never 409 (JOB06) |
 | Two completions of the same job with different keys | job version/state under UPDLOCK | One wins; other 409 `version_conflict` or `job_already_completed` |
+| Same caller sends the same key concurrently for two different jobs | IdempotencyRecord primary key at commit (s5.1 step 8) | One commits; the other is rolled back and gets 422 `idempotency_key_reused` |
 | Two different jobs replacing the same position concurrently | UPDLOCK on PartPosition + `expectedCurrentInstallationId` + UQ (PartPositionId, Sequence) | One commits; the other 409 `installation_changed`; the user reviews the new current item |
 | Key reused with a different body | RequestHash | 422 `idempotency_key_reused` |
 | Retry after the idempotency record expired | job state | 409 `job_already_completed` (never a duplicate) |
@@ -583,7 +629,7 @@ A container (for example `container.machinery-house`, which contains hoist, trol
 | PositionTemplate | (model, SemanticKey) | Everything while draft | Key after any instantiation | Deactivate; delete only while draft and never instantiated |
 | Equipment | Id | Code (unique, audited), name, known attributes, model association | Id, type | Retire; hard delete only when it has no instances in use, jobs, status changes, attachments or bindings (audited) |
 | Mechanism instance | Id | State | Equipment, definition, parent | Deactivate |
-| PartPosition | Id | DisplayName; kind/UOM/key only before history | Id, equipment, ancestors; key/kind after activation/history | Deactivate; delete only while `draft` with no references |
+| PartPosition | Id | DisplayName; SemanticKey only while `draft`; kind/UOM only before history | Id, equipment, ancestors; SemanticKey from confirmation (`active`); kind after history | Deactivate; delete only while `draft` with no references |
 | Installation / InstallationEvent | Id; (position, Sequence) | Attributes via correction (audited) | Sequence, kind, position | Void by correction only (latest event rule) |
 | Job | Id, Number | Fields while uncompleted; Admin correction afterwards | Equipment, Number, CreatedBy | Cancel (uncompleted) only; never deleted |
 | ReplacementLine | Id | Attributes via correction | Job, position (move = void + add) | Void by correction |
@@ -617,8 +663,9 @@ No import or seed runs at host startup. Reference imports never create equipment
 | History belongs to positions, not templates or meshes | PartPosition.Id FKs from events/lines/jobs | binding rules B2-B8 | ADM02, HIS01, VIS05 (P06/P10) |
 | One open installation per serialized position | filtered UQ | completion/correction rules | JOB04, JOB10 (P07) |
 | No duplicate line per position per job | filtered UQ (JobId, PartPositionId) | duplicate check before write | JOB05 (P07) |
-| Event order per position | UQ (PartPositionId, Sequence) | D-32 date rule; UPDLOCK | JOB09, HIS03 (P07) |
-| Atomic, retry-safe completion | single transaction; IdempotencyRecord PK | s5.1 | JOB06, JOB08 (P07) |
+| Event order per position | UQ (PartPositionId, Sequence) | D-32 date rule; UPDLOCK; back-entry procedure s5.4 | JOB09, HIS03 (P07) |
+| Committed work on a reopened job cannot be cancelled, re-kinded, moved out of target or duplicated | - | J6 and s5.3 reopened-job rules | JOB09, JOB12, JOB05 (P07; cases s5.5) |
+| Atomic, retry-safe completion | single transaction; IdempotencyRecord PK | s5.1 including the step-3 re-check under the job lock | JOB06, JOB08 (P07; cases s5.5) |
 | Status independent of jobs | no trigger/coupling | no job command touches status | JOB02 (P07) |
 | Reason rules for status/cancel/correct/reopen | NOT NULL/CHECK where the state requires | validation | JOB12, JOB13, JOB09 (P07) |
 | Management read-only | - | policies on every unsafe endpoint | AUTH03, FILE02 (P05/P07/P08) |

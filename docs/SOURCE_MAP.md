@@ -100,7 +100,7 @@ Subsidiary-list items without a supplied PDF: J526A4100 (slip contact / trolley 
 
 ## 5 Dimension and parameter observations (model family CICT-J526A-STS)
 
-Coordinates proposed for the model (see DECISIONS D-17): metres, Y up, X along the boom positive toward waterside, Z along the rails (gantry travel). Origin at the top of the **waterside** rail on the crane's transverse centreline. The landside rail is then at X = -30.
+Coordinates proposed for the model (see DECISIONS D-11; corrected from D-17 by Repair-R01, F5): metres, Y up, X along the boom positive toward waterside, Z along the rails (gantry travel). Origin at the top of the **waterside** rail on the crane's transverse centreline. The landside rail is then at X = -30.
 
 ### 5.1 Overall geometry
 

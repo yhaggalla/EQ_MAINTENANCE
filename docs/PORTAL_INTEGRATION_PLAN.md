@@ -1,6 +1,6 @@
 # Portal integration plan
 
-Prepared in P01 on 21 October 2026 from a **read-only** inspection of `F:\CODEX\CICT-ENG_MAIN_PAGE` (branch `feature/option-b-provisioning-and-login-redesign`, commit `47f7bd9`, clean) and of the consumer projects in the UMMS, PayPrep and Safety repositories. Nothing outside `F:\CODEX\EQ_MAINTENANCE\docs` was changed. P05 implements this plan; P12 sequences the real rollout; R03 reviews it. Local source is not evidence of what is deployed (U-13).
+Prepared in P01 on 21 October 2026 from a **read-only** inspection of `F:\CODEX\CICT-ENG_MAIN_PAGE` (branch `feature/option-b-provisioning-and-login-redesign`, commit `47f7bd9`, clean) and of the consumer projects in the UMMS, PayPrep and Safety repositories. Nothing outside `F:\CODEX\EQ_MAINTENANCE\docs` was changed. Revised by Repair-R01 on 21 October 2026 (R01 finding F4: R-3 reworded, R-6 added). P05 implements this plan; P12 sequences the real rollout; R03 reviews it. Local source is not evidence of what is deployed (U-13).
 
 ## 1 Current contract (as read)
 
@@ -83,9 +83,10 @@ Every item below is a P05 change unless marked. "Portal" = `F:\CODEX\CICT-ENG_MA
 | --- | --- | --- |
 | R-1 | `scripts/deploy-production-release.ps1` | Add `eq-maintenance` to `$childApplications`, so a root `/MIR` deploy can never delete `C:\inetpub\CictEngPortal\eq-maintenance`. Must be in place before EQ's first deployment and in every later Portal root release |
 | R-2 | `scripts/build-production-packages.ps1` | Add `eq-maintenance` to the root rollback `/XD` list (line 1068) and to the untouched-apps note (line 934). Whether this script also learns to package EQ is a P12 decision; EQ packages itself from its own repository |
-| R-3 | `scripts/ssh-deploy/*.ps1` | P05 inspects their child-application handling and adds the same exclusion where a mirror is used |
+| R-3 | Every Portal script that clears, mirrors or restores the site root (currently known: R-1, R-2, R-6; plus `scripts/ssh-deploy/*.ps1`) | P05 re-inventories the Portal `scripts/` tree at its own commit (search for `Remove-Item`, `robocopy /MIR` and child-application lists such as `'auth', 'umms', 'payprep', 'safety'`) and adds `eq-maintenance` to every root exclusion or child-application list it finds, recording the inventory in P05 evidence. A root-clearing path that cannot be made to preserve `eq-maintenance` blocks EQ's first deployment |
 | R-4 | `scripts/portal-local.ps1` | Optional, only if the Portal owner prefers it over R-5: an opt-in switch that adds EQ services. The default behaviour of the stock runner must not change |
 | R-5 | EQ `tools/eq-portal-local.ps1` (EQ repo, preferred) | Starts only Identity and portal-web from the Portal repo plus the EQ host/Vite, with an isolated Identity database, isolated EQ database and generated local-only credentials (s7). Does not start or seed UMMS, PayPrep or Safety |
+| R-6 | `scripts/final-identity-live-deploy.ps1` | Line 71 `$rootExclusions = @('web.config', 'auth', 'umms', 'payprep', 'safety')` and the loop at lines 72-74 delete every other site-root child, so a run would remove `C:\inetpub\CictEngPortal\eq-maintenance`. Add `eq-maintenance` to `$rootExclusions`. The child-application allowlist at line 48 (throws on an unknown child) needs no change, because EQ is not deployed by this script; P05 records that decision. Found by R01 (F4); confirmed read-only at Portal `47f7bd9` |
 
 ### 3.5 EQ repository (P05)
 
@@ -205,7 +206,7 @@ The central mechanism supports app-scoped delegation (`DelegatedAdministratorRol
 | --- | --- | --- |
 | U-13 | Deployed `CictEng.Auth` version per consumer unknown | Gate G1 evidence before step 5 |
 | PI-1 | Seeder overwrites `IsEnabled` on every run (local/test only) | Local scripts enable EQ explicitly after seeding; production uses the I-5 migration and the audited admin toggle |
-| PI-2 | Portal root deploy could delete the EQ folder | R-1/R-2 before EQ's first deployment |
+| PI-2 | Portal root deploy or live-deploy scripts could delete the EQ folder | R-1, R-2, R-6 and the R-3 inventory before EQ's first deployment |
 | PI-3 | `CictEng.Auth` (net8.0) inside a net10.0 host | E-1 tests; fallback is a multi-targeted 0.3.x package (Portal change, still within P05) |
 | PI-4 | Access tokens keep EQ claims up to their 5-minute lifetime after disabling | Accepted and documented in rollback |
 | PI-5 | Safety package bump is outside P05's write boundary | Patch proposal (s5.1); G1 stays unmet until applied by its owner |

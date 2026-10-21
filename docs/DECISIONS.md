@@ -1,6 +1,6 @@
 # Decisions
 
-Created in P00 and extended in P01 on 21 October 2026. Three separate lists: confirmed business choices (only the user changes these), routine implementation defaults (made by the implementing agent, revisable with a recorded reason), and unresolved source facts (need an authorized technical or business answer; none blocks P01).
+Created in P00, extended in P01 and in Repair-R01 on 21 October 2026. Three separate lists: confirmed business choices (only the user changes these), routine implementation defaults (made by the implementing agent, revisable with a recorded reason), and unresolved source facts (need an authorized technical or business answer; none blocks P01).
 
 User checkpoint approvals (U1 after R02, U2 after P11) are recorded in section 4 when the user gives them.
 
@@ -78,6 +78,16 @@ Full context for each item is in the P01 contract documents named in the reason 
 | D-40 | History responses are sectioned (open, completed, installation events, status changes). | Date-only and instant orderings are not mixed; DATA_CONTRACT s9 |
 | D-41 | The `eq-maintenance` registry row is committed disabled; enabling it is an audited rollout step after gate G1. | Old consumers reject EQ-bearing tokens; PORTAL_INTEGRATION_PLAN s6 |
 
+### Repair-R01 additions (21 October 2026)
+
+From R01 findings F1-F3 (`docs/evidence/R01/review-20261021-1357.md`). D-32 is unchanged; D-42 documents its consequence for B-07.
+
+| ID | Default | Reason / evidence |
+| --- | --- | --- |
+| D-42 | D-32 limits manual back-entry: an older replacement cannot be inserted below a newer event at the same position. Back-entry is done oldest first; older work found later is recorded by Admin date-order re-entry (void later lines latest first, complete the older job, re-add the later lines), all audited. No "insert earlier event" operation in stage 1. | Keeps installation history append-only and derivable (I1, JOB09) while still allowing B-07 manual past entries; DATA_CONTRACT I2, s5.4 (R01 F3) |
+| D-43 | A reopened job (ReopenCount > 0) stays protected as completed work while uncompleted: EQ Team cannot cancel it; Admin cancels it only after voiding all committed lines by correction; kind cannot become `repair` and the target cannot exclude a committed line; re-completion accepts zero new lines, checks CompletedOn against committed lines and refuses a second line at a committed position (422 `duplicate_position`). Admin corrections on a reopened job are limited to line amendments and voids. | Requirement s5 (completed job not cancellable; completed replacement not silently undone; only Admin corrects); DATA_CONTRACT J6, s4.1, s5.3 (R01 F1) |
+| D-44 | Idempotent commands re-check the IdempotencyRecord after taking the aggregate lock and before the version check, so a concurrent same-key request is replayed rather than refused with 409. | JOB06; DATA_CONTRACT s5.1 step 3, s8 (R01 F2) |
+
 ## 3 Unresolved source facts and open questions
 
 None of these blocks P01. Each is modelled as configurable data or a visible source conflict rather than a guessed value.
@@ -100,7 +110,7 @@ None of these blocks P01. Each is modelled as configurable data or a visible sou
 | U-14 | Target IIS server has the ASP.NET Core 10 Hosting Bundle | Portal `docs/DEPLOYMENT_GUIDE_IIS.md` mentions only the ASP.NET Core 8 bundle | Prerequisite listed for P12 | Server owner |
 | U-15 | Neighbouring apps on .NET 8 reach end of support on 10 Nov 2026 | Microsoft support policy | Out of EQ scope; reported only. EQ does not upgrade them | Portal/app owners |
 | U-16 (P01) | No delivery path exists for adding a new application/roles to an **existing** Identity database (catalog seeder runs only in tests, local seeding and the one-time production bootstrap) | Portal `IdentityCatalogSeeder`, `docs/PRODUCTION_BOOTSTRAP_RUNBOOK.md` | P05 adds an idempotent Identity migration inserting the disabled EQ registry rows (PORTAL_INTEGRATION_PLAN I-5) | P05 implementation; DBA review at rollout |
-| U-17 (P01) | Portal root deploy scripts mirror the site root and exclude only known child folders; an EQ folder would be deleted by a later root release | Portal `scripts/deploy-production-release.ps1` l.57/241, `build-production-packages.ps1` l.1068 | P05 adds `eq-maintenance` to the exclusions (R-1/R-2) before any EQ deployment | P05 |
+| U-17 (P01) | Portal root deploy scripts mirror the site root and exclude only known child folders; an EQ folder would be deleted by a later root release | Portal `scripts/deploy-production-release.ps1` l.57/241, `build-production-packages.ps1` l.1068, `final-identity-live-deploy.ps1` l.71-74 (added by Repair-R01, F4) | P05 adds `eq-maintenance` to the exclusions (R-1, R-2, R-6) and inventories every other root-clearing script (R-3) before any EQ deployment | P05 |
 | U-18 (P01) | Identity `access-status` ignores the application's enabled flag | Portal `IdentityAdministrationEndpoints.cs` `GetApplicationAccessStatusAsync` | P05 narrow fix + test (PORTAL_INTEGRATION_PLAN PI-6) | P05 |
 
 ## 4 User checkpoint approvals

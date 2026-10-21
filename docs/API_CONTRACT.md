@@ -1,6 +1,6 @@
 # API contract
 
-Prepared in P01 on 21 October 2026. Status: **design contract for R01 review**; implemented in P04-P10. Entity rules referenced as "DATA s<n>" are in `docs/DATA_CONTRACT.md`.
+Prepared in P01 on 21 October 2026. Status: **design contract for R01 review**, revised by Repair-R01 on 21 October 2026 (findings F1, F2, F5 of `docs/evidence/R01/review-20261021-1357.md`); implemented in P04-P10. Entity rules referenced as "DATA s<n>" are in `docs/DATA_CONTRACT.md`.
 
 ## 1 Conventions
 
@@ -34,7 +34,7 @@ Prepared in P01 on 21 October 2026. Status: **design contract for R01 review**; 
 ### 1.5 Idempotency
 
 - Every POST that creates or changes records requires header `Idempotency-Key: <uuid>` (D-27). Missing -> 400 `idempotency_key_required`.
-- Scope: (caller profile, key). Same key + same canonical request -> the original status and body are replayed with header `Idempotent-Replayed: true` and no new change. Same key + different request -> 422 `idempotency_key_reused`. Records are kept 30 days; job completion is also protected by job state (DATA s8).
+- Scope: (caller profile, key). Same key + same canonical request -> the original status and body are replayed with header `Idempotent-Replayed: true` and no new change. Same key + different request -> 422 `idempotency_key_reused`. A same-key request that arrives while the first is still running waits on the aggregate lock and is then replayed (the record is re-checked under the lock before the version check, DATA s5.1 step 3), so a double-click never yields a 409. Records are kept 30 days; job completion is also protected by job state (DATA s8).
 - PUT is idempotent by definition (full replacement with `version`); DELETE is not used (removals are POST state changes).
 
 ### 1.6 Errors
@@ -62,7 +62,7 @@ Problems never contain stack traces, SQL, storage paths, connection strings, tok
 | 401 | `unauthenticated` |
 | 403 | `forbidden_role`, `access_not_ready`, `not_job_creator`, `csrf_invalid` |
 | 404 | `not_found` (also for unknown routes under `/api`), `file_unavailable` |
-| 409 | `version_conflict`, `status_changed`, `installation_changed`, `out_of_order_installation`, `later_installation_exists`, `job_completed`, `job_already_completed`, `job_cancelled`, `job_not_completed`, `equipment_retired`, `open_jobs_exist`, `duplicate_code`, `definition_in_use`, `history_exists`, `binding_orphans_unresolved`, `import_conflict` |
+| 409 | `version_conflict`, `status_changed`, `installation_changed`, `out_of_order_installation`, `later_installation_exists`, `job_completed`, `job_already_completed`, `job_cancelled`, `job_not_completed`, `job_previously_completed`, `job_has_committed_replacements`, `committed_lines_outside_target`, `position_key_frozen`, `equipment_retired`, `open_jobs_exist`, `duplicate_code`, `definition_in_use`, `history_exists`, `binding_orphans_unresolved`, `import_conflict` |
 | 413 | `file_too_large` |
 | 415 | `unsupported_media_type` |
 | 422 | `validation_failed` (field `errors`), `status_unchanged`, `reason_required`, `target_not_in_equipment`, `target_inactive`, `definition_inactive`, `reserved_definition`, `position_not_active`, `position_outside_job_target`, `duplicate_position`, `replacement_after_completion`, `date_in_future`, `quantity_invalid`, `lines_not_allowed_for_repair`, `lines_required`, `idempotency_key_reused`, `code_unassigned_reserved` |
@@ -268,13 +268,13 @@ Each job appears once per response even when several of its lines match; `matchi
 | Method and path | Policy | Body (besides `version` where noted) | Result / errors |
 | --- | --- | --- | --- |
 | `POST /jobs` | `EqWrite`; Idempotency-Key | `{ equipmentId, target: { level, mainInstanceId?, subInstanceId?, partPositionId? }, kind, title, description?, priority?, plannedOn?, responsiblePerson?, initialStatus: 'pending' | 'current' }` | 201 job. 422 `target_not_in_equipment`, `target_inactive`, `definition_inactive`, `reserved_definition`; 409 `equipment_retired` (JOB01, JOB03, ADM03) |
-| `PUT /jobs/{jobId}` | `EqWrite` | `{ version, target, kind, title, description, priority, plannedOn, responsiblePerson }` | 200. Only pending/current; 409 `job_completed`/`job_cancelled`; 409 `version_conflict` (JOB07) |
+| `PUT /jobs/{jobId}` | `EqWrite` | `{ version, target, kind, title, description, priority, plannedOn, responsiblePerson }` | 200. Only pending/current; 409 `job_completed`/`job_cancelled`; 409 `version_conflict` (JOB07). Reopened job with committed, non-voided lines (DATA J6): 409 `job_has_committed_replacements` for kind -> `repair`, 409 `committed_lines_outside_target` for a target that excludes a committed line's position (JOB09) |
 | `POST /jobs/{jobId}/start` | `EqWrite`; Idempotency-Key | `{ version }` | pending -> current |
 | `POST /jobs/{jobId}/return-to-pending` | `EqWrite`; Idempotency-Key | `{ version }` | current -> pending |
 | `POST /jobs/{jobId}/complete` | `EqWrite`; Idempotency-Key | see below | 200 completed job (JOB01, JOB04-JOB08, JOB10, JOB11) |
-| `POST /jobs/{jobId}/cancel` | `EqWrite`; Idempotency-Key | `{ version, reason }` | 200. 403 `not_job_creator` (EQ Team, other creator); 409 `job_completed`; 422 `reason_required` (JOB12) |
+| `POST /jobs/{jobId}/cancel` | `EqWrite`; Idempotency-Key | `{ version, reason }` | 200. 403 `not_job_creator` (EQ Team, other creator); 409 `job_completed`; 409 `job_previously_completed` (EQ Team, reopened job); 409 `job_has_committed_replacements` (Admin, reopened job still holding committed lines; void them by correction first); 422 `reason_required` (JOB12, JOB09) |
 | `POST /jobs/{jobId}/reopen` | `EqAdmin`; Idempotency-Key | `{ version, reason }` | completed -> current; installations unchanged; 409 `job_not_completed` (JOB09) |
-| `POST /jobs/{jobId}/corrections` | `EqAdmin`; Idempotency-Key | see below | 200 corrected job + correction record; 409 `later_installation_exists`, `out_of_order_installation`; 422 field errors (JOB09, HIS03) |
+| `POST /jobs/{jobId}/corrections` | `EqAdmin`; Idempotency-Key | see below | 200 corrected job + correction record; 409 `later_installation_exists`, `out_of_order_installation`; 422 field errors (JOB09, HIS03). Allowed on completed jobs and, for line amendments and voids only, on reopened jobs (DATA s4.1, s5.3) |
 
 Complete request:
 
@@ -282,7 +282,9 @@ Complete request:
 { version: Version;
   completedOn: DateOnly;          // business date; <= today in Asia/Colombo; never replaced by the entry time
   completionNote: string;         // required
-  lines: Array<{                  // required (>=1) for kind=replacement; must be empty for kind=repair
+  lines: Array<{                  // kind=replacement: new lines + the job's committed, non-voided lines >= 1
+                                  //   (a reopened job may send []); must be empty for kind=repair;
+                                  //   a position already committed in this job -> 422 duplicate_position
     partPositionId: Id;
     mode: 'full' | 'partial';     // serialized: 'full' only
     expectedCurrentInstallationId: Id | null;    // what the user saw as currently installed; null = nothing tracked
@@ -290,7 +292,7 @@ Complete request:
     removedItemKnown: boolean; removedItemDescription: string | null; removedItemSerial: string | null; // only when nothing tracked
     itemDescription: string; manufacturer: string | null; modelOrPartNumber: string | null; serialNumber: string | null;
     quantity: number; uom: string;               // serialized: 1 'ea'
-    replacedOn: DateOnly;                        // <= completedOn
+    replacedOn: DateOnly;                        // <= completedOn (completedOn must also be >= every committed line's replacedOn)
     note: string | null; }> }
 ```
 
@@ -386,7 +388,7 @@ All `EqAdmin`; POSTs carry Idempotency-Key; every change audited.
 | `POST /admin/equipment/{id}/instantiation` | `{ templateRevision, includeUnknownSubDefinitionIds: Id[] }` -> creates `draft` instances/positions only | ADM02, P2, P4 |
 | `POST /admin/equipment/{id}/positions/confirm` | `{ positionIds: Id[] }` (with each `version`) -> `active` | B-08 |
 | `POST /admin/equipment/{id}/mechanism-instances`, `POST .../{instanceId}/deactivate|activate` | equipment-specific additions/removals, audited | S10 |
-| `POST /admin/equipment/{id}/positions`; `PUT /admin/equipment/{id}/positions/{positionId}`; `POST .../{positionId}/deactivate|reactivate|delete` | add, rename, edit kind/UOM/key (refused with 409 `history_exists` once history exists), delete only draft without references | P2, P3 |
+| `POST /admin/equipment/{id}/positions`; `PUT /admin/equipment/{id}/positions/{positionId}`; `POST .../{positionId}/deactivate|reactivate|delete` | add, rename; edit SemanticKey only while the position is `draft` (409 `position_key_frozen` once confirmed); edit kind/UOM until history exists (409 `history_exists`); delete only draft without references (DATA s3.4 P2/P3) | P2, P3 |
 | `POST /admin/equipment/{id}/positions/{positionId}/baseline-installation` | `{ itemDescription, manufacturer?, modelOrPartNumber?, serialNumber?, quantity, uom, installedOn: DateOnly | null, sourceNote }` (D-36) | HIS04 |
 | `POST /admin/parameters/values` | `{ parameterCode, scopeType, scopeId, value, unit, condition, selectedObservationId?, reason }` -> new current value, prior kept | ADM06, SRC05 |
 | `POST /admin/parameters/observations` | manual observation with source document/page | S14 |

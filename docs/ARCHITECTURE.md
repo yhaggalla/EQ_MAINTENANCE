@@ -261,6 +261,9 @@ These are routine implementation choices (revisable with a recorded reason). The
 | D-39 | Model asset caching `private, no-cache` + sha256 ETag (always revalidated through authentication) |
 | D-40 | History responses are sectioned (open jobs, completed jobs, installation events, status changes) rather than one mixed timeline; each section has its own stable sort and cursor |
 | D-41 | The `eq-maintenance` Identity registry row is committed **disabled** (seeder and the new Identity registry migration); enabling it is the audited rollout step after gate G1 (PORTAL_INTEGRATION_PLAN s6) |
+| D-42 | (Repair-R01) Manual back-entry under D-32: enter past work oldest first; older work found later needs Admin date-order re-entry (DATA s5.4). No insert-earlier-event operation in stage 1 |
+| D-43 | (Repair-R01) A reopened job keeps completed-work protections while uncompleted: no EQ Team cancel, Admin cancel only without committed lines, no kind change to `repair`, no target that excludes a committed line, re-completion with zero new lines allowed (DATA J6, s5.3) |
+| D-44 | (Repair-R01) Idempotency records are re-checked under the aggregate lock before the version check, so concurrent same-key requests replay instead of failing with 409 (DATA s5.1, s8) |
 
 ## 14 Tradeoffs considered
 
@@ -311,4 +314,4 @@ Every acceptance case in `ACCEPTANCE_CHECKLIST.md` appears at least once above (
 | U-13 | Deployed `CictEng.Auth` versions per consumer unknown | Rollout gate (PORTAL plan s6) | Target check before enabling EQ issuance |
 | U-14 | ASP.NET Core 10 Hosting Bundle on target | P12 prerequisite | Listed, not assumed |
 | P-01 | Identity registry rows for a new app have no production delivery path today (the catalog seeder runs only in tests, local seeding and the one-time production bootstrap) | P05 must add a reviewed Identity migration (PORTAL plan s3, item I-5) | Planned |
-| P-02 | Portal root deploy scripts mirror-delete unknown child folders | A later Portal root release would delete `/eq-maintenance` unless `eq-maintenance` is added to the child-application exclusions | P05 adds it (PORTAL plan s3, item R-1/R-2) |
+| P-02 | Portal root deploy scripts mirror-delete unknown child folders | A later Portal root release would delete `/eq-maintenance` unless `eq-maintenance` is added to the child-application exclusions | P05 adds it (PORTAL plan s3.4, items R-1, R-2, R-6 and the R-3 inventory of every root-clearing script) |

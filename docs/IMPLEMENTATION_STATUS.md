@@ -1,6 +1,6 @@
 # Implementation status
 
-Ledger of phases in the prompt-pack run order. A phase is marked complete only when its evidence exists. Last updated: 21 October 2026 (P01).
+Ledger of phases in the prompt-pack run order. A phase is marked complete only when its evidence exists. Last updated: 21 October 2026 (Repair-R01).
 
 ## Phase ledger
 
@@ -8,7 +8,7 @@ Ledger of phases in the prompt-pack run order. A phase is marked complete only w
 | --- | --- | --- | --- | --- | --- |
 | 1 | P00 Source discovery and implementation plan | **Complete** | 2026-10-21 | `docs/evidence/P00/`, `artifacts/p00-drawing-crops/`, `docs/IMPLEMENTATION_PLAN.md`, `docs/SOURCE_MAP.md`, `docs/DECISIONS.md` | Documents-only workspace confirmed; taxonomy 215/215 checks; register 38 PDFs/162 pages, 0 mismatches |
 | 2 | P01 Architecture and contracts | **Complete** | 2026-10-21 | `docs/ARCHITECTURE.md`, `docs/DATA_CONTRACT.md`, `docs/API_CONTRACT.md`, `docs/PORTAL_INTEGRATION_PLAN.md`, `docs/evidence/P01/` | Contracts only, no code; coverage check 9/9; 7/7 diagrams valid |
-| 3 | R01 Scope and architecture review | Not started | | | Next (independent read-only review of P00/P01) |
+| 3 | R01 Scope and architecture review | **NEEDS FIXES -> repaired; re-review pending** | 2026-10-21 | `docs/evidence/R01/review-20261021-1357.md`, `docs/evidence/R01/repair-20261021-1403.md` | F1-F5 repaired in the contracts (Repair-R01); R01 must be repeated independently before P02 |
 | 4 | P02 UI prototype | Not started | | | |
 | 5 | P03 QC model prototype | Not started | | | |
 | 6 | R02 UX and model-fidelity review | Not started | | | |
@@ -41,3 +41,4 @@ Every case in `documents/prompt-pack/ACCEPTANCE_CHECKLIST.md` is **NOT RUN**. P0
 U-01 to U-18 in `docs/DECISIONS.md` s3 (U-16 to U-18 added in P01; all three are planned P05 Portal items). None blocks R01 or P02/P03. D-02 (.NET 10 SDK missing, rechecked in P01) blocks P04 until installed.
 
 2026-10-21 R01 VERDICT: NEEDS FIXES (eq-review-opus-high) - docs/evidence/R01/review-20261021-1357.md; next: repair R01
+2026-10-21 Repair-R01 complete (eq-build-opus-high) - F1-F5 fixed in DATA/API/PORTAL contracts, D-42..D-44 added; evidence docs/evidence/R01/repair-20261021-1403.md; next: repeat R01
