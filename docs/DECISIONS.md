@@ -1,6 +1,6 @@
 # Decisions
 
-Created in P00 on 21 October 2026. Three separate lists: confirmed business choices (only the user changes these), routine implementation defaults (made by the implementing agent, revisable with a recorded reason), and unresolved source facts (need an authorized technical or business answer; none blocks P01).
+Created in P00 and extended in P01 on 21 October 2026. Three separate lists: confirmed business choices (only the user changes these), routine implementation defaults (made by the implementing agent, revisable with a recorded reason), and unresolved source facts (need an authorized technical or business answer; none blocks P01).
 
 User checkpoint approvals (U1 after R02, U2 after P11) are recorded in section 4 when the user gives them.
 
@@ -48,6 +48,36 @@ Made in P00 from installed tools, the current local Portal source and primary do
 | D-17 | Workspace is not a Git repository. P00 does not initialise Git. Recommendation: initialise Git (with a `.gitignore` excluding `tmp/`, `artifacts/` large outputs, build outputs and secrets) at the start of P04, or earlier if the user prefers, so later reviews can cite commits. | Master control asks for branch/commit "if Git exists". |
 | D-18 | The `tmp/` folder (pack-authoring scratch and a v1.1 backup) is preserved untouched and is not an authority. | Preserve existing work. |
 
+### P01 additions (21 October 2026)
+
+Full context for each item is in the P01 contract documents named in the reason column. D-17 is superseded in fact: the workspace became a Git repository (branch `main`, commit `c326b62` "P00: source discovery and implementation plan") before P01 started.
+
+| ID | Default | Reason / evidence |
+| --- | --- | --- |
+| D-19 | Versioned API at `/eq-maintenance/api/v1` under the approved `/eq-maintenance/api` base. | Allows a later v2 without changing the approved base; ARCHITECTURE s2 |
+| D-20 | Deep-link query values restricted to `[A-Za-z0-9_-]`; selection uses separate `main`/`sub`/`part` parameters. | Portal `IdentityReturnUrlValidator` rejects `%`, so encoded values would lose the deep link after sign-in; ARCHITECTURE s6 |
+| D-21 | Prototype adapter and fixtures only in a separate Vite mode/entry; P12 bundle check. | Fixtures must never look like production workflows; ARCHITECTURE s6 |
+| D-22 | No Draco/meshopt compression in stage 1. | Avoids decoder hosting; procedural asset expected well under 8 MiB; revisit with measurements |
+| D-23 | Disposable-database guard = name pattern `EqMaintenanceDisposable_*` **and** `eq.__DisposableMarker`; non-disposable reference imports need `--target-confirmation`; fixtures only on disposable targets. | Refines D-08; ARCHITECTURE s10 |
+| D-24 | Solution naming `Cict.EqMaintenance.*`, four layers + AdminCli, architecture test. | Mirrors the Safety repo; ARCHITECTURE s3 |
+| D-25 | `CictEng.Auth` 0.3.0 consumed as a PackageReference from a checksummed local `packages/` feed. | Pins the contract version; Safety precedent; PORTAL_INTEGRATION_PLAN E-1 |
+| D-26 | `rowversion` concurrency exposed as `version`; stale writes -> 409 `version_conflict` with the current representation. | Same response code as the Safety API; API_CONTRACT s1.4 |
+| D-27 | `Idempotency-Key` required on every creating/changing POST; records kept 30 days; completion also protected by job state. | JOB06; DATA_CONTRACT s8 |
+| D-28 | Completion, status change, correction and provisioning run in one transaction with `UPDLOCK, HOLDLOCK` on affected rows inside the EF execution strategy. | JOB07/JOB08; DATA_CONTRACT s5.1 |
+| D-29 | Position kinds `serialized` and `quantityLot` (lots with quantity/UOM; full or partial replacement). | JOB10; DATA_CONTRACT s5.2 |
+| D-30 | Replacement lines are entered at completion only; Repair jobs carry no lines. | Fewer states; DATA_CONTRACT s3.6 |
+| D-31 | Replacement-line positions must be inside the job target subtree (equipment-level jobs: any active position of that equipment). | Keeps scoped history coherent; DATA_CONTRACT J3 |
+| D-32 | A new installation event's business date must be >= the latest non-voided event date at that position, else 409 `out_of_order_installation`. | Never overwrite later physical history; DATA_CONTRACT I2 |
+| D-33 | Status changes take effect at server time (no back-dating); setting the current value again is refused. | No fabricated downtime; DATA_CONTRACT s4.2 |
+| D-34 | Cancellation is terminal in stage 1. | Requirement defines no un-cancel; DATA_CONTRACT s4.1 |
+| D-35 | Retire refused while uncompleted jobs exist; retired equipment takes no new jobs/status changes. | ADM04; DATA_CONTRACT E3 |
+| D-36 | Admin-only "known existing installation" baseline (no job, explicit source note, date may be unknown); never automatic. | Lets known current items be recorded without inventing an installation event; DATA_CONTRACT s3.5 |
+| D-37 | Delegated EQ role administration not enabled in stage 1; PortalAdmin grants EQ roles. | Matches Safety; requirement s4 allows delegation only if it does not widen authority; PORTAL_INTEGRATION_PLAN s8 |
+| D-38 | Registry icon key `maintenance` with a dedicated Portal icon mapping. | Current mapping would show the generic icon or the UMMS wrench; PORTAL_INTEGRATION_PLAN W-2 |
+| D-39 | Model assets served `private, no-cache` with a sha256 ETag. | Every load revalidates through authentication; ARCHITECTURE s9 |
+| D-40 | History responses are sectioned (open, completed, installation events, status changes). | Date-only and instant orderings are not mixed; DATA_CONTRACT s9 |
+| D-41 | The `eq-maintenance` registry row is committed disabled; enabling it is an audited rollout step after gate G1. | Old consumers reject EQ-bearing tokens; PORTAL_INTEGRATION_PLAN s6 |
+
 ## 3 Unresolved source facts and open questions
 
 None of these blocks P01. Each is modelled as configurable data or a visible source conflict rather than a guessed value.
@@ -69,6 +99,9 @@ None of these blocks P01. Each is modelled as configurable data or a visible sou
 | U-13 | Deployed `CictEng.Auth` version in each live consumer (Portal.Host, Identity, UMMS, PayPrep, Safety) | Local source: Portal/Identity/UMMS/PayPrep use a source ProjectReference to the Portal repo; Safety uses package 0.2.1. Release manifests in Portal `artifacts/` do not record the auth version | P05 records the local matrix; target versions stay unverified until an authorized operational check | Release owner |
 | U-14 | Target IIS server has the ASP.NET Core 10 Hosting Bundle | Portal `docs/DEPLOYMENT_GUIDE_IIS.md` mentions only the ASP.NET Core 8 bundle | Prerequisite listed for P12 | Server owner |
 | U-15 | Neighbouring apps on .NET 8 reach end of support on 10 Nov 2026 | Microsoft support policy | Out of EQ scope; reported only. EQ does not upgrade them | Portal/app owners |
+| U-16 (P01) | No delivery path exists for adding a new application/roles to an **existing** Identity database (catalog seeder runs only in tests, local seeding and the one-time production bootstrap) | Portal `IdentityCatalogSeeder`, `docs/PRODUCTION_BOOTSTRAP_RUNBOOK.md` | P05 adds an idempotent Identity migration inserting the disabled EQ registry rows (PORTAL_INTEGRATION_PLAN I-5) | P05 implementation; DBA review at rollout |
+| U-17 (P01) | Portal root deploy scripts mirror the site root and exclude only known child folders; an EQ folder would be deleted by a later root release | Portal `scripts/deploy-production-release.ps1` l.57/241, `build-production-packages.ps1` l.1068 | P05 adds `eq-maintenance` to the exclusions (R-1/R-2) before any EQ deployment | P05 |
+| U-18 (P01) | Identity `access-status` ignores the application's enabled flag | Portal `IdentityAdministrationEndpoints.cs` `GetApplicationAccessStatusAsync` | P05 narrow fix + test (PORTAL_INTEGRATION_PLAN PI-6) | P05 |
 
 ## 4 User checkpoint approvals
 

@@ -4,6 +4,87 @@ Rolling handover for CICT EQ Maintenance. Each phase appends its record; the new
 
 ---
 
+## P01 Architecture, data, API and authorization contracts - 21 October 2026
+
+### Runtime record
+
+| Item | Value |
+| --- | --- |
+| Recommended profile | Codex gpt-6-astra, high; Claude Code claude-opus-5-5, high, adaptive thinking |
+| Actual client | Claude Code subagent eq-build-opus-high (delegated by the `/eq-phase` orchestrator; prompt logged in `docs/runs/P01-20261021-1314.md`) |
+| Actual model / effort | claude-opus-5-5; effort high (per agent definition) |
+| Fallback / escalation | None |
+
+### Outcome
+
+P01 complete: four reviewable contract documents plus evidence. No application, Portal or other-repository implementation was edited, as the phase requires.
+
+### Requirement IDs addressed
+
+S01-S17 specified and mapped to owning components and acceptance cases (`docs/ARCHITECTURE.md` s15; all 58 acceptance IDs mapped). No acceptance case executed; all remain NOT RUN.
+
+### Files changed
+
+New:
+- `docs/ARCHITECTURE.md`
+- `docs/DATA_CONTRACT.md`
+- `docs/API_CONTRACT.md`
+- `docs/PORTAL_INTEGRATION_PLAN.md`
+- `docs/evidence/P01/P01_EVIDENCE.md`
+- `docs/evidence/P01/contract-coverage.json`
+- `tools/p01/check_contract_coverage.py`
+
+Modified:
+- `docs/DECISIONS.md` (D-19 to D-41 added; U-16 to U-18 added; header note)
+- `docs/IMPLEMENTATION_STATUS.md` (P01 complete, R01 next, requirement/open-issue notes)
+- `docs/HANDOVER.md` (this entry)
+
+Untouched: `documents/`, `As-bulit drawing/`, `tmp/`, `.claude/`, `F:\CODEX\CICT-ENG_MAIN_PAGE` (still `feature/option-b-provisioning-and-login-redesign` / `47f7bd9`), UMMS, PayPrep, Safety repositories (read only).
+
+### Checks run and results
+
+| Check | Result |
+| --- | --- |
+| `python -I tools/p01/check_contract_coverage.py --root F:/CODEX/EQ_MAINTENANCE --out docs/evidence/P01/contract-coverage.json` | 9/9 passed (first run found VIS05 unmapped; fixed) |
+| Mermaid validation of all 7 diagrams | 7/7 valid |
+| `dotnet --list-sdks` | 8.0.426 only (.NET 10 SDK still required before P04) |
+| Portal and consumer source inspection (read-only) | Recorded in `docs/PORTAL_INTEGRATION_PLAN.md` s1 and s5.1 |
+
+Evidence type: source review and scripted document checks only. No automated application tests, browser verification, target-environment verification or production acceptance exist.
+
+### Key contract decisions (for R01)
+
+1. One ASP.NET Core 10 host serves SPA, `/eq-maintenance/api/v1`, protected files/models and `/eq-maintenance/internal/provisioning`; separate EQ SQL Server database; protected file store outside web roots.
+2. Equipment-specific instances and positions with composite foreign keys that include `EquipmentId`, so cross-equipment relationships are impossible in the database.
+3. Two position kinds (`serialized`, `quantityLot` with lots); append-only installation events with per-position sequence; corrections may void only the latest event at a position, and new events cannot be inserted before a later one.
+4. Completion is one transaction with an idempotency record, row-version checks and `UPDLOCK` on the job and positions.
+5. Model contract: semantic node keys, manifest schema, exact-key equipment bindings with explicit Admin remapping, containers separated from coded mechanisms, union-bounds focus, overall/technical modes, fallbacks.
+6. Portal onboarding: CictEng.Auth 0.3.0, a disabled registry row delivered by a new Identity migration, gate G1 (every validating consumer on 0.3.0) before enablement, reverse-order rollback, and regression cases RC-1 to RC-17.
+
+### Open issues and impact
+
+| ID | Issue | Impact |
+| --- | --- | --- |
+| D-02 | .NET 10 SDK not installed | Blocks P04 only |
+| U-13 | Deployed `CictEng.Auth` versions unknown | Gate G1 before EQ enablement; not blocking local work |
+| U-16 | No path to add a new app to an existing Identity database | P05 item I-5 |
+| U-17 | Portal root deploy would delete an EQ child folder | P05 items R-1/R-2 |
+| U-18 | access-status ignores the application enabled flag | P05 item PI-6 |
+| PI-5 | Safety package bump is outside P05's write boundary | Patch proposal; AUTH07 rollout exit stays unmet until its owner applies it |
+| U-01 to U-03, U-07, U-08 | Source conflicts and unknown fleet/applicability | Modelled as data; not blocking |
+
+No genuinely missing business information blocks the next phase; no question for the user is pending. Optional later user decision: enable delegated EQ role administration (D-37, off by default).
+
+### Git
+
+Repository `F:\CODEX\EQ_MAINTENANCE`, branch `main`, HEAD `c326b62`. P01 changes are **uncommitted** (left for the orchestrator/user to commit).
+
+### Next prompt
+
+**R01 Scope and architecture review** (read-only, fresh context; Claude Code profile claude-opus-5-5, high). If PASS, P02 follows; if NEEDS FIXES, Repair then repeat R01.
+
+---
+
 ## P00 Source discovery and implementation plan - 21 October 2026
 
 ### Runtime record

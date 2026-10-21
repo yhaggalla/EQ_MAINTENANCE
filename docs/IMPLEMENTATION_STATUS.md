@@ -1,14 +1,14 @@
 # Implementation status
 
-Ledger of phases in the prompt-pack run order. A phase is marked complete only when its evidence exists. Last updated: 21 October 2026 (P00).
+Ledger of phases in the prompt-pack run order. A phase is marked complete only when its evidence exists. Last updated: 21 October 2026 (P01).
 
 ## Phase ledger
 
 | Order | Phase | Status | Date | Evidence | Notes |
 | --- | --- | --- | --- | --- | --- |
 | 1 | P00 Source discovery and implementation plan | **Complete** | 2026-10-21 | `docs/evidence/P00/`, `artifacts/p00-drawing-crops/`, `docs/IMPLEMENTATION_PLAN.md`, `docs/SOURCE_MAP.md`, `docs/DECISIONS.md` | Documents-only workspace confirmed; taxonomy 215/215 checks; register 38 PDFs/162 pages, 0 mismatches |
-| 2 | P01 Architecture and contracts | Not started | | | Next |
-| 3 | R01 Scope and architecture review | Not started | | | |
+| 2 | P01 Architecture and contracts | **Complete** | 2026-10-21 | `docs/ARCHITECTURE.md`, `docs/DATA_CONTRACT.md`, `docs/API_CONTRACT.md`, `docs/PORTAL_INTEGRATION_PLAN.md`, `docs/evidence/P01/` | Contracts only, no code; coverage check 9/9; 7/7 diagrams valid |
+| 3 | R01 Scope and architecture review | Not started | | | Next (independent read-only review of P00/P01) |
 | 4 | P02 UI prototype | Not started | | | |
 | 5 | P03 QC model prototype | Not started | | | |
 | 6 | R02 UX and model-fidelity review | Not started | | | |
@@ -30,7 +30,7 @@ Ledger of phases in the prompt-pack run order. A phase is marked complete only w
 
 ## Requirement status
 
-All S01-S17 are **planned, not implemented**. Ownership and acceptance mapping: `docs/IMPLEMENTATION_PLAN.md` s2.
+All S01-S17 are **specified (P01 contracts), not implemented**. Ownership and acceptance mapping: `docs/ARCHITECTURE.md` s15 (supersedes the P00 table in `docs/IMPLEMENTATION_PLAN.md` s2 where they differ).
 
 ## Acceptance cases
 
@@ -38,4 +38,4 @@ Every case in `documents/prompt-pack/ACCEPTANCE_CHECKLIST.md` is **NOT RUN**. P0
 
 ## Open source issues
 
-U-01 to U-15 in `docs/DECISIONS.md` s3. None blocks P01.
+U-01 to U-18 in `docs/DECISIONS.md` s3 (U-16 to U-18 added in P01; all three are planned P05 Portal items). None blocks R01 or P02/P03. D-02 (.NET 10 SDK missing, rechecked in P01) blocks P04 until installed.
