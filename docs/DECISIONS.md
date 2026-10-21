@@ -1,6 +1,6 @@
 # Decisions
 
-Created in P00, extended in P01 and in Repair-R01 on 21 October 2026. Three separate lists: confirmed business choices (only the user changes these), routine implementation defaults (made by the implementing agent, revisable with a recorded reason), and unresolved source facts (need an authorized technical or business answer; none blocks P01).
+Created in P00, extended in P01, Repair-R01 and P02 on 21 October 2026. Three separate lists: confirmed business choices (only the user changes these), routine implementation defaults (made by the implementing agent, revisable with a recorded reason), and unresolved source facts (need an authorized technical or business answer; none blocks P01).
 
 User checkpoint approvals (U1 after R02, U2 after P11) are recorded in section 4 when the user gives them.
 
@@ -87,6 +87,25 @@ From R01 findings F1-F3 (`docs/evidence/R01/review-20261021-1357.md`). D-32 is u
 | D-42 | D-32 limits manual back-entry: an older replacement cannot be inserted below a newer event at the same position. Back-entry is done oldest first; older work found later is recorded by Admin date-order re-entry (void later lines latest first, complete the older job, re-add the later lines), all audited. No "insert earlier event" operation in stage 1. | Keeps installation history append-only and derivable (I1, JOB09) while still allowing B-07 manual past entries; DATA_CONTRACT I2, s5.4 (R01 F3) |
 | D-43 | A reopened job (ReopenCount > 0) stays protected as completed work while uncompleted: EQ Team cannot cancel it; Admin cancels it only after voiding all committed lines by correction; kind cannot become `repair` and the target cannot exclude a committed line; re-completion accepts zero new lines, checks CompletedOn against committed lines and refuses a second line at a committed position (422 `duplicate_position`). Admin corrections on a reopened job are limited to line amendments and voids. | Requirement s5 (completed job not cancellable; completed replacement not silently undone; only Admin corrects); DATA_CONTRACT J6, s4.1, s5.3 (R01 F1) |
 | D-44 | Idempotent commands re-check the IdempotencyRecord after taking the aggregate lock and before the version check, so a concurrent same-key request is replayed rather than refused with 409. | JOB06; DATA_CONTRACT s5.1 step 3, s8 (R01 F2) |
+
+### P02 additions (21 October 2026)
+
+Evidence: `docs/UX_SPEC.md`, `docs/evidence/P02/P02_EVIDENCE.md`. All are routine implementation choices revisable at R02 or the U1 checkpoint.
+
+| ID | Default | Reason / evidence |
+| --- | --- | --- |
+| D-45 | The P02 prototype is a dependency-free static app (classic scripts, no build, no CDN) in `artifacts/prototypes/p02-ui`, not the Vite prototype mode of ARCHITECTURE s6. D-21's intent stands: fixtures and the simulated rule layer exist only under `artifacts/`, never in `src/eq-web`. P04 ports the design (tokens, information architecture, copy, state catalogue) to React; the simulated rules inform P07 test cases but are not production code | Runs from a double click or `serve.mjs` with no install, so R02 and the user can review before the toolchain is chosen; avoids installing packages for a throw-away artifact |
+| D-46 | Hash routes in the prototype mirror the production route table; the URL is the single selection state (`main`, `sub`, `part`, `container`, `mode`, `panel`) and uses instance/position IDs matching `[A-Za-z0-9_-]` (D-20) | One state for tree, breadcrumb, buttons and scene; deep links survive sign-in |
+| D-47 | The QC model area is an SVG side-elevation placeholder with constant-pixel labels, an Assemblies button row as the text alternative to hover labels, and a legend; horizontal spans use gauge 30 m, outreach 70 m, backreach 20 m; vertical proportions are illustrative and labelled | Proves the interaction contract without WebGL; overall height is not established (U-04, U-06) and must not be set to 63 m |
+| D-48 | Status is always a badge with icon, text and colour (four displays: Ready for OPS, Breakdown, Maintenance, Unreported); crane paint, selection outline and open-work markers are a separate legend group; the status badge is placed outside the geometry | S03, VIS06; red paint must not read as Breakdown |
+| D-49 | Breakpoints: three columns from 1280 px, drawers below 1280 px (hidden drawers are `visibility: hidden`, Escape closes and returns focus), phone layout below 768 px, compact equipment header between 1280 and 1440 px; 1366x768 and 1920x1080 are the documented desktop layouts | S16; UX_SPEC s8 |
+| D-50 | Clicking an enclosing visual group (machinery house) selects nothing in the maintenance hierarchy; it fits the container and lists its positions grouped by mechanism (`container=machinery-house`) | DATA s10.7 and s10.10 |
+| D-51 | Focus ring is two-tone (2 px navy line + 4 px Portal gold ring) and the form-border token is darkened to #6c8496, deviating from the Portal's single gold ring, because the Portal ring is 2.4:1 on white | WCAG 2.2 non-text contrast; `docs/evidence/P02/contrast-report.json` |
+| D-52 | Jobs have no drag and drop in stage 1: Board and Tabs layouts with explicit Start / Return to Pending / Complete / Cancel buttons; every action uses the same rule path as the forms | Requirement s7 "moving a card must still enforce the same server rules"; keyboard operability |
+| D-53 | Synthetic fixture set: QC-DEMO-01..06, RTG-DEMO-01..07 (07 retired), ES-DEMO-01..04; QC-DEMO-01 and 02 share the J526A template with different history, QC-DEMO-03 has draft positions and no status, QC-DEMO-04..06 and several RTG/ES items have no verified model (RTG-DEMO-01..03 and ES-DEMO-01 use synthetic RTG/ES templates); the example position list of 27 QC positions is a placeholder for the P03/P06 drawing-derived template and is labelled as such | Covers the required states without asserting any fleet fact (U-07, U-08) |
+| D-54 | The right panel has History and Technical tabs; Include cancelled lives in the History panel and the Jobs filter; the Admin link is shown only to Admin and a direct link by another role shows a 403 explanation | UX_SPEC s1, s3; review prompt 2-3 for U1 |
+
+Contract observation UX-1 (JobSummary lacks `reopenCount`/`committedLineCount`) is carried to P07 with N1-N6; see UX_SPEC s11.
 
 ## 3 Unresolved source facts and open questions
 

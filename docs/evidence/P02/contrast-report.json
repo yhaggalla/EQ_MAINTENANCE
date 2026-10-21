@@ -1,0 +1,301 @@
+{
+ "method": "WCAG 2.x relative luminance on CSS tokens",
+ "results": [
+  {
+   "pair": "body text on surface",
+   "foreground": "#0f2133",
+   "background": "#ffffff",
+   "ratio": 16.33,
+   "required": 4.5,
+   "pass": true
+  },
+  {
+   "pair": "body text on page",
+   "foreground": "#0f2133",
+   "background": "#f3f6f9",
+   "ratio": 15.06,
+   "required": 4.5,
+   "pass": true
+  },
+  {
+   "pair": "muted text on surface",
+   "foreground": "#4a6072",
+   "background": "#ffffff",
+   "ratio": 6.55,
+   "required": 4.5,
+   "pass": true
+  },
+  {
+   "pair": "muted text on page",
+   "foreground": "#4a6072",
+   "background": "#f3f6f9",
+   "ratio": 6.04,
+   "required": 4.5,
+   "pass": true
+  },
+  {
+   "pair": "muted text on subtle surface",
+   "foreground": "#4a6072",
+   "background": "#f7f9fb",
+   "ratio": 6.2,
+   "required": 4.5,
+   "pass": true
+  },
+  {
+   "pair": "link on surface",
+   "foreground": "#0f5a89",
+   "background": "#ffffff",
+   "ratio": 7.38,
+   "required": 4.5,
+   "pass": true
+  },
+  {
+   "pair": "link on page",
+   "foreground": "#0f5a89",
+   "background": "#f3f6f9",
+   "ratio": 6.81,
+   "required": 4.5,
+   "pass": true
+  },
+  {
+   "pair": "primary button text",
+   "foreground": "#ffffff",
+   "background": "#0c4268",
+   "ratio": 10.53,
+   "required": 4.5,
+   "pass": true
+  },
+  {
+   "pair": "secondary button text",
+   "foreground": "#0c4268",
+   "background": "#ffffff",
+   "ratio": 10.53,
+   "required": 4.5,
+   "pass": true
+  },
+  {
+   "pair": "nav link on topbar",
+   "foreground": "#d6e5ee",
+   "background": "#071e30",
+   "ratio": 13.17,
+   "required": 4.5,
+   "pass": true
+  },
+  {
+   "pair": "active nav link on topbar",
+   "foreground": "#ffffff",
+   "background": "#071e30",
+   "ratio": 16.97,
+   "required": 4.5,
+   "pass": true
+  },
+  {
+   "pair": "logo mark text on gold",
+   "foreground": "#071e30",
+   "background": "#efb817",
+   "ratio": 9.32,
+   "required": 4.5,
+   "pass": true
+  },
+  {
+   "pair": "topbar subtitle",
+   "foreground": "#b4cddc",
+   "background": "#071e30",
+   "ratio": 10.27,
+   "required": 4.5,
+   "pass": true
+  },
+  {
+   "pair": "status Ready for OPS",
+   "foreground": "#0f5f40",
+   "background": "#e3f4ec",
+   "ratio": 6.74,
+   "required": 4.5,
+   "pass": true
+  },
+  {
+   "pair": "status Breakdown",
+   "foreground": "#8f1d2a",
+   "background": "#fde8ea",
+   "ratio": 7.53,
+   "required": 4.5,
+   "pass": true
+  },
+  {
+   "pair": "status Maintenance",
+   "foreground": "#6a4600",
+   "background": "#fff1cf",
+   "ratio": 7.53,
+   "required": 4.5,
+   "pass": true
+  },
+  {
+   "pair": "status Unreported",
+   "foreground": "#46596a",
+   "background": "#eef1f4",
+   "ratio": 6.39,
+   "required": 4.5,
+   "pass": true
+  },
+  {
+   "pair": "status Ready border (non-text)",
+   "foreground": "#7cc3a3",
+   "background": "#ffffff",
+   "ratio": 2.06,
+   "required": 1.5,
+   "pass": true
+  },
+  {
+   "pair": "tag gold text",
+   "foreground": "#5d4100",
+   "background": "#fff4c7",
+   "ratio": 8.56,
+   "required": 4.5,
+   "pass": true
+  },
+  {
+   "pair": "read-only chip text",
+   "foreground": "#5d4100",
+   "background": "#fff4c7",
+   "ratio": 8.56,
+   "required": 4.5,
+   "pass": true
+  },
+  {
+   "pair": "error notice text",
+   "foreground": "#7a1b26",
+   "background": "#fff0f1",
+   "ratio": 9.44,
+   "required": 4.5,
+   "pass": true
+  },
+  {
+   "pair": "info notice text",
+   "foreground": "#0a3a58",
+   "background": "#eef6fa",
+   "ratio": 10.91,
+   "required": 4.5,
+   "pass": true
+  },
+  {
+   "pair": "warning notice text",
+   "foreground": "#5d4100",
+   "background": "#fff6dd",
+   "ratio": 8.77,
+   "required": 4.5,
+   "pass": true
+  },
+  {
+   "pair": "success notice text",
+   "foreground": "#0f5f40",
+   "background": "#e8f6ef",
+   "ratio": 6.91,
+   "required": 4.5,
+   "pass": true
+  },
+  {
+   "pair": "error text on white",
+   "foreground": "#a72835",
+   "background": "#ffffff",
+   "ratio": 7.0,
+   "required": 4.5,
+   "pass": true
+  },
+  {
+   "pair": "prototype banner text",
+   "foreground": "#ffe9a6",
+   "background": "#3a2a00",
+   "ratio": 11.55,
+   "required": 4.5,
+   "pass": true
+  },
+  {
+   "pair": "prototype banner strong",
+   "foreground": "#ffffff",
+   "background": "#3a2a00",
+   "ratio": 13.9,
+   "required": 4.5,
+   "pass": true
+  },
+  {
+   "pair": "eyebrow text",
+   "foreground": "#805900",
+   "background": "#f3f6f9",
+   "ratio": 5.78,
+   "required": 4.5,
+   "pass": true
+  },
+  {
+   "pair": "label text",
+   "foreground": "#20394e",
+   "background": "#ffffff",
+   "ratio": 11.95,
+   "required": 4.5,
+   "pass": true
+  },
+  {
+   "pair": "focus ring inner line navy-900 on white (non-text 3:1)",
+   "foreground": "#0a2f4b",
+   "background": "#ffffff",
+   "ratio": 13.81,
+   "required": 3.0,
+   "pass": true
+  },
+  {
+   "pair": "focus ring inner line navy-900 on page (non-text 3:1)",
+   "foreground": "#0a2f4b",
+   "background": "#f3f6f9",
+   "ratio": 12.73,
+   "required": 3.0,
+   "pass": true
+  },
+  {
+   "pair": "focus ring outer gold on navy top bar (non-text 3:1)",
+   "foreground": "#d89d00",
+   "background": "#071e30",
+   "ratio": 7.07,
+   "required": 3.0,
+   "pass": true
+  },
+  {
+   "pair": "selection outline on sky (non-text 3:1)",
+   "foreground": "#0f5a89",
+   "background": "#eef5fa",
+   "ratio": 6.71,
+   "required": 3.0,
+   "pass": true
+  },
+  {
+   "pair": "input / button border on white (non-text 3:1)",
+   "foreground": "#6c8496",
+   "background": "#ffffff",
+   "ratio": 3.9,
+   "required": 3.0,
+   "pass": true
+  },
+  {
+   "pair": "scene label on halo",
+   "foreground": "#1d3346",
+   "background": "#ffffff",
+   "ratio": 13.01,
+   "required": 4.5,
+   "pass": true
+  },
+  {
+   "pair": "paint red vs sky (appearance only)",
+   "foreground": "#c7261c",
+   "background": "#eef5fa",
+   "ratio": 5.12,
+   "required": 3.0,
+   "pass": true
+  },
+  {
+   "pair": "selected tree item text",
+   "foreground": "#0a2f4b",
+   "background": "#dcecf5",
+   "ratio": 11.41,
+   "required": 4.5,
+   "pass": true
+  }
+ ]
+}

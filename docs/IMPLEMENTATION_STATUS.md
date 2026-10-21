@@ -1,6 +1,6 @@
 # Implementation status
 
-Ledger of phases in the prompt-pack run order. A phase is marked complete only when its evidence exists. Last updated: 21 October 2026 (Repair-R01).
+Ledger of phases in the prompt-pack run order. A phase is marked complete only when its evidence exists. Last updated: 21 October 2026 (P02).
 
 ## Phase ledger
 
@@ -9,8 +9,8 @@ Ledger of phases in the prompt-pack run order. A phase is marked complete only w
 | 1 | P00 Source discovery and implementation plan | **Complete** | 2026-10-21 | `docs/evidence/P00/`, `artifacts/p00-drawing-crops/`, `docs/IMPLEMENTATION_PLAN.md`, `docs/SOURCE_MAP.md`, `docs/DECISIONS.md` | Documents-only workspace confirmed; taxonomy 215/215 checks; register 38 PDFs/162 pages, 0 mismatches |
 | 2 | P01 Architecture and contracts | **Complete** | 2026-10-21 | `docs/ARCHITECTURE.md`, `docs/DATA_CONTRACT.md`, `docs/API_CONTRACT.md`, `docs/PORTAL_INTEGRATION_PLAN.md`, `docs/evidence/P01/` | Contracts only, no code; coverage check 9/9; 7/7 diagrams valid |
 | 3 | R01 Scope and architecture review | **PASS** | 2026-10-21 | `docs/evidence/R01/review-20261021-1357.md`, `docs/evidence/R01/repair-20261021-1403.md`, `docs/evidence/R01/review-20261021-1418.md` | First review NEEDS FIXES (F1-F5), repaired, repeat review PASS; N1-N6 carried forward to P07 |
-| 4 | P02 UI prototype | Not started | | | Next |
-| 5 | P03 QC model prototype | Not started | | | |
+| 4 | P02 UI prototype | **Complete** | 2026-10-21 | `artifacts/prototypes/p02-ui/`, `docs/UX_SPEC.md`, `docs/evidence/P02/` | Synthetic, in-memory prototype; 50/50 browser checks, 37/37 contrast pairs, 70 screenshots; QC viewer is an SVG placeholder |
+| 5 | P03 QC model prototype | Not started | | | Next |
 | 6 | R02 UX and model-fidelity review | Not started | | | |
 | 7 | U1 User checkpoint | Not reached | | | Approval recorded in DECISIONS s4 |
 | 8 | P04 App foundation | Not started | | | Needs .NET 10 SDK (D-02) |
@@ -43,3 +43,4 @@ U-01 to U-18 in `docs/DECISIONS.md` s3 (U-16 to U-18 added in P01; all three are
 2026-10-21 R01 VERDICT: NEEDS FIXES (eq-review-opus-high) - docs/evidence/R01/review-20261021-1357.md; next: repair R01
 2026-10-21 Repair-R01 complete (eq-build-opus-high) - F1-F5 fixed in DATA/API/PORTAL contracts, D-42..D-44 added; evidence docs/evidence/R01/repair-20261021-1403.md; next: repeat R01
 2026-10-21 R01 VERDICT: PASS (eq-review-opus-high) - docs/evidence/R01/review-20261021-1418.md; carry N1-N6 to P07; next: P02
+2026-10-21 P02 complete (eq-build-sonnet-high) - UX_SPEC.md, prototype and evidence in docs/evidence/P02; decisions D-45..D-54; UX-1 carried to P07; next: P03

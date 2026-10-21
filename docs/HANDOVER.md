@@ -4,6 +4,71 @@ Rolling handover for CICT EQ Maintenance. Each phase appends its record; the new
 
 ---
 
+## P02 Reviewable UI prototype - 21 October 2026
+
+### Runtime record
+
+| Item | Value |
+| --- | --- |
+| Recommended profile | Codex gpt-6.1-sol, high; Claude Code claude-sonnet-5-5, high, adaptive thinking |
+| Actual client | Claude Code subagent eq-build-sonnet-high (delegated by the `/eq-phase` orchestrator; prompt logged in `docs/runs/P02-20261021-1419.md`) |
+| Actual model / effort | claude-sonnet-5-5; effort high (per agent definition) |
+| Fallback / escalation | None. The run was interrupted once by an API rate limit and resumed by the orchestrator; the partial work on disk was checked and completed |
+
+### Outcome
+
+P02 complete. A runnable, clearly synthetic interface prototype with connected fleet, QC/RTG/ES equipment, jobs, job record and Admin screens; `docs/UX_SPEC.md`; evidence under `docs/evidence/P02/`. No production code, no Portal or other repository change, no database, no deployment.
+
+### Requirement IDs addressed (design and prototype evidence only; acceptance cases remain NOT RUN)
+
+S02, S03, S05-S09 and S16 as UX; S10 and S11 as screens and permission states; S12 (separate per-equipment positions, shown with two QCs sharing a template); S13 (conflict, atomic completion and retry behaviour demonstrated in simulated rules); S14 (parameter conflicts, protected-drawing wording). Supports VIS06, VIS07, VIS08, OPS01, OPS02, HIS01, HIS02, HIS04, HIS05, JOB03, JOB12, JOB13 at prototype level only.
+
+### Files changed
+
+New: `docs/UX_SPEC.md`; `docs/evidence/P02/P02_EVIDENCE.md`, `automated-checks.json`, `contrast-report.json`, `screenshots/` (70 PNG); `artifacts/prototypes/p02-ui/` (`index.html`, `README.md`, `serve.mjs`, `css/app.css`, `js/*.js` including generated `catalog.js` and `params.js`); `tools/p02/` (`build_catalog.py`, `check_prototype.mjs`, `check_contrast.py`, `cdp.mjs`, `capture.mjs`).
+Modified: `docs/DECISIONS.md` (D-45 to D-54), `docs/IMPLEMENTATION_STATUS.md`, `docs/HANDOVER.md`.
+Untouched: `documents/`, `As-bulit drawing/`, `tmp/`, `.claude/`, `F:\CODEX\CICT-ENG_MAIN_PAGE` (read only for design tokens). An untracked `mockups/eq-maintenance-demo-20261021/` folder appeared in the workspace during the run; it was not created by P02 (only its folder listing was seen), and was not modified or relied on.
+
+### Checks run and results
+
+| Check | Result |
+| --- | --- |
+| `python -I tools/p02/build_catalog.py` (asserts 16 main, 43 sub, 41 active, 048/063 inactive, no main 10, 061 Spreader, 062 Headblock, both gantry observations, no overall-height parameter) | passed |
+| `node tools/p02/check_prototype.mjs` (Chrome 155 headless, 50 checks) | 50 PASS, 0 FAIL at the last run (after fixing 7 failures found in the first full run: a missing icon text alternative, SVG click in the test driver, dialog Escape handling, focus trap, a duplicate id, skip-link focus and the focus-ring test) |
+| `python -I tools/p02/check_contrast.py` | 37 pairs, 0 below threshold (two defects fixed first, see evidence s4) |
+| `node tools/p02/capture.mjs` | 70 screenshots, no console errors |
+
+Evidence type: automated checks of a prototype in a real headless browser plus visual review. No target-environment, authenticated, database or production verification exists. Not tested: real devices, touch, screen readers, performance.
+
+### What works in the prototype
+
+Fleet with QC/RTG/ES groups, status counts and filters, search, freshness, table/card layouts; QC detail with ARIA tree, URL-driven selection shared by tree, breadcrumb, assembly buttons and scene, Overall/Technical, fit/reset, work markers, legend, history/technical panel with scoped history and the stale-response guard; RTG/ES and unverified-model states; jobs board and tabs; add/edit/complete/cancel/status forms with validation, conflict and unsaved-changes handling; replacement-position selection; Admin equipment, applicability, catalogue, positions, specifications, bindings preview; Management read-only and EQ Team writer states; loading, empty, invalid, conflict, stale/error, Unreported, non-WebGL states; desktop, tablet and phone layouts.
+
+### Still synthetic or unproven
+
+All data and rules are fixtures held in memory (reload resets); the model area is an SVG placeholder (illustrative heights); no authentication, persistence, protected files, polling, WebGL, performance or device testing.
+
+### Open issues and impact
+
+| ID | Issue | Impact |
+| --- | --- | --- |
+| UX-1 | `JobSummary` lacks `reopenCount`/`committedLineCount` for explaining the cancel rule before a request | P07 contract note; not blocking |
+| D-02 | .NET 10 SDK not installed | Blocks P04 only |
+| U1 prompts | Four review questions in UX_SPEC s12 (placeholder acceptability, Management view of Admin, cancelled-work placement, fleet density) | Answer at the U1 checkpoint after R02 |
+| Others | Unchanged from P01 (U-01..U-18, PI-5) | none new |
+
+No genuinely missing business information blocks P03; no question for the user is pending.
+
+### Git
+
+Repository `F:\CODEX\EQ_MAINTENANCE`, branch `main`, HEAD `2db3653`; P02 changes are **uncommitted** (left for the orchestrator/user to commit).
+
+### Next prompt
+
+**P03 QC model prototype** (Claude Code claude-opus-5-5, high), then R02 and the U1 checkpoint. Integrate the P03 model into the P02 review flow where practical by replacing `js/preview.js` behind the same selection contract (UX_SPEC s10).
+
+---
+
 ## Repair-R01 Contract repair after R01 NEEDS FIXES - 21 October 2026
 
 ### Runtime record
