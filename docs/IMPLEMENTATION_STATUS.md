@@ -39,3 +39,5 @@ Every case in `documents/prompt-pack/ACCEPTANCE_CHECKLIST.md` is **NOT RUN**. P0
 ## Open source issues
 
 U-01 to U-18 in `docs/DECISIONS.md` s3 (U-16 to U-18 added in P01; all three are planned P05 Portal items). None blocks R01 or P02/P03. D-02 (.NET 10 SDK missing, rechecked in P01) blocks P04 until installed.
+
+2026-10-21 R01 VERDICT: NEEDS FIXES (eq-review-opus-high) - docs/evidence/R01/review-20261021-1357.md; next: repair R01
