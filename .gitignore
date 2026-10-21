@@ -1,0 +1,25 @@
+# Scratch and Office lock files
+tmp/
+~$*
+*.tmp
+
+# Build outputs and dependencies
+bin/
+obj/
+node_modules/
+dist/
+.vite/
+coverage/
+TestResults/
+__pycache__/
+*.pyc
+
+# Local settings and secrets
+.vs/
+.vscode/
+*.user
+.env
+.env.*
+appsettings.*.local.json
+secrets.json
+.claude/settings.local.json

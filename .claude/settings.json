@@ -1,0 +1,17 @@
+{
+  "env": {
+    "CLAUDE_CODE_FORK_SUBAGENT": "0"
+  },
+  "permissions": {
+    "additionalDirectories": ["F:\\CODEX\\CICT-ENG_MAIN_PAGE"],
+    "deny": [
+      "Edit(documents/**)",
+      "Write(documents/**)",
+      "Edit(As-bulit drawing/**)",
+      "Write(As-bulit drawing/**)",
+      "Bash(iisreset *)",
+      "Bash(npm publish *)",
+      "Bash(dotnet nuget push *)"
+    ]
+  }
+}

@@ -1,0 +1,38 @@
+Mechanism Code							
+main code	Sub code	Sub Mechanism	Description of sub mechanism	main code	Sub code	Sub Mechanism	Description of sub mechanism
+01-Hoist	011	Hoist	Hoist drive mechanism, including the drive, motor, encoder, roller, gear box etc	07-Driver System	071	Drive / inverter	Driver board, main control board,  communications board, I/O board,excitation board, the  AC unit, a frequency conversion unit, drive fan
+			The hoist brake, gear box temperature sensor, detection limit switch,hoist control valve , hoisting chain etc.	08-PLC	081	PLC	PLC system includes CPU, I/O module, communication lines, PLC, ECU etc.
+	012	Hoist emergency braker	the hoist emergency brake, the oil pump, solenoid valve, hydraulic circuit, detection limit switch etc.				PLC system in Trolley auxiliary control panel
+	013	Load cell system	The load cell sensor, control panel	09-Engine	091	Engine	Diesel generators, including the transfer and protection device, gearbox, hydraulic pump, steering pump, air-filling pump, oil / water / air, water tank, the fan cover etc.
+	014	spreader cable wheel	Spreader cable, cable winding motor, slip ring box, gear box, drum, chain, detection limit etc.		092	Generator	Generator, bearing , motor temperature detection, control panel, voltage adjustable plate, power supply MCB of  main generator etc.
+	015	steel rope	The steel wires are bending or broken by accident or operational reasons 		093	Cooling and lubrication system	The water tank, cooling fan and oil lubrication system
+02-Trolley 	021	trolley	Trolley mechanism, including the drive, motor, encoder, roller, gear box etc.		094	Battery	Battery, power supply circuits
+			The trolley brake, gear box temperature sensor, detection limit switch etc.				
+							
+	022	trolley tension	Trolley/ cate trolley steel rope tensioning mechanism, cylinder, tension limit etc.				
+	023	cable transport chain/sliding conduct system	 cable transport chain, wheels, a fixed bolt etc.	11-Skew system	111	Skew system	Skew system,motor, hydraulic mechanism etc.
+	024	steel rope	The steel wires are bending or broken by accident or operational reasons 				T／S／L
+	025	trolley chain	Chain broken, wear and tear etc.	12-HV system	121	HV system	High voltage power supply, Income power switch cabinet, high voltage switch cabinet, transformer, auxiliary transformer
+03-Boom	031	boom	Boom mechanism, including the drive, motor, roller, steel wire rope, encoder, gear box etc.				Harmonics, power compensation device
+			Boom high speed brake, gear box temperature sensor, the detection limit switch.	13-Lighting	131	Light	flootlight、walking light、 bulb, indoor lighting etc.
+			Boom latch motor, hydraulic push rod, and limit switch etc.				The ballast， circuit, control relay, etc.
+	032	boom emergency braker	Boom emergency brake, the oil pump, solenoid valve, hydraulic circuit, detection limit switch etc.	14-Cabin	141	Cabin room	Operation  switch, the handle, the main power switch or a key switch, lighting switch, chairs, detect lights, buttons,operation switch, door, glass, door lock, wiper, dashboard, warning lights and other lights  in cabin,gantry operation station, BOOM operation station 
+	033	steel rope	The steel wires are bending or broken by accident or operational reasons 	15-Auxiliary system	151	Auxiliary equipment	Wind speed device, an exhaust fan
+04-Gantry	041	gantry	Gantry   brake, detection limit switch, the gantry anchor, anti-typhoon anchor,anti-typhoon iron shoes, alarm etc.				Horn, walkie talkie, RTD computer, mentaince crane, wind speed device etc.
+			Gantry mechanism, including the drive, motor, encoder, gear box etc.				Aisle, railing, staircase, steel structure, engine platform telescopic device,engine platform detection limit switch.
+					152	Air-conditioning	Electrical room air conditioning, cabin  air conditioning
+	042	gantry cable reel	gantry cable reel 、HV slip ring、Cable guide bracket and other protect limit switch etc		153	Elevator	lift door、Level switch、cable、cabin、control box、Brake, wire rope, anti-drop safety device.
+	043	gantry steer	gantry steer cylinder				Motor, inverter, speakers, lights, buttons, emergency stop, gear box, mechanical room, track, gears etc.
+	044	gantry tire	The tire bubble, air leak, the steel circle bend etc.		154	Trailer position checking system	 radiate switch, receiving switch, indicator light,  the control power supply etc.
+	045	gantry turn	Steering hydraulic circuit, a lock pin cylinder, detection limit switch, motor etc.		155	GPS system	GPS communication model、GPS terminal server、GPS aerial、GPS fibre-optical transfer model、other GPS combination parts etc 
+	046	wheel clamp device	Wheel clamp, the hydraulic lifting device, detection limit switch etc.	16-Emergency mechanism	161	Emergency device	hoist/trolley/boom emergency motor、chain、limit switch、gear box etc.
+	047	gantry chain	Chain broken, wear etc.	17-Other	171	Other mechanism	othe mechanism fault
+	048						
+05-Control Power	051	control power	Emergency stop switch, speed switch, an overtravel limit switch				
+06-Spreader	061	lp	Spreader structure, pump motor, hydraulic circuits etc				
+			Twist lock / flipper / extend and retract/ land/ unlock the lock limit switch, cylinders,oil tube, central locking mechanism etc.				
+			buttons and indicator lights,such as flipper, oil pump, unlock  the lock, land				
+			control relay, terminal row, electronic board, cable of the spreader.				
+	062		headblock, pulley,  connected swithc,pulley guardrail etc.				
+	063						
+	064	The over-high hanger 	The over-high hanger main beam, telescopic beam, hooks, twist, twist connect pin etc				

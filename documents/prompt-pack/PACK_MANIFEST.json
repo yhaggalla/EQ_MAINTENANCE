@@ -1,0 +1,114 @@
+{
+  "packVersion": "1.2",
+  "preparedOn": "2026-10-21",
+  "timezone": "Asia/Colombo",
+  "purpose": "Implementation prompt pack only; application implementation not performed",
+  "buildPrompts": [
+    "P00",
+    "P01",
+    "P02",
+    "P03",
+    "P04",
+    "P05",
+    "P06",
+    "P07",
+    "P08",
+    "P09",
+    "P10",
+    "P11",
+    "P12",
+    "P13"
+  ],
+  "reviewPrompts": [
+    "R01",
+    "R02",
+    "R03",
+    "R04",
+    "R05"
+  ],
+  "futureAcceptanceCases": 58,
+  "executionProfileCount": 22,
+  "executionProfiles": "reference/phase-model-settings.json",
+  "files": [
+    {
+      "file": "ACCEPTANCE_CHECKLIST.md",
+      "bytes": 17087,
+      "sha256": "1516ba903227560b19505d3745e847286c2d6093625d0c959dd5a25a292f340d"
+    },
+    {
+      "file": "APPROVED_REQUIREMENTS.md",
+      "bytes": 21705,
+      "sha256": "db89e7ceeff25008b10501a4399bc7800f7eccdce9d1e5200b657585fe4c5bed"
+    },
+    {
+      "file": "CHANGELOG.md",
+      "bytes": 2346,
+      "sha256": "e04e5893bfcc860e2b5803983885e79b21aa543f206c36800d171e6a74de65ee"
+    },
+    {
+      "file": "EQ_MAINTENANCE_IMPLEMENTATION_PROMPT_PACK.md",
+      "bytes": 61907,
+      "sha256": "5a8be7e57bc47f8e3ef02f09b99dafab61777b23ec8c68668d4d52c59fc8e178"
+    },
+    {
+      "file": "MODEL_AND_EFFORT_GUIDE.md",
+      "bytes": 9530,
+      "sha256": "71462a5904e7f7c8fdca99572c632ed369cfb1360e7991abe73023349a175557"
+    },
+    {
+      "file": "PACK_VALIDATION.md",
+      "bytes": 5397,
+      "sha256": "eb926d81fc4f165c1bf154b00b4b37d84422f91f1ce9bc2e6a8b1afacf4f564a"
+    },
+    {
+      "file": "QC_3D_MODELLING_BRIEF.md",
+      "bytes": 14604,
+      "sha256": "28274f3f3cd22432d5402b6bb5a3f26de1e8a4523c8a49a6567d44c4854442c0"
+    },
+    {
+      "file": "README.md",
+      "bytes": 6422,
+      "sha256": "e876eeb7d661bcba9da9af528d9d308795632e9c6d7e94d2a1167dc17e7575bb"
+    },
+    {
+      "file": "reference/drawing-register.json",
+      "bytes": 16955,
+      "sha256": "33f52b10ddc56ed56580b52bd4409dabd002018e03e64a8c944d15ba39857f01"
+    },
+    {
+      "file": "reference/major-parameters.json",
+      "bytes": 8763,
+      "sha256": "4a5249077555e7061a3149d2a488b78f5560ab317a0b5a404dd2765e1b5f387b"
+    },
+    {
+      "file": "reference/mechanisms-approved.json",
+      "bytes": 18223,
+      "sha256": "93db494645a7e9c306b1a08eaadc68fdf3a51f8a641f698b4e725fb67385490a"
+    },
+    {
+      "file": "reference/mechanisms-original.txt",
+      "bytes": 5674,
+      "sha256": "95dbcc1811b7297144b9a10ee9346facd06d95cc3890bd86184df55eff9c48d6"
+    },
+    {
+      "file": "reference/phase-model-settings.json",
+      "bytes": 9034,
+      "sha256": "2fba3c5eb55d07a0ec197440b7c51ae27ce0a078b0eebe110d031366477ed52b"
+    }
+  ],
+  "externalOriginalSources": [
+    {
+      "projectRelativePath": "documents/SOW.docx",
+      "sha256": "9ed51eaafd25c9d917f3d8da273926d0aa94a021b0d91338b6127ebaae204fef"
+    },
+    {
+      "projectRelativePath": "documents/images.jpg",
+      "sha256": "7762882d1df8ba9a8b2bb3817ee6c7f44c4eaff5293691822741df4b0a35df10"
+    },
+    {
+      "projectRelativePath": "documents/images2.jpg",
+      "sha256": "d3f5f30136b194bc714f34c2fdaa7794bfd1831a341854ba5a050db6fe093d84"
+    }
+  ],
+  "drawingChecksums": "reference/drawing-register.json"
+}

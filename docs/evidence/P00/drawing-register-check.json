@@ -1,0 +1,473 @@
+{
+  "registerPdfFileCount": 38,
+  "registerPdfPageCount": 162,
+  "diskPdfCount": 38,
+  "computedPageCount": 162,
+  "mismatches": [],
+  "nonRegisteredFilesOnDisk": [
+    "J526A00_002.jpg",
+    "J526A00_002.png",
+    "QC JPEG.jpg",
+    "QC PNG.png",
+    "Thumbs.db"
+  ],
+  "unregisteredPdfs": [],
+  "files": [
+    {
+      "file": "AS-bulit drawing list.pdf",
+      "pages": 2,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        [
+          "J526A0000",
+          "J526A0100",
+          "J526A0101",
+          "J526A0102",
+          "J526A0103",
+          "J526A0104"
+        ],
+        [
+          "J526A50",
+          "J526A5100",
+          "J526A6000",
+          "J526A6100",
+          "J526A6200",
+          "J526A6300"
+        ]
+      ]
+    },
+    {
+      "file": "cover.pdf",
+      "pages": 1,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        []
+      ]
+    },
+    {
+      "file": "DT1500F.pdf",
+      "pages": 1,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        []
+      ]
+    },
+    {
+      "file": "J526A00（structure parameters）.pdf",
+      "pages": 2,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        [],
+        []
+      ]
+    },
+    {
+      "file": "J526A0100.pdf",
+      "pages": 64,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "file": "J526A0200.pdf",
+      "pages": 7,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "file": "J526A0300.pdf",
+      "pages": 4,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "file": "J526A0400.pdf",
+      "pages": 4,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "file": "J526A0500.pdf",
+      "pages": 4,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        [],
+        [
+          "J526A0501",
+          "J526A0502",
+          "J526A0503",
+          "J526A0504",
+          "J526A0505",
+          "J526A0506"
+        ],
+        [],
+        []
+      ]
+    },
+    {
+      "file": "J526A0600.pdf",
+      "pages": 5,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "file": "J526A1000.pdf",
+      "pages": 2,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        [],
+        []
+      ]
+    },
+    {
+      "file": "J526A1200.pdf",
+      "pages": 1,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        []
+      ]
+    },
+    {
+      "file": "J526A1300.pdf",
+      "pages": 1,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        []
+      ]
+    },
+    {
+      "file": "J526A1400.pdf",
+      "pages": 1,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        []
+      ]
+    },
+    {
+      "file": "J526A1500.pdf",
+      "pages": 1,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        []
+      ]
+    },
+    {
+      "file": "J526A1600.pdf",
+      "pages": 1,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        []
+      ]
+    },
+    {
+      "file": "J526A2000.pdf",
+      "pages": 2,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        [],
+        []
+      ]
+    },
+    {
+      "file": "J526A2100.pdf",
+      "pages": 3,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "file": "J526A2200.pdf",
+      "pages": 5,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "file": "J526A2300.pdf",
+      "pages": 6,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "file": "J526A3000.pdf",
+      "pages": 2,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        [],
+        [
+          "J526A30",
+          "J526A3001",
+          "J526A3002",
+          "J526A3003",
+          "J526A3004",
+          "J526A3005"
+        ]
+      ]
+    },
+    {
+      "file": "J526A3100.pdf",
+      "pages": 1,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        []
+      ]
+    },
+    {
+      "file": "J526A3200.pdf",
+      "pages": 2,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        [],
+        []
+      ]
+    },
+    {
+      "file": "J526A3300.pdf",
+      "pages": 1,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        []
+      ]
+    },
+    {
+      "file": "J526A4000.pdf",
+      "pages": 1,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        []
+      ]
+    },
+    {
+      "file": "J526A5000.pdf",
+      "pages": 18,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "file": "J526A5100.pdf",
+      "pages": 1,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        []
+      ]
+    },
+    {
+      "file": "J526A6000.pdf",
+      "pages": 1,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        []
+      ]
+    },
+    {
+      "file": "J526A6100.pdf",
+      "pages": 1,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        []
+      ]
+    },
+    {
+      "file": "J526A6200.pdf",
+      "pages": 1,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        []
+      ]
+    },
+    {
+      "file": "J526A6300.pdf",
+      "pages": 1,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        []
+      ]
+    },
+    {
+      "file": "J526A7000.pdf",
+      "pages": 1,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        []
+      ]
+    },
+    {
+      "file": "J526A7100.pdf",
+      "pages": 1,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        []
+      ]
+    },
+    {
+      "file": "J526A7300.pdf",
+      "pages": 1,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        []
+      ]
+    },
+    {
+      "file": "J526A7400.pdf",
+      "pages": 4,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "file": "J526AM00.pdf",
+      "pages": 1,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        []
+      ]
+    },
+    {
+      "file": "Sheave.pdf",
+      "pages": 6,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        [],
+        [],
+        [],
+        [],
+        [],
+        []
+      ]
+    },
+    {
+      "file": "ZT2-015022 - Trolley wheel.pdf",
+      "pages": 1,
+      "shaOk": true,
+      "textLayerDrawingNumbers": [
+        []
+      ]
+    }
+  ]
+}

@@ -1,0 +1,309 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-21",
+  "modelFamilyReference": "CICT-J526A-STS",
+  "equipmentAssignment": "Unassigned; Admin must establish applicability per equipment/model",
+  "sourceScope": "Cover identifies original CICT 12 STS crane drawing set",
+  "isLiveTelemetry": false,
+  "overallCraneHeight": null,
+  "parameters": [
+    {
+      "code": "swl-under-spreader",
+      "label": "SWL under spreader",
+      "value": 65,
+      "unit": "t",
+      "condition": null,
+      "stage1Use": "major",
+      "verification": "visually_read_from_drawing",
+      "source": {
+        "file": "J526A00（structure parameters）.pdf",
+        "drawingNumber": "J526A00",
+        "pdfPage": 1
+      }
+    },
+    {
+      "code": "swl-under-cargo-beam",
+      "label": "SWL under cargo beam",
+      "value": 75,
+      "unit": "t",
+      "condition": null,
+      "stage1Use": "major",
+      "verification": "visually_read_from_drawing",
+      "source": {
+        "file": "J526A00（structure parameters）.pdf",
+        "drawingNumber": "J526A00",
+        "pdfPage": 1
+      }
+    },
+    {
+      "code": "rail-gauge",
+      "label": "Rail gauge",
+      "value": 30,
+      "unit": "m",
+      "condition": null,
+      "stage1Use": "major",
+      "verification": "visually_read_from_drawing",
+      "source": {
+        "file": "J526A00（structure parameters）.pdf",
+        "drawingNumber": "J526A00",
+        "pdfPage": 1
+      }
+    },
+    {
+      "code": "outreach",
+      "label": "Outreach",
+      "value": 70,
+      "unit": "m",
+      "condition": null,
+      "stage1Use": "major",
+      "verification": "visually_read_from_drawing",
+      "source": {
+        "file": "J526A00（structure parameters）.pdf",
+        "drawingNumber": "J526A00",
+        "pdfPage": 1
+      }
+    },
+    {
+      "code": "backreach",
+      "label": "Backreach",
+      "value": 20,
+      "unit": "m",
+      "condition": null,
+      "stage1Use": "major",
+      "verification": "visually_read_from_drawing",
+      "source": {
+        "file": "J526A00（structure parameters）.pdf",
+        "drawingNumber": "J526A00",
+        "pdfPage": 1
+      }
+    },
+    {
+      "code": "lift-height-above-rail",
+      "label": "Lift height above rail",
+      "value": 45,
+      "unit": "m",
+      "condition": null,
+      "stage1Use": "major",
+      "verification": "visually_read_from_drawing",
+      "source": {
+        "file": "J526A00（structure parameters）.pdf",
+        "drawingNumber": "J526A00",
+        "pdfPage": 1
+      }
+    },
+    {
+      "code": "total-lift-height",
+      "label": "Total lift height",
+      "value": 63,
+      "unit": "m",
+      "condition": "Not overall crane height",
+      "stage1Use": "major",
+      "verification": "visually_read_from_drawing",
+      "source": {
+        "file": "J526A00（structure parameters）.pdf",
+        "drawingNumber": "J526A00",
+        "pdfPage": 1
+      }
+    },
+    {
+      "code": "hoist-speed-65t",
+      "label": "Main hoist speed",
+      "value": 75,
+      "unit": "m/min",
+      "condition": "65 t under spreader",
+      "stage1Use": "technical",
+      "verification": "visually_read_from_drawing",
+      "source": {
+        "file": "J526A00（structure parameters）.pdf",
+        "drawingNumber": "J526A00",
+        "pdfPage": 1
+      }
+    },
+    {
+      "code": "hoist-speed-50t",
+      "label": "Main hoist speed",
+      "value": 90,
+      "unit": "m/min",
+      "condition": "50 t under spreader",
+      "stage1Use": "technical",
+      "verification": "visually_read_from_drawing",
+      "source": {
+        "file": "J526A00（structure parameters）.pdf",
+        "drawingNumber": "J526A00",
+        "pdfPage": 1
+      }
+    },
+    {
+      "code": "hoist-speed-empty",
+      "label": "Main hoist speed",
+      "value": 180,
+      "unit": "m/min",
+      "condition": "Empty spreader",
+      "stage1Use": "technical",
+      "verification": "visually_read_from_drawing",
+      "source": {
+        "file": "J526A00（structure parameters）.pdf",
+        "drawingNumber": "J526A00",
+        "pdfPage": 1
+      }
+    },
+    {
+      "code": "trolley-speed",
+      "label": "Trolley speed",
+      "value": 244,
+      "unit": "m/min",
+      "condition": null,
+      "stage1Use": "technical",
+      "verification": "visually_read_from_drawing",
+      "source": {
+        "file": "J526A00（structure parameters）.pdf",
+        "drawingNumber": "J526A00",
+        "pdfPage": 1
+      }
+    },
+    {
+      "code": "main-hoist-motor-power",
+      "label": "Main hoist motor rating",
+      "value": 450,
+      "unit": "kW",
+      "condition": null,
+      "stage1Use": "technical",
+      "verification": "visually_read_from_drawing",
+      "source": {
+        "file": "J526A00（structure parameters）.pdf",
+        "drawingNumber": "J526A00",
+        "pdfPage": 1
+      },
+      "motorCount": 2,
+      "valueInterpretation": "Rated kW per motor, not aggregate power"
+    },
+    {
+      "code": "trolley-motor-power",
+      "label": "Trolley motor rating",
+      "value": 275,
+      "unit": "kW",
+      "condition": null,
+      "stage1Use": "technical",
+      "verification": "visually_read_from_drawing",
+      "source": {
+        "file": "J526A00（structure parameters）.pdf",
+        "drawingNumber": "J526A00",
+        "pdfPage": 1
+      },
+      "motorCount": 1,
+      "valueInterpretation": "Rated kW per motor, not aggregate power"
+    },
+    {
+      "code": "gantry-motor-power",
+      "label": "Gantry motor rating",
+      "value": 20,
+      "unit": "kW",
+      "condition": null,
+      "stage1Use": "technical",
+      "verification": "visually_read_from_drawing",
+      "source": {
+        "file": "J526A00（structure parameters）.pdf",
+        "drawingNumber": "J526A00",
+        "pdfPage": 1
+      },
+      "motorCount": 16,
+      "valueInterpretation": "Rated kW per motor, not aggregate power"
+    },
+    {
+      "code": "boom-hoist-motor-power",
+      "label": "Boom hoist motor rating",
+      "value": 375,
+      "unit": "kW",
+      "condition": null,
+      "stage1Use": "technical",
+      "verification": "visually_read_from_drawing",
+      "source": {
+        "file": "J526A00（structure parameters）.pdf",
+        "drawingNumber": "J526A00",
+        "pdfPage": 1
+      },
+      "motorCount": 1,
+      "valueInterpretation": "Rated kW per motor, not aggregate power"
+    },
+    {
+      "code": "rail-type",
+      "label": "Rail type",
+      "value": "QU120",
+      "unit": null,
+      "condition": null,
+      "stage1Use": "technical",
+      "verification": "visually_read_from_drawing",
+      "source": {
+        "file": "J526A00（structure parameters）.pdf",
+        "drawingNumber": "J526A00",
+        "pdfPage": 1
+      }
+    },
+    {
+      "code": "supply-voltage",
+      "label": "Incoming supply voltage",
+      "value": 11,
+      "unit": "kV",
+      "condition": "+/-10%; 3-phase",
+      "stage1Use": "technical",
+      "verification": "visually_read_from_drawing",
+      "source": {
+        "file": "J526A00（structure parameters）.pdf",
+        "drawingNumber": "J526A00",
+        "pdfPage": 1
+      }
+    },
+    {
+      "code": "supply-frequency",
+      "label": "Incoming supply frequency",
+      "value": 50,
+      "unit": "Hz",
+      "condition": "+/-2%",
+      "stage1Use": "technical",
+      "verification": "visually_read_from_drawing",
+      "source": {
+        "file": "J526A00（structure parameters）.pdf",
+        "drawingNumber": "J526A00",
+        "pdfPage": 1
+      }
+    },
+    {
+      "code": "gantry-speed",
+      "label": "Gantry speed",
+      "value": null,
+      "unit": "m/min",
+      "stage1Use": "technical",
+      "verification": "unresolved_source_conflict",
+      "observations": [
+        {
+          "value": 46,
+          "file": "J526A00（structure parameters）.pdf",
+          "drawingNumber": "J526A00",
+          "pdfPage": 1
+        },
+        {
+          "value": 45.5,
+          "file": "J526A0600.pdf",
+          "drawingNumber": "J526A0600",
+          "pdfPage": 1
+        }
+      ],
+      "resolution": null
+    },
+    {
+      "code": "boom-hoisting-time",
+      "label": "Boom hoisting time",
+      "value": 5,
+      "operator": "<",
+      "unit": "min",
+      "condition": "0 to 80 degrees",
+      "stage1Use": "technical",
+      "verification": "visually_read_from_drawing",
+      "source": {
+        "file": "J526A00（structure parameters）.pdf",
+        "drawingNumber": "J526A00",
+        "pdfPage": 1
+      }
+    }
+  ]
+}

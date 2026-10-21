@@ -1,0 +1,457 @@
+{
+  "schemaVersion": 1,
+  "indexedOn": "2026-10-21",
+  "sourceFolder": "F:\\CODEX\\EQ_MAINTENANCE\\As-bulit drawing",
+  "pdfFileCount": 38,
+  "pdfPageCount": 162,
+  "coverage": "All PDF files indexed; relevant overview/particulars sheets visually reviewed. Not a page-by-page fabrication audit.",
+  "files": [
+    {
+      "file": "AS-bulit drawing list.pdf",
+      "projectRelativePath": "As-bulit drawing/AS-bulit drawing list.pdf",
+      "pdfPages": 2,
+      "sha256": "60265fe8bd338331deac84593d65b0cb966efb0e6e2b23999b3c3f92ae943a5d",
+      "title": "Drawing register",
+      "candidateMainCodes": [],
+      "purpose": "index",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "cover.pdf",
+      "projectRelativePath": "As-bulit drawing/cover.pdf",
+      "pdfPages": 1,
+      "sha256": "3faa6ffbb90f947fa3aa80a9dc4e2db28d442fcd2920f94069f3602700e91ff2",
+      "title": "CICT 12 STS cranes cover",
+      "candidateMainCodes": [],
+      "purpose": "scope",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "DT1500F.pdf",
+      "projectRelativePath": "As-bulit drawing/DT1500F.pdf",
+      "pdfPages": 1,
+      "sha256": "f64718498d46361d4c1d5acc114643a715d05826693d63cf9f99333cf7a588f4",
+      "title": "Spreader trailer",
+      "candidateMainCodes": [
+        "15"
+      ],
+      "purpose": "auxiliary",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "J526A00（structure parameters）.pdf",
+      "projectRelativePath": "As-bulit drawing/J526A00（structure parameters）.pdf",
+      "pdfPages": 2,
+      "sha256": "1a971b8e394c7b7e99c9d39f5a5c5fce75625e54a5c14592ff9de416e14ff1ea",
+      "title": "Crane general arrangement and subsidiary list",
+      "candidateMainCodes": [],
+      "purpose": "overall",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "J526A0100.pdf",
+      "projectRelativePath": "As-bulit drawing/J526A0100.pdf",
+      "pdfPages": 64,
+      "sha256": "7a8e10915aa4b852e10e5a517d9486acd1693e9908d761915569083afee00340",
+      "title": "General structure",
+      "candidateMainCodes": [
+        "03",
+        "15"
+      ],
+      "purpose": "structure",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "J526A0200.pdf",
+      "projectRelativePath": "As-bulit drawing/J526A0200.pdf",
+      "pdfPages": 7,
+      "sha256": "f5418e335b514fadf57c5d2970863766e7d0668df626c5da9c34946cfe5f0503",
+      "title": "Trolley arrangement",
+      "candidateMainCodes": [
+        "02"
+      ],
+      "purpose": "assembly",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "J526A0300.pdf",
+      "projectRelativePath": "As-bulit drawing/J526A0300.pdf",
+      "pdfPages": 4,
+      "sha256": "ab060092009b983df95db3f0173dc8ca768f14fd41c0860d5a873569ed8468b1",
+      "title": "Main hoist drive",
+      "candidateMainCodes": [
+        "01"
+      ],
+      "purpose": "assembly",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "J526A0400.pdf",
+      "projectRelativePath": "As-bulit drawing/J526A0400.pdf",
+      "pdfPages": 4,
+      "sha256": "af5adef3c437963ea52fba5229cdfbac4a8a8e7e84d5eb253844ff4b0cb34289",
+      "title": "Trolley drive",
+      "candidateMainCodes": [
+        "02"
+      ],
+      "purpose": "assembly",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "J526A0500.pdf",
+      "projectRelativePath": "As-bulit drawing/J526A0500.pdf",
+      "pdfPages": 4,
+      "sha256": "a45a716a6d32c1ab0852c06f253d3b7dd5e5b1187fad073c1d9c97be2dce173c",
+      "title": "Boom hoist drive",
+      "candidateMainCodes": [
+        "03"
+      ],
+      "purpose": "assembly",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "J526A0600.pdf",
+      "projectRelativePath": "As-bulit drawing/J526A0600.pdf",
+      "pdfPages": 5,
+      "sha256": "8b851e13d3e784aaedac6ab45d7e4b31ec78b87133ecd93e0817a6cc1e60a0bc",
+      "title": "Gantry drive",
+      "candidateMainCodes": [
+        "04"
+      ],
+      "purpose": "assembly",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "J526A1000.pdf",
+      "projectRelativePath": "As-bulit drawing/J526A1000.pdf",
+      "pdfPages": 2,
+      "sha256": "0a45524f5321689d27cae58114c9b7d10352716b77dc110ba3cf12d4518fbd6e",
+      "title": "Anti-snag and trim/list/skew device",
+      "candidateMainCodes": [
+        "01",
+        "11"
+      ],
+      "purpose": "assembly",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "J526A1200.pdf",
+      "projectRelativePath": "As-bulit drawing/J526A1200.pdf",
+      "pdfPages": 1,
+      "sha256": "cd0adb51080b4e4d9cf1ac5de60cc274e57c06ad54d987a0bf85f8eb7fc109c7",
+      "title": "Headblock",
+      "candidateMainCodes": [
+        "06"
+      ],
+      "purpose": "assembly",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "J526A1300.pdf",
+      "projectRelativePath": "As-bulit drawing/J526A1300.pdf",
+      "pdfPages": 1,
+      "sha256": "275c6924d85f66b812ba97a1b5a7cc24428144cd08070cd0bf7fefc12f942511",
+      "title": "Cargo beam",
+      "candidateMainCodes": [],
+      "purpose": "attachment_parent_to_validate",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "J526A1400.pdf",
+      "projectRelativePath": "As-bulit drawing/J526A1400.pdf",
+      "pdfPages": 1,
+      "sha256": "a3fc4a8952b40a3bf332bf9fffe50c3327119ac6b562cb9625549f3bfa8b7d68",
+      "title": "Emergency drive",
+      "candidateMainCodes": [
+        "16"
+      ],
+      "purpose": "assembly",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "J526A1500.pdf",
+      "projectRelativePath": "As-bulit drawing/J526A1500.pdf",
+      "pdfPages": 1,
+      "sha256": "436d8126e8dbdbaddd26479e83af0c3eb02816ccc5f2b8c59677f2e8bb7425d1",
+      "title": "Rope re-reeving device",
+      "candidateMainCodes": [
+        "01",
+        "02",
+        "03"
+      ],
+      "purpose": "auxiliary",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "J526A1600.pdf",
+      "projectRelativePath": "As-bulit drawing/J526A1600.pdf",
+      "pdfPages": 1,
+      "sha256": "5012995288c4da2ed520acdf6a3d30d8722ec8ec1fef277aceded87fa0afdfe2",
+      "title": "Machinery-house service crane",
+      "candidateMainCodes": [
+        "15"
+      ],
+      "purpose": "auxiliary",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "J526A2000.pdf",
+      "projectRelativePath": "As-bulit drawing/J526A2000.pdf",
+      "pdfPages": 2,
+      "sha256": "0420721a0271b5ebd39cdee1a562234a5844ee684f97de5cac7a941d7a80bc47",
+      "title": "Main hoist reeving",
+      "candidateMainCodes": [
+        "01"
+      ],
+      "purpose": "reeving",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "J526A2100.pdf",
+      "projectRelativePath": "As-bulit drawing/J526A2100.pdf",
+      "pdfPages": 3,
+      "sha256": "69a449ae4de6ea46529300a11a01f7f155240c1aa16a6c2d1d7fcdbe8714d1ad",
+      "title": "Trolley reeving",
+      "candidateMainCodes": [
+        "02"
+      ],
+      "purpose": "reeving",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "J526A2200.pdf",
+      "projectRelativePath": "As-bulit drawing/J526A2200.pdf",
+      "pdfPages": 5,
+      "sha256": "36b7ce1d4af9ec51f5b82340c524c4d80b134f2b7f06ff195bbc90c68bff9c02",
+      "title": "Catenary trolley reeving",
+      "candidateMainCodes": [
+        "02"
+      ],
+      "purpose": "reeving",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "J526A2300.pdf",
+      "projectRelativePath": "As-bulit drawing/J526A2300.pdf",
+      "pdfPages": 6,
+      "sha256": "be266414842412d4e39372ce1e9b3bc790aa6bfbf48f48d158fe5d54e8f6a087",
+      "title": "Boom reeving",
+      "candidateMainCodes": [
+        "03"
+      ],
+      "purpose": "reeving",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "J526A3000.pdf",
+      "projectRelativePath": "As-bulit drawing/J526A3000.pdf",
+      "pdfPages": 2,
+      "sha256": "04e7166f4d6abe7ff5bc2c9737c4fba83b56a306e7918f664aa5a45d1c0aabc2",
+      "title": "Machinery house",
+      "candidateMainCodes": [],
+      "purpose": "spatial_container",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "J526A3100.pdf",
+      "projectRelativePath": "As-bulit drawing/J526A3100.pdf",
+      "pdfPages": 1,
+      "sha256": "ad5b03d3670e5956fc70f8ddadc366cd8b8e5a5adff7d288ced7d990d5ae93d6",
+      "title": "Operator cabin",
+      "candidateMainCodes": [
+        "14"
+      ],
+      "purpose": "assembly",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "J526A3200.pdf",
+      "projectRelativePath": "As-bulit drawing/J526A3200.pdf",
+      "pdfPages": 2,
+      "sha256": "94d59f8dcf78de130c15598a093378ebcfd1d3247f920accf39b149d433fc21b",
+      "title": "Boom cabin",
+      "candidateMainCodes": [
+        "14"
+      ],
+      "purpose": "assembly",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "J526A3300.pdf",
+      "projectRelativePath": "As-bulit drawing/J526A3300.pdf",
+      "pdfPages": 1,
+      "sha256": "bf654fd0b9757e15b935912f37ceac2a0fff653da6364435310358c644d33c56",
+      "title": "Checker cabin",
+      "candidateMainCodes": [
+        "14"
+      ],
+      "purpose": "assembly",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "J526A4000.pdf",
+      "projectRelativePath": "As-bulit drawing/J526A4000.pdf",
+      "pdfPages": 1,
+      "sha256": "e2cd762a06f89989e2a0a4110fd9683a071a43e8d00fb6f456901a610c4d9be0",
+      "title": "High-voltage cable reel",
+      "candidateMainCodes": [
+        "04",
+        "12"
+      ],
+      "purpose": "assembly",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "J526A5000.pdf",
+      "projectRelativePath": "As-bulit drawing/J526A5000.pdf",
+      "pdfPages": 18,
+      "sha256": "3d131d9b5329dc90a9158d39e3147db22a89a43c7578759a31e7e3799e6e6295",
+      "title": "Platforms and stairs",
+      "candidateMainCodes": [
+        "15"
+      ],
+      "purpose": "structure",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "J526A5100.pdf",
+      "projectRelativePath": "As-bulit drawing/J526A5100.pdf",
+      "pdfPages": 1,
+      "sha256": "94245884d5a2c68b454398ab7458bd610bf498ddba24b0fafa44bfa6e50ea489",
+      "title": "Elevator",
+      "candidateMainCodes": [
+        "15"
+      ],
+      "purpose": "assembly",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "J526A6000.pdf",
+      "projectRelativePath": "As-bulit drawing/J526A6000.pdf",
+      "pdfPages": 1,
+      "sha256": "fe48bc5a10f9b8e578ed7fda81be4f4f874526a02db20b2f5316cf00e3aabeea",
+      "title": "Anchor device",
+      "candidateMainCodes": [
+        "04"
+      ],
+      "purpose": "assembly",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "J526A6100.pdf",
+      "projectRelativePath": "As-bulit drawing/J526A6100.pdf",
+      "pdfPages": 1,
+      "sha256": "68cc61de9df71d952dec6d184427a714ddcb5fb8194db6e93892c5332f42c98a",
+      "title": "Tie-down device",
+      "candidateMainCodes": [
+        "04"
+      ],
+      "purpose": "assembly",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "J526A6200.pdf",
+      "projectRelativePath": "As-bulit drawing/J526A6200.pdf",
+      "pdfPages": 1,
+      "sha256": "4a7ee0f0ce0303c67e64a063a4af50def683b886de1d67645a76802bb4d83035",
+      "title": "Boom stowage device",
+      "candidateMainCodes": [
+        "03"
+      ],
+      "purpose": "assembly",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "J526A6300.pdf",
+      "projectRelativePath": "As-bulit drawing/J526A6300.pdf",
+      "pdfPages": 1,
+      "sha256": "8a7bbd5026395ad51ee8e1c299cdc8d90844fcf5773ffbda20c91c3ddfda1b02",
+      "title": "Boom anti-collision",
+      "candidateMainCodes": [
+        "03"
+      ],
+      "purpose": "assembly",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "J526A7000.pdf",
+      "projectRelativePath": "As-bulit drawing/J526A7000.pdf",
+      "pdfPages": 1,
+      "sha256": "ea2b02bf39c0e2f1a1a0a1708a3bbbd135f2c94abcec955f8d23f2fd8bbd2b31",
+      "title": "Air compressor",
+      "candidateMainCodes": [
+        "15"
+      ],
+      "purpose": "auxiliary",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "J526A7100.pdf",
+      "projectRelativePath": "As-bulit drawing/J526A7100.pdf",
+      "pdfPages": 1,
+      "sha256": "f128ca341a3b6e389074ecf58f72092b38f764670d0f4cb9bbe676255d8b66bd",
+      "title": "Outdoor service crane",
+      "candidateMainCodes": [
+        "15"
+      ],
+      "purpose": "auxiliary",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "J526A7300.pdf",
+      "projectRelativePath": "As-bulit drawing/J526A7300.pdf",
+      "pdfPages": 1,
+      "sha256": "1c41356cf8dde5562b0c9870453daadb0b169eb4d9401a6ece65378399bfffc5",
+      "title": "Nameplate arrangement",
+      "candidateMainCodes": [],
+      "purpose": "reference",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "J526A7400.pdf",
+      "projectRelativePath": "As-bulit drawing/J526A7400.pdf",
+      "pdfPages": 4,
+      "sha256": "764474f3c92494530a3f2a27070cbf38d1fff382f632c5e8378b92f6dfea79e8",
+      "title": "Limit-switch arrangement",
+      "candidateMainCodes": [],
+      "purpose": "cross_cutting",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "J526AM00.pdf",
+      "projectRelativePath": "As-bulit drawing/J526AM00.pdf",
+      "pdfPages": 1,
+      "sha256": "17791dd52dd675d8819701a1a0792d97c62fa94806b5137f185ba9f0384f5d51",
+      "title": "Embedded parts",
+      "candidateMainCodes": [],
+      "purpose": "reference",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "Sheave.pdf",
+      "projectRelativePath": "As-bulit drawing/Sheave.pdf",
+      "pdfPages": 6,
+      "sha256": "0db00274f7f8897b8a198f9e178a262ce1a7e1d84b3688fb7abed0e72d1095c7",
+      "title": "Sheave component drawings",
+      "candidateMainCodes": [
+        "01",
+        "02",
+        "03"
+      ],
+      "purpose": "part_reference",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    },
+    {
+      "file": "ZT2-015022 - Trolley wheel.pdf",
+      "projectRelativePath": "As-bulit drawing/ZT2-015022 - Trolley wheel.pdf",
+      "pdfPages": 1,
+      "sha256": "57e3e967d132c2078f08c5b020ca3eaffa404acbb1bb3c97afbee952e7f65124",
+      "title": "Trolley wheel",
+      "candidateMainCodes": [
+        "02"
+      ],
+      "purpose": "part_reference",
+      "classificationMappingStatus": "review_candidate_not_an_installed_component_assignment"
+    }
+  ]
+}

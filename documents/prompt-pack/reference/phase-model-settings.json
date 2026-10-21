@@ -1,0 +1,309 @@
+{
+  "schemaVersion": 1,
+  "packVersion": "1.1",
+  "verifiedOn": "2026-10-21",
+  "purpose": "Per-phase model/effort recommendations, not applied client settings or application benchmarks.",
+  "profileCount": 22,
+  "accountAvailabilityVerified": false,
+  "sources": [
+    "https://learn.chatgpt.com/docs/models",
+    "https://learn.chatgpt.com/docs/model-selection",
+    "https://developers.openai.com/api/docs/guides/reasoning",
+    "https://learn.chatgpt.com/docs/developer-settings",
+    "https://platform.claude.com/docs/en/models/overview",
+    "https://platform.claude.com/docs/en/build-with-claude/effort",
+    "https://code.claude.com/docs/en/model-config"
+  ],
+  "profiles": [
+    {
+      "phase": "Bootstrap",
+      "codex": {
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high"
+      },
+      "claudeCode": {
+        "model": "claude-opus-5-5",
+        "effort": "high",
+        "thinkingMode": "adaptive"
+      },
+      "selection": "Choose one provider; select actual model/effort in client controls.",
+      "inheritanceRule": "Same as P00; not a separate build phase."
+    },
+    {
+      "phase": "P00",
+      "codex": {
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high"
+      },
+      "claudeCode": {
+        "model": "claude-opus-5-5",
+        "effort": "high",
+        "thinkingMode": "adaptive"
+      },
+      "selection": "Choose one provider; select actual model/effort in client controls."
+    },
+    {
+      "phase": "P01",
+      "codex": {
+        "model": "gpt-6-astra",
+        "reasoningEffort": "high"
+      },
+      "claudeCode": {
+        "model": "claude-opus-5-5",
+        "effort": "high",
+        "thinkingMode": "adaptive"
+      },
+      "selection": "Choose one provider; select actual model/effort in client controls."
+    },
+    {
+      "phase": "R01",
+      "codex": {
+        "model": "gpt-6-astra",
+        "reasoningEffort": "high"
+      },
+      "claudeCode": {
+        "model": "claude-opus-5-5",
+        "effort": "high",
+        "thinkingMode": "adaptive"
+      },
+      "selection": "Choose one provider; select actual model/effort in client controls."
+    },
+    {
+      "phase": "P02",
+      "codex": {
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high"
+      },
+      "claudeCode": {
+        "model": "claude-sonnet-5-5",
+        "effort": "high",
+        "thinkingMode": "adaptive"
+      },
+      "selection": "Choose one provider; select actual model/effort in client controls."
+    },
+    {
+      "phase": "P03",
+      "codex": {
+        "model": "gpt-6-astra",
+        "reasoningEffort": "xhigh"
+      },
+      "claudeCode": {
+        "model": "claude-opus-5-5",
+        "effort": "high",
+        "thinkingMode": "adaptive"
+      },
+      "selection": "Choose one provider; select actual model/effort in client controls."
+    },
+    {
+      "phase": "R02",
+      "codex": {
+        "model": "gpt-6-astra",
+        "reasoningEffort": "high"
+      },
+      "claudeCode": {
+        "model": "claude-opus-5-5",
+        "effort": "high",
+        "thinkingMode": "adaptive"
+      },
+      "selection": "Choose one provider; select actual model/effort in client controls."
+    },
+    {
+      "phase": "P04",
+      "codex": {
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high"
+      },
+      "claudeCode": {
+        "model": "claude-sonnet-5-5",
+        "effort": "medium",
+        "thinkingMode": "adaptive"
+      },
+      "selection": "Choose one provider; select actual model/effort in client controls."
+    },
+    {
+      "phase": "P05",
+      "codex": {
+        "model": "gpt-6-astra",
+        "reasoningEffort": "high"
+      },
+      "claudeCode": {
+        "model": "claude-opus-5-5",
+        "effort": "high",
+        "thinkingMode": "adaptive"
+      },
+      "selection": "Choose one provider; select actual model/effort in client controls."
+    },
+    {
+      "phase": "R03",
+      "codex": {
+        "model": "gpt-6-astra",
+        "reasoningEffort": "xhigh"
+      },
+      "claudeCode": {
+        "model": "claude-opus-5-5",
+        "effort": "xhigh",
+        "thinkingMode": "adaptive"
+      },
+      "selection": "Choose one provider; select actual model/effort in client controls."
+    },
+    {
+      "phase": "P06",
+      "codex": {
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high"
+      },
+      "claudeCode": {
+        "model": "claude-opus-5-5",
+        "effort": "high",
+        "thinkingMode": "adaptive"
+      },
+      "selection": "Choose one provider; select actual model/effort in client controls."
+    },
+    {
+      "phase": "P07",
+      "codex": {
+        "model": "gpt-6-astra",
+        "reasoningEffort": "high"
+      },
+      "claudeCode": {
+        "model": "claude-opus-5-5",
+        "effort": "high",
+        "thinkingMode": "adaptive"
+      },
+      "selection": "Choose one provider; select actual model/effort in client controls."
+    },
+    {
+      "phase": "P08",
+      "codex": {
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high"
+      },
+      "claudeCode": {
+        "model": "claude-opus-5-5",
+        "effort": "high",
+        "thinkingMode": "adaptive"
+      },
+      "selection": "Choose one provider; select actual model/effort in client controls."
+    },
+    {
+      "phase": "P09",
+      "codex": {
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high"
+      },
+      "claudeCode": {
+        "model": "claude-sonnet-5-5",
+        "effort": "medium",
+        "thinkingMode": "adaptive"
+      },
+      "selection": "Choose one provider; select actual model/effort in client controls."
+    },
+    {
+      "phase": "P10",
+      "codex": {
+        "model": "gpt-6-astra",
+        "reasoningEffort": "high"
+      },
+      "claudeCode": {
+        "model": "claude-opus-5-5",
+        "effort": "high",
+        "thinkingMode": "adaptive"
+      },
+      "selection": "Choose one provider; select actual model/effort in client controls."
+    },
+    {
+      "phase": "R04",
+      "codex": {
+        "model": "gpt-6-astra",
+        "reasoningEffort": "xhigh"
+      },
+      "claudeCode": {
+        "model": "claude-opus-5-5",
+        "effort": "xhigh",
+        "thinkingMode": "adaptive"
+      },
+      "selection": "Choose one provider; select actual model/effort in client controls."
+    },
+    {
+      "phase": "P11",
+      "codex": {
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high"
+      },
+      "claudeCode": {
+        "model": "claude-opus-5-5",
+        "effort": "high",
+        "thinkingMode": "adaptive"
+      },
+      "selection": "Choose one provider; select actual model/effort in client controls."
+    },
+    {
+      "phase": "P12",
+      "codex": {
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high"
+      },
+      "claudeCode": {
+        "model": "claude-sonnet-5-5",
+        "effort": "high",
+        "thinkingMode": "adaptive"
+      },
+      "selection": "Choose one provider; select actual model/effort in client controls."
+    },
+    {
+      "phase": "R05",
+      "codex": {
+        "model": "gpt-6-astra",
+        "reasoningEffort": "high"
+      },
+      "claudeCode": {
+        "model": "claude-opus-5-5",
+        "effort": "high",
+        "thinkingMode": "adaptive"
+      },
+      "selection": "Choose one provider; select actual model/effort in client controls."
+    },
+    {
+      "phase": "P13",
+      "codex": {
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high"
+      },
+      "claudeCode": {
+        "model": "claude-sonnet-5-5",
+        "effort": "high",
+        "thinkingMode": "adaptive"
+      },
+      "selection": "Choose one provider; select actual model/effort in client controls.",
+      "inheritanceRule": "Corrective code work inherits the affected phase/review profile when stronger than this default."
+    },
+    {
+      "phase": "Repair",
+      "codex": {
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high"
+      },
+      "claudeCode": {
+        "model": "claude-opus-5-5",
+        "effort": "high",
+        "thinkingMode": "adaptive"
+      },
+      "selection": "Choose one provider; select actual model/effort in client controls.",
+      "inheritanceRule": "Corrective code work inherits the affected phase/review profile when stronger than this default."
+    },
+    {
+      "phase": "Resume",
+      "codex": {
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "medium"
+      },
+      "claudeCode": {
+        "model": "claude-sonnet-5-5",
+        "effort": "medium",
+        "thinkingMode": "adaptive"
+      },
+      "selection": "Choose one provider; select actual model/effort in client controls.",
+      "inheritanceRule": "Use this only for context recovery; then switch to the next selected phase profile."
+    }
+  ]
+}
