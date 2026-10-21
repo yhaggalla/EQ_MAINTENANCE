@@ -1,0 +1,35 @@
+# CICT EQ Maintenance - P03 QC model prototype
+
+Interactive Three.js prototype of the drawing-derived CICT-J526A-STS model (version 1). **Synthetic equipment, bindings and history only. Nothing is saved, there is no sign-in, and the QC-DEMO association is not a fleet fact.**
+
+## Run
+
+```powershell
+node artifacts/prototypes/p03-qc-model/serve.mjs     # http://127.0.0.1:5313/
+```
+
+The page needs HTTP (ES modules and an import map), so `file://` does not work. three.js 0.186.1 is vendored under `vendor/three/` (MIT licence included); the generated model is served from `artifacts/models` under `/models/`; the catalogue and parameter references come read-only from `documents/prompt-pack/reference` under `/ref/`. No CDN, no network access.
+
+| Link | Shows |
+| --- | --- |
+| `/?eq=eq-qc-demo-01` | Overall mode, full-crane view |
+| `/?eq=eq-qc-demo-01&main=mi-q01-01&mode=technical` | Main 01 Hoist: union of bound positions |
+| `/?eq=eq-qc-demo-01&sub=si-q01-011&mode=technical` | Sub 011 |
+| `/?eq=eq-qc-demo-01&part=pp-q01-041&mode=technical` | Main hoist motor A on QC-DEMO-01 |
+| `/?eq=eq-qc-demo-02&part=pp-q02-041&mode=technical` | Same model node on QC-DEMO-02: different position ID and history |
+| `/?eq=eq-qc-demo-01&mode=technical&iso=1` | Machinery house isolated |
+| `/?eq=eq-qc-demo-01&container=machinery-house` | Spatial group selection (not a mechanism) |
+| `&view=side` / `end-ws` / `end-ls` / `top` | Aligned orthographic views |
+| `&viewer=nowebgl` / `loadfail` / `contextlost` | Fallback simulations |
+| `capture.html?view=side&cx=..&cy=..&w=..&h=..` | Bare render used for the drawing comparisons |
+
+From the P02 prototype (`node artifacts/prototypes/p02-ui/serve.mjs`), the QC-DEMO-01/02 detail page has an **Open 3D model (P03)** link that opens this page with the same equipment, main/sub selection and part (passed as its semantic key; a P02 placeholder key that is not in the drawing-derived template is reported, never guessed).
+
+## Files
+
+- `js/viewer.mjs` - viewer core (`QcViewer`): loading with sha256 check, picking policy, modes, isolation, union-bounds focus with occlusion-aware direction, interruptible transitions, labels with decluttering, aligned orthographic views, disposal.
+- `js/app.mjs` - page: URL selection state shared by tree, breadcrumb, scene and panel; synthetic history panel; fallbacks.
+- `js/data.mjs` - synthetic equipment, exact-key bindings and synthetic jobs.
+- `serve.mjs` - localhost static server.
+
+Checks: `node tools/p03/check_model_prototype.mjs --gpu hardware|swiftshader`, `node tools/p03/check_no_webgl.mjs`; captures: `node tools/p03/capture.mjs`; comparisons: `python -I -X utf8 tools/p03/compose_comparisons.py`. Evidence: `docs/evidence/P03/P03_EVIDENCE.md`.

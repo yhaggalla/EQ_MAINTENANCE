@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QC model prototype</title>
+  <meta name="description" content="CICT EQ Maintenance P03: interactive CICT-J526A-STS QC model prototype with synthetic equipment bindings. Nothing is saved; not a production view.">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="css/p03.css">
+  <script type="importmap">
+  { "imports": { "three": "./vendor/three/three.module.js", "three/addons/": "./vendor/three/addons/" } }
+  </script>
+</head>
+<body>
+  <a class="skip" href="#tree">Skip to mechanism tree</a>
+  <header class="top">
+    <div class="brand"><strong>EQ Maintenance</strong> <span class="sep">/</span> QC model prototype <span class="tag">P03 - synthetic bindings, nothing saved</span></div>
+    <label class="eqpick">Equipment
+      <select id="eq-select" aria-describedby="eq-note"></select>
+    </label>
+    <span id="eq-note" class="note">Synthetic QC-DEMO items share the CICT-J526A-STS v1 template; each has its own position IDs and history.</span>
+  </header>
+  <nav class="crumbs" aria-label="Breadcrumb"><ol id="crumbs"></ol></nav>
+  <main class="layout">
+    <section class="pane tree-pane" aria-labelledby="tree-h">
+      <h2 id="tree-h">Mechanisms</h2>
+      <div id="tree" role="tree" aria-labelledby="tree-h" tabindex="-1"></div>
+      <h2 id="cont-h">Spatial groups <span class="hint">(not mechanisms)</span></h2>
+      <div id="containers" class="chips" role="group" aria-labelledby="cont-h"></div>
+    </section>
+    <section class="pane view-pane" aria-label="3D model viewport">
+      <div class="toolbar" role="toolbar" aria-label="Viewer controls">
+        <div class="seg" role="radiogroup" aria-label="Display mode">
+          <button type="button" data-mode="overall" role="radio">Overall</button>
+          <button type="button" data-mode="technical" role="radio">Technical</button>
+        </div>
+        <button type="button" id="btn-iso" aria-pressed="false">Isolate machinery house</button>
+        <button type="button" id="btn-fit">Fit selection</button>
+        <button type="button" id="btn-reset">Reset view</button>
+        <button type="button" id="btn-labels" aria-pressed="true">Labels</button>
+        <label class="views">Aligned view
+          <select id="view-select">
+            <option value="">Perspective (orbit)</option>
+            <option value="side">Side elevation</option>
+            <option value="end-ws">End view from waterside</option>
+            <option value="end-ls">End view from landside</option>
+            <option value="top">Plan (top)</option>
+          </select>
+        </label>
+      </div>
+      <div id="viewport" class="viewport">
+        <div id="status-badge" class="status-badge" aria-live="polite"></div>
+        <div id="orient" class="orient" aria-hidden="true"></div>
+        <div id="hint" class="hint-bubble" role="status" aria-live="polite"></div>
+        <div id="fallback" class="fallback" hidden></div>
+        <div class="legend" aria-label="Legend">
+          <span><i class="sw paint"></i>CICT red paint (normal appearance, not a status)</span>
+          <span><i class="sw sel"></i>Selected</span>
+          <span><i class="sw hot"></i>Location marker (approximate)</span>
+          <span><i class="sw work"></i>Open work (synthetic)</span>
+        </div>
+      </div>
+      <div id="perf" class="perf" aria-live="off"></div>
+    </section>
+    <section class="pane info-pane" aria-labelledby="info-h">
+      <h2 id="info-h">Selection</h2>
+      <div id="info"></div>
+    </section>
+  </main>
+  <script type="module" src="js/app.mjs"></script>
+</body>
+</html>

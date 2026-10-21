@@ -1,0 +1,12 @@
+{
+  "assets/models/source/cict-j526a-sts/params.json": "6719581d3c7469273f19ac9ae47c0ae34254e823b224b3184531f04b1e789dbf",
+  "assets/models/source/cict-j526a-sts/build.mjs": "be2160a2016384d38869b3584bfa6be0ba0f0a23b0ede502862057add003828b",
+  "tools/model-generator/generate.mjs": "75bb4bb9b046472205f2440f3edd767083e3386f8a23dda68ad4eb66abfa34d8",
+  "tools/model-generator/lib/kit.mjs": "98656456e45237602baeb55f8f74fd434327fb2923178c7fff0a290204033721",
+  "tools/model-generator/lib/scene-builder.mjs": "83a9ba78a19a72cf0da9e649d070cb3c0201edb6589ff5eb469e771a1b3a56e2",
+  "tools/model-generator/package-lock.json": "13c35ee69b0c30a86d2f99086f4fb50b84b4a11a67f51f3cbd6e7aa9ba840849",
+  "artifacts/models/cict-j526a-sts-scene/1/scene.glb": "3a4d0ee4078c5f3554ce421a46a88837003b2419bc450a094d4b83ab1ddb7ce4",
+  "artifacts/models/cict-j526a-sts-scene/1/manifest.json": "e957d867c9919619f2473883fd9df1200babbf32f11b86b2833914bb8c3044fe",
+  "artifacts/models/cict-j526a-sts-scene/1/provenance.md": "bd32ccb8c7197fe3f3bb2876dc3455b21269c43a092513603fd768b11b27ee55",
+  "artifacts/models/cict-j526a-sts-scene/1/landmarks.json": "da7fb64ce991d40fa8b0b84ff9899f5dd3a137fecaa1f8f038ffc4cab9b27c8e"
+}

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>QC model capture</title>
+  <meta name="description" content="P03 evidence helper: renders the generated QC scene in an aligned orthographic or perspective view for drawing comparison. Prototype only.">
+  <style>html,body{margin:0;height:100%;background:#fff;overflow:hidden} #v{position:fixed;inset:0} .qc-labels{display:none}</style>
+  <script type="importmap">{ "imports": { "three": "./vendor/three/three.module.js", "three/addons/": "./vendor/three/addons/" } }</script>
+</head>
+<body>
+  <div id="v"></div>
+  <script type="module">
+    // ?view=side|end-ws|end-ls|top|persp &cx &cy &w &h (metres on the view plane) &mode=overall|technical &bg=#ffffff &cam=x,y,z&tgt=x,y,z&fov=35
+    import { QcViewer } from './js/viewer.mjs';
+    const q = new URLSearchParams(location.search);
+    const man = await (await fetch('models/cict-j526a-sts-scene/1/manifest.json')).json();
+    const v = new QcViewer(document.getElementById('v'), { preserveDrawingBuffer: true, reducedMotion: true });
+    v.renderer.setClearColor(q.get('bg') || '#ffffff');
+    await v.load('models/cict-j526a-sts-scene/1/scene.glb', man);
+    v.setMode(q.get('mode') || 'overall');
+    if (q.get('hideQuay') !== '0') { const quay = v.objByKey.get('gantry.quay.reference'); if (quay) quay.visible = false; }
+    const view = q.get('view') || 'persp';
+    if (view === 'persp') {
+      const n = (s) => s.split(',').map(Number);
+      if (q.get('fov')) { v.persp.fov = Number(q.get('fov')); v.persp.updateProjectionMatrix(); }
+      if (q.get('cam')) { v.persp.position.set(...n(q.get('cam'))); v.controls.target.set(...n(q.get('tgt'))); v.controls.update(); } else v.resetView(true);
+    } else v.useOrtho(view, { cx: +q.get('cx'), cy: +q.get('cy'), w: +q.get('w'), h: +q.get('h') });
+    v._renderNow();
+    window.__done = { info: v.lastInfo };
+  </script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+{
+  "generatedFrom": "assets/models/source/cict-j526a-sts/params.json",
+  "checks": [
+    {
+      "name": "rail gauge (rail centrelines)",
+      "expected": 30,
+      "actual": 30,
+      "deviationPct": 0,
+      "tolerancePct": 1,
+      "pass": true,
+      "kind": "measured",
+      "note": "J526A00/J526A0100 30000"
+    },
+    {
+      "name": "outreach: hoist centre at outreach limit from waterside rail",
+      "expected": 70,
+      "actual": 70,
+      "deviationPct": 0,
+      "tolerancePct": 1,
+      "pass": true,
+      "kind": "measured",
+      "note": "display position at outreach limit"
+    },
+    {
+      "name": "backreach + tail: girder end from landside rail",
+      "expected": 31,
+      "actual": 31,
+      "deviationPct": 0,
+      "tolerancePct": 1,
+      "pass": true,
+      "kind": "measured",
+      "note": "J526A0100 20000 + 11000"
+    },
+    {
+      "name": "boom tip X from hinge line",
+      "expected": 75.9,
+      "actual": 75.900002,
+      "deviationPct": 0,
+      "tolerancePct": 1,
+      "pass": true,
+      "kind": "measured",
+      "note": "J526A0100 75900"
+    },
+    {
+      "name": "overall height (apex head top)",
+      "expected": 83.356,
+      "actual": 83.356003,
+      "deviationPct": 0,
+      "tolerancePct": 1,
+      "pass": true,
+      "kind": "measured",
+      "note": "J526A00 marker 83356; NOT the 63 m total lift"
+    },
+    {
+      "name": "A-frame structural top",
+      "expected": 79.64,
+      "actual": 79.639998,
+      "deviationPct": 0,
+      "tolerancePct": 1,
+      "pass": true,
+      "kind": "drawing-derived",
+      "note": "5000 + 49000 + 25640"
+    },
+    {
+      "name": "waterside portal top",
+      "expected": 54,
+      "actual": 54,
+      "deviationPct": 0,
+      "tolerancePct": 1,
+      "pass": true,
+      "kind": "drawing-derived",
+      "note": "5000 + 49000"
+    },
+    {
+      "name": "landside portal top",
+      "expected": 54.25,
+      "actual": 54.25,
+      "deviationPct": 0,
+      "tolerancePct": 1,
+      "pass": true,
+      "kind": "drawing-derived",
+      "note": "5000 + 49250 (U-05)"
+    },
+    {
+      "name": "girder underside elevation",
+      "expected": 50.5,
+      "actual": 50.5,
+      "deviationPct": 0,
+      "tolerancePct": 1,
+      "pass": true,
+      "kind": "drawing-derived",
+      "note": "50500 interpretation (U-19)"
+    },
+    {
+      "name": "trolley wheels on the girder rail",
+      "expected": 52.42,
+      "actual": 52.419998,
+      "deviationPct": 0,
+      "tolerancePct": 1,
+      "pass": true,
+      "kind": "drawing-derived",
+      "note": "girder underside + 1800 box + rail"
+    },
+    {
+      "name": "lift above rail: spreader underside",
+      "expected": 45,
+      "actual": 45,
+      "deviationPct": 0,
+      "tolerancePct": 1,
+      "pass": true,
+      "kind": "measured",
+      "note": "display position at upper limit"
+    },
+    {
+      "name": "tie-beam clearance",
+      "expected": 12.5,
+      "actual": 12.5,
+      "deviationPct": 0,
+      "tolerancePct": 1,
+      "pass": true,
+      "kind": "measured",
+      "note": "12500"
+    },
+    {
+      "name": "leg centre spacing (end view)",
+      "expected": 20.4,
+      "actual": 20.4,
+      "deviationPct": 0,
+      "tolerancePct": 1,
+      "pass": true,
+      "kind": "measured",
+      "note": "20400"
+    },
+    {
+      "name": "gantry overall length (end view)",
+      "expected": 27,
+      "actual": 27,
+      "deviationPct": 0,
+      "tolerancePct": 1,
+      "pass": true,
+      "kind": "measured",
+      "note": "27000 (buffers to buffers)"
+    },
+    {
+      "name": "machinery house length along rails",
+      "expected": 18.8,
+      "actual": 18.8,
+      "deviationPct": 0,
+      "tolerancePct": 2,
+      "pass": true,
+      "kind": "measured",
+      "note": "18200 walls; roof overhang 300 each side included"
+    },
+    {
+      "name": "headblock sheave-box span",
+      "expected": 5.2,
+      "actual": 5.2,
+      "deviationPct": 0,
+      "tolerancePct": 1,
+      "pass": true,
+      "kind": "measured",
+      "note": "J526A1200 5200"
+    },
+    {
+      "name": "overall height is not the 63 m total lift",
+      "expected": "!= 63",
+      "actual": 83.356003,
+      "pass": true,
+      "kind": "invariant"
+    }
+  ]
+}

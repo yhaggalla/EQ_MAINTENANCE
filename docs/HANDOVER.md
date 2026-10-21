@@ -4,6 +4,89 @@ Rolling handover for CICT EQ Maintenance. Each phase appends its record; the new
 
 ---
 
+## P03 QC model prototype from drawings - 21 October 2026
+
+### Runtime record
+
+| Item | Value |
+| --- | --- |
+| Recommended profile | Codex gpt-6-astra, xhigh; Claude Code claude-opus-5-5, high, adaptive thinking |
+| Actual client | Claude Code subagent eq-build-opus-high (delegated by the `/eq-phase` orchestrator; prompt logged in `docs/runs/P03-20261021-1541.md`) |
+| Actual model / effort | claude-opus-5-5; effort high (per agent definition) |
+| Fallback / escalation | None. The first run was interrupted (API connection error) when it started its final check run; the orchestrator resumed P03 in a new run of the same agent, which inspected the partial work on disk, completed it and ran every check once |
+
+### Outcome
+
+P03 complete. A drawing-derived, interactive CICT-J526A-STS model (version 1, draft, not assigned to any real QC) with editable source, deterministic generator, GLB, node manifest, provenance/dimension table, synthetic equipment bindings, an interactive prototype linked from the P02 review flow, aligned drawing comparisons and a performance/fallback report. No production code, database, Portal change or deployment.
+
+### Requirement IDs addressed (prototype evidence only; acceptance cases remain NOT RUN)
+
+S04, S05, S06, S07 (synthetic history), S12 (separate position IDs per equipment for one template), S14 (source-linked parameters, U-01/U-02 shown as conflicts), S16 (keyboard tree, fallbacks, 1366 and 390 px layouts), S17 (reproducible model, measured counters). Supports VIS01, VIS02, VIS03, VIS04, VIS05, VIS06, VIS08, VIS09, VIS10 at prototype level. VIS07 (RTG/ES and unverified QC) remains covered by the P02 prototype only.
+
+### Files changed
+
+New:
+- Model source: `assets/models/source/cict-j526a-sts/` (`params.json`, `build.mjs`, `README.md` with build/export instructions and tool versions)
+- Generator and validator: `tools/model-generator/` (`generate.mjs`, `validate.mjs`, `lib/kit.mjs`, `lib/scene-builder.mjs`, `package.json`, `package-lock.json`; `node_modules/` is git-ignored and restored by `npm ci`)
+- Generated model: `artifacts/models/cict-j526a-sts-scene/1/` (`scene.glb`, `manifest.json`, `provenance.md`, `landmarks.json`, `checksums.json`)
+- Prototype: `artifacts/prototypes/p03-qc-model/` (`index.html`, `capture.html`, `css/p03.css`, `js/app.mjs`, `js/viewer.mjs`, `js/data.mjs`, `serve.mjs`, `README.md`, vendored `vendor/three/` 0.186.1 with licence)
+- Check/capture tools: `tools/p03/` (`check_model_prototype.mjs`, `check_bindings.mjs`, `check_no_webgl.mjs`, `capture.mjs`, `cdp.mjs`, `alignment.json`, `compose_comparisons.py`)
+- Raw renders: `artifacts/p03-captures/` (9 PNG)
+- Evidence: `docs/evidence/P03/P03_EVIDENCE.md`, `registration-validation.json`, `binding-validation.json`, `browser-checks-hardware.json`, `browser-checks-swiftshader.json`, `no-webgl-check.json`, `p02-regression-checks.json`, `capture-log.json`, `comparison/` (12 PNG), `screenshots/` (19 PNG)
+
+Modified: `artifacts/prototypes/p02-ui/js/views-equipment.js` ("Open 3D model (P03)" link on QC-DEMO-01/02 detail), `docs/DECISIONS.md` (D-55 to D-64, U-19, notes on U-04/U-05/U-06/U-11), `docs/IMPLEMENTATION_STATUS.md`, `docs/HANDOVER.md`.
+
+Untouched: `documents/` (including the ten new site photos, read only), `As-bulit drawing/`, `mockups/` (not P03 output; not used), `.claude/`, `F:\CODEX\CICT-ENG_MAIN_PAGE`.
+
+### Checks run and results (resumed run, after the last change)
+
+| Check | Result |
+| --- | --- |
+| `npm ci` in `tools/model-generator` | three 0.186.1 installed from the lockfile |
+| `node tools/model-generator/generate.mjs` (plus two runs into scratch folders) | `scene.glb` sha256 `3a4d0ee4...7ce4` and `manifest.json` sha256 `e957d867...44fe` identical in all three outputs; 662,784 bytes |
+| `node tools/model-generator/validate.mjs` | 25/25 pass, status `validated`, exit 0 (includes gauge 30 m, overall height 83.356 m and not 63 m, landmarks within 1 %, budgets) |
+| `node tools/p03/check_bindings.mjs` | 11/11 pass, exit 0 |
+| `node tools/p03/capture.mjs` (Intel UHD 630, headless Chrome 155) | 27 captures, then `python -I -X utf8 tools/p03/compose_comparisons.py` wrote 12 comparison images |
+| `node tools/p03/check_model_prototype.mjs --gpu hardware` | 31/31 pass, exit 0 |
+| `node tools/p03/check_model_prototype.mjs --gpu swiftshader` | 31/31 pass, exit 0 |
+| `node tools/p03/check_no_webgl.mjs` (Chrome with WebGL disabled) | pass, 0 canvases, tree selection works, exit 0 |
+| `node tools/p02/check_prototype.mjs http://127.0.0.1:5312/ docs/evidence/P03/p02-regression-checks.json` | 50/50 pass, exit 0 |
+| Visual review in the resumed run of the regenerated side, end-ws and top overlays, model close-ups and site-photo close-ups | Linework still coincides (the resumed run changed colours only); end-ls reviewed in the first run only |
+
+Evidence type: source review, scripted model checks and headless-browser checks on this workstation, with synthetic bindings. No authenticated, target-environment or production verification. Performance figures are workstation measurements, not the agreed office reference desktop/LAN.
+
+Measured: 13,656 triangles / 91 draw calls (Overall), 18,384 / 134 (Technical); GLB 647 KiB; 10 s orbit 60.1 fps hardware, 27.9 fps SwiftShader; model usable 301 ms after navigation (hardware, loopback). All within the provisional budgets except that SwiftShader software rendering is below 30 fps (not the reference device).
+
+### Site photos
+
+Ten photos `documents/Image_20261021165608.jpg` to `Image_20261021170007.jpg` appeared during the first run. The resumed run used them for appearance only (D-62): headblock and spreader yellow, walkways/stairs/platforms red, light house on a red deck; `comparison/site-photo-closeups.png` pairs two of them with model close-ups. They were not used for dimensions and were not modified or moved.
+
+### Approximations (summary; full list in evidence s7)
+
+Girder elevation interpretation (U-19); fixed display pose; house position/roof and internal equipment positions scaled, simple shapes; electrical cabinets not identified (U-11); several hotspots with unestablished locations; trolley wheel count and sheave sizes estimated; simplified reeving; lacing pattern and member sections simplified; gantry drive shapes generic; access simplified; spreader from ISO dimensions (U-10); classification proposals for Admin review (D-61); logos, hazard striping and small fittings omitted.
+
+### Open issues and impact
+
+| ID | Issue | Impact |
+| --- | --- | --- |
+| U-19 | Girder/trolley-rail elevation interpretation (about 1.9 m alternative) | Visual only; labelled; confirm technically when convenient |
+| U-10, U-11 | Missing spreader/slip-contact drawings; electrical cabinet identities | Positions stay approximate hotspots |
+| D-61 | Classification proposals (012/032 drum brakes, sheaves, 046, 151, 121) | Admin confirms in P06 |
+| D-02 | .NET 10 SDK not installed | Blocks P04 only |
+| Repository | Untracked `documents/Image_20261021*.jpg` (about 45 MB) and `mockups/` are not P03 output; a blanket `git add -A` would commit them | Orchestrator/user decides whether to track them |
+
+No genuinely missing business information blocks R02; no question for the user is pending.
+
+### Git
+
+Repository `F:\CODEX\EQ_MAINTENANCE`, branch `main`, HEAD `0dbb1c8`; P03 changes are **uncommitted** (left for the orchestrator to commit). Regenerating the model after a commit changes only the manifest's `generator.sourceCommit`/`sourceDirty` fields; `scene.glb` is unaffected.
+
+### Next prompt
+
+**R02 UX and model fidelity review** (read-only, fresh context; Claude Code claude-opus-5-5, high). Start both servers (`node artifacts/prototypes/p03-qc-model/serve.mjs`, `node artifacts/prototypes/p02-ui/serve.mjs`); read `docs/evidence/P03/P03_EVIDENCE.md` first. U1 follows a PASS.
+
+---
+
 ## P02 Reviewable UI prototype - 21 October 2026
 
 ### Runtime record

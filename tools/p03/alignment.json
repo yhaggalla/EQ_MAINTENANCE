@@ -1,0 +1,13 @@
+{
+  "note": "Reference points on J526A00 p1 rendered at 400 dpi (6617 x 4678 px). ppm = pixels per metre from the 30000 rail gauge (2965.5 - 2167.5 = 798 px). Points read from zoomed crops in P03; +/- 2 px.",
+  "pdf": "As-bulit drawing/J526A00（structure parameters）.pdf",
+  "page": 1,
+  "dpi": 400,
+  "ppm": 26.6,
+  "views": {
+    "side":   { "title": "Side elevation (J526A00 side view): landside left, waterside right", "crop": [1250, 1150, 5080, 3640], "ref": [2965.5, 3563], "u": "X", "v": "Y", "refNote": "waterside rail extension line / rail level" },
+    "end-ws": { "title": "End view from the waterside (J526A00 left end view; cable reel item 21 on the right)", "crop": [280, 1150, 1132, 3640], "ref": [706, 3562], "u": "-Z", "v": "Y", "refNote": "15800 bogie-group centre / rail level" },
+    "end-ls": { "title": "End view from landside (J526A00 right end view; stair and elevator on the left)", "crop": [5400, 1150, 6252, 3640], "ref": [5826, 3562], "u": "Z", "v": "Y", "refNote": "15800 bogie-group centre / rail level" },
+    "top":    { "title": "Plan (J526A00 plan): waterside right", "crop": [1250, 3754, 5080, 4606], "ref": [2965.5, 4180], "u": "X", "v": "-Z", "refNote": "waterside rail line (aligned with side view) / girder centreline (estimated)" }
+  }
+}

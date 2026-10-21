@@ -181,7 +181,18 @@ window.EQ = window.EQ || {};
         h('button', { type: 'button', class: 'btn-sm', 'aria-label': 'Reset view', title: 'Reset view', onClick: () => EQ.resetView() }, icon('reset'), 'Reset')),
       h('label', { class: 'check' }, h('input', { type: 'checkbox', checked: ui.showWork ? true : null, 'data-fk': 'work', onChange: (e) => { ui.showWork = e.target.checked; EQ.rerender(); } }), 'Open-work markers'),
       ));
-    vp.appendChild(h('div', { class: 'vp-info' }, h('span', { class: 'row' }, EQ.statusBadge(eq.status, true), h('span', { class: 'small muted' }, 'Paint colour is never status')), h('span', { class: 'tag gold' }, 'Placeholder schematic, not the P03 model')));
+    // P03 integration: open the drawing-derived 3D model prototype for the same synthetic equipment and selection.
+    // P03 runs on its own local server (node artifacts/prototypes/p03-qc-model/serve.mjs). Part keys are passed as
+    // semantic keys ('.' -> '_' for the deep-link character rule); P03 resolves them by exact key only.
+    const p03 = ['eq-qc-demo-01', 'eq-qc-demo-02'].includes(eq.id) ? (() => {
+      const u = new URLSearchParams({ eq: eq.id, from: 'p02' });
+      if (sel.main) u.set('main', sel.main); if (sel.sub) u.set('sub', sel.sub);
+      if (sel.part) { const p = EQ.pos(sel.part); if (p) u.set('pkey', p.key.replace(/\./g, '_')); }
+      if (mode === 'technical') u.set('mode', 'technical');
+      if (q.container === 'machinery-house') u.set('container', 'machinery-house');
+      return h('a', { class: 'btn-sm', href: 'http://127.0.0.1:5313/?' + u.toString(), target: '_blank', rel: 'noopener', 'data-fk': 'open-p03', title: 'Opens the P03 three-dimensional model prototype (separate local server on port 5313) for this equipment and selection' }, 'Open 3D model (P03)');
+    })() : null;
+    vp.appendChild(h('div', { class: 'vp-info' }, h('span', { class: 'row' }, EQ.statusBadge(eq.status, true), h('span', { class: 'small muted' }, 'Paint colour is never status')), h('span', { class: 'row' }, h('span', { class: 'tag gold' }, 'Placeholder schematic, not the P03 model'), p03)));
     const stage = h('div', { class: 'vp-stage' },
       svg,
       noVisual ? h('div', { class: 'notice warn', style: 'position:absolute;left:.6rem;right:.6rem;bottom:.6rem', role: 'status' }, icon('info'), h('p', null, 'The selection has no visible representation in ' + (mode === 'technical' ? 'Technical' : 'Overall') + ' mode. ' + (mode === 'overall' ? 'Switch to Technical mode to see internals. ' : '') + 'The camera did not move.')) : null,

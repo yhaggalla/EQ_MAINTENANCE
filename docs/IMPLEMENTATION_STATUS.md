@@ -1,6 +1,6 @@
 # Implementation status
 
-Ledger of phases in the prompt-pack run order. A phase is marked complete only when its evidence exists. Last updated: 21 October 2026 (P02).
+Ledger of phases in the prompt-pack run order. A phase is marked complete only when its evidence exists. Last updated: 21 October 2026 (P03).
 
 ## Phase ledger
 
@@ -10,8 +10,8 @@ Ledger of phases in the prompt-pack run order. A phase is marked complete only w
 | 2 | P01 Architecture and contracts | **Complete** | 2026-10-21 | `docs/ARCHITECTURE.md`, `docs/DATA_CONTRACT.md`, `docs/API_CONTRACT.md`, `docs/PORTAL_INTEGRATION_PLAN.md`, `docs/evidence/P01/` | Contracts only, no code; coverage check 9/9; 7/7 diagrams valid |
 | 3 | R01 Scope and architecture review | **PASS** | 2026-10-21 | `docs/evidence/R01/review-20261021-1357.md`, `docs/evidence/R01/repair-20261021-1403.md`, `docs/evidence/R01/review-20261021-1418.md` | First review NEEDS FIXES (F1-F5), repaired, repeat review PASS; N1-N6 carried forward to P07 |
 | 4 | P02 UI prototype | **Complete** | 2026-10-21 | `artifacts/prototypes/p02-ui/`, `docs/UX_SPEC.md`, `docs/evidence/P02/` | Synthetic, in-memory prototype; 50/50 browser checks, 37/37 contrast pairs, 70 screenshots; QC viewer is an SVG placeholder |
-| 5 | P03 QC model prototype | Not started | | | Next |
-| 6 | R02 UX and model-fidelity review | Not started | | | |
+| 5 | P03 QC model prototype | **Complete** | 2026-10-21 | `docs/evidence/P03/`, `assets/models/source/cict-j526a-sts/`, `tools/model-generator/`, `artifacts/models/cict-j526a-sts-scene/1/`, `artifacts/prototypes/p03-qc-model/` | Drawing-derived CICT-J526A-STS v1 (168 nodes, 135 positions); validator 25/25, bindings 11/11, browser checks 31/31 hardware and 31/31 SwiftShader, no-WebGL pass, P02 regression 50/50; synthetic bindings only |
+| 6 | R02 UX and model-fidelity review | Not started | | | Next |
 | 7 | U1 User checkpoint | Not reached | | | Approval recorded in DECISIONS s4 |
 | 8 | P04 App foundation | Not started | | | Needs .NET 10 SDK (D-02) |
 | 9 | P05 Portal integration | Not started | | | Only phase allowed to edit the Portal repo |
@@ -34,13 +34,14 @@ All S01-S17 are **specified (P01 contracts), not implemented**. Ownership and ac
 
 ## Acceptance cases
 
-Every case in `documents/prompt-pack/ACCEPTANCE_CHECKLIST.md` is **NOT RUN**. P00 performed source validation that supports, but does not execute, SRC01-SRC03 (catalogue content verified at file level; no database import exists yet) and SRC05 (both gantry-speed observations confirmed in the drawings).
+Every case in `documents/prompt-pack/ACCEPTANCE_CHECKLIST.md` is **NOT RUN**. P00 performed source validation that supports, but does not execute, SRC01-SRC03 (catalogue content verified at file level; no database import exists yet) and SRC05 (both gantry-speed observations confirmed in the drawings). P03 produced prototype-level evidence (synthetic bindings, headless browser on this workstation) supporting VIS01-VIS06 and VIS08-VIS10; they stay NOT RUN until executed against the real app in P10/P11.
 
 ## Open source issues
 
-U-01 to U-18 in `docs/DECISIONS.md` s3 (U-16 to U-18 added in P01; all three are planned P05 Portal items). None blocks R01 or P02/P03. D-02 (.NET 10 SDK missing, rechecked in P01) blocks P04 until installed.
+U-01 to U-19 in `docs/DECISIONS.md` s3 (U-16 to U-18 added in P01, all planned P05 Portal items; U-19 girder/trolley-rail elevation interpretation added in P03). None blocks R02. D-02 (.NET 10 SDK missing, rechecked in P01) blocks P04 until installed.
 
 2026-10-21 R01 VERDICT: NEEDS FIXES (eq-review-opus-high) - docs/evidence/R01/review-20261021-1357.md; next: repair R01
 2026-10-21 Repair-R01 complete (eq-build-opus-high) - F1-F5 fixed in DATA/API/PORTAL contracts, D-42..D-44 added; evidence docs/evidence/R01/repair-20261021-1403.md; next: repeat R01
 2026-10-21 R01 VERDICT: PASS (eq-review-opus-high) - docs/evidence/R01/review-20261021-1418.md; carry N1-N6 to P07; next: P02
 2026-10-21 P02 complete (eq-build-sonnet-high) - UX_SPEC.md, prototype and evidence in docs/evidence/P02; decisions D-45..D-54; UX-1 carried to P07; next: P03
+2026-10-21 P03 complete (eq-build-opus-high) - QC model v1, generator, manifest, prototype and evidence in docs/evidence/P03; decisions D-55..D-64, U-19; site photos documents/Image_20261021*.jpg used for appearance only; next: R02

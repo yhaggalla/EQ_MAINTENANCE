@@ -1,0 +1,154 @@
+{
+  "manifest": "artifacts/models/cict-j526a-sts-scene/1/manifest.json",
+  "status": "validated",
+  "counts": {
+    "nodes": 168,
+    "positions": 135,
+    "hotspots": 19,
+    "containers": 10,
+    "decorative": 4
+  },
+  "results": [
+    {
+      "id": "schema",
+      "pass": true,
+      "detail": "schemaVersion 1 with nodes and instanceMaps"
+    },
+    {
+      "id": "units",
+      "pass": true,
+      "detail": "units = m"
+    },
+    {
+      "id": "asset-sha256",
+      "pass": true,
+      "detail": "716ac964a265d746cef2086fba55efa96d8a877175c9d619b9ed996a58b61fd1"
+    },
+    {
+      "id": "asset-bytes",
+      "pass": true,
+      "detail": "662556 bytes"
+    },
+    {
+      "id": "gltf-names-exactly-once",
+      "pass": true,
+      "detail": "120 names found once each"
+    },
+    {
+      "id": "glb-keys-in-manifest",
+      "pass": true,
+      "detail": "120 keyed GLB nodes all in manifest"
+    },
+    {
+      "id": "node-name-equals-key",
+      "pass": true,
+      "detail": "every keyed node is named by its key"
+    },
+    {
+      "id": "keys-unique",
+      "pass": true,
+      "detail": "168 unique keys"
+    },
+    {
+      "id": "keys-grammar",
+      "pass": true,
+      "detail": "grammar and container prefix rule satisfied"
+    },
+    {
+      "id": "parents-exist-no-cycles",
+      "pass": true,
+      "detail": {
+        "missingParent": [],
+        "cycles": []
+      }
+    },
+    {
+      "id": "parents-are-containers",
+      "pass": true,
+      "detail": "all parents are containers"
+    },
+    {
+      "id": "classification",
+      "pass": true,
+      "detail": "positions/hotspots carry an active catalogue sub under its main; containers/decorative carry none"
+    },
+    {
+      "id": "no-inactive-subcodes",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "id": "no-tyre-steer-diesel-on-qc",
+      "pass": true,
+      "detail": "no 043/044/045/09x nodes"
+    },
+    {
+      "id": "bounds-finite-nonempty",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "id": "thin-items-flagged",
+      "pass": true,
+      "detail": {
+        "note": "thin items use the 0.5 m minimum fit extent in the viewer",
+        "count": 25,
+        "examples": [
+          "gantry.rail.waterside",
+          "gantry.rail.landside",
+          "structure.backstay.tie.a",
+          "structure.backstay.tie.b",
+          "trolley-drive.brake.main",
+          "boom-hoist.brake.hs.main",
+          "trolley.sheave.set.a",
+          "trolley.sheave.set.b"
+        ]
+      }
+    },
+    {
+      "id": "hotspots-point-radius-qualifier",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "id": "instance-maps",
+      "pass": true,
+      "detail": "48 instanced positions in 2 carriers"
+    },
+    {
+      "id": "no-external-uris",
+      "pass": true,
+      "detail": "buffers/images: [{\"byteLength\":553752}][]"
+    },
+    {
+      "id": "plausible-gauge",
+      "pass": true,
+      "detail": "rail gauge 30.000 m"
+    },
+    {
+      "id": "overall-height-not-total-lift",
+      "pass": true,
+      "detail": "overall height 83.356 m (J526A00 apex marker 83.356; 63 m is total lift)"
+    },
+    {
+      "id": "budget-triangles",
+      "pass": true,
+      "detail": "18384 <= 150000"
+    },
+    {
+      "id": "budget-draw-calls",
+      "pass": true,
+      "detail": "134 (all modes) <= 200; overall 91, technical 134"
+    },
+    {
+      "id": "budget-asset-size",
+      "pass": true,
+      "detail": "662556 <= 8388608"
+    },
+    {
+      "id": "landmarks-within-tolerance",
+      "pass": true,
+      "detail": []
+    }
+  ]
+}

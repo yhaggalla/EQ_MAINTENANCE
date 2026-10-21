@@ -1,0 +1,582 @@
+{
+  "schemaVersion": 1,
+  "modelCode": "cict-j526a-sts-scene",
+  "equipmentModelCode": "CICT-J526A-STS",
+  "version": 1,
+  "authoringUnits": "mm",
+  "sceneUnits": "m",
+  "coordinateSystem": {
+    "up": "+Y",
+    "x": "+X along the boom, positive toward waterside (sea side)",
+    "z": "along the rails (gantry travel). +Z is the right-hand side for a viewer standing landside and looking toward the water",
+    "origin": "top of the waterside rail on the crane transverse centreline (landside rail at X = -30)",
+    "sideNames": "Leg/corner suffix 'a' = +Z end, 'b' = -Z end. 'ws' = waterside (X = 0), 'ls' = landside (X = -30)"
+  },
+  "provenanceKinds": {
+    "measured": "dimension printed on the cited sheet, used as an exact input",
+    "drawing-derived": "computed from printed dimensions (formula in the note)",
+    "estimated": "visual estimate from a scaled reading of the cited view; provisional 5 % silhouette tolerance",
+    "approximate-location": "placed inside a documented area; exact position/shape not established"
+  },
+  "params": {
+    "railGauge": {
+      "mm": 30000,
+      "kind": "measured",
+      "source": "J526A00 p1 particulars and side view; J526A0100 p1 (30000 +/-5)"
+    },
+    "outreach": {
+      "mm": 70000,
+      "kind": "measured",
+      "source": "J526A00 p1; J526A0100 p1 (from waterside rail)"
+    },
+    "backreach": {
+      "mm": 20000,
+      "kind": "measured",
+      "source": "J526A00 p1; J526A0100 p1 (from landside rail)"
+    },
+    "girderTailBeyondBackreach": {
+      "mm": 11000,
+      "kind": "measured",
+      "source": "J526A0100 p1 (11000 + 20000); J526A00 p1 (31000 from landside rail)"
+    },
+    "boomLength": {
+      "mm": 75900,
+      "kind": "measured",
+      "source": "J526A0100 p1: 75900 shares its extension line with the 70000 outreach and the 28000 hinge-to-Z2 dimension",
+      "note": "Boom tip at X = 75.9. The GA's separate 4000 beyond outreach is not used (its end point is not the boom tip in the GA side view)"
+    },
+    "hingeX": {
+      "mm": 0,
+      "kind": "estimated",
+      "source": "J526A0100 p1 detail III / Z1 section line at the waterside-rail extension line",
+      "note": "Hinge pin placed on the waterside-rail line; +/-0.5 m"
+    },
+    "mastOffsetLandside": {
+      "mm": 2000,
+      "kind": "measured",
+      "source": "J526A00 p1 and J526A0100 p1 '2000' (A-frame / waterside leg top centreline landside of waterside rail)"
+    },
+    "forestayInnerBoomX": {
+      "mm": 28000,
+      "kind": "measured",
+      "source": "J526A0100 p1 (28000 to Z2)"
+    },
+    "forestayOuterBoomSpacing": {
+      "mm": 34500,
+      "kind": "measured",
+      "source": "J526A0100 p1 (34500 Z2 to Z3)"
+    },
+    "forestayInnerBracket": {
+      "mm": 1350,
+      "kind": "measured",
+      "source": "J526A0100 p1 (1350 at Z2)"
+    },
+    "forestayOuterBracket": {
+      "mm": 1200,
+      "kind": "measured",
+      "source": "J526A0100 p1 (1200 at Z3)"
+    },
+    "forestayApexPinOffsetWaterside": {
+      "mm": 1650,
+      "kind": "measured",
+      "source": "J526A0100 p1 (1650 apex detail)"
+    },
+    "girderUndersideElevation": {
+      "mm": 50500,
+      "kind": "drawing-derived",
+      "source": "J526A00 p1 and J526A0100 p1 '50500'",
+      "note": "Interpreted as the girder/boom underside: the 50500 arrow ends on the lower girder line in the J526A00 side view, the aligned overlay matches, and the rear-brace slope (28040) then lands on the girder top. Alternative reading (trolley rail at 50.5 m, from lift 45 m + J526A0200 stack) differs by about 1.9 m; recorded as U-19"
+    },
+    "girderDepth": {
+      "mm": 1800,
+      "kind": "measured",
+      "source": "J526A0100 p1 section Z1-Z1 (1800)"
+    },
+    "girderRailSpacing": {
+      "mm": 6300,
+      "kind": "measured",
+      "source": "J526A0100 p1 (6300 +/-3) and J526A0200 p1 end view (6300 +/-3)"
+    },
+    "girderBoxWidth": {
+      "mm": 1090,
+      "kind": "measured",
+      "source": "J526A0100 p1 section Z1-Z1 (1090)"
+    },
+    "sillCentreElevation": {
+      "mm": 5000,
+      "kind": "measured",
+      "source": "J526A00 p1 end views (5000, with 1300 = half sill depth)"
+    },
+    "sillPinElevation": {
+      "mm": 3700,
+      "kind": "measured",
+      "source": "J526A0100 p1 (3700)"
+    },
+    "sillDepth": {
+      "mm": 2600,
+      "kind": "measured",
+      "source": "J526A0100 p1 views A/B (2600)"
+    },
+    "sillLength": {
+      "mm": 21050,
+      "kind": "measured",
+      "source": "J526A00 p1 end views (2625 + 15800 + 2625 = 21050)"
+    },
+    "bogieGroupSpacing": {
+      "mm": 15800,
+      "kind": "measured",
+      "source": "J526A00 p1; J526A0100 p1; J526A0600 p1"
+    },
+    "bogieOverall": {
+      "mm": 27000,
+      "kind": "measured",
+      "source": "J526A00 p1; J526A0600 p1"
+    },
+    "legCentreSpacing": {
+      "mm": 20400,
+      "kind": "measured",
+      "source": "J526A00 p1; J526A0100 p1 (20400 +/-3)"
+    },
+    "legClearSpacing": {
+      "mm": 18300,
+      "kind": "measured",
+      "source": "J526A00 p1; J526A0100 p1 (>= 18300)"
+    },
+    "portalTopWaterside": {
+      "mm": 54000,
+      "kind": "drawing-derived",
+      "source": "J526A00 p1 / J526A0100 p1 view B: 5000 + 49000",
+      "note": "U-05: landside view gives 5000 + 49250"
+    },
+    "portalTopLandside": {
+      "mm": 54250,
+      "kind": "drawing-derived",
+      "source": "J526A00 p1 / J526A0100 p1 view A: 5000 + 49250"
+    },
+    "portalUpperBeamDepth": {
+      "mm": 2850,
+      "kind": "measured",
+      "source": "J526A0100 p1 view B (2850)",
+      "note": "6300 + 45850 + 2850 = 55000 does not close with 54000; the 1 m difference is recorded as U-19"
+    },
+    "portalTieBeamUnderside": {
+      "mm": 12500,
+      "kind": "measured",
+      "source": "J526A00 p1; J526A0100 p1 (12500 clearance)"
+    },
+    "portalTieBeamCentre": {
+      "mm": 14100,
+      "kind": "drawing-derived",
+      "source": "J526A0100 p1: 3700 + 10400"
+    },
+    "legKnuckleElevation": {
+      "mm": 6300,
+      "kind": "drawing-derived",
+      "source": "J526A0100 p1: 3700 + 2600"
+    },
+    "watersideLegLean": {
+      "mm": 2000,
+      "kind": "measured",
+      "source": "J526A0100 p1: 2000 over 37060"
+    },
+    "watersideLegLeanHeight": {
+      "mm": 37060,
+      "kind": "measured",
+      "source": "J526A0100 p1"
+    },
+    "watersideLegLowerVertical": {
+      "mm": 7800,
+      "kind": "measured",
+      "source": "J526A0100 p1 (7800)"
+    },
+    "diagonalBraceRun": {
+      "mm": 28000,
+      "kind": "measured",
+      "source": "J526A0100 p1 slope 37060/28000, tube dia 1200 x 14"
+    },
+    "diagonalBraceDia": {
+      "mm": 1200,
+      "kind": "measured",
+      "source": "J526A0100 p1 (dia 1200 x 14)"
+    },
+    "aFrameHeight": {
+      "mm": 25640,
+      "kind": "measured",
+      "source": "J526A00 p1; J526A0100 p1 view B (25640)"
+    },
+    "aFrameTopSpacing": {
+      "mm": 6948,
+      "kind": "measured",
+      "source": "J526A0100 p1 views A/B (6948)"
+    },
+    "aFrameLegDia": {
+      "mm": 1200,
+      "kind": "measured",
+      "source": "J526A0100 p1 view B item 1 (dia 1200 x 14)"
+    },
+    "apexMarker": {
+      "mm": 83356,
+      "kind": "measured",
+      "source": "J526A00 p1 elevation marker 83356 (top of apex head)",
+      "note": "Overall crane height with boom lowered. 54000 + 25640 = 79640 is the A-frame structural top; the head (sheaves/guard) reaches 83356 (U-06 interpretation)"
+    },
+    "backstayFootFromLandsideRail": {
+      "mm": 25000,
+      "kind": "measured",
+      "source": "J526A0100 p1 (25000)"
+    },
+    "backstayFootAboveGirder": {
+      "mm": 600,
+      "kind": "measured",
+      "source": "J526A0100 p1 (600 at Y1)"
+    },
+    "backstayRise": {
+      "mm": 27640,
+      "kind": "measured",
+      "source": "J526A0100 p1 slope triangle 27640 / 53000"
+    },
+    "backstayRun": {
+      "mm": 53000,
+      "kind": "measured",
+      "source": "J526A0100 p1 slope triangle 27640 / 53000"
+    },
+    "backstayDia": {
+      "mm": 1000,
+      "kind": "measured",
+      "source": "J526A0100 p1 (dia 1000 x 14)"
+    },
+    "rearBraceRise": {
+      "mm": 28040,
+      "kind": "measured",
+      "source": "J526A0100 p1 slope 28040 / 27375"
+    },
+    "rearBraceRun": {
+      "mm": 27375,
+      "kind": "measured",
+      "source": "J526A0100 p1 slope 28040 / 27375"
+    },
+    "planBraceDia": {
+      "mm": 800,
+      "kind": "measured",
+      "source": "J526A0100 p1 plan (dia 800 x 12)"
+    },
+    "planBraceRun": {
+      "mm": 15000,
+      "kind": "measured",
+      "source": "J526A0100 p1 plan slope 5126 / 15000"
+    },
+    "planBraceLateral": {
+      "mm": 5126,
+      "kind": "measured",
+      "source": "J526A0100 p1 plan slope 5126 / 15000"
+    },
+    "machineryHouseLengthZ": {
+      "mm": 18200,
+      "kind": "measured",
+      "source": "J526A3000 p1 (18200 = 9200 + 9000)"
+    },
+    "machineryHouseDepthX": {
+      "mm": 10500,
+      "kind": "measured",
+      "source": "J526A3000 p1 (10500; 11500 incl. 1000 seaside walkway)"
+    },
+    "machineryHouseWallHeight": {
+      "mm": 5100,
+      "kind": "measured",
+      "source": "J526A3000 p1 sections A-A/B-B (5100)"
+    },
+    "machineryHouseRoofRise": {
+      "mm": 1200,
+      "kind": "estimated",
+      "source": "J526A3000 p1 sections A-A/B-B gable, scaled; J526A00 p1 side view roof ridge about 59.2 m"
+    },
+    "machineryHouseSeasideWallX": {
+      "mm": -31600,
+      "kind": "estimated",
+      "source": "J526A00 p1 side view and J526A0100 p1 plan (machinery frame item 7), scaled",
+      "note": "+/-0.5 m"
+    },
+    "machineryHouseFloorElevation": {
+      "mm": 53000,
+      "kind": "estimated",
+      "source": "J526A00 p1 side view aligned overlay: house base about 52.6-53.0 m on the machinery frame above the girder top (52.3 m)",
+      "note": "+/-0.5 m"
+    },
+    "machineryHouseCentreZ": {
+      "mm": 850,
+      "kind": "estimated",
+      "source": "J526A3000 p1 plan: 9200 / 9000 split is offset from the girder centreline; scaled"
+    },
+    "mainHoistDrumDia": {
+      "mm": 1180,
+      "kind": "measured",
+      "source": "J526A0300 p1 (drum dia 1180)"
+    },
+    "mainHoistDrumLength": {
+      "mm": 3616,
+      "kind": "measured",
+      "source": "J526A0300 p1 (3616)"
+    },
+    "mainHoistDrumHalfSpan": {
+      "mm": 4208,
+      "kind": "measured",
+      "source": "J526A0300 p1 plan (4208 reducer centre to drum outer end)"
+    },
+    "mainHoistMotorOffset": {
+      "mm": 1600,
+      "kind": "measured",
+      "source": "J526A0300 p1 plan (1600 drum axis to motor axis)"
+    },
+    "mainHoistDrumAxisHeight": {
+      "mm": 940,
+      "kind": "measured",
+      "source": "J526A0300 p1 (940)"
+    },
+    "mainHoistMotorAxisHeight": {
+      "mm": 710,
+      "kind": "measured",
+      "source": "J526A0300 p1 (710)"
+    },
+    "mainHoistBrakeDiscDia": {
+      "mm": 2300,
+      "kind": "measured",
+      "source": "J526A0300 p1 view G (dia 2300 drum brake disc)"
+    },
+    "mainHoistHsBrakeDiscDia": {
+      "mm": 900,
+      "kind": "measured",
+      "source": "J526A0300 p1 B-B (dia 900)"
+    },
+    "mainHoistDriveX": {
+      "mm": -40300,
+      "kind": "approximate-location",
+      "source": "J526A3000 p1 plan, scaled (drum axis)"
+    },
+    "trolleyDriveX": {
+      "mm": -35800,
+      "kind": "approximate-location",
+      "source": "J526A3000 p1 plan, scaled"
+    },
+    "trolleyDriveDrumDia": {
+      "mm": 920,
+      "kind": "measured",
+      "source": "J526A0400 (J526A04) p1 (drum dia 920)"
+    },
+    "boomHoistX": {
+      "mm": -33100,
+      "kind": "approximate-location",
+      "source": "J526A3000 p1 plan, scaled"
+    },
+    "boomHoistDrumDia": {
+      "mm": 1530,
+      "kind": "measured",
+      "source": "J526A0500 (J526A05) p1; J526A3000 p1 B-B (dia 1530)"
+    },
+    "mainTransformerSize": {
+      "mm": [
+        2200,
+        2294,
+        1450
+      ],
+      "kind": "measured",
+      "source": "J526A3000 p1 plan label 'Main Trans. 2200 x 1450 x 2294H' (W x D x H; mapped to Z, Y, X)"
+    },
+    "auxTransformerSize": {
+      "mm": [
+        1500,
+        1650,
+        1200
+      ],
+      "kind": "measured",
+      "source": "J526A3000 p1 plan label 'Aux. Trans. 1500W x 1200D x 1650H'"
+    },
+    "switchgearSize": {
+      "mm": [
+        1950,
+        2300,
+        1500
+      ],
+      "kind": "measured",
+      "source": "J526A3000 p1 plan label 'Switch gear 1950W x 1500D x 2300H'"
+    },
+    "electricalRoomWidthZ": {
+      "mm": 3300,
+      "kind": "measured",
+      "source": "J526A3000 p1 elevation (3300 end bay)"
+    },
+    "trolleyFrameLengthX": {
+      "mm": 5620,
+      "kind": "drawing-derived",
+      "source": "J526A0200 p1 side view: 400 + 2560 + 2260 + 400"
+    },
+    "trolleyFrameWidthZ": {
+      "mm": 5475,
+      "kind": "measured",
+      "source": "J526A0200 p1 plan (5475)"
+    },
+    "trolleyWheelDia": {
+      "mm": 630,
+      "kind": "measured",
+      "source": "J526A0200 p1 tolerance table / ZT2-015022",
+      "note": "Wheel class 630 assumed; sheet also lists 500 and 710"
+    },
+    "trolleyWheelAxleLandside": {
+      "mm": 2370,
+      "kind": "measured",
+      "source": "J526A0200 p1 plan (2370 from trolley centre)"
+    },
+    "trolleyWheelAxleWaterside": {
+      "mm": 2070,
+      "kind": "measured",
+      "source": "J526A0200 p1 plan (2070 from trolley centre)"
+    },
+    "trolleyWheelPairPitch": {
+      "mm": 670,
+      "kind": "estimated",
+      "source": "J526A0200 p1 plan, scaled; count of 2 wheels per corner read from the plan"
+    },
+    "trolleyMainSheaveDia": {
+      "mm": 1100,
+      "kind": "estimated",
+      "source": "J526A0200 p1 side view, scaled (items 13)"
+    },
+    "trolleyMainSheaveOffset": {
+      "mm": 900,
+      "kind": "measured",
+      "source": "J526A0200 p1 (900 / 900)"
+    },
+    "trolleyPositionX": {
+      "mm": 70000,
+      "kind": "estimated",
+      "source": "Display position only: trolley at the outreach limit, as drawn in J526A00 p1 side view"
+    },
+    "cabinLengthX": {
+      "mm": 3000,
+      "kind": "measured",
+      "source": "J526A0200 p1 (3000)"
+    },
+    "cabinOffsetLandside": {
+      "mm": 2500,
+      "kind": "measured",
+      "source": "J526A0200 p1 (2500 hoist centre to cabin)"
+    },
+    "cabinHeight": {
+      "mm": 3285,
+      "kind": "measured",
+      "source": "J526A0200 p1 (3285 rail to cabin floor)",
+      "note": "Rail-to-cabin-floor in J526A0200; not used for the display pose, which follows the J526A00 side view (cabinFloorElevation)"
+    },
+    "cabinWidthZ": {
+      "mm": 2600,
+      "kind": "estimated",
+      "source": "J526A0200 p1 end view, scaled"
+    },
+    "headblockSheaveSpan": {
+      "mm": 5200,
+      "kind": "measured",
+      "source": "J526A1200 p1 (5200)"
+    },
+    "headblockWidth": {
+      "mm": 2090,
+      "kind": "measured",
+      "source": "J526A1200 p1 (2090)"
+    },
+    "headblockSheaveDia": {
+      "mm": 1000,
+      "kind": "measured",
+      "source": "J526A1200 p1 (dia 1000)"
+    },
+    "headblockSheaveBelowRail": {
+      "mm": 3427,
+      "kind": "measured",
+      "source": "J526A0200 p1 (3427, headblock at upper limit)",
+      "note": "Upper-limit relation; not used for the display pose (the GA draws the hoist about 1 m lower). See U-19"
+    },
+    "liftAboveRail": {
+      "mm": 45000,
+      "kind": "measured",
+      "source": "J526A00 p1 particulars; J526A0300 p1",
+      "note": "Spreader underside at upper limit in the display position"
+    },
+    "spreaderLength40ft": {
+      "mm": 12192,
+      "kind": "estimated",
+      "source": "STS45 spreader (J526A00 p2 item 35) at 40 ft setting; spreader drawing not supplied (U-10)"
+    },
+    "spreaderWidth": {
+      "mm": 2440,
+      "kind": "estimated",
+      "source": "ISO container width; spreader drawing not supplied"
+    },
+    "gantryWheelDia": {
+      "mm": 800,
+      "kind": "measured",
+      "source": "J526A0600 p1 (dia 800)"
+    },
+    "gantryWheelPitch": {
+      "mm": 1050,
+      "kind": "measured",
+      "source": "J526A0600 p1 side view (1050)"
+    },
+    "gantrySubBogieGap": {
+      "mm": 1500,
+      "kind": "measured",
+      "source": "J526A0600 p1 side view (1500)"
+    },
+    "gantryGroupEnd": {
+      "mm": 1250,
+      "kind": "measured",
+      "source": "J526A0600 p1 side view (1250)"
+    },
+    "cableReelCentreHeight": {
+      "mm": 7885,
+      "kind": "measured",
+      "source": "J526A00 p1 waterside end view (7885)"
+    },
+    "cableReelOffsetFromLeg": {
+      "mm": 2121,
+      "kind": "measured",
+      "source": "J526A00 p1 waterside end view (2121)"
+    },
+    "cableReelDia": {
+      "mm": 5800,
+      "kind": "estimated",
+      "source": "J526A00 p1 waterside end view, scaled; J526A4000 not read in detail"
+    },
+    "elevatorLandings": {
+      "mm": [
+        6500,
+        15615,
+        47845,
+        53430
+      ],
+      "kind": "measured",
+      "source": "J526A5100 p1 view A; J526A00 p1 landside end view"
+    },
+    "elevatorCar": {
+      "mm": [
+        1000,
+        2150,
+        1000
+      ],
+      "kind": "measured",
+      "source": "J526A5100 p1 main parameter (car 1000 x 1000 x 2150)"
+    },
+    "elevatorMastSize": {
+      "mm": 1700,
+      "kind": "measured",
+      "source": "J526A5100 p1 C-C (1700)"
+    },
+    "cabinFloorElevation": {
+      "mm": 47800,
+      "kind": "estimated",
+      "source": "J526A00 p1 side view, aligned overlay (cabin at the outreach position)",
+      "note": "+/-0.5 m"
+    },
+    "cabinBodyHeight": {
+      "mm": 2400,
+      "kind": "estimated",
+      "source": "J526A0200 p1 side view, scaled"
+    }
+  }
+}

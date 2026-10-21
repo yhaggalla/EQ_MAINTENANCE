@@ -1,0 +1,15 @@
+{
+  "name": "eq-model-generator",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Deterministic procedural generator for the CICT-J526A-STS QC scene (GLB + manifest + provenance). P03.",
+  "type": "module",
+  "engines": { "node": ">=22.12" },
+  "scripts": {
+    "generate": "node generate.mjs",
+    "validate": "node validate.mjs"
+  },
+  "dependencies": {
+    "three": "0.186.1"
+  }
+}
