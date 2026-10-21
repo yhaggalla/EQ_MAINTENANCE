@@ -124,6 +124,20 @@ Evidence: `docs/evidence/P03/P03_EVIDENCE.md`, `artifacts/models/cict-j526a-sts-
 | D-63 | The P03 prototype is a static ES-module page (`artifacts/prototypes/p03-qc-model`, three 0.186.1 vendored, localhost server on port 5313, no CDN). It is linked from the P02 QC-DEMO-01/02 detail ("Open 3D model (P03)") with equipment, main/sub and the part's semantic key (`.` written `_`, D-20); P03 resolves the exact key only and reports a P02 placeholder key instead of guessing. The P02 SVG placeholder stays in place; the production viewer replaces it in P10 | Integration "if practical without production business logic"; keeps P02 checks 50/50 |
 | D-64 | Rendering is on demand (frames only for controls, transitions, selection, mode and overlay changes). Budgets of brief s6 are unchanged; P03 figures are workstation measurements (Intel UHD 630 hardware and SwiftShader in headless Chrome 155), not the agreed office reference desktop or LAN | Brief s6; `docs/evidence/P03/browser-checks-*.json` |
 
+### Repair-U1 additions (21-22 October 2026)
+
+| ID | Decision | Basis |
+| --- | --- | --- |
+| D-65 | The P03 model draft v1 is revised in place as revision 2 (manifest `revision`, `revisionNote`) instead of a new version 2, because no equipment binding is active; no key was removed or renamed and no kind, classification or instancing changed (`docs/evidence/U1/repair/model-revision-diff.json`). Once any binding is active a geometry change is a new version (DATA_CONTRACT s10.1) | Model README rule 4; U1-C03/C04/C06 |
+| D-66 | CICT logo: the Portal artwork `cict-logo.png` (sha256 d7af90fb...9965) is copied unchanged and embedded byte for byte in the GLB by `generate.mjs` (GLTFExporter cannot encode textures in Node). It is a decal on the machinery-house end wall facing -Z (the wall with the A/C units B1-B7 in J526A3000 and in the photos), Overall mode only, listed in `manifest.decals`, never a maintenance identity, picking as its container. The flat view shows the same artwork on the house | User default U1-C03; brief s2 "keep identity marks exact when an approved source asset is available" |
+| D-67 | Drill-down labels in both views: equipment level shows tier 1 (main mechanisms with a bound representation), a selected main shows its submechanisms (tier 2), a selected submechanism or part shows its parts and location markers (tier 3). A label click performs the same selection as the tree. A label whose items are hidden in Overall is dashed with a "Technical" badge and switches to Technical when clicked; tree selection keeps the P03 behaviour (camera unchanged, hint). Labels are a pointer convenience; the tree and the selection panel remain the accessible path (3D label layer `aria-hidden`) | U1-C07, U1-C08; brief s5 |
+| D-68 | 3D labels take no pointer events; a click without a drag is hit-tested against the placed labels, so an orbit drag that starts on a label still orbits. Overlapping labels are stacked with a leader line rather than dropped (cap 30 in 3D) | U1-C07; P03 check `drag-cancels-transition` |
+| D-69 | Toolbar semantics: Isolate machinery house is always enabled and switches to Technical; Fit selection without a selection fits the whole crane (or the isolated house); Reset view resets the current view and keeps an aligned view aligned; aligned views allow pan and zoom with rotation locked and frame the selection | U1-C05 |
+| D-70 | Fleet page: no heading block; the operational-status meaning (manual, no telemetry, Unreported) is kept in a compact note with tooltip and accessible description; cards show code, status and "For <duration> · <n> open", with name, update time and model in the card title (all fields remain in the Table layout) | U1-C02 |
+| D-71 | Flat schematic horizontal layout follows the drawing more closely: machinery house 10.5 m wide, back-reach elements at their drawing stations; vertical proportions stay illustrative. New flat template positions are appended so existing synthetic position IDs do not change | U1-C03, U1-C08 |
+| D-72 | Appearance photos supplied for U1 (`documents/ChatGPT Image Oct 21, 2026, *.png`, AI-processed) are used for appearance and placement cues only (logo face, A/C row, cab look, stair tower); dimensions come from the drawings. The P03 photos `documents/Image_20261021*.jpg` are no longer present; P03 evidence that cites them is historical | U-21 |
+
+
 ## 3 Unresolved source facts and open questions
 
 None of these blocks P01. Each is modelled as configurable data or a visible source conflict rather than a guessed value.
@@ -149,12 +163,15 @@ None of these blocks P01. Each is modelled as configurable data or a visible sou
 | U-17 (P01) | Portal root deploy scripts mirror the site root and exclude only known child folders; an EQ folder would be deleted by a later root release | Portal `scripts/deploy-production-release.ps1` l.57/241, `build-production-packages.ps1` l.1068, `final-identity-live-deploy.ps1` l.71-74 (added by Repair-R01, F4) | P05 adds `eq-maintenance` to the exclusions (R-1, R-2, R-6) and inventories every other root-clearing script (R-3) before any EQ deployment | P05 |
 | U-18 (P01) | Identity `access-status` ignores the application's enabled flag | Portal `IdentityAdministrationEndpoints.cs` `GetApplicationAccessStatusAsync` | P05 narrow fix + test (PORTAL_INTEGRATION_PLAN PI-6) | P05 |
 | U-19 (P03) | Girder / trolley-rail elevation: 50500 read as the girder underside fits the side view and stay slopes, whereas lift 45000 plus the J526A0200 headblock-to-rail stack (3427 at upper limit) suggests the trolley rail near 50.5 m (about 1.9 m difference); also 6300 + 45850 + 2850 = 55000 does not close with the 54000 portal top (1 m) | J526A00 p1; J526A0100 p1 view B; J526A0200 p1 | D-57 reading used and labelled; landmarks recorded in `provenance.md`; alternative noted | Technical confirmation (structure GA detail or site measurement); low impact on navigation |
+| U-20 (U1) | The +Z end wall of the machinery house is not shown in any photo; the logo is modelled on the -Z end wall only | Photos 08_44_14 PM, 09_14_39 PM | Logo on -Z only, labelled approximate | User/site confirmation at the U1 walkthrough; visual only |
+| U-21 (U1) | The appearance photos supplied for U1 are AI-processed and the P03 site photos were removed from `documents/` | `documents/` listing 22 Oct 2026 | Appearance only (D-72) | None blocking |
+| U-22 (U1) | Cab floor: GA side view about 47.8 m (used) vs J526A0200 3285 rail-to-cab-floor (about 49.1 m, cab partly between the girders) | J526A00 p1; J526A0200 p1 | GA reading kept and labelled estimated | Technical confirmation when convenient; visual only |
 
 ## 4 User checkpoint approvals
 
 | Checkpoint | Date | Decision | Notes |
 | --- | --- | --- | --- |
-| U1 (after R02) | 2026-10-21 | CHANGES REQUESTED | See "2026-10-21 U1 CHANGES REQUESTED" below; repair U1, then U1 again |
+| U1 (after R02) | 2026-10-21 | CHANGES REQUESTED | See "2026-10-21 U1 CHANGES REQUESTED" below; repaired 22 Oct (Repair-U1, `docs/evidence/U1/repair-20261022.md`); U1 to be repeated with the user |
 | U2 (after P11) | not yet reached | | |
 
 ### 2026-10-21 U1 CHANGES REQUESTED

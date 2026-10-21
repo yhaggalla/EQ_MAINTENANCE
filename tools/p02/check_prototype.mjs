@@ -489,6 +489,60 @@ try {
     return ev(`EQ.state.D.equipment.every(e=>/-DEMO-/.test(e.code) && e.origin==='DevelopmentFixture')`);
   });
 
+  // ---------------- U1 repair (U1-C01..C03, C05, C07, C08) ----------------
+  await step('U1-C01', 'QC type icon is the ship-to-shore crane outline (legs, girder and boom, A-frame with stays, trolley rope and spreader) on QC cards', async () => {
+    await go('eqTeam', '/fleet');
+    const r = await ev(`(()=>{const c=[...document.querySelectorAll('.eq-card')].find(x=>x.textContent.includes('QC-DEMO-01')); const svg=c&&c.querySelector('.thumb svg'); return svg?svg.innerHTML:''})()`);
+    return { ok: /M8\.5 3\.5 22\.5 10/.test(r) && /M17\.5 10v4\.5/.test(r) && /M1\.5 10h21/.test(r), detail: r.slice(0, 160) };
+  });
+  await step('U1-C02', 'Fleet: no heading block; manual-status / Unreported meaning kept as a compact note; the whole synthetic fleet fits one 1366x768 screen; cards at most 60 px high (P02 cards were about 95 px)', async () => {
+    await b.viewport(1366, 768);
+    await go('eqTeam', '/fleet');
+    const r = await ev(`(()=>{const h1=document.querySelector('main h1, h1'); const note=document.querySelector('[data-fk="status-note"]'); const cards=[...document.querySelectorAll('.eq-card')];
+      return {pageHead: !!document.querySelector('.page-head'), eyebrow: [...document.querySelectorAll('.eyebrow')].some(e=>/Fleet overview/i.test(e.textContent)), h1: h1 && h1.className, h1h: h1 && h1.getBoundingClientRect().height,
+        note: note && (note.title + ' | ' + note.textContent), cards: cards.length, maxBottom: Math.max(...cards.map(c=>c.getBoundingClientRect().bottom)), maxH: Math.max(...cards.map(c=>c.getBoundingClientRect().height))};})()`);
+    const c = await ev('EQ.fleetCounts(EQ.state.D.equipment)');
+    await b.viewport(1920, 1080);
+    return { ok: !r.pageHead && !r.eyebrow && /sr-only/.test(r.h1) && r.h1h <= 1 && /no live telemetry/.test(r.note) && /Unreported/.test(r.note) && r.cards === c.total && r.maxBottom <= 768 && r.maxH <= 60, detail: JSON.stringify(r) };
+  });
+  await step('U1-C03', 'Flat schematic: back-reach area, CICT logo (Overall only) and stairs are drawn and selectable', async () => {
+    await go('eqTeam', `/equipment/${Q1}`);
+    const keys = ['access.platform.girder-tail', 'reeving.anti-snag-tls.device', 'reeving.sheave.girder-tail', 'auxiliary.service-crane.girder-tail', 'access.platform.festoon-cab-service', 'access.stair.landside-leg-b', 'access.stair.a-frame'];
+    const r = await ev(`(()=>{const ks=${JSON.stringify(keys)}; const bad=ks.filter(k=>{const e=document.querySelector('[data-key="'+k+'"]'); return !e || e.classList.contains('unbound') || e.getAttribute('tabindex')!=='0'});
+      const logo=document.querySelector('.sc-logo'); return {bad, logoW: logo?logo.getBBox().width:0, logoHref: logo&&logo.getAttribute('href'), logoShown: logo?getComputedStyle(logo).display:'none'};})()`);
+    await b.click('[data-key="reeving.anti-snag-tls.device"]'); await b.wait(500);
+    const hash = await ev('location.hash'); const title = await text('[data-fk="scope-title"]');
+    await go('eqTeam', `/equipment/${Q1}?mode=technical`);
+    const logoTech = await ev(`getComputedStyle(document.querySelector('.sc-logo')).display`);
+    return { ok: r.bad.length === 0 && r.logoW > 2 && r.logoHref === 'img/cict-logo.png' && r.logoShown !== 'none' && logoTech === 'none' && /part=pp-q01-03\d/.test(hash) && /Anti-snag/.test(title), detail: JSON.stringify({ ...r, hash, title, logoTech }) };
+  });
+  await step('U1-C07', 'Flat drill-down: tier 1 mains, click -> tier 2 subs, click -> tier 3 parts (switches to Technical for internals); tree and URL follow', async () => {
+    await go('eqTeam', `/equipment/${Q1}`); await b.wait(300);
+    const labels = () => ev(`[...document.querySelectorAll('.sc-label')].map(e=>e.textContent)`);
+    const t1 = await labels();
+    const expect1 = await ev(`(()=>{const ks=new Set(EQ.sceneKeys()); return [...new Set(EQ.positionsOf('${Q1}').filter(p=>p.state==='active'&&ks.has(p.key)).map(p=>EQ.pos(p.id).mainId))].length})()`);
+    await b.click('[data-fk="lbl-mi-q01-01"]'); await b.wait(500);
+    const h1 = await ev('location.hash'); const t2 = await labels();
+    await b.click('[data-fk="lbl-si-q01-012"]'); await b.wait(500);
+    const h2 = await ev('location.hash'); const t3 = await labels();
+    const brake = await ev(`EQ.positionsOf('${Q1}').find(p=>p.key==='hoist.emergency.brake.a').id`);
+    await b.click('[data-fk="lbl-' + brake + '"]'); await b.wait(500);
+    const h3 = await ev('location.hash'); const treeSel = await ev(`document.querySelector('[role=treeitem][aria-selected=true]').dataset.nid`);
+    const ok = t1.length === expect1 && t1.some((t) => t.startsWith('01 ')) && h1.includes('main=mi-q01-01') && !/sub=si/.test(h1) && ['011', '012', '013', '015'].every((c) => t2.some((t) => t.startsWith(c + ' ')))
+      && h2.includes('sub=si-q01-012') && h2.includes('mode=technical') && t3.some((t) => /emergency brake A/i.test(t)) && h3.includes('part=' + brake) && treeSel === brake;
+    return { ok, detail: JSON.stringify({ t1, expect1, t2, t3, h3, treeSel }) };
+  });
+  await step('U1-C05-C08', 'Flat toolbar parity: Isolate machinery house (switches to Technical, dims the rest, fits the house), Labels on/off, Overall clears isolation', async () => {
+    await go('eqTeam', `/equipment/${Q1}`); await b.wait(300);
+    await b.click('[data-fk="iso"]'); await b.wait(900);
+    const r = await ev(`({hash: location.hash, iso: document.getElementById('scene-svg').classList.contains('iso'), tech: document.getElementById('scene-svg').classList.contains('mode-technical'), vbw: +document.getElementById('scene-svg').getAttribute('viewBox').split(' ')[2], pressed: document.querySelector('[data-fk="iso"]').getAttribute('aria-pressed')})`);
+    const n1 = await ev(`document.querySelectorAll('.sc-label').length`);
+    await b.click('[data-fk="labels"]'); await b.wait(300); const n0 = await ev(`document.querySelectorAll('.sc-label').length`);
+    await b.click('[data-fk="labels"]'); await b.wait(300); const n2 = await ev(`document.querySelectorAll('.sc-label').length`);
+    await b.click('[data-fk="mode-overall"]'); await b.wait(400); const h2 = await ev('location.hash');
+    return { ok: /iso=1/.test(r.hash) && r.iso && r.tech && r.vbw < 60 && r.pressed === 'true' && n1 > 0 && n0 === 0 && n2 === n1 && !/iso=1/.test(h2) && /mode=overall/.test(h2), detail: JSON.stringify({ ...r, n1, n0, n2, h2 }) };
+  });
+
   // ---------------- responsive ----------------
   const sizes = [[1920, 1080, false], [1366, 768, false], [1024, 768, false], [768, 1024, false], [390, 844, true]];
   for (const [w, h, mob] of sizes) {

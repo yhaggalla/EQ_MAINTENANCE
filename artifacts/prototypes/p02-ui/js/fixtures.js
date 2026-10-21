@@ -59,6 +59,16 @@ window.EQ = window.EQ || {};
     ['electrical.hv.switchgear', '121', 'HV switchgear', 'serialized', 'ea', 1, 'electrical', 'approximate-location', 'Location approximate (machinery house)'],
     ['cabin.operator.main', '141', 'Operator cabin', 'serialized', 'ea', 1, 'component', 'drawing-derived', 'J526A3100 p1'],
     ['access.elevator.car', '153', 'Elevator car', 'serialized', 'ea', 1, 'component', 'approximate-location', 'J526A5100 (location approximate)'],
+    // U1 repair (appended so existing position IDs stay unchanged): back-reach area, stairs, cab internals
+    ['access.stair.landside-leg-b', '151', 'Stair tower, landside leg', 'serialized', 'ea', 1, 'structural', 'estimated', 'J526A5000 p1 View P'],
+    ['access.stair.a-frame', '151', 'A-frame access stair', 'serialized', 'ea', 1, 'structural', 'estimated', 'J526A5000 p1 View Q'],
+    ['access.platform.girder-tail', '151', 'Girder-tail platform and ladder', 'serialized', 'ea', 1, 'structural', 'estimated', 'J526A5000 p1 item 5'],
+    ['access.platform.festoon-cab-service', '151', 'Festoon and cab service platform', 'serialized', 'ea', 1, 'structural', 'estimated', 'J526A5000 p1 item 8'],
+    ['auxiliary.service-crane.girder-tail', '151', 'Outdoor service crane at the girder tail', 'serialized', 'ea', 1, 'component', 'drawing-derived', 'J526A7100 p1 Detail C'],
+    ['reeving.anti-snag-tls.device', '111', 'Anti-snag and trim/list/skew device', 'serialized', 'ea', 1, 'component', 'drawing-derived', 'J526A1000 p1; J526A00 item 7'],
+    ['reeving.sheave.girder-tail', '011', 'Main hoist rope tail sheaves', 'serialized', 'ea', 1, 'component', 'estimated', 'J526A1000 p1'],
+    ['cabin.operator.seat', '141', 'Operator seat', 'serialized', 'ea', 1, 'component', 'estimated', 'J526A3100 p1 item 10'],
+    ['cabin.operator.consoles', '141', 'Operator control consoles', 'serialized', 'ea', 1, 'component', 'approximate-location', 'J526A3100 p1'],
   ];
   const RTG_T = [
     ['hoist.drive.motor.a', '011', 'Hoist motor A', 'serialized', 'ea', 1, 'component', 'n/a', 'Synthetic RTG template'],

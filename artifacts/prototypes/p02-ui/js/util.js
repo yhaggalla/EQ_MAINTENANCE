@@ -5,7 +5,7 @@ window.EQ = window.EQ || {};
 
   /** h(tag, attrs, ...children). Text is always inserted as text nodes (no innerHTML). */
   EQ.h = function h(tag, attrs, ...kids) {
-    const svg = /^(svg|g|path|rect|circle|line|polyline|polygon|text|use|title|defs|ellipse|tspan)$/.test(tag);
+    const svg = /^(svg|g|path|rect|circle|line|polyline|polygon|text|use|title|defs|ellipse|tspan|image)$/.test(tag);
     const el = svg ? document.createElementNS(SVGNS, tag) : document.createElement(tag);
     if (attrs) {
       for (const [k, v] of Object.entries(attrs)) {
@@ -59,7 +59,9 @@ window.EQ = window.EQ || {};
     'cancel': '<circle cx="12" cy="12" r="9"/><path d="m6 6 12 12"/>',
     'history': '<path d="M4 12a8 8 0 1 0 2.5-5.8M4 4v4h4M12 8v4l3 2"/>',
     'wifi-off': '<path d="M3 3l18 18M8.5 12.9a6 6 0 0 1 3-1.3M5 9.5a10 10 0 0 1 4-2.2M15.5 7.5A10 10 0 0 1 19 9.5M12 17h.01"/>',
-    'qc': '<path d="M2 17h20M5 17V9M10 17V9M5 9h14M3 8h18M16 8l-6-6-3 6M18 9l3 8"/>',
+    // U1-C01: ship-to-shore quay crane in side elevation: portal legs and tie beam, girder and boom reaching out over the
+    // water, A-frame apex with backstay and forestay, trolley rope and spreader, rails.
+    'qc': '<path d="M1.5 10h21M5 20.5V10M10 20.5V10M5 15.5h5M3.5 20.5h3M8.5 20.5h3"/><path d="M7 10 8.5 3.5 10 10M8.5 3.5 1.5 10M8.5 3.5 22.5 10"/><path d="M17.5 10v4.5M15.6 14.5h3.8"/>',
     'rtg': '<path d="M3 17h18M5 17V6M19 17V6M3 6h18M9 6v5h6V6M8 21h2m4 0h2"/>',
     'es': '<rect x="4" y="8" width="16" height="8" rx="2"/><path d="M8 16v3M16 16v3M7 8V5h10v3M10 12h4"/>',
     'download': '<path d="M12 4v11m-4-4 4 4 4-4M5 20h14"/>',

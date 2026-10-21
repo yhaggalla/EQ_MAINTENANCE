@@ -83,7 +83,50 @@ const statsAll = meshStats(null), statsOverall = meshStats('overall'), statsTech
 
 // ---------- export GLB ----------
 const exporter = new GLTFExporter();
-const glb = Buffer.from(await exporter.parseAsync(root, { binary: true, onlyVisible: false, includeCustomExtensions: false }));
+const rawGlb = Buffer.from(await exporter.parseAsync(root, { binary: true, onlyVisible: false, includeCustomExtensions: false }));
+
+/**
+ * GLTFExporter needs a browser canvas to encode textures, which Node does not have. Materials that declare
+ * userData.textureFile are therefore exported untextured and the PNG is embedded here, byte for byte, as a
+ * bufferView image referenced by the material's baseColorTexture (no external URI, deterministic).
+ */
+function embedTextures(glbBuf) {
+  const jsonLen = glbBuf.readUInt32LE(12);
+  const gltf = JSON.parse(glbBuf.subarray(20, 20 + jsonLen).toString('utf8'));
+  const binStart = 20 + jsonLen;
+  const binLen = glbBuf.readUInt32LE(binStart);
+  let bin = glbBuf.subarray(binStart + 8, binStart + 8 + binLen);
+  const textured = [];
+  root.traverse((o) => { if (o.isMesh) for (const m of [o.material].flat()) if (m.userData?.textureFile && !textured.includes(m)) textured.push(m); });
+  if (!textured.length) return { glb: glbBuf, textures: [] };
+  const info = [];
+  for (const m of textured) {
+    const file = path.join(srcDir, m.userData.textureFile);
+    const png = fs.readFileSync(file);
+    const mi = (gltf.materials || []).findIndex((x) => x.name === m.name);
+    if (mi < 0) throw new Error('textured material not exported: ' + m.name);
+    const pad = (4 - (bin.length % 4)) % 4;
+    const offset = bin.length + pad;
+    bin = Buffer.concat([bin, Buffer.alloc(pad), png]);
+    gltf.bufferViews.push({ buffer: 0, byteOffset: offset, byteLength: png.length });
+    gltf.images ||= []; gltf.samplers ||= []; gltf.textures ||= [];
+    gltf.images.push({ name: path.basename(file, '.png'), mimeType: 'image/png', bufferView: gltf.bufferViews.length - 1 });
+    gltf.samplers.push({ magFilter: 9729, minFilter: 9987, wrapS: 33071, wrapT: 33071 });
+    gltf.textures.push({ sampler: gltf.samplers.length - 1, source: gltf.images.length - 1 });
+    gltf.materials[mi].pbrMetallicRoughness ||= {};
+    gltf.materials[mi].pbrMetallicRoughness.baseColorTexture = { index: gltf.textures.length - 1 };
+    gltf.materials[mi].pbrMetallicRoughness.baseColorFactor = [1, 1, 1, 1];
+    info.push({ material: m.name, file: rel(file), sha256: sha(png), bytes: png.length });
+  }
+  const binPad = (4 - (bin.length % 4)) % 4; bin = Buffer.concat([bin, Buffer.alloc(binPad)]);
+  gltf.buffers[0].byteLength = bin.length;
+  let json = Buffer.from(JSON.stringify(gltf), 'utf8'); const jp = (4 - (json.length % 4)) % 4; json = Buffer.concat([json, Buffer.alloc(jp, 0x20)]);
+  const head = Buffer.alloc(12); head.writeUInt32LE(0x46546c67, 0); head.writeUInt32LE(2, 4); head.writeUInt32LE(12 + 8 + json.length + 8 + bin.length, 8);
+  const jh = Buffer.alloc(8); jh.writeUInt32LE(json.length, 0); jh.writeUInt32LE(0x4e4f534a, 4);
+  const bh = Buffer.alloc(8); bh.writeUInt32LE(bin.length, 0); bh.writeUInt32LE(0x004e4942, 4);
+  return { glb: Buffer.concat([head, jh, json, bh, bin]), textures: info };
+}
+const { glb, textures: embeddedTextures } = embedTextures(rawGlb);
 fs.mkdirSync(outDir, { recursive: true });
 fs.writeFileSync(path.join(outDir, 'scene.glb'), glb);
 
@@ -101,8 +144,10 @@ const manifest = {
   modelCode: paramsDoc.modelCode,
   equipmentModelCode: paramsDoc.equipmentModelCode,
   version: paramsDoc.version,
+  revision: paramsDoc.revision ?? 1,
+  revisionNote: paramsDoc.revisionNote ?? null,
   status: 'draft',
-  statusNote: 'P03 prototype. Not assigned to any equipment; bindings are made by Admin per equipment (DATA_CONTRACT s10.5).',
+  statusNote: 'P03 prototype, revised in the U1 repair while still a draft with no active binding. Not assigned to any equipment; bindings are made by Admin per equipment (DATA_CONTRACT s10.5).',
   units: 'm',
   axes: { up: '+Y', x: '+X toward waterside along the boom', z: 'along the rails (gantry travel); +Z = right-hand side looking from landside to the water' },
   origin: 'top of waterside rail on the crane transverse centreline',
@@ -115,6 +160,7 @@ const manifest = {
   landmarks,
   nodes: S.nodes,
   instanceMaps: S.instanceMaps,
+  decals: (S.decals || []).map((d) => ({ ...d, textures: embeddedTextures })),
 };
 fs.writeFileSync(path.join(outDir, 'manifest.json'), JSON.stringify(manifest, null, 2) + '\n');
 
@@ -137,7 +183,10 @@ chk('lift above rail: spreader underside', bOf('spreader.frame').min[1], P('lift
 chk('tie-beam clearance', bOf('structure.portal.tie-beam.a').min[1], P('portalTieBeamUnderside'), 'measured', 1, '12500');
 chk('leg centre spacing (end view)', cx(bOf('structure.portal.landside.leg.a'), 2) - cx(bOf('structure.portal.landside.leg.b'), 2), P('legCentreSpacing'), 'measured', 1, '20400');
 chk('gantry overall length (end view)', bOf('gantry.bogie.ws-a').max[2] - bOf('gantry.bogie.ws-b').min[2], P('bogieOverall'), 'measured', 1, '27000 (buffers to buffers)');
-chk('machinery house length along rails', bOf('container.machinery-house').max[2] - bOf('container.machinery-house').min[2], P('machineryHouseLengthZ') + 0.6, 'measured', 2, '18200 walls; roof overhang 300 each side included');
+// Measured on the house shell (walls, roof, roof railings). The container bounds also include the external walkways
+// and A/C platform added in the U1 repair, which are not part of the 18200 house length.
+const houseShell = new THREE.Box3().setFromObject(S.objects.get('container.machinery-house').children.find((c) => c.userData.shellOf === 'container.machinery-house'));
+chk('machinery house length along rails (shell)', houseShell.max.z - houseShell.min.z, P('machineryHouseLengthZ') + 0.6, 'measured', 2, '18200 walls; roof overhang 300 each side included');
 chk('headblock sheave-box span', cx(bOf('headblock.sheave-box.a'), 2) - cx(bOf('headblock.sheave-box.b'), 2), P('headblockSheaveSpan'), 'measured', 1, 'J526A1200 5200');
 const totalLift = 63;
 checks.push({ name: 'overall height is not the 63 m total lift', expected: '!= 63', actual: r6(manifest.bounds.max[1]), pass: Math.abs(manifest.bounds.max[1] - totalLift) > 5, kind: 'invariant' });
@@ -155,10 +204,14 @@ for (const c of checks) lines.push(`| ${c.name} | ${c.expected} | ${c.actual} | 
 const count = (k) => manifest.nodes.filter((n) => n.kind === k).length;
 lines.push('', `## 3 Nodes (${manifest.nodes.length}: ${count('position')} positions, ${count('hotspot')} hotspots, ${count('container')} containers, ${count('decorative')} decorative)`, '', '| Key | Kind | Code | Modes | Provenance | Sources |', '| --- | --- | --- | --- | --- | --- |');
 for (const n of manifest.nodes) lines.push(`| \`${n.key}\` | ${n.kind}${n.instancing ? ' (instanced)' : ''} | ${n.classification ? n.classification.sub : ''} | ${n.modes.join(', ')} | ${n.provenance.kind} | ${n.provenance.sources.map((s) => s.drawing + (s.pdfPage ? ' p' + s.pdfPage : '') + ': ' + s.note).join('; ')}${n.classificationNote ? ' **Classification:** ' + n.classificationNote : ''} |`);
+if (manifest.decals.length) {
+  lines.push('', `## 4 Decals (${manifest.decals.length}; visual identity marks, not maintenance identities)`, '', '| glTF node | Container | Modes | Provenance | Sources | Embedded texture |', '| --- | --- | --- | --- | --- | --- |');
+  for (const d of manifest.decals) lines.push(`| \`${d.gltfNodeName}\` | ${d.container} | ${d.modes.join(', ')} | ${d.provenance.kind} | ${d.provenance.sources.map((s) => s.drawing + ': ' + s.note).join('; ')} | ${d.textures.map((t) => t.file + ' sha256 ' + t.sha256.slice(0, 12) + '...').join('; ')} |`);
+}
 fs.writeFileSync(path.join(outDir, 'provenance.md'), lines.join('\n') + '\n');
 
 // ---------- checksums ----------
-const files = [path.join(srcDir, 'params.json'), path.join(srcDir, 'build.mjs'), path.join(here, 'generate.mjs'), path.join(here, 'lib', 'kit.mjs'), path.join(here, 'lib', 'scene-builder.mjs'), path.join(here, 'package-lock.json'), path.join(outDir, 'scene.glb'), path.join(outDir, 'manifest.json'), path.join(outDir, 'provenance.md'), path.join(outDir, 'landmarks.json')];
+const files = [path.join(srcDir, 'params.json'), path.join(srcDir, 'build.mjs'), ...embeddedTextures.map((t) => path.join(repo, t.file)), path.join(here, 'generate.mjs'), path.join(here, 'lib', 'kit.mjs'), path.join(here, 'lib', 'scene-builder.mjs'), path.join(here, 'package-lock.json'), path.join(outDir, 'scene.glb'), path.join(outDir, 'manifest.json'), path.join(outDir, 'provenance.md'), path.join(outDir, 'landmarks.json')];
 fs.writeFileSync(path.join(outDir, 'checksums.json'), JSON.stringify(Object.fromEntries(files.map((f) => [rel(f), sha(fs.readFileSync(f))])), null, 2) + '\n');
 
 const failed = checks.filter((c) => !c.pass);

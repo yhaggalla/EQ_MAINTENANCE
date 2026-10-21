@@ -5,14 +5,25 @@
 // Every dimension comes from params.json (with provenance) or is declared here as an estimate in the node provenance.
 
 export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
-  const { box, boxMinMax, tube, cyl, beam, taper, gableRoof, sheave } = kit;
+  const { box, boxMinMax, tube, cyl, beam, taper, gableRoof, sheave, texturedQuad, stairFlight, railing } = kit;
   const src = (drawing, pdfPage, note) => ({ drawing, pdfPage, note });
+  const N = (id) => { const v = P(id); return Array.isArray(v) ? v.map((x) => Math.round(x * 1000)) : Math.round(v * 1000); }; // count parameters (unit 'count')
+  // Site appearance references used in the U1 repair (appearance only, never dimensions). The user-supplied photos in
+  // documents/ named "ChatGPT Image Oct 21, 2026, *.png" are AI-processed versions of CICT site photos.
+  const PHOTO = (name, note) => src('site photo ' + name, null, note + ' (AI-processed appearance reference, not a dimension source)');
 
   const mats = new Materials({
-    paint: { color: '#d22a33', roughness: 0.55, metalness: 0.15, role: 'CICT structural red (photos images.jpg / images2.jpg; site photos documents/Image_20261021*.jpg)' },
+    paint: { color: '#d22a33', roughness: 0.55, metalness: 0.15, role: 'CICT structural red (photos images.jpg / images2.jpg; user site photos in documents/)' },
     houseWall: { color: '#eef1f3', roughness: 0.8, role: 'light machinery-house enclosure (photos)' },
     houseRoof: { color: '#d4dade', roughness: 0.8, role: 'house roof' },
-    grating: { color: '#a9262d', roughness: 0.9, role: 'walkways, stairs and platforms: red, slightly darker than the structure (site photos Image_20261021165608.jpg, Image_20261021165846.jpg)' },
+    grating: { color: '#a9262d', roughness: 0.9, role: 'walkways, stairs and platforms: red, slightly darker than the structure (site photos)' },
+    cabBody: { color: '#e6e1d2', roughness: 0.6, role: 'operator cab body: oyster white (J526A3100 painting scheme RAL1013 ceiling; site photo 09_14_34 PM)' },
+    cabFrame: { color: '#4a5560', roughness: 0.5, metalness: 0.4, role: 'cab window frames, posts and hanger (neutral)' },
+    cabGlass: { color: '#6fa3bd', roughness: 0.08, metalness: 0.1, opacity: 0.38, role: 'cab glazing, light green/blue tint (J526A3100 table 2), translucent so the seat is visible' },
+    seat: { color: '#24282c', roughness: 0.8, role: 'operator seat and console tops (black)' },
+    acUnit: { color: '#d7dbde', roughness: 0.7, role: 'air-conditioning units (neutral)' },
+    hydraulic: { color: '#c7ccd1', roughness: 0.25, metalness: 0.8, role: 'hydraulic cylinder rods (chrome)' },
+    logo: { color: '#ffffff', roughness: 0.7, alphaTest: 0.5, texture: 'textures/cict-logo.png', role: 'CICT logo artwork from the Portal source (F:/CODEX/CICT-ENG_MAIN_PAGE src/portal-web/src/assets/cict-logo.png, sha256 d7af90fb...9965)' },
     steel: { color: '#8c949b', roughness: 0.45, metalness: 0.6, role: 'rail / wheel steel' },
     machinery: { color: '#5d6873', roughness: 0.6, metalness: 0.3, role: 'motor / reducer (neutral, vendor colour not established)' },
     drum: { color: '#a7b0b8', roughness: 0.4, metalness: 0.6, role: 'rope drum' },
@@ -21,8 +32,7 @@ export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
     cabinet: { color: '#cdd2d7', roughness: 0.7, role: 'electrical cabinet (neutral)' },
     transformer: { color: '#7d8a94', roughness: 0.7, metalness: 0.2, role: 'transformer / switchgear (neutral)' },
     cabin: { color: '#e6e9ec', roughness: 0.6, role: 'operator cabin body' },
-    glass: { color: '#3a5468', roughness: 0.2, metalness: 0.4, role: 'cabin glazing' },
-    spreader: { color: '#e0b020', roughness: 0.6, metalness: 0.2, role: 'headblock and spreader yellow (site photo Image_20261021165637.jpg, crane 01; spreaders are interchangeable, U-09; STS45 drawing not supplied, U-10)' },
+    spreader: { color: '#e0b020', roughness: 0.6, metalness: 0.2, role: 'headblock and spreader yellow (P03 site photo Image_20261021165637.jpg, crane 01, no longer in documents/; the U1 photo 08_44_08 PM agrees; spreaders are interchangeable, U-09; STS45 drawing not supplied, U-10)' },
     concrete: { color: '#c3c5c0', roughness: 0.95, role: 'quay context (decorative)' },
     hotspot: { color: '#0a8fb5', roughness: 0.4, opacity: 0.85, role: 'qualified location marker (not equipment)' },
   });
@@ -104,6 +114,14 @@ export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
       g.add('grating', boxMinMax([XMAST - 2.2, TOP_WS, -ZL - 2.2], [XMAST + 2.2, TOP_WS + 0.1, ZL + 2.2]));
       for (const x of [XMAST - 2.15, XMAST + 2.15]) g.add('paint', boxMinMax([x - 0.03, TOP_WS + 1.05, -ZL - 2.2], [x + 0.03, TOP_WS + 1.11, ZL + 2.2]));
     });
+  S.position('access.walkway.tie-beam', { parentKey: P_, sub: '151', category: 'structural', label: 'Tie-beam walkways and handrails', prov: 'estimated', sources: [s00('side view: handrail on top of the portal tie beam (item 32 nameplate beam)'), PHOTO('08_43_55 PM / 09_14_50 PM', 'railing along the top of the tie beam')] },
+    (g) => {
+      for (const s of [1, -1]) {
+        const y = TIE_BOT + 3.0;
+        g.add('grating', boxMinMax([XLS + 0.7, y, s * ZL - 0.8], [XWS - 0.7, y + 0.05, s * ZL + 0.8]));
+        for (const zz of [s * ZL - 0.78, s * ZL + 0.78]) g.add('paint', ...railing([XLS + 0.7, y, zz], [XWS - 0.7, y, zz], { step: 2.5 }));
+      }
+    });
 
   // ---------- rear girder (15/151) ----------
   S.container('container.girder', { label: 'Fixed rear girder', prov: 'drawing-derived', sources: [s0100('girder J526A0102; 11000 + 20000 behind the landside rail')] });
@@ -117,6 +135,69 @@ export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
       g.add('paint', boxMinMax([XTAIL, G_BOT, -ZG - GW / 2], [XTAIL + 0.4, G_TOP + 0.5, ZG + GW / 2])); // end stop
     });
   S.hotspot('trolley.cable-system.main', { parentKey: 'container.girder', sub: '023', point: [-20, G_BOT - 0.8, 0], radius: 0.7, label: 'Trolley cable transport / sliding-contact system (location approximate)', sources: [src('J526A00', 2, 'item J526A4100 slip-contact system listed; drawing not supplied (U-10)')] });
+
+  // ---------- back-reach area (U1 repair): girder tail equipment behind the machinery house ----------
+  // Sources: J526A00 p1 side view (item 7 anti-snag/LST device at the tail, festoon and cab service platform), J526A1000
+  // (anti-snag and trim/list/skew device), J526A5000 p1 (items 5 and 8), J526A7100 (outdoor service crane, Detail C/View A').
+  S.container('container.back-reach', { parentKey: 'container.girder', label: 'Back-reach area (girder tail)', prov: 'drawing-derived', sources: [s00('side view: 31000 behind the landside rail; items 7 and 30 at the tail'), src('J526A5000', 1, 'tail platform (5) and festoon and cab service platform (8)')] });
+  const BR = 'container.back-reach';
+  const ZR = 2.6; // main hoist rope planes (+/-), as in the trolley and headblock sheaves
+  const XAS0 = XTAIL + P('antiSnagFromTail'); const XAS1 = XAS0 + P('antiSnagDeviceLength');
+  const rTS = P('antiSnagSheaveDia') / 2; const yTS = G_TOP + 0.35 + rTS;
+  const xTS = [XAS0 + 0.6 + rTS, XAS0 + 0.6 + rTS + P('antiSnagSheaveSpacing')];
+  S.position('access.platform.girder-tail', { parentKey: BR, sub: '151', category: 'structural', label: 'Girder-tail end platform, handrails and ladder', prov: 'estimated', sources: [src('J526A5000', 1, 'girder platform at the tail end (item 5), scaled'), s00('side view: tail platform and inclined ladder')] },
+    (g) => {
+      const x0 = XTAIL - 1.2, x1 = XTAIL + P('tailPlatformLength'); const zw = ZG + GW / 2 + 0.9;
+      g.add('grating', boxMinMax([x0, G_TOP - 0.1, -zw], [x1, G_TOP, zw]));
+      g.add('paint', ...railing([x0, G_TOP, -zw], [x0, G_TOP, zw]), ...railing([x0, G_TOP, zw], [x1, G_TOP, zw]), ...railing([x0, G_TOP, -zw], [x1, G_TOP, -zw]));
+      for (const s of [1, -1]) g.add('paint', boxMinMax([x0 - 0.05, G_BOT - 0.3, s * zw - 0.1], [x0 + 0.05, G_TOP, s * zw + 0.1])); // end posts down to the girder underside
+      // inclined ladder from the tail platform down to the girder underside level (access to the hanging platforms)
+      const lad = stairFlight([x0 + 0.5, G_BOT - 1.6, -zw + 0.6], [x0 + 2.2, G_TOP - 0.1, -zw + 0.6], 0.6, { rails: true });
+      g.add('grating', ...lad.grating); g.add('paint', ...lad.paint);
+    });
+  S.position('reeving.anti-snag-tls.device', { parentKey: BR, sub: '111', classificationNote: 'J526A1000 anti-snag and trim/list/skew device (hydraulic cylinders acting on the hoist-rope tail sheaves): 111 Skew system proposed; Admin to confirm', category: 'component', label: 'Anti-snag and trim/list/skew device (cylinders and levers)', prov: 'drawing-derived', sources: [src('J526A1000', 1, 'overall 3754; cylinders bore 200 / rod 140 / stroke 1400; lever arms carrying the rope sheaves; frame shape simplified'), s00('item 7 at the girder tail')] },
+    (g) => {
+      for (const s of [1, -1]) {
+        const z = s * ZR;
+        g.add('paint', boxMinMax([XAS0, G_TOP, z - 0.8], [XAS1, G_TOP + 0.35, z + 0.8])); // base frame on the girder
+        for (const dz of [-0.55, 0.55]) {
+          g.add('paint', beam([xTS[0], yTS, z + dz], [XAS0 + 0.3, G_TOP + 2.55, z + dz], 0.18, 0.3)); // lever arm to the cylinder pivot
+          g.add('steel', tube([XAS0 + 0.3, G_TOP + 2.55, z + dz], [xTS[1] + 0.6, G_TOP + 0.6, z + dz], 0.1, 12)); // cylinder barrel (dia 200)
+          g.add('hydraulic', tube([xTS[1] + 0.6, G_TOP + 0.6, z + dz], [xTS[1] + 1.35, G_TOP + 0.4, z + dz], 0.07, 10)); // rod (dia 140)
+          g.add('paint', boxMinMax([XAS0 + 0.1, G_TOP + 0.35, z + dz - 0.12], [XAS0 + 0.5, G_TOP + 2.7, z + dz + 0.12])); // pivot post
+        }
+      }
+    });
+  S.position('reeving.sheave.girder-tail', { parentKey: BR, sub: '011', classificationNote: 'Hoist-rope tail sheaves on the anti-snag levers: 011 (hoist, "roller") proposed as for the boom-tip sheaves; Admin to confirm', category: 'component', label: 'Main hoist rope tail sheaves (girder tail)', prov: 'estimated', sources: [src('J526A1000', 1, 'two sheaves per lever, 2200 apart; diameter scaled'), s00('main hoist rope reeving diagram: ropes turn at the tail sheaves and return to the trolley')] },
+    (g) => { for (const s of [1, -1]) for (const x of xTS) for (const dz of [-0.2, 0.2]) g.add('steel', sheave([x, yTS, s * ZR + dz], 'z', P('antiSnagSheaveDia'), 0.16)); });
+  const rTT = P('trolleyTailSheaveDia') / 2; const xTT = XTAIL + 0.9; const yTT = RAIL_T + 0.05 + rTT;
+  S.position('reeving.sheave.trolley-tail', { parentKey: BR, sub: '021', classificationNote: 'Trolley-rope return sheaves: 021 proposed (trolley); Admin to confirm', category: 'component', label: 'Trolley rope tail sheaves and tensioner frame', prov: 'estimated', sources: [s00('trolley rope reeving diagram: return sheaves with tensioners at the tail end'), src('J526A2100', null, 'trolley reeving sheet not detailed in the repair')] },
+    (g) => {
+      for (const z of [-0.35, 0.35]) g.add('steel', sheave([xTT, yTT, z], 'z', 2 * rTT, 0.14));
+      g.add('paint', boxMinMax([xTT - 0.6, G_TOP, -0.75], [xTT + 0.6, yTT - rTT - 0.05, 0.75]), boxMinMax([xTT + 0.5, G_TOP, -0.12], [xTT + 1.6, G_TOP + 0.5, 0.12]));
+    });
+  S.position('auxiliary.service-crane.girder-tail', { parentKey: BR, sub: '151', category: 'component', label: 'Outdoor service crane at the girder tail (1 t man-hold lift)', prov: 'drawing-derived', sources: [src('J526A7100', 1, 'Detail C: frame 2780 high, 1540 beyond the girder end; View A: 6050 wide; B1 HSZ1 1 t lift; member sizes estimated')] },
+    (g) => {
+      const hw = P('tailServiceCraneWidth') / 2; const yb = G_TOP + P('tailServiceCraneHeight'); const xo = XTAIL - P('tailServiceCraneOverhang');
+      const xp = [XTAIL + 0.6, XTAIL + 0.6 + P('tailServiceCranePostSpacing')];
+      for (const s of [1, -1]) {
+        for (const x of xp) g.add('paint', boxMinMax([x - 0.15, G_TOP, s * hw - 0.15], [x + 0.15, yb, s * hw + 0.15]));
+        g.add('paint', beam([xp[1], G_TOP + 0.6, s * hw], [xp[0], yb - 0.3, s * hw], 0.12, 0.12));
+        g.add('paint', boxMinMax([xo, yb - 0.3, s * 1.2 - 0.12], [xp[1] + 0.15, yb, s * 1.2 + 0.12])); // runway beams cantilevered beyond the tail
+      }
+      for (const x of xp) g.add('paint', boxMinMax([x - 0.15, yb - 0.35, -hw - 0.15], [x + 0.15, yb, hw + 0.15]));
+      g.add('machinery', boxMinMax([xo + 0.2, yb - 0.75, -0.35], [xo + 0.8, yb - 0.3, 0.35]), cyl([xo + 0.5, yb - 1.2, 0], 'y', 0.08, 0.9, 8)); // hoist block and hook
+    });
+  const XFP0 = XTAIL + P('festoonPlatformStartFromTail'); const XFP1 = XFP0 + P('festoonPlatformLengthX');
+  const yFP = G_BOT - P('festoonPlatformDrop'); const zFP0 = -(ZG - GW / 2) + 0.1, zFP1 = zFP0 + 2.0;
+  S.position('access.platform.festoon-cab-service', { parentKey: BR, sub: '151', category: 'structural', label: 'Festoon and cab service platform (hanging, back-reach)', prov: 'estimated', sources: [src('J526A5000', 1, 'item 8 J526A5008 festoon and cab service platform'), s00('side view: hanging platform where the cab parks at the back-reach limit; drop and side estimated')] },
+    (g) => {
+      g.add('grating', boxMinMax([XFP0, yFP - 0.08, zFP0], [XFP1, yFP, zFP1]));
+      for (const x of [XFP0 + 0.1, XFP1 - 0.1]) for (const z of [zFP0 + 0.1, zFP1 - 0.1]) g.add('paint', boxMinMax([x - 0.08, yFP, z - 0.08], [x + 0.08, G_BOT, z + 0.08])); // hangers
+      g.add('paint', ...railing([XFP0, yFP, zFP1], [XFP1, yFP, zFP1]), ...railing([XFP0, yFP, zFP0], [XFP0, yFP, zFP1]), ...railing([XFP1, yFP, zFP0], [XFP1, yFP, zFP1]));
+      const st = stairFlight([XFP1 - 0.5, yFP, zFP0 + 0.5], [XFP1 - 2.6, G_BOT - 0.05, zFP0 + 0.5], 0.6);
+      g.add('grating', ...st.grating); g.add('paint', ...st.paint);
+    });
 
   // ---------- walkways along girder and boom (15/151) ----------
   S.position('access.walkway.girder-boom', { sub: '151', category: 'structural', label: 'Girder and boom walkways with handrails', prov: 'estimated', sources: [s00('walkways and handrails along both sides of girder and boom; widths scaled'), src('J526A5000', null, 'not detailed in P03')] },
@@ -190,14 +271,18 @@ export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
     });
   S.position('boom.sheave.apex', { parentKey: A_, sub: '031', category: 'component', label: 'Apex boom-hoist sheaves', prov: 'estimated', sources: [s00('boom hoist rope reeving diagram'), src('J526A2300', null, 'reeving sheet not detailed in P03')] },
     (g) => { for (const z of [-1.3, 1.3]) g.add('steel', sheave([XMAST + 0.2, AF_TOP + 1.0, z], 'z', 1.5, 0.25)); });
-  S.position('access.stair.a-frame', { parentKey: A_, sub: '151', category: 'structural', label: 'A-frame access stair', prov: 'estimated', sources: [s00('waterside end view: zig-zag stair beside A-frame leg A')] },
+  S.position('access.stair.a-frame', { parentKey: A_, sub: '151', category: 'structural', label: 'A-frame access stair', prov: 'estimated', sources: [s00('waterside end view: zig-zag stair beside A-frame leg A'), src('J526A5000', 1, 'View Q and item 2 platform of apex; flight count approximate')] },
     (g) => {
-      const n = 6; const h = (AF_TOP - 1.4 - TOP_WS) / n;
+      // U1 repair: real flights (treads, stringers, handrails) and landings instead of solid slabs; route unchanged.
+      const n = N('aFrameStairFlights'); const h = (AF_TOP - 1.4 - TOP_WS) / n;
       for (let i = 0; i < n; i++) {
         const y0 = TOP_WS + i * h; const t = i / n; const zc = ZL - (ZL - ZA) * (t + 0.5 / n) + 1.4;
         const dir = i % 2 === 0 ? 1 : -1;
-        g.add('grating', beam([XMAST - 1.4 - 1.3 * dir, y0 + 0.1, zc], [XMAST - 1.4 + 1.3 * dir, y0 + h, zc], 0.8, 0.12));
-        g.add('grating', boxMinMax([XMAST - 2.9, y0 + h - 0.05, zc - 0.5], [XMAST - 2.4, y0 + h + 0.05, zc + 0.5]));
+        const f = stairFlight([XMAST - 1.4 - 1.3 * dir, y0 + 0.05, zc], [XMAST - 1.4 + 1.3 * dir, y0 + h, zc], 0.75);
+        g.add('grating', ...f.grating); g.add('paint', ...f.paint);
+        const xl = XMAST - 1.4 + 1.3 * dir;
+        g.add('grating', boxMinMax([xl - 0.5 * dir, y0 + h - 0.05, zc - 0.55], [xl + 0.7 * dir, y0 + h + 0.03, zc + 0.55]));
+        g.add('paint', ...railing([xl + 0.7 * dir, y0 + h, zc - 0.55], [xl + 0.7 * dir, y0 + h, zc + 0.55], { step: 1.1, mid: false }));
       }
     });
 
@@ -207,93 +292,153 @@ export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
   const FL = P('machineryHouseFloorElevation'); const WALL = FL + P('machineryHouseWallHeight');
   S.container('container.machinery-house', { label: 'Machinery house', enclosure: true, prov: 'drawing-derived', sources: [src('J526A3000', 1, '18200 x 10500, walls 5100; position on the girder scaled from J526A00 / J526A0100')] });
   const MH = 'container.machinery-house';
-  S.containerShell(MH, (g) => { // walls and gable roof
+  S.containerShell(MH, (g) => { // walls, gable roof, roof-edge railings and doors (U1 repair: railings and doors added)
     const t = 0.1;
     g.add('houseWall', boxMinMax([HX0, FL, HZ0], [HX0 + t, WALL, HZ1]), boxMinMax([HX1 - t, FL, HZ0], [HX1, WALL, HZ1]),
       boxMinMax([HX0, FL, HZ0], [HX1, WALL, HZ0 + t]), boxMinMax([HX0, FL, HZ1 - t], [HX1, WALL, HZ1]));
     g.add('houseRoof', gableRoof(HX0, HX1, HZ0, HZ1, WALL, P('machineryHouseRoofRise')));
+    g.add('paint', ...railing([HX0 - 0.25, WALL, HZ0 - 0.25], [HX1 + 0.25, WALL, HZ0 - 0.25], { step: 2.2 }), ...railing([HX0 - 0.25, WALL, HZ1 + 0.25], [HX1 + 0.25, WALL, HZ1 + 0.25], { step: 2.2 }),
+      ...railing([HX0 - 0.25, WALL, HZ0 - 0.25], [HX0 - 0.25, WALL, HZ1 + 0.25], { step: 2.2 }), ...railing([HX1 + 0.25, WALL, HZ0 - 0.25], [HX1 + 0.25, WALL, HZ1 + 0.25], { step: 2.2 }));
+    // personnel doors from the J526A3000 plan (+Z end wall near the seaside corner; landside wall at the electrical room)
+    g.add('cabFrame', boxMinMax([-34.75, FL, HZ1 - 0.02], [-33.85, FL + 2.1, HZ1 + 0.03]), boxMinMax([HX0 - 0.03, FL, -4.75], [HX0 + 0.02, FL + 2.1, -3.85]));
   });
-  S.position('structure.machinery-frame', { parentKey: MH, sub: '151', category: 'structural', label: 'Machinery frame, floor and house walkways', prov: 'drawing-derived', sources: [s0100('machinery frame J526A0107 (item 7) in plan'), src('J526A3000', 1, '1000 seaside / 1200 landside walkways')] },
+  // CICT logo on the -Z end wall (the wall with the outdoor A/C units), as in the site photos; Overall mode only.
+  {
+    const w = P('logoWidth'); const h = w * 509 / 512; const xc = HX1 - P('logoCentreFromSeasideWall');
+    const y1 = WALL - P('logoTopBelowEaves'); const y0 = y1 - h; const z = HZ0 - 0.02;
+    S.containerDecal(MH, 'logo-cict', { modes: ['overall'], label: 'CICT logo (machinery-house end wall facing -Z; placement approximate)', prov: 'estimated', sources: [PHOTO('08_44_14 PM / 09_14_39 PM', 'logo on the light house end wall above the A/C units'), src('Portal source', null, 'src/portal-web/src/assets/cict-logo.png, exact artwork')], note: 'Visual identity mark only; not a maintenance position. The opposite end wall is not shown in the photos and carries no logo here.' },
+      (g) => g.add('logo', texturedQuad([xc + w / 2, y0, z], [xc - w / 2, y0, z], [xc - w / 2, y1, z], [xc + w / 2, y1, z])));
+  }
+  S.position('structure.machinery-frame', { parentKey: MH, sub: '151', category: 'structural', label: 'Machinery frame, floor and house walkways', prov: 'drawing-derived', sources: [s0100('machinery frame J526A0107 (item 7) in plan'), src('J526A3000', 1, '1000 seaside / 1200 landside walkways; end platform for the A/C units (B1-B7); service-crane floor hatch 3575 x 2000')] },
     (g) => {
       g.add('paint', boxMinMax([HX0 - 1.2, G_TOP, HZ0 - 0.3], [HX1 + 1.0, FL - 0.15, HZ0 + 0.3]), boxMinMax([HX0 - 1.2, G_TOP, HZ1 - 0.3], [HX1 + 1.0, FL - 0.15, HZ1 + 0.3]));
       for (const x of [HX0, (HX0 + HX1) / 2, HX1]) g.add('paint', boxMinMax([x - 0.3, G_TOP, HZ0], [x + 0.3, FL - 0.15, HZ1]));
-      g.add('grating', boxMinMax([HX0 - 1.2, FL - 0.15, HZ0 - 0.3], [HX1 + 1.0, FL, HZ1 + 0.3]));
-      for (const x of [HX0 - 1.15, HX1 + 0.95]) g.add('paint', boxMinMax([x - 0.03, FL + 1.05, HZ0 - 0.3], [x + 0.03, FL + 1.11, HZ1 + 0.3]));
+      g.add('grating', boxMinMax([HX0 - 1.2, FL - 0.15, HZ0 - 1.3], [HX1 + 1.0, FL, HZ1 + 0.3]));
+      for (const x of [HX0 - 1.15, HX1 + 0.95]) g.add('paint', ...railing([x, FL, HZ0 - 1.3], [x, FL, HZ1 + 0.3], { step: 2.0 }));
+      g.add('paint', ...railing([HX0 - 1.2, FL, HZ0 - 1.25], [HX1 + 1.0, FL, HZ0 - 1.25], { step: 2.0 }), ...railing([HX0 - 1.2, FL, HZ1 + 0.25], [HX1 + 1.0, FL, HZ1 + 0.25], { step: 2.0 }));
+      // service-crane floor hatch frame (J526A3000: service area 3575 x 2000 next to the main transformer)
+      const [hz, hx] = P('serviceHatch'); const hcz = 7.5, hcx = -36.3;
+      g.add('paint', boxMinMax([hcx - hx / 2 - 0.08, FL, hcz - hz / 2 - 0.08], [hcx + hx / 2 + 0.08, FL + 0.06, hcz - hz / 2]), boxMinMax([hcx - hx / 2 - 0.08, FL, hcz + hz / 2], [hcx + hx / 2 + 0.08, FL + 0.06, hcz + hz / 2 + 0.08]),
+        boxMinMax([hcx - hx / 2 - 0.08, FL, hcz - hz / 2], [hcx - hx / 2, FL + 0.06, hcz + hz / 2]), boxMinMax([hcx + hx / 2, FL, hcz - hz / 2], [hcx + hx / 2 + 0.08, FL + 0.06, hcz + hz / 2]));
     });
   S.position('machinery-house.service-crane', { parentKey: MH, sub: '151', category: 'component', label: 'Machinery-house service crane', modes: ['technical'], prov: 'approximate-location', sources: [src('J526A3000', 1, 'service crane area and runway'), src('J526A1600', null, 'service crane sheet not detailed')] },
     (g) => {
       for (const x of [HX0 + 0.5, HX1 - 0.5]) g.add('machinery', boxMinMax([x - 0.15, WALL - 0.75, HZ0 + 0.3], [x + 0.15, WALL - 0.45, HZ1 - 0.3]));
-      g.add('machinery', boxMinMax([HX0 + 0.5, WALL - 1.05, 3.6], [HX1 - 0.5, WALL - 0.75, 4.0]), boxMinMax([-35.6, WALL - 1.6, 3.4], [-34.8, WALL - 1.05, 4.2]));
+      g.add('machinery', boxMinMax([HX0 + 0.5, WALL - 1.05, 7.3], [HX1 - 0.5, WALL - 0.75, 7.7]), boxMinMax([-36.7, WALL - 1.6, 7.1], [-35.9, WALL - 1.05, 7.9]));
+    });
+  S.position('auxiliary.air-conditioning.outdoor-units', { parentKey: MH, sub: '152', category: 'component', label: 'Machinery-house A/C outdoor units (B1-B7)', prov: 'approximate-location', sources: [src('J526A3000', 1, 'items B1-B7 outside the electrical-room end wall'), PHOTO('08_44_14 PM', 'row of A/C outdoor units on the platform below the logo')] },
+    (g) => {
+      const n = N('houseAcUnits'); const x0 = HX0 + 1.1, x1 = HX1 - 1.1;
+      for (let i = 0; i < n; i++) {
+        const x = x0 + (x1 - x0) * (i / (n - 1));
+        g.add('acUnit', boxMinMax([x - 0.42, FL, HZ0 - 0.75], [x + 0.42, FL + 0.66, HZ0 - 0.38]));
+        g.add('cabFrame', cyl([x, FL + 0.36, HZ0 - 0.765], 'z', 0.22, 0.03, 16));
+      }
     });
 
+  // Equipment shapes (U1 repair): recognisable but simplified; vendor shapes not established.
+  const motor = (g, c, axis, r, len, driveDir) => { // body, end bells, fan cowl (non-drive end), terminal box, feet, shaft
+    const i = { x: 0, y: 1, z: 2 }[axis]; const at = (d) => { const p = [...c]; p[i] += d; return p; };
+    g.add('machinery', cyl(c, axis, r, len, 20), cyl(at(driveDir * (len / 2 + 0.04)), axis, r * 0.9, 0.08, 20), cyl(at(-driveDir * (len / 2 + 0.2)), axis, r * 0.88, 0.4, 20));
+    const ft = [r * 1.6, 0, r * 1.6]; ft[i] = len * 0.8;
+    g.add('machinery', box([c[0], c[1] + r * 0.95, c[2]], [axis === 'x' ? len * 0.3 : 0.35, 0.22, axis === 'z' ? len * 0.3 : 0.35]));
+    g.add('machinery', boxMinMax([c[0] - ft[0] / 2, FL, c[2] - ft[2] / 2], [c[0] + ft[0] / 2, c[1] - r * 0.55, c[2] + ft[2] / 2]));
+    g.add('steel', cyl(at(driveDir * (len / 2 + 0.25)), axis, 0.09, 0.35, 10));
+  };
+  const reducer = (g, a, b) => { // lower casing and stepped upper casing with stiffening ribs
+    const [x0, y0, z0] = a, [x1, y1, z1] = b; const ym = y0 + (y1 - y0) * 0.62;
+    g.add('machinery', boxMinMax([x0, y0, z0], [x1, ym, z1]), boxMinMax([x0 + (x1 - x0) * 0.18, ym, z0 + 0.05], [x1 - (x1 - x0) * 0.18, y1, z1 - 0.05]));
+    for (const t of [0.3, 0.7]) g.add('machinery', boxMinMax([x0 + (x1 - x0) * t - 0.04, y0, z0 - 0.04], [x0 + (x1 - x0) * t + 0.04, ym, z1 + 0.04]));
+  };
+  const drum = (g, c, r, len) => { // shell, flanges, wound rope band
+    g.add('drum', cyl(c, 'z', r, len, 26), cyl([c[0], c[1], c[2] - len / 2 + 0.03], 'z', r + 0.1, 0.06, 26), cyl([c[0], c[1], c[2] + len / 2 - 0.03], 'z', r + 0.1, 0.06, 26));
+    g.add('rope', cyl(c, 'z', r + 0.035, len * 0.55, 26));
+  };
+  const brake = (g, c, r) => { // disc on the shaft, caliper pair and thruster (axis z)
+    g.add('brake', cyl(c, 'z', r, 0.12, 22));
+    for (const s of [1, -1]) g.add('brake', boxMinMax([c[0] - 0.14, c[1] + r * 0.55, c[2] + s * 0.08], [c[0] + 0.14, c[1] + r + 0.12, c[2] + s * 0.26]));
+    g.add('brake', cyl([c[0] + r * 0.8, c[1] + r + 0.25, c[2]], 'y', 0.09, 0.45, 10), boxMinMax([c[0] - 0.25, FL, c[2] - 0.2], [c[0] + 0.25, c[1] - r * 0.6, c[2] + 0.2]));
+  };
+
   // Main hoist (01): J526A0300 arrangement, drums along Z, motors 1600 seaside of the drum axis.
-  const HXD = P('mainHoistDriveX'); const HXM = HXD + P('mainHoistMotorOffset'); const HZ = 0.5;
+  // U1 repair: reducer centre, motor and high-speed brake offsets along Z re-read from the J526A3000 plan.
+  const HXD = P('mainHoistDriveX'); const HXM = HXD + P('mainHoistMotorOffset'); const HZ = P('mainHoistDriveZ');
   const yDrum = FL + P('mainHoistDrumAxisHeight'); const yMot = FL + P('mainHoistMotorAxisHeight');
   const DL = P('mainHoistDrumLength'); const DSPAN = P('mainHoistDrumHalfSpan');
-  const hoistSrc = (note) => [src('J526A0300', 1, note), src('J526A3000', 1, 'position inside the house scaled from the plan')];
+  const hoistSrc = (note) => [src('J526A0300', 1, note), src('J526A3000', 1, 'position inside the house scaled from the plan (re-read in the U1 repair)')];
   const TECH = ['technical'];
+  const MZO = P('mainHoistMotorZOffset'); const BZO = P('mainHoistHsBrakeZOffset');
   S.position('hoist.drive.reducer.main', { parentKey: MH, sub: '011', category: 'component', modes: TECH, label: 'Main hoist reducer (SEW ML3PSF130E)', prov: 'approximate-location', sources: hoistSrc('one central reducer; ratio 18.551; casing shape simplified') },
-    (g) => g.add('machinery', boxMinMax([HXD - 0.7, FL, HZ - 0.485], [HXM + 0.6, FL + 2.0, HZ + 0.485])));
+    (g) => reducer(g, [HXD - 0.7, FL, HZ - 0.43], [HXM + 0.6, FL + 2.0, HZ + 0.43]));
   for (const [side, s] of [['a', 1], ['b', -1]]) {
     const zDrum = HZ + s * (DSPAN - DL / 2);
     S.position(`hoist.drive.drum.${side}`, { parentKey: MH, sub: '011', category: 'component', modes: TECH, label: `Main hoist drum ${side.toUpperCase()}`, prov: 'approximate-location', sources: hoistSrc('drum dia 1180, length 3616, 4208 from reducer centre to drum end') },
-      (g) => g.add('drum', cyl([HXD, yDrum, zDrum], 'z', P('mainHoistDrumDia') / 2, DL, 24)));
+      (g) => drum(g, [HXD, yDrum, zDrum], P('mainHoistDrumDia') / 2, DL));
     S.position(`hoist.drive.motor.${side}`, { parentKey: MH, sub: '011', category: 'component', modes: TECH, label: `Main hoist motor ${side.toUpperCase()} (450 kW)`, prov: 'approximate-location', sources: hoistSrc('2 x 450 kW Yaskawa BDK-1KMU; motor axis 1600 from drum axis; body size estimated') },
-      (g) => g.add('machinery', cyl([HXM, yMot, HZ + s * 2.6], 'z', 0.5, 1.4, 20), boxMinMax([HXM - 0.55, FL, HZ + s * 2.6 - 0.6], [HXM + 0.55, yMot - 0.3, HZ + s * 2.6 + 0.6])));
+      (g) => motor(g, [HXM, yMot, HZ + s * MZO], 'z', 0.5, 1.4, -s));
     S.position(`hoist.drive.brake.hs.${side}`, { parentKey: MH, sub: '011', category: 'component', modes: TECH, label: `Main hoist high-speed brake ${side.toUpperCase()}`, prov: 'approximate-location', sources: hoistSrc('YP41-Ed4500 disc brake, disc dia 900 between motor and reducer') },
-      (g) => g.add('brake', cyl([HXM, yMot, HZ + s * 1.45], 'z', P('mainHoistHsBrakeDiscDia') / 2, 0.12, 20), boxMinMax([HXM + 0.35, FL, HZ + s * 1.45 - 0.25], [HXM + 0.75, yMot + 0.3, HZ + s * 1.45 + 0.25])));
+      (g) => brake(g, [HXM, yMot, HZ + s * BZO], P('mainHoistHsBrakeDiscDia') / 2));
     S.position(`hoist.emergency.brake.${side}`, { parentKey: MH, sub: '012', classificationNote: 'Low-speed drum (emergency) brake, SB315 hydraulic: 012 "hoist emergency braker" proposed; Admin to confirm', category: 'component', modes: TECH, label: `Main hoist drum (emergency) brake ${side.toUpperCase()}`, prov: 'approximate-location', sources: hoistSrc('SB315 low-speed brake, 2 x 254520 Nm; disc dia 2300 at the outer drum end') },
-      (g) => g.add('brake', cyl([HXD, yDrum, HZ + s * (DSPAN + 0.1)], 'z', P('mainHoistBrakeDiscDia') / 2, 0.1, 24), boxMinMax([HXD - 0.4, FL, HZ + s * (DSPAN + 0.1) - 0.3], [HXD + 0.4, FL + 0.9, HZ + s * (DSPAN + 0.1) + 0.3])));
+      (g) => brake(g, [HXD, yDrum, HZ + s * (DSPAN + 0.1)], P('mainHoistBrakeDiscDia') / 2));
   }
   S.hotspot('emergency.drive.main', { parentKey: MH, sub: '161', point: [HXD + 0.8, FL + 2.6, HZ], radius: 0.5, label: 'Emergency hoist drive (37 kW; location approximate)', sources: [src('J526A0300', 1, 'emergency mechanism data: 37 kW, FH220 reducer'), src('J526A1400', null, 'emergency drive sheet not detailed')] });
 
-  // Trolley drive (02/021): rope-towed trolley, drive in the house (J526A04 / J526A0400).
-  const TXD = P('trolleyDriveX'); const yT = FL + 0.8;
-  const tSrc = (note) => [src('J526A0400', 1, note + ' (title block J526A04)'), src('J526A3000', 1, 'position scaled from the plan')];
-  S.position('trolley-drive.drum.main', { parentKey: MH, sub: '021', category: 'component', modes: TECH, label: 'Trolley drive drum', prov: 'approximate-location', sources: tSrc('drum dia 920; length estimated') },
-    (g) => g.add('drum', cyl([TXD, yT, 0.55], 'z', P('trolleyDriveDrumDia') / 2, 3.0, 22)));
+  // Trolley drive (02/021): rope-towed trolley, drive in the house (J526A04 / J526A0400). U1 repair: plan re-read.
+  const TXD = P('trolleyDriveX'); const yT = FL + 0.8; const TDZ = P('trolleyDriveDrumCentreZ'); const TDL = P('trolleyDriveDrumLength');
+  const TMX = P('trolleyDriveMotorX'); const TMZ = P('trolleyDriveMotorZ'); const TRZ = P('trolleyDriveReducerZ');
+  const tSrc = (note) => [src('J526A0400', 1, note + ' (title block J526A04)'), src('J526A3000', 1, 'position scaled from the plan (re-read in the U1 repair)')];
+  S.position('trolley-drive.drum.main', { parentKey: MH, sub: '021', category: 'component', modes: TECH, label: 'Trolley drive drum', prov: 'approximate-location', sources: tSrc('drum dia 920; length scaled from the plan') },
+    (g) => drum(g, [TXD, yT, TDZ], P('trolleyDriveDrumDia') / 2, TDL));
   S.position('trolley-drive.reducer.main', { parentKey: MH, sub: '021', category: 'component', modes: TECH, label: 'Trolley drive reducer', prov: 'approximate-location', sources: tSrc('reducer FH955.21.A6A-00; casing simplified') },
-    (g) => g.add('machinery', boxMinMax([TXD - 0.6, FL, -1.85 - 0.5], [TXD + 0.6, FL + 1.4, -1.85 + 0.5])));
+    (g) => reducer(g, [TXD - 1.0, FL, TRZ - 0.39], [TXD + 1.0, FL + 1.4, TRZ + 0.39]));
   S.position('trolley-drive.brake.main', { parentKey: MH, sub: '021', category: 'component', modes: TECH, label: 'Trolley drive brake', prov: 'approximate-location', sources: tSrc('brake between motor and reducer; size estimated') },
-    (g) => g.add('brake', cyl([TXD, yT, -2.55], 'z', 0.35, 0.12, 18)));
+    (g) => brake(g, [TMX, yT, TRZ - 0.78], 0.35));
   S.position('trolley-drive.motor.main', { parentKey: MH, sub: '021', category: 'component', modes: TECH, label: 'Trolley drive motor (275 / 270 kW, U-02)', prov: 'approximate-location', sources: tSrc('1 motor; rating 270 kW on J526A04 vs 275 kW on J526A00 (U-02)') },
-    (g) => g.add('machinery', cyl([TXD, yT, -3.3], 'z', 0.45, 1.2, 20)));
+    (g) => motor(g, [TMX, yT, TMZ], 'z', 0.45, 1.2, 1));
 
-  // Boom hoist (03): drum dia 1530, SEW ML4PSF120X, motor 375 kW, motor brake and drum brake.
-  const BXD = P('boomHoistX'); const yB = FL + 1.0;
-  const bSrc = (note) => [src('J526A0500', 1, note + ' (title block J526A05)'), src('J526A3000', 1, 'position scaled from the plan')];
-  S.position('boom-hoist.drum.main', { parentKey: MH, sub: '031', category: 'component', modes: TECH, label: 'Boom hoist drum', prov: 'approximate-location', sources: bSrc('drum dia 1530; length estimated') },
-    (g) => g.add('drum', cyl([BXD, yB, 0.6], 'z', P('boomHoistDrumDia') / 2, 6.0, 26)));
+  // Boom hoist (03): drum dia 1530, SEW ML4PSF120X, motor 375 kW, motor brake and drum brake. U1 repair: the motor
+  // stands landside of the drum (P03 had it seaside); drum length and reducer position re-read from the J526A3000 plan.
+  const BXD = P('boomHoistX'); const yB = FL + 1.0; const BDZ = P('boomHoistDrumCentreZ'); const BDL = P('boomHoistDrumLength');
+  const BMX = P('boomHoistMotorX'); const BMZ = P('boomHoistMotorZ'); const BRZ = P('boomHoistReducerZ');
+  const bSrc = (note) => [src('J526A0500', 1, note + ' (title block J526A05)'), src('J526A3000', 1, 'position scaled from the plan (re-read in the U1 repair)')];
+  S.position('boom-hoist.drum.main', { parentKey: MH, sub: '031', category: 'component', modes: TECH, label: 'Boom hoist drum', prov: 'approximate-location', sources: bSrc('drum dia 1530; two-section drum, length scaled from the plan') },
+    (g) => drum(g, [BXD, yB, BDZ], P('boomHoistDrumDia') / 2, BDL));
   S.position('boom-hoist.reducer.main', { parentKey: MH, sub: '031', category: 'component', modes: TECH, label: 'Boom hoist reducer (SEW ML4PSF120X)', prov: 'approximate-location', sources: bSrc('ratio 100.56; casing simplified') },
-    (g) => g.add('machinery', boxMinMax([BXD - 0.9, FL, 3.7], [BXD + 0.9, FL + 2.1, 4.9])));
-  S.position('boom-hoist.motor.main', { parentKey: MH, sub: '031', category: 'component', modes: TECH, label: 'Boom hoist motor (375 kW)', prov: 'approximate-location', sources: bSrc('1 x 375 kW; placement beside the reducer estimated') },
-    (g) => g.add('machinery', cyl([BXD + 1.05, FL + 0.75, 2.9], 'z', 0.45, 1.3, 20)));
-  S.position('boom-hoist.brake.hs.main', { parentKey: MH, sub: '031', category: 'component', modes: TECH, label: 'Boom hoist motor brake', prov: 'approximate-location', sources: bSrc('motor (high-speed) brake') },
-    (g) => g.add('brake', cyl([BXD + 1.05, FL + 0.75, 3.7], 'z', 0.4, 0.12, 18)));
+    (g) => reducer(g, [BMX - 0.5, FL, BRZ - 0.47], [BXD + 0.45, FL + 2.1, BRZ + 0.47]));
+  S.position('boom-hoist.motor.main', { parentKey: MH, sub: '031', category: 'component', modes: TECH, label: 'Boom hoist motor (375 kW)', prov: 'approximate-location', sources: bSrc('1 x 375 kW; landside of the drum next to the reducer') },
+    (g) => motor(g, [BMX, FL + 0.75, BMZ], 'z', 0.45, 1.3, 1));
+  S.position('boom-hoist.brake.hs.main', { parentKey: MH, sub: '031', category: 'component', modes: TECH, label: 'Boom hoist motor brake', prov: 'approximate-location', sources: bSrc('motor (high-speed) brake between motor and reducer') },
+    (g) => brake(g, [BMX, FL + 0.75, BMZ + 0.65 + 0.3], 0.4));
   S.position('boom-hoist.emergency.brake.main', { parentKey: MH, sub: '032', classificationNote: 'Drum brake (2 x 254.52 kN.m): 032 "boom emergency braker" proposed; Admin to confirm', category: 'component', modes: TECH, label: 'Boom hoist drum (emergency) brake', prov: 'approximate-location', sources: bSrc('drum brake 2 x 254.52 kN.m at the drum end') },
-    (g) => g.add('brake', cyl([BXD, yB, 0.6 - 3.1], 'z', 1.05, 0.1, 24), boxMinMax([BXD - 0.4, FL, -2.8], [BXD + 0.4, FL + 0.8, -2.2])));
+    (g) => brake(g, [BXD, yB, BDZ - BDL / 2 - 0.12], 1.05));
 
-  // HV equipment (12/121): sizes from the J526A3000 labels; positions scaled from the plan.
-  const hv = (key, label, size, cx, cz, note) => S.position(key, { parentKey: MH, sub: '121', category: 'electrical', modes: TECH, label, prov: 'approximate-location', sources: [src('J526A3000', 1, note)] },
-    (g) => g.add('transformer', box([cx, FL + size[1] / 2, cz], [size[2], size[1], size[0]])));
+  // HV equipment (12/121): sizes from the J526A3000 labels; U1 repair: positions re-read from the plan.
+  const hv = (key, label, size, pos, note) => S.position(key, { parentKey: MH, sub: '121', category: 'electrical', modes: TECH, label, prov: 'approximate-location', sources: [src('J526A3000', 1, note)] },
+    (g) => {
+      g.add('transformer', box([pos[0], FL + size[1] / 2, pos[1]], [size[2], size[1], size[0]]));
+      g.add('cabFrame', box([pos[0], FL + size[1] + 0.06, pos[1]], [size[2] * 0.7, 0.12, size[0] * 0.7])); // cable box / lifting lugs
+    });
   const mt = P('mainTransformerSize'); const at = P('auxTransformerSize'); const sw = P('switchgearSize');
-  hv('electrical.hv.main-transformer', 'Main transformer', mt, -38.1, 7.5, 'Main Trans. 2200 x 1450 x 2294H; plan position scaled');
-  hv('electrical.hv.aux-transformer', 'Auxiliary transformer', at, -32.9, 5.6, 'Aux. Trans. 1500 x 1200 x 1650H; plan position scaled');
-  hv('electrical.hv.switchgear', 'HV switchgear', sw, -32.95, 7.9, 'Switch gear 1950 x 1500 x 2300H; plan position scaled');
+  hv('electrical.hv.main-transformer', 'Main transformer', mt, P('mainTransformerPos'), 'Main Trans. 2200 x 1450 x 2294H; plan position scaled');
+  hv('electrical.hv.aux-transformer', 'Auxiliary transformer', at, P('auxTransformerPos'), 'Aux. Trans. 1500 x 1200 x 1650H; plan position scaled');
+  hv('electrical.hv.switchgear', 'HV switchgear', sw, P('switchgearPos'), 'Switch gear 1950 x 1500 x 2300H; plan position scaled');
 
   // Electrical room (container) with an unlabelled cabinet line-up and qualified hotspots.
   const ER = HZ0 + P('electricalRoomWidthZ');
   S.container('container.electrical-room', { parentKey: MH, label: 'Electrical room', enclosure: true, prov: 'approximate-location', sources: [src('J526A3000', 1, 'electrical room along the -Z end wall; cabinet identities not legible (U-11)')] });
   S.containerShell('container.electrical-room', (g) => g.add('houseWall', boxMinMax([HX0, FL, ER - 0.05], [HX1, WALL, ER + 0.05])));
   S.decorative('electrical.cabinets.lineup', { parentKey: 'container.electrical-room', modes: TECH, label: 'Electrical cabinet line-up (identities not established)', prov: 'approximate-location', sources: [src('J526A3000', 1, 'two cabinet rows numbered 71-76; individual identities not legible (U-11)')] },
-    (g) => { g.add('cabinet', boxMinMax([-40.9, FL, HZ0 + 0.55], [-33.4, FL + 2.2, HZ0 + 1.15]), boxMinMax([-40.5, FL, ER - 1.0], [-33.6, FL + 2.2, ER - 0.4])); });
+    (g) => {
+      g.add('cabinet', boxMinMax([-40.9, FL, HZ0 + 0.55], [-33.4, FL + 2.2, HZ0 + 1.15]), boxMinMax([-40.5, FL, ER - 1.0], [-33.6, FL + 2.2, ER - 0.4]));
+      for (let x = -40.4; x < -33.5; x += 0.8) g.add('cabFrame', boxMinMax([x - 0.015, FL + 0.1, HZ0 + 1.15], [x + 0.015, FL + 2.1, HZ0 + 1.17]), boxMinMax([x - 0.015, FL + 0.1, ER - 1.02], [x + 0.015, FL + 2.1, ER - 1.0])); // cabinet door joints
+    });
   const ERH = 'container.electrical-room';
   S.hotspot('electrical.drives.main', { parentKey: ERH, sub: '071', point: [-37.0, FL + 2.7, ER - 0.7], radius: 0.5, label: 'Drive / inverter cabinets (location approximate)', sources: [src('J526A3000', 1, 'cabinet row (71x labels); identities not established (U-11)')] });
   S.hotspot('electrical.plc.main', { parentKey: ERH, sub: '081', point: [-35.0, FL + 2.7, HZ0 + 0.85], radius: 0.5, label: 'PLC cabinet (location approximate)', sources: [src('J526A3000', 1, 'electrical room; exact cabinet not established (U-11)')] });
   S.hotspot('electrical.control-power.main', { parentKey: ERH, sub: '051', point: [-39.4, FL + 2.7, HZ0 + 0.85], radius: 0.5, label: 'Control power (location approximate)', sources: [src('J526A3000', 1, 'electrical room; exact cabinet not established (U-11)')] });
   S.hotspot('auxiliary.air-conditioning.electrical-room', { parentKey: ERH, sub: '152', point: [HX0 + 0.5, WALL - 0.9, HZ0 + 1.7], radius: 0.45, label: 'Electrical-room air conditioning (location approximate)', sources: [src('J526A3000', 1, 'A/C units not individually located')] });
   S.position('auxiliary.compressor', { parentKey: MH, sub: '151', category: 'component', modes: TECH, label: 'Air compressor', prov: 'approximate-location', sources: [src('J526A3000', 1, 'compressor at the seaside corner of the plan'), src('J526A7000', null, 'compressor sheet not detailed')] },
-    (g) => g.add('machinery', boxMinMax([HX1 - 1.4, FL, ER + 0.3], [HX1 - 0.4, FL + 1.1, ER + 1.2])));
+    (g) => { g.add('machinery', boxMinMax([HX1 - 1.4, FL, ER + 0.3], [HX1 - 0.4, FL + 1.1, ER + 1.2])); g.add('acUnit', cyl([HX1 - 0.9, FL + 1.35, ER + 0.75], 'z', 0.25, 0.8, 14)); });
 
   // ---------- trolley (02), cabin (14) ----------
   const XT = P('trolleyPositionX');
@@ -319,18 +464,74 @@ export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
     S.position(`trolley.sheave.set.${side}`, { parentKey: T_, sub: '021', classificationNote: 'Trolley-mounted hoist sheaves: 021 proposed; Admin to confirm', category: 'component', label: `Trolley main hoist sheave set ${side.toUpperCase()}`, prov: 'estimated', sources: [src('J526A0200', 1, 'items 13, sheave centres 900 either side; diameter scaled')] },
       (g) => { for (const dx of [-P('trolleyMainSheaveOffset'), P('trolleyMainSheaveOffset')]) g.add('steel', sheave([XT + dx, RAIL_T + 0.35, s * 2.6], 'z', P('trolleyMainSheaveDia'), 0.2)); });
   }
+  // Operator cab (14/141), remodelled in the U1 repair from J526A3100 (trolley operator's cab, 1:20): 3000 long,
+  // 2200 wide, 2673 high; sloping front glass with a 310 visor, front floor window 826, side sliding windows, hinged
+  // door 1900 on the walkway side, cab walkway 900 with handrails and ladder, four damper hangers to the trolley.
   const CX1 = XT - P('cabinOffsetLandside'); const CX0 = CX1 - P('cabinLengthX'); const CW = P('cabinWidthZ') / 2;
   const CY0 = P('cabinFloorElevation'); const CY1 = CY0 + P('cabinBodyHeight');
-  S.position('cabin.operator.main', { parentKey: T_, sub: '141', category: 'component', label: 'Operator cabin', prov: 'drawing-derived', sources: [src('J526A0200', 1, 'cabin 3000 long, 2500 landside of hoist centre; height and width scaled'), src('J526A00', 1, 'cabin floor about 47.8 m in the side view at the outreach position'), src('J526A3100', null, 'cabin sheet not detailed')] },
+  const FW = P('cabFloorWindowLength'); const yW0 = CY0 + 0.95; const yW1 = CY1 - 0.35; const OV = P('cabinFrontOverhang');
+  const cabSrc = [src('J526A3100', 1, '3000 x 2200 x 2673; windows, floor window 826, visor 310, door 1900, walkway 900, 4 dampers; frame members simplified'), src('J526A0200', 1, 'cab 2500 landside of the hoist centre'), src('J526A00', 1, 'cab floor about 47.8 m in the side view at the outreach position'), PHOTO('09_14_34 PM', 'light cab with blue-tinted glazing hanging under the trolley')];
+  S.position('cabin.operator.main', { parentKey: T_, sub: '141', category: 'component', label: 'Operator cabin', prov: 'drawing-derived', sources: cabSrc },
     (g) => {
-      g.add('cabin', boxMinMax([CX0, CY0 + 1.1, -CW], [CX1, CY1, CW]), boxMinMax([CX0, CY0, -CW], [CX0 + 0.9, CY0 + 1.1, CW]));
-      g.add('glass', boxMinMax([CX0 + 0.9, CY0, -CW + 0.05], [CX1 - 0.05, CY0 + 1.1, CW - 0.05]), boxMinMax([CX1 - 0.04, CY0 + 1.2, -CW + 0.2], [CX1 + 0.02, CY1 - 0.4, CW - 0.2]));
-      g.add('paint', boxMinMax([CX0 + 0.2, CY1, -0.3], [CX0 + 0.5, RAIL_T + 0.35, 0.3]), boxMinMax([CX1 - 0.5, CY1, -0.3], [CX1 - 0.2, RAIL_T + 0.35, 0.3]));
+      const zi = CW - 0.03;
+      // floor (rear part) and sloping front floor window
+      g.add('cabBody', boxMinMax([CX0, CY0, -CW], [CX1 - FW, CY0 + 0.1, CW]));
+      g.add('cabGlass', beam([CX1 - FW, CY0 + 0.06, 0], [CX1, CY0 - 0.2, 0], 2 * CW - 0.08, 0.04));
+      // sloping front glass (leans out at the top) with frame, transom and wipers
+      const fb = [CX1, CY0 - 0.2], ft = [CX1 + OV - 0.05, yW1];
+      g.add('cabGlass', beam([fb[0], fb[1], 0], [ft[0], ft[1], 0], 2 * CW - 0.08, 0.04, [1, 0, 0]));
+      for (const z of [-zi, zi]) g.add('cabFrame', beam([fb[0], fb[1], z], [ft[0], ft[1], z], 0.08, 0.08, [1, 0, 0]));
+      const tm = (t) => [fb[0] + (ft[0] - fb[0]) * t, fb[1] + (ft[1] - fb[1]) * t];
+      for (const t of [0.0, 0.42, 1.0]) { const p = tm(t); g.add('cabFrame', boxMinMax([p[0] - 0.04, p[1] - 0.04, -CW], [p[0] + 0.04, p[1] + 0.04, CW])); }
+      for (const z of [-0.45, 0.45]) { const p = tm(0.55), q = tm(0.85); g.add('cabFrame', beam([p[0] + 0.03, p[1], z], [q[0] + 0.03, q[1], z + 0.12], 0.025, 0.025)); }
+      // side walls: lower panel, front low side window, window band, top band, posts; door on the +Z (walkway) side
+      for (const s of [1, -1]) {
+        const zz = [s * CW - 0.025, s * CW + 0.025];
+        g.add('cabBody', boxMinMax([CX0, CY0, zz[0]], [CX1 - FW - 0.2, yW0, zz[1]]), boxMinMax([CX0, yW1, zz[0]], [CX1 + OV - 0.05, CY1, zz[1]]));
+        g.add('cabGlass', boxMinMax([CX1 - FW - 0.2, CY0 - 0.1, zz[0]], [CX1, yW0, zz[1]]), boxMinMax([s > 0 ? CX0 + 1.05 : CX0 + 0.12, yW0, zz[0]], [CX1, yW1, zz[1]]));
+        for (const x of [CX0 + 0.04, CX0 + 1.0, CX1 - FW - 0.2, CX1 - 0.04]) g.add('cabFrame', boxMinMax([x - 0.04, CY0 - 0.05, s * CW - 0.05], [x + 0.04, CY1, s * CW + 0.05]));
+        g.add('cabFrame', boxMinMax([CX0, yW0 - 0.04, s * CW - 0.05], [CX1, yW0 + 0.04, s * CW + 0.05]), boxMinMax([CX0, yW1 - 0.04, s * CW - 0.05], [CX1, yW1 + 0.04, s * CW + 0.05]));
+      }
+      g.add('cabFrame', boxMinMax([CX0 + 0.12, CY0 + 0.02, CW + 0.02], [CX0 + 0.96, CY0 + P('cabDoorHeight'), CW + 0.06])); // hinged door
+      g.add('cabGlass', boxMinMax([CX0 + 0.25, CY0 + 1.05, CW + 0.065], [CX0 + 0.83, CY0 + 1.75, CW + 0.08]));
+      // rear wall with a small window, roof with front visor and gutter
+      g.add('cabBody', boxMinMax([CX0 - 0.05, CY0, -CW], [CX0, CY1, CW]));
+      g.add('cabGlass', boxMinMax([CX0 - 0.07, yW0 + 0.2, -0.6], [CX0 - 0.05, yW1 - 0.1, 0.1]));
+      g.add('cabBody', boxMinMax([CX0 - 0.08, CY1, -CW - 0.06], [CX1 + OV, CY1 + 0.08, CW + 0.06]));
+      g.add('cabFrame', boxMinMax([CX1 + OV - 0.06, CY1 - 0.12, -CW - 0.06], [CX1 + OV + 0.02, CY1 + 0.1, CW + 0.06]));
+      // four damper hangers and the hanger frame tied back to the trolley body
+      const yH = G_BOT + 0.05;
+      for (const x of [CX0 + 0.3, CX1 - 0.4]) for (const z of [-0.8, 0.8]) { g.add('cabFrame', boxMinMax([x - 0.06, CY1 + 0.08, z - 0.06], [x + 0.06, yH, z + 0.06])); g.add('steel', cyl([x, (CY1 + yH) / 2 + 0.02, z], 'y', 0.11, 0.12, 12)); }
+      for (const z of [-0.8, 0.8]) g.add('cabFrame', boxMinMax([CX0, yH, z - 0.08], [TL0 + 0.6, yH + 0.22, z + 0.08]));
+      for (const x of [CX0 + 0.3, CX1 - 0.4, TL0 + 0.45]) g.add('cabFrame', boxMinMax([x - 0.08, yH, -0.9], [x + 0.08, yH + 0.22, 0.9]));
+      // cab walkway (900) at the landside end with handrails, and the access ladder up to the hanger frame
+      const WX0 = CX0 - P('cabWalkwayWidth');
+      g.add('grating', boxMinMax([WX0, CY0 - 0.06, -CW - 0.15], [CX0 - 0.05, CY0, CW + 0.15]));
+      g.add('paint', ...railing([WX0, CY0, -CW - 0.15], [WX0, CY0, CW + 0.15], { step: 1.1 }), ...railing([WX0, CY0, CW + 0.15], [CX0 - 0.05, CY0, CW + 0.15], { step: 0.9 }), ...railing([WX0, CY0, -CW - 0.15], [CX0 - 0.05, CY0, -CW - 0.15], { step: 0.9 }));
+      for (const z of [-CW + 0.05, -CW + 0.5]) g.add('paint', boxMinMax([WX0 + 0.12, CY0, z - 0.025], [WX0 + 0.17, yH + 0.22, z + 0.025]));
+      for (let y = CY0 + 0.3; y < yH; y += 0.3) g.add('paint', boxMinMax([WX0 + 0.12, y - 0.015, -CW + 0.05], [WX0 + 0.17, y + 0.015, -CW + 0.5]));
+      // A/C unit on the walkway beside the cab (J526A3100 plan, "A/C")
+      g.add('acUnit', boxMinMax([WX0 + 0.25, CY0, 0.35], [CX0 - 0.1, CY0 + 0.62, CW + 0.05]));
     });
-  S.hotspot('cabin.air-conditioning', { parentKey: T_, sub: '152', point: [CX0 + 0.4, CY1 + 0.3, CW - 0.4], radius: 0.4, label: 'Cabin air conditioning (location approximate)', sources: [src('J526A0200', 1, 'A/C unit beside the cabin in plan; exact unit not detailed')] });
-  S.hotspot('trolley.skew-system.main', { parentKey: T_, sub: '111', point: [XT + 1.5, RAIL_T + 1.2, -1.8], radius: 0.45, label: 'Trim/list/skew system (location approximate)', sources: [src('J526A1000', null, 'TLS and snag protection; sheet not detailed in P03')] });
+  const XS = CX1 - P('cabSeatFromFront');
+  S.position('cabin.operator.seat', { parentKey: T_, sub: '141', category: 'component', label: 'Operator seat (tip-up chair)', prov: 'estimated', sources: [src('J526A3100', 1, 'item 10 tip-up chair installation (ZT2-031511) facing the front and floor windows; size estimated')] },
+    (g) => {
+      g.add('cabFrame', boxMinMax([XS - 0.15, CY0 + 0.1, -0.15], [XS + 0.15, CY0 + 0.45, 0.15]));
+      g.add('seat', boxMinMax([XS - 0.3, CY0 + 0.45, -0.28], [XS + 0.28, CY0 + 0.58, 0.28]), beam([XS - 0.32, CY0 + 0.55, 0], [XS - 0.42, CY0 + 1.25, 0], 0.52, 0.12), box([XS - 0.44, CY0 + 1.36, 0], [0.1, 0.2, 0.32]));
+    });
+  S.position('cabin.operator.consoles', { parentKey: T_, sub: '141', category: 'component', label: 'Operator control consoles and joysticks', prov: 'approximate-location', sources: [src('J526A3100', 1, 'auxiliary control station and seat consoles; vendor shapes not established')] },
+    (g) => {
+      for (const s of [1, -1]) {
+        const zz = [s * 0.33, s * 0.6].sort((a, b) => a - b);
+        g.add('cabFrame', boxMinMax([XS - 0.25, CY0 + 0.1, zz[0]], [XS + 0.35, CY0 + 0.7, zz[1]]));
+        g.add('seat', boxMinMax([XS - 0.25, CY0 + 0.7, zz[0]], [XS + 0.35, CY0 + 0.74, zz[1]]), cyl([XS + 0.15, CY0 + 0.84, s * 0.46], 'y', 0.025, 0.2, 8), box([XS + 0.15, CY0 + 0.96, s * 0.46], [0.07, 0.07, 0.07]));
+      }
+      g.add('cabFrame', boxMinMax([CX0 + 0.1, CY0 + 0.1, -CW + 0.1], [CX0 + 0.55, CY0 + 1.4, -CW + 0.75])); // auxiliary control station at the rear corner
+    });
+  S.hotspot('cabin.air-conditioning', { parentKey: T_, sub: '152', point: [CX0 - P('cabWalkwayWidth') / 2 - 0.05, CY0 + 0.9, 0.75], radius: 0.4, label: 'Cabin air conditioning (location approximate)', sources: [src('J526A3100', 1, 'A/C unit beside the cab on the walkway side (plan); exact unit not detailed'), src('J526A0200', 1, 'A/C unit beside the cabin in plan')] });
+  S.hotspot('trolley.skew-system.main', { parentKey: BR, sub: '111', point: [XAS0 + 1.9, G_TOP + 3.3, 0], radius: 0.45, label: 'Trim/list/skew system (location approximate; J526A1000 device at the girder tail)', sources: [src('J526A1000', 1, 'anti-snag and L/S/T device at the girder tail (GA item 7); hydraulic power unit not located')] });
   S.hotspot('hoist.loadcell.main', { parentKey: T_, sub: '013', point: [XT - 1.5, RAIL_T + 1.2, -1.8], radius: 0.45, label: 'Load cell system (location not established; marker at trolley for navigation)', sources: [src('J526A0300', 1, 'load-cell position not shown on the reviewed sheets')] });
-  S.hotspot('trolley.tension.main', { parentKey: T_, sub: '022', point: [XT, RAIL_T + 1.2, 1.8], radius: 0.45, label: 'Trolley rope tensioning (location approximate)', sources: [src('J526A2100', null, 'trolley reeving sheet not detailed in P03')] });
+  S.hotspot('trolley.tension.main', { parentKey: BR, sub: '022', point: [xTT + 1.1, G_TOP + 1.0, 0], radius: 0.45, label: 'Trolley rope tensioning (location approximate; tensioners at the girder-tail end)', sources: [s00('trolley rope reeving diagram: tensioners at the tail end'), src('J526A2100', null, 'trolley reeving sheet not detailed')] });
 
   // ---------- headblock (06/062) and spreader (06/061) ----------
   S.container('container.headblock-spreader', { label: 'Headblock and spreader', prov: 'drawing-derived', sources: [src('J526A1200', 1, 'headblock 5200 x 2090'), src('J526A00', 1, 'display pose with spreader underside at 45 m lift height')] });
@@ -358,30 +559,48 @@ export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
   }
 
   // ---------- reeving (ropes are thin; viewer applies a 0.5 m minimum fit extent) ----------
+  // U1 repair: paths follow the J526A00 reeving diagrams. Main hoist: drums -> girder-tail sheaves (anti-snag levers)
+  // -> trolley landside sheaves -> headblock -> trolley -> boom-tip sheaves, with the equalising cross-over at the tip.
+  // Trolley: drum -> boom-tip sheaves -> trolley waterside end, and drum -> girder-tail tensioner sheaves -> trolley
+  // landside end. Boom hoist: drum -> apex sheaves -> multi-fall between the apex and the boom sheave blocks.
   const R = 0.05; // display radius (actual 31.5 / 25 / 35.5 mm ropes would be invisible at crane scale)
-  S.position('hoist.rope.set.main', { sub: '015', positionKind: 'quantityLot', uom: 'rope', category: 'ropeSet', label: 'Main hoist rope set (simplified path)', prov: 'estimated', sources: [s00('main hoist rope reeving diagram'), src('J526A0300', 1, 'IWRC 6xWS(36) dia 31.5'), src('J526A2000', null, 'reeving sheet not detailed; path simplified')] },
+  const poly = (g, pts, r = R) => { for (let i = 0; i < pts.length - 1; i++) g.add('rope', tube(pts[i], pts[i + 1], r, 6)); };
+  S.position('hoist.rope.set.main', { sub: '015', positionKind: 'quantityLot', uom: 'rope', category: 'ropeSet', label: 'Main hoist rope set (simplified path)', prov: 'estimated', sources: [s00('main hoist rope reeving diagram: 4 ropes from 2 drums over the girder-tail sheaves, trolley and headblock to the boom tip'), src('J526A0300', 1, 'IWRC 6xWS(36) dia 31.5'), src('J526A1000', 1, 'tail sheaves on the anti-snag levers'), src('J526A2000', null, 'reeving sheet not detailed; path simplified')] },
     (g) => {
       for (const s of [1, -1]) {
-        const zr = s * 2.6;
-        g.add('rope', tube([HXD, yDrum + 0.6, zr - s * 0.2], [HX1 + 0.5, RAIL_T + 0.6, zr], R, 6), tube([HX1 + 0.5, RAIL_T + 0.6, zr], [XT - 1.45, RAIL_T + 0.6, zr], R, 6));
-        g.add('rope', tube([XT + 1.45, RAIL_T + 0.6, zr], [XTIP - 1.5, G_TOP + 1.2, zr], R, 6));
+        const zr = s * ZR; const zD = HZ + s * (DSPAN - DL / 2);
+        for (const dz of [-0.15, 0.15]) {
+          const z = zr + dz;
+          poly(g, [[HXD - 0.3, yDrum - 0.55, zD + dz * 4], [HX0 - 0.4, G_TOP + 0.5, z], [xTS[1], yTS + rTS, z], [xTS[0], yTS + rTS, z], [xTS[0] - rTS, yTS, z], [xTS[0], yTS - rTS, z], [XT - 1.45, RAIL_T + 0.35, z]]);
+          poly(g, [[XT + 1.45, RAIL_T + 0.6, z], [XTIP - 0.9, G_TOP + 1.2, z], [XTIP - 0.3, G_TOP + 0.6, z]]);
+        }
         for (const [xt, xh] of [[XT - 1.45, XT - 1.0], [XT - 0.35, XT - 0.0], [XT + 0.35, XT + 0.0], [XT + 1.45, XT + 1.0]]) g.add('rope', tube([xt, RAIL_T + 0.35, zr], [xh, yHS, zr], R, 6));
       }
+      for (const dz of [-0.15, 0.15]) g.add('rope', tube([XTIP - 0.3, G_TOP + 0.6, -ZR + dz], [XTIP - 0.3, G_TOP + 0.6, ZR + dz], R, 6)); // equalising cross-over at the tip (simplified)
     });
-  S.position('trolley.rope.set.main', { sub: '024', positionKind: 'quantityLot', uom: 'rope', category: 'ropeSet', label: 'Trolley rope set (simplified path)', prov: 'estimated', sources: [s00('trolley rope reeving diagram'), src('J526A0400', 1, 'rope dia 25'), src('J526A2100', null, 'reeving sheet not detailed; path simplified')] },
+  S.position('trolley.rope.set.main', { sub: '024', positionKind: 'quantityLot', uom: 'rope', category: 'ropeSet', label: 'Trolley rope set (simplified path)', prov: 'estimated', sources: [s00('trolley rope reeving diagram: drum to the boom-tip and girder-tail sheaves, back to both ends of the trolley'), src('J526A0400', 1, 'rope dia 25'), src('J526A2100', null, 'reeving sheet not detailed; path simplified')] },
     (g) => {
+      const tipX = XTIP - 0.9, tipY = G_TOP + 0.6, rTip = 0.45; // trolley-rope sheaves of the boom-tip sheave node (z = +/-0.35)
       for (const z of [-0.35, 0.35]) {
-        g.add('rope', tube([TXD, yT + 0.5, z + 0.2], [TXD + 0.3, RAIL_T + 0.25, z], R, 6));
-        g.add('rope', tube([XTAIL + 0.6, RAIL_T + 0.25, z], [TL0, RAIL_T + 0.25, z], R, 6), tube([TL1, RAIL_T + 0.25, z], [XTIP - 0.9, RAIL_T + 0.25, z], R, 6));
+        poly(g, [[TXD + 0.3, yT - 0.4, TDZ + 0.9], [HX1 + 0.4, G_TOP + 0.6, z], [tipX, tipY + rTip, z], [tipX + rTip, tipY, z], [tipX, tipY - rTip, z], [TL1, RAIL_T + 0.25, z]]);
+        poly(g, [[TXD - 0.3, yT - 0.4, TDZ - 0.9], [HX0 - 0.4, G_TOP + 0.6, z], [xTT, yTT + rTT, z], [xTT - rTT, yTT, z], [xTT, yTT - rTT, z], [TL0, RAIL_T + 0.25, z]]);
       }
     });
-  S.position('boom.rope.set.main', { sub: '033', positionKind: 'quantityLot', uom: 'rope', category: 'ropeSet', label: 'Boom hoist rope set (simplified path)', prov: 'estimated', sources: [s00('boom hoist rope reeving diagram'), src('J526A0500', 1, 'rope dia 35.5'), src('J526A2300', null, 'reeving sheet not detailed; path simplified')] },
+  const zBB = ZG - 0.6; const xBB = XZ3 - 0.6, yBB = G_TOP + 1.6; const xAB = XMAST + 0.9, yAB = AF_TOP + 0.6;
+  S.position('boom.rope.set.main', { sub: '033', positionKind: 'quantityLot', uom: 'rope', category: 'ropeSet', label: 'Boom hoist rope set (simplified path)', prov: 'estimated', sources: [s00('boom hoist rope reeving diagram: drum to the apex sheaves, multi-fall between apex and boom sheave groups'), src('J526A0500', 1, 'rope dia 35.5'), src('J526A2300', null, 'reeving sheet not detailed; number of falls simplified to 4 per side')] },
     (g) => {
-      for (const z of [-1.3, 1.3]) {
-        g.add('rope', tube([BXD, yB + 0.76, 0.6 + z], [XMAST + 0.2, AF_TOP + 1.75, z], R, 6));
-        for (const dz of [-0.12, 0.12]) g.add('rope', tube([XMAST + 0.9, AF_TOP + 0.6, z + dz], [XZ3 - 0.6, G_TOP + 1.6, s3(z) + dz], R, 6));
+      for (const s of [1, -1]) {
+        const z = s * 1.3;
+        g.add('rope', tube([BXD, yB + 0.77, BDZ + s * 1.7], [XMAST + 0.2, AF_TOP + 1.75, z], R, 6));
+        for (const dz of [-0.3, -0.1, 0.1, 0.3]) g.add('rope', tube([xAB, yAB, z + dz], [xBB, yBB, s * zBB + dz], R * 0.9, 6));
       }
-      function s3(z) { return Math.sign(z) * (ZG - 0.6); }
+    });
+  S.position('boom.sheave.boom-block', { parentKey: B_, sub: '031', category: 'component', label: 'Boom hoist sheave blocks on the boom', prov: 'estimated', sources: [s00('boom hoist rope reeving diagram: sheave group on the boom end of the falls'), src('J526A2300', null, 'reeving sheet not detailed; position at the outer forestay bracket (Z3) and size estimated')] },
+    (g) => {
+      for (const s of [1, -1]) {
+        for (const dz of [-0.3, -0.1, 0.1, 0.3]) g.add('steel', sheave([xBB, yBB, s * zBB + dz], 'z', P('boomBlockSheaveDia'), 0.1));
+        g.add('paint', boxMinMax([xBB - 0.55, yBB - 0.35, s * zBB - 0.48], [xBB + 0.55, yBB + 0.3, s * zBB - 0.4]), boxMinMax([xBB - 0.55, yBB - 0.35, s * zBB + 0.4], [xBB + 0.55, yBB + 0.3, s * zBB + 0.48]), boxMinMax([xBB - 0.3, G_TOP, s * zBB - 0.45], [xBB + 0.3, yBB - 0.35, s * zBB + 0.45]));
+      }
     });
 
   // ---------- gantry (04) ----------
@@ -420,16 +639,31 @@ export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
   S.container('container.access', { label: 'Stairs and elevator (landside leg B)', prov: 'drawing-derived', sources: [src('J526A5100', 1, 'elevator location plan and landings 6500 / 15615 / 47845 / 53430'), s00('landside end view stair')] });
   const AC = 'container.access';
   const ZLB = -ZL;
-  S.position('access.stair.landside-leg-b', { parentKey: AC, sub: '151', category: 'structural', label: 'Stair tower, landside leg B', prov: 'estimated', sources: [s00('landside end view: zig-zag stair outside leg B up to 53430'), src('J526A5000', null, 'stair sheets not detailed')] },
+  S.position('access.stair.landside-leg-b', { parentKey: AC, sub: '151', category: 'structural', label: 'Stair tower, landside leg B', prov: 'estimated', sources: [src('J526A5000', 1, 'View P: switch-back flights outboard of leg B with landings A 6500, B 15615, C 47845 and 53430; side view: stair on the landside face of the leg'), s00('landside end view: zig-zag stair outside leg B up to 53430')] },
     (g) => {
-      const top = P('elevatorLandings')[3]; const n = 14; const h = top / n; const z0 = ZLB - 1.25 - 0.1, z1 = z0 - 1.6;
-      for (let i = 0; i < n; i++) {
-        const dir = i % 2 === 0 ? 1 : -1; const zc = (z0 + z1) / 2 + dir * 0.4;
-        g.add('grating', beam([XLS - 1.6 * dir, i * h + 0.1, zc], [XLS + 1.6 * dir, (i + 1) * h, zc], 0.75, 0.1, [0, 0, 1]));
-        const xe = XLS + 1.6 * dir; // landing at the top of this flight
-        g.add('grating', boxMinMax([xe - 0.6, (i + 1) * h - 0.05, z1], [xe + 0.6, (i + 1) * h + 0.05, z0]));
+      // U1 repair: the P03 flights ran along X across the leg; J526A5000 View P shows them running along Z outboard of
+      // leg B (switch-back), on the landside face of the leg in the side view. Two flight lanes side by side in X.
+      const lv = P('elevatorLandings'); const levels = [0, ...lv]; const per = N('stairFlightsPerSegment');
+      // zIn: J526A5000 View P / J526A00 landside end view put the inner landings over leg B itself (the tower stands on the
+      // landside face of the leg, so it overlaps the leg in Z, not in X); the outer landings about 3.1 m beyond the leg axis.
+      const zIn = ZLB + 0.3, zOut = zIn - P('stairTowerRunZ'); const fw = P('stairFlightWidth');
+      const xFace = XLS - 0.665; const xA = xFace - 0.15 - fw / 2, xB = xA - fw - 0.15; const xBack = xFace - P('stairTowerDepthX');
+      let k = 0;
+      for (let seg = 0; seg < per.length; seg++) {
+        const y0 = levels[seg], y1 = levels[seg + 1], n = per[seg], h = (y1 - y0) / n;
+        for (let i = 0; i < n; i++, k++) {
+          const out = k % 2 === 0; const x = out ? xA : xB;
+          const ya = y0 + i * h, yb = ya + h;
+          const f = stairFlight([x, ya, out ? zIn - 0.5 : zOut + 0.5], [x, yb, out ? zOut + 0.5 : zIn - 0.5], fw);
+          g.add('grating', ...f.grating); g.add('paint', ...f.paint);
+          const zl = out ? zOut : zIn - 0.5; // landing at the top of this flight
+          g.add('grating', boxMinMax([xBack, yb - 0.06, out ? zOut : zIn - 0.5], [xFace - 0.05, yb, out ? zOut + 0.5 : zIn]));
+          if (out) g.add('paint', ...railing([xBack, yb, zl], [xFace - 0.05, yb, zl], { step: 0.9 }), ...railing([xBack, yb, zl], [xBack, yb, zl + 0.5], { step: 0.5, mid: false }));
+        }
       }
-      g.add('paint', boxMinMax([XLS - 1.75, 0, z1 - 0.05], [XLS - 1.65, top + 1.1, z1 + 0.05]), boxMinMax([XLS + 1.65, 0, z1 - 0.05], [XLS + 1.75, top + 1.1, z1 + 0.05]));
+      // corner posts of the tower and tie-backs to the leg
+      for (const x of [xBack, xFace - 0.05]) g.add('paint', boxMinMax([x - 0.06, 0, zOut - 0.06], [x + 0.06, lv[3] + 1.1, zOut + 0.06]));
+      for (const y of lv) g.add('paint', boxMinMax([xBack, y - 0.25, zOut], [xFace - 0.05, y - 0.1, zIn]));
     });
   const EX = XLS + 0.665 + 0.23 + 0.5;
   S.position('access.elevator.mast', { parentKey: AC, sub: '153', category: 'structural', label: 'Elevator mast (rack and supports)', prov: 'drawing-derived', sources: [src('J526A5100', 1, 'SC40 rack-and-pinion lift on the seaside face of landside leg B; top 53430 + 3000')] },

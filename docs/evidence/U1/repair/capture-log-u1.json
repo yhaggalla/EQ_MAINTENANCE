@@ -1,0 +1,119 @@
+{
+  "browser": "Chrome/155.0.8059.85",
+  "items": [
+    {
+      "name": "p02-01-fleet-1920",
+      "note": "U1-C02: compact fleet, no heading block, status meaning in the dashed note (tooltip); U1-C01 QC icon on QC cards",
+      "file": "docs/evidence/U1/repair/screenshots/p02-01-fleet-1920.png",
+      "errors": []
+    },
+    {
+      "name": "p02-02-fleet-1366",
+      "note": "U1-C02: the whole synthetic fleet (16 active items) fits one 1366 x 768 screen",
+      "file": "docs/evidence/U1/repair/screenshots/p02-02-fleet-1366.png",
+      "errors": []
+    },
+    {
+      "name": "p02-03-fleet-admin",
+      "note": "U1-C02: Register equipment moved into the filter bar for Admin",
+      "file": "docs/evidence/U1/repair/screenshots/p02-03-fleet-admin.png",
+      "errors": []
+    },
+    {
+      "name": "p02-04-fleet-phone",
+      "note": "U1-C02: phone width, single column",
+      "file": "docs/evidence/U1/repair/screenshots/p02-04-fleet-phone.png",
+      "errors": []
+    },
+    {
+      "name": "p02-05-flat-tier1",
+      "note": "U1-C07/C08: flat view, whole equipment: tier 1 labels (main mechanisms); back-reach, logo and stairs drawn (U1-C03)",
+      "file": "docs/evidence/U1/repair/screenshots/p02-05-flat-tier1.png",
+      "errors": []
+    },
+    {
+      "name": "p02-06-flat-tier2",
+      "note": "U1-C07: clicked \"01 Hoist\": tier 2 labels (011, 012, 013, 015); tree and breadcrumb follow",
+      "file": "docs/evidence/U1/repair/screenshots/p02-06-flat-tier2.png",
+      "errors": []
+    },
+    {
+      "name": "p02-07-flat-tier3",
+      "note": "U1-C07: clicked \"012\": switched to Technical, tier 3 part labelled",
+      "file": "docs/evidence/U1/repair/screenshots/p02-07-flat-tier3.png",
+      "errors": []
+    },
+    {
+      "name": "p02-08-flat-backreach",
+      "note": "U1-C03: back-reach area (anti-snag/TLS device, tail sheaves, service crane, festoon and cab service platform, tail platform) and the CICT logo",
+      "file": "docs/evidence/U1/repair/screenshots/p02-08-flat-backreach.png",
+      "errors": []
+    },
+    {
+      "name": "p02-09-flat-stairs",
+      "note": "U1-C03: stair tower on the landside leg and the A-frame stair among the 151 parts",
+      "file": "docs/evidence/U1/repair/screenshots/p02-09-flat-stairs.png",
+      "errors": []
+    },
+    {
+      "name": "p02-10-flat-isolate",
+      "note": "U1-C05/C08: Isolate machinery house in the flat view (same control as 3D)",
+      "file": "docs/evidence/U1/repair/screenshots/p02-10-flat-isolate.png",
+      "errors": []
+    },
+    {
+      "name": "p02-11-flat-qc02",
+      "note": "U1-C07: QC-DEMO-02 has the same drill-down labels",
+      "file": "docs/evidence/U1/repair/screenshots/p02-11-flat-qc02.png",
+      "errors": []
+    },
+    {
+      "name": "p03-01-tier1",
+      "note": "U1-C07: 3D whole equipment: every main mechanism with a representation is labelled; dashed = inside, opens in Technical",
+      "file": "docs/evidence/U1/repair/screenshots/p03-01-tier1.png",
+      "errors": []
+    },
+    {
+      "name": "p03-02-tier2",
+      "note": "U1-C07: clicked \"01 Hoist\": its submechanisms labelled",
+      "file": "docs/evidence/U1/repair/screenshots/p03-02-tier2.png",
+      "errors": []
+    },
+    {
+      "name": "p03-03-tier3",
+      "note": "U1-C07: clicked \"012\": Technical mode, both drum brakes labelled",
+      "file": "docs/evidence/U1/repair/screenshots/p03-03-tier3.png",
+      "errors": []
+    },
+    {
+      "name": "p03-04-part",
+      "note": "U1-C07/C08: part selected from its label; tree, breadcrumb, URL and history follow",
+      "file": "docs/evidence/U1/repair/screenshots/p03-04-part.png",
+      "errors": []
+    },
+    {
+      "name": "p03-05-qc02-cabin-parts",
+      "note": "U1-C06/C07: QC-DEMO-02, 14 Cabin > 141: cab, seat and consoles labelled",
+      "file": "docs/evidence/U1/repair/screenshots/p03-05-qc02-cabin-parts.png",
+      "errors": []
+    },
+    {
+      "name": "p03-06-isolate-from-overall",
+      "note": "U1-C05: Isolate machinery house from Overall switches to Technical and fits the house",
+      "file": "docs/evidence/U1/repair/screenshots/p03-06-isolate-from-overall.png",
+      "errors": []
+    },
+    {
+      "name": "p03-07-aligned-side-fit",
+      "note": "U1-C05: aligned side view with the selection (11 Skew system at the girder tail) fitted; pan and wheel zoom work",
+      "file": "docs/evidence/U1/repair/screenshots/p03-07-aligned-side-fit.png",
+      "errors": []
+    },
+    {
+      "name": "p03-08-aligned-top",
+      "note": "U1-C05: plan view",
+      "file": "docs/evidence/U1/repair/screenshots/p03-08-aligned-top.png",
+      "errors": []
+    }
+  ]
+}

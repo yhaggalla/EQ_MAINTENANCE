@@ -33,3 +33,9 @@ From the P02 prototype (`node artifacts/prototypes/p02-ui/serve.mjs`), the QC-DE
 - `serve.mjs` - localhost static server.
 
 Checks: `node tools/p03/check_model_prototype.mjs --gpu hardware|swiftshader`, `node tools/p03/check_no_webgl.mjs`; captures: `node tools/p03/capture.mjs`; comparisons: `python -I -X utf8 tools/p03/compose_comparisons.py`. Evidence: `docs/evidence/P03/P03_EVIDENCE.md`.
+
+## U1 repair (22 October 2026)
+
+- Labels drill down: whole equipment shows tier 1 (main mechanisms), a click shows tier 2 (submechanisms of that main), a click shows tier 3 (parts and location markers). The same `select()` as the tree is used, so tree, breadcrumb, URL and history follow. A label whose items are inside the structure is dashed with a "Technical" badge; clicking it switches to Technical. Labels do not take pointer events: a click without a drag is routed to the label under the pointer, and an orbit drag that starts on a label still orbits.
+- Toolbar: Isolate machinery house is always enabled (from Overall it switches to Technical); Fit selection fits the whole crane or the isolated house when nothing is selected, and fits the selection in aligned views too; Reset view resets the current view (an aligned view stays aligned); aligned views keep right-drag pan and wheel zoom.
+- Model draft v1 rev 2: back-reach area, CICT logo decal (Overall only), stair tower re-oriented, remodelled cab with seat and consoles, reeving paths, machinery-house layout. Evidence: `docs/evidence/U1/repair-20261022.md`.

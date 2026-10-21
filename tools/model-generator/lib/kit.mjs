@@ -120,6 +120,60 @@ export function sheave(c, axis, dia, width, seg = 20) {
   return [cyl(c, axis, dia / 2, width, seg), cyl(c, axis, dia * 0.18, width * 1.6, 10)];
 }
 
+/**
+ * Flat textured quad (keeps uv, unlike every other kit builder). Corners in counter-clockwise order seen from the
+ * front: bottom-left, bottom-right, top-right, top-left. Used only for an image decal (e.g. the CICT logo); a node
+ * that uses it must have a single material, because merged geometries need identical attributes.
+ */
+export function texturedQuad(bl, br, tr, tl) {
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute([...bl, ...br, ...tr, ...tl], 3));
+  // glTF texture coordinates: (0,0) is the TOP-left of the image. The PNG is embedded unflipped by generate.mjs and
+  // GLTFLoader uses flipY = false, so the bottom corners get v = 1.
+  g.setAttribute('uv', new THREE.Float32BufferAttribute([0, 1, 1, 1, 1, 0, 0, 0], 2));
+  g.setIndex([0, 1, 2, 0, 2, 3]);
+  g.computeVertexNormals();
+  return g;
+}
+
+/**
+ * One straight stair flight between two landing points (bottom a, top b), axis-aligned in plan.
+ * Returns {grating:[treads], paint:[stringers, handrail posts and rails]} so the caller can put them in its node.
+ * width = clear width across the flight; rise per tread about 0.2 m. Simplified: no nosings, no bolts.
+ */
+export function stairFlight(a, b, width, { rails = true } = {}) {
+  const A = V(a), B = V(b);
+  const run = new THREE.Vector3(B.x - A.x, 0, B.z - A.z); const runLen = run.length(); run.normalize();
+  const side = new THREE.Vector3(-run.z, 0, run.x); // horizontal, perpendicular to the run
+  const rise = B.y - A.y; const n = Math.max(3, Math.round(Math.abs(rise) / 0.2));
+  const out = { grating: [], paint: [] };
+  for (let i = 1; i < n; i++) {
+    const t = i / n; const c = A.clone().add(run.clone().multiplyScalar(runLen * t)); c.y = A.y + rise * t - 0.03;
+    out.grating.push(beam(c.clone().add(side.clone().multiplyScalar(-width / 2)).toArray(), c.clone().add(side.clone().multiplyScalar(width / 2)).toArray(), Math.max(0.2, runLen / n), 0.04));
+  }
+  for (const s of [-1, 1]) {
+    const off = side.clone().multiplyScalar(s * (width / 2 + 0.04));
+    out.paint.push(beam(A.clone().add(off).toArray(), B.clone().add(off).toArray(), 0.05, 0.22)); // stringer
+    if (rails) {
+      const up = new THREE.Vector3(0, 1.0, 0);
+      out.paint.push(beam(A.clone().add(off).add(up).toArray(), B.clone().add(off).add(up).toArray(), 0.045, 0.045)); // handrail
+      for (const t of [0.04, 0.5, 0.96]) { const p = A.clone().lerp(B, t).add(off); out.paint.push(box([p.x, p.y + 0.5, p.z], [0.045, 1.0, 0.045])); }
+    }
+  }
+  return out;
+}
+
+/** Handrail along a straight horizontal segment: top rail, mid rail and posts about every 1.5 m (height 1.1 m). */
+export function railing(a, b, { h = 1.1, step = 1.5, mid = true } = {}) {
+  const A = V(a), B = V(b); const len = A.distanceTo(B); const parts = [];
+  const up = (p, dy) => p.clone().add(new THREE.Vector3(0, dy, 0)).toArray();
+  parts.push(beam(up(A, h), up(B, h), 0.05, 0.05));
+  if (mid) parts.push(beam(up(A, h * 0.5), up(B, h * 0.5), 0.035, 0.035));
+  const n = Math.max(1, Math.round(len / step));
+  for (let i = 0; i <= n; i++) { const p = A.clone().lerp(B, i / n); parts.push(box([p.x, p.y + h / 2, p.z], [0.05, h, 0.05])); }
+  return parts;
+}
+
 /** Material registry: one shared material per name (shared GPU resource, exported once). */
 export class Materials {
   constructor(defs) {
@@ -127,7 +181,8 @@ export class Materials {
     for (const [name, d] of Object.entries(defs)) {
       const m = new THREE.MeshStandardMaterial({ name, color: new THREE.Color(d.color), roughness: d.roughness ?? 0.7, metalness: d.metalness ?? 0.1, side: d.doubleSide ? THREE.DoubleSide : THREE.FrontSide });
       if (d.opacity !== undefined && d.opacity < 1) { m.transparent = true; m.opacity = d.opacity; }
-      m.userData = { paintRole: d.role };
+      if (d.alphaTest) m.alphaTest = d.alphaTest; // exported as alphaMode MASK
+      m.userData = { paintRole: d.role, ...(d.texture ? { textureFile: d.texture } : {}) };
       this.map.set(name, m);
     }
   }

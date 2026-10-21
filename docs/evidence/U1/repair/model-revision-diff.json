@@ -1,0 +1,314 @@
+{
+  "base": "HEAD",
+  "baseAsset": {
+    "sha256": "3a4d0ee4078c5f3554ce421a46a88837003b2419bc450a094d4b83ab1ddb7ce4",
+    "bytes": 662784,
+    "nodes": 168
+  },
+  "revised": {
+    "revision": 2,
+    "sha256": "177f9dadbc4f27eac921f434589ea249158e2d5bbc23047b6b57a50705dee01a",
+    "bytes": 1714480,
+    "nodes": 180
+  },
+  "summary": {
+    "added": 12,
+    "removed": 0,
+    "changed": 38,
+    "identityChanges": 0
+  },
+  "note": "Draft v1 revised in place (no binding active). Keys, kinds, classification and instancing of existing nodes are unchanged unless listed; bounds changes are geometry corrections.",
+  "added": [
+    {
+      "key": "access.walkway.tie-beam",
+      "kind": "position",
+      "sub": "151",
+      "label": "Tie-beam walkways and handrails"
+    },
+    {
+      "key": "container.back-reach",
+      "kind": "container",
+      "sub": null,
+      "label": "Back-reach area (girder tail)"
+    },
+    {
+      "key": "access.platform.girder-tail",
+      "kind": "position",
+      "sub": "151",
+      "label": "Girder-tail end platform, handrails and ladder"
+    },
+    {
+      "key": "reeving.anti-snag-tls.device",
+      "kind": "position",
+      "sub": "111",
+      "label": "Anti-snag and trim/list/skew device (cylinders and levers)"
+    },
+    {
+      "key": "reeving.sheave.girder-tail",
+      "kind": "position",
+      "sub": "011",
+      "label": "Main hoist rope tail sheaves (girder tail)"
+    },
+    {
+      "key": "reeving.sheave.trolley-tail",
+      "kind": "position",
+      "sub": "021",
+      "label": "Trolley rope tail sheaves and tensioner frame"
+    },
+    {
+      "key": "auxiliary.service-crane.girder-tail",
+      "kind": "position",
+      "sub": "151",
+      "label": "Outdoor service crane at the girder tail (1 t man-hold lift)"
+    },
+    {
+      "key": "access.platform.festoon-cab-service",
+      "kind": "position",
+      "sub": "151",
+      "label": "Festoon and cab service platform (hanging, back-reach)"
+    },
+    {
+      "key": "auxiliary.air-conditioning.outdoor-units",
+      "kind": "position",
+      "sub": "152",
+      "label": "Machinery-house A/C outdoor units (B1-B7)"
+    },
+    {
+      "key": "cabin.operator.seat",
+      "kind": "position",
+      "sub": "141",
+      "label": "Operator seat (tip-up chair)"
+    },
+    {
+      "key": "cabin.operator.consoles",
+      "kind": "position",
+      "sub": "141",
+      "label": "Operator control consoles and joysticks"
+    },
+    {
+      "key": "boom.sheave.boom-block",
+      "kind": "position",
+      "sub": "031",
+      "label": "Boom hoist sheave blocks on the boom"
+    }
+  ],
+  "removed": [],
+  "changed": [
+    {
+      "key": "container.girder",
+      "boundsChanged": true
+    },
+    {
+      "key": "container.a-frame",
+      "boundsChanged": true
+    },
+    {
+      "key": "access.stair.a-frame",
+      "boundsChanged": true
+    },
+    {
+      "key": "container.machinery-house",
+      "boundsChanged": true
+    },
+    {
+      "key": "structure.machinery-frame",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.drive.reducer.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.drive.drum.a",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.drive.motor.a",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.drive.brake.hs.a",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.emergency.brake.a",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.drive.drum.b",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.drive.motor.b",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.drive.brake.hs.b",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.emergency.brake.b",
+      "boundsChanged": true
+    },
+    {
+      "key": "emergency.drive.main",
+      "boundsChanged": true,
+      "hotspot": [
+        [
+          -39.5,
+          55.6,
+          0.5
+        ],
+        [
+          -39.5,
+          55.6,
+          0.85
+        ]
+      ]
+    },
+    {
+      "key": "trolley-drive.drum.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "trolley-drive.reducer.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "trolley-drive.brake.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "trolley-drive.motor.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom-hoist.drum.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom-hoist.reducer.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom-hoist.motor.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom-hoist.brake.hs.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom-hoist.emergency.brake.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "electrical.hv.main-transformer",
+      "boundsChanged": true
+    },
+    {
+      "key": "electrical.hv.aux-transformer",
+      "boundsChanged": true
+    },
+    {
+      "key": "electrical.hv.switchgear",
+      "boundsChanged": true
+    },
+    {
+      "key": "auxiliary.compressor",
+      "boundsChanged": true
+    },
+    {
+      "key": "container.trolley",
+      "boundsChanged": true
+    },
+    {
+      "key": "cabin.operator.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "cabin.air-conditioning",
+      "boundsChanged": true,
+      "hotspot": [
+        [
+          64.9,
+          50.49999999999999,
+          0.9
+        ],
+        [
+          64,
+          48.699999999999996,
+          0.75
+        ]
+      ]
+    },
+    {
+      "key": "trolley.skew-system.main",
+      "parentKey": [
+        "container.trolley",
+        "container.back-reach"
+      ],
+      "boundsChanged": true,
+      "label": [
+        "Trim/list/skew system (location approximate)",
+        "Trim/list/skew system (location approximate; J526A1000 device at the girder tail)"
+      ],
+      "hotspot": [
+        [
+          71.5,
+          53.62,
+          -1.8
+        ],
+        [
+          -57.300000000000004,
+          55.599999999999994,
+          0
+        ]
+      ]
+    },
+    {
+      "key": "trolley.tension.main",
+      "parentKey": [
+        "container.trolley",
+        "container.back-reach"
+      ],
+      "boundsChanged": true,
+      "label": [
+        "Trolley rope tensioning (location approximate)",
+        "Trolley rope tensioning (location approximate; tensioners at the girder-tail end)"
+      ],
+      "hotspot": [
+        [
+          70,
+          53.62,
+          1.8
+        ],
+        [
+          -59,
+          53.3,
+          0
+        ]
+      ]
+    },
+    {
+      "key": "hoist.rope.set.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "trolley.rope.set.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom.rope.set.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "container.access",
+      "boundsChanged": true
+    },
+    {
+      "key": "access.stair.landside-leg-b",
+      "boundsChanged": true
+    }
+  ]
+}

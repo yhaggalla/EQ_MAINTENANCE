@@ -208,6 +208,82 @@ try {
     const s5 = await st(); const hint5 = await E(`document.querySelector('#hint').textContent`);
     rec('p02-link-opens-p03-selection', 'P03 integration into the P02 review flow', href && key4 === 'hoist.drive.motor.a' && s4.mode === 'technical' && s5.sub === 'si-q01-011' && !s5.part && /not in the drawing-derived v1 template/.test(hint5), { href, resolvedKey: key4, placeholderOnlyKey: { href: href2, state: s5, hint: hint5 } });
   } catch (e) { rec('p02-link-opens-p03-selection', 'P03 integration into the P02 review flow', false, 'P02 server on 5312 not reachable or link missing: ' + e.message); }
+  // ---------------- U1 repair checks (U1-C03..C07) ----------------
+  const labelTexts = () => E(`JSON.stringify([...document.querySelectorAll('.qc-label')].map(e=>e.textContent))`).then(JSON.parse);
+  const clickLabel = async (re) => {
+    const r = await E(`(()=>{const e=[...document.querySelectorAll('.qc-label')].find(x=>${re}.test(x.textContent)); if(!e) return null; const b=e.getBoundingClientRect(); return JSON.stringify({x:b.left+b.width/2,y:b.top+b.height/2,t:e.textContent})})()`).then((x) => (x ? JSON.parse(x) : null));
+    if (!r) return null; await clickAt(r.x, r.y); await settle(); return r.t;
+  };
+  const camSig = () => E(`JSON.stringify({p:window.__qc.viewer.camera.position.toArray().map(v=>+v.toFixed(2)),t:window.__qc.viewer.controls.target.toArray().map(v=>+v.toFixed(2)),type:window.__qc.viewer.camera.type,zoom:+window.__qc.viewer.camera.zoom.toFixed(3)})`).then(JSON.parse);
+  // 21 label drill-down tier 1 -> 2 -> 3 on both synthetic QCs (U1-C07), same state as the tree (U1-C08)
+  for (const [eq, k] of [['eq-qc-demo-01', 'q01'], ['eq-qc-demo-02', 'q02']]) {
+    await b.send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] });
+    await open(`?eq=${eq}`); await settle();
+    const expectMains = await E(`JSON.stringify((()=>{const m=window.__qc.manifest;const keys=m.nodes.filter(n=>(n.kind==='position'||n.kind==='hotspot')&&window.__qc.binding().has(n.key));return [...new Set(keys.map(n=>n.classification.main))].sort()})())`).then(JSON.parse);
+    const t1 = await labelTexts();
+    const t1Codes = t1.map((t) => t.slice(0, 2)).sort();
+    const c1 = await clickLabel('/^01 Hoist/'); const s1 = await st(); const t2 = await labelTexts();
+    const c2 = await clickLabel('/^012 /'); const s2 = await st(); const t3 = await labelTexts();
+    const c3 = await clickLabel('/drum \\(emergency\\) brake A/'); const s3 = await st();
+    const treeSel = await E(`document.querySelector('#tree [aria-selected="true"]')?.dataset.id`);
+    const crumbs = await E(`document.querySelector('#crumbs').textContent`);
+    const brakeA = await idOfKey('hoist.emergency.brake.a');
+    const ok = JSON.stringify(t1Codes) === JSON.stringify(expectMains) && c1 && s1.main === `mi-${k}-01` && !s1.sub
+      && ['011', '012', '013', '015'].every((c) => t2.some((t) => t.startsWith(c + ' ')))
+      && c2 && s2.sub === `si-${k}-012` && s2.mode === 'technical' && t3.filter((t) => /drum \(emergency\) brake/.test(t)).length === 2
+      && c3 && s3.part === brakeA && treeSel === brakeA && crumbs.includes('012') && (await E('location.search')).includes('part=' + brakeA);
+    rec(`u1-label-drilldown-${k}`, 'U1-C07, U1-C08, S05', ok, { tier1: t1, expectMains, tier2: t2, tier3: t3, states: [s1, s2, s3], treeSel });
+  }
+  await b.send('Emulation.setEmulatedMedia', { features: [] });
+  // 22 a drag that starts on a label still orbits and does not change the selection
+  await open('?eq=eq-qc-demo-01'); await settle();
+  const lr = await E(`JSON.stringify((()=>{const e=document.querySelector('.qc-label');const b=e.getBoundingClientRect();return {x:b.left+b.width/2,y:b.top+b.height/2}})())`).then(JSON.parse);
+  const before22 = await camSig();
+  await b.send('Input.dispatchMouseEvent', { type: 'mousePressed', x: lr.x, y: lr.y, button: 'left', buttons: 1, clickCount: 1 });
+  for (let i = 1; i <= 6; i++) await b.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: lr.x + i * 15, y: lr.y, buttons: 1 });
+  await b.send('Input.dispatchMouseEvent', { type: 'mouseReleased', x: lr.x + 90, y: lr.y, button: 'left', buttons: 0, clickCount: 1 }); await sleep(300);
+  const after22 = await camSig(); const s22 = await st();
+  rec('u1-label-drag-orbits', 'U1-C07 (labels must not block orbit)', JSON.stringify(before22.p) !== JSON.stringify(after22.p) && !s22.main && !s22.part, { before22, after22 });
+  // 23 toolbar: every control works (U1-C05)
+  await open('?eq=eq-qc-demo-01'); await settle();
+  const tb = {};
+  await E(`document.querySelector('#btn-iso').click()`); await settle();
+  let s23 = await st(); let c23 = await camSig();
+  tb.isoFromOverall = s23.mode === 'technical' && s23.iso === true && Math.abs(c23.t[0] + 36.9) < 2.5 && !(await E(`document.querySelector('#btn-iso').disabled`));
+  await E(`document.querySelector('#btn-iso').click()`); await settle(); s23 = await st(); tb.isoOff = s23.iso === false;
+  await E(`document.querySelector('[data-mode="overall"]').click()`); await settle(); tb.overall = (await st()).mode === 'overall';
+  await E(`window.__qc.viewer.resetView(true)`); await sleep(200); const reset0 = await camSig();
+  await E(`window.__qc.viewer.persp.position.set(40,30,90); window.__qc.viewer.controls.update(); window.__qc.viewer.requestRender()`); await sleep(100);
+  await E(`document.querySelector('#btn-fit').click()`); await settle(); tb.fitNoSelectionResets = JSON.stringify((await camSig()).p) === JSON.stringify(reset0.p);
+  const hinge = await idOfKey('boom.hinge.a');
+  await E(`window.__qc.select({ part: ${JSON.stringify(hinge)} }, { focus: false })`); await sleep(200);
+  await E(`document.querySelector('#btn-fit').click()`); await settle();
+  tb.fitSelection = await E(`(()=>{const v=window.__qc.viewer;const c=v.boundsOf(['boom.hinge.a']).getCenter(v.controls.target.clone());return c.distanceTo(v.controls.target)<0.05})()`);
+  await E(`document.querySelector('#btn-reset').click()`); await settle(); tb.reset = JSON.stringify((await camSig()).p) === JSON.stringify(reset0.p);
+  await E(`document.querySelector('#btn-labels').click()`); await sleep(200); tb.labelsOff = (await labelTexts()).length === 0;
+  await E(`document.querySelector('#btn-labels').click()`); await sleep(200); tb.labelsOn = (await labelTexts()).length > 0;
+  tb.views = {};
+  for (const v of ['side', 'end-ws', 'end-ls', 'top']) {
+    await E(`(()=>{const s=document.querySelector('#view-select'); s.value='${v}'; s.dispatchEvent(new Event('change'))})()`); await sleep(400);
+    const a = await camSig();
+    const fitOk = await E(`(()=>{const v=window.__qc.viewer;const c=v.boundsOf(['boom.hinge.a']).getCenter(v.controls.target.clone());return c.distanceTo(v.controls.target)<0.05})()`);
+    const vp = await E(`JSON.stringify((()=>{const r=document.querySelector('#viewport canvas').getBoundingClientRect();return {x:r.left+r.width/2,y:r.top+r.height/2}})())`).then(JSON.parse);
+    await b.send('Input.dispatchMouseEvent', { type: 'mouseWheel', x: vp.x, y: vp.y, deltaX: 0, deltaY: -300 }); await sleep(300);
+    const z = await camSig();
+    await E(`document.querySelector('#btn-reset').click()`); await sleep(300); const r = await camSig();
+    tb.views[v] = a.type === 'OrthographicCamera' && fitOk && z.zoom > a.zoom && r.type === 'OrthographicCamera' && r.zoom === 1;
+  }
+  await E(`(()=>{const s=document.querySelector('#view-select'); s.value=''; s.dispatchEvent(new Event('change'))})()`); await sleep(400);
+  tb.backToPerspective = (await camSig()).type === 'PerspectiveCamera' && (await E('window.__qc.viewer.controls.enableRotate'));
+  rec('u1-toolbar-controls-work', 'U1-C05, S04', Object.values(tb).every((x) => x === true || (typeof x === 'object' && Object.values(x).every(Boolean))), tb);
+  // 24 model content added in the repair: back-reach area, logo, stairs, cab internals, reeving blocks (U1-C03, C04, C06)
+  const mc = await E(`JSON.stringify((()=>{const v=window.__qc.viewer;const keys=['container.back-reach','reeving.anti-snag-tls.device','reeving.sheave.girder-tail','reeving.sheave.trolley-tail','auxiliary.service-crane.girder-tail','access.platform.festoon-cab-service','access.platform.girder-tail','access.stair.landside-leg-b','access.stair.a-frame','access.walkway.tie-beam','cabin.operator.main','cabin.operator.seat','cabin.operator.consoles','auxiliary.air-conditioning.outdoor-units','boom.sheave.boom-block'];
+    const missing=keys.filter(k=>!v.objByKey.has(k));let logo=null;v.root.traverse(o=>{if(o.userData.decalOf) logo=o});
+    const img=logo&&logo.material.map&&logo.material.map.image; const vis=(o)=>{for(let p=o;p;p=p.parent) if(!p.visible) return false; return true};
+    return {missing, logo: !!logo, logoTexture: img ? [img.width, img.height] : null, logoVisibleOverall: logo ? vis(logo) : null, mode: v.mode};})())`).then(JSON.parse);
+  await E(`document.querySelector('[data-mode="technical"]').click()`); await sleep(500);
+  const logoTech = await E(`(()=>{let l=null;window.__qc.viewer.root.traverse(o=>{if(o.userData.decalOf) l=o});for(let p=l;p;p=p.parent) if(!p.visible) return false; return true})()`);
+  rec('u1-model-content', 'U1-C03, U1-C04, U1-C06', mc.missing.length === 0 && mc.logo && mc.logoTexture && mc.logoTexture[0] === 512 && mc.logoVisibleOverall === true && logoTech === false, { ...mc, logoVisibleTechnical: logoTech });
   rec('no-console-errors-overall', 'S16', b.errors().filter((e) => !/404|Not Found|model request failed|WebGL/i.test(e)).length === 0, b.errors());
 } catch (e) {
   rec('harness-exception', '-', false, String(e && e.stack || e));

@@ -96,6 +96,26 @@ export function validate(dir) {
   const ext = JSON.stringify(gltf.buffers || []) + JSON.stringify(gltf.images || []);
   check('no-external-uris', !/"uri"/.test(ext), 'buffers/images: ' + ext.slice(0, 80));
 
+  // decals (U1 repair): visual identity marks only, embedded texture identical to the declared source file
+  const decalIssues = [];
+  for (const d of manifest.decals || []) {
+    const gn = gNodes.filter((n) => n.name === d.gltfNodeName);
+    if (gn.length !== 1) decalIssues.push(d.gltfNodeName + ' found ' + gn.length + ' times');
+    else if (gn[0].extras?.nodeKey || gn[0].extras?.decalOf !== d.container) decalIssues.push(d.gltfNodeName + ' must carry decalOf and no nodeKey');
+    if (mKeys.has(d.gltfNodeName)) decalIssues.push(d.gltfNodeName + ' must not be a manifest node');
+    for (const t of d.textures || []) {
+      const img = (gltf.images || []).find((im) => im.bufferView !== undefined && im.mimeType === 'image/png');
+      const srcSha = crypto.createHash('sha256').update(fs.readFileSync(path.join(repo, t.file))).digest('hex');
+      if (!img) decalIssues.push('no embedded PNG image');
+      else {
+        const bv = gltf.bufferViews[img.bufferView]; const jsonLen = glbBuf.readUInt32LE(12); const binStart = 20 + jsonLen + 8;
+        const emb = crypto.createHash('sha256').update(glbBuf.subarray(binStart + (bv.byteOffset || 0), binStart + (bv.byteOffset || 0) + bv.byteLength)).digest('hex');
+        if (emb !== t.sha256 || srcSha !== t.sha256) decalIssues.push(`texture sha mismatch embedded ${emb.slice(0, 12)} source ${srcSha.slice(0, 12)} manifest ${t.sha256.slice(0, 12)}`);
+      }
+    }
+  }
+  check('decals-embedded-and-not-identities', decalIssues.length === 0, decalIssues.length ? decalIssues : `${(manifest.decals || []).length} decal(s); embedded texture equals the source file`);
+
   const railW = byKey.get('gantry.rail.waterside'), railL = byKey.get('gantry.rail.landside');
   const gauge = ((railW.bounds.min[0] + railW.bounds.max[0]) - (railL.bounds.min[0] + railL.bounds.max[0])) / 2;
   check('plausible-gauge', Math.abs(gauge - 30) < 0.01, 'rail gauge ' + gauge.toFixed(3) + ' m');

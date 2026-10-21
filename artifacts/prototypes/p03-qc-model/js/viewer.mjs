@@ -38,7 +38,8 @@ export class QcViewer {
     r.domElement.className = 'qc-canvas';
     r.domElement.setAttribute('aria-hidden', 'true'); // the tree and assembly list are the accessible equivalents
     host.appendChild(r.domElement);
-    this.labelLayer = document.createElement('div'); this.labelLayer.className = 'qc-labels'; host.appendChild(this.labelLayer);
+    // Labels are a pointer convenience for the drill-down; the mechanism tree and the selection panel are the accessible equivalent.
+    this.labelLayer = document.createElement('div'); this.labelLayer.className = 'qc-labels'; this.labelLayer.setAttribute('aria-hidden', 'true'); host.appendChild(this.labelLayer);
 
     this.scene = new THREE.Scene();
     this.scene.add(new THREE.HemisphereLight('#ffffff', '#8a8f86', 1.6));
@@ -58,6 +59,11 @@ export class QcViewer {
     this._on(r.domElement, 'webglcontextlost', (e) => { e.preventDefault(); this.contextLost = true; this.opts.onContextLost?.(); });
     this._ptr = null;
     this._on(r.domElement, 'pointerdown', (e) => { this._ptr = { x: e.clientX, y: e.clientY }; });
+    this._on(r.domElement, 'pointermove', (e) => {
+      if (e.buttons) return;
+      const c = this.labelAt(e.clientX, e.clientY); const id = c ? c.id : null;
+      if (id !== this._hoverLabel) { this._hoverLabel = id; r.domElement.style.cursor = id ? 'pointer' : ''; this.labelLayer.querySelectorAll('.qc-label').forEach((el) => el.classList.toggle('hover', el.dataset.id === id)); }
+    });
     this._on(r.domElement, 'pointerup', (e) => { if (this._ptr && Math.hypot(e.clientX - this._ptr.x, e.clientY - this._ptr.y) < 5) this._click(e); this._ptr = null; });
     this._ro = new ResizeObserver(() => this.resize()); this._ro.observe(host);
     this.resize();
@@ -190,7 +196,8 @@ export class QcViewer {
   }
 
   _keyOf(o) { for (let p = o; p; p = p.parent) if (p.userData?.nodeKey) return p.userData.nodeKey; return null; }
-  _shellKey(o) { for (let p = o; p; p = p.parent) { if (p.userData?.shellOf) return p.userData.shellOf; if (p.userData?.nodeKey) return null; } return null; }
+  // A container's shell and its decals (e.g. the CICT logo on the house wall) resolve to the container itself.
+  _shellKey(o) { for (let p = o; p; p = p.parent) { if (p.userData?.shellOf) return p.userData.shellOf; if (p.userData?.decalOf) return p.userData.decalOf; if (p.userData?.nodeKey) return null; } return null; }
 
   /** Union bounds of visible geometry for node keys (containers include descendants). Thin items padded to 0.5 m. */
   boundsOf(keys) {
@@ -226,12 +233,33 @@ export class QcViewer {
   _isDescendant(key, containerKey) { let n = this.nodeByKey.get(key); while (n && n.parentKey) { if (n.parentKey === containerKey) return true; n = this.nodeByKey.get(n.parentKey); } return false; }
   _effVisible(o) { for (let p = o; p; p = p.parent) if (!p.visible) return false; return true; }
 
-  /** Fit the camera to the union bounds of keys. Returns false (camera unchanged) when nothing is visible. */
+  /** Fit the camera to the union bounds of keys. Returns false (camera unchanged) when nothing is visible.
+   *  In an aligned (orthographic) view the frame is re-centred and zoomed on the bounds instead (U1-C05). */
   fitKeys(keys) {
     const b = this.boundsOf(keys);
     if (!b) { this.requestRender(); return false; }
+    if (this.camera === this.ortho) { this._fitOrtho(b); return true; }
     this._fitBox(b, this._unoccludedDir(b, keys));
     return true;
+  }
+
+  /** Orthographic fit: project the box on the view plane, centre it and zoom so it fills about 70 % of the frame. */
+  _fitOrtho(box) {
+    const o = this.ortho; o.updateMatrixWorld();
+    const right = new THREE.Vector3(1, 0, 0).applyQuaternion(o.quaternion), up = new THREE.Vector3(0, 1, 0).applyQuaternion(o.quaternion);
+    const fwd = new THREE.Vector3(0, 0, -1).applyQuaternion(o.quaternion);
+    let u0 = Infinity, u1 = -Infinity, v0 = Infinity, v1 = -Infinity;
+    for (const x of [box.min.x, box.max.x]) for (const y of [box.min.y, box.max.y]) for (const z of [box.min.z, box.max.z]) {
+      const p = new THREE.Vector3(x, y, z); const u = p.dot(right), v = p.dot(up);
+      u0 = Math.min(u0, u); u1 = Math.max(u1, u); v0 = Math.min(v0, v); v1 = Math.max(v1, v);
+    }
+    const c = box.getCenter(new THREE.Vector3());
+    const w = Math.max(u1 - u0, 1), h = Math.max(v1 - v0, 1);
+    const fw = o.right - o.left, fh = o.top - o.bottom;
+    o.zoom = Math.max(0.05, Math.min(fw / (w / 0.7), fh / (h / 0.7), 400));
+    // move along the view plane only: keep the camera distance, put the box centre on the optical axis
+    o.position.copy(c.clone().sub(fwd.clone().multiplyScalar(1000))); this.controls.target.copy(c);
+    o.updateProjectionMatrix(); this.controls.update(); this.requestRender();
   }
 
   _fitDistance(box) {
@@ -317,26 +345,52 @@ export class QcViewer {
 
   /** Orthographic aligned views for drawing comparison. view: 'side' | 'end-ws' | 'end-ls' | 'top' | null (back to perspective). */
   useOrtho(view, frame) {
-    if (!view) { this.camera = this.persp; this.controls.enabled = true; this.requestRender(); return; }
-    const o = this.ortho; const f = frame; // {left,right,bottom,top} in scene metres on the view plane
+    // U1-C05: aligned views now keep pan (right-drag) and zoom (wheel) through the same OrbitControls, with rotation
+    // disabled so the view stays aligned to the drawing; the perspective target is restored on the way back.
+    if (!view) {
+      if (this.camera === this.ortho && this._perspTarget) this.controls.target.copy(this._perspTarget);
+      this.camera = this.persp; this.orthoView = null;
+      this.controls.object = this.persp; this.controls.enableRotate = true; this.controls.enabled = true; this.controls.update(); this.requestRender(); return;
+    }
+    const o = this.ortho; const f = frame; // {cx, cy, w, h} in scene metres on the view plane
+    if (this.camera !== o) this._perspTarget = this.controls.target.clone();
     const set = (pos, up) => { o.position.copy(pos); o.up.copy(up); };
-    if (view === 'side') { set(new THREE.Vector3(f.cx, f.cy, 1000), new THREE.Vector3(0, 1, 0)); o.lookAt(f.cx, f.cy, 0); }       // landside left, waterside right
-    if (view === 'end-ws') { set(new THREE.Vector3(1000, f.cy, f.cx), new THREE.Vector3(0, 1, 0)); o.lookAt(0, f.cy, f.cx); }      // from the water, +Z on the left
-    if (view === 'end-ls') { set(new THREE.Vector3(-1000, f.cy, f.cx), new THREE.Vector3(0, 1, 0)); o.lookAt(0, f.cy, f.cx); }     // from landside, +Z on the right
-    if (view === 'top') { set(new THREE.Vector3(f.cx, 1000, f.cy), new THREE.Vector3(0, 0, -1)); o.lookAt(f.cx, 0, f.cy); }       // plan, waterside right, +Z down
+    let tgt;
+    if (view === 'side') { set(new THREE.Vector3(f.cx, f.cy, 1000), new THREE.Vector3(0, 1, 0)); tgt = new THREE.Vector3(f.cx, f.cy, 0); }       // landside left, waterside right
+    if (view === 'end-ws') { set(new THREE.Vector3(1000, f.cy, f.cx), new THREE.Vector3(0, 1, 0)); tgt = new THREE.Vector3(0, f.cy, f.cx); }      // from the water, +Z on the left
+    if (view === 'end-ls') { set(new THREE.Vector3(-1000, f.cy, f.cx), new THREE.Vector3(0, 1, 0)); tgt = new THREE.Vector3(0, f.cy, f.cx); }     // from landside, +Z on the right
+    if (view === 'top') { set(new THREE.Vector3(f.cx, 1000, f.cy), new THREE.Vector3(0, 0, -1)); tgt = new THREE.Vector3(f.cx, 0, f.cy); }       // plan, waterside right, +Z down
+    o.lookAt(tgt);
     const hw = f.w / 2, hh = f.h / 2;
-    o.left = -hw; o.right = hw; o.top = hh; o.bottom = -hh; o.updateProjectionMatrix();
-    this.camera = o; this.controls.enabled = false; this.requestRender();
+    o.left = -hw; o.right = hw; o.top = hh; o.bottom = -hh; o.zoom = 1; o.updateProjectionMatrix();
+    this.camera = o; this.orthoView = view;
+    this.controls.object = o; this.controls.target.copy(tgt); this.controls.enableRotate = false; this.controls.enabled = true;
+    this.cancelTransition(); this.requestRender();
   }
 
   setLabels(on) { this.labelsOn = on; this.requestRender(); }
   /** work: Map(nodeKey -> open job count) for open-work markers (separate legend from paint and status). */
   setWorkMarkers(work) { this.work = work || new Map(); this.requestRender(); }
-  /** Label candidates supplied by the app: [{key, text, priority, badge}] */
-  setLabelCandidates(list) { this.labelCandidates = list || []; this.requestRender(); }
+  /**
+   * Label candidates supplied by the app: [{id, keys:[nodeKeys], text, priority, badge, work, selected, allowHidden}]
+   * (a legacy {key} candidate is treated as keys:[key]). Each label is anchored on the representative member of its key
+   * set (the visible member closest to the others); allowHidden anchors a set that is hidden in the current mode on its
+   * manifest bounds and marks it 'Technical'. Labels are clickable (U1-C07) and call opts.onLabel(candidate).
+   */
+  setLabelCandidates(list) { this.labelCandidates = (list || []).map((c) => ({ ...c, keys: c.keys || [c.key], id: c.id || c.key })); this._anchorCache = new Map(); this.requestRender(); }
+
+  /** Placed label under a CSS-pixel point of the canvas (labels do not take pointer events, so orbit drags that start
+   *  on a label still reach the controls; a click without a drag is routed here). */
+  labelAt(clientX, clientY) {
+    const rect = this.renderer.domElement.getBoundingClientRect(); const x = clientX - rect.left, y = clientY - rect.top;
+    for (const { r, c } of this._placedLabels || []) if (x >= r.x && x <= r.x + r.w && y >= r.y && y <= r.y + r.h) return c;
+    return null;
+  }
 
   _click(e) {
     if (!this.root) return;
+    const lc = this.labelAt(e.clientX, e.clientY);
+    if (lc) { this.opts.onLabel?.(lc); return; }
     const rect = this.renderer.domElement.getBoundingClientRect();
     const ndc = new THREE.Vector2(((e.clientX - rect.left) / rect.width) * 2 - 1, -((e.clientY - rect.top) / rect.height) * 2 + 1);
     const hit = this.pickAt(ndc);
@@ -367,24 +421,77 @@ export class QcViewer {
     return { x: (p.x + 1) / 2 * w, y: (1 - p.y) / 2 * h };
   }
 
+  /** World anchor (top centre of the representative member) for a label candidate, cached until mode/selection change. */
+  _worldAnchor(c) {
+    const ck = c.id + '|' + this.mode + '|' + (this.isolate || '');
+    if (this._anchorCache?.has(ck)) return this._anchorCache.get(ck);
+    const boxes = []; let hidden = false;
+    for (const k of c.keys) { const b = this.boundsOf([k]); if (b) boxes.push(b); }
+    if (!boxes.length && c.allowHidden) {
+      // hidden in this mode (e.g. internals in Overall): anchor on the manifest bounds, unless isolation hides it
+      for (const k of c.keys) {
+        const n = this.nodeByKey.get(k); if (!n?.bounds) continue;
+        const o = this.objByKey.get(k) || this.carriers.get(n.instancing?.gltfNodeName);
+        if (this.isolate && o && !this._isoVisible(o)) continue;
+        boxes.push(new THREE.Box3(new THREE.Vector3(...n.bounds.min), new THREE.Vector3(...n.bounds.max)));
+      }
+      hidden = boxes.length > 0;
+    }
+    let a = null;
+    if (boxes.length) {
+      const cs = boxes.map((b) => b.getCenter(new THREE.Vector3()));
+      let best = 0, bestD = Infinity;
+      if (cs.length > 2) cs.forEach((p, i) => { const d = cs.reduce((s, q) => s + p.distanceTo(q), 0); if (d < bestD) { bestD = d; best = i; } });
+      const b = boxes[best];
+      a = { p: new THREE.Vector3((b.min.x + b.max.x) / 2, b.max.y, (b.min.z + b.max.z) / 2), hidden };
+    }
+    (this._anchorCache ||= new Map()).set(ck, a);
+    return a;
+  }
+
   _layoutLabels() {
-    const layer = this.labelLayer; layer.textContent = '';
+    const layer = this.labelLayer; layer.textContent = ''; this._placedLabels = [];
     if (!this.labelsOn || !this.labelCandidates) return;
     const placed = []; const w = this.renderer.domElement.clientWidth, h = this.renderer.domElement.clientHeight;
     const cands = [...this.labelCandidates].sort((a, b) => b.priority - a.priority);
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); svg.setAttribute('class', 'qc-leaders'); svg.setAttribute('width', w); svg.setAttribute('height', h); layer.appendChild(svg);
+    const hit = (r) => placed.some((q) => r.x < q.x + q.w + 4 && r.x + r.w + 4 > q.x && r.y < q.y + q.h + 2 && r.y + r.h + 2 > q.y);
     let n = 0;
     for (const c of cands) {
-      if (n >= 22) break;
-      const a = this.anchorOf(c.key); if (!a || a.x < 0 || a.y < 48 || a.x > w || a.y > h - 30) continue; // keep clear of the status badge and legend
-      const el = document.createElement('div'); el.className = 'qc-label' + (c.selected ? ' sel' : '');
+      if (n >= 30) break;
+      const wa = this._worldAnchor(c); if (!wa) continue;
+      const p = wa.p.clone().project(this.camera); if (p.z > 1 || p.z < -1) continue;
+      const a = { x: (p.x + 1) / 2 * w, y: (1 - p.y) / 2 * h };
+      if (a.x < 0 || a.y < 48 || a.x > w || a.y > h - 30) continue; // keep clear of the status badge and legend
+      const el = document.createElement('div');
+      el.className = 'qc-label' + (c.selected ? ' sel' : '') + (c.tier ? ' tier' + c.tier : '') + (wa.hidden ? ' hidden-in-mode' : '');
+      el.dataset.id = c.id;
       el.textContent = c.text;
-      if (c.badge) { const b = document.createElement('span'); b.className = 'qc-badge'; b.textContent = c.badge; el.appendChild(b); }
+      const badge = c.badge || (wa.hidden ? 'Technical' : null);
+      if (badge) { const b = document.createElement('span'); b.className = 'qc-badge'; b.textContent = badge; el.appendChild(b); }
       if (c.work) { const b = document.createElement('span'); b.className = 'qc-work'; b.textContent = c.work; b.title = c.work + ' open job(s), synthetic'; el.appendChild(b); }
+      el.title = c.hint || (c.text + (wa.hidden ? ' (inside; opens in Technical mode)' : ''));
       layer.appendChild(el);
-      const r = { x: a.x - el.offsetWidth / 2, y: a.y - el.offsetHeight - 6, w: el.offsetWidth, h: el.offsetHeight };
-      if (placed.some((p) => r.x < p.x + p.w + 4 && r.x + r.w + 4 > p.x && r.y < p.y + p.h + 2 && r.y + r.h + 2 > p.y)) { el.remove(); continue; }
+      // Declutter without dropping: try the spot above the anchor, then stacked rows above/below and sideways shifts;
+      // a displaced label gets a thin leader line to its anchor. Only a label with no free spot is left out.
+      const lw = el.offsetWidth, lh = el.offsetHeight; let r = null;
+      const tries = [[0, 0]]; for (let k = 1; k <= 7; k++) tries.push([0, -k], [0, k], [1, -k], [-1, -k], [1, k], [-1, k]);
+      for (const [dx, dy] of tries) {
+        const cand = { x: a.x - lw / 2 + dx * (lw / 2 + 6), y: a.y - lh - 6 + dy * (lh + 3), w: lw, h: lh };
+        if (cand.x < 2 || cand.x + lw > w - 2 || cand.y < 44 || cand.y + lh > h - 30) continue;
+        if (!hit(cand)) { r = cand; r.moved = dx !== 0 || dy !== 0; break; }
+      }
+      if (!r) { el.remove(); continue; }
       el.style.transform = `translate(${Math.round(r.x)}px, ${Math.round(r.y)}px)`;
-      placed.push(r); n++;
+      if (r.moved) {
+        const ln = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        const ex = Math.min(Math.max(a.x, r.x), r.x + lw), ey = r.y + (a.y > r.y ? lh : 0);
+        ln.setAttribute('x1', a.x); ln.setAttribute('y1', a.y); ln.setAttribute('x2', ex); ln.setAttribute('y2', ey);
+        svg.appendChild(ln);
+        const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle'); dot.setAttribute('cx', a.x); dot.setAttribute('cy', a.y); dot.setAttribute('r', 2.5); svg.appendChild(dot);
+      }
+      if (c.id === this._hoverLabel) el.classList.add('hover');
+      placed.push(r); this._placedLabels.push({ r, c }); n++;
     }
   }
 

@@ -76,6 +76,19 @@ export class SceneBuilder {
     return mesh;
   }
 
+  /**
+   * Visual decal on a container (e.g. the CICT logo on the machinery-house wall). Not a manifest node and not a
+   * maintenance identity: picking resolves to the container, like its shell. modes limits it (e.g. Overall only).
+   */
+  containerDecal(containerKey, name, o, build) {
+    const ng = new NodeGeom(); build(ng);
+    const mesh = ng.build(containerKey + '.' + name, this.materials);
+    mesh.userData = { decalOf: containerKey, modes: (o.modes || ['overall', 'technical']).join(','), label: o.label || null, provenance: o.prov || null, note: o.note || null };
+    this.objects.get(containerKey).add(mesh);
+    (this.decals ||= []).push({ container: containerKey, gltfNodeName: mesh.name, label: o.label || null, modes: o.modes || ['overall', 'technical'], provenance: { kind: o.prov || 'estimated', sources: o.sources || [] }, note: o.note || null });
+    return mesh;
+  }
+
   _mesh(key, kind, o, build) {
     this._check(key);
     const ng = new NodeGeom(); build(ng);

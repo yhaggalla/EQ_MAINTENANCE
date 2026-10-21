@@ -1,6 +1,8 @@
 """P03: compose aligned drawing/model comparison images.
 
-Usage: python -I -X utf8 tools/p03/compose_comparisons.py
+Usage: python -I -X utf8 tools/p03/compose_comparisons.py [--cap DIR] [--out DIR] [--label "model v1"] [--site p03|u1]
+(U1 repair: options added; defaults unchanged. --site u1 uses the user photos supplied for U1 because the P03 site
+photos documents/Image_20261021*.jpg are no longer in documents/.)
 Inputs : tools/p03/alignment.json, the J526A00 PDF (read-only), artifacts/p03-captures/model-<view>.png
 Outputs: docs/evidence/P03/comparison/<view>-overlay.png and <view>-pair.png, perspective-photo-pair.png, site-photo-closeups.png
 The model renders were made with the same pixel frame as the drawing crop (alignment.json), so the overlay is a
@@ -15,8 +17,14 @@ from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 REPO = Path(__file__).resolve().parents[2]
 A = json.loads((REPO / "tools/p03/alignment.json").read_text(encoding="utf-8"))
-CAP = REPO / "artifacts/p03-captures"
-OUT = REPO / "docs/evidence/P03/comparison"
+def _opt(n, d):
+    return sys.argv[sys.argv.index(n) + 1] if n in sys.argv else d
+
+
+CAP = REPO / _opt("--cap", "artifacts/p03-captures")
+OUT = REPO / _opt("--out", "docs/evidence/P03/comparison")
+LABEL = _opt("--label", "model v1")
+SITE = _opt("--site", "p03")
 OUT.mkdir(parents=True, exist_ok=True)
 
 try:
@@ -72,7 +80,7 @@ for view, v in A["views"].items():
     scale = 0.5
     ov_s = ov.resize((int(ov.width * scale), int(ov.height * scale)), Image.LANCZOS)
     f1 = OUT / f"{view}-overlay.png"
-    caption(ov_s, f"{v['title']} - overlay", "Blue = J526A00 p1 linework (400 dpi); faded = model v1 render in the same frame; orange cross = origin reference (" + v["refNote"] + ")").save(f1, optimize=True)
+    caption(ov_s, f"{v['title']} - overlay", "Blue = J526A00 p1 linework (400 dpi); faded = " + LABEL + " render in the same frame; orange cross = origin reference (" + v["refNote"] + ")").save(f1, optimize=True)
     d_s = mark_ref(drawing.copy(), v["ref"], crop).resize(ov_s.size, Image.LANCZOS)
     m_s = mark_ref(model.copy(), v["ref"], crop).resize(ov_s.size, Image.LANCZOS)
     if ov_s.width > ov_s.height:  # stack vertically for wide views
@@ -80,22 +88,26 @@ for view, v in A["views"].items():
     else:
         pair = Image.new("RGB", (ov_s.width * 2 + 10, ov_s.height), "white"); pair.paste(d_s, (0, 0)); pair.paste(m_s, (ov_s.width + 10, 0))
     f2 = OUT / f"{view}-pair.png"
-    caption(pair, f"{v['title']} - drawing and model", "Drawing J526A00 p1 (first) and model v1 render (second), identical scale and origin").save(f2, optimize=True)
+    caption(pair, f"{v['title']} - drawing and model", "Drawing J526A00 p1 (first) and " + LABEL + " render (second), identical scale and origin").save(f2, optimize=True)
     written += [f1, f2]
 
 # perspective vs appearance photo (appearance reference only, not a dimensional alignment)
 photo = Image.open(REPO / "documents/images2.jpg").convert("RGB")
-model = Image.open(CAP / "model-persp-photo-angle.png").convert("RGB")
+model = Image.open(CAP / ("model-persp-photo-angle-u1.png" if SITE == "u1" else "model-persp-photo-angle.png")).convert("RGB")
 h = 520
 p_s = photo.resize((int(photo.width * h / photo.height), h), Image.LANCZOS)
 m_s = model.resize((int(model.width * h / model.height), h), Image.LANCZOS)
 pair = Image.new("RGB", (p_s.width + m_s.width + 10, h), "white"); pair.paste(p_s, (0, 0)); pair.paste(m_s, (p_s.width + 10, 0))
 f3 = OUT / "perspective-photo-pair.png"
-caption(pair, "Appearance: supplied CICT photo (documents/images2.jpg) and model v1 from a similar quay-level angle", "Paint and arrangement reference only; the photo is not a dimensional source. Logos/text panels are omitted in the model.").save(f3, optimize=True)
+caption(pair, "Appearance: supplied CICT photo (documents/images2.jpg) and " + LABEL + " from a similar quay-level angle", "Paint and arrangement reference only; the photo is not a dimensional source. " + ("The CICT logo is on the -Z house end wall (not visible from this side); text panels are omitted." if SITE == "u1" else "Logos/text panels are omitted in the model.")).save(f3, optimize=True)
 written.append(f3)
 # close-ups against the later site photos (appearance only: house, walkways/stairs, trolley, cabin, headblock/spreader)
 site = [("Image_20261021165846.jpg", "persp-house-closeup", "machinery house: light enclosure on a red deck, red stairs/handrails"),
         ("Image_20261021165637.jpg", "persp-trolley-closeup", "headblock and spreader yellow (crane 01); trolley and cabin")]
+if SITE == "u1":  # AI-processed user photos supplied for U1 (appearance only)
+    site = [("ChatGPT Image Oct 21, 2026, 08_44_14 PM.png", "persp-logo-endwall", "house end wall: CICT logo, A/C units, stair tower and elevator beside it"),
+            ("ChatGPT Image Oct 21, 2026, 09_14_34 PM.png", "persp-cab-closeup", "operator cab under the trolley: light body, blue-tinted glazing"),
+            ("ChatGPT Image Oct 21, 2026, 09_14_28 PM.png", "persp-stair-tower", "stair tower with landings on the landside leg")]
 tiles = []
 for photo_name, cap_name, note in site:
     ph = Image.open(REPO / "documents" / photo_name).convert("RGB")
@@ -103,17 +115,17 @@ for photo_name, cap_name, note in site:
     p_s = ph.resize((int(ph.width * h / ph.height), h), Image.LANCZOS)
     m_s = md.resize((int(md.width * h / md.height), h), Image.LANCZOS)
     t = Image.new("RGB", (p_s.width + m_s.width + 10, h), "white"); t.paste(p_s, (0, 0)); t.paste(m_s, (p_s.width + 10, 0))
-    tiles.append(caption(t, f"documents/{photo_name} and model v1", note))
+    tiles.append(caption(t, f"documents/{photo_name} and {LABEL}", note))
 sheet = Image.new("RGB", (max(t.width for t in tiles), sum(t.height for t in tiles) + 10 * (len(tiles) - 1)), "white")
 y = 0
 for t in tiles:
     sheet.paste(t, (0, y)); y += t.height + 10
 f4 = OUT / "site-photo-closeups.png"
-caption(sheet, "Appearance close-ups: site photos supplied 21 Oct 2026 and model v1", "Paint and arrangement reference only; photos are not dimensional sources. Logos and text panels are omitted in the model.").save(f4, optimize=True)
+caption(sheet, "Appearance close-ups: site photos supplied 21 Oct 2026 and " + LABEL, "Paint and arrangement reference only; photos are not dimensional sources" + (" (AI-processed user photos). The model carries the CICT logo on the house end wall; text panels are omitted." if SITE == "u1" else ". Logos and text panels are omitted in the model.")).save(f4, optimize=True)
 written.append(f4)
 for name in ["persp-overall", "persp-technical"]:
     src = CAP / f"model-{name}.png"
     f = OUT / f"{name}.png"
-    caption(Image.open(src).convert("RGB"), "Model v1 perspective, " + ("Overall mode" if name.endswith("overall") else "Technical mode (machinery house transparent, internals and location markers)")).save(f, optimize=True)
+    caption(Image.open(src).convert("RGB"), LABEL[0].upper() + LABEL[1:] + " perspective, " + ("Overall mode" if name.endswith("overall") else "Technical mode (machinery house transparent, internals and location markers)")).save(f, optimize=True)
     written.append(f)
 print("\n".join(str(p.relative_to(REPO)) for p in written))

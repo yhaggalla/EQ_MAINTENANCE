@@ -4,6 +4,91 @@ Rolling handover for CICT EQ Maintenance. Each phase appends its record; the new
 
 ---
 
+## Repair-U1 User changes U1-C01..U1-C08 - 22 October 2026
+
+### Runtime record
+
+| Item | Value |
+| --- | --- |
+| Recommended profile | Codex gpt-6.1-sol, high; Claude Code claude-opus-5-5, high, adaptive thinking (P03 profile inherited) |
+| Actual client | Claude Code subagent eq-build-opus-high (delegated by the `/eq-phase` orchestrator; prompt logged in `docs/runs/Repair-U1-20261021-2206.md`) |
+| Actual model / effort | claude-opus-5-5; effort high (per agent definition) |
+| Fallback / escalation | None. The run was interrupted once by an API rate limit; the orchestrator resumed it and the partial work on disk was checked and completed. The prototype servers had stopped and were restarted |
+
+### Outcome
+
+Repair complete for U1-C01..U1-C08 in both the P02 flat view and the P03 3D model (draft v1, revision 2). Prototype-only, synthetic data; no production code, database, Portal change or deployment. Not committed (orchestrator instruction). U1 was not repeated by this run.
+
+### Change IDs (details and proof: `docs/evidence/U1/repair-20261022.md`)
+
+- U1-C01: new ship-to-shore QC icon (P02). Check P02 `U1-C01`.
+- U1-C02: compact fleet; heading block removed, status meaning kept in a compact note; whole synthetic fleet on one 1366 x 768 screen. Check P02 `U1-C02`.
+- U1-C03: back-reach area, CICT logo (Portal artwork embedded in the GLB, -Z house end wall, Overall only) and stairs in both views. Checks P03 `u1-model-content`, P02 `U1-C03`, validator `decals-embedded-and-not-identities`.
+- U1-C04: reeving paths per the J526A00 diagrams, stair tower re-oriented and aligned to J526A5000 / end views, back-reach equipment, machinery-house layout re-read from J526A3000 (boom-hoist motor side, offsets, A/C units, railings, doors, hatch), recognisable equipment shapes. Overlays `repair/comparison/side-overlay.png`, `end-ls-overlay.png`.
+- U1-C05: Isolate (was disabled in Overall), Fit (no-op without selection and in aligned views), aligned views (no pan/zoom, no framing, reset left them) fixed. Check P03 `u1-toolbar-controls-work`.
+- U1-C06: cab remodelled from J526A3100 with seat and consoles as new positions. Screenshot `repair/screenshots/p03-05-qc02-cabin-parts.png`, close-up in `repair/comparison/site-photo-closeups.png`.
+- U1-C07: tier 1 > 2 > 3 clickable drill-down labels in 3D and flat, QC-DEMO-01 and -02. Checks P03 `u1-label-drilldown-q01/q02`, `u1-label-drag-orbits`; P02 `U1-C07`.
+- U1-C08: flat gained Isolate machinery house and Labels; same drill-down, sync and content as 3D. Check P02 `U1-C05-C08`.
+
+Requirement IDs touched (prototype evidence only; acceptance cases remain NOT RUN): S02, S04, S05, S06, S07, S12 (IDs preserved), S16; supports VIS01-VIS06, VIS08-VIS10.
+
+### Files changed
+
+Modified:
+- P02: `artifacts/prototypes/p02-ui/css/app.css`, `js/fixtures.js` (9 positions appended), `js/preview.js`, `js/util.js`, `js/views-equipment.js`, `js/views-fleet.js`, `README.md`
+- P03 prototype: `artifacts/prototypes/p03-qc-model/css/p03.css`, `index.html`, `js/app.mjs`, `js/viewer.mjs`, `README.md`
+- Model source and pipeline: `assets/models/source/cict-j526a-sts/build.mjs`, `params.json`, `README.md`; `tools/model-generator/generate.mjs` (texture embedding, decals, revision, shell-based house-length landmark), `lib/kit.mjs` (`texturedQuad`, `stairFlight`, `railing`, alphaTest/texture), `lib/scene-builder.mjs` (`containerDecal`), `validate.mjs` (decal check)
+- Generated model: `artifacts/models/cict-j526a-sts-scene/1/` (`scene.glb`, `manifest.json`, `provenance.md`, `landmarks.json`, `checksums.json`)
+- Checks/tools: `tools/p02/check_prototype.mjs` (+5 U1 checks), `tools/p03/check_model_prototype.mjs` (+5 U1 checks), `tools/p03/capture.mjs` and `compose_comparisons.py` (output options, `--u1` / `--site u1`; defaults unchanged)
+- Records: `docs/DECISIONS.md` (D-65..D-72, U-20..U-22, U1 row), `docs/IMPLEMENTATION_STATUS.md`, `docs/HANDOVER.md`
+
+New:
+- `assets/models/source/cict-j526a-sts/textures/cict-logo.png` and `README.md`; `artifacts/prototypes/p02-ui/img/cict-logo.png` (both copied unchanged from the Portal source, read only)
+- `tools/u1/capture_u1.mjs`, `tools/u1/model_diff.mjs`
+- `artifacts/u1-captures/` (33 renders)
+- `docs/evidence/U1/repair-20261022.md`, `docs/evidence/U1/repair/` (check JSON, model diff, 12 comparison images, `screenshots/` 19, `screenshots-3d/` 19, capture logs)
+
+Untouched: `documents/` (including the new user photos, read only), `As-bulit drawing/`, `mockups/`, `.claude/`, P02/P03 phase evidence folders (outputs written to `docs/evidence/U1/repair/` instead; two P03 evidence files overwritten by tool defaults were restored from Git), `F:\CODEX\CICT-ENG_MAIN_PAGE` (read only; `git status` clean).
+
+### Checks run and results (after the last change)
+
+| Check | Result |
+| --- | --- |
+| `generate.mjs` x3 (artifact + two scratch folders) | identical GLB sha256 `177f9dad...e01a`, 1,714,480 bytes; 38,318 triangles; draw calls Overall 121 / Technical 176; no landmark failure |
+| `validate.mjs` | 26/26, validated |
+| `check_bindings.mjs` | 11/11 |
+| `tools/u1/model_diff.mjs` | 12 added, 0 removed, 0 identity changes |
+| `check_model_prototype.mjs` hardware / SwiftShader | 36/36 / 36/36 |
+| `check_no_webgl.mjs` | pass |
+| `tools/p02/check_prototype.mjs` | 55/55 |
+| `tools/p02/check_contrast.py` | 37 pairs, 0 below threshold |
+| captures and comparisons (`capture.mjs --u1`, `compose_comparisons.py --site u1`, `tools/u1/capture_u1.mjs`) | 33 + 12 + 19 images, no console errors; side and landside-end overlays reviewed |
+
+Evidence type: scripted model checks and headless-browser checks on this workstation with synthetic data. Measured: hardware orbit 57 fps, usable 265 ms after navigation; SwiftShader orbit 14.9 fps (was 27.9; software rendering, not the reference device).
+
+### Open issues and impact
+
+| ID | Issue | Impact |
+| --- | --- | --- |
+| U-20 | Logo only on the -Z house end wall (other wall not photographed) | Visual; confirm at the U1 repeat |
+| U-21 | U1 photos are AI-processed; P03 site photos no longer in `documents/` | Appearance only |
+| U-22 | Cab floor elevation GA vs J526A0200 | Visual only |
+| Perf | SwiftShader orbit below 30 fps | Measure on the reference desktop in P11 |
+| Repository | Untracked `documents/ChatGPT Image*.png` (user's), `mockups/`, and the new repair outputs are uncommitted | Orchestrator/user commits |
+| Earlier | U-19, D-61 proposals, D-02 (.NET 10 SDK) unchanged | As before |
+
+No genuinely missing business information blocks the repeat of U1; no question for the user is pending beyond confirming U-20 during the walkthrough.
+
+### Git
+
+Branch `main`, HEAD `18f03b0`; all Repair-U1 changes are **uncommitted** (orchestrator instruction: do not commit).
+
+### Next prompt
+
+**U1 user checkpoint, repeated** (user walkthrough of the P02 prototype on port 5312 and the P03 model on port 5313; start both servers). The user's approval or further changes are recorded in `docs/DECISIONS.md` s4 before P04 starts.
+
+---
+
 ## P03 QC model prototype from drawings - 21 October 2026
 
 ### Runtime record

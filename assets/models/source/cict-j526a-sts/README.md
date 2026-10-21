@@ -44,3 +44,7 @@ The GLB and the manifest are byte-identical for the same inputs, generator files
 2. Change `build.mjs`; keep keys stable.
 3. Run generate, validate and check_bindings; review `provenance.md` and the aligned comparison images (`node tools/p03/capture.mjs` then `python -I -X utf8 tools/p03/compose_comparisons.py`, with the prototype server running).
 4. A changed GLB is a new model version once any equipment binding is active (immutable versions, DATA_CONTRACT s10.1).
+
+## Revision 2 of draft v1 (U1 repair, 22 October 2026)
+
+The draft was revised in place (manifest `revision: 2`) because no equipment binding is active (rule 4 above applies once a binding is active). No key was removed or renamed and no kind, classification or instancing changed; 12 nodes were added and two hotspots (111 skew system, 022 trolley tension) moved to the new `container.back-reach` at the girder tail. Report: `docs/evidence/U1/repair/model-revision-diff.json` (`node tools/u1/model_diff.mjs`). Count parameters (`unit: "count"`) are read with `N()` in `build.mjs`. The CICT logo texture is embedded by `generate.mjs` (see `textures/README.md`); decals are listed in `manifest.decals`, are not maintenance identities, and pick as their container.

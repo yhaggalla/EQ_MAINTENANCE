@@ -142,9 +142,9 @@
       "note": "27000 (buffers to buffers)"
     },
     {
-      "name": "machinery house length along rails",
+      "name": "machinery house length along rails (shell)",
       "expected": 18.8,
-      "actual": 18.8,
+      "actual": 18.799999,
       "deviationPct": 0,
       "tolerancePct": 2,
       "pass": true,

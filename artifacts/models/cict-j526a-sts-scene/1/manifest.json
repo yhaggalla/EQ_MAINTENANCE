@@ -3,8 +3,10 @@
   "modelCode": "cict-j526a-sts-scene",
   "equipmentModelCode": "CICT-J526A-STS",
   "version": 1,
+  "revision": 2,
+  "revisionNote": "U1 repair (2026-10-21): back-reach area, CICT logo, stair tower orientation, cab remodel, reeving paths and machinery-house layout re-checked against J526A00, J526A1000, J526A3000, J526A3100, J526A5000, J526A7100. Draft v1 revised in place: no equipment binding is active.",
   "status": "draft",
-  "statusNote": "P03 prototype. Not assigned to any equipment; bindings are made by Admin per equipment (DATA_CONTRACT s10.5).",
+  "statusNote": "P03 prototype, revised in the U1 repair while still a draft with no active binding. Not assigned to any equipment; bindings are made by Admin per equipment (DATA_CONTRACT s10.5).",
   "units": "m",
   "axes": {
     "up": "+Y",
@@ -16,7 +18,7 @@
   "generator": {
     "name": "eq-model-generator",
     "version": "1.0.0",
-    "sourceCommit": "0dbb1c8c276c9ace7727996609ff90e09fe7eab5",
+    "sourceCommit": "18f03b0321a97f7976daa632c482e823e42c4652",
     "sourceDirty": true,
     "three": "0.186.1",
     "node": "v24.15.0"
@@ -27,19 +29,19 @@
   },
   "asset": {
     "file": "scene.glb",
-    "sha256": "3a4d0ee4078c5f3554ce421a46a88837003b2419bc450a094d4b83ab1ddb7ce4",
-    "bytes": 662784,
-    "triangles": 18384,
-    "drawCallsEstimate": 134,
+    "sha256": "177f9dadbc4f27eac921f434589ea249158e2d5bbc23047b6b57a50705dee01a",
+    "bytes": 1714480,
+    "triangles": 38318,
+    "drawCallsEstimate": 177,
     "overallMode": {
-      "triangles": 13656,
-      "drawCallsEstimate": 91,
-      "meshObjects": 71
+      "triangles": 30526,
+      "drawCallsEstimate": 121,
+      "meshObjects": 83
     },
     "technicalMode": {
-      "triangles": 18384,
-      "drawCallsEstimate": 134,
-      "meshObjects": 114
+      "triangles": 38316,
+      "drawCallsEstimate": 176,
+      "meshObjects": 125
     }
   },
   "budgets": {
@@ -1050,6 +1052,61 @@
       "cameraHint": null
     },
     {
+      "key": "access.walkway.tie-beam",
+      "kind": "position",
+      "label": "Tie-beam walkways and handrails",
+      "parentKey": "container.portal",
+      "classification": {
+        "main": "15",
+        "sub": "151"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [
+        "access.walkway.tie-beam"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "structural",
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "drawing": "J526A00",
+            "pdfPage": 1,
+            "note": "side view: handrail on top of the portal tie beam (item 32 nameplate beam)"
+          },
+          {
+            "drawing": "site photo 08_43_55 PM / 09_14_50 PM",
+            "pdfPage": null,
+            "note": "railing along the top of the tie beam (AI-processed appearance reference, not a dimension source)"
+          }
+        ]
+      },
+      "qualifier": "Estimated geometry",
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          -29.325001,
+          15.5,
+          -11.005
+        ],
+        "max": [
+          -0.675,
+          16.625,
+          11.005
+        ]
+      },
+      "cameraHint": null
+    },
+    {
       "key": "container.girder",
       "kind": "container",
       "label": "Fixed rear girder",
@@ -1084,14 +1141,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -61,
-          49,
-          -3.695
+          -62.540001,
+          47.720001,
+          -4.695
         ],
         "max": [
           -0.299999,
-          52.799999,
-          3.695
+          56.049999,
+          4.695
         ]
       },
       "cameraHint": null
@@ -1203,6 +1260,383 @@
           -19.317551,
           50.400002,
           0.665339
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "container.back-reach",
+      "kind": "container",
+      "label": "Back-reach area (girder tail)",
+      "parentKey": "container.girder",
+      "classification": null,
+      "classificationNote": null,
+      "gltfNodeNames": [
+        "container.back-reach"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 10,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": null,
+      "uom": null,
+      "category": null,
+      "provenance": {
+        "kind": "drawing-derived",
+        "sources": [
+          {
+            "drawing": "J526A00",
+            "pdfPage": 1,
+            "note": "side view: 31000 behind the landside rail; items 7 and 30 at the tail"
+          },
+          {
+            "drawing": "J526A5000",
+            "pdfPage": 1,
+            "note": "tail platform (5) and festoon and cab service platform (8)"
+          }
+        ]
+      },
+      "qualifier": null,
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          -62.540001,
+          47.720001,
+          -4.695
+        ],
+        "max": [
+          -51.974998,
+          56.049999,
+          4.695
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "access.platform.girder-tail",
+      "kind": "position",
+      "label": "Girder-tail end platform, handrails and ladder",
+      "parentKey": "container.back-reach",
+      "classification": {
+        "main": "15",
+        "sub": "151"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [
+        "access.platform.girder-tail"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "structural",
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "drawing": "J526A5000",
+            "pdfPage": 1,
+            "note": "girder platform at the tail end (item 5), scaled"
+          },
+          {
+            "drawing": "J526A00",
+            "pdfPage": 1,
+            "note": "side view: tail platform and inclined ladder"
+          }
+        ]
+      },
+      "qualifier": "Estimated geometry",
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          -62.25,
+          48.849625,
+          -4.695
+        ],
+        "max": [
+          -56.474998,
+          53.424999,
+          4.695
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "reeving.anti-snag-tls.device",
+      "kind": "position",
+      "label": "Anti-snag and trim/list/skew device (cylinders and levers)",
+      "parentKey": "container.back-reach",
+      "classification": {
+        "main": "11",
+        "sub": "111"
+      },
+      "classificationNote": "J526A1000 anti-snag and trim/list/skew device (hydraulic cylinders acting on the hoist-rope tail sheaves): 111 Skew system proposed; Admin to confirm",
+      "gltfNodeNames": [
+        "reeving.anti-snag-tls.device"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "drawing-derived",
+        "sources": [
+          {
+            "drawing": "J526A1000",
+            "pdfPage": 1,
+            "note": "overall 3754; cylinders bore 200 / rod 140 / stroke 1400; lever arms carrying the rope sheaves; frame shape simplified"
+          },
+          {
+            "drawing": "J526A00",
+            "pdfPage": 1,
+            "note": "item 7 at the girder tail"
+          }
+        ]
+      },
+      "qualifier": null,
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          -59.200001,
+          52.299999,
+          -3.4
+        ],
+        "max": [
+          -54.482845,
+          55,
+          3.4
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "reeving.sheave.girder-tail",
+      "kind": "position",
+      "label": "Main hoist rope tail sheaves (girder tail)",
+      "parentKey": "container.back-reach",
+      "classification": {
+        "main": "01",
+        "sub": "011"
+      },
+      "classificationNote": "Hoist-rope tail sheaves on the anti-snag levers: 011 (hoist, \"roller\") proposed as for the boom-tip sheaves; Admin to confirm",
+      "gltfNodeNames": [
+        "reeving.sheave.girder-tail"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "drawing": "J526A1000",
+            "pdfPage": 1,
+            "note": "two sheaves per lever, 2200 apart; diameter scaled"
+          },
+          {
+            "drawing": "J526A00",
+            "pdfPage": 1,
+            "note": "main hoist rope reeving diagram: ropes turn at the tail sheaves and return to the trolley"
+          }
+        ]
+      },
+      "qualifier": "Estimated geometry",
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          -58.599998,
+          52.650002,
+          -2.928
+        ],
+        "max": [
+          -55.299999,
+          53.75,
+          2.928
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "reeving.sheave.trolley-tail",
+      "kind": "position",
+      "label": "Trolley rope tail sheaves and tensioner frame",
+      "parentKey": "container.back-reach",
+      "classification": {
+        "main": "02",
+        "sub": "021"
+      },
+      "classificationNote": "Trolley-rope return sheaves: 021 proposed (trolley); Admin to confirm",
+      "gltfNodeNames": [
+        "reeving.sheave.trolley-tail"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "drawing": "J526A00",
+            "pdfPage": 1,
+            "note": "trolley rope reeving diagram: return sheaves with tensioners at the tail end"
+          },
+          {
+            "drawing": "J526A2100",
+            "pdfPage": null,
+            "note": "trolley reeving sheet not detailed in the repair"
+          }
+        ]
+      },
+      "qualifier": "Estimated geometry",
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          -60.700001,
+          52.299999,
+          -0.75
+        ],
+        "max": [
+          -58.5,
+          53.27,
+          0.75
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "auxiliary.service-crane.girder-tail",
+      "kind": "position",
+      "label": "Outdoor service crane at the girder tail (1 t man-hold lift)",
+      "parentKey": "container.back-reach",
+      "classification": {
+        "main": "15",
+        "sub": "151"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [
+        "auxiliary.service-crane.girder-tail"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "drawing-derived",
+        "sources": [
+          {
+            "drawing": "J526A7100",
+            "pdfPage": 1,
+            "note": "Detail C: frame 2780 high, 1540 beyond the girder end; View A: 6050 wide; B1 HSZ1 1 t lift; member sizes estimated"
+          }
+        ]
+      },
+      "qualifier": null,
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          -62.540001,
+          52.299999,
+          -3.175
+        ],
+        "max": [
+          -58.849998,
+          55.080002,
+          3.175
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "access.platform.festoon-cab-service",
+      "kind": "position",
+      "label": "Festoon and cab service platform (hanging, back-reach)",
+      "parentKey": "container.back-reach",
+      "classification": {
+        "main": "15",
+        "sub": "151"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [
+        "access.platform.festoon-cab-service"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "structural",
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "drawing": "J526A5000",
+            "pdfPage": 1,
+            "note": "item 8 J526A5008 festoon and cab service platform"
+          },
+          {
+            "drawing": "J526A00",
+            "pdfPage": 1,
+            "note": "side view: hanging platform where the cab parks at the back-reach limit; drop and side estimated"
+          }
+        ]
+      },
+      "qualifier": "Estimated geometry",
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          -56.424999,
+          47.720001,
+          -2.53
+        ],
+        "max": [
+          -51.974998,
+          51.463974,
+          -0.48
         ]
       },
       "cameraHint": null
@@ -1822,7 +2256,7 @@
         "max": [
           0,
           83.356003,
-          11.5395
+          11.754625
         ]
       },
       "cameraHint": null
@@ -2368,6 +2802,11 @@
             "drawing": "J526A00",
             "pdfPage": 1,
             "note": "waterside end view: zig-zag stair beside A-frame leg A"
+          },
+          {
+            "drawing": "J526A5000",
+            "pdfPage": 1,
+            "note": "View Q and item 2 platform of apex; flight count approximate"
           }
         ]
       },
@@ -2375,14 +2814,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -4.9,
-          54.066952,
-          4.9345
+          -5.425,
+          53.977684,
+          4.719375
         ],
         "max": [
-          -2.049921,
-          78.290001,
-          11.5395
+          -1.375,
+          79.364998,
+          11.754625
         ]
       },
       "cameraHint": null
@@ -2422,14 +2861,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -43.299999,
+          -43.325001,
           52.299999,
-          -8.55
+          -9.575
         ],
         "max": [
-          -30.6,
+          -30.575001,
           59.358646,
-          10.25
+          10.275
         ]
       },
       "cameraHint": null
@@ -2469,7 +2908,7 @@
           {
             "drawing": "J526A3000",
             "pdfPage": 1,
-            "note": "1000 seaside / 1200 landside walkways"
+            "note": "1000 seaside / 1200 landside walkways; end platform for the A/C units (B1-B7); service-crane floor hatch 3575 x 2000"
           }
         ]
       },
@@ -2477,14 +2916,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -43.299999,
+          -43.325001,
           52.299999,
-          -8.55
+          -9.575
         ],
         "max": [
-          -30.6,
-          54.110001,
-          10.25
+          -30.575001,
+          54.125,
+          10.275
         ]
       },
       "cameraHint": null
@@ -2544,6 +2983,61 @@
       "cameraHint": null
     },
     {
+      "key": "auxiliary.air-conditioning.outdoor-units",
+      "kind": "position",
+      "label": "Machinery-house A/C outdoor units (B1-B7)",
+      "parentKey": "container.machinery-house",
+      "classification": {
+        "main": "15",
+        "sub": "152"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [
+        "auxiliary.air-conditioning.outdoor-units"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "approximate-location",
+        "sources": [
+          {
+            "drawing": "J526A3000",
+            "pdfPage": 1,
+            "note": "items B1-B7 outside the electrical-room end wall"
+          },
+          {
+            "drawing": "site photo 08_44_14 PM",
+            "pdfPage": null,
+            "note": "row of A/C outdoor units on the platform below the logo (AI-processed appearance reference, not a dimension source)"
+          }
+        ]
+      },
+      "qualifier": "Location approximate / simplified representation",
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          -41.419998,
+          53,
+          -9.03
+        ],
+        "max": [
+          -32.279999,
+          53.66,
+          -8.63
+        ]
+      },
+      "cameraHint": null
+    },
+    {
       "key": "hoist.drive.reducer.main",
       "kind": "position",
       "label": "Main hoist reducer (SEW ML3PSF130E)",
@@ -2577,7 +3071,7 @@
           {
             "drawing": "J526A3000",
             "pdfPage": 1,
-            "note": "position inside the house scaled from the plan"
+            "note": "position inside the house scaled from the plan (re-read in the U1 repair)"
           }
         ]
       },
@@ -2587,12 +3081,12 @@
         "min": [
           -41,
           53,
-          0.015
+          0.38
         ],
         "max": [
           -38.099998,
           55,
-          0.985
+          1.32
         ]
       },
       "cameraHint": null
@@ -2631,7 +3125,7 @@
           {
             "drawing": "J526A3000",
             "pdfPage": 1,
-            "note": "position inside the house scaled from the plan"
+            "note": "position inside the house scaled from the plan (re-read in the U1 repair)"
           }
         ]
       },
@@ -2639,14 +3133,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -40.889999,
-          53.349998,
-          1.092
+          -40.98497,
+          53.25,
+          1.442
         ],
         "max": [
-          -39.709999,
-          54.529999,
-          4.708
+          -39.615032,
+          54.630001,
+          5.058
         ]
       },
       "cameraHint": null
@@ -2685,7 +3179,7 @@
           {
             "drawing": "J526A3000",
             "pdfPage": 1,
-            "note": "position inside the house scaled from the plan"
+            "note": "position inside the house scaled from the plan (re-read in the U1 repair)"
           }
         ]
       },
@@ -2693,14 +3187,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -39.25,
+          -39.200001,
           53,
-          2.4
+          1.675
         ],
         "max": [
-          -38.150002,
-          54.209999,
-          3.8
+          -38.200001,
+          54.294998,
+          3.9
         ]
       },
       "cameraHint": null
@@ -2739,7 +3233,7 @@
           {
             "drawing": "J526A3000",
             "pdfPage": 1,
-            "note": "position inside the house scaled from the plan"
+            "note": "position inside the house scaled from the plan (re-read in the U1 repair)"
           }
         ]
       },
@@ -2747,14 +3241,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -39.150002,
+          -39.14542,
           53,
-          1.7
+          1.39
         ],
         "max": [
-          -37.950001,
-          54.16,
-          2.2
+          -38.254406,
+          54.634998,
+          1.91
         ]
       },
       "cameraHint": null
@@ -2793,7 +3287,7 @@
           {
             "drawing": "J526A3000",
             "pdfPage": 1,
-            "note": "position inside the house scaled from the plan"
+            "note": "position inside the house scaled from the plan (re-read in the U1 repair)"
           }
         ]
       },
@@ -2801,14 +3295,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -41.450001,
+          -41.438293,
           52.790001,
-          4.508
+          4.898
         ],
         "max": [
-          -39.150002,
-          55.09,
-          5.108
+          -39.161705,
+          55.564999,
+          5.418
         ]
       },
       "cameraHint": null
@@ -2847,7 +3341,7 @@
           {
             "drawing": "J526A3000",
             "pdfPage": 1,
-            "note": "position inside the house scaled from the plan"
+            "note": "position inside the house scaled from the plan (re-read in the U1 repair)"
           }
         ]
       },
@@ -2855,14 +3349,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -40.889999,
-          53.349998,
-          -3.708
+          -40.98497,
+          53.25,
+          -3.358
         ],
         "max": [
-          -39.709999,
-          54.529999,
-          -0.092
+          -39.615032,
+          54.630001,
+          0.258
         ]
       },
       "cameraHint": null
@@ -2901,7 +3395,7 @@
           {
             "drawing": "J526A3000",
             "pdfPage": 1,
-            "note": "position inside the house scaled from the plan"
+            "note": "position inside the house scaled from the plan (re-read in the U1 repair)"
           }
         ]
       },
@@ -2909,14 +3403,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -39.25,
+          -39.200001,
           53,
-          -2.8
+          -2.2
         ],
         "max": [
-          -38.150002,
-          54.209999,
-          -1.4
+          -38.200001,
+          54.294998,
+          0.025
         ]
       },
       "cameraHint": null
@@ -2955,7 +3449,7 @@
           {
             "drawing": "J526A3000",
             "pdfPage": 1,
-            "note": "position inside the house scaled from the plan"
+            "note": "position inside the house scaled from the plan (re-read in the U1 repair)"
           }
         ]
       },
@@ -2963,14 +3457,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -39.150002,
+          -39.14542,
           53,
-          -1.2
+          -0.21
         ],
         "max": [
-          -37.950001,
-          54.16,
-          -0.7
+          -38.254406,
+          54.634998,
+          0.31
         ]
       },
       "cameraHint": null
@@ -3009,7 +3503,7 @@
           {
             "drawing": "J526A3000",
             "pdfPage": 1,
-            "note": "position inside the house scaled from the plan"
+            "note": "position inside the house scaled from the plan (re-read in the U1 repair)"
           }
         ]
       },
@@ -3017,14 +3511,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -41.450001,
+          -41.438293,
           52.790001,
-          -4.108
+          -3.718
         ],
         "max": [
-          -39.150002,
-          55.09,
-          -3.508
+          -39.161705,
+          55.564999,
+          -3.198
         ]
       },
       "cameraHint": null
@@ -3072,7 +3566,7 @@
         "point": [
           -39.5,
           55.6,
-          0.5
+          0.85
         ],
         "radius": 0.5
       },
@@ -3080,12 +3574,12 @@
         "min": [
           -39.987465,
           55.099998,
-          0.024758
+          0.374758
         ],
         "max": [
           -39.012535,
           56.099998,
-          0.975242
+          1.325242
         ]
       },
       "cameraHint": null
@@ -3119,12 +3613,12 @@
           {
             "drawing": "J526A0400",
             "pdfPage": 1,
-            "note": "drum dia 920; length estimated (title block J526A04)"
+            "note": "drum dia 920; length scaled from the plan (title block J526A04)"
           },
           {
             "drawing": "J526A3000",
             "pdfPage": 1,
-            "note": "position scaled from the plan"
+            "note": "position scaled from the plan (re-read in the U1 repair)"
           }
         ]
       },
@@ -3132,14 +3626,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -36.255318,
-          53.34,
-          -0.95
+          -37.005917,
+          53.240002,
+          -0.78
         ],
         "max": [
-          -35.344681,
-          54.259998,
-          2.05
+          -35.894085,
+          54.360001,
+          2.72
         ]
       },
       "cameraHint": null
@@ -3178,7 +3672,7 @@
           {
             "drawing": "J526A3000",
             "pdfPage": 1,
-            "note": "position scaled from the plan"
+            "note": "position scaled from the plan (re-read in the U1 repair)"
           }
         ]
       },
@@ -3186,14 +3680,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -36.400002,
+          -37.450001,
           53,
-          -2.35
+          -1.6
         ],
         "max": [
-          -35.200001,
+          -35.450001,
           54.400002,
-          -1.35
+          -0.74
         ]
       },
       "cameraHint": null
@@ -3232,7 +3726,7 @@
           {
             "drawing": "J526A3000",
             "pdfPage": 1,
-            "note": "position scaled from the plan"
+            "note": "position scaled from the plan (re-read in the U1 repair)"
           }
         ]
       },
@@ -3240,14 +3734,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -36.144684,
-          53.450001,
-          -2.61
+          -36.196438,
+          53,
+          -2.21
         ],
         "max": [
-          -35.455318,
-          54.150002,
-          -2.49
+          -35.484406,
+          54.625,
+          -1.69
         ]
       },
       "cameraHint": null
@@ -3286,7 +3780,7 @@
           {
             "drawing": "J526A3000",
             "pdfPage": 1,
-            "note": "position scaled from the plan"
+            "note": "position scaled from the plan (re-read in the U1 repair)"
           }
         ]
       },
@@ -3294,14 +3788,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -36.25,
-          53.349998,
-          -3.9
+          -36.299999,
+          53,
+          -3.88
         ],
         "max": [
-          -35.349998,
-          54.25,
-          -2.7
+          -35.400002,
+          54.337502,
+          -1.855
         ]
       },
       "cameraHint": null
@@ -3335,12 +3829,12 @@
           {
             "drawing": "J526A0500",
             "pdfPage": 1,
-            "note": "drum dia 1530; length estimated (title block J526A05)"
+            "note": "drum dia 1530; two-section drum, length scaled from the plan (title block J526A05)"
           },
           {
             "drawing": "J526A3000",
             "pdfPage": 1,
-            "note": "position scaled from the plan"
+            "note": "position scaled from the plan (re-read in the U1 repair)"
           }
         ]
       },
@@ -3348,14 +3842,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -33.859421,
-          53.235001,
-          -2.4
+          -33.618694,
+          53.134998,
+          -2.47
         ],
         "max": [
-          -32.340576,
-          54.764999,
-          3.6
+          -31.901306,
+          54.865002,
+          4.33
         ]
       },
       "cameraHint": null
@@ -3394,7 +3888,7 @@
           {
             "drawing": "J526A3000",
             "pdfPage": 1,
-            "note": "position scaled from the plan"
+            "note": "position scaled from the plan (re-read in the U1 repair)"
           }
         ]
       },
@@ -3402,14 +3896,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -34,
+          -34.900002,
           53,
-          3.7
+          4.47
         ],
         "max": [
-          -32.200001,
+          -32.310001,
           55.099998,
-          4.9
+          5.49
         ]
       },
       "cameraHint": null
@@ -3443,12 +3937,12 @@
           {
             "drawing": "J526A0500",
             "pdfPage": 1,
-            "note": "1 x 375 kW; placement beside the reducer estimated (title block J526A05)"
+            "note": "1 x 375 kW; landside of the drum next to the reducer (title block J526A05)"
           },
           {
             "drawing": "J526A3000",
             "pdfPage": 1,
-            "note": "position scaled from the plan"
+            "note": "position scaled from the plan (re-read in the U1 repair)"
           }
         ]
       },
@@ -3456,14 +3950,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -32.5,
-          53.299999,
+          -34.849998,
+          53,
           2.25
         ],
         "max": [
-          -31.6,
-          54.200001,
-          3.55
+          -33.950001,
+          54.287498,
+          4.375
         ]
       },
       "cameraHint": null
@@ -3497,12 +3991,12 @@
           {
             "drawing": "J526A0500",
             "pdfPage": 1,
-            "note": "motor (high-speed) brake (title block J526A05)"
+            "note": "motor (high-speed) brake between motor and reducer (title block J526A05)"
           },
           {
             "drawing": "J526A3000",
             "pdfPage": 1,
-            "note": "position scaled from the plan"
+            "note": "position scaled from the plan (re-read in the U1 repair)"
           }
         ]
       },
@@ -3510,14 +4004,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -32.443924,
-          53.349998,
-          3.64
+          -34.795929,
+          53,
+          3.99
         ],
         "max": [
-          -31.656076,
-          54.150002,
-          3.76
+          -33.994404,
+          54.625,
+          4.51
         ]
       },
       "cameraHint": null
@@ -3556,7 +4050,7 @@
           {
             "drawing": "J526A3000",
             "pdfPage": 1,
-            "note": "position scaled from the plan"
+            "note": "position scaled from the plan (re-read in the U1 repair)"
           }
         ]
       },
@@ -3564,14 +4058,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -34.150002,
+          -33.799313,
           52.950001,
-          -2.8
+          -2.85
         ],
         "max": [
-          -32.049999,
-          55.049999,
-          -2.2
+          -31.720688,
+          55.525002,
+          -2.33
         ]
       },
       "cameraHint": null
@@ -3613,14 +4107,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -38.825001,
+          -39.575001,
           53,
-          6.4
+          7.2
         ],
         "max": [
-          -37.375,
-          55.293999,
-          8.6
+          -38.125,
+          55.414001,
+          9.4
         ]
       },
       "cameraHint": null
@@ -3664,12 +4158,12 @@
         "min": [
           -33.5,
           53,
-          4.85
+          6.15
         ],
         "max": [
           -32.299999,
-          54.650002,
-          6.35
+          54.77,
+          7.65
         ]
       },
       "cameraHint": null
@@ -3713,12 +4207,12 @@
         "min": [
           -33.700001,
           53,
-          6.925
+          7.825
         ],
         "max": [
           -32.200001,
-          55.299999,
-          8.875
+          55.419998,
+          9.775
         ]
       },
       "cameraHint": null
@@ -4088,7 +4582,7 @@
         ],
         "max": [
           -32,
-          54.099998,
+          54.599998,
           -3.75
         ]
       },
@@ -4129,8 +4623,8 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          64.5,
-          47.799999,
+          63.575001,
+          47.560001,
           -3.6
         ],
         "max": [
@@ -4759,19 +5253,24 @@
         "kind": "drawing-derived",
         "sources": [
           {
+            "drawing": "J526A3100",
+            "pdfPage": 1,
+            "note": "3000 x 2200 x 2673; windows, floor window 826, visor 310, door 1900, walkway 900, 4 dampers; frame members simplified"
+          },
+          {
             "drawing": "J526A0200",
             "pdfPage": 1,
-            "note": "cabin 3000 long, 2500 landside of hoist centre; height and width scaled"
+            "note": "cab 2500 landside of the hoist centre"
           },
           {
             "drawing": "J526A00",
             "pdfPage": 1,
-            "note": "cabin floor about 47.8 m in the side view at the outreach position"
+            "note": "cab floor about 47.8 m in the side view at the outreach position"
           },
           {
-            "drawing": "J526A3100",
+            "drawing": "site photo 09_14_34 PM",
             "pdfPage": null,
-            "note": "cabin sheet not detailed"
+            "note": "light cab with blue-tinted glazing hanging under the trolley (AI-processed appearance reference, not a dimension source)"
           }
         ]
       },
@@ -4779,14 +5278,114 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          64.5,
-          47.799999,
-          -1.3
+          63.575001,
+          47.560001,
+          -1.275
         ],
         "max": [
-          67.519997,
-          52.77,
-          1.3
+          67.830002,
+          50.77,
+          1.275
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "cabin.operator.seat",
+      "kind": "position",
+      "label": "Operator seat (tip-up chair)",
+      "parentKey": "container.trolley",
+      "classification": {
+        "main": "14",
+        "sub": "141"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [
+        "cabin.operator.seat"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "drawing": "J526A3100",
+            "pdfPage": 1,
+            "note": "item 10 tip-up chair installation (ZT2-031511) facing the front and floor windows; size estimated"
+          }
+        ]
+      },
+      "qualifier": "Estimated geometry",
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          65.760002,
+          47.900002,
+          -0.28
+        ],
+        "max": [
+          66.529999,
+          49.259998,
+          0.28
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "cabin.operator.consoles",
+      "kind": "position",
+      "label": "Operator control consoles and joysticks",
+      "parentKey": "container.trolley",
+      "classification": {
+        "main": "14",
+        "sub": "141"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [
+        "cabin.operator.consoles"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "approximate-location",
+        "sources": [
+          {
+            "drawing": "J526A3100",
+            "pdfPage": 1,
+            "note": "auxiliary control station and seat consoles; vendor shapes not established"
+          }
+        ]
+      },
+      "qualifier": "Location approximate / simplified representation",
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          64.599998,
+          47.900002,
+          -1
+        ],
+        "max": [
+          66.599998,
+          49.200001,
+          0.6
         ]
       },
       "cameraHint": null
@@ -4818,31 +5417,36 @@
         "kind": "approximate-location",
         "sources": [
           {
+            "drawing": "J526A3100",
+            "pdfPage": 1,
+            "note": "A/C unit beside the cab on the walkway side (plan); exact unit not detailed"
+          },
+          {
             "drawing": "J526A0200",
             "pdfPage": 1,
-            "note": "A/C unit beside the cabin in plan; exact unit not detailed"
+            "note": "A/C unit beside the cabin in plan"
           }
         ]
       },
       "qualifier": "Location approximate / simplified representation",
       "hotspot": {
         "point": [
-          64.9,
-          50.49999999999999,
-          0.9
+          64,
+          48.699999999999996,
+          0.75
         ],
         "radius": 0.4
       },
       "bounds": {
         "min": [
-          64.510025,
-          50.099998,
-          0.519806
+          63.610027,
+          48.299999,
+          0.369806
         ],
         "max": [
-          65.28997,
-          50.900002,
-          1.280194
+          64.389969,
+          49.099998,
+          1.130194
         ]
       },
       "cameraHint": null
@@ -4850,8 +5454,8 @@
     {
       "key": "trolley.skew-system.main",
       "kind": "hotspot",
-      "label": "Trim/list/skew system (location approximate)",
-      "parentKey": "container.trolley",
+      "label": "Trim/list/skew system (location approximate; J526A1000 device at the girder tail)",
+      "parentKey": "container.back-reach",
       "classification": {
         "main": "11",
         "sub": "111"
@@ -4875,30 +5479,30 @@
         "sources": [
           {
             "drawing": "J526A1000",
-            "pdfPage": null,
-            "note": "TLS and snag protection; sheet not detailed in P03"
+            "pdfPage": 1,
+            "note": "anti-snag and L/S/T device at the girder tail (GA item 7); hydraulic power unit not located"
           }
         ]
       },
       "qualifier": "Location approximate / simplified representation",
       "hotspot": {
         "point": [
-          71.5,
-          53.62,
-          -1.8
+          -57.300000000000004,
+          55.599999999999994,
+          0
         ],
         "radius": 0.45
       },
       "bounds": {
         "min": [
-          71.061279,
-          53.169998,
-          -2.227718
+          -57.738716,
+          55.150002,
+          -0.427718
         ],
         "max": [
-          71.938721,
-          54.07,
-          -1.372282
+          -56.861282,
+          56.049999,
+          0.427718
         ]
       },
       "cameraHint": null
@@ -4962,8 +5566,8 @@
     {
       "key": "trolley.tension.main",
       "kind": "hotspot",
-      "label": "Trolley rope tensioning (location approximate)",
-      "parentKey": "container.trolley",
+      "label": "Trolley rope tensioning (location approximate; tensioners at the girder-tail end)",
+      "parentKey": "container.back-reach",
       "classification": {
         "main": "02",
         "sub": "022"
@@ -4986,31 +5590,36 @@
         "kind": "approximate-location",
         "sources": [
           {
+            "drawing": "J526A00",
+            "pdfPage": 1,
+            "note": "trolley rope reeving diagram: tensioners at the tail end"
+          },
+          {
             "drawing": "J526A2100",
             "pdfPage": null,
-            "note": "trolley reeving sheet not detailed in P03"
+            "note": "trolley reeving sheet not detailed"
           }
         ]
       },
       "qualifier": "Location approximate / simplified representation",
       "hotspot": {
         "point": [
-          70,
-          53.62,
-          1.8
+          -59,
+          53.3,
+          0
         ],
         "radius": 0.45
       },
       "bounds": {
         "min": [
-          69.561279,
-          53.169998,
-          1.372282
+          -59.438717,
+          52.849998,
+          -0.427718
         ],
         "max": [
-          70.438721,
-          54.07,
-          2.227718
+          -58.561283,
+          53.75,
+          0.427718
         ]
       },
       "cameraHint": null
@@ -5526,12 +6135,17 @@
           {
             "drawing": "J526A00",
             "pdfPage": 1,
-            "note": "main hoist rope reeving diagram"
+            "note": "main hoist rope reeving diagram: 4 ropes from 2 drums over the girder-tail sheaves, trolley and headblock to the boom tip"
           },
           {
             "drawing": "J526A0300",
             "pdfPage": 1,
             "note": "IWRC 6xWS(36) dia 31.5"
+          },
+          {
+            "drawing": "J526A1000",
+            "pdfPage": 1,
+            "note": "tail sheaves on the anti-snag levers"
           },
           {
             "drawing": "J526A2000",
@@ -5544,14 +6158,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -40.307663,
+          -58.630619,
           47.086578,
-          -2.65
+          -2.8
         ],
         "max": [
-          74.406952,
-          54.583248,
-          2.65
+          75.643303,
+          53.793301,
+          3.890744
         ]
       },
       "cameraHint": null
@@ -5586,7 +6200,7 @@
           {
             "drawing": "J526A00",
             "pdfPage": 1,
-            "note": "trolley rope reeving diagram"
+            "note": "trolley rope reeving diagram: drum to the boom-tip and girder-tail sheaves, back to both ends of the trolley"
           },
           {
             "drawing": "J526A0400",
@@ -5604,14 +6218,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -60.400002,
-          52.626698,
+          -60.530617,
+          52.406887,
           -0.4
         ],
         "max": [
-          75,
-          54.310776,
-          0.599296
+          75.480621,
+          53.449532,
+          1.915277
         ]
       },
       "cameraHint": null
@@ -5646,7 +6260,7 @@
           {
             "drawing": "J526A00",
             "pdfPage": 1,
-            "note": "boom hoist rope reeving diagram"
+            "note": "boom hoist rope reeving diagram: drum to the apex sheaves, multi-fall between apex and boom sheave groups"
           },
           {
             "drawing": "J526A0500",
@@ -5656,7 +6270,7 @@
           {
             "drawing": "J526A2300",
             "pdfPage": null,
-            "note": "reeving sheet not detailed; path simplified"
+            "note": "reeving sheet not detailed; number of falls simplified to 4 per side"
           }
         ]
       },
@@ -5664,14 +6278,69 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -33.128231,
-          53.8596,
-          -2.719973
+          -32.788616,
+          53.86364,
+          -2.894975
         ],
         "max": [
-          61.917362,
-          81.42334,
-          2.719973
+          61.915627,
+          81.42363,
+          2.894975
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "boom.sheave.boom-block",
+      "kind": "position",
+      "label": "Boom hoist sheave blocks on the boom",
+      "parentKey": "container.boom",
+      "classification": {
+        "main": "03",
+        "sub": "031"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [
+        "boom.sheave.boom-block"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "drawing": "J526A00",
+            "pdfPage": 1,
+            "note": "boom hoist rope reeving diagram: sheave group on the boom end of the falls"
+          },
+          {
+            "drawing": "J526A2300",
+            "pdfPage": null,
+            "note": "reeving sheet not detailed; position at the outer forestay bracket (Z3) and size estimated"
+          }
+        ]
+      },
+      "qualifier": "Estimated geometry",
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          61.349998,
+          52.299999,
+          -3.03
+        ],
+        "max": [
+          62.450001,
+          54.349998,
+          3.03
         ]
       },
       "cameraHint": null
@@ -8695,12 +9364,12 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -32.200001,
-          -0.144685,
-          -13.2
+          -32.630001,
+          -0.065345,
+          -13.36
         ],
         "max": [
-          -27.799999,
+          -28.105,
           56.43,
           -9.7
         ]
@@ -8735,14 +9404,14 @@
         "kind": "estimated",
         "sources": [
           {
+            "drawing": "J526A5000",
+            "pdfPage": 1,
+            "note": "View P: switch-back flights outboard of leg B with landings A 6500, B 15615, C 47845 and 53430; side view: stair on the landside face of the leg"
+          },
+          {
             "drawing": "J526A00",
             "pdfPage": 1,
             "note": "landside end view: zig-zag stair outside leg B up to 53430"
-          },
-          {
-            "drawing": "J526A5000",
-            "pdfPage": null,
-            "note": "stair sheets not detailed"
           }
         ]
       },
@@ -8750,14 +9419,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -32.200001,
-          -0.144685,
-          -13.2
+          -32.630001,
+          -0.065345,
+          -13.36
         ],
         "max": [
-          -27.799999,
-          54.529999,
-          -11.55
+          -30.655001,
+          54.555,
+          -9.9
         ]
       },
       "cameraHint": null
@@ -8920,6 +9589,40 @@
         "gantry.drive.ls-b.2",
         "gantry.drive.ls-b.3",
         "gantry.drive.ls-b.4"
+      ]
+    }
+  ],
+  "decals": [
+    {
+      "container": "container.machinery-house",
+      "gltfNodeName": "container.machinery-house.logo-cict",
+      "label": "CICT logo (machinery-house end wall facing -Z; placement approximate)",
+      "modes": [
+        "overall"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "drawing": "site photo 08_44_14 PM / 09_14_39 PM",
+            "pdfPage": null,
+            "note": "logo on the light house end wall above the A/C units (AI-processed appearance reference, not a dimension source)"
+          },
+          {
+            "drawing": "Portal source",
+            "pdfPage": null,
+            "note": "src/portal-web/src/assets/cict-logo.png, exact artwork"
+          }
+        ]
+      },
+      "note": "Visual identity mark only; not a maintenance position. The opposite end wall is not shown in the photos and carries no logo here.",
+      "textures": [
+        {
+          "material": "logo",
+          "file": "assets/models/source/cict-j526a-sts/textures/cict-logo.png",
+          "sha256": "d7af90fbb0a7f2bff38d199f9ebf5c812d14493d3953f33580b968661eeb9965",
+          "bytes": 23398
+        }
       ]
     }
   ]

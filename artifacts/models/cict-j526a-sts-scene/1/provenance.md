@@ -73,9 +73,9 @@ Provenance kinds: **measured** = printed dimension used as exact input; **drawin
 | mainHoistBrakeDiscDia | 2300 | measured | J526A0300 p1 view G (dia 2300 drum brake disc) |  |
 | mainHoistHsBrakeDiscDia | 900 | measured | J526A0300 p1 B-B (dia 900) |  |
 | mainHoistDriveX | -40300 | approximate-location | J526A3000 p1 plan, scaled (drum axis) |  |
-| trolleyDriveX | -35800 | approximate-location | J526A3000 p1 plan, scaled |  |
+| trolleyDriveX | -36450 | approximate-location | J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; trolley drum and reducer axis (middle row) | P03 value -35800 replaced in the U1 repair |
 | trolleyDriveDrumDia | 920 | measured | J526A0400 (J526A04) p1 (drum dia 920) |  |
-| boomHoistX | -33100 | approximate-location | J526A3000 p1 plan, scaled |  |
+| boomHoistX | -32760 | approximate-location | J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; boom-hoist drum axis (top row) | P03 value -33100 replaced in the U1 repair |
 | boomHoistDrumDia | 1530 | measured | J526A0500 (J526A05) p1; J526A3000 p1 B-B (dia 1530) |  |
 | mainTransformerSize | 2200 x 2294 x 1450 | measured | J526A3000 p1 plan label 'Main Trans. 2200 x 1450 x 2294H' (W x D x H; mapped to Z, Y, X) |  |
 | auxTransformerSize | 1500 x 1650 x 1200 | measured | J526A3000 p1 plan label 'Aux. Trans. 1500W x 1200D x 1650H' |  |
@@ -93,7 +93,7 @@ Provenance kinds: **measured** = printed dimension used as exact input; **drawin
 | cabinLengthX | 3000 | measured | J526A0200 p1 (3000) |  |
 | cabinOffsetLandside | 2500 | measured | J526A0200 p1 (2500 hoist centre to cabin) |  |
 | cabinHeight (unused) | 3285 | measured | J526A0200 p1 (3285 rail to cabin floor) | Rail-to-cabin-floor in J526A0200; not used for the display pose, which follows the J526A00 side view (cabinFloorElevation) |
-| cabinWidthZ | 2600 | estimated | J526A0200 p1 end view, scaled |  |
+| cabinWidthZ | 2200 | measured | J526A3100 p1 front view and C-C (2200) | P03 value 2600 replaced in the U1 repair |
 | headblockSheaveSpan | 5200 | measured | J526A1200 p1 (5200) |  |
 | headblockWidth | 2090 | measured | J526A1200 p1 (2090) |  |
 | headblockSheaveDia | 1000 | measured | J526A1200 p1 (dia 1000) |  |
@@ -112,7 +112,53 @@ Provenance kinds: **measured** = printed dimension used as exact input; **drawin
 | elevatorCar | 1000 x 2150 x 1000 | measured | J526A5100 p1 main parameter (car 1000 x 1000 x 2150) |  |
 | elevatorMastSize (unused) | 1700 | measured | J526A5100 p1 C-C (1700) |  |
 | cabinFloorElevation | 47800 | estimated | J526A00 p1 side view, aligned overlay (cabin at the outreach position) | +/-0.5 m |
-| cabinBodyHeight | 2400 | estimated | J526A0200 p1 side view, scaled |  |
+| cabinBodyHeight | 2673 | measured | J526A3100 p1 section B-B (2673 floor to roof) | P03 value 2400 replaced in the U1 repair |
+| mainHoistDriveZ | 850 | approximate-location | J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; centre of the main hoist reducer along Z |  |
+| mainHoistMotorZOffset | 1950 | approximate-location | J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; main hoist motor centres about 1.9-2.1 m either side of the reducer |  |
+| mainHoistHsBrakeZOffset | 800 | approximate-location | J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; high-speed brake discs between motor and reducer |  |
+| boomHoistDrumLength | 6800 | approximate-location | J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; two-section boom-hoist drum |  |
+| boomHoistDrumCentreZ | 930 | approximate-location | J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; boom-hoist drum centre along Z |  |
+| boomHoistMotorX | -34400 | approximate-location | J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; boom-hoist motor landside of the drum axis (P03 had it seaside) |  |
+| boomHoistMotorZ | 3300 | approximate-location | J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; boom-hoist motor centre along Z |  |
+| boomHoistReducerZ | 4980 | approximate-location | J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; boom-hoist reducer at the +Z end of the drum |  |
+| trolleyDriveDrumCentreZ | 970 | approximate-location | J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; trolley drum centre along Z |  |
+| trolleyDriveDrumLength | 3500 | approximate-location | J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; trolley drum length (scaled) |  |
+| trolleyDriveMotorX | -35850 | approximate-location | J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; trolley motor and brake seaside of the drum axis |  |
+| trolleyDriveMotorZ | -2880 | approximate-location | J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi;  |  |
+| trolleyDriveReducerZ | -1170 | approximate-location | J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi;  |  |
+| mainTransformerPos | -38850 x 8300 | approximate-location | J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; Main Trans. (X, Z) centre |  |
+| auxTransformerPos | -32900 x 6900 | approximate-location | J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; Aux. Trans. (X, Z) centre |  |
+| switchgearPos | -32950 x 8800 | approximate-location | J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; Switch gear (X, Z) centre |  |
+| serviceHatch | 3575 x 2000 | measured | J526A3000 p1 plan: service area of service crane 3575 x 2000 (floor hatch) |  |
+| houseAcUnits | 7 | measured | J526A3000 p1 plan: items B1-B7 outside the electrical-room end wall (count); unit size estimated | Count, not millimetres; build.mjs reads it with N() (P() divides by 1000) |
+| logoWidth | 3400 | estimated | Site photos (documents/ChatGPT Image Oct 21, 2026, 08_44_14 PM.png and 09_14_39 PM.png, AI-processed appearance references): logo about one third of the house end-wall width; artwork from the Portal source cict-logo.png |  |
+| logoTopBelowEaves | 500 | estimated | Same photos: top of the logo about 0.5 m below the eaves |  |
+| logoCentreFromSeasideWall | 4730 | estimated | Same photos: logo centre about 45 % of the wall width from the seaside corner |  |
+| stairTowerRunZ | 3400 | estimated | J526A5000 p1 View P and J526A00 p1 landside end view: switch-back flights from over leg B to about 3.1 m beyond its axis (aligned overlay, U1 repair) |  |
+| stairTowerDepthX | 1900 | estimated | J526A5000 p1 side view: stair comb on the landside face of the landside leg, about 1.8-2 m |  |
+| stairFlightWidth | 800 | estimated | J526A5000 p1 View P, scaled |  |
+| stairFlightsPerSegment | 2 x 3 x 10 x 2 | estimated | J526A5000 p1 View P: flights between ground, 6500 (A), 15615 (B), 47845 (C) and 53430, counted from the drawing | Count, not millimetres; build.mjs reads it with N() (P() divides by 1000) |
+| aFrameStairFlights | 8 | estimated | J526A5000 p1 View Q and J526A00 p1 waterside end view: zig-zag stair in the A-frame, flights counted approximately | Count, not millimetres; build.mjs reads it with N() (P() divides by 1000) |
+| antiSnagDeviceLength | 3754 | measured | J526A1000 p1 plan (3754 overall) |  |
+| antiSnagSheaveDia | 1100 | estimated | J526A1000 p1 side view, scaled against the 2200 dimension |  |
+| antiSnagSheaveSpacing | 2200 | measured | J526A1000 p1 side view (2200) |  |
+| antiSnagFromTail | 1800 | estimated | J526A5000 p1 side view at the tail (about 44.7 mm per pixel at 220 dpi): raised device structure begins about 1.8 m from the girder tail; J526A00 p1 item 7 |  |
+| antiSnagCylinderStroke (unused) | 1400 | measured | J526A1000 p1 main parameter: cylinder journey 1400, bore 200, rod 140 |  |
+| tailPlatformLength | 4500 | estimated | J526A5000 p1 side view at the girder tail; J526A7100 Detail C (4500) |  |
+| tailServiceCraneWidth | 6050 | measured | J526A7100 p1 View A (6050) |  |
+| tailServiceCraneHeight | 2780 | measured | J526A7100 p1 Detail C (2780) |  |
+| tailServiceCraneOverhang | 1540 | measured | J526A7100 p1 Detail C (1540 beyond the girder end) |  |
+| festoonPlatformStartFromTail | 4600 | estimated | J526A00 p1 side view: festoon and cab service platform (J526A5008) begins about 4.4-4.8 m from the girder tail |  |
+| festoonPlatformLengthX | 4400 | estimated | J526A00 p1 side view and J526A5000 p1 (item 8), scaled |  |
+| festoonPlatformDrop | 2700 | estimated | Hung so that its deck is at the cab floor level of the display pose (cab floor 47.8 m); J526A00 side view drop about 3-5 m |  |
+| trolleyTailSheaveDia | 800 | estimated | J526A00 p1 trolley rope reeving: return sheaves and tensioners at the girder-tail end; size scaled |  |
+| cabinFrontOverhang | 310 | measured | J526A3100 p1 section B-B (310 roof/visor overhang at the front) |  |
+| cabWalkwayWidth | 900 | measured | J526A3100 p1 section A-A (900 cab walkway) |  |
+| cabSeatFromFront | 1250 | estimated | J526A3100 p1 section B-B: operator seat about 1.2-1.3 m behind the front window |  |
+| cabDoorHeight | 1900 | measured | J526A3100 p1 section A-A (1900 hinged door) |  |
+| cabFloorWindowLength | 826 | measured | J526A3100 p1 section B-B (826 front floor window) |  |
+| boomBlockSheaveDia | 900 | estimated | J526A00 p1 boom hoist rope reeving diagram: multi-fall sheave groups; size scaled |  |
+| tailServiceCranePostSpacing | 1400 | estimated | J526A7100 p1 Detail C (1400 between frame posts, read approximately) |  |
 
 ## 2 Landmark check (model geometry vs. source inputs)
 
@@ -132,11 +178,11 @@ Provenance kinds: **measured** = printed dimension used as exact input; **drawin
 | tie-beam clearance | 12.5 | 12.5 | 0 | 1 | pass | 12500 |
 | leg centre spacing (end view) | 20.4 | 20.4 | 0 | 1 | pass | 20400 |
 | gantry overall length (end view) | 27 | 27 | 0 | 1 | pass | 27000 (buffers to buffers) |
-| machinery house length along rails | 18.8 | 18.8 | 0 | 2 | pass | 18200 walls; roof overhang 300 each side included |
+| machinery house length along rails (shell) | 18.8 | 18.799999 | 0 | 2 | pass | 18200 walls; roof overhang 300 each side included |
 | headblock sheave-box span | 5.2 | 5.2 | 0 | 1 | pass | J526A1200 5200 |
 | overall height is not the 63 m total lift | != 63 | 83.356003 |  |  | pass |  |
 
-## 3 Nodes (168: 135 positions, 19 hotspots, 10 containers, 4 decorative)
+## 3 Nodes (180: 146 positions, 19 hotspots, 11 containers, 4 decorative)
 
 | Key | Kind | Code | Modes | Provenance | Sources |
 | --- | --- | --- | --- | --- | --- |
@@ -159,9 +205,17 @@ Provenance kinds: **measured** = printed dimension used as exact input; **drawin
 | `structure.portal.diagonal.b` | position | 151 | overall, technical | measured | J526A0100 p1: dia 1200 x 14; slope 37060 / 28000 |
 | `structure.portal.plan-brace.b` | position | 151 | overall, technical | drawing-derived | J526A0100 p1: plan: dia 800 x 12, 5126 / 15000; elevation estimated |
 | `access.platform.portal-top` | position | 151 | overall, technical | estimated | J526A00 p1: waterside end view platform at portal top; J526A5000: walkway sheets not detailed in P03 |
+| `access.walkway.tie-beam` | position | 151 | overall, technical | estimated | J526A00 p1: side view: handrail on top of the portal tie beam (item 32 nameplate beam); site photo 08_43_55 PM / 09_14_50 PM: railing along the top of the tie beam (AI-processed appearance reference, not a dimension source) |
 | `container.girder` | container |  | overall, technical | drawing-derived | J526A0100 p1: girder J526A0102; 11000 + 20000 behind the landside rail |
 | `structure.girder.rear.main` | position | 151 | overall, technical | drawing-derived | J526A0100 p1: 31000 landside of the landside rail; boxes 1090 wide x 1800 deep at 6300 rail centres (Z1-Z1); J526A00 p1: 31000 |
 | `trolley.cable-system.main` | hotspot | 023 | technical | approximate-location | J526A00 p2: item J526A4100 slip-contact system listed; drawing not supplied (U-10) |
+| `container.back-reach` | container |  | overall, technical | drawing-derived | J526A00 p1: side view: 31000 behind the landside rail; items 7 and 30 at the tail; J526A5000 p1: tail platform (5) and festoon and cab service platform (8) |
+| `access.platform.girder-tail` | position | 151 | overall, technical | estimated | J526A5000 p1: girder platform at the tail end (item 5), scaled; J526A00 p1: side view: tail platform and inclined ladder |
+| `reeving.anti-snag-tls.device` | position | 111 | overall, technical | drawing-derived | J526A1000 p1: overall 3754; cylinders bore 200 / rod 140 / stroke 1400; lever arms carrying the rope sheaves; frame shape simplified; J526A00 p1: item 7 at the girder tail **Classification:** J526A1000 anti-snag and trim/list/skew device (hydraulic cylinders acting on the hoist-rope tail sheaves): 111 Skew system proposed; Admin to confirm |
+| `reeving.sheave.girder-tail` | position | 011 | overall, technical | estimated | J526A1000 p1: two sheaves per lever, 2200 apart; diameter scaled; J526A00 p1: main hoist rope reeving diagram: ropes turn at the tail sheaves and return to the trolley **Classification:** Hoist-rope tail sheaves on the anti-snag levers: 011 (hoist, "roller") proposed as for the boom-tip sheaves; Admin to confirm |
+| `reeving.sheave.trolley-tail` | position | 021 | overall, technical | estimated | J526A00 p1: trolley rope reeving diagram: return sheaves with tensioners at the tail end; J526A2100: trolley reeving sheet not detailed in the repair **Classification:** Trolley-rope return sheaves: 021 proposed (trolley); Admin to confirm |
+| `auxiliary.service-crane.girder-tail` | position | 151 | overall, technical | drawing-derived | J526A7100 p1: Detail C: frame 2780 high, 1540 beyond the girder end; View A: 6050 wide; B1 HSZ1 1 t lift; member sizes estimated |
+| `access.platform.festoon-cab-service` | position | 151 | overall, technical | estimated | J526A5000 p1: item 8 J526A5008 festoon and cab service platform; J526A00 p1: side view: hanging platform where the cab parks at the back-reach limit; drop and side estimated |
 | `access.walkway.girder-boom` | position | 151 | overall, technical | estimated | J526A00 p1: walkways and handrails along both sides of girder and boom; widths scaled; J526A5000: not detailed in P03 |
 | `container.boom` | container |  | overall, technical | drawing-derived | J526A0100 p1: boom J526A0105; 75900; Z2 28000; Z3 +34500 |
 | `boom.main.girder` | position | 031 | overall, technical | drawing-derived | J526A0100 p1: 75900 from the hinge line; outreach 70000; plan lacing nodes scaled; J526A00 p1: 70000 outreach |
@@ -184,29 +238,30 @@ Provenance kinds: **measured** = printed dimension used as exact input; **drawin
 | `structure.backstay.tie.b` | position | 151 | overall, technical | drawing-derived | J526A0100 p1: dia 500 x 10 vertical tie at 450 landside of the landside leg |
 | `structure.a-frame.head` | position | 151 | overall, technical | drawing-derived | J526A0100 p1: head 2300 wide; structural top 54000 + 25640; J526A00 p1: apex marker 83356 = top of head; head shape estimated (U-06) |
 | `boom.sheave.apex` | position | 031 | overall, technical | estimated | J526A00 p1: boom hoist rope reeving diagram; J526A2300: reeving sheet not detailed in P03 |
-| `access.stair.a-frame` | position | 151 | overall, technical | estimated | J526A00 p1: waterside end view: zig-zag stair beside A-frame leg A |
+| `access.stair.a-frame` | position | 151 | overall, technical | estimated | J526A00 p1: waterside end view: zig-zag stair beside A-frame leg A; J526A5000 p1: View Q and item 2 platform of apex; flight count approximate |
 | `container.machinery-house` | container |  | overall, technical | drawing-derived | J526A3000 p1: 18200 x 10500, walls 5100; position on the girder scaled from J526A00 / J526A0100 |
-| `structure.machinery-frame` | position | 151 | overall, technical | drawing-derived | J526A0100 p1: machinery frame J526A0107 (item 7) in plan; J526A3000 p1: 1000 seaside / 1200 landside walkways |
+| `structure.machinery-frame` | position | 151 | overall, technical | drawing-derived | J526A0100 p1: machinery frame J526A0107 (item 7) in plan; J526A3000 p1: 1000 seaside / 1200 landside walkways; end platform for the A/C units (B1-B7); service-crane floor hatch 3575 x 2000 |
 | `machinery-house.service-crane` | position | 151 | technical | approximate-location | J526A3000 p1: service crane area and runway; J526A1600: service crane sheet not detailed |
-| `hoist.drive.reducer.main` | position | 011 | technical | approximate-location | J526A0300 p1: one central reducer; ratio 18.551; casing shape simplified; J526A3000 p1: position inside the house scaled from the plan |
-| `hoist.drive.drum.a` | position | 011 | technical | approximate-location | J526A0300 p1: drum dia 1180, length 3616, 4208 from reducer centre to drum end; J526A3000 p1: position inside the house scaled from the plan |
-| `hoist.drive.motor.a` | position | 011 | technical | approximate-location | J526A0300 p1: 2 x 450 kW Yaskawa BDK-1KMU; motor axis 1600 from drum axis; body size estimated; J526A3000 p1: position inside the house scaled from the plan |
-| `hoist.drive.brake.hs.a` | position | 011 | technical | approximate-location | J526A0300 p1: YP41-Ed4500 disc brake, disc dia 900 between motor and reducer; J526A3000 p1: position inside the house scaled from the plan |
-| `hoist.emergency.brake.a` | position | 012 | technical | approximate-location | J526A0300 p1: SB315 low-speed brake, 2 x 254520 Nm; disc dia 2300 at the outer drum end; J526A3000 p1: position inside the house scaled from the plan **Classification:** Low-speed drum (emergency) brake, SB315 hydraulic: 012 "hoist emergency braker" proposed; Admin to confirm |
-| `hoist.drive.drum.b` | position | 011 | technical | approximate-location | J526A0300 p1: drum dia 1180, length 3616, 4208 from reducer centre to drum end; J526A3000 p1: position inside the house scaled from the plan |
-| `hoist.drive.motor.b` | position | 011 | technical | approximate-location | J526A0300 p1: 2 x 450 kW Yaskawa BDK-1KMU; motor axis 1600 from drum axis; body size estimated; J526A3000 p1: position inside the house scaled from the plan |
-| `hoist.drive.brake.hs.b` | position | 011 | technical | approximate-location | J526A0300 p1: YP41-Ed4500 disc brake, disc dia 900 between motor and reducer; J526A3000 p1: position inside the house scaled from the plan |
-| `hoist.emergency.brake.b` | position | 012 | technical | approximate-location | J526A0300 p1: SB315 low-speed brake, 2 x 254520 Nm; disc dia 2300 at the outer drum end; J526A3000 p1: position inside the house scaled from the plan **Classification:** Low-speed drum (emergency) brake, SB315 hydraulic: 012 "hoist emergency braker" proposed; Admin to confirm |
+| `auxiliary.air-conditioning.outdoor-units` | position | 152 | overall, technical | approximate-location | J526A3000 p1: items B1-B7 outside the electrical-room end wall; site photo 08_44_14 PM: row of A/C outdoor units on the platform below the logo (AI-processed appearance reference, not a dimension source) |
+| `hoist.drive.reducer.main` | position | 011 | technical | approximate-location | J526A0300 p1: one central reducer; ratio 18.551; casing shape simplified; J526A3000 p1: position inside the house scaled from the plan (re-read in the U1 repair) |
+| `hoist.drive.drum.a` | position | 011 | technical | approximate-location | J526A0300 p1: drum dia 1180, length 3616, 4208 from reducer centre to drum end; J526A3000 p1: position inside the house scaled from the plan (re-read in the U1 repair) |
+| `hoist.drive.motor.a` | position | 011 | technical | approximate-location | J526A0300 p1: 2 x 450 kW Yaskawa BDK-1KMU; motor axis 1600 from drum axis; body size estimated; J526A3000 p1: position inside the house scaled from the plan (re-read in the U1 repair) |
+| `hoist.drive.brake.hs.a` | position | 011 | technical | approximate-location | J526A0300 p1: YP41-Ed4500 disc brake, disc dia 900 between motor and reducer; J526A3000 p1: position inside the house scaled from the plan (re-read in the U1 repair) |
+| `hoist.emergency.brake.a` | position | 012 | technical | approximate-location | J526A0300 p1: SB315 low-speed brake, 2 x 254520 Nm; disc dia 2300 at the outer drum end; J526A3000 p1: position inside the house scaled from the plan (re-read in the U1 repair) **Classification:** Low-speed drum (emergency) brake, SB315 hydraulic: 012 "hoist emergency braker" proposed; Admin to confirm |
+| `hoist.drive.drum.b` | position | 011 | technical | approximate-location | J526A0300 p1: drum dia 1180, length 3616, 4208 from reducer centre to drum end; J526A3000 p1: position inside the house scaled from the plan (re-read in the U1 repair) |
+| `hoist.drive.motor.b` | position | 011 | technical | approximate-location | J526A0300 p1: 2 x 450 kW Yaskawa BDK-1KMU; motor axis 1600 from drum axis; body size estimated; J526A3000 p1: position inside the house scaled from the plan (re-read in the U1 repair) |
+| `hoist.drive.brake.hs.b` | position | 011 | technical | approximate-location | J526A0300 p1: YP41-Ed4500 disc brake, disc dia 900 between motor and reducer; J526A3000 p1: position inside the house scaled from the plan (re-read in the U1 repair) |
+| `hoist.emergency.brake.b` | position | 012 | technical | approximate-location | J526A0300 p1: SB315 low-speed brake, 2 x 254520 Nm; disc dia 2300 at the outer drum end; J526A3000 p1: position inside the house scaled from the plan (re-read in the U1 repair) **Classification:** Low-speed drum (emergency) brake, SB315 hydraulic: 012 "hoist emergency braker" proposed; Admin to confirm |
 | `emergency.drive.main` | hotspot | 161 | technical | approximate-location | J526A0300 p1: emergency mechanism data: 37 kW, FH220 reducer; J526A1400: emergency drive sheet not detailed |
-| `trolley-drive.drum.main` | position | 021 | technical | approximate-location | J526A0400 p1: drum dia 920; length estimated (title block J526A04); J526A3000 p1: position scaled from the plan |
-| `trolley-drive.reducer.main` | position | 021 | technical | approximate-location | J526A0400 p1: reducer FH955.21.A6A-00; casing simplified (title block J526A04); J526A3000 p1: position scaled from the plan |
-| `trolley-drive.brake.main` | position | 021 | technical | approximate-location | J526A0400 p1: brake between motor and reducer; size estimated (title block J526A04); J526A3000 p1: position scaled from the plan |
-| `trolley-drive.motor.main` | position | 021 | technical | approximate-location | J526A0400 p1: 1 motor; rating 270 kW on J526A04 vs 275 kW on J526A00 (U-02) (title block J526A04); J526A3000 p1: position scaled from the plan |
-| `boom-hoist.drum.main` | position | 031 | technical | approximate-location | J526A0500 p1: drum dia 1530; length estimated (title block J526A05); J526A3000 p1: position scaled from the plan |
-| `boom-hoist.reducer.main` | position | 031 | technical | approximate-location | J526A0500 p1: ratio 100.56; casing simplified (title block J526A05); J526A3000 p1: position scaled from the plan |
-| `boom-hoist.motor.main` | position | 031 | technical | approximate-location | J526A0500 p1: 1 x 375 kW; placement beside the reducer estimated (title block J526A05); J526A3000 p1: position scaled from the plan |
-| `boom-hoist.brake.hs.main` | position | 031 | technical | approximate-location | J526A0500 p1: motor (high-speed) brake (title block J526A05); J526A3000 p1: position scaled from the plan |
-| `boom-hoist.emergency.brake.main` | position | 032 | technical | approximate-location | J526A0500 p1: drum brake 2 x 254.52 kN.m at the drum end (title block J526A05); J526A3000 p1: position scaled from the plan **Classification:** Drum brake (2 x 254.52 kN.m): 032 "boom emergency braker" proposed; Admin to confirm |
+| `trolley-drive.drum.main` | position | 021 | technical | approximate-location | J526A0400 p1: drum dia 920; length scaled from the plan (title block J526A04); J526A3000 p1: position scaled from the plan (re-read in the U1 repair) |
+| `trolley-drive.reducer.main` | position | 021 | technical | approximate-location | J526A0400 p1: reducer FH955.21.A6A-00; casing simplified (title block J526A04); J526A3000 p1: position scaled from the plan (re-read in the U1 repair) |
+| `trolley-drive.brake.main` | position | 021 | technical | approximate-location | J526A0400 p1: brake between motor and reducer; size estimated (title block J526A04); J526A3000 p1: position scaled from the plan (re-read in the U1 repair) |
+| `trolley-drive.motor.main` | position | 021 | technical | approximate-location | J526A0400 p1: 1 motor; rating 270 kW on J526A04 vs 275 kW on J526A00 (U-02) (title block J526A04); J526A3000 p1: position scaled from the plan (re-read in the U1 repair) |
+| `boom-hoist.drum.main` | position | 031 | technical | approximate-location | J526A0500 p1: drum dia 1530; two-section drum, length scaled from the plan (title block J526A05); J526A3000 p1: position scaled from the plan (re-read in the U1 repair) |
+| `boom-hoist.reducer.main` | position | 031 | technical | approximate-location | J526A0500 p1: ratio 100.56; casing simplified (title block J526A05); J526A3000 p1: position scaled from the plan (re-read in the U1 repair) |
+| `boom-hoist.motor.main` | position | 031 | technical | approximate-location | J526A0500 p1: 1 x 375 kW; landside of the drum next to the reducer (title block J526A05); J526A3000 p1: position scaled from the plan (re-read in the U1 repair) |
+| `boom-hoist.brake.hs.main` | position | 031 | technical | approximate-location | J526A0500 p1: motor (high-speed) brake between motor and reducer (title block J526A05); J526A3000 p1: position scaled from the plan (re-read in the U1 repair) |
+| `boom-hoist.emergency.brake.main` | position | 032 | technical | approximate-location | J526A0500 p1: drum brake 2 x 254.52 kN.m at the drum end (title block J526A05); J526A3000 p1: position scaled from the plan (re-read in the U1 repair) **Classification:** Drum brake (2 x 254.52 kN.m): 032 "boom emergency braker" proposed; Admin to confirm |
 | `electrical.hv.main-transformer` | position | 121 | technical | approximate-location | J526A3000 p1: Main Trans. 2200 x 1450 x 2294H; plan position scaled |
 | `electrical.hv.aux-transformer` | position | 121 | technical | approximate-location | J526A3000 p1: Aux. Trans. 1500 x 1200 x 1650H; plan position scaled |
 | `electrical.hv.switchgear` | position | 121 | technical | approximate-location | J526A3000 p1: Switch gear 1950 x 1500 x 2300H; plan position scaled |
@@ -229,11 +284,13 @@ Provenance kinds: **measured** = printed dimension used as exact input; **drawin
 | `trolley.wheel.ws-b.2` | position | 021 | overall, technical | estimated | J526A0200 p1: axles 2370 / 2070 from trolley centre; 2 wheels per corner read from plan (count to be confirmed); ZT2-015022 p1: trolley wheel drawing |
 | `trolley.sheave.set.a` | position | 021 | overall, technical | estimated | J526A0200 p1: items 13, sheave centres 900 either side; diameter scaled **Classification:** Trolley-mounted hoist sheaves: 021 proposed; Admin to confirm |
 | `trolley.sheave.set.b` | position | 021 | overall, technical | estimated | J526A0200 p1: items 13, sheave centres 900 either side; diameter scaled **Classification:** Trolley-mounted hoist sheaves: 021 proposed; Admin to confirm |
-| `cabin.operator.main` | position | 141 | overall, technical | drawing-derived | J526A0200 p1: cabin 3000 long, 2500 landside of hoist centre; height and width scaled; J526A00 p1: cabin floor about 47.8 m in the side view at the outreach position; J526A3100: cabin sheet not detailed |
-| `cabin.air-conditioning` | hotspot | 152 | technical | approximate-location | J526A0200 p1: A/C unit beside the cabin in plan; exact unit not detailed |
-| `trolley.skew-system.main` | hotspot | 111 | technical | approximate-location | J526A1000: TLS and snag protection; sheet not detailed in P03 |
+| `cabin.operator.main` | position | 141 | overall, technical | drawing-derived | J526A3100 p1: 3000 x 2200 x 2673; windows, floor window 826, visor 310, door 1900, walkway 900, 4 dampers; frame members simplified; J526A0200 p1: cab 2500 landside of the hoist centre; J526A00 p1: cab floor about 47.8 m in the side view at the outreach position; site photo 09_14_34 PM: light cab with blue-tinted glazing hanging under the trolley (AI-processed appearance reference, not a dimension source) |
+| `cabin.operator.seat` | position | 141 | overall, technical | estimated | J526A3100 p1: item 10 tip-up chair installation (ZT2-031511) facing the front and floor windows; size estimated |
+| `cabin.operator.consoles` | position | 141 | overall, technical | approximate-location | J526A3100 p1: auxiliary control station and seat consoles; vendor shapes not established |
+| `cabin.air-conditioning` | hotspot | 152 | technical | approximate-location | J526A3100 p1: A/C unit beside the cab on the walkway side (plan); exact unit not detailed; J526A0200 p1: A/C unit beside the cabin in plan |
+| `trolley.skew-system.main` | hotspot | 111 | technical | approximate-location | J526A1000 p1: anti-snag and L/S/T device at the girder tail (GA item 7); hydraulic power unit not located |
 | `hoist.loadcell.main` | hotspot | 013 | technical | approximate-location | J526A0300 p1: load-cell position not shown on the reviewed sheets |
-| `trolley.tension.main` | hotspot | 022 | technical | approximate-location | J526A2100: trolley reeving sheet not detailed in P03 |
+| `trolley.tension.main` | hotspot | 022 | technical | approximate-location | J526A00 p1: trolley rope reeving diagram: tensioners at the tail end; J526A2100: trolley reeving sheet not detailed |
 | `container.headblock-spreader` | container |  | overall, technical | drawing-derived | J526A1200 p1: headblock 5200 x 2090; J526A00 p1: display pose with spreader underside at 45 m lift height |
 | `headblock.frame` | position | 062 | overall, technical | drawing-derived | J526A1200 p1: structure J526A1202; 5200 sheave-box span, 1210 frame width, 970 to sheave centre |
 | `headblock.sheave-box.a` | position | 062 | overall, technical | measured | J526A1200 p1: sheave box J526A1201 (2 off); sheaves dia 1000 at 1010 centres; width 2090 |
@@ -243,9 +300,10 @@ Provenance kinds: **measured** = printed dimension used as exact input; **drawin
 | `spreader.twistlock.a-ls` | hotspot | 061 | technical | approximate-location | J526A00 p2: STS45 spreader drawing not supplied (U-10); ISO corner positions |
 | `spreader.twistlock.b-ws` | hotspot | 061 | technical | approximate-location | J526A00 p2: STS45 spreader drawing not supplied (U-10); ISO corner positions |
 | `spreader.twistlock.b-ls` | hotspot | 061 | technical | approximate-location | J526A00 p2: STS45 spreader drawing not supplied (U-10); ISO corner positions |
-| `hoist.rope.set.main` | position | 015 | overall, technical | estimated | J526A00 p1: main hoist rope reeving diagram; J526A0300 p1: IWRC 6xWS(36) dia 31.5; J526A2000: reeving sheet not detailed; path simplified |
-| `trolley.rope.set.main` | position | 024 | overall, technical | estimated | J526A00 p1: trolley rope reeving diagram; J526A0400 p1: rope dia 25; J526A2100: reeving sheet not detailed; path simplified |
-| `boom.rope.set.main` | position | 033 | overall, technical | estimated | J526A00 p1: boom hoist rope reeving diagram; J526A0500 p1: rope dia 35.5; J526A2300: reeving sheet not detailed; path simplified |
+| `hoist.rope.set.main` | position | 015 | overall, technical | estimated | J526A00 p1: main hoist rope reeving diagram: 4 ropes from 2 drums over the girder-tail sheaves, trolley and headblock to the boom tip; J526A0300 p1: IWRC 6xWS(36) dia 31.5; J526A1000 p1: tail sheaves on the anti-snag levers; J526A2000: reeving sheet not detailed; path simplified |
+| `trolley.rope.set.main` | position | 024 | overall, technical | estimated | J526A00 p1: trolley rope reeving diagram: drum to the boom-tip and girder-tail sheaves, back to both ends of the trolley; J526A0400 p1: rope dia 25; J526A2100: reeving sheet not detailed; path simplified |
+| `boom.rope.set.main` | position | 033 | overall, technical | estimated | J526A00 p1: boom hoist rope reeving diagram: drum to the apex sheaves, multi-fall between apex and boom sheave groups; J526A0500 p1: rope dia 35.5; J526A2300: reeving sheet not detailed; number of falls simplified to 4 per side |
+| `boom.sheave.boom-block` | position | 031 | overall, technical | estimated | J526A00 p1: boom hoist rope reeving diagram: sheave group on the boom end of the falls; J526A2300: reeving sheet not detailed; position at the outer forestay bracket (Z3) and size estimated |
 | `container.gantry` | container |  | overall, technical | drawing-derived | J526A0600 p1: gantry arrangement and side view; J526A00 p1: 15800 / 21050 / 27000 |
 | `gantry.bogie.ws-a` | position | 041 | overall, technical | drawing-derived | J526A0600 p1: 4 two-wheel sub-bogies, 2 secondary and 1 main equalizer; 1250 / 1050 / 1500 spacing; buffer stroke 500 |
 | `gantry.wheel-brake.ws-a` | hotspot | 046 | technical | approximate-location | J526A0600 p1: wheel brake JLQ115.00-KH, item 12; count per corner not confirmed **Classification:** Wheel brake JLQ115 (115 kN): 046 wheel clamp device proposed; 041 also mentions gantry brake; Admin to confirm |
@@ -305,6 +363,12 @@ Provenance kinds: **measured** = printed dimension used as exact input; **drawin
 | `gantry.drive.ls-b.4` | position (instanced) | 041 | overall, technical | approximate-location | J526A0600 p1: 16 x 20 kW Yaskawa FEK C21 0U, reducer FKR460.96.D1B-00, one per sub-bogie; side and shape simplified |
 | `gantry.cable-reel.main` | position | 042 | overall, technical | estimated | J526A00 p1: waterside end view item 21: centre 7885 above rail, 2121 outboard of the leg; diameter scaled; J526A4000: reel sheet not detailed |
 | `container.access` | container |  | overall, technical | drawing-derived | J526A5100 p1: elevator location plan and landings 6500 / 15615 / 47845 / 53430; J526A00 p1: landside end view stair |
-| `access.stair.landside-leg-b` | position | 151 | overall, technical | estimated | J526A00 p1: landside end view: zig-zag stair outside leg B up to 53430; J526A5000: stair sheets not detailed |
+| `access.stair.landside-leg-b` | position | 151 | overall, technical | estimated | J526A5000 p1: View P: switch-back flights outboard of leg B with landings A 6500, B 15615, C 47845 and 53430; side view: stair on the landside face of the leg; J526A00 p1: landside end view: zig-zag stair outside leg B up to 53430 |
 | `access.elevator.mast` | position | 153 | overall, technical | drawing-derived | J526A5100 p1: SC40 rack-and-pinion lift on the seaside face of landside leg B; top 53430 + 3000 |
 | `access.elevator.car` | position | 153 | overall, technical | measured | J526A5100 p1: car 1000 x 1000 x 2150; first landing 6500 |
+
+## 4 Decals (1; visual identity marks, not maintenance identities)
+
+| glTF node | Container | Modes | Provenance | Sources | Embedded texture |
+| --- | --- | --- | --- | --- | --- |
+| `container.machinery-house.logo-cict` | container.machinery-house | overall | estimated | site photo 08_44_14 PM / 09_14_39 PM: logo on the light house end wall above the A/C units (AI-processed appearance reference, not a dimension source); Portal source: src/portal-web/src/assets/cict-logo.png, exact artwork | assets/models/source/cict-j526a-sts/textures/cict-logo.png sha256 d7af90fbb0a7... |

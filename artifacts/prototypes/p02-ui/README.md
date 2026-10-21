@@ -35,3 +35,5 @@ Useful links (query parameters set the simulation; the hash is the route):
 
 Checks: `node tools/p02/check_prototype.mjs` (needs the server above and Chrome or Edge), `python -I tools/p02/check_contrast.py`,
 screenshots: `node tools/p02/capture.mjs`. See `docs/evidence/P02/P02_EVIDENCE.md`.
+
+U1 repair (22 October 2026): compact Fleet page without the heading block (status meaning kept in the "Manual status, no telemetry" note), new QC icon, flat schematic with back-reach area, CICT logo (`img/cict-logo.png`, copied unchanged from the Portal source), stairs, cab seat/consoles, tier 1 > 2 > 3 drill-down labels and Isolate machinery house / Labels controls matching the P03 3D view. Evidence: `docs/evidence/U1/repair-20261022.md`.

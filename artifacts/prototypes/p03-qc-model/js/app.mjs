@@ -83,48 +83,74 @@ function render({ focus = true } = {}) {
     if (viewer.mode !== state.mode) viewer.setMode(state.mode);
     const iso = state.iso ? 'container.machinery-house' : null;
     if (viewer.isolate !== iso) { viewer.isolate = iso; viewer.setMode(state.mode); }
+    if (appliedView !== state.view) applyView(); // only when the aligned view changes, so a fit is not undone
     const { keys, container } = selectionKeys();
     const focusKey = JSON.stringify([state.eq, keys, container, state.iso]);
-    const doFocus = focus && focusKey !== lastFocusKey && !state.view;
+    const doFocus = focus && focusKey !== lastFocusKey;
     lastFocusKey = focusKey;
     viewer.setSelection(keys, { container, focus: doFocus });
-    if (doFocus && !keys.length && !container) { if (state.iso) viewer.fitKeys(['container.machinery-house']); else viewer.resetView(); }
+    if (doFocus && !keys.length && !container) { if (state.iso) viewer.fitKeys(['container.machinery-house']); else resetCurrentView(); }
     if (doFocus && (keys.length || container) && !viewer.boundsOf(container ? [container] : keys)) hint('This selection has no visible representation in this mode; camera unchanged.');
-    applyView();
-    viewer.setLabelCandidates(labelCandidates(keys));
+    viewer.setLabelCandidates(labelCandidates());
   }
 }
 
+let appliedView = null;
 function applyView() {
+  appliedView = state.view;
   if (!state.view) { if (viewer.camera !== viewer.persp) viewer.useOrtho(null); $('#orient').textContent = 'Perspective. Drag to orbit, right-drag to pan, wheel to zoom. +X = waterside (boom side).'; return; }
   const host = $('#viewport'); const aspect = host.clientWidth / Math.max(1, host.clientHeight);
   const fr = (w0, h0, cx, cy) => { let w = w0, h = w0 / aspect; if (h < h0) { h = h0; w = h0 * aspect; } return { w, h, cx, cy }; };
   const F = { side: fr(146, 92, 7.5, 41.5), 'end-ws': fr(40, 92, 0, 41.5), 'end-ls': fr(40, 92, 0, 41.5), top: fr(146, 36, 7.5, 0) }[state.view];
   viewer.useOrtho(state.view, F);
-  $('#orient').textContent = { side: 'Side elevation (orthographic): landside left, waterside right; rail level = 0 m', 'end-ws': 'End view from the water (orthographic): +Z (side A) on the left', 'end-ls': 'End view from landside (orthographic): +Z (side A) on the right', top: 'Plan (orthographic): waterside right, +Z (side A) down' }[state.view];
+  $('#orient').textContent = { side: 'Side elevation (orthographic): landside left, waterside right; rail level = 0 m', 'end-ws': 'End view from the water (orthographic): +Z (side A) on the left', 'end-ls': 'End view from landside (orthographic): +Z (side A) on the right', top: 'Plan (orthographic): waterside right, +Z (side A) down' }[state.view] + '. Right-drag to pan, wheel to zoom.';
 }
+/** Reset the camera of the current view: the full aligned frame in an aligned view, the full-crane view otherwise. */
+function resetCurrentView() { if (state.view) applyView(); else viewer.resetView(); }
 
-function labelCandidates(selKeys) {
-  const ii = I(); const out = []; const sel = new Set(selKeys);
-  const work = openWorkByKey();
-  const lab = (n) => n.label.replace(/ \((location|count).*\)$/i, '');
-  if (state.mode === 'overall') {
-    for (const n of manifest.nodes.filter((x) => x.kind === 'container' && !x.parentKey)) out.push({ key: n.key, text: n.label, priority: 40 });
-  } else {
-    const inHouse = (n) => { let p = n; while (p?.parentKey) { if (p.parentKey === 'container.machinery-house') return true; p = nodeOf(p.parentKey); } return false; };
-    for (const n of manifest.nodes) {
-      if (!(n.kind === 'position' || n.kind === 'hotspot') || !n.modes.includes('technical')) continue;
-      const selMain = selKeys.length ? nodeOf(selKeys[0])?.classification?.main : null;
-      const relevant = state.iso ? inHouse(n) : selMain ? n.classification.main === selMain : (n.kind === 'hotspot' || inHouse(n));
-      if (relevant) out.push({ key: n.key, text: lab(n), badge: qualOf(n), priority: n.kind === 'hotspot' ? 25 : 30 });
+// ---------- drill-down labels (U1-C07): tier 1 mains -> tier 2 subs -> tier 3 parts, same state as the tree ----------
+const lab = (n) => n.label.replace(/ \((location|count).*\)$/i, '');
+const boundKeysWhere = (pred) => manifest.nodes.filter((n) => (n.kind === 'position' || n.kind === 'hotspot') && pred(n) && I().binding.has(n.key)).map((n) => n.key);
+function labelCandidates() {
+  const ii = I(); const out = []; const work = openWorkByKey();
+  const workOf = (keys) => keys.reduce((a, k) => a + (work.get(k) || 0), 0) || undefined;
+  const partLabel = (n, extra) => ({ id: n.key, keys: [n.key], text: lab(n), badge: n.kind === 'hotspot' ? 'Approx.' : qualOf(n), work: work.get(n.key), allowHidden: true, tier: 3, next: n.kind === 'hotspot' ? { hotspot: n.key } : { part: ii.binding.get(n.key)?.positionId }, ...extra });
+  if (state.container) {
+    const ck = 'container.' + state.container;
+    for (const n of manifest.nodes) if ((n.kind === 'position' || n.kind === 'hotspot') && isDesc(n, ck) && ii.binding.has(n.key)) out.push(partLabel(n, { priority: 40, allowHidden: false }));
+  } else if (state.part) {
+    const p = ii.positions.find((x) => x.id === state.part); const s = p && ii.subs.find((x) => x.id === p.subId);
+    for (const n of manifest.nodes) if (s && (n.kind === 'position' || n.kind === 'hotspot') && n.classification.sub === s.code && ii.binding.has(n.key)) {
+      out.push(partLabel(n, n.key === p.semanticKey ? { priority: 100, selected: true } : { priority: 40 }));
     }
-    if (!state.iso) out.push({ key: 'container.machinery-house', text: 'Machinery house (transparent enclosure)', priority: 45 });
+  } else if (state.sub) {
+    const s = ii.subs.find((x) => x.id === state.sub);
+    for (const n of manifest.nodes) if (s && (n.kind === 'position' || n.kind === 'hotspot') && n.classification.sub === s.code && ii.binding.has(n.key)) out.push(partLabel(n, { priority: 60 }));
+  } else if (state.main) {
+    const m = ii.mains.find((x) => x.id === state.main);
+    for (const s of ii.subs.filter((x) => x.mainId === state.main)) {
+      const keys = boundKeysWhere((n) => n.classification.sub === s.code); if (!keys.length) continue;
+      out.push({ id: s.id, keys, text: `${s.code} ${s.name}`, work: workOf(keys), allowHidden: true, tier: 2, priority: 60, next: { sub: s.id }, hint: `${s.code} ${s.name}: ${keys.length} position(s) / marker(s). Click to show its parts.` });
+    }
+    if (m && !state.iso) { const keys = boundKeysWhere((n) => n.classification.main === m.code); if (keys.length) out.push({ id: m.id + '-head', keys, text: `${m.code} ${m.name}`, selected: true, tier: 1, priority: 30, allowHidden: true, next: { main: m.id } }); }
+  } else {
+    for (const m of ii.mains) {
+      const keys = boundKeysWhere((n) => n.classification.main === m.code); if (!keys.length) continue;
+      out.push({ id: m.id, keys, text: `${m.code} ${m.name}`, work: workOf(keys), allowHidden: true, tier: 1, priority: 50, next: { main: m.id }, hint: `${m.code} ${m.name}: click to show its submechanisms.` });
+    }
   }
-  for (const k of selKeys.slice(0, 12)) { const n = nodeOf(k); out.push({ key: k, text: lab(n), badge: qualOf(n), priority: 100, selected: true, work: work.get(k) }); }
-  for (const [k, c] of work) if (!sel.has(k) && ii.binding.has(k) && nodeOf(k).modes.includes(state.mode)) out.push({ key: k, text: lab(nodeOf(k)), work: c, priority: 60 });
-  // de-duplicate by key, keeping the highest priority
-  const best = new Map(); for (const c of out) if (!best.has(c.key) || best.get(c.key).priority < c.priority) best.set(c.key, c);
-  return [...best.values()];
+  return out;
+}
+function onLabel(c) {
+  if (!c.next) return;
+  const hiddenHere = state.mode === 'overall' && c.keys.length && c.keys.every((k) => !nodeOf(k).modes.includes('overall'));
+  if (hiddenHere) state.mode = 'technical';
+  if (c.next.hotspot) {
+    if (hiddenHere) { writeURL(); render({ focus: false }); }
+    viewer.fitKeys([c.next.hotspot]); hint(lab(nodeOf(c.next.hotspot)) + ': location marker (approximate) of the selected submechanism.'); return;
+  }
+  select(c.next);
+  if (hiddenHere) hint('Switched to Technical mode: ' + c.text + ' is inside the structure or enclosure.');
 }
 
 function openWorkByKey() {
@@ -207,7 +233,8 @@ function renderContainers() {
 
 function renderToolbar() {
   document.querySelectorAll('[data-mode]').forEach((b) => b.setAttribute('aria-checked', String(b.dataset.mode === state.mode)));
-  const iso = $('#btn-iso'); iso.setAttribute('aria-pressed', String(state.iso)); iso.disabled = state.mode !== 'technical'; iso.title = state.mode === 'technical' ? '' : 'Available in Technical mode';
+  // U1-C05: always enabled; in Overall mode it switches to Technical first (it used to be disabled there, which read as broken)
+  const iso = $('#btn-iso'); iso.setAttribute('aria-pressed', String(state.iso)); iso.title = state.mode === 'technical' ? 'Show only the machinery house and its equipment' : 'Switches to Technical mode and shows only the machinery house';
   $('#view-select').value = state.view;
 }
 
@@ -297,6 +324,7 @@ async function initViewer() {
   const t0 = performance.now();
   viewer = new QcViewer($('#viewport'), {
     onPick: (hit) => goNode(hit.key),
+    onLabel: (c) => onLabel(c),
     onBackground: () => hint('Background: selection kept. Use Reset view or the tree to change it.'),
     onContextLost: () => showFallback('The graphics context was lost. Reload the page to retry the 3D view.'),
     onFrame: (info) => { $('#perf').textContent = `Draw calls ${info.calls} | triangles ${info.triangles.toLocaleString()} | geometries ${info.geometries} | frames ${viewer.frames} | model load ${loadMs ?? '-'} ms | asset ${(manifest.asset.bytes / 1024).toFixed(0)} KiB, sha256 ${viewer.checksumVerified ? 'verified' : 'not verifiable here'}`; },
@@ -326,11 +354,25 @@ async function main() {
   sel.value = state.eq;
   sel.addEventListener('change', () => { state.eq = sel.value; select({}); });
   document.querySelectorAll('[data-mode]').forEach((b) => b.addEventListener('click', () => { state.mode = b.dataset.mode; if (state.mode !== 'technical') state.iso = false; writeURL(); lastFocusKey = null; render({ focus: !!(state.main || state.part || state.container) }); }));
-  $('#btn-iso').addEventListener('click', () => { state.iso = !state.iso; writeURL(); lastFocusKey = null; render(); });
-  $('#btn-fit').addEventListener('click', () => { if (!viewer) return; const { keys, container } = selectionKeys(); if (!(keys.length || container)) viewer.resetView(); else if (!viewer.fitKeys(container ? [container] : keys)) hint('This selection has no visible representation in this mode; camera unchanged.'); });
-  $('#btn-reset').addEventListener('click', () => { if (!viewer) return; state.view = ''; writeURL(); applyView(); viewer.resetView(); renderToolbar(); });
+  $('#btn-iso').addEventListener('click', () => {
+    state.iso = !state.iso;
+    if (state.iso && state.mode !== 'technical') { state.mode = 'technical'; hint('Technical mode switched on to show the machinery-house equipment.'); }
+    writeURL(); lastFocusKey = null; render();
+  });
+  // Fit: the selection if there is one (in perspective or aligned views), otherwise the whole crane / the isolated house.
+  $('#btn-fit').addEventListener('click', () => {
+    if (!viewer || viewerState !== 'ready') return;
+    const { keys, container } = selectionKeys();
+    if (!(keys.length || container)) { if (state.iso) viewer.fitKeys(['container.machinery-house']); else resetCurrentView(); hint(state.iso ? 'Fitted the machinery house.' : 'Nothing selected: fitted the whole crane.'); }
+    else if (!viewer.fitKeys(container ? [container] : keys)) hint('This selection has no visible representation in this mode; camera unchanged.');
+  });
+  // Reset: the full frame of the current view (aligned view stays aligned; perspective returns to the full-crane view).
+  $('#btn-reset').addEventListener('click', () => { if (!viewer || viewerState !== 'ready') return; resetCurrentView(); });
   $('#btn-labels').addEventListener('click', (ev) => { const on = ev.currentTarget.getAttribute('aria-pressed') !== 'true'; ev.currentTarget.setAttribute('aria-pressed', String(on)); viewer?.setLabels(on); });
-  $('#view-select').addEventListener('change', (ev) => { state.view = ev.target.value; writeURL(); if (viewer) { applyView(); if (!state.view) viewer.resetView(); } });
+  $('#view-select').addEventListener('change', (ev) => {
+    state.view = ev.target.value; writeURL();
+    if (viewer && viewerState === 'ready') { applyView(); if (!state.view) viewer.resetView(); else { const { keys, container } = selectionKeys(); if (keys.length || container) viewer.fitKeys(container ? [container] : keys); } }
+  });
   window.addEventListener('popstate', () => { readURL(); $('#eq-select').value = state.eq; lastFocusKey = null; render(); });
   // Deep link from the P02 prototype: pkey = semantic key with '.' written as '_' (D-20). Exact key only, never fuzzy.
   const pkey = new URLSearchParams(location.search).get('pkey');

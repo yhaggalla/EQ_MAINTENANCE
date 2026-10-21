@@ -353,9 +353,10 @@
       "source": "J526A3000 p1 plan, scaled (drum axis)"
     },
     "trolleyDriveX": {
-      "mm": -35800,
+      "mm": -36450,
       "kind": "approximate-location",
-      "source": "J526A3000 p1 plan, scaled"
+      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; trolley drum and reducer axis (middle row)",
+      "note": "P03 value -35800 replaced in the U1 repair"
     },
     "trolleyDriveDrumDia": {
       "mm": 920,
@@ -363,9 +364,10 @@
       "source": "J526A0400 (J526A04) p1 (drum dia 920)"
     },
     "boomHoistX": {
-      "mm": -33100,
+      "mm": -32760,
       "kind": "approximate-location",
-      "source": "J526A3000 p1 plan, scaled"
+      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; boom-hoist drum axis (top row)",
+      "note": "P03 value -33100 replaced in the U1 repair"
     },
     "boomHoistDrumDia": {
       "mm": 1530,
@@ -467,9 +469,10 @@
       "note": "Rail-to-cabin-floor in J526A0200; not used for the display pose, which follows the J526A00 side view (cabinFloorElevation)"
     },
     "cabinWidthZ": {
-      "mm": 2600,
-      "kind": "estimated",
-      "source": "J526A0200 p1 end view, scaled"
+      "mm": 2200,
+      "kind": "measured",
+      "source": "J526A3100 p1 front view and C-C (2200)",
+      "note": "P03 value 2600 replaced in the U1 repair"
     },
     "headblockSheaveSpan": {
       "mm": 5200,
@@ -574,9 +577,265 @@
       "note": "+/-0.5 m"
     },
     "cabinBodyHeight": {
-      "mm": 2400,
+      "mm": 2673,
+      "kind": "measured",
+      "source": "J526A3100 p1 section B-B (2673 floor to roof)",
+      "note": "P03 value 2400 replaced in the U1 repair"
+    },
+    "mainHoistDriveZ": {
+      "mm": 850,
+      "kind": "approximate-location",
+      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; centre of the main hoist reducer along Z"
+    },
+    "mainHoistMotorZOffset": {
+      "mm": 1950,
+      "kind": "approximate-location",
+      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; main hoist motor centres about 1.9-2.1 m either side of the reducer"
+    },
+    "mainHoistHsBrakeZOffset": {
+      "mm": 800,
+      "kind": "approximate-location",
+      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; high-speed brake discs between motor and reducer"
+    },
+    "boomHoistDrumLength": {
+      "mm": 6800,
+      "kind": "approximate-location",
+      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; two-section boom-hoist drum"
+    },
+    "boomHoistDrumCentreZ": {
+      "mm": 930,
+      "kind": "approximate-location",
+      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; boom-hoist drum centre along Z"
+    },
+    "boomHoistMotorX": {
+      "mm": -34400,
+      "kind": "approximate-location",
+      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; boom-hoist motor landside of the drum axis (P03 had it seaside)"
+    },
+    "boomHoistMotorZ": {
+      "mm": 3300,
+      "kind": "approximate-location",
+      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; boom-hoist motor centre along Z"
+    },
+    "boomHoistReducerZ": {
+      "mm": 4980,
+      "kind": "approximate-location",
+      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; boom-hoist reducer at the +Z end of the drum"
+    },
+    "trolleyDriveDrumCentreZ": {
+      "mm": 970,
+      "kind": "approximate-location",
+      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; trolley drum centre along Z"
+    },
+    "trolleyDriveDrumLength": {
+      "mm": 3500,
+      "kind": "approximate-location",
+      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; trolley drum length (scaled)"
+    },
+    "trolleyDriveMotorX": {
+      "mm": -35850,
+      "kind": "approximate-location",
+      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; trolley motor and brake seaside of the drum axis"
+    },
+    "trolleyDriveMotorZ": {
+      "mm": -2880,
+      "kind": "approximate-location",
+      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; "
+    },
+    "trolleyDriveReducerZ": {
+      "mm": -1170,
+      "kind": "approximate-location",
+      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; "
+    },
+    "mainTransformerPos": {
+      "mm": [
+        -38850,
+        8300
+      ],
+      "kind": "approximate-location",
+      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; Main Trans. (X, Z) centre"
+    },
+    "auxTransformerPos": {
+      "mm": [
+        -32900,
+        6900
+      ],
+      "kind": "approximate-location",
+      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; Aux. Trans. (X, Z) centre"
+    },
+    "switchgearPos": {
+      "mm": [
+        -32950,
+        8800
+      ],
+      "kind": "approximate-location",
+      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; Switch gear (X, Z) centre"
+    },
+    "serviceHatch": {
+      "mm": [
+        3575,
+        2000
+      ],
+      "kind": "measured",
+      "source": "J526A3000 p1 plan: service area of service crane 3575 x 2000 (floor hatch)"
+    },
+    "houseAcUnits": {
+      "mm": 7,
+      "kind": "measured",
+      "source": "J526A3000 p1 plan: items B1-B7 outside the electrical-room end wall (count); unit size estimated",
+      "unit": "count",
+      "note": "Count, not millimetres; build.mjs reads it with N() (P() divides by 1000)"
+    },
+    "logoWidth": {
+      "mm": 3400,
       "kind": "estimated",
-      "source": "J526A0200 p1 side view, scaled"
+      "source": "Site photos (documents/ChatGPT Image Oct 21, 2026, 08_44_14 PM.png and 09_14_39 PM.png, AI-processed appearance references): logo about one third of the house end-wall width; artwork from the Portal source cict-logo.png"
+    },
+    "logoTopBelowEaves": {
+      "mm": 500,
+      "kind": "estimated",
+      "source": "Same photos: top of the logo about 0.5 m below the eaves"
+    },
+    "logoCentreFromSeasideWall": {
+      "mm": 4730,
+      "kind": "estimated",
+      "source": "Same photos: logo centre about 45 % of the wall width from the seaside corner"
+    },
+    "stairTowerRunZ": {
+      "mm": 3400,
+      "kind": "estimated",
+      "source": "J526A5000 p1 View P and J526A00 p1 landside end view: switch-back flights from over leg B to about 3.1 m beyond its axis (aligned overlay, U1 repair)"
+    },
+    "stairTowerDepthX": {
+      "mm": 1900,
+      "kind": "estimated",
+      "source": "J526A5000 p1 side view: stair comb on the landside face of the landside leg, about 1.8-2 m"
+    },
+    "stairFlightWidth": {
+      "mm": 800,
+      "kind": "estimated",
+      "source": "J526A5000 p1 View P, scaled"
+    },
+    "stairFlightsPerSegment": {
+      "mm": [
+        2,
+        3,
+        10,
+        2
+      ],
+      "kind": "estimated",
+      "source": "J526A5000 p1 View P: flights between ground, 6500 (A), 15615 (B), 47845 (C) and 53430, counted from the drawing",
+      "unit": "count",
+      "note": "Count, not millimetres; build.mjs reads it with N() (P() divides by 1000)"
+    },
+    "aFrameStairFlights": {
+      "mm": 8,
+      "kind": "estimated",
+      "source": "J526A5000 p1 View Q and J526A00 p1 waterside end view: zig-zag stair in the A-frame, flights counted approximately",
+      "unit": "count",
+      "note": "Count, not millimetres; build.mjs reads it with N() (P() divides by 1000)"
+    },
+    "antiSnagDeviceLength": {
+      "mm": 3754,
+      "kind": "measured",
+      "source": "J526A1000 p1 plan (3754 overall)"
+    },
+    "antiSnagSheaveDia": {
+      "mm": 1100,
+      "kind": "estimated",
+      "source": "J526A1000 p1 side view, scaled against the 2200 dimension"
+    },
+    "antiSnagSheaveSpacing": {
+      "mm": 2200,
+      "kind": "measured",
+      "source": "J526A1000 p1 side view (2200)"
+    },
+    "antiSnagFromTail": {
+      "mm": 1800,
+      "kind": "estimated",
+      "source": "J526A5000 p1 side view at the tail (about 44.7 mm per pixel at 220 dpi): raised device structure begins about 1.8 m from the girder tail; J526A00 p1 item 7"
+    },
+    "antiSnagCylinderStroke": {
+      "mm": 1400,
+      "kind": "measured",
+      "source": "J526A1000 p1 main parameter: cylinder journey 1400, bore 200, rod 140"
+    },
+    "tailPlatformLength": {
+      "mm": 4500,
+      "kind": "estimated",
+      "source": "J526A5000 p1 side view at the girder tail; J526A7100 Detail C (4500)"
+    },
+    "tailServiceCraneWidth": {
+      "mm": 6050,
+      "kind": "measured",
+      "source": "J526A7100 p1 View A (6050)"
+    },
+    "tailServiceCraneHeight": {
+      "mm": 2780,
+      "kind": "measured",
+      "source": "J526A7100 p1 Detail C (2780)"
+    },
+    "tailServiceCraneOverhang": {
+      "mm": 1540,
+      "kind": "measured",
+      "source": "J526A7100 p1 Detail C (1540 beyond the girder end)"
+    },
+    "festoonPlatformStartFromTail": {
+      "mm": 4600,
+      "kind": "estimated",
+      "source": "J526A00 p1 side view: festoon and cab service platform (J526A5008) begins about 4.4-4.8 m from the girder tail"
+    },
+    "festoonPlatformLengthX": {
+      "mm": 4400,
+      "kind": "estimated",
+      "source": "J526A00 p1 side view and J526A5000 p1 (item 8), scaled"
+    },
+    "festoonPlatformDrop": {
+      "mm": 2700,
+      "kind": "estimated",
+      "source": "Hung so that its deck is at the cab floor level of the display pose (cab floor 47.8 m); J526A00 side view drop about 3-5 m"
+    },
+    "trolleyTailSheaveDia": {
+      "mm": 800,
+      "kind": "estimated",
+      "source": "J526A00 p1 trolley rope reeving: return sheaves and tensioners at the girder-tail end; size scaled"
+    },
+    "cabinFrontOverhang": {
+      "mm": 310,
+      "kind": "measured",
+      "source": "J526A3100 p1 section B-B (310 roof/visor overhang at the front)"
+    },
+    "cabWalkwayWidth": {
+      "mm": 900,
+      "kind": "measured",
+      "source": "J526A3100 p1 section A-A (900 cab walkway)"
+    },
+    "cabSeatFromFront": {
+      "mm": 1250,
+      "kind": "estimated",
+      "source": "J526A3100 p1 section B-B: operator seat about 1.2-1.3 m behind the front window"
+    },
+    "cabDoorHeight": {
+      "mm": 1900,
+      "kind": "measured",
+      "source": "J526A3100 p1 section A-A (1900 hinged door)"
+    },
+    "cabFloorWindowLength": {
+      "mm": 826,
+      "kind": "measured",
+      "source": "J526A3100 p1 section B-B (826 front floor window)"
+    },
+    "boomBlockSheaveDia": {
+      "mm": 900,
+      "kind": "estimated",
+      "source": "J526A00 p1 boom hoist rope reeving diagram: multi-fall sheave groups; size scaled"
+    },
+    "tailServiceCranePostSpacing": {
+      "mm": 1400,
+      "kind": "estimated",
+      "source": "J526A7100 p1 Detail C (1400 between frame posts, read approximately)"
     }
-  }
+  },
+  "revision": 2,
+  "revisionNote": "U1 repair (2026-10-21): back-reach area, CICT logo, stair tower orientation, cab remodel, reeving paths and machinery-house layout re-checked against J526A00, J526A1000, J526A3000, J526A3100, J526A5000, J526A7100. Draft v1 revised in place: no equipment binding is active."
 }
