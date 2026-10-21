@@ -154,5 +154,22 @@ None of these blocks P01. Each is modelled as configurable data or a visible sou
 
 | Checkpoint | Date | Decision | Notes |
 | --- | --- | --- | --- |
-| U1 (after R02) | not yet reached | | |
+| U1 (after R02) | 2026-10-21 | CHANGES REQUESTED | See "2026-10-21 U1 CHANGES REQUESTED" below; repair U1, then U1 again |
 | U2 (after P11) | not yet reached | | |
+
+### 2026-10-21 U1 CHANGES REQUESTED
+
+Given by the user in chat after reviewing the P02 prototype (port 5312) and P03 model (port 5313). The user's annotated screenshots are kept in `docs/evidence/U1/1.png`..`6.png`.
+
+| ID | Change (user's words, then how it is read) | Screens |
+| --- | --- | --- |
+| U1-C01 | "QC icon need to be changed." Replace the generic crane icon used for QC with an icon that reads as a ship-to-shore quay crane (side outline: legs, boom reaching out, A-frame). No icon file was supplied, so the agent designs it. | 1.png |
+| U1-C02 | "remove 2nd image section.. show more EQ on fleet tab.. dont use much space for other items.." Remove the Fleet page intro block ("FLEET OVERVIEW / Fleet" heading and the two explanatory lines) and make the Fleet tab denser so more equipment fits on screen; secondary elements take little space. The Unreported/no-telemetry meaning stays available in a compact form (for example a tooltip or legend), not as a large header. | 2.png |
+| U1-C03 | "add back reach area, logo, stairs" On the QC view, add the back-reach area (rear girder area behind the landside leg), the CICT logo on the crane, and the stairs on the portal leg. Marked on the flat P02 schematic (3.png) and to be present in the 3D model too. Logo source: the CICT logo in the Portal source (`cict-logo-*.png` under F:\CODEX\CICT-ENG_MAIN_PAGE), placed where the real cranes carry it per the site photos; placement approximate and labelled. | 3.png |
+| U1-C04 | "wire rope system, QC structure, stairs, machine house equipment, back reach area components, should be re checked in mainly in 3D view" Re-check these areas of the 3D model against the drawings and site photos and correct what is wrong or missing: rope reeving (hoist and boom hoist), main structure, stairs/access, machinery-house equipment, back-reach components. Keep unsupported dimensions labelled as estimates. | 3.png, 6.png |
+| U1-C05 | "some buttons are not working in 4th view.." All 3D toolbar controls must work: Overall, Technical, Isolate machinery house, Fit selection, Reset view, Labels, Aligned view (every option). Find and fix the broken ones. | 4.png |
+| U1-C06 | "re do the operator cabin 3D view.." Remodel the operator cabin so it looks like the real CICT cab (glazed cab under the trolley, with recognisable windows, seat/console and frame) instead of the current translucent box with floating panels. | 5.png |
+| U1-C07 | "when click on the lable, 2nd tire components should show with all the 2nd tire components labled, when click on the 2nd tire components, relevant 3rd tire components should load. this should apply to QC-DEMO-01 (whole equipment) view as well.." Clicking a main-level (tier 1) label drills down: the view shows that main's sub-level (tier 2) components, each labelled; clicking a tier 2 component shows its tier 3 parts, labelled. The same drill-down works from the whole-equipment view of QC-DEMO-01 (and QC-DEMO-02). | 6.png |
+| U1-C08 | "keep both, but 3d and flat should be identical in functionality.. fix both separately.." Keep both the flat schematic (P02 QC detail) and the 3D model (P03). Both must offer the same functions: the same tier 1 > 2 > 3 drill-down with labels, the same selection/tree sync, back-reach area, logo and stairs. Each is fixed in its own code. | 3.png, 6.png |
+
+Defaults taken because the user did not choose: icon designed by the agent (U1-C01); logo reused from the Portal source (U1-C03).

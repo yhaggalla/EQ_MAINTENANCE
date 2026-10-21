@@ -1,0 +1,19 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "p03-qc-model",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["artifacts/prototypes/p03-qc-model/serve.mjs", "5313"],
+      "port": 5313,
+      "url": "http://127.0.0.1:5313"
+    },
+    {
+      "name": "p02-ui",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["artifacts/prototypes/p02-ui/serve.mjs", "5312"],
+      "port": 5312,
+      "url": "http://127.0.0.1:5312"
+    }
+  ]
+}

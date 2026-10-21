@@ -12,7 +12,7 @@ Ledger of phases in the prompt-pack run order. A phase is marked complete only w
 | 4 | P02 UI prototype | **Complete** | 2026-10-21 | `artifacts/prototypes/p02-ui/`, `docs/UX_SPEC.md`, `docs/evidence/P02/` | Synthetic, in-memory prototype; 50/50 browser checks, 37/37 contrast pairs, 70 screenshots; QC viewer is an SVG placeholder |
 | 5 | P03 QC model prototype | **Complete** | 2026-10-21 | `docs/evidence/P03/`, `assets/models/source/cict-j526a-sts/`, `tools/model-generator/`, `artifacts/models/cict-j526a-sts-scene/1/`, `artifacts/prototypes/p03-qc-model/` | Drawing-derived CICT-J526A-STS v1 (168 nodes, 135 positions); validator 25/25, bindings 11/11, browser checks 31/31 hardware and 31/31 SwiftShader, no-WebGL pass, P02 regression 50/50; synthetic bindings only |
 | 6 | R02 UX and model-fidelity review | **PASS** | 2026-10-21 | `docs/evidence/R02/review-20261021-2052.md` | 6 non-blocking findings (phone status badge, viewer loading state, label clipping, prototype data shortcuts, fleet error time, which QC view to judge) carried to P06/P10 |
-| 7 | U1 User checkpoint | Next (awaiting user) | | | Approval recorded in DECISIONS s4 |
+| 7 | U1 User checkpoint | **CHANGES REQUESTED** | 2026-10-21 | `docs/DECISIONS.md` s4, `docs/evidence/U1/` | U1-C01..C08; next: repair U1, then U1 again |
 | 8 | P04 App foundation | Not started | | | Needs .NET 10 SDK (D-02) |
 | 9 | P05 Portal integration | Not started | | | Only phase allowed to edit the Portal repo |
 | 10 | R03 Identity and compatibility review | Not started | | | |
@@ -46,3 +46,4 @@ U-01 to U-19 in `docs/DECISIONS.md` s3 (U-16 to U-18 added in P01, all planned P
 2026-10-21 P02 complete (eq-build-sonnet-high) - UX_SPEC.md, prototype and evidence in docs/evidence/P02; decisions D-45..D-54; UX-1 carried to P07; next: P03
 2026-10-21 P03 complete (eq-build-opus-high) - QC model v1, generator, manifest, prototype and evidence in docs/evidence/P03; decisions D-55..D-64, U-19; site photos documents/Image_20261021*.jpg used for appearance only; next: R02
 2026-10-21 R02 VERDICT: PASS (eq-review-opus-high) - docs/evidence/R02/review-20261021-2052.md; next: U1 user checkpoint
+2026-10-21 U1 CHANGES REQUESTED by user: U1-C01..C08 (QC icon, compact fleet, back reach/logo/stairs, 3D re-check, toolbar buttons, operator cabin, tier 1>2>3 label drill-down in both views); next: repair U1
