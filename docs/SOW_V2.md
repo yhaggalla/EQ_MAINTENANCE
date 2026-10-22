@@ -1,10 +1,10 @@
 # CICT EQ & FAC Maintenance - Scope of Work V2
 
-Version 2.0 DRAFT, revision 3 | 22 October 2026 | For user confirmation
+Version 2.0 DRAFT, revision 4 | 22 October 2026 | For user confirmation
 
 Supersedes SOW V1 (`documents/SOW.docx`) only on the points below. Everything in V1, in the approved requirements v1.1 and in the confirmed U1 changes (U1-C01 to U1-C16) stays valid for the EQ section unless this document says otherwise. The prompt pack is not changed until you confirm this SOW.
 
-Revision 2 records your answers to Q1-Q8 (section 9) and adds the EQ Jobs tab changes: special jobs, daily jobs read from ZMMS, automatic EQ status and the spare-part condition register (section 4). Revision 3 records your answers to Q9-Q14: two ZMMS syncs a day, and a manual status correction that lasts for the current day only.
+Revision 2 records your answers to Q1-Q8 (section 9) and adds the EQ Jobs tab changes: special jobs, daily jobs read from ZMMS, automatic EQ status and the spare-part condition register (section 4). Revision 3 records your answers to Q9-Q14: two ZMMS syncs a day, and a manual status correction that lasts for the current day only. Revision 4 records that ZMMS is a CICT-owned app, you as its owner allow the app to read it with the login, and ZMMS has no API.
 
 ## 1 What changes in V2
 
@@ -113,7 +113,7 @@ All three parts share the filters equipment, type (QC/RTG/ES), date range and se
 - The daily jobs are listed in the Jobs tab below the special jobs, read-only, with the same filters. Every synced day is kept, so the Jobs tab holds the daily-job history. They are linked to the equipment only, not to a mechanism or part.
 - Sync health: Admin sees the last sync time, rows read and any failure; users see "ZMMS data from dd Mon hh:mm". A failed sync keeps the previous data, retries, and warns Admin.
 - The ZMMS account is kept in the server configuration, never in code, logs or the browser.
-- Method: a ZMMS export or API if ZMMS offers one; otherwise the app reads the daily job page with the account. This needs the ZMMS owner's agreement (Q9).
+- Method: ZMMS is a CICT-owned app with no API. As its owner you have agreed that this app signs in with the account and reads the daily job page. If the ZMMS page layout changes, the sync reports a failure to Admin instead of saving wrong data.
 
 ### 4.5 EQ status - automatic, with manual correction
 
@@ -312,10 +312,10 @@ After you confirm this SOW, the pack is updated as follows. Completed work (P00-
 | Q13 | Basis for the next predicted replacement | Replaced date + expected life in months; Original parts count from the commissioning date |
 | Q14 | Which parts are "major spare parts" | Admin selects them from the mechanism-tree part positions |
 
-### 9.3 Still to confirm during implementation
+### 9.3 ZMMS ownership and access (revision 4)
 
-- Whether the ZMMS owner agrees to the app reading the daily job list automatically with this account.
-- Whether ZMMS offers an export or API; if not, the app reads the daily job page (4.4).
+- ZMMS is a CICT-owned app; you are its owner and have agreed to this app reading it with the login.
+- ZMMS has no API or export, so the app signs in and reads the daily job page (4.4).
 
 ## Appendix A - supplied FAC list (`documents/Facility- Dashboard.xlsx`)
 

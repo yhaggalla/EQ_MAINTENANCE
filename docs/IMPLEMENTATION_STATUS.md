@@ -56,3 +56,4 @@ U-01 to U-28 in `docs/DECISIONS.md` s3 (U-20 to U-22 added in Repair-U1, U-23 to
 2026-10-22 Merged origin/main-xqosal (U1 round 3: fdade57, 4b336e6) into local main (round 2 records aee399d, SOW V2 f6fe169); next: repeat U1 user checkpoint
 2026-10-22 SOW V2 revision 2: Q1-Q8 answered by user; added EQ Jobs tab in three parts (special jobs + ZMMS daily jobs, automatic EQ status with manual correction, major spare-part condition), crane view without history; open Q9-Q14; prompt pack not changed
 2026-10-22 SOW V2 revision 3: Q9-Q14 answered by user (ZMMS account provided, kept out of files; two syncs a day; manual status correction lasts the current day); prompt pack not changed
+2026-10-22 SOW V2 revision 4: ZMMS confirmed CICT-owned, no API; owner (user) agrees to login-based reading of the daily job page; prompt pack not changed
