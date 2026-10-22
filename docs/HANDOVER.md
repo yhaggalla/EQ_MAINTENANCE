@@ -4,6 +4,91 @@ Rolling handover for CICT EQ Maintenance. Each phase appends its record; the new
 
 ---
 
+## Repair-U1 round 2 User changes U1-C09..U1-C16 - 22 October 2026
+
+### Runtime record
+
+| Item | Value |
+| --- | --- |
+| Recommended profile | Codex gpt-6.1-sol, high; Claude Code claude-opus-5-5, high, adaptive thinking (P03 profile inherited) |
+| Actual client | Claude Code subagent eq-build-opus-high (delegated by the `/eq-phase` orchestrator; prompt logged in `docs/runs/Repair-U1r2-20261022-1003.md`) |
+| Actual model / effort | claude-opus-5-5; effort high (per agent definition) |
+| Fallback / escalation | None. The run was interrupted once by an API rate limit; the orchestrator resumed it and the work on disk was checked (the user had meanwhile committed the partial work as `1ff226b "EQ_maintanance"`) and completed |
+
+### Outcome
+
+Repair complete for U1-C09..U1-C16 in both the P02 flat view and the P03 3D model (draft v1 revision 3). Prototype-only, synthetic data; no production code, database, Portal change or deployment. The final edits after `1ff226b` are uncommitted (left for the orchestrator). U1 was not repeated by this run.
+
+### Change IDs (details and proof: `docs/evidence/U1/repair-r2-20261022.md`)
+
+- U1-C09: labels never disappear after a tree selection (fallback to the selection's level or tier 1; edge-pinned labels with arrows); flat view gained parts for 07, 13, 16. Checks P02 `U1R2-C09`, P03 `u1r2-labels-persist-after-tree-selection`.
+- U1-C10: Reset = whole equipment, labels on, tree folded back, full view (mode and aligned view kept), both views. Checks P02 `U1R2-C10-C11`, P03 `u1r2-reset-whole-equipment`.
+- U1-C11: fold icons work both ways on the selected mechanism (flat ancestors expanded only on selection change). Checks P02 `U1R2-C10-C11`, P03 `u1r2-tree-fold-both-ways`.
+- U1-C12: load cells as load pins in the main hoist rope-end anchors at the boom tip (J526A2000 Detail I; user's arrows). Close-up `repair-r2/closeups/c12-loadcell-boom-tip.png`.
+- U1-C13: girder-tail upper and lower platforms with centre stair and side flights (J526A5000 item 5); mid-air ladder removed. Close-ups `c13-*`.
+- U1-C14: apex platform, stay-pin block, guide sheaves, fall-sheave groups, guard frame (top 83.356 m); boom hoist reeving to two boom blocks at Z2/Z3 (J526A2300). Close-ups `c14-*`, side overlay.
+- U1-C15: 20 floodlight fittings under the girder and boom edges. Close-ups `c15-*`.
+- U1-C16: elevator outboard of landside leg B along the rail with car, door, drive, mast, ties and landings (J526A5100); every location ball replaced by a simple part (19 hotspots, identities unchanged). Close-ups `c16-*`; P03 `u1r2-model-content`, P02 `U1R2-C12-C16`.
+
+Requirement IDs touched (prototype evidence only; acceptance cases remain NOT RUN): S04, S05, S06, S12 (IDs preserved), S16; supports VIS01-VIS06, VIS08-VIS10.
+
+### Files changed (since `da409ca`; most are inside `1ff226b`)
+
+Modified:
+- P02: `artifacts/prototypes/p02-ui/css/app.css`, `js/fixtures.js` (5 positions appended), `js/preview.js`, `js/views-equipment.js`, `README.md`
+- P03 prototype: `artifacts/prototypes/p03-qc-model/css/p03.css`, `index.html`, `js/app.mjs`, `js/viewer.mjs`, `README.md`
+- Model source and pipeline: `assets/models/source/cict-j526a-sts/build.mjs`, `params.json` (revision 3, new "U1 round 2" parameters), `README.md`; `tools/model-generator/lib/scene-builder.mjs` (hotspot part builder), `lib/kit.mjs` (emissive material option)
+- Generated model: `artifacts/models/cict-j526a-sts-scene/1/` (`scene.glb`, `manifest.json`, `provenance.md`, `checksums.json`)
+- Checks/tools: `tools/p02/check_prototype.mjs` (C30 updated for the new Reset, +3 round-2 checks, arrow-stripping label reader), `tools/p03/check_model_prototype.mjs` (toolbar check updated for the new Reset, transition-aware settle, +4 round-2 checks), `tools/p03/check_no_webgl.mjs` (optional report path), `tools/u1/model_diff.mjs` (`--out`, modes/representation), `tools/u1/capture_u1.mjs` (`--out`, arrow-tolerant label match)
+- Records: `docs/DECISIONS.md` (D-73..D-82, U-23..U-26, U1 row), `docs/IMPLEMENTATION_STATUS.md`, `docs/HANDOVER.md`
+
+New:
+- `tools/u1/capture_u1r2_model.mjs`, `tools/u1/capture_u1r2_ui.mjs`, `tools/u1/repro_r2_flat.mjs`, `tools/u1/repro_r2_3d.mjs`
+- `artifacts/u1r2-captures/` (33 renders)
+- `docs/evidence/U1/repair-r2-20261022.md`, `docs/evidence/U1/repair-r2/` (check JSON, model diff, capture logs, `closeups/` 18, `screenshots/` 15, `screenshots-3d/`, `comparison/` 12)
+
+Untouched: `documents/`, `As-bulit drawing/`, `mockups/`, `RTG drawings/` (appeared during the run; not used), P02/P03 phase evidence and round-1 `docs/evidence/U1/repair/` (one P03 evidence file overwritten by a tool default was restored from Git), `F:\CODEX\CICT-ENG_MAIN_PAGE`.
+
+### Checks run and results (after the last change)
+
+| Check | Result |
+| --- | --- |
+| `generate.mjs` x3 (artifact + `tmp/u1r2-det-a`, `-b`) | identical GLB sha256 `fe35835e...869b` and manifest `8b0cfe74...7568`; 2,196,484 bytes; 46,522 triangles; draw calls 194 all modes (Overall 145 / Technical 193); no landmark failure |
+| `validate.mjs` | 26/26, validated |
+| `check_bindings.mjs` | 11/11 |
+| `tools/u1/model_diff.mjs --base da409ca` | 0 added, 0 removed, 0 identity changes, 37 geometry/label/representation changes |
+| `check_model_prototype.mjs` hardware / SwiftShader | 40/40 / 40/40 |
+| `check_no_webgl.mjs` | pass |
+| `tools/p02/check_prototype.mjs` | 58/58 |
+| `tools/p02/check_contrast.py` | 37 pairs, 0 below threshold (edge arrow 6.73:1 computed separately) |
+| close-ups, UI screenshots, aligned captures and comparisons | 18 + 14 + 33 + 12 images, no console errors besides a favicon 404; reviewed |
+
+Evidence type: scripted model checks and headless-browser checks on this workstation with synthetic data. Measured: hardware orbit 60.2 fps, usable 697 ms after navigation; SwiftShader 11.7 fps (software rendering, not the reference device). Test expectations changed only where the user changed the behaviour (Reset clears the selection, U1-C10); stated in the evidence s4.
+
+### Open issues and impact
+
+| ID | Issue | Impact |
+| --- | --- | --- |
+| U-23 | Load-cell hardware not identified on the sheets; boom-tip anchors chosen from the user's arrows | Visual; confirm at the U1 repeat |
+| U-24 | Floodlight count/spacing estimated | Visual |
+| U-25 | Elevator side re-read from J526A5100 (differs from P03) | Visual; confirm at the U1 repeat |
+| U-26 | Apex guard frame, platform extents and fall counts simplified | Visual |
+| Perf | SwiftShader orbit below 30 fps; draw calls 194 of the provisional 200 | Measure on the reference desktop in P11; little headroom for more parts |
+| Repository | `1ff226b` (user commit) included `RTG drawings/` PDFs (about 24 MB) and the agent config folders; later edits uncommitted | Orchestrator/user |
+| Earlier | U-19..U-22, D-61 proposals, D-02 (.NET 10 SDK) unchanged | As before |
+
+No genuinely missing business information blocks the U1 repeat; the user may confirm U-23 and U-25 during the walkthrough.
+
+### Git
+
+Branch `main`, HEAD `1ff226b` (user commit "EQ_maintanance" containing most of this repair); remaining edits (status, handover, evidence report wording, pinned model diff) uncommitted. This run did not commit.
+
+### Next prompt
+
+**U1 user checkpoint, repeated** (walkthrough of the P02 prototype on port 5312 and the P03 model on port 5313; start both servers). The user's approval or further changes are recorded in `docs/DECISIONS.md` s4 before P04 starts.
+
+---
+
 ## Repair-U1 User changes U1-C01..U1-C08 - 22 October 2026
 
 ### Runtime record
