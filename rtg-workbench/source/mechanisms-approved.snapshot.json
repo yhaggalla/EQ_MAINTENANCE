@@ -1,0 +1,580 @@
+{
+  "schemaVersion": 1,
+  "approvedOn": "2026-10-21",
+  "authority": "User-supplied mechanism table plus explicit clarification answers",
+  "sourceFile": "mechanisms-original.txt",
+  "sourceSha256": "95dbcc1811b7297144b9a10ee9346facd06d95cc3890bd86184df55eff9c48d6",
+  "sourceLayout": "Two independent four-column groups with continuation description rows",
+  "codeStorage": "string",
+  "unassignedMainCodes": [
+    "10"
+  ],
+  "reservedInactiveSubCodes": [
+    "048",
+    "063"
+  ],
+  "applicabilityPolicy": "Configure by equipment type/model. No blanket assignment to QC, RTG or ES.",
+  "counts": {
+    "main": 16,
+    "subTotal": 43,
+    "subActive": 41,
+    "subReservedInactive": 2
+  },
+  "mainMechanisms": [
+    {
+      "code": "01",
+      "name": "Hoist",
+      "active": true
+    },
+    {
+      "code": "02",
+      "name": "Trolley",
+      "active": true
+    },
+    {
+      "code": "03",
+      "name": "Boom",
+      "active": true
+    },
+    {
+      "code": "04",
+      "name": "Gantry",
+      "active": true
+    },
+    {
+      "code": "05",
+      "name": "Control Power",
+      "active": true
+    },
+    {
+      "code": "06",
+      "name": "Spreader",
+      "active": true
+    },
+    {
+      "code": "07",
+      "name": "Driver System",
+      "active": true
+    },
+    {
+      "code": "08",
+      "name": "PLC",
+      "active": true
+    },
+    {
+      "code": "09",
+      "name": "Engine",
+      "active": true
+    },
+    {
+      "code": "11",
+      "name": "Skew system",
+      "active": true
+    },
+    {
+      "code": "12",
+      "name": "HV system",
+      "active": true
+    },
+    {
+      "code": "13",
+      "name": "Lighting",
+      "active": true
+    },
+    {
+      "code": "14",
+      "name": "Cabin",
+      "active": true
+    },
+    {
+      "code": "15",
+      "name": "Auxiliary system",
+      "active": true
+    },
+    {
+      "code": "16",
+      "name": "Emergency mechanism",
+      "active": true
+    },
+    {
+      "code": "17",
+      "name": "Other",
+      "active": true
+    }
+  ],
+  "subMechanisms": [
+    {
+      "code": "011",
+      "mainCode": "01",
+      "name": "Hoist",
+      "sourceName": "Hoist",
+      "description": "Hoist drive mechanism, including the drive, motor, encoder, roller, gear box etc The hoist brake, gear box temperature sensor, detection limit switch,hoist control valve , hoisting chain etc.",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 3,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "012",
+      "mainCode": "01",
+      "name": "Hoist emergency braker",
+      "sourceName": "Hoist emergency braker",
+      "description": "the hoist emergency brake, the oil pump, solenoid valve, hydraulic circuit, detection limit switch etc.",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 5,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "013",
+      "mainCode": "01",
+      "name": "Load cell system",
+      "sourceName": "Load cell system",
+      "description": "The load cell sensor, control panel",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 6,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "014",
+      "mainCode": "01",
+      "name": "spreader cable wheel",
+      "sourceName": "spreader cable wheel",
+      "description": "Spreader cable, cable winding motor, slip ring box, gear box, drum, chain, detection limit etc.",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 7,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "015",
+      "mainCode": "01",
+      "name": "steel rope",
+      "sourceName": "steel rope",
+      "description": "The steel wires are bending or broken by accident or operational reasons",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 8,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "021",
+      "mainCode": "02",
+      "name": "trolley",
+      "sourceName": "trolley",
+      "description": "Trolley mechanism, including the drive, motor, encoder, roller, gear box etc. The trolley brake, gear box temperature sensor, detection limit switch etc.",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 9,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "022",
+      "mainCode": "02",
+      "name": "trolley tension",
+      "sourceName": "trolley tension",
+      "description": "Trolley/ cate trolley steel rope tensioning mechanism, cylinder, tension limit etc.",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 12,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "023",
+      "mainCode": "02",
+      "name": "cable transport chain/sliding conduct system",
+      "sourceName": "cable transport chain/sliding conduct system",
+      "description": "cable transport chain, wheels, a fixed bolt etc.",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 13,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "024",
+      "mainCode": "02",
+      "name": "steel rope",
+      "sourceName": "steel rope",
+      "description": "The steel wires are bending or broken by accident or operational reasons",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 14,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "025",
+      "mainCode": "02",
+      "name": "trolley chain",
+      "sourceName": "trolley chain",
+      "description": "Chain broken, wear and tear etc.",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 15,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "031",
+      "mainCode": "03",
+      "name": "boom",
+      "sourceName": "boom",
+      "description": "Boom mechanism, including the drive, motor, roller, steel wire rope, encoder, gear box etc. Boom high speed brake, gear box temperature sensor, the detection limit switch. Boom latch motor, hydraulic push rod, and limit switch etc.",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 16,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "032",
+      "mainCode": "03",
+      "name": "boom emergency braker",
+      "sourceName": "boom emergency braker",
+      "description": "Boom emergency brake, the oil pump, solenoid valve, hydraulic circuit, detection limit switch etc.",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 19,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "033",
+      "mainCode": "03",
+      "name": "steel rope",
+      "sourceName": "steel rope",
+      "description": "The steel wires are bending or broken by accident or operational reasons",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 20,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "041",
+      "mainCode": "04",
+      "name": "gantry",
+      "sourceName": "gantry",
+      "description": "Gantry   brake, detection limit switch, the gantry anchor, anti-typhoon anchor,anti-typhoon iron shoes, alarm etc. Gantry mechanism, including the drive, motor, encoder, gear box etc.",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 21,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "042",
+      "mainCode": "04",
+      "name": "gantry cable reel",
+      "sourceName": "gantry cable reel",
+      "description": "gantry cable reel 、HV slip ring、Cable guide bracket and other protect limit switch etc",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 24,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "043",
+      "mainCode": "04",
+      "name": "gantry steer",
+      "sourceName": "gantry steer",
+      "description": "gantry steer cylinder",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 25,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "044",
+      "mainCode": "04",
+      "name": "gantry tire",
+      "sourceName": "gantry tire",
+      "description": "The tire bubble, air leak, the steel circle bend etc.",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 26,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "045",
+      "mainCode": "04",
+      "name": "gantry turn",
+      "sourceName": "gantry turn",
+      "description": "Steering hydraulic circuit, a lock pin cylinder, detection limit switch, motor etc.",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 27,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "046",
+      "mainCode": "04",
+      "name": "wheel clamp device",
+      "sourceName": "wheel clamp device",
+      "description": "Wheel clamp, the hydraulic lifting device, detection limit switch etc.",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 28,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "047",
+      "mainCode": "04",
+      "name": "gantry chain",
+      "sourceName": "gantry chain",
+      "description": "Chain broken, wear etc.",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 29,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "048",
+      "mainCode": "04",
+      "name": null,
+      "sourceName": "",
+      "description": "",
+      "active": false,
+      "reserved": true,
+      "sourceLine": 30,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "051",
+      "mainCode": "05",
+      "name": "control power",
+      "sourceName": "control power",
+      "description": "Emergency stop switch, speed switch, an overtravel limit switch",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 31,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "061",
+      "mainCode": "06",
+      "name": "Spreader",
+      "sourceName": "lp",
+      "description": "Spreader structure, pump motor, hydraulic circuits etc Twist lock / flipper / extend and retract/ land/ unlock the lock limit switch, cylinders,oil tube, central locking mechanism etc. buttons and indicator lights,such as flipper, oil pump, unlock  the lock, land control relay, terminal row, electronic board, cable of the spreader.",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 32,
+      "nameDecision": "user_confirmed_2026-10-21"
+    },
+    {
+      "code": "062",
+      "mainCode": "06",
+      "name": "Headblock",
+      "sourceName": "",
+      "description": "headblock, pulley,  connected swithc,pulley guardrail etc.",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 36,
+      "nameDecision": "user_confirmed_2026-10-21"
+    },
+    {
+      "code": "063",
+      "mainCode": "06",
+      "name": null,
+      "sourceName": "",
+      "description": "",
+      "active": false,
+      "reserved": true,
+      "sourceLine": 37,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "064",
+      "mainCode": "06",
+      "name": "The over-high hanger",
+      "sourceName": "The over-high hanger",
+      "description": "The over-high hanger main beam, telescopic beam, hooks, twist, twist connect pin etc",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 38,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "071",
+      "mainCode": "07",
+      "name": "Drive / inverter",
+      "sourceName": "Drive / inverter",
+      "description": "Driver board, main control board,  communications board, I/O board,excitation board, the  AC unit, a frequency conversion unit, drive fan",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 3,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "081",
+      "mainCode": "08",
+      "name": "PLC",
+      "sourceName": "PLC",
+      "description": "PLC system includes CPU, I/O module, communication lines, PLC, ECU etc. PLC system in Trolley auxiliary control panel",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 4,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "091",
+      "mainCode": "09",
+      "name": "Engine",
+      "sourceName": "Engine",
+      "description": "Diesel generators, including the transfer and protection device, gearbox, hydraulic pump, steering pump, air-filling pump, oil / water / air, water tank, the fan cover etc.",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 6,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "092",
+      "mainCode": "09",
+      "name": "Generator",
+      "sourceName": "Generator",
+      "description": "Generator, bearing , motor temperature detection, control panel, voltage adjustable plate, power supply MCB of  main generator etc.",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 7,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "093",
+      "mainCode": "09",
+      "name": "Cooling and lubrication system",
+      "sourceName": "Cooling and lubrication system",
+      "description": "The water tank, cooling fan and oil lubrication system",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 8,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "094",
+      "mainCode": "09",
+      "name": "Battery",
+      "sourceName": "Battery",
+      "description": "Battery, power supply circuits",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 9,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "111",
+      "mainCode": "11",
+      "name": "Skew system",
+      "sourceName": "Skew system",
+      "description": "Skew system,motor, hydraulic mechanism etc. T／S／L",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 13,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "121",
+      "mainCode": "12",
+      "name": "HV system",
+      "sourceName": "HV system",
+      "description": "High voltage power supply, Income power switch cabinet, high voltage switch cabinet, transformer, auxiliary transformer Harmonics, power compensation device",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 15,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "131",
+      "mainCode": "13",
+      "name": "Light",
+      "sourceName": "Light",
+      "description": "flootlight、walking light、 bulb, indoor lighting etc. The ballast， circuit, control relay, etc.",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 17,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "141",
+      "mainCode": "14",
+      "name": "Cabin room",
+      "sourceName": "Cabin room",
+      "description": "Operation  switch, the handle, the main power switch or a key switch, lighting switch, chairs, detect lights, buttons,operation switch, door, glass, door lock, wiper, dashboard, warning lights and other lights  in cabin,gantry operation station, BOOM operation station",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 19,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "151",
+      "mainCode": "15",
+      "name": "Auxiliary equipment",
+      "sourceName": "Auxiliary equipment",
+      "description": "Wind speed device, an exhaust fan Horn, walkie talkie, RTD computer, mentaince crane, wind speed device etc. Aisle, railing, staircase, steel structure, engine platform telescopic device,engine platform detection limit switch.",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 20,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "152",
+      "mainCode": "15",
+      "name": "Air-conditioning",
+      "sourceName": "Air-conditioning",
+      "description": "Electrical room air conditioning, cabin  air conditioning",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 23,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "153",
+      "mainCode": "15",
+      "name": "Elevator",
+      "sourceName": "Elevator",
+      "description": "lift door、Level switch、cable、cabin、control box、Brake, wire rope, anti-drop safety device. Motor, inverter, speakers, lights, buttons, emergency stop, gear box, mechanical room, track, gears etc.",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 24,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "154",
+      "mainCode": "15",
+      "name": "Trailer position checking system",
+      "sourceName": "Trailer position checking system",
+      "description": "radiate switch, receiving switch, indicator light,  the control power supply etc.",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 26,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "155",
+      "mainCode": "15",
+      "name": "GPS system",
+      "sourceName": "GPS system",
+      "description": "GPS communication model、GPS terminal server、GPS aerial、GPS fibre-optical transfer model、other GPS combination parts etc",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 27,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "161",
+      "mainCode": "16",
+      "name": "Emergency device",
+      "sourceName": "Emergency device",
+      "description": "hoist/trolley/boom emergency motor、chain、limit switch、gear box etc.",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 28,
+      "nameDecision": "preserve_source"
+    },
+    {
+      "code": "171",
+      "mainCode": "17",
+      "name": "Other mechanism",
+      "sourceName": "Other mechanism",
+      "description": "othe mechanism fault",
+      "active": true,
+      "reserved": false,
+      "sourceLine": 29,
+      "nameDecision": "preserve_source"
+    }
+  ]
+}

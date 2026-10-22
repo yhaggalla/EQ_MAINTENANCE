@@ -1,0 +1,7031 @@
+<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>Sheet0</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table><tr><td colspan="25"><h2>Daily All Running Jobs</h2></td></tr><tr>
+
+<th class="no-print" style="white-space: nowrap;width:10px;">
+
+<a id="dlink" style="display:none;"></a><span style="font-size:30px"> <a href="#" type="button" onclick="tableToExcel('eeee', 'name', 'Daily All Running Jobs_CMMS-LK-2026-10-22');return false;"><span class="glyphicon glyphicon-download-alt"> </span></a><span style="font-size:30px"> <a href="#" type="button" onclick="window.print();return false;"><span class="glyphicon glyphicon-print"> </span></a> </span> </span> 
+
+</th>
+
+<th>
+
+JOb ID
+
+</th>
+
+<th>
+
+CWO No
+
+</th>
+
+<th>
+
+Job Due Date
+
+</th>
+
+<th>
+
+Job Status
+
+</th>
+
+<th>
+
+Job Due Date(Current)
+
+</th>
+
+<th>
+
+Job Status(Current)
+
+</th>
+
+<th>
+
+Priority
+
+</th>
+
+<th>
+
+Crated Time
+
+</th>
+
+<th>
+
+Department
+
+</th>
+
+<th>
+
+Equipment Type
+
+</th>
+
+<th>
+
+Equipment
+
+</th>
+
+<th>
+
+Job Type
+
+</th>
+
+<th>
+
+Job Description
+
+</th>
+
+<th>
+
+Stafft&nbsp;of&nbsp;Mech Tech
+
+</th>
+
+<th>
+
+Hours&nbsp;of&nbsp;Mech Tech
+
+</th>
+
+<th>
+
+Stafft&nbsp;of&nbsp;Elec Tech
+
+</th>
+
+<th>
+
+Hours&nbsp;of&nbsp;Elec Tech
+
+</th>
+
+<th>
+
+Reported Fault
+
+</th>
+
+<th>
+
+Fault Description
+
+</th>
+
+<th>
+
+Corrective Action
+
+</th>
+
+<th>
+
+Remark
+
+</th>
+
+<th>
+
+Job Instruction
+
+</th>
+
+<th>
+
+Work Done Summary
+
+</th>
+
+<th>
+
+Status Remarks
+
+</th>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113894
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+0
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-success">Completed</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-success">Completed</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-22 21:14:19
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+Spreader
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+QC Spreader
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+SQ021
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-warning">Defect</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Indication lamp bracket crack repair
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=18d200ef42e793ea72fe9e265ca6867a1e983120',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 1 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=18d200ef42e793ea72fe9e265ca6867a1e983120',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 2.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=608764d94ac55f91b0cf3f9da02cd9c0226f9180',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 1 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=608764d94ac55f91b0cf3f9da02cd9c0226f9180',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 2.00 </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+Used general PPE
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+Job completed
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113886
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-warning">Added To Daily</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-warning">Added To Daily</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-22 08:56:31
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+QC
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Quay Crane
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+QC003
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-success">WireRope</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+QC Hoist Rope  Replacement
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=1&amp;cm=113886',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> - </span></span></a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=1&amp;cm=113886',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> - </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=113886',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> - </span></span></a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=113886',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> - </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113885
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-22 08:23:03
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+RTG
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Rubber Tyred Gantry Crane
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+RT014
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">CM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Trolley Motor Cover Replacement
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=ee14c5ed0a1c21e5fb493f42346a56fcf0d145ac',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 0 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=ee14c5ed0a1c21e5fb493f42346a56fcf0d145ac',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 0.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=99f25de57b0b9926bc00b0e4e6171090463d2511',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 4 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=99f25de57b0b9926bc00b0e4e6171090463d2511',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 4.00 </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113884
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-22 08:15:26
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+RTG
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Rubber Tyred Gantry Crane
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+RT019
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">CM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Starting fault inspection and repair
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=1&amp;cm=113884',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> - </span></span></a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=1&amp;cm=113884',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> - </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=3fdb60efbe60d557369e266236886f948e567992',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=3fdb60efbe60d557369e266236886f948e567992',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 4.00 </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113883
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-22 08:14:59
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+RTG
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Rubber Tyred Gantry Crane
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+RT007
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">CM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Hoist Motor Abnormal Sound Inspection and Repair
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=ca8ece1227b1ae72dade5b34619d05907c9da8ae',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=ca8ece1227b1ae72dade5b34619d05907c9da8ae',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 4.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=803af16bf6c02bd1c4e1383584e9ca5f97c849a3',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=803af16bf6c02bd1c4e1383584e9ca5f97c849a3',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 4.00 </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113882
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-22 08:06:42
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+RTG
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Rubber Tyred Gantry Crane
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+RT000
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">CM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Crane Inspection
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=5719551efcc8651f6449b5cf176f9e49f29a7bfe',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 1 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=5719551efcc8651f6449b5cf176f9e49f29a7bfe',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 10.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=31b7086cf7b08a56d1155a935dcfb4f72cc66662',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 0 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=31b7086cf7b08a56d1155a935dcfb4f72cc66662',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 0.00 </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113881
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-22 08:01:51
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+RTG
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Rubber Tyred Gantry Crane
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+RT007
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">PM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Engine Service
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=298cef54d51d4bccf80929897f1cadb4fb926a0f',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=298cef54d51d4bccf80929897f1cadb4fb926a0f',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 4.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=94083867da6a95489107c192576094b895a4dd73',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=94083867da6a95489107c192576094b895a4dd73',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 1.00 </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113879
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-warning">Hold</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-">Hold</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-22 07:37:20
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+Mobile
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Sky Lift
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+SK001
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">CM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Tyre Air Inflation Inspection &amp; Repair
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=b8fb11666ab35db942be47a440770d67bb96dde7',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 3 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=b8fb11666ab35db942be47a440770d67bb96dde7',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 2.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=113879',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> - </span></span></a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=113879',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> - </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113878
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+326141
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-22 07:26:11
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+QC
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Quay Crane
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+QC002
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">CM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+anti creeper oil leak repair SS
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=7c10a690d3c5a7315a6a1f45f85fdfdbce123a47',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=7c10a690d3c5a7315a6a1f45f85fdfdbce123a47',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 3.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=113878',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> - </span></span></a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=113878',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> - </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+Job cancelled 
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113877
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-success">Completed</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-success">Completed</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-warning">Medium</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-22 07:17:15
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+Mobile
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Empty Stacker
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+ES006
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">CM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Transmission Oil Leak Inspection and Repair
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=38a270c4607ee6ce85c2ce0a48af4de7ab9a8642',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=38a270c4607ee6ce85c2ce0a48af4de7ab9a8642',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 4.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=113877',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> - </span></span></a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=113877',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> - </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113876
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-success">Completed</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-success">Completed</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-22 07:14:00
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+Mobile
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Workshop
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+WS001
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">CM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+supervisor
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=6580eac8034dd92d019605568d07835ff2fe7b19',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 1 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=6580eac8034dd92d019605568d07835ff2fe7b19',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 10.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=113876',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> - </span></span></a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=113876',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> - </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+Job completed
+Today allocated job supervised 
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113875
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-22 07:12:40
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+QC
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Quay Crane
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+QC003
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">CM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Hoist CAM adjustment (wire rope)
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=1&amp;cm=113875',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> - </span></span></a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=1&amp;cm=113875',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> - </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=58b70039c19bd0f0ee4c1f8c674dbc3999ee8d87',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 1 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=58b70039c19bd0f0ee4c1f8c674dbc3999ee8d87',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 3.00 </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113874
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-22 07:10:52
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+QC
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Quay Crane
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+QC000
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">CM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Workshop arrangment
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=1&amp;cm=113874',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> - </span></span></a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=1&amp;cm=113874',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> - </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=b2116adf4eb8e9a01aad3edbcc861a0801a0f481',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 3 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=b2116adf4eb8e9a01aad3edbcc861a0801a0f481',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 3.00 </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113873
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-warning">Medium</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-22 07:10:26
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+QC
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Quay Crane
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+QC002
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">CM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+SCR Drop Cable/Drum Inspection
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=1&amp;cm=113873',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> - </span></span></a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=1&amp;cm=113873',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> - </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=c52ea6d1f28b1e28058509548d9b5929cd098c7d',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=c52ea6d1f28b1e28058509548d9b5929cd098c7d',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 3.00 </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113872
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+326127
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-success">Completed</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-success">Completed</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-22 07:06:26
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+Spreader
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+QC Spreader
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+SQ021
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">PM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Monthly Service - ZPMC
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=03dd641bcca7057a3e1694e6118ab155b8d244c5',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=03dd641bcca7057a3e1694e6118ab155b8d244c5',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 10.50 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=b4a900d5e6b5a216a57f8d5c9686b51c227f5c1d',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 1 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=b4a900d5e6b5a216a57f8d5c9686b51c227f5c1d',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 10.50 </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+Used general PPE.
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+Job completed. Please refer the checklist.
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113871
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+0
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-success">Completed</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-success">Completed</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-22 07:05:01
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+Spreader
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+QC Spreader
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+SQ008
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">CM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Repair completion checklist
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=a7196254b0624e411bf814bdee65e5dc0b6c65d1',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=a7196254b0624e411bf814bdee65e5dc0b6c65d1',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 1.50 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=d0e39a156ad57435e2b974c9545aedf8a483cdce',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 0 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=d0e39a156ad57435e2b974c9545aedf8a483cdce',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 0.00 </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+Used general PPE.
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+Job completed. Please refer the checklist.
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113870
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+326128
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-success">Completed</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-success">Completed</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-22 07:04:29
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+Spreader
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+QC Spreader
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+SQ008
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">CM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+All gable end twistlock DPT(Nos04)
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=cbecef180236c5bf67b30acdf7fd4625895b5894',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=cbecef180236c5bf67b30acdf7fd4625895b5894',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 6.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=40ee0be52291bdf3770bbd0bd07afb2c30bb8f24',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 0 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=40ee0be52291bdf3770bbd0bd07afb2c30bb8f24',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 0.00 </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+Used general PPE.
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+Job completed. All gable end twistlock were DPT and no any cracks found.
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113869
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-22 07:03:54
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+QC
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Quay Crane
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+QC000
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">CM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+	Barricade arrangement
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=f6d25199160f97073cf1ee246bf76ae27a7aba29',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 1 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=f6d25199160f97073cf1ee246bf76ae27a7aba29',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 10.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=113869',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> - </span></span></a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=113869',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> - </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113868
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+326126
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-success">Completed</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-success">Completed</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-22 07:03:39
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+Spreader
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+QC Spreader
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+SQ021
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">CM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Service completion checklist
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=0764356e3f9507179871c754ec53e8ca12df8848',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 1 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=0764356e3f9507179871c754ec53e8ca12df8848',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 2.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=3380f0a45684c9becc5374cbfb799794035ad6f0',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 1 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=3380f0a45684c9becc5374cbfb799794035ad6f0',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 2.00 </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+Used general PPE.
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+Job completed. Please refer the checklist.
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113867
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-22 07:03:36
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+QC
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Quay Crane
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+QC000
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">CM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+	Mechanical Supervisor
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=95a1cccd1e6da371827fb11630be677eb08a672f',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 1 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=95a1cccd1e6da371827fb11630be677eb08a672f',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 10.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=113867',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> - </span></span></a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=113867',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> - </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113866
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+0
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-success">Completed</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-success">Completed</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-22 07:03:13
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+Spreader
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+QC Spreader
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+SQ021
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">CM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Sensor connection repair
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=06ee29cf81aa81df725921f9429a218a0cf4fd0c',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=06ee29cf81aa81df725921f9429a218a0cf4fd0c',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 1.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=35ca1b6ad348ce79a3f65e01d6fa477cb4d598a8',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 1 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=35ca1b6ad348ce79a3f65e01d6fa477cb4d598a8',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 1.00 </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+Used general PPE.
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+Job completed
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113862
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-warning">Medium</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-21 18:48:48
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+QC
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Quay Crane
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+QC003
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-warning">Defect</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+T/C Motor Coupling Insert Replacement
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=29b8cb996eb27a6578912332c7044d7675ed9e6f',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 0 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=29b8cb996eb27a6578912332c7044d7675ed9e6f',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 0.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=63ba90888795b3c32c805361c95b68043e0d9b01',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=63ba90888795b3c32c805361c95b68043e0d9b01',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 4.00 </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113826
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-21 07:41:45
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+RTG
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Rubber Tyred Gantry Crane
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+RT000
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">CM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Antenna Bracket Condition Inspection
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=4ec17080b173e36e2cdaff2145593bad74282662',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=4ec17080b173e36e2cdaff2145593bad74282662',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 8.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=d09f811838dc3069646aee63c3612cc4a8b277a1',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 0 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=d09f811838dc3069646aee63c3612cc4a8b277a1',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 0.00 </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+RT Antenna bracket condition inspection was completed
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113820
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-21 06:39:55
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+RTG
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Rubber Tyred Gantry Crane
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+RT011
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">CM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Structural Inspection 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=8d2221396c69cbfaca8c08a55391485b517328a5',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=8d2221396c69cbfaca8c08a55391485b517328a5',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 10.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=113820',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> - </span></span></a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=113820',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> - </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+Job Hold on 2026/10/20 (More than Half done as CMTT)
+Job Hold on 2026/10/21
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113724
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+0
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-success">Completed</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-success">Completed</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-19 13:57:06
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+Spreader
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+QC Spreader
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+SQ008
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-warning">Defect</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Main manifold mounting plate crack repair
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=69f3f6064fc10e24d3af18db1b44ae02b3e3931e',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=69f3f6064fc10e24d3af18db1b44ae02b3e3931e',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 6.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=259a2b5e858b3dda41e3b73243defd7ed8a8557e',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 1 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=259a2b5e858b3dda41e3b73243defd7ed8a8557e',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 3.00 </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+Used general PPE
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+Job completed
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113723
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+0
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-success">Completed</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-success">Completed</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-19 13:53:38
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+Spreader
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+QC Spreader
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+SQ008
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-warning">Defect</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Electrical motor fan cover replacement
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=9c3f96e0d8fdb2bd856a42e6cfe5ef99157788c3',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 1 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=9c3f96e0d8fdb2bd856a42e6cfe5ef99157788c3',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 3.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=8bbc78b0e67b2af1c076e4c3e0c48f5b90f49b9e',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 1 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=8bbc78b0e67b2af1c076e4c3e0c48f5b90f49b9e',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 3.00 </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+Used general PPE
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+Job completed. New fan cover was replaced.
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113721
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-19 11:58:19
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+QC
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Quay Crane
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+QC002
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">PM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Trolley electrical service
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=1&amp;cm=113721',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> - </span></span></a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=1&amp;cm=113721',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> - </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=c2d421803c8611835ec9da6e443c409c061d433c',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=c2d421803c8611835ec9da6e443c409c061d433c',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 2.00 </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113701
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+326140
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-success">Completed</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-success">Completed</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-warning">Medium</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-19 09:30:30
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+QC
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Quay Crane
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+QC002
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-warning">BreakDown</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Gantry Wheel Brake Oil Leak Repair LS
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=814f664a51100d67fcff1c02f2df1159b44c7692',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=814f664a51100d67fcff1c02f2df1159b44c7692',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 4.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=113701',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> - </span></span></a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=113701',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> - </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+Gantry fault
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Unable to gantry the crane due to land side wheel brake LS fault
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+When physically checking, it was observed that land side all wheel brakes were not opened properly.Then checked the land side wheel brake hydraulic station and it was noticed that the land side wheel brake pump was not pressurized to its required value. Due to yard RTG recovering process and QC05 fault, the land side wheel brake pump was manually opened, and the pump was switched off from its MCB.Need to inspect this
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+Job completed  gantry  wheel break 
+oil leak repair 
+Land side hydraulic Station Throttle 
+Valve replaced 
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113625
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+0
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-warning">Re-Added to Daily</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-warning">Re-Added to Daily</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-18 07:32:51
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+RTG
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Rubber Tyred Gantry Crane
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+RT000
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">CM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Engine platform fabrication
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=4528a891c87b1133657491c1b191d97ff7ec7ae9',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=4528a891c87b1133657491c1b191d97ff7ec7ae9',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 10.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=113625',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> - </span></span></a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=113625',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> - </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+Job Hold on 2026/10/18
+Job Hold on 2026/10/19
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+The work could not be completed. However, the base structure was fabricated. 2026-10-18
+A frames fabricated 2026-10-19
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113548
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-danger">High</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-16 06:37:39
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+QC
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Quay Crane
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+QC002
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-warning">BreakDown</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Inverter Fault Repair
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=1&amp;cm=113548',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> - </span></span></a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=1&amp;cm=113548',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> - </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=c1cecfb0e186384af5d78f69b380b1bc675174b2',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=c1cecfb0e186384af5d78f69b380b1bc675174b2',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 3.00 </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+Inverter fault
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Unable to gantry due to  Hoist#1 Gantry#1 inverter fault
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+Checked and Found that Cooling Fan Fault had activated in Hoist#1 Gantry#1 module#02. Set it to alarm only mode and released to OPS (L8-32 to 3 )Need to check the issue.
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113498
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-15 06:51:31
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+RTG
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Rubber Tyred Gantry Crane
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+RT014
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">PM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Engine Service
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=a20e1da028b3e317e7e854873e13320419234256',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=a20e1da028b3e317e7e854873e13320419234256',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 4.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=40ab4ba1ae737418567e89b93342c313e1e084e4',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=40ab4ba1ae737418567e89b93342c313e1e084e4',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 1.00 </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113497
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-15 06:51:31
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+RTG
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Rubber Tyred Gantry Crane
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+RT014
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">PM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Crane Overall Grease Lubrication &amp; Quarterly Checklist
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=a5b3f84a859765145080def32ce40e3e6220cf9a',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 6 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=a5b3f84a859765145080def32ce40e3e6220cf9a',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 10.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=af1403a4437cbfbb346ce7ec267e7edbad0e3cc8',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 3 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=af1403a4437cbfbb346ce7ec267e7edbad0e3cc8',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 13.50 </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113467
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-success">Completed</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-success">Completed</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-danger">High</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-14 14:55:42
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+Mobile
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Small Forklift
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+SF010
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">CM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Rear Axle Link Arm Inspection and Repair
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=c063d4d7ceffe178d08f4fe748887ce13d233046',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=c063d4d7ceffe178d08f4fe748887ce13d233046',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 2.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=113467',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> - </span></span></a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=113467',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> - </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113360
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+326143
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-success">Completed</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-success">Completed</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-warning">Medium</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-13 09:17:34
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+QC
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Quay Crane
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+QC003
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-warning">Defect</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Trolley Catenary Sheave Inspection
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=32b643f66eaa41f850595b578d2e125a4389e44a',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=32b643f66eaa41f850595b578d2e125a4389e44a',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 8.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=65765825630a25ea9c44577b219026e3e09ddb3a',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 0 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=65765825630a25ea9c44577b219026e3e09ddb3a',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 0.00 </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+Job completed  Trolley Catenary
+Sheave inspected 
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113346
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+0
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-success">Completed</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-success">Completed</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-warning">Medium</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-13 09:16:54
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+QC
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Quay Crane
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+QC003
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-warning">Defect</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Hoist Sheave Inspection
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=aefd9866b3edfeb670fe199c86c5fb26cf1a9b87',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=aefd9866b3edfeb670fe199c86c5fb26cf1a9b87',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 8.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=3d3fb2eea39524bc6b2b0ff4e255406e0541826e',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 0 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=3d3fb2eea39524bc6b2b0ff4e255406e0541826e',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 0.00 </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+Job completed Hoist Sheave inspected 
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+113323
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-13 08:07:39
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+QC
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Quay Crane
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+QC002
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">PM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Main Motor Air Filter Cleaning
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=1&amp;cm=113323',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> - </span></span></a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=1&amp;cm=113323',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> - </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=e02bf41b66016de1f35b5e82476c7b1b135a7bd6',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=e02bf41b66016de1f35b5e82476c7b1b135a7bd6',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 2.00 </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+112837
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-05 16:02:22
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+QC
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Quay Crane
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+QC003
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">PM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Falling object inspection
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=4d95ba0724dac0aea9d138f43f517c19e985f5b9',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 1 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=4d95ba0724dac0aea9d138f43f517c19e985f5b9',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 8.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=33d5aa91fb09a2c543ff9398a62d2d8144dfc948',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 1 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=33d5aa91fb09a2c543ff9398a62d2d8144dfc948',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 8.00 </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+112584
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-10-01 07:41:03
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+Mobile
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Reach Stacker
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+RS002
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">CM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+hydraulic hose preparation work 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=bb1a6d080a16204fdf6caf898202e4f07e6b3026',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=bb1a6d080a16204fdf6caf898202e4f07e6b3026',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 8.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=112584',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> - </span></span></a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=112584',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> - </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+38035h
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+112548
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-warning">Medium</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-09-30 14:11:50
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+QC
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Quay Crane
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+QC002
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-warning">BreakDown</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Anemometer Fault Repair
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=1&amp;cm=112548',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> - </span></span></a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=1&amp;cm=112548',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> - </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=a2e1063bd1cb101525b8a786e291319cfc58e04d',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=a2e1063bd1cb101525b8a786e291319cfc58e04d',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 2.00 </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+Crane cut off
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Operator informed that crane functions were cut of
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+Checked and found that anemometer fault was appeared on the fault display, after inspecting the programme it was notice that anemometer was showing abnormal values.Then fault was temporary bypassed and crane given back to ops.Need to check the annomometer
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+112363
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-09-28 10:28:29
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+QC
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Quay Crane
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+QC002
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">PM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Head block electrical service
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=1&amp;cm=112363',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> - </span></span></a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=1&amp;cm=112363',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> - </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=78fc9c38728dffb0a467e49333d3b3dfbd638956',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=78fc9c38728dffb0a467e49333d3b3dfbd638956',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 2.00 </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+109032
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+326142
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-08-09 07:44:59
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+QC
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Quay Crane
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+QC002
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">PM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Back reach service
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=aead2f81db121a85fd72575f0be8471ac719a67f',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=aead2f81db121a85fd72575f0be8471ac719a67f',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 4.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=109032',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> - </span></span></a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=109032',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> - </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+Job cancelled 
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+108578
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+326139
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-07-31 07:33:39
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+QC
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Quay Crane
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+QC003
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">CM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Painting
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=e9cad3356e02cd86cbcb63dc46413752f4e17dd5',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 3 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=e9cad3356e02cd86cbcb63dc46413752f4e17dd5',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 10.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=108578',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> - </span></span></a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=108578',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> - </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+Job cancelled 
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+108499
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-07-29 10:08:02
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+Mobile
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Small Forklift
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+SF010
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">CM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Carraige Guard Damage Inspection and Repair
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=a2f5ac352319eb24921b3e09546684d79b15e291',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=a2f5ac352319eb24921b3e09546684d79b15e291',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 2.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=108499',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> - </span></span></a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=108499',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> - </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+108090
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-07-22 10:33:08
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+Mobile
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Small Forklift
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+SF010
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">CM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Side Shifting Rail Cleaning and Lubrication
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=1e857e423c19665611dc41409a1cf76b475c65c5',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=1e857e423c19665611dc41409a1cf76b475c65c5',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 2.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=108090',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> - </span></span></a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=108090',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> - </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+107165
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-danger">High</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-07-08 15:28:40
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+Mobile
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Small Forklift
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+SF010
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">CM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Bonnet Jack Inspection and Repair
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=2645d381fffa05472e0c800570f7d4da07287f12',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=2645d381fffa05472e0c800570f7d4da07287f12',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 4.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=107165',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> - </span></span></a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=107165',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> - </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+103812
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-success">Completed</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-success">Completed</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-05-22 11:29:46
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+Mobile
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Empty Stacker
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+ES004
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">CM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+20/40 Wear Pad Replacement
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=1&amp;cm=103812',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> - </span></span></a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=1&amp;cm=103812',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> - </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=103812',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> - </span></span></a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=103812',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> - </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+98353
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-danger">High</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2026-02-27 13:55:48
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+Mobile
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Small Forklift
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+SF010
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">CM</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Seat Cover Damage Inspection and Repair
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=2e798ff2d145a9146e181ac4585ced2b63bafebf',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=2e798ff2d145a9146e181ac4585ced2b63bafebf',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 4.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=98353',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> - </span></span></a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/create&amp;emp=2&amp;cm=98353',0,0) ; return false;" title="Create">  <span class="label-group "><span class="label label-danger"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> - </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr><tr>
+
+<td style="white-space: nowrap;width:10px;" class="no-print">
+
+</td>
+
+<td title="JOb ID" style="white-space: nowrap ;  " class="">
+
+69819
+
+</td>
+
+<td title="CWO No" style="white-space: nowrap ;  " class="">
+
+326138
+
+</td>
+
+<td title="Job Due Date" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Job Due Date(Current)" style="white-space: nowrap ;  " class="">
+
+2026-10-22
+
+</td>
+
+<td title="Job Status(Current)" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-primary">Initialized</span>
+
+</td>
+
+<td title="Priority" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-info">Low</span>
+
+</td>
+
+<td title="Crated Time" style="white-space: nowrap ;  " class="">
+
+2024-12-02 12:35:08
+
+</td>
+
+<td title="Department" style="white-space: nowrap ;  " class="">
+
+QC
+
+</td>
+
+<td title="Equipment Type" style="white-space: nowrap ;  " class="">
+
+Quay Crane
+
+</td>
+
+<td title="Equipment" style="white-space: nowrap ;  " class="">
+
+QC003
+
+</td>
+
+<td title="Job Type" style="white-space: nowrap ;  " align="center" class="">
+
+<span class="label label-warning">Defect</span>
+
+</td>
+
+<td title="Job Description" style="white-space: nowrap ;  " class="longparagraph">
+
+Gantry Wheel Brake Unit Replacement LS#4
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=5a5a7d2ee4923ba00fb2769571768355782f5074',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 2 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Mech Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=5a5a7d2ee4923ba00fb2769571768355782f5074',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 4.00 </span></span></a> 
+
+</td>
+
+<td title="Stafft&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=fa07bdea8ebe6acaa5861bd4768d457e63cb5fb7',0,0) ; return false;" title="Edit"><span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-user"></i> </span><span class="label label-primary"> 0 </span></span> </a> 
+
+</td>
+
+<td title="Hours&nbsp;of&nbsp;Elec Tech" style="white-space: nowrap ;  " class="">
+
+<a href="#" class="abasic" onclick="newWindow('?r=job/staff/form/edit&amp;84847f1609e8ff3143b5d4925d053acc=fa07bdea8ebe6acaa5861bd4768d457e63cb5fb7',0,0) ; return false;" title="Edit">  <span class="label-group "><span class="label label-default"> <i class="glyphicon glyphicon-time"></i> </span><span class="label label-warning"> 0.00 </span></span></a> 
+
+</td>
+
+<td title="Reported Fault" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Fault Description" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Corrective Action" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Remark" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Job Instruction" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+<td title="Work Done Summary" style="white-space: nowrap ;  " class="longparagraph">
+
+Job cancelled 
+
+</td>
+
+<td title="Status Remarks" style="white-space: nowrap ;  " class="longparagraph">
+
+
+</td>
+
+</tr></table></body></html>

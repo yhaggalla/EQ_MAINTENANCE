@@ -3,16 +3,19 @@ import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { sources } from './parameters.mjs';
 const V = a => new T.Vector3(...a.map(x=>x/1000));
 export const mats = {
-  structure:new T.MeshStandardMaterial({color:'#929ea7',roughness:.72,metalness:.28}),
+  structure:new T.MeshStandardMaterial({color:'#cc1930',roughness:.68,metalness:.18}),
   metal:new T.MeshStandardMaterial({color:'#c0c8cd',roughness:.5,metalness:.6}),
   dark:new T.MeshStandardMaterial({color:'#414b55',roughness:.64,metalness:.25}),
   rubber:new T.MeshStandardMaterial({color:'#303740',roughness:.95}),
   white:new T.MeshStandardMaterial({color:'#e7ecee',roughness:.7}),
   glass:new T.MeshStandardMaterial({color:'#65899d',roughness:.2,metalness:.15,transparent:true,opacity:.36,depthWrite:false,side:T.DoubleSide}),
   marker:new T.MeshStandardMaterial({color:'#a8b5bb',roughness:.8,wireframe:true}),
+  yellow:new T.MeshStandardMaterial({color:'#e7b52d',roughness:.7,metalness:.15}),
+  finish:new T.MeshStandardMaterial({color:'#ffffff',roughness:.68,metalness:.18,vertexColors:true}),
+  cictFlag:new T.MeshStandardMaterial({color:'#ffffff',roughness:.72,metalness:0}),
 };
 Object.entries(mats).forEach(([k,m])=>m.name=k);
-function clean(g) { for(const k of Object.keys(g.attributes)) if(!['position','normal'].includes(k))g.deleteAttribute(k); if(!g.index)g.setIndex(Array.from({length:g.attributes.position.count},(_,i)=>i));g.clearGroups();return g; }
+function clean(g) { for(const k of Object.keys(g.attributes)) if(!['position','normal','color','uv'].includes(k))g.deleteAttribute(k); if(!g.index)g.setIndex(Array.from({length:g.attributes.position.count},(_,i)=>i));g.clearGroups();return g; }
 export class Builder {
   constructor(){this.root=new T.Group();this.root.name='rtg-zp12-1874';this.nodes=[];this.objects=new Map();this.recipes=[];this.pending=new Map();}
   node(key,label,parent=null,sub=null,source='structure',kind='position',extra={}){
@@ -23,11 +26,22 @@ export class Builder {
   }
   container(key,label,parent,source,extra={}){return this.node(key,label,parent,null,source,'container',extra);}
   put(k,type,args,g,material='structure'){
-    if(material==='metal') material='structure'; // same neutral inspection finish; merge batches without removing geometry
+    // Vertex colours keep paint, lettering and safety stripes in the owning assembly's batch.
+    // Glass and rubber retain their separate optical properties; no runtime decal dependency.
+    if(material==='structure'&&(k.startsWith('spreader.')||k.startsWith('headblock.')))material='yellow';
+    if(material==='metal'&&!k.startsWith('trolley.rail.')&&!k.startsWith('gantry.tyre.')&&!k.startsWith('hoist.')&&!k.startsWith('reeving.')&&!k.startsWith('trolley.wheel.'))material=k.startsWith('spreader.')||k.startsWith('headblock.')?'yellow':'structure';
+    if(!['glass','marker','rubber','cictFlag'].includes(material)&&!g.attributes.color){
+      const color=mats[material]?.color??new T.Color(material),values=new Float32Array(g.attributes.position.count*3);
+      for(let i=0;i<values.length;i+=3){values[i]=color.r;values[i+1]=color.g;values[i+2]=color.b;}
+      g.setAttribute('color',new T.BufferAttribute(values,3));material='finish';
+    }
+    if(g.attributes.color)material='finish';
+    if(material!=='cictFlag')g.deleteAttribute('uv');
     this.recipes.push({nodeKey:k,primitive:type,parameters:args,authoringUnits:'mm',coordinateSpace:'semantic node local; parent transforms in scene',provenance:this.nodes.find(n=>n.key===k).provenance,confidence:'low-to-medium',endpoints:'Explicit centres/sizes or endpoints in parameters; shape not manufacturing authority'});
-    const groups=this.pending.get(k);if(!groups.has(material))groups.set(material,[]);groups.get(material).push(clean(g));return g;
+    g.userData.recipeIndex=this.recipes.length-1;const groups=this.pending.get(k);if(!groups.has(material))groups.set(material,[]);groups.get(material).push(clean(g));return g;
   }
   box(k,c,s,mat='structure'){return this.put(k,'box',{centre:c,size:s},new T.BoxGeometry(...s.map(x=>x/1000)).translate(...c.map(x=>x/1000)),mat);}
+  panel(k,points,mat='glass'){const vertices=[];for(let i=1;i<points.length-1;i++)vertices.push(...points[0],...points[i],...points[i+1]);const g=new T.BufferGeometry();g.setAttribute('position',new T.Float32BufferAttribute(vertices.map(x=>x/1000),3));g.computeVertexNormals();return this.put(k,'flat-panel',{points},g,mat);}
   beam(k,a,b,w,d,mat='structure'){
     const A=V(a),B=V(b),g=new T.BoxGeometry(w/1000,A.distanceTo(B),d/1000);g.applyQuaternion(new T.Quaternion().setFromUnitVectors(new T.Vector3(0,1,0),B.clone().sub(A).normalize()));g.translate(...A.add(B).multiplyScalar(.5).toArray());return this.put(k,'beam',{a,b,width:w,depth:d},g,mat);
   }
@@ -46,5 +60,5 @@ export class Builder {
     for(let i=0;i<32;i++){const ang=i*Math.PI/16;for(const side of[-1,1]){const A=[side*35,Math.cos(ang)*(r-25),Math.sin(ang)*(r-25)],B=[side*(w-70),Math.cos(ang+.055)*(r-30),Math.sin(ang+.055)*(r-30)];this.beam(k,A,B,20,25,'rubber');}}
   }
   rail(k,points,height=1100){for(let i=0;i<points.length-1;i++){const a=points[i],b=points[i+1];for(const h of[height,height*.5])this.tube(k,[a[0],a[1]+h,a[2]],[b[0],b[1]+h,b[2]],22,'metal',6);const len=Math.hypot(...a.map((v,j)=>v-b[j])),count=Math.max(1,Math.ceil(len/1500));for(let j=0;j<=count;j++){const p=a.map((v,c)=>v+(b[c]-v)*j/count);this.tube(k,p,[p[0],p[1]+height,p[2]],22,'metal',6);}}}
-  flush(){for(const[k,groups]of this.pending){for(const[mat,geos]of groups){if(!geos.length)continue;const merged=mergeGeometries(geos,false);const mesh=new T.Mesh(merged,mats[mat]);mesh.name=k+'--'+mat;this.objects.get(k).add(mesh);geos.forEach(g=>g.dispose());}}this.pending.clear();this.root.updateMatrixWorld(true);}
+  flush(){for(const[k,groups]of this.pending){for(const[mat,geos]of groups){if(!geos.length)continue;const merged=mergeGeometries(geos,false);const mesh=new T.Mesh(merged,mats[mat]);mesh.name=k+'--'+mat;let start=0;mesh.userData.primitiveRanges=geos.map(g=>{const r={recipeIndex:g.userData.recipeIndex,start,count:g.attributes.position.count};start+=r.count;return r;});this.objects.get(k).add(mesh);geos.forEach(g=>g.dispose());}}this.pending.clear();this.root.updateMatrixWorld(true);}
 }

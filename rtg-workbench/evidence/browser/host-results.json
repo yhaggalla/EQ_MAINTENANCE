@@ -1,0 +1,26 @@
+{
+  "result": "PASS",
+  "loaderCalls": [
+    {
+      "url": "/model/1/manifest.json",
+      "kind": "manifest"
+    },
+    {
+      "url": "/model/1/scene.glb",
+      "kind": "model"
+    }
+  ],
+  "checks": [
+    "Independent import and mount",
+    "Host loader receives manifest and model requests with AbortSignal",
+    "Host-controlled selection",
+    "A/B history isolation",
+    "DOM and renderer cleanup"
+  ],
+  "notTested": [
+    "Real authentication server or 401/403 authorization",
+    "Production EQ host integration",
+    "React bridge runtime (strict typecheck recorded separately)"
+  ],
+  "errors": []
+}

@@ -18,7 +18,7 @@ window.EQ = window.EQ || {};
     const w = EQ.perm.write(), a = EQ.perm.admin();
     const eq = EQ.eq(j.equipmentId);
     const live = !j.isCancelled && j.workStatus !== 'completed';
-    acts.push(h('a', { class: 'btn btn-sm', href: '#/jobs/' + j.id }, icon('eye'), 'Open'));
+    acts.push(h('a', { class: 'btn btn-sm', href: '#/eq/jobs/special/' + j.id }, icon('eye'), 'Open'));
     if (live && w) {
       acts.push(h('button', { type: 'button', class: 'btn-sm', onClick: () => EQ.dlg.jobForm({ job: j }) }, icon('edit'), 'Edit'));
       if (j.workStatus === 'pending') acts.push(h('button', { type: 'button', class: 'btn-sm', onClick: () => { const r = EQ.api.moveJob(j.id, 'current'); EQ.toast(r.ok ? 'Started ' + j.number : r.message, 'Prototype: in memory only.'); } }, 'Start'));
@@ -38,9 +38,9 @@ window.EQ = window.EQ || {};
     const ctx = {};
     const acts = actions(j, ctx);
     return h('article', { class: 'job' + (j.isCancelled ? ' cancelled' : ''), 'aria-label': j.number + ' ' + j.title },
-      h('div', { class: 'row between' }, h('a', { href: '#/jobs/' + j.id, class: 'mono' }, j.number), h('span', null, h('span', { class: 'tag' }, KIND[j.kind]), ' ', statusTag(j), j.priority === 'high' ? h('span', { class: 'tag gold', style: 'margin-left:.25rem' }, 'High priority') : null)),
+      h('div', { class: 'row between' }, h('a', { href: '#/eq/jobs/special/' + j.id, class: 'mono' }, j.number), h('span', null, h('span', { class: 'tag' }, KIND[j.kind]), ' ', statusTag(j), j.priority === 'high' ? h('span', { class: 'tag gold', style: 'margin-left:.25rem' }, 'High priority') : null)),
       h('h3', null, j.title),
-      h('div', { class: 'meta' }, h('span', null, h('a', { href: '#/equipment/' + eq.id }, eq.code)), h('span', null, EQ.targetLabel(j))),
+      h('div', { class: 'meta' }, h('span', null, h('a', { href: '#/eq/equipment/' + eq.id }, eq.code)), h('span', null, EQ.targetLabel(j))),
       h('div', { class: 'meta' },
         j.workStatus === 'completed' ? h('span', null, 'Completed ' + EQ.fmtDate(j.completedOn)) : h('span', null, j.plannedOn ? 'Planned ' + EQ.fmtDate(j.plannedOn) : 'No planned date'),
         j.responsible ? h('span', null, 'Responsible: ' + j.responsible) : null, h('span', null, 'Created by ' + (j.createdBy === EQ.user().id ? 'you' : EQ.userName(j.createdBy))),
@@ -58,40 +58,26 @@ window.EQ = window.EQ || {};
     if (q.kind) list = list.filter((j) => j.kind === q.kind);
     if (q.main) list = list.filter((j) => { const m = j.mainId && EQ.eq(j.equipmentId).mains.find((x) => x.id === j.mainId); return m && m.code === q.main; });
     const df = q.dateField === 'completed' ? 'completedOn' : 'plannedOn';
-    if (q.from) list = list.filter((j) => j[df] && j[df] >= q.from);
-    if (q.to) list = list.filter((j) => j[df] && j[df] <= q.to);
+    if (q.from && q.dateField) list = list.filter((j) => j[df] && j[df] >= q.from);
+    if (q.to && q.dateField) list = list.filter((j) => j[df] && j[df] <= q.to);
     if (ui.q) list = list.filter((j) => (j.number + ' ' + j.title + ' ' + EQ.eq(j.equipmentId).code).toLowerCase().includes(ui.q.toLowerCase()));
     return list;
   }
 
-  EQ.views.jobs = function jobs(q) {
+  /** Special jobs board (SOW V2 s4.3): used inside the EQ Jobs tab; the page header, the shared filters (equipment, type, date range,
+   *  search) and the data-state banners are provided by the EQ Jobs wrapper (views-eqjobs.js). */
+  EQ.specialBoard = function specialBoard(q) {
     const S = EQ.state;
-    const page = h('div', { class: 'page' });
-    const setQ = (patch) => EQ.nav('/jobs', { ...q, ...patch });
-    page.appendChild(h('div', { class: 'page-head' }, h('div', null, h('p', { class: 'eyebrow' }, 'Work'), h('h1', null, 'Jobs'), h('p', null, 'Pending, Current and Completed repair and replacement work. Moving a job uses the same rules as the forms. Completing a job never changes operational status.')),
-      EQ.perm.write() ? h('button', { type: 'button', class: 'primary', 'data-fk': 'add-job', onClick: () => EQ.dlg.jobForm({ equipmentId: q.equipment || '' }) }, icon('plus'), 'Add job') : h('span', { class: 'tag gold' }, 'Read-only: Management cannot create or change jobs')));
-
-    if (S.data === 'loading') { page.appendChild(h('div', { 'aria-busy': 'true', role: 'status', class: 'board' }, [1, 2, 3].map(() => h('div', { class: 'skeleton', style: 'height:16rem' })))); return page; }
-    if (S.data === 'error') { page.appendChild(h('div', { class: 'notice error', role: 'alert' }, icon('wifi-off'), h('div', null, h('p', null, h('strong', null, 'Jobs could not be loaded. '), 'Nothing is shown as completed or pending without data.'), h('div', { class: 'actions' }, h('button', { type: 'button', class: 'btn-sm', onClick: () => EQ.refresh(true) }, 'Retry'))))); return page; }
-    if (S.data === 'stale') page.appendChild(h('div', { class: 'notice warn', role: 'status', style: 'margin-bottom:.6rem' }, icon('wifi-off'), h('p', null, 'Showing last good data from ' + EQ.fmtTime(S.lastGoodAt) + '; the latest refresh failed.')));
-    if (S.data === 'empty') { page.appendChild(h('div', { class: 'panel empty' }, icon('list'), h('h2', null, 'No jobs yet'), h('p', null, 'Jobs appear here once equipment is registered and the EQ Team creates work. History starts at go-live; earlier work can be entered manually with past business dates.'))); return page; }
-
+    const page = h('div', { class: 'special-board stack' });
+    const setQ = (patch) => EQ.nav('/eq/jobs/special', { ...q, ...patch });
     const mainsUsed = EQ.catalog.mains;
-    const search = h('input', { type: 'search', id: 'jq', 'data-fk': 'jq', value: ui.q, placeholder: 'Number, title or equipment', autocomplete: 'off' });
-    search.addEventListener('input', () => { ui.q = search.value; EQ.rerender(); });
     const sel = (id, label, key, options, any) => { const s = h('select', { id, 'data-fk': id, onChange: (e) => setQ({ [key]: e.target.value }) }, h('option', { value: '' }, any), options.map(([v, l]) => h('option', { value: v, selected: q[key] === v ? true : null }, l))); return h('div', { class: 'field' }, h('label', { for: id }, label), s); };
-    page.appendChild(h('form', { class: 'panel filters', role: 'search', 'aria-label': 'Job filters', onSubmit: (e) => e.preventDefault() },
-      sel('flt-eq', 'Equipment', 'equipment', S.D.equipment.map((e) => [e.id, e.code]), 'All equipment'),
-      sel('flt-type', 'Type', 'type', [['QC', 'QC'], ['RTG', 'RTG'], ['ES', 'ES']], 'All types'),
+    page.appendChild(h('form', { class: 'panel filters', role: 'search', 'aria-label': 'Special job filters', onSubmit: (e) => e.preventDefault() },
       sel('flt-kind', 'Kind', 'kind', [['repair', 'Repair'], ['replacement', 'Replacement']], 'All kinds'),
       sel('flt-main', 'Main mechanism', 'main', mainsUsed.map((m) => [m.code, m.code + ' ' + m.name]), 'All mechanisms'),
-      sel('flt-df', 'Date field', 'dateField', [['planned', 'Planned date'], ['completed', 'Completion date']], 'Planned date'),
-      h('div', { class: 'field' }, h('label', { for: 'flt-from' }, 'From'), h('input', { type: 'date', id: 'flt-from', 'data-fk': 'flt-from', value: q.from || '', onChange: (e) => setQ({ from: e.target.value }) })),
-      h('div', { class: 'field' }, h('label', { for: 'flt-to' }, 'To'), h('input', { type: 'date', id: 'flt-to', 'data-fk': 'flt-to', value: q.to || '', onChange: (e) => setQ({ to: e.target.value }) })),
-      h('div', { class: 'field grow' }, h('label', { for: 'jq' }, 'Search'), search),
+      sel('flt-df', 'Apply date range to', 'dateField', [['planned', 'Planned date'], ['completed', 'Completion date']], 'Not applied to special jobs'),
       h('label', { class: 'check', style: 'min-height:2.5rem' }, h('input', { type: 'checkbox', checked: q.includeCancelled === '1' ? true : null, 'data-fk': 'flt-canc', onChange: (e) => setQ({ includeCancelled: e.target.checked ? '1' : '' }) }), 'Include cancelled'),
-      h('div', { class: 'field' }, h('span', { class: 'label', id: 'jl' }, 'Layout'), h('div', { class: 'seg', role: 'group', 'aria-labelledby': 'jl' }, ['board', 'tabs'].map((v) => h('button', { type: 'button', 'aria-pressed': (q.layout || 'board') === v ? 'true' : 'false', 'data-fk': 'jl-' + v, onClick: () => setQ({ layout: v }) }, v === 'board' ? 'Board' : 'Tabs')))),
-      h('button', { type: 'button', class: 'btn-sm', onClick: () => { ui.q = ''; EQ.nav('/jobs', {}); } }, 'Clear filters')));
+      h('div', { class: 'field' }, h('span', { class: 'label', id: 'jl' }, 'Layout'), h('div', { class: 'seg', role: 'group', 'aria-labelledby': 'jl' }, ['board', 'tabs'].map((v) => h('button', { type: 'button', 'aria-pressed': (q.layout || 'board') === v ? 'true' : 'false', 'data-fk': 'jl-' + v, onClick: () => setQ({ layout: v }) }, v === 'board' ? 'Board' : 'Tabs'))))));
 
     const list = filtered(q);
     const cols = ['pending', 'current', 'completed'];
@@ -117,13 +103,13 @@ window.EQ = window.EQ || {};
     if (!j) { page.appendChild(h('div', { class: 'notice error', role: 'alert' }, icon('alert'), h('p', null, 'No job with this link exists (404).'))); return page; }
     const eq = EQ.eq(j.equipmentId);
     const ctx = {};
-    page.appendChild(h('nav', { 'aria-label': 'Breadcrumb' }, h('ol', { class: 'breadcrumb', style: 'margin-bottom:.6rem' }, h('li', null, h('a', { href: '#/jobs' }, 'Jobs')), h('li', null, h('span', { 'aria-current': 'page' }, j.number)))));
+    page.appendChild(h('nav', { 'aria-label': 'Breadcrumb' }, h('ol', { class: 'breadcrumb', style: 'margin-bottom:.6rem' }, h('li', null, h('a', { href: '#/eq/jobs/special' }, 'Jobs')), h('li', null, h('span', { 'aria-current': 'page' }, j.number)))));
     page.appendChild(h('header', { class: 'panel eq-head' }, h('div', null, h('p', { class: 'eyebrow' }, KIND[j.kind] + ' job'), h('h1', null, j.number, statusTag(j))), h('div', { class: 'facts' }, h('strong', null, j.title)), h('div', { class: 'actions' }, actions(j, ctx).filter((_, i) => i > 0))));
     if (ctx.why) page.appendChild(h('p', { class: 'small muted' }, 'Cancel unavailable: ' + ctx.why));
     const kv = (rows) => h('dl', { class: 'kv' }, rows.filter(Boolean).map(([k, v]) => [h('dt', null, k), h('dd', null, v)]));
     page.appendChild(h('div', { class: 'grid-2', style: 'align-items:start;margin-top:.7rem' },
       h('section', { class: 'panel panel-pad stack' }, h('h2', null, 'Details'), kv([
-        ['Equipment', h('a', { href: '#/equipment/' + eq.id }, eq.code)], ['Target', EQ.targetLabel(j)], ['Kind', KIND[j.kind]], ['Priority', j.priority || 'Not set'],
+        ['Equipment', h('a', { href: '#/eq/equipment/' + eq.id }, eq.code)], ['Target', EQ.targetLabel(j)], ['Kind', KIND[j.kind]], ['Priority', j.priority || 'Not set'],
         ['Planned', j.plannedOn ? EQ.fmtDate(j.plannedOn) : 'Not set'], ['Responsible', j.responsible || 'Not set'], ['Created', EQ.fmtInstant(j.createdUtc) + ' by ' + EQ.userName(j.createdBy)], ['Version', String(j.version)],
         j.workStatus === 'completed' ? ['Completed on', EQ.fmtDate(j.completedOn) + ' (business date)'] : null, j.completionNote ? ['Completion note', j.completionNote] : null, j.description ? ['Description', j.description] : null,
         j.isCancelled ? ['Cancelled', EQ.fmtInstant(j.cancelledUtc) + ' by ' + EQ.userName(j.cancelledBy) + ': ' + j.cancelReason] : null]),
@@ -131,7 +117,7 @@ window.EQ = window.EQ || {};
       h('section', { class: 'panel panel-pad stack' }, h('h2', null, 'Progress and corrections'), h('ul', { class: 'tl' }, [...j.events].reverse().map((e) => h('li', { class: 'status' }, h('strong', null, e.kind), h('span', { class: 'when' }, EQ.fmtInstant(e.at) + ' by ' + EQ.userName(e.by)), e.note ? h('span', null, e.note) : null))),
         j.corrections.length ? h('div', { class: 'stack' }, h('h3', null, 'Admin corrections (prior values retained)'), j.corrections.map((c) => h('div', { class: 'nonwork' }, h('strong', null, 'Correction ' + c.n + ': ' + c.reason), c.items.map((it) => h('div', null, it.field + ': ', h('s', null, it.before), ' → ', h('strong', null, it.after))), h('span', { class: 'small muted' }, EQ.userName(c.by) + ', ' + EQ.fmtInstant(c.at))))) : null)));
     page.appendChild(h('section', { class: 'panel panel-pad stack', style: 'margin-top:.7rem' }, h('h2', null, 'Replacement lines'),
-      j.lines.length ? h('div', { class: 'table-wrap' }, h('table', null, h('thead', null, h('tr', null, ['Position', 'Installed', 'Serial', 'Quantity', 'Replaced on', 'Removed'].map((c) => h('th', { scope: 'col' }, c)))), h('tbody', null, j.lines.map((l) => { const p = EQ.pos(l.positionId); return h('tr', null, h('th', { scope: 'row' }, h('a', { href: '#/equipment/' + eq.id + '?main=' + p.mainId + '&sub=' + p.subId + '&part=' + p.id }, p.name)), h('td', null, l.item.desc), h('td', null, l.item.serial || 'Unknown'), h('td', null, l.qty + ' ' + l.uom), h('td', null, EQ.fmtDate(l.replacedOn)), h('td', null, l.removedKnown ? (l.removedDesc || '') + (l.removedSerial ? ' (serial ' + l.removedSerial + ')' : '') : 'Unknown')); }))))
+      j.lines.length ? h('div', { class: 'table-wrap' }, h('table', null, h('thead', null, h('tr', null, ['Position', 'Installed', 'Serial', 'Quantity', 'Replaced on', 'Removed'].map((c) => h('th', { scope: 'col' }, c)))), h('tbody', null, j.lines.map((l) => { const p = EQ.pos(l.positionId); return h('tr', null, h('th', { scope: 'row' }, h('a', { href: '#/eq/equipment/' + eq.id + '?main=' + p.mainId + '&sub=' + p.subId + '&part=' + p.id }, p.name)), h('td', null, l.item.desc), h('td', null, l.item.serial || 'Unknown'), h('td', null, l.qty + ' ' + l.uom), h('td', null, EQ.fmtDate(l.replacedOn)), h('td', null, l.removedKnown ? (l.removedDesc || '') + (l.removedSerial ? ' (serial ' + l.removedSerial + ')' : '') : 'Unknown')); }))))
         : h('p', { class: 'muted small', style: 'margin:0' }, j.kind === 'repair' ? 'Repair jobs take no replacement lines.' : 'No replacement lines yet. Lines are entered when the job is completed.')));
     page.appendChild(h('section', { class: 'panel panel-pad stack', style: 'margin-top:.7rem' }, h('h2', null, 'Work evidence'), h('p', { class: 'muted small', style: 'margin:0' }, 'Evidence attachments (JPEG, PNG, PDF) are readable by all three roles and uploadable by Admin and EQ Team only. Upload and protected download are built in P08; this prototype shows no files.')));
     return page;

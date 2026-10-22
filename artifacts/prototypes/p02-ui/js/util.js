@@ -65,6 +65,22 @@ window.EQ = window.EQ || {};
     'rtg': '<path d="M3 17h18M5 17V6M19 17V6M3 6h18M9 6v5h6V6M8 21h2m4 0h2"/>',
     'es': '<rect x="4" y="8" width="16" height="8" rx="2"/><path d="M8 16v3M16 16v3M7 8V5h10v3M10 12h4"/>',
     'download': '<path d="M12 4v11m-4-4 4 4 4-4M5 20h14"/>',
+    // P02B additions
+    'board': '<rect x="3" y="4" width="5" height="16" rx="1"/><rect x="9.5" y="4" width="5" height="16" rx="1"/><rect x="16" y="4" width="5" height="16" rx="1"/>',
+    'pause': '<path d="M8 5v14M16 5v14"/>', 'play': '<path d="m8 5 11 7-11 7z"/>',
+    'tv': '<rect x="3" y="5" width="18" height="12" rx="2"/><path d="M9 21h6M12 17v4"/>',
+    'camera': '<path d="M4 8h3l1.5-2.5h7L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.4"/>',
+    'flag': '<path d="M6 21V4M6 5h11l-2 4 2 4H6"/>',
+    'chart': '<path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/>',
+    'sync': '<path d="M4 12a8 8 0 0 1 13.5-5.8L20 8M20 4v4h-4M20 12a8 8 0 0 1-13.5 5.8L4 16M4 20v-4h4"/>',
+    'sliders': '<path d="M4 7h10M18 7h2M4 17h2M10 17h10M14 4v6M8 14v6"/>',
+    'ext': '<path d="M14 4h6v6M20 4l-9 9M18 14v6H4V6h6"/>',
+    'inspect': '<circle cx="10.5" cy="10.5" r="6"/><path d="m20 20-5-5M8 10.5l2 2 3-4"/>',
+    'service': '<path d="M14.5 6.5a4 4 0 0 0 5 5l-9.7 9.7a2.1 2.1 0 0 1-3-3z"/><path d="M5 5l3 3"/>',
+    'hold': '<circle cx="12" cy="12" r="9"/><path d="M10 9v6M14 9v6"/>',
+    'undo': '<path d="M9 7 4 12l5 5M4 12h9a6 6 0 0 1 6 6"/>',
+    'arrow-r': '<path d="M5 12h14m-5-5 5 5-5 5"/>',
+    'grid': '<rect x="4" y="4" width="7" height="7"/><rect x="13" y="4" width="7" height="7"/><rect x="4" y="13" width="7" height="7"/><rect x="13" y="13" width="7" height="7"/>',
   };
   EQ.icon = function icon(name, cls) {
     const s = h('svg', { class: 'icon' + (cls ? ' ' + cls : ''), viewBox: '0 0 24 24', 'aria-hidden': 'true', focusable: 'false' });

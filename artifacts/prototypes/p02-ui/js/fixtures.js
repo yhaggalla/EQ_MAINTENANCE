@@ -9,10 +9,15 @@ window.EQ = window.EQ || {};
     admin: { id: 'u-admin', name: 'Synthetic Admin' },
     eqTeam: { id: 'u-eq-a', name: 'Synthetic EQ Team user A' },
     management: { id: 'u-mgmt', name: 'Synthetic Management user' },
+    // P02B personas (SOW V2 roles). All synthetic.
+    facTeam: { id: 'u-fac-a', name: 'Synthetic FAC user A' },
+    eqfac: { id: 'u-eqfac', name: 'Synthetic EQ + FAC user' },
+    noAccess: { id: 'u-noacc', name: 'Synthetic user (all tabs off)' },
   };
   const OTHER_EQ = { id: 'u-eq-b', name: 'Synthetic EQ Team user B' };
   EQ.USERS = USERS;
-  EQ.userName = (id) => [USERS.admin, USERS.eqTeam, USERS.management, OTHER_EQ].find((u) => u.id === id)?.name || id;
+  const FAC_OTHERS = [{ id: 'u-fac-b', name: 'Synthetic FAC user B' }, { id: 'u-fac-c', name: 'Synthetic FAC user C' }];
+  EQ.userName = (id) => [...Object.values(USERS), OTHER_EQ, ...FAC_OTHERS].find((u) => u.id === id)?.name || (id === null || id === undefined ? 'System' : id);
 
   // ---- model templates (applicability) ----
   const A = 'applicable', N = 'notApplicable';
@@ -254,4 +259,13 @@ window.EQ = window.EQ || {};
     });
   }
   EQ._instantiate = instantiate;
+
+  /** P02B: attach the V2 layers (access matrix, ZMMS, spare parts, FAC) to a freshly built fixture set. Order matters:
+   *  spare parts add baseline events, ZMMS annotates equipment, FAC is independent of EQ records (SOW V2 s2). */
+  EQ.buildV2 = function buildV2(D) {
+    D.access = EQ.access.fresh();
+    EQ.spares.build(D);
+    EQ.zmms.build(D);
+    EQ.fac.build(D);
+  };
 })(window.EQ);

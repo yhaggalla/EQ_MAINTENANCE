@@ -1,0 +1,532 @@
+{
+  "11": [
+    {
+      "label": "Skew capability shown",
+      "value": "±5°",
+      "source": {
+        "document": "M14",
+        "pdfPage": 15
+      },
+      "qualifier": "Manual nominal"
+    },
+    {
+      "label": "Animated skew / telescope",
+      "value": "Disabled",
+      "source": {
+        "document": "M14",
+        "pdfPage": 27
+      },
+      "qualifier": "Pivots, configuration and vendor limits unresolved"
+    }
+  ],
+  "13": [
+    {
+      "label": "Trolley floodlights",
+      "value": "Simplified fittings from arrangement callout",
+      "source": {
+        "document": "M14",
+        "pdfPage": 21
+      },
+      "qualifier": "Mounting and fitting dimensions estimated"
+    }
+  ],
+  "14": [
+    {
+      "label": "Cab body height / width",
+      "value": "Approx. 2.2 m / 2.0 m",
+      "source": {
+        "document": "M13",
+        "pdfPage": 11
+      },
+      "qualifier": "Approximate source description"
+    },
+    {
+      "label": "Cab body length / forward offset",
+      "value": "2.4 m / 1.0 m from trolley centre plane",
+      "source": {
+        "document": "M14",
+        "pdfPage": 21
+      },
+      "qualifier": "Medium-confidence raster reference planes"
+    },
+    {
+      "label": "Floor elevation used",
+      "value": "24.850 m",
+      "source": {
+        "document": "M14",
+        "pdfPage": 21
+      },
+      "qualifier": "Visual assumption favouring detailed trolley view; GA differs"
+    },
+    {
+      "label": "Travel relationship",
+      "value": "Cab and suspension follow trolley translation",
+      "source": {
+        "document": "M14",
+        "pdfPage": 34
+      },
+      "qualifier": "Manual nominal"
+    },
+    {
+      "label": "Interior",
+      "value": "Seat, paired consoles, wiper, roof AC",
+      "source": {
+        "document": "M14",
+        "pdfPage": 34
+      },
+      "qualifier": "Simplified visible envelopes; exact vendor geometry unavailable"
+    }
+  ],
+  "15": [
+    {
+      "label": "Frame",
+      "value": "Two box girders · four tapered legs · two sills",
+      "source": {
+        "document": "M14",
+        "pdfPage": 22
+      },
+      "qualifier": "Manual nominal"
+    },
+    {
+      "label": "Access route",
+      "value": "Stair-side zigzag flights, landings and girder walks",
+      "source": {
+        "document": "M14",
+        "pdfPage": 20
+      },
+      "qualifier": "Flight direction corrected from GA; tread counts and sections estimated"
+    },
+    {
+      "label": "Cabin / room cooling",
+      "value": "External envelopes and qualified locations",
+      "source": {
+        "document": "M14",
+        "pdfPage": 34
+      },
+      "qualifier": "Vendor details not supplied"
+    }
+  ],
+  "equipment": [
+    {
+      "label": "Rated load under spreader",
+      "value": "40.5 t",
+      "source": {
+        "document": "M14",
+        "pdfPage": 15
+      },
+      "qualifier": "Manual nominal"
+    },
+    {
+      "label": "Span / equalizer wheelbase",
+      "value": "23.47 m / 7.90 m",
+      "source": {
+        "document": "M14",
+        "pdfPage": 20
+      },
+      "qualifier": "Manual nominal"
+    },
+    {
+      "label": "Maximum lift interface",
+      "value": "21.20 m",
+      "source": {
+        "document": "M14",
+        "pdfPage": 15
+      },
+      "qualifier": "Manual nominal"
+    },
+    {
+      "label": "Configuration",
+      "value": "8 tyres · 4 driven · 8 ropes · 4 trolley wheels",
+      "source": {
+        "document": "M14",
+        "pdfPage": 12
+      },
+      "qualifier": "Manual nominal"
+    },
+    {
+      "label": "Container arrangement",
+      "value": "6 + 1 · one over six",
+      "source": {
+        "document": "M14",
+        "pdfPage": 12
+      },
+      "qualifier": "Project configuration; stacking/pass-over rows conflict in tables"
+    },
+    {
+      "label": "Rail elevation used",
+      "value": "27.754 m",
+      "source": {
+        "document": "M14",
+        "pdfPage": 20
+      },
+      "qualifier": "Low-confidence visual assumption; exact raster read unresolved"
+    },
+    {
+      "label": "Appearance",
+      "value": "Neutral inspection finish",
+      "source": {
+        "document": "M14",
+        "pdfPage": 20
+      },
+      "qualifier": "No approved fleet paint or artwork supplied"
+    }
+  ],
+  "01": [
+    {
+      "label": "Hoist motor",
+      "value": "1 × 180 kW · YASKAWA 5RN315L08B9",
+      "source": {
+        "document": "M14",
+        "pdfPage": 16
+      },
+      "qualifier": "Manual nominal"
+    },
+    {
+      "label": "Drum nominal barrel diameter",
+      "value": "1,200 mm · 8 groove groups",
+      "source": {
+        "document": "M14",
+        "pdfPage": 16
+      },
+      "qualifier": "Eight groups verified; groove pitch and winding pattern assumed"
+    },
+    {
+      "label": "Rope arrangement",
+      "value": "8 ropes · nominal Ø28 mm · reeving ratio 1",
+      "source": {
+        "document": "M14",
+        "pdfPage": 16
+      },
+      "qualifier": "M13 p13 states Ø29 mm: conflict remains"
+    },
+    {
+      "label": "Hoist speeds, rated / empty",
+      "value": "23 / 52 m/min",
+      "source": {
+        "document": "M14",
+        "pdfPage": 15
+      },
+      "qualifier": "Manual nominal"
+    },
+    {
+      "label": "Rope lengths",
+      "value": "43.5 m × 2; 42.3 m × 4; 44.9 m × 2",
+      "source": {
+        "document": "M14",
+        "pdfPage": 16
+      },
+      "qualifier": "Manual nominal"
+    },
+    {
+      "label": "Reducer",
+      "value": "SEW ML4PSF140E-1565 · ratio 127.5",
+      "source": {
+        "document": "M14",
+        "pdfPage": 16
+      },
+      "qualifier": "Manual nominal"
+    },
+    {
+      "label": "Motor speed / supply",
+      "value": "778 / 1760 rpm · 380 V",
+      "source": {
+        "document": "M14",
+        "pdfPage": 16
+      },
+      "qualifier": "Manual nominal"
+    },
+    {
+      "label": "Sheaves",
+      "value": "12 on trolley; no headblock sheaves in eight-rope variant",
+      "source": {
+        "document": "M14",
+        "pdfPage": 27
+      },
+      "qualifier": "Topology corroborated M13 p193; axes and tangencies assumed"
+    },
+    {
+      "label": "Horizontal guide sheaves",
+      "value": "Four staggered guide positions; Ø1.0 m display envelope",
+      "source": {
+        "document": "M14",
+        "pdfPage": 21
+      },
+      "qualifier": "Visually estimated from plan; original JL2860603 required"
+    }
+  ],
+  "02": [
+    {
+      "label": "Rail gauge",
+      "value": "6,400 mm",
+      "source": {
+        "document": "M14",
+        "pdfPage": 21
+      },
+      "qualifier": "Manual nominal"
+    },
+    {
+      "label": "Wheelbase",
+      "value": "4,050 mm (2,025 + 2,025)",
+      "source": {
+        "document": "M14",
+        "pdfPage": 21
+      },
+      "qualifier": "Drawing-derived; medium-confidence raster read"
+    },
+    {
+      "label": "Operating travel",
+      "value": "18,500 mm total · ±9.25 m",
+      "source": {
+        "document": "M14",
+        "pdfPage": 20
+      },
+      "qualifier": "Manual nominal"
+    },
+    {
+      "label": "Drive units",
+      "value": "2 × 15 kW · direct wheel drives",
+      "source": {
+        "document": "M14",
+        "pdfPage": 16
+      },
+      "qualifier": "Manual nominal"
+    },
+    {
+      "label": "Wheels / rails",
+      "value": "4 × Ø500 mm · 80 × 80 mm square rails",
+      "source": {
+        "document": "M14",
+        "pdfPage": 16
+      },
+      "qualifier": "Manual nominal"
+    },
+    {
+      "label": "Trolley speed",
+      "value": "70 m/min",
+      "source": {
+        "document": "M14",
+        "pdfPage": 16
+      },
+      "qualifier": "Manual nominal"
+    },
+    {
+      "label": "Gearmotor",
+      "value": "SEW KH107DV160 · ratio 37",
+      "source": {
+        "document": "M14",
+        "pdfPage": 16
+      },
+      "qualifier": "Manual nominal"
+    },
+    {
+      "label": "Output speed / torque",
+      "value": "44.6 rpm / 3212 N·m",
+      "source": {
+        "document": "M14",
+        "pdfPage": 16
+      },
+      "qualifier": "Manual nominal"
+    },
+    {
+      "label": "Energy carrier",
+      "value": "IGUS 5050RHD.30.300.0",
+      "source": {
+        "document": "M14",
+        "pdfPage": 36
+      },
+      "qualifier": "Project chain choice; U path, anchors and section assumed"
+    }
+  ],
+  "04": [
+    {
+      "label": "Tyres / driven positions",
+      "value": "8 / 4",
+      "source": {
+        "document": "M14",
+        "pdfPage": 17
+      },
+      "qualifier": "Manual nominal"
+    },
+    {
+      "label": "Working tyre diameter",
+      "value": "Approximately 1,860 mm",
+      "source": {
+        "document": "M14",
+        "pdfPage": 17
+      },
+      "qualifier": "Effective working diameter; profile and width assumed"
+    },
+    {
+      "label": "Tyre designation",
+      "value": "21.00-35 · 40 ply · tubeless",
+      "source": {
+        "document": "M14",
+        "pdfPage": 17
+      },
+      "qualifier": "Manual nominal"
+    },
+    {
+      "label": "Bogie axle pitch",
+      "value": "2,800 mm",
+      "source": {
+        "document": "M14",
+        "pdfPage": 20
+      },
+      "qualifier": "Manual nominal"
+    },
+    {
+      "label": "Gantry drives",
+      "value": "4 × 25 kW",
+      "source": {
+        "document": "M14",
+        "pdfPage": 17
+      },
+      "qualifier": "Manual nominal"
+    },
+    {
+      "label": "Travel speeds, rated / empty",
+      "value": "30 / 90 m/min",
+      "source": {
+        "document": "M14",
+        "pdfPage": 17
+      },
+      "qualifier": "Manual nominal"
+    },
+    {
+      "label": "Reducers / total ratio",
+      "value": "30.61 / 104.43 including chain",
+      "source": {
+        "document": "M14",
+        "pdfPage": 17
+      },
+      "qualifier": "Manual nominal"
+    },
+    {
+      "label": "Drive chain / sprockets",
+      "value": "160SW-2 × 102; 50.8 mm pitch; 58 / 17 teeth",
+      "source": {
+        "document": "M14",
+        "pdfPage": 17
+      },
+      "qualifier": "Manual nominal"
+    }
+  ],
+  "06": [
+    {
+      "label": "Spreader",
+      "value": "Electric telescopic 20/40 ft arrangement",
+      "source": {
+        "document": "M14",
+        "pdfPage": 13
+      },
+      "qualifier": "Manual nominal"
+    },
+    {
+      "label": "Headblock reference spans",
+      "value": "5,000 mm frame · 5,380 mm rope terminals",
+      "source": {
+        "document": "M14",
+        "pdfPage": 21
+      },
+      "qualifier": "Medium-confidence raster reads; detailed interfaces assumed"
+    },
+    {
+      "label": "Demo pose",
+      "value": "Retracted; headblock and spreader move together",
+      "source": {
+        "document": "M14",
+        "pdfPage": 28
+      },
+      "qualifier": "Vendor model and telescope geometry unavailable"
+    },
+    {
+      "label": "Supplier detail",
+      "value": "Bromma model/serial drawings not supplied",
+      "source": {
+        "document": "M14",
+        "pdfPage": 13
+      },
+      "qualifier": "Exact flipper, twistlock and telescope geometry unavailable"
+    }
+  ],
+  "09": [
+    {
+      "label": "Project power arrangement",
+      "value": "Diesel generator + lithium battery",
+      "source": {
+        "document": "M14",
+        "pdfPage": 12
+      },
+      "qualifier": "Manual nominal"
+    },
+    {
+      "label": "Engine",
+      "value": "CAT C7 · 205 kW · 1800 rpm",
+      "source": {
+        "document": "M14",
+        "pdfPage": 15
+      },
+      "qualifier": "M13 p22 gives 150 kW; keep conflict visible"
+    },
+    {
+      "label": "Alternator",
+      "value": "180 kVA · 380 V · 50 Hz · 3 phase",
+      "source": {
+        "document": "M14",
+        "pdfPage": 15
+      },
+      "qualifier": "M13 uses kW; different units not silently reconciled"
+    },
+    {
+      "label": "Battery capacity / placement",
+      "value": "Not provided",
+      "source": {
+        "document": "M14",
+        "pdfPage": 14
+      },
+      "qualifier": "Qualified area marker only"
+    },
+    {
+      "label": "Cooling / exhaust routing",
+      "value": "Not established",
+      "source": {
+        "document": "M14",
+        "pdfPage": 14
+      },
+      "qualifier": "Approximate envelope; vendor layout required"
+    }
+  ],
+  "05": [
+    {
+      "label": "Control-power cabinets",
+      "value": "Room location only",
+      "source": {
+        "document": "M14",
+        "pdfPage": 36
+      },
+      "qualifier": "Exact identities and cabinet layout unavailable"
+    }
+  ],
+  "07": [
+    {
+      "label": "Drive-system cabinets",
+      "value": "Room location only",
+      "source": {
+        "document": "M14",
+        "pdfPage": 36
+      },
+      "qualifier": "Qualified area marker, not exact equipment position"
+    }
+  ],
+  "08": [
+    {
+      "label": "PLC cabinet",
+      "value": "Room location only",
+      "source": {
+        "document": "M14",
+        "pdfPage": 36
+      },
+      "qualifier": "Qualified area marker, not exact equipment position"
+    }
+  ]
+}

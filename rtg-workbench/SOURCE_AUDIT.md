@@ -24,7 +24,8 @@ The cover, project configuration, parameter tables, general/trolley arrangements
 | C07 | M13 p8 trolley motor1650 rpm; M14 p16 says1740 rpm. | Retained in source text; demonstration wheel rotation is geometric, not inferred motor rpm. |
 | C08 | GA overall-height raster and rail elevation last digits are not unambiguous. | Rail elevation27754 mm is a LOW confidence estimate, never included among exact-match assertions. Overall total-height annotation remains unavailable. |
 | C09 | p27/28 include optional side shift and multiple hydraulic/electric variants. M13 p24 says electric telescopic spreader but adjusting cylinders on headblock. | Show a qualified headblock adjustment representation; disable steering, telescope and skew animation until pivots/limits/variant are confirmed. |
-| C10 | Source photos show different paint schemes and cranes, with no fleet-specific appearance approval. | Neutral grey inspection material, no invented CICT/flag/logo artwork. Appearance unresolved. |
+| C10 | User supplied seven CICT photos, clarified CICT company flag, and added its artwork PNG. | Photo-referenced red steel, white enclosures, yellow spreader, CICT flag/ZPMC/capacity signs and hazard guards. The supplied flag PNG is embedded unchanged. Paint values, ZPMC lettering and panel dimensions remain approximate. See APPEARANCE.md. |
+| C11 | Uniform overlays show the cabin elevation and suspended headblock pose differ between the small GA and enlarged trolley arrangement. Plan projection / machinery handedness is also unclear. | Use the 1.0 m forward envelope and 2.4 m body-length dimensions; raise the assumed cabin floor to24.850 m to match the detailed trolley view. Keep a true top projection and document remaining plan/reeving differences. No warped reference or invented exact vertical offset. |
 
 ## Provenance and coordinate conventions
 
@@ -42,6 +43,14 @@ Span endpoints are opposite support centre planes. Wheelbase endpoints are front
 4. JL28604 access drawings: exact stair flights, landings, tread/handrail dimensions and door openings.
 5. JL2860606 cab and JL28609 power-room/vendor layouts: exact offsets, interior dimensions, generator cooling/exhaust and lithium battery placement.
 6. Bromma spreader model/serial-specific drawings: telescopic travel, twistlock pitch, flipper pivots, headblock connection and adjustment mechanisms.
-7. IGUS project layout and electrical room cabinet schedule; lighting/sensor installation drawings; approved RTG photographs/paint and identity artwork.
+7. IGUS project layout and electrical room cabinet schedule; lighting/sensor installation drawings; measured paint codes and original identity-artwork masters (user-supplied appearance photos are now available).
 
 The standalone model remains provisional until these material gaps are resolved. Export dimensional checks prove implementation of the readable dimensions; they do not certify an exact replica or a safe operating envelope.
+
+## User-authorized visual assumptions and corrections
+
+On22 October2026 the user confirmed that some technical data is unavailable or incorrect and authorized assumptions for the best visible result, specifically flagging the trolley, hoist, ropes and cabin. The final model uses that instruction to complete the visual assembly while retaining source qualifications. Revisions include a4.05 m trolley base, cabin forward/length reference planes, sloping cabin glazing and door, a cabin access landing/ladder, oriented fall-sheave grooves, staggered horizontal guide sheaves scaled from the plan, coupling shafts, headblock links and a moving energy carrier. A reversed stair-flight direction was corrected from the side overlay.
+
+The horizontal guide wheel diameter is visually estimated at1.0 m; fall sheaves at0.72 m. These are **not newly established vendor parameters**. Rope free spans use geometric tangency at the assumed fall sheaves and their headblock endpoints remain attached during motion. Fixed drum-to-guide lead segments remain a schematic route; a complete reeving/wrap simulation is not claimed. Drum rotation follows average free-span shortening and does not solve eight separate groove payout schedules. The constant-length energy-chain path uses an assumed0.3 m bend radius and12 m straight length.
+
+The approved catalogue is frozen in `source/mechanisms-approved.snapshot.json` for reproducible standalone exports. It is a copy, not an edited authority. `source/technical-data.mjs` / generated `technical-specifications.json` carry human-readable source observations and unresolved entries for the demo/host technical sheet. Numerical values in the interface cite manual pages and separate assumptions from table values.

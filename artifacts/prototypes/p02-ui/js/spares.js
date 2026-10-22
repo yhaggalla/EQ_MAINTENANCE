@@ -1,0 +1,199 @@
+/* P02B: major spare-part condition register (DATA_CONTRACT s16, API s4.21-s4.23). SYNTHETIC data only.
+   The register is the current-state view of the installation events at a designated position (one installation history,
+   S22). The next predicted replacement is a calendar estimate (base date + expected life in months), computed at read and never
+   stored; it is never shown when the base date or the life is unknown. */
+window.EQ = window.EQ || {};
+(function (EQ) {
+  const S$ = (EQ.spares = {});
+  const Sd = () => EQ.state.D.spare;
+  const fail = (status, code, message, fields) => ({ ok: false, status, code, message, fields: fields || {} });
+  const parts = (iso) => iso.split('-').map(Number);
+  const addMonths = (iso, n) => { const [y, m, d] = parts(iso); const t = new Date(Date.UTC(y, m - 1 + n, 1)); const last = new Date(Date.UTC(t.getUTCFullYear(), t.getUTCMonth() + 1, 0)).getUTCDate(); t.setUTCDate(Math.min(d, last)); return t.getUTCFullYear() + '-' + String(t.getUTCMonth() + 1).padStart(2, '0') + '-' + String(t.getUTCDate()).padStart(2, '0'); };
+  const dayDiff = (a, b) => { const [y1, m1, d1] = parts(a), [y2, m2, d2] = parts(b); return Math.round((Date.UTC(y1, m1 - 1, d1) - Date.UTC(y2, m2 - 1, d2)) / 864e5); };
+  const monthsDiff = (a, b) => { const [y1, m1, d1] = parts(a), [y2, m2, d2] = parts(b); return (y2 - y1) * 12 + (m2 - m1) - (d2 < d1 ? 1 : 0); };
+  S$.addMonths = addMonths;
+
+  S$.build = function build(D) {
+    const today = EQ.todayColombo();
+    const ago = (days) => new Date(Date.now() - days * 864e5).toISOString();
+    const sp = (D.spare = { types: [], designated: {}, remarks: {}, history: [], dueSoonDays: 90 });
+    const type = (code, name, life) => { const t = { id: 'spt-' + code, code, name, defaultLife: life, active: true }; sp.types.push(t); return t; };
+    const T = {
+      motor: type('hoist-motor', 'Hoist motor', 120), gearbox: type('hoist-gearbox', 'Hoist gearbox', 180), brake: type('hoist-brake', 'Hoist brake', 96),
+      ropeMain: type('wire-rope-main-hoist', 'Wire rope set, main hoist', 36), ropeBoom: type('wire-rope-boom', 'Wire rope set, boom hoist', 48), ropeTrolley: type('wire-rope-trolley', 'Wire rope set, trolley', 36),
+      wheel: type('trolley-wheel', 'Trolley wheel', 60), spreader: type('spreader', 'Spreader', 240), tyre: type('tyre-set', 'Tyre set', 36), engine: type('engine', 'Engine', null),
+    };
+    // commissioning dates (synthetic; a real date is Admin-entered). QC-DEMO-03 stays unknown: no prediction for Original parts there.
+    const comm = { 'eq-qc-demo-01': '2018-03-15', 'eq-qc-demo-02': '2019-06-20', 'eq-rtg-demo-01': '2016-01-10' };
+    D.equipment.forEach((e) => { e.commissionedOn = comm[e.id] || null; });
+    const designate = (eqCode, key, t, over) => { const p = D.positions.find((x) => x.equipmentId === 'eq-' + eqCode.toLowerCase() && x.key === key); if (p) sp.designated[p.id] = { typeId: t.id, lifeOverride: over == null ? null : over }; return p; };
+    const KEYS = [['hoist.drive.motor.a', T.motor], ['hoist.drive.motor.b', T.motor], ['hoist.drive.gearbox.a', T.gearbox], ['hoist.emergency.brake.a', T.brake], ['hoist.rope.set.main', T.ropeMain], ['boom.rope.set.main', T.ropeBoom], ['trolley.rope.set.main', T.ropeTrolley], ['trolley.wheel.position.a', T.wheel], ['trolley.wheel.position.b', T.wheel], ['spreader.frame', T.spreader]];
+    ['QC-DEMO-01', 'QC-DEMO-02'].forEach((c) => KEYS.forEach(([k, t]) => designate(c, k, t)));
+    designate('RTG-DEMO-01', 'gantry.tyre.set.a', T.tyre); designate('RTG-DEMO-01', 'engine.main', T.engine, 144);
+    // a per-equipment life override that puts the QC-DEMO-01 boom rope set inside the due-soon window (computed from today)
+    const boomRope = designate('QC-DEMO-01', 'boom.rope.set.main', T.ropeBoom, monthsDiff(comm['eq-qc-demo-01'], EQ.shiftDay(today, 50)));
+    // baseline events for Original parts (Record Original) and a few notes; replaced parts come from the real events of the job fixtures
+    const base = (eqCode, key, item, by) => {
+      const p = D.positions.find((x) => x.equipmentId === 'eq-' + eqCode.toLowerCase() && x.key === key); if (!p) return;
+      if (D.events.some((e) => e.positionId === p.id && !e.voided)) return;
+      D.events.push({ id: 'ev-base-' + p.id, positionId: p.id, seq: D.events.filter((e) => e.positionId === p.id).length + 1, kind: 'baselineRecorded', businessDate: null, jobId: null, lineId: null, removedFromEventId: null, removedKnown: false, removedDesc: null, removedSerial: null, installed: { ...item, qty: 1, uom: p.uom }, recordedUtc: ago(60), recordedBy: by || 'u-admin', voided: false });
+    };
+    base('QC-DEMO-01', 'hoist.drive.motor.b', { desc: 'Main hoist motor (as supplied, synthetic)', mfr: 'Synthetic Motors Ltd', partNo: 'SYN-HM-450', serial: null });
+    base('QC-DEMO-01', 'hoist.drive.gearbox.a', { desc: 'Main hoist gearbox (as supplied, synthetic)', mfr: 'Synthetic Gears', partNo: 'SYN-GB-12', serial: 'SYN-G-0007' });
+    base('QC-DEMO-01', 'hoist.emergency.brake.a', { desc: 'Emergency disc brake (as supplied, synthetic)', mfr: 'Synthetic Brakes', partNo: 'SYN-BR-3', serial: null });
+    base('QC-DEMO-01', 'boom.rope.set.main', { desc: 'Boom hoist rope set (as supplied, synthetic)', mfr: 'Synthetic Ropes', partNo: 'SYN-RP-40', serial: null });
+    base('QC-DEMO-01', 'trolley.wheel.position.a', { desc: 'Trolley wheel (as supplied, synthetic)', mfr: 'Synthetic Wheels', partNo: 'SYN-TW-310', serial: null });
+    base('QC-DEMO-02', 'hoist.drive.gearbox.a', { desc: 'Main hoist gearbox (as supplied, synthetic)', mfr: 'Synthetic Gears', partNo: 'SYN-GB-12', serial: 'SYN-G-0102' });
+    base('QC-DEMO-02', 'hoist.emergency.brake.a', { desc: 'Emergency disc brake (as supplied, synthetic)', mfr: 'Synthetic Brakes', partNo: 'SYN-BR-3', serial: null });
+    base('QC-DEMO-02', 'spreader.frame', { desc: 'Spreader (as supplied, synthetic)', mfr: 'Synthetic Spreaders', partNo: 'SYN-SP-40', serial: 'SYN-S-0044' });
+    // QC-DEMO-01 trolley wheel B, QC-DEMO-02 motor B stay "not recorded": no event, no prediction, no claim of Original.
+    // remarks and history
+    const pm = (eqCode, key) => D.positions.find((x) => x.equipmentId === 'eq-' + eqCode.toLowerCase() && x.key === key);
+    const note = (p, text) => { if (p) sp.remarks[p.id] = text; };
+    note(pm('QC-DEMO-01', 'hoist.emergency.brake.a'), 'Pads measured at 60 % (synthetic remark). Replacement not yet planned.');
+    note(boomRope, 'Planned replacement EQJ-2026-000107 (pending).');
+    // history: one row per non-voided event at a designated position, then register-only entries
+    let rev = {};
+    const hist = (pos, source, before, after, extra) => { rev[pos.id] = (rev[pos.id] || 0) + 1; sp.history.push({ posId: pos.id, equipmentId: pos.equipmentId, rev: rev[pos.id], source, before, after, reason: null, by: 'u-eq-a', at: ago(5), jobId: null, ...(extra || {}) }); };
+    Object.keys(sp.designated).forEach((id) => {
+      const pos = EQ.pos(id); if (!pos) return;
+      let prev = null;
+      D.events.filter((e) => e.positionId === id && !e.voided).sort((a, b) => a.seq - b.seq).forEach((e) => {
+        const after = { condition: e.kind === 'baselineRecorded' ? 'original' : 'replaced', replacedOn: e.businessDate, brand: e.installed.mfr, model: e.installed.partNo, serial: e.installed.serial };
+        hist(pos, e.kind === 'baselineRecorded' ? 'registerOriginal' : e.jobId ? 'jobCompletion' : 'registerReplacement', prev, after, { jobId: e.jobId, by: e.recordedBy, at: e.recordedUtc });
+        prev = after;
+      });
+    });
+    const amendP = pm('QC-DEMO-01', 'hoist.drive.motor.a');
+    if (amendP) {
+      const last = sp.history.filter((h) => h.posId === amendP.id).slice(-1)[0];
+      hist(amendP, 'registerAmend', last.after, { ...last.after, model: 'SYN-HM-450-R2' }, { reason: 'Part number corrected from the nameplate photo (synthetic)', by: 'u-admin', at: ago(2) });
+    }
+  };
+
+  // ---------------------------------------------------------------- derivations (computed at read)
+  S$.types = () => Sd().types;
+  S$.typeOf = (id) => Sd().types.find((t) => t.id === id);
+  S$.isMajor = (posId) => !!Sd().designated[posId];
+  S$.expectedLife = (posId) => {
+    const d = Sd().designated[posId]; if (!d) return { months: null, source: null };
+    if (d.lifeOverride != null) return { months: d.lifeOverride, source: 'override' };
+    const t = S$.typeOf(d.typeId); return t && t.defaultLife != null ? { months: t.defaultLife, source: 'type' } : { months: null, source: null };
+  };
+  S$.row = function row(posId) {
+    const pos = EQ.pos(posId), eq = EQ.eq(pos.equipmentId), d = Sd().designated[posId];
+    const evs = EQ.state.D.events.filter((e) => e.positionId === posId && !e.voided).sort((a, b) => a.seq - b.seq);
+    const latest = evs[evs.length - 1] || null;
+    const repl = latest && latest.kind !== 'baselineRecorded';
+    const condition = !latest ? null : repl ? 'replaced' : 'original';
+    const life = S$.expectedLife(posId);
+    const baseDate = condition === 'replaced' ? latest.businessDate : condition === 'original' ? eq.commissionedOn : null;
+    let predicted = null, why = null;
+    if (!condition) why = 'No prediction (condition not recorded)';
+    else if (!baseDate) why = 'No prediction (commissioning date unknown)';
+    else if (life.months == null) why = 'No prediction (expected life not set)';
+    else predicted = addMonths(baseDate, life.months);
+    const today = EQ.todayColombo();
+    let flag = null, daysTo = null;
+    if (predicted) { daysTo = dayDiff(predicted, today); if (daysTo < 0) flag = 'overdue'; else if (daysTo <= Sd().dueSoonDays) flag = 'dueSoon'; }
+    const t = d ? S$.typeOf(d.typeId) : null;
+    const sub = eq.subs.find((s) => s.id === pos.subId), main = eq.mains.find((m) => m.id === pos.mainId);
+    return { posId, pos, eq, equipmentId: eq.id, typeId: d && d.typeId, typeName: t ? t.name : '', condition, replacedOn: condition === 'replaced' ? latest.businessDate : null, brand: latest ? latest.installed.mfr : null, model: latest ? latest.installed.partNo : null, serial: latest ? latest.installed.serial : null, desc: latest ? latest.installed.desc : null,
+      lifeMonths: life.months, lifeSource: life.source, baseDate, predicted, why, flag, daysTo, remarks: Sd().remarks[posId] || '', subCode: sub ? sub.code : null, mainCode: main ? main.code : null, currentEventId: latest ? latest.id : null, commissionedOn: eq.commissionedOn };
+  };
+  S$.rows = function rows(eqId, scope) {
+    const eq = EQ.eq(eqId);
+    let list = EQ.positionsOf(eqId).filter((p) => p.state === 'active' && Sd().designated[p.id]);
+    if (scope) {
+      if (scope.level === 'main') list = list.filter((p) => p.mainId === scope.id);
+      else if (scope.level === 'sub') list = list.filter((p) => p.subId === scope.id);
+      else if (scope.level === 'part') list = list.filter((p) => p.id === scope.id);
+    }
+    return list.map((p) => S$.row(p.id)).sort((a, b) => EQ.cmp(a.mainCode + a.subCode + a.pos.name, b.mainCode + b.subCode + b.pos.name));
+  };
+  S$.allRows = (filter) => EQ.state.D.equipment.flatMap((e) => (e.lifecycle === 'active' ? S$.rows(e.id) : [])).filter((r) => !filter || filter(r));
+  S$.counts = (rows) => ({ total: rows.length, overdue: rows.filter((r) => r.flag === 'overdue').length, dueSoon: rows.filter((r) => r.flag === 'dueSoon').length });
+  S$.history = (posId) => Sd().history.filter((h) => h.posId === posId).sort((a, b) => b.rev - a.rev);
+
+  // ---------------------------------------------------------------- register actions (eq.work) and designation (admin.access)
+  const nextRev = (posId) => Sd().history.filter((h) => h.posId === posId).length + 1;
+  function pushHist(pos, source, before, after, reason) { Sd().history.push({ posId: pos.id, equipmentId: pos.equipmentId, rev: nextRev(pos.id), source, before, after, reason: reason || null, by: EQ.user().id, at: new Date().toISOString(), jobId: null }); }
+  const snapshot = (r) => ({ condition: r.condition, replacedOn: r.replacedOn, brand: r.brand, model: r.model, serial: r.serial, remarks: r.remarks });
+  S$.recordOriginal = function recordOriginal(posId, p) {
+    const deny = EQ.access.srv('eq.work'); if (deny) return deny;
+    const pos = EQ.pos(posId); if (!pos || !Sd().designated[posId]) return fail(404, 'not_found', 'Not a major spare-part position.');
+    if (EQ.state.D.events.some((e) => e.positionId === posId && !e.voided)) return fail(409, 'position_has_installation_history', 'This position already has installation history. Use Record replacement or Amend current.');
+    if (!(p.desc || '').trim()) return fail(422, 'validation_failed', 'Nothing was saved.', { desc: 'Describe the installed item.' });
+    const before = snapshot(S$.row(posId));
+    const evs = EQ.state.D.events.filter((e) => e.positionId === posId);
+    EQ.state.D.events.push({ id: 'ev-base-' + posId + '-' + evs.length, positionId: posId, seq: evs.length + 1, kind: 'baselineRecorded', businessDate: null, jobId: null, lineId: null, removedFromEventId: null, removedKnown: false, removedDesc: null, removedSerial: null, installed: { desc: p.desc.trim(), mfr: p.brand || null, partNo: p.model || null, serial: p.serial || null, qty: 1, uom: pos.uom }, recordedUtc: new Date().toISOString(), recordedBy: EQ.user().id, voided: false });
+    if (p.remarks) Sd().remarks[posId] = p.remarks;
+    pushHist(pos, 'registerOriginal', before, snapshot(S$.row(posId)), null);
+    EQ.notify(); return { ok: true };
+  };
+  S$.recordReplacement = function recordReplacement(posId, p) {
+    const deny = EQ.access.srv('eq.work'); if (deny) return deny;
+    const pos = EQ.pos(posId); if (!pos || !Sd().designated[posId]) return fail(404, 'not_found', 'Not a major spare-part position.');
+    const f = {}; const today = EQ.todayColombo();
+    if (!(p.desc || '').trim()) f.desc = 'Describe the installed item.';
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(p.replacedOn || '') || p.replacedOn > today) f.replacedOn = 'Enter a replacement date that is not in the future (Asia/Colombo).';
+    const evs = EQ.state.D.events.filter((e) => e.positionId === posId && !e.voided).sort((a, b) => a.seq - b.seq);
+    const last = evs[evs.length - 1];
+    if (!f.replacedOn && last && last.businessDate && p.replacedOn < last.businessDate) f.replacedOn = 'Earlier than the latest recorded replacement (' + EQ.fmtDate(last.businessDate) + '). Enter past work oldest first (409 out_of_order_installation).';
+    if (p.expectedCurrentEventId && (last ? last.id : null) !== p.expectedCurrentEventId) return fail(409, 'installation_changed', 'Another user changed this position since you opened the form.');
+    if (Object.keys(f).length) return fail(422, 'validation_failed', 'Nothing was saved.', f);
+    const before = snapshot(S$.row(posId));
+    const all = EQ.state.D.events.filter((e) => e.positionId === posId);
+    EQ.state.D.events.push({ id: 'ev-cr-' + posId + '-' + all.length, positionId: posId, seq: all.length + 1, kind: 'conditionReplacement', businessDate: p.replacedOn, jobId: null, lineId: null, removedFromEventId: last ? last.id : null, removedKnown: !!last, removedDesc: last ? last.installed.desc : null, removedSerial: last ? last.installed.serial : null, installed: { desc: p.desc.trim(), mfr: p.brand || null, partNo: p.model || null, serial: p.serial || null, qty: 1, uom: pos.uom }, recordedUtc: new Date().toISOString(), recordedBy: EQ.user().id, voided: false });
+    if (p.remarks != null) Sd().remarks[posId] = p.remarks;
+    pushHist(pos, 'registerReplacement', before, snapshot(S$.row(posId)), null);
+    EQ.log('audit: sparepart.replacement ' + pos.name); EQ.notify(); return { ok: true };
+  };
+  S$.amend = function amend(posId, p) {
+    const deny = EQ.access.srv('eq.work'); if (deny) return deny;
+    const pos = EQ.pos(posId); const r = pos && Sd().designated[posId] ? S$.row(posId) : null;
+    if (!r) return fail(404, 'not_found', 'Not a major spare-part position.');
+    if (!r.condition) return fail(409, 'no_current_installation', 'Nothing is recorded here yet. Use Record Original or Record replacement.');
+    const before = snapshot(r);
+    const ev = EQ.state.D.events.find((e) => e.id === r.currentEventId);
+    ev.installed = { ...ev.installed, mfr: p.brand || null, partNo: p.model || null, serial: p.serial || null, desc: (p.desc || ev.installed.desc) };
+    if (p.remarks != null) Sd().remarks[posId] = p.remarks;
+    pushHist(pos, 'registerAmend', before, snapshot(S$.row(posId)), p.reason || null);
+    EQ.notify(); return { ok: true };
+  };
+  S$.setRemarks = function setRemarks(posId, text) {
+    const deny = EQ.access.srv('eq.work'); if (deny) return deny;
+    const pos = EQ.pos(posId); if (!pos || !Sd().designated[posId]) return fail(404, 'not_found', 'Not a major spare-part position.');
+    const before = snapshot(S$.row(posId)); Sd().remarks[posId] = (text || '').slice(0, 2000);
+    pushHist(pos, 'registerRemarks', before, snapshot(S$.row(posId)), null); EQ.notify(); return { ok: true };
+  };
+  S$.designate = function designate(posId, p) {
+    const deny = EQ.access.srv('admin.access'); if (deny) return deny;
+    const pos = EQ.pos(posId); if (!pos) return fail(404, 'not_found', 'Unknown position.');
+    if (pos.state !== 'active') return fail(409, 'position_not_active', 'Only confirmed (active) positions can be designated.');
+    const sp = Sd();
+    const before = sp.designated[posId] ? { ...sp.designated[posId] } : null;
+    if (!p.on) { delete sp.designated[posId]; } else {
+      const f = {};
+      if (!S$.typeOf(p.typeId)) f.typeId = 'Choose a spare-part type.';
+      if (p.lifeOverride !== '' && p.lifeOverride != null && !(Number(p.lifeOverride) >= 1 && Number(p.lifeOverride) <= 600)) f.lifeOverride = 'Expected life must be 1 to 600 months.';
+      if (Object.keys(f).length) return fail(422, 'validation_failed', 'Nothing was saved.', f);
+      sp.designated[posId] = { typeId: p.typeId, lifeOverride: p.lifeOverride === '' || p.lifeOverride == null ? null : Number(p.lifeOverride) };
+    }
+    pushHist(pos, 'designation', before, p.on ? { ...sp.designated[posId] } : null, p.reason || null);
+    EQ.log('audit: sparepart.designation ' + pos.name + ' ' + (p.on ? 'on' : 'off')); EQ.notify(); return { ok: true };
+  };
+  /** Replacement special-job completion writes the register in the same transaction (DATA s16.4). */
+  S$.noteCompletion = function noteCompletion(pos, job, line, remarks) {
+    const sp = Sd();
+    const last = sp.history.filter((h2) => h2.posId === pos.id).slice(-1)[0];
+    if (remarks) sp.remarks[pos.id] = remarks;
+    sp.history.push({ posId: pos.id, equipmentId: pos.equipmentId, rev: nextRev(pos.id), source: 'jobCompletion', before: last ? last.after : null, after: { condition: 'replaced', replacedOn: line.replacedOn, brand: line.item.mfr, model: line.item.partNo, serial: line.item.serial, remarks: sp.remarks[pos.id] || '' }, reason: null, by: EQ.user().id, at: new Date().toISOString(), jobId: job.id });
+  };
+  S$.setTypeLife = function setTypeLife(typeId, months) {
+    const deny = EQ.access.srv('admin.access'); if (deny) return deny;
+    const t = S$.typeOf(typeId); if (!t) return fail(404, 'not_found', 'Unknown type.');
+    if (months !== '' && !(Number(months) >= 1 && Number(months) <= 600)) return fail(422, 'validation_failed', 'Expected life must be 1 to 600 months.', { life: 'Enter 1 to 600 months, or leave blank for none.' });
+    t.defaultLife = months === '' ? null : Number(months); EQ.log('audit: sparepart.typeLife ' + t.code + ' ' + t.defaultLife); EQ.notify(); return { ok: true };
+  };
+})(window.EQ);

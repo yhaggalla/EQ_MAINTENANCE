@@ -259,6 +259,7 @@ window.EQ = window.EQ || {};
         field(k + '-pos', 'Replaced position', select(l, 'positionId', opts, () => { const p = EQ.pos(l.positionId); if (p && p.kind === 'serialized') l.qty = '1'; api.render(); }, 'Choose position'), { required: true, error: le.positionId, hint: eligible().length ? 'Positions of ' + eq.code + ' inside the job target only. Each position can have one line per job.' : 'This job has no active positions in its target.' }),
         pos ? h('div', { class: 'notice info' }, icon('info'), h('p', null, pos.kind === 'serialized' ? 'Serialized position: quantity is fixed at 1 ea.' : 'Quantity-bearing position (' + pos.uom + '): enter the quantity installed. This is not treated as one serialized item.', h('br'),
           cur ? 'Tracked current item: ' + cur.installed.desc + (cur.installed.serial ? ' (serial ' + cur.installed.serial + ')' : ' (serial unknown)') + ' will be recorded as removed.' : 'No tracked installation at this position. The removed item may be recorded as Unknown; nothing is invented.')) : null,
+        pos && EQ.spares.isMajor(pos.id) ? h('div', { class: 'notice info', 'data-fk-note': 'spare' }, icon('info'), h('p', null, h('strong', null, 'Major spare part. '), 'The condition register is updated in the same transaction from this line: brand = manufacturer, model / part number, serial and replacement date below.')) : null,
         radios(l, 'removedKnown', k + '-rk', [{ value: 'unknown', label: 'Removed item Unknown' }, { value: 'yes', label: 'Removed item known' }], () => api.render(), 'Removed item'),
         l.removedKnown === 'yes' ? h('div', { class: 'grid-2' }, field(k + '-rd', 'Removed item description', input(l, 'removedDesc', {}), { required: true, error: le.removedDesc }), field(k + '-rs', 'Removed serial', input(l, 'removedSerial', {}), { hint: 'Leave empty if unknown.' })) : null,
         field(k + '-desc', 'Installed item description', input(l, 'desc', {}), { required: true, error: le.desc }),
@@ -268,7 +269,8 @@ window.EQ = window.EQ || {};
           field(k + '-sn', 'Serial number', input(l, 'serial', {}), { hint: 'Leave empty if unknown. Never guessed.' }),
           field(k + '-qty', 'Quantity' + (pos ? ' (' + pos.uom + ')' : ''), input(l, 'qty', { inputmode: 'decimal', disabled: pos && pos.kind === 'serialized' ? true : null }), { required: true, error: le.qty }),
           field(k + '-on', 'Replacement date', h('input', { type: 'date', min: '2000-01-01', max: EQ.todayColombo(), value: l.on, onInput: (e) => { l.on = e.target.value; } }), { required: true, error: le.on, hint: 'Business date of the physical work.' }),
-          field(k + '-note', 'Line note', input(l, 'note', {}), { hint: 'Optional.' })));
+          field(k + '-note', 'Line note', input(l, 'note', {}), { hint: 'Optional.' }),
+          pos && EQ.spares.isMajor(pos.id) ? field(k + '-cr', 'Condition remarks (register)', input(l, 'conditionRemarks', {}), { hint: 'Optional; shown in the spare-part register.' }) : null));
     }
     function submit() {
       if (busy) return;
@@ -322,14 +324,15 @@ window.EQ = window.EQ || {};
       build(api) {
         const jobs = EQ.jobsOf(eq.id).filter((j) => j.workStatus !== 'completed');
         return {
-          title: 'Update operational status - ' + eq.code,
+          title: (eq.zmmsMapped ? 'Correct operational status - ' : 'Update operational status - ') + eq.code,
           body: [writerGuard(),
-            h('p', { style: 'margin:0' }, 'Current: ', EQ.statusBadge(eq.status), eq.status ? ' since ' + EQ.fmtInstantShort(eq.statusSince) : ' (never set, no duration shown)'),
+            h('p', { style: 'margin:0' }, 'Current: ', EQ.statusBadge(eq.status), eq.status ? ' since ' + EQ.fmtInstantShort(eq.statusSince) : ' (never set, no duration shown)', ' · ', h('strong', null, EQ.zmms.mode(eq).long)),
+            eq.zmmsMapped ? h('div', { class: 'notice warn' }, icon('clock'), h('p', null, 'This status is automatic from the ZMMS daily jobs. A correction needs a reason, shows Manual for the rest of today (Asia/Colombo) and holds over the second sync. At the first successful sync of the next day the equipment returns to automatic. You can choose Back to automatic earlier.')) : null,
             radios(st, 'status', 'sf-status', [{ value: 'readyForOps', label: 'Ready for OPS' }, { value: 'breakdown', label: 'Breakdown' }, { value: 'maintenance', label: 'Maintenance' }], () => api.render(), 'New status *', errors.status),
-            field('sf-reason', 'Reason' + (st.status === 'readyForOps' ? ' (optional)' : ''), area(st, 'reason', { rows: 2, maxlength: 500 }), { required: st.status === 'breakdown' || st.status === 'maintenance', error: errors.reason, hint: 'Mandatory for Breakdown and Maintenance.' }),
+            field('sf-reason', 'Reason' + (!eq.zmmsMapped && st.status === 'readyForOps' ? ' (optional)' : ''), area(st, 'reason', { rows: 2, maxlength: 500 }), { required: eq.zmmsMapped || st.status === 'breakdown' || st.status === 'maintenance', error: errors.reason, hint: eq.zmmsMapped ? 'Mandatory for every correction of an automatic status.' : 'Mandatory for Breakdown and Maintenance.' }),
             field('sf-job', 'Related job (optional)', select(st, 'relatedJobId', jobs.map((j) => ({ value: j.id, label: j.number + ' ' + j.title })), null, 'None'), { hint: 'Only open jobs of ' + eq.code + ' are offered.' }),
             h('div', { class: 'notice info' }, icon('clock'), h('p', null, 'Takes effect at server time; it cannot be back-dated. The duration shown in the fleet is computed only from recorded changes. ' + PROTO_NOTE))],
-          foot: footButtons(api, 'Set status', () => {
+          foot: footButtons(api, eq.zmmsMapped ? 'Correct status for today' : 'Set status', () => {
             const r = EQ.api.setStatus(eq.id, st);
             if (r.ok) { api.close(r); EQ.toast(eq.code + ' is now ' + EQ.STATUS[st.status].label, PROTO_NOTE); } else { errors = r.fields || { status: r.message }; api.render(); }
           }),
@@ -392,4 +395,5 @@ window.EQ = window.EQ || {};
       },
     });
   };
+  EQ._dlg = { field, input, area, select, radios, errorSummary, openDialog, footButtons, writerGuard, confirmDialog };
 })(window.EQ);

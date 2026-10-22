@@ -20,29 +20,29 @@
   },
   "asset": {
     "file": "scene.glb",
-    "sha256": "56fd39241dbc202c134fc2933b5747b26fd15966ebd0fee3b2e7a14fa6421db1",
-    "bytes": 2861384,
-    "triangles": 82348,
-    "drawCallsEstimate": 188,
+    "sha256": "57a22e9c31cf59a2c9d550fc70dff09472ca6b1eaa478ae22aa4d19f31b49f55",
+    "bytes": 5228788,
+    "triangles": 88582,
+    "drawCallsEstimate": 136,
     "overallMode": {
-      "triangles": 81892,
-      "drawCallsEstimate": 179
+      "triangles": 88126,
+      "drawCallsEstimate": 129
     },
     "technicalMode": {
-      "triangles": 82348,
-      "drawCallsEstimate": 188
+      "triangles": 88582,
+      "drawCallsEstimate": 136
     }
   },
   "bounds": {
     "min": [
       -13.75405216217041,
       -7.152557324197062e-9,
-      -6.302000045776367
+      -6.346039295196533
     ],
     "max": [
       13.75405216217041,
       29.559999997615815,
-      6.302000045776367
+      6.346039295196533
     ]
   },
   "nodes": [
@@ -79,12 +79,12 @@
         "min": [
           -13.75405216217041,
           -7.152557324197062e-9,
-          -6.302000045776367
+          -6.346039295196533
         ],
         "max": [
           13.75405216217041,
           29.559999997615815,
-          6.302000045776367
+          6.346039295196533
         ]
       }
     },
@@ -162,6 +162,20 @@
       },
       "qualifier": "Provisional geometry; see source dimensions",
       "cameraHint": null,
+      "appearanceSource": {
+        "kind": "estimated",
+        "photos": [
+          "maxresdefault.jpg",
+          "images.jpg",
+          "images (1).jpg",
+          "story-11.webp",
+          "IMG_20171109_140808.jpg",
+          "IMG_20171109_141902.jpg",
+          "IMG_20171109_141914.jpg"
+        ],
+        "paintSpec": "unavailable",
+        "note": "Photo-referenced paint; does not change mechanical provenance or equipment identity"
+      },
       "bounds": {
         "min": [
           -12.300000190734863,
@@ -342,6 +356,20 @@
       },
       "qualifier": "Provisional geometry; see source dimensions",
       "cameraHint": null,
+      "appearanceSource": {
+        "kind": "estimated",
+        "photos": [
+          "maxresdefault.jpg",
+          "images.jpg",
+          "images (1).jpg",
+          "story-11.webp",
+          "IMG_20171109_140808.jpg",
+          "IMG_20171109_141902.jpg",
+          "IMG_20171109_141914.jpg"
+        ],
+        "paintSpec": "unavailable",
+        "note": "Photo-referenced paint; does not change mechanical provenance or equipment identity"
+      },
       "bounds": {
         "min": [
           -12.300000190734863,
@@ -522,6 +550,20 @@
       },
       "qualifier": "Provisional geometry; see source dimensions",
       "cameraHint": null,
+      "appearanceSource": {
+        "kind": "estimated",
+        "photos": [
+          "maxresdefault.jpg",
+          "images.jpg",
+          "images (1).jpg",
+          "story-11.webp",
+          "IMG_20171109_140808.jpg",
+          "IMG_20171109_141902.jpg",
+          "IMG_20171109_141914.jpg"
+        ],
+        "paintSpec": "unavailable",
+        "note": "Photo-referenced paint; does not change mechanical provenance or equipment identity"
+      },
       "bounds": {
         "min": [
           -12.15999984741211,
@@ -567,6 +609,20 @@
       },
       "qualifier": "Provisional geometry; see source dimensions",
       "cameraHint": null,
+      "appearanceSource": {
+        "kind": "estimated",
+        "photos": [
+          "maxresdefault.jpg",
+          "images.jpg",
+          "images (1).jpg",
+          "story-11.webp",
+          "IMG_20171109_140808.jpg",
+          "IMG_20171109_141902.jpg",
+          "IMG_20171109_141914.jpg"
+        ],
+        "paintSpec": "unavailable",
+        "note": "Photo-referenced paint; does not change mechanical provenance or equipment identity"
+      },
       "bounds": {
         "min": [
           -12.3100004196167,
@@ -612,6 +668,20 @@
       },
       "qualifier": "Provisional geometry; see source dimensions",
       "cameraHint": null,
+      "appearanceSource": {
+        "kind": "estimated",
+        "photos": [
+          "maxresdefault.jpg",
+          "images.jpg",
+          "images (1).jpg",
+          "story-11.webp",
+          "IMG_20171109_140808.jpg",
+          "IMG_20171109_141902.jpg",
+          "IMG_20171109_141914.jpg"
+        ],
+        "paintSpec": "unavailable",
+        "note": "Photo-referenced paint; does not change mechanical provenance or equipment identity"
+      },
       "bounds": {
         "min": [
           -12.3100004196167,
@@ -657,6 +727,20 @@
       },
       "qualifier": "Provisional geometry; see source dimensions",
       "cameraHint": null,
+      "appearanceSource": {
+        "kind": "estimated",
+        "photos": [
+          "maxresdefault.jpg",
+          "images.jpg",
+          "images (1).jpg",
+          "story-11.webp",
+          "IMG_20171109_140808.jpg",
+          "IMG_20171109_141902.jpg",
+          "IMG_20171109_141914.jpg"
+        ],
+        "paintSpec": "unavailable",
+        "note": "Photo-referenced paint; does not change mechanical provenance or equipment identity"
+      },
       "bounds": {
         "min": [
           -11.944999694824219,
@@ -702,6 +786,20 @@
       },
       "qualifier": "Provisional geometry; see source dimensions",
       "cameraHint": null,
+      "appearanceSource": {
+        "kind": "estimated",
+        "photos": [
+          "maxresdefault.jpg",
+          "images.jpg",
+          "images (1).jpg",
+          "story-11.webp",
+          "IMG_20171109_140808.jpg",
+          "IMG_20171109_141902.jpg",
+          "IMG_20171109_141914.jpg"
+        ],
+        "paintSpec": "unavailable",
+        "note": "Photo-referenced paint; does not change mechanical provenance or equipment identity"
+      },
       "bounds": {
         "min": [
           11.3100004196167,
@@ -747,6 +845,20 @@
       },
       "qualifier": "Provisional geometry; see source dimensions",
       "cameraHint": null,
+      "appearanceSource": {
+        "kind": "estimated",
+        "photos": [
+          "maxresdefault.jpg",
+          "images.jpg",
+          "images (1).jpg",
+          "story-11.webp",
+          "IMG_20171109_140808.jpg",
+          "IMG_20171109_141902.jpg",
+          "IMG_20171109_141914.jpg"
+        ],
+        "paintSpec": "unavailable",
+        "note": "Photo-referenced paint; does not change mechanical provenance or equipment identity"
+      },
       "bounds": {
         "min": [
           11.15999984741211,
@@ -792,6 +904,20 @@
       },
       "qualifier": "Provisional geometry; see source dimensions",
       "cameraHint": null,
+      "appearanceSource": {
+        "kind": "estimated",
+        "photos": [
+          "maxresdefault.jpg",
+          "images.jpg",
+          "images (1).jpg",
+          "story-11.webp",
+          "IMG_20171109_140808.jpg",
+          "IMG_20171109_141902.jpg",
+          "IMG_20171109_141914.jpg"
+        ],
+        "paintSpec": "unavailable",
+        "note": "Photo-referenced paint; does not change mechanical provenance or equipment identity"
+      },
       "bounds": {
         "min": [
           11.15999984741211,
@@ -837,6 +963,20 @@
       },
       "qualifier": "Provisional geometry; see source dimensions",
       "cameraHint": null,
+      "appearanceSource": {
+        "kind": "estimated",
+        "photos": [
+          "maxresdefault.jpg",
+          "images.jpg",
+          "images (1).jpg",
+          "story-11.webp",
+          "IMG_20171109_140808.jpg",
+          "IMG_20171109_141902.jpg",
+          "IMG_20171109_141914.jpg"
+        ],
+        "paintSpec": "unavailable",
+        "note": "Photo-referenced paint; does not change mechanical provenance or equipment identity"
+      },
       "bounds": {
         "min": [
           11.524999618530273,
@@ -881,14 +1021,14 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          -12.429052352905273,
+          -12.4399995803833,
           -7.152557324197062e-9,
-          -6.302000045776367
+          -6.346039295196533
         ],
         "max": [
-          12.429052352905273,
+          12.4399995803833,
           4.559999942779541,
-          6.302000045776367
+          6.346039295196533
         ]
       }
     },
@@ -924,16 +1064,30 @@
       },
       "qualifier": "Provisional geometry; see source dimensions",
       "cameraHint": null,
+      "appearanceSource": {
+        "kind": "estimated",
+        "photos": [
+          "maxresdefault.jpg",
+          "images.jpg",
+          "images (1).jpg",
+          "story-11.webp",
+          "IMG_20171109_140808.jpg",
+          "IMG_20171109_141902.jpg",
+          "IMG_20171109_141914.jpg"
+        ],
+        "paintSpec": "unavailable",
+        "note": "Photo-referenced paint; does not change mechanical provenance or equipment identity"
+      },
       "bounds": {
         "min": [
-          -12.404052734375,
-          0.75,
-          -6.302000045776367
+          -12.4399995803833,
+          0.4449999928474426,
+          -6.346039295196533
         ],
         "max": [
-          -11.065947532653809,
+          -11.029999732971191,
           4.059999942779541,
-          -1.5980000495910645
+          -1.5539608001708984
         ]
       }
     },
@@ -1239,16 +1393,30 @@
       },
       "qualifier": "Provisional geometry; see source dimensions",
       "cameraHint": null,
+      "appearanceSource": {
+        "kind": "estimated",
+        "photos": [
+          "maxresdefault.jpg",
+          "images.jpg",
+          "images (1).jpg",
+          "story-11.webp",
+          "IMG_20171109_140808.jpg",
+          "IMG_20171109_141902.jpg",
+          "IMG_20171109_141914.jpg"
+        ],
+        "paintSpec": "unavailable",
+        "note": "Photo-referenced paint; does not change mechanical provenance or equipment identity"
+      },
       "bounds": {
         "min": [
-          -12.404052734375,
-          0.75,
-          1.5980000495910645
+          -12.4399995803833,
+          0.4449999928474426,
+          1.5539608001708984
         ],
         "max": [
-          -11.065947532653809,
+          -11.029999732971191,
           4.059999942779541,
-          6.302000045776367
+          6.346039295196533
         ]
       }
     },
@@ -1554,16 +1722,30 @@
       },
       "qualifier": "Provisional geometry; see source dimensions",
       "cameraHint": null,
+      "appearanceSource": {
+        "kind": "estimated",
+        "photos": [
+          "maxresdefault.jpg",
+          "images.jpg",
+          "images (1).jpg",
+          "story-11.webp",
+          "IMG_20171109_140808.jpg",
+          "IMG_20171109_141902.jpg",
+          "IMG_20171109_141914.jpg"
+        ],
+        "paintSpec": "unavailable",
+        "note": "Photo-referenced paint; does not change mechanical provenance or equipment identity"
+      },
       "bounds": {
         "min": [
-          11.065947532653809,
-          0.75,
-          -6.302000045776367
+          11.029999732971191,
+          0.4449999928474426,
+          -6.346039295196533
         ],
         "max": [
-          12.404052734375,
+          12.4399995803833,
           4.059999942779541,
-          -1.5980000495910645
+          -1.5539608001708984
         ]
       }
     },
@@ -1869,16 +2051,30 @@
       },
       "qualifier": "Provisional geometry; see source dimensions",
       "cameraHint": null,
+      "appearanceSource": {
+        "kind": "estimated",
+        "photos": [
+          "maxresdefault.jpg",
+          "images.jpg",
+          "images (1).jpg",
+          "story-11.webp",
+          "IMG_20171109_140808.jpg",
+          "IMG_20171109_141902.jpg",
+          "IMG_20171109_141914.jpg"
+        ],
+        "paintSpec": "unavailable",
+        "note": "Photo-referenced paint; does not change mechanical provenance or equipment identity"
+      },
       "bounds": {
         "min": [
-          11.065947532653809,
-          0.75,
-          1.5980000495910645
+          11.029999732971191,
+          0.4449999928474426,
+          1.5539608001708984
         ],
         "max": [
-          12.404052734375,
+          12.4399995803833,
           4.059999942779541,
-          6.302000045776367
+          6.346039295196533
         ]
       }
     },
@@ -2185,10 +2381,10 @@
         "min": [
           -3.1500000953674316,
           4.929999999701977,
-          -4.050000190734863
+          -4.949999809265137
         ],
         "max": [
-          3.555000066757202,
+          4.069052696228027,
           29.559999997615815,
           4.050000190734863
         ]
@@ -2230,11 +2426,11 @@
         "min": [
           -2.424999952316284,
           27.753999710083008,
-          -3.424999952316284
+          -4.949999809265137
         ],
         "max": [
           2.424999952316284,
-          28.284000396728516,
+          29.104000091552734,
           3.424999952316284
         ]
       }
@@ -2765,14 +2961,14 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          -2.174999952316284,
-          6.697631855488627,
-          -3.0799999237060547
+          -2.4491825103759766,
+          6.697581245795062,
+          -3.180000066757202
         ],
         "max": [
           2.549999952316284,
           29.559999997615815,
-          3.0799999237060547
+          3.2300000190734863
         ]
       }
     },
@@ -2860,9 +3056,9 @@
           -0.42500001192092896
         ],
         "max": [
-          1.8899999856948853,
+          2.450000047683716,
           29.1200008392334,
-          0.42500001192092896
+          1.6399999856948853
         ]
       }
     },
@@ -3120,6 +3316,20 @@
       },
       "qualifier": "Provisional geometry; see source dimensions",
       "cameraHint": null,
+      "appearanceSource": {
+        "kind": "estimated",
+        "photos": [
+          "maxresdefault.jpg",
+          "images.jpg",
+          "images (1).jpg",
+          "story-11.webp",
+          "IMG_20171109_140808.jpg",
+          "IMG_20171109_141902.jpg",
+          "IMG_20171109_141914.jpg"
+        ],
+        "paintSpec": "unavailable",
+        "note": "Photo-referenced paint; does not change mechanical provenance or equipment identity"
+      },
       "bounds": {
         "min": [
           -0.6449999809265137,
@@ -3165,6 +3375,20 @@
       },
       "qualifier": "Provisional geometry; see source dimensions",
       "cameraHint": null,
+      "appearanceSource": {
+        "kind": "estimated",
+        "photos": [
+          "maxresdefault.jpg",
+          "images.jpg",
+          "images (1).jpg",
+          "story-11.webp",
+          "IMG_20171109_140808.jpg",
+          "IMG_20171109_141902.jpg",
+          "IMG_20171109_141914.jpg"
+        ],
+        "paintSpec": "unavailable",
+        "note": "Photo-referenced paint; does not change mechanical provenance or equipment identity"
+      },
       "bounds": {
         "min": [
           -0.9750000238418579,
@@ -3210,6 +3434,20 @@
       },
       "qualifier": "Provisional geometry; see source dimensions",
       "cameraHint": null,
+      "appearanceSource": {
+        "kind": "estimated",
+        "photos": [
+          "maxresdefault.jpg",
+          "images.jpg",
+          "images (1).jpg",
+          "story-11.webp",
+          "IMG_20171109_140808.jpg",
+          "IMG_20171109_141902.jpg",
+          "IMG_20171109_141914.jpg"
+        ],
+        "paintSpec": "unavailable",
+        "note": "Photo-referenced paint; does not change mechanical provenance or equipment identity"
+      },
       "bounds": {
         "min": [
           -1.2200000286102295,
@@ -3255,6 +3493,20 @@
       },
       "qualifier": "Provisional geometry; see source dimensions",
       "cameraHint": null,
+      "appearanceSource": {
+        "kind": "estimated",
+        "photos": [
+          "maxresdefault.jpg",
+          "images.jpg",
+          "images (1).jpg",
+          "story-11.webp",
+          "IMG_20171109_140808.jpg",
+          "IMG_20171109_141902.jpg",
+          "IMG_20171109_141914.jpg"
+        ],
+        "paintSpec": "unavailable",
+        "note": "Photo-referenced paint; does not change mechanical provenance or equipment identity"
+      },
       "bounds": {
         "min": [
           -1.25,
@@ -3300,6 +3552,20 @@
       },
       "qualifier": "Provisional geometry; see source dimensions",
       "cameraHint": null,
+      "appearanceSource": {
+        "kind": "estimated",
+        "photos": [
+          "maxresdefault.jpg",
+          "images.jpg",
+          "images (1).jpg",
+          "story-11.webp",
+          "IMG_20171109_140808.jpg",
+          "IMG_20171109_141902.jpg",
+          "IMG_20171109_141914.jpg"
+        ],
+        "paintSpec": "unavailable",
+        "note": "Photo-referenced paint; does not change mechanical provenance or equipment identity"
+      },
       "bounds": {
         "min": [
           0.9649999737739563,
@@ -3345,6 +3611,20 @@
       },
       "qualifier": "Provisional geometry; see source dimensions",
       "cameraHint": null,
+      "appearanceSource": {
+        "kind": "estimated",
+        "photos": [
+          "maxresdefault.jpg",
+          "images.jpg",
+          "images (1).jpg",
+          "story-11.webp",
+          "IMG_20171109_140808.jpg",
+          "IMG_20171109_141902.jpg",
+          "IMG_20171109_141914.jpg"
+        ],
+        "paintSpec": "unavailable",
+        "note": "Photo-referenced paint; does not change mechanical provenance or equipment identity"
+      },
       "bounds": {
         "min": [
           -1.2200000286102295,
@@ -3390,6 +3670,20 @@
       },
       "qualifier": "Provisional geometry; see source dimensions",
       "cameraHint": null,
+      "appearanceSource": {
+        "kind": "estimated",
+        "photos": [
+          "maxresdefault.jpg",
+          "images.jpg",
+          "images (1).jpg",
+          "story-11.webp",
+          "IMG_20171109_140808.jpg",
+          "IMG_20171109_141902.jpg",
+          "IMG_20171109_141914.jpg"
+        ],
+        "paintSpec": "unavailable",
+        "note": "Photo-referenced paint; does not change mechanical provenance or equipment identity"
+      },
       "bounds": {
         "min": [
           -1.25,
@@ -3435,6 +3729,20 @@
       },
       "qualifier": "Provisional geometry; see source dimensions",
       "cameraHint": null,
+      "appearanceSource": {
+        "kind": "estimated",
+        "photos": [
+          "maxresdefault.jpg",
+          "images.jpg",
+          "images (1).jpg",
+          "story-11.webp",
+          "IMG_20171109_140808.jpg",
+          "IMG_20171109_141902.jpg",
+          "IMG_20171109_141914.jpg"
+        ],
+        "paintSpec": "unavailable",
+        "note": "Photo-referenced paint; does not change mechanical provenance or equipment identity"
+      },
       "bounds": {
         "min": [
           0.9649999737739563,
@@ -3480,16 +3788,30 @@
       },
       "qualifier": "Provisional geometry; see source dimensions",
       "cameraHint": null,
+      "appearanceSource": {
+        "kind": "estimated",
+        "photos": [
+          "maxresdefault.jpg",
+          "images.jpg",
+          "images (1).jpg",
+          "story-11.webp",
+          "IMG_20171109_140808.jpg",
+          "IMG_20171109_141902.jpg",
+          "IMG_20171109_141914.jpg"
+        ],
+        "paintSpec": "unavailable",
+        "note": "Photo-referenced paint; does not change mechanical provenance or equipment identity"
+      },
       "bounds": {
         "min": [
-          -0.4895298182964325,
-          6.304999947547913,
-          -2.7260000705718994
+          -0.6899999976158142,
+          5.800000011920929,
+          -2.7799999713897705
         ],
         "max": [
-          0.4895298182964325,
-          6.754999995231628,
-          2.7260000705718994
+          0.6899999976158142,
+          6.820000052452087,
+          2.7799999713897705
         ]
       }
     },
@@ -3527,14 +3849,14 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          -2.174999952316284,
-          27.760000228881836,
-          -3.0799999237060547
+          -2.3899998664855957,
+          28.003999710083008,
+          -2.950000047683716
         ],
         "max": [
-          -2.0250000953674316,
-          28.540000915527344,
-          -2.299999952316284
+          -1.6100000143051147,
+          28.79400062561035,
+          -2.430000066757202
         ]
       }
     },
@@ -3572,21 +3894,21 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          -2.1120714727056136,
-          6.698868827033181,
+          -2.3701021228569354,
+          6.698737723779459,
           -2.7040000004321336
         ],
         "max": [
-          -0.07792852729438637,
-          28.88381576538086,
-          0.60205078125
+          -0.0779415314278189,
+          28.883670806884766,
+          0.6086392998695374
         ]
       }
     },
     {
       "key": "reeving.sheave.guide-1",
       "kind": "position",
-      "label": "Trolley guide sheave 1",
+      "label": "Trolley horizontal guide sheave 1",
       "parentKey": "container.hoist",
       "classification": {
         "main": "01",
@@ -3617,14 +3939,14 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          -1.75,
-          28.399999618530273,
-          -2.5369999408721924
+          -2.430000066757202,
+          28.503999710083008,
+          -3.180000066757202
         ],
         "max": [
-          -0.9800000190734863,
-          28.5,
-          -1.7669999599456787
+          -1.3700000047683716,
+          28.90399932861328,
+          -2.120000123977661
         ]
       }
     },
@@ -3662,14 +3984,14 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          2.0250000953674316,
-          27.760000228881836,
-          -3.0799999237060547
+          1.6100000143051147,
+          28.003999710083008,
+          -2.950000047683716
         ],
         "max": [
-          2.174999952316284,
-          28.540000915527344,
-          -2.299999952316284
+          2.3899998664855957,
+          28.79400062561035,
+          -2.430000066757202
         ]
       }
     },
@@ -3707,21 +4029,21 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          -0.8705926537513733,
-          6.698868827033181,
+          -0.8730854988098145,
+          6.698737723779459,
           -2.7040000004321336
         ],
         "max": [
-          2.1120714727056136,
-          28.88297462463379,
-          0.6088944673538208
+          2.3701021228569354,
+          28.88335609436035,
+          0.609901487827301
         ]
       }
     },
     {
       "key": "reeving.sheave.guide-2",
       "kind": "position",
-      "label": "Trolley guide sheave 2",
+      "label": "Trolley horizontal guide sheave 2",
       "parentKey": "container.hoist",
       "classification": {
         "main": "01",
@@ -3752,14 +4074,14 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          0.9800000190734863,
-          28.399999618530273,
-          -2.5369999408721924
+          -0.37999996542930603,
+          28.503999710083008,
+          -3.180000066757202
         ],
         "max": [
-          1.75,
-          28.5,
-          -1.7669999599456787
+          0.6799999475479126,
+          28.90399932861328,
+          -2.120000123977661
         ]
       }
     },
@@ -3797,14 +4119,14 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          -2.174999952316284,
-          27.760000228881836,
-          2.299999952316284
+          -2.3899998664855957,
+          28.003999710083008,
+          2.430000066757202
         ],
         "max": [
-          -2.0250000953674316,
-          28.540000915527344,
-          3.0799999237060547
+          -1.6100000143051147,
+          28.79400062561035,
+          2.950000047683716
         ]
       }
     },
@@ -3842,21 +4164,21 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          -2.1120714727056136,
-          6.698868827033181,
-          0.5933787226676941
+          -2.3701021228569354,
+          6.698737723779459,
+          0.6028473377227783
         ],
         "max": [
-          -0.07792852729438637,
-          28.881961822509766,
-          2.7040000004321336
+          0.013129016384482384,
+          28.883546829223633,
+          2.7139997482299805
         ]
       }
     },
     {
       "key": "reeving.sheave.guide-3",
       "kind": "position",
-      "label": "Trolley guide sheave 3",
+      "label": "Trolley horizontal guide sheave 3",
       "parentKey": "container.hoist",
       "classification": {
         "main": "01",
@@ -3887,14 +4209,14 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          -1.75,
-          28.399999618530273,
-          1.7669999599456787
+          -0.5299999713897705,
+          28.503999710083008,
+          2.1700000762939453
         ],
         "max": [
-          -0.9800000190734863,
-          28.5,
-          2.5369999408721924
+          0.5299999713897705,
+          28.90399932861328,
+          3.2300000190734863
         ]
       }
     },
@@ -3932,14 +4254,14 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          2.0250000953674316,
-          27.760000228881836,
-          2.299999952316284
+          1.6100000143051147,
+          28.003999710083008,
+          2.430000066757202
         ],
         "max": [
-          2.174999952316284,
-          28.540000915527344,
-          3.0799999237060547
+          2.3899998664855957,
+          28.79400062561035,
+          2.950000047683716
         ]
       }
     },
@@ -3977,21 +4299,21 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          -0.1891120970249176,
-          6.698868827033181,
-          0.589974045753479
+          -0.18961362540721893,
+          6.698737723779459,
+          0.5964100360870361
         ],
         "max": [
-          2.1120714727056136,
-          28.883272171020508,
-          2.7040000004321336
+          2.3701021228569354,
+          28.88344383239746,
+          2.713961124420166
         ]
       }
     },
     {
       "key": "reeving.sheave.guide-4",
       "kind": "position",
-      "label": "Trolley guide sheave 4",
+      "label": "Trolley horizontal guide sheave 4",
       "parentKey": "container.hoist",
       "classification": {
         "main": "01",
@@ -4022,14 +4344,14 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          0.9800000190734863,
-          28.399999618530273,
-          1.7669999599456787
+          1.3200000524520874,
+          28.503999710083008,
+          2.1700000762939453
         ],
         "max": [
-          1.75,
-          28.5,
-          2.5369999408721924
+          2.379999876022339,
+          28.90399932861328,
+          3.2300000190734863
         ]
       }
     },
@@ -4067,14 +4389,14 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          -2.174999952316284,
-          27.760000228881836,
-          -2.8399999141693115
+          -2.4491825103759766,
+          28.003999710083008,
+          -2.4008259773254395
         ],
         "max": [
-          -2.0250000953674316,
-          28.540000915527344,
-          -2.059999942779541
+          -1.8508174419403076,
+          28.79275131225586,
+          -1.699173927307129
         ]
       }
     },
@@ -4112,14 +4434,14 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          -2.117799000541012,
-          6.697631855488627,
-          -2.4667911952409494
+          -2.38778802750886,
+          6.697581245795062,
+          -2.3448500035451216
         ],
         "max": [
-          0.17201288044452667,
-          28.882099151611328,
-          0.6071872115135193
+          0.17164969444274902,
+          28.88248634338379,
+          0.6137218475341797
         ]
       }
     },
@@ -4157,14 +4479,14 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          -2.174999952316284,
-          27.760000228881836,
-          2.059999942779541
+          -2.4491825103759766,
+          28.003999710083008,
+          1.699173927307129
         ],
         "max": [
-          -2.0250000953674316,
-          28.540000915527344,
-          2.8399999141693115
+          -1.8508174419403076,
+          28.79275131225586,
+          2.4008259773254395
         ]
       }
     },
@@ -4202,14 +4524,14 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          -2.117799000541012,
-          6.697631855488627,
-          0.07320880475905067
+          -2.38778802750886,
+          6.697581245795062,
+          0.07509996419195875
         ],
         "max": [
-          0.5078580379486084,
-          28.883695602416992,
-          2.4667911952409494
+          0.5064188838005066,
+          28.883953094482422,
+          2.3448500035451216
         ]
       }
     },
@@ -4247,14 +4569,14 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          2.0250000953674316,
-          27.760000228881836,
-          -2.8399999141693115
+          1.8508174419403076,
+          28.003999710083008,
+          -2.4008259773254395
         ],
         "max": [
-          2.174999952316284,
-          28.540000915527344,
-          -2.059999942779541
+          2.4491825103759766,
+          28.79275131225586,
+          -1.699173927307129
         ]
       }
     },
@@ -4292,14 +4614,14 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          0.5822009994589882,
-          6.697631855488627,
-          -2.4667911952409494
+          0.5836009775893412,
+          6.697581245795062,
+          -2.3448500035451216
         ],
         "max": [
-          2.117799000541012,
-          28.883541107177734,
-          0.6035481095314026
+          2.38778802750886,
+          28.88368034362793,
+          0.6087645292282104
         ]
       }
     },
@@ -4337,14 +4659,14 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          2.0250000953674316,
-          27.760000228881836,
-          2.059999942779541
+          1.8508174419403076,
+          28.003999710083008,
+          1.699173927307129
         ],
         "max": [
-          2.174999952316284,
-          28.540000915527344,
-          2.8399999141693115
+          2.4491825103759766,
+          28.79275131225586,
+          2.4008259773254395
         ]
       }
     },
@@ -4382,14 +4704,14 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          0.5822009994589882,
-          6.697631855488627,
-          0.07320880475905067
+          0.5836009775893412,
+          6.697581245795062,
+          0.07509996419195875
         ],
         "max": [
-          2.117799000541012,
-          28.883264541625977,
-          2.4667911952409494
+          2.38778802750886,
+          28.883726119995117,
+          2.3448500035451216
         ]
       }
     },
@@ -4423,15 +4745,29 @@
       "qualifier": "Provisional geometry; see source dimensions",
       "cameraHint": null,
       "enclosure": true,
+      "appearanceSource": {
+        "kind": "estimated",
+        "photos": [
+          "maxresdefault.jpg",
+          "images.jpg",
+          "images (1).jpg",
+          "story-11.webp",
+          "IMG_20171109_140808.jpg",
+          "IMG_20171109_141902.jpg",
+          "IMG_20171109_141914.jpg"
+        ],
+        "paintSpec": "unavailable",
+        "note": "Photo-referenced paint; does not change mechanical provenance or equipment identity"
+      },
       "bounds": {
         "min": [
-          1,
-          23.850000381469727,
-          -1.0499999523162842
+          0.9674999713897705,
+          24.80500030517578,
+          -2.049999952316284
         ],
         "max": [
-          3.555000066757202,
-          27.854000091552734,
+          4.069052696228027,
+          28.253999710083008,
           1.0499999523162842
         ]
       }
@@ -4469,16 +4805,120 @@
       "qualifier": "Provisional geometry; see source dimensions",
       "cameraHint": null,
       "enclosure": true,
+      "appearanceSource": {
+        "kind": "estimated",
+        "photos": [
+          "maxresdefault.jpg",
+          "images.jpg",
+          "images (1).jpg",
+          "story-11.webp",
+          "IMG_20171109_140808.jpg",
+          "IMG_20171109_141902.jpg",
+          "IMG_20171109_141914.jpg"
+        ],
+        "paintSpec": "unavailable",
+        "note": "Photo-referenced paint; does not change mechanical provenance or equipment identity"
+      },
       "bounds": {
         "min": [
-          1,
-          23.850000381469727,
-          -1.0499999523162842
+          0.9674999713897705,
+          24.8174991607666,
+          -1.1074999570846558
         ],
         "max": [
-          3.555000066757202,
+          3.4749999046325684,
           27.854000091552734,
           1.0499999523162842
+        ]
+      }
+    },
+    {
+      "key": "cabin.access.main",
+      "kind": "position",
+      "label": "Cab landing, ladder and guard rails",
+      "parentKey": "container.cabin",
+      "classification": {
+        "main": "15",
+        "sub": "151"
+      },
+      "gltfNodeNames": [
+        "cabin.access.main"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 34,
+            "figure": "Fig 2-35; JL2860606 listed p21; M13 p11",
+            "note": "Cab follows trolley. Angled lower glazing, door, support, seat and two consoles. Shape/offset except stated approximate height and width estimated."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          1.222499966621399,
+          24.80500030517578,
+          -2.049999952316284
+        ],
+        "max": [
+          4.069052696228027,
+          28.253999710083008,
+          -1.027999997138977
+        ]
+      }
+    },
+    {
+      "key": "cabin.aircon.main",
+      "kind": "position",
+      "label": "Cabin air conditioner · assumed envelope",
+      "parentKey": "container.cabin",
+      "classification": {
+        "main": "15",
+        "sub": "152"
+      },
+      "gltfNodeNames": [
+        "cabin.aircon.main"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 34,
+            "figure": "Fig 2-35; JL2860606 listed p21; M13 p11",
+            "note": "Cab follows trolley. Angled lower glazing, door, support, seat and two consoles. Shape/offset except stated approximate height and width estimated."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          2.375,
+          27.1299991607666,
+          -0.4000000059604645
+        ],
+        "max": [
+          3.2249999046325684,
+          27.549999237060547,
+          0.42500001192092896
         ]
       }
     },
@@ -4515,13 +4955,13 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          1.1996077299118042,
-          23.899999618530273,
+          1.1496076583862305,
+          24.899999618530273,
           -0.824999988079071
         ],
         "max": [
-          2.8499999046325684,
-          25.957317352294922,
+          2.799999952316284,
+          26.957317352294922,
           0.824999988079071
         ]
       }
@@ -4559,12 +4999,12 @@
         "min": [
           -12.675000190734863,
           0.24130892753601074,
-          -5.650000095367432
+          -4.541999816894531
         ],
         "max": [
           13.335000038146973,
           28.86521339416504,
-          4.541999816894531
+          5.650000095367432
         ]
       }
     },
@@ -4604,12 +5044,12 @@
         "min": [
           11.835000038146973,
           0.24130892753601074,
-          -5.650000095367432
+          -3.3499999046325684
         ],
         "max": [
           13.335000038146973,
           28.86521339416504,
-          3.3499999046325684
+          5.650000095367432
         ]
       }
     },
@@ -4688,6 +5128,20 @@
       "qualifier": "Provisional geometry; see source dimensions",
       "cameraHint": null,
       "enclosure": true,
+      "appearanceSource": {
+        "kind": "estimated",
+        "photos": [
+          "maxresdefault.jpg",
+          "images.jpg",
+          "images (1).jpg",
+          "story-11.webp",
+          "IMG_20171109_140808.jpg",
+          "IMG_20171109_141902.jpg",
+          "IMG_20171109_141914.jpg"
+        ],
+        "paintSpec": "unavailable",
+        "note": "Photo-referenced paint; does not change mechanical provenance or equipment identity"
+      },
       "bounds": {
         "min": [
           10.484999656677246,
@@ -4734,6 +5188,20 @@
       "qualifier": "Provisional geometry; see source dimensions",
       "cameraHint": null,
       "enclosure": true,
+      "appearanceSource": {
+        "kind": "estimated",
+        "photos": [
+          "maxresdefault.jpg",
+          "images.jpg",
+          "images (1).jpg",
+          "story-11.webp",
+          "IMG_20171109_140808.jpg",
+          "IMG_20171109_141902.jpg",
+          "IMG_20171109_141914.jpg"
+        ],
+        "paintSpec": "unavailable",
+        "note": "Photo-referenced paint; does not change mechanical provenance or equipment identity"
+      },
       "bounds": {
         "min": [
           10.484999656677246,
@@ -5034,6 +5502,20 @@
       "qualifier": "Provisional geometry; see source dimensions",
       "cameraHint": null,
       "enclosure": true,
+      "appearanceSource": {
+        "kind": "estimated",
+        "photos": [
+          "maxresdefault.jpg",
+          "images.jpg",
+          "images (1).jpg",
+          "story-11.webp",
+          "IMG_20171109_140808.jpg",
+          "IMG_20171109_141902.jpg",
+          "IMG_20171109_141914.jpg"
+        ],
+        "paintSpec": "unavailable",
+        "note": "Photo-referenced paint; does not change mechanical provenance or equipment identity"
+      },
       "bounds": {
         "min": [
           -13.75405216217041,
@@ -5080,6 +5562,20 @@
       "qualifier": "Provisional geometry; see source dimensions",
       "cameraHint": null,
       "enclosure": true,
+      "appearanceSource": {
+        "kind": "estimated",
+        "photos": [
+          "maxresdefault.jpg",
+          "images.jpg",
+          "images (1).jpg",
+          "story-11.webp",
+          "IMG_20171109_140808.jpg",
+          "IMG_20171109_141902.jpg",
+          "IMG_20171109_141914.jpg"
+        ],
+        "paintSpec": "unavailable",
+        "note": "Photo-referenced paint; does not change mechanical provenance or equipment identity"
+      },
       "bounds": {
         "min": [
           -12.989999771118164,
@@ -5353,7 +5849,7 @@
     {
       "key": "trolley-drive.energy-chain.main",
       "kind": "position",
-      "label": "IGUS energy chain · indicative route",
+      "label": "IGUS energy chain · indicative U carrier",
       "parentKey": "container.crane",
       "classification": {
         "main": "02",
@@ -5386,12 +5882,12 @@
         "min": [
           -11.199999809265137,
           27.819000244140625,
-          -4.824999809265137
+          -5.125
         ],
         "max": [
           11.199999809265137,
-          27.9689998626709,
-          -4.375
+          28.64150047302246,
+          -4.675000190734863
         ]
       }
     },
@@ -5473,8 +5969,36 @@
   },
   "accuracyStatus": "PROVISIONAL — material source gaps; not an exact replica",
   "appearance": {
-    "status": "unresolved",
-    "display": "neutral inspection material; no identity artwork"
+    "status": "photo-referenced",
+    "revision": 2,
+    "display": "CICT red steelwork, white enclosures, yellow spreader, black/yellow guards and photo-readable signage",
+    "palette": {
+      "structure": "#cc1930",
+      "enclosures": "#e7ecee",
+      "spreader": "#e7b52d",
+      "hazardYellow": "#f6bf26",
+      "hazardBlack": "#171b20",
+      "cictBlue": "#075578",
+      "lettering": "#111820"
+    },
+    "sourcePhotos": [
+      "maxresdefault.jpg",
+      "images.jpg",
+      "images (1).jpg",
+      "story-11.webp",
+      "IMG_20171109_140808.jpg",
+      "IMG_20171109_141902.jpg",
+      "IMG_20171109_141914.jpg"
+    ],
+    "qualifications": [
+      "Photographic colour match; no measured RAL or coating specification supplied.",
+      "CICT flag uses the unchanged user-supplied PNG; panel dimensions and placement are estimated from the photos.",
+      "ZPMC lettering reconstructed from the photograph; fine emblem/text details unavailable.",
+      "No photographed fleet number is adopted as an equipment identity."
+    ],
+    "flag": "CICT company flag",
+    "flagPlacement": "CICT-marked upper girder panels visible in maxresdefault.jpg; dimensions estimated",
+    "flagArtwork": "RTG drawings/04a76ac3-a3c0-494b-bbc9-2f5859c38600.png"
   },
   "catalogueApplicability": "source-qualified candidate subset for synthetic standalone demonstration only; Admin confirmation still required"
 }

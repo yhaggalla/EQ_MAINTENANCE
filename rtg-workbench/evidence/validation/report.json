@@ -1,0 +1,56 @@
+{
+  "assetSha256": "57a22e9c31cf59a2c9d550fc70dff09472ca6b1eaa478ae22aa4d19f31b49f55",
+  "checks": [
+    {
+      "name": "Checksum and size",
+      "result": "PASS"
+    },
+    {
+      "name": "Manifest and actual approved catalogue codes",
+      "result": "PASS"
+    },
+    {
+      "name": "GLB 2.0 chunks, buffers and accessors",
+      "result": "PASS"
+    },
+    {
+      "name": "Unique metadata and complete mapping",
+      "result": "PASS"
+    },
+    {
+      "name": "Explicit complete isolated equipment bindings",
+      "result": "PASS"
+    },
+    {
+      "name": "Unchanged supplied CICT artwork embedded",
+      "result": "PASS"
+    },
+    {
+      "name": "Three.js import and finite actual geometry/bounds",
+      "result": "PASS"
+    },
+    {
+      "name": "Critical source configuration counts",
+      "result": "PASS"
+    },
+    {
+      "name": "Headblock frame reference centres",
+      "result": "PASS"
+    },
+    {
+      "name": "Initial overview budgets",
+      "result": "PASS"
+    },
+    {
+      "name": "Primitive-level source traceability",
+      "result": "PASS"
+    }
+  ],
+  "metadataNodes": 121,
+  "recipes": 1937,
+  "limitations": [
+    "Standalone subset of documented v1 contract; existing QC validator is model-specific and not RTG-compatible",
+    "Not a Khronos glTF Validator run; local structural checks and actual Three.js import executed",
+    "Real fleet binding and live host not activated"
+  ]
+}

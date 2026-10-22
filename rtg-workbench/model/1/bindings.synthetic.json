@@ -835,6 +835,24 @@
         "positionId": "RTG-SYNTHETIC-A/position/cabin.shell.main"
       },
       {
+        "nodeKey": "cabin.access.main",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/cabin.access.main"
+      },
+      {
+        "nodeKey": "cabin.aircon.main",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "152"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/cabin.aircon.main"
+      },
+      {
         "nodeKey": "cabin.interior.main",
         "kind": "position",
         "classification": {
@@ -1832,6 +1850,24 @@
           "sub": "141"
         },
         "positionId": "RTG-SYNTHETIC-B/position/cabin.shell.main"
+      },
+      {
+        "nodeKey": "cabin.access.main",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/cabin.access.main"
+      },
+      {
+        "nodeKey": "cabin.aircon.main",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "152"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/cabin.aircon.main"
       },
       {
         "nodeKey": "cabin.interior.main",

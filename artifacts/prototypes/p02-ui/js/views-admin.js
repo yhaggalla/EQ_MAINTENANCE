@@ -17,7 +17,7 @@ window.EQ = window.EQ || {};
         h('caption', { class: 'sr-only' }, 'Equipment register'),
         h('thead', null, h('tr', null, ['Code', 'Type', 'Model association', 'Status', 'Lifecycle', 'Open jobs', 'Actions'].map((c) => h('th', { scope: 'col' }, c)))),
         h('tbody', null, S.D.equipment.map((e) => h('tr', { class: e.lifecycle === 'retired' ? 'inactive' : '' },
-          h('th', { scope: 'row' }, h('a', { href: '#/equipment/' + e.id }, e.code)), h('td', null, e.typeCode),
+          h('th', { scope: 'row' }, h('a', { href: '#/eq/equipment/' + e.id }, e.code)), h('td', null, e.typeCode),
           h('td', null, EQ.verified(e) ? h('span', null, e.modelCode, ' ', h('span', { class: 'tag green' }, 'verified')) : h('span', { class: 'tag dashed' }, 'No verified model')),
           h('td', null, EQ.statusBadge(e.status)), h('td', null, e.lifecycle), h('td', null, String(EQ.openJobs(e.id).length)),
           h('td', null, h('div', { class: 'row' },
@@ -82,7 +82,7 @@ window.EQ = window.EQ || {};
     const S = EQ.state;
     const cands = S.D.equipment.filter((e) => e.mains.length);
     const cur = EQ.eq(q.equipment) && EQ.eq(q.equipment).mains.length ? EQ.eq(q.equipment) : cands[0];
-    const sel = h('select', { id: 'ps-eq', onChange: (e) => EQ.nav('/admin/positions', { equipment: e.target.value }) }, cands.map((e) => h('option', { value: e.id, selected: e.id === cur.id ? true : null }, e.code + (e.positionState === 'draft' ? ' (drafts)' : ''))));
+    const sel = h('select', { id: 'ps-eq', onChange: (e) => EQ.nav('/admin/eq/positions', { equipment: e.target.value }) }, cands.map((e) => h('option', { value: e.id, selected: e.id === cur.id ? true : null }, e.code + (e.positionState === 'draft' ? ' (drafts)' : ''))));
     const ps = EQ.positionsOf(cur.id);
     const drafts = ps.filter((p) => p.state === 'draft');
     const hasHist = (p) => S.D.events.some((e) => e.positionId === p.id) || S.D.jobs.some((j) => j.positionId === p.id);
@@ -136,7 +136,7 @@ window.EQ = window.EQ || {};
     const S = EQ.state;
     const cands = S.D.equipment.filter((e) => e.typeCode === 'QC');
     const cur = EQ.eq(q.equipment) && EQ.eq(q.equipment).typeCode === 'QC' ? EQ.eq(q.equipment) : cands[0];
-    const sel = h('select', { id: 'bd-eq', onChange: (e) => EQ.nav('/admin/bindings', { equipment: e.target.value }) }, cands.map((e) => h('option', { value: e.id, selected: e.id === cur.id ? true : null }, e.code)));
+    const sel = h('select', { id: 'bd-eq', onChange: (e) => EQ.nav('/admin/eq/scene-bindings', { equipment: e.target.value }) }, cands.map((e) => h('option', { value: e.id, selected: e.id === cur.id ? true : null }, e.code)));
     const keys = new Set(EQ.sceneKeys());
     const ps = EQ.positionsOf(cur.id).filter((p) => p.state === 'active');
     const exact = ps.filter((p) => keys.has(p.key)), noNode = ps.filter((p) => !keys.has(p.key));
@@ -156,18 +156,12 @@ window.EQ = window.EQ || {};
       cur.positionState === 'draft' ? h('div', { class: 'notice warn' }, icon('alert'), h('p', null, cur.code + ' positions are still drafts: confirm them first (Main-part positions).')) : null);
   }
 
-  EQ.views.admin = function admin(section, q) {
-    const page = h('div', { class: 'page' });
-    page.appendChild(h('div', { class: 'page-head' }, h('div', null, h('p', { class: 'eyebrow' }, 'EQ Maintenance Admin'), h('h1', null, 'Administration'), h('p', null, 'Equipment, templates, catalogue, positions and specifications. Central identities and Portal roles are managed in the Portal, not here.'))));
-    if (!EQ.perm.admin()) {
-      page.appendChild(h('div', { class: 'notice error', role: 'alert' }, icon('lock'), h('div', null, h('p', null, h('strong', null, '403 - EQ Maintenance Admin only. '), 'The server refuses every Admin endpoint for your role. The Admin tab is hidden for you, but hiding it is not the control: a direct link or API call is denied.'), h('p', { class: 'small', style: 'margin-top:.3rem' }, 'Prototype: switch the role to Admin in Prototype controls to see these screens.'))));
-      return page;
-    }
-    const s = SECTIONS.find((x) => x[0] === section) ? section : 'equipment';
-    const content = { equipment: equipmentSection, models: modelsSection, catalog: catalogSection, positions: () => positionsSection(q), parameters: parametersSection, bindings: () => bindingsSection(q) }[s]();
-    page.appendChild(h('div', { class: 'admin-layout' },
-      h('nav', { class: 'panel subnav', 'aria-label': 'Admin sections' }, SECTIONS.map(([k, label, ic]) => h('a', { href: '#/admin/' + k, 'aria-current': k === s ? 'page' : null, 'data-fk': 'an-' + k }, icon(ic), label))),
-      h('div', { class: 'stack', style: 'min-width:0' }, content)));
-    return page;
+  // Section builders are exported; the Admin shell (EQ settings, FAC settings, Access) lives in views-admin2.js.
+  EQ.adminEq = {
+    list: SECTIONS.map(([k, label, ic]) => [k === 'bindings' ? 'scene-bindings' : k, label, ic]),
+    build(section, q) {
+      const key = section === 'scene-bindings' ? 'bindings' : section;
+      return { equipment: equipmentSection, models: modelsSection, catalog: catalogSection, positions: () => positionsSection(q), parameters: parametersSection, bindings: () => bindingsSection(q) }[key]();
+    },
   };
 })(window.EQ);

@@ -1,0 +1,7 @@
+{
+  "reactTypes": "19.2.14",
+  "scope": "Strict adapter declarations and examples/RtgPanel.tsx; actual React host runtime untested",
+  "typescript": "5.9.3",
+  "command": "npm run typecheck",
+  "result": "PASS"
+}

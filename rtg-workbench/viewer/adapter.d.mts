@@ -23,6 +23,6 @@ export class RtgAdapter {
   setEquipment(state:{equipmentId:string;modelVersion:number;bindings:Binding[];selection:Selection;overlays?:Overlay[]}):boolean;
   keysFor(selection:Selection):string[];focus():boolean|undefined;resetCamera():void;fitAll():boolean|undefined;
   setView(view:ViewName):void;isolate(key:string|null):void;hide(keys:string[],hidden?:boolean):void;showAll():void;transparency(value:boolean):void;
-  setLabels(items:{key:string;text:string}[]):void;setMotion(state:Partial<MotionState>):void;play():void;pause():void;resetMotion():void;dispose():void;
+  setLabels(items:{key:string;text:string;selection?:{kind:'sub';main:string;sub:string}}[]):void;setMotion(state:Partial<MotionState>):void;play():void;pause():void;resetMotion():void;dispose():void;
 }
 export function mountRtgViewer(host:HTMLElement,options:ViewerOptions):Promise<RtgAdapter>;

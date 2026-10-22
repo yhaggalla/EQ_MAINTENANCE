@@ -12,13 +12,14 @@ window.EQ = window.EQ || {};
   EQ.subscribe = (fn) => subs.push(fn);
   EQ.notify = () => subs.forEach((f) => f());
   EQ.log = (msg) => { S.log.unshift(EQ.fmtTime(Date.now()) + '  ' + msg); S.log.length = Math.min(S.log.length, 60); };
-  EQ.reset = () => { S.D = EQ.buildFixtures(); S.expanded = new Set(); S.refreshedAt = Date.now(); S.lastGoodAt = Date.now(); EQ.log('Fixtures reset (synthetic data restored)'); };
+  EQ.reset = () => { S.D = EQ.buildFixtures(); EQ.buildV2(S.D); EQ.access.refreshSession('fixtures reset'); S.expanded = new Set(); S.refreshedAt = Date.now(); S.lastGoodAt = Date.now(); EQ.log('Fixtures reset (synthetic data restored)'); };
 
   EQ.user = () => EQ.USERS[S.role];
-  const isWriter = () => S.role === 'eqTeam' || S.role === 'admin';
-  const isAdmin = () => S.role === 'admin';
+  // Server-side checks use the live Access matrix (EQ.access.srv); EQ.perm.* is what the UI shows from its session snapshot.
+  const isWriter = () => !EQ.access.srv('eq.work');
+  const isAdmin = () => !EQ.access.srv('eq.work.admin');
   EQ.perm = {
-    write: isWriter, admin: isAdmin,
+    write: () => EQ.access.has('eq.work'), admin: () => EQ.access.has('eq.work.admin'),
     /** Cancel: Admin any uncompleted job; EQ Team only own jobs and never a reopened (previously completed) job. */
     cancel(job) {
       if (job.isCancelled || job.workStatus === 'completed') return { ok: false, why: 'Completed or already cancelled work cannot be cancelled. Completed work uses the Admin correction path.' };
@@ -98,7 +99,7 @@ window.EQ = window.EQ || {};
   // ---- simulated server rules ----
   const fail = (status, code, message, fields) => ({ ok: false, status, code, message, fields: fields || {} });
   const audit = (action, entity, reason) => { S.D.audit.unshift({ at: new Date().toISOString(), by: EQ.user().id, action, entity, reason: reason || null }); EQ.log('audit: ' + action + ' ' + entity); };
-  const forbid = () => fail(403, 'forbidden', 'The server refuses this request for your role (' + ({ admin: 'Admin', eqTeam: 'EQ Team', management: 'Management' }[S.role]) + '). Hidden buttons are not authorization.');
+  const forbid = () => fail(403, 'forbidden', 'The server refuses this request for your role (' + (EQ.PERSONAS[S.role] ? EQ.PERSONAS[S.role].label : S.role) + '). Hidden buttons are not authorization.');
   const validDate = (v, { allowFuture } = {}) => /^\d{4}-\d{2}-\d{2}$/.test(v || '') && v >= '2000-01-01' && (allowFuture || v <= EQ.todayColombo());
 
   EQ.api = {
@@ -227,6 +228,7 @@ window.EQ = window.EQ || {};
         const line = { id: 'ln-' + job.id + '-' + pos.id, jobId: job.id, positionId: pos.id, mode: 'full', removedKnown: l.removedKnown === 'yes', removedDesc: l.removedKnown === 'yes' ? l.removedDesc : null, removedSerial: l.removedKnown === 'yes' ? l.removedSerial || null : null, item: { desc: l.desc.trim(), mfr: l.mfr || null, partNo: l.partNo || null, serial: l.serial || null }, qty: Number(l.qty), uom: pos.uom, replacedOn: l.on, note: l.note || null, state: 'committed' };
         const ev = { id: 'ev-' + line.id, positionId: pos.id, seq: S.D.events.filter((x) => x.positionId === pos.id).length + 1, kind: 'replacement', businessDate: l.on, jobId: job.id, lineId: line.id, removedFromEventId: prev ? prev.id : null, removedDesc: line.removedDesc, removedSerial: line.removedSerial, removedKnown: line.removedKnown, installed: { ...line.item, qty: line.qty, uom: pos.uom }, recordedUtc: nowIso, recordedBy: EQ.user().id, voided: false };
         line.eventId = ev.id; job.lines.push(line); S.D.events.push(ev);
+        if (EQ.spares.isMajor(pos.id)) EQ.spares.noteCompletion(pos, job, line, l.conditionRemarks); // register written in the same transaction (SP02)
       });
       job.workStatus = 'completed'; job.completedOn = p.completedOn; job.completionNote = p.note.trim(); job.version += 1; job.updatedUtc = nowIso;
       job.events.push({ kind: 'completed', at: nowIso, by: EQ.user().id, note: 'Business date ' + p.completedOn });
@@ -240,6 +242,7 @@ window.EQ = window.EQ || {};
     setStatus(eqId, p) {
       if (!isWriter()) return forbid();
       const eq = EQ.eq(eqId);
+      if (eq.zmmsMapped) return EQ.zmms.correct(eqId, p); // V2 (D-94): a change on ZMMS-linked equipment is a current-day correction
       const f = {};
       if (eq.lifecycle === 'retired') return fail(409, 'equipment_retired', 'Retired equipment accepts no status changes.');
       if (!['readyForOps', 'breakdown', 'maintenance'].includes(p.status)) f.status = 'Choose one of the three operational statuses.';
@@ -249,8 +252,8 @@ window.EQ = window.EQ || {};
       if (Object.keys(f).length) return fail(422, 'validation_failed', 'Nothing was changed.', f);
       const now = new Date().toISOString();
       const seq = S.D.statusChanges.filter((c) => c.equipmentId === eq.id).length + 1;
-      S.D.statusChanges.push({ id: 'sc-' + eq.key + '-n' + seq, equipmentId: eq.id, seq, status: p.status, prev: eq.status, reason: (p.reason || '').trim() || null, relatedJobId: p.relatedJobId || null, at: now, by: EQ.user().id });
-      eq.status = p.status; eq.statusSince = now; eq.statusReason = (p.reason || '').trim() || null; eq.lastActivity = now; eq.version += 1;
+      S.D.statusChanges.push({ id: 'sc-' + eq.key + '-n' + seq, equipmentId: eq.id, seq, status: p.status, prev: eq.status, reason: (p.reason || '').trim() || null, relatedJobId: p.relatedJobId || null, at: now, by: EQ.user().id, source: 'manual', kind: 'manualStatus', causes: [], runId: null });
+      eq.status = p.status; eq.statusSince = now; eq.statusReason = (p.reason || '').trim() || null; eq.statusSource = 'manual'; eq.lastActivity = now; eq.version += 1;
       audit('status.change', eq.code + ' -> ' + p.status, p.reason); EQ.notify();
       return { ok: true };
     },
@@ -262,7 +265,7 @@ window.EQ = window.EQ || {};
       if (!p.typeCode) f.typeCode = 'Choose a type.';
       if (Object.keys(f).length) return fail(422, 'validation_failed', 'Nothing was saved.', f);
       const key = 'n' + (S.D.equipment.length + 1);
-      const eq = { id: 'eq-' + p.code.trim().toLowerCase(), key, code: p.code.trim(), typeCode: p.typeCode, name: p.name || '', modelCode: null, assoc: 'unassigned', lifecycle: 'active', status: null, statusSince: null, statusReason: null, lastActivity: new Date().toISOString(), mains: [], subs: [], positionState: null, origin: 'DevelopmentFixture', version: 1 };
+      const eq = { id: 'eq-' + p.code.trim().toLowerCase(), key, code: p.code.trim(), typeCode: p.typeCode, name: p.name || '', modelCode: null, assoc: 'unassigned', lifecycle: 'active', status: null, statusSince: null, statusReason: null, lastActivity: new Date().toISOString(), mains: [], subs: [], positionState: null, origin: 'DevelopmentFixture', version: 1, zmmsMapped: false, overrideOn: null, statusSource: 'manual', statusCauses: [], commissionedOn: null };
       S.D.equipment.push(eq); audit('equipment.create', eq.code); EQ.notify();
       return { ok: true, eq };
     },

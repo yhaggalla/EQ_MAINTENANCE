@@ -1,0 +1,295 @@
+{
+  "method": "Two corresponding datum points determine one uniform scale and translation. No anisotropic resizing, perspective warping, contour fitting or nonrigid registration. Manual raster anchors have uncertainty; overlay is diagnostic, not dimensional proof.",
+  "definitions": [
+    {
+      "name": "ga-front",
+      "source": "ga-front.png",
+      "view": "front",
+      "isolate": null,
+      "hoist": 3,
+      "anchors": [
+        [
+          -11.735,
+          0,
+          0
+        ],
+        [
+          11.735,
+          0,
+          0
+        ]
+      ],
+      "sourcePixels": [
+        [
+          130,
+          1110
+        ],
+        [
+          913,
+          1110
+        ]
+      ],
+      "registration": "23.47 m support centre planes on ground; source GA low spreader pose is approximate",
+      "model": {
+        "pixels": [
+          [
+            154.85055433394436,
+            1262.7488768604744
+          ],
+          [
+            1045.1494456660555,
+            1262.7488768604744
+          ]
+        ],
+        "viewport": [
+          1200,
+          1400
+        ],
+        "orthoHeight": 36.90670663515727,
+        "motion": {
+          "x": 0,
+          "h": 3
+        },
+        "assetSha256": "57a22e9c31cf59a2c9d550fc70dff09472ca6b1eaa478ae22aa4d19f31b49f55"
+      },
+      "uniformTransform": {
+        "scale": 0.8794799225554859,
+        "translateX": -6.187953533291449,
+        "translateY": -0.5622844282768256,
+        "sourceAnchorUncertaintyPx": 3
+      }
+    },
+    {
+      "name": "ga-side",
+      "source": "ga-side.png",
+      "view": "right",
+      "isolate": null,
+      "hoist": 21.2,
+      "anchors": [
+        [
+          0,
+          0,
+          3.95
+        ],
+        [
+          0,
+          0,
+          -3.95
+        ]
+      ],
+      "sourcePixels": [
+        [
+          237,
+          1110
+        ],
+        [
+          498,
+          1110
+        ]
+      ],
+      "registration": "7.9 m equalizer centre separation on ground; elevated spreader pose",
+      "model": {
+        "pixels": [
+          [
+            438.05741880812815,
+            1308.6956518806717
+          ],
+          [
+            761.9425811918705,
+            1308.6956518806717
+          ]
+        ],
+        "viewport": [
+          1200,
+          1400
+        ],
+        "orthoHeight": 34.14790575338552,
+        "motion": {
+          "x": 0,
+          "h": 21.2
+        },
+        "assetSha256": "57a22e9c31cf59a2c9d550fc70dff09472ca6b1eaa478ae22aa4d19f31b49f55"
+      },
+      "uniformTransform": {
+        "scale": 0.8058411755545769,
+        "translateX": -116.00470533274563,
+        "translateY": 55.39915744531618,
+        "sourceAnchorUncertaintyPx": 3
+      }
+    },
+    {
+      "name": "trolley-front",
+      "source": "trolley-front.png",
+      "view": "left",
+      "isolate": "container.trolley",
+      "hoist": 21.2,
+      "anchors": [
+        [
+          0,
+          28.004,
+          -3.2
+        ],
+        [
+          0,
+          28.004,
+          3.2
+        ]
+      ],
+      "sourcePixels": [
+        [
+          401,
+          390
+        ],
+        [
+          1115,
+          390
+        ]
+      ],
+      "registration": "6.4 m trolley gauge, wheel axis datum; raster vertical datum approximate +/- 8 pixels",
+      "model": {
+        "pixels": [
+          [
+            281.1593981756698,
+            399.4684685478184
+          ],
+          [
+            1023.1883836829163,
+            399.4684685478184
+          ]
+        ],
+        "viewport": [
+          1200,
+          1400
+        ],
+        "orthoHeight": 12.075,
+        "motion": {
+          "x": 0,
+          "h": 21.2
+        },
+        "assetSha256": "57a22e9c31cf59a2c9d550fc70dff09472ca6b1eaa478ae22aa4d19f31b49f55"
+      },
+      "uniformTransform": {
+        "scale": 0.9622265624999998,
+        "translateX": 130.46095877885648,
+        "translateY": 5.620828682093361,
+        "sourceAnchorUncertaintyPx": 8
+      }
+    },
+    {
+      "name": "trolley-side",
+      "source": "trolley-side.png",
+      "view": "front",
+      "isolate": "container.trolley",
+      "hoist": 21.2,
+      "anchors": [
+        [
+          -2.025,
+          28.004,
+          0
+        ],
+        [
+          2.025,
+          28.004,
+          0
+        ]
+      ],
+      "sourcePixels": [
+        [
+          147,
+          335
+        ],
+        [
+          620,
+          335
+        ]
+      ],
+      "registration": "4.05 m trolley axle separation from 2025 + 2025 plan annotations; wheel axis datum approximate +/- 8 pixels",
+      "model": {
+        "pixels": [
+          [
+            246.8121937207177,
+            331.52226501815215
+          ],
+          [
+            822.5398948858689,
+            331.52226501815215
+          ]
+        ],
+        "viewport": [
+          1200,
+          1400
+        ],
+        "orthoHeight": 9.84840574550281,
+        "motion": {
+          "x": 0,
+          "h": 21.2
+        },
+        "assetSha256": "57a22e9c31cf59a2c9d550fc70dff09472ca6b1eaa478ae22aa4d19f31b49f55"
+      },
+      "uniformTransform": {
+        "scale": 0.8215689449070246,
+        "translateX": -55.773233585318195,
+        "translateY": 62.63160251584975,
+        "sourceAnchorUncertaintyPx": 8
+      }
+    },
+    {
+      "name": "trolley-plan",
+      "source": "trolley-plan.png",
+      "view": "top",
+      "isolate": "container.trolley",
+      "hoist": 21.2,
+      "anchors": [
+        [
+          0,
+          28.004,
+          3.2
+        ],
+        [
+          0,
+          28.004,
+          -3.2
+        ]
+      ],
+      "sourcePixels": [
+        [
+          319,
+          383
+        ],
+        [
+          898,
+          383
+        ]
+      ],
+      "registration": "6.4 m gauge. True top projection, +Z screen-left and +X down. Source view direction is ambiguous: asymmetrical machinery layout remains provisional; never reflect the raster to force agreement.",
+      "model": {
+        "pixels": [
+          [
+            176.81231955851823,
+            646.7216390544573
+          ],
+          [
+            918.8405989671754,
+            646.7216390544571
+          ]
+        ],
+        "viewport": [
+          1200,
+          1400
+        ],
+        "orthoHeight": 12.075011490311384,
+        "motion": {
+          "x": 0,
+          "h": 21.2
+        },
+        "assetSha256": "57a22e9c31cf59a2c9d550fc70dff09472ca6b1eaa478ae22aa4d19f31b49f55"
+      },
+      "uniformTransform": {
+        "scale": 0.7802937112604671,
+        "translateX": 181.03445897511213,
+        "translateY": -121.63282789025476,
+        "sourceAnchorUncertaintyPx": 8
+      }
+    }
+  ]
+}

@@ -4,8 +4,29 @@
   "private": true,
   "type": "module",
   "description": "Provisional ZP12-1874 RTG model and standalone viewer; no production registration",
-  "exports": { ".": { "types": "./viewer/adapter.d.mts", "import": "./viewer/adapter.mjs" }, "./viewer": "./viewer/rtg-viewer.mjs" },
-  "engines": { "node": ">=22.12" },
-  "scripts": { "build": "node tools/build.mjs", "start": "node tools/serve.mjs", "validate": "node tools/validate.mjs", "test:browser": "node tools/browser-check.mjs" },
-  "dependencies": { "three": "0.186.1" }
+  "exports": {
+    ".": {
+      "types": "./viewer/adapter.d.mts",
+      "import": "./viewer/adapter.mjs"
+    },
+    "./viewer": "./viewer/rtg-viewer.mjs",
+    "./viewer.css": "./viewer/viewer.css"
+  },
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "start": "node tools/serve.mjs",
+    "validate": "node tools/validate.mjs",
+    "test:browser": "node tools/browser-check.mjs",
+    "typecheck": "tsc --project tsconfig.json"
+  },
+  "dependencies": {
+    "three": "0.186.1"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.14",
+    "typescript": "5.9.3"
+  }
 }

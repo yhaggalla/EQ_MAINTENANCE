@@ -46,6 +46,39 @@
       "confidence": "high",
       "note": ""
     },
+    "trolleyBase": {
+      "value": 4050,
+      "unit": "mm",
+      "document": "M14",
+      "pdfPage": 21,
+      "figure": "Fig 2-2 / JL28606 plan",
+      "endpoints": "front/rear trolley wheel axle centres along X; 2025 + 2025",
+      "kind": "drawing-derived",
+      "confidence": "medium",
+      "note": ""
+    },
+    "cabFrontOffset": {
+      "value": 1000,
+      "unit": "mm",
+      "document": "M14",
+      "pdfPage": 21,
+      "figure": "Fig 2-2 / JL28606 side",
+      "endpoints": "trolley centre plane X=0 to cabin forward glazing envelope",
+      "kind": "measured",
+      "confidence": "medium",
+      "note": "Raster dimension; excludes roof gutter and frame thickness."
+    },
+    "cabBodyLength": {
+      "value": 2400,
+      "unit": "mm",
+      "document": "M14",
+      "pdfPage": 21,
+      "figure": "Fig 2-2 / JL28606 side",
+      "endpoints": "forward glazing envelope to rear cabin wall reference plane",
+      "kind": "measured",
+      "confidence": "medium",
+      "note": ""
+    },
     "trolleyTravel": {
       "value": 18500,
       "unit": "mm",
@@ -228,9 +261,9 @@
     "motorCentreZ": 1565,
     "sheaveDiameter": 720,
     "sheaveWidth": 100,
-    "cabCentreX": 2250,
+    "cabCentreX": 2200,
     "cabCentreZ": 0,
-    "cabFloor": 23850,
+    "cabFloor": 24850,
     "cabLength": 2400,
     "headblockWidth": 1200,
     "headblockDepth": 430,

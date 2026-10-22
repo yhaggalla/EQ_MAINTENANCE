@@ -1,0 +1,52 @@
+{
+  "photos": [
+    {
+      "file": "04a76ac3-a3c0-494b-bbc9-2f5859c38600.png",
+      "bytes": 968027,
+      "sha256": "35c4618f4787896285fbad1f69ff85706d1b7917e03390698d832bf29e58fb85"
+    },
+    {
+      "file": "images (1).jpg",
+      "bytes": 49974,
+      "sha256": "e5aa613ff5f135ec26ab2bbbff111bdb37d1beb7134a3b09956106cc2d27bd17"
+    },
+    {
+      "file": "images.jpg",
+      "bytes": 42618,
+      "sha256": "1a2059833affc70d0a7a3289c980739118baefc35dbbc1daa159600d97977a9f"
+    },
+    {
+      "file": "IMG_20171109_140808.jpg",
+      "bytes": 3403494,
+      "sha256": "f1636d4f15abfb4fee595fabb94ac512f6b38b5a5abeb11076e2cca2f435f033"
+    },
+    {
+      "file": "IMG_20171109_141902.jpg",
+      "bytes": 3338829,
+      "sha256": "170a566c3ccb8a1c89f190103f667c312cbfaa0d8a2e9d4feaf72b23acbc93b4"
+    },
+    {
+      "file": "IMG_20171109_141914.jpg",
+      "bytes": 3833843,
+      "sha256": "1b050b157dc2896262f059abedc2043df60581d17db52605de6f20fda8495663"
+    },
+    {
+      "file": "maxresdefault.jpg",
+      "bytes": 290275,
+      "sha256": "5b1cb82fa910d2d20b34b5cd2caead65f6b5c6c0307a771c27da611dcaeb9c13"
+    },
+    {
+      "file": "story-11.webp",
+      "bytes": 83424,
+      "sha256": "d9ffa55a4cc665151674173b394e16b2ccae21f0e7b7276c9e8fddc0b201935b"
+    }
+  ],
+  "flag": {
+    "identity": "CICT company flag",
+    "source": "RTG drawings/04a76ac3-a3c0-494b-bbc9-2f5859c38600.png",
+    "sha256": "35c4618f4787896285fbad1f69ff85706d1b7917e03390698d832bf29e58fb85",
+    "sourceImageUnchanged": true,
+    "embeddedInGlb": true,
+    "authorization": "User clarification: CICT flag; flag added to folder"
+  }
+}
