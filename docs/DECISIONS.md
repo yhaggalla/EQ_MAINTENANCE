@@ -171,7 +171,7 @@ None of these blocks P01. Each is modelled as configurable data or a visible sou
 
 | Checkpoint | Date | Decision | Notes |
 | --- | --- | --- | --- |
-| U1 (after R02) | 2026-10-21 | CHANGES REQUESTED | See "2026-10-21 U1 CHANGES REQUESTED" below; repaired 22 Oct (Repair-U1, `docs/evidence/U1/repair-20261022.md`); U1 to be repeated with the user |
+| U1 (after R02) | 2026-10-22 | CHANGES REQUESTED (round 2) | Round 1: "2026-10-21 U1 CHANGES REQUESTED" (U1-C01..C08), repaired 22 Oct (`docs/evidence/U1/repair-20261022.md`). Round 2: "2026-10-22 U1 CHANGES REQUESTED (round 2)" (U1-C09..C16); repair, then U1 again |
 | U2 (after P11) | not yet reached | | |
 
 ### 2026-10-21 U1 CHANGES REQUESTED
@@ -190,3 +190,18 @@ Given by the user in chat after reviewing the P02 prototype (port 5312) and P03 
 | U1-C08 | "keep both, but 3d and flat should be identical in functionality.. fix both separately.." Keep both the flat schematic (P02 QC detail) and the 3D model (P03). Both must offer the same functions: the same tier 1 > 2 > 3 drill-down with labels, the same selection/tree sync, back-reach area, logo and stairs. Each is fixed in its own code. | 3.png, 6.png |
 
 Defaults taken because the user did not choose: icon designed by the agent (U1-C01); logo reused from the Portal source (U1-C03).
+
+### 2026-10-22 U1 CHANGES REQUESTED (round 2)
+
+Given by the user in chat after reviewing the Repair-U1 result (commit `3129a73`). Annotated screenshots: `docs/evidence/U1/7.png` (P02 flat view, the user had selected the schematic SVG) and `8.png`..`13.png` (P03 3D model, green marks are the user's).
+
+| ID | Change (user's words, then how it is read) | Screens |
+| --- | --- | --- |
+| U1-C09 | "when select mechanism from left side panel, lables on the crane disappeared" Selecting a mechanism in the left tree must keep (and drill-down-update) the labels on the crane instead of removing them. Applies to both the flat view and the 3D view (U1-C08 parity). | 7.png |
+| U1-C10 | "reset button doesn't work.." Reset must return the view to the whole-equipment state with labels, in both views. | 7.png |
+| U1-C11 | "cannot reset collapsed mechanism items back, fold back icons are not working.." The tree's expand/collapse (fold) icons must work both ways, and Reset must restore the tree to its initial fold state. Both views. | 7.png |
+| U1-C12 | "load position should be changed.." The 013 Load cell system marker sits in the middle of the trolley deck; move it to where the load cells actually are (green arrows point from the marker to the hoist rope sheaves on the trolley), using the drawings; keep it labelled approximate if the drawing does not fix it. | 8.png |
+| U1-C13 | "what is this stairs? seems not complete.." The stair at the girder tail / back-reach platform (circled) is incomplete. Complete it (landings, connection to the platform and walkway it serves) per the access drawings, or remove it if the drawings do not support it. | 9.png |
+| U1-C14 | "need to adjust apex section.." Rework the A-frame apex head (circled): its shape, the boom-hoist sheave arrangement and platforms, per J526A00 and the related structure drawings. | 10.png |
+| U1-C15 | "flood lights should goes to boom grder.. and make it as a lights.." Move the 131 floodlights onto the boom/girder (arrows point outward to both sides) and model them as recognisable floodlight fittings, not a marker ball. | 11.png |
+| U1-C16 | "elevator platform need to be corrected.." and "change all these ball shape parts with actual looking parts.." Correct the elevator car and its landing platform (circled) per J526A5100; and replace every ball-shaped location marker on the crane (circled on the cab and spreader, and all others) with simple parts that look like the real component. Where the real location is not established, keep the part labelled approximate rather than using a ball. | 12.png, 13.png |
