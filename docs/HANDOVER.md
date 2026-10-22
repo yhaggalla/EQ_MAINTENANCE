@@ -4,6 +4,33 @@ Rolling handover for CICT EQ Maintenance. Each phase appends its record; the new
 
 ---
 
+## Repair-U1 round 2 User changes U1-C09..U1-C16 - 22 October 2026
+
+### Runtime record
+
+| Item | Value |
+| --- | --- |
+| Actual client | Claude Code subagent eq-build-opus-high (prompt logged in `docs/runs/Repair-U1r2-20261022-1003.md`) |
+| Actual model / effort | claude-opus-5-5; effort high (per agent definition) |
+
+### Outcome
+
+Repair complete for U1-C09..U1-C16 in both the P02 flat view and the P03 3D model (draft v1, revision 3; 0 nodes added/removed, 0 identity changes). Prototype-only, synthetic data. Full record, checks and remaining issues: `docs/evidence/U1/repair-r2-20261022.md`. This handover entry was added afterwards by the orchestrator because the repair run did not write one.
+
+- U1-C09: labels persist after tree selection; off-screen anchors pin to the frame edge (both views).
+- U1-C10 / C11: Reset returns to the whole equipment with labels and folds the tree back; fold icons work both ways (both views).
+- U1-C12: 013 load cells moved to the boom-tip rope-end anchors (J526A2000 Detail I), approximate (U-23).
+- U1-C13: girder-tail stair completed per J526A5000 item 5.
+- U1-C14: apex head reworked per J526A5000 / J526A2300 (U-26).
+- U1-C15: 20 floodlight fittings under the girder and boom edges (U-24).
+- U1-C16: elevator per J526A5100 outboard of leg B (U-25); every ball marker replaced by a simple part.
+
+### Next
+
+Repeat the U1 user checkpoint (P02 on port 5312, P03 on port 5313).
+
+---
+
 ## Repair-U1 User changes U1-C01..U1-C08 - 22 October 2026
 
 ### Runtime record
