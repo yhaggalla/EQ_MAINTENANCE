@@ -50,7 +50,7 @@ window.EQ = window.EQ || {};
     return h('a', { class: 'eq-card' + (e.lifecycle === 'retired' ? ' retired' : ''), href: '#/eq/equipment/' + e.id, 'aria-label': e.code + ', ' + EQ.STATUS[EQ.statusKey(e.status)].label + ', status source ' + m.label + (zc != null ? ', ' + zc + ' ZMMS daily jobs today' : ', not linked to ZMMS'), title: e.name + ' · ' + m.long + (zc != null ? ' · ' + zc + ' ZMMS job(s) today' : '') + ' · Updated ' + EQ.fmtInstantShort(e.lastActivity) + ' · ' + model },
       thumb(e.typeCode),
       h('span', { class: 'code' }, e.code, e.lifecycle === 'retired' ? h('span', { class: 'tag' }, 'Retired') : null, EQ.statusBadge(e.status)),
-      h('span', { class: 'meta' }, dur != null ? EQ.duration(dur) : 'Not set', ' · ' + open + ' open · ', srcTag(e), zc != null ? h('span', { class: 'zc', 'data-zmms-today': String(zc) }, ' · ZMMS ' + zc) : null));
+      h('span', { class: 'meta' }, dur != null ? 'For ' + EQ.duration(dur) : 'No status reported yet', ' · ' + open + ' open · ', srcTag(e), zc != null ? h('span', { class: 'zc', 'data-zmms-today': String(zc) }, ' · ZMMS ' + zc) : null));
   }
   function table(list) {
     return h('div', { class: 'panel table-wrap' }, h('table', null,

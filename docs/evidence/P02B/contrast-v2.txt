@@ -1,0 +1,23 @@
+PASS 5.93:1 (need 4.5) Electrical lane title on white
+PASS 7.38:1 (need 4.5) Mechanical lane title on white
+PASS 6.29:1 (need 4.5) Civil lane title on white
+PASS 8.58:1 (need 4.5) pill On hold
+PASS 10.17:1 (need 4.5) pill In progress
+PASS 7.53:1 (need 4.5) pill Overdue
+PASS 7.53:1 (need 4.5) pill Due soon
+PASS 6.39:1 (need 4.5) pill Pending
+PASS 6.74:1 (need 4.5) pill Completed
+PASS 11.95:1 (need 4.5) KPI label
+PASS 8.83:1 (need 4.5) KPI overdue number
+PASS 6.92:1 (need 4.5) KPI due soon number
+PASS 7.69:1 (need 4.5) KPI completed number
+PASS 10.12:1 (need 4.5) KPI on hold number
+PASS 16.97:1 (need 4.5) ticker text on navy
+PASS 9.32:1 (need 4.5) LIVE badge
+PASS 8.56:1 (need 4.5) tab count badge
+PASS 9.62:1 (need 4.5) src tag Auto
+PASS 8.56:1 (need 4.5) read-only chip text
+PASS 11.55:1 (need 4.5) prototype banner
+PASS 9.32:1 (need 4.5) section switch current
+PASS 13.17:1 (need 4.5) section switch idle on navy
+22 pairs, 0 below threshold

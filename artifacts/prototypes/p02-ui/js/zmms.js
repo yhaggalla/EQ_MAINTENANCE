@@ -1,6 +1,8 @@
 /* P02B: ZMMS daily jobs and automatic status (DATA_CONTRACT s15, API s4.18-s4.19).
-   SYNTHETIC ONLY. This prototype never contacts ZMMS (www.zmms.lk) and holds no account. Every job number, equipment text, job type
-   and status value below is invented ("SYN" prefix) because the real page structure is unknown until P07B (ZQ-01..ZQ-13).
+   SYNTHETIC ONLY. This prototype never contacts ZMMS (www.zmms.lk) and holds no account. Every job number, equipment code and
+   description below is invented. The column set, the vocabularies (job types, job statuses, priorities) and the equipment code format follow
+   the structure of the real daily export file profiled on 22 October 2026 (file-level evidence only; the live page is read first in P07B,
+   ZQ-01..ZQ-13); no description or personal data was copied from that file.
    The rule functions follow the contract so the screens show real behaviour: a failed run changes nothing, a manual correction holds
    for the current Asia/Colombo day, unmapped values stop the automatic status for the equipment concerned. */
 window.EQ = window.EQ || {};
@@ -69,7 +71,7 @@ window.EQ = window.EQ || {};
     add(0, 'RT903', TB, SI, 'Engine fault diagnosis (synthetic)');
     add(0, 'RT901', TP, SC, 'Quarterly structural walk-down, part 1 (synthetic)');
     add(0, 'RT906', TW, SI, 'Wire rope inspection (synthetic)');
-    add(0, 'ES901', TC, SR, 'Hydraulic hose check (synthetic)');
+    add(0, 'ES901', TD, SR, 'Hydraulic hose check (synthetic; a Defect has no status effect)');
     add(0, 'QC999', TC, SI, 'Spreader-side lighting (synthetic; equipment code not mapped)');
     add(0, 'QC999', TD, SI, 'Cabin door defect (synthetic; equipment code not mapped)');
     add(0, 'SQ901', TC, SI, 'Twist-lock service (synthetic; spreader code)');

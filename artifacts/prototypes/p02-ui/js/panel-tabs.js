@@ -6,18 +6,21 @@ window.EQ = window.EQ || {};
 (function (EQ) {
   const h = EQ.h, icon = EQ.icon;
   const P = (EQ.panelTabs = {});
-  P.TABS = [['maintenance', 'Maintenance', 'Maintenance'], ['special', 'Projects/Special', 'Special'], ['technical', 'Technical', 'Technical'], ['spareParts', 'Spare parts', 'Spare parts']];
+  /** Link prefix: empty in the P02 flat view; the P03 viewer page sets it to the P02 prototype URL so Open in Jobs and job numbers open there. */
+  P.base = '';
+  const ext = () => (P.base ? { target: '_blank', rel: 'noopener' } : {});
+  P.TABS = [['maintenance', 'Maintenance', 'Maintenance'], ['special', 'Projects/Special', 'Projects/Special'], ['technical', 'Technical', 'Technical'], ['spareParts', 'Spare parts', 'Spare parts']];
   P.KEYS = P.TABS.map((t) => t[0]);
 
   const scopeParams = (eq, scope) => (scope.level === 'equipment' ? { equipment: eq.id } : { equipment: eq.id, scope: scope.level, target: scope.id });
   P.jobsLink = (eq, scope, tab) => {
     const qs = new URLSearchParams();
-    if (tab === 'spareParts') { const p = scopeParams(eq, scope); qs.set('equipment', eq.id); if (scope.level === 'main') qs.set('main', scope.id); if (scope.level === 'sub') qs.set('sub', scope.id); if (scope.level === 'part') qs.set('part', scope.id); return '#/eq/jobs/spare-parts?' + qs.toString(); }
-    if (tab === 'maintenance') { const t = EQ.todayColombo(); qs.set('equipment', eq.id); qs.set('from', t); qs.set('to', t); return '#/eq/jobs/special?' + qs.toString() + '#daily'.replace('#', ''); }
+    if (tab === 'spareParts') { const p = scopeParams(eq, scope); qs.set('equipment', eq.id); if (scope.level === 'main') qs.set('main', scope.id); if (scope.level === 'sub') qs.set('sub', scope.id); if (scope.level === 'part') qs.set('part', scope.id); return P.base + '#/eq/jobs/spare-parts?' + qs.toString(); }
+    if (tab === 'maintenance') { const t = EQ.todayColombo(); qs.set('equipment', eq.id); qs.set('from', t); qs.set('to', t); return P.base + '#/eq/jobs/special?' + qs.toString(); }
     Object.entries(scopeParams(eq, scope)).forEach(([k, v]) => qs.set(k, v));
-    return '#/eq/jobs/special?' + qs.toString();
+    return P.base + '#/eq/jobs/special?' + qs.toString();
   };
-  const openInJobs = (eq, scope, tab) => h('a', { class: 'btn btn-sm', href: P.jobsLink(eq, scope, tab), 'data-fk': 'open-in-jobs-' + tab }, icon('ext'), 'Open in Jobs');
+  const openInJobs = (eq, scope, tab) => h('a', { class: 'btn btn-sm', href: P.jobsLink(eq, scope, tab), 'data-fk': 'open-in-jobs-' + tab, ...ext() }, icon('ext'), 'Open in Jobs');
 
   /** Tab badges (summary query): today's ZMMS job count, open special jobs, spare parts overdue / due soon. */
   P.summary = function summary(eq, scope) {
@@ -63,7 +66,19 @@ window.EQ = window.EQ || {};
     return box;
   };
 
+  P.jobMini = function jobMini(j, lines) {
+    return h('li', { class: j.workStatus === 'completed' ? '' : 'open' },
+      h('div', { class: 'row between' }, h('a', { href: P.base + '#/eq/jobs/special/' + j.id, ...ext() }, j.number), h('span', null, h('span', { class: 'tag' }, j.kind === 'replacement' ? 'Replacement' : 'Repair'), ' ', h('span', { class: 'tag ' + (j.workStatus === 'completed' ? 'green' : 'gold') }, j.isCancelled ? 'Cancelled' : j.workStatus === 'completed' ? 'Completed' : j.workStatus === 'current' ? 'Current' : 'Pending'))),
+      h('strong', null, j.title),
+      h('span', { class: 'when' }, 'Target: ' + EQ.targetLabel(j)),
+      j.workStatus === 'completed' ? h('span', { class: 'when' }, 'Completed on ' + EQ.fmtDate(j.completedOn) + ' (business date)' + (j.corrections.length ? ' · Corrected ' + j.corrections.length + ' time(s)' : '')) : h('span', { class: 'when' }, j.plannedOn ? 'Planned ' + EQ.fmtDate(j.plannedOn) : 'No planned date'),
+      j.isCancelled ? h('span', { class: 'when' }, 'Cancelled by ' + EQ.userName(j.cancelledBy) + ': ' + j.cancelReason) : null,
+      lines && lines.length ? h('ul', { class: 'lines' }, lines.map((l) => { const p = EQ.pos(l.positionId); return h('li', null, p.name + ': installed ' + l.item.desc + (l.item.serial ? ' (serial ' + l.item.serial + ')' : ' (serial unknown)') + ', ' + l.qty + ' ' + l.uom + ', ' + EQ.fmtDate(l.replacedOn) + (l.removedKnown ? '; removed ' + (l.removedDesc || 'item') + (l.removedSerial ? ' (serial ' + l.removedSerial + ')' : '') : '; removed item Unknown')); })) : null,
+      j.corrections.length ? h('details', null, h('summary', { class: 'small' }, 'Correction history (prior values kept)'), j.corrections.map((c) => h('div', { class: 'small', style: 'margin-top:.3rem' }, 'Correction ' + c.n + ' by ' + EQ.userName(c.by) + ', ' + EQ.fmtInstantShort(c.at) + ': ' + c.reason, c.items.map((it) => h('div', null, it.field + ': ', h('s', null, it.before), ' → ', h('strong', null, it.after)))))) : null);
+  };
+
   P.special = function special(eq, sel, scope, jobMini) {
+    jobMini = jobMini || P.jobMini;
     const box = h('div', { class: 'stack' });
     const H = EQ.history(eq.id, scope, true);
     const rows = [...H.open, ...H.completed];

@@ -4,6 +4,77 @@ Rolling handover for CICT EQ Maintenance. Each phase appends its record; the new
 
 ---
 
+## P02B V2 prototype - 22 October 2026
+
+### Runtime record
+
+| Item | Value |
+| --- | --- |
+| Recommended profile | Codex gpt-6.1-sol, high; Claude Code claude-sonnet-5-5, high, adaptive thinking |
+| Actual client | Claude Code subagent eq-build-sonnet-high (delegated by the orchestrator; prompt in `docs/runs/P02B-20261022-2202.md`) |
+| Actual model / effort | claude-sonnet-5-5; effort high (per agent definition) |
+| Fallback / escalation | None. This run resumed a first P02B run on the user's Windows machine that stopped on a usage limit; its partial work (commit 5895126) was inspected, found sound and completed |
+
+### Outcome
+
+P02B complete at prototype level: the P02 prototype and the P03 viewer page now cover SOW V2 and the P01B contracts with **synthetic in-memory data only** (no persistence, no sign-in, no ZMMS contact). U1-C19 is built: the crane-view right panel has exactly four tabs (Maintenance, Projects/Special, Technical, Spare parts), no work history, in the flat view and in the 3D viewer, with the same data and text (21 views compared). Evidence level: headless-browser checks on the prototype and screenshots; no acceptance case was executed.
+
+### Requirement IDs addressed (prototype support only)
+
+S02, S03, S07, S08, S16, S18-S29 as UI/behaviour prototypes; supporting evidence for HIS02, HIS05, HIS06, ACC01-ACC05, ZM01-ZM03, ZM05-ZM07, SP01-SP04, FAC01-FAC11 (rules simulated), FDB01-FDB06 (not FDB05's 30 minutes), OPS02. All stay NOT RUN against the real app.
+
+### Files changed (this run; not committed)
+
+Prototype P02: `artifacts/prototypes/p02-ui/css/v2.css`, `js/panel-tabs.js` (jobMini moved here, link base), `js/views-equipment.js`, `js/views-fleet.js`, `js/views-fac.js`, `js/views-admin2.js` (import row-by-row table, matrix checkbox fix), `js/zmms.js` (fixture consistency, header), `README.md`.
+Prototype P03: `artifacts/prototypes/p03-qc-model/index.html`, `js/app.mjs` (four tabs, shared data layer), `js/data.mjs` (own jobs removed), `serve.mjs` (read-only `/p02/js/` whitelist), `css/p03.css`, new `css/p03-panel.css`, `README.md`.
+Tools: `tools/p02/check_prototype.mjs` and `tools/p03/check_model_prototype.mjs` (adapted assertions, hardened waits); new `tools/p02b/check_p02b.mjs`, `check_p03_panel.mjs`, `capture.mjs`, `check_contrast_v2.py`.
+Docs: `docs/UX_SPEC.md` (s13-s20), `docs/DECISIONS.md` (D-129..D-138, U-33, U-34), `docs/IMPLEMENTATION_STATUS.md`, `docs/HANDOVER.md`, `docs/evidence/P02B/` (report, JSON results, 48 screenshots). Kept from the first run (commit 5895126): `access.js`, `fac.js`, `fac-ref.js`, `spares.js`, `zmms.js`, `views-eqjobs.js`, `views-facjobs.js`, `app.js` routing and `tools/p02b/{build_fac_ref,dbg,shot,smoke}.mjs`.
+Untouched: `documents/`, `As-bulit drawing/`, `RTG drawings/`, `rtg-workbench/` (another session's work, not read), the Portal repository (not available here).
+
+### Checks run and results
+
+| Check | Result |
+| --- | --- |
+| `node tools/p02b/check_p02b.mjs` | 59/59 PASS |
+| `node tools/p02b/check_p03_panel.mjs` (SwiftShader) | 8/8 PASS |
+| `node tools/p02/check_prototype.mjs` (regression, 5 adapted assertions) | 59/59 PASS |
+| `node tools/p03/check_model_prototype.mjs --gpu swiftshader` (regression) | 41/41 PASS in the final run; two earlier runs after the viewer change failed 3 and 2 timing-sensitive checks (fixed 200 ms waits; the waits now follow the rendered frame); the baseline passed once |
+| Contrast: P02 37 pairs; V2 22 token pairs | all at or above threshold |
+| Screenshots | 48, no console errors |
+
+Not run or not possible here: real GPU WebGL, a screen reader, a phone camera, .xlsx export (CSV stand-in), 30-minute TV-mode memory run, anything against the real Portal, database or ZMMS.
+
+### What is synthetic
+
+Everything except the mechanism catalogue, the source parameters and the FAC job list (114 jobs and issues from the reference JSON). Synthetic: all equipment and codes, positions, special jobs, users, ZMMS daily jobs, runs and mappings (shaped like the real export, values invented), spare-part register, commissioning dates, FAC progress, holds, photos, updates, PIC links, Admin-entered due dates and the Access-matrix changes.
+
+### The user's ZMMS export (D-134, U-34)
+
+`documents/Daily All Running Jobs_CMMS-LK-2026-10-22.xls` (read only, structure only): 24 named columns plus a blank action column, 48 rows, one job date; job types CM, PM, Defect, BreakDown, WireRope; statuses Initialized, Added To Daily, Re-Added to Daily, Hold, Completed; priorities Low, Medium, High; equipment codes of two letters and three digits (QC, RT, ES, SQ spreaders, SF, SK, WS, RS). The synthetic fixtures use that layout with invented codes, descriptions and numbers. This is file-level evidence; P07B confirms against the live page. The job-type to Breakdown/Maintenance mapping stays an Admin choice (Q11); the mapping shown in Admin is an illustration.
+
+### Open issues and impact
+
+| ID | Issue | Impact |
+| --- | --- | --- |
+| U-31 | Projects/Special lists open jobs only (counts for the rest) | Confirm at the U1 repeat |
+| U-33 | Spreaders (SQ codes) are separate equipment in ZMMS but part 061 of a crane here | Left in the unmatched queue in the prototype; Admin or user decides |
+| U-34 | The export answers only part of U-29; login, paging, date selection, empty-day marker, rate limits stay for P07B | Parser stays provisional |
+| UX-4..UX-7 | Maintenance list is equipment-level; completed jobs not listed; spreader codes; dashboard lists exclude jobs completed and not yet due | For R02B and the U1 repeat |
+| P03 flaky waits | Software WebGL frame time varies 100-350 ms | Harden or use a GPU run in P10 |
+| D-02 | .NET 10 SDK not installed | Blocks P04 only |
+
+No missing business information blocks R02B.
+
+### Git
+
+Repository `/home/user/EQ_MAINTENANCE` (F:\CODEX\EQ_MAINTENANCE), branch `main-fpkbjt`, base commit 5895126; all P02B changes of this run are uncommitted (the orchestrator commits).
+
+### Next prompt
+
+**R02B V2 contracts and prototype review** (read-only, Claude Code claude-opus-5-5 high). Then the U1 repeat (user checkpoint, round 4 and the V2 prototype).
+
+---
+
 ## P01B V2 contracts addendum - 22 October 2026
 
 ### Runtime record

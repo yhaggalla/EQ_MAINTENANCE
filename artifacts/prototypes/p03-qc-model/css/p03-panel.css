@@ -1,0 +1,40 @@
+/* P02B / U1-C19: styles for the four-tab right panel of the 3D viewer page. The markup comes from the shared renderer in
+   ../p02-ui/js/panel-tabs.js (same classes as the flat view), so these rules mirror the P02 panel look at P03's compact scale. */
+#info-head { padding: 0 12px 6px; }
+#info-head .eyebrow { margin: 0; color: #805900; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+#info-head h3 { margin: 2px 0 0; font-size: 15px; color: var(--navy); }
+.ptabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-bottom: 1px solid var(--line); margin: 0 12px 8px; }
+.ptabs button { position: relative; border: 0; border-bottom: 3px solid transparent; border-radius: 0; background: none; color: var(--ink); min-height: 40px; padding: 4px 2px; font-size: 12.5px; line-height: 1.15; display: flex; flex-wrap: wrap; gap: 2px 4px; align-items: center; justify-content: center; text-align: center; }
+.ptabs button[aria-selected="true"] { border-bottom-color: var(--navy); color: var(--navy); font-weight: 700; background: none; }
+.ptabs button[aria-selected="true"]:hover, .ptabs button:hover { background: #eef3f7; }
+.ptabs .tab-n { position: absolute; top: 1px; right: 1px;
+}
+.ptabs .tab-n { background: #fff4c7; color: #5d4100; border-radius: 99px; font-size: 10.5px; font-weight: 800; padding: 0 6px; min-width: 18px; text-align: center; }
+#info .stack { display: grid; gap: 10px; }
+#info .sec { display: grid; gap: 6px; }
+#info .sec > h3 { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin: 4px 0 0; font-size: 13.5px; color: var(--navy); }
+#info .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+#info .row.between { justify-content: space-between; }
+#info .small { font-size: 12px; } #info .muted { color: var(--muted); } #info .mono { font-family: Consolas, "Courier New", monospace; font-size: 12px; }
+#info .tag { display: inline-block; padding: 1px 6px; border-radius: 4px; background: #e8eef3; color: #2c4458; font-size: 11px; font-weight: 700; }
+#info .tag.gold { background: #fff4c7; color: #5d4100; } #info .tag.red { background: #fff0f1; color: #a72835; } #info .tag.green { background: #e8f6ef; color: #0f5f40; }
+#info .tag.dashed { background: transparent; border: 1px dashed #6c8496; }
+#info .tl { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+#info .tl > li { border: 1px solid var(--line); border-left: 4px solid #0f5a89; border-radius: 5px; padding: 6px 8px; background: #fff; display: grid; gap: 3px; }
+#info .tl > li.open { border-left-color: #c88c00; } #info .tl > li.overdue { border-left-color: #a72835; }
+#info .tl .when { font-size: 11.5px; color: var(--muted); }
+#info .kv { display: grid; grid-template-columns: max-content 1fr; gap: 3px 10px; margin: 0; }
+#info .kv dt { color: var(--muted); font-weight: 600; } #info .kv dd { margin: 0; overflow-wrap: anywhere; }
+#info .lines { margin: 2px 0 0; padding-left: 16px; font-size: 12px; }
+#info .nonwork { padding: 8px 10px; border: 1px dashed #6c8496; border-radius: 5px; background: #f7f9fb; }
+#info .nonwork strong { display: block; }
+#info .notice { padding: 6px 8px; border-radius: 5px; background: #eef6fa; border: 1px solid #b9d4e4; display: flex; gap: 6px; }
+#info .notice p { margin: 0; }
+#info .btn, #info a.btn { display: inline-flex; gap: 5px; align-items: center; min-height: 30px; padding: 3px 10px; border: 1px solid #6c8496; border-radius: 4px; background: #fff; color: var(--navy); text-decoration: none; font-size: 12.5px; font-weight: 600; width: fit-content; }
+#info .btn:hover { background: #eef3f7; }
+#info .icon { width: 1.1em; height: 1.1em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; vertical-align: -.17em; }
+#info .badge, #info-head .badge { display: inline-flex; gap: 4px; align-items: center; border: 1px solid; border-radius: 99px; padding: 1px 8px; font-size: 12px; font-weight: 700; }
+#info .badge.st-readyForOps { color: #0f5f40; background: #e3f4ec; border-color: #7cc3a3; } #info .badge.st-breakdown { color: #8f1d2a; background: #fde8ea; border-color: #e08a93; }
+#info .badge.st-maintenance { color: #6a4600; background: #fff1cf; border-color: #e2b94c; } #info .badge.st-unreported { color: #46596a; background: #eef1f4; border-color: #a9b6c1; border-style: dashed; }
+#info h3 { font-size: 13.5px; color: var(--navy); margin: 8px 0 4px; }
+#info .sec > h3, #info .stack > .sec h3 { margin-top: 0; }

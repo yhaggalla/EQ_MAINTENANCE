@@ -7,6 +7,7 @@
   <meta name="description" content="CICT EQ Maintenance P03: interactive CICT-J526A-STS QC model prototype with synthetic equipment bindings. Nothing is saved; not a production view.">
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="css/p03.css">
+  <link rel="stylesheet" href="css/p03-panel.css">
   <script type="importmap">
   { "imports": { "three": "./vendor/three/three.module.js", "three/addons/": "./vendor/three/addons/" } }
   </script>
@@ -65,9 +66,24 @@
     </section>
     <section class="pane info-pane" aria-labelledby="info-h">
       <h2 id="info-h">Selection</h2>
-      <div id="info"></div>
+      <div id="info-head"></div>
+      <div id="info-tabs" class="ptabs" role="tablist" aria-label="Current state of the selection"></div>
+      <div id="info" role="tabpanel" tabindex="-1"></div>
     </section>
   </main>
+  <!-- P02B / U1-C19: the right panel reuses the P02 prototype's synthetic V2 data layer (ZMMS daily jobs, special jobs, spare-part
+       register) and its four-tab renderer, so the flat view and this 3D view show the same current state for the same selection.
+       Classic scripts, served read-only from the P02 folder by serve.mjs; the Fac stub keeps the FAC fixtures out of this page. -->
+  <script>window.EQ = { fac: { build() {} } };</script>
+  <script src="p02/js/util.js"></script>
+  <script src="p02/js/catalog.js"></script>
+  <script src="p02/js/params.js"></script>
+  <script src="p02/js/fixtures.js"></script>
+  <script src="p02/js/access.js"></script>
+  <script src="p02/js/store.js"></script>
+  <script src="p02/js/zmms.js"></script>
+  <script src="p02/js/spares.js"></script>
+  <script src="p02/js/panel-tabs.js"></script>
   <script type="module" src="js/app.mjs"></script>
 </body>
 </html>

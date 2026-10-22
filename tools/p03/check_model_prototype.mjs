@@ -34,6 +34,10 @@ const st = () => E('JSON.stringify(window.__qc.state)').then(JSON.parse);
 const posKey = (id) => E(`window.__qc.positions().find(p=>p.id===${JSON.stringify(id)})?.semanticKey`);
 const idOfKey = (k) => E(`window.__qc.binding().get(${JSON.stringify(k)})?.positionId`);
 const settle = () => sleep(900); // > 650 ms focus transition
+// P02B: software WebGL (SwiftShader) can take 100-350 ms per frame under load, so checks that read the label layer or a hint wait for the next
+// completed frame (or the condition) instead of a fixed 200 ms. The assertions themselves are unchanged.
+const nextFrame = async () => { await E(`new Promise((res)=>{const v=window.__qc.viewer; if(!v){res();return;} const f0=v.frames; let n=0; const iv=setInterval(()=>{ if(v.frames>f0||++n>150){clearInterval(iv);res();} },20); v.requestRender && v.requestRender();})`); await sleep(80); };
+const waitFor = async (expr, ms = 4000) => { const t0 = Date.now(); while (Date.now() - t0 < ms) { if (await E(expr)) return true; await sleep(100); } return false; };
 // U1 round 2: wait for a running camera transition to finish (software rendering can stretch the 650 ms tween)
 const settleCam = async () => { await sleep(300); for (let i = 0; i < 30; i++) { if (await E('!window.__qc.viewer || window.__qc.viewer._tween === null')) break; await sleep(100); } await sleep(150); };
 
@@ -56,8 +60,11 @@ try {
   await E(`document.querySelector('#tree [data-id="${motorA}"]').click()`); await settle();
   s = await st(); sel = await E('JSON.stringify([...window.__qc.viewer.selected])').then(JSON.parse);
   const crumbs = await E(`document.querySelector('#crumbs').textContent`);
+  // P02B (U1-C19): the right panel is four current-state tabs, not history. The position identity is in the Technical tab; no history text exists.
+  const tabNames = await E(`[...document.querySelectorAll('#info-tabs [role=tab]')].map(t=>t.dataset.tab).join(',')`);
+  await E(`document.querySelector('#info-tabs [data-tab="technical"]').click()`); await sleep(200);
   const info = await E(`document.querySelector('#info').textContent`);
-  rec('tree-select-part', 'S05, S07, VIS03', s.part === motorA && sel.length === 1 && sel[0] === 'hoist.drive.motor.a' && crumbs.includes('01 Hoist') && crumbs.includes('011') && info.includes(motorA) && info.includes('Exact-position history') && info.includes('EQJ-SYN-0101'), { state: s, crumbs, url: await E('location.search') });
+  rec('tree-select-part', 'S05, S07, VIS03', s.part === motorA && sel.length === 1 && sel[0] === 'hoist.drive.motor.a' && crumbs.includes('01 Hoist') && crumbs.includes('011') && info.includes(motorA) && info.includes('Semantic key') && !/history/i.test(info) && tabNames === 'maintenance,special,technical,spareParts', { state: s, crumbs, tabNames, url: await E('location.search') });
   const ariaSel = await E(`document.querySelector('#tree [aria-selected="true"]').dataset.id`);
   rec('tree-synchronised', 'S05', ariaSel === motorA, ariaSel);
 
@@ -82,7 +89,7 @@ try {
 
   // 5 container pick in overall mode selects the spatial group only
   await open(`?eq=eq-qc-demo-01`); await settle();
-  await E(`window.__qc.viewer.fitKeys(['container.machinery-house'])`); await settle();
+  await E(`window.__qc.viewer.fitKeys(['container.machinery-house'])`); await settleCam();
   pt = await E(`JSON.stringify(window.__qc.viewer.projectCenter('container.machinery-house'))`).then(JSON.parse);
   await clickAt(pt.x, pt.y + 10); s = await st();
   const cinfo = await E(`document.querySelector('#info').textContent`);
@@ -126,7 +133,7 @@ try {
   rec('thin-rope-fit-finite', 'VIS04', rope.finite && rope.dist > 1 && rope.dist < 600, rope);
   await E(`window.__qc.viewer.resetView(true)`); await sleep(200);
   const before = await E('JSON.stringify(window.__qc.viewer.persp.position.toArray())');
-  await E(`window.__qc.select({ sub: 'si-q01-013' })`); await sleep(900); // load-cell hotspot is technical-only -> hidden in Overall
+  await E(`window.__qc.select({ sub: 'si-q01-013' })`); await waitFor(`/no visible representation/.test(document.querySelector('#hint').textContent)`); await settleCam(); // load-cell hotspot is technical-only -> hidden in Overall
   const after = await E('JSON.stringify(window.__qc.viewer.persp.position.toArray())');
   const hint3 = await E(`document.querySelector('#hint').textContent`);
   rec('hidden-selection-camera-unchanged', 'VIS04, DATA s10.8', before === after && /no visible representation/.test(hint3), { hint3 });
@@ -141,8 +148,10 @@ try {
   await open(`?eq=eq-qc-demo-02`); await settle();
   const motorA2 = await idOfKey('hoist.drive.motor.a');
   await E(`window.__qc.select({ part: ${JSON.stringify(motorA2)} })`); await settle();
+  // P02B: separate identity is shown through the current state (Spare parts tab): QC-DEMO-02 motor A carries its own serial and replaced date
+  await E(`document.querySelector('#info-tabs [data-tab="spareParts"]').click()`); await sleep(200);
   const info2 = await E(`document.querySelector('#info').textContent`);
-  rec('equipment-specific-history', 'S12, HIS01 (synthetic)', motorA2 !== motorA && info2.includes('EQJ-SYN-0202') && !info2.includes('EQJ-SYN-0101'), { 'QC-DEMO-01': motorA, 'QC-DEMO-02': motorA2 });
+  rec('equipment-specific-identity', 'S12, HIS01, S22 (synthetic)', motorA2 !== motorA && info2.includes('SYN-0017') && info2.includes('30 Sept 2026') && !info2.includes('SYN-0001'), { 'QC-DEMO-01': motorA, 'QC-DEMO-02': motorA2 });
 
   // 12 deep link reload and back/forward
   await open(`?eq=eq-qc-demo-01&part=${motorA}&mode=technical`); await settle();
@@ -265,7 +274,7 @@ try {
   // before the aligned-view checks below (the P03/U1 version expected Reset to keep the selection).
   await E(`document.querySelector('#btn-reset').click()`); await settleCam(); tb.reset = JSON.stringify((await camSig()).p) === JSON.stringify(reset0.p) && !(await st()).part;
   await E(`window.__qc.select({ part: ${JSON.stringify(hinge)} }, { focus: false })`); await sleep(200);
-  await E(`document.querySelector('#btn-labels').click()`); await sleep(200); tb.labelsOff = (await labelTexts()).length === 0;
+  await E(`document.querySelector('#btn-labels').click()`); await nextFrame(); tb.labelsOff = (await labelTexts()).length === 0;
   await E(`document.querySelector('#btn-labels').click()`); await sleep(200); tb.labelsOn = (await labelTexts()).length > 0;
   tb.views = {};
   for (const v of ['side', 'end-ws', 'end-ls', 'top']) {
@@ -303,7 +312,7 @@ try {
   rec('u1r2-labels-persist-after-tree-selection', 'U1-C09, U1-C08', Object.values(perMain).every((n) => n >= 1) && subN >= 2 && partL.length >= 2 && partL.some((l) => /motor A/.test(l.t)), { perMain, subN, partLabels: partL });
   // 26 Reset returns to the whole equipment with labels and the initial tree folds (mode is kept)
   await E(`document.querySelector('#btn-iso').click()`); await settle();
-  await E(`document.querySelector('#btn-labels').click()`); await sleep(200);
+  await E(`document.querySelector('#btn-labels').click()`); await nextFrame();
   const before26 = { labels: (await labelsNow()).length, expanded: await E(`document.querySelectorAll('#tree [aria-expanded="true"]').length`) };
   await E(`window.__qc.viewer.resetView(true)`); await sleep(150); const r26cam = await camSig();
   await E(`window.__qc.select({ sub: 'si-q01-031' })`); await settle();

@@ -274,16 +274,7 @@ window.EQ = window.EQ || {};
   EQ.fullReset = fullReset;
 
   // ---------------------------------------------------------------- right panel
-  function jobMini(j, lines) {
-    return h('li', { class: j.workStatus === 'completed' ? '' : 'open' },
-      h('div', { class: 'row between' }, h('a', { href: '#/eq/jobs/special/' + j.id }, j.number), h('span', null, h('span', { class: 'tag' }, j.kind === 'replacement' ? 'Replacement' : 'Repair'), ' ', h('span', { class: 'tag ' + (j.workStatus === 'completed' ? 'green' : 'gold') }, j.isCancelled ? 'Cancelled' : j.workStatus === 'completed' ? 'Completed' : j.workStatus === 'current' ? 'Current' : 'Pending'))),
-      h('strong', null, j.title),
-      h('span', { class: 'when' }, 'Target: ' + EQ.targetLabel(j)),
-      j.workStatus === 'completed' ? h('span', { class: 'when' }, 'Completed on ' + EQ.fmtDate(j.completedOn) + ' (business date)' + (j.corrections.length ? ' · Corrected ' + j.corrections.length + ' time(s)' : '')) : h('span', { class: 'when' }, j.plannedOn ? 'Planned ' + EQ.fmtDate(j.plannedOn) : 'No planned date'),
-      j.isCancelled ? h('span', { class: 'when' }, 'Cancelled by ' + EQ.userName(j.cancelledBy) + ': ' + j.cancelReason) : null,
-      lines && lines.length ? h('ul', { class: 'lines' }, lines.map((l) => { const p = EQ.pos(l.positionId); return h('li', null, p.name + ': installed ' + l.item.desc + (l.item.serial ? ' (serial ' + l.item.serial + ')' : ' (serial unknown)') + ', ' + l.qty + ' ' + l.uom + ', ' + EQ.fmtDate(l.replacedOn) + (l.removedKnown ? '; removed ' + (l.removedDesc || 'item') + (l.removedSerial ? ' (serial ' + l.removedSerial + ')' : '') : '; removed item Unknown')); })) : null,
-      j.corrections.length ? h('details', null, h('summary', { class: 'small' }, 'Correction history (prior values kept)'), j.corrections.map((c) => h('div', { class: 'small', style: 'margin-top:.3rem' }, 'Correction ' + c.n + ' by ' + EQ.userName(c.by) + ', ' + EQ.fmtInstantShort(c.at) + ': ' + c.reason, c.items.map((it) => h('div', null, it.field + ': ', h('s', null, it.before), ' → ', h('strong', null, it.after)))))) : null);
-  }
+  const jobMini = (j, lines) => EQ.panelTabs.jobMini(j, lines); // shared with the P03 viewer panel
   function historyTab(eq, sel, scope) {
     const key = eq.id + '|' + scope.level + '|' + (scope.id || '') + '|' + ui.inclCancelled;
     const label = scope.level === 'equipment' ? eq.code : scope.level + ' ' + scope.id;
@@ -436,7 +427,7 @@ window.EQ = window.EQ || {};
         const n = nOf[k];
         return h('button', { type: 'button', role: 'tab', id: 'tab-' + k, 'aria-controls': 'tabpanel', 'aria-selected': panelTab === k ? 'true' : 'false', tabindex: panelTab === k ? '0' : '-1', 'aria-label': long + (n ? ', ' + n + ' ' + nLabel[k] : ''), 'data-fk': 'tab-' + k,
           onKeydown: (e) => { const keys = EQ.panelTabs.KEYS; const i = keys.indexOf(k); const j = e.key === 'ArrowRight' ? (i + 1) % 4 : e.key === 'ArrowLeft' ? (i + 3) % 4 : e.key === 'Home' ? 0 : e.key === 'End' ? 3 : -1; if (j >= 0) { e.preventDefault(); EQ.nav('/eq/equipment/' + eq.id, { ...q, panel: keys[j] }); setTimeout(() => document.querySelector('[data-fk="tab-' + keys[j] + '"]')?.focus(), 0); } },
-          onClick: () => EQ.nav('/eq/equipment/' + eq.id, { ...q, panel: k }) }, h('span', { class: 'lbl-long' }, long), h('span', { class: 'lbl-short' }, short), n ? h('span', { class: 'tab-n', 'aria-hidden': 'true' }, String(n)) : null);
+          onClick: () => EQ.nav('/eq/equipment/' + eq.id, { ...q, panel: k }) }, h('span', { class: 'lbl-long' }, long === 'Projects/Special' ? ['Projects/', h('wbr'), 'Special'] : long), n ? h('span', { class: 'tab-n', 'aria-hidden': 'true' }, String(n)) : null);
       })));
     const sideBody = h('div', { class: 'sp-body', role: 'tabpanel', id: 'tabpanel', 'aria-labelledby': 'tab-' + panelTab }, q.container ? containerTab(eq) : tabBody(eq, sel, scope, q, panelTab));
     const side = h('aside', { class: 'panel side-panel' + (EQ.eqUI.drawer === 'panel' ? ' open' : ''), 'aria-label': 'Current state of the selection' }, sideHead, sideBody);

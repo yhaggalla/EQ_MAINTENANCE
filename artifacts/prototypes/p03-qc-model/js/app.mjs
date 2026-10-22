@@ -1,7 +1,13 @@
 // P03 QC model prototype page: one selection state (URL) shared by tree, breadcrumb, scene picking and panel.
 // Synthetic data only (see data.mjs). The viewer core (viewer.mjs) never sees database IDs; it works in node keys.
 import { QcViewer, webglAvailable } from './viewer.mjs';
-import { EQUIPMENT, instantiate, jobsFor } from './data.mjs';
+import { EQUIPMENT, instantiate } from './data.mjs';
+
+// Shared synthetic V2 data layer and four-tab renderer from the P02 prototype (classic scripts loaded by index.html). P02B / U1-C19.
+const EQ = window.EQ;
+EQ.state.role = 'management'; // the viewer page is read-only; there is no sign-in and no persona switch here
+EQ.panelTabs.base = location.protocol + '//' + location.hostname + ':5312/?role=eqTeam'; // Open in Jobs and job numbers open the P02 prototype
+EQ.reset();
 
 const MODEL_BASE = 'models/cict-j526a-sts-scene/1/';
 const $ = (s) => document.querySelector(s);
@@ -18,7 +24,7 @@ const el = (tag, attrs, ...kids) => {
 const Q = new URLSearchParams(location.search);
 const SIM = Q.get('viewer'); // nowebgl | contextlost | loadfail (prototype fallback simulation)
 
-const state = { eq: 'eq-qc-demo-01', main: null, sub: null, part: null, container: null, mode: 'overall', iso: false, view: '' };
+const state = { eq: 'eq-qc-demo-01', main: null, sub: null, part: null, container: null, mode: 'overall', iso: false, view: '', panel: 'maintenance' };
 let manifest, catalog, params, viewer = null, viewerState = 'loading', inst = new Map(), expanded = new Set(), loadMs = null;
 let lastFocusKey = null;
 const PARAMS_BY_MAIN = {
@@ -37,6 +43,7 @@ function readURL() {
   state.mode = q.get('mode') === 'technical' ? 'technical' : 'overall';
   state.iso = q.get('iso') === '1' && state.mode === 'technical';
   state.view = ['side', 'end-ws', 'end-ls', 'top'].includes(q.get('view')) ? q.get('view') : '';
+  state.panel = EQ.panelTabs.KEYS.includes(q.get('panel')) ? q.get('panel') : 'maintenance';
 }
 function writeURL(push = true) {
   const q = new URLSearchParams();
@@ -46,6 +53,7 @@ function writeURL(push = true) {
   if (state.mode !== 'overall') q.set('mode', state.mode);
   if (state.iso) q.set('iso', '1');
   if (state.view) q.set('view', state.view);
+  if (state.panel !== 'maintenance') q.set('panel', state.panel);
   const url = location.pathname + '?' + q.toString();
   if (url !== location.pathname + location.search) (push ? history.pushState : history.replaceState).call(history, null, '', url);
 }
@@ -116,19 +124,18 @@ function labelCandidates() {
   // U1 round 2 (U1-C09): labels never disappear when a selection is made in the tree. The level below the selection
   // is labelled; when it has nothing to label (no bound geometry), the selection's own level is labelled with the
   // selection highlighted, and failing that the main mechanisms (tier 1). Off-screen labels are pinned to the edge.
-  const ii = I(); const work = openWorkByKey();
-  const workOf = (keys) => keys.reduce((a, k) => a + (work.get(k) || 0), 0) || undefined;
-  const partLabel = (n, extra) => ({ id: n.key, keys: [n.key], text: lab(n), badge: n.kind === 'hotspot' ? 'Approx.' : qualOf(n), work: work.get(n.key), allowHidden: true, tier: 3, next: n.kind === 'hotspot' ? { hotspot: n.key } : { part: ii.binding.get(n.key)?.positionId }, ...extra });
+  const ii = I();
+  const partLabel = (n, extra) => ({ id: n.key, keys: [n.key], text: lab(n), badge: n.kind === 'hotspot' ? 'Approx.' : qualOf(n), work: openCount('part', n.key) || undefined, allowHidden: true, tier: 3, next: n.kind === 'hotspot' ? { hotspot: n.key } : { part: ii.binding.get(n.key)?.positionId }, ...extra });
   const tier3 = (s, selKey) => manifest.nodes.filter((n) => s && (n.kind === 'position' || n.kind === 'hotspot') && n.classification.sub === s.code && ii.binding.has(n.key)).map((n) => partLabel(n, n.key === selKey ? { priority: 100, selected: true } : { priority: selKey ? 40 : 60 }));
   const tier2 = (m, selSubId) => {
     const out = [];
     for (const s of ii.subs.filter((x) => x.mainId === m.id)) {
       const keys = boundKeysWhere((n) => n.classification.sub === s.code); if (!keys.length) continue;
-      out.push({ id: s.id, keys, text: `${s.code} ${s.name}`, work: workOf(keys), allowHidden: true, tier: 2, priority: s.id === selSubId ? 90 : 60, selected: s.id === selSubId, next: { sub: s.id }, hint: `${s.code} ${s.name}: ${keys.length} position(s) / part(s). Click to show its parts.` });
+      out.push({ id: s.id, keys, text: `${s.code} ${s.name}`, work: openCount('sub', s.id) || undefined, allowHidden: true, tier: 2, priority: s.id === selSubId ? 90 : 60, selected: s.id === selSubId, next: { sub: s.id }, hint: `${s.code} ${s.name}: ${keys.length} position(s) / part(s). Click to show its parts.` });
     }
     return out;
   };
-  const tier1 = (selMainId) => ii.mains.map((m) => { const keys = boundKeysWhere((n) => n.classification.main === m.code); return keys.length ? { id: m.id, keys, text: `${m.code} ${m.name}`, work: workOf(keys), allowHidden: true, tier: 1, priority: m.id === selMainId ? 90 : 50, selected: m.id === selMainId, next: { main: m.id }, hint: `${m.code} ${m.name}: click to show its submechanisms.` } : null; }).filter(Boolean);
+  const tier1 = (selMainId) => ii.mains.map((m) => { const keys = boundKeysWhere((n) => n.classification.main === m.code); return keys.length ? { id: m.id, keys, text: `${m.code} ${m.name}`, work: openCount('main', m.id) || undefined, allowHidden: true, tier: 1, priority: m.id === selMainId ? 90 : 50, selected: m.id === selMainId, next: { main: m.id }, hint: `${m.code} ${m.name}: click to show its submechanisms.` } : null; }).filter(Boolean);
   const head = (m) => { const keys = boundKeysWhere((n) => n.classification.main === m.code); return keys.length && !state.iso ? [{ id: m.id + '-head', keys, text: `${m.code} ${m.name}`, selected: true, tier: 1, priority: 30, allowHidden: true, next: { main: m.id } }] : []; };
   labelFallback = null;
   if (state.container) {
@@ -163,16 +170,35 @@ function onLabel(c) {
   if (hiddenHere) hint('Switched to Technical mode: ' + c.text + ' is inside the structure or enclosure.');
 }
 
-function openWorkByKey() {
-  const m = new Map(); const ii = I();
-  for (const j of jobsFor(eqObj(), ii)) if (j.status !== 'Completed') { const p = ii.positions.find((x) => x.id === j.positionId); if (p) m.set(p.semanticKey, (m.get(p.semanticKey) || 0) + 1); }
-  return m;
+// ---------- shared P02 data layer: scope translation and open-job counts ----------
+const E2 = () => EQ.eq(state.eq); // the synthetic V2 equipment record (status, ZMMS jobs, special jobs, spare-part register)
+/** P03 selection -> P02 data-layer scope. Main/sub ids share the code-based pattern; a part is matched by its exact semantic key
+ *  (never by name or index). Returns null when the data layer has nothing under that identity. */
+function dataScopeFor(level, idOrKey) {
+  const eq2 = E2(); if (!eq2) return null;
+  if (level === 'equipment') return { level: 'equipment', id: null };
+  if (level === 'main') return eq2.mains.some((m) => m.id === idOrKey) ? { level: 'main', id: idOrKey } : null;
+  if (level === 'sub') return eq2.subs.some((x) => x.id === idOrKey) ? { level: 'sub', id: idOrKey } : null;
+  const q = EQ.positionsOf(eq2.id).find((x) => x.key === idOrKey && x.state === 'active');
+  return q ? { level: 'part', id: q.id } : null;
+}
+/** Open special jobs in a scope: the same rule as the Projects/Special tab (descendants included, de-duplicated). */
+function openCount(level, idOrKey) {
+  const sc = dataScopeFor(level, idOrKey);
+  return sc ? EQ.history(state.eq, sc, false).open.filter((r) => !r.job.isCancelled).length : 0;
+}
+function currentDataScope() {
+  if (state.part) { const p = I().positions.find((x) => x.id === state.part); return { want: 'part', scope: p ? dataScopeFor('part', p.semanticKey) : null, name: p ? p.name : 'this position' }; }
+  if (state.sub) return { want: 'sub', scope: dataScopeFor('sub', state.sub), name: 'this submechanism' };
+  if (state.main) return { want: 'main', scope: dataScopeFor('main', state.main), name: 'this mechanism' };
+  return { want: 'equipment', scope: dataScopeFor('equipment'), name: 'this equipment' };
 }
 
 // ---------- equipment header, breadcrumb ----------
 function renderEquipment() {
-  const e = eqObj();
-  $('#status-badge').replaceChildren(el('span', null, e.code + ' '), el('span', { class: 'st ' + e.status }, (e.status === 'readyForOps' ? '✔ ' : '⚠ ') + e.statusText), el('span', { class: 'synthetic', style: 'margin-left:6px' }, 'synthetic'));
+  // status and its source come from the shared synthetic V2 data layer (Auto from the ZMMS day plan, or a Manual correction for today)
+  const e = eqObj(); const q = E2(); const mode = EQ.zmms.mode(q); const key = EQ.statusKey(q.status);
+  $('#status-badge').replaceChildren(el('span', null, e.code + ' '), el('span', { class: 'st ' + key }, (key === 'readyForOps' ? '✔ ' : '⚠ ') + EQ.STATUS[key].label), el('span', { class: 'src-tag', title: mode.long }, mode.label === 'Auto' ? 'Auto (ZMMS)' : 'Manual'), el('span', { class: 'synthetic', style: 'margin-left:6px' }, 'synthetic'));
 }
 function renderCrumbs() {
   const ii = I(); const e = eqObj(); const items = [];
@@ -188,23 +214,22 @@ function renderCrumbs() {
 
 // ---------- tree (ARIA tree with roving tabindex) ----------
 function renderTree() {
-  const ii = I(); const e = eqObj(); const work = openWorkByKey();
+  const ii = I(); const e = eqObj();
   const rows = [];
-  const subWork = (code) => [...work].filter(([k]) => nodeOf(k).classification?.sub === code).reduce((a, [, c]) => a + c, 0);
   rows.push({ level: 1, id: 'eq', text: e.code, sel: !state.main && !state.container, next: {}, hasKids: true, open: true });
   for (const m of ii.mains) {
     const open = expanded.has(m.id);
-    const mw = [...work].filter(([k]) => nodeOf(k).classification?.main === m.code).reduce((a, [, c]) => a + c, 0);
+    const mw = openCount('main', m.id);
     rows.push({ level: 2, id: m.id, code: m.code, text: m.name, sel: state.main === m.id && !state.sub, next: { main: m.id }, hasKids: true, open, work: mw });
     if (!open) continue;
     for (const s of ii.subs.filter((x) => x.mainId === m.id)) {
       const sopen = expanded.has(s.id);
       const nPos = ii.positions.filter((p) => p.subId === s.id).length;
-      rows.push({ level: 3, id: s.id, code: s.code, text: s.name, sel: state.sub === s.id && !state.part, next: { sub: s.id }, hasKids: true, open: sopen, cnt: nPos, work: subWork(s.code) });
+      rows.push({ level: 3, id: s.id, code: s.code, text: s.name, sel: state.sub === s.id && !state.part, next: { sub: s.id }, hasKids: true, open: sopen, cnt: nPos, work: openCount('sub', s.id) });
       if (!sopen) continue;
       for (const p of ii.positions.filter((x) => x.subId === s.id)) {
         const n = nodeOf(p.semanticKey);
-        rows.push({ level: 4, id: p.id, text: p.name, sel: state.part === p.id, next: { part: p.id }, q: qualOf(n), work: work.get(p.semanticKey) });
+        rows.push({ level: 4, id: p.id, text: p.name, sel: state.part === p.id, next: { part: p.id }, q: qualOf(n), work: openCount('part', p.semanticKey) });
       }
       for (const h of manifest.nodes.filter((x) => x.kind === 'hotspot' && x.classification.sub === s.code)) rows.push({ level: 4, id: 'h-' + h.key, text: 'Representative part: ' + h.label.replace(/ \(.*\)$/, ''), sel: false, next: { sub: s.id }, q: 'Approx.' });
     }
@@ -248,44 +273,86 @@ function renderToolbar() {
   $('#view-select').value = state.view;
 }
 
-// ---------- right panel ----------
+// ---------- right panel: four current-state tabs (U1-C19, S07, D-122) ----------
+// Maintenance (today's ZMMS daily jobs), Projects/Special (open special jobs in the selection), Technical (specification summary of the
+// selected area) and Spare parts (register condition within the selection). No work history is shown here; the scoped history is in the
+// EQ Jobs tab of the P02 prototype ("Open in Jobs"). Same tabs and same data as the flat view (U1-C08 parity).
+const TAB_ARIA = { maintenance: 'jobs today', special: 'open', spareParts: 'overdue or due soon' };
+function scopeTitle() {
+  const ii = I(); const e = eqObj();
+  if (state.container) return ['Spatial group', nodeOf('container.' + state.container)?.label || 'Container'];
+  if (state.part) { const p = ii.positions.find((x) => x.id === state.part); return ['Part position', p ? p.name : 'Unknown position']; }
+  if (state.sub) { const s = ii.subs.find((x) => x.id === state.sub); return ['Submechanism', s ? `${s.code} ${s.name}` : 'Unknown']; }
+  if (state.main) { const m = ii.mains.find((x) => x.id === state.main); return ['Main mechanism', m ? `${m.code} ${m.name}` : 'Unknown']; }
+  return ['Equipment', `${e.code} (whole equipment)`];
+}
 function renderInfo() {
-  const ii = I(); const e = eqObj(); const box = $('#info'); const parts = [];
+  const ii = I(); const e = eqObj(); const box = $('#info');
+  const [kind, title] = scopeTitle();
+  $('#info-head').replaceChildren(el('p', { class: 'eyebrow' }, kind), el('h3', { 'data-fk': 'scope-title' }, title));
+  const ds = currentDataScope(); const eq2 = E2();
+  const scope = ds.scope || { level: 'equipment', id: null };
+  const sum = EQ.panelTabs.summary(eq2, scope);
+  const nOf = { maintenance: sum.maintenance, special: ds.scope ? sum.special : 0, spareParts: ds.scope ? sum.spare.overdue + sum.spare.dueSoon : 0 };
+  const tabs = $('#info-tabs');
+  tabs.replaceChildren(...EQ.panelTabs.TABS.map(([k, long]) => {
+    const n = nOf[k];
+    return el('button', { type: 'button', role: 'tab', id: 'ptab-' + k, 'aria-controls': 'info', 'aria-selected': state.panel === k ? 'true' : 'false', tabindex: state.panel === k ? '0' : '-1', 'data-tab': k, 'aria-label': long + (n ? ', ' + n + ' ' + TAB_ARIA[k] : ''),
+      onclick: () => setPanel(k),
+      onkeydown: (ev) => { const keys = EQ.panelTabs.KEYS; const i = keys.indexOf(k); const j = ev.key === 'ArrowRight' ? (i + 1) % 4 : ev.key === 'ArrowLeft' ? (i + 3) % 4 : ev.key === 'Home' ? 0 : ev.key === 'End' ? 3 : -1; if (j >= 0) { ev.preventDefault(); setPanel(keys[j], true); } } },
+      long === 'Projects/Special' ? ['Projects/', document.createElement('wbr'), 'Special'] : long, n ? el('span', { class: 'tab-n', 'aria-hidden': 'true' }, String(n)) : null);
+  }));
+  box.setAttribute('aria-labelledby', 'ptab-' + state.panel);
+  box.dataset.tab = state.panel; box.dataset.echo = [state.eq, state.panel, scope.level, scope.id || ''].join('|');
+  if (state.container) { box.replaceChildren(...containerPanel(ii)); return; }
+  const missing = (what) => el('div', { class: 'nonwork' }, el('strong', null, 'No data under this identity'), `${ds.name} has no matching ${what} in the shared prototype fixtures of ${e.code}. Nothing is inferred from a name or an index; this is not evidence that there is no work or no spare part.`);
+  let body;
+  if (state.panel === 'maintenance') body = EQ.panelTabs.maintenance(eq2, scope);
+  else if (state.panel === 'special') body = ds.scope ? EQ.panelTabs.special(eq2, {}, scope) : missing('position');
+  else if (state.panel === 'spareParts') body = ds.scope ? EQ.panelTabs.spare(eq2, {}, scope) : missing('position');
+  else body = el('div', { class: 'stack' }, ...technicalParts(ii, e));
+  box.replaceChildren(body);
+}
+function setPanel(k, focus) { state.panel = k; writeURL(false); renderInfo(); if (focus) document.querySelector(`#info-tabs [data-tab="${k}"]`)?.focus(); }
+
+/** Spatial group (machinery house): a container, not a mechanism; it owns no history and no tab content (DATA s10.10). */
+function containerPanel(ii) {
+  const ck = 'container.' + state.container; const n = nodeOf(ck); const parts = [];
+  const inside = manifest.nodes.filter((x) => (x.kind === 'position' || x.kind === 'hotspot') && isDesc(x, ck));
+  const byMain = new Map(); for (const x of inside) { const m = x.classification.main; if (!byMain.has(m)) byMain.set(m, []); byMain.get(m).push(x); }
+  parts.push(el('p', null, el('strong', null, n.label), ' is a spatial group, not a mechanism. Selecting it assigns no maintenance identity to its contents.'));
+  parts.push(el('p', null, `${inside.length} positions / representative parts inside, grouped by main mechanism:`));
+  for (const [m, list] of [...byMain].sort()) {
+    parts.push(el('h3', null, `${m} ${catalog.main.get(m)?.name || ''}`));
+    parts.push(el('ul', { class: 'poslist' }, ...list.map((x) => el('li', null, el('a', { href: '#', onclick: (ev) => { ev.preventDefault(); goNode(x.key); } }, x.label)))));
+  }
+  if (n.enclosure) parts.push(el('p', { class: 'qual' }, 'Enclosure: shown transparent and not pickable in Technical mode, so internal positions can be selected through it.'));
+  return parts;
+}
+
+/** Technical tab: the specification summary of the selected area (identity, model facts, provenance, source-linked parameters). */
+function technicalParts(ii, e) {
+  const parts = [];
   const dl = (...pairs) => el('dl', null, ...pairs.flatMap(([k, v]) => (v === null || v === undefined ? [] : [el('dt', null, k), el('dd', null, v)])));
   const code = (t) => el('code', null, t);
-  const jobs = jobsFor(e, ii);
-  const histFor = (pred, label) => {
-    const list = jobs.filter(pred).sort((a, b) => b.date.localeCompare(a.date));
-    return [el('h3', null, label, ' ', el('span', { class: 'synthetic' }, 'synthetic history')),
-      list.length ? el('ul', { class: 'hist' }, ...list.map((j) => el('li', { class: j.status === 'Completed' ? '' : 'open' }, el('strong', null, j.id), ` ${j.kind}, ${j.status}, ${j.date}`, el('br'), j.title, ' ', el('span', { class: 'empty' }, '(' + (ii.positions.find((p) => p.id === j.positionId)?.name || 'equipment') + ')')))) : el('p', { class: 'empty' }, 'No work recorded. This does not mean the component is original or healthy.')];
-  };
   const paramBlock = (key) => {
-    if (state.mode !== 'technical' || !params) return [];
+    if (!params) return [];
     const codes = PARAMS_BY_MAIN[key] || []; if (!codes.length) return [];
     const rows = codes.map((c) => params.find((p) => p.code === c)).filter(Boolean);
     return [el('h3', null, 'Source-linked parameters'), el('ul', { class: 'hist' }, ...rows.map((p) => el('li', null, `${p.label}: `, el('strong', null, CONFLICTS[p.code] ? 'conflict' : `${p.value}${p.unit ? ' ' + p.unit : ''}`), p.condition ? ` (${p.condition})` : '', el('br'), el('span', { class: 'empty' }, CONFLICTS[p.code] || `${p.source.drawingNumber} p${p.source.pdfPage}, ${p.verification.replace(/_/g, ' ')}`))))];
   };
-  if (state.container) {
-    const ck = 'container.' + state.container; const n = nodeOf(ck);
-    const inside = manifest.nodes.filter((x) => (x.kind === 'position' || x.kind === 'hotspot') && isDesc(x, ck));
-    const byMain = new Map(); for (const x of inside) { const m = x.classification.main; if (!byMain.has(m)) byMain.set(m, []); byMain.get(m).push(x); }
-    parts.push(el('p', null, el('strong', null, n.label), ' is a spatial group, not a mechanism. Selecting it assigns no maintenance identity to its contents.'));
-    parts.push(el('p', null, `${inside.length} positions / representative parts inside, grouped by main mechanism:`));
-    for (const [m, list] of [...byMain].sort()) {
-      parts.push(el('h3', null, `${m} ${catalog.main.get(m)?.name || ''}`));
-      parts.push(el('ul', { class: 'poslist' }, ...list.map((x) => el('li', null, el('a', { href: '#', onclick: (ev) => { ev.preventDefault(); goNode(x.key); } }, x.label)))));
-    }
-    if (n.enclosure) parts.push(el('p', { class: 'qual' }, 'Enclosure: shown transparent and not pickable in Technical mode, so internal positions can be selected through it.'));
-  } else if (state.part) {
+  if (state.part) {
     const p = ii.positions.find((x) => x.id === state.part); const n = p && nodeOf(p.semanticKey);
     if (!p) parts.push(el('p', { class: 'empty' }, 'This position does not exist on ' + e.code + '.'));
     else {
       const s = ii.subs.find((x) => x.id === p.subId); const m = ii.mains.find((x) => x.id === p.mainId); const b = ii.binding.get(p.semanticKey);
+      const q2 = dataScopeFor('part', p.semanticKey); const ev = q2 && EQ.state.D.events.filter((x) => x.positionId === q2.id && !x.voided).slice(-1)[0];
       parts.push(el('h3', null, p.name));
       if (n.qualifier) parts.push(el('p', { class: 'qual' }, n.qualifier + '.', n.classificationNote ? el('br') : null, n.classificationNote || ''));
-      parts.push(dl(['Equipment', e.code], ['Main', `${m.code} ${m.name}`], ['Sub', `${s.code} ${s.name}`], ['Position ID', code(p.id)], ['Semantic key', code(p.semanticKey)], ['Binding', b ? `exact key (${b.mode})` : 'not bound: no visual representation'], ['Position kind', p.kind + (p.uom ? ` (${p.uom})` : '')], ['Installed item', 'Unknown (no installation recorded; nothing is assumed)'], ['Geometry', n.provenance.kind + (n.instancing ? `; instanced (${n.instancing.gltfNodeName} #${n.instancing.index} resolved via instanceMaps)` : '')]));
+      parts.push(dl(['Equipment', e.code], ['Main', `${m.code} ${m.name}`], ['Sub', `${s.code} ${s.name}`], ['Position ID', code(p.id)], ['Semantic key', code(p.semanticKey)], ['Binding', b ? `exact key (${b.mode})` : 'not bound: no visual representation'], ['Position kind', p.kind + (p.uom ? ` (${p.uom})` : '')],
+        ['Installed now', ev ? ev.installed.desc + (ev.installed.serial ? ` (serial ${ev.installed.serial})` : ' (serial unknown)') : 'Unknown: nothing recorded (not evidence the item is original)']));
       parts.push(el('h3', null, 'Sources'), el('ul', { class: 'hist' }, ...n.provenance.sources.map((x) => el('li', null, `${x.drawing}${x.pdfPage ? ' p' + x.pdfPage : ''}: ${x.note}`))));
-      parts.push(...histFor((j) => j.positionId === p.id, 'Exact-position history'));
+      parts.push(...paramBlock(m.code));
     }
   } else if (state.sub) {
     const s = ii.subs.find((x) => x.id === state.sub);
@@ -294,18 +361,16 @@ function renderInfo() {
     if (hs.length) parts.push(el('p', { class: 'qual' }, 'Representative parts show where the submechanism is (location approximate); they are not exact components: ', hs.map((h) => h.label).join('; ')));
     parts.push(el('ul', { class: 'poslist' }, ...pos.map((x) => el('li', null, el('a', { href: '#', onclick: (ev) => { ev.preventDefault(); select({ part: x.id }); } }, x.name)))));
     parts.push(...paramBlock(s.mainCode));
-    parts.push(...histFor((j) => j.subId === s.id, 'Submechanism history (direct and descendant)'));
   } else if (state.main) {
     const m = ii.mains.find((x) => x.id === state.main);
     parts.push(el('h3', null, `${m.code} ${m.name}`), dl(['Main instance', code(m.id)], ['Submechanisms', ii.subs.filter((x) => x.mainId === m.id).map((x) => `${x.code} ${x.name}`).join(', ')], ['Positions', String(ii.positions.filter((x) => x.mainId === m.id).length)]));
     parts.push(...paramBlock(m.code));
-    parts.push(...histFor((j) => j.mainId === m.id, 'Main mechanism history (direct and descendant)'));
   } else {
-    parts.push(el('h3', null, `${e.code} ${e.name}`), dl(['Status', `${e.statusText}${e.statusReason ? ' - ' + e.statusReason : ''} (synthetic)`], ['Model template', 'CICT-J526A-STS v1 (draft; association is synthetic, not a fleet fact)'], ['Overall height', `${manifest.landmarks.overallHeight.toFixed(3)} m to apex head (J526A00 marker 83356); 63 m is total lift, not height`], ['Positions', `${ii.positions.length} positions, ${manifest.nodes.filter((x) => x.kind === 'hotspot').length} representative parts (location approximate)`]));
+    const eq2 = E2();
+    parts.push(el('h3', null, `${e.code} ${e.name}`), dl(['Model template', 'CICT-J526A-STS v1 (draft; association is synthetic, not a fleet fact)'], ['Commissioned', eq2 && eq2.commissionedOn ? EQ.fmtDate(eq2.commissionedOn) + ' (synthetic)' : 'Unknown (no prediction for Original spare parts)'], ['Overall height', `${manifest.landmarks.overallHeight.toFixed(3)} m to apex head (J526A00 marker 83356); 63 m is total lift, not height`], ['Positions', `${ii.positions.length} positions, ${manifest.nodes.filter((x) => x.kind === 'hotspot').length} representative parts (location approximate)`]));
     parts.push(...paramBlock('equipment'));
-    parts.push(...histFor(() => true, 'Equipment history (all levels)'));
   }
-  box.replaceChildren(...parts);
+  return parts;
 }
 function isDesc(n, ck) { let p = n; while (p?.parentKey) { if (p.parentKey === ck) return true; p = nodeOf(p.parentKey); } return false; }
 
@@ -324,7 +389,7 @@ function hint(text) { const h = $('#hint'); h.textContent = text; h.classList.ad
 function showFallback(reason) {
   viewerState = 'fallback'; window.__qcFallback = reason;
   const f = $('#fallback'); f.hidden = false;
-  f.replaceChildren(el('h3', null, '3D view unavailable'), el('p', null, reason), el('p', null, 'The mechanism tree, breadcrumb, selection details and history remain fully usable. Use the tree on the left, or the list below.'),
+  f.replaceChildren(el('h3', null, '3D view unavailable'), el('p', null, reason), el('p', null, 'The mechanism tree, breadcrumb and the four current-state tabs (Maintenance, Projects/Special, Technical, Spare parts) remain fully usable. Use the tree on the left, or the list below.'),
     el('ul', { class: 'poslist' }, ...I().positions.slice(0, 60).map((p) => el('li', null, el('a', { href: '#', onclick: (ev) => { ev.preventDefault(); select({ part: p.id }); } }, p.name)))));
   document.querySelectorAll('.toolbar button, .toolbar select').forEach((b) => { if (!b.dataset.mode) b.disabled = true; });
 }

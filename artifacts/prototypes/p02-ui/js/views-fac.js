@@ -219,13 +219,13 @@ window.EQ = window.EQ || {};
     const tv = q.tv === '1';
     const sig = [dash.paused, dash.staticMode, tv, dash.reduced].join('|');
     if (T.dataset.sig === sig) return; T.dataset.sig = sig;
-    T.replaceChildren(
+    T.replaceChildren(...[
       h('button', { type: 'button', class: 'btn-sm', 'aria-pressed': dash.paused ? 'true' : 'false', 'data-fk': 'dash-pause', 'aria-label': dash.paused ? 'Resume the moving lists' : 'Pause the moving lists', onClick: () => { dash.paused = !dash.paused; patchTools(dash.model, EQ.route.query); } }, icon(dash.paused ? 'play' : 'pause'), dash.paused ? 'Resume' : 'Pause'),
       h('button', { type: 'button', class: 'btn-sm', 'aria-pressed': dash.staticMode ? 'true' : 'false', 'data-fk': 'dash-static', onClick: () => { dash.staticMode = !dash.staticMode; EQ.nav('/fac/dashboard', { ...EQ.route.query, motion: dash.staticMode ? 'off' : '' }); } }, icon('list'), 'Static view'),
       EQ.access.has('export.excel') && !tv ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'dash-export', onClick: () => { const r = F().exportRows({ discipline: q.discipline, type: q.type, mode: q.mode, pic: q.pic }); if (r.ok) { EQ.downloadCsv('fac-dashboard-jobs.csv', r.columns, r.rows); EQ.toast('Exported ' + r.rows.length + ' filtered job(s)', 'Prototype stand-in: CSV, not the server-generated .xlsx.'); } else EQ.toast(r.message); } }, icon('download'), 'Export') : null,
       h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'dash-refresh', onClick: () => EQ.refresh(true) }, icon('refresh'), 'Refresh'),
       tv ? h('button', { type: 'button', class: 'btn-sm primary', 'data-fk': 'dash-tv', onClick: () => { try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) { /* ignore */ } EQ.nav('/fac/dashboard', { ...EQ.route.query, tv: '' }); } }, icon('x'), 'Exit TV mode')
-        : h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'dash-tv', onClick: () => { EQ.nav('/fac/dashboard', { ...EQ.route.query, tv: '1' }); try { document.documentElement.requestFullscreen && document.documentElement.requestFullscreen().catch(() => {}); } catch (e) { /* fullscreen is optional */ } } }, icon('tv'), 'TV mode'));
+        : h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'dash-tv', onClick: () => { EQ.nav('/fac/dashboard', { ...EQ.route.query, tv: '1' }); try { document.documentElement.requestFullscreen && document.documentElement.requestFullscreen().catch(() => {}); } catch (e) { /* fullscreen is optional */ } } }, icon('tv'), 'TV mode')].filter(Boolean));
   }
   function patchBottom(m) {
     // proof carousel
@@ -254,7 +254,7 @@ window.EQ = window.EQ || {};
       });
       host.replaceChildren(h('svg', { viewBox: '0 0 ' + W + ' ' + Hh, class: 'load-svg', role: 'img', 'aria-label': 'Jobs due per week for the next 8 weeks, ' + tot + ' in total, stacked by discipline' }, ...bars.filter(Boolean)),
         h('div', { class: 'load-legend' }, LANE_CODES.map(([c, n]) => h('span', null, h('i', { class: 'sw-d d-' + c }), n[0] + ' ' + n))),
-        h('table', { class: 'sr-only' }, h('caption', null, 'Jobs due per week, next 8 weeks'), h('thead', null, h('tr', null, ['Week starting', 'Electrical', 'Mechanical', 'Civil'].map((c) => h('th', { scope: 'col' }, c)))), h('tbody', null, m.dueLoad.map((w) => h('tr', null, h('th', { scope: 'row' }, w.start), h('td', null, String(w.electrical)), h('td', null, String(w.mechanical)), h('td', null, String(w.civil)))))));
+        h('div', { class: 'sr-only' }, h('table', null, h('caption', null, 'Jobs due per week, next 8 weeks'), h('thead', null, h('tr', null, ['Week starting', 'Electrical', 'Mechanical', 'Civil'].map((c) => h('th', { scope: 'col' }, c)))), h('tbody', null, m.dueLoad.map((w) => h('tr', null, h('th', { scope: 'row' }, w.start), h('td', null, String(w.electrical)), h('td', null, String(w.mechanical)), h('td', null, String(w.civil))))))));
     }
     dash.refs.load.querySelector('.load-note').textContent = 'Rolling jobs with a due date; overdue jobs, daily and weekly checks are not included.';
   }

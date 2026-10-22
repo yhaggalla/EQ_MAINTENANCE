@@ -45,7 +45,7 @@ window.EQ = window.EQ || {};
         if (c.kind === 'fixed') return h('td', { class: 'mx-fixed' }, h('span', { class: 'tag green' }, icon('lock'), ' Always'));
         if (c.kind === 'no') return h('td', { class: 'mx-no' }, h('span', { class: 'tag dashed', 'aria-label': EQ.access.ROLES[r] + ': ' + label + ': not allowed, above the role ceiling' }, 'Not allowed'));
         const dk = r + '|' + f; const on = Object.prototype.hasOwnProperty.call(ui.draft, dk) ? ui.draft[dk] : c.on;
-        return h('td', { class: 'mx-toggle' }, h('label', { class: 'check sw' }, h('input', { type: 'checkbox', role: 'switch', checked: on ? true : null, 'data-fk': 'mx-' + r + '-' + f, 'aria-label': EQ.access.ROLES[r] + ': ' + label, onChange: (e) => { ui.draft[dk] = e.target.checked; if (ui.draft[dk] === c.on) delete ui.draft[dk]; ui.accErr = null; ui.accOk = null; EQ.rerender(); } }), on ? 'On' : 'Off'), c.on !== on ? h('div', { class: 'small' }, h('span', { class: 'tag gold' }, 'unsaved')) : null);
+        return h('td', { class: 'mx-toggle' }, h('label', { class: 'check mx-sw' }, h('input', { type: 'checkbox', 'data-switch': '1', checked: on ? true : null, 'data-fk': 'mx-' + r + '-' + f, 'aria-label': EQ.access.ROLES[r] + ': ' + label, onChange: (e) => { ui.draft[dk] = e.target.checked; if (ui.draft[dk] === c.on) delete ui.draft[dk]; ui.accErr = null; ui.accOk = null; EQ.rerender(); } }), on ? 'On' : 'Off'), c.on !== on ? h('div', { class: 'small' }, h('span', { class: 'tag gold' }, 'unsaved')) : null);
       }))));
     const pending = Object.keys(ui.draft).length;
     return h('div', { class: 'stack' },
@@ -107,6 +107,24 @@ window.EQ = window.EQ || {};
     const count = (f) => { const m = {}; jobs.forEach((j) => { const k = f(j); m[k] = (m[k] || 0) + 1; }); return m; };
     return { sheetRows: REF.counts.sheetRows, importJobs: REF.counts.importJobs, sha: REF.sourceSha256, disc: count((j) => j.discipline), type: count((j) => j.type), freq: count((j) => j.frequencyText || '(blank)'), kind: count((j) => j.kind), byIssue, known: REF.knownSourceIssues, opening, previewHash: hashOf(JSON.stringify(jobs.map((j) => [j.sourceRow, j.splitIndex, j.name, j.frequencyCode, j.importQuantity, j.lastDone]))) };
   };
+  /** Every import row as it would be saved (SOW V2 5.7): quantity default, calculated first due date, opening state and the issues found. */
+  function rowByRow() {
+    const FQ = EQ.state.D.fac.frequencies, FD = F().date;
+    const rows = EQ.FAC_REF.jobs.map((r) => {
+      const f = FQ.find((x) => x.code === r.frequencyCode);
+      const due = r.kind === 'recurring' && f && f.kind === 'interval' && r.lastDone ? (f.intervalMonths ? FD.addMonths(r.lastDone, f.intervalMonths) : FD.addDays(r.lastDone, f.intervalDays)) : null;
+      const opening = r.sourceRow === 14 && r.remarks ? 'On hold: ' + r.remarks : r.sheetStatus === 'Pending' && r.sheetCompletedQty > 0 ? 'In progress, ' + Math.min(r.sheetCompletedQty, r.importQuantity) + ' of ' + r.importQuantity + ' done' : 'Pending';
+      return { r, f, due, opening };
+    });
+    const dt = (iso) => (iso ? EQ.fmtDate(iso) : 'blank');
+    return h('details', { class: 'panel panel-pad stack imp-rows', id: 'imp-rows' }, h('summary', { 'data-fk': 'imp-rows-summary' }, 'How each of the ' + rows.length + ' jobs will be saved (' + EQ.FAC_REF.counts.sheetRows + ' sheet rows; blank values stay blank, calculated values are not typed)'),
+      h('div', { class: 'table-wrap' }, h('table', { class: 'imp-row-table' }, h('caption', { class: 'sr-only' }, 'Import rows as they will be saved'),
+        h('thead', null, h('tr', null, ['Sheet row', 'Job', 'Discipline', 'Type', 'Frequency', 'Quantity', 'Kind', 'PIC', 'In/Out', 'Last done', 'First due (calculated)', 'Opening state', 'Issues'].map((c) => h('th', { scope: 'col' }, c)))),
+        h('tbody', null, rows.map(({ r, f, due, opening }) => h('tr', { 'data-row': r.sourceRow + (r.splitIndex != null ? '.' + (r.splitIndex + 1) : '') },
+          h('td', null, r.sourceRow + (r.splitIndex != null ? '.' + (r.splitIndex + 1) : '')), h('th', { scope: 'row' }, (r.name || '').replace(/\uFFFD/g, '-')), h('td', null, r.discipline), h('td', null, r.type), h('td', null, f ? f.label : 'not set'),
+          h('td', null, String(r.importQuantity) + (r.quantity == null ? ' (blank in sheet)' : '')), h('td', null, r.kind), h('td', null, r.pic || 'blank'), h('td', null, r.mode || 'blank'), h('td', null, dt(r.lastDone)), h('td', null, due ? EQ.fmtDate(due) : 'none'), h('td', null, opening),
+          h('td', null, (r.issues || []).map((i) => ISSUE_TEXT[i] ? i.replace(/-/g, ' ') : i).join('; ') || '-')))))));
+  }
   function importSection() {
     const P = EQ.facImportPreview();
     const D = EQ.state.D.fac;
@@ -124,6 +142,7 @@ window.EQ = window.EQ || {};
       h('section', { class: 'panel panel-pad stack', 'aria-labelledby': 'imp-k' }, h('h3', { id: 'imp-k' }, 'Points found in the source sheet (confirm with the owner)'),
         h('div', { class: 'table-wrap' }, h('table', { class: 'imp-known' }, h('caption', { class: 'sr-only' }, 'Known source issues'), h('thead', null, h('tr', null, ['Sheet rows', 'Finding', 'Proposed handling'].map((c) => h('th', { scope: 'col' }, c)))),
           h('tbody', null, P.known.map((k) => h('tr', null, h('td', null, k.rows.join(', ')), h('th', { scope: 'row' }, k.issue), h('td', null, [...new Set(k.rows.map((r) => KNOWN_HANDLING[r]))].filter(Boolean).join('; ')))))))),
+      rowByRow(),
       h('section', { class: 'panel panel-pad stack', 'aria-labelledby': 'imp-f' }, h('h3', { id: 'imp-f' }, 'Frequencies in the sheet'), h('div', { class: 'row' }, Object.entries(P.freq).sort((a, b) => b[1] - a[1]).map(([f, n]) => h('span', { class: 'tag' }, f + ': ' + n)))),
       h('div', { class: 'row' }, h('span', { class: 'small muted' }, 'Preview hash (simulated): ', h('span', { class: 'mono' }, P.previewHash)),
         h('button', { type: 'button', class: 'primary', 'data-fk': 'imp-confirm', onClick: () => EQ.dlg.reason({ title: 'Confirm the FAC master-list import', message: locked ? 'This is a re-run. Progress has already been recorded on imported jobs, so the server refuses it (409 import_locked_by_progress).' : 'Confirm creates ' + P.importJobs + ' jobs in one transaction. Prototype: nothing is saved; the jobs are already loaded as the synthetic fixture.', label: 'Note (optional)', confirm: 'Confirm import', onSubmit: () => (locked ? { ok: false, status: 409, code: 'import_locked_by_progress', message: 'Import refused (409 import_locked_by_progress): progress has been recorded on imported jobs, so a re-run would rewrite their opening state. Preview still works.' } : { ok: true }) }) }, 'Confirm import...')),
@@ -184,7 +203,7 @@ window.EQ = window.EQ || {};
       !EQ.zmms.canEnableAuto().ok ? h('div', { class: 'notice warn' }, icon('alert'), h('p', null, 'Switching it on again is blocked: ' + EQ.zmms.canEnableAuto().why)) : null);
     const evs = h('section', { class: 'panel panel-pad stack', 'aria-labelledby': 'ze-h' }, h('h3', { id: 'ze-h' }, 'Status evaluation of the latest successful run'),
       h('div', { class: 'table-wrap' }, h('table', null, h('caption', { class: 'sr-only' }, 'Evaluation per equipment'), h('thead', null, h('tr', null, ['Equipment', 'Computed', 'Result', 'Causing ZMMS jobs'].map((c) => h('th', { scope: 'col' }, c)))),
-        h('tbody', null, z.evaluations.map((e) => h('tr', { 'data-eval': e.equipmentId }, h('th', { scope: 'row' }, EQ.eq(e.equipmentId).code), h('td', null, e.computed ? EQ.statusBadge(e.computed) : '-'), h('td', null, e.applied ? h('span', { class: 'tag green' }, 'Applied') : h('span', { class: 'tag' }, 'Not applied: ' + ({ manualOverride: 'manual correction holds today', unmappedValues: 'a job type or status has no effect yet', automaticDisabled: 'automatic status is off', unchanged: 'unchanged' }[e.skip] || e.skip))), h('td', null, e.causes.length ? e.causes.join(', ') : '-')))))));
+        h('tbody', null, z.evaluations.map((e) => h('tr', { 'data-eval': e.equipmentId }, h('th', { scope: 'row' }, EQ.eq(e.equipmentId).code), h('td', null, e.computed ? EQ.statusBadge(e.computed) : '-'), h('td', null, e.applied ? h('span', { class: 'tag green' }, 'Applied') : h('span', { class: 'tag' }, 'Not applied: ' + ({ manualOverride: 'manual correction holds today', unmappedValues: 'a job type or status has no effect yet', automaticDisabled: 'automatic status is off', unchanged: 'unchanged' }[e.skip] || e.skip || 'no change needed'))), h('td', null, e.causes.length ? e.causes.join(', ') : '-')))))));
     return h('div', { class: 'stack' }, h('h2', null, 'ZMMS daily jobs: mapping, mapping of values, sync times and health'),
       h('section', { class: 'panel panel-pad stack zmms-health' + (f.stale ? ' failing' : ''), 'aria-labelledby': 'zh-h', 'data-fk': 'zmms-health' }, h('h3', { id: 'zh-h' }, 'Health ', f.stale ? h('span', { class: 'tag red' }, 'failing') : h('span', { class: 'tag green' }, 'healthy')),
         h('dl', { class: 'kv' }, h('dt', null, 'Last successful sync'), h('dd', null, f.from ? EQ.fmtInstant(f.from) : 'None'), h('dt', null, 'Latest run'), h('dd', null, '#' + z.runs[0].id + ' · ' + z.runs[0].outcome + (z.runs[0].failureCode ? ' (' + z.runs[0].failureCode + ')' : '')), h('dt', null, 'Next scheduled'), h('dd', null, z.settings.sync1 + ' and ' + z.settings.sync2 + ' Asia/Colombo'), h('dt', null, 'Failed runs in the list'), h('dd', null, String(z.runs.filter((r) => r.outcome === 'failed').length))),

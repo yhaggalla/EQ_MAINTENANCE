@@ -87,3 +87,5 @@ button[aria-pressed="true"], button[aria-checked="true"] { background: var(--nav
 /* U1 round 2 (U1-C09): labels of off-screen items are pinned to the viewport edge with a direction arrow */
 .qc-label.edge { background: rgba(240,244,248,.95); border-style: dotted; }
 .qc-label .qc-arrow { display: inline-block; margin-right: 4px; color: #0b4fb8; font-weight: 700; }
+
+.status-badge .src-tag { margin-left: 6px; font-size: 11px; font-weight: 700; border: 1px solid #7eb0cf; border-radius: 3px; padding: 0 4px; color: #0c4268; background: #eef6fa; }

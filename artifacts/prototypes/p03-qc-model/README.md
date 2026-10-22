@@ -51,3 +51,7 @@ Checks: `node tools/p03/check_model_prototype.mjs --gpu hardware|swiftshader`, `
 - Model draft v1 rev 4 (U1-C17, U1-C18): trolley rebuilt to J526A0200 / J526A2100 (4 wheels, four sheave shafts with two sheaves each, open frame and centre body, trolley-rope equalizer sheaves, spreader cable reel 014, rope paths over the sheaves); headblock to J526A1200; spreader remodelled as an STS45-type telescopic spreader (main frame, arms, end beams, ISO 40 ft twistlocks, flippers). Evidence: `docs/evidence/U1/repair-r3-20261022.md`.
 - `tools/p03/cdp.mjs` also finds the Playwright Chromium on Linux (or `EQ_CHROME`) and adds `--no-sandbox` there; the Windows paths are unchanged.
 
+
+## P02B (22 October 2026): four-tab right panel (U1-C19)
+
+The right panel is now four current-state tabs - Maintenance (today's ZMMS daily jobs), Projects/Special, Technical, Spare parts - with no work history, the same tabs and data as the flat P02 view (`?panel=maintenance|special|technical|spareParts`). The data layer and the renderer are the P02 scripts (`../p02-ui/js`, served read-only under `/p02/js/` by `serve.mjs`); the page behaves as a read-only Management view, and Open in Jobs opens the P02 prototype (port 5312) in a new tab, so start both servers. The page's own synthetic jobs were removed. Checks: `node tools/p02b/check_p03_panel.mjs`; the P03 browser checks were adapted where they asserted history in the panel and wait for the next rendered frame instead of a fixed 200 ms.

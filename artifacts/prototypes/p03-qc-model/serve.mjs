@@ -3,6 +3,7 @@
 // Routes: /            -> this folder (page, js, css, vendored three.js)
 //         /models/...  -> artifacts/models (generated scene.glb + manifest.json; same-origin, no CDN)
 //         /ref/<file>  -> two whitelisted reference files from documents/prompt-pack/reference
+//         /p02/js/<file> -> a whitelist of the P02 prototype's data-layer scripts (synthetic V2 fixtures and the four-tab panel renderer, P02B)
 // The production app serves models through the authenticated /eq-maintenance asset endpoint instead (D-39).
 import http from 'node:http';
 import fs from 'node:fs';
@@ -13,11 +14,14 @@ const root = path.dirname(fileURLToPath(import.meta.url));
 const repo = path.resolve(root, '..', '..', '..');
 const models = path.join(repo, 'artifacts', 'models');
 const refs = { 'mechanisms-approved.json': path.join(repo, 'documents', 'prompt-pack', 'reference', 'mechanisms-approved.json'), 'major-parameters.json': path.join(repo, 'documents', 'prompt-pack', 'reference', 'major-parameters.json') };
+const p02js = path.join(repo, 'artifacts', 'prototypes', 'p02-ui', 'js');
+const p02files = new Set(['util.js', 'catalog.js', 'params.js', 'fixtures.js', 'access.js', 'store.js', 'zmms.js', 'spares.js', 'panel-tabs.js']);
 const port = Number(process.argv[2]) || 5313;
 const types = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json', '.glb': 'model/gltf-binary', '.png': 'image/png', '.svg': 'image/svg+xml' };
 
 function resolve(urlPath) {
   if (urlPath.startsWith('/ref/')) return refs[urlPath.slice(5)] || null;
+  if (urlPath.startsWith('/p02/js/')) { const n = urlPath.slice(8); return p02files.has(n) ? path.join(p02js, n) : null; }
   if (urlPath.startsWith('/models/')) { const f = path.normalize(path.join(models, urlPath.slice(8))); return f.startsWith(models + path.sep) ? f : null; }
   const f = path.normalize(path.join(root, urlPath === '/' ? 'index.html' : urlPath));
   return f.startsWith(root) && !f.endsWith('serve.mjs') ? f : null;

@@ -2,6 +2,9 @@
 // Usage: node tools/p02/check_prototype.mjs [baseUrl] [outJson]
 // Serve the prototype first: node artifacts/prototypes/p02-ui/serve.mjs
 // These are prototype UI checks. They do not exercise any production server, database or authentication.
+// P02B (22 Oct 2026): assertions that encoded SUPERSEDED V1 behaviour were adapted to the V2 rules, each marked 'P02B adapted' (history moved out of the
+// crane view by U1-C19/D-122, status note replaced by the automatic-status meaning, baseline events for Original spare parts, last-route storage key).
+// Everything else is unchanged, so a failure here is a regression of P02/U1 behaviour.
 import fs from 'node:fs';
 import { launch } from './cdp.mjs';
 
@@ -93,14 +96,14 @@ try {
   });
 
   // ---------------- history isolation ----------------
-  await step('C08', 'Same template, different equipment: motor A history is separate (HIS01)', async () => {
-    await go('eqTeam', `/equipment/${Q1}?main=mi-q01-01&sub=si-q01-011&part=pp-q01-007`);
-    const a = await text('.side-panel');
-    await go('eqTeam', `/equipment/${Q2}?main=mi-q02-01&sub=si-q02-011&part=pp-q02-007`);
-    const c = await text('.side-panel');
+  await step('C08', 'Same template, different equipment: motor A history is separate (HIS01) [P02B adapted: history now lives in EQ Jobs, not the crane view]', async () => {
+    await go('eqTeam', `/eq/jobs/special?equipment=${Q1}&scope=part&target=pp-q01-007`);
+    const a = await text('#sh-h') + await text('main');
+    await go('eqTeam', `/eq/jobs/special?equipment=${Q2}&scope=part&target=pp-q02-007`);
+    const c = await text('#sh-h') + await text('main');
     const ids = await ev(`[EQ.pos('pp-q01-007').key, EQ.pos('pp-q02-007').key, EQ.pos('pp-q01-007').id !== EQ.pos('pp-q02-007').id]`);
     const ok = a.includes('SYN-0001') && !a.includes('SYN-0017') && !a.includes('SYN-0009') && c.includes('SYN-0017') && c.includes('SYN-0009') && !c.includes('SYN-0001') && ids[0] === ids[1] && ids[2];
-    return { ok, detail: 'QC-01 shows SYN-0001 only; QC-02 shows SYN-0009 and SYN-0017; same key, different position IDs' };
+    return { ok, detail: 'QC-01 history shows SYN-0001 only; QC-02 shows SYN-0009 and SYN-0017; same key, different position IDs' };
   });
   await step('C09', 'Scoped history: descendant jobs de-duplicated, equipment-level job not repeated, exact part scope does not leak', async () => {
     await go('eqTeam', `/equipment/${Q1}`);
@@ -113,9 +116,9 @@ try {
     const ok = r.mainCompleted.length === 2 && r.mainOpen.length === 1 && r.mainOpen[0] === 'EQJ-2026-000104' && r.partCompleted.length === 1 && r.partCompleted[0] === 'EQJ-2026-000102' && !r.dupMain && !r.equipmentJobInMain && r.eqCount === 7;
     return { ok, detail: JSON.stringify(r) };
   });
-  await step('C10', 'No-work and unknown states never claim healthy/original; empty history says No work recorded', async () => {
-    await go('eqTeam', `/equipment/${Q2}?main=mi-q02-02&sub=si-q02-021&part=pp-q02-014`);
-    const t = await text('.side-panel');
+  await step('C10', 'No-work and unknown states never claim healthy/original; empty history says No work recorded [P02B adapted: shown in the EQ Jobs scoped history]', async () => {
+    await go('eqTeam', `/eq/jobs/special?equipment=${Q2}&scope=part&target=pp-q02-014`);
+    const t = await text('main');
     return t.includes('No work recorded') && t.includes('Installed item unknown') && /not evidence/i.test(t) && !/\bhealthy\b(?! or)/i.test(t.replace(/healthy or never replaced/g, '').replace(/original, healthy/g, ''));
   });
   await step('C11', 'Late history responses for a previous selection are discarded (HIS05)', async () => {
@@ -194,16 +197,16 @@ try {
   });
 
   // ---------------- job forms and completion ----------------
-  await step('C17', 'Completion through the dialog: replacement committed once, history updated, equipment stays Maintenance, retry replays', async () => {
+  await step('C17', 'Completion through the dialog: replacement committed once (events of this job counted; P02B adapted: a baseline Original event now precedes it), history updated, equipment stays Maintenance, retry replays', async () => {
     await go('eqTeam', '/jobs?equipment=' + Q1);
     await b.clickIn('.job', 'Replace main hoist motor B', 'Complete...'); await b.wait(250);
     await b.setValue('#cf-note', 'Motor B swapped (synthetic test).');
     await b.setValue('#cl0-desc', 'Main hoist motor (synthetic test item)');
     await b.setValue('#cl0-sn', 'SYN-TEST-1');
     await b.click('dialog button[type="submit"]'); await b.wait(900);
-    const r = await ev(`({status:EQ.job('job-104').workStatus, ev:EQ.state.D.events.filter(e=>e.positionId==='pp-q01-008').length, eqStatus:EQ.eq('${Q1}').status, open:!!document.querySelector('dialog[open]')})`);
+    const r = await ev(`({status:EQ.job('job-104').workStatus, ev:EQ.state.D.events.filter(e=>e.positionId==='pp-q01-008' && e.jobId==='job-104').length, eqStatus:EQ.eq('${Q1}').status, open:!!document.querySelector('dialog[open]')})`);
     const key = await ev('EQ.lastCompletion.key');
-    const again = await ev(`(()=>{const x=EQ.api.completeJob('job-104',{key:EQ.lastCompletion.key}); return {replayed:x.replayed, ok:x.ok, ev:EQ.state.D.events.filter(e=>e.positionId==='pp-q01-008').length};})()`);
+    const again = await ev(`(()=>{const x=EQ.api.completeJob('job-104',{key:EQ.lastCompletion.key}); return {replayed:x.replayed, ok:x.ok, ev:EQ.state.D.events.filter(e=>e.positionId==='pp-q01-008' && e.jobId==='job-104').length};})()`);
     const other = await ev(`EQ.api.completeJob('job-104',{key:'another-key',completedOn:'2026-10-01',note:'x',lines:[]}).code`);
     return { ok: r.status === 'completed' && r.ev === 1 && r.eqStatus === 'maintenance' && !r.open && again.replayed && again.ev === 1 && other === 'job_already_completed', detail: JSON.stringify({ r, again, other }) };
   });
@@ -220,7 +223,7 @@ try {
     await b.setValue('#cl0-desc', 'rope'); await b.setValue('#cl1-desc', 'rope'); await b.setValue('#cl0-qty', '0'); await b.setValue('#cl1-qty', '2');
     await b.click('dialog button[type="submit"]'); await b.wait(900);
     const sum2 = await text('#err-summary');
-    const saved = await ev(`({st:EQ.job('job-107').workStatus, ev:EQ.state.D.events.filter(e=>e.positionId==='${await ev(`EQ.positionsOf('${Q1}').find(p=>p.key==='boom.rope.set.main').id`)}').length})`);
+    const saved = await ev(`({st:EQ.job('job-107').workStatus, ev:EQ.state.D.events.filter(e=>e.jobId==='job-107').length})`);
     const focused = await ev(`document.activeElement && document.activeElement.id`);
     return { ok: /not in the future/.test(sum) && /Duplicate position/.test(sum2) && /greater than 0/.test(sum2) && saved.st === 'pending' && saved.ev === 0 && focused === 'err-summary', detail: sum.slice(0, 120) + ' | ' + sum2.slice(0, 200) };
   });
@@ -244,13 +247,13 @@ try {
     const ok = r.afterBad.ok === false && r.afterBad.status !== 'completed' && r.afterBad.n === 0 && /out_of_order/.test(r.old) && /exactly 1/.test(r.ser2) && /another equipment/.test(r.other) && r.good === true && r.goodN === 2 && r.lotQty === '2 rope' && /future/.test(r.fut);
     return { ok, detail: JSON.stringify(r) };
   });
-  await step('C20', 'Status rules: reason required for Breakdown/Maintenance, same status refused, foreign job refused, Ready needs no reason, job completion never sets Ready', async () => {
+  await step('C20', 'Status rules (P02B adapted: change count is relative, two accepted changes): reason required for Breakdown/Maintenance (and for every correction of a ZMMS-mapped equipment, even Ready), same status refused and Ready needs no reason on unmapped equipment, foreign job refused, job completion never sets Ready', async () => {
     await go('eqTeam', '/fleet');
-    const r = await ev(`(()=>{const S=(id,p)=>EQ.api.setStatus(id,p);
-      return { noReason:S('${Q2}',{status:'maintenance',reason:''}).fields.reason, same:S('${Q2}',{status:'readyForOps'}).fields.status, foreign:S('${Q2}',{status:'maintenance',reason:'r',relatedJobId:'job-104'}).fields.relatedJobId,
-        ok:S('${Q2}',{status:'maintenance',reason:'Brake work',relatedJobId:'job-206'}).ok, ready:S('${Q2}',{status:'readyForOps'}).ok, unk:S('eq-rtg-demo-05',{status:'readyForOps'}).ok,
-        changes:EQ.history('${Q2}',{level:'equipment'}).statusChanges.length, retired:EQ.api.setStatus('eq-rtg-demo-07',{status:'breakdown',reason:'x'}).code }; })()`);
-    return { ok: /required/.test(r.noReason) && /already/.test(r.same) && /another equipment/.test(r.foreign) && r.ok && r.ready && r.unk && r.changes === 4 && r.retired === 'equipment_retired', detail: JSON.stringify(r) };
+    const r = await ev(`(()=>{const S=(id,p)=>EQ.api.setStatus(id,p); const N0=EQ.history('${Q2}',{level:'equipment'}).statusChanges.length;
+      return { noReason:S('${Q2}',{status:'maintenance',reason:''}).fields.reason, same:S('eq-rtg-demo-04',{status:'readyForOps'}).fields.status, foreign:S('${Q2}',{status:'maintenance',reason:'r',relatedJobId:'job-104'}).fields.relatedJobId,
+        ok:S('${Q2}',{status:'maintenance',reason:'Brake work',relatedJobId:'job-206'}).ok, readyNoReasonMapped:S('${Q2}',{status:'readyForOps'}).ok, ready:S('${Q2}',{status:'readyForOps',reason:'Brake work finished'}).ok, unk:S('eq-rtg-demo-05',{status:'readyForOps'}).ok,
+        changes:EQ.history('${Q2}',{level:'equipment'}).statusChanges.length - N0, retired:EQ.api.setStatus('eq-rtg-demo-07',{status:'breakdown',reason:'x'}).code }; })()`);
+    return { ok: /required/.test(r.noReason) && /already/.test(r.same) && /another equipment/.test(r.foreign) && r.ok && r.ready && r.readyNoReasonMapped === false && r.unk && r.changes === 2 && r.retired === 'equipment_retired', detail: JSON.stringify(r) };
   });
   await step('C21', 'Version conflict: stale save returns 409 with current values and nothing is lost', async () => {
     await go('eqTeam', '/jobs?equipment=' + Q1);
@@ -276,12 +279,12 @@ try {
     const still = await ev(`document.querySelectorAll('dialog[open]').length`);
     return { ok: /Choose an equipment/.test(sum) && /Choose Repair/.test(sum) && /Enter a title/.test(sum) && guard === 2 && /Discard unsaved changes/.test(gtext) && still === 1 && !/maximo|EAM|work order/i.test(formText), detail: `dialogs ${guard}->${still}` };
   });
-  await step('C23', 'Status dialog: reason required for Maintenance is reported per field', async () => {
+  await step('C23', 'Status dialog: reason required is reported per field [P02B adapted: automatic-status wording]', async () => {
     await go('eqTeam', `/equipment/${Q2}`);
     await b.click('[data-fk="set-status"]'); await b.wait(200);
     await b.click('#sf-status-breakdown'); await b.click('dialog button[type="submit"]'); await b.wait(500);
     const t = await text('dialog');
-    return /required for Breakdown and Maintenance/.test(t) && /Takes effect at server time/.test(t);
+    return /A reason is required for every correction/.test(t) && /Takes effect at server time/.test(t);
   });
 
   // ---------------- keyboard and focus ----------------
@@ -332,7 +335,7 @@ try {
   });
 
   // ---------------- viewer behaviour ----------------
-  await step('C27', 'Non-WebGL, context lost and failed-load states: viewer explains, tree/history/work stay usable, never a canvas', async () => {
+  await step('C27', 'Non-WebGL, context lost and failed-load states: viewer explains, tree, panel tabs and work stay usable, never a canvas [P02B adapted: tabs instead of history]', async () => {
     const bad = [];
     for (const v of ['nowebgl', 'contextlost', 'loadfailed', 'loading']) {
       await go('eqTeam', `/equipment/${Q1}?main=mi-q01-01&sub=si-q01-011&part=pp-q01-007`, { viewer: v });
@@ -343,11 +346,11 @@ try {
       const canv = await ev(`document.querySelectorAll('canvas').length`);
       const addJob = await ev(`!!document.querySelector('[data-fk="add-job"]')`);
       const msg = { nowebgl: 'WebGL is not available', contextlost: 'context lost', loadfailed: 'could not be loaded', loading: 'Loading the model' }[v];
-      if (!m.includes(msg) || tree < 10 || !side.includes('SYN-0001') || canv || !addJob) bad.push(v);
+      if (!m.includes(msg) || tree < 10 || !(side.includes('Maintenance') && side.includes('Spare parts')) || canv || !addJob) bad.push(v);
     }
     return { ok: !bad.length, detail: bad.join(',') };
   });
-  await step('C28', 'RTG/ES say 3D is not available (never a QC model); QC without verified model is not shown a model', async () => {
+  await step('C28', 'RTG/ES say 3D is not available (never a QC model); QC without verified model is not shown a model [P02B adapted: open work only]', async () => {
     const out = [];
     for (const [id, expect] of [['eq-rtg-demo-01', '3D view not available in stage 1'], ['eq-es-demo-01', '3D view not available in stage 1'], ['eq-qc-demo-04', 'No verified model association']]) {
       await go('eqTeam', '/equipment/' + id);
@@ -357,7 +360,7 @@ try {
     }
     await go('eqTeam', '/equipment/eq-rtg-demo-01');
     const records = await text('main');
-    return { ok: !out.length && records.includes('Records for RTG-DEMO-01') && records.includes('Replace tyre set A'), detail: out.join(',') };
+    return { ok: !out.length && records.includes('Records for RTG-DEMO-01') && records.includes('Quarterly structural walk-down'), detail: out.join(',') + ' (P02B adapted: open work only in the crane view)' };
   });
   await step('C29', 'Machinery house is a spatial container: selects nothing, lists contained positions grouped by mechanism', async () => {
     await go('eqTeam', `/equipment/${Q1}?mode=technical`);
@@ -476,12 +479,12 @@ try {
     await go('eqTeam', '/jobs', { data: 'empty' }); const jEmpty = await text('main');
     return { ok: /last good data/.test(stale) && cardsStale === 16 && /could not be loaded/.test(err) && cardsErr === 0 && /No equipment is registered/.test(empty) && busy && /last good data/.test(eqStale) && /could not be loaded/.test(eqErr) && /could not be loaded/.test(jErr) && /No jobs yet/.test(jEmpty) };
   });
-  await step('C41', 'Prototype does not imply persistence: banner on every page, nothing in browser storage, reload restores fixtures', async () => {
+  await step('C41', 'Prototype does not imply persistence: banner on every page, nothing in browser storage except the last-used tab path (D-90), reload restores fixtures [P02B adapted]', async () => {
     await go('eqTeam', '/jobs');
     const banner = await text('.proto-banner');
     await ev(`EQ.api.createJob({equipmentId:'${Q2}',kind:'repair',title:'temp',level:'equipment'})`);
     const n1 = await ev('EQ.state.D.jobs.length');
-    const stor = await ev('localStorage.length + sessionStorage.length + document.cookie.length');
+    const stor = await ev("Object.keys(localStorage).filter(k=>!/^eq-maintenance:last-route:[a-z0-9-]+(:eq|:fac)?$/.test(k)).length + sessionStorage.length + document.cookie.length");
     await ev('location.reload()'); await b.wait(900);
     const n2 = await ev('EQ.state.D.jobs.length');
     return banner.includes('Synthetic data only') && /no sign-in/.test(banner) && stor === 0 && n2 === n1 - 1;
@@ -497,7 +500,7 @@ try {
     const r = await ev(`(()=>{const c=[...document.querySelectorAll('.eq-card')].find(x=>x.textContent.includes('QC-DEMO-01')); const svg=c&&c.querySelector('.thumb svg'); return svg?svg.innerHTML:''})()`);
     return { ok: /M8\.5 3\.5 22\.5 10/.test(r) && /M17\.5 10v4\.5/.test(r) && /M1\.5 10h21/.test(r), detail: r.slice(0, 160) };
   });
-  await step('U1-C02', 'Fleet: no heading block; manual-status / Unreported meaning kept as a compact note; the whole synthetic fleet fits one 1366x768 screen; cards at most 60 px high (P02 cards were about 95 px)', async () => {
+  await step('U1-C02', 'Fleet [P02B adapted: automatic-status meaning replaces the no-telemetry note]: no heading block; status / Unreported meaning kept as a compact note; the whole synthetic fleet fits one 1366x768 screen; cards at most 60 px high (P02 cards were about 95 px)', async () => {
     await b.viewport(1366, 768);
     await go('eqTeam', '/fleet');
     const r = await ev(`(()=>{const h1=document.querySelector('main h1, h1'); const note=document.querySelector('[data-fk="status-note"]'); const cards=[...document.querySelectorAll('.eq-card')];
@@ -505,7 +508,7 @@ try {
         note: note && (note.title + ' | ' + note.textContent), cards: cards.length, maxBottom: Math.max(...cards.map(c=>c.getBoundingClientRect().bottom)), maxH: Math.max(...cards.map(c=>c.getBoundingClientRect().height))};})()`);
     const c = await ev('EQ.fleetCounts(EQ.state.D.equipment)');
     await b.viewport(1920, 1080);
-    return { ok: !r.pageHead && !r.eyebrow && /sr-only/.test(r.h1) && r.h1h <= 1 && /no live telemetry/.test(r.note) && /Unreported/.test(r.note) && r.cards === c.total && r.maxBottom <= 768 && r.maxH <= 60, detail: JSON.stringify(r) };
+    return { ok: !r.pageHead && !r.eyebrow && /sr-only/.test(r.h1) && r.h1h <= 1 && /automatically from today's ZMMS/.test(r.note) && /Unreported/.test(r.note) && r.cards === c.total && r.maxBottom <= 768 && r.maxH <= 60, detail: JSON.stringify(r) };
   });
   await step('U1-C03', 'Flat schematic: back-reach area, CICT logo (Overall only) and stairs are drawn and selectable', async () => {
     await go('eqTeam', `/equipment/${Q1}`);

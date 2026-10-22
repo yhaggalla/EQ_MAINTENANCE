@@ -1,0 +1,295 @@
+{
+  "tool": "tools/p02b/capture.mjs",
+  "date": "2026-10-22T19:20:05.429Z",
+  "note": "All screenshots show the synthetic P02B prototype (labelled); not a production view.",
+  "shots": [
+    {
+      "file": "01-topbar-admin-eq-fleet.png",
+      "url": "?role=admin#/eq/fleet",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "02-topbar-management-eq-fleet-readonly.png",
+      "url": "?role=management#/eq/fleet",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "03-topbar-eqteam-eq-jobs.png",
+      "url": "?role=eqTeam#/eq/jobs/special",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "04-topbar-facteam-fac-dashboard-landing.png",
+      "url": "?role=facTeam#/",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "05-topbar-eq-and-fac-team-landing-eq.png",
+      "url": "?role=eqfac#/",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "06-no-access-all-tabs-off.png",
+      "url": "?role=noAccess#/",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "07-fleet-1920.png",
+      "url": "?role=eqTeam#/eq/fleet",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "08-fleet-1366.png",
+      "url": "?role=eqTeam#/eq/fleet",
+      "viewport": "1366x768",
+      "consoleErrors": 0
+    },
+    {
+      "file": "09-fleet-phone.png",
+      "url": "?role=eqTeam#/eq/fleet",
+      "viewport": "390x844 (phone emulation)",
+      "consoleErrors": 0
+    },
+    {
+      "file": "10-crane-flat-whole-maintenance.png",
+      "url": "?role=management#/eq/equipment/eq-qc-demo-01?panel=maintenance",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "11-crane-flat-main01-projects-special.png",
+      "url": "?role=management#/eq/equipment/eq-qc-demo-01?main=mi-q01-01&panel=special",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "12-crane-flat-part-technical.png",
+      "url": "?role=management#/eq/equipment/eq-qc-demo-01?main=mi-q01-01&sub=si-q01-011&part=pp-q01-007&mode=technical&panel=technical",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "13-crane-flat-main01-spare-parts.png",
+      "url": "?role=management#/eq/equipment/eq-qc-demo-01?main=mi-q01-01&panel=spareParts",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "14-crane-flat-spare-parts-1366.png",
+      "url": "?role=management#/eq/equipment/eq-qc-demo-01?main=mi-q01-01&panel=spareParts",
+      "viewport": "1366x768",
+      "consoleErrors": 0
+    },
+    {
+      "file": "15-crane-flat-tablet-drawer.png",
+      "url": "?role=management#/eq/equipment/eq-qc-demo-01?main=mi-q01-01&panel=special",
+      "viewport": "1024x768",
+      "consoleErrors": 0
+    },
+    {
+      "file": "16-crane-3d-whole-maintenance.png",
+      "url": "?eq=eq-qc-demo-01",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "17-crane-3d-main01-projects-special.png",
+      "url": "?eq=eq-qc-demo-01&main=mi-q01-01&panel=special",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "18-crane-3d-part-motor-technical.png",
+      "url": "?eq=eq-qc-demo-01&mode=technical&pkey=hoist_drive_motor_b&panel=technical",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "19-crane-3d-main01-spare-parts.png",
+      "url": "?eq=eq-qc-demo-01&main=mi-q01-01&mode=technical&panel=spareParts",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "20-eq-jobs-special-and-daily.png",
+      "url": "?role=eqTeam#/eq/jobs/special",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "21-eq-jobs-special-daily-earlier-days-qc02.png",
+      "url": "?role=eqTeam#/eq/jobs/special?equipment=eq-qc-demo-02&from=2026-10-01&to=2026-10-31",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "22-eq-jobs-eq-status.png",
+      "url": "?role=eqTeam#/eq/jobs/status",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "23-eq-jobs-spare-parts-history.png",
+      "url": "?role=eqTeam#/eq/jobs/spare-parts?equipment=eq-qc-demo-01",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "24-eq-jobs-open-in-jobs-scoped-history.png",
+      "url": "?role=eqTeam#/eq/jobs/special?equipment=eq-qc-demo-01&scope=main&target=mi-q01-01",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "25-fac-dashboard-1920.png",
+      "url": "?role=management#/fac/dashboard",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "26-fac-dashboard-tv-1920.png",
+      "url": "?role=management#/fac/dashboard?tv=1",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "27-fac-dashboard-1366.png",
+      "url": "?role=management#/fac/dashboard",
+      "viewport": "1366x768",
+      "consoleErrors": 0
+    },
+    {
+      "file": "28-fac-dashboard-tv-1366.png",
+      "url": "?role=management#/fac/dashboard?tv=1",
+      "viewport": "1366x768",
+      "consoleErrors": 0
+    },
+    {
+      "file": "29-fac-dashboard-tablet.png",
+      "url": "?role=management#/fac/dashboard",
+      "viewport": "768x1024",
+      "consoleErrors": 0
+    },
+    {
+      "file": "30-fac-dashboard-phone-combined-list.png",
+      "url": "?role=management#/fac/dashboard",
+      "viewport": "390x844 (phone emulation)",
+      "consoleErrors": 0
+    },
+    {
+      "file": "31-fac-dashboard-filtered-in-url.png",
+      "url": "?role=management#/fac/dashboard?discipline=mechanical&type=inspection&focus=overdue",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "32-fac-dashboard-static-view-and-table.png",
+      "url": "?role=management#/fac/dashboard?motion=off",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "33-fac-dashboard-reduced-motion-page-flip.png",
+      "url": "?role=management#/fac/dashboard",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "34-fac-dashboard-stale-refresh-failed.png",
+      "url": "?role=management&data=stale#/fac/dashboard",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "35-fac-dashboard-error.png",
+      "url": "?role=management&data=error#/fac/dashboard",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "36-fac-jobs-my-work-1920.png",
+      "url": "?role=facTeam#/fac/jobs",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "37-fac-jobs-board.png",
+      "url": "?role=facTeam#/fac/jobs?view=board",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "38-fac-jobs-my-work-phone.png",
+      "url": "?role=facTeam#/fac/jobs",
+      "viewport": "390x844 (phone emulation)",
+      "consoleErrors": 0
+    },
+    {
+      "file": "39-fac-jobs-update-progress-form-phone.png",
+      "url": "?role=facTeam#/fac/jobs",
+      "viewport": "390x844 (phone emulation)",
+      "consoleErrors": 0
+    },
+    {
+      "file": "40-fac-job-detail-timeline-previous-cycles.png",
+      "url": "?role=facTeam#/fac/jobs/fj-2",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "41-fac-jobs-one-time-job-form.png",
+      "url": "?role=facTeam#/fac/jobs",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "42-fac-jobs-management-read-only.png",
+      "url": "?role=management#/fac/jobs",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "43-admin-access-matrix.png",
+      "url": "?role=admin#/admin/access",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "44-admin-fac-master-list.png",
+      "url": "?role=admin#/admin/fac/master-list",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "45-admin-fac-import-preview.png",
+      "url": "?role=admin#/admin/fac/import",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "46-admin-fac-settings.png",
+      "url": "?role=admin#/admin/fac/settings",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "47-admin-eq-zmms-health-failed-run.png",
+      "url": "?role=admin#/admin/eq/zmms",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    },
+    {
+      "file": "48-admin-eq-spare-parts-selection.png",
+      "url": "?role=admin#/admin/eq/spare-parts",
+      "viewport": "1920x1080",
+      "consoleErrors": 0
+    }
+  ]
+}

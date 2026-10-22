@@ -1,6 +1,6 @@
-# CICT EQ Maintenance - P02 interface prototype
+# CICT EQ & FAC Maintenance - P02 / P02B interface prototype
 
-Static review prototype. **Synthetic data only. Nothing is saved, there is no sign-in, and the role switch is a simulation.**
+Static review prototype. **Synthetic data only. Nothing is saved, there is no sign-in, there is no live ZMMS connection, and the persona switch is a simulation of the Portal role assignment.** P02B (22 October 2026) extended it to SOW V2: EQ | FAC sections, Access matrix, the four-tab crane panel (U1-C19), EQ Jobs in three parts, ZMMS daily jobs and automatic status, the spare-part register, the FAC Dashboard and FAC Jobs (114 jobs from `reference/fac-job-list.json`) and the matching Admin screens.
 
 ## Run
 
@@ -14,7 +14,12 @@ Useful links (query parameters set the simulation; the hash is the route):
 
 | Link | Shows |
 | --- | --- |
-| `?role=eqTeam#/fleet` | Fleet dashboard as EQ Team (writer) |
+| `?role=<persona>` | persona: `admin`, `management`, `eqTeam`, `facTeam`, `eqfac` (EQ Team + FAC Team), `noAccess` (all tabs off) |
+| `#/eq/fleet`, `#/eq/jobs/special|status|spare-parts`, `#/eq/equipment/<id>?panel=maintenance|special|technical|spareParts` | EQ section |
+| `?role=management#/fac/dashboard` (`&data=stale` / `error` / `empty`, `?tv=1`, `?motion=off`, `?discipline=..&type=..&focus=overdue`) | FAC Dashboard |
+| `?role=facTeam#/fac/jobs` (`?view=board|list`), `#/fac/jobs/fj-2` | FAC Jobs |
+| `?role=admin#/admin/access`, `#/admin/fac/master-list|import|settings`, `#/admin/eq/zmms|spare-parts` | Admin |
+| `?role=eqTeam#/fleet` | P02 path, redirects to `/eq/fleet` |
 | `?role=management#/fleet` | Same, Management read-only |
 | `?role=eqTeam#/equipment/eq-qc-demo-01?main=mi-q01-01&sub=si-q01-011&part=pp-q01-007&mode=technical` | QC detail, motor A selected |
 | `?role=eqTeam#/equipment/eq-qc-demo-02?main=mi-q02-01&sub=si-q02-011&part=pp-q02-007` | Same template, different equipment, different history |
@@ -41,3 +46,7 @@ U1 repair (22 October 2026): compact Fleet page without the heading block (statu
 U1 round 2 (22 October 2026): labels stay on the schematic after any tree selection (edge-pinned with an arrow when outside the frame; a notice when the selection has nothing drawn, e.g. 17 Other); Reset returns to the whole equipment with labels on, the tree folded back and the full view; fold icons work on the selected mechanism; schematic gained the boom-tip load cells, floodlight fittings, the elevator at the landside leg with its landings, the apex platform and sheaves, two boom blocks, the girder-tail end platform with its stair and cabinets/parts instead of dashed circles (five template positions appended: floodlights, drive cabinets, emergency drive, apex sheaves, boom blocks; existing IDs unchanged). Evidence: `docs/evidence/U1/repair-r2-20261022.md`.
 
 U1 round 3 (22 October 2026): the trolley, cab position, headblock, spreader and main hoist falls in the schematic are drawn at the J526A0200 / J526A1200 side-elevation proportions (trolley centre x = 94; spreader seen end-on, its 40 ft length runs along the rails); four template positions appended (trolley sheaves A and B, trolley-rope equalizer sheaves, spreader cable reel 014; 014 added to the J526A applicability candidates; template revision 4; existing IDs unchanged); the minimum fitted width is 16 m (was 34 m) and a fit stays at least 4 m narrower than the reset view. Evidence: `docs/evidence/U1/repair-r3-20261022.md`.
+
+## P02B (22 October 2026)
+
+New files: `css/v2.css`; `js/access.js` (personas, Access matrix, landing), `js/zmms.js` (synthetic ZMMS daily jobs, runs, automatic status, mappings; shaped like the real export, invented values), `js/spares.js` (spare-part register), `js/fac.js` and generated `js/fac-ref.js` (`node tools/p02b/build_fac_ref.mjs`; FAC rules and the 114 reference jobs, synthetic progress/photos/updates), `js/panel-tabs.js` (the four crane-panel tabs, also used by the P03 viewer page), `js/views-eqjobs.js`, `js/views-fac.js`, `js/views-facjobs.js`, `js/views-admin2.js`. Checks: `node tools/p02b/check_p02b.mjs`, `node tools/p02b/check_p03_panel.mjs` (both servers, SwiftShader), `node tools/p02/check_prototype.mjs` (regression; assertions of superseded V1 behaviour are marked "P02B adapted"), `node tools/p02b/capture.mjs` (screenshots). Evidence: `docs/evidence/P02B/`.
