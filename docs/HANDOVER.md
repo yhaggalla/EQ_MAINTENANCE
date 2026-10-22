@@ -4,6 +4,83 @@ Rolling handover for CICT EQ Maintenance. Each phase appends its record; the new
 
 ---
 
+## P01B V2 contracts addendum - 22 October 2026
+
+### Runtime record
+
+| Item | Value |
+| --- | --- |
+| Recommended profile | Codex gpt-6-astra, high; Claude Code claude-opus-5-5, high, adaptive thinking |
+| Actual client | Claude Code subagent eq-build-opus-high (delegated by the `/eq-phase` orchestrator; prompt in `docs/runs/P01B-20261022-2120.md`) |
+| Actual model / effort | claude-opus-5-5; effort high (per agent definition) |
+| Fallback / escalation | None |
+
+### Outcome
+
+P01B complete: the P01 contracts are extended for SOW V2 revision 4 (requirements v2.0, S01-S29). Contract documents only; no application, prototype or Portal implementation was edited, no database or external system (ZMMS included) was contacted. Every P01/R01 rule not listed in `docs/DECISIONS.md` "P01B supersessions" still holds. The orchestrator note U1-C19 is built into the crane-view current-state contract (exactly four tabs: Maintenance, Projects/Special, Technical, Spare parts; DATA s18.1, API s4.16, D-122). Details: `docs/evidence/P01B/P01B_EVIDENCE.md`.
+
+### Requirement IDs addressed
+
+S18-S29 specified; S02, S03, S07, S08, S09, S11, S15 updated for V2; all mapped to components and acceptance cases in `docs/ARCHITECTURE.md` s15 (94 cases incl. ACC01-ACC05, ZM01-ZM08, SP01-SP04, FAC01-FAC12, FDB01-FDB06, HIS06). Every acceptance case remains NOT RUN.
+
+### Files changed
+
+Modified:
+- `docs/ARCHITECTURE.md` (s1-s7, s9-s16; new s17 ZMMS connector runtime)
+- `docs/DATA_CONTRACT.md` (s1-s9, s11-s13; new s14-s20)
+- `docs/API_CONTRACT.md` (s1-s4.15, s5, s7; new s4.16-s4.27)
+- `docs/PORTAL_INTEGRATION_PLAN.md` (fourth role and display name only: s2, s3.1-s3.3, s4, s5.2, s7, s8)
+- `docs/DECISIONS.md` (D-89..D-128, P01B supersessions, U-29..U-32)
+- `docs/IMPLEMENTATION_STATUS.md`, `docs/HANDOVER.md` (this entry)
+
+New:
+- `docs/evidence/P01B/P01B_EVIDENCE.md`, `docs/evidence/P01B/contract-coverage-v2.json`
+- `tools/p01b/check_contract_coverage_v2.py`
+
+Untouched: `documents/`, `As-bulit drawing/`, `RTG drawings/`, `rtg-workbench/` (another session's work, not read), `docs/UX_SPEC.md` (P02B updates it), prototypes, `F:\CODEX\CICT-ENG_MAIN_PAGE` (read-only `git log/status` only: `47f7bd9`, clean).
+
+### Checks run and results
+
+| Check | Result |
+| --- | --- |
+| `python -I tools/p01b/check_contract_coverage_v2.py --root F:/CODEX/EQ_MAINTENANCE --out docs/evidence/P01B/contract-coverage-v2.json` | 15/15 passed (first run 14/15 from a checker defect on the `F:x` notation example, fixed in the checker) |
+| `python -I tools/p01/check_contract_coverage.py ... --out tmp/p01-coverage-after-p01b.json` | 9/9 passed |
+| Mermaid validator on the 5 new or changed diagrams | 5/5 valid (the s17 sequence first failed on semicolons inside messages; fixed) |
+
+Evidence type: source review and scripted document checks only. No application tests, browser verification, target-environment verification or production acceptance exist.
+
+### Key contract decisions (for R02B)
+
+1. Access matrix (DATA s6, s14): twelve features; only the 13 toggleable cells can be stored; the evaluator ignores anything else, so no ceiling can be widened; enforced on API, exports, files and page routes (the SPA shell returns 403, D-93); propagation within 60 s (D-92); audited.
+2. Automatic status (DATA s4.2, s15.7): nothing changes until Admin enables it with every seen value mapped (D-97); a correction holds for its Asia/Colombo day, also against a run that started before midnight, and ends at the first successful sync of a later day (D-95); a failed or partial run changes nothing (one transaction per run, D-99); Back to automatic never invents a value (D-96).
+3. ZMMS connector (DATA s15, ARCHITECTURE s17): login + daily all-job list only, host allow-list, configuration key names only, no raw page storage, single-run app lock, retry/backoff without lockout-risking login retries; fields provisional until P07B (DATA s20).
+4. Spare parts (DATA s16): register is the current view of the one installation history; Replacement completion writes it in the same transaction from the line's fields (D-106); direct entries create `baselineRecorded`/`conditionReplacement` events (D-105); predictions computed, never stored; "Not recorded" until recorded.
+5. FAC (DATA s17): rolling and lazily created period cycles; due dates in Asia/Colombo calendar months/days from recorded completion dates; completion confirmation; same-day undo of the author's latest update; job-level hold; staged, re-encoded photos; stateless import preview with a hash, locked by the first progress.
+6. Read models (DATA s18): crane four tabs with no history; EQ Jobs tab three parts; FAC Dashboard one ETag-revalidated summary for the 60 s poll.
+
+### Open issues and impact
+
+| ID | Issue | Impact |
+| --- | --- | --- |
+| U-29 | ZMMS page structure unknown (ZQ-01..ZQ-13, DATA s20) | Parser, fields and value vocabularies provisional until P07B; not blocking P02B (synthetic data) |
+| U-30 | Facility sheet gaps (rows 21, 55, 57 frequency; 80/82; 12; 14; duplicates) | Imported per DATA s17.9 and shown in the preview; Admin completes after import (Q5); not blocking |
+| U-31 | U1-C19 "all the projects" read as all **open** special jobs in scope (history stays in Jobs, S07) | Confirm at the U1 repeat; listing completed jobs in the panel would be a scope change |
+| U-32 | Outbound HTTPS from the IIS server to ZMMS; always-running app pool (D-103) | P12 prerequisites |
+| D-02 | .NET 10 SDK still not installed | Blocks P04 only |
+| U-13, U-16..U-18, PI-5 | Unchanged P05 rollout items | As before |
+
+No genuinely missing business information blocks the next phase; U-31 is a confirmation for the U1 walkthrough, not a blocker.
+
+### Git
+
+Repository `F:\CODEX\EQ_MAINTENANCE`, branch `main`, base `c27a474`. P01B files are committed by this run as one commit on `main` (not pushed); `rtg-workbench/` and `RTG drawings/` stay uncommitted and untouched.
+
+### Next prompt
+
+**P02B V2 prototype** (Claude Code profile claude-sonnet-5-5, high). It must implement U1-C19 from DATA s18.1 / API s4.16, then R02B, then the U1 repeat.
+
+---
+
 ## Repair-U1 round 3 User changes U1-C17..U1-C18 - 22 October 2026
 
 ### Runtime record

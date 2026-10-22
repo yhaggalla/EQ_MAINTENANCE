@@ -2,6 +2,8 @@
 
 Prepared in P01 on 21 October 2026 from a **read-only** inspection of `F:\CODEX\CICT-ENG_MAIN_PAGE` (branch `feature/option-b-provisioning-and-login-redesign`, commit `47f7bd9`, clean) and of the consumer projects in the UMMS, PayPrep and Safety repositories. Nothing outside `F:\CODEX\EQ_MAINTENANCE\docs` was changed. Revised by Repair-R01 on 21 October 2026 (R01 finding F4: R-3 reworded, R-6 added). P05 implements this plan; P12 sequences the real rollout; R03 reviews it. Local source is not evidence of what is deployed (U-13).
 
+**P01B update (22 October 2026, SOW V2 revision 4).** Only two things change, because P05 has not started: the **fourth role** `eq-maintenance:fac-team` (FAC Team) and the **display name** "EQ & FAC Maintenance" (B-14, B-15). Application code, path, audience, binding claim, icon key, sort order, disabled-registry rollout and every other item stay as reviewed in R01. The Portal working tree was re-checked read-only on 22 October 2026: still branch `feature/option-b-provisioning-and-login-redesign`, commit `47f7bd9`, clean, so the s1 facts stand. Changed sections: s2, s3.1 (A-1, A-4), s3.2 (I-1, I-5, I-10), s3.3 (W-2, W-4), s4, s5.2 (RC-4, RC-8, RC-15, new RC-18, RC-19), s7, s8. The in-app Access matrix is entirely EQ-side (DATA_CONTRACT s14): the Portal only assigns the four roles; nothing in the Portal stores tab visibility or optional rights.
+
 ## 1 Current contract (as read)
 
 | Fact | Evidence (Portal repo unless noted) |
@@ -29,9 +31,9 @@ Prepared in P01 on 21 October 2026 from a **read-only** inspection of `F:\CODEX\
 | Item | Value |
 | --- | --- |
 | Application code / path | `eq-maintenance` / `/eq-maintenance` (no collision in the registry seed, return-path list, proxy table or deploy scripts) |
-| Display name / icon key | `EQ Maintenance` / `maintenance` (D-38) |
+| Display name / icon key | **`EQ & FAC Maintenance`** (V2, B-14; was `EQ Maintenance`) / `maintenance` (D-38). The registry `DisplayName` column and the login-page list carry the ampersand as text; every Portal surface renders it HTML-escaped (P05 adds a test that the tile and access-status messages show "EQ & FAC Maintenance") |
 | Audience | `urn:cict-eng:eq-maintenance` |
-| Roles | `eq-maintenance:admin` (EQ Maintenance Admin), `eq-maintenance:eq-team` (EQ Team), `eq-maintenance:management` (Management, read-only) - none delegable (D-37) |
+| Roles | Four (V2, B-15): `eq-maintenance:admin` (EQ & FAC Maintenance Admin), `eq-maintenance:management` (Management, read-only), `eq-maintenance:eq-team` (EQ Team), `eq-maintenance:fac-team` (FAC Team, new) - none delegable (D-37). A user may hold several; the Portal grants roles only, the EQ app's Access matrix narrows tabs and optional rights within each role's ceiling |
 | Binding claim | `cict:binding:eq-maintenance:local_user_id` |
 | Sort order | 50 (after Safety's 40) |
 | Committed registry state | application **disabled** (`IsEnabled = false`) until the rollout gate in s6 (D-41) |
@@ -46,35 +48,35 @@ Every item below is a P05 change unless marked. "Portal" = `F:\CODEX\CICT-ENG_MA
 
 | ID | File | Change |
 | --- | --- | --- |
-| A-1 | `src/CictEng.Auth/SharedAuthContract.cs` | Add audience `urn:cict-eng:eq-maintenance`; three role codes; `ApplicationCodeForAudience` case `eq-maintenance`; constant `EqMaintenanceLocalUserIdClaim`; `TryGetLocalUserIdClaimForAudience` case. No check is removed or relaxed |
+| A-1 | `src/CictEng.Auth/SharedAuthContract.cs` | Add audience `urn:cict-eng:eq-maintenance`; **four** role codes (V2: `eq-maintenance:admin`, `eq-maintenance:management`, `eq-maintenance:eq-team`, `eq-maintenance:fac-team`; the registry grows from 19 to 23 role codes); `ApplicationCodeForAudience` case `eq-maintenance`; constant `EqMaintenanceLocalUserIdClaim`; `TryGetLocalUserIdClaimForAudience` case. No check is removed or relaxed |
 | A-2 | `src/CictEng.Auth/CictEng.Auth.csproj`, `PACKAGE_README.md` | Version 0.3.0 with a note that the EQ values were added and existing values are unchanged |
 | A-3 | `scripts/pack-cicteng-auth.ps1` (run, not changed unless needed) | Produce `CictEng.Auth.0.3.0.nupkg` locally; copy into `EQ/packages/` with its sha256 recorded. **No publishing** |
-| A-4 | `tests/CictEng.Auth.Tests/SharedAuthContractTests.cs` | Update the registry test; add RC-4 to RC-8 (s5) |
+| A-4 | `tests/CictEng.Auth.Tests/SharedAuthContractTests.cs` | Update the registry test (5 audiences, 23 role codes); add RC-4 to RC-8 and RC-18 (s5) |
 | A-5 | new `tests/CictEng.Auth.CompatibilityTests/` (PackageReference `CictEng.Auth` 0.2.1 from a local copy) | RC-1 to RC-3: old validator against tokens from the new issuer |
 
 ### 3.2 Identity (Portal)
 
 | ID | File | Change |
 | --- | --- | --- |
-| I-1 | `src/CictEng.Identity/Persistence/IdentityCatalogSeeder.cs` | Application row (new fixed GUID chosen in P05) with `IsEnabled = false`; three roles (fixed GUIDs, `delegated: false`) |
+| I-1 | `src/CictEng.Identity/Persistence/IdentityCatalogSeeder.cs` | Application row (new fixed GUID chosen in P05, display name "EQ & FAC Maintenance") with `IsEnabled = false`; **four** roles (fixed GUIDs, `delegated: false`; display names "EQ & FAC Maintenance Admin", "Management", "EQ Team", "FAC Team") |
 | I-2 | new `Provisioning/EqMaintenanceProvisioningConnector.cs`, `EqMaintenanceProvisioningOptions.cs` | Copy of the Safety connector/options pattern: section `EqMaintenanceProvisioning`, `Enabled` default false, base address `.../eq-maintenance/`, runtime credential >= 32 chars, header `X-CICT-Provisioning-Credential`; `ProvisionAttributes = []` |
 | I-3 | `Authentication/IdentityRuntimeExtensions.cs` | Register the EQ connector when enabled, else `DisabledProvisioningConnector("eq-maintenance")` |
 | I-4 | `Security/IdentityReturnUrlValidator.cs` | Add `/eq-maintenance` to `RegisteredApplicationPaths` |
-| I-5 | new Identity migration `AddEqMaintenanceApplicationRegistry` | Idempotent `IF NOT EXISTS` inserts of the application (disabled) and three roles, so an **existing** Identity database (production included, later and only when authorized) receives the registry rows through the normal reviewed migration script. Down migration removes the rows only if no grant/projection references them |
+| I-5 | new Identity migration `AddEqMaintenanceApplicationRegistry` | Idempotent `IF NOT EXISTS` inserts of the application (disabled, display name "EQ & FAC Maintenance") and **four** roles, so an **existing** Identity database (production included, later and only when authorized) receives the registry rows through the normal reviewed migration script. Down migration removes the rows only if no grant/projection references them |
 | I-6 | `Persistence/AuditEventWriter.cs` | Add `eq-maintenance` to `AllowedApplicationCodes` |
 | I-7 | `Endpoints/IdentityAdministrationEndpoints.cs` | **No change** to `DelegatedAdministratorRoles` (D-37); add a test that `umms:admin`/`payprep:admin` cannot grant EQ roles |
 | I-8 | `appsettings.json` | `EqMaintenanceProvisioning: { "Enabled": false }` with no credential or address values |
 | I-9 | `Program.cs` health | No change; `supportedAudiences` becomes 5 automatically; tests asserting 4 are updated |
-| I-10 | `tests/CictEng.Identity.IntegrationTests/` new `EqMaintenancePortalOnboardingTests.cs` (+ factory registration) | RC-9 to RC-16 |
+| I-10 | `tests/CictEng.Identity.IntegrationTests/` new `EqMaintenancePortalOnboardingTests.cs` (+ factory registration) | RC-9 to RC-16 and RC-19 |
 
 ### 3.3 Portal web and host (Portal)
 
 | ID | File | Change |
 | --- | --- | --- |
 | W-1 | `src/portal-web/src/portalApi.ts` | `bindableApplicationCodes` add `eq-maintenance`; `applicationHealthPaths` add `'eq-maintenance': '/eq-maintenance/health/live'`. `isSafePortalReturn` needs no change (it already accepts any non-reserved first segment) |
-| W-2 | `src/portal-web/src/App.tsx` | `applicationIcon` maps `maintenance` to a dedicated icon (D-38). The static `LOGIN_APPLICATIONS` list is **not** changed in P05; it is updated in the release that enables EQ (s6 step 5) |
+| W-2 | `src/portal-web/src/App.tsx` | `applicationIcon` maps `maintenance` to a dedicated icon (D-38). The tile label comes from the registry display name ("EQ & FAC Maintenance"). The static `LOGIN_APPLICATIONS` list is **not** changed in P05; it is updated in the release that enables EQ (s6 step 5) with the same display name |
 | W-3 | `src/portal-web/vite.config.ts` | Proxy `/eq-maintenance/api` -> `VITE_EQ_API_PROXY_TARGET` (default `http://127.0.0.1:5310`) before `/eq-maintenance` -> `VITE_EQ_PROXY_TARGET` (default `http://127.0.0.1:5311`, `isAppRoot: true`). `/eq-maintenance/internal` is not proxied |
-| W-4 | `src/portal-web/src/App.test.tsx` | Tests for the tile icon, the `/eq-maintenance/...` return path and the health path |
+| W-4 | `src/portal-web/src/App.test.tsx` | Tests for the tile icon and label "EQ & FAC Maintenance" (escaped ampersand), the `/eq-maintenance/...` return path (V2 route form `/eq-maintenance/eq/...` and `/eq-maintenance/fac/...`) and the health path |
 | H-1 | `src/Portal.Host` | No change (it only reports the audience count); update any test that asserts 4 |
 
 ### 3.4 Runner and deployment scripts (Portal)
@@ -108,20 +110,22 @@ sequenceDiagram
   participant I as Identity (/auth)
   participant E as EQ host (/eq-maintenance)
   participant B as Browser (user)
-  A->>I: grant eq-maintenance:eq-team (central admin UI)
+  A->>I: grant eq-maintenance:eq-team and/or eq-maintenance:fac-team (central admin UI)
   I->>I: queue projection (desired revision + state hash)
   I->>E: PUT internal/provisioning/users/{subjectId} (service credential)
   E->>E: converge UserProfile (create/update/unchanged)
   E-->>I: echo subject, localUserId, revision, hash, roles, active
   I->>I: projection Ready, LocalUserId stored
   B->>I: sign in (Portal login) / refresh
-  I-->>B: cookie: aud += urn:cict-eng:eq-maintenance, roles += eq-maintenance:eq-team, binding claim = localUserId
+  I-->>B: cookie: aud += urn:cict-eng:eq-maintenance, roles += eq-maintenance:eq-team (+ fac-team), binding claim = localUserId
   B->>E: GET /eq-maintenance/api/v1/session (cookie)
   E->>E: CictEng.Auth validation + profile check (sub, binding, active, roles)
-  E-->>B: profile, roles, capabilities
+  E-->>B: profile, roles, effective Access-matrix features, sections, capabilities
 ```
 
-Failure states shown by the SPA (via `access-status` values or EQ 403 codes): `signed-out` -> Portal login with return URL; `password-change-required` -> Portal; `denied` -> "You do not have EQ Maintenance access"; `pending` -> "Access is being prepared"; `failed`/`conflict` -> "Access could not be prepared; contact the Portal administrator" with the correlation ID; `access_not_ready` from EQ -> same as `pending` with a correlation ID.
+V2: the provisioning body's `appRoleCodes` may hold any subset of the four codes; EQ rejects any other code (400 `invalid_provisioning_request`, DATA_CONTRACT s7). After sign-in the EQ app evaluates its own Access matrix (DATA_CONTRACT s14) on every request; the Portal is not involved and no matrix value travels in the token.
+
+Failure states shown by the SPA (via `access-status` values or EQ 403 codes): `signed-out` -> Portal login with return URL; `password-change-required` -> Portal; `denied` -> "You do not have EQ & FAC Maintenance access"; `pending` -> "Access is being prepared"; `failed`/`conflict` -> "Access could not be prepared; contact the Portal administrator" with the correlation ID; `access_not_ready` from EQ -> same as `pending` with a correlation ID.
 
 ## 5 Token compatibility analysis and regression cases
 
@@ -149,22 +153,24 @@ Safety patch proposal (P05 prepares, does not apply): in `F:\CODEX\RECTIFICATION
 | RC-1 | 0.2.1 validator (any audience) + token from the new issuer carrying EQ audience/role | Rejected - documents why s6 ordering is mandatory |
 | RC-2 | 0.2.1 validator + new-issuer token for a user without EQ grants | Accepted, identical principal to today |
 | RC-3 | 0.2.1 validator + new-issuer token for a user **with** EQ grants and Ready projection while the EQ application is disabled | Accepted (the registry gate prevents EQ claims) |
-| RC-4 | 0.3.0 validator for `portal`, `umms`, `payprep`, `safety` + EQ-bearing token | Accepted; each principal holds only its own app's roles (no EQ role leaks) |
+| RC-4 | 0.3.0 validator for `portal`, `umms`, `payprep`, `safety` + EQ-bearing token (including `eq-maintenance:fac-team`) | Accepted; each principal holds only its own app's roles (no EQ role leaks) |
 | RC-5 | 0.3.0 validator for EQ + token without EQ audience (no grant, no projection, or password change pending) | 401 |
 | RC-6 | 0.3.0 + token with an `eq-maintenance:*` role but no EQ audience | Rejected (namespace rule kept) |
 | RC-7 | 0.3.0 + token with an unregistered audience (e.g. `urn:cict-eng:unknown`) | Rejected (strictness kept) |
-| RC-8 | 0.3.0 + token with an unregistered role (e.g. `eq-maintenance:superuser`) | Rejected |
+| RC-8 | 0.3.0 + token with an unregistered role (e.g. `eq-maintenance:superuser`, or `eq-maintenance:fac` as a near miss of `fac-team`) | Rejected |
 | RC-9 | Issuer: EQ grant without a Ready projection | No EQ audience, role or binding claim |
 | RC-10 | Issuer: Ready projection but application disabled | No EQ claims |
 | RC-11 | Issuer: password change pending | No app audiences (unchanged behaviour) |
 | RC-12 | Issuer: duplicate or malformed ledger binding | EQ audience omitted, other audiences unaffected |
 | RC-13 | EQ host configured with `CictEng.Auth` 0.2.1 | Startup fails (unregistered audience) - fail closed |
 | RC-14 | `umms:admin`/`payprep:admin` delegated grant of an EQ role; EQ Admin attempting any central grant | Refused |
-| RC-15 | Return URL `/eq-maintenance/equipment/<uuid>?part=<uuid>&mode=technical` | Accepted by Identity and portal-web; a value containing `%` falls back to `/` |
+| RC-15 | Return URL `/eq-maintenance/eq/equipment/<uuid>?part=<uuid>&mode=technical&panel=spareParts` and `/eq-maintenance/fac/jobs?view=mywork&discipline=civil` (V2 route trees, ARCHITECTURE s6) | Accepted by Identity and portal-web; a value containing `%` falls back to `/` |
 | RC-16 | Launcher and access-status for: no grant, grant + pending/failed/conflict projection, Ready, disabled application | Tile only when Ready **and** enabled; access-status returns the existing values `denied`, `pending`, `failed`, `conflict`, `ready` (plus `signed-out`, `password-change-required`); for a disabled application it must not return `ready` (see PI-6) |
 | RC-17 | Root deploy plan with `eq-maintenance` present | robocopy exclusion includes the EQ folder (script dry-run or generated-argument test) |
+| RC-18 | (V2) 0.3.0 EQ validator + token whose EQ roles are `eq-maintenance:fac-team` only, and `eq-team` + `fac-team` together | Accepted; the principal holds exactly those EQ roles; the EQ profile check requires the same set (DATA_CONTRACT s7) |
+| RC-19 | (V2) Issuer: grant `eq-maintenance:fac-team` to a provisioned user, then revoke it | Convergence sends the four-code role set; the token gains/loses only that role; EQ profile roles converge; access-status stays `ready` while another EQ role remains |
 
-AUTH07 is satisfied only when RC-1 to RC-8 pass and the deployed-version matrix for the intended rollout is recorded; P05 can complete the local part, the deployed part stays an explicit unmet exit until checked.
+AUTH07 is satisfied only when RC-1 to RC-8 and RC-18 pass and the deployed-version matrix for the intended rollout is recorded; P05 can complete the local part, the deployed part stays an explicit unmet exit until checked.
 
 ## 6 Rollout sequence (P12 prepares; execution needs later explicit authorization)
 
@@ -192,13 +198,13 @@ flowchart TD
 | Identity database | New isolated database `EqMaintenanceDisposable_Identity_<runid>` created by migrations, never `CictEngIdentityLocalPreview`, `CictEngIdentityDev` or any other existing database; dropped after the run |
 | EQ database | `EqMaintenanceDisposable_P05_<runid>` with the EQ marker (D-23) |
 | Signing key / secrets | Generated local-only signing material and provisioning credential under the ignored `tmp/p05-runtime/` folder; never printed, logged or committed |
-| Synthetic users | Created through Identity's own admin endpoints: `eq-admin-demo`, `eq-team-demo`, `eq-team-demo-2`, `eq-mgmt-demo`, `no-eq-demo` (no real names or credentials) |
-| Walkthrough | Portal sign-in -> tile -> EQ session; direct deep link reload; return navigation; Management write denial; no-EQ user denial; wrong-audience token; logout; password-change-required user |
+| Synthetic users | Created through Identity's own admin endpoints: `eq-admin-demo`, `eq-team-demo`, `eq-team-demo-2`, `eq-mgmt-demo`, `fac-team-demo` (V2), `eq-fac-team-demo` (V2: EQ Team + FAC Team), `no-eq-demo` (no real names or credentials) |
+| Walkthrough | Portal sign-in -> tile ("EQ & FAC Maintenance") -> EQ session; direct deep link reload; return navigation; Management write denial; FAC Team lands on FAC Dashboard and is denied EQ writes; EQ Team + FAC Team sees both sections; no-EQ user denial; wrong-audience token; logout; password-change-required user |
 | Evidence | `docs/evidence/P05/` (commands, test results, screenshots with no secrets), exact changed files per repository, package checksum |
 
 ## 8 Delegated administration (D-37)
 
-The central mechanism supports app-scoped delegation (`DelegatedAdministratorRoles`, `IsDelegatedGrantAllowed`). Stage 1 does not enable it for EQ, mirroring Safety: PortalAdmin grants the three EQ roles. Enabling it later would add `["eq-maintenance"] = "eq-maintenance:admin"` and mark `eq-team`/`management` as delegable, which stays within EQ authority; it needs a user decision and is not required by S01-S17.
+The central mechanism supports app-scoped delegation (`DelegatedAdministratorRoles`, `IsDelegatedGrantAllowed`). Stage 1 does not enable it for EQ, mirroring Safety: PortalAdmin grants the four EQ roles (APPROVED s4.1: "the four roles are not delegable in stage 1"). Enabling it later would add `["eq-maintenance"] = "eq-maintenance:admin"` and mark `management`/`eq-team`/`fac-team` as delegable, which stays within EQ authority; it needs a user decision and is not required by S01-S29.
 
 ## 9 Risks and open items
 
