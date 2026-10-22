@@ -1,0 +1,1071 @@
+{
+  "browser": "Chrome/141.0.7390.37",
+  "gpu": "swiftshader",
+  "at": "2026-10-22T09:37:36.445Z",
+  "results": [
+    {
+      "id": "load-model-and-manifest",
+      "acceptance": "S04, VIS09",
+      "pass": true,
+      "detail": {
+        "timing": {
+          "modelLoadMs": 143,
+          "readySinceNavigationMs": 526
+        },
+        "missing": [],
+        "info": {
+          "calls": 147,
+          "triangles": 47910,
+          "geometries": 147,
+          "textures": 2,
+          "programs": 4
+        },
+        "sha": true,
+        "canvases": 1,
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "ua": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.0.0 Safari/537.36"
+      }
+    },
+    {
+      "id": "no-console-errors-on-load",
+      "acceptance": "S16",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "id": "tree-select-main",
+      "acceptance": "S05, VIS03",
+      "pass": true,
+      "detail": {
+        "state": {
+          "eq": "eq-qc-demo-01",
+          "main": "mi-q01-01",
+          "sub": null,
+          "part": null,
+          "container": null,
+          "mode": "overall",
+          "iso": false,
+          "view": ""
+        },
+        "selectedKeys": 14
+      }
+    },
+    {
+      "id": "tree-select-sub",
+      "acceptance": "S05, VIS03",
+      "pass": true,
+      "detail": {
+        "state": {
+          "eq": "eq-qc-demo-01",
+          "main": "mi-q01-01",
+          "sub": "si-q01-011",
+          "part": null,
+          "container": null,
+          "mode": "overall",
+          "iso": false,
+          "view": ""
+        },
+        "keys": [
+          "reeving.sheave.girder-tail",
+          "reeving.sheave.boom-tip",
+          "hoist.drive.reducer.main",
+          "hoist.drive.drum.a",
+          "hoist.drive.motor.a",
+          "hoist.drive.brake.hs.a",
+          "hoist.drive.drum.b",
+          "hoist.drive.motor.b",
+          "hoist.drive.brake.hs.b"
+        ]
+      }
+    },
+    {
+      "id": "tree-select-part",
+      "acceptance": "S05, S07, VIS03",
+      "pass": true,
+      "detail": {
+        "state": {
+          "eq": "eq-qc-demo-01",
+          "main": "mi-q01-01",
+          "sub": "si-q01-011",
+          "part": "pp-q01-049",
+          "container": null,
+          "mode": "overall",
+          "iso": false,
+          "view": ""
+        },
+        "crumbs": "QC-DEMO-0101 Hoist011 HoistMain hoist motor A (450 kW)",
+        "url": "?eq=eq-qc-demo-01&main=mi-q01-01&sub=si-q01-011&part=pp-q01-049"
+      }
+    },
+    {
+      "id": "tree-synchronised",
+      "acceptance": "S05",
+      "pass": true,
+      "detail": "pp-q01-049"
+    },
+    {
+      "id": "scene-pick-part-equals-tree",
+      "acceptance": "VIS03, S05",
+      "pass": true,
+      "detail": {
+        "clicked": {
+          "x": 920.890625,
+          "y": 586.4999999999989
+        },
+        "state": {
+          "eq": "eq-qc-demo-01",
+          "main": "mi-q01-01",
+          "sub": "si-q01-011",
+          "part": "pp-q01-049",
+          "container": null,
+          "mode": "technical",
+          "iso": true,
+          "view": ""
+        }
+      }
+    },
+    {
+      "id": "technical-enclosure-not-pickable",
+      "acceptance": "VIS04, DATA s10.7",
+      "pass": true,
+      "detail": [
+        {
+          "target": "hoist.drive.drum.b",
+          "hit": {
+            "key": "hoist.drive.drum.b",
+            "nodeKind": "position"
+          }
+        },
+        {
+          "target": "boom-hoist.drum.main",
+          "hit": {
+            "key": "machinery-house.service-crane",
+            "nodeKind": "position"
+          }
+        },
+        {
+          "target": "electrical.hv.main-transformer",
+          "hit": {
+            "key": "electrical.hv.main-transformer",
+            "nodeKind": "position"
+          }
+        }
+      ]
+    },
+    {
+      "id": "overall-house-click-selects-container-only",
+      "acceptance": "DATA s10.7/s10.10, D-50",
+      "pass": true,
+      "detail": {
+        "state": {
+          "eq": "eq-qc-demo-01",
+          "main": null,
+          "sub": null,
+          "part": null,
+          "container": "machinery-house",
+          "mode": "overall",
+          "iso": false,
+          "view": ""
+        }
+      }
+    },
+    {
+      "id": "instanced-wheel-pick",
+      "acceptance": "DATA s10.3 instanceMaps, VIS03",
+      "pass": true,
+      "detail": {
+        "wheelId": "pp-q01-095",
+        "state": {
+          "eq": "eq-qc-demo-01",
+          "main": "mi-q01-04",
+          "sub": "si-q01-041",
+          "part": "pp-q01-095",
+          "container": null,
+          "mode": "overall",
+          "iso": false,
+          "view": ""
+        }
+      }
+    },
+    {
+      "id": "decorative-and-background-keep-selection",
+      "acceptance": "DATA s10.7 step 3-4",
+      "pass": true,
+      "detail": {
+        "hint1": "Not a maintenance position (context geometry).",
+        "hint2": "Background: selection kept. Use Reset view or the tree to change it."
+      }
+    },
+    {
+      "id": "drag-cancels-transition",
+      "acceptance": "VIS04, brief s5",
+      "pass": true,
+      "detail": {
+        "tweenAfterDrag": true,
+        "camStable": true
+      }
+    },
+    {
+      "id": "newer-selection-wins",
+      "acceptance": "VIS04, P10 note",
+      "pass": true,
+      "detail": {
+        "d": 0
+      }
+    },
+    {
+      "id": "thin-rope-fit-finite",
+      "acceptance": "VIS04",
+      "pass": true,
+      "detail": {
+        "finite": true,
+        "dist": 261.2454046276934
+      }
+    },
+    {
+      "id": "hidden-selection-camera-unchanged",
+      "acceptance": "VIS04, DATA s10.8",
+      "pass": true,
+      "detail": {
+        "hint3": "This selection has no visible representation in this mode; camera unchanged."
+      }
+    },
+    {
+      "id": "overall-vs-technical",
+      "acceptance": "S06, VIS03",
+      "pass": true,
+      "detail": {
+        "overall": {
+          "motorVisible": false,
+          "shellOpacity": 1,
+          "calls": 147,
+          "tris": 47910
+        },
+        "technical": {
+          "motorVisible": true,
+          "shellOpacity": 0.14,
+          "calls": 195,
+          "tris": 54144
+        }
+      }
+    },
+    {
+      "id": "equipment-specific-history",
+      "acceptance": "S12, HIS01 (synthetic)",
+      "pass": true,
+      "detail": {
+        "QC-DEMO-01": "pp-q01-049",
+        "QC-DEMO-02": "pp-q02-049"
+      }
+    },
+    {
+      "id": "deep-link-reload",
+      "acceptance": "VIS03, D-20",
+      "pass": true,
+      "detail": {
+        "eq": "eq-qc-demo-01",
+        "main": "mi-q01-01",
+        "sub": "si-q01-011",
+        "part": "pp-q01-049",
+        "container": null,
+        "mode": "technical",
+        "iso": false,
+        "view": ""
+      }
+    },
+    {
+      "id": "back-forward",
+      "acceptance": "VIS03",
+      "pass": true,
+      "detail": {
+        "back": true,
+        "forward": {
+          "eq": "eq-qc-demo-01",
+          "main": "mi-q01-01",
+          "sub": "si-q01-012",
+          "part": null,
+          "container": null,
+          "mode": "technical",
+          "iso": false,
+          "view": ""
+        }
+      }
+    },
+    {
+      "id": "keyboard-tree",
+      "acceptance": "S16",
+      "pass": true,
+      "detail": {
+        "eq": "eq-qc-demo-01",
+        "main": "mi-q01-01",
+        "sub": "si-q01-011",
+        "part": null,
+        "container": null,
+        "mode": "overall",
+        "iso": false,
+        "view": ""
+      }
+    },
+    {
+      "id": "labels-decluttered",
+      "acceptance": "brief s5",
+      "pass": true,
+      "detail": {
+        "n": 9,
+        "overlaps": 0
+      }
+    },
+    {
+      "id": "reduced-motion-instant",
+      "acceptance": "VIS04",
+      "pass": true,
+      "detail": {
+        "reduced": true,
+        "tween": null,
+        "d": 0
+      }
+    },
+    {
+      "id": "dispose-no-accumulation",
+      "acceptance": "VIS10 (prototype level)",
+      "pass": true,
+      "detail": {
+        "before": 1,
+        "during": [
+          {
+            "canvases": 2,
+            "geometries": 147
+          },
+          {
+            "canvases": 2,
+            "geometries": 147
+          },
+          {
+            "canvases": 2,
+            "geometries": 147
+          },
+          {
+            "canvases": 2,
+            "geometries": 147
+          },
+          {
+            "canvases": 2,
+            "geometries": 147
+          },
+          {
+            "canvases": 2,
+            "geometries": 147
+          }
+        ],
+        "after": 1,
+        "disposed": 6
+      }
+    },
+    {
+      "id": "orbit-10s-measured",
+      "acceptance": "brief s6 (target >= 30 fps on reference desktop)",
+      "pass": true,
+      "detail": {
+        "frames": 91,
+        "seconds": 10.02,
+        "fps": 9.1,
+        "worstFrameMs": 216.8,
+        "calls": 147,
+        "triangles": 47910,
+        "viewport": [
+          997,
+          945
+        ],
+        "gpuMode": "swiftshader",
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "note": "software rendering (SwiftShader) in headless Chrome; not the office reference desktop"
+      }
+    },
+    {
+      "id": "render-counters",
+      "acceptance": "brief s6 budgets",
+      "pass": true,
+      "detail": {
+        "overall": {
+          "calls": 147,
+          "triangles": 47910,
+          "geometries": 147,
+          "textures": 2,
+          "programs": 4
+        },
+        "technical": {
+          "calls": 195,
+          "triangles": 54144,
+          "geometries": 196,
+          "textures": 2,
+          "programs": 4
+        }
+      }
+    },
+    {
+      "id": "fallback-nowebgl",
+      "acceptance": "VIS08, S16",
+      "pass": true,
+      "detail": {
+        "fallback": "WebGL is disabled (simulated with ?viewer=nowebgl).",
+        "visible": true,
+        "treeStillWorks": "mi-q01-02"
+      }
+    },
+    {
+      "id": "fallback-loadfail",
+      "acceptance": "VIS08, S16",
+      "pass": true,
+      "detail": {
+        "fallback": "The model could not be loaded (http_404).",
+        "visible": true,
+        "treeStillWorks": "mi-q01-02"
+      }
+    },
+    {
+      "id": "fallback-contextlost",
+      "acceptance": "VIS08, S16",
+      "pass": true,
+      "detail": {
+        "fallback": "The graphics context was lost. Reload the page to retry the 3D view.",
+        "visible": true,
+        "treeStillWorks": "mi-q01-02"
+      }
+    },
+    {
+      "id": "narrow-layout-no-horizontal-scroll",
+      "acceptance": "S16",
+      "pass": true,
+      "detail": {
+        "scrollW": 390,
+        "w": 390
+      }
+    },
+    {
+      "id": "p02-link-opens-p03-selection",
+      "acceptance": "P03 integration into the P02 review flow",
+      "pass": true,
+      "detail": {
+        "href": "http://127.0.0.1:5313/?eq=eq-qc-demo-01&from=p02&main=mi-q01-01&sub=si-q01-011&pkey=hoist_drive_motor_a&mode=technical",
+        "resolvedKey": "hoist.drive.motor.a",
+        "placeholderOnlyKey": {
+          "href": "http://127.0.0.1:5313/?eq=eq-qc-demo-01&from=p02&main=mi-q01-01&sub=si-q01-011&pkey=hoist_drive_gearbox_a&mode=technical",
+          "state": {
+            "eq": "eq-qc-demo-01",
+            "main": "mi-q01-01",
+            "sub": "si-q01-011",
+            "part": null,
+            "container": null,
+            "mode": "technical",
+            "iso": false,
+            "view": ""
+          },
+          "hint": "P02 placeholder position 'hoist.drive.gearbox.a' is not in the drawing-derived v1 template; showing its mechanism instead."
+        }
+      }
+    },
+    {
+      "id": "u1-label-drilldown-q01",
+      "acceptance": "U1-C07, U1-C08, S05",
+      "pass": true,
+      "detail": {
+        "tier1": [
+          "01 Hoist1",
+          "02 Trolley",
+          "03 Boom1",
+          "04 Gantry1",
+          "05 Control PowerTechnical",
+          "06 Spreader",
+          "07 Driver SystemTechnical",
+          "08 PLCTechnical",
+          "11 Skew system",
+          "12 HV systemTechnical",
+          "13 Lighting",
+          "14 Cabin",
+          "15 Auxiliary system",
+          "16 Emergency mechanismTechnical"
+        ],
+        "expectMains": [
+          "01",
+          "02",
+          "03",
+          "04",
+          "05",
+          "06",
+          "07",
+          "08",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16"
+        ],
+        "tier2": [
+          "011 Hoist1",
+          "012 Hoist emergency brakerTechnical",
+          "013 Load cell systemTechnical",
+          "014 spreader cable wheel",
+          "015 steel rope",
+          "01 Hoist"
+        ],
+        "tier3": [
+          "Main hoist drum (emergency) brake AApprox.",
+          "Main hoist drum (emergency) brake BApprox."
+        ],
+        "states": [
+          {
+            "eq": "eq-qc-demo-01",
+            "main": "mi-q01-01",
+            "sub": null,
+            "part": null,
+            "container": null,
+            "mode": "overall",
+            "iso": false,
+            "view": ""
+          },
+          {
+            "eq": "eq-qc-demo-01",
+            "main": "mi-q01-01",
+            "sub": "si-q01-012",
+            "part": null,
+            "container": null,
+            "mode": "technical",
+            "iso": false,
+            "view": ""
+          },
+          {
+            "eq": "eq-qc-demo-01",
+            "main": "mi-q01-01",
+            "sub": "si-q01-012",
+            "part": "pp-q01-051",
+            "container": null,
+            "mode": "technical",
+            "iso": false,
+            "view": ""
+          }
+        ],
+        "treeSel": "pp-q01-051"
+      }
+    },
+    {
+      "id": "u1-label-drilldown-q02",
+      "acceptance": "U1-C07, U1-C08, S05",
+      "pass": true,
+      "detail": {
+        "tier1": [
+          "01 Hoist",
+          "02 Trolley",
+          "03 Boom",
+          "04 Gantry",
+          "05 Control PowerTechnical",
+          "06 Spreader",
+          "07 Driver SystemTechnical",
+          "08 PLCTechnical",
+          "11 Skew system",
+          "12 HV systemTechnical1",
+          "13 Lighting",
+          "14 Cabin",
+          "15 Auxiliary system",
+          "16 Emergency mechanismTechnical"
+        ],
+        "expectMains": [
+          "01",
+          "02",
+          "03",
+          "04",
+          "05",
+          "06",
+          "07",
+          "08",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16"
+        ],
+        "tier2": [
+          "011 Hoist",
+          "012 Hoist emergency brakerTechnical",
+          "013 Load cell systemTechnical",
+          "014 spreader cable wheel",
+          "015 steel rope",
+          "01 Hoist"
+        ],
+        "tier3": [
+          "Main hoist drum (emergency) brake AApprox.",
+          "Main hoist drum (emergency) brake BApprox."
+        ],
+        "states": [
+          {
+            "eq": "eq-qc-demo-02",
+            "main": "mi-q02-01",
+            "sub": null,
+            "part": null,
+            "container": null,
+            "mode": "overall",
+            "iso": false,
+            "view": ""
+          },
+          {
+            "eq": "eq-qc-demo-02",
+            "main": "mi-q02-01",
+            "sub": "si-q02-012",
+            "part": null,
+            "container": null,
+            "mode": "technical",
+            "iso": false,
+            "view": ""
+          },
+          {
+            "eq": "eq-qc-demo-02",
+            "main": "mi-q02-01",
+            "sub": "si-q02-012",
+            "part": "pp-q02-051",
+            "container": null,
+            "mode": "technical",
+            "iso": false,
+            "view": ""
+          }
+        ],
+        "treeSel": "pp-q02-051"
+      }
+    },
+    {
+      "id": "u1-label-drag-orbits",
+      "acceptance": "U1-C07 (labels must not block orbit)",
+      "pass": true,
+      "detail": {
+        "before22": {
+          "p": [
+            -102.98,
+            123.46,
+            218.44
+          ],
+          "t": [
+            4.95,
+            41.23,
+            0
+          ],
+          "type": "PerspectiveCamera",
+          "zoom": 1
+        },
+        "after22": {
+          "p": [
+            -207.28,
+            123.46,
+            119.68
+          ],
+          "t": [
+            4.95,
+            41.23,
+            0
+          ],
+          "type": "PerspectiveCamera",
+          "zoom": 1
+        }
+      }
+    },
+    {
+      "id": "u1-toolbar-controls-work",
+      "acceptance": "U1-C05, S04",
+      "pass": true,
+      "detail": {
+        "isoFromOverall": true,
+        "isoOff": true,
+        "overall": true,
+        "fitNoSelectionResets": true,
+        "fitSelection": true,
+        "reset": true,
+        "labelsOff": true,
+        "labelsOn": true,
+        "views": {
+          "side": true,
+          "end-ws": true,
+          "end-ls": true,
+          "top": true
+        },
+        "backToPerspective": true
+      }
+    },
+    {
+      "id": "u1-model-content",
+      "acceptance": "U1-C03, U1-C04, U1-C06",
+      "pass": true,
+      "detail": {
+        "missing": [],
+        "logo": true,
+        "logoTexture": [
+          512,
+          509
+        ],
+        "logoVisibleOverall": true,
+        "mode": "overall",
+        "logoVisibleTechnical": false
+      }
+    },
+    {
+      "id": "u1r2-labels-persist-after-tree-selection",
+      "acceptance": "U1-C09, U1-C08",
+      "pass": true,
+      "detail": {
+        "perMain": {
+          "mi-q01-01": 6,
+          "mi-q01-02": 5,
+          "mi-q01-03": 4,
+          "mi-q01-04": 4,
+          "mi-q01-05": 2,
+          "mi-q01-06": 3,
+          "mi-q01-07": 2,
+          "mi-q01-08": 2,
+          "mi-q01-11": 2,
+          "mi-q01-12": 2,
+          "mi-q01-13": 2,
+          "mi-q01-14": 2,
+          "mi-q01-15": 4,
+          "mi-q01-16": 2
+        },
+        "subN": 9,
+        "partLabels": [
+          {
+            "t": "Main hoist motor A (450 kW)Approx.",
+            "edge": false
+          },
+          {
+            "t": "Main hoist rope tail sheaves (girder tail)Est.",
+            "edge": false
+          },
+          {
+            "t": "Boom-tip hoist rope sheavesEst.",
+            "edge": false
+          },
+          {
+            "t": "Main hoist reducer (SEW ML3PSF130E)Approx.",
+            "edge": false
+          },
+          {
+            "t": "Main hoist drum AApprox.",
+            "edge": false
+          },
+          {
+            "t": "Main hoist high-speed brake AApprox.",
+            "edge": false
+          },
+          {
+            "t": "Main hoist drum BApprox.",
+            "edge": false
+          },
+          {
+            "t": "Main hoist motor B (450 kW)Approx.1",
+            "edge": false
+          },
+          {
+            "t": "Main hoist high-speed brake BApprox.",
+            "edge": false
+          }
+        ]
+      }
+    },
+    {
+      "id": "u1r2-reset-whole-equipment",
+      "acceptance": "U1-C10, U1-C11",
+      "pass": true,
+      "detail": {
+        "before26": {
+          "labels": 0,
+          "expanded": 16
+        },
+        "after26": {
+          "labels": 14,
+          "pressed": "true",
+          "expanded": [
+            "eq"
+          ],
+          "search": "?eq=eq-qc-demo-01&mode=technical",
+          "cam": {
+            "p": [
+              -102.98,
+              123.46,
+              218.44
+            ],
+            "t": [
+              4.95,
+              41.23,
+              0
+            ],
+            "type": "PerspectiveCamera",
+            "zoom": 1
+          }
+        },
+        "state": {
+          "eq": "eq-qc-demo-01",
+          "main": null,
+          "sub": null,
+          "part": null,
+          "container": null,
+          "mode": "technical",
+          "iso": false,
+          "view": ""
+        },
+        "tier1n": 14
+      }
+    },
+    {
+      "id": "u1r2-tree-fold-both-ways",
+      "acceptance": "U1-C11",
+      "pass": true,
+      "detail": {
+        "f0": [
+          "eq",
+          "mi-q01-01"
+        ],
+        "f1": [
+          "eq"
+        ],
+        "f2": [
+          "eq",
+          "mi-q01-01"
+        ],
+        "f3": [
+          "eq",
+          "mi-q01-01",
+          "mi-q01-02"
+        ]
+      }
+    },
+    {
+      "id": "u1r2-model-content",
+      "acceptance": "U1-C12, U1-C13, U1-C14, U1-C15, U1-C16",
+      "pass": true,
+      "detail": {
+        "checks": {
+          "noBallMarkers": true,
+          "loadcellAtBoomTip": true,
+          "floodlightsAlongGirderAndBoom": true,
+          "elevatorOutboardOfLegB": true,
+          "apexPlatformAndGuard": true,
+          "tailEndPlatformBeyondGirder": true,
+          "twoBoomBlocks": true
+        },
+        "markers": [],
+        "hotspots": 19,
+        "loadcell": {
+          "min": [
+            73.099998,
+            52.599998,
+            -3.18
+          ],
+          "max": [
+            74.370003,
+            52.959999,
+            3.18
+          ]
+        },
+        "boomTip": 75.9,
+        "trolleyRail": 52.419999999999995,
+        "flood": {
+          "min": [
+            -56.310001,
+            49.818794,
+            -3.886985
+          ],
+          "max": [
+            66.309998,
+            50.5,
+            3.886985
+          ]
+        },
+        "floodModes": [
+          "overall",
+          "technical"
+        ],
+        "car": {
+          "min": [
+            -30.584999,
+            6.35,
+            -13.17
+          ],
+          "max": [
+            -29.155001,
+            9.975,
+            -11.69
+          ]
+        },
+        "mast": {
+          "min": [
+            -32.59,
+            0.9,
+            -14.215
+          ],
+          "max": [
+            -29.264999,
+            56.43,
+            -11.3
+          ]
+        },
+        "legZ": 10.2,
+        "head": {
+          "min": [
+            -3.925,
+            78.239998,
+            -4.949
+          ],
+          "max": [
+            1.325,
+            83.356003,
+            4.949
+          ]
+        },
+        "apexSheave": {
+          "min": [
+            -2.6,
+            79.839996,
+            -2.505
+          ],
+          "max": [
+            0,
+            82.540001,
+            2.505
+          ]
+        },
+        "overall": 83.356,
+        "aTop": 79.64,
+        "tail": {
+          "min": [
+            -64.625,
+            50.325569,
+            -4.62
+          ],
+          "max": [
+            -56.474998,
+            53.424999,
+            4.62
+          ]
+        },
+        "tailX": -61,
+        "blocks": {
+          "min": [
+            27.5,
+            52.299999,
+            -3.45
+          ],
+          "max": [
+            63,
+            54.75,
+            3.45
+          ]
+        },
+        "hingeX": 0
+      }
+    },
+    {
+      "id": "u1r3-trolley-spreader-content",
+      "acceptance": "U1-C17, U1-C18",
+      "pass": true,
+      "detail": {
+        "checks": {
+          "fourWheelsOnePerCorner": true,
+          "wheelAxlesAndRails": true,
+          "sheaveShaftsAt900BothSides": true,
+          "equalizersAtBothEndsAndReel014": true,
+          "headblockBox2090": true,
+          "spreaderTwistlocksIso40ft": true,
+          "spreaderEnvelope": true
+        },
+        "XT": 70,
+        "rail": 52.419999999999995,
+        "wheels": [
+          {
+            "key": "trolley.wheel.ls-a.1",
+            "x": -2.369999000000007,
+            "z": 3.15,
+            "y": 52.7349985
+          },
+          {
+            "key": "trolley.wheel.ls-b.1",
+            "x": -2.369999000000007,
+            "z": -3.15,
+            "y": 52.7349985
+          },
+          {
+            "key": "trolley.wheel.ws-a.1",
+            "x": 2.0699994999999944,
+            "z": 3.15,
+            "y": 52.7349985
+          },
+          {
+            "key": "trolley.wheel.ws-b.1",
+            "x": 2.0699994999999944,
+            "z": -3.15,
+            "y": 52.7349985
+          }
+        ],
+        "sa": {
+          "min": [
+            68.599998,
+            52.299999,
+            2.205
+          ],
+          "max": [
+            71.400002,
+            53.299999,
+            2.995
+          ]
+        },
+        "sb": {
+          "min": [
+            68.599998,
+            52.299999,
+            -2.995
+          ],
+          "max": [
+            71.400002,
+            53.299999,
+            -2.205
+          ]
+        },
+        "tl": [
+          {
+            "key": "spreader.twistlock.a-ws",
+            "dx": 1.129499999999993,
+            "z": 5.9925
+          },
+          {
+            "key": "spreader.twistlock.a-ls",
+            "dx": -1.129499999999993,
+            "z": 5.9925
+          },
+          {
+            "key": "spreader.twistlock.b-ws",
+            "dx": 1.129499999999993,
+            "z": -5.9925
+          },
+          {
+            "key": "spreader.twistlock.b-ls",
+            "dx": -1.129499999999993,
+            "z": -5.9925
+          }
+        ],
+        "hbWidth": 2.0899960000000135,
+        "spWidth": 2.4400019999999927,
+        "spLen": 12.485,
+        "eqX": [
+          -2.879997000000003,
+          2.5800019999999932
+        ],
+        "reelSub": "014"
+      }
+    },
+    {
+      "id": "no-console-errors-overall",
+      "acceptance": "S16",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "summary": {
+    "passed": 41,
+    "failed": 0
+  }
+}

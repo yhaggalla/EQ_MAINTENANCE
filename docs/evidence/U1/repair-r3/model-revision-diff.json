@@ -1,0 +1,247 @@
+{
+  "base": "HEAD",
+  "baseAsset": {
+    "sha256": "fe35835e9608c07a9eb57a9fa89a4e1ec65ec5baada87c6d8edf72730e54869b",
+    "bytes": 2196484,
+    "nodes": 180
+  },
+  "revised": {
+    "revision": 4,
+    "sha256": "af9d1338ecd737c4c78493cc0407e4286789e054ab6f7d7c6b203a7086f9a369",
+    "bytes": 2546744,
+    "nodes": 178
+  },
+  "summary": {
+    "added": 2,
+    "removed": 4,
+    "changed": 22,
+    "identityChanges": 0
+  },
+  "note": "Draft v1 revised in place (no binding active). Keys, kinds, classification and instancing of existing nodes are unchanged unless listed; bounds changes are geometry corrections.",
+  "added": [
+    {
+      "key": "trolley.sheave.equalizer",
+      "kind": "position",
+      "sub": "021",
+      "label": "Trolley rope equalizer sheaves (4)"
+    },
+    {
+      "key": "trolley.spreader-cable-reel",
+      "kind": "position",
+      "sub": "014",
+      "label": "Spreader cable reel and drive (size approximate)"
+    }
+  ],
+  "removed": [
+    "trolley.wheel.ls-a.2",
+    "trolley.wheel.ls-b.2",
+    "trolley.wheel.ws-a.2",
+    "trolley.wheel.ws-b.2"
+  ],
+  "changed": [
+    {
+      "key": "reeving.sheave.trolley-tail",
+      "boundsChanged": true
+    },
+    {
+      "key": "container.trolley",
+      "boundsChanged": true
+    },
+    {
+      "key": "trolley.frame",
+      "boundsChanged": true
+    },
+    {
+      "key": "trolley.wheel.ls-a.1",
+      "boundsChanged": true,
+      "label": [
+        "Trolley wheel LS-A 1",
+        "Trolley wheel LS-A"
+      ]
+    },
+    {
+      "key": "trolley.wheel.ls-b.1",
+      "boundsChanged": true,
+      "label": [
+        "Trolley wheel LS-B 1",
+        "Trolley wheel LS-B"
+      ]
+    },
+    {
+      "key": "trolley.wheel.ws-a.1",
+      "boundsChanged": true,
+      "label": [
+        "Trolley wheel WS-A 1",
+        "Trolley wheel WS-A"
+      ]
+    },
+    {
+      "key": "trolley.wheel.ws-b.1",
+      "boundsChanged": true,
+      "label": [
+        "Trolley wheel WS-B 1",
+        "Trolley wheel WS-B"
+      ]
+    },
+    {
+      "key": "trolley.sheave.set.a",
+      "boundsChanged": true,
+      "label": [
+        "Trolley main hoist sheave set A",
+        "Trolley main hoist sheaves, side A (2 shafts x 2 sheaves)"
+      ]
+    },
+    {
+      "key": "trolley.sheave.set.b",
+      "boundsChanged": true,
+      "label": [
+        "Trolley main hoist sheave set B",
+        "Trolley main hoist sheaves, side B (2 shafts x 2 sheaves)"
+      ]
+    },
+    {
+      "key": "cabin.operator.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "trolley.tension.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "container.headblock-spreader",
+      "boundsChanged": true
+    },
+    {
+      "key": "headblock.frame",
+      "boundsChanged": true
+    },
+    {
+      "key": "headblock.sheave-box.a",
+      "boundsChanged": true,
+      "label": [
+        "Headblock sheave box A (2 sheaves)",
+        "Headblock sheave box A (2 sheaves, twistlocks)"
+      ]
+    },
+    {
+      "key": "headblock.sheave-box.b",
+      "boundsChanged": true,
+      "label": [
+        "Headblock sheave box B (2 sheaves)",
+        "Headblock sheave box B (2 sheaves, twistlocks)"
+      ]
+    },
+    {
+      "key": "spreader.frame",
+      "boundsChanged": true,
+      "label": [
+        "Spreader (STS45, 40 ft setting)",
+        "Spreader (STS45 telescopic, 40 ft setting)"
+      ]
+    },
+    {
+      "key": "spreader.twistlock.a-ws",
+      "boundsChanged": true,
+      "label": [
+        "Spreader twistlock / flipper corner A-WS (location representative)",
+        "Spreader twistlock / flipper corner A-WS (hardware representative)"
+      ],
+      "hotspot": [
+        [
+          70.97,
+          44.9,
+          5.946
+        ],
+        [
+          71.1295,
+          44.9,
+          5.9925
+        ],
+        "simplified-part",
+        "simplified-part"
+      ]
+    },
+    {
+      "key": "spreader.twistlock.a-ls",
+      "boundsChanged": true,
+      "label": [
+        "Spreader twistlock / flipper corner A-LS (location representative)",
+        "Spreader twistlock / flipper corner A-LS (hardware representative)"
+      ],
+      "hotspot": [
+        [
+          69.03,
+          44.9,
+          5.946
+        ],
+        [
+          68.8705,
+          44.9,
+          5.9925
+        ],
+        "simplified-part",
+        "simplified-part"
+      ]
+    },
+    {
+      "key": "spreader.twistlock.b-ws",
+      "boundsChanged": true,
+      "label": [
+        "Spreader twistlock / flipper corner B-WS (location representative)",
+        "Spreader twistlock / flipper corner B-WS (hardware representative)"
+      ],
+      "hotspot": [
+        [
+          70.97,
+          44.9,
+          -5.946
+        ],
+        [
+          71.1295,
+          44.9,
+          -5.9925
+        ],
+        "simplified-part",
+        "simplified-part"
+      ]
+    },
+    {
+      "key": "spreader.twistlock.b-ls",
+      "boundsChanged": true,
+      "label": [
+        "Spreader twistlock / flipper corner B-LS (location representative)",
+        "Spreader twistlock / flipper corner B-LS (hardware representative)"
+      ],
+      "hotspot": [
+        [
+          69.03,
+          44.9,
+          -5.946
+        ],
+        [
+          68.8705,
+          44.9,
+          -5.9925
+        ],
+        "simplified-part",
+        "simplified-part"
+      ]
+    },
+    {
+      "key": "hoist.rope.set.main",
+      "boundsChanged": true,
+      "label": [
+        "Main hoist rope set (simplified path)",
+        "Main hoist rope set (4 ropes, 8 falls; path simplified away from the trolley)"
+      ]
+    },
+    {
+      "key": "trolley.rope.set.main",
+      "boundsChanged": true,
+      "label": [
+        "Trolley rope set (simplified path)",
+        "Trolley rope set (2 ropes; path simplified away from the trolley)"
+      ]
+    }
+  ]
+}

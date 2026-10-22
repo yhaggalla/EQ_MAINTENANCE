@@ -1,13 +1,13 @@
 {
-  "assets/models/source/cict-j526a-sts/params.json": "323505b454f8f084e4eadbc822a8cafa05eeb9951e2fe293fe23a375e641bd6c",
-  "assets/models/source/cict-j526a-sts/build.mjs": "8a5954a61f3324cc3722e90a371f7a3ce9338b6e0a058f437c10156cd81204b9",
+  "assets/models/source/cict-j526a-sts/params.json": "c0470de53c49650e54565647114fd78ca616f6fc9ce34a1f5a33f82f74d10664",
+  "assets/models/source/cict-j526a-sts/build.mjs": "e68d7dd3277a62296916bab4a75f9477a1bb2c157fb560838f2daacb43eb0452",
   "assets/models/source/cict-j526a-sts/textures/cict-logo.png": "d7af90fbb0a7f2bff38d199f9ebf5c812d14493d3953f33580b968661eeb9965",
-  "tools/model-generator/generate.mjs": "62c935b6e554054c2d1665b7aac047cb8270e49b099396fa4f5ccca9ae777d68",
+  "tools/model-generator/generate.mjs": "1136ed429295fa071baab8c4d66c2d9d373d2831b9e7a4f7995c9a1ddaa1034e",
   "tools/model-generator/lib/kit.mjs": "e8fa3960c9f0cefc3ad4b9691d6617ae24192336e43f5382e4b7b7c2fe688025",
   "tools/model-generator/lib/scene-builder.mjs": "815f8dc731facaa71810f492e570e6d105b1db482cac0da11d1ba6846d68f7f3",
   "tools/model-generator/package-lock.json": "13c35ee69b0c30a86d2f99086f4fb50b84b4a11a67f51f3cbd6e7aa9ba840849",
-  "artifacts/models/cict-j526a-sts-scene/1/scene.glb": "fe35835e9608c07a9eb57a9fa89a4e1ec65ec5baada87c6d8edf72730e54869b",
-  "artifacts/models/cict-j526a-sts-scene/1/manifest.json": "8b0cfe7454b81ee5356ecca863699cf5d848a7d58d0694bbe159c376023a7568",
-  "artifacts/models/cict-j526a-sts-scene/1/provenance.md": "11ba4bbf7c191ef7a23cc60168737a603a71446a3d7d7bcba9ce3989c2080fa2",
-  "artifacts/models/cict-j526a-sts-scene/1/landmarks.json": "384b2c444ad9f2c50144a2820d12654570dc019a879022daa9b5a0c3309bf1fc"
+  "artifacts/models/cict-j526a-sts-scene/1/scene.glb": "af9d1338ecd737c4c78493cc0407e4286789e054ab6f7d7c6b203a7086f9a369",
+  "artifacts/models/cict-j526a-sts-scene/1/manifest.json": "84a234dcadac81d89e78fcb50a80ea3413261500b253e308e55c36acd365adcc",
+  "artifacts/models/cict-j526a-sts-scene/1/provenance.md": "52239b507ca6789dd60c104e5757c71c149eabbd1bdf612fcba8c6d8816bb040",
+  "artifacts/models/cict-j526a-sts-scene/1/landmarks.json": "538ea13943cc118c582bc51c238f1e450d2793aa3d844ce91f34f57cda74d6a6"
 }

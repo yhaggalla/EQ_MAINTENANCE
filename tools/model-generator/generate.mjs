@@ -98,7 +98,13 @@ function embedTextures(glbBuf) {
   let bin = glbBuf.subarray(binStart + 8, binStart + 8 + binLen);
   const textured = [];
   root.traverse((o) => { if (o.isMesh) for (const m of [o.material].flat()) if (m.userData?.textureFile && !textured.includes(m)) textured.push(m); });
-  if (!textured.length) return { glb: glbBuf, textures: [] };
+  // U1 round 3: material colour factors are rounded to 6 decimals. The sRGB -> linear conversion (Math.pow) differs in
+  // the last bit between the Windows and Linux Node builds, which made scene.glb differ by platform; geometry did not.
+  const r6 = (v) => Math.round(v * 1e6) / 1e6;
+  for (const m of gltf.materials || []) {
+    if (m.pbrMetallicRoughness?.baseColorFactor) m.pbrMetallicRoughness.baseColorFactor = m.pbrMetallicRoughness.baseColorFactor.map(r6);
+    if (m.emissiveFactor) m.emissiveFactor = m.emissiveFactor.map(r6);
+  }
   const info = [];
   for (const m of textured) {
     const file = path.join(srcDir, m.userData.textureFile);

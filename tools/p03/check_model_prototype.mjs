@@ -338,6 +338,25 @@ try {
     twoBoomBlocks: mc2.blocks.min[0] < mc2.hingeX + 29 && mc2.blocks.max[0] > mc2.hingeX + 62,
   };
   rec('u1r2-model-content', 'U1-C12, U1-C13, U1-C14, U1-C15, U1-C16', Object.values(c28).every(Boolean), { checks: c28, ...mc2 });
+  // 29 U1 round 3 model content (manifest geometry against J526A0200 / J526A1200 / ISO 1161 values, not appearance)
+  const mc3 = await E(`JSON.stringify((()=>{const m=window.__qc.manifest;const n=(k)=>m.nodes.find(x=>x.key===k);const b=(k)=>n(k)&&n(k).bounds;const c=(bb,i)=>(bb.min[i]+bb.max[i])/2;
+    const sa=b('trolley.sheave.set.a'), sb=b('trolley.sheave.set.b'); const XT=c(sa,0);
+    const wheels=m.nodes.filter(x=>x.key.startsWith('trolley.wheel.')).map(x=>({key:x.key,x:c(x.bounds,0)-XT,z:c(x.bounds,2),y:c(x.bounds,1)}));
+    const tl=m.nodes.filter(x=>x.key.startsWith('spreader.twistlock.')).map(x=>({key:x.key,dx:x.hotspot.point[0]-XT,z:x.hotspot.point[2]}));
+    const hbA=b('headblock.sheave-box.a'), sp=b('spreader.frame'), eqz=b('trolley.sheave.equalizer'), reel=n('trolley.spreader-cable-reel');
+    return {XT, rail:m.landmarks.trolleyRail, wheels, sa, sb, tl, hbWidth:hbA.max[0]-hbA.min[0], spWidth:sp.max[0]-sp.min[0], spLen:sp.max[2]-sp.min[2],
+      eqX:[eqz.min[0]-XT, eqz.max[0]-XT], reelSub: reel&&reel.classification.sub}})())`).then(JSON.parse);
+  const near = (a, v, t) => Math.abs(a - v) <= t;
+  const c29 = {
+    fourWheelsOnePerCorner: mc3.wheels.length === 4 && mc3.wheels.every((w) => w.key.endsWith('.1')),
+    wheelAxlesAndRails: mc3.wheels.every((w) => (near(w.x, -2.37, 0.02) || near(w.x, 2.07, 0.02)) && near(Math.abs(w.z), 3.15, 0.02) && near(w.y, mc3.rail + 0.315, 0.02)),
+    sheaveShaftsAt900BothSides: near(mc3.sa.min[0] - mc3.XT, -1.4, 0.03) && near(mc3.sa.max[0] - mc3.XT, 1.4, 0.03) && near((mc3.sa.min[2] + mc3.sa.max[2]) / 2, 2.6, 0.05) && near((mc3.sb.min[2] + mc3.sb.max[2]) / 2, -2.6, 0.05),
+    equalizersAtBothEndsAndReel014: mc3.eqX[0] < -2.7 && mc3.eqX[1] > 2.4 && mc3.reelSub === '014',
+    headblockBox2090: near(mc3.hbWidth, 2.09, 0.01),
+    spreaderTwistlocksIso40ft: mc3.tl.length === 4 && mc3.tl.every((t) => near(Math.abs(t.dx), 1.1295, 0.001) && near(Math.abs(t.z), 5.9925, 0.001)),
+    spreaderEnvelope: near(mc3.spWidth, 2.44, 0.01) && mc3.spLen > 12 && mc3.spLen < 12.6,
+  };
+  rec('u1r3-trolley-spreader-content', 'U1-C17, U1-C18', Object.values(c29).every(Boolean), { checks: c29, ...mc3 });
   rec('no-console-errors-overall', 'S16', b.errors().filter((e) => !/404|Not Found|model request failed|WebGL/i.test(e)).length === 0, b.errors());
 } catch (e) {
   rec('harness-exception', '-', false, String(e && e.stack || e));

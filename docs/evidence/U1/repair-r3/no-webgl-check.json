@@ -1,0 +1,12 @@
+{
+  "browser": "Chrome/141.0.7390.37",
+  "flags": "--disable-gpu --disable-webgl --disable-3d-apis",
+  "before": {
+    "fallback": "This browser or device cannot create a WebGL context.",
+    "visible": true,
+    "canvases": 0
+  },
+  "treeSelection": "mi-q01-04",
+  "info": "04 GantryMain instancemi-q01-04Submechanisms041 gantry, 042 gantry cable reel, 046 wheel clamp devicePositions53Main mec",
+  "pass": true
+}

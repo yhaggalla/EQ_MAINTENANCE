@@ -409,18 +409,20 @@
     "trolleyFrameLengthX": {
       "mm": 5620,
       "kind": "drawing-derived",
-      "source": "J526A0200 p1 side view: 400 + 2560 + 2260 + 400"
+      "source": "J526A0200 p1 side view: 400 + 2560 + 2260 + 400",
+      "note": "Overall incl. buffers: 400 + 2560 + 2260 + 400 (buffer faces 2960 landside and 2660 waterside of the trolley centre); U1 round 3"
     },
     "trolleyFrameWidthZ": {
       "mm": 5475,
       "kind": "measured",
-      "source": "J526A0200 p1 plan (5475)"
+      "source": "J526A0200 p1 plan (5475)",
+      "note": "Plan overall 5475 (inner 5255); the U1 round 3 side frames are modelled from the C-C/D-D plate spacing (620) about the 2600 rope lane"
     },
     "trolleyWheelDia": {
       "mm": 630,
       "kind": "measured",
-      "source": "J526A0200 p1 tolerance table / ZT2-015022",
-      "note": "Wheel class 630 assumed; sheet also lists 500 and 710"
+      "source": "J526A0200 p1 side view (dia 630 at the four wheel positions); p2 item 2 trolley wheel assembly ZT2-020936-00, quantity 4; ZT2-015022",
+      "note": "U1 round 3: 4 wheels in total (one per corner), not 2 per corner"
     },
     "trolleyWheelAxleLandside": {
       "mm": 2370,
@@ -432,15 +434,10 @@
       "kind": "measured",
       "source": "J526A0200 p1 plan (2070 from trolley centre)"
     },
-    "trolleyWheelPairPitch": {
-      "mm": 670,
-      "kind": "estimated",
-      "source": "J526A0200 p1 plan, scaled; count of 2 wheels per corner read from the plan"
-    },
     "trolleyMainSheaveDia": {
-      "mm": 1100,
-      "kind": "estimated",
-      "source": "J526A0200 p1 side view, scaled (items 13)"
+      "mm": 1000,
+      "kind": "measured",
+      "source": "J526A0200 p1 sections C-C and D-D (dia 1000 over the flanges, 900 rope groove); p2 item 18 sheave assembly ZT2-013069, quantity 8 (U1 round 3, U1-C17)"
     },
     "trolleyMainSheaveOffset": {
       "mm": 900,
@@ -502,14 +499,16 @@
       "note": "Spreader underside at upper limit in the display position"
     },
     "spreaderLength40ft": {
-      "mm": 12192,
-      "kind": "estimated",
-      "source": "STS45 spreader (J526A00 p2 item 35) at 40 ft setting; spreader drawing not supplied (U-10)"
+      "mm": 11985,
+      "kind": "measured",
+      "source": "ISO 1161 / ISO 668: 40 ft corner-fitting centres 11985 (the spreader twistlocks must land on them); STS45 (Bromma) spreader drawing not supplied (U-10)",
+      "note": "U1 round 3: twistlock centres instead of the 12192 container length"
     },
     "spreaderWidth": {
-      "mm": 2440,
-      "kind": "estimated",
-      "source": "ISO container width; spreader drawing not supplied"
+      "mm": 2259,
+      "kind": "measured",
+      "source": "ISO 1161 / ISO 668: corner-fitting centres across the container 2259 (2438 container width); spreader drawing not supplied (U-10)",
+      "note": "U1 round 3: twistlock centres instead of the 2440 container width"
     },
     "gantryWheelDia": {
       "mm": 800,
@@ -966,8 +965,188 @@
       "mm": 480,
       "kind": "measured",
       "source": "J526A2000 p1 Detail I: 480 from the boom top to the anchor pin (U1 round 2, U1-C12)"
+    },
+    "trolleyBufferFaceLandside": {
+      "mm": 2960,
+      "kind": "drawing-derived",
+      "source": "J526A0200 p1 side view: 2560 (trolley centre to the landside trolley-rope / equalizer line) + 400 buffer = 2960; plan extremity scaled about 2890 (U1 round 3, U1-C17)"
+    },
+    "trolleyBufferFaceWaterside": {
+      "mm": 2660,
+      "kind": "drawing-derived",
+      "source": "J526A0200 p1 side view: 2260 (trolley centre to the waterside trolley-rope / equalizer line) + 400 buffer = 2660; plan extremity scaled about 2690 (U1 round 3, U1-C17)"
+    },
+    "trolleyBufferLength": {
+      "mm": 400,
+      "kind": "measured",
+      "source": "J526A0200 p1 side view (400) and p2 item B1 buffer BQD140-407, 4 off (U1 round 3, U1-C17)"
+    },
+    "trolleyMainSheaveGrooveDia": {
+      "mm": 900,
+      "kind": "measured",
+      "source": "J526A0200 p1 sections C-C and D-D (dia 900) (U1 round 3, U1-C17)"
+    },
+    "trolleyMainSheaveCentreAboveRail": {
+      "mm": 380,
+      "kind": "estimated",
+      "source": "J526A0200 p1 side view, scaled (about 350 above the rail); raised 30 so the dia 1000 sheave clears the simplified girder top box (U1 round 3, U1-C17)"
+    },
+    "trolleyMainSheavePairSpacing": {
+      "mm": 165,
+      "kind": "measured",
+      "source": "J526A0200 p1 sections C-C and D-D (165 between the two sheaves on one shaft) (U1 round 3, U1-C17)"
+    },
+    "trolleyMainSheaveShaftStagger": {
+      "mm": 80,
+      "kind": "drawing-derived",
+      "source": "J526A0200 p1: C-C 242.5 + 165 + 212.5 vs D-D 322.5 + 165 + 132.5 within the same 620 frame: the waterside pair sits 80 further along the shaft, so the ropes passing one shaft run between the sheaves of the other (U1 round 3, U1-C17)"
+    },
+    "trolleySheaveFramePlateSpacing": {
+      "mm": 620,
+      "kind": "measured",
+      "source": "J526A0200 p1 sections C-C and D-D (620 between the side-frame plates) (U1 round 3, U1-C17)"
+    },
+    "trolleyBodyLandside": {
+      "mm": 1840,
+      "kind": "measured",
+      "source": "J526A0200 p1 plan (1840 from the trolley centre to the landside end of the centre body) (U1 round 3, U1-C17)"
+    },
+    "trolleyBodyWaterside": {
+      "mm": 1540,
+      "kind": "measured",
+      "source": "J526A0200 p1 plan (1540 to the waterside end of the centre body) (U1 round 3, U1-C17)"
+    },
+    "trolleyBodyWidthZ": {
+      "mm": 2600,
+      "kind": "estimated",
+      "source": "J526A0200 p1 end view and plan, scaled (about 2600 between the girders) (U1 round 3, U1-C17)"
+    },
+    "trolleyBodyBelowRail": {
+      "mm": 990,
+      "kind": "measured",
+      "source": "J526A0200 p1 side view (990 from the rail to the underside of the centre body) (U1 round 3, U1-C17)"
+    },
+    "trolleyFrameTopAboveRail": {
+      "mm": 600,
+      "kind": "estimated",
+      "source": "J526A0200 p1 end view and side view, scaled (frame top about 600 above the rail; main hoist rope 851 above the rail) (U1 round 3, U1-C17)"
+    },
+    "trolleyEqualizerSheaveDia": {
+      "mm": 640,
+      "kind": "measured",
+      "source": "J526A0200 p1 section E-E (dia 640 over the flanges, 550 groove; vertical shaft dia 110); p2 item 16 equalizer sheave ZT2-012932-00, quantity 4, item 14 shaft, quantity 4 (U1 round 3, U1-C17)"
+    },
+    "trolleyEqualizerSheaveXLandside": {
+      "mm": 2560,
+      "kind": "measured",
+      "source": "J526A0200 p1 side view: 2560 from the trolley centre to the landside trolley-rope line at the equalizer sheaves (plan scaled about 2510) (U1 round 3, U1-C17)"
+    },
+    "trolleyEqualizerSheaveXWaterside": {
+      "mm": 2260,
+      "kind": "measured",
+      "source": "J526A0200 p1 side view: 2260 to the waterside trolley-rope line at the equalizer sheaves (plan scaled about 2240) (U1 round 3, U1-C17)"
+    },
+    "trolleyEqualizerSheaveZ": {
+      "mm": 750,
+      "kind": "drawing-derived",
+      "source": "Rope lane 1050 (J526A2100) minus the 300 groove radius of the dia 640 / 550 sheave; plan scaled about 780 (U1 round 3, U1-C17)"
+    },
+    "trolleyRopeAboveRail": {
+      "mm": 310,
+      "kind": "estimated",
+      "source": "J526A0200 p1 side view, scaled (trolley rope arrow about 310 above the rail) (U1 round 3, U1-C17)"
+    },
+    "trolleyTipSheaveDia": {
+      "mm": 830,
+      "kind": "measured",
+      "source": "J526A2100 p1 section A-A (sheave unit item 1: dia 830 over the flanges, 750 groove) (U1 round 3, U1-C17)"
+    },
+    "spreaderCableReelDia": {
+      "mm": 1600,
+      "kind": "estimated",
+      "source": "J526A0200 p1 side view, scaled from the hidden outline of item 11 (spreader cable reel arrangement, 1245 kg) inside the centre body (U1 round 3, U1-C17)"
+    },
+    "spreaderCableReelX": {
+      "mm": 300,
+      "kind": "estimated",
+      "source": "J526A0200 p1 side view, scaled (reel centre about 300 waterside of the trolley centre) (U1 round 3, U1-C17)"
+    },
+    "spreaderCableReelCentreBelowRail": {
+      "mm": 600,
+      "kind": "estimated",
+      "source": "J526A0200 p1 side view, scaled (U1 round 3, U1-C17)"
+    },
+    "headblockOverallLength": {
+      "mm": 5440,
+      "kind": "measured",
+      "source": "J526A1200 p1 front view (5440; 5521 over the sheave guards) (U1 round 3, U1-C18)"
+    },
+    "headblockFrameWidth": {
+      "mm": 1210,
+      "kind": "measured",
+      "source": "J526A1200 p1 plan (1210) (U1 round 3, U1-C18)"
+    },
+    "headblockSheaveCentreAboveBase": {
+      "mm": 970,
+      "kind": "measured",
+      "source": "J526A1200 p1 end view (970) (U1 round 3, U1-C18)"
+    },
+    "headblockOverallHeight": {
+      "mm": 1670,
+      "kind": "measured",
+      "source": "J526A1200 p1 end view (1670 to the top of the fence / guards) (U1 round 3, U1-C18)"
+    },
+    "headblockSheavePitch": {
+      "mm": 1010,
+      "kind": "measured",
+      "source": "J526A1200 p1 end view (1010 +/-0.5) (U1 round 3, U1-C18)"
+    },
+    "headblockTwistlockSpanX": {
+      "mm": 950,
+      "kind": "measured",
+      "source": "J526A1200 p1 end view and A-A (950 +/-0.5 between the twistlocks; 1640 over the housings) (U1 round 3, U1-C18)"
+    },
+    "headblockTwistlockDia": {
+      "mm": 140,
+      "kind": "measured",
+      "source": "J526A1200 p1 end view (dia 140); item 11 twistlock mechanism J526A1205, 2 off (U1 round 3, U1-C18)"
+    },
+    "spreaderMainFrameLength": {
+      "mm": 6000,
+      "kind": "estimated",
+      "source": "STS45 main frame about the 20 ft length (spreader drawing not supplied, U-10); must carry the headblock twistlock landing points 5200 apart (J526A1200) and rest on the DT1500F trailer cradles 3600 apart (U1 round 3, U1-C18)"
+    },
+    "spreaderMainBeamSpacing": {
+      "mm": 1300,
+      "kind": "drawing-derived",
+      "source": "DT1500F p1 view K: the spreader trailer cradles are 1300 apart, so the two longitudinal main-frame beams are modelled 1300 apart (U1 round 3, U1-C18)"
+    },
+    "spreaderEndBeamWidthX": {
+      "mm": 2440,
+      "kind": "estimated",
+      "source": "End beam length across the container width (ISO 2438); spreader drawing not supplied (U-10) (U1 round 3, U1-C18)"
+    },
+    "hoistRopeLaneZ": {
+      "mm": 2600,
+      "kind": "drawing-derived",
+      "source": "Main hoist rope lane centre: half the 5200 headblock sheave span (J526A1200 p1; J526A0200 p1 end view 5200) (U1 round 3, U1-C17)"
+    },
+    "trolleyRopeLaneZ": {
+      "mm": 1050,
+      "kind": "measured",
+      "source": "J526A2100 p1 section A-A (boom-tip sheave unit) and C-C (girder-tail tension device): \"1050 to boom centreline, symmetrically\" (U1 round 3, U1-C17)"
+    },
+    "trolleyRopePassingLaneZ": {
+      "mm": 950,
+      "kind": "measured",
+      "source": "J526A2100 p1 section E-E idler (\"950 to boom centreline, symmetry\"); J526A0200 p1 plan: the run from the drum to the boom-tip sheave unit passes over the trolley about 950 from the centreline, the return run to the equalizers at 1050 (U1 round 3, U1-C17)"
+    },
+    "headblockTwistlockHousingWidth": {
+      "mm": 1640,
+      "kind": "measured",
+      "source": "J526A1200 p1 end view (1640 over the twistlock housings under the sheave box) (U1 round 3, U1-C18)"
     }
   },
-  "revision": 3,
-  "revisionNote": "U1 round 2 (2026-10-22): load cells at the trolley sheave shafts, girder-tail platforms and stairs, apex platform and boom-hoist sheave arrangement, floodlight fittings on the boom and girder, elevator position/car/landings and every location marker drawn as a simplified part (J526A0200, J526A2300, J526A5000, J526A5100). Previous: U1 repair (2026-10-21): back-reach area, CICT logo, stair tower orientation, cab remodel, reeving paths and machinery-house layout re-checked against J526A00, J526A1000, J526A3000, J526A3100, J526A5000, J526A7100. Draft v1 revised in place: no equipment binding is active."
+  "revision": 4,
+  "revisionNote": "U1 round 3 (2026-10-22): trolley rebuilt from J526A0200 / J526A2100 (4 wheels instead of 8, four sheave shafts with two sheaves each, open frame and centre body, trolley-rope equalizer sheaves, spreader cable reel, main hoist and trolley rope paths on the trolley); headblock re-read from J526A1200 and spreader remodelled (STS45 drawing still not supplied; ISO 1161 corner positions, DT1500F cradle spacing). Previous: U1 round 2 (2026-10-22): load cells at the trolley sheave shafts, girder-tail platforms and stairs, apex platform and boom-hoist sheave arrangement, floodlight fittings on the boom and girder, elevator position/car/landings and every location marker drawn as a simplified part (J526A0200, J526A2300, J526A5000, J526A5100). Previous: U1 repair (2026-10-21): back-reach area, CICT logo, stair tower orientation, cab remodel, reeving paths and machinery-house layout re-checked against J526A00, J526A1000, J526A3000, J526A3100, J526A5000, J526A7100. Draft v1 revised in place: no equipment binding is active."
 }

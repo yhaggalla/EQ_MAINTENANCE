@@ -3,8 +3,8 @@
   "modelCode": "cict-j526a-sts-scene",
   "equipmentModelCode": "CICT-J526A-STS",
   "version": 1,
-  "revision": 3,
-  "revisionNote": "U1 round 2 (2026-10-22): load cells at the trolley sheave shafts, girder-tail platforms and stairs, apex platform and boom-hoist sheave arrangement, floodlight fittings on the boom and girder, elevator position/car/landings and every location marker drawn as a simplified part (J526A0200, J526A2300, J526A5000, J526A5100). Previous: U1 repair (2026-10-21): back-reach area, CICT logo, stair tower orientation, cab remodel, reeving paths and machinery-house layout re-checked against J526A00, J526A1000, J526A3000, J526A3100, J526A5000, J526A7100. Draft v1 revised in place: no equipment binding is active.",
+  "revision": 4,
+  "revisionNote": "U1 round 3 (2026-10-22): trolley rebuilt from J526A0200 / J526A2100 (4 wheels instead of 8, four sheave shafts with two sheaves each, open frame and centre body, trolley-rope equalizer sheaves, spreader cable reel, main hoist and trolley rope paths on the trolley); headblock re-read from J526A1200 and spreader remodelled (STS45 drawing still not supplied; ISO 1161 corner positions, DT1500F cradle spacing). Previous: U1 round 2 (2026-10-22): load cells at the trolley sheave shafts, girder-tail platforms and stairs, apex platform and boom-hoist sheave arrangement, floodlight fittings on the boom and girder, elevator position/car/landings and every location marker drawn as a simplified part (J526A0200, J526A2300, J526A5000, J526A5100). Previous: U1 repair (2026-10-21): back-reach area, CICT logo, stair tower orientation, cab remodel, reeving paths and machinery-house layout re-checked against J526A00, J526A1000, J526A3000, J526A3100, J526A5000, J526A7100. Draft v1 revised in place: no equipment binding is active.",
   "status": "draft",
   "statusNote": "P03 prototype, revised in the U1 repair while still a draft with no active binding. Not assigned to any equipment; bindings are made by Admin per equipment (DATA_CONTRACT s10.5).",
   "units": "m",
@@ -18,10 +18,10 @@
   "generator": {
     "name": "eq-model-generator",
     "version": "1.0.0",
-    "sourceCommit": "da409cab999ece233b41904ed363b18cc3b1a7cf",
+    "sourceCommit": "fdade575546c98f488a4b48355cc33a53ef341c8",
     "sourceDirty": true,
     "three": "0.186.1",
-    "node": "v24.15.0"
+    "node": "v22.22.0"
   },
   "source": {
     "params": "assets/models/source/cict-j526a-sts/params.json",
@@ -29,19 +29,19 @@
   },
   "asset": {
     "file": "scene.glb",
-    "sha256": "fe35835e9608c07a9eb57a9fa89a4e1ec65ec5baada87c6d8edf72730e54869b",
-    "bytes": 2196484,
-    "triangles": 46522,
-    "drawCallsEstimate": 194,
+    "sha256": "af9d1338ecd737c4c78493cc0407e4286789e054ab6f7d7c6b203a7086f9a369",
+    "bytes": 2546744,
+    "triangles": 54146,
+    "drawCallsEstimate": 196,
     "overallMode": {
-      "triangles": 40286,
-      "drawCallsEstimate": 145,
-      "meshObjects": 95
+      "triangles": 47910,
+      "drawCallsEstimate": 147,
+      "meshObjects": 93
     },
     "technicalMode": {
-      "triangles": 46520,
-      "drawCallsEstimate": 193,
-      "meshObjects": 125
+      "triangles": 54144,
+      "drawCallsEstimate": 195,
+      "meshObjects": 123
     }
   },
   "budgets": {
@@ -1521,8 +1521,8 @@
           },
           {
             "drawing": "J526A2100",
-            "pdfPage": null,
-            "note": "trolley reeving sheet not detailed in the repair"
+            "pdfPage": 1,
+            "note": "Detail III tension device and C-C: 1050 to the boom centreline, symmetrically; sheave size scaled"
           }
         ]
       },
@@ -1532,12 +1532,12 @@
         "min": [
           -60.700001,
           52.299999,
-          -0.75
+          -1.35
         ],
         "max": [
           -58.5,
           53.27,
-          0.75
+          1.35
         ]
       },
       "cameraHint": null
@@ -4647,13 +4647,13 @@
       "bounds": {
         "min": [
           63.575001,
-          47.560001,
-          -3.6
+          47.168888,
+          -3.36
         ],
         "max": [
-          72.720001,
-          53.32,
-          3.6
+          72.660004,
+          53.299999,
+          3.36
         ]
       },
       "cameraHint": null
@@ -4688,7 +4688,12 @@
           {
             "drawing": "J526A0200",
             "pdfPage": 1,
-            "note": "frame 400 + 2560 + 2260 + 400 long, 5475 wide; 851 above rail; body between the girders"
+            "note": "side view 400 + 2560 / 2260 + 400 (trolley-rope lines and buffers B1), 990 body below the rail, frame top about 600 above the rail; plan 1840 / 1540 centre body, wheel boxes at the corners; C-C / D-D 620 between the side-frame plates; member sections and bracing simplified"
+          },
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 2,
+            "note": "subsidiary list"
           }
         ]
       },
@@ -4697,13 +4702,13 @@
       "bounds": {
         "min": [
           67.040001,
-          50.5,
-          -3.6
+          50.77,
+          -3.3
         ],
         "max": [
           72.660004,
-          53.285,
-          3.6
+          53.099998,
+          3.3
         ]
       },
       "cameraHint": null
@@ -4711,7 +4716,7 @@
     {
       "key": "trolley.wheel.ls-a.1",
       "kind": "position",
-      "label": "Trolley wheel LS-A 1",
+      "label": "Trolley wheel LS-A",
       "parentKey": "container.trolley",
       "classification": {
         "main": "02",
@@ -4733,12 +4738,17 @@
       "uom": "ea",
       "category": "component",
       "provenance": {
-        "kind": "estimated",
+        "kind": "measured",
         "sources": [
           {
             "drawing": "J526A0200",
             "pdfPage": 1,
-            "note": "axles 2370 / 2070 from trolley centre; 2 wheels per corner read from plan (count to be confirmed)"
+            "note": "dia 630 in the side view; axle 2370 landside of the trolley centre (plan); on the trolley rail (gauge 6300)"
+          },
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 2,
+            "note": "item 2 trolley wheel assembly ZT2-020936-00, quantity 4"
           },
           {
             "drawing": "ZT2-015022",
@@ -4747,73 +4757,18 @@
           }
         ]
       },
-      "qualifier": "Estimated geometry",
+      "qualifier": null,
       "hotspot": null,
       "bounds": {
         "min": [
-          66.980003,
-          52.419998,
-          2.9
+          67.279999,
+          52.384998,
+          2.94
         ],
         "max": [
-          67.610001,
-          53.049999,
-          3.4
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "trolley.wheel.ls-a.2",
-      "kind": "position",
-      "label": "Trolley wheel LS-A 2",
-      "parentKey": "container.trolley",
-      "classification": {
-        "main": "02",
-        "sub": "021"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [
-        "trolley.wheel.ls-a.2"
-      ],
-      "instancing": null,
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "overall",
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "estimated",
-        "sources": [
-          {
-            "drawing": "J526A0200",
-            "pdfPage": 1,
-            "note": "axles 2370 / 2070 from trolley centre; 2 wheels per corner read from plan (count to be confirmed)"
-          },
-          {
-            "drawing": "ZT2-015022",
-            "pdfPage": 1,
-            "note": "trolley wheel drawing"
-          }
-        ]
-      },
-      "qualifier": "Estimated geometry",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          67.650002,
-          52.419998,
-          2.9
-        ],
-        "max": [
-          68.279999,
-          53.049999,
-          3.4
+          67.980003,
+          53.084999,
+          3.36
         ]
       },
       "cameraHint": null
@@ -4821,7 +4776,7 @@
     {
       "key": "trolley.wheel.ls-b.1",
       "kind": "position",
-      "label": "Trolley wheel LS-B 1",
+      "label": "Trolley wheel LS-B",
       "parentKey": "container.trolley",
       "classification": {
         "main": "02",
@@ -4843,12 +4798,17 @@
       "uom": "ea",
       "category": "component",
       "provenance": {
-        "kind": "estimated",
+        "kind": "measured",
         "sources": [
           {
             "drawing": "J526A0200",
             "pdfPage": 1,
-            "note": "axles 2370 / 2070 from trolley centre; 2 wheels per corner read from plan (count to be confirmed)"
+            "note": "dia 630 in the side view; axle 2370 landside of the trolley centre (plan); on the trolley rail (gauge 6300)"
+          },
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 2,
+            "note": "item 2 trolley wheel assembly ZT2-020936-00, quantity 4"
           },
           {
             "drawing": "ZT2-015022",
@@ -4857,73 +4817,18 @@
           }
         ]
       },
-      "qualifier": "Estimated geometry",
+      "qualifier": null,
       "hotspot": null,
       "bounds": {
         "min": [
-          66.980003,
-          52.419998,
-          -3.4
+          67.279999,
+          52.384998,
+          -3.36
         ],
         "max": [
-          67.610001,
-          53.049999,
-          -2.9
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "trolley.wheel.ls-b.2",
-      "kind": "position",
-      "label": "Trolley wheel LS-B 2",
-      "parentKey": "container.trolley",
-      "classification": {
-        "main": "02",
-        "sub": "021"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [
-        "trolley.wheel.ls-b.2"
-      ],
-      "instancing": null,
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "overall",
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "estimated",
-        "sources": [
-          {
-            "drawing": "J526A0200",
-            "pdfPage": 1,
-            "note": "axles 2370 / 2070 from trolley centre; 2 wheels per corner read from plan (count to be confirmed)"
-          },
-          {
-            "drawing": "ZT2-015022",
-            "pdfPage": 1,
-            "note": "trolley wheel drawing"
-          }
-        ]
-      },
-      "qualifier": "Estimated geometry",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          67.650002,
-          52.419998,
-          -3.4
-        ],
-        "max": [
-          68.279999,
-          53.049999,
-          -2.9
+          67.980003,
+          53.084999,
+          -2.94
         ]
       },
       "cameraHint": null
@@ -4931,7 +4836,7 @@
     {
       "key": "trolley.wheel.ws-a.1",
       "kind": "position",
-      "label": "Trolley wheel WS-A 1",
+      "label": "Trolley wheel WS-A",
       "parentKey": "container.trolley",
       "classification": {
         "main": "02",
@@ -4953,12 +4858,17 @@
       "uom": "ea",
       "category": "component",
       "provenance": {
-        "kind": "estimated",
+        "kind": "measured",
         "sources": [
           {
             "drawing": "J526A0200",
             "pdfPage": 1,
-            "note": "axles 2370 / 2070 from trolley centre; 2 wheels per corner read from plan (count to be confirmed)"
+            "note": "dia 630 in the side view; axle 2070 waterside of the trolley centre (plan); on the trolley rail (gauge 6300)"
+          },
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 2,
+            "note": "item 2 trolley wheel assembly ZT2-020936-00, quantity 4"
           },
           {
             "drawing": "ZT2-015022",
@@ -4967,73 +4877,18 @@
           }
         ]
       },
-      "qualifier": "Estimated geometry",
+      "qualifier": null,
       "hotspot": null,
       "bounds": {
         "min": [
-          71.419998,
-          52.419998,
-          2.9
+          71.720001,
+          52.384998,
+          2.94
         ],
         "max": [
-          72.050003,
-          53.049999,
-          3.4
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "trolley.wheel.ws-a.2",
-      "kind": "position",
-      "label": "Trolley wheel WS-A 2",
-      "parentKey": "container.trolley",
-      "classification": {
-        "main": "02",
-        "sub": "021"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [
-        "trolley.wheel.ws-a.2"
-      ],
-      "instancing": null,
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "overall",
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "estimated",
-        "sources": [
-          {
-            "drawing": "J526A0200",
-            "pdfPage": 1,
-            "note": "axles 2370 / 2070 from trolley centre; 2 wheels per corner read from plan (count to be confirmed)"
-          },
-          {
-            "drawing": "ZT2-015022",
-            "pdfPage": 1,
-            "note": "trolley wheel drawing"
-          }
-        ]
-      },
-      "qualifier": "Estimated geometry",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          72.089996,
-          52.419998,
-          2.9
-        ],
-        "max": [
-          72.720001,
-          53.049999,
-          3.4
+          72.419998,
+          53.084999,
+          3.36
         ]
       },
       "cameraHint": null
@@ -5041,7 +4896,7 @@
     {
       "key": "trolley.wheel.ws-b.1",
       "kind": "position",
-      "label": "Trolley wheel WS-B 1",
+      "label": "Trolley wheel WS-B",
       "parentKey": "container.trolley",
       "classification": {
         "main": "02",
@@ -5063,12 +4918,17 @@
       "uom": "ea",
       "category": "component",
       "provenance": {
-        "kind": "estimated",
+        "kind": "measured",
         "sources": [
           {
             "drawing": "J526A0200",
             "pdfPage": 1,
-            "note": "axles 2370 / 2070 from trolley centre; 2 wheels per corner read from plan (count to be confirmed)"
+            "note": "dia 630 in the side view; axle 2070 waterside of the trolley centre (plan); on the trolley rail (gauge 6300)"
+          },
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 2,
+            "note": "item 2 trolley wheel assembly ZT2-020936-00, quantity 4"
           },
           {
             "drawing": "ZT2-015022",
@@ -5077,73 +4937,18 @@
           }
         ]
       },
-      "qualifier": "Estimated geometry",
+      "qualifier": null,
       "hotspot": null,
       "bounds": {
         "min": [
-          71.419998,
-          52.419998,
-          -3.4
+          71.720001,
+          52.384998,
+          -3.36
         ],
         "max": [
-          72.050003,
-          53.049999,
-          -2.9
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "trolley.wheel.ws-b.2",
-      "kind": "position",
-      "label": "Trolley wheel WS-B 2",
-      "parentKey": "container.trolley",
-      "classification": {
-        "main": "02",
-        "sub": "021"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [
-        "trolley.wheel.ws-b.2"
-      ],
-      "instancing": null,
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "overall",
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "estimated",
-        "sources": [
-          {
-            "drawing": "J526A0200",
-            "pdfPage": 1,
-            "note": "axles 2370 / 2070 from trolley centre; 2 wheels per corner read from plan (count to be confirmed)"
-          },
-          {
-            "drawing": "ZT2-015022",
-            "pdfPage": 1,
-            "note": "trolley wheel drawing"
-          }
-        ]
-      },
-      "qualifier": "Estimated geometry",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          72.089996,
-          52.419998,
-          -3.4
-        ],
-        "max": [
-          72.720001,
-          53.049999,
-          -2.9
+          72.419998,
+          53.084999,
+          -2.94
         ]
       },
       "cameraHint": null
@@ -5151,13 +4956,13 @@
     {
       "key": "trolley.sheave.set.a",
       "kind": "position",
-      "label": "Trolley main hoist sheave set A",
+      "label": "Trolley main hoist sheaves, side A (2 shafts x 2 sheaves)",
       "parentKey": "container.trolley",
       "classification": {
         "main": "02",
         "sub": "021"
       },
-      "classificationNote": "Trolley-mounted hoist sheaves: 021 proposed; Admin to confirm",
+      "classificationNote": "Trolley-mounted hoist sheaves: 021 proposed; Admin to confirm. Each set = the landside and waterside sheave shaft assemblies on one rope side (J526A0200 items 3 and 4); Admin may split it per shaft in P06",
       "gltfNodeNames": [
         "trolley.sheave.set.a"
       ],
@@ -5173,27 +4978,32 @@
       "uom": "ea",
       "category": "component",
       "provenance": {
-        "kind": "estimated",
+        "kind": "drawing-derived",
         "sources": [
           {
             "drawing": "J526A0200",
             "pdfPage": 1,
-            "note": "items 13, sheave centres 900 either side; diameter scaled"
+            "note": "shafts 900 either side of the trolley centre (side view); sheaves dia 1000 / groove 900, 165 apart, 620 between the frame plates, waterside pair offset 80 (C-C, D-D); centre about 350 above the rail (scaled)"
+          },
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 2,
+            "note": "subsidiary list"
           }
         ]
       },
-      "qualifier": "Estimated geometry",
+      "qualifier": null,
       "hotspot": null,
       "bounds": {
         "min": [
-          68.550003,
-          52.220001,
-          2.44
+          68.599998,
+          52.299999,
+          2.205
         ],
         "max": [
-          71.449997,
-          53.32,
-          2.76
+          71.400002,
+          53.299999,
+          2.995
         ]
       },
       "cameraHint": null
@@ -5201,15 +5011,70 @@
     {
       "key": "trolley.sheave.set.b",
       "kind": "position",
-      "label": "Trolley main hoist sheave set B",
+      "label": "Trolley main hoist sheaves, side B (2 shafts x 2 sheaves)",
       "parentKey": "container.trolley",
       "classification": {
         "main": "02",
         "sub": "021"
       },
-      "classificationNote": "Trolley-mounted hoist sheaves: 021 proposed; Admin to confirm",
+      "classificationNote": "Trolley-mounted hoist sheaves: 021 proposed; Admin to confirm. Each set = the landside and waterside sheave shaft assemblies on one rope side (J526A0200 items 3 and 4); Admin may split it per shaft in P06",
       "gltfNodeNames": [
         "trolley.sheave.set.b"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "drawing-derived",
+        "sources": [
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 1,
+            "note": "shafts 900 either side of the trolley centre (side view); sheaves dia 1000 / groove 900, 165 apart, 620 between the frame plates, waterside pair offset 80 (C-C, D-D); centre about 350 above the rail (scaled)"
+          },
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 2,
+            "note": "subsidiary list"
+          }
+        ]
+      },
+      "qualifier": null,
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          68.599998,
+          52.299999,
+          -2.995
+        ],
+        "max": [
+          71.400002,
+          53.299999,
+          -2.205
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "trolley.sheave.equalizer",
+      "kind": "position",
+      "label": "Trolley rope equalizer sheaves (4)",
+      "parentKey": "container.trolley",
+      "classification": {
+        "main": "02",
+        "sub": "021"
+      },
+      "classificationNote": "Trolley-rope equalizer sheaves: 021 proposed (trolley); Admin to confirm",
+      "gltfNodeNames": [
+        "trolley.sheave.equalizer"
       ],
       "instancing": null,
       "pickable": true,
@@ -5228,7 +5093,17 @@
           {
             "drawing": "J526A0200",
             "pdfPage": 1,
-            "note": "items 13, sheave centres 900 either side; diameter scaled"
+            "note": "section E-E: dia 640 / 550, vertical shaft dia 110 (items 14 and 16, 4 off each); positions scaled from the plan"
+          },
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 2,
+            "note": "subsidiary list"
+          },
+          {
+            "drawing": "J526A2100",
+            "pdfPage": 1,
+            "note": "trolley rope lanes 1050 either side of the boom centreline"
           }
         ]
       },
@@ -5236,14 +5111,74 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          68.550003,
-          52.220001,
-          -2.76
+          67.120003,
+          52.580002,
+          -1.07
         ],
         "max": [
-          71.449997,
-          53.32,
-          -2.44
+          72.580002,
+          52.919998,
+          1.07
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "trolley.spreader-cable-reel",
+      "kind": "position",
+      "label": "Spreader cable reel and drive (size approximate)",
+      "parentKey": "container.trolley",
+      "classification": {
+        "main": "01",
+        "sub": "014"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [
+        "trolley.spreader-cable-reel"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "approximate-location",
+        "sources": [
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 1,
+            "note": "item 11 spreader cable reel arrangement (1245 kg), hidden outline in the centre body of the side view; reel diameter and drive scaled or estimated"
+          },
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 2,
+            "note": "subsidiary list"
+          },
+          {
+            "drawing": "J526A1200",
+            "pdfPage": 1,
+            "note": "item 7 cable attachment on the headblock"
+          }
+        ]
+      },
+      "qualifier": "Location approximate / simplified representation",
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          69.5,
+          47.168888,
+          -1.16
+        ],
+        "max": [
+          71.099998,
+          52.619999,
+          0.6
         ]
       },
       "cameraHint": null
@@ -5306,7 +5241,7 @@
           -1.275
         ],
         "max": [
-          67.830002,
+          68.139999,
           50.77,
           1.275
         ]
@@ -5649,12 +5584,12 @@
         "min": [
           -60.849998,
           52.720001,
-          -0.72
+          -1.15
         ],
         "max": [
           -58.849998,
           53.25,
-          0.72
+          1.15
         ]
       },
       "cameraHint": null
@@ -5699,14 +5634,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          68.662933,
+          68.682938,
           44.764999,
-          -6.456
+          -6.3125
         ],
         "max": [
-          71.337067,
-          47.59,
-          6.456
+          71.317062,
+          47.814999,
+          6.3125
         ]
       },
       "cameraHint": null
@@ -5741,7 +5676,7 @@
           {
             "drawing": "J526A1200",
             "pdfPage": 1,
-            "note": "structure J526A1202; 5200 sheave-box span, 1210 frame width, 970 to sheave centre"
+            "note": "structure J526A1202 1210 wide between the sheave boxes (5200, 5440 overall); fence item 6 to 1670; junction box item 4; cable attachment item 7; member depth scaled"
           }
         ]
       },
@@ -5749,14 +5684,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          69.400002,
-          46,
-          -2.6
+          69.394997,
+          46.169998,
+          -2.72
         ],
         "max": [
-          70.599998,
-          46.669998,
-          2.6
+          70.605003,
+          47.814999,
+          2.72
         ]
       },
       "cameraHint": null
@@ -5764,7 +5699,7 @@
     {
       "key": "headblock.sheave-box.a",
       "kind": "position",
-      "label": "Headblock sheave box A (2 sheaves)",
+      "label": "Headblock sheave box A (2 sheaves, twistlocks)",
       "parentKey": "container.headblock-spreader",
       "classification": {
         "main": "06",
@@ -5791,7 +5726,7 @@
           {
             "drawing": "J526A1200",
             "pdfPage": 1,
-            "note": "sheave box J526A1201 (2 off); sheaves dia 1000 at 1010 centres; width 2090"
+            "note": "sheave box J526A1201 (2 off), 2090 wide; sheaves ZT2-013069 dia 1000 / 900 at 1010, 970 above the base; guards item 10; twistlock mechanism item 11 (2 off), twistlocks dia 140 at 950"
           }
         ]
       },
@@ -5800,13 +5735,13 @@
       "bounds": {
         "min": [
           68.955002,
-          46.32,
-          2.25
+          45.950001,
+          2.4
         ],
         "max": [
           71.044998,
           47.59,
-          2.95
+          2.8
         ]
       },
       "cameraHint": null
@@ -5814,7 +5749,7 @@
     {
       "key": "headblock.sheave-box.b",
       "kind": "position",
-      "label": "Headblock sheave box B (2 sheaves)",
+      "label": "Headblock sheave box B (2 sheaves, twistlocks)",
       "parentKey": "container.headblock-spreader",
       "classification": {
         "main": "06",
@@ -5841,7 +5776,7 @@
           {
             "drawing": "J526A1200",
             "pdfPage": 1,
-            "note": "sheave box J526A1201 (2 off); sheaves dia 1000 at 1010 centres; width 2090"
+            "note": "sheave box J526A1201 (2 off), 2090 wide; sheaves ZT2-013069 dia 1000 / 900 at 1010, 970 above the base; guards item 10; twistlock mechanism item 11 (2 off), twistlocks dia 140 at 950"
           }
         ]
       },
@@ -5850,13 +5785,13 @@
       "bounds": {
         "min": [
           68.955002,
-          46.32,
-          -2.95
+          45.950001,
+          -2.8
         ],
         "max": [
           71.044998,
           47.59,
-          -2.25
+          -2.4
         ]
       },
       "cameraHint": null
@@ -5864,7 +5799,7 @@
     {
       "key": "spreader.frame",
       "kind": "position",
-      "label": "Spreader (STS45, 40 ft setting)",
+      "label": "Spreader (STS45 telescopic, 40 ft setting)",
       "parentKey": "container.headblock-spreader",
       "classification": {
         "main": "06",
@@ -5894,6 +5829,21 @@
             "note": "item 35 STS45 (Bromma), (12+4) for 12 cranes; spreader drawing not supplied (U-10)"
           },
           {
+            "drawing": "J526A1200",
+            "pdfPage": 1,
+            "note": "headblock twistlocks 950 x 5200 land on the spreader main frame"
+          },
+          {
+            "drawing": "DT1500F",
+            "pdfPage": 1,
+            "note": "spreader trailer: cradles 1300 apart, 3600 between cradle pairs"
+          },
+          {
+            "drawing": "ISO 1161",
+            "pdfPage": null,
+            "note": "40 ft corner-fitting centres 11985 x 2259"
+          },
+          {
             "drawing": "J526A00",
             "pdfPage": 1,
             "note": "underside at lift height 45 m in the display position"
@@ -5906,12 +5856,12 @@
         "min": [
           68.779999,
           45,
-          -6.396
+          -6.2425
         ],
         "max": [
           71.220001,
-          46,
-          6.396
+          46.099998,
+          6.2425
         ]
       },
       "cameraHint": null
@@ -5919,7 +5869,7 @@
     {
       "key": "spreader.twistlock.a-ws",
       "kind": "hotspot",
-      "label": "Spreader twistlock / flipper corner A-WS (location representative)",
+      "label": "Spreader twistlock / flipper corner A-WS (hardware representative)",
       "parentKey": "container.headblock-spreader",
       "classification": {
         "main": "06",
@@ -5944,9 +5894,14 @@
         "kind": "approximate-location",
         "sources": [
           {
+            "drawing": "ISO 1161",
+            "pdfPage": null,
+            "note": "40 ft corner-fitting centres 11985 x 2259"
+          },
+          {
             "drawing": "J526A00",
             "pdfPage": 2,
-            "note": "STS45 spreader drawing not supplied (U-10); ISO corner positions"
+            "note": "STS45 spreader drawing not supplied (U-10)"
           },
           {
             "drawing": "site photo 08_44_08 PM",
@@ -5958,23 +5913,23 @@
       "qualifier": "Location approximate / simplified representation",
       "hotspot": {
         "point": [
-          70.97,
+          71.1295,
           44.9,
-          5.946
+          5.9925
         ],
         "radius": 0.35,
         "representation": "simplified-part"
       },
       "bounds": {
         "min": [
-          70.470001,
+          70.579498,
           44.764999,
-          5.446
+          5.4425
         ],
         "max": [
-          71.337067,
+          71.317062,
           46,
-          6.456
+          6.3125
         ]
       },
       "cameraHint": null
@@ -5982,7 +5937,7 @@
     {
       "key": "spreader.twistlock.a-ls",
       "kind": "hotspot",
-      "label": "Spreader twistlock / flipper corner A-LS (location representative)",
+      "label": "Spreader twistlock / flipper corner A-LS (hardware representative)",
       "parentKey": "container.headblock-spreader",
       "classification": {
         "main": "06",
@@ -6007,9 +5962,14 @@
         "kind": "approximate-location",
         "sources": [
           {
+            "drawing": "ISO 1161",
+            "pdfPage": null,
+            "note": "40 ft corner-fitting centres 11985 x 2259"
+          },
+          {
             "drawing": "J526A00",
             "pdfPage": 2,
-            "note": "STS45 spreader drawing not supplied (U-10); ISO corner positions"
+            "note": "STS45 spreader drawing not supplied (U-10)"
           },
           {
             "drawing": "site photo 08_44_08 PM",
@@ -6021,23 +5981,23 @@
       "qualifier": "Location approximate / simplified representation",
       "hotspot": {
         "point": [
-          69.03,
+          68.8705,
           44.9,
-          5.946
+          5.9925
         ],
         "radius": 0.35,
         "representation": "simplified-part"
       },
       "bounds": {
         "min": [
-          68.662933,
+          68.682938,
           44.764999,
-          5.446
+          5.4425
         ],
         "max": [
-          69.529999,
+          69.420502,
           46,
-          6.456
+          6.3125
         ]
       },
       "cameraHint": null
@@ -6045,7 +6005,7 @@
     {
       "key": "spreader.twistlock.b-ws",
       "kind": "hotspot",
-      "label": "Spreader twistlock / flipper corner B-WS (location representative)",
+      "label": "Spreader twistlock / flipper corner B-WS (hardware representative)",
       "parentKey": "container.headblock-spreader",
       "classification": {
         "main": "06",
@@ -6070,9 +6030,14 @@
         "kind": "approximate-location",
         "sources": [
           {
+            "drawing": "ISO 1161",
+            "pdfPage": null,
+            "note": "40 ft corner-fitting centres 11985 x 2259"
+          },
+          {
             "drawing": "J526A00",
             "pdfPage": 2,
-            "note": "STS45 spreader drawing not supplied (U-10); ISO corner positions"
+            "note": "STS45 spreader drawing not supplied (U-10)"
           },
           {
             "drawing": "site photo 08_44_08 PM",
@@ -6084,23 +6049,23 @@
       "qualifier": "Location approximate / simplified representation",
       "hotspot": {
         "point": [
-          70.97,
+          71.1295,
           44.9,
-          -5.946
+          -5.9925
         ],
         "radius": 0.35,
         "representation": "simplified-part"
       },
       "bounds": {
         "min": [
-          70.470001,
+          70.579498,
           44.764999,
-          -6.456
+          -6.3125
         ],
         "max": [
-          71.337067,
+          71.317062,
           46,
-          -5.446
+          -5.4425
         ]
       },
       "cameraHint": null
@@ -6108,7 +6073,7 @@
     {
       "key": "spreader.twistlock.b-ls",
       "kind": "hotspot",
-      "label": "Spreader twistlock / flipper corner B-LS (location representative)",
+      "label": "Spreader twistlock / flipper corner B-LS (hardware representative)",
       "parentKey": "container.headblock-spreader",
       "classification": {
         "main": "06",
@@ -6133,9 +6098,14 @@
         "kind": "approximate-location",
         "sources": [
           {
+            "drawing": "ISO 1161",
+            "pdfPage": null,
+            "note": "40 ft corner-fitting centres 11985 x 2259"
+          },
+          {
             "drawing": "J526A00",
             "pdfPage": 2,
-            "note": "STS45 spreader drawing not supplied (U-10); ISO corner positions"
+            "note": "STS45 spreader drawing not supplied (U-10)"
           },
           {
             "drawing": "site photo 08_44_08 PM",
@@ -6147,23 +6117,23 @@
       "qualifier": "Location approximate / simplified representation",
       "hotspot": {
         "point": [
-          69.03,
+          68.8705,
           44.9,
-          -5.946
+          -5.9925
         ],
         "radius": 0.35,
         "representation": "simplified-part"
       },
       "bounds": {
         "min": [
-          68.662933,
+          68.682938,
           44.764999,
-          -6.456
+          -6.3125
         ],
         "max": [
-          69.529999,
+          69.420502,
           46,
-          -5.446
+          -5.4425
         ]
       },
       "cameraHint": null
@@ -6171,7 +6141,7 @@
     {
       "key": "hoist.rope.set.main",
       "kind": "position",
-      "label": "Main hoist rope set (simplified path)",
+      "label": "Main hoist rope set (4 ropes, 8 falls; path simplified away from the trolley)",
       "parentKey": null,
       "classification": {
         "main": "01",
@@ -6201,6 +6171,11 @@
             "note": "main hoist rope reeving diagram: 4 ropes from 2 drums over the girder-tail sheaves, trolley and headblock to the boom tip"
           },
           {
+            "drawing": "J526A0200",
+            "pdfPage": 1,
+            "note": "main hoist rope reeving sketch and side view: each rope loops once between a trolley shaft (2 sheaves) and one headblock sheave"
+          },
+          {
             "drawing": "J526A0300",
             "pdfPage": 1,
             "note": "IWRC 6xWS(36) dia 31.5"
@@ -6213,7 +6188,7 @@
           {
             "drawing": "J526A2000",
             "pdfPage": null,
-            "note": "reeving sheet not detailed; path simplified"
+            "note": "boom-tip anchors (Detail I); path simplified"
           }
         ]
       },
@@ -6222,7 +6197,7 @@
       "bounds": {
         "min": [
           -58.630619,
-          47.086578,
+          46.580627,
           -2.8
         ],
         "max": [
@@ -6236,7 +6211,7 @@
     {
       "key": "trolley.rope.set.main",
       "kind": "position",
-      "label": "Trolley rope set (simplified path)",
+      "label": "Trolley rope set (2 ropes; path simplified away from the trolley)",
       "parentKey": null,
       "classification": {
         "main": "02",
@@ -6266,14 +6241,19 @@
             "note": "trolley rope reeving diagram: drum to the boom-tip and girder-tail sheaves, back to both ends of the trolley"
           },
           {
+            "drawing": "J526A2100",
+            "pdfPage": 1,
+            "note": "ropes B1 (landside) and B2 (waterside) dia 25; sheave unit and tension device 1050 either side of the boom centreline"
+          },
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 1,
+            "note": "equalizer sheaves at both trolley ends (E-E); trolley rope about 310 above the rail (scaled)"
+          },
+          {
             "drawing": "J526A0400",
             "pdfPage": 1,
             "note": "rope dia 25"
-          },
-          {
-            "drawing": "J526A2100",
-            "pdfPage": null,
-            "note": "reeving sheet not detailed; path simplified"
           }
         ]
       },
@@ -6281,14 +6261,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -60.530617,
-          52.406887,
-          -0.4
+          -60.521435,
+          52.43969,
+          -1.085
         ],
         "max": [
-          75.480621,
-          53.449532,
-          1.915277
+          75.428436,
+          53.434864,
+          1.903716
         ]
       },
       "cameraHint": null

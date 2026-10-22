@@ -23,8 +23,9 @@ window.EQ = window.EQ || {};
     return m; // absent = unknown (never treated as applicable)
   }
   // J526A family candidates follow docs/SOURCE_MAP.md s6 item 4 (candidates for Admin review, not confirmed facts).
+  // U1 round 3: 014 spreader cable wheel added (J526A0200 item 11 spreader cable reel; SOURCE_MAP lists 011-015).
   const J526A = applic(
-    ['011', '012', '013', '015', '021', '022', '024', '031', '033', '041', '042', '051', '061', '062', '071', '081', '111', '121', '131', '141', '151', '152', '153', '161', '171'],
+    ['011', '012', '013', '014', '015', '021', '022', '024', '031', '033', '041', '042', '051', '061', '062', '071', '081', '111', '121', '131', '141', '151', '152', '153', '161', '171'],
     ['043', '044', '045', '091', '092', '093', '094'],
   );
   const RTGM = applic(['011', '013', '015', '021', '024', '041', '043', '044', '046', '051', '061', '062', '071', '081', '091', '092', '093', '094', '131', '141', '151', '161'], []);
@@ -76,6 +77,12 @@ window.EQ = window.EQ || {};
     ['emergency.drive.main', '161', 'Emergency hoist drive', 'serialized', 'ea', 1, 'component', 'approximate-location', 'J526A0300 emergency mechanism data; position approximate'],
     ['boom.sheave.apex', '031', 'Apex boom-hoist sheaves', 'serialized', 'ea', 1, 'component', 'estimated', 'J526A2300 p1 Detail I and View A'],
     ['boom.sheave.boom-block', '031', 'Boom hoist sheave blocks (Z2, Z3)', 'serialized', 'ea', 1, 'component', 'estimated', 'J526A2300 p1 sections B-B and C-C'],
+    // U1 round 3 (appended so existing position IDs stay unchanged): trolley sheave shafts per rope side, trolley-rope
+    // equalizer sheaves and the spreader cable reel, as in the 3D model (U1-C17, U1-C08 parity)
+    ['trolley.sheave.set.a', '021', 'Trolley main hoist sheaves, side A (2 shafts, 2 sheaves each)', 'serialized', 'ea', 1, 'component', 'drawing-derived', 'J526A0200 p1 side view, C-C, D-D; p2 items 3, 4, 18'],
+    ['trolley.sheave.set.b', '021', 'Trolley main hoist sheaves, side B (2 shafts, 2 sheaves each)', 'serialized', 'ea', 1, 'component', 'drawing-derived', 'J526A0200 p1 side view, C-C, D-D; p2 items 3, 4, 18'],
+    ['trolley.sheave.equalizer', '021', 'Trolley rope equalizer sheaves (4)', 'serialized', 'ea', 1, 'component', 'estimated', 'J526A0200 p1 E-E; p2 items 14, 16'],
+    ['trolley.spreader-cable-reel', '014', 'Spreader cable reel and drive', 'serialized', 'ea', 1, 'component', 'approximate-location', 'J526A0200 p1 item 11 (outline scaled)'],
   ];
   const RTG_T = [
     ['hoist.drive.motor.a', '011', 'Hoist motor A', 'serialized', 'ea', 1, 'component', 'n/a', 'Synthetic RTG template'],
@@ -103,7 +110,7 @@ window.EQ = window.EQ || {};
     const D = {
       builtAt: new Date(now).toISOString(),
       models: [
-        { code: 'CICT-J526A-STS', typeCode: 'QC', name: 'CICT-J526A-STS (drawing family template v1)', status: 'draft', templateRevision: 3, applic: J526A, template: QC_T, sceneVersion: 'cict-j526a-sts-scene v1 (P03 placeholder, not generated yet)' },
+        { code: 'CICT-J526A-STS', typeCode: 'QC', name: 'CICT-J526A-STS (drawing family template v1)', status: 'draft', templateRevision: 4, applic: J526A, template: QC_T, sceneVersion: 'cict-j526a-sts-scene v1 (P03 placeholder, not generated yet)' },
         { code: 'RTG-MODEL-DEMO', typeCode: 'RTG', name: 'RTG-MODEL-DEMO (synthetic)', status: 'draft', templateRevision: 1, applic: RTGM, template: RTG_T, sceneVersion: null },
         { code: 'ES-MODEL-DEMO', typeCode: 'ES', name: 'ES-MODEL-DEMO (synthetic)', status: 'draft', templateRevision: 1, applic: ESM, template: ES_T, sceneVersion: null },
       ],

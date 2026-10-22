@@ -11,7 +11,9 @@
    drill-down labels (same behaviour as the P03 3D view). It still proves one selection model (tree = scene = URL).
    U1 round 2: labels are pinned to the edge instead of disappearing; load cells at the boom-tip rope anchors; girder-tail
    platforms and stairs; apex platform, guide sheaves and two boom blocks; floodlight fittings under the girder and
-   boom; elevator outboard of the landside leg with its landings; cabinets and parts instead of dashed circles. */
+   boom; elevator outboard of the landside leg with its landings; cabinets and parts instead of dashed circles.
+   U1 round 3: trolley (frame, 2 wheel positions, sheave shafts A/B, equalizer sheaves, spreader cable reel), main hoist
+   falls, cab position, headblock and spreader redrawn to the J526A0200 / J526A1200 side-elevation proportions. */
 window.EQ = window.EQ || {};
 (function (EQ) {
   const h = EQ.h;
@@ -41,6 +43,8 @@ window.EQ = window.EQ || {};
 
   // Machinery house (10.5 m wide in the J526A3000 drawing), on the girder; internals are schematic.
   const HX0 = 7.9, HX1 = 18.4, HB = 51, HT = 58.1, HR = 59.3;
+  // U1 round 3: hoist display pose of the flat schematic (heights illustrative): headblock base, sheave centre, spreader underside
+  const TF = { hb0: 19.5, hs: 19.5 + 0.97, sp0: 19.5 - 0.12 - 1.0 };
 
   /** Scene element specs. key = semantic node key (never a DB id). anchor = label/marker location. tech = Technical-only. */
   function specs() {
@@ -66,14 +70,31 @@ window.EQ = window.EQ || {};
       { key: 'boom.rope.set.main', label: 'Boom hoist rope set', anchor: [88, 62], rope: true, build: () => [line(17.2, 54.2, 47.4, 81.95, 'sc-rope'), line(48.7, 81.95, 49.5, 80.65, 'sc-rope'), line(49.8, 79.95, 78, 52.9, 'sc-rope'), line(49.8, 79.95, 112.5, 52.7, 'sc-rope')] },
       { key: 'boom.sheave.boom-block', label: 'Boom hoist sheave blocks (Z2, Z3)', anchor: [95, 53.8], build: () => [rect(77.6, 51, 53.5, 0.8, 'sc-paint'), circ(78, 52.65, 0.4, 'sc-tech'), rect(112.1, 51, 53.3, 0.8, 'sc-paint'), circ(112.5, 52.5, 0.4, 'sc-tech')] },
       // U1-C04: main hoist ropes run back to the girder-tail sheaves, then forward to the trolley and headblock
-      { key: 'hoist.rope.set.main', label: 'Main hoist rope set', anchor: [94, 36], rope: true, build: () => [line(12.4, 52.7, -8.05, 52.75, 'sc-rope'), line(-8.05, 51.65, 93.4, 52.6, 'sc-rope'), line(93.4, 52.6, 92.9, 21.2, 'sc-rope'), line(93.4, 52.6, 95.1, 21.2, 'sc-rope')] },
-      { key: 'trolley.rope.set.main', label: 'Trolley rope set', anchor: [60, 51.6], rope: true, dash: true, build: () => [line(-10.1, 51.5, 124, 51.5, 'sc-rope')] },
-      { key: 'trolley.frame', label: 'Trolley frame', anchor: [98, 54.5], build: () => [rect(86, 51, 54.5, 12, 'sc-paint')] },
-      { key: 'cabin.operator.main', label: 'Operator cabin', anchor: [89.2, 49], build: () => [rect(86.5, 44.5, 49, 5.5, 'sc-house'), rect(87.3, 46.2, 47.8, 3.6, 'sc-tech')] },
-      { key: 'cabin.operator.seat', label: 'Operator seat', anchor: [90.2, 46.5], build: () => [poly([[89.6, 45.2], [90.7, 45.2], [90.7, 45.6], [90.1, 45.6], [89.9, 47.0], [89.5, 47.0]], 'sc-seat')] },
-      { key: 'cabin.operator.consoles', label: 'Operator consoles', anchor: [91.4, 46.2], build: () => [rect(90.9, 44.9, 45.8, 0.9, 'sc-grey'), line(91.35, 45.8, 91.35, 46.3, 'sc-rope')] },
-      { key: 'headblock.frame', label: 'Headblock', anchor: [95.6, 21.2], build: () => [rect(92.4, 19.2, 21.2, 3.2, 'sc-paint')] },
-      { key: 'spreader.frame', label: 'Spreader frame', anchor: [100, 19], build: () => [rect(89, 17.6, 19.2, 11, 'sc-paint')] },
+      // U1 round 3 (U1-C17, U1-C18): trolley, cab position, headblock and spreader redrawn to J526A0200 / J526A1200
+      // proportions (side elevation; trolley centre at x = 94, rail top at 51): frame 2560 / 2260 to the trolley-rope lines
+      // and 400 buffers beyond, wheels
+      // dia 630 at 2370 / 2070, sheave shafts at 900 either side (dia 1000), body 990 below the rail, cab 3000 landside of
+      // the frame; headblock 2090 wide with two dia 1000 sheaves at 1010; spreader seen end-on (2440 wide, the 40 ft
+      // length runs along the rails). Main hoist falls follow the drawing tangents (1400 -> 1005 and 400 -> 5).
+      { key: 'hoist.rope.set.main', label: 'Main hoist rope set', anchor: [94, 36], rope: true, build: () => [line(12.4, 52.7, -8.05, 52.75, 'sc-rope'), line(-8.05, 51.65, 93.1, 51.88, 'sc-rope'), line(93.1, 51.88, 123.0, 52.2, 'sc-rope'),
+        line(93.58, 51.38, 93.975, TF.hs, 'sc-rope sc-rope-fine'), line(92.62, 51.38, 93.015, TF.hs, 'sc-rope sc-rope-fine'), line(95.38, 51.38, 94.985, TF.hs, 'sc-rope sc-rope-fine'), line(94.42, 51.38, 94.025, TF.hs, 'sc-rope sc-rope-fine')] },
+      { key: 'trolley.rope.set.main', label: 'Trolley rope set', anchor: [60, 51.3], rope: true, dash: true, build: () => [line(-10.1, 51.31, 91.12, 51.31, 'sc-rope sc-rope-fine'), line(96.58, 51.31, 124, 51.31, 'sc-rope sc-rope-fine')] },
+      { key: 'trolley.frame', label: 'Trolley frame', anchor: [94, 52.2], build: () => [pline([[92.16, 51.05], [92.16, 50.01], [95.54, 50.01], [95.54, 51.05]], 'sc-paint-line sc-fine'), pline([[92.26, 50.95], [94.3, 50.11], [95.44, 50.95]], 'sc-paint-line sc-fine'),
+        rect(91.44, 51.05, 51.6, 4.82, 'sc-paint sc-fine'), rect(91.3, 51.28, 51.68, 0.66, 'sc-paint sc-fine'), rect(95.74, 51.28, 51.68, 0.66, 'sc-paint sc-fine'),
+        rect(91.04, 51.27, 51.43, 0.4, 'sc-grey sc-fine'), rect(96.26, 51.27, 51.43, 0.4, 'sc-grey sc-fine'), rect(91.99, 49, 51.05, 0.14, 'sc-paint sc-fine')] },
+      { key: 'cabin.operator.main', label: 'Operator cabin', anchor: [90, 49], build: () => [rect(88.5, 44.5, 49, 3.0, 'sc-house'), rect(88.94, 46.2, 47.8, 1.96, 'sc-tech')] },
+      { key: 'cabin.operator.seat', label: 'Operator seat', anchor: [90.5, 46.5], build: () => [poly([[90.19, 45.2], [90.79, 45.2], [90.79, 45.6], [90.46, 45.6], [90.35, 47.0], [90.13, 47.0]], 'sc-seat')] },
+      { key: 'cabin.operator.consoles', label: 'Operator consoles', anchor: [91.2, 46.2], build: () => [rect(90.9, 44.9, 45.8, 0.49, 'sc-grey'), line(91.15, 45.8, 91.15, 46.3, 'sc-rope')] },
+      { key: 'headblock.frame', label: 'Headblock', anchor: [95.4, 20.9], build: () => [rect(92.955, TF.hb0, TF.hb0 + 0.45, 2.09, 'sc-yellow sc-fine'), rect(93.0, TF.hb0 + 0.45, TF.hs, 2.0, 'sc-yellow sc-fine'),
+        circ(93.495, TF.hs, 0.5, 'sc-tech sc-fine'), circ(94.505, TF.hs, 0.5, 'sc-tech sc-fine'), circ(93.495, TF.hs, 0.09, 'sc-grey'), circ(94.505, TF.hs, 0.09, 'sc-grey'),
+        pline([[93.42, TF.hb0 + 0.55], [93.42, TF.hb0 + 1.67], [94.58, TF.hb0 + 1.67], [94.58, TF.hb0 + 0.55]], 'sc-rail'), rect(93.455, TF.hb0 - 0.12, TF.hb0, 0.14, 'sc-grey sc-fine'), rect(94.405, TF.hb0 - 0.12, TF.hb0, 0.14, 'sc-grey sc-fine')] },
+      { key: 'spreader.frame', label: 'Spreader (end-on)', anchor: [96.6, 18.8], build: () => [rect(93.14, TF.sp0 + 0.22, TF.sp0 + 0.9, 0.42, 'sc-yellow sc-fine'), rect(94.44, TF.sp0 + 0.22, TF.sp0 + 0.9, 0.42, 'sc-yellow sc-fine'),
+        rect(92.78, TF.sp0, TF.sp0 + 0.78, 2.44, 'sc-yellow sc-fine'), rect(93.385, TF.sp0 + 0.88, TF.sp0 + 1.0, 0.18, 'sc-grey sc-fine'), rect(94.435, TF.sp0 + 0.88, TF.sp0 + 1.0, 0.18, 'sc-grey sc-fine'),
+        rect(92.72, TF.sp0 + 0.25, TF.sp0 + 1.0, 0.7, 'sc-flipper sc-fine'), rect(94.58, TF.sp0 + 0.25, TF.sp0 + 1.0, 0.7, 'sc-flipper sc-fine'), rect(92.81, TF.sp0 - 0.14, TF.sp0, 0.12, 'sc-grey sc-fine'), rect(95.07, TF.sp0 - 0.14, TF.sp0, 0.12, 'sc-grey sc-fine')] },
+      { key: 'trolley.sheave.set.b', label: 'Trolley sheaves B (behind A)', anchor: [94, 50.6], build: () => [circ(93.22, 51.48, 0.5, 'sc-tech sc-behind'), circ(95.02, 51.48, 0.5, 'sc-tech sc-behind')] },
+      { key: 'trolley.sheave.set.a', label: 'Trolley sheaves A', anchor: [94, 52.25], build: () => [circ(93.1, 51.38, 0.5, 'sc-tech sc-fine'), circ(94.9, 51.38, 0.5, 'sc-tech sc-fine'), circ(93.1, 51.38, 0.09, 'sc-grey'), circ(94.9, 51.38, 0.09, 'sc-grey')] },
+      { key: 'trolley.sheave.equalizer', label: 'Trolley rope equalizer sheaves', anchor: [91.44, 51.9], build: () => [rect(91.12, 51.265, 51.355, 0.64, 'sc-grey sc-fine'), rect(95.94, 51.265, 51.355, 0.64, 'sc-grey sc-fine')] },
+      { key: 'trolley.spreader-cable-reel', label: 'Spreader cable reel', anchor: [94.3, 49.5], build: () => [circ(94.3, 50.4, 0.8, 'sc-tech sc-fine'), circ(94.3, 50.4, 0.45, 'sc-grey sc-fine'), line(93.85, 50.4, 94, TF.hb0 + 1.05, 'sc-rope sc-rope-fine')] },
       // U1-C03 back-reach area (J526A00 item 7, J526A1000, J526A5000 items 5 and 8, J526A7100)
       // U1 round 2 (U1-C13): upper tail platform on the girders, lower end platform beyond the girder end at girder-underside
       // level, and the stair between them (J526A5000 item 5); the P03/U1 ladder ended in mid-air
@@ -89,8 +110,8 @@ window.EQ = window.EQ || {};
       { key: 'hoist.drive.drum.a', label: 'Hoist drum A', tech: true, anchor: [12.45, 54.2], build: () => [rect(11.25, 51.6, 54.2, 2.4, 'sc-tech'), line(11.6, 52.9, 13.3, 52.9, 'sc-deco')] },
       { key: 'hoist.emergency.brake.a', label: 'Emergency brake A', tech: true, anchor: [14.1, 54], build: () => [rect(13.75, 52, 54, 0.7, 'sc-grey')] },
       { key: 'hoist.drive.motor.b', label: 'Hoist motor B', tech: true, anchor: [15.4, 53.6], build: () => [rect(14.6, 51.6, 53.6, 1.6, 'sc-tech')] },
-      { key: 'trolley.wheel.position.a', label: 'Trolley wheel A', tech: true, anchor: [89, 52.5], build: () => [circ(88.2, 51.7, 1, 'sc-tech')] },
-      { key: 'trolley.wheel.position.b', label: 'Trolley wheel B', tech: true, anchor: [97, 52.5], build: () => [circ(96.4, 51.7, 1, 'sc-tech')] },
+      { key: 'trolley.wheel.position.a', label: 'Trolley wheel A (landside)', tech: true, anchor: [91.4, 52.3], build: () => [circ(91.63, 51.315, 0.315, 'sc-tech sc-fine'), circ(91.63, 51.315, 0.07, 'sc-grey')] },
+      { key: 'trolley.wheel.position.b', label: 'Trolley wheel B (waterside)', tech: true, anchor: [96.3, 52.3], build: () => [circ(96.07, 51.315, 0.315, 'sc-tech sc-fine'), circ(96.07, 51.315, 0.07, 'sc-grey')] },
       // U1 round 2 (U1-C12): load pins in the main hoist rope-end anchors at the boom tip (J526A2000 Detail I; approximate)
       { key: 'hoist.loadcell.main', label: 'Load cells (boom-tip rope anchors, approx.)', tech: true, hotspot: true, anchor: [122.2, 52.3], build: () => [rect(121.0, 51.3, 51.75, 0.95, 'sc-grey'), circ(122.1, 51.55, 0.32, 'sc-tech'), rect(122.0, 51.95, 52.25, 0.45, 'sc-cab-panel'), line(122.25, 52.1, 121.4, 52.6, 'sc-rope')] },
       { key: 'auxiliary.lighting.boom', label: 'Boom and girder floodlights', anchor: [56, 47.4], build: () => FLOOD_X.flatMap((x) => flood(x)) },
@@ -296,8 +317,11 @@ window.EQ = window.EQ || {};
   EQ.fitBounds = (b) => {
     cancelAnim();
     if (!b) return false;
-    // padding: 70 % for small selections, at most 20 m for long ones (e.g. the full rope path) so a fit never equals a reset
-    const w = Math.min(Math.max(Math.min(b.w * 1.7, b.w + 20), 34), BASE.w), hh = w * (BASE.h / BASE.w);
+    // padding: 70 % for small selections, at most 20 m for long ones (e.g. the full rope path) so a fit never equals a reset.
+    // U1 round 3: minimum fitted width 16 m (was 34 m) so the trolley, headblock and spreader, now drawn at drawing
+    // proportions (about 5 m, 2 m and 2.4 m wide), are readable when selected; and at most BASE.w - 4 so a fit of the
+    // main hoist rope set, which now runs on to the boom tip (131 m), still differs from the reset view.
+    const w = Math.min(Math.max(Math.min(b.w * 1.7, b.w + 20), 16), BASE.w - 4), hh = w * (BASE.h / BASE.w);
     animateTo(clampView({ x: b.x + b.w / 2 - w / 2, y: b.y + b.h / 2 - hh / 2, w, h: hh }));
     return true;
   };

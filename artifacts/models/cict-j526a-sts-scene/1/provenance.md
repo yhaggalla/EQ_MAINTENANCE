@@ -81,13 +81,12 @@ Provenance kinds: **measured** = printed dimension used as exact input; **drawin
 | auxTransformerSize | 1500 x 1650 x 1200 | measured | J526A3000 p1 plan label 'Aux. Trans. 1500W x 1200D x 1650H' |  |
 | switchgearSize | 1950 x 2300 x 1500 | measured | J526A3000 p1 plan label 'Switch gear 1950W x 1500D x 2300H' |  |
 | electricalRoomWidthZ | 3300 | measured | J526A3000 p1 elevation (3300 end bay) |  |
-| trolleyFrameLengthX | 5620 | drawing-derived | J526A0200 p1 side view: 400 + 2560 + 2260 + 400 |  |
-| trolleyFrameWidthZ | 5475 | measured | J526A0200 p1 plan (5475) |  |
-| trolleyWheelDia | 630 | measured | J526A0200 p1 tolerance table / ZT2-015022 | Wheel class 630 assumed; sheet also lists 500 and 710 |
+| trolleyFrameLengthX (unused) | 5620 | drawing-derived | J526A0200 p1 side view: 400 + 2560 + 2260 + 400 | Overall incl. buffers: 400 + 2560 + 2260 + 400 (buffer faces 2960 landside and 2660 waterside of the trolley centre); U1 round 3 |
+| trolleyFrameWidthZ (unused) | 5475 | measured | J526A0200 p1 plan (5475) | Plan overall 5475 (inner 5255); the U1 round 3 side frames are modelled from the C-C/D-D plate spacing (620) about the 2600 rope lane |
+| trolleyWheelDia | 630 | measured | J526A0200 p1 side view (dia 630 at the four wheel positions); p2 item 2 trolley wheel assembly ZT2-020936-00, quantity 4; ZT2-015022 | U1 round 3: 4 wheels in total (one per corner), not 2 per corner |
 | trolleyWheelAxleLandside | 2370 | measured | J526A0200 p1 plan (2370 from trolley centre) |  |
 | trolleyWheelAxleWaterside | 2070 | measured | J526A0200 p1 plan (2070 from trolley centre) |  |
-| trolleyWheelPairPitch | 670 | estimated | J526A0200 p1 plan, scaled; count of 2 wheels per corner read from the plan |  |
-| trolleyMainSheaveDia | 1100 | estimated | J526A0200 p1 side view, scaled (items 13) |  |
+| trolleyMainSheaveDia | 1000 | measured | J526A0200 p1 sections C-C and D-D (dia 1000 over the flanges, 900 rope groove); p2 item 18 sheave assembly ZT2-013069, quantity 8 (U1 round 3, U1-C17) |  |
 | trolleyMainSheaveOffset | 900 | measured | J526A0200 p1 (900 / 900) |  |
 | trolleyPositionX | 70000 | estimated | Display position only: trolley at the outreach limit, as drawn in J526A00 p1 side view |  |
 | cabinLengthX | 3000 | measured | J526A0200 p1 (3000) |  |
@@ -99,8 +98,8 @@ Provenance kinds: **measured** = printed dimension used as exact input; **drawin
 | headblockSheaveDia | 1000 | measured | J526A1200 p1 (dia 1000) |  |
 | headblockSheaveBelowRail (unused) | 3427 | measured | J526A0200 p1 (3427, headblock at upper limit) | Upper-limit relation; not used for the display pose (the GA draws the hoist about 1 m lower). See U-19 |
 | liftAboveRail | 45000 | measured | J526A00 p1 particulars; J526A0300 p1 | Spreader underside at upper limit in the display position |
-| spreaderLength40ft | 12192 | estimated | STS45 spreader (J526A00 p2 item 35) at 40 ft setting; spreader drawing not supplied (U-10) |  |
-| spreaderWidth | 2440 | estimated | ISO container width; spreader drawing not supplied |  |
+| spreaderLength40ft | 11985 | measured | ISO 1161 / ISO 668: 40 ft corner-fitting centres 11985 (the spreader twistlocks must land on them); STS45 (Bromma) spreader drawing not supplied (U-10) | U1 round 3: twistlock centres instead of the 12192 container length |
+| spreaderWidth | 2259 | measured | ISO 1161 / ISO 668: corner-fitting centres across the container 2259 (2438 container width); spreader drawing not supplied (U-10) | U1 round 3: twistlock centres instead of the 2440 container width |
 | gantryWheelDia | 800 | measured | J526A0600 p1 (dia 800) |  |
 | gantryWheelPitch (unused) | 1050 | measured | J526A0600 p1 side view (1050) |  |
 | gantrySubBogieGap (unused) | 1500 | measured | J526A0600 p1 side view (1500) |  |
@@ -183,6 +182,42 @@ Provenance kinds: **measured** = printed dimension used as exact input; **drawin
 | elevatorLandingDepthZ | 1000 | estimated | J526A5100 p1 note 2: landings flush with the stair platforms; depth in front of the door estimated (U1 round 2) |  |
 | ropeAnchorPinFromTip | 1850 | estimated | J526A2000 p1 Detail I: rope-end anchor pin of the rope clamp device at the boom tip; placed just landside of the modelled boom-tip sheaves (whose arrangement is simplified), distance estimated (U1 round 2, U1-C12) |  |
 | ropeAnchorPinAboveBoomTop | 480 | measured | J526A2000 p1 Detail I: 480 from the boom top to the anchor pin (U1 round 2, U1-C12) |  |
+| trolleyBufferFaceLandside | 2960 | drawing-derived | J526A0200 p1 side view: 2560 (trolley centre to the landside trolley-rope / equalizer line) + 400 buffer = 2960; plan extremity scaled about 2890 (U1 round 3, U1-C17) |  |
+| trolleyBufferFaceWaterside | 2660 | drawing-derived | J526A0200 p1 side view: 2260 (trolley centre to the waterside trolley-rope / equalizer line) + 400 buffer = 2660; plan extremity scaled about 2690 (U1 round 3, U1-C17) |  |
+| trolleyBufferLength | 400 | measured | J526A0200 p1 side view (400) and p2 item B1 buffer BQD140-407, 4 off (U1 round 3, U1-C17) |  |
+| trolleyMainSheaveGrooveDia | 900 | measured | J526A0200 p1 sections C-C and D-D (dia 900) (U1 round 3, U1-C17) |  |
+| trolleyMainSheaveCentreAboveRail | 380 | estimated | J526A0200 p1 side view, scaled (about 350 above the rail); raised 30 so the dia 1000 sheave clears the simplified girder top box (U1 round 3, U1-C17) |  |
+| trolleyMainSheavePairSpacing | 165 | measured | J526A0200 p1 sections C-C and D-D (165 between the two sheaves on one shaft) (U1 round 3, U1-C17) |  |
+| trolleyMainSheaveShaftStagger | 80 | drawing-derived | J526A0200 p1: C-C 242.5 + 165 + 212.5 vs D-D 322.5 + 165 + 132.5 within the same 620 frame: the waterside pair sits 80 further along the shaft, so the ropes passing one shaft run between the sheaves of the other (U1 round 3, U1-C17) |  |
+| trolleySheaveFramePlateSpacing | 620 | measured | J526A0200 p1 sections C-C and D-D (620 between the side-frame plates) (U1 round 3, U1-C17) |  |
+| trolleyBodyLandside | 1840 | measured | J526A0200 p1 plan (1840 from the trolley centre to the landside end of the centre body) (U1 round 3, U1-C17) |  |
+| trolleyBodyWaterside | 1540 | measured | J526A0200 p1 plan (1540 to the waterside end of the centre body) (U1 round 3, U1-C17) |  |
+| trolleyBodyWidthZ | 2600 | estimated | J526A0200 p1 end view and plan, scaled (about 2600 between the girders) (U1 round 3, U1-C17) |  |
+| trolleyBodyBelowRail | 990 | measured | J526A0200 p1 side view (990 from the rail to the underside of the centre body) (U1 round 3, U1-C17) |  |
+| trolleyFrameTopAboveRail | 600 | estimated | J526A0200 p1 end view and side view, scaled (frame top about 600 above the rail; main hoist rope 851 above the rail) (U1 round 3, U1-C17) |  |
+| trolleyEqualizerSheaveDia | 640 | measured | J526A0200 p1 section E-E (dia 640 over the flanges, 550 groove; vertical shaft dia 110); p2 item 16 equalizer sheave ZT2-012932-00, quantity 4, item 14 shaft, quantity 4 (U1 round 3, U1-C17) |  |
+| trolleyEqualizerSheaveXLandside | 2560 | measured | J526A0200 p1 side view: 2560 from the trolley centre to the landside trolley-rope line at the equalizer sheaves (plan scaled about 2510) (U1 round 3, U1-C17) |  |
+| trolleyEqualizerSheaveXWaterside | 2260 | measured | J526A0200 p1 side view: 2260 to the waterside trolley-rope line at the equalizer sheaves (plan scaled about 2240) (U1 round 3, U1-C17) |  |
+| trolleyEqualizerSheaveZ | 750 | drawing-derived | Rope lane 1050 (J526A2100) minus the 300 groove radius of the dia 640 / 550 sheave; plan scaled about 780 (U1 round 3, U1-C17) |  |
+| trolleyRopeAboveRail | 310 | estimated | J526A0200 p1 side view, scaled (trolley rope arrow about 310 above the rail) (U1 round 3, U1-C17) |  |
+| trolleyTipSheaveDia | 830 | measured | J526A2100 p1 section A-A (sheave unit item 1: dia 830 over the flanges, 750 groove) (U1 round 3, U1-C17) |  |
+| spreaderCableReelDia | 1600 | estimated | J526A0200 p1 side view, scaled from the hidden outline of item 11 (spreader cable reel arrangement, 1245 kg) inside the centre body (U1 round 3, U1-C17) |  |
+| spreaderCableReelX | 300 | estimated | J526A0200 p1 side view, scaled (reel centre about 300 waterside of the trolley centre) (U1 round 3, U1-C17) |  |
+| spreaderCableReelCentreBelowRail | 600 | estimated | J526A0200 p1 side view, scaled (U1 round 3, U1-C17) |  |
+| headblockOverallLength | 5440 | measured | J526A1200 p1 front view (5440; 5521 over the sheave guards) (U1 round 3, U1-C18) |  |
+| headblockFrameWidth | 1210 | measured | J526A1200 p1 plan (1210) (U1 round 3, U1-C18) |  |
+| headblockSheaveCentreAboveBase | 970 | measured | J526A1200 p1 end view (970) (U1 round 3, U1-C18) |  |
+| headblockOverallHeight | 1670 | measured | J526A1200 p1 end view (1670 to the top of the fence / guards) (U1 round 3, U1-C18) |  |
+| headblockSheavePitch | 1010 | measured | J526A1200 p1 end view (1010 +/-0.5) (U1 round 3, U1-C18) |  |
+| headblockTwistlockSpanX | 950 | measured | J526A1200 p1 end view and A-A (950 +/-0.5 between the twistlocks; 1640 over the housings) (U1 round 3, U1-C18) |  |
+| headblockTwistlockDia | 140 | measured | J526A1200 p1 end view (dia 140); item 11 twistlock mechanism J526A1205, 2 off (U1 round 3, U1-C18) |  |
+| spreaderMainFrameLength | 6000 | estimated | STS45 main frame about the 20 ft length (spreader drawing not supplied, U-10); must carry the headblock twistlock landing points 5200 apart (J526A1200) and rest on the DT1500F trailer cradles 3600 apart (U1 round 3, U1-C18) |  |
+| spreaderMainBeamSpacing | 1300 | drawing-derived | DT1500F p1 view K: the spreader trailer cradles are 1300 apart, so the two longitudinal main-frame beams are modelled 1300 apart (U1 round 3, U1-C18) |  |
+| spreaderEndBeamWidthX | 2440 | estimated | End beam length across the container width (ISO 2438); spreader drawing not supplied (U-10) (U1 round 3, U1-C18) |  |
+| hoistRopeLaneZ | 2600 | drawing-derived | Main hoist rope lane centre: half the 5200 headblock sheave span (J526A1200 p1; J526A0200 p1 end view 5200) (U1 round 3, U1-C17) |  |
+| trolleyRopeLaneZ | 1050 | measured | J526A2100 p1 section A-A (boom-tip sheave unit) and C-C (girder-tail tension device): "1050 to boom centreline, symmetrically" (U1 round 3, U1-C17) |  |
+| trolleyRopePassingLaneZ | 950 | measured | J526A2100 p1 section E-E idler ("950 to boom centreline, symmetry"); J526A0200 p1 plan: the run from the drum to the boom-tip sheave unit passes over the trolley about 950 from the centreline, the return run to the equalizers at 1050 (U1 round 3, U1-C17) |  |
+| headblockTwistlockHousingWidth | 1640 | measured | J526A1200 p1 end view (1640 over the twistlock housings under the sheave box) (U1 round 3, U1-C18) |  |
 
 ## 2 Landmark check (model geometry vs. source inputs)
 
@@ -197,7 +232,7 @@ Provenance kinds: **measured** = printed dimension used as exact input; **drawin
 | waterside portal top | 54 | 54 | 0 | 1 | pass | 5000 + 49000 |
 | landside portal top | 54.25 | 54.25 | 0 | 1 | pass | 5000 + 49250 (U-05) |
 | girder underside elevation | 50.5 | 50.5 | 0 | 1 | pass | 50500 interpretation (U-19) |
-| trolley wheels on the girder rail | 52.42 | 52.419998 | 0 | 1 | pass | girder underside + 1800 box + rail |
+| trolley wheels on the girder rail | 52.42 | 52.384998 | 0.067 | 1 | pass | girder underside + 1800 box + rail |
 | lift above rail: spreader underside | 45 | 45 | 0 | 1 | pass | display position at upper limit |
 | tie-beam clearance | 12.5 | 12.5 | 0 | 1 | pass | 12500 |
 | leg centre spacing (end view) | 20.4 | 20.4 | 0 | 1 | pass | 20400 |
@@ -206,7 +241,7 @@ Provenance kinds: **measured** = printed dimension used as exact input; **drawin
 | headblock sheave-box span | 5.2 | 5.2 | 0 | 1 | pass | J526A1200 5200 |
 | overall height is not the 63 m total lift | != 63 | 83.356003 |  |  | pass |  |
 
-## 3 Nodes (180: 146 positions, 19 hotspots, 11 containers, 4 decorative)
+## 3 Nodes (178: 144 positions, 19 hotspots, 11 containers, 4 decorative)
 
 | Key | Kind | Code | Modes | Provenance | Sources |
 | --- | --- | --- | --- | --- | --- |
@@ -237,7 +272,7 @@ Provenance kinds: **measured** = printed dimension used as exact input; **drawin
 | `access.platform.girder-tail` | position | 151 | overall, technical | estimated | J526A5000 p1: item 5 platform of girder: tail platform on the girders, end platform beyond the girder end at girder-underside level, centre stair between them and short flights from the outer walkways; scaled; J526A00 p1: side view: tail platform and inclined stair at the girder end |
 | `reeving.anti-snag-tls.device` | position | 111 | overall, technical | drawing-derived | J526A1000 p1: overall 3754; cylinders bore 200 / rod 140 / stroke 1400; lever arms carrying the rope sheaves; frame shape simplified; J526A00 p1: item 7 at the girder tail **Classification:** J526A1000 anti-snag and trim/list/skew device (hydraulic cylinders acting on the hoist-rope tail sheaves): 111 Skew system proposed; Admin to confirm |
 | `reeving.sheave.girder-tail` | position | 011 | overall, technical | estimated | J526A1000 p1: two sheaves per lever, 2200 apart; diameter scaled; J526A00 p1: main hoist rope reeving diagram: ropes turn at the tail sheaves and return to the trolley **Classification:** Hoist-rope tail sheaves on the anti-snag levers: 011 (hoist, "roller") proposed as for the boom-tip sheaves; Admin to confirm |
-| `reeving.sheave.trolley-tail` | position | 021 | overall, technical | estimated | J526A00 p1: trolley rope reeving diagram: return sheaves with tensioners at the tail end; J526A2100: trolley reeving sheet not detailed in the repair **Classification:** Trolley-rope return sheaves: 021 proposed (trolley); Admin to confirm |
+| `reeving.sheave.trolley-tail` | position | 021 | overall, technical | estimated | J526A00 p1: trolley rope reeving diagram: return sheaves with tensioners at the tail end; J526A2100 p1: Detail III tension device and C-C: 1050 to the boom centreline, symmetrically; sheave size scaled **Classification:** Trolley-rope return sheaves: 021 proposed (trolley); Admin to confirm |
 | `auxiliary.service-crane.girder-tail` | position | 151 | overall, technical | drawing-derived | J526A7100 p1: Detail C: frame 2780 high, 1540 beyond the girder end; View A: 6050 wide; B1 HSZ1 1 t lift; member sizes estimated |
 | `access.platform.festoon-cab-service` | position | 151 | overall, technical | estimated | J526A5000 p1: item 8 J526A5008 festoon and cab service platform; J526A00 p1: side view: hanging platform where the cab parks at the back-reach limit; drop and side estimated |
 | `access.walkway.girder-boom` | position | 151 | overall, technical | estimated | J526A00 p1: walkways and handrails along both sides of girder and boom; widths scaled; J526A5000: not detailed in P03 |
@@ -297,17 +332,15 @@ Provenance kinds: **measured** = printed dimension used as exact input; **drawin
 | `auxiliary.air-conditioning.electrical-room` | hotspot | 152 | technical | approximate-location | J526A3000 p1: A/C units not individually located |
 | `auxiliary.compressor` | position | 151 | technical | approximate-location | J526A3000 p1: compressor at the seaside corner of the plan; J526A7000: compressor sheet not detailed |
 | `container.trolley` | container |  | overall, technical | drawing-derived | J526A0200 p1: trolley arrangement; display position at the outreach limit (not a measurement) |
-| `trolley.frame` | position | 021 | overall, technical | drawing-derived | J526A0200 p1: frame 400 + 2560 + 2260 + 400 long, 5475 wide; 851 above rail; body between the girders |
-| `trolley.wheel.ls-a.1` | position | 021 | overall, technical | estimated | J526A0200 p1: axles 2370 / 2070 from trolley centre; 2 wheels per corner read from plan (count to be confirmed); ZT2-015022 p1: trolley wheel drawing |
-| `trolley.wheel.ls-a.2` | position | 021 | overall, technical | estimated | J526A0200 p1: axles 2370 / 2070 from trolley centre; 2 wheels per corner read from plan (count to be confirmed); ZT2-015022 p1: trolley wheel drawing |
-| `trolley.wheel.ls-b.1` | position | 021 | overall, technical | estimated | J526A0200 p1: axles 2370 / 2070 from trolley centre; 2 wheels per corner read from plan (count to be confirmed); ZT2-015022 p1: trolley wheel drawing |
-| `trolley.wheel.ls-b.2` | position | 021 | overall, technical | estimated | J526A0200 p1: axles 2370 / 2070 from trolley centre; 2 wheels per corner read from plan (count to be confirmed); ZT2-015022 p1: trolley wheel drawing |
-| `trolley.wheel.ws-a.1` | position | 021 | overall, technical | estimated | J526A0200 p1: axles 2370 / 2070 from trolley centre; 2 wheels per corner read from plan (count to be confirmed); ZT2-015022 p1: trolley wheel drawing |
-| `trolley.wheel.ws-a.2` | position | 021 | overall, technical | estimated | J526A0200 p1: axles 2370 / 2070 from trolley centre; 2 wheels per corner read from plan (count to be confirmed); ZT2-015022 p1: trolley wheel drawing |
-| `trolley.wheel.ws-b.1` | position | 021 | overall, technical | estimated | J526A0200 p1: axles 2370 / 2070 from trolley centre; 2 wheels per corner read from plan (count to be confirmed); ZT2-015022 p1: trolley wheel drawing |
-| `trolley.wheel.ws-b.2` | position | 021 | overall, technical | estimated | J526A0200 p1: axles 2370 / 2070 from trolley centre; 2 wheels per corner read from plan (count to be confirmed); ZT2-015022 p1: trolley wheel drawing |
-| `trolley.sheave.set.a` | position | 021 | overall, technical | estimated | J526A0200 p1: items 13, sheave centres 900 either side; diameter scaled **Classification:** Trolley-mounted hoist sheaves: 021 proposed; Admin to confirm |
-| `trolley.sheave.set.b` | position | 021 | overall, technical | estimated | J526A0200 p1: items 13, sheave centres 900 either side; diameter scaled **Classification:** Trolley-mounted hoist sheaves: 021 proposed; Admin to confirm |
+| `trolley.frame` | position | 021 | overall, technical | drawing-derived | J526A0200 p1: side view 400 + 2560 / 2260 + 400 (trolley-rope lines and buffers B1), 990 body below the rail, frame top about 600 above the rail; plan 1840 / 1540 centre body, wheel boxes at the corners; C-C / D-D 620 between the side-frame plates; member sections and bracing simplified; J526A0200 p2: subsidiary list |
+| `trolley.wheel.ls-a.1` | position | 021 | overall, technical | measured | J526A0200 p1: dia 630 in the side view; axle 2370 landside of the trolley centre (plan); on the trolley rail (gauge 6300); J526A0200 p2: item 2 trolley wheel assembly ZT2-020936-00, quantity 4; ZT2-015022 p1: trolley wheel drawing |
+| `trolley.wheel.ls-b.1` | position | 021 | overall, technical | measured | J526A0200 p1: dia 630 in the side view; axle 2370 landside of the trolley centre (plan); on the trolley rail (gauge 6300); J526A0200 p2: item 2 trolley wheel assembly ZT2-020936-00, quantity 4; ZT2-015022 p1: trolley wheel drawing |
+| `trolley.wheel.ws-a.1` | position | 021 | overall, technical | measured | J526A0200 p1: dia 630 in the side view; axle 2070 waterside of the trolley centre (plan); on the trolley rail (gauge 6300); J526A0200 p2: item 2 trolley wheel assembly ZT2-020936-00, quantity 4; ZT2-015022 p1: trolley wheel drawing |
+| `trolley.wheel.ws-b.1` | position | 021 | overall, technical | measured | J526A0200 p1: dia 630 in the side view; axle 2070 waterside of the trolley centre (plan); on the trolley rail (gauge 6300); J526A0200 p2: item 2 trolley wheel assembly ZT2-020936-00, quantity 4; ZT2-015022 p1: trolley wheel drawing |
+| `trolley.sheave.set.a` | position | 021 | overall, technical | drawing-derived | J526A0200 p1: shafts 900 either side of the trolley centre (side view); sheaves dia 1000 / groove 900, 165 apart, 620 between the frame plates, waterside pair offset 80 (C-C, D-D); centre about 350 above the rail (scaled); J526A0200 p2: subsidiary list **Classification:** Trolley-mounted hoist sheaves: 021 proposed; Admin to confirm. Each set = the landside and waterside sheave shaft assemblies on one rope side (J526A0200 items 3 and 4); Admin may split it per shaft in P06 |
+| `trolley.sheave.set.b` | position | 021 | overall, technical | drawing-derived | J526A0200 p1: shafts 900 either side of the trolley centre (side view); sheaves dia 1000 / groove 900, 165 apart, 620 between the frame plates, waterside pair offset 80 (C-C, D-D); centre about 350 above the rail (scaled); J526A0200 p2: subsidiary list **Classification:** Trolley-mounted hoist sheaves: 021 proposed; Admin to confirm. Each set = the landside and waterside sheave shaft assemblies on one rope side (J526A0200 items 3 and 4); Admin may split it per shaft in P06 |
+| `trolley.sheave.equalizer` | position | 021 | overall, technical | estimated | J526A0200 p1: section E-E: dia 640 / 550, vertical shaft dia 110 (items 14 and 16, 4 off each); positions scaled from the plan; J526A0200 p2: subsidiary list; J526A2100 p1: trolley rope lanes 1050 either side of the boom centreline **Classification:** Trolley-rope equalizer sheaves: 021 proposed (trolley); Admin to confirm |
+| `trolley.spreader-cable-reel` | position | 014 | overall, technical | approximate-location | J526A0200 p1: item 11 spreader cable reel arrangement (1245 kg), hidden outline in the centre body of the side view; reel diameter and drive scaled or estimated; J526A0200 p2: subsidiary list; J526A1200 p1: item 7 cable attachment on the headblock |
 | `cabin.operator.main` | position | 141 | overall, technical | drawing-derived | J526A3100 p1: 3000 x 2200 x 2673; windows, floor window 826, visor 310, door 1900, walkway 900, 4 dampers; frame members simplified; J526A0200 p1: cab 2500 landside of the hoist centre; J526A00 p1: cab floor about 47.8 m in the side view at the outreach position; site photo 09_14_34 PM: light cab with blue-tinted glazing hanging under the trolley (AI-processed appearance reference, not a dimension source) |
 | `cabin.operator.seat` | position | 141 | overall, technical | estimated | J526A3100 p1: item 10 tip-up chair installation (ZT2-031511) facing the front and floor windows; size estimated |
 | `cabin.operator.consoles` | position | 141 | overall, technical | approximate-location | J526A3100 p1: auxiliary control station and seat consoles; vendor shapes not established |
@@ -316,16 +349,16 @@ Provenance kinds: **measured** = printed dimension used as exact input; **drawin
 | `hoist.loadcell.main` | hotspot | 013 | technical | approximate-location | J526A2000 p1: Detail I (1:20): roller device (1), rope clamp device (2, 2 off) on an anchor pin 480 above the boom top, rereeving sheave (3) 260 waterside of the pin; the user indicated the boom-tip hoist rope sheaves (U1-C12); J526A0300 p1: load-cell position not shown on the reviewed sheets |
 | `trolley.tension.main` | hotspot | 022 | overall, technical | approximate-location | J526A00 p1: trolley rope reeving diagram: tensioners at the tail end; J526A2100: trolley reeving sheet not detailed |
 | `container.headblock-spreader` | container |  | overall, technical | drawing-derived | J526A1200 p1: headblock 5200 x 2090; J526A00 p1: display pose with spreader underside at 45 m lift height |
-| `headblock.frame` | position | 062 | overall, technical | drawing-derived | J526A1200 p1: structure J526A1202; 5200 sheave-box span, 1210 frame width, 970 to sheave centre |
-| `headblock.sheave-box.a` | position | 062 | overall, technical | measured | J526A1200 p1: sheave box J526A1201 (2 off); sheaves dia 1000 at 1010 centres; width 2090 |
-| `headblock.sheave-box.b` | position | 062 | overall, technical | measured | J526A1200 p1: sheave box J526A1201 (2 off); sheaves dia 1000 at 1010 centres; width 2090 |
-| `spreader.frame` | position | 061 | overall, technical | estimated | J526A00 p2: item 35 STS45 (Bromma), (12+4) for 12 cranes; spreader drawing not supplied (U-10); J526A00 p1: underside at lift height 45 m in the display position |
-| `spreader.twistlock.a-ws` | hotspot | 061 | overall, technical | approximate-location | J526A00 p2: STS45 spreader drawing not supplied (U-10); ISO corner positions; site photo 08_44_08 PM: orange flippers at the spreader corners (AI-processed appearance reference, not a dimension source) |
-| `spreader.twistlock.a-ls` | hotspot | 061 | overall, technical | approximate-location | J526A00 p2: STS45 spreader drawing not supplied (U-10); ISO corner positions; site photo 08_44_08 PM: orange flippers at the spreader corners (AI-processed appearance reference, not a dimension source) |
-| `spreader.twistlock.b-ws` | hotspot | 061 | overall, technical | approximate-location | J526A00 p2: STS45 spreader drawing not supplied (U-10); ISO corner positions; site photo 08_44_08 PM: orange flippers at the spreader corners (AI-processed appearance reference, not a dimension source) |
-| `spreader.twistlock.b-ls` | hotspot | 061 | overall, technical | approximate-location | J526A00 p2: STS45 spreader drawing not supplied (U-10); ISO corner positions; site photo 08_44_08 PM: orange flippers at the spreader corners (AI-processed appearance reference, not a dimension source) |
-| `hoist.rope.set.main` | position | 015 | overall, technical | estimated | J526A00 p1: main hoist rope reeving diagram: 4 ropes from 2 drums over the girder-tail sheaves, trolley and headblock to the boom tip; J526A0300 p1: IWRC 6xWS(36) dia 31.5; J526A1000 p1: tail sheaves on the anti-snag levers; J526A2000: reeving sheet not detailed; path simplified |
-| `trolley.rope.set.main` | position | 024 | overall, technical | estimated | J526A00 p1: trolley rope reeving diagram: drum to the boom-tip and girder-tail sheaves, back to both ends of the trolley; J526A0400 p1: rope dia 25; J526A2100: reeving sheet not detailed; path simplified |
+| `headblock.frame` | position | 062 | overall, technical | drawing-derived | J526A1200 p1: structure J526A1202 1210 wide between the sheave boxes (5200, 5440 overall); fence item 6 to 1670; junction box item 4; cable attachment item 7; member depth scaled |
+| `headblock.sheave-box.a` | position | 062 | overall, technical | measured | J526A1200 p1: sheave box J526A1201 (2 off), 2090 wide; sheaves ZT2-013069 dia 1000 / 900 at 1010, 970 above the base; guards item 10; twistlock mechanism item 11 (2 off), twistlocks dia 140 at 950 |
+| `headblock.sheave-box.b` | position | 062 | overall, technical | measured | J526A1200 p1: sheave box J526A1201 (2 off), 2090 wide; sheaves ZT2-013069 dia 1000 / 900 at 1010, 970 above the base; guards item 10; twistlock mechanism item 11 (2 off), twistlocks dia 140 at 950 |
+| `spreader.frame` | position | 061 | overall, technical | estimated | J526A00 p2: item 35 STS45 (Bromma), (12+4) for 12 cranes; spreader drawing not supplied (U-10); J526A1200 p1: headblock twistlocks 950 x 5200 land on the spreader main frame; DT1500F p1: spreader trailer: cradles 1300 apart, 3600 between cradle pairs; ISO 1161: 40 ft corner-fitting centres 11985 x 2259; J526A00 p1: underside at lift height 45 m in the display position |
+| `spreader.twistlock.a-ws` | hotspot | 061 | overall, technical | approximate-location | ISO 1161: 40 ft corner-fitting centres 11985 x 2259; J526A00 p2: STS45 spreader drawing not supplied (U-10); site photo 08_44_08 PM: orange flippers at the spreader corners (AI-processed appearance reference, not a dimension source) |
+| `spreader.twistlock.a-ls` | hotspot | 061 | overall, technical | approximate-location | ISO 1161: 40 ft corner-fitting centres 11985 x 2259; J526A00 p2: STS45 spreader drawing not supplied (U-10); site photo 08_44_08 PM: orange flippers at the spreader corners (AI-processed appearance reference, not a dimension source) |
+| `spreader.twistlock.b-ws` | hotspot | 061 | overall, technical | approximate-location | ISO 1161: 40 ft corner-fitting centres 11985 x 2259; J526A00 p2: STS45 spreader drawing not supplied (U-10); site photo 08_44_08 PM: orange flippers at the spreader corners (AI-processed appearance reference, not a dimension source) |
+| `spreader.twistlock.b-ls` | hotspot | 061 | overall, technical | approximate-location | ISO 1161: 40 ft corner-fitting centres 11985 x 2259; J526A00 p2: STS45 spreader drawing not supplied (U-10); site photo 08_44_08 PM: orange flippers at the spreader corners (AI-processed appearance reference, not a dimension source) |
+| `hoist.rope.set.main` | position | 015 | overall, technical | estimated | J526A00 p1: main hoist rope reeving diagram: 4 ropes from 2 drums over the girder-tail sheaves, trolley and headblock to the boom tip; J526A0200 p1: main hoist rope reeving sketch and side view: each rope loops once between a trolley shaft (2 sheaves) and one headblock sheave; J526A0300 p1: IWRC 6xWS(36) dia 31.5; J526A1000 p1: tail sheaves on the anti-snag levers; J526A2000: boom-tip anchors (Detail I); path simplified |
+| `trolley.rope.set.main` | position | 024 | overall, technical | estimated | J526A00 p1: trolley rope reeving diagram: drum to the boom-tip and girder-tail sheaves, back to both ends of the trolley; J526A2100 p1: ropes B1 (landside) and B2 (waterside) dia 25; sheave unit and tension device 1050 either side of the boom centreline; J526A0200 p1: equalizer sheaves at both trolley ends (E-E); trolley rope about 310 above the rail (scaled); J526A0400 p1: rope dia 25 |
 | `boom.rope.set.main` | position | 033 | overall, technical | estimated | J526A2300 p1: drum -> apex guide sheave -> falls between the apex sheave groups and the boom blocks at B-B (Z2) and C-C (Z3); falls per side simplified to 4 + 3; J526A00 p1: boom hoist rope reeving diagram; J526A0500 p1: rope dia 35.5 |
 | `boom.sheave.boom-block` | position | 031 | overall, technical | estimated | J526A2300 p1: sections B-B (28000, 1350, 1425 to the boom centreline) and C-C (62500, 1200, 1690); cross-beam and side plates simplified; J526A00 p1: boom hoist rope reeving diagram |
 | `container.gantry` | container |  | overall, technical | drawing-derived | J526A0600 p1: gantry arrangement and side view; J526A00 p1: 15800 / 21050 / 27000 |

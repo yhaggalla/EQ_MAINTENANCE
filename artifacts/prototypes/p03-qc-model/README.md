@@ -45,3 +45,9 @@ Checks: `node tools/p03/check_model_prototype.mjs --gpu hardware|swiftshader`, `
 - Labels stay after any tree selection (U1-C09): the level below the selection is labelled; if it has nothing bound, the selection's own level is labelled with the selection highlighted, else the main mechanisms. A label whose item is outside the view is pinned to the viewport edge with a direction arrow (dotted border) and still drills down when clicked.
 - Reset (U1-C10/C11) now returns to the whole equipment: no selection, container or isolation, labels on, tree folded to its initial state, full view of the current view type (Overall/Technical and the aligned-view choice are kept). Fold icons collapse and expand any mechanism, including the selected one.
 - Model draft v1 rev 3: load cells as load pins in the main hoist rope-end anchors at the boom tip, girder-tail platforms and stairs, apex platform with guide sheaves and two boom hoist sheave blocks, floodlight fittings under the girder and boom, elevator outboard of landside leg B with landings, and every location ball replaced by a simple part (tree rows "Representative part"). Evidence: `docs/evidence/U1/repair-r2-20261022.md`.
+
+## U1 round 3 (22 October 2026)
+
+- Model draft v1 rev 4 (U1-C17, U1-C18): trolley rebuilt to J526A0200 / J526A2100 (4 wheels, four sheave shafts with two sheaves each, open frame and centre body, trolley-rope equalizer sheaves, spreader cable reel 014, rope paths over the sheaves); headblock to J526A1200; spreader remodelled as an STS45-type telescopic spreader (main frame, arms, end beams, ISO 40 ft twistlocks, flippers). Evidence: `docs/evidence/U1/repair-r3-20261022.md`.
+- `tools/p03/cdp.mjs` also finds the Playwright Chromium on Linux (or `EQ_CHROME`) and adds `--no-sandbox` there; the Windows paths are unchanged.
+
