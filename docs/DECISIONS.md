@@ -211,7 +211,7 @@ None of these blocks P01. Each is modelled as configurable data or a visible sou
 
 | Checkpoint | Date | Decision | Notes |
 | --- | --- | --- | --- |
-| U1 (after R02) | 2026-10-22 | CHANGES REQUESTED (round 3) | Round 1: "2026-10-21 U1 CHANGES REQUESTED" (U1-C01..C08), repaired 22 Oct (`docs/evidence/U1/repair-20261022.md`). Round 2: "2026-10-22 U1 CHANGES REQUESTED (round 2)" (U1-C09..C16), repaired 22 Oct (`docs/evidence/U1/repair-r2-20261022.md`); Round 3: "2026-10-22 U1 CHANGES REQUESTED (round 3)" (U1-C17..C18), repaired 22 Oct (`docs/evidence/U1/repair-r3-20261022.md`); U1 walkthrough to be repeated |
+| U1 (after R02) | 2026-10-22 | CHANGES REQUESTED (round 4) | Round 1: "2026-10-21 U1 CHANGES REQUESTED" (U1-C01..C08), repaired 22 Oct (`docs/evidence/U1/repair-20261022.md`). Round 2: "2026-10-22 U1 CHANGES REQUESTED (round 2)" (U1-C09..C16), repaired 22 Oct (`docs/evidence/U1/repair-r2-20261022.md`); Round 3: "2026-10-22 U1 CHANGES REQUESTED (round 3)" (U1-C17..C18), repaired 22 Oct (`docs/evidence/U1/repair-r3-20261022.md`); Round 4: "2026-10-22 U1 CHANGES REQUESTED (round 4)" (U1-C19), built in P02B after P01B (pack 2.0 run order); U1 walkthrough to be repeated |
 | U2 (after P11) | not yet reached | | |
 
 ### 2026-10-21 U1 CHANGES REQUESTED
@@ -256,3 +256,13 @@ Given by the user in chat after reviewing the Repair-U1 round 2 result (commit `
 | U1-C18 | "re do the spreader as per the drawing.." Remodel the spreader (and the headblock interface it hangs from) to the spreader/headblock drawings: main beam, telescopic arms, end beams, twistlock/flipper corners and the headblock connection, replacing the current flat bar arrangement. | 15.png |
 
 Both apply to the 3D model; the flat view (P02) follows where it draws these parts (U1-C08 parity).
+
+### 2026-10-22 U1 CHANGES REQUESTED (round 4)
+
+Given by the user in chat after the round 3 merge (`e7f9db0`), against SOW V2 revision 4 and prompt pack 2.0. Screenshot: `docs/evidence/U1/r4-right-panel-tabs.png` (right panel of QC-DEMO-01, whole equipment, currently History and Technical tabs).
+
+| ID | Change (user's words, then how it is read) | Screens |
+| --- | --- | --- |
+| U1-C19 | "add another 2 tabs here.. history --> Maintenance, Projects/Special, Technical, Spare parts. maintenance; relevant daily data received from ZMMS, no need to show history here. projects/Special; user added special work, when select full crane, all the projects, when select mechanism relevant projects etc.. Technical; full summary technical specification of selected area. Spare part; status of user added spare parts (as per the SOWV2)" The crane-view right panel gets four tabs, replacing History: (1) **Maintenance**: the selected equipment's ZMMS daily jobs for the current day only (SOW V2 s4.4; read-only, "ZMMS data from", no history; ZMMS jobs are equipment-level, so the same list shows for any selection); (2) **Projects/Special**: special jobs (SOW V2 s4.3) scoped to the selection: whole crane shows all of them, a mechanism shows its own and its descendants'; (3) **Technical**: a full summary technical specification of the selected area (whole crane, mechanism, sub-mechanism or part); (4) **Spare parts**: the current condition of the major spare parts registered by users (SOW V2 s4.6) within the selected area. Applies to the flat view and the 3D viewer (U1-C08 parity). Work history stays in the Jobs tab (SOW V2 s4). | r4-right-panel-tabs.png |
+
+Routing: SOW V2 / pack 2.0 already put this right panel in P02B, and its data (ZMMS daily jobs, special jobs, spare-part register) is defined in P01B. U1-C19 is therefore a P02B input, not a separate repair of P02/P03: run P01B, then P02B (which must implement U1-C19), R02B, then repeat U1.

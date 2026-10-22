@@ -15,7 +15,7 @@ Ledger of phases in the prompt-pack run order. A phase is marked complete only w
 | 7 | P01B V2 contracts addendum | Not started | | | Pack 2.0 (SOW V2 rev 4); next phase |
 | 8 | P02B V2 prototype | Not started | | | Extends P02/P03 prototypes; U1 behaviour must not regress |
 | 9 | R02B V2 contracts and prototype review | Not started | | | |
-| 10 | U1 User checkpoint | **CHANGES REQUESTED (round 3), repaired** | 2026-10-22 | `docs/DECISIONS.md` s4, `docs/evidence/U1/` | Round 1 U1-C01..C08 repaired (3129a73); round 2 U1-C09..C16 repaired (1ff226b, `docs/evidence/U1/repair-r2-20261022.md`); round 3 U1-C17..C18 (trolley, spreader) repaired (`docs/evidence/U1/repair-r3-20261022.md`, model draft v1 rev 4); next: repeat U1 walkthrough; pack 2.0: U1 is repeated after R02B together with the V2 prototype |
+| 10 | U1 User checkpoint | **CHANGES REQUESTED (round 4)** | 2026-10-22 | `docs/DECISIONS.md` s4, `docs/evidence/U1/` | Round 1 U1-C01..C08 repaired (3129a73); round 2 U1-C09..C16 repaired (1ff226b, `docs/evidence/U1/repair-r2-20261022.md`); round 3 U1-C17..C18 (trolley, spreader) repaired (`docs/evidence/U1/repair-r3-20261022.md`, model draft v1 rev 4); next: repeat U1 walkthrough; pack 2.0: U1 is repeated after R02B together with the V2 prototype |
 | 11 | P04 App foundation | Not started | | | Needs .NET 10 SDK (D-02) |
 | 12 | P05 Portal integration | Not started | | | Only phase allowed to edit the Portal repo |
 | 13 | R03 Identity and compatibility review | Not started | | | |
@@ -63,3 +63,4 @@ U-01 to U-28 in `docs/DECISIONS.md` s3 (U-20 to U-22 added in Repair-U1, U-23 to
 2026-10-22 SOW V2 revision 3: Q9-Q14 answered by user (ZMMS account provided, kept out of files; two syncs a day; manual status correction lasts the current day); prompt pack not changed
 2026-10-22 SOW V2 revision 4: ZMMS confirmed CICT-owned, no API; owner (user) agrees to login-based reading of the daily job page; prompt pack not changed
 2026-10-22 Prompt pack 2.0 applied on user instruction (SOW V2 revision 4 confirmed): requirements v2.0 (S01-S29), new phases P01B/P02B/R02B before U1 and P07B/P08B, 94 acceptance cases, reference/fac-job-list.json, runner tooling updated; next: P01B
+2026-10-22 U1 CHANGES REQUESTED (round 4) by user: U1-C19 (right panel tabs Maintenance / Projects-Special / Technical / Spare parts, both views); routed to P02B after P01B; next: P01B
