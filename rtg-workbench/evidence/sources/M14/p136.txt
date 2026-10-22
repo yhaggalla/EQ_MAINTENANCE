@@ -1,0 +1,76 @@
+ 
+ 
+Chapter 5 
+ 
+ 
+10 
+ 
+ 
+2) 
+ocular estimate 
+Ocular estimate is the common method. Removing 
+dirt can ease the flaws’ observation before using this 
+method. Bending the wire rope to find the broken wire 
+when it is too tight, see figure 5-16. Interior flaws can be 
+found when use the methods showed in figure 5-17. Open 
+part of the rope to check if there is any corrosion, broken 
+wire phenomenon inside. 
+ 
+bend the wire rope to check the broken wire 
+ 
+ 
+          (a)                   (b) 
+check wire rope interior 
+3) 
+hand feeling method 
+Hand feeling method is holding the wire rope, and 
+makes the wire rope pass through the hand slowly to feel 
+the flaw on the wire rope surface. But this way has 
+dangers, which need to be carefully used. Any sharp on 
+the surface of the wire rope make cause hurt on the hand. 
+To avoid the hurt, can use two pieces of semicircle wood 
+tube which has the same inner diameter to feel the heave 
+when it passes through the half tube. When hand feels the 
+wood tube slightly jump, then take away the hands. 
+Another method is cover the wire rope with one layer 
+cotton yam, not only surface dirt can be cleared, but also 
+the cotton yam will be grappled away when any edge 
+heave is pass through. 
+4) 
+（NDT） 
+There are lots of instruments on the market, which 
+use the NDT to inspect the surface and inner flaw of the 
+wire rope. The advantage of these instruments is they can 
+easily inspect the inner part of the wire rope and find the 
+flaw which is not easy to find. And the growing trend can 
+be told to the inspector through the computer analysis. 
+But the reliability needs to be verified through the fact. 
+Other information refers to the NDT instrument manual. 
+NDT using electromagnetic 
+means may be used to detect 
+broken wires and loss in 
+metallic area. This method 
+complements the visual 
+examination but does not 
+replace it. 
+5.4.3 inspection part and period 
+The whole length of the wire rope needs to be 
+inspected in principle, and the easy damage parts need to 
+pay more attention. For instance, wire rope parts which 
+pass through the sheaves frequently, dead end, rope 
+clamp position, roll in and roll out drum and sheaves, 
+pass through the equalized sheaves are easily be ignored, 
+because these parts of the wire rope are still. But the 
+experience is that these parts have flexural fatigue for the 
+wire rope’s springing and swaying. Wire rope parts which 
+have been covered by drum or sheave grooves should be 
+pay more attention too. 
+Ocular estimate must be done before everyday work, 
+especially the connecting part and dead end part. 
+Wire rope should be carefully checked within one 
+week, after first usage, and inspected within one week, 
+after wire break occur. 
+Every mouth regular inspection should be done after 
+the first inspection. 
+Wire rope should be comprehensive inspected after 
+accident which can cause the damage of the wire rope or 

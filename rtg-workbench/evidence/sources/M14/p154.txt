@@ -1,0 +1,73 @@
+ 
+ 
+Chapter 5 
+ 
+ 
+28 
+ 
+ 
+symmetrical. Record the values and compare 
+them. Refer to Figure 5-40. 
+ 
+Figure 0-40 The level of the spreader 
+inspection 
+8) 
+Compare the distance from the two closer 
+corners of the spreader to the gantry. If the left 
+one is 50mm larger than the right one, adjust as 
+follows: 
+A) Tighten up the left front screw rod for 
+1/4 loops. 
+B) Slacken the left back screw rod for 1/4 
+loops. 
+C) Slacken the right front screw rod for 1/4 
+loops. 
+D) Tighten up the left back screw rod for 
+1/4 loops. 
+9) 
+Compare the distance from the four corners of 
+the spreader to the ground. If the left one is 
+30mm less than the right one, adjust as follows: 
+A) Tighten up the left front screw rod for 
+1/2 loops. 
+B) Tighten up the left back screw rod for 
+1/2 loops. 
+C) Slacken the right front screw rod for 1/2 
+loops. 
+D) Slacken the right back screw rod for 1/2 
+loops. 
+10) Compare the distance from the four corners of 
+the spreader to the ground. If the front one is 
+20mm larger than the back one, adjust as 
+follows: 
+A) Tighten up the left front screw rod for 
+1/2 loops. 
+B) Tighten up the right front screw rod for 
+1/2 loops. 
+C) Slacken the left back screw rod for 1/2 
+loops. 
+D) Slacken the right back screw rod for 1/2 
+loops. 
+11) Hoist and lower the spreader for several times 
+and observe whether the beam is in a level. The 
+adjustment may need many times to complete. 
+Usually the distance from left to right shall be 
+less than 30mm and the height difference shall be 
+less than 20mm. The goal of the adjustment is to 
+make it convenient for the driver to aim the box. 
+12) Observe the difference of the four weight sensors 
+in electrical room. And the difference shall be 
+controlled within 30%. 
+13) Various factors shall be considered due to the 
+difference in all directions. The values above are 
+for reference only. The adjustment may need 
+many times to complete. 
+14) Finally try to hoist and lower the heavy box for 
+several times. Repeat the steps above until 
+controlling the difference within specified range. 
+15) Put the locking bolts into the screw rods, tighten 
+the nuts and pins. Now the ropes have been 
+adjusted. 
+Various factors shall be 
+considered when 
+adjusting the rope, the 

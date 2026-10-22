@@ -1,0 +1,22 @@
+ 
+ 
+  
+ 
+ 
+ 
+        
+ 
+ 
+2.4 Main components 
+2.4.1Gantry frame 
+Shown as in Figure 2-3. Gantry frame is the main structure of the RTG, it consists of two girders, four legs 
+and two sill beams. Most of the structure member section is box section except some in tubular shape. The brace 
+bar on the upper legs connects the structure as a whole frame. The trolley rails are arranged on the girders, we 
+used I-shaped steel or square bar as the rails. The rails will be fixed on the girder by rail clips or welding. The 
+buffer support at the end of girder can also be used as lifting ear for the RTG.  
+ 
+ 
+ 
+ 
+Pic 2-3 Gantry frame 
+ 

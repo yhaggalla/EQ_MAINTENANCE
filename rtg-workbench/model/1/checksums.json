@@ -1,0 +1,29 @@
+{
+  "algorithm": "sha256",
+  "files": {
+    "bindings.synthetic.json": {
+      "sha256": "8802498ae5a28004cce168543c193fe047fec499bbe2928843f27eea905474c1",
+      "bytes": 54997
+    },
+    "catalogue.json": {
+      "sha256": "22b3c6dbe2e9ff71b6deb25563c668de100ab114df7f319c486b00dda6451491",
+      "bytes": 17643
+    },
+    "geometry-parameters.json": {
+      "sha256": "076bc02e2b4f3f792da51eb9f5de711178b7df47a3e6235ee8e7af0527068c88",
+      "bytes": 1459168
+    },
+    "manifest.json": {
+      "sha256": "abf51e4d4d55854fff4f91500e4f2a528d72eae572cb09d53900814a2c3dd17b",
+      "bytes": 144775
+    },
+    "parameters.json": {
+      "sha256": "58f9873e6cb870360c00dfb0eff5d490ba2dcc4f345778c999f44bcda6e2a0de",
+      "bytes": 10243
+    },
+    "scene.glb": {
+      "sha256": "56fd39241dbc202c134fc2933b5747b26fd15966ebd0fee3b2e7a14fa6421db1",
+      "bytes": 2861384
+    }
+  }
+}

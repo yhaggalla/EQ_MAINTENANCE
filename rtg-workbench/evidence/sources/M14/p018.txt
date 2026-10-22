@@ -1,0 +1,46 @@
+                                                                       Chapter 2  
+ 
+ 
+ 
+8
+○
+C Trolley: Trolley is the main component of the RTG. It’s consist by four steel wheels and trolley frame. 
+There is main hoist mechanism, trolley travelling mechanism, driver cabin (including control device) 
+and kinds of auxiliary devices installed on the trolley. The reeving system is using to hang headblock 
+and spreader. The driver in cabin can control RTG to handle stock and carry container. 
+○
+D Main hoist mechanism: The main hoist mechanism is located on the trolley. It’s used to lift spreader 
+to hang container. 
+○
+E Trolley travelling mechanism: The trolley travelling mechanism is located on the trolley. It’s used to 
+move the trolley to the required position. The trolley is self drive type. 
+○
+F Main hoist wire rope reeving system: The wire rope through sheave and connect the hoist drum and 
+headblock. It could transfer relative movement between drum and headblock. 
+○
+G  Spreader skewing mechanism: It is achieved by two sets of electric push rod fixed on the 
+headblock. 
+○
+H Spreader anti-sway system: The ansiway function is achieved by 8 hoist rope system, no 
+other auxiliary antisway system. 
+○
+I Trolley’s walkway and platform: provided on trolley for maintenance equipments on the 
+trolley. 
+○
+J Cabin: Driver can operate RTG and spreader in it. 
+○
+K Trolley anchor device: Two sets of manual operation pin are located on both sides of the trolley for 
+locking the trolley, preventing accidentally moved 
+   
+○
+L Service crane: None 
+○
+M Cable chain system: Cable chain system transport the power and control signal to main hoist 
+mechanism, trolley travelling mechanism, spreader skewing mechanism, headblock and spreader. 
+○
+N Power unit: It provides power for RTG all motion mechanism and auxiliary equipment. It locates on 
+the sill beam.  In this project, it is consisted by diesel generator + lithium battery system. 
+○
+O Walkway, ladder and platform: Including all the others platforms, handrails, stairs, 
+ladders except fixed on the trolley. It is used for boarding the crane, and providing 
+the maintaince space. 

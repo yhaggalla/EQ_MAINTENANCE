@@ -1,0 +1,165 @@
+ 
+45
+ 
+Inspected 
+components 
+Inspection 
+Items
+Inspection 
+Method and 
+apparatus 
+Inspection 
+criteria 
+Inspection
+period 
+Item description
+Item Description 
+16 
+bumper 
+1 
+Bumper body 
+Visual  
+No damage & 
+cracks 
+per month 
+2 
+Support  
+Visual, 
+Knocking  
+No 
+cracks, 
+firm 
+connection 
+per month 
+3 
+Spring  
+Visual  
+No abnormal 
+condition 
+per month 
+17 
+Headblock
+twistlock 
+1 
+Cracks, 
+damage  
+Visual, 
+NDT 
+No cracks, no 
+damage  
+per year 
+2 
+Wear  
+Inspection  
+As technically 
+required 
+3 months 
+18 
+Spreader 
+telescopic 
+1 
+Load bearing 
+Visual  
+Measure  
+No damage no 
+wear 
+per month 
+2 
+Rail  
+Visual 
+Measure  
+Mo 
+defects, 
+wear 
+within 
+permitted 
+range 
+per month 
+19 
+Cable 
+carrier 
+1 
+Cable clamp 
+Visual 
+Measure  
+Perfect 
+no 
+loosening 
+per month 
+2 
+Roller  
+Visual  
+Proper 
+lubrication, no 
+damage 
+per month 
+3 
+Support 
+bracket 
+Visual  
+Perfect  
+per month 
+4 
+Bolt 
+connection 
+Visual, 
+knocking 
+No loosening 
+per month 
+5 
+cable 
+Visual  
+No damage 
+per month 
+20 
+Spreader 
+twistlock 
+1 
+Plastic 
+deformation 
+Visual  
+No 
+plastic 
+deformation 
+per month 
+2 
+damage 
+Visual  
+No damage  
+per month 
+3 
+Turning angle 
+Testing  
+2, 90 
+per month 
+4 
+wear 
+Measure  
+As technically 
+required  
+per year 
+5 
+cracks 
+Visual  
+No cracks 
+per year 
+21 
+Steel 
+structure 
+1 
+Box-secti
+on 
+members
+Paint
+-ing 
+Visual 
+telescope 
+No large area 
+Of peeling off 
+3 months 
+ 
+ 
+ 
+ 
+ 
+ 

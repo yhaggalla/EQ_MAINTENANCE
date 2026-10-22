@@ -1,0 +1,80 @@
+ 
+ 
+Chapter 5 
+ 
+ 
+25 
+ 
+ 
+ 
+5.6.1   Procedure of main hoist rope re-reeving in 
+8-rope reeving system 
+The 8-rope reeving system is shown in Figure 
+5-36. 
+ 
+Figure 0-36  8-rope reeving system 
+Procedure of rope re-reeving is as follows: 
+1) 
+First of all, prepare some new wire ropes 
+according to the length and quantity in the 
+drawings. One end of the pressed joints should 
+be done if pressed joints are used. Prepare a few 
+hemp ropes whose diameter is about 20mm and 
+steel wire for binding. 
+1) 
+Move the trolley to the parking position.  
+2) 
+Ensure that the RTG is in Maintenance Mode. 
+All other operations affecting the safety are 
+banned. 
+3) 
+Rotate the spreader to zero position. If having 
+tilting or translation function, the spreader also 
+needs to return to zero position. 
+4) 
+Lower the spreader to the ground and slacken 
+the main hoist ropes until they are on the 
+spreader headblock. Continue to slacken the 
+ropes until about 1 loop to the securing bolts 
+of rope clamps. After the ropes relax, close 
+the operation system and diesel generator 
+sets. 
+5) 
+Tie the 1 or 2~4 old ropes temporarily with 
+hemp ropes or chain hoist (To prevent the ropes 
+slipping off). 
+6) 
+Loosen the securing bolts of rope clamps on 
+drum and take off the rope clamps. Then take 
+off the rope from the drum. Bind the hemp rope 
+with the end of the rope with mild steel wire. 
+3~4 parts need to be bound, each part should be 
+bound 10 loops and about 15cm apart. Connect 
+the old rope end with the hemp rope by rope 
+connecting 
+device 
+(Refer 
+to 
+Figure 
+5-21).
+ 
+ 
+Figure 0-21  Rope connecting device 
+7) 
+Tighten the hemp rope, lower the old rope to the 
+ground slowly. Pay attention to observe the 
+speed of the rope and whether the rope wears or 
+hooks the structure. And whether the rope runs 
+out of the sheave should be observed. On the 
+headblock, if the rope wears the structure, 
+rubbers, wood plates, and wear-resistant blocks 
+should be fixed. 
+8) 
+Bind the hemp rope with the end of the old rope, 
+take off the pin connecting the end of the rope 
+(Usually called pressed joints) and the adjusting 
+screw rod according to Figure 5-37. When 
+taking off the pin, the end of the rope should be 
+pulled (To prevent the rope end touching the 
+headblock 
+paint).

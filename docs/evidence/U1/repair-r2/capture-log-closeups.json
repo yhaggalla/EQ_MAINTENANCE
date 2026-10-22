@@ -1,0 +1,134 @@
+{
+  "gpu": "hardware",
+  "browser": "Chrome/155.0.8059.85",
+  "items": [
+    {
+      "name": "c12-loadcell-boom-tip",
+      "note": "U1-C12: load cells as load-measuring anchor pins in the main hoist rope-end anchors next to the boom-tip sheaves (J526A2000 Detail I); technical mode",
+      "query": "mode=technical&cam=70,57,9&tgt=74,52.8,0&fov=40",
+      "file": "docs/evidence/U1/repair-r2/closeups/c12-loadcell-boom-tip.png",
+      "errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "name": "c13-girder-tail-platforms",
+      "note": "U1-C13: upper tail platform, lower end platform beyond the girder end, centre stair and the two side flights",
+      "query": "cam=-49,57.5,15&tgt=-61,51.3,0&fov=46",
+      "file": "docs/evidence/U1/repair-r2/closeups/c13-girder-tail-platforms.png",
+      "errors": []
+    },
+    {
+      "name": "c13-girder-tail-from-below",
+      "note": "U1-C13: same area from below and the -Z side: every stair starts and ends on a platform",
+      "query": "cam=-52,44,-12&tgt=-61,51,0&fov=46",
+      "file": "docs/evidence/U1/repair-r2/closeups/c13-girder-tail-from-below.png",
+      "errors": []
+    },
+    {
+      "name": "c14-apex-waterside",
+      "note": "U1-C14: apex platform with handrails, guide sheaves, guard frame (top = 83.356 m), fall-sheave groups under the waterside cantilever, stair head",
+      "query": "cam=14,88,20&tgt=-1,81,0&fov=40",
+      "file": "docs/evidence/U1/repair-r2/closeups/c14-apex-waterside.png",
+      "errors": []
+    },
+    {
+      "name": "c14-apex-landside",
+      "note": "U1-C14: apex from landside: stay pins and lugs, boom-hoist ropes from the drum over the guide sheaves",
+      "query": "cam=-20,86,-16&tgt=-1.5,80.5,0&fov=40",
+      "file": "docs/evidence/U1/repair-r2/closeups/c14-apex-landside.png",
+      "errors": []
+    },
+    {
+      "name": "c14-boom-blocks",
+      "note": "U1-C14: boom hoist falls to the two boom sheave blocks at Z2 and Z3 (J526A2300 B-B and C-C)",
+      "query": "cam=35,59,11&tgt=28,53.6,0&fov=45",
+      "file": "docs/evidence/U1/repair-r2/closeups/c14-boom-blocks.png",
+      "errors": []
+    },
+    {
+      "name": "c15-floodlights-boom",
+      "note": "U1-C15: floodlight fittings under both outer edges of the boom, aimed down and outward",
+      "query": "cam=26,43,15&tgt=30,50.2,0&fov=42",
+      "file": "docs/evidence/U1/repair-r2/closeups/c15-floodlights-boom.png",
+      "errors": []
+    },
+    {
+      "name": "c15-floodlights-overview",
+      "note": "U1-C15: floodlight fittings along the girder and boom",
+      "query": "cam=10,30,40&tgt=5,48,0&fov=55",
+      "file": "docs/evidence/U1/repair-r2/closeups/c15-floodlights-overview.png",
+      "errors": []
+    },
+    {
+      "name": "c16-elevator-landside",
+      "note": "U1-C16: elevator outboard of landside leg B (-Z), car at the first landing (6.5 m), door on the outer face, landing platform joined to the stair tower",
+      "query": "cam=-43,13,-25&tgt=-30.2,9,-12.5&fov=44",
+      "file": "docs/evidence/U1/repair-r2/closeups/c16-elevator-landside.png",
+      "errors": []
+    },
+    {
+      "name": "c16-elevator-top",
+      "note": "U1-C16: upper elevator landings (47.845 m and 53.43 m) and mast top",
+      "query": "cam=-41,60,-26&tgt=-30.2,52,-12.5&fov=44",
+      "file": "docs/evidence/U1/repair-r2/closeups/c16-elevator-top.png",
+      "errors": []
+    },
+    {
+      "name": "c16-spreader-corners",
+      "note": "U1-C16: spreader corners: corner castings, twistlocks and raised orange flippers instead of balls",
+      "query": "cam=77,43.5,11&tgt=70,45,0&fov=42",
+      "file": "docs/evidence/U1/repair-r2/closeups/c16-spreader-corners.png",
+      "errors": []
+    },
+    {
+      "name": "c16-cab-ac",
+      "note": "U1-C16: cab air-conditioning unit (152) on the cab walkway instead of a ball",
+      "query": "cam=60,49.5,7&tgt=64.6,48.6,0.6&fov=40",
+      "file": "docs/evidence/U1/repair-r2/closeups/c16-cab-ac.png",
+      "errors": []
+    },
+    {
+      "name": "c16-gantry-wheel-brake",
+      "note": "U1-C16: gantry wheel brake (046) on the bogie between the middle wheels",
+      "query": "cam=4,3.5,12&tgt=0.6,1.2,7.9&fov=42",
+      "file": "docs/evidence/U1/repair-r2/closeups/c16-gantry-wheel-brake.png",
+      "errors": []
+    },
+    {
+      "name": "c16-tail-hpu-tension",
+      "note": "U1-C16: trim/list/skew hydraulic power unit (111) and trolley rope tension cylinders (022) at the girder tail",
+      "query": "mode=technical&cam=-52,56.5,7&tgt=-58.5,52.8,-0.5&fov=44",
+      "file": "docs/evidence/U1/repair-r2/closeups/c16-tail-hpu-tension.png",
+      "errors": []
+    },
+    {
+      "name": "c16-house-cabinets",
+      "note": "U1-C16: electrical room: drive, PLC and control-power cabinet sections, wall A/C unit, emergency drive on the main hoist reducer",
+      "query": "mode=technical&cam=-31.5,57.5,-1.5&tgt=-37,54,-6.5&fov=48",
+      "file": "docs/evidence/U1/repair-r2/closeups/c16-house-cabinets.png",
+      "errors": []
+    },
+    {
+      "name": "c16-cable-carriages",
+      "note": "U1-C16: trolley cable system (023) as festoon carriages under the -Z girder box",
+      "query": "mode=technical&cam=-14,47,-10&tgt=-20,49.6,-3.15&fov=42",
+      "file": "docs/evidence/U1/repair-r2/closeups/c16-cable-carriages.png",
+      "errors": []
+    },
+    {
+      "name": "overall-perspective",
+      "note": "Overall mode full-crane view after round 2",
+      "query": "hideQuay=0&bg=%23e9eef2",
+      "file": "docs/evidence/U1/repair-r2/closeups/overall-perspective.png",
+      "errors": []
+    },
+    {
+      "name": "technical-perspective",
+      "note": "Technical mode full-crane view after round 2",
+      "query": "mode=technical&hideQuay=0&bg=%23e9eef2",
+      "file": "docs/evidence/U1/repair-r2/closeups/technical-perspective.png",
+      "errors": []
+    }
+  ]
+}

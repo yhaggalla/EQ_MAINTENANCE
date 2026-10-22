@@ -373,6 +373,8 @@ try {
     const vb = await ev(`document.getElementById('scene-svg').getAttribute('viewBox').split(' ').map(Number)`);
     await b.clickText('.vp-bar button', 'Reset'); await b.wait(700);
     const vb2 = await ev(`document.getElementById('scene-svg').getAttribute('viewBox').split(' ').map(Number)`);
+    // U1 round 2 (U1-C10): Reset also clears the selection, so the rope is selected again before Fit is re-checked
+    await go('eqTeam', `/equipment/${Q1}?main=mi-q01-01&sub=si-q01-015&part=pp-q01-013`); await b.wait(900);
     await b.clickText('.vp-bar button', 'Fit'); await b.wait(700);
     const vb3 = await ev(`document.getElementById('scene-svg').getAttribute('viewBox').split(' ').map(Number)`);
     return { ok: vb[2] >= 34 && vb[2] < 144 && Math.abs(vb2[2] - 144) < 0.5 && Math.abs(vb3[2] - vb[2]) < 0.5, detail: `fit ${vb[2].toFixed(1)}, reset ${vb2[2].toFixed(1)}, refit ${vb3[2].toFixed(1)}` };
@@ -518,7 +520,7 @@ try {
   });
   await step('U1-C07', 'Flat drill-down: tier 1 mains, click -> tier 2 subs, click -> tier 3 parts (switches to Technical for internals); tree and URL follow', async () => {
     await go('eqTeam', `/equipment/${Q1}`); await b.wait(300);
-    const labels = () => ev(`[...document.querySelectorAll('.sc-label')].map(e=>e.textContent)`);
+    const labels = () => ev(`[...document.querySelectorAll('.sc-label')].map(e=>e.textContent.replace(/^[\u2190-\u2199]/, ''))`); // U1 round 2: edge-pinned labels start with a direction arrow
     const t1 = await labels();
     const expect1 = await ev(`(()=>{const ks=new Set(EQ.sceneKeys()); return [...new Set(EQ.positionsOf('${Q1}').filter(p=>p.state==='active'&&ks.has(p.key)).map(p=>EQ.pos(p.id).mainId))].length})()`);
     await b.click('[data-fk="lbl-mi-q01-01"]'); await b.wait(500);
@@ -541,6 +543,43 @@ try {
     await b.click('[data-fk="labels"]'); await b.wait(300); const n2 = await ev(`document.querySelectorAll('.sc-label').length`);
     await b.click('[data-fk="mode-overall"]'); await b.wait(400); const h2 = await ev('location.hash');
     return { ok: /iso=1/.test(r.hash) && r.iso && r.tech && r.vbw < 60 && r.pressed === 'true' && n1 > 0 && n0 === 0 && n2 === n1 && !/iso=1/.test(h2) && /mode=overall/.test(h2), detail: JSON.stringify({ ...r, n1, n0, n2, h2 }) };
+  });
+
+  // ---------------- U1 round 2 (U1-C09..C16), flat view ----------------
+  const flatLabels = () => ev(`[...document.querySelectorAll('#scene-labels .sc-label')].map(e=>({t:e.textContent, edge:!!e.dataset.offscreen}))`);
+  await step('U1R2-C09', 'Flat: selecting any main, a sub or a part in the tree keeps labels on the crane (drill-down level, else the level above with a notice); off-screen labels are pinned to the edge', async () => {
+    await b.viewport(1366, 768);
+    await go('eqTeam', `/equipment/${Q1}`); await b.wait(400);
+    const mains = await ev(`[...document.querySelectorAll('[role=treeitem][aria-level="2"]')].map(e=>e.dataset.nid)`);
+    const per = {};
+    for (const m of mains) { await b.click(`[data-nid="${m}"] > .ti`); await b.wait(700); per[m] = (await flatLabels()).length; }
+    const fb17 = await ev(`(document.querySelector('[data-fk="label-fallback"]')||{}).textContent||''`);
+    await b.click('[data-nid="mi-q01-01"] > .ti'); await b.wait(600); await b.click('[data-nid="si-q01-011"] > .ti'); await b.wait(700);
+    const subL = await flatLabels();
+    await b.click('[data-nid="pp-q01-007"] > .ti'); await b.wait(900);
+    const partL = await flatLabels();
+    await b.viewport(1920, 1080);
+    const ok = Object.values(per).every((n) => n >= 1) && /17 Other/.test(fb17) && subL.length >= 2 && partL.length >= 2 && partL.some((l) => /motor A/i.test(l.t)) && partL.some((l) => l.edge);
+    return { ok, detail: JSON.stringify({ per, fb17, subL: subL.length, partL }) };
+  });
+  await step('U1R2-C10-C11', 'Flat: Reset returns to the whole equipment (no selection, container or isolation), turns labels back on, folds the tree back and resets the view; fold icons work both ways on the selected mechanism', async () => {
+    await go('eqTeam', `/equipment/${Q1}?main=mi-q01-01&sub=si-q01-011&part=pp-q01-007&mode=technical&iso=1`); await b.wait(900);
+    const exp = () => ev(`[...document.querySelectorAll('[role=treeitem][aria-expanded=true]')].map(e=>e.dataset.nid)`);
+    const f0 = await exp(); await b.click('[data-nid="mi-q01-01"] > .ti > .twist'); await b.wait(300); const f1 = await exp();
+    await b.click('[data-nid="mi-q01-01"] > .ti > .twist'); await b.wait(300); const f2 = await exp();
+    await b.click('[data-fk="labels"]'); await b.wait(300); const off = (await flatLabels()).length;
+    await b.click('[data-fk="reset"]'); await b.wait(1100);
+    const r = await ev(`({hash: location.hash, vb: document.getElementById('scene-svg').getAttribute('viewBox'), pressed: document.querySelector('[data-fk="labels"]').getAttribute('aria-pressed'), iso: document.getElementById('scene-svg').classList.contains('iso'), sel: document.querySelector('[role=treeitem][aria-selected=true]').dataset.nid})`);
+    const after = await exp(); const lab = (await flatLabels()).length;
+    const ok = f0.includes('mi-q01-01') && !f1.includes('mi-q01-01') && f2.includes('mi-q01-01') && off === 0 && !/main=mi|sub=si|part=pp|iso=1|container=m/.test(r.hash) && /mode=technical/.test(r.hash) && r.vb === '-16 2 144 106' && r.pressed === 'true' && !r.iso && r.sel === 'root' && JSON.stringify(after) === '["root"]' && lab >= 10;
+    return { ok, detail: JSON.stringify({ f0, f1, f2, off, ...r, after, lab }) };
+  });
+  await step('U1R2-C12-C16', 'Flat schematic content: load cells at the boom-tip rope anchors, floodlight fittings under girder and boom, elevator car at the landside leg, apex platform and sheaves, boom blocks, girder-tail end platform with stair, cabinets instead of dashed circles', async () => {
+    await go('eqTeam', `/equipment/${Q1}?mode=technical`); await b.wait(500);
+    const r = await ev(`(()=>{const bb=(k)=>{const e=document.querySelector('[data-key="'+k+'"]'); if(!e) return null; const b=e.getBBox(); return {x0:+b.x.toFixed(2), x1:+(b.x+b.width).toFixed(2), bound: !e.classList.contains('unbound')};};
+      return {loadcell: bb('hoist.loadcell.main'), flood: bb('auxiliary.lighting.boom'), lamps: document.querySelectorAll('[data-key="auxiliary.lighting.boom"] .sc-lamp').length, car: bb('access.elevator.car'), apex: bb('boom.sheave.apex'), blocks: bb('boom.sheave.boom-block'), tail: bb('access.platform.girder-tail'), drives: bb('electrical.drives.main'), emerg: bb('emergency.drive.main'), dashed: document.querySelectorAll('#scene-svg .sc-hot').length, cabs: document.querySelectorAll('#scene-svg .sc-cab').length};})()`);
+    const ok = r.loadcell && r.loadcell.x0 > 118 && r.flood && r.flood.bound && r.lamps === 10 && r.flood.x0 < 0 && r.flood.x1 > 110 && r.car && r.car.x0 > 19 && r.car.x1 < 21 && r.apex && r.apex.bound && r.blocks && r.blocks.bound && r.tail && r.tail.x0 < -14 && r.drives && r.drives.bound && r.emerg && r.emerg.bound && r.dashed === 0 && r.cabs >= 4;
+    return { ok, detail: JSON.stringify(r) };
   });
 
   // ---------------- responsive ----------------

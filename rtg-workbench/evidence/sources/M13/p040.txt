@@ -1,0 +1,116 @@
+ 
+38
+ 
+To continue 
+Troubles 
+Reasons 
+Remedy 
+Knocking sound in 
+the worm gear 
+reducer, alternate high 
+and low and the 
+period coincides with 
+that of gearing 
+rotation sound 
+Excessive axial backlash of 
+the worn or the teeth of 
+worm gear are seriously 
+worn, pitch circle of the fear 
+is eccentric in relation to the 
+shaft, accumulated error of 
+the circular pitch of the gear 
+Replace 
+ 
+ 
+ 
+ 
+ 
+Repair  or  re-assemble 
+Heating of the reducer Too much oil  
+Oil temperature 60C 
+For cylindrical and bevel 
+gear reducer, and 70C 
+for worm gear reducer. 
+Oil level shall be kept 
+between the two pointer 
+scales 
+High noise of shock in 
+the gear reducer 
+Excessive wear of gear wheel 
+Replace gear wheel 
+Foreign matter in the casing 
+Remove the foreign 
+matter 
+bearing is damaged 
+Replace bearing 
+Bearing overheated in 
+the reducer 
+Contamination in bearing 
+Disassemble and clean the 
+bearing 
+Too small clearance 
+Adjust 
+Lack of grease (oil) 
+Add grease (oil) 
+Brakes can not hold 
+the 
+load 
+(excessive 
+braking distance of 
+the trolley or gantry) 
+Oil (grease) on the brake disc 
+or brake pads 
+Clean up the brake 
+element jam and grease 
+the pivots 
+Clean brake disc and 
+brake pads with kerosene
+Excessive wear of the brake 
+pads 
+Replace brake pads 
+Main spring damaged or 
+loosened 
+results 
+in 
+insufficient tension 
+Replace spring or adjust 
+the nut to make the 
+spring tension sufficient 
+Loosening of the lock nut of 
+the lever, lever’s play 
+Adjust 
+the 
+lever 
+and 
+tighten nut 
+Burnt spots on brake 
+disc and rapid wear of 
+brake disc 
+Uneven clearance between 
+brake disc and brake pads, 
+friction 
+appears 
+when 
+released and the disc is 
+heated, auxiliary spring is 
+damaged or bent 
+Adjust clearance to make 
+it even, replace auxiliary 
+spring 
+Brake 
+is 
+easily 
+deviated 
+from 
+the 
+adjusted position 
+Adjustment 
+nut 
+is 
+not 
+tightened or lock nut is not 
+tightened, thread of the nut is 
+damaged 
+Adjust brake tighten nut 
+and lock nut, or replace 
+defective nut 

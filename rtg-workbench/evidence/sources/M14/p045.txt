@@ -1,0 +1,93 @@
+ 
+ 
+Chapter 3
+ 
+ 
+6 
+ 
+3.3 Fastening 
+3.3.1 
+Grade of fasteners 
+Although all bolts used on the crane are based on 
+Chinese standard, the Chinese standard for bolts is same 
+as the ISO standard. The bolts are also equal to the 
+American metric bolts in specification and have 
+parallelism relation in grade. So it is very easy to find 
+suitable bolts for replacement. TABLE 3-2 is another 
+comparison table for bolt grade in different standards.      
+The strength grade is usually marked in the head and 
+end of the bolt (shown in Figure 3-3). Bolts used in the 
+crane are usually greater than or equal to grade 8.8 for 
+normal carbon steel and alloy steel bolts, so less grade 
+bolts can not to be used in the maintenances. 
+It must to be noted that the grade classification as 
+mentioned above is suited for the bolts with the material 
+carbon or alloy steel, and it is different from the 
+stainless-steel bolts. Detail information please refers to 
+other related data. Generally stainless-steel bolts with 
+grade A2-70 or ASTM316, nuts and washers are used 
+when the bolts are less than M14 in the crane, so the 
+same grade bolts shall be used in maintenances.   
+Table 3-2： SAE Grade and ISO Grade 
+ISO898-1 
+SAE J429 
+ISO898-2 
+SAE J995 
+Bolt 
+Bolt 
+Nut 
+Nut 
+Grade 4.8 
+Grade 1 
+4 
+ 
+Grade 5.8 
+Grade 2 
+5 
+Grade 2 
+Grade 6.8 
+ 
+6 
+ 
+Grade 8.8 
+Grade 5 
+8 
+Grade 5 
+Grade 9.8 
+ 
+9 
+ 
+Grade 10.9
+Grade 8 
+10 
+Grade 8 
+Fasteners used for metal structures should be ISO 
+Grade 8.8 and 10.9 (ASTM A325 or ASTM A490) 
+high-strength bolts. The bolt head and nut are usually 
+bigger than the common ones and the matched bolt, nut 
+and two washers are supplied as a complete set (shown in 
+Figure 3-3, a set of bolt connection with grade 10.9).  
+There are firm requirements on the bolt application, and 
+only some simple knowledge is offered in this chapter, 
+for more detail information please refer to the related 
+criterion. As for the bolts ASTM A325 and ASTM A490，
+the《Specification for structural joints using ASTM A325 
+or A490 bolts 》written by AISC can be referred to. 
+Pretightening torque is required for many bolts and it is 
+realized by using a calibrated torque wrench. As listed in 
+Figure 3-44 are some typical torque wrenches.  
+ 
+Figure 3-3：10.9 Grade fastener for structure  
+ 
+ 
+ 
+ 
+Hand torque wrench  
+Hydraulic torque wrench 
+Electric torque wrench 
+Figure 3-4：Typical torque wrench 
+ 
+ 
+ 
+ 
+ 

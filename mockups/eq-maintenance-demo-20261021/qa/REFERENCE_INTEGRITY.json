@@ -1,0 +1,38 @@
+[
+  {
+    "original": "As-bulit drawing/J526A00（structure parameters）.pdf",
+    "copy": "assets/qc-general-arrangement.pdf",
+    "sha256": "1a971b8e394c7b7e99c9d39f5a5c5fce75625e54a5c14592ff9de416e14ff1ea",
+    "identical": true
+  },
+  {
+    "original": "As-bulit drawing/J526A0300.pdf",
+    "copy": "assets/qc-main-hoist.pdf",
+    "sha256": "ab060092009b983df95db3f0173dc8ca768f14fd41c0860d5a873569ed8468b1",
+    "identical": true
+  },
+  {
+    "original": "As-bulit drawing/J526A0200.pdf",
+    "copy": "assets/qc-trolley.pdf",
+    "sha256": "f5418e335b514fadf57c5d2970863766e7d0668df626c5da9c34946cfe5f0503",
+    "identical": true
+  },
+  {
+    "original": "As-bulit drawing/J526A0600.pdf",
+    "copy": "assets/qc-gantry-drive.pdf",
+    "sha256": "8b851e13d3e784aaedac6ab45d7e4b31ec78b87133ecd93e0817a6cc1e60a0bc",
+    "identical": true
+  },
+  {
+    "original": "As-bulit drawing/J526A1200.pdf",
+    "copy": "assets/qc-headblock.pdf",
+    "sha256": "cd0adb51080b4e4d9cf1ac5de60cc274e57c06ad54d987a0bf85f8eb7fc109c7",
+    "identical": true
+  },
+  {
+    "original": "documents/images2.jpg",
+    "copy": "assets/cict-qc-reference.jpg",
+    "sha256": "d3f5f30136b194bc714f34c2fdaa7794bfd1831a341854ba5a050db6fe093d84",
+    "identical": true
+  }
+]

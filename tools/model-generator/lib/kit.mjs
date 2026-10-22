@@ -182,6 +182,7 @@ export class Materials {
       const m = new THREE.MeshStandardMaterial({ name, color: new THREE.Color(d.color), roughness: d.roughness ?? 0.7, metalness: d.metalness ?? 0.1, side: d.doubleSide ? THREE.DoubleSide : THREE.FrontSide });
       if (d.opacity !== undefined && d.opacity < 1) { m.transparent = true; m.opacity = d.opacity; }
       if (d.alphaTest) m.alphaTest = d.alphaTest; // exported as alphaMode MASK
+      if (d.emissive) { m.emissive = new THREE.Color(d.emissive); m.emissiveIntensity = d.emissiveIntensity ?? 1; } // e.g. floodlight lens (exported as emissiveFactor)
       m.userData = { paintRole: d.role, ...(d.texture ? { textureFile: d.texture } : {}) };
       this.map.set(name, m);
     }

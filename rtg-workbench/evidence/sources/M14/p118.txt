@@ -1,0 +1,135 @@
+ 
+ 
+   Chapter 4 
+ 
+ 
+35 
+ 
+turn 
+another 
+30 
+degree. 
+Confirm the right direction, 
+this decide which wheels need 
+adjusting and which direction 
+is 
+right. 
+If 
+the 
+running 
+condition 
+gets 
+worse, 
+then 
+turn reversely.  
+ 
+Relationship between wheel adjusting and eccentric sleeve 
+rotating is shown in Table 4-12 
+Table 4-12 relationship between wheel adjusting 
+and eccentric sleeve rotating  
+ 
+combination 
+1 
+combination 
+2 
+right 
+ccentric sleeve 
+90º  
+no rotating 
+left eccentric 
+sleeve 
+90º 
+180º   
+wheel adjusting result 
+horizontal 
+deviation 
+√ 
+ 
+vertical 
+leaning 
+ 
+√ 
+vertical 
+deviation 
+√ 
+√ 
+ 
+combination 
+3 
+combination 
+4 
+right 
+ccentric sleeve 
+180º   
+no rotating 
+left eccentric 
+sleeve 
+180º   
+90º 
+ 
+ 
+ 
+wheel adjusting result 
+horizontal 
+deviation 
+ 
+√ 
+vertical 
+leaning 
+ 
+√ 
+vertical 
+deviation 
+√ 
+√ 
+according to above table, only combination affect 
+horizontal deviation 
+The next is a example of adjusting wheel: 
+ 
+Figure4-148 example of adjusting wheel 
+horizontal deviation 
+This figure illustrates that the left wheel at the front of 
+trolley have a inner horizontal deviation when the trolley 
+run towards front. The left horizontal trolley wheel will 
+press the left surface of trolley rail. The following method 
+could be adopted to fix the problem. 
+1) 
+At the trolley horizontal wheel side if trolley 
+wheel has a small inner horizontal deviation, then 
+turn the outer eccentric sleeve of the trolley wheel 
+clockwise an angle. 
+2) 
+If the wheel deviation is large, turn the outer 
+eccentric sleeve of the wheel at the other side 
+without horizontal trolley wheel. Turn the sleeve 
+an angle clockwise, and observe the running 
+condition. 
+3) 
+If the running condition gets better after adjusting 
+turn the eccentric sleeves at same direction. If not, 
+turn the eccentric sleeves at reverse direction. 
+4) 
+Sometimes, both two wheels have inner horizontal 
+deviation is a better condition than two parallel 
+wheels just like the toe-in of car structure. This 
+arrangement make the trolley runs along a straight 
+line more easily. 
+5) 
+Normally only outer eccentric sleeves need 
+adjusting. 
+6) 
+Normally, only one wheel needs adjusting at a 
+time, sometimes only two wheels need adjusting. 
+Only in special condition all 4 wheels need 
+adjusting. 
+7) 
+Clear up all tools. Have a test run of trolley, 
+inspect the result. 
+ 
+ 
+Appling the method to RTG 
+trolley wheel properly may 
+need a lot attempt before 
+doing well.  
+ 
+4.8 Replacement of main hoist sheave 

@@ -1,0 +1,60 @@
+ 
+ 
+   Chapter 4 
+ 
+ 
+9 
+ 
+3  spider elastic unit 
+4  reducer side jaw 
+shape flange 
+5  brake disc 
+6  reducer side half 
+coupling 
+4.3.2 Replacement procedure 
+Lower the spreader to the ground and slacken the Main 
+Hoist ropes. If the trolley traveling motor coupling is 
+replaced, the trolley need to stop at anchor position. If the 
+gantry traveling motor coupling is replaced, the crane need 
+to stop at the maintenance position, wheel is stopped by 
+chocks. 
+Lock out the crane’s motions which affect the safety by 
+performing lock-out and tag-out procedure. 
+Remove the limit switch device at drum end. 
+To avoid the force on drum caused by self weight of wire 
+rope, use chain block to tie down the wire ropes on reliable 
+item on the trolley. 
+Remove the electrical connection from the motor brake, 
+release the brake manually, then remove the brake by 
+service crane. 
+Unfasten 
+the 
+bolts 
+between 
+motor 
+side 
+half 
+coupling ,remove the bolts between motor side half 
+coupling and jaw shape flange; remove the motor and half 
+coupling by service crane. 
+ 
+Figure 4-4 step 6 
+Take out motor side jaw shape flange 
+ 
+Figure 4-5 step 7 
+Take out elastic spider unit 
+ 
+Figure 4-6 step 8 
+Remove the motor side half coupling by puller. Protect the 
+motor shaft during the procedure 
+ 
+Figure 4-7 step 9 
+Remove the reducer side half coupling，Remove the jaw 
+shape flange. 
+ 
+Figure 4-8 step 10 
+Remove the brake disc. 
+ 
+Figure4-9 step11 
+Remove the driven side half coupling by puller (jaw 
+puller)，Protect the reducer shaft during the process. 

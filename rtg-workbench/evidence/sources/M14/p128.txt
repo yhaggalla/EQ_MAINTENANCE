@@ -1,0 +1,97 @@
+ 
+ 
+Chapter 5 
+ 
+ 
+2 
+ 
+ 
+ 
+This part introduces the 
+common knowledge of usage 
+and maintenance. Refer to 
+the manual provided by the 
+supplier first. Meanwhile, 
+codes and standards of 
+maintenance, replacement 
+wire rope for different 
+countries need to be strictly 
+obeyed. 
+5.1 Basic knowledge of wire rope 
+5.1.1 Construction 
+ 
+Figure 5-1：Wire rope appearance (example) 
+5.1.2 Core 
+Figure 5-2 Common core wire for RTG 
+ 
+ 
+(a) fiber core and fiber strand core 
+ 
+ 
+(c) (IWSC)     (d) (IWRC) 
+图 0-1 core wire martial 
+Figure 5-2：Core of wire rope 
+5.1.3 Type of laying 
+1) 
+direction of lay 
+Right hand lay and left hand lay, we usually use left 
+hand lay. 
+2) 
+method of lay 
+ 
+Lang lay: side wire lay is the same direction 
+of strand lay 
+ 
+Ordinary lay: side wire lay is the opposite 
+direction of strand lay 
+wire rope type and method of lay 
+ 
+advantage 
+disadvantage
+Right hand lang lay 
+left hand lang lay 
+Wires on the 
+surface 
+are 
+longer, 
+so 
+this type is 
+well 
+wear 
+resistant, soft 
+and flexible, 
+well fatigue 
+resistance. 
+Side 
+wire 
+will 
+surfer 
+bigger 
+torque. 
+Ordinary right hand lay 
+Ordinary left hand lay 
+This type is 
+not easy to 
+twist 
+and 
+loosening, 
+and easy to 
+handle. 
+Only shorter 
+wires on the 
+surface 
+are 
+strong, this 
+type is not 
+good at the 
+wear 
+resistant. 
+3) 
+length of lay 
+Usually, length of one lay is 6.2~8.2 times of the 
+wire rope diameter. The way to text the length is show as 
+follow (use 6 strand wire rope as an example): 
+Core wire 
+Wire strand
+wire 
+Side wire 

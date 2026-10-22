@@ -1,0 +1,45 @@
+ 
+ 
+   Chapter 4 
+ 
+ 
+19 
+ 
+Figure4-65 step2 
+Loose roller bolts. 
+ 
+Figure4-66 step3 
+ 
+ 
+Remove the roller. 
+ 
+Figure4-67 step4 
+ 
+4.5.3.7 REPLACEMENT OF BALANCING STUD 
+Loose the nut at bottom end of balancing stud. 
+ 
+Figure4-68 step1 
+Turn the upper adjusting nut to the bottom of thread. 
+ 
+Figure4-69 step2 
+Loose the balancing stud, till it exit from screw hole, 
+remove the top nut. 
+ 
+Figure4-70 step3 
+Take out stud, and change a new one. 
+ 
+Figure4-71 step4 
+4.6 Replacement of gantry wheel 
+4.6.1 Preparations 
+Gantry wheels are included in gantry traveling, the gantry 
+traveling has 8 wheels type and 16 wheels type. 8 wheels 
+type has 2 wheels each corner, 16 wheels type has4 wheels 
+each corner. The drawings about wheels see 错误！未找到
+引用源。, Tools and personnel needed shown in 错误！未
+找到引用源。. 
+ 
+Table 4-8 wheel drawings for refer 
+gantry 
+traveling 
+wheel 
+JL12001A, JL12001B 

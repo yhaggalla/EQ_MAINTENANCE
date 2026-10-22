@@ -1,0 +1,46 @@
+ 
+19
+ 
+ 
+8.4.4.2 Check for oil leakage 
+ 
+8.4.4.3 Check for abnormal temperature rise. If the casing temperature is higher 
+than the ambient temperature by more than 50C, the inner part shall be inspected. 
+ 
+8.4.4.4 Check for abnormal noise in the internal part and disassemble and inspect if 
+there is any. 
+ 
+8.4.4.5 Check for loosening of connection bolts. 
+  Period:  all above are routine 
+ 
+8.4.5 Wheels 
+ 
+8.4.5.1 Check whether wear of wheels exceeds permitted limit. 
+ 
+8.4.5.2 Check that every tyre is inflated sufficiently. 
+  Period:  routine 
+ 
+  Period:  once a month 
+ 
+ 
+9. Rope reeving diagram 
+9.1 Points for Attention in operation 
+ 
+After a long period of non-operation or after disassembly and re-assembly the 
+Crane shall be first run with no load allowing the reducers, bearings, etc. To be 
+lubricated fully, then operation with load can be started. 
+ 
+9.2 Inspection items and period for maintenance 
+ 
+9.2.1 Lubrication 
+ 
+During oil (grease) replacement the old oil (grease) shall be discharged thoroughly. 
+Grease shall not be mixed because mixed grease may result in bearing damage. 
+ 
+9.2.2 All parts and components 
+ 
+9.2.2.1 Check bolts for loosening 
+ 
+Frequently check bolts for loosening, particularly after the first week of running an 
+then once per month check all the bolts and re-tighten them. Pay special attention 
+to those securing bolts that may easily be neglected. 

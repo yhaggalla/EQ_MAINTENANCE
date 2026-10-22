@@ -1,0 +1,241 @@
+ 
+ 
+第3 章   日常维护与
+保养 
+ 
+ 
+3-17
+ 
+表 3-8 工业齿轮润滑油 
+40C 时的 
+粘度(mm2/s) 
+产品名称及代号 
+倾点
+ °C 
+闪点
+°C 
+使用部位 
+代号
+ISO 
+VG 
+220 
+220 
+GB5093-95
+Shell 
+Shell 
+Shell 
+Mobil 
+Mobil 
+Mobil 
+L-CKC 
+Omala  
+Omala LPP*  
+Omala HD 
+Mobilgear 630 
+Mobilgear XMP  
+Mobilgear SHC XMP 
+-8 
+-18 
+-27 
+-48 
+-24 
+-24 
+-45 
+200 
+238 
+210 
+245 
+240 
+272 
+244 
+ 
+大车减速箱 
+ 
+A1 
+ISO 
+VG 
+320 
+320 
+GB5093-95
+Shell 
+Shell 
+Shell 
+Mobil 
+Mobil 
+Mobil 
+L-CKC 
+Omala  
+Omala LPP*  
+Omala HD 
+Mobilgear 632  
+Mobilgear XMP 
+Mobilgear SHC XMP  
+-8 
+-15 
+-27 
+-45 
+-18 
+-18 
+-38 
+200 
+238 
+210 
+242 
+265 
+268 
+242 
+起升、小车减速机 
+A2 
+* ZPMC 专用低温润滑油. 
+表 3-9 工业液压润滑油 
+40C 时的 
+粘度(mm2/s) 
+产品名称及代号 
+倾点
+°C 
+闪点
+°C 
+使用部位 
+代号
+ISO 
+VG 
+32 
+32 
+Shell 
+Shell 
+Shell 
+Mobil 
+Mobil 
+Mobil 
+Tellus  
+Tellus T 
+Tellus S 
+DTE 20 
+DET 10M 
+DTE Excel 
+-30 
+-42 
+-30 
+-27 
+-45 
+-33 
+209 
+242 
+207 
+220 
+210 
+222 
+ 
+B1 
+ISO 
+VG 
+46 
+46 
+Shell 
+Shell 
+Shell 
+Mobil 
+Mobil 
+Mobil 
+Tellus  
+Tellus T 
+Tellus S 
+DTE 20 
+DET 10M 
+DTE Excel  
+-30 
+-39 
+-30 
+-27 
+-42 
+-33 
+218 
+246 
+218 
+232 
+216 
+226 
+大车液压泵站 
+B2 
+ 
+表 3-10 工业润滑脂 
+NLGI
+级别 
+产品名称及代号 
+滴点 
+°C 
+工作温度 
+°C 
+使用部位 
+代号
+- 
+1 
+1 
+通用锂基润滑脂 
+Shell 
+Mobil 
+ 
+GB7324-94  2 号
+Alvania EP1 
+Mobilux EP 1 
+ 
+175 
+185 
+190 
+ 
+-20~+120 
+-20~+100 
+-25~+120 
+  
+低速重载滑动轴承：平衡
+梁轴及其它销轴，铰点等。
+低速重载滚动轴承：卷筒
+轴承座，滑轮轴承等。大
+车运行传动链及轮，小车
+运行开式齿轮，齿条。 
+C1 
+- 
+- 
+1 
+- 
+1 
+通用锂基润滑脂 
+合成钙基润滑脂 
+Shell 
+Shell 
+Mobil 
+GB7324-94  2 号
+SH/T0372-95 3 号
+Alvania EP1 
+Malleus GL 
+Mobilux EP 1 
+175 
+90 
+185 
+190 
+ 
+-20~+120 
+-10~+60 
+-20~+100 
+-25~+120 
+ 
+钢丝绳 
+C2 
+1 
+2 
+Shell 
+Mobil 
+ 
+Alvania RL1 
+Mobil 
+Polyrex 
+EM 
+ 
+180 
+288 
+-30~+120 
+ 
+高速运动轴承：电机等（电
+机的润滑应以电机供应商
+提供样本为准） 
+C3 

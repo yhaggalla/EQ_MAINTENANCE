@@ -1,0 +1,28 @@
+                                                                     Chapter 2 
+ 
+ 
+ 
+1
+2.4.2 Gantry traveling mechanism 
+Gantry traveling mechanism has two models, 8 wheels and 16 wheels. It consists of driving device, steering 
+device, carriage, slewing bearing, equalizer beam and tubeless tyres. 8 wheels model divide into two wheels 
+diagonal driving and four wheels four corners driving. 16 wheels model are all four corners driving, half of the 
+wheels are drive wheels.  
+The gantry usually working along the yard in straight line, and also the gantry can turn 90° to transfer the 
+stacking yard.  
+As an option, RTG can rotate around the vertical center line as the arbitrary angle 0-360 °(pivot function), 
+to change orientation of operator cab.  
+ 
+2.4.2.1 Eight Wheels Gantry traveling mechanism 
+8 wheels traveling mechanism include 8 tubeless tyres. Each of the two tyres together with the frame, 
+slewing bearings, hydraulic or electric steering device, equalizer beam form four sets of bogies (driving and 
+driven), below the four legs.  
+The equalizer beam connects the sill beam by equalizer pin. Two sets of bogies on the diagonal side of 
+gantry frame are the drive bogie. Outside of the tyre is drive wheel, equipped with independent driving 
+mechanism. It consists of motor, reducer, sprockets and double strand bushroller chain.  
+Tyre size 21.00-35(40 Ply), rim model is 35155022/35155023. Tyres are equipped with protective railing. 
+Four outside of the corner frame equipped with anti-collision device.  
+This project has four sets of drive wheels.  
+ 
+ 
+Figure 2-4   8 wheels gantry 

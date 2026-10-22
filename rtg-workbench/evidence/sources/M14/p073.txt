@@ -1,0 +1,113 @@
+ 
+ 
+Chapter 3
+ 
+ 
+34 
+ 
+ 
+Check the bolts connection to eliminate 
+loosening. 
+ 
+Check the main connection pieces and 
+welding to find out painting crimple, spalling 
+or welding cracking. 
+ 
+Check the components to find out global or 
+local deformation and bending, folding 
+twisting and damage phenomenon. 
+2) 
+Period inspection through non-destructive 
+detection should be carried out for the 
+welding of 
+FCM 
+pieces 
+(for detailed 
+information refers to STRUCTURE AND 
+MAINTENANCE MANUAL FOR RAIL 
+MOUNTED GANTRY CRANES). 
+3) 
+Use electrical logging stress method to test 
+the strength and rigidity of the metal structure. 
+Through careful and quantitative inspection to 
+make a scientific judgment on the working 
+condition of the metal structure. 
+The following things should be paid much attention to: 
+1) 
+Check deformation, corrosion, crack, loose 
+bolts, etc. at the time of regular inspection 
+such as daily, monthly, and annual inspection. 
+2) 
+The deformation of steel structure can 
+degrade the alignment of the machinery 
+installed 
+on 
+the 
+structures, 
+increasing 
+operating 
+noise, 
+causing 
+improper 
+engagement of the gears, etc. 
+3) 
+If some deformation of steel structures, 
+development of cracks, loose bolts, etc. is 
+observed, immediately report to the service 
+office, and repair it under the supervision of 
+the structural engineers. 
+4) 
+In order to prevent corrosion of the steel 
+structure, clean clogged drain holes. Repaint 
+areas if there is any indication of rusting. 
+Corrosion will reduce the thickness of the 
+structural members, increase members stress, 
+and may create cracks. In order to inspect 
+cracks in the structural members, thoroughly 
+remove the rust and paints from the area, then 
+conduct the indicated testing.  
+5) 
+The lubrication of the stay bar pins is 
+essential to keeping the stay bars sound. If the 
+rusting of the pin occurs on the stay bar 
+friction surface, the additional bending 
+moment will be induced on the bar and may 
+cause the initiation and propagation of cracks. 
+Therefore, the lubrication must be made 
+periodically to remove old grease and to refill 
+the new grease.  
+3.6.18 Inspection of all safety protections 
+Safety protections should be checked before any 
+work. 
+1) 
+Regularly inspect if the braking torque 
+setting-up of all brakes. Make a practical plan 
+to periodically verify the braking torque. All 
+slow-down limit switches and over-travel 
+limit switches. Ensure that the positions of all 
+encoders, 
+functions 
+of 
+all 
+interlock 
+protections are correct.  
+2) 
+Regularly inspect the hoist over-travel limit 
+switches and hook of service crane. 
+3) 
+Visually inspect if all buffers mounting 
+condition and wheel stoppers are reliable. 
+4) 
+Replace any missing or illegible warning sign. 
+5) 
+Refer to Chapter No.1 to find out the working 
+condition of crane safety equipments like tie 
+down device and so on.  
+6) 
+Check the function of the operator’s cab, and 
+check the headblock to find out crack and 
+loosing parts. Check the handrails to find out 
+the loosed or deformation bolts.  
+ 
+Never tamper with any safety protection devices. It’s about your own safety! 
+ 

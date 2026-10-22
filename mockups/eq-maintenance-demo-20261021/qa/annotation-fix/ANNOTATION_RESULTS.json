@@ -1,0 +1,43 @@
+{
+  "passed": 8,
+  "failed": 0,
+  "geometryRevision": "drawing-correction-2",
+  "browser": "Microsoft Edge, software WebGL",
+  "mode": "file:// with network disabled",
+  "results": [
+    {
+      "name": "Annotation 1: revised drawing-based crane renders, with side and end views",
+      "status": "PASS"
+    },
+    {
+      "name": "Annotation 2: four eight-wheel travelling units and 800 mm steel wheel scale",
+      "status": "PASS"
+    },
+    {
+      "name": "Annotation 3: Gantry selects lower travelling mechanisms, excluding rails and portal",
+      "status": "PASS"
+    },
+    {
+      "name": "Annotation 4: telescopic spreader and separate headblock have transverse long axes",
+      "status": "PASS"
+    },
+    {
+      "name": "Annotation 5: machinery house remains visible in Overall and Technical whole-crane views",
+      "status": "PASS"
+    },
+    {
+      "name": "Internal hoist drill-down opens house; returning to whole equipment restores cladding",
+      "status": "PASS"
+    },
+    {
+      "name": "Corrected model remains available on phone viewport without horizontal overflow",
+      "status": "PASS"
+    },
+    {
+      "name": "No uncaught browser errors or external requests from the corrected standalone HTML",
+      "status": "PASS"
+    }
+  ],
+  "browserErrors": [],
+  "externalRequests": []
+}

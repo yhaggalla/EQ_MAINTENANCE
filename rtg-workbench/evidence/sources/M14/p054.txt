@@ -1,0 +1,243 @@
+ 
+ 
+Chapter 3
+ 
+ 
+15 
+ 
+Table 0-8 GearBox Oil 
+ 
+ISO      
+(40 ºC, 
+mm2/s ) 
+Name and code name
+°C 
+pour 
+point
+°C 
+Flash 
+point
+Place 
+Code 
+name
+ISO 
+VG 
+220 
+220 
+GB5093-95
+Shell 
+Shell 
+Shell 
+Mobil 
+Mobil 
+Mobil 
+L-CKC 
+Omala  
+Omala LPP*  
+Omala HD 
+Mobilgear 630 
+Mobilgear XMP  
+Mobilgear SHC XMP 
+-8 
+-18 
+-27 
+-48 
+-24 
+-24 
+-45 
+200 
+238 
+210 
+245 
+240 
+272 
+244 
+ 
+gantry reducer 
+ 
+A1 
+ISO 
+VG 
+320 
+320 
+GB5093-95
+Shell 
+Shell 
+Shell 
+Mobil 
+Mobil 
+Mobil 
+L-CKC 
+Omala  
+Omala LPP*  
+Omala HD 
+Mobilgear 632  
+Mobilgear XMP 
+Mobilgear SHC XMP  
+-8 
+-15 
+-27 
+-45 
+-18 
+-18 
+-38 
+200 
+238 
+210 
+242 
+265 
+268 
+242 
+Hoist reducer, 
+trolley reducer 
+A2 
+* ZPMC special purpose lower temperature gearbox oil 
+ 
+Table 0-9 Hydraulic lubricants 
+ISO      
+(40 ºC, 
+mm2/s ) 
+Name and code name
+°C 
+pour 
+point
+°C 
+Flash 
+point
+Place 
+Code 
+name
+ISO 
+VG 
+32 
+32 
+Shell 
+Shell 
+Shell 
+Mobil 
+Mobil 
+Mobil 
+Tellus  
+Tellus T 
+Tellus S 
+DTE 20 
+DET 10M 
+DTE Excel 
+-30 
+-42 
+-30 
+-27 
+-45 
+-33 
+209 
+242 
+207 
+220 
+210 
+222 
+ 
+B1 
+ISO 
+VG 
+46 
+46 
+Shell 
+Shell 
+Shell 
+Mobil 
+Mobil 
+Mobil 
+Tellus  
+Tellus T 
+Tellus S 
+DTE 20 
+DET 10M 
+DTE Excel  
+-30 
+-39 
+-30 
+-27 
+-42 
+-33 
+218 
+246 
+218 
+232 
+216 
+226 
+Emergency brake pumping 
+station 
+B2 
+ 
+Table 0-10 Grease 
+NLGI
+class 
+Name and code name 
+°C 
+pour 
+point 
+Work 
+temperatu
+re 
+°C 
+Place 
+Code 
+name
+- 
+1 
+1 
+Lithium 
+based 
+grease 
+Shell 
+Mobil 
+ 
+GB7324-94  
+No.2 
+Alvania EP1 
+Mobilux EP 1 
+ 
+175 
+185 
+190 
+ 
+-20~+120 
+-20~+100 
+-25~+120 
+  
+Heavy 
+Duty 
+Bearing 
+Grease/ Equalizer hinge 
+point/ Open Gear/ chain 
+C1 
+- 
+- 
+1 
+- 
+1 
+Lithium 
+based 
+grease 
+合成钙基润滑脂 
+Shell 
+Shell 
+Mobil 
+GB7324-94  
+No.2 
+SH/T0372-95 3 号
+Alvania EP1 
+Malleus GL 
+Mobilux EP 1 
+175 
+90 
+185 
+190 
+ 
+-20~+120 
+-10~+60 
+-20~+100 
+-25~+120 
+ 
+Wire rope 
+C2 

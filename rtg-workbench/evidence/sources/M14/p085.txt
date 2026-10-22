@@ -1,0 +1,54 @@
+ 
+ 
+   Chapter 4 
+ 
+ 
+2 
+ 
+4.1 General 
+4.1.1 Notice 
+This chapter includes main components of RTG such as：
+bearing block、motor coupling、drum coupling、motor 
+brake、drum brake、trolley wheel、gantry wheel、main 
+hoist sheave、wire rope and so on. 
+The personnel who carry out the replacement work must 
+be acquainted with the structure of components & the 
+operation step and have the ability of coping with the 
+abrupt problem. Before working, it is essential that set 
+down a processing procedure in detail according to this 
+chapter, have a pre-work meeting, prepare safety 
+precautions，point someone to take responsible for safe 
+coordination, and strictly obey the safety rule request  in 
+chapter 1. 
+ 
+Danger! Be care of stumbling! 
+Keep away from hanging weight
+Watch your hand! 
+4.1.2 Tool list for replacement 
+Table 4-1 List some tools in common for replacement, the 
+pictures are only for reference.
+Table 4-1 Tool list for replacement 
+wire cutters 
+ 
+slip joint pliers 
+ 
+needle point pliers 
+ 
+internal 
+circlip 
+pliers (bending tip) 
+ 
+outer circlip pliers 
+(bending tip) 
+ 
+vise grip pliers 
+ 
+bench vice 
+ 
+table vice 
+ 
+double spanner 
+ 
+combination 
+spanner 
+ 

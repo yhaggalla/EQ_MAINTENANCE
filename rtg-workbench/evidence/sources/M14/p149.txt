@@ -1,0 +1,126 @@
+ 
+ 
+Chapter 5 
+ 
+ 
+23 
+ 
+ 
+Figure 0-4  Manual lubrication methods 
+ 
+5.5.4  Lubrication of main hoist wire ropes  
+During the whole procedure, the RTG must be in 
+maintenance mode.  
+The necessary manpower and tools are shown in 错
+误！未找到引用源。.  
+Table 0-4  Manpower and tools for the lubrication 
+of wire rope 
+Description 
+Quantity
+Notes 
+ Manpower 
+Operator 
+1 
+With radio 
+Examiner 
+1～2 
+With radio 
+Supervisor 
+1 
+With radio, must care 
+examiner at any time 
+Tools 
+Duster cloth 
+Some 
+For cleaning 
+Vernier 
+caliper 
+1 
+For measurement 
+Chalk/tape  
+1 
+For marking 
+Note book 
+1 
+ 
+Pen 
+1 
+ 
+Lubrication 
+tool 
+1 
+Provided by dock 
+1) 
+Ensure that the RTG is in Maintenance Mode.  
+2) 
+Move the trolley to the parking position. 
+3) 
+Select a proper position to start the lubricating 
+such as drum. Most parts of the rope can be 
+lubricated by rotating the drum slowly. There 
+are always some dead ropes that could not reach 
+by rotating the drum. You have to manually 
+lubricate it. Anyway, the full length of the rope 
+shall be lubricated. During the procedure, the 
+drum and sheave should be rotated slowly. The 
+whole procedure is similar to the inspection of 
+wire rope.
+5.6 Rope re-reeving 
+The ropes reach the discard criteria shall be replaced 
+by new one. The manpower and tools needed for the rope 
+re-reeving are given in 错误！未找到引用源。. The wire 
+rope type and size are given in 错误！未找到引用源。. 
+Reference drawings are also given in 错误！未找到引用
+源。.  
+Table 0-5 Manpower and tools needed 
+Description 
+Quantity 
+Notes 
+Man 
+power 
+Mechanics 
+3 
+With radios. At least 
+one person is 
+qualified as an 
+operator.  
+Supervisor 
+1 
+With radio 
+Tools 
+Duster cloth 
+Some 
+For cleaning 
+Chisel 
+1 
+ 
+Torque 
+wrench 
+1 
+ 
+Wrench 
+As 
+required 
+M16,M20,M24,M30 
+Hemp rope 
+Some 
+According to the 
+length 
+of 
+rope 
+re-reeving. 
+Dia: ~20mm 
+1 ～2t chain 
+block 
+2 
+ 
+Mat board 
+1 
+Circular, Dia: 80mm
+Rubbers, 
+wood 
+plate, 
+wear-resistant 
+block, etc. 
+Some 
+ 

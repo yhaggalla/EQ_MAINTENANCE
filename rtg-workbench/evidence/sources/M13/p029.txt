@@ -1,0 +1,92 @@
+ 
+27
+ 
+ 
+13.3.2.1.2 Observe the Crane’s condition and stop operation after any abnormal 
+condition is found. 
+ 
+13.3.2.1.3 After operation has been completed, the Crane shall be stopped at the 
+correct position and it should be confirmed that there is no abnormal condition. 
+ 
+13.3.2.1.4 Before starting operation 
+ 
+No. 
+Inspection Items 
+Inspection method 
+1 
+Obstruction within traveling range and the load 
+traveling path 
+Visual 
+2 
+Oil leaking on spreader 
+Visual 
+3 
+Obstruction on trolley rail track 
+Visual 
+4 
+Wire rope jumping off the drum or sheave or contact 
+of the rope with any obstruction 
+Visual 
+5 
+Lack of lubrication in wire rope, strand breakage, 
+loosening of clamp bolts 
+Visual 
+6 
+Inspection of brake pads 
+Visual 
+7 
+Remedied condition of the defects found on previous 
+day 
+Activation 
+8 
+Inspection of brake 
+Starting 
+9 
+Various instrument panels and indicator lamps 
+Starting 
+10 
+Activation of various operation joysticks and button 
+switches 
+Starting 
+11 
+Activation of major limit switches (main hoist, trolley
+Spreader) 
+Starting 
+ 
+13.3.2.1.5 During operation  
+ 
+No. 
+Inspection Items 
+Inspection method 
+1 
+Abnormal sound, heating, vibration 
+Visual 
+2 
+Abnormal current, voltage 
+Visual 
+3 
+Activation of the spreader 
+Visual 
+ 
+13.3.2.1.6 After operation 
+ 
+No. 
+Inspection Items 
+Inspection method 
+1. 
+Inspection of spreader 
+Visual 
+1.1 
+Deformation and fracture of base frame 
+Visual 
+1.2 
+Hydraulic oil level 
+Visual 
+ 
+No. 
+Inspection Items 
+Inspection method 
+1.3 
+Deformation and fracture of twistlock pins and 
+flippers 
+Visual 

@@ -1,0 +1,2000 @@
+[
+  {
+    "equipmentId": "RTG-SYNTHETIC-A",
+    "modelVersion": 1,
+    "equipmentModelCode": "CICT-ZP12-1874-RTG-PROVISIONAL",
+    "dataOrigin": "developmentFixture",
+    "activation": "standalone-test-only",
+    "entries": [
+      {
+        "nodeKey": "structure.girder.rear",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/structure.girder.rear"
+      },
+      {
+        "nodeKey": "trolley.rail.rear",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "021"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/trolley.rail.rear"
+      },
+      {
+        "nodeKey": "trolley.buffer.rear.left",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "021"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/trolley.buffer.rear.left"
+      },
+      {
+        "nodeKey": "trolley.buffer.rear.right",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "021"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/trolley.buffer.rear.right"
+      },
+      {
+        "nodeKey": "structure.girder.front",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/structure.girder.front"
+      },
+      {
+        "nodeKey": "trolley.rail.front",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "021"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/trolley.rail.front"
+      },
+      {
+        "nodeKey": "trolley.buffer.front.left",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "021"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/trolley.buffer.front.left"
+      },
+      {
+        "nodeKey": "trolley.buffer.front.right",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "021"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/trolley.buffer.front.right"
+      },
+      {
+        "nodeKey": "structure.sill.left",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/structure.sill.left"
+      },
+      {
+        "nodeKey": "structure.leg.left.rear",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/structure.leg.left.rear"
+      },
+      {
+        "nodeKey": "structure.leg.left.front",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/structure.leg.left.front"
+      },
+      {
+        "nodeKey": "structure.brace.left",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/structure.brace.left"
+      },
+      {
+        "nodeKey": "structure.sill.right",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/structure.sill.right"
+      },
+      {
+        "nodeKey": "structure.leg.right.rear",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/structure.leg.right.rear"
+      },
+      {
+        "nodeKey": "structure.leg.right.front",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/structure.leg.right.front"
+      },
+      {
+        "nodeKey": "structure.brace.right",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/structure.brace.right"
+      },
+      {
+        "nodeKey": "gantry.equalizer.left.rear",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "041"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/gantry.equalizer.left.rear"
+      },
+      {
+        "nodeKey": "gantry.steering.left.rear",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "043"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/gantry.steering.left.rear"
+      },
+      {
+        "nodeKey": "gantry.turn.left.rear",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "045"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/gantry.turn.left.rear"
+      },
+      {
+        "nodeKey": "gantry.tyre.left.rear.outer",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "044"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/gantry.tyre.left.rear.outer"
+      },
+      {
+        "nodeKey": "gantry.drive.left.rear",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "041"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/gantry.drive.left.rear"
+      },
+      {
+        "nodeKey": "gantry.chain.left.rear",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "047"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/gantry.chain.left.rear"
+      },
+      {
+        "nodeKey": "gantry.tyre.left.rear.inner",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "044"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/gantry.tyre.left.rear.inner"
+      },
+      {
+        "nodeKey": "gantry.equalizer.left.front",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "041"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/gantry.equalizer.left.front"
+      },
+      {
+        "nodeKey": "gantry.steering.left.front",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "043"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/gantry.steering.left.front"
+      },
+      {
+        "nodeKey": "gantry.turn.left.front",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "045"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/gantry.turn.left.front"
+      },
+      {
+        "nodeKey": "gantry.tyre.left.front.inner",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "044"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/gantry.tyre.left.front.inner"
+      },
+      {
+        "nodeKey": "gantry.tyre.left.front.outer",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "044"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/gantry.tyre.left.front.outer"
+      },
+      {
+        "nodeKey": "gantry.drive.left.front",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "041"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/gantry.drive.left.front"
+      },
+      {
+        "nodeKey": "gantry.chain.left.front",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "047"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/gantry.chain.left.front"
+      },
+      {
+        "nodeKey": "gantry.equalizer.right.rear",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "041"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/gantry.equalizer.right.rear"
+      },
+      {
+        "nodeKey": "gantry.steering.right.rear",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "043"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/gantry.steering.right.rear"
+      },
+      {
+        "nodeKey": "gantry.turn.right.rear",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "045"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/gantry.turn.right.rear"
+      },
+      {
+        "nodeKey": "gantry.tyre.right.rear.outer",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "044"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/gantry.tyre.right.rear.outer"
+      },
+      {
+        "nodeKey": "gantry.drive.right.rear",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "041"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/gantry.drive.right.rear"
+      },
+      {
+        "nodeKey": "gantry.chain.right.rear",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "047"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/gantry.chain.right.rear"
+      },
+      {
+        "nodeKey": "gantry.tyre.right.rear.inner",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "044"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/gantry.tyre.right.rear.inner"
+      },
+      {
+        "nodeKey": "gantry.equalizer.right.front",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "041"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/gantry.equalizer.right.front"
+      },
+      {
+        "nodeKey": "gantry.steering.right.front",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "043"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/gantry.steering.right.front"
+      },
+      {
+        "nodeKey": "gantry.turn.right.front",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "045"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/gantry.turn.right.front"
+      },
+      {
+        "nodeKey": "gantry.tyre.right.front.inner",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "044"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/gantry.tyre.right.front.inner"
+      },
+      {
+        "nodeKey": "gantry.tyre.right.front.outer",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "044"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/gantry.tyre.right.front.outer"
+      },
+      {
+        "nodeKey": "gantry.drive.right.front",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "041"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/gantry.drive.right.front"
+      },
+      {
+        "nodeKey": "gantry.chain.right.front",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "047"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/gantry.chain.right.front"
+      },
+      {
+        "nodeKey": "trolley.frame.main",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "021"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/trolley.frame.main"
+      },
+      {
+        "nodeKey": "access.trolley.platforms",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/access.trolley.platforms"
+      },
+      {
+        "nodeKey": "trolley.wheel.left.rear",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "021"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/trolley.wheel.left.rear"
+      },
+      {
+        "nodeKey": "trolley.guide.left.rear",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "021"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/trolley.guide.left.rear"
+      },
+      {
+        "nodeKey": "trolley.drive.a",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "021"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/trolley.drive.a"
+      },
+      {
+        "nodeKey": "trolley.wheel.left.front",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "021"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/trolley.wheel.left.front"
+      },
+      {
+        "nodeKey": "trolley.guide.left.front",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "021"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/trolley.guide.left.front"
+      },
+      {
+        "nodeKey": "trolley.wheel.right.rear",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "021"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/trolley.wheel.right.rear"
+      },
+      {
+        "nodeKey": "trolley.guide.right.rear",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "021"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/trolley.guide.right.rear"
+      },
+      {
+        "nodeKey": "trolley.wheel.right.front",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "021"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/trolley.wheel.right.front"
+      },
+      {
+        "nodeKey": "trolley.guide.right.front",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "021"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/trolley.guide.right.front"
+      },
+      {
+        "nodeKey": "trolley.drive.b",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "021"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/trolley.drive.b"
+      },
+      {
+        "nodeKey": "hoist.drum.main",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "011"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/hoist.drum.main"
+      },
+      {
+        "nodeKey": "hoist.bearings.main",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "011"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/hoist.bearings.main"
+      },
+      {
+        "nodeKey": "hoist.reducer.main",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "011"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/hoist.reducer.main"
+      },
+      {
+        "nodeKey": "hoist.motor.main",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "011"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/hoist.motor.main"
+      },
+      {
+        "nodeKey": "hoist.brake.a",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "011"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/hoist.brake.a"
+      },
+      {
+        "nodeKey": "hoist.brake.b",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "011"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/hoist.brake.b"
+      },
+      {
+        "nodeKey": "headblock.frame.main",
+        "kind": "position",
+        "classification": {
+          "main": "06",
+          "sub": "062"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/headblock.frame.main"
+      },
+      {
+        "nodeKey": "spreader.frame.main",
+        "kind": "position",
+        "classification": {
+          "main": "06",
+          "sub": "061"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/spreader.frame.main"
+      },
+      {
+        "nodeKey": "spreader.telescopic.rear",
+        "kind": "position",
+        "classification": {
+          "main": "06",
+          "sub": "061"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/spreader.telescopic.rear"
+      },
+      {
+        "nodeKey": "spreader.corner.left.rear",
+        "kind": "position",
+        "classification": {
+          "main": "06",
+          "sub": "061"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/spreader.corner.left.rear"
+      },
+      {
+        "nodeKey": "spreader.corner.right.rear",
+        "kind": "position",
+        "classification": {
+          "main": "06",
+          "sub": "061"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/spreader.corner.right.rear"
+      },
+      {
+        "nodeKey": "spreader.telescopic.front",
+        "kind": "position",
+        "classification": {
+          "main": "06",
+          "sub": "061"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/spreader.telescopic.front"
+      },
+      {
+        "nodeKey": "spreader.corner.left.front",
+        "kind": "position",
+        "classification": {
+          "main": "06",
+          "sub": "061"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/spreader.corner.left.front"
+      },
+      {
+        "nodeKey": "spreader.corner.right.front",
+        "kind": "position",
+        "classification": {
+          "main": "06",
+          "sub": "061"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/spreader.corner.right.front"
+      },
+      {
+        "nodeKey": "headblock.adjustment.main",
+        "kind": "position",
+        "classification": {
+          "main": "11",
+          "sub": "111"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/headblock.adjustment.main"
+      },
+      {
+        "nodeKey": "reeving.sheave.fall-1",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/reeving.sheave.fall-1"
+      },
+      {
+        "nodeKey": "reeving.rope.route-1",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/reeving.rope.route-1"
+      },
+      {
+        "nodeKey": "reeving.sheave.guide-1",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/reeving.sheave.guide-1"
+      },
+      {
+        "nodeKey": "reeving.sheave.fall-2",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/reeving.sheave.fall-2"
+      },
+      {
+        "nodeKey": "reeving.rope.route-2",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/reeving.rope.route-2"
+      },
+      {
+        "nodeKey": "reeving.sheave.guide-2",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/reeving.sheave.guide-2"
+      },
+      {
+        "nodeKey": "reeving.sheave.fall-3",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/reeving.sheave.fall-3"
+      },
+      {
+        "nodeKey": "reeving.rope.route-3",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/reeving.rope.route-3"
+      },
+      {
+        "nodeKey": "reeving.sheave.guide-3",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/reeving.sheave.guide-3"
+      },
+      {
+        "nodeKey": "reeving.sheave.fall-4",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/reeving.sheave.fall-4"
+      },
+      {
+        "nodeKey": "reeving.rope.route-4",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/reeving.rope.route-4"
+      },
+      {
+        "nodeKey": "reeving.sheave.guide-4",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/reeving.sheave.guide-4"
+      },
+      {
+        "nodeKey": "reeving.sheave.fall-5",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/reeving.sheave.fall-5"
+      },
+      {
+        "nodeKey": "reeving.rope.route-5",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/reeving.rope.route-5"
+      },
+      {
+        "nodeKey": "reeving.sheave.fall-6",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/reeving.sheave.fall-6"
+      },
+      {
+        "nodeKey": "reeving.rope.route-6",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/reeving.rope.route-6"
+      },
+      {
+        "nodeKey": "reeving.sheave.fall-7",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/reeving.sheave.fall-7"
+      },
+      {
+        "nodeKey": "reeving.rope.route-7",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/reeving.rope.route-7"
+      },
+      {
+        "nodeKey": "reeving.sheave.fall-8",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/reeving.sheave.fall-8"
+      },
+      {
+        "nodeKey": "reeving.rope.route-8",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/reeving.rope.route-8"
+      },
+      {
+        "nodeKey": "cabin.shell.main",
+        "kind": "position",
+        "classification": {
+          "main": "14",
+          "sub": "141"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/cabin.shell.main"
+      },
+      {
+        "nodeKey": "cabin.interior.main",
+        "kind": "position",
+        "classification": {
+          "main": "14",
+          "sub": "141"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/cabin.interior.main"
+      },
+      {
+        "nodeKey": "access.stair.main",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/access.stair.main"
+      },
+      {
+        "nodeKey": "access.walkway.girders",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/access.walkway.girders"
+      },
+      {
+        "nodeKey": "electrical.room.shell",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/electrical.room.shell"
+      },
+      {
+        "nodeKey": "access.electrical-room.platform",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/access.electrical-room.platform"
+      },
+      {
+        "nodeKey": "electrical.drives.area",
+        "kind": "hotspot",
+        "classification": {
+          "main": "07",
+          "sub": "071"
+        },
+        "subInstanceId": "RTG-SYNTHETIC-A/sub/071"
+      },
+      {
+        "nodeKey": "electrical.plc.area",
+        "kind": "hotspot",
+        "classification": {
+          "main": "08",
+          "sub": "081"
+        },
+        "subInstanceId": "RTG-SYNTHETIC-A/sub/081"
+      },
+      {
+        "nodeKey": "electrical.control.area",
+        "kind": "hotspot",
+        "classification": {
+          "main": "05",
+          "sub": "051"
+        },
+        "subInstanceId": "RTG-SYNTHETIC-A/sub/051"
+      },
+      {
+        "nodeKey": "auxiliary.aircon.electrical",
+        "kind": "hotspot",
+        "classification": {
+          "main": "15",
+          "sub": "152"
+        },
+        "subInstanceId": "RTG-SYNTHETIC-A/sub/152"
+      },
+      {
+        "nodeKey": "auxiliary.room.shell",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/auxiliary.room.shell"
+      },
+      {
+        "nodeKey": "access.power-room.platform",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/access.power-room.platform"
+      },
+      {
+        "nodeKey": "auxiliary.engine.area",
+        "kind": "hotspot",
+        "classification": {
+          "main": "09",
+          "sub": "091"
+        },
+        "subInstanceId": "RTG-SYNTHETIC-A/sub/091"
+      },
+      {
+        "nodeKey": "auxiliary.generator.area",
+        "kind": "hotspot",
+        "classification": {
+          "main": "09",
+          "sub": "092"
+        },
+        "subInstanceId": "RTG-SYNTHETIC-A/sub/092"
+      },
+      {
+        "nodeKey": "auxiliary.battery.area",
+        "kind": "hotspot",
+        "classification": {
+          "main": "09",
+          "sub": "094"
+        },
+        "subInstanceId": "RTG-SYNTHETIC-A/sub/094"
+      },
+      {
+        "nodeKey": "auxiliary.aircon.power",
+        "kind": "hotspot",
+        "classification": {
+          "main": "09",
+          "sub": "093"
+        },
+        "subInstanceId": "RTG-SYNTHETIC-A/sub/093"
+      },
+      {
+        "nodeKey": "trolley-drive.energy-chain.main",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "023"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/trolley-drive.energy-chain.main"
+      },
+      {
+        "nodeKey": "auxiliary.floodlight.trolley",
+        "kind": "position",
+        "classification": {
+          "main": "13",
+          "sub": "131"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/auxiliary.floodlight.trolley"
+      }
+    ],
+    "history": [
+      {
+        "id": "RTG-SYNTHETIC-A/event/1",
+        "positionId": "RTG-SYNTHETIC-A/position/gantry.tyre.left.front.outer",
+        "date": "2026-10-20",
+        "summary": "Synthetic tyre replacement record A",
+        "synthetic": true
+      }
+    ]
+  },
+  {
+    "equipmentId": "RTG-SYNTHETIC-B",
+    "modelVersion": 1,
+    "equipmentModelCode": "CICT-ZP12-1874-RTG-PROVISIONAL",
+    "dataOrigin": "developmentFixture",
+    "activation": "standalone-test-only",
+    "entries": [
+      {
+        "nodeKey": "structure.girder.rear",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/structure.girder.rear"
+      },
+      {
+        "nodeKey": "trolley.rail.rear",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "021"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/trolley.rail.rear"
+      },
+      {
+        "nodeKey": "trolley.buffer.rear.left",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "021"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/trolley.buffer.rear.left"
+      },
+      {
+        "nodeKey": "trolley.buffer.rear.right",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "021"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/trolley.buffer.rear.right"
+      },
+      {
+        "nodeKey": "structure.girder.front",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/structure.girder.front"
+      },
+      {
+        "nodeKey": "trolley.rail.front",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "021"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/trolley.rail.front"
+      },
+      {
+        "nodeKey": "trolley.buffer.front.left",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "021"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/trolley.buffer.front.left"
+      },
+      {
+        "nodeKey": "trolley.buffer.front.right",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "021"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/trolley.buffer.front.right"
+      },
+      {
+        "nodeKey": "structure.sill.left",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/structure.sill.left"
+      },
+      {
+        "nodeKey": "structure.leg.left.rear",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/structure.leg.left.rear"
+      },
+      {
+        "nodeKey": "structure.leg.left.front",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/structure.leg.left.front"
+      },
+      {
+        "nodeKey": "structure.brace.left",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/structure.brace.left"
+      },
+      {
+        "nodeKey": "structure.sill.right",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/structure.sill.right"
+      },
+      {
+        "nodeKey": "structure.leg.right.rear",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/structure.leg.right.rear"
+      },
+      {
+        "nodeKey": "structure.leg.right.front",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/structure.leg.right.front"
+      },
+      {
+        "nodeKey": "structure.brace.right",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/structure.brace.right"
+      },
+      {
+        "nodeKey": "gantry.equalizer.left.rear",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "041"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/gantry.equalizer.left.rear"
+      },
+      {
+        "nodeKey": "gantry.steering.left.rear",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "043"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/gantry.steering.left.rear"
+      },
+      {
+        "nodeKey": "gantry.turn.left.rear",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "045"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/gantry.turn.left.rear"
+      },
+      {
+        "nodeKey": "gantry.tyre.left.rear.outer",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "044"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/gantry.tyre.left.rear.outer"
+      },
+      {
+        "nodeKey": "gantry.drive.left.rear",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "041"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/gantry.drive.left.rear"
+      },
+      {
+        "nodeKey": "gantry.chain.left.rear",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "047"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/gantry.chain.left.rear"
+      },
+      {
+        "nodeKey": "gantry.tyre.left.rear.inner",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "044"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/gantry.tyre.left.rear.inner"
+      },
+      {
+        "nodeKey": "gantry.equalizer.left.front",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "041"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/gantry.equalizer.left.front"
+      },
+      {
+        "nodeKey": "gantry.steering.left.front",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "043"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/gantry.steering.left.front"
+      },
+      {
+        "nodeKey": "gantry.turn.left.front",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "045"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/gantry.turn.left.front"
+      },
+      {
+        "nodeKey": "gantry.tyre.left.front.inner",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "044"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/gantry.tyre.left.front.inner"
+      },
+      {
+        "nodeKey": "gantry.tyre.left.front.outer",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "044"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/gantry.tyre.left.front.outer"
+      },
+      {
+        "nodeKey": "gantry.drive.left.front",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "041"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/gantry.drive.left.front"
+      },
+      {
+        "nodeKey": "gantry.chain.left.front",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "047"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/gantry.chain.left.front"
+      },
+      {
+        "nodeKey": "gantry.equalizer.right.rear",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "041"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/gantry.equalizer.right.rear"
+      },
+      {
+        "nodeKey": "gantry.steering.right.rear",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "043"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/gantry.steering.right.rear"
+      },
+      {
+        "nodeKey": "gantry.turn.right.rear",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "045"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/gantry.turn.right.rear"
+      },
+      {
+        "nodeKey": "gantry.tyre.right.rear.outer",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "044"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/gantry.tyre.right.rear.outer"
+      },
+      {
+        "nodeKey": "gantry.drive.right.rear",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "041"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/gantry.drive.right.rear"
+      },
+      {
+        "nodeKey": "gantry.chain.right.rear",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "047"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/gantry.chain.right.rear"
+      },
+      {
+        "nodeKey": "gantry.tyre.right.rear.inner",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "044"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/gantry.tyre.right.rear.inner"
+      },
+      {
+        "nodeKey": "gantry.equalizer.right.front",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "041"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/gantry.equalizer.right.front"
+      },
+      {
+        "nodeKey": "gantry.steering.right.front",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "043"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/gantry.steering.right.front"
+      },
+      {
+        "nodeKey": "gantry.turn.right.front",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "045"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/gantry.turn.right.front"
+      },
+      {
+        "nodeKey": "gantry.tyre.right.front.inner",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "044"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/gantry.tyre.right.front.inner"
+      },
+      {
+        "nodeKey": "gantry.tyre.right.front.outer",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "044"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/gantry.tyre.right.front.outer"
+      },
+      {
+        "nodeKey": "gantry.drive.right.front",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "041"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/gantry.drive.right.front"
+      },
+      {
+        "nodeKey": "gantry.chain.right.front",
+        "kind": "position",
+        "classification": {
+          "main": "04",
+          "sub": "047"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/gantry.chain.right.front"
+      },
+      {
+        "nodeKey": "trolley.frame.main",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "021"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/trolley.frame.main"
+      },
+      {
+        "nodeKey": "access.trolley.platforms",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/access.trolley.platforms"
+      },
+      {
+        "nodeKey": "trolley.wheel.left.rear",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "021"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/trolley.wheel.left.rear"
+      },
+      {
+        "nodeKey": "trolley.guide.left.rear",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "021"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/trolley.guide.left.rear"
+      },
+      {
+        "nodeKey": "trolley.drive.a",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "021"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/trolley.drive.a"
+      },
+      {
+        "nodeKey": "trolley.wheel.left.front",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "021"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/trolley.wheel.left.front"
+      },
+      {
+        "nodeKey": "trolley.guide.left.front",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "021"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/trolley.guide.left.front"
+      },
+      {
+        "nodeKey": "trolley.wheel.right.rear",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "021"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/trolley.wheel.right.rear"
+      },
+      {
+        "nodeKey": "trolley.guide.right.rear",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "021"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/trolley.guide.right.rear"
+      },
+      {
+        "nodeKey": "trolley.wheel.right.front",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "021"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/trolley.wheel.right.front"
+      },
+      {
+        "nodeKey": "trolley.guide.right.front",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "021"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/trolley.guide.right.front"
+      },
+      {
+        "nodeKey": "trolley.drive.b",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "021"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/trolley.drive.b"
+      },
+      {
+        "nodeKey": "hoist.drum.main",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "011"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/hoist.drum.main"
+      },
+      {
+        "nodeKey": "hoist.bearings.main",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "011"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/hoist.bearings.main"
+      },
+      {
+        "nodeKey": "hoist.reducer.main",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "011"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/hoist.reducer.main"
+      },
+      {
+        "nodeKey": "hoist.motor.main",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "011"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/hoist.motor.main"
+      },
+      {
+        "nodeKey": "hoist.brake.a",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "011"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/hoist.brake.a"
+      },
+      {
+        "nodeKey": "hoist.brake.b",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "011"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/hoist.brake.b"
+      },
+      {
+        "nodeKey": "headblock.frame.main",
+        "kind": "position",
+        "classification": {
+          "main": "06",
+          "sub": "062"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/headblock.frame.main"
+      },
+      {
+        "nodeKey": "spreader.frame.main",
+        "kind": "position",
+        "classification": {
+          "main": "06",
+          "sub": "061"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/spreader.frame.main"
+      },
+      {
+        "nodeKey": "spreader.telescopic.rear",
+        "kind": "position",
+        "classification": {
+          "main": "06",
+          "sub": "061"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/spreader.telescopic.rear"
+      },
+      {
+        "nodeKey": "spreader.corner.left.rear",
+        "kind": "position",
+        "classification": {
+          "main": "06",
+          "sub": "061"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/spreader.corner.left.rear"
+      },
+      {
+        "nodeKey": "spreader.corner.right.rear",
+        "kind": "position",
+        "classification": {
+          "main": "06",
+          "sub": "061"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/spreader.corner.right.rear"
+      },
+      {
+        "nodeKey": "spreader.telescopic.front",
+        "kind": "position",
+        "classification": {
+          "main": "06",
+          "sub": "061"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/spreader.telescopic.front"
+      },
+      {
+        "nodeKey": "spreader.corner.left.front",
+        "kind": "position",
+        "classification": {
+          "main": "06",
+          "sub": "061"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/spreader.corner.left.front"
+      },
+      {
+        "nodeKey": "spreader.corner.right.front",
+        "kind": "position",
+        "classification": {
+          "main": "06",
+          "sub": "061"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/spreader.corner.right.front"
+      },
+      {
+        "nodeKey": "headblock.adjustment.main",
+        "kind": "position",
+        "classification": {
+          "main": "11",
+          "sub": "111"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/headblock.adjustment.main"
+      },
+      {
+        "nodeKey": "reeving.sheave.fall-1",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/reeving.sheave.fall-1"
+      },
+      {
+        "nodeKey": "reeving.rope.route-1",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/reeving.rope.route-1"
+      },
+      {
+        "nodeKey": "reeving.sheave.guide-1",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/reeving.sheave.guide-1"
+      },
+      {
+        "nodeKey": "reeving.sheave.fall-2",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/reeving.sheave.fall-2"
+      },
+      {
+        "nodeKey": "reeving.rope.route-2",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/reeving.rope.route-2"
+      },
+      {
+        "nodeKey": "reeving.sheave.guide-2",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/reeving.sheave.guide-2"
+      },
+      {
+        "nodeKey": "reeving.sheave.fall-3",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/reeving.sheave.fall-3"
+      },
+      {
+        "nodeKey": "reeving.rope.route-3",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/reeving.rope.route-3"
+      },
+      {
+        "nodeKey": "reeving.sheave.guide-3",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/reeving.sheave.guide-3"
+      },
+      {
+        "nodeKey": "reeving.sheave.fall-4",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/reeving.sheave.fall-4"
+      },
+      {
+        "nodeKey": "reeving.rope.route-4",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/reeving.rope.route-4"
+      },
+      {
+        "nodeKey": "reeving.sheave.guide-4",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/reeving.sheave.guide-4"
+      },
+      {
+        "nodeKey": "reeving.sheave.fall-5",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/reeving.sheave.fall-5"
+      },
+      {
+        "nodeKey": "reeving.rope.route-5",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/reeving.rope.route-5"
+      },
+      {
+        "nodeKey": "reeving.sheave.fall-6",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/reeving.sheave.fall-6"
+      },
+      {
+        "nodeKey": "reeving.rope.route-6",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/reeving.rope.route-6"
+      },
+      {
+        "nodeKey": "reeving.sheave.fall-7",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/reeving.sheave.fall-7"
+      },
+      {
+        "nodeKey": "reeving.rope.route-7",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/reeving.rope.route-7"
+      },
+      {
+        "nodeKey": "reeving.sheave.fall-8",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/reeving.sheave.fall-8"
+      },
+      {
+        "nodeKey": "reeving.rope.route-8",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "015"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/reeving.rope.route-8"
+      },
+      {
+        "nodeKey": "cabin.shell.main",
+        "kind": "position",
+        "classification": {
+          "main": "14",
+          "sub": "141"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/cabin.shell.main"
+      },
+      {
+        "nodeKey": "cabin.interior.main",
+        "kind": "position",
+        "classification": {
+          "main": "14",
+          "sub": "141"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/cabin.interior.main"
+      },
+      {
+        "nodeKey": "access.stair.main",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/access.stair.main"
+      },
+      {
+        "nodeKey": "access.walkway.girders",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/access.walkway.girders"
+      },
+      {
+        "nodeKey": "electrical.room.shell",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/electrical.room.shell"
+      },
+      {
+        "nodeKey": "access.electrical-room.platform",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/access.electrical-room.platform"
+      },
+      {
+        "nodeKey": "electrical.drives.area",
+        "kind": "hotspot",
+        "classification": {
+          "main": "07",
+          "sub": "071"
+        },
+        "subInstanceId": "RTG-SYNTHETIC-B/sub/071"
+      },
+      {
+        "nodeKey": "electrical.plc.area",
+        "kind": "hotspot",
+        "classification": {
+          "main": "08",
+          "sub": "081"
+        },
+        "subInstanceId": "RTG-SYNTHETIC-B/sub/081"
+      },
+      {
+        "nodeKey": "electrical.control.area",
+        "kind": "hotspot",
+        "classification": {
+          "main": "05",
+          "sub": "051"
+        },
+        "subInstanceId": "RTG-SYNTHETIC-B/sub/051"
+      },
+      {
+        "nodeKey": "auxiliary.aircon.electrical",
+        "kind": "hotspot",
+        "classification": {
+          "main": "15",
+          "sub": "152"
+        },
+        "subInstanceId": "RTG-SYNTHETIC-B/sub/152"
+      },
+      {
+        "nodeKey": "auxiliary.room.shell",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/auxiliary.room.shell"
+      },
+      {
+        "nodeKey": "access.power-room.platform",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/access.power-room.platform"
+      },
+      {
+        "nodeKey": "auxiliary.engine.area",
+        "kind": "hotspot",
+        "classification": {
+          "main": "09",
+          "sub": "091"
+        },
+        "subInstanceId": "RTG-SYNTHETIC-B/sub/091"
+      },
+      {
+        "nodeKey": "auxiliary.generator.area",
+        "kind": "hotspot",
+        "classification": {
+          "main": "09",
+          "sub": "092"
+        },
+        "subInstanceId": "RTG-SYNTHETIC-B/sub/092"
+      },
+      {
+        "nodeKey": "auxiliary.battery.area",
+        "kind": "hotspot",
+        "classification": {
+          "main": "09",
+          "sub": "094"
+        },
+        "subInstanceId": "RTG-SYNTHETIC-B/sub/094"
+      },
+      {
+        "nodeKey": "auxiliary.aircon.power",
+        "kind": "hotspot",
+        "classification": {
+          "main": "09",
+          "sub": "093"
+        },
+        "subInstanceId": "RTG-SYNTHETIC-B/sub/093"
+      },
+      {
+        "nodeKey": "trolley-drive.energy-chain.main",
+        "kind": "position",
+        "classification": {
+          "main": "02",
+          "sub": "023"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/trolley-drive.energy-chain.main"
+      },
+      {
+        "nodeKey": "auxiliary.floodlight.trolley",
+        "kind": "position",
+        "classification": {
+          "main": "13",
+          "sub": "131"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/auxiliary.floodlight.trolley"
+      }
+    ],
+    "history": [
+      {
+        "id": "RTG-SYNTHETIC-B/event/1",
+        "positionId": "RTG-SYNTHETIC-B/position/gantry.tyre.left.front.outer",
+        "date": "2026-10-18",
+        "summary": "Synthetic inspection record B; no replacement",
+        "synthetic": true
+      }
+    ]
+  }
+]

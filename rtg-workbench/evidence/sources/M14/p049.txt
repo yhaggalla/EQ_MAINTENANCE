@@ -1,0 +1,99 @@
+ 
+ 
+Chapter 3
+ 
+ 
+10 
+ 
+3.3.3.3. 
+Bolt fastening and replacing process 
+A. Fastening process of the general blots 
+(excluding the high strength bolts for structure) 
+during the first installation or replacement. 
+1) 
+Ensure the washer be planished and clean 
+without oil dirt and burr。 
+2) 
+Clean the connecting surface of the structure 
+and washer and ensure the surface be smooth. 
+3) 
+Clean the bolts and nuts. 
+4) 
+Set well the washer and ensure the inclined 
+plane touch the bolt head or the nut.  
+5) 
+An initial tension of 75% of the final tension 
+shall be developed. To ensure the flange bolts 
+load equally, fasten the blots in the order from 
+the rigid joint to free end or form the center of 
+the bolt group to around. If the connection steel 
+plate warps and the connecting bolts are 
+fastened from the two ends to the middle, the 
+middle of splice plate may plumps up and can 
+not keep closely which will make friction 
+forces lose partly. For detailed fastening 
+process refer to Figure 3-. Make marks on the 
+large hexagon head and high strength bolts to 
+identify their first fastening to avoid missing.  
+6) 
+Finally fasten the blots to 100% required 
+torque. The fastening order is similar to the 
+first one. Generally use two kinds of color to 
+distinguish the first and final fastening.     
+B. Replacement of the high strength bolts for 
+structure（flange connection） 
+1) 
+To ensure the same torque factor, the bolts 
+replaced one time should be the same batch 
+products. 
+2) 
+Ensure the bolts be enough in quantity, have 
+the correct strength degree and tightening 
+torque. Revise the torque wrench repetitiously 
+before using. 
+3) 
+Ensure the washer be planished and clean 
+without oil dirt and burr。 
+4) 
+Clean the joint surface of the structure and 
+washer and ensure the surface be smooth. 
+5) 
+Clean the bolts and nuts. 
+6) 
+Use a new bolt to replace the old one which 
+marked to be replaced and an initial tension of 
+75% of the final tension shall be developed 
+immediately. Pay attention that there should be 
+only one bolt to be lossened and disconnected 
+at anytime. Ensure the blots to be replaced and 
+fastened one by one. 
+7) 
+The old bolts being taken down should be 
+destroyed purposely to prevent from using 
+again. 
+8) 
+After all the bolts being replaced, the final 
+tension shall be taken to all the new bolts in the 
+order shown in Figure 3-. 
+ 
+Figure 3-7：Fastening order of the flange 
+bolts 
+3.3.4 
+Anti-loosing methods for bolts 
+It is very important to adopt some methods to 
+prevent bolts from loosing. If the bolts are loosened, the 
+structure strength will be reduced and the downfallen 
+bolts will bring danger to persons. Table 3-6： lists the 
+main anti-loosening methods for the bolts used on the 
+container crane. 
+3.3.5 
+Pin connection 
+Pins shall be well greased prior to each installation. After 
+the installation, this process is to be repeated at all 
+accessible spots of the pin. 
+ 
+If snag rings are used to secure pins, the snap 
+rings must only be mounted once. 
+ 
+New snap rings shall be used after a 
+dismounting of the pins. 

@@ -1,0 +1,623 @@
+{
+  "base": "HEAD",
+  "baseAsset": {
+    "sha256": "177f9dadbc4f27eac921f434589ea249158e2d5bbc23047b6b57a50705dee01a",
+    "bytes": 1714480,
+    "nodes": 180
+  },
+  "revised": {
+    "revision": 3,
+    "sha256": "fe35835e9608c07a9eb57a9fa89a4e1ec65ec5baada87c6d8edf72730e54869b",
+    "bytes": 2196484,
+    "nodes": 180
+  },
+  "summary": {
+    "added": 0,
+    "removed": 0,
+    "changed": 37,
+    "identityChanges": 0
+  },
+  "note": "Draft v1 revised in place (no binding active). Keys, kinds, classification and instancing of existing nodes are unchanged unless listed; bounds changes are geometry corrections.",
+  "added": [],
+  "removed": [],
+  "changed": [
+    {
+      "key": "container.girder",
+      "boundsChanged": true
+    },
+    {
+      "key": "trolley.cable-system.main",
+      "boundsChanged": true,
+      "label": [
+        "Trolley cable transport / sliding-contact system (location approximate)",
+        "Trolley cable transport / sliding-contact system (representative festoon carriages; location approximate)"
+      ],
+      "hotspot": [
+        [
+          -20,
+          49.7,
+          0
+        ],
+        [
+          -20,
+          49.7,
+          -3.15
+        ],
+        "marker",
+        "simplified-part"
+      ]
+    },
+    {
+      "key": "container.back-reach",
+      "boundsChanged": true
+    },
+    {
+      "key": "access.platform.girder-tail",
+      "boundsChanged": true,
+      "label": [
+        "Girder-tail end platform, handrails and ladder",
+        "Girder-tail platforms (upper tail platform, lower end platform) with stairs and handrails"
+      ]
+    },
+    {
+      "key": "access.walkway.girder-boom",
+      "boundsChanged": true
+    },
+    {
+      "key": "container.boom",
+      "boundsChanged": true
+    },
+    {
+      "key": "auxiliary.lighting.boom",
+      "parentKey": [
+        "container.boom",
+        null
+      ],
+      "boundsChanged": true,
+      "label": [
+        "Boom/girder floodlights (location approximate)",
+        "Boom and girder floodlights (20 fittings; count and positions estimated)"
+      ],
+      "hotspot": [
+        [
+          40,
+          49.9,
+          0
+        ],
+        [
+          5,
+          50,
+          0
+        ],
+        "marker",
+        "simplified-part"
+      ],
+      "modes": [
+        [
+          "technical"
+        ],
+        [
+          "overall",
+          "technical"
+        ]
+      ]
+    },
+    {
+      "key": "container.a-frame",
+      "boundsChanged": true
+    },
+    {
+      "key": "structure.a-frame.head",
+      "boundsChanged": true,
+      "label": [
+        "A-frame head and apex",
+        "A-frame head, apex platform and sheave guard frame"
+      ]
+    },
+    {
+      "key": "boom.sheave.apex",
+      "boundsChanged": true,
+      "label": [
+        "Apex boom-hoist sheaves",
+        "Apex boom-hoist sheaves (guide sheaves and fall-sheave groups)"
+      ]
+    },
+    {
+      "key": "access.stair.a-frame",
+      "boundsChanged": true
+    },
+    {
+      "key": "emergency.drive.main",
+      "boundsChanged": true,
+      "label": [
+        "Emergency hoist drive (37 kW; location approximate)",
+        "Emergency hoist drive (37 kW motor and FH220 reducer; position approximate)"
+      ],
+      "hotspot": [
+        [
+          -39.5,
+          55.6,
+          0.85
+        ],
+        [
+          -39.5,
+          55.6,
+          0.85
+        ],
+        "marker",
+        "simplified-part"
+      ]
+    },
+    {
+      "key": "container.electrical-room",
+      "boundsChanged": true
+    },
+    {
+      "key": "electrical.drives.main",
+      "boundsChanged": true,
+      "label": [
+        "Drive / inverter cabinets (location approximate)",
+        "Drive / inverter cabinets (cabinet section shown; which bays not established)"
+      ],
+      "hotspot": [
+        [
+          -37,
+          55.7,
+          -5.65
+        ],
+        [
+          -37,
+          54.1,
+          -5.65
+        ],
+        "marker",
+        "simplified-part"
+      ]
+    },
+    {
+      "key": "electrical.plc.main",
+      "boundsChanged": true,
+      "label": [
+        "PLC cabinet (location approximate)",
+        "PLC cabinet (cabinet bay shown; which bay not established)"
+      ],
+      "hotspot": [
+        [
+          -35,
+          55.7,
+          -7.4
+        ],
+        [
+          -35,
+          54.1,
+          -7.4
+        ],
+        "marker",
+        "simplified-part"
+      ]
+    },
+    {
+      "key": "electrical.control-power.main",
+      "boundsChanged": true,
+      "label": [
+        "Control power (location approximate)",
+        "Control power cabinet (cabinet bay shown; which bay not established)"
+      ],
+      "hotspot": [
+        [
+          -39.4,
+          55.7,
+          -7.4
+        ],
+        [
+          -39.4,
+          54.1,
+          -7.4
+        ],
+        "marker",
+        "simplified-part"
+      ]
+    },
+    {
+      "key": "auxiliary.air-conditioning.electrical-room",
+      "boundsChanged": true,
+      "label": [
+        "Electrical-room air conditioning (location approximate)",
+        "Electrical-room air conditioning (wall unit shown; location approximate)"
+      ],
+      "hotspot": [
+        [
+          -41.6,
+          57.2,
+          -6.55
+        ],
+        [
+          -41.85,
+          57.15,
+          -6.55
+        ],
+        "marker",
+        "simplified-part"
+      ]
+    },
+    {
+      "key": "container.trolley",
+      "boundsChanged": true
+    },
+    {
+      "key": "cabin.air-conditioning",
+      "boundsChanged": true,
+      "label": [
+        "Cabin air conditioning (location approximate)",
+        "Cabin air conditioning unit (location from the plan, size approximate)"
+      ],
+      "hotspot": [
+        [
+          64,
+          48.699999999999996,
+          0.75
+        ],
+        [
+          64,
+          48.11,
+          0.75
+        ],
+        "marker",
+        "simplified-part"
+      ],
+      "modes": [
+        [
+          "technical"
+        ],
+        [
+          "overall",
+          "technical"
+        ]
+      ]
+    },
+    {
+      "key": "trolley.skew-system.main",
+      "boundsChanged": true,
+      "label": [
+        "Trim/list/skew system (location approximate; J526A1000 device at the girder tail)",
+        "Trim/list/skew hydraulic power unit (position approximate; J526A1000 device at the girder tail)"
+      ],
+      "hotspot": [
+        [
+          -57.300000000000004,
+          55.599999999999994,
+          0
+        ],
+        [
+          -57.5,
+          52.9,
+          -1.3
+        ],
+        "marker",
+        "simplified-part"
+      ],
+      "modes": [
+        [
+          "technical"
+        ],
+        [
+          "overall",
+          "technical"
+        ]
+      ]
+    },
+    {
+      "key": "hoist.loadcell.main",
+      "parentKey": [
+        "container.trolley",
+        "container.boom"
+      ],
+      "boundsChanged": true,
+      "label": [
+        "Load cell system (location not established; marker at trolley for navigation)",
+        "Load cell system (load pins in the main hoist rope-end anchors at the boom tip; hardware not identified on the sheets)"
+      ],
+      "hotspot": [
+        [
+          68.5,
+          53.62,
+          -1.8
+        ],
+        [
+          74.05000000000001,
+          52.779999999999994,
+          0
+        ],
+        "marker",
+        "simplified-part"
+      ]
+    },
+    {
+      "key": "trolley.tension.main",
+      "boundsChanged": true,
+      "label": [
+        "Trolley rope tensioning (location approximate; tensioners at the girder-tail end)",
+        "Trolley rope tensioning cylinders (position approximate; tensioners at the girder-tail end)"
+      ],
+      "hotspot": [
+        [
+          -59,
+          53.3,
+          0
+        ],
+        [
+          -60.1,
+          52.86999999999999,
+          0
+        ],
+        "marker",
+        "simplified-part"
+      ],
+      "modes": [
+        [
+          "technical"
+        ],
+        [
+          "overall",
+          "technical"
+        ]
+      ]
+    },
+    {
+      "key": "container.headblock-spreader",
+      "boundsChanged": true
+    },
+    {
+      "key": "spreader.twistlock.a-ws",
+      "boundsChanged": true,
+      "hotspot": [
+        [
+          70.97,
+          44.9,
+          5.946
+        ],
+        [
+          70.97,
+          44.9,
+          5.946
+        ],
+        "marker",
+        "simplified-part"
+      ],
+      "modes": [
+        [
+          "technical"
+        ],
+        [
+          "overall",
+          "technical"
+        ]
+      ]
+    },
+    {
+      "key": "spreader.twistlock.a-ls",
+      "boundsChanged": true,
+      "hotspot": [
+        [
+          69.03,
+          44.9,
+          5.946
+        ],
+        [
+          69.03,
+          44.9,
+          5.946
+        ],
+        "marker",
+        "simplified-part"
+      ],
+      "modes": [
+        [
+          "technical"
+        ],
+        [
+          "overall",
+          "technical"
+        ]
+      ]
+    },
+    {
+      "key": "spreader.twistlock.b-ws",
+      "boundsChanged": true,
+      "hotspot": [
+        [
+          70.97,
+          44.9,
+          -5.946
+        ],
+        [
+          70.97,
+          44.9,
+          -5.946
+        ],
+        "marker",
+        "simplified-part"
+      ],
+      "modes": [
+        [
+          "technical"
+        ],
+        [
+          "overall",
+          "technical"
+        ]
+      ]
+    },
+    {
+      "key": "spreader.twistlock.b-ls",
+      "boundsChanged": true,
+      "hotspot": [
+        [
+          69.03,
+          44.9,
+          -5.946
+        ],
+        [
+          69.03,
+          44.9,
+          -5.946
+        ],
+        "marker",
+        "simplified-part"
+      ],
+      "modes": [
+        [
+          "technical"
+        ],
+        [
+          "overall",
+          "technical"
+        ]
+      ]
+    },
+    {
+      "key": "boom.rope.set.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom.sheave.boom-block",
+      "boundsChanged": true,
+      "label": [
+        "Boom hoist sheave blocks on the boom",
+        "Boom hoist sheave blocks on the boom (Z2 and Z3)"
+      ]
+    },
+    {
+      "key": "gantry.wheel-brake.ws-a",
+      "boundsChanged": true,
+      "hotspot": [
+        [
+          0.7,
+          1.4,
+          7.9
+        ],
+        [
+          0.55,
+          1.2,
+          7.9
+        ],
+        "marker",
+        "simplified-part"
+      ],
+      "modes": [
+        [
+          "technical"
+        ],
+        [
+          "overall",
+          "technical"
+        ]
+      ]
+    },
+    {
+      "key": "gantry.wheel-brake.ws-b",
+      "boundsChanged": true,
+      "hotspot": [
+        [
+          0.7,
+          1.4,
+          -7.9
+        ],
+        [
+          0.55,
+          1.2,
+          -7.9
+        ],
+        "marker",
+        "simplified-part"
+      ],
+      "modes": [
+        [
+          "technical"
+        ],
+        [
+          "overall",
+          "technical"
+        ]
+      ]
+    },
+    {
+      "key": "gantry.wheel-brake.ls-a",
+      "boundsChanged": true,
+      "hotspot": [
+        [
+          -29.3,
+          1.4,
+          7.9
+        ],
+        [
+          -29.45,
+          1.2,
+          7.9
+        ],
+        "marker",
+        "simplified-part"
+      ],
+      "modes": [
+        [
+          "technical"
+        ],
+        [
+          "overall",
+          "technical"
+        ]
+      ]
+    },
+    {
+      "key": "gantry.wheel-brake.ls-b",
+      "boundsChanged": true,
+      "hotspot": [
+        [
+          -29.3,
+          1.4,
+          -7.9
+        ],
+        [
+          -29.45,
+          1.2,
+          -7.9
+        ],
+        "marker",
+        "simplified-part"
+      ],
+      "modes": [
+        [
+          "technical"
+        ],
+        [
+          "overall",
+          "technical"
+        ]
+      ]
+    },
+    {
+      "key": "container.access",
+      "boundsChanged": true
+    },
+    {
+      "key": "access.stair.landside-leg-b",
+      "boundsChanged": true
+    },
+    {
+      "key": "access.elevator.mast",
+      "boundsChanged": true,
+      "label": [
+        "Elevator mast (rack and supports)",
+        "Elevator mast (rack, ties to leg B) and landing platforms"
+      ]
+    },
+    {
+      "key": "access.elevator.car",
+      "boundsChanged": true,
+      "label": [
+        "Elevator car (shown at the first landing)",
+        "Elevator car and drive unit (shown at the first landing)"
+      ]
+    }
+  ]
+}

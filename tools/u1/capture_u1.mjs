@@ -8,7 +8,8 @@ import { fileURLToPath } from 'node:url';
 import { launch } from '../p03/cdp.mjs';
 
 const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
-const out = path.join(repo, 'docs', 'evidence', 'U1', 'repair', 'screenshots');
+// U1 round 2: --out DIR (default unchanged) so round-2 screenshots go to their own evidence folder
+const out = process.argv.includes('--out') ? path.resolve(repo, process.argv[process.argv.indexOf('--out') + 1]) : path.join(repo, 'docs', 'evidence', 'U1', 'repair', 'screenshots');
 fs.mkdirSync(out, { recursive: true });
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const b = await launch({ gpu: 'hardware', port: 9357 });
@@ -17,7 +18,7 @@ const shot = async (name, note) => { const f = path.join(out, name + '.png'); aw
 const p02 = async (hash, w = 1920, h = 1080, role = 'eqTeam') => { await b.viewport(w, h, w < 600); b.clearEvents(); await b.goto(`http://127.0.0.1:5312/?role=${role}#${hash}`); await sleep(1400); };
 const p03 = async (q) => { await b.viewport(1920, 1080); b.clearEvents(); await b.goto('http://127.0.0.1:5313/' + q); for (let i = 0; i < 60; i++) { if (await b.eval('!!window.__qcTiming')) break; await sleep(250); } await sleep(1200); };
 const clickLabel3d = async (re) => {
-  const r = await b.eval(`(()=>{const e=[...document.querySelectorAll('.qc-label')].find(x=>${re}.test(x.textContent)); if(!e) return null; const q=e.getBoundingClientRect(); return JSON.stringify({x:q.left+q.width/2,y:q.top+q.height/2})})()`);
+  const r = await b.eval(`(()=>{const e=[...document.querySelectorAll('.qc-label')].find(x=>${re}.test(x.textContent.replace(/^[\u2190-\u2199]/,''))); if(!e) return null; const q=e.getBoundingClientRect(); return JSON.stringify({x:q.left+q.width/2,y:q.top+q.height/2})})()`);
   if (!r) return false; const { x, y } = JSON.parse(r);
   await b.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x, y });
   await b.send('Input.dispatchMouseEvent', { type: 'mousePressed', x, y, button: 'left', buttons: 1, clickCount: 1 });
@@ -47,5 +48,5 @@ await p03('?eq=eq-qc-demo-01'); await b.eval(`document.querySelector('#btn-iso')
 await p03('?eq=eq-qc-demo-01&main=mi-q01-11&view=side'); await shot('p03-07-aligned-side-fit', 'U1-C05: aligned side view with the selection (11 Skew system at the girder tail) fitted; pan and wheel zoom work');
 await p03('?eq=eq-qc-demo-01&view=top'); await shot('p03-08-aligned-top', 'U1-C05: plan view');
 await b.close();
-fs.writeFileSync(path.join(repo, 'docs', 'evidence', 'U1', 'repair', 'capture-log-u1.json'), JSON.stringify({ browser: b.browser, items: log }, null, 2) + '\n');
+fs.writeFileSync(path.join(out, '..', path.basename(out) === 'screenshots' ? 'capture-log-u1.json' : 'capture-log-' + path.basename(out) + '.json'), JSON.stringify({ browser: b.browser, items: log }, null, 2) + '\n');
 console.log(log.length + ' screenshots; errors: ' + log.filter((l) => l.errors.length).map((l) => l.name).join(', '));

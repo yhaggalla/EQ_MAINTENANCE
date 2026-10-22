@@ -1,0 +1,75 @@
+ 
+ 
+Chapter 3
+ 
+ 
+2 
+ 
+3.1. General 
+Crane Maintenance is composed of Inspection, 
+Routine Maintenance and Repair. This Chapter 
+basically expands upon the operating maintenance and 
+routine inspection of the crane. 
+The inspection and routine maintenance is used to 
+check whether the crane is in a safe state and to place the 
+crane into a condition where a high confidence of reliable 
+operation can be developed. The main work of the 
+inspection and routine maintenance includes cleanliness, 
+lubrication, fastening and connections, spot-check and 
+periodic inspection. 
+It is basically a visual inspection and some 
+functional/detective tests. If, in doing so, an adequate 
+assessment is not possible, a disassembly of crane parts 
+has to be undertaken to get access to the hidden parts. 
+Chapter 4 “The repair Instructions” will illustrate crane 
+repair procedures in detail on components which need 
+disassembly and disengagement. 
+The cautions and instructions about inspection and 
+maintenance are outlined, aiming at giving a general idea 
+on how to carry out an inspection and a routine 
+maintenance. 
+Inspection of cleanliness 
+Inspection of fasteners and connections 
+Inspection of concentricity (alignment) periodically 
+Inspection of lubrication 
+Inspection and preventive actions 
+In 
+addition 
+to 
+this 
+maintenance 
+manual, 
+all 
+subcontractors have manuals for their own components. 
+To maintain such components, please refer to their 
+manuals. The list of these manuals is in Table 3-1 as 
+follows.  
+ 
+Table 3-1： Manual from 
+Subcontractors（Mechanical Part） 
+Reducer 
+ZPMC(G)/SEW(H/T) 
+Genetator 
+CAT 
+Zhongyuan 
+Motor 
+Brakes 
+ZPMC 
+Drum coupling 
+ZPMC 
+Motor coupling 
+ZPMC 
+Headblock  
+ZPMC 
+Spreader 
+BROMMA 
+Power Chain system 
+IGUS 
+RTG hybrid power system 
+ZPMC 
+Wire rope 
+TOKYO 
+Tyre 
+SIMEX 
+Energy chain 
+IGUS 

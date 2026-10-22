@@ -1,0 +1,66 @@
+ 
+33
+ 
+ 
+13.5.2.4 Select appropriate lubrication materials and lubricate according to the 
+specified schedule. 
+ 
+13.5.2.5 Lubrication shall be carried out when Crane power is off. 
+ 
+13.5.2.6 For revolving parts without grease fitting, the oil-can shall be used to drip 
+oil into the clearance for reducing wear and prevention of rusting. 
+ 
+13.5.2.7 Periodically check quality of oil where components and parts are 
+lubricated through oil bath. 
+ 
+13.5.2.8 For grease lubricated points, the old grease shall be discharged as much as 
+possible and then the fresh grease may be added. 
+ 
+13.5.3 Crane lubrication schedule 
+ 
+Note:  The user may carry out frequent maintenance and inspection in accordance 
+with his effective practice or the local regulations to ensure the Crane’s normal 
+operation. 
+Crane Lubrication Schedule 
+Item 
+Description 
+Lubrication 
+period 
+Lubrication 
+type 
+Suggestion 
+Lubrication 
+material 
+1 
+All 
+wire 
+ropes 
+Normally 
+15~30 days 
+Smear the grease to 
+the rope 
+Compound 
+sodium-based 
+graphite lubricant 
+ 
+2 
+Main Hoist 
+reducer 
+Self-lubricated 
+Oil bath 
+gear lubricant ISO 
+VG460 
+Brand: Shell Omala 
+Capacity:800Lx1 
+ 
+3 
+Trolley 
+reducer 
+Self-lubricated 
+Oil bath 
+gear lubricant ISO 
+VG320 
+Brand:Shell Omala 
+Capacity:35Lx2 
+ 
+ 

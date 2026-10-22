@@ -1,0 +1,74 @@
+ 
+ 
+   Chapter 4 
+ 
+ 
+36 
+ 
+4.8.1 Preparations 
+Sheaves are part of main hoist mechanism, have 2 
+arrangements which are 4 ropes and 8 ropes. Sheave 
+constitution is shown in Figure 4-149, 4-150, before 
+replacement understand the drawing for the sheave 
+composition (错误！未找到引用源。). Personnel and tools 
+requirements needed are show in 错误！未找到引用源。. 
+Table 4-123 sheave drawings for refer 
+sheaves on trolley 
+JL2200603，ZMHL760 
+sheaves on spreader 
+ZMHL760 
+ Table 4-14 personnel and tools for sheave 
+replacement 
+personnel/quantity 
+tools/quantity 
+lifting worker 
+1 
+hand chain block 
+2 (0.5t) 
+mechanic 
+worker 
+2 
+other mechanic 
+tools 
+some 
+electric worker 
+1 
+torque wrench 
+1 
+ 
+ 
+Figure4-149 actual picture of sheave 
+ 
+1
+2
+ 
+3 
+ 
+ 
+4 
+Figure4-150 assembly drawing of sheave 
+1end cover
+2seal 
+3 bearing 
+4 sheave 
+ 
+ 
+ 
+ 
+4.8.2 Replacement procedure 
+For 4 ropes type sheaves shown in Figure 4-151, there are 
+4 sheaves on trolley, and 4 sheaves on spreader. The 
+spreader could be laid down to ground, it is easy to replace 
+sheaves. 
+ 
+Figure4-151 4 rope type trolley sheaves 
+For 8 rope type trolley sheave, totally 12 sheaves are all 
+arranged on trolley, shown in Figure4-152.  There are no 
+sheaves on spreader. 
+ 
+Figure4-122 8 rope type sheaves 
+ 
+Replacement procedure of sheave on trolley: 
+Stop trolley at rest position. 
+Confirm the sheaves and sheave shafts need replacement, 
+move the lift crane to the side of RTG, or move RTG to the 

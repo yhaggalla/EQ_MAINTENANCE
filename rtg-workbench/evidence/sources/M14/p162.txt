@@ -1,0 +1,101 @@
+ 
+ 
+       Chapter  6 
+ 
+ 
+6 
+  
+ 
+6.2.4.3 BRUSH OR ROLLER APPLICATION 
+1) All welds, which cannot be properly spray 
+coated shall be brush or stripe coated with the same 
+coating before applying successive spray operation. 
+2) Brushes shall be of a style and quality that will 
+enable proper application of the coating. 
+3) Brushing shall be done so that a smooth coat 
+even in thickness will be obtained. When applying HB 
+coatings with a brush, two coats may be required to 
+achieve the specified DFT. 
+6.2.4.4 APPLICATION OF INORGANIC ZINC 
+PRIMER 
+1) Inorganic zinc may be applied by either 
+conventional spray application (air spray) or airless 
+spray application.  If airless spray is to be used, 
+frequent checks must be taken for the wearing of the 
+parts to ensure proper operation. Inorganic zinc shall 
+be continuously mixed during the application by 
+mechanical agitation. 
+2) The minimum dry film thickness of inorganic 
+zinc primer shall be 75 microns. In order to prevent 
+mud cracking, do not apply over 130 microns.  The 
+defective coating (mud cracking) needs to be removed 
+by blasting and the area recoated to the specified 
+thickness. Frequent checks of the film thickness must 
+be made and immediate action must be taken should 
+low DFT be observed. 
+3) The applicator shall avoid situations where 
+overlapping of inorganic zinc will be necessary. The 
+blast preparation of the uncoated area shall be brought 
+into the existing inorganic-zinc. If the inorganic-zinc 
+has been exposed to the environment and has formed 
+salts or become contaminated, it should be washed 
+with high-pressure fresh water prior to blast cleaning. 
+4) Zinc salts as a result of the weathering of 
+inorganic zinc primer should be removed with a fresh 
+water jet before the application of subsequent coatings. 
+5) When inorganic zinc is over coated with an 
+organic epoxy intermediate, it may be necessary to 
+apply a mist coat of the organic epoxy before applying 
+a full coat. This will help reduce substantially the 
+amount of gassing associated with over coating 
+inorganic zinc with epoxies. 
+6.2.4.5 APPLICATION OF EXTERIOR 
+INTERMEDIATE COAT 
+1) When the inorganic zinc coating has been 
+inspected and accepted, carry out general a cleaning by 
+means of dry and clean compressed air blowing 
+method or other methods.  The cleaned surface must 
+be dry and free of dust, oil, etc. 
+2) Carry out stripe coating on all corners, welding 
+seams, sharp edges, hidden areas, etc. by brush 
+application. 
+3) At the allowed recoating interval, apply the 
+ZP842 by airless spray, using the mist coat spraying 
+technique on top of the inorganic zinc surface and then 
+build up the required dry film thickness of 125 
+microns as indicated in painting system table 2. 
+6.2.4.6 APPLICATION OF EXTERIOR TOP COAT 
+1) When the intermediate coating has been 
+inspected and accepted, carry out a general cleaning by 
+means of dry and clean compressed air blowing 
+method or other methods.  The cleaned surface must 
+be dry and free of dust, oil, etc.    
+2) Carry out stripe coating on all corners, welding 
+seams, sharp edges, hidden areas, etc. by brush 
+application. 
+3) At the allowed recoating interval, apply the 
+ZP135 by airless spray with a dry film thickness 50 
+microns as indicated in painting system table 2. 
+6.2.4.7 APPLICATION OF INTERIOR PRIMER/TOP 
+COAT 
+1) When the surface preparation has been 
+inspected and accepted, carry out a general cleaning by 
+means of dry and clean compressed air blowing 
+method or other methods.  The cleaned surface must 
+be dry and free of dust, oil, etc. 
+2) Carry out stripe coating on all corners, welding 
+seams, sharp edges, hidden areas, etc. by brush 
+application. 
+3) Apply the ZP842 by airless spray with dry film 
+thickness 125 microns as indicated in painting system 
+table 3. 
+6.2.5 INSPECTION 
+1) All work should be subjected to inspection. 
+The inspectors shall be given advance notice prior to 
+the start of surface preparation or coating application 
+so that they can witness the work. 
+2) Work shall not proceed without the approval of 
+the inspectors of each inspection hold points defined 
+below. The inspector shall ensure that all necessary 
+inspections are carried out at each hold point. The 
+inspection hold points are as follows 

@@ -1,0 +1,47 @@
+ 
+36
+ 
+The most common trouble with the sheave and drum is wear of the rope grooves . 
+The reason is that during no-load running the wire ropes in the grooves are 
+slackened and when operation with load is started the wire ropes are tensioned 
+and press the rope grooves with a certain pressure. Therefore, during hoisting or 
+lowering slip between the wire rope and the groove of sheave and drum occurs. In 
+addition, since the wire rope has a sharp angle to the rope groove the rope groove 
+is seriously worn at its tip. The sheave and / or drum shall not be used any longer 
+if cracks are found or the grooves are worn to the permitted limit. Seriously worn 
+grooves may make the rope jump out of the groove, and the broken rim of the 
+sheave may damage the wire rope or jam the rope and finally result in breakage of 
+the rope. 
+ 
+13.6.1.2 Trouble in the steel structure  
+ 
+The quality of the Crane structure directly affects Crane safety. Once the structure 
+is damaged. A serious accident may occur. Therefore, the Crane steel structure is 
+designed to meet the strength, rigidity and stability requirements. 
+ 
+If cracks appear in the welds, the Crane may not be operated normally and safe 
+production may be affected. 
+ 
+13.6.1.3 Trouble in the Electrical Part 
+ 
+Motors are required to have great mechanical strength and high overload 
+capability. They are subject to frequent mechanical vibration and shock and they 
+shall have small moment of inertia to be started and braked rapidly. There should 
+not be any noise due to friction, any shrill sound or other noise during motor 
+running, and they should be stopped for repairs if these noises appear. Water and 
+oil shall not be dripped into the motor during operation. The troubles with the 
+motor mainly are disabling of starting, high temperature rise and that the power 
+can not reach rated value during running with load. 
+ 
+Electrical equipment is a more complicated part of the Crane, and it is easily 
+affected by shock and vibration, especially in an ambiance of high temperature, 
+dust, and high humidity. Failure of the electrical equipment results not only in 
+stopping of production but also accidents 
+ 
+Electrical equipment on a Crane includes motors, electrical magnet, controls, 
+resistors and other components such as conductors, slip ring devices and various 
+control circuits. For details refer to the Electrical Operation Manual. 
+ 
+13.6.1.4 Trouble in the Hydraulic System 
+ 
+Trouble in the hydraulic system that commonly happen during operation are 

@@ -1,0 +1,2270 @@
+[
+  {
+    "path": ".agents/skills/eq-phase/SKILL.md",
+    "sha256": "AC8FD75DD125095C33577E7F6A1B7AEFEECC9DA0DDFEFBBD415BA817F02DFEEB"
+  },
+  {
+    "path": ".codex/agents/eq-build-opus-high.toml",
+    "sha256": "096C0CABCFF108E65F970BA73A801962698FA951E08DFD3FCD19597A339BB5F8"
+  },
+  {
+    "path": ".codex/agents/eq-build-opus-xhigh.toml",
+    "sha256": "0E979EDDE8AEFA45C1B22C3FD91E0DC92364120BB13AEC2248BB0B47DDC74413"
+  },
+  {
+    "path": ".codex/agents/eq-build-sonnet-high.toml",
+    "sha256": "93164ACE98534C4FFA5733E940794305E19F23CE231CF708C9EC34614617DD9E"
+  },
+  {
+    "path": ".codex/agents/eq-build-sonnet-medium.toml",
+    "sha256": "D4EF496EB8658179F1A3A5FC7242E5AB555C9489550AE97064A1877F9B4F9621"
+  },
+  {
+    "path": ".codex/agents/eq-review-opus-high.toml",
+    "sha256": "4AAEEF0CCC5BACAE529D10DD1932131EF4624964CA3C44030F280E42E8B7FB18"
+  },
+  {
+    "path": ".codex/agents/eq-review-opus-xhigh.toml",
+    "sha256": "0BCE5F26BE14C48035D16F3D4B7ACE859EFD5BA1C976542EF6978F12C0751863"
+  },
+  {
+    "path": ".codex/config.toml",
+    "sha256": "6FA529D6D9150CAD35C0CBEE9CB8B7BCB338CBFBAB4C827C1E0CA9D68BF26059"
+  },
+  {
+    "path": "AGENTS.md",
+    "sha256": "0852A2F1163D64B1507E61FE9AC1FAD4F7FA25FB46BB4B2A6D73B2476F2D8338"
+  },
+  {
+    "path": "RTG drawings/user manual (mechanical part).pdf",
+    "sha256": "C1BB5305A98B2516AB85DA4FDEC89DD2403AB7D6C91C3AFE0774A2D9E32C0D85"
+  },
+  {
+    "path": "RTG drawings/user manual for CICT 40 RTGs (mechanical).pdf",
+    "sha256": "962F3DE6AFB7E7B80EAE34EAFC6265B84FC0BE867121A88C8D8E9BA8C10F08C5"
+  },
+  {
+    "path": "artifacts/u1r2-captures/model-end-ls.png",
+    "sha256": "80128E8F880C3B40A44D9CADBF287538504702F9EA95349BFA1034D07095C556"
+  },
+  {
+    "path": "artifacts/u1r2-captures/model-end-ws.png",
+    "sha256": "F293C01E33EC061B83D1306D0FD0AD534FDFEE5D5981159C62D85A141A6C3886"
+  },
+  {
+    "path": "artifacts/u1r2-captures/model-persp-backreach.png",
+    "sha256": "FB54999EAFDE1877E7AB5680A16F5A61138B45B47B31BC58084C3CF3ED287176"
+  },
+  {
+    "path": "artifacts/u1r2-captures/model-persp-cab-closeup.png",
+    "sha256": "73364A3DA23D279D9A5913F3EBCA4008D6662435F2DEBEE8B72813263D452F1C"
+  },
+  {
+    "path": "artifacts/u1r2-captures/model-persp-house-closeup.png",
+    "sha256": "3C63A76C5C4F478ED7A10C5CBB501095C3DAA4212F14EA454310F1CB4E9B388C"
+  },
+  {
+    "path": "artifacts/u1r2-captures/model-persp-house-technical.png",
+    "sha256": "85A0EC51F645ADC2D6DE9E2BFC0C4B753808B63900EBC6740868892DAA6EA8A5"
+  },
+  {
+    "path": "artifacts/u1r2-captures/model-persp-logo-endwall.png",
+    "sha256": "CB1DF5D46F24B9A27AE5F7137DECC56DFE5237AD71760ABCBF368C83D52C4A7C"
+  },
+  {
+    "path": "artifacts/u1r2-captures/model-persp-overall.png",
+    "sha256": "CABB3B5CEFF5EF0D719C4EB6538F9AE4D9EABE8DC8B8E1B2C68A7357F47E4A56"
+  },
+  {
+    "path": "artifacts/u1r2-captures/model-persp-photo-angle-u1.png",
+    "sha256": "58D69A316415BAE5EB0B0D44D36C721797DFD82D04C79905718A41FE3A4CCE62"
+  },
+  {
+    "path": "artifacts/u1r2-captures/model-persp-photo-angle.png",
+    "sha256": "607F20D14B4D01A611B258D80C3D379CA2491A2F56AA61D7BC0ECCF531B67390"
+  },
+  {
+    "path": "artifacts/u1r2-captures/model-persp-stair-tower.png",
+    "sha256": "BE6FF47322C7DDA8ABFA0E6F4939EA82EEA710B9DEE2F592BFA324B3A90F7BD5"
+  },
+  {
+    "path": "artifacts/u1r2-captures/model-persp-technical.png",
+    "sha256": "E73BEF1CFB8B2C6A648EB29C74D64B2D05CF0F6CF3FBA85CEF2CFB4356127665"
+  },
+  {
+    "path": "artifacts/u1r2-captures/model-persp-trolley-closeup.png",
+    "sha256": "D6B83A7655010068FA4A0D59232697CEFF6F6AB24D6D9A3A6A1D9A5311DB1C06"
+  },
+  {
+    "path": "artifacts/u1r2-captures/model-side.png",
+    "sha256": "89C80C1ED64EBF263FCAF4013E88362797AEF33446B51A1B778A6A4D6485EDAC"
+  },
+  {
+    "path": "artifacts/u1r2-captures/model-top.png",
+    "sha256": "B40BE55796F9327599CD68188577D4E27A855E67861BF9999415A06308067012"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2-20261022.md",
+    "sha256": "02E747F541BCFC6E72024D390EA3EF7F70F1AB42C0340345E7B9EC0BA1D73F17"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/binding-validation.json",
+    "sha256": "2CB0306A32BAACB055D8CC8C2A30222CE4175E5EFE6C6EA0A87933A2A4D406EA"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/capture-log-3d.json",
+    "sha256": "D107D0A384B30C4A7E59A4F8BBF089EAEF99D5B6F86C02A51124A19315A657F5"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/capture-log-closeups.json",
+    "sha256": "FB88FB7CB7ABE73B63C8998D1C29588894382BEA2072DF93F00C4DD9B99485A6"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/capture-log-ui.json",
+    "sha256": "58369D995535067F95E0F9B41D74690BC94420200BEC79EE49537EAE05708FD7"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/closeups/c12-loadcell-boom-tip.png",
+    "sha256": "8BEBCD5BFDFF7B298B430B1696EE174313F155A62ECAEC9359328839577BDAD9"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/closeups/c13-girder-tail-from-below.png",
+    "sha256": "A9C3BCFAE5879A152395BD4A9AA35AB9CDB8708A0441F19A14A9E1A08B36B21B"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/closeups/c13-girder-tail-platforms.png",
+    "sha256": "4BB75FC29C5E6AA66F632A2FB8F9867A5EC2C400FF5D605ECD9FDF9753348785"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/closeups/c14-apex-landside.png",
+    "sha256": "E942DFFBA3D98CEB4B8B95D5EE65CD98CF21B2675F2F9F72686CF71C47687597"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/closeups/c14-apex-waterside.png",
+    "sha256": "F9D0B81725BB9A7DBC9C38A23B38571F5243FC2FB81B687163218B7CA2AFFC5F"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/closeups/c14-boom-blocks.png",
+    "sha256": "0DEC4B355D495883E51749B4792B1BE9FC47CA27C4DA09F05EE44464074C7422"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/closeups/c15-floodlights-boom.png",
+    "sha256": "20E5230993AFB06EAFEBC8BCF25D9D8CEF46834E1E2A51FEDC75A8525FB23547"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/closeups/c15-floodlights-overview.png",
+    "sha256": "538E1180069551863C87598B8202600283FB03EB62E2793F0ED577B01257EDEE"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/closeups/c16-cab-ac.png",
+    "sha256": "084BE3E8EDC5D8FE64BB29F73A7A6F33C0C1E1CE57B29F376775733A6B65276D"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/closeups/c16-cable-carriages.png",
+    "sha256": "6BE5F45C665DF55F851029F3EFFC17B316878B66AD727FDBFC75FC026BD70B4F"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/closeups/c16-elevator-landside.png",
+    "sha256": "219E08AF83FCE7A8EA11DFB3FE48D4106927124E7BBC89BAF1298F3C2FE0E1A2"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/closeups/c16-elevator-top.png",
+    "sha256": "EC1CAC5770559076CE5356F6496F257618CA748F374CF277EE17A193299C1B1B"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/closeups/c16-gantry-wheel-brake.png",
+    "sha256": "6D8246BBAD27009D78C3A1F0CC1EDC8B8C32F28B2B6C22EBB6F1226D840345FC"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/closeups/c16-house-cabinets.png",
+    "sha256": "5F6D20A3BE5F3C8CE8AD0E7E29BD128D0211D152B49EA7CD3FFFCCA424ED009D"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/closeups/c16-spreader-corners.png",
+    "sha256": "C47837D03CED85234165D50E30204CE84F43C7E312C4D64143E2EDF8F3D4220C"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/closeups/c16-tail-hpu-tension.png",
+    "sha256": "A9FADF6EA902567E10AE7E0B0C7D207DB7FF1BA47D6B95C6F1869DE9A43DF528"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/closeups/overall-perspective.png",
+    "sha256": "D8FDA04AB8328EC3316A3D21CCF7F36A6D1005D78C29D34060EE4077DB46D938"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/closeups/technical-perspective.png",
+    "sha256": "FFC7F697095A55FF63DB98E19DC168B1F64AD8BEC22D4EBD967826EFD8E92D55"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/comparison/end-ls-overlay.png",
+    "sha256": "3C17A7C6915795FD834FDF6C3C0B2F53FC91910AE3B65CB8FD2704150E23072D"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/comparison/end-ls-pair.png",
+    "sha256": "81167E261D4CA506202EF32976FE47DE677E851B3D3569AA41105FE8A3A49E57"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/comparison/end-ws-overlay.png",
+    "sha256": "2083E8A83F7B791F0164531276C8150473CA2ED565B9FC50635AC47B15ABCE84"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/comparison/end-ws-pair.png",
+    "sha256": "4CBC2165867C7D6A17B8478BF7A6EAFA429BCD48C7762C4C14A01789FFFAB663"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/comparison/persp-overall.png",
+    "sha256": "A6234454B60A553046199A18A51C2A170292BA2E87C7C9254AEE568B4ABB4639"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/comparison/persp-technical.png",
+    "sha256": "E79FFA277CE44B0FED8F162A1E61A8ACE8FB30D27487EAB38087C67CD2CD1860"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/comparison/perspective-photo-pair.png",
+    "sha256": "88A7BD1EB9D6325180268EED73B2D0F7FA2103AFBF060D5E7C1F4875E09DEF03"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/comparison/side-overlay.png",
+    "sha256": "C7DED3B64E139C6317D03D8A72B6165B721BFC67716412C6FEE73B82A8BBFD51"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/comparison/side-pair.png",
+    "sha256": "1D265E15EBD904B85E9B5A397DCF23E5B5C1F4D09784D27CA4EDB599C365D550"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/comparison/site-photo-closeups.png",
+    "sha256": "3E94002511FA70A7AB168E2894FE90DEF454451759B824BE0BE66587D050AD3F"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/comparison/top-overlay.png",
+    "sha256": "0FFEF562ABB8C1F529EAE5DD05417EACF4F2510B17179049CDEB123457C13CDD"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/comparison/top-pair.png",
+    "sha256": "8966C27DD3D106067FC06F21DC83DF171B21BC42C7AB583119A051CBA5F3EAD4"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/model-revision-diff.json",
+    "sha256": "770F86607B02E4F6CF76F418A61510587F9A951CAAFEC3A6905D3484F762E527"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/no-webgl-check.json",
+    "sha256": "32E7CEE2E026F94B0B2B3AD86991F99B14C1FCDD664C6231C69AD0F51464B6C9"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/p02-automated-checks.json",
+    "sha256": "B8A45FDA64EE70C04CCDFEC5C5DD8296FFC4493DD5B512832AE8821FC19F46A5"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/p02-contrast-report.json",
+    "sha256": "9E130ABC833E8C3C47DD9D247F7C7F9A15ED66BE1513214E886F2D2172F7A102"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/p03-browser-checks-hardware.json",
+    "sha256": "D6F24D85279D531AA4EC16C8BAC180D6FB70018F1C5F3E8BF84E57DAF0A69DCB"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/p03-browser-checks-swiftshader.json",
+    "sha256": "48F45E566F3F6B2119C003F99A77C2E1CC1349BA23289FA4D8FED6D6919DB18F"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/registration-validation.json",
+    "sha256": "3E9F361668C981ADC7401AFD5980F1A93CE48F3ED839AF179812E13B597F4799"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/screenshots-3d/01-overall-equipment.png",
+    "sha256": "7B685641C4BFD9E485A4B34BEF4D93D3ECAD1AA2D05FEFC9CD2CCB13C8FE9B1D"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/screenshots-3d/02-main-01-hoist-technical.png",
+    "sha256": "83CFB4FBC6B919FE1A24022D27C57FAF3748D93906138E07C8E5472A4B42D72E"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/screenshots-3d/03-sub-011-hoist-technical.png",
+    "sha256": "6B1345882D3540C7084D8CEA3571D20343BE90D0BE9833213BACB8CB686C43A1"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/screenshots-3d/04-part-motor-a-qc01.png",
+    "sha256": "A9EF4836F7F8EFF48AC8AD90A849F6C88BB4F777D3EE16F0558A3967DCD392B8"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/screenshots-3d/05-part-motor-a-qc02.png",
+    "sha256": "9F000EF68884D20CDD270C6B1E90A0CF8606CBF7D71B8CA7514D062D99C6CA45"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/screenshots-3d/06-container-machinery-house-overall.png",
+    "sha256": "BC4CC2D88924DD35D9B2B5EC8B7EA2B351C859F28663AA4CD1F06225F5CFCA91"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/screenshots-3d/07-technical-isolated-house.png",
+    "sha256": "BE182BC816A345D83E318446E1CDC27069C03089C57FCCAAA4EECD5FA67003D7"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/screenshots-3d/08-technical-transparent-house.png",
+    "sha256": "CC03AC3B35B8D622458A529298B1E73EB4F12D87BD424841AAD98DC8C1B304ED"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/screenshots-3d/09-instanced-gantry-wheel.png",
+    "sha256": "0FE57676BE39C8A05F738B2E4322A4BD7C1755E6D3D67A6E3A73E7B5621C2F54"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/screenshots-3d/10-thin-rope-selection.png",
+    "sha256": "5ACA82CCBBF0C3D4B47632720D9BE5B15BBD382E1152B6585D284ED51ED397E2"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/screenshots-3d/11-spreader-technical.png",
+    "sha256": "63ED6F0FBBCF7FF66A5DB5063DB6953529298522B3E9524393150536FFDC6E06"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/screenshots-3d/12-ui-aligned-end-ws.png",
+    "sha256": "229C4C61EC4FC61BFF027C9BEF7210581CDDE88A48938FF676D9AC6D606A95A5"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/screenshots-3d/12-ui-aligned-side.png",
+    "sha256": "2FBDB68F47CD53CF70610B3B35937296A1161D44BCFD023A6604206C089A7BD0"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/screenshots-3d/12-ui-aligned-top.png",
+    "sha256": "53859EDFA4CCD867D1CA51A5760087B9DD14B57A249C87290FA1E70C43CF1B88"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/screenshots-3d/13-fallback-nowebgl.png",
+    "sha256": "3B1BE3EBA1F212772A9F2EC044C739EDABB5EF58985E087595F6B1B524DB748C"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/screenshots-3d/14-fallback-loadfail.png",
+    "sha256": "DB28B99B44AE2F343BC1707E171695074F0394470B8C0999921904854ED9C25E"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/screenshots-3d/15-layout-1366x768.png",
+    "sha256": "7A18E5140C9EEE1211D7FB91BFFCE6F35EEFD73EF3877A7503EE058975BE8619"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/screenshots-3d/16-layout-phone-390.png",
+    "sha256": "5FA4E1BD7D9FBC4D4A0658F1573DFB64B6066CA73EA746510E337D0F30611A9B"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/screenshots/p02-r2-01-tree-13-lighting.png",
+    "sha256": "FECE392C7AEE80DA80C88407A5E82D9C184312560533CA70B60E3300FD5674EF"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/screenshots/p02-r2-02-tree-17-other-fallback.png",
+    "sha256": "2422B745BAFACA884B4A784A341AC2FEB97790F37A68B892E12FAE49BF1E2472"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/screenshots/p02-r2-03-part-edge-labels.png",
+    "sha256": "E84C3F5B7A543000983205F62532F850A1EB3188420E167419BE2EFA967AE35D"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/screenshots/p02-r2-04-fold-selected-main.png",
+    "sha256": "FF01D5E4EA192192F95F28BF9805849FD3711C31AB0507C546AEA37CDBDD89FC"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/screenshots/p02-r2-05-after-reset.png",
+    "sha256": "D16AFDFCAE5757C55A6EA85EF4D938B15AC793E10C4FCE61A289E92ACDA7595E"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/screenshots/p02-r2-06-loadcell-boom-tip.png",
+    "sha256": "FCFF399194C257A890DF7038DE75B66C3EB80885B022688C3E629A6E4EADF290"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/screenshots/p02-r2-07-elevator.png",
+    "sha256": "B1330BB9A2D934459625DB0781F9D10D01EA323159841622DCFEFBC59A620DF7"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/screenshots/p03-r2-01-tree-13-lighting.png",
+    "sha256": "789E3D50E9ACA75308E409FE6350DAAF6FAA8DAFED960B2ABB2CC1CC4ABC5DD9"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/screenshots/p03-r2-02-part-edge-labels.png",
+    "sha256": "34323FDC2C3A8C0F07DE5EFCE591636C304BF2522D76065BFE83A1B7CF6A7670"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/screenshots/p03-r2-03-fold-selected-main.png",
+    "sha256": "B596EAA4AF59630F49BC05A63ADEBD435F23B696EF33F20C861B6B12C654769C"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/screenshots/p03-r2-04-after-reset.png",
+    "sha256": "DF8688E2A372562A7B3FA5E853D1F2668175B93DC82C6D9210E1857E1A036116"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/screenshots/p03-r2-05-loadcell.png",
+    "sha256": "1F307CD738D25C90DA64DCE1D29B8C26439100D8B4E349A3712F517DFF354BF2"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/screenshots/p03-r2-06-elevator.png",
+    "sha256": "30CABD1A1B7FE38B0ECC5FD48E3203125E36E9F9D11E686671AF97F9CB724E35"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/screenshots/p03-r2-07-spreader-qc02.png",
+    "sha256": "C47AED48DB16BDBE941B33D6FDE526369A66FA8A61808A69DF623A6642C1C88C"
+  },
+  {
+    "path": "docs/evidence/U1/repair-r2/screenshots/real-no-webgl.png",
+    "sha256": "A186EDCFB8B10F4CC619046815FF2AF093102C0F1E74D733AFCE9CD8B69E9C18"
+  },
+  {
+    "path": "docs/runs/Repair-U1r2-20261022-1003.md",
+    "sha256": "0B82AA975965CFC18166FB0AB638A0F1389C67D2E502DD6D7C91975168C65379"
+  },
+  {
+    "path": "documents/ChatGPT Image Oct 21, 2026, 08_43_55 PM.png",
+    "sha256": "77D20003A3DB527FF297C635641F930663FA1A61BA9D3E44D4615774EBC090F3"
+  },
+  {
+    "path": "documents/ChatGPT Image Oct 21, 2026, 08_44_08 PM.png",
+    "sha256": "6BB06A10B05B526AF4CCDF0452DD91DA7E44DFDEB3A0B0CEEEB184F31C4BFB1B"
+  },
+  {
+    "path": "documents/ChatGPT Image Oct 21, 2026, 08_44_14 PM.png",
+    "sha256": "B2E552F9E4BF9C154DCDD4AA31FDBBC0C1D71EA6AA681DF4D06AD3714A4CA0A1"
+  },
+  {
+    "path": "documents/ChatGPT Image Oct 21, 2026, 09_14_28 PM.png",
+    "sha256": "BDE2FFD915477EFF03F8101749D44124A0CC483D1A8B67FC8E0CA63477EE35F7"
+  },
+  {
+    "path": "documents/ChatGPT Image Oct 21, 2026, 09_14_34 PM.png",
+    "sha256": "FF79DA57A9C956DEE896F3112E88C41000C3417D8A3F830089998F7DBAEBED47"
+  },
+  {
+    "path": "documents/ChatGPT Image Oct 21, 2026, 09_14_39 PM.png",
+    "sha256": "100ADDF70A08DE197CF59194489AF6046960D5183CC73C1472598E38C2EBDF24"
+  },
+  {
+    "path": "documents/ChatGPT Image Oct 21, 2026, 09_14_50 PM.png",
+    "sha256": "A052143E46A8142569D1DAACDA98CA79F3576E2DCEA81A00057D1FDA2304941B"
+  },
+  {
+    "path": "documents/ChatGPT Image Oct 21, 2026, 09_15_04 PM.png",
+    "sha256": "39E2AB7B2F9B9969E7B2806F5EEEA1F121C54E0D4E59D9C3313361C883F94A61"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/.build/esbuild.exe",
+    "sha256": "C7BEE37877D0AA6A046E52783FA0A2CF1A9CE5579D68BB3083BDA99D4BFF18EF"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/.build/vendor-entry.mjs",
+    "sha256": "29BC9CF597BAEC1CB06CA997535DE9DAEFD40C2D07A2B961148847C4884C2A31"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/EQ_MAINTENANCE_INTERACTIVE_MOCKUP.zip",
+    "sha256": "40196776752A0C2759293878D1FBA182110CF7228D02D18775F1338BA28F0E02"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/MODEL_CORRECTIONS.md",
+    "sha256": "6CF7501BD815999CC21EAC7C60EC510C38C417B2FD8CA0111063AF538C975E55"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/Open mockup.cmd",
+    "sha256": "C369A077A253E26E89B85071FB50BB426AB159E49027572D5F1F18497386F266"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/QA_RESULTS.md",
+    "sha256": "2A8DAD4067FB9B85DFFA1DBEC7D0021067157BFCAD8B46BCCC411E98865FA1F5"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/README.md",
+    "sha256": "88C73B8593EA7A901B99914CBAA58944A93EE25E9D8630654CB30E3C5D0C7262"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/app.js",
+    "sha256": "00903A7C6EACFDA50C58A2537626FBC9ECED3F547D9B1EDAE5474331EBC6301D"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/assets/cict-qc-reference.jpg",
+    "sha256": "D3F5F30136B194BC714F34C2FDAA7794BFD1831A341854BA5A050DB6FE093D84"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/assets/qc-gantry-drive.pdf",
+    "sha256": "8B851E13D3E784AAEDAC6AB45D7E4B31EC78B87133ECD93E0817A6CC1E60A0BC"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/assets/qc-general-arrangement.pdf",
+    "sha256": "1A971B8E394C7B7E99C9D39F5A5C5FCE75625E54A5C14592FF9DE416E14FF1EA"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/assets/qc-headblock.pdf",
+    "sha256": "CD0ADB51080B4E4D9CF1AC5DE60CC274E57C06AD54D987A0BF85F8EB7FC109C7"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/assets/qc-main-hoist.pdf",
+    "sha256": "AB060092009B983DF95DB3F0173DC8CA768F14FD41C0860D5A873569ED8468B1"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/assets/qc-trolley.pdf",
+    "sha256": "F5418E335B514FADF57C5D2970863766E7D0668DF626C5DA9C34946CFE5F0503"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/build_demo.py",
+    "sha256": "BE925D803B7559EC574FF0E980EDBD0DF5062AA5DAA041C6FC2618BC3103B834"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/capture-demo.cjs",
+    "sha256": "F7B32A22AFC737689C7725ED0010285CB2C3EB585BDED26D314BE4B4B1AB209E"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/crane-viewer-corrected.js",
+    "sha256": "EB29B1A9D43B8A5EBF9993E5A205CA9DBF8FFF7EBD21393BCD7100B9D09B47C4"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/crane-viewer.js",
+    "sha256": "C801AB13CF6FF5A7B9593625A25E81C30C7D31E6A0E7F2951D554E61ABA01241"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/demo-data.js",
+    "sha256": "5794A45D8BB762315E0D37B2F8B78495209B38DB3E49DE5DCD088233822F8557"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/index.html",
+    "sha256": "57B717A7129E86784F361032ABAE7073B3B34B0F90AEBA3AD4BE3AC09ADE4B54"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/package-demo.py",
+    "sha256": "1F08DCCC561E28964FEFB9DB931C64A0BB4C146D8CECFC7180474A4A6C3097D5"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/page-template.html",
+    "sha256": "5038C951957B118D348B20222344FE58CB20E64276547238BED5935054EF7E8F"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/prepare_demo.py",
+    "sha256": "B031D1EA797CFEC034EE26208D763E16F89FEAD7CA5B74F3269FC35135C33ABD"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/preview-error.log",
+    "sha256": "A96847EE2C917545E58B5C6D096882BD7E1E719B67738536080F935EF5117AA5"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/preview-output.log",
+    "sha256": "A9BFAA908828818EC711FC609000425A1B863682D37EADD143DE5A05E42E3FD3"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/preview-session.json",
+    "sha256": "993664BFC3718814EDD7806CAEC70E21085458D688FB2BC8F2C7516C564787F5"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/qa-additional.cjs",
+    "sha256": "BC5A46FEB03E8BA52C6E28A36A6A787C2D05D071A79316644FA65392CE186195"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/qa-annotations.cjs",
+    "sha256": "705B5AE83AFD1D4B35D3ADF319FA7B5494354FB285ECA09818B8F5CE49EC9F5B"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/qa-demo.cjs",
+    "sha256": "4F04E72FB62420C32A204663AD27CB75D9E3200E42F0D889E815A7B7B6A626DE"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/qa-model-preview.cjs",
+    "sha256": "20D4A2B6036B73909EB5A1AF281435816572E43EF64D11DEB163D1ABA67F4057"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/qa-workflows.cjs",
+    "sha256": "3A9A5878851C896C724BC8752E040E354EE584335236038AF526B62D3D94FD67"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/qa/01-fleet-desktop.png",
+    "sha256": "A3D7D46C970ECB200AD5D24F8B0D573FAF18B78010FEB02FAB5249978CDA7474"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/qa/02-qc-explorer-desktop.png",
+    "sha256": "61095F482FFA1B8643AD34A42B0F945C493794777EFD86B3E33ED1359528B207"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/qa/03-qc-technical-drilldown.png",
+    "sha256": "E915C46772ADD48DFDF34AB0DD65511022E4E9016D0A54EC082F975BCCCB57B5"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/qa/04-work-orders-desktop.png",
+    "sha256": "8C79FD2F45A1B942922525821D6EE30774F361ADDC2A11F7C7985B62F42DE1E8"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/qa/05-fleet-mobile.png",
+    "sha256": "5037685E18A8ECB4B2CCDFFBF1314FBE823F6758CE75980220ACA017A6F34698"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/qa/06-qc-explorer-mobile.png",
+    "sha256": "2F60EB76D2125B9C611EAB6873160B31579492F344DC7A11AB623BE5276880BC"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/qa/07-mobile-work-form.png",
+    "sha256": "34F3B2D0BCE58F9F154DB12E21BECA545C838C60985B62C6DAD1FD0DE1A33D86"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/qa/08-no-webgl-fallback.png",
+    "sha256": "721CC039581B4CEAD1FF720871A913AED7A69C5637BC19988B1028DB9DF586C3"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/qa/ADDITIONAL_RESULTS.json",
+    "sha256": "C7D0CD6717487A0FFA550F635A72941C38AF4BC827B54D0C2AA9DD48F96A5E32"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/qa/DELIVERY_MANIFEST.json",
+    "sha256": "23CDA1F23147EACD0716825238E4AAF48721EDFF2D14F43EC466AD9D65F2DBB3"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/qa/REFERENCE_INTEGRITY.json",
+    "sha256": "420B25FADA4AB98CEF37D110C58D1179CE68A1484F4439352A7A5C8D8D6E5ACF"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/qa/WORKFLOW_RESULTS.json",
+    "sha256": "9A6A4668587C1F8C4A4989A84705B3A191E4125F0F5D88B8DEA27F5568A31630"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/qa/annotation-fix/01-revised-perspective.png",
+    "sha256": "61095F482FFA1B8643AD34A42B0F945C493794777EFD86B3E33ED1359528B207"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/qa/annotation-fix/02-revised-end.png",
+    "sha256": "CA0D634E878779F555510A9445E11709A75040B446706775B39032BD869975AD"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/qa/annotation-fix/02-revised-side.png",
+    "sha256": "C6944906965CAE1E2B0B7DDB2DDAD48D8FE4C06447F6FD0BC2670D13135E63D4"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/qa/annotation-fix/03-revised-gantry.png",
+    "sha256": "D4FAD7FD32FB73B0F3702C8D89FEF2B99AC07E9CACCBC6746B8A9F211893425C"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/qa/annotation-fix/04-revised-spreader.png",
+    "sha256": "328D4ED2E773A2E3EB8A5D7448A29E47C4D2B3C82EE418EE36519D127A17BC2C"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/qa/annotation-fix/05-machinery-house.png",
+    "sha256": "77BBC0B49030E1C718194CBD9481A489CD68935ACE97B7542642A1C4B9A4B50E"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/qa/annotation-fix/06-machinery-cutaway.png",
+    "sha256": "E915C46772ADD48DFDF34AB0DD65511022E4E9016D0A54EC082F975BCCCB57B5"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/qa/annotation-fix/07-revised-mobile.png",
+    "sha256": "2F60EB76D2125B9C611EAB6873160B31579492F344DC7A11AB623BE5276880BC"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/qa/annotation-fix/ANNOTATION_RESULTS.json",
+    "sha256": "77C161CEBD55776D08685530875BD21C6F117FE50703BD7152CADDBB67CA21EB"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/qa/annotation-fix/J526A0100-p1.png",
+    "sha256": "BF0DC5F196E8998E08499D0B71D07988A00023D3ADCF39BFDBDDBF33F63C5645"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/qa/annotation-fix/J526A0600-p1.png",
+    "sha256": "89CFEAF641E123989F0B857AE81E43E92A3ACA90E08FB7B6842C582FAD79FCAA"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/qa/annotation-fix/J526A1200-p1.png",
+    "sha256": "B245DF74E528F3467B5376B1D56398CEE50E8AAF28575209CA8FDB9592736DC3"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/qa/annotation-fix/J526A3000-p1.png",
+    "sha256": "B46A60A65912FDF4E7ADC062C095948912569966144395A4278275CCB5A63742"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/qa/annotation-fix/crane-viewer-before.js",
+    "sha256": "C801AB13CF6FF5A7B9593625A25E81C30C7D31E6A0E7F2951D554E61ABA01241"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/qa/annotation-fix/general-elevation-crop.png",
+    "sha256": "01C7203B9BE0720E0F1BFD45E521B48FE39A1CC278DD35080A0F06A1DA4452C5"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/reference-data.js",
+    "sha256": "4A6307D25E37F29F0B36E713F2442634A733FD433937904DB54C6F2653002F32"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/serve_demo.py",
+    "sha256": "0179BD8FF03247D0107FBC11536AA25FA69D3947F98270351937893F30E6F5C4"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/styles.css",
+    "sha256": "E100120C5D7784F8EEFA0D94EE0A534971F9026BDE1CC55CC743CE7C1124C733"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/vendor/THIRD_PARTY.json",
+    "sha256": "11E9EF85991763CF0B7DDDF089CC645A631DA27BA9377C6A9CEDA7D0ECD07834"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/vendor/THREE-LICENSE.txt",
+    "sha256": "8B378EBE60E2FE500158CB0AC71CB5E8B7D92953C2ABCC63A0EB90499653B5BC"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/vendor/three.bundle.js",
+    "sha256": "4CF24B7347BAA4F5B970EC9A9AB24CDF56119CA12B8FCE777F117CE1F7A80F55"
+  },
+  {
+    "path": "mockups/eq-maintenance-demo-20261021/vendor/three.bundle.js.LEGAL.txt",
+    "sha256": "CC7CC7E2F53D5DB0235AB2226E85FC6E91655161573B39813B41BB00E5919674"
+  },
+  {
+    "path": "tools/u1/capture_u1r2_model.mjs",
+    "sha256": "13BA11E268CE6F7F62673733F9509220CC36D038D241FA434BA075C7EA1A7F9A"
+  },
+  {
+    "path": "tools/u1/capture_u1r2_ui.mjs",
+    "sha256": "EAB9F66A947C33DB208B49F14CB1279071223D1F76963A391353D7EB3D2A6B50"
+  },
+  {
+    "path": "tools/u1/repro_r2_3d.mjs",
+    "sha256": "5013EA38AAE8D98E3A8D8360ACF40FF98D67E697DB20F61639EC70DD169C2411"
+  },
+  {
+    "path": "tools/u1/repro_r2_flat.mjs",
+    "sha256": "E1ABE804159DF4B8E8822D14E929F577768EF0E7866B5CC6DB2A69599A586F83"
+  },
+  {
+    "path": ".claude/agents/eq-build-opus-high.md",
+    "sha256": "D4254C56C3D7E49936E6180AA51886AA7401BAEF1836771B350813F07CDBC6E7"
+  },
+  {
+    "path": ".claude/agents/eq-build-opus-xhigh.md",
+    "sha256": "6B34E4E28396311B5CAFB30867185D6D6A6DA248F2BDEBE10BA041CF9A61AEBA"
+  },
+  {
+    "path": ".claude/agents/eq-build-sonnet-high.md",
+    "sha256": "C87FF1FFDDD58A3907720EA4AC13562726AE8AE6023B9913A66991156951BC3D"
+  },
+  {
+    "path": ".claude/agents/eq-build-sonnet-medium.md",
+    "sha256": "96C7CDA0268B1D175D80E8BAE02F02385B294A2524BCD5BAB91686E179B9E666"
+  },
+  {
+    "path": ".claude/agents/eq-review-opus-high.md",
+    "sha256": "7C2EFC817D6B0CFB85668967C29F8BE2E2F6A69762B29399892EC0AAE268D779"
+  },
+  {
+    "path": ".claude/agents/eq-review-opus-xhigh.md",
+    "sha256": "85DB30D735CA4478C6F7B991E05D57764438D30D48B60A4333762611AF924AFE"
+  },
+  {
+    "path": ".claude/launch.json",
+    "sha256": "11409C370FFEF860993B45292C537D84212ADAC20F844FF1C527DD1722DE1CA3"
+  },
+  {
+    "path": ".claude/settings.json",
+    "sha256": "380D0C54B2CC28CDBAA0AC1559F09C1582BC8865E61994200D2B6F825E56A029"
+  },
+  {
+    "path": ".claude/skills/eq-phase/SKILL.md",
+    "sha256": "C409544D12265CEFE8E430DF3D422B95F22568998D92E4DCC318F0CC77F21EAE"
+  },
+  {
+    "path": ".gitignore",
+    "sha256": "185E28684FEADE8DA2E049740A0C74899A72637CCFE67C814FF8D0454BAE0FD3"
+  },
+  {
+    "path": "As-bulit drawing/AS-bulit drawing list.pdf",
+    "sha256": "60265FE8BD338331DEAC84593D65B0CB966EFB0E6E2B23999B3C3F92AE943A5D"
+  },
+  {
+    "path": "As-bulit drawing/DT1500F.pdf",
+    "sha256": "F64718498D46361D4C1D5ACC114643A715D05826693D63CF9F99333CF7A588F4"
+  },
+  {
+    "path": "As-bulit drawing/J526A00_002.jpg",
+    "sha256": "30270C03744D53552776493AE28A8CA6ACE35CB92094D88E9AADAF3165C1B7F3"
+  },
+  {
+    "path": "As-bulit drawing/J526A00_002.png",
+    "sha256": "02ECE01C8869F9FF9B9CFB0C8D819FFD48053A1EBB8B7C99DDEC954F7F3F8A39"
+  },
+  {
+    "path": "As-bulit drawing/J526A0100.pdf",
+    "sha256": "7A8E10915AA4B852E10E5A517D9486ACD1693E9908D761915569083AFEE00340"
+  },
+  {
+    "path": "As-bulit drawing/J526A0200.pdf",
+    "sha256": "F5418E335B514FADF57C5D2970863766E7D0668DF626C5DA9C34946CFE5F0503"
+  },
+  {
+    "path": "As-bulit drawing/J526A0300.pdf",
+    "sha256": "AB060092009B983DF95DB3F0173DC8CA768F14FD41C0860D5A873569ED8468B1"
+  },
+  {
+    "path": "As-bulit drawing/J526A0400.pdf",
+    "sha256": "AF5ADEF3C437963EA52FBA5229CDFBAC4A8A8E7E84D5EB253844FF4B0CB34289"
+  },
+  {
+    "path": "As-bulit drawing/J526A0500.pdf",
+    "sha256": "A45A716A6D32C1AB0852C06F253D3B7DD5E5B1187FAD073C1D9C97BE2DCE173C"
+  },
+  {
+    "path": "As-bulit drawing/J526A0600.pdf",
+    "sha256": "8B851E13D3E784AAEDAC6AB45D7E4B31EC78B87133ECD93E0817A6CC1E60A0BC"
+  },
+  {
+    "path": "As-bulit drawing/J526A1000.pdf",
+    "sha256": "0A45524F5321689D27CAE58114C9B7D10352716B77DC110BA3CF12D4518FBD6E"
+  },
+  {
+    "path": "As-bulit drawing/J526A1200.pdf",
+    "sha256": "CD0ADB51080B4E4D9CF1AC5DE60CC274E57C06AD54D987A0BF85F8EB7FC109C7"
+  },
+  {
+    "path": "As-bulit drawing/J526A1300.pdf",
+    "sha256": "275C6924D85F66B812BA97A1B5A7CC24428144CD08070CD0BF7FEFC12F942511"
+  },
+  {
+    "path": "As-bulit drawing/J526A1400.pdf",
+    "sha256": "A3FC4A8952B40A3BF332BF9FFFE50C3327119AC6B562CB9625549F3BFA8B7D68"
+  },
+  {
+    "path": "As-bulit drawing/J526A1500.pdf",
+    "sha256": "436D8126E8DBDBADDD26479E83AF0C3EB02816CCC5F2B8C59677F2E8BB7425D1"
+  },
+  {
+    "path": "As-bulit drawing/J526A1600.pdf",
+    "sha256": "5012995288C4DA2ED520ACDF6A3D30D8722EC8EC1FEF277ACEDED87FA0AFDFE2"
+  },
+  {
+    "path": "As-bulit drawing/J526A2000.pdf",
+    "sha256": "0420721A0271B5EBD39CDEE1A562234A5844EE684F97DE5CAC7A941D7A80BC47"
+  },
+  {
+    "path": "As-bulit drawing/J526A2100.pdf",
+    "sha256": "69A449AE4DE6EA46529300A11A01F7F155240C1AA16A6C2D1D7FCDBE8714D1AD"
+  },
+  {
+    "path": "As-bulit drawing/J526A2200.pdf",
+    "sha256": "36B7CE1D4AF9EC51F5B82340C524C4D80B134F2B7F06FF195BBC90C68BFF9C02"
+  },
+  {
+    "path": "As-bulit drawing/J526A2300.pdf",
+    "sha256": "BE266414842412D4E39372CE1E9B3BC790AA6BFBF48F48D158FE5D54E8F6A087"
+  },
+  {
+    "path": "As-bulit drawing/J526A3000.pdf",
+    "sha256": "04E7166F4D6ABE7FF5BC2C9737C4FBA83B56A306E7918F664AA5A45D1C0AABC2"
+  },
+  {
+    "path": "As-bulit drawing/J526A3100.pdf",
+    "sha256": "AD5B03D3670E5956FC70F8DDADC366CD8B8E5A5ADFF7D288CED7D990D5AE93D6"
+  },
+  {
+    "path": "As-bulit drawing/J526A3200.pdf",
+    "sha256": "94D59F8DCF78DE130C15598A093378EBCFD1D3247F920ACCF39B149D433FC21B"
+  },
+  {
+    "path": "As-bulit drawing/J526A3300.pdf",
+    "sha256": "BF654FD0B9757E15B935912F37CEAC2A0FFF653DA6364435310358C644D33C56"
+  },
+  {
+    "path": "As-bulit drawing/J526A4000.pdf",
+    "sha256": "E2CD762A06F89989E2A0A4110FD9683A071A43E8D00FB6F456901A610C4D9BE0"
+  },
+  {
+    "path": "As-bulit drawing/J526A5000.pdf",
+    "sha256": "3D131D9B5329DC90A9158D39E3147DB22A89A43C7578759A31E7E3799E6E6295"
+  },
+  {
+    "path": "As-bulit drawing/J526A5100.pdf",
+    "sha256": "94245884D5A2C68B454398AB7458BD610BF498DDBA24B0FAFA44BFA6E50EA489"
+  },
+  {
+    "path": "As-bulit drawing/J526A6000.pdf",
+    "sha256": "FE48BC5A10F9B8E578ED7FDA81BE4F4F874526A02DB20B2F5316CF00E3AABEEA"
+  },
+  {
+    "path": "As-bulit drawing/J526A6100.pdf",
+    "sha256": "68CC61DE9DF71D952DEC6D184427A714DDCB5FB8194DB6E93892C5332F42C98A"
+  },
+  {
+    "path": "As-bulit drawing/J526A6200.pdf",
+    "sha256": "4A7EE0F0CE0303C67E64A063A4AF50DEF683B886DE1D67645A76802BB4D83035"
+  },
+  {
+    "path": "As-bulit drawing/J526A6300.pdf",
+    "sha256": "8A7BBD5026395AD51EE8E1C299CDC8D90844FCF5773FFBDA20C91C3DDFDA1B02"
+  },
+  {
+    "path": "As-bulit drawing/J526A7000.pdf",
+    "sha256": "EA2B02BF39C0E2F1A1A0A1708A3BBBD135F2C94ABCEC955F8D23F2FD8BBD2B31"
+  },
+  {
+    "path": "As-bulit drawing/J526A7100.pdf",
+    "sha256": "F128CA341A3B6E389074ECF58F72092B38F764670D0F4CB9BBE676255D8B66BD"
+  },
+  {
+    "path": "As-bulit drawing/J526A7300.pdf",
+    "sha256": "1C41356CF8DDE5562B0C9870453DAADB0B169EB4D9401A6ECE65378399BFFFC5"
+  },
+  {
+    "path": "As-bulit drawing/J526A7400.pdf",
+    "sha256": "764474F3C92494530A3F2A27070CBF38D1FFF382F632C5E8378B92F6DFEA79E8"
+  },
+  {
+    "path": "As-bulit drawing/J526AM00.pdf",
+    "sha256": "17791DD52DD675D8819701A1A0792D97C62FA94806B5137F185BA9F0384F5D51"
+  },
+  {
+    "path": "As-bulit drawing/QC JPEG.jpg",
+    "sha256": "088342F01C1A8FFDB30BAB675E04EF955D067A3233362852CF2F532A0E73286D"
+  },
+  {
+    "path": "As-bulit drawing/QC PNG.png",
+    "sha256": "C1295A74EFB517731B16A198FD6CF18697F1EDEEF2C216C896D09B973AF51E41"
+  },
+  {
+    "path": "As-bulit drawing/Sheave.pdf",
+    "sha256": "0DB00274F7F8897B8A198F9E178A262CE1A7E1D84B3688FB7ABED0E72D1095C7"
+  },
+  {
+    "path": "As-bulit drawing/Thumbs.db",
+    "sha256": "E670A8D30ECA046784B8F24E3AB02F69764029205D6C03534BB7C80C21BBAA09"
+  },
+  {
+    "path": "As-bulit drawing/ZT2-015022 - Trolley wheel.pdf",
+    "sha256": "57E3E967D132C2078F08C5B020CA3EAFFA404ACBB1BB3C97AFBEE952E7F65124"
+  },
+  {
+    "path": "As-bulit drawing/cover.pdf",
+    "sha256": "3FAA6FFBB90F947FA3AA80A9DC4E2DB28D442FCD2920F94069F3602700E91FF2"
+  },
+  {
+    "path": "CLAUDE.md",
+    "sha256": "C330869272FA503AE1FB96B907D87F7BC33D1F5641332F703431E1F07AD323C6"
+  },
+  {
+    "path": "artifacts/models/cict-j526a-sts-scene/1/checksums.json",
+    "sha256": "E30E55C9AE711B54352BD304C36C72A7BA5E59E4683C859B11B86F5E2A4E1144"
+  },
+  {
+    "path": "artifacts/models/cict-j526a-sts-scene/1/landmarks.json",
+    "sha256": "384B2C444AD9F2C50144A2820D12654570DC019A879022DAA9B5A0C3309BF1FC"
+  },
+  {
+    "path": "artifacts/models/cict-j526a-sts-scene/1/manifest.json",
+    "sha256": "8B0CFE7454B81EE5356ECCA863699CF5D848A7D58D0694BBE159C376023A7568"
+  },
+  {
+    "path": "artifacts/models/cict-j526a-sts-scene/1/provenance.md",
+    "sha256": "11BA4BBF7C191EF7A23CC60168737A603A71446A3D7D7BCBA9CE3989C2080FA2"
+  },
+  {
+    "path": "artifacts/models/cict-j526a-sts-scene/1/scene.glb",
+    "sha256": "FE35835E9608C07A9EB57A9FA89A4E1EC65EC5BAADA87C6D8EDF72730E54869B"
+  },
+  {
+    "path": "artifacts/p00-drawing-crops/J526A00_p1_full.png",
+    "sha256": "EFC1C4C4B84979102346E400CAACA79C87BBA9322072EDA8DC6E5D88FE5DF733"
+  },
+  {
+    "path": "artifacts/p00-drawing-crops/J526A00_p1_particulars.png",
+    "sha256": "60003BD9704D2CAB8D6A43759017DB2FC40D93455816334637D7AD21AA05814C"
+  },
+  {
+    "path": "artifacts/p00-drawing-crops/J526A0100_p1_side-view.png",
+    "sha256": "3E86326922EA824A914CAC65E1FEBEB4EF52B5A1479B092E288313722347BBB3"
+  },
+  {
+    "path": "artifacts/p00-drawing-crops/J526A0300_p1_main-data.png",
+    "sha256": "3A3E75D3AA34E7E6AA45C0510B506CAAA1960B2EACA0EDBE7FE2C41429682DF1"
+  },
+  {
+    "path": "artifacts/p00-drawing-crops/J526A0400_p1_main-data.png",
+    "sha256": "24DB3EE83DBD4918EC081F837F098AD1D930823ECE5C9038264BB15D8619CBD3"
+  },
+  {
+    "path": "artifacts/p00-drawing-crops/J526A0600_p1_gantry-arrangement.png",
+    "sha256": "D2BDD34FD754C7267BC5520DE33EC15E32A300D7BF9B3D28662AADB67928E8FE"
+  },
+  {
+    "path": "artifacts/p00-drawing-crops/J526A0600_p1_main-data.png",
+    "sha256": "4FFB13ADDC89443BBEA1F4E17868DBDFB7724BA3F75DCEE4D4A4073C8BFA2A20"
+  },
+  {
+    "path": "artifacts/p03-captures/model-end-ls.png",
+    "sha256": "CC499B4C2D81B79D279E782D225157E456594018BB24AC60F27B83EDC78893E0"
+  },
+  {
+    "path": "artifacts/p03-captures/model-end-ws.png",
+    "sha256": "06ACD1DB6389418CC5C5F70DD53C4CE49DCDD8F76AAB5764E1D640A62B128779"
+  },
+  {
+    "path": "artifacts/p03-captures/model-persp-house-closeup.png",
+    "sha256": "0D5131E18ED9EE7DFA79743AF61BCA6CD3A57633EEBE0A0C0603AFAC2A84E21F"
+  },
+  {
+    "path": "artifacts/p03-captures/model-persp-overall.png",
+    "sha256": "0D64559A950CDCBA38BD0A3B740389967442E9945C714F3D333D42BE3C7F59E7"
+  },
+  {
+    "path": "artifacts/p03-captures/model-persp-photo-angle.png",
+    "sha256": "9EE9AB5D7A447179F8FA8A8F36A52F41BA7FB980DF5E2AEB93BAE85F340D1010"
+  },
+  {
+    "path": "artifacts/p03-captures/model-persp-technical.png",
+    "sha256": "0F3A2D59B68A0B679D95214588274163CA240AE5E9C649B9CE39439A697D4AE7"
+  },
+  {
+    "path": "artifacts/p03-captures/model-persp-trolley-closeup.png",
+    "sha256": "3067616B3B019F137D564CE990416F2E05703CB329FBDFD5FB4CBC5F2C52B2CF"
+  },
+  {
+    "path": "artifacts/p03-captures/model-side.png",
+    "sha256": "7DDC47D25F2803DD82EEE8D6A143674DE7D234DCE9E5919BD0729F1878A5B922"
+  },
+  {
+    "path": "artifacts/p03-captures/model-top.png",
+    "sha256": "51D8E6A68526F974803BEE1CB1214809324D802F657554FA327039C2DBAE7207"
+  },
+  {
+    "path": "artifacts/prototypes/p02-ui/README.md",
+    "sha256": "20E5EB0AD202015461F28581CB4B406B5169B70015F94484D69E118DCB0F58C5"
+  },
+  {
+    "path": "artifacts/prototypes/p02-ui/css/app.css",
+    "sha256": "ACDB17D751C2793EE404070728DF92E5390BB0B662B0039D02A036A194DA0A8B"
+  },
+  {
+    "path": "artifacts/prototypes/p02-ui/img/cict-logo.png",
+    "sha256": "D7AF90FBB0A7F2BFF38D199F9EBF5C812D14493D3953F33580B968661EEB9965"
+  },
+  {
+    "path": "artifacts/prototypes/p02-ui/index.html",
+    "sha256": "1741F95B592A3E0B996E14B7BAA246A4AB450EC93A085C4116D3F76248571537"
+  },
+  {
+    "path": "artifacts/prototypes/p02-ui/js/app.js",
+    "sha256": "8830DE22E8FCD4A12D46EF6DED61CC1B819F0ADBAD8FC08A4BD1D39CEFA9C804"
+  },
+  {
+    "path": "artifacts/prototypes/p02-ui/js/catalog.js",
+    "sha256": "35C996881C71A9C047AB0C4F71DEDAB10F473043AAB2F4561D9AE086BD32B99D"
+  },
+  {
+    "path": "artifacts/prototypes/p02-ui/js/dialogs.js",
+    "sha256": "45AE79E3993425872370906B96EE831B77CEA61CD9CF548F65CB9B1582378D26"
+  },
+  {
+    "path": "artifacts/prototypes/p02-ui/js/fixtures.js",
+    "sha256": "9ED302C02BFCD4E0913DE114DA68A4BFB388C28D7CCF0C8C9905BD2633CBD06A"
+  },
+  {
+    "path": "artifacts/prototypes/p02-ui/js/params.js",
+    "sha256": "3C4D7AC09F5CD6CD4E05B230851792B625D7524BCE9912B949F6E43E314EBC55"
+  },
+  {
+    "path": "artifacts/prototypes/p02-ui/js/preview.js",
+    "sha256": "48212681683C646CC033508105D52590A9220EBB6FAAD686B6000A8EECEEC3E3"
+  },
+  {
+    "path": "artifacts/prototypes/p02-ui/js/store.js",
+    "sha256": "8AA54E6CE49C8F143637D87A363AD4FBA346BD965666DB18F14FC1A044EE965A"
+  },
+  {
+    "path": "artifacts/prototypes/p02-ui/js/util.js",
+    "sha256": "879B4D38A08012212C11FE4A94BBB6DCCC61145DAEFF4C63C559522C91A329DB"
+  },
+  {
+    "path": "artifacts/prototypes/p02-ui/js/views-admin.js",
+    "sha256": "4B1542B2D0A6DA3CE635311E240F770DBE6BE12808E4B204AF6DDB1E275BC165"
+  },
+  {
+    "path": "artifacts/prototypes/p02-ui/js/views-equipment.js",
+    "sha256": "2F331071EBFE7BBC4D210D8BB6D242741FDFB989924DC5BA89883936C763A3A2"
+  },
+  {
+    "path": "artifacts/prototypes/p02-ui/js/views-fleet.js",
+    "sha256": "553EF59F6C1D3A02552DA0F38DE62D880A1BC912DB3AFF7E9418C99174F9648B"
+  },
+  {
+    "path": "artifacts/prototypes/p02-ui/js/views-jobs.js",
+    "sha256": "9B8940226B9C1E7F70D625ED84CB3BCA00342A953BFC08142D7F9A65FA98B23D"
+  },
+  {
+    "path": "artifacts/prototypes/p02-ui/serve.mjs",
+    "sha256": "ADFBC393ECA48C454B25D1BC18614DCECA2D0D5AA3C9D2C9796614D252D61B27"
+  },
+  {
+    "path": "artifacts/prototypes/p03-qc-model/README.md",
+    "sha256": "D73ECCBE7C4ED3BD13628626A42CB5156C6C5F0A6D4DA618FDDA161D431F1EBC"
+  },
+  {
+    "path": "artifacts/prototypes/p03-qc-model/capture.html",
+    "sha256": "705502F91B4B02AFC2F740BE740282FB285F95D1AFDAB1E6E0CC7A44E35686E9"
+  },
+  {
+    "path": "artifacts/prototypes/p03-qc-model/css/p03.css",
+    "sha256": "1B49B06B9F0F1B104DA09DD8C9A6A67C6FDD2A4336E7848563805AAA8620C6C1"
+  },
+  {
+    "path": "artifacts/prototypes/p03-qc-model/index.html",
+    "sha256": "325BF04E537BDB8EE10BBDA112445F37EB2939D78A90D51BE444BF30E1A1F92A"
+  },
+  {
+    "path": "artifacts/prototypes/p03-qc-model/js/app.mjs",
+    "sha256": "B0A2743578FD372E4934CD46AB7E56F840B44DBB2F33A6AF1E94FB94CEFCFEC6"
+  },
+  {
+    "path": "artifacts/prototypes/p03-qc-model/js/data.mjs",
+    "sha256": "F8C2A337A3EAE17786375B219CD63B1DA133FE713DABD3CEEFBD9265128CA0E0"
+  },
+  {
+    "path": "artifacts/prototypes/p03-qc-model/js/viewer.mjs",
+    "sha256": "AEECBE18CEF5187D38449291983C227C3F5E808B9170EA9715DC8A5145118549"
+  },
+  {
+    "path": "artifacts/prototypes/p03-qc-model/serve.mjs",
+    "sha256": "BBFDABEC25D16D5A3CA4691CEEBEB456FE5D05EFAD8A5BA092F60E6647BBC964"
+  },
+  {
+    "path": "artifacts/prototypes/p03-qc-model/vendor/three/LICENSE",
+    "sha256": "8B378EBE60E2FE500158CB0AC71CB5E8B7D92953C2ABCC63A0EB90499653B5BC"
+  },
+  {
+    "path": "artifacts/prototypes/p03-qc-model/vendor/three/addons/controls/OrbitControls.js",
+    "sha256": "3D79D07ECB686B4E5D93232EEDAB255331C1BEEF711E13164EAA1F68655A5F2B"
+  },
+  {
+    "path": "artifacts/prototypes/p03-qc-model/vendor/three/addons/loaders/GLTFLoader.js",
+    "sha256": "131C0F78C01D19368AE495CAA65B3ADAA10487810A36A05BB5901B769A35AC16"
+  },
+  {
+    "path": "artifacts/prototypes/p03-qc-model/vendor/three/addons/utils/BufferGeometryUtils.js",
+    "sha256": "9FB63427CE6641FA14FD0BAFF9CC4D1B5F9C3D85FD084BF2E90E803C44EC1797"
+  },
+  {
+    "path": "artifacts/prototypes/p03-qc-model/vendor/three/addons/utils/SkeletonUtils.js",
+    "sha256": "B1632A703206C3D830DE9FCBE515696770D04B71A15EE6B50AFA6D2C3298C86F"
+  },
+  {
+    "path": "artifacts/prototypes/p03-qc-model/vendor/three/three.core.js",
+    "sha256": "9EDDE002B066A9A05676A6127F67735B62BAF399BDEA529F2F7E31657DA769E6"
+  },
+  {
+    "path": "artifacts/prototypes/p03-qc-model/vendor/three/three.module.js",
+    "sha256": "9052042D676CB0FDC1DDFEFE193053F34B7AC0513A616FDAC4535D49987812EA"
+  },
+  {
+    "path": "artifacts/u1-captures/model-end-ls.png",
+    "sha256": "4ABEB11E02CC9D13020AF55EC6E9D01EFEA552A90E04128651474F408A674BEB"
+  },
+  {
+    "path": "artifacts/u1-captures/model-end-ws.png",
+    "sha256": "B686656BEFD0760C227535BF7239F8410A0B4B3A4FA635280A0B250582899118"
+  },
+  {
+    "path": "artifacts/u1-captures/model-persp-backreach.png",
+    "sha256": "637106273A56F0F42B503F25DF2513F160EC4C8646FDAC3B313BC9227E5C31C4"
+  },
+  {
+    "path": "artifacts/u1-captures/model-persp-cab-closeup.png",
+    "sha256": "2500586FF5330F436144779A8B62E659C91F0DB60245E32B95C574AAF4D967D0"
+  },
+  {
+    "path": "artifacts/u1-captures/model-persp-house-closeup.png",
+    "sha256": "158101DB4DC29D4B457E67044D0B5D0D860D2258F78EA7BD9DD245E0AF6F3E80"
+  },
+  {
+    "path": "artifacts/u1-captures/model-persp-house-technical.png",
+    "sha256": "A00BD9F3FF2ECB6CCDB5C94895FB17D5BDA41CBEB6DE2A5A48AC485368F45B56"
+  },
+  {
+    "path": "artifacts/u1-captures/model-persp-logo-endwall.png",
+    "sha256": "44EF6879D8D3DAC67B3CD1ED08DDC469AEB71A8DA350E338AAB222A7F6B5FA07"
+  },
+  {
+    "path": "artifacts/u1-captures/model-persp-overall.png",
+    "sha256": "BDFA65ED2832131449D72199A05504A26E84CC8BA7D3A9400FD063CF77BE8C75"
+  },
+  {
+    "path": "artifacts/u1-captures/model-persp-photo-angle-u1.png",
+    "sha256": "F2AC45E523CFBF198712503F7E5DD654218C8FCD05918BD317A9852993E25202"
+  },
+  {
+    "path": "artifacts/u1-captures/model-persp-photo-angle.png",
+    "sha256": "5353C7C4C33EF80A2C93A85C141844EF86685DFB3223830CBF859CE830DF168F"
+  },
+  {
+    "path": "artifacts/u1-captures/model-persp-stair-tower.png",
+    "sha256": "8521E97797B35A01F41601AEB87E96074FEBB176EFAEB7AC2B870C2FDB0CD35C"
+  },
+  {
+    "path": "artifacts/u1-captures/model-persp-technical.png",
+    "sha256": "9C4988BF532C2FB85653A7CD568FFA41A2FAF6F7765B81C8ED2B8786509BD7F8"
+  },
+  {
+    "path": "artifacts/u1-captures/model-persp-trolley-closeup.png",
+    "sha256": "0CEC1101C41FE2E7C06E52A8D5FC9A03D9E070DD2C54F081CD34FFBDA4586F25"
+  },
+  {
+    "path": "artifacts/u1-captures/model-side.png",
+    "sha256": "C1A07729F3F5FF88CAA1FAB1B00DF5D4F323A28C5FD123E7C9DB504C2B58DEA5"
+  },
+  {
+    "path": "artifacts/u1-captures/model-top.png",
+    "sha256": "C5484A68063630454E84FEA429A0FD5D2090D10CFD39380B2E5EB6F6494EB244"
+  },
+  {
+    "path": "assets/models/source/cict-j526a-sts/README.md",
+    "sha256": "FC0D0E474B8AF75DDD7DCD4EF5B1F9288132B903A85D4FE08D0521805B290499"
+  },
+  {
+    "path": "assets/models/source/cict-j526a-sts/build.mjs",
+    "sha256": "8A5954A61F3324CC3722E90A371F7A3CE9338B6E0A058F437C10156CD81204B9"
+  },
+  {
+    "path": "assets/models/source/cict-j526a-sts/params.json",
+    "sha256": "323505B454F8F084E4EADBC822A8CAFA05EEB9951E2FE293FE23A375E641BD6C"
+  },
+  {
+    "path": "assets/models/source/cict-j526a-sts/textures/README.md",
+    "sha256": "8FAAF99B7C3BADADD6FB9EF3A4BC20B79AE85AE7E727D276DF5A92F99F61BBC4"
+  },
+  {
+    "path": "assets/models/source/cict-j526a-sts/textures/cict-logo.png",
+    "sha256": "D7AF90FBB0A7F2BFF38D199F9EBF5C812D14493D3953F33580B968661EEB9965"
+  },
+  {
+    "path": "docs/API_CONTRACT.md",
+    "sha256": "ED13EF2B35871A359C25EE54C307AA2131F857F7ABB102D572161A4B8D76E3DA"
+  },
+  {
+    "path": "docs/ARCHITECTURE.md",
+    "sha256": "64F04BB12F57029C53817A8D950F1BDC54C04EF01CD73DA28C4751ED60A2CF05"
+  },
+  {
+    "path": "docs/DATA_CONTRACT.md",
+    "sha256": "C9DA5FEBC3C634063F0BF970885DDC8609AD032E74B9B714C5B5AA7FB0986E30"
+  },
+  {
+    "path": "docs/DECISIONS.md",
+    "sha256": "2BC887A1C6924380456C503A556C96D68A07C2959EDF3B5D0208C50ABFACAD83"
+  },
+  {
+    "path": "docs/HANDOVER.md",
+    "sha256": "C72FE060B6E5F4BB9C811866392935EAA14C33DF7FC836AFA14E64C1A7A80019"
+  },
+  {
+    "path": "docs/IMPLEMENTATION_PLAN.md",
+    "sha256": "A0541FE6BF5A469A350E551A31853C306CA387AA4499ABDFAEB35C0D7CF13FD8"
+  },
+  {
+    "path": "docs/IMPLEMENTATION_STATUS.md",
+    "sha256": "FA39E84DAC3F155AF94855F76F7858F9E6B64D1A21892171ABE56BC13F2CCF7A"
+  },
+  {
+    "path": "docs/PORTAL_INTEGRATION_PLAN.md",
+    "sha256": "5419F987024973EEB1831E3F76D55E75D5924D8B017677CECA842A8A4CFA33ED"
+  },
+  {
+    "path": "docs/SOURCE_MAP.md",
+    "sha256": "B55773036892C20B35C585A56221B3A0C624B17D30EDB5BF39D3ED15BE73F17C"
+  },
+  {
+    "path": "docs/UX_SPEC.md",
+    "sha256": "DC1924F1C4920FF7F55EAD896C362A2BBE8D91143E2478C396A539EFDBF36868"
+  },
+  {
+    "path": "docs/evidence/P00/P00_EVIDENCE.md",
+    "sha256": "FBAC89EBB4BE18E6C910396F0CC6C140E87B2195A1151CB8AA1D50D81452386B"
+  },
+  {
+    "path": "docs/evidence/P00/drawing-register-check.json",
+    "sha256": "99194B51E035FDE43FDC25FBFB94ADB8E95C8C4DB47FF9F9FD5A1160A50E8567"
+  },
+  {
+    "path": "docs/evidence/P00/taxonomy-validation.json",
+    "sha256": "82197280797784C7F64FA9C293F29374989AC7B0F5EC94FEB4467E34264B5C4A"
+  },
+  {
+    "path": "docs/evidence/P01/P01_EVIDENCE.md",
+    "sha256": "31944ABBEE546A122A9C035BA82961AF0A69FFD5E2D786F5F4DCC89D04038EB5"
+  },
+  {
+    "path": "docs/evidence/P01/contract-coverage.json",
+    "sha256": "80ECFC5A922841FE769860AD1B2DE2B724421593572663D4BE0E30B228DD975F"
+  },
+  {
+    "path": "docs/evidence/P02/P02_EVIDENCE.md",
+    "sha256": "B5C84B552B93179CCFBB364D4DEAD539B3B351EB0CA5964009970014368E0A24"
+  },
+  {
+    "path": "docs/evidence/P02/automated-checks.json",
+    "sha256": "842C5DA4792576BE8EA2EE09DD67A47BEAF8D19C32B35BD5FFC6B6BFA672D2A3"
+  },
+  {
+    "path": "docs/evidence/P02/contrast-report.json",
+    "sha256": "9E130ABC833E8C3C47DD9D247F7C7F9A15ED66BE1513214E886F2D2172F7A102"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1366/01-fleet-eqteam.png",
+    "sha256": "44E3E4CBDAED6367225FE5A5C1FE8100F85746010C29B1020DEFC798BBBF193C"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1366/02-fleet-management-readonly.png",
+    "sha256": "228D768E04427C4D3A5A90A7897BA90F8F180CE41AC5930E4F2A18BEDAFFECE3"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1366/08-qc-overview.png",
+    "sha256": "B36A36E4E2EE665E085795678DD7FBF9F4097D8EB60691506362E65A741F6D30"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1366/10-qc-motor-a-technical.png",
+    "sha256": "AF259E54DBCDD50737EE7573AD2C2A6E0B138E116E0071C00A8CEE05441AEC07"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1366/12-qc-technical-panel-parameters.png",
+    "sha256": "90BA6E7DAA8CFA5DA3F7811FF084540F1F9E45CB1EB89F2AD673E787D3147328"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1366/14-qc-management-readonly.png",
+    "sha256": "C33CB30C093C9AFB9D0EDB52188EE4224D06F82F65016698A72590AB9AFA0F6C"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1366/20-rtg-detail-3d-unavailable.png",
+    "sha256": "4998185F6DE3B84178EC783925BCD5C52138524EEE3AB7BAAA635888042C6290"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1366/22-jobs-board-eqteam.png",
+    "sha256": "F9E04755B0D2B52D7ABDC7336F15BB1C66DA1FA3FE353D46A29236D8E27BFA43"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1366/27-dialog-complete-replacement.png",
+    "sha256": "AAE41C488EA7C0A02850455718E6E5D0DE0720B7D63C7341FC498B69A234B064"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1366/28-dialog-complete-invalid.png",
+    "sha256": "63018E18E5B397CAF99B2D87E4E74F031FDFC00B4CA387DEE83F9F903130BB14"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1366/33-admin-models-applicability.png",
+    "sha256": "0E8939649E69145ED6B8E9C0790BDAA796413646AF423D7CB94C39008DF2BB99"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1366/35-admin-positions-draft.png",
+    "sha256": "04818F179446EB799B90AD6606C41319C312B38539C8C0E8C35A32431CBFAEB6"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1366/40-keyboard-focus-tree.png",
+    "sha256": "D0517F1AB519CECF03204AC98F8A07C4DC3E48F1EB0252D830C83F15BD30962F"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/01-fleet-eqteam.png",
+    "sha256": "96CB160D95951FB7E15762F6484B384BDAED98E1FB11696D204C8CD9F2D79556"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/02-fleet-management-readonly.png",
+    "sha256": "1F85F61E7F1AD3712C3605C4AEB00F393D88A3CB2019B9674A855A0A702389D6"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/03-fleet-filter-maintenance.png",
+    "sha256": "8E27594EF86102ADD9CF8F690CDBAEACA7FB13F89C03C26E9A52D58867EFE388"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/04-fleet-stale.png",
+    "sha256": "3A1A668E1D0147891E922751BF27C440076693D991B1A9DE0ECEA8A02B0FACEF"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/05-fleet-empty-admin.png",
+    "sha256": "FDE5EBDAB6601D370AF6F7239C446C6BD728DADA2247BA38FA0D994264967C0C"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/06-fleet-loading.png",
+    "sha256": "A158F6101BF2938819BD88A8DD90F64C6E5E092FFE7CB4A90EED408F673C3A17"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/07-fleet-error.png",
+    "sha256": "FA38A72AB1CB0016DCFFDE01191264B77F1D5EBC137E9ACDA4E56F99EDE8B43C"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/08-qc-overview.png",
+    "sha256": "67A4D3621C4AA664734CBC6E7C3187A38A3DD6AF64E275A11C36962F73D2675F"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/09-qc-main-hoist-selected.png",
+    "sha256": "CCECEB47A58450A04B6D73AC8E055A08FBA618EF3F3E8FD16DFE856AD26CB821"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/10-qc-motor-a-technical.png",
+    "sha256": "A920B115D6F79C0914BFAFEF9B93E6516605DCCF1923B57F70A6B4F7EE8165D9"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/11-qc02-same-motor-different-history.png",
+    "sha256": "AC7148121AC98F66195C67FDFC0249EA614B7E9D6EDA5F37B5B02982312F37CC"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/12-qc-technical-panel-parameters.png",
+    "sha256": "257500D77787FD1B13407D3A6736E595F80A1F7ACF76654327FABC47423A9402"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/13-qc-machinery-house-container.png",
+    "sha256": "989662A0B5521CA3E4049E81AA248AA032A65AA39E576E858B320A64D87F2973"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/14-qc-management-readonly.png",
+    "sha256": "711304CF030437A449E4258BD1B50C8C4EB3D641CCC213837397BC70B99482D5"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/15-qc-viewer-no-webgl.png",
+    "sha256": "CC18E0FABB31612374A3CA1C9BA6F2F6EA55FF977AEE68039963F35769EE2869"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/16-qc-viewer-load-failed.png",
+    "sha256": "ACB88EB0AA4A21CB789D469F5264398E9DFC4237E6640092054EEBF9E9F8516E"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/17-qc-no-verified-model.png",
+    "sha256": "490A351CAAE3893C618D8D6C019489C793146B14E8C764657D8B994196B127FF"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/18-qc-draft-positions.png",
+    "sha256": "875366868D9666879925E97D1BD2085FD991170A529B556AD82B51771FF9E43A"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/19-qc-unreported-status.png",
+    "sha256": "87647A069CA451F20A32A615E264C21B39C19632DECDA02DDE1EFBEE4BAD50F9"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/20-rtg-detail-3d-unavailable.png",
+    "sha256": "8A5BE42685400F5D23C1672BB81BFBF91EBDB55AC2F316D0AFD3DC6881BE6CF6"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/21-es-detail-3d-unavailable.png",
+    "sha256": "4A4E9D268106CCDE2F60E7D9D4ADB001DE6B334FFE30F3151BD2C87655E544B3"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/22-jobs-board-eqteam.png",
+    "sha256": "2720E41C0D01067E2C8E7AD366FBC8E2DF195543609908DCA3E46FF2BAF3078B"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/23-jobs-management-readonly.png",
+    "sha256": "C54F07D0C8D9C27BEE878F1A60D6DD1C0A6D34D7119379F11FDC69323DA77ABB"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/24-jobs-include-cancelled.png",
+    "sha256": "34EBEAB31CB6F7760DDA653A452857C747900B81D0FC183DD9548429EC4E0D62"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/25-job-record-with-correction.png",
+    "sha256": "103924417954A578BDB254407CC70CD825C25D68DE9FE0C6E04575E2448F1D50"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/26-dialog-add-job-invalid.png",
+    "sha256": "5F724745FD19E8B5E1CFDCB2D02ADB501335F612BABE265E3844732E16C8F4CA"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/27-dialog-complete-replacement.png",
+    "sha256": "BC78D20BD7B26766B04278A539250CECAA9FD2CC58268573283BC6E2B8A64001"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/28-dialog-complete-invalid.png",
+    "sha256": "CD3CD1DBC5AD591E82FB30107D129460E817C7743DEDA2C264BD4459A7F021D5"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/29-dialog-version-conflict.png",
+    "sha256": "96444C3A16AEBDC745F8C4772FC2FB0F2700C6C600AFBB24C36588B80154349C"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/30-dialog-set-status-reason-required.png",
+    "sha256": "59B5E8368CFA515752C14A51A683A8B85BDBAEDD8D1A151D21F24973806FADA2"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/31-cancel-not-allowed-other-creator.png",
+    "sha256": "78D1C670FA29B3BEA90867F37B4ADB7C0B019CA0539F8A8B087545A384BBCDFF"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/32-admin-equipment.png",
+    "sha256": "B7072AA6922144E6D9A921B5E00A29B4E0DE08ECDBE4629131281923B3907FA0"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/33-admin-models-applicability.png",
+    "sha256": "8556FAE269F181CBB1D6A30BCEDDFD83D8E2ADF3975A7DE3D54B2B0CDBDC07F3"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/34-admin-catalog.png",
+    "sha256": "024F91B6510560BEA1B5968F561BA56926EE09D4BBF5E930EE78B9ECDC1D97D9"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/35-admin-positions-draft.png",
+    "sha256": "FAB9CA2E9073E89C5345538F2374E040720EE3C609BDF6E014E763AB933CF687"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/36-admin-parameters-conflicts.png",
+    "sha256": "0FCF73B5E95B5E15BBCADEC9FC46197241801DECA6222074BDD41C21C01FE320"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/37-admin-bindings.png",
+    "sha256": "AA82F0ADDCBDBB421BE6F435F93AC5B4967652FFAC196D78E479D79C89B9D703"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/38-admin-forbidden-eqteam.png",
+    "sha256": "31B4766673F742EC3987767442E6F3F81789C594D4A06C09E2FF441CB3D59B3C"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/39-prototype-controls.png",
+    "sha256": "8307D3D030EB30CD1D61B6B38243F9032AF6B6617CB35BB290EFA3F9F48AA282"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/40-keyboard-focus-tree.png",
+    "sha256": "D092ABB9761BE6533FA1B7E2DEA964F418AFA3211F29F96E9362AC4B8E25E2FA"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/d1920/41-keyboard-focus-form.png",
+    "sha256": "226FA2B6BC9DE1F495268AEF2166E42AAE9A0C37DB375E13F1E0D81982DFF5D8"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/phone/01-fleet-eqteam.png",
+    "sha256": "DB8319CE9AA3F7CFA2C844693CADA9305C47FC03C5D536C7F1AD8484DE5277EF"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/phone/08-qc-overview-b-tree-drawer.png",
+    "sha256": "EDF691B80A35EA551F51411B7F0D4CF5490DADFB65D6FD127CCB8F47F412A83B"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/phone/08-qc-overview.png",
+    "sha256": "168108030DA332F4867E03805F8C7C7ABE0D7997FF8ED0092CBBFCA712E67EB4"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/phone/10-qc-motor-a-technical.png",
+    "sha256": "3FEB98F08CD68A7514F73E8D0F3D9ABCA2BA8BAC31C71B2FA72D29AF37EE4071"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/phone/17-qc-no-verified-model.png",
+    "sha256": "798E25B3D3D0F8C80ACA89E644E27F9A4FB6B899D3F838378BC78E1B0515056A"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/phone/22-jobs-board-eqteam.png",
+    "sha256": "4EAEF15CC7D305B72A61650931EB8FEF52E17C4905010F628256AE9D77CFBD58"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/phone/26-dialog-add-job-invalid.png",
+    "sha256": "6B6DA63FB7C87E4D0796DAA9CB3318BE2D7C04BFB2383191F6BBCF8F8AAE8EE1"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/phone/27-dialog-complete-replacement.png",
+    "sha256": "481BA9BFF3E45ADC7894E031AE2DCE2811069BFB6EC4A35DF4D957FA54F78DF7"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/tablet/01-fleet-eqteam.png",
+    "sha256": "F6E20F4EE5E9CA8AB15A593DD264E0BBC24FA4971842B02EAC0FE163D786F8E3"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/tablet/08-qc-overview.png",
+    "sha256": "9D1617002AF06581D9C29FDB089921AEA4C7D95D1047CDEB80863BF297D42E7D"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/tablet/10-qc-motor-a-technical-a-closed-drawers.png",
+    "sha256": "4EA1692FC16761FA873314566D1DFB0BA7CFD971BCCD712215E25EBDF0D727A8"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/tablet/10-qc-motor-a-technical-b-tree-drawer.png",
+    "sha256": "77B3E66F2CA1CC24048DCF4E225145A6A8BAB6D8DEADE614C9EE8DBC272F48CF"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/tablet/10-qc-motor-a-technical-c-details-drawer.png",
+    "sha256": "3F5FB22C4E7D65FAC46AA3CDEF15FF879D7DBA63D54BEAADC7AC8731B3A93646"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/tablet/22-jobs-board-eqteam.png",
+    "sha256": "E948509FF5799AC175682DEDBE4458D26F7F2928D0C5FC7F8D7DB261065EE2E3"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/tablet/27-dialog-complete-replacement.png",
+    "sha256": "381C63C8B9CDBB4ADFA2F8A061C8FB54C02302054AE396CE88711C559A7C3C9C"
+  },
+  {
+    "path": "docs/evidence/P02/screenshots/tablet/32-admin-equipment.png",
+    "sha256": "AB3A6886563976CC67305A0B94370C9C753201DBF2966D513917F276BD9B4366"
+  },
+  {
+    "path": "docs/evidence/P03/P03_EVIDENCE.md",
+    "sha256": "0991364422A8EE403F8C9281055757EB988ADD4917A933FEED0B4B3B8B81778D"
+  },
+  {
+    "path": "docs/evidence/P03/binding-validation.json",
+    "sha256": "18CB14665E76709F39CFA5AC48008356858AF94310C1F08E585231BAB58A5355"
+  },
+  {
+    "path": "docs/evidence/P03/browser-checks-hardware.json",
+    "sha256": "43750B997B0F8096D935CCD3D81413989E12D88A82C0B5305037B8EBD7EE238A"
+  },
+  {
+    "path": "docs/evidence/P03/browser-checks-swiftshader.json",
+    "sha256": "E90B51C402A8E404623692CBAB978833FEAB1482F60B52DCD6597A848F606029"
+  },
+  {
+    "path": "docs/evidence/P03/capture-log.json",
+    "sha256": "E1D79CAB2F88400A3CA4171290035A39008E1C4D52A00A171554BDC0BF09D6DA"
+  },
+  {
+    "path": "docs/evidence/P03/comparison/end-ls-overlay.png",
+    "sha256": "5E949B1C136830E620B3D04DD1631201F069F7AF3BB46652B51BE7ED308D1B14"
+  },
+  {
+    "path": "docs/evidence/P03/comparison/end-ls-pair.png",
+    "sha256": "F0F51F9285EAB4D8AC090A37BA56FE2DDFE161C188E542449DD116E4FDA2DF38"
+  },
+  {
+    "path": "docs/evidence/P03/comparison/end-ws-overlay.png",
+    "sha256": "D18D7A1202221ED62F2EF452A0781FC3AA5D62380B2E28DF6C1D0D353EF05C06"
+  },
+  {
+    "path": "docs/evidence/P03/comparison/end-ws-pair.png",
+    "sha256": "8771A897F0194658AE4416F98C6B49CA88FD50F14B7A223882447F655F02343C"
+  },
+  {
+    "path": "docs/evidence/P03/comparison/persp-overall.png",
+    "sha256": "9056D819E4E33A29463B79DD48D10E5486F4010B9BF2A41C842ACEE69DD35DAB"
+  },
+  {
+    "path": "docs/evidence/P03/comparison/persp-technical.png",
+    "sha256": "E06F2A781BC5A1873D5C03DC3C16837E40C75D9709A1DB30E9AC6443A21D61F1"
+  },
+  {
+    "path": "docs/evidence/P03/comparison/perspective-photo-pair.png",
+    "sha256": "5300DE010CECA34BE3CB479C960F6049352E3B1A98E03D8430C2D3BE31713CB8"
+  },
+  {
+    "path": "docs/evidence/P03/comparison/side-overlay.png",
+    "sha256": "E712E0EAD546D26637E0EF334EA9852E95D85C219A379D1243E7F8684056CE39"
+  },
+  {
+    "path": "docs/evidence/P03/comparison/side-pair.png",
+    "sha256": "3987E9283C3F9E42820828FA678213CAEF02D2274F467BACD8BBA7B5F53B1ECA"
+  },
+  {
+    "path": "docs/evidence/P03/comparison/site-photo-closeups.png",
+    "sha256": "73EC5079EFE452544B51A9175FB51C6BDF2F4F8DC2D34B524E1AC26671C3707C"
+  },
+  {
+    "path": "docs/evidence/P03/comparison/top-overlay.png",
+    "sha256": "D9900C381AB9755D799E8EB73EB5F439D60E7D177522F9265D589057C9716C7B"
+  },
+  {
+    "path": "docs/evidence/P03/comparison/top-pair.png",
+    "sha256": "BF8C64A4BBF94E7B661476AA54A176BBCA8FCB618A700A82B55F0D2425C65BE0"
+  },
+  {
+    "path": "docs/evidence/P03/no-webgl-check.json",
+    "sha256": "50899D8B483F14884B194CF662D529343C33E0BC3D28CAAABC8F56E48B9FA272"
+  },
+  {
+    "path": "docs/evidence/P03/p02-regression-checks.json",
+    "sha256": "BB1F0A9F92B9617C235CECCB2BC99176140C18A45069396B6F08F23B4701117F"
+  },
+  {
+    "path": "docs/evidence/P03/registration-validation.json",
+    "sha256": "59BB975314142F96DF4B4AB919C6DC590BC6245A72703986E6736BD128155779"
+  },
+  {
+    "path": "docs/evidence/P03/screenshots/01-overall-equipment.png",
+    "sha256": "F8971B7BE31CB99E20CEFCF86EC10815DC95EC40A3505534C8092B2AAAF0F9C8"
+  },
+  {
+    "path": "docs/evidence/P03/screenshots/02-main-01-hoist-technical.png",
+    "sha256": "8A71B3CB5DD6A4B8699BB2059ABF0B822B3BD5C681B80D17D316A068AB6E6633"
+  },
+  {
+    "path": "docs/evidence/P03/screenshots/03-sub-011-hoist-technical.png",
+    "sha256": "6A13F4927E0F86E82BA509E4A6B66429526643B9A8DCEBBB24914BD8DF914F39"
+  },
+  {
+    "path": "docs/evidence/P03/screenshots/04-part-motor-a-qc01.png",
+    "sha256": "895091E65F221B4ADB2AF174A7CFA23DF6B228FA6001E8796DE0C12DD9BBEE0E"
+  },
+  {
+    "path": "docs/evidence/P03/screenshots/05-part-motor-a-qc02.png",
+    "sha256": "9CA371F3E2FDCFB271CE04FC562A9ADD63EC8F7661776786BDC6217B724BBD32"
+  },
+  {
+    "path": "docs/evidence/P03/screenshots/06-container-machinery-house-overall.png",
+    "sha256": "497B79C70497F5B93810C1C508AEBB767369A38CBA6AF92D5FE50ACE0F0E7DF7"
+  },
+  {
+    "path": "docs/evidence/P03/screenshots/07-technical-isolated-house.png",
+    "sha256": "6C2F7BC38860B81E8B36B95F856653BECBC9FC7C8ABE41571B18E7122983E16E"
+  },
+  {
+    "path": "docs/evidence/P03/screenshots/08-technical-transparent-house.png",
+    "sha256": "077E815156399DE86217AEEBD0B242A273F77834E29BE92EA579F8443AA31DB4"
+  },
+  {
+    "path": "docs/evidence/P03/screenshots/09-instanced-gantry-wheel.png",
+    "sha256": "E78624B8C9FB4BF48CFEE787003867091316D17D5B80F31048BAFF91A2A9D22C"
+  },
+  {
+    "path": "docs/evidence/P03/screenshots/10-thin-rope-selection.png",
+    "sha256": "B7FA47AF8C170CBE03C4A3B171E95D3324D0F956C8D539E4161AD60BC4ECC6E9"
+  },
+  {
+    "path": "docs/evidence/P03/screenshots/11-spreader-technical.png",
+    "sha256": "E538EDB86777E886BFEDF8F8A6ADFB1D5D4B2C5F2B9237572168A18FC42DA6D3"
+  },
+  {
+    "path": "docs/evidence/P03/screenshots/12-ui-aligned-end-ws.png",
+    "sha256": "0C82D063A4D75B45AADD785EF02710B2CE46DB1B0C07F4B1155ECBF58672AD02"
+  },
+  {
+    "path": "docs/evidence/P03/screenshots/12-ui-aligned-side.png",
+    "sha256": "CAD53D431A7B0B1031653E77248EFD12EFA3AC1CF3FD87A1A635AA4A743A8C21"
+  },
+  {
+    "path": "docs/evidence/P03/screenshots/12-ui-aligned-top.png",
+    "sha256": "522095B4F309C540258FD3E29AB15284E6A268CA3951FB117434599892BA1157"
+  },
+  {
+    "path": "docs/evidence/P03/screenshots/13-fallback-nowebgl.png",
+    "sha256": "D1A4035F2F4457437599B705EF8AA47D09B48D6095F0D66BE8D8DD01B3DF8818"
+  },
+  {
+    "path": "docs/evidence/P03/screenshots/14-fallback-loadfail.png",
+    "sha256": "D6B0F91CD37749677C1961C0D62908BD20F73E4220D2D9F7E07014891587BCDC"
+  },
+  {
+    "path": "docs/evidence/P03/screenshots/15-layout-1366x768.png",
+    "sha256": "55EEC7ECF43736843A947287472683FEEBB67577D7D7B03F50A0235EABEA5105"
+  },
+  {
+    "path": "docs/evidence/P03/screenshots/16-layout-phone-390.png",
+    "sha256": "37DFC7087FDB46C23D4BEB954DE999EF53A3C0F7CAE14C724185734593027FB2"
+  },
+  {
+    "path": "docs/evidence/P03/screenshots/17-real-no-webgl.png",
+    "sha256": "6E84DA066A11881EEF1A6D454E6DFCB54CFC5C626B0D56FCC9531B73DD6F7E37"
+  },
+  {
+    "path": "docs/evidence/R01/repair-20261021-1403.md",
+    "sha256": "CEC0400418466F3B4BBF75D9873B08D894CB5AF969817AE8F76DB1E12AE251DA"
+  },
+  {
+    "path": "docs/evidence/R01/repair-contract-coverage.json",
+    "sha256": "34BE4FC34EC31531B69AAFE5B12CB56EB40235A2A5843F52A03D625A8FE5AB4D"
+  },
+  {
+    "path": "docs/evidence/R01/review-20261021-1357.md",
+    "sha256": "CEC15BE918834C3CE4149EB2A3EC65E1F946B0A441F5EB9138D94279BBEBD8C3"
+  },
+  {
+    "path": "docs/evidence/R01/review-20261021-1418.md",
+    "sha256": "C99C877807EE408689666B6BC39C4853EAC44589AE4BEF53584D155125D291C0"
+  },
+  {
+    "path": "docs/evidence/R02/review-20261021-2052.md",
+    "sha256": "8034535EDB2533FDD26843938E3DA246B792962F934957A321ACA22EB7E0E1BD"
+  },
+  {
+    "path": "docs/evidence/U1/1.png",
+    "sha256": "859F78A95340539E382C2292528441129E5E8089A45B9E64205E9CFDDA71BB93"
+  },
+  {
+    "path": "docs/evidence/U1/10.png",
+    "sha256": "B21F4C9DAB1DD5F99D9EA2A442CAC4CBA12C12006DB5C72774F1372247C92C66"
+  },
+  {
+    "path": "docs/evidence/U1/11.png",
+    "sha256": "0DEA90CDB342867F0A626131FAD217CF4797A9D237FFA7496888AEA8445A7A89"
+  },
+  {
+    "path": "docs/evidence/U1/12.png",
+    "sha256": "20E8100E61BC92A4203E3C734B7C945B2B5974CC8F1B8923E5AFAEE624864F8F"
+  },
+  {
+    "path": "docs/evidence/U1/13.png",
+    "sha256": "1C8229A8942951CB9D7181BD881E79A1E81ADB54CA3C543E194B7A1C30A7EE57"
+  },
+  {
+    "path": "docs/evidence/U1/2.png",
+    "sha256": "EFED95D3C7A95473FA11C49C3879AF5087F8E7A08DA857350B5A08508161A32E"
+  },
+  {
+    "path": "docs/evidence/U1/3.png",
+    "sha256": "00F47BC2DBBB2356A3134DD4DEDA4294CFCB14F5491DBBC1B86A0474A74B880E"
+  },
+  {
+    "path": "docs/evidence/U1/4.png",
+    "sha256": "9560D0E52A75FE9205549ECA70DCADA4035219DA26F52593E3978C14ACB01F0F"
+  },
+  {
+    "path": "docs/evidence/U1/5.png",
+    "sha256": "2EEC75C5AB4D9B588F4DC8BFAD5B28B5BD756634D0E946D0DB6EA4115CA25CCA"
+  },
+  {
+    "path": "docs/evidence/U1/6.png",
+    "sha256": "C8CD42639E92035B2460C7261EF79FEFE601B93FAEC73F05C92E3A078D8E8422"
+  },
+  {
+    "path": "docs/evidence/U1/7.png",
+    "sha256": "3AAFB1A5BC40E6DF015E4DD4560D41D8E2D6249DE1A8584FFD38C6E8EBDB4E1F"
+  },
+  {
+    "path": "docs/evidence/U1/8.png",
+    "sha256": "119BCF71155BC65E5D052AF9E811D6F58C5FCBDC6CFBB49AC42A0D9A369391D6"
+  },
+  {
+    "path": "docs/evidence/U1/9.png",
+    "sha256": "9900158FB12D520790CD74CB1A3B36F365ECB14833462B64DE755AFAD655DECE"
+  },
+  {
+    "path": "docs/evidence/U1/repair-20261022.md",
+    "sha256": "CEA613120CC490F746096C1CA4FB6C39DEF0831659B0DF6AC4AC96B7A5B7AB8F"
+  },
+  {
+    "path": "docs/evidence/U1/repair/binding-validation.json",
+    "sha256": "55F0C3ED3A8C43B28860EA81B7DC96B0A3C069D3A2698BF78666A9CD6BEE4960"
+  },
+  {
+    "path": "docs/evidence/U1/repair/capture-log-3d.json",
+    "sha256": "0F7BB1A2A8A1DC9ED89A66F496FEFA02B2931850AD0EBC17D49107943FB57B33"
+  },
+  {
+    "path": "docs/evidence/U1/repair/capture-log-u1.json",
+    "sha256": "224AE6FD9F0B24351CC2EFFBF4FE7FED80479FF8365930CA18EF94B0948DD986"
+  },
+  {
+    "path": "docs/evidence/U1/repair/comparison/end-ls-overlay.png",
+    "sha256": "25757AF35659D780066239847AD37C7263ADAAD1F6B7D287899967E0A4B7E88A"
+  },
+  {
+    "path": "docs/evidence/U1/repair/comparison/end-ls-pair.png",
+    "sha256": "32F19BCE2A46CE282DDC7618D90B473EA0AB1CA3A9DD2180DCCA57A3EADE6D38"
+  },
+  {
+    "path": "docs/evidence/U1/repair/comparison/end-ws-overlay.png",
+    "sha256": "372ACB50D9BC5F69E1CD55002E89D2EAFDB2727F8EEE41DB02BF2D59C495BE46"
+  },
+  {
+    "path": "docs/evidence/U1/repair/comparison/end-ws-pair.png",
+    "sha256": "48ECD4801D4CACE77BFA5CD89ACC059D4B6D19BB6ED713AEBE27697F38EF1901"
+  },
+  {
+    "path": "docs/evidence/U1/repair/comparison/persp-overall.png",
+    "sha256": "24A62A6731FC10892F66E1DAF6C8D1630F1B822D719C3DDBD432E36A77CD05A4"
+  },
+  {
+    "path": "docs/evidence/U1/repair/comparison/persp-technical.png",
+    "sha256": "A7CE7585C33F02A2E7AD7FE3B9A2F0AB72E52C237CEC31F8D9C8B64839E52819"
+  },
+  {
+    "path": "docs/evidence/U1/repair/comparison/perspective-photo-pair.png",
+    "sha256": "A046AD90DB679587F804E52FE55966A5E1C55C02C72848A30641A374011023F0"
+  },
+  {
+    "path": "docs/evidence/U1/repair/comparison/side-overlay.png",
+    "sha256": "FF81CA8DFA460BF64D36DEF32C4423CCBAE7824AEA98C01EE63558606D0F6A3A"
+  },
+  {
+    "path": "docs/evidence/U1/repair/comparison/side-pair.png",
+    "sha256": "BD1977D64581766E9226824627DA7253A1AE0C9EADFD47EB43F650ABDA345A58"
+  },
+  {
+    "path": "docs/evidence/U1/repair/comparison/site-photo-closeups.png",
+    "sha256": "A9A952DCFA2B612A2348A817C05A51F41B80BDB0E92424DD0FD35FA1F4D8205A"
+  },
+  {
+    "path": "docs/evidence/U1/repair/comparison/top-overlay.png",
+    "sha256": "4EB1B65FC3DE250B792D7F54EFDD2CE390E3E98B584D8D9CAA8709EF45D3A6FC"
+  },
+  {
+    "path": "docs/evidence/U1/repair/comparison/top-pair.png",
+    "sha256": "7023A586AF12008FF0C56580B511D501EA9310C1214C1E584843B3835076227C"
+  },
+  {
+    "path": "docs/evidence/U1/repair/model-revision-diff.json",
+    "sha256": "8BC4E5EEE0C3AB8EE97868AD17F52B2955DF05CBF69779AC85B6238214B92C3F"
+  },
+  {
+    "path": "docs/evidence/U1/repair/no-webgl-check.json",
+    "sha256": "32E7CEE2E026F94B0B2B3AD86991F99B14C1FCDD664C6231C69AD0F51464B6C9"
+  },
+  {
+    "path": "docs/evidence/U1/repair/p02-automated-checks.json",
+    "sha256": "935A204B60F3BF527D8E836987025FEC13A5350D8935EB9B0FB903090DB641F8"
+  },
+  {
+    "path": "docs/evidence/U1/repair/p02-contrast-report.json",
+    "sha256": "9E130ABC833E8C3C47DD9D247F7C7F9A15ED66BE1513214E886F2D2172F7A102"
+  },
+  {
+    "path": "docs/evidence/U1/repair/p03-browser-checks-hardware.json",
+    "sha256": "FA2D66D19698C6BCF9B73107408D85E00874521AF45226E4A31845C2FC581C2D"
+  },
+  {
+    "path": "docs/evidence/U1/repair/p03-browser-checks-swiftshader.json",
+    "sha256": "35B3BC12DE136ADC8B588D720128A020FD07954652713B6377D1F5E054A5E977"
+  },
+  {
+    "path": "docs/evidence/U1/repair/registration-validation.json",
+    "sha256": "1BCC6B34047F109ECB4B1F4E0A93787F4B445E56354BE530CC1CDEFCDA498E94"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots-3d/01-overall-equipment.png",
+    "sha256": "D9910B8519BC944A8E0261448932C7FE7EE057F4D8CE15B13E93A06D6668B29D"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots-3d/02-main-01-hoist-technical.png",
+    "sha256": "197F50F1BB89751F1D3D5498490E4C9B8F35ABCD452A40F93A2E9494675CB3B5"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots-3d/03-sub-011-hoist-technical.png",
+    "sha256": "600844687C54CAA6CB1EC2003E30A35D70DA9CDDDBB5BD15B586415C6CBFFDA7"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots-3d/04-part-motor-a-qc01.png",
+    "sha256": "47FD5BA6689C7BF301FCECCDA4B2633FC27A843672120DB02551CCED58193A28"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots-3d/05-part-motor-a-qc02.png",
+    "sha256": "82659E044BFF0E3974145F5909A9FB76E0DE13EB10687882EFAC2221BE6F0976"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots-3d/06-container-machinery-house-overall.png",
+    "sha256": "2C770AB3E9F4C1669C06EA3DCD88B96E9B445EC0BDE0AC4863632E4066B5DECE"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots-3d/07-technical-isolated-house.png",
+    "sha256": "5DBFF1BCD04634C61F39C616D457AF54E5CF80AFABADAC76D627A59731BC1A6D"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots-3d/08-technical-transparent-house.png",
+    "sha256": "352CD69466C2B33B178E48000BC83F1A478103285E9A0DBC5BAC8584CF557CD7"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots-3d/09-instanced-gantry-wheel.png",
+    "sha256": "972A31FBA2504D455F3F981740747406ABF79C78A8EDDE830D8D58DDBD2874AC"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots-3d/10-thin-rope-selection.png",
+    "sha256": "0DA02E757859DBF922A90A1DBCBC865CDBE5D79BC91B6ECFD8FC3E7DD39B65B1"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots-3d/11-spreader-technical.png",
+    "sha256": "C73501F69E901E149891ED0C15554A4C64EE53ABDC0C7AF81BF03256F835CDA7"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots-3d/12-ui-aligned-end-ws.png",
+    "sha256": "078B97010AEA02C8BC43677CF0FF9ED818A1B8EB93D1B5068D6A6B57C6656F97"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots-3d/12-ui-aligned-side.png",
+    "sha256": "1C1EC30FC6D083EB1B0DC5EAB897027E4047DC0ED7B0770F7AE834FD1161BE78"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots-3d/12-ui-aligned-top.png",
+    "sha256": "4802ABE8CB3BD4956FD4A44EE5F3B4C2C4E235427FB33F5873ED54B8015086B7"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots-3d/13-fallback-nowebgl.png",
+    "sha256": "E70C499B3CFDB884FF6941DEF9C361E10EFFC9D5304F399A3C5153B0583A356F"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots-3d/14-fallback-loadfail.png",
+    "sha256": "395A068494D17E27788442CD161B503B682F7C6FC5B33E8F2495F8FED345975C"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots-3d/15-layout-1366x768.png",
+    "sha256": "B4D214A0BBD747482355381E5C64C6E1DBE3289D1CCC21B6049145C87CD1122A"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots-3d/16-layout-phone-390.png",
+    "sha256": "D8121762D58A2A39EB88C07FADB77D2E110971B7FF481257B5BD26BC122A762F"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots-3d/real-no-webgl.png",
+    "sha256": "D274DD5C2CE4F5D4E6ACD732A33186FECCE28EC76C096DAF9F8D49FB4516F7F1"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots/p02-01-fleet-1920.png",
+    "sha256": "31732567D4C10F25F22A4BBE7DED743F8509BCA0768C52593891EC98AEEB93E6"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots/p02-02-fleet-1366.png",
+    "sha256": "85DD253FDED509428C84CA10385B82D14F67DBD030492D4BB23C3AC0473F65D4"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots/p02-03-fleet-admin.png",
+    "sha256": "B990B813BFF0F2D1D1815E71CCFC33DBA628E4D8792827AAB446CA46257D63A2"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots/p02-04-fleet-phone.png",
+    "sha256": "93E19650C8AE2F58DA2E684E12CFA336CB80B5E5AB30619D12306AC3EC33A75F"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots/p02-05-flat-tier1.png",
+    "sha256": "E01409F713FFA8D4C3B34794A0B34AD8ED2E199BB98BFB8E94147474CCB4B922"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots/p02-06-flat-tier2.png",
+    "sha256": "71D37D37855829839397AF2E99438608BF46FD45687A8943DF8E8C2DF86A79EA"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots/p02-07-flat-tier3.png",
+    "sha256": "4E9D645129F608EC413CF414026FB2BF22FA02647D096DFEA8757A30A79C847A"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots/p02-08-flat-backreach.png",
+    "sha256": "6B3739676AE9FBB21EEDB9676D03936F148BBB699962D4F82CE2AFEC5D992A17"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots/p02-09-flat-stairs.png",
+    "sha256": "ABE2F54D58BEEBCBC9249D6624EE66294340BE6D1596CDE32A023D148E612B1A"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots/p02-10-flat-isolate.png",
+    "sha256": "3B524906EC47D79038B8EE9BACCE28D51E986BACD55F5FEAF4FB62C275008B38"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots/p02-11-flat-qc02.png",
+    "sha256": "D50150277BAB99CA6BFD2EA70090ADB13F62AACE079DA5BA4000168552F4AB73"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots/p03-01-tier1.png",
+    "sha256": "85737293BFB3A6823E84654E3D4B6EF81C4E7DBF547F4E80E0225BB1C0CFEDD6"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots/p03-02-tier2.png",
+    "sha256": "1CEB14F9C3A3FD40095719325F9041AE16C74FA55258FFC14DDB0EA1E29DEB40"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots/p03-03-tier3.png",
+    "sha256": "286BB340855484F1854716925D2EA0F5719A5B02A8556154EC85628644578E29"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots/p03-04-part.png",
+    "sha256": "9D8245A758D0B3014996A54DDA2DE16D9FF261A065BD1245C142412FCA6B45A4"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots/p03-05-qc02-cabin-parts.png",
+    "sha256": "161A5304982AEF8CFA97974C1903A190DA5853FAD6D77ABBD4C8E082EA168ED2"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots/p03-06-isolate-from-overall.png",
+    "sha256": "A4F9ABA28AB2BCE61DDA1D9397453DBDDEEACD0AC4C52496E76F579FCAAAF151"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots/p03-07-aligned-side-fit.png",
+    "sha256": "397C27BB24C2A171AD4F8CA4833917441621BD97D6E0EBA7223EE72B07572156"
+  },
+  {
+    "path": "docs/evidence/U1/repair/screenshots/p03-08-aligned-top.png",
+    "sha256": "C180C58A03978A98EC192C28E508D60A61E820B37C6265F4F65A3EAD18DD6C54"
+  },
+  {
+    "path": "docs/runs/P00-20261021-1248.md",
+    "sha256": "775E3D66B728D1113293627268D2821305592055D8F3C44A27CFE2CAB2F85A12"
+  },
+  {
+    "path": "docs/runs/P01-20261021-1314.md",
+    "sha256": "81DB2C7C58FA0766B255244BE87F90EC3B75E7C785AABD1668755DF6EF847DA2"
+  },
+  {
+    "path": "docs/runs/P02-20261021-1419.md",
+    "sha256": "D9812A3B7193F1B33954A38DF6301AE49D04D10DDB09C4E36D7EFDCE8ECC47B9"
+  },
+  {
+    "path": "docs/runs/P03-20261021-1541.md",
+    "sha256": "1652AFF04EF1B449766E2250CDD6728F33E3F8C20A7301A572647127C702B77E"
+  },
+  {
+    "path": "docs/runs/R01-20261021-1347.md",
+    "sha256": "57B9572E810D03349BCE4C9A56BFC02053E5912060AF9486A9A272E149517048"
+  },
+  {
+    "path": "docs/runs/R01-20261021-1413.md",
+    "sha256": "5E8680B94AA52FA7353E89AB0CAA328792284B8E3FE7AA2707C604D2FE142F16"
+  },
+  {
+    "path": "docs/runs/R02-20261021-2035.md",
+    "sha256": "9C7FAF9B6CD226FBAA60D227281B1003793ACB1F33E5A99C7BE50CCF9DB32445"
+  },
+  {
+    "path": "docs/runs/Repair-R01-20261021-1403.md",
+    "sha256": "1B074CFB5937FBF8AAB494D07878DABAEB841910E3B2D3BC6690AC37FCAFC359"
+  },
+  {
+    "path": "docs/runs/Repair-U1-20261021-2206.md",
+    "sha256": "26BFD89A30FDB852415C48F2343EFC3A60C0C12F868AB0FBA5DAA600A7506F87"
+  },
+  {
+    "path": "documents/EQ_MAINTENANCE_PROMPT_PACK_v1.zip",
+    "sha256": "54FDFAB178B2FEB46C7209CBDDB1C114458DBEA9BA8EBF4A1C3B8051FDDDBDCB"
+  },
+  {
+    "path": "documents/EQ_MAINTENANCE_PROMPT_PACK_v1_1.zip",
+    "sha256": "B4F60F3AFFCC0022FB5E75E005D848EC6A165802EBECCCDD1CE80C479FAD05A5"
+  },
+  {
+    "path": "documents/EQ_MAINTENANCE_PROMPT_PACK_v1_2.zip",
+    "sha256": "B54F1261DC788DC9DFC07F24EDB59F9627E2F1AFDA064AD596F086836D480A4D"
+  },
+  {
+    "path": "documents/EQ_MAINTENANCE_REQUIREMENTS_REVIEW.md",
+    "sha256": "FBA273269BF307A21656244E8C00F454622517CEC1FBDB5A3DDAF9A9AEEB049C"
+  },
+  {
+    "path": "documents/SOW.docx",
+    "sha256": "9ED51EAAFD25C9D917F3D8DA273926D0AA94A021B0D91338B6127EBAAE204FEF"
+  },
+  {
+    "path": "documents/images.jpg",
+    "sha256": "7762882D1DF8BA9A8B2BB3817EE6C7F44C4EAFF5293691822741DF4B0A35DF10"
+  },
+  {
+    "path": "documents/images2.jpg",
+    "sha256": "D3F5F30136B194BC714F34C2FDAA7794BFD1831A341854BA5A050DB6FE093D84"
+  },
+  {
+    "path": "documents/prompt-pack/ACCEPTANCE_CHECKLIST.md",
+    "sha256": "1516BA903227560B19505D3745E847286C2D6093625D0C959DD5A25A292F340D"
+  },
+  {
+    "path": "documents/prompt-pack/APPROVED_REQUIREMENTS.md",
+    "sha256": "DB89E7CEEFF25008B10501A4399BC7800F7ECCDCE9D1E5200B657585FE4C5BED"
+  },
+  {
+    "path": "documents/prompt-pack/CHANGELOG.md",
+    "sha256": "E04E5893BFCC860E2B5803983885E79B21AA543F206C36800D171E6A74DE65EE"
+  },
+  {
+    "path": "documents/prompt-pack/EQ_MAINTENANCE_IMPLEMENTATION_PROMPT_PACK.md",
+    "sha256": "5A8BE7E57BC47F8E3EF02F09B99DAFAB61777B23EC8C68668D4D52C59FC8E178"
+  },
+  {
+    "path": "documents/prompt-pack/MODEL_AND_EFFORT_GUIDE.md",
+    "sha256": "71462A5904E7F7C8FDCA99572C632ED369CFB1360E7991ABE73023349A175557"
+  },
+  {
+    "path": "documents/prompt-pack/PACK_MANIFEST.json",
+    "sha256": "FC7BCADEFF6A000DCC8BC8E8CF9229D69A23E4FEA9DCC3057CB1F5B5D42E43FF"
+  },
+  {
+    "path": "documents/prompt-pack/PACK_VALIDATION.md",
+    "sha256": "EB926D81FC4F165C1BF154B00B4B37D84422F91F1CE9BC2E6A8B1AFACF4F564A"
+  },
+  {
+    "path": "documents/prompt-pack/QC_3D_MODELLING_BRIEF.md",
+    "sha256": "28274F3F3CD22432D5402B6BB5A3F26DE1E8A4523C8A49A6567D44C4854442C0"
+  },
+  {
+    "path": "documents/prompt-pack/README.md",
+    "sha256": "E876EEB7D661BCBA9DA9AF528D9D308795632E9C6D7E94D2A1167DC17E7575BB"
+  },
+  {
+    "path": "documents/prompt-pack/reference/drawing-register.json",
+    "sha256": "33F52B10DDC56ED56580B52BD4409DABD002018E03E64A8C944D15BA39857F01"
+  },
+  {
+    "path": "documents/prompt-pack/reference/major-parameters.json",
+    "sha256": "4A5249077555E7061A3149D2A488B78F5560AB317A0B5A404DD2765E1B5F387B"
+  },
+  {
+    "path": "documents/prompt-pack/reference/mechanisms-approved.json",
+    "sha256": "93DB494645A7E9C306B1A08EAADC68FDF3A51F8A641F698B4E725FB67385490A"
+  },
+  {
+    "path": "documents/prompt-pack/reference/mechanisms-original.txt",
+    "sha256": "95DBCC1811B7297144B9A10EE9346FACD06D95CC3890BD86184DF55EFF9C48D6"
+  },
+  {
+    "path": "documents/prompt-pack/reference/phase-model-settings.json",
+    "sha256": "2FBA3C5EB55D07A0EC197440B7C51AE27CE0A078B0EEBE110D031366477ED52B"
+  },
+  {
+    "path": "tools/extract-phase.ps1",
+    "sha256": "1DAF5AF9EB6FACA330C9A8F6E69840B6864DC188C15CF12F62A98423520B98CE"
+  },
+  {
+    "path": "tools/model-generator/generate.mjs",
+    "sha256": "62C935B6E554054C2D1665B7AAC047CB8270E49B099396FA4F5CCCA9AE777D68"
+  },
+  {
+    "path": "tools/model-generator/lib/kit.mjs",
+    "sha256": "E8FA3960C9F0CEFC3AD4B9691D6617AE24192336E43F5382E4B7B7C2FE688025"
+  },
+  {
+    "path": "tools/model-generator/lib/scene-builder.mjs",
+    "sha256": "815F8DC731FACAA71810F492E570E6D105B1DB482CAC0DA11D1BA6846D68F7F3"
+  },
+  {
+    "path": "tools/model-generator/package-lock.json",
+    "sha256": "13C35EE69B0C30A86D2F99086F4FB50B84B4A11A67F51F3CBD6E7AA9BA840849"
+  },
+  {
+    "path": "tools/model-generator/package.json",
+    "sha256": "2FC76EBA837C9E63A73E9246A2C2A2C094262DEC0B6F336F0FFBEC12AA8BFB30"
+  },
+  {
+    "path": "tools/model-generator/validate.mjs",
+    "sha256": "BF5AB9B29BC17DE13482A0AB8B076F4F9B8B1B1AAA5201CE7321D4D09F6F59B5"
+  },
+  {
+    "path": "tools/p00/render_drawing_page.py",
+    "sha256": "BF2670D3E3505CE2C534497B1007324DC4FA75C25BDE46ACF6C89DF8276F0537"
+  },
+  {
+    "path": "tools/p00/validate_mechanisms.py",
+    "sha256": "D2546D6C04F95283AF00ED7DC3A13D219C3AD55B5DCB9E21A9DAA5709A05DC5C"
+  },
+  {
+    "path": "tools/p00/verify_drawing_register.py",
+    "sha256": "D5DA07C2299674FEE4A3A9488EFCB2A814E8E249E2F10F586431452C860D9705"
+  },
+  {
+    "path": "tools/p01/check_contract_coverage.py",
+    "sha256": "97F5AFB053655BF2B79E104B4E3D2C0FE86DFE55CE7FECF1385A2BAFB7E25C92"
+  },
+  {
+    "path": "tools/p02/build_catalog.py",
+    "sha256": "5C08655E7DDE04EA8BD3DFEE11B79C14F3B687193F1E1434CD3ED47A2D4D9027"
+  },
+  {
+    "path": "tools/p02/capture.mjs",
+    "sha256": "CC82E9AA58B61FEA02F5A2E473AC0FBBAB11D34B7CA939F52A917E0C499FA8C9"
+  },
+  {
+    "path": "tools/p02/cdp.mjs",
+    "sha256": "E44959B42B5170B4971B3019129D65DA3DCEF33950E60D6FCDF4C06A11457A67"
+  },
+  {
+    "path": "tools/p02/check_contrast.py",
+    "sha256": "973F459A28EA1345B7C9B5CCA4163006BA296CD944D3E7DFBD986E75F013DDBE"
+  },
+  {
+    "path": "tools/p02/check_prototype.mjs",
+    "sha256": "F896E7F9F0B64A4F07F40495345D330116BEFE129FA8EA8FC0EEB0F22AB6B178"
+  },
+  {
+    "path": "tools/p03/alignment.json",
+    "sha256": "CAE3252E1BE9DEBF4F79303501D5291F62E1F23415748F82274A4469B4470A81"
+  },
+  {
+    "path": "tools/p03/capture.mjs",
+    "sha256": "1F068B71B33921A4AD41DFBB39D9BA466142EB46AD8705CEDCDDB6AA542D38EE"
+  },
+  {
+    "path": "tools/p03/cdp.mjs",
+    "sha256": "36196BB2849343A56008EBEE45F87A850E8EBD7119BC6DBA35D9BC83E0E02F6C"
+  },
+  {
+    "path": "tools/p03/check_bindings.mjs",
+    "sha256": "F3C62392C9B928E4A14A5916B5BAC79CA4333EB1560575E6414ED4022DC2A774"
+  },
+  {
+    "path": "tools/p03/check_model_prototype.mjs",
+    "sha256": "5855BA60E581260C88D0D5AF7562FA40CC3F0BD4BD217D41D0F3E75CCC0A78C6"
+  },
+  {
+    "path": "tools/p03/check_no_webgl.mjs",
+    "sha256": "443F5475EC31E2DEECDCC9687D12F7AAD242475AC0EBE0907D1492131FAC466A"
+  },
+  {
+    "path": "tools/p03/compose_comparisons.py",
+    "sha256": "E5C59C5F3BF0D7FDB8F2F12B5C1CFC19D08A5FB0E50231AF91DEAD749D34C3BD"
+  },
+  {
+    "path": "tools/run-phase.ps1",
+    "sha256": "43A54680EDBED6847F78DEBCD1519FB8221E402E97B1B103B9B5034FFFF7390E"
+  },
+  {
+    "path": "tools/u1/capture_u1.mjs",
+    "sha256": "DFFC71536756B1B9D70302517FB3CE2A23D4B5782C228B9B4A379B6D0257FA3C"
+  },
+  {
+    "path": "tools/u1/model_diff.mjs",
+    "sha256": "7E6BD5E8DA77C850C8BCE47D44132DB13C97CED5E912AE8A084EA551250F597F"
+  }
+]

@@ -1,0 +1,118 @@
+{
+  "browser": "Microsoft Edge (headless, software WebGL)",
+  "mode": "file://, offline network mode",
+  "passed": 27,
+  "failed": 0,
+  "results": [
+    {
+      "name": "Offline HTML boot / 18 equipment / 20 work orders / approved catalogue",
+      "status": "PASS"
+    },
+    {
+      "name": "Fleet type, readiness, search and list filters",
+      "status": "PASS"
+    },
+    {
+      "name": "QC real 3D scene and camera controls",
+      "status": "PASS"
+    },
+    {
+      "name": "Canvas ray picking selects boom mechanism",
+      "status": "PASS"
+    },
+    {
+      "name": "Tree main/sub/part drill-down and equipment-specific work",
+      "status": "PASS"
+    },
+    {
+      "name": "Create targeted replacement work order",
+      "status": "PASS"
+    },
+    {
+      "name": "Start and complete replacement; operational status remains independent",
+      "status": "PASS"
+    },
+    {
+      "name": "Saved dummy changes survive file reload and deep link",
+      "status": "PASS"
+    },
+    {
+      "name": "Management role is read-only and cannot open Admin controls",
+      "status": "PASS"
+    },
+    {
+      "name": "Evidence image attachment / preview / download",
+      "status": "PASS"
+    },
+    {
+      "name": "Reopen/recomplete retains replacement events without duplicates",
+      "status": "PASS"
+    },
+    {
+      "name": "Explicit status update refreshes stored equipment state",
+      "status": "PASS"
+    },
+    {
+      "name": "Second QC sharing model retains a separate motor history",
+      "status": "PASS"
+    },
+    {
+      "name": "RTG and ES record views remain functional without fake QC models",
+      "status": "PASS"
+    },
+    {
+      "name": "EQ Team creates and cancels its own uncompleted work",
+      "status": "PASS"
+    },
+    {
+      "name": "Work table, equipment and priority filtering",
+      "status": "PASS"
+    },
+    {
+      "name": "Replacement register filters and export downloads",
+      "status": "PASS"
+    },
+    {
+      "name": "Embedded PDF / source image previews and real downloads work offline",
+      "status": "PASS"
+    },
+    {
+      "name": "Admin adds new equipment without invented status or model",
+      "status": "PASS"
+    },
+    {
+      "name": "Admin edit / retire / reactivate equipment preserves register",
+      "status": "PASS"
+    },
+    {
+      "name": "Admin mechanisms: reserved entries, add main/sub and applicability",
+      "status": "PASS"
+    },
+    {
+      "name": "Admin main-part position create edit deactivate",
+      "status": "PASS"
+    },
+    {
+      "name": "Audit log and full dummy-data export",
+      "status": "PASS"
+    },
+    {
+      "name": "Reset restores only demo-local data",
+      "status": "PASS"
+    },
+    {
+      "name": "Mobile fleet and navigation have no horizontal overflow",
+      "status": "PASS"
+    },
+    {
+      "name": "Mobile job form remains within viewport",
+      "status": "PASS"
+    },
+    {
+      "name": "No uncaught browser errors or external network requests",
+      "status": "PASS"
+    }
+  ],
+  "browserErrors": [],
+  "externalRequests": []
+}

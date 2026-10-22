@@ -1,0 +1,120 @@
+ 
+39
+ 
+To continue 
+Troubles 
+Reasons 
+Remedy 
+Rapid 
+wear 
+or 
+frequent breakage of 
+wire rope sheave does 
+not rotate 
+Contamination and lack of 
+grease 
+Clean and lubricate the 
+wire rope 
+Lack of lubrication between 
+shaft and bush 
+Disassemble and lubricate 
+parts and add grease 
+Too long starting time 
+of brake(s) 
+Too high resistant force at 
+various 
+pivot 
+points 
+of 
+brake(s) 
+Clean up every pivot 
+point and grease 
+Too low oil pressure or oil 
+piping blocked 
+Clean piping and fill oil 
+with oil as necessary 
+Internal oil leakage  
+Clean 
+and 
+check 
+hydraulic 
+thruster 
+for 
+noise 
+and 
+replace 
+damaged parts 
+No 
+pressure 
+in 
+hydraulic thruster, no 
+braking 
+Orifice 
+of 
+pressure 
+relief 
+value is blocked 
+Clean 
+pressure 
+relief 
+value 
+The solenoid is reversibly 
+connected and the thruster 
+can not be pushed downward
+Adjust wiring 
+Pump fitting is not tightened 
+Tighten the fitting of the 
+pump 
+Filter is blocked 
+Clean the filter 
+Pressure in hydraulic 
+thruster can not reach 
+operating 
+pressure 
+value 
+The plane of the control lever 
+of the adjustable device of 
+pressure relief is not leveled; 
+control lever has deviated 
+from the center of nozzle 
+Find out the failure point 
+and correct it 
+Too long braking time 
+Insufficient current in the 
+solenoid of electro-hydraulic 
+adjustment device 
+Increase current within 
+permitted range 
+Release time by the 
+hydraulic thruster is 
+too 
+long, 
+residual 
+pressure too high 
+Small distance between the 
+control lever and the nozzle 
+Slightly tighten the upper 
+end 
+nut 
+of 
+the 
+cross-spring 
+Too small diameter of the 
+nozzle bore 
+Enlarge the bore diameter
+The brake can not be 
+released 
+Too high tension of the main 
+spring 
+Adjust the tension of the 
+spring 
+Thruster is damaged  
+Repair 
+or 
+replace 
+hydraulic thruster 
+ 
+ 
+ 
+ 
+To continue 

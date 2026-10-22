@@ -1,0 +1,134 @@
+ 
+ 
+Chapter 3
+ 
+ 
+8 
+ 
+1) 
+Before inspection, make the crane under stopped 
+state and make the bolts idly without working 
+stress (without loading). 
+2) 
+If needed, remove all the dirt and paint on the 
+fasteners. Spray a thin layer of oil-lubricant rust 
+remover (CRC or other equate product) on the 
+nut and washer. The lubricant rust remover is 
+functioned after 10~20 minutes. 
+3) 
+Use a marking pen to mark out the original 
+position on the nut and the surface between the 
+connection part and the washer (shown in the 
+Figure 3-11 ). 
+4) 
+An initial tension of 75% of the final tension 
+shall be developed by a marked torque wrench.  
+5) 
+Check the nut: if the nut can be turned, make it 
+out by a marking pen or painting and refasten or 
+replace it later on. 
+6) 
+Repeat the process 3)-6) to inspect the other bolt 
+joints.    
+7) 
+Account all the nuts that marked rotation and 
+should be replaced. 
+8) 
+If the account of the bolts marked to be replaced 
+exceeds 20%, use the same grade bolts to 
+replace them. 
+9) 
+If the account of the bolts marked to be replaced 
+under 20%, replace all the marked bolts and the 
+bolts on both sides. 
+10) The non-rotating nuts should be refastened 
+according to 11) ~13) step by step. 
+11) Turn the nut about 30°by a torque spanner to 
+loosen the nut. 
+12) Refasten the nut to its pretightening torque 
+requirement. 
+13) Use proper solvent to clean the bolt, nut, washer 
+and the joint surface of the structure. Then 
+repair the paint according to the “paint repair 
+process”.  
+3.3.2.3. 
+Inspection period for the fasteners 
+Table 3-3：Inspection Period for the Fasteners 
+Inspection 
+Type 
+Inspection Period
+（before the first 
+maintenance）* 
+Inspection Period
+（after the first 
+maintenance）* 
+Visually 
+check 
+Per 3 months
+（except special 
+positions） 
+Per 
+6 
+months
+（except special 
+positions） 
+Use 
+torque 
+spanner 
+10% spot-checked 
+(the sixth month 
+or 50000 work 
+cycle)  
+the 5th, 15th 、
+25th、30th year 
+Replace 
+fasteners 
+If needed  
+If needed 
+* The first maintenance here gives priority to the first 
+expiration of the 6th month or 50000 in work cycle.  
+After the crane is put into operation for six months or 
+50000 work cycle(which comes earlier), the tightness of 
+bolts should be checked according to Table 3-3：
+Because the bolts are easy to be loosened in the primary 
+stage, so an all-around inspection should be carried out. 
+High-strength bolts should be spot-checked by 10% for 
+each group. If any one bolt is found loose, all bolts within 
+this group should be thoroughly checked. In addition, the 
+bolts bearing vibrating or varying load and the effective 
+anti-loosening methods have not been adopted, the 
+inspection period should be shortened to avoid accidents. 
+Electrical wiring and connecting bolts of small electrical 
+parts, such as bar wiring connection in control panels, 
+motor wiring, junction box wiring, various kinds of limit 
+switches, encoders and cam limit switches (inside and 
+outside), usually have smaller area and size. Impact and 
+vibration during the operation of the crane may cause the 
+bolts to loosen. Once the bolts are loose, the electrical 
+control will fail. Therefore, the inspection of fastening 
+condition for this kind of bolts must be carried out, and the 
+wiring condition should be inspected periodically. 
+3.3.3 
+Process for bolt’s replacement and tightening 
+3.3.3.1. 
+Replacement standard 
+The bolts under the following condition should be 
+replaced： 
+1) 
+The bolts required to be replaced mentioned in 
+the above section. 
+2) 
+The bolts with such defects like impairment, 
+distortion, slide tooth, lacking tooth, corrosion, 
+big change of the screw roughness and so on. 
+3) 
+If the bolts following the standard GB1228、
+GB1229、GB1230 ASTM325 and ASTM490 are 
+hot dipped galvanizing, they are not allowed to 
+be used repeatedly, and should be replaced once 
+loosened after being final tightened. According 
+to the standard AISC only the bolts by black 
+finished can be used again with engineer’s 
+permission. In addition, when the adjacent bolts 
+are loosened by tightening bolts, they are not 
+needed to be replaced. 

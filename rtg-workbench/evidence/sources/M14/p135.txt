@@ -1,0 +1,81 @@
+ 
+ 
+Chapter 5 
+ 
+ 
+9 
+ 
+ 
+2) 
+Bad reeving (due to excessive fleet angles or 
+slack winding) can result in mechanical 
+damage, shown as severe crushing, and may 
+cause shock loading during operation. 
+3) 
+Small diameter sheaves or drums can result in 
+severe bending stress of the rope, and will 
+certainly lead to early wire breaks. 
+4) 
+Oversize grooves offer insufficient support to 
+the rope leading to increased localized pressure, 
+flattening of the rope and premature wire 
+fractures. Grooves are deemed to be oversize 
+when the groove diameter exceeds the nominal 
+rope diameter by more than 15% 
+5) 
+Undersize grooves in sheaves will crush and 
+deform the rope, often leading to two clear 
+patterns of wear and associated wore breaks. 
+6) Excessive angle of fleet can result in severe 
+wear of the rope due to scrubbing against 
+adjacent laps on the drum. An excessive angle 
+of fleet can also induce rotation causing 
+torsional imbalance.  
+7) 
+Using the wire rope of incorrect size, 
+construction, or grade can result in wire rope 
+breaking; 
+8) 
+Dragging rope over obstacles can result in 
+severe friction and wire rope breaking; 
+9) 
+insufficiency lubrication 
+10) drums or sheaves have concave- convex 
+surfaces; 
+11) Wire rope jumping off the sheaves can result in 
+serious accident 
+12) Subjecting it to acid fumes 
+13) mounting error attachment can result in 
+overload local stress at the joint, which make 
+the rope easy to break. 
+14) Subjecting it to severe or continuing overload 
+and fierce impact such as emergency stop can 
+result in different degrees damage. 
+5.4.2 wire rope inspection method 
+ The wire rope inspection must be done by the 
+person who is trained and authorized. 
+1) 
+wire rope diameter measurement 
+The size of a wire rope is designated by its diameter. 
+The diameter of a wire rope should be measured with a 
+set of vernier calipers. 
+The proper method is showed in figure 5-15(a), and 
+5-15(b) is the improper method. 
+To ensure an accurate measurement of the diameter 
+of a wire rope, always measure the rope at three places 
+and at least 1.5m apart. Use the average of the three 
+measurements as the diameter of the rope. 
+
+The nominal diameter of a 
+new wire rope must be 
+measured and recorded 
+before it is installed on the 
+crane. The results of every 
+subsequent check should 
+also be recorded in the 
+journal for that wire rope. 
+ 
+（a）proper method 
+ 
+（b）improper method 
+measurement 

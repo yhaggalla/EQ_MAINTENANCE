@@ -1,0 +1,31 @@
+                                                                       Chapter  2 
+ 
+ 
+ 
+2-24
+ 
+ 
+ 
+Figure 2-26 Rack and pinion driving device      Figure 2-27 Three in one driving device 
+ 
+The trolley brake which released by electro-hydraulic thruster and braked by spring can stopthe trolley.
+ 
+More details about the brake, please refer to the Brake’s manual.  
+ 
+ 
+ 
+ 
+ 
+2.4.5.2 Trolley wheel assembly 
+Trolley wheel divided into driving wheel and driven wheel: 
+A) Driving wheel composed of wheel, driving shaft, bearing, excentric sleeve and end cover. Refer as 
+Figure 2-28. 
+B) Driven wheel composed of wheel, driven shaft, bearing, excentric sleeve and end cover. Refer as Figure 
+2-29.  
+ 
+ 
+ 
+Figure 2-28 Driving wheel group       Figure 2-29 Driven wheel group 
+ 
+ 
+Torque of the trolley brake setting as 130Nm! 

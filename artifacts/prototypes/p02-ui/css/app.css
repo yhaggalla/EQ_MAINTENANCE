@@ -426,3 +426,15 @@ svg.scene.iso .sc-hit:not(.in-house):not(.house), svg.scene.iso .deco, svg.scene
 .sc-label.hidden-in-mode { border-style: dashed; }
 .sc-label-badge { margin-left: 4px; font-size: 10px; background: #e6f4f8; color: #0b4f63; border-radius: 2px; padding: 0 3px; font-weight: 600; }
 .sc-label-work { margin-left: 4px; font-size: 10px; background: var(--gold-500); color: #3a2a00; border-radius: 8px; padding: 0 5px; font-weight: 800; }
+/* U1 round 2: simplified parts instead of dashed location circles, floodlights, elevator context, edge-pinned labels */
+.sc-cab { fill: #cdd2d7; stroke: #4a5560; stroke-width: .22; }
+.sc-cab-line { stroke: #4a5560; stroke-width: .12; }
+.sc-cab-panel { fill: #2f6d8e; stroke: none; }
+.sc-lamp { fill: #3a4046; stroke: #22272b; stroke-width: .1; }
+.sc-lamp-line { stroke: #3a4046; stroke-width: .18; }
+.sc-lens { stroke: #e9d27a; stroke-width: .22; }
+.sc-door { fill: #4a5560; stroke: none; }
+.sc-mast { stroke: #8c949b; stroke-width: .35; }
+.sc-landing { stroke: #a9262d; stroke-width: .3; }
+.sc-label.edge { background: rgb(240 244 248 / 95%); border-style: dotted; }
+.sc-arrow { display: inline-block; margin-right: 4px; color: #0b4fb8; font-weight: 800; }

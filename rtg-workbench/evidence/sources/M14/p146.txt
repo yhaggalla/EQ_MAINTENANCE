@@ -1,0 +1,110 @@
+ 
+ 
+Chapter 5 
+ 
+ 
+20 
+ 
+ 
+No 
+Description 
+Picture 
+19.  
+[Flattened Portion] 
+ 
+ 
+In case of wire rope abnormalities, the maker of the wire rope should be 
+determined. A colored tracer thread is embedded in the core of the rope. 
+The manufacturer can be found by this tracer thread. 
+ 
+Use the right hand lay wire rope both on right hand and left hand drum 
+  
+ 
+Left hand lay   
+ 
+ 
+ 
+ Right hand lay 
+ 
+5.4.6 Procedure of wire rope inspection  
+5.4.6.1  Inspection procedure of main hoist rope 
+Table 0-3  Manpower and tools for the 
+inspection of main hoist wire rope 
+Description 
+Quantity
+Notes 
+ Manpower 
+Operator 
+1 
+With radio 
+Examiner 
+1 
+With radio 
+Supervisor 
+1 
+With radio, must care 
+examiner at any time 
+Tools 
+Duster 
+cloth 
+Some 
+For cleaning 
+Vernier 
+caliper 
+1 
+For measurement 
+Screwdriver  
+1 
+Forchecking 
+internal 
+of rope 
+Chalk/tape  
+1 
+For marking 
+Inspecting 
+form  
+1 
+For recording 
+Pen 
+1 
+ 
+Others 
+ 
+Other special tool for 
+rope inspection. 
+The homologous number of personnel and tool for 
+the inspection are given in 错误！未找到引用源。. The 
+RTG shall be switch to maintenance mode before 
+inspection. Taking “change rope” mode or using the 
+emergency drive to move wire rope.  
+Examination may be according to following steps:  
+1) 
+Move the trolley to the parking position. Hoist 
+and lower the spreader at slow speed for 
+several times. Make the spreader as close to the 
+ground surface as possible when lowering it. 
+Examiner can stay on both sides of the main 
+hoist drum to check the wire ropes. This step 
+aims to check the wire ropes wrapped on the 
+drum. Pay close attention to the moving drum      
+while inspecting. When the spreader is lowered 
+to the ground surface, rings on the drum shall 
+be checked.  
+2) 
+Examiner can stand on the platform outside of 
+sheave. Hoist and lower the spreader at slow 
+speed for several times. Make the spreader as 
+high as possible when hoisting it. This step 
+aims to check the wire ropes of main working 
+parts. Pay close attention to the moving sheave 
+while inspecting. 
+3) 
+Lowering the spreader as low as possible, 
+examiner can stand at the headblock to check 
+the wire ropes nearby. 
+4) 
+The problematic area should be checked 
+carefully. 
+5) 
+In 4-rope hoisting system, examiner should 
+stand on the platform around the trolley, 

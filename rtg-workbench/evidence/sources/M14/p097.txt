@@ -1,0 +1,75 @@
+ 
+ 
+   Chapter 4 
+ 
+ 
+14 
+ 
+ 
+Figure4-32 step19 
+After the hub is fixed, push the indicator to the 
+corresponding position of coupling. 
+ 
+Figure4-33 step20 
+Reassemble the drum and outer teeth hub according to the 
+method above, verify the serial numbers of both parts, 
+which is important for accurate installation. 
+Realign the drum coupling and remark line at the abrasion 
+indicator. 
+4.5 Replacement of motor brake 
+4.5.1 Preparations 
+The motor brake includes main hoist mechanism, which is 
+electric hydraulic disc brakes. shown in 错误！未找到引
+用源。 some trolley traveling mechanism also adopt this 
+type. Before replacement, carefully research the drawings, 
+understand the motor brake constitution，the drawings 
+about motor brake on 错误！未找到引用源。, the needed 
+personnel and tools on 错误！未找到引用源。. 
+Table 4-6 brake drawings for refer 
+main hoist motor brake 
+JL1200605 
+trolley traveling motor brake 
+JL1200601 
+Table 4-7 personnel and tools for drum coupling 
+replacement 
+personnel/quantity 
+tools/quantity 
+lifting worker 
+1 
+hand chain block 
+1 (5t) 
+welder 
+1 
+other mechanic 
+tools 
+some 
+mechanic 
+worker 
+2 
+torque wrench 
+1 
+electric worker
+1 
+ 
+ 
+ 
+ 
+Figure4-33 actual picture of motor brake 
+ 
+1
+2
+ 
+3
+4 
+5 
+ 
+6 
+ 
+ 
+ 
+Figure4-34 disassembly drawing of motor brake 
+1  brake arm 
+2  brake rod 
+3 
+balancing 
+device 

@@ -1,0 +1,93 @@
+ 
+ 
+Chapter 3
+ 
+ 
+26 
+ 
+High stresses caused by: 
+ 
+Wheel flanges riding on the rail 
+ 
+Compression stress due to concentrated wheel load 
+ 
+Bending stress due to eccentric loading 
+ 
+Lateral stress due to “crabbing”, trolley motion and 
+swinging live load. 
+ 
+Rail movements caused by: 
+Longitudinal due to: 
+ 
+Bending of the girder under load 
+ 
+Thermal expansion 
+ 
+Crane gantry or trolley accelerating and braking 
+Lateral due to: 
+ 
+Crane or trolley “crabbing” 
+ 
+Swinging of live load 
+ 
+Gantry or trolley accelerating and braking forces 
+Vertical due to: 
+ 
+Rail “bow wave” effect under wheel load 
+ 
+Height difference of rail at interface of two 
+adjacent girders 
+ 
+Twisted rails 
+Rotation due to 
+ 
+Twisted rails 
+ 
+Load eccentricity  
+ 
+Steering effects of crane on rail head 
+ 
+3.6.6.3. 
+Trolley rail clip installation and inspection  
+1) Inspect the bolts of rail clip to estimate whether 
+they are loose. Screw down bolts if needed, and 
+insure the exact position of stud. The process of 
+installation about ZPMC trolley rail clip is listed 
+hereinafter for reference.The installation of Gantrex 
+clip can refer to Gantrex manual 
+2) Welding of base. Weld the base all around with low 
+hydrogen electrodes and 4mm fillet welding. Spot 
+welding first, and then weld the base. Especially 
+pay attention to clamp the base when welding to 
+avoid the moving in upright direction and keep the 
+contact of base. Refer to Figure 3-21.  
+ 
+Figure 3-21：Welding of base 
+3) Installation of bolts and clip. Set the bolts into the 
+holes of clip base, circumvolve it 90° and keep it 
+lying in the wimble holes reliably. After confirming 
+the bolts are oriented reliably (pay attention to the 
+orientation line in the section of bolts), install clip 
+and screw down nut manually. (It’s important to 
+screw down manually to ensure the correct location 
+of the head of bolts in its head room.)  Refer to 
+Figure 3-22. 
+  
+ 
+Figure 3-22：Installation of bolts and clip 
+4) Cleaning up of base bolt hole. Clean up the rubbish 
+(with air pump) and slag (with welding hammer) in 
+the base bolt holes before set up the clips. Refer to 
+Figure 3-34. 
+Figure 3-23 Cleaning up 
+5) Tighten the clip. Knock the clip slightly with hand 
+hammer to keep the close contact of clip and rail 
+side. Then, complete the tightening of the nuts to 
+150Nm. In case of further painting protection, the 
+use of solvent is prohibited. Refer to .Figure 3-24 
+If, for any reason, a nut must be 
+loosened after mounting, you must 
+verify the correct position of the bolt 
+shaft before re-tightening the nut.
+ 
+Correct position 

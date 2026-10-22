@@ -1,0 +1,53 @@
+                                                                       Chapter  2 
+ 
+ 
+ 
+2-28
+As shown in Figure 2-42, E-room is 
+mounted on the sill beam. E-room provides a 
+clean 
+working 
+environment 
+with 
+air 
+conditioning for the drive control cabinets and 
+other electrical equipments. The E-room 
+installed of conventional mechanical locks and 
+electronic card lock system. Only the 
+authorized person can enter the E-room. Even 
+the RTG is power off, the people can enter the 
+room through key of mechanical lock. 
+Consider the escape safety requirements, no 
+door can be locked from the inside.  
+ 
+E-room adopts a double-layer structure, 
+the interlayer is filled with insulation material. The normal temperature of the room control between 20℃
+（68℉）and 30℃（86℉）through two air conditionings.  
+ 
+The temperature switch install in the room setting at 30℃（86℉）. If the temperature over this value, it’ll be 
+recorded and warning the operator through a flash signal. This fault will cause the hosit and trolley operated in 
+slow speed.  
+ 
+2.4.9 Energy chain system 
+The trolley use the cable energh 
+chain or festoon system to provide the 
+power.  
+ 
+Energy chain system as shown in 
+Figure 2-43. The cable chain running 
+smoothly in the stainless steel guide, with 
+less influenced by the wind.              
+ 
+This project use IGUS’s energy 
+chain, type is 5050RHD.30.300.0. The chain connects the 
+trolley with L bracket. The bracket should  avoid interfere 
+with girder’s platform. As shown in Figure 2-44.  
+ 
+Because of both trolley and energy chain has the 
+installation and operation error, so we use floating 
+connection between them. Shown as in Figure 2-45.                                
+Figure 2-44 Connection bracket of the 
+energy chain 
+Figure 2-43 Energy chain system 
+ 
+Figure 2-42 E-room 

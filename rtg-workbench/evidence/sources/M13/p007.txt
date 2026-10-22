@@ -1,0 +1,110 @@
+ 
+5
+ 
+ 
+The operator should thoroughly read and fully understand these instructions and 
+should get special training on operation for three to six months. The container slots 
+and lanes on the stack-yard should be designated with white lines. The electrical 
+safety protection devices on the crane should be adjusted properly. 
+ 
+ 
+ 
+ 
+ 
+2. Principal Technical Parameters 
+Item 
+Value 
+Unit 
+Remark 
+Rated lifting capacity  
+40.5 
+t 
+ 
+Lifting height 
+21.2 
+m 
+ 
+Working  
+speed 
+Hoisting 
+speed 
+full load 
+23 
+m/min 
+ 
+no load 
+52 
+m/min 
+ 
+Gantry traveling 
+speed 
+full load  
+30 
+m/min 
+ 
+no load 
+90 
+m/min 
+ 
+Trolley traveling speed 
+70 
+m/min 
+ 
+Span 
+23.47 
+m 
+ 
+Wheel Base 
+7.9 
+m 
+ 
+Total number of driven wheels 
+4 
+pieces 
+ 
+Spreader 
+Spreader horizontal slewing 
+5 
+degree 
+ 
+Diesel 
+engine 
+Model 
+    C7 
+CAT 
+Power 
+205 
+kW 
+ 
+Speed of rotation 
+1800 
+rpm 
+ 
+Alternator 
+Model 
+                    
+TYFZ18000-280L-G 
+Zhongyua
+n 
+Power     
+180 
+kW 
+ 
+Speed of rotation 
+1800 
+rpm 
+ 
+Number of containers stacked by the crane 
+6 
+containers 
+ 
+Number of containers the crane may pass 
+over 
+7 
+containers 
+ 
+ 
+ 
+ 
+ 
+ 

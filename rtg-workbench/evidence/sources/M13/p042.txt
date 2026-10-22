@@ -1,0 +1,139 @@
+ 
+40
+ 
+13.6.2.2 Regular Inspection Item (mechanical) for the Crane 
+ 
+Inspected 
+components 
+Inspection 
+Items
+Inspection 
+Method and 
+apparatus 
+Inspection 
+criteria 
+Inspection
+period 
+Item description
+Item description 
+1 
+Reducer 
+1 
+Lubrication 
+oil amount 
+Visual, 
+with 
+oil scale 
+Indicated 
+range on the 
+scale 
+per month 
+2 
+Sealing  
+Visual  
+Fixed joint: no 
+leakage. 
+Relatively 
+moving joint: 
+no drip 
+per month 
+3 
+Running 
+condition 
+Testing, 
+hear 
+and feel 
+no 
+abnormal 
+sound, 
+abnormal 
+heating 
+per month 
+4 
+Bolt 
+connection 
+Knock 
+and 
+test 
+no loosening 
+per month 
+5 
+Oil quality 
+Chemical 
+analysis 
+To 
+specified 
+by standard 
+3 months 
+6 
+Gear 
+meshing 
+Visual test 
+Tooth 
+face 
+smooth 
+and 
+clean 
+normal 
+meshing 
+3 months 
+7 
+Wear of gear 
+wheel  
+Measure  
+Wear is less 
+than 
+10% 
+tooth original 
+thickness 
+Every year
+2 
+Drum  
+1 
+Wear of the 
+drum wall 
+Measure  
+Wear is less 
+than 
+15% 
+original 
+thickness 
+Every half 
+a year 
+2 
+Wire 
+rope 
+clamp 
+Knocking  
+no damages 
+per month 
+3 
+Rope 
+grooves  
+Visual  
+no damages 
+per month 
+4 
+Fatigue 
+cracks 
+Visual  
+no damages 
+per month 
+5 
+Bearing 
+lubrication 
+Visual  
+Proper 
+lubrication 
+per month 
+3 
+Wire rope 
+1 
+lubrication 
+Visual  
+Grease is not 
+dried, 
+distributed 
+uniformly 
+per month 
+ 

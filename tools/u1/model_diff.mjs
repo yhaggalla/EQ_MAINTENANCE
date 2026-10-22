@@ -1,6 +1,7 @@
 // U1 repair: report the node changes between the committed P03 manifest (git HEAD) and the regenerated draft v1 rev 2.
 // Orphaned keys (removed) would need Admin repair before any binding could be activated; none is expected.
-// Usage: node tools/u1/model_diff.mjs [--base HEAD] -> docs/evidence/U1/repair/model-revision-diff.json
+// Usage: node tools/u1/model_diff.mjs [--base HEAD] [--out FILE] -> docs/evidence/U1/repair/model-revision-diff.json by default
+// (U1 round 2 added --out; the round-2 report compares the committed revision 2 with revision 3)
 import fs from 'node:fs';
 import { execFileSync } from 'node:child_process';
 const base = process.argv.includes('--base') ? process.argv[process.argv.indexOf('--base') + 1] : 'HEAD';
@@ -19,7 +20,8 @@ for (const [k, o] of om) {
   if (JSON.stringify(o.instancing) !== JSON.stringify(n.instancing)) d.instancing = [o.instancing, n.instancing];
   if (JSON.stringify(o.bounds) !== JSON.stringify(n.bounds)) d.boundsChanged = true;
   if (o.label !== n.label) d.label = [o.label, n.label];
-  if (JSON.stringify(o.hotspot) !== JSON.stringify(n.hotspot)) d.hotspot = [o.hotspot?.point, n.hotspot?.point];
+  if (JSON.stringify(o.hotspot) !== JSON.stringify(n.hotspot)) d.hotspot = [o.hotspot?.point, n.hotspot?.point, o.hotspot?.representation || 'marker', n.hotspot?.representation || 'marker'];
+  if (JSON.stringify(o.modes) !== JSON.stringify(n.modes)) d.modes = [o.modes, n.modes];
   if (Object.keys(d).length) changed.push({ key: k, ...d });
 }
 const rep = {
@@ -28,5 +30,5 @@ const rep = {
   note: 'Draft v1 revised in place (no binding active). Keys, kinds, classification and instancing of existing nodes are unchanged unless listed; bounds changes are geometry corrections.',
   added, removed, changed,
 };
-fs.writeFileSync('docs/evidence/U1/repair/model-revision-diff.json', JSON.stringify(rep, null, 2) + '\n');
+fs.writeFileSync(process.argv.includes('--out') ? process.argv[process.argv.indexOf('--out') + 1] : 'docs/evidence/U1/repair/model-revision-diff.json', JSON.stringify(rep, null, 2) + '\n');
 console.log(JSON.stringify(rep.summary), 'removed:', removed, 'parent/hotspot changes:', changed.filter((c) => c.parentKey || c.hotspot).map((c) => c.key));

@@ -1,0 +1,131 @@
+ 
+ 
+Chapter 3
+ 
+ 
+17 
+ 
+3.5.3 
+Lubricant Replacement Standard 
+The deterioration of the lubricant lies on the work 
+frequency and the ambience. 
+In inspection of the lubrication or in the use of 
+lubrication, replace the lubricant whenever sizable 
+quantities of any of the following conditions are found: 
+(1) Rubber-like deterioration 
+(2) Impurity   
+(3) Metal powder and badly discoloring  
+(4) Emulsification 
+(5) Separation of mineral oil and saponification radicel 
+(deterioration due to oxidation). 
+In addition, sample specimen termly as follows to 
+determine whether the lubricant should be replaced: take 
+approximate 20 milliliters of lubricant from the machine 
+and consult the lubricant manufacturer or deliver it to lab 
+to check .The detail of standard is listed in TABLE 3-11, 
+replace lubricant or append additives according to the test 
+result if any standard is met. Refer to sampling program to 
+Section 3.5.5. 
+Table 3-11：The standard of lubricant replacement 
+Test items 
+the 
+standard 
+of 
+replacement 
+Test 
+method 
+kinematics 
+viscosity variety 
+(40
+oC) 
+Increase 
+15% 
+or 
+decrease  20%  
+ASTM 
+D 445  
+acid number 
+decrease 
+35% 
+or 
+increase ≥0.4mgKOH/g  
+ASTM 
+D 974  
+normal heptane 
+thawless 
+≥0.1%  
+IP 316  
+sheet 
+copper 
+erodibility 
+Less than Grade 2a 
+ASTM 
+D 130  
+Chroma variety 
+Chroma ≥2 than new 
+lubricant 
+ASTM 
+D 1500 
+humidity 
+≥0.1%  
+ASTM 
+D 1744 
+3.5.4 
+Lubrication Procedure 
+(1) When the reducer oil is changed, drain the used oil 
+while it is still warm. The tank floor must be cleaned 
+out with oil to remove deposited silt, metallic particles 
+and oil residue. Use the same type of oil to keep 
+normal operation. 
+(2) When bearings are re-lubricated, pump the new grease 
+into the oil pocket through grease fitting. Please clean 
+out the old extruded grease after re-lubrication. During 
+the first shift of operation after re-lubrication, the 
+lubricating points should be cleaned.  
+(3) For lubricating motor, emergency brake, reducer and 
+other outsourcing parts, please refer to their manuals.  
+(4) Wire ropes should be under good lubrication condition 
+at all hours. Lubricating will prevent the wire rope 
+from corrosion and reduce the friction in rope strands, 
+between the wire ropes and the sheaves and/or drums. 
+The type of lubricant and application frequency varies 
+with the rope construction, the operating conditions 
+and its functional application.  . 
+(5) The quantity of oil/grease should be suitable. 
+(6) For gear reducers (splash lubrication), the oil level 
+should be kept a little higher than the central level 
+between the highest and lowest levels because the oil 
+level will become lower when the gear reducer is 
+working. 
+(7) For bearings and other relatively sliding parts, it is 
+natural that the old grease flows out of the seal from 
+one side when the new grease is pumped in from other 
+side. 
+(8) Oil and grease complementary cycle. It has 
+relationship with the ambience, sealing condition, 
+working grade and operating frequency of each part.  
+(9) For reducers not used frequently, bottom valves 
+should be opened termly to inspect the moisture 
+content of the oil. 
+(10) At the early stage of the crane is put into operation, 
+three samples should be collected from the replaced 
+old oil to analyze the percentage of metal powder in it.  
+Compare and analyze the lubricant to find out the 
+working status of machine. 
+3.5.5 
+Lubrication Analyze and Monitoring 
+An effective oil conditioning and monitoring program 
+can help extend the equipment life, reduce scheduled and 
+unscheduled downtime, reduce maintenance costs and 
+extend lubricant change intervals. 
+The condition of oil is very important for proper 
+operation of a device. A Sample for each component in the 
+table below should be taken at least once a year. An 
+analysis of the sample should be carried out as a minimum:  
+1) Kinematical Viscosity 
+2) Particle Count 
+3) Moisture content inspected by Karl Fisher 
+4) Metal grains inspected by Spectroscopic 
+ 
+3.5.5.1 Basic principles of sampling of lubricant 
+1) Sample from the same point every time to the best of 

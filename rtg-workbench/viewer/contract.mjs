@@ -1,0 +1,19 @@
+export const keyPattern=/^[a-z0-9]+(-[a-z0-9]+)*(\.[a-z0-9]+(-[a-z0-9]+)*){1,11}$/;
+const fail=(code,message)=>{throw Object.assign(new Error(message),{code});};
+export function validateManifest(m){
+  if(m?.schemaVersion!==1||m.units!=='m'||!Array.isArray(m.nodes)||!Array.isArray(m.instanceMaps))fail('manifest','Unsupported or invalid manifest');
+  if(!Number.isInteger(m.version)||!m.asset||!Number.isInteger(m.asset.bytes)||!/^[a-f0-9]{64}$/.test(m.asset.sha256))fail('manifest','Missing version or asset integrity');
+  const by=new Map();for(const n of m.nodes){if(!keyPattern.test(n.key)||n.key.length>128||by.has(n.key))fail('manifest','Duplicate or invalid node key');if(!['position','hotspot','container','decorative'].includes(n.kind)||(n.kind==='container')!==n.key.startsWith('container.'))fail('manifest','Invalid node kind');if(!n.bounds||![...n.bounds.min,...n.bounds.max].every(Number.isFinite)||n.bounds.min.length!==3||n.bounds.max.length!==3||n.bounds.max.some((v,i)=>v<n.bounds.min[i]))fail('manifest','Invalid bounds');if(!['measured','drawing-derived','estimated','approximate-location'].includes(n.provenance?.kind))fail('manifest','Invalid provenance kind');if(!Array.isArray(n.gltfNodeNames)||!n.gltfNodeNames.length||!Array.isArray(n.modes))fail('manifest','Missing names/modes');if(['container','decorative'].includes(n.kind)&&n.classification!==null)fail('manifest','Spatial container cannot own maintenance classification');if(['position','hotspot'].includes(n.kind)&&(!/^\d{2}$/.test(n.classification?.main)||!/^\d{3}$/.test(n.classification?.sub)))fail('manifest','Missing classification');by.set(n.key,n);}
+  for(const n of m.nodes){const seen=new Set();for(let q=n;q.parentKey;){if(seen.has(q.key)||!by.has(q.parentKey)||by.get(q.parentKey).kind!=='container')fail('manifest','Invalid parent hierarchy');seen.add(q.key);q=by.get(q.parentKey);}}
+  if(m.instanceMaps.length)fail('manifest','This module accepts non-instanced RTG package version 1 only');
+  return by;
+}
+export function validateBindings({equipmentId,modelVersion,entries},manifest){
+  if(!equipmentId||modelVersion!==manifest.version||!Array.isArray(entries)||!entries.length)fail('binding','No explicit binding for this equipment / model version');
+  const nodes=new Map(manifest.nodes.map(n=>[n.key,n])),bound=new Map(),positions=new Set();
+  for(const b of entries){const n=nodes.get(b.nodeKey);if(!n||!['position','hotspot'].includes(n.kind)||bound.has(b.nodeKey)||b.kind!==n.kind||b.classification?.sub!==n.classification.sub||b.classification?.main!==n.classification.main)fail('binding','Invalid or duplicate binding');if(n.kind==='position'){if(!b.positionId||positions.has(b.positionId))fail('binding','Missing or duplicated position identity');positions.add(b.positionId);}else if(!b.subInstanceId)fail('binding','Missing sub-instance identity');bound.set(b.nodeKey,{...b,equipmentId,modelVersion});}
+  const missing=manifest.nodes.filter(n=>['position','hotspot'].includes(n.kind)&&!bound.has(n.key));if(missing.length)fail('binding',`Incomplete binding: ${missing.length} semantic positions missing`);
+  return bound;
+}
+export function readGlbJson(arrayBuffer){const v=new DataView(arrayBuffer);if(v.byteLength<20||v.getUint32(0,true)!==0x46546c67||v.getUint32(4,true)!==2||v.getUint32(8,true)!==v.byteLength||v.getUint32(16,true)!==0x4e4f534a)fail('asset','Invalid GLB 2.0 header');const len=v.getUint32(12,true);if(len+20>v.byteLength)fail('asset','Truncated GLB');const g=JSON.parse(new TextDecoder().decode(new Uint8Array(arrayBuffer,20,len)));if(g.buffers?.some(b=>b.uri)||g.images?.some(i=>i.uri))fail('asset','External GLB resources are not allowed');return g;}
+export async function sha256(arrayBuffer){if(!globalThis.crypto?.subtle)fail('checksum','Integrity verification requires localhost or a secure context');return [...new Uint8Array(await crypto.subtle.digest('SHA-256',arrayBuffer))].map(x=>x.toString(16).padStart(2,'0')).join('');}

@@ -1,0 +1,180 @@
+                                                                       Chapter 2  
+ 
+ 
+ 
+6
+Hoist speed 
+With 
+rate 
+load 
+23 
+m/min 
+ 
+Without 
+load 
+52 
+m/min 
+ 
+ 
+Nominal diameter of the drum 
+1200 
+mm 
+ 
+Dr
+um 
+Number of groups of grooves 
+on wire rope drum 
+8 
+Sets 
+ 
+ 
+Number of wraps of rope for 
+fixing 
+3 
+pcs 
+ 
+ 
+Length of rope on the 
+drum(one group of grooves) 
+44.9 
+m 
+ 
+ 
+ 
+ 
+ 
+ 
+mot
+or 
+Type 
+5RN315L08B9
+YASKAWA 
+Power 
+180 
+kw 
+ 
+Speed 
+778/1760 
+rpm 
+ 
+Voltage 
+380 
+   V 
+ 
+Number 
+1 
+  set 
+ 
+red
+uce
+r 
+Type 
+ML4PSF140E-1565 
+SEW 
+Input power 
+180 
+kw 
+ 
+Ratio 
+127.5 
+ 
+ 
+Number 
+1 
+set 
+ 
+ 
+Wir
+e 
+rop
+e 
+Type 
+IWRC  6XWS36 
+ 
+diameter 
+28 
+mm 
+length 
+43.5x2 
+m 
+ 
+42.3x4 
+m 
+ 
+44.9x2 
+m 
+ 
+ 
+2.2.3  Trolley travelling mechanism parameters 
+ 
+It’s shown in table 2-4 for trolley travelling mechanism parameters 
+ 
+Table 2-4   trolley travelling mechanism parameters    
+item 
+value 
+unit 
+Note 
+Trolley travelling speed 
+70 
+m/min 
+ 
+Reduc
+er 
+buildin
+g in 
+motor 
+and 
+brake 
+ 
+Type 
+KH107DV160 
+SEW 
+Ratio 
+37 
+ 
+Output speed 
+44.6 
+rpm
+ 
+Output torque 
+3212 
+Nm 
+ 
+Motor power 
+15 
+kw 
+ 
+Motor speed 
+1740 
+rpm 
+ 
+Voltage 
+380 
+V 
+ 
+Brake torque 
+130 
+N.m 
+ 
+Number 
+2 
+Pcs 
+ 
+wheel 
+Diameter 
+500 
+Mm 
+ 
+ 
+ 
+ 
+ 
+Number 
+4 
+Pcs 
+ 
+Trolley rail 
+80x80 
+Square steel 
+ 
+ 

@@ -1,0 +1,33 @@
+                                                                       Chapter  2 
+ 
+ 
+ 
+2-23
+2.4.5 Trolley travel sysytem 
+The trolley travel system consists of driving device and wheel supporting device, is mainly responsible 
+for the horizontal transport of the container. Four non-flange wheels support the trolley frame, and driving 
+device make the trolley moving along the rail. Because of the trolley wheels are non-flange, we have two sets of 
+side guide rollers in both ends of one side trolley frame, and four groove shaped blocks under end beam of 
+trolley, to avoid the trolley derailment.  
+ 
+2.4.5.1 Trolley driving device 
+Trolley driving device composed of motor, coupling, reducer and transmission device. According to the 
+driving principle, it can be divided into wheel direct driving and rack and pinion driving. Wheel direct driving is 
+using the friction between the wheel and rail to driving the trolley moving. Rack and pinion driving is using the 
+mesh between the pinion and rack to driving the trolley. When the trolley is driving by wheel direct driving, the 
+friction between the driving wheel and rail shall be big enough to avoid trolley skid.  
+A)  Wheel direct driving device composed of motor, coupling, brake, reducer and universal drive shaft 
+connect with two trolley wheels. There are two types, one is single wheel direct driving and another is dual 
+wheels direct driving. Single wheel direct driving refers to Figure.2-24, dual wheels direct driving refers to 
+Figure.2-25.  
+ 
+ 
+Figure 2-24 Signle wheel direct driving device     Figure 2-25 Dual wheels direct driving device 
+ 
+B) Rack and pinion driving device composed of motor, coupling, brake, reducer, universal drive shaft, 
+driving pinion and rack. The rack and pinion will drive the trolley directly. Refer to Figure 2-26.  
+ 
+C) “Three in one” driving device belong to wheel direct driving device. It Combine the motor, brake, and 
+reducer into one unit and direct install on the wheel shaft to driving the wheel. It has the advantages of tight 
+configuration, light weight and easy maintenance etc. More attention shall be give to the synchronous driving of 
+trolley wheels on different rails. Refer to the Figure 2-27.  

@@ -1,0 +1,116 @@
+ 
+ 
+       Chapter  6 
+ 
+ 
+3 
+  
+ 
+2 × ZP842 (intermedia) 
+1 × ZP135 (top coat) 
+2) structure interior 
+1 × ZP 842 (intermedia) 
+3) galvanized area 
+remove all the grease according to 6.1.3 
+1 × HEMPEL’S 15552 organic epoxy primer 
+1 × ZP135 
+6.1.6 inspection 
+1) All work should be subjected to inspection. 
+The inspectors shall be given advance notice prior to 
+the start of surface preparation or coating application. 
+2) All the inspections should be carried out at 
+each hold point defined below 
+Completion of surface preparation, prior to 
+primer application. 
+Completion of application of each coat (primer, 
+intermediate and topcoat). 
+ Final acceptance of completed coating work. 
+6.1.7 colors 
+painting color codes 
+components 
+colors 
+structure exterior 
+Maersk Blue 
+structure interior 
+RAL 9016 
+driving gantry 
+Red RAL 3020 
+driving 
+gantry 
+guarder 
+RAL9016/3020 
+cabin exterior 
+RAL 9003 
+cabin interior 
+RAL 7015 
+power set exterior 
+RAL 9003 
+power set interior 
+RAL 7015 
+E-room exterior 
+RAL 9003 
+E-room interior 
+RAL 7015 
+walkway,handrail 
+BS Golden Yellow 356
+headblock 
+BS Golden Yellow 356
+spreader 
+BS Golden Yellow 356 
+6.2 application 
+and 
+repairement 
+technology 
+6.2.1 introduction 
+1）The procedure covers the surface preparation, 
+materials and coating application requirements for 
+coating 
+the 
+fabricated 
+steel, 
+equipment 
+and 
+appurtenances of the container crane structures. 
+2）The coating system of this specification is 
+based on: 
+The International standard ISO 12944 “Protective 
+Paint System”, under corrosive category “C4“- for 
+coastal or industrial environment 
+With high durability more than 15 years of 
+performance reaching level Ri 3 as defined in ISO 
+4628-3 or the rust ratio Re3 defined in European Rust 
+Scale. 
+3 ）The color of finish coating is to be in 
+accordance with the owner’s requirement, while that of 
+the primer and intermediate coating shall be up to the 
+manufacturer’s availability. 
+6.2.2 surface treatment 
+The surface shall be prepared in a manner suitable 
+for coatings. Chemical de-rusters or rust converters are 
+not allowed.  
+1) Detergent / Solvent Cleaning 
+All surfaces to be coated shall be clean of all 
+contaminants that would affect the integrity of the 
+coating system. Prior to surface preparation, the 
+surfaces shall be cleaned, as necessary, to remove all 
+oil, grease, dirt, salts or other foreign materials. This 
+cleaning shall be done with appropriate detergent 
+and/or solvent cleaning. Detergent or solvent cleaning 
+shall be performed as outlined in SSPC-SP-1. 
+2) Hand or Power Tool Cleaning 
+Power tool cleaning is a way used power machine 
+such as sander to clean the rust and paint. 
+Once finished, no erosioned paint can be seen on 
+the surface, and the edge need to be smooth and 
+equality. 
+Do not polish the surface, surface roughness can 
+ensure the adhesive force of the new applied paint. 
+Power tool cleaning shall be as per SSPC-SP-3 
+and SSPC-SP-11.  Hand tool cleaning shall be as per 
+SSPC-SP-2. 
+The sharp edges, such as those occurring in rolled 
+structural members as well as those resulting from 
+flame cutting, welding, etc., shall be removed by 
+suitable methods such as a soft grinding wheel before 
+sandblasting and the application of any coat of paint. 
+(Refer to SSPC-SP5 and SSPC-SPCOM). 

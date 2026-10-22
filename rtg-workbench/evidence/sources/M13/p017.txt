@@ -1,0 +1,46 @@
+ 
+15
+ 
+6.4.10.4 Every pivot pin shall be frequently oiled. Frequently check wear of the pin 
+and matched fore. 
+  Period:  routine 
+ 
+7.  Trolley traversing 
+7.1 Trolley drive mechanism 
+ 
+The trolley drive mechanism includes two motor which drives reducers directly. 
+The reducers will drive the wheels directly to propel the trolley transverse along 
+the rail. The wheel system consists of wheels, wheel shafts, bearings and sealing, 
+etc.  
+ 
+7.2 Attention During Operation 
+ 
+To ensure normal operation of the trolley and reduce shock, careful inspection is 
+needed. 
+ 
+7.2.1 Check that the noise in the reducer is normal, that the bearing is not 
+overheated, and that the oil level is correct. If any of these problems appear, the 
+Crane should be stopped immediately and the problem corrected. 
+ 
+7.2.2 Periodically check that the attachment of the wheel to its shaft is firm and if 
+the end fastening bolts are loosened. They should be tightened regularly. 
+ 
+7.2.3 Periodically check for wear on the trolley wheels since a difference in 
+diameters between wheels affects their synchronization. Wheels shall be replaced 
+if their wear reaches certain limit that may affect smoothness of traversing. 
+ 
+If the wheels are found to be worn rapidly, the cause must be found and removed. 
+The diameters of the four wheels shall be within the same tolerance. 
+ 
+7.3 Horizontal wheels system and its adjustment 
+ 
+Horizontal wheels ensure that the trolley traverses along the rail track in correct 
+way. The horizontal wheel system consists of supports, eccentric shafts, horizontal 
+wheels, etc. They are in two complete sets, fitted on appropriate horizontal wheel 
+supports. Horizontal wheels contact the side surface of the rail head to ensure the 
+trolley is aligned with the rail during traversing. Since a certain tolerance is 
+permitted for the rail installation, the eccentric shafts of horizontal wheels must be 
+adjusted to ensure the horizontal wheels pass through every section smoothly. The 
+minimum clearance between the horizontal wheel and the rail side surface should 
+be not less than 3 mm. After a certain time of running the horizontal wheels and 
+rail head side surface may be worn, and in this case the clearance should also be 

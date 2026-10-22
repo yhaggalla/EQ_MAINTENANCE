@@ -1,0 +1,47 @@
+ 
+11
+ 
+nominal diameter is 1200 mm. There are 8 groups of grooves in the drum. One end 
+of the drum is connected to the reducer through involute crowned teeth coupling 
+and the other end is supported on the stub-through bearing which is seated on the 
+trolley frame. 
+ 
+The main hoist is provided with tachometer and over-speed protection device 
+which are located at the bearing-housing side. The over-peed protection is 
+activated when the motor speed reaches 115% of its rated speed to stop main hoist 
+movement. Limit protection device provides the following protection: 
+1) Stopping at upper lift end; 
+2) Stopping at lift lower end; 
+3) Slowing down before reaching upper and lower lift ends; 
+4) Stopping at lift upper extreme limit end. 
+ 
+6.2 Main hoist wire rope reeving system 
+There are 8(eight) main hoist wire ropes (from the end of the reducer) of 43.5，
+42.3m，42.3m，44.9m ,44.9m,42.3m,42.3m,43.5m and they are IWRC 6xWS36  B 
+(right spiral) with diameter of 29 mm. 8 pieces of wire rope go from the drum and 
+downward to headblock; If uneven tension happens, the end securing clamps may 
+be loosened and tightened to adjust the wire rope. After the first period of crane 
+working, the ropes must be re-adjusted depending on their stretch. In normal 
+operation, any uneven tension situation happen between the eight sets of wire 
+ropes, they should be corrected immediately. 
+ 
+Attention shall frequently be paid to the fastening condition of the wire rope 
+clamps and tighten them if loo-sened. Frequently check bolts of the clamps and 
+replace them immediately if thread damage, cracks, etc. are found. The ropes shall 
+not be twisted or knotted during reeving. 
+ 
+The wire rope shall frequently be checked during application and shall be replaced 
+if wires damaged account for 1/10 the wire in the whole strand or if the diameter 
+of the wire rope is reduced by 7% of its nominal size due to surface wear. Pay 
+attention to inspection for the rope jumping out of them sheave groove and if there 
+is any interference of the wire rope with other mechanical or structural parts. 
+ 
+6.3 Attention during Operation 
+ 
+After a long term of non-operation of them crane or after disassembly and 
+re-assembly, the crane shall be run first without load enabling the reducers, 
+bearings, etc. to be lubricated sufficiently and operation with load can be started 
+only it is confirmed that the running condition is normal. 
+ 
+6.4 Inspection items and Periods for maintenance 
+ 

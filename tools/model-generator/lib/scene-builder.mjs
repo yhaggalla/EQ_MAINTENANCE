@@ -106,12 +106,18 @@ export class SceneBuilder {
   position(key, o, build) { if (!o.sub) throw new Error('position without classification ' + key); return this._mesh(key, 'position', o, build); }
   decorative(key, o, build) { if (o.sub) throw new Error('decorative with classification ' + key); return this._mesh(key, 'decorative', o, build); }
 
-  /** Qualified location marker for a sub mechanism whose exact geometry is not established. */
-  hotspot(key, o) {
+  /**
+   * Qualified location representation for a sub mechanism whose exact geometry or location is not established.
+   * U1 round 2 (U1-C16): with o.build the node is drawn as a simple part that looks like the real component
+   * (cabinet, floodlight, load pin, ...) instead of a ball; it stays a hotspot (bound to the sub instance, labelled
+   * approximate). Without o.build the P03 sphere marker is used.
+   */
+  hotspot(key, o, build) {
     if (!o.sub) throw new Error('hotspot without classification ' + key);
     const r = o.radius || 0.6;
-    const e = this._mesh(key, 'hotspot', { ...o, modes: o.modes || ['technical'], prov: o.prov || 'approximate-location' }, (ng) => ng.add('hotspot', sphere(o.point, r, 14)));
-    e.hotspot = { point: o.point, radius: r };
+    const draw = build || ((ng) => ng.add('hotspot', sphere(o.point, r, 14)));
+    const e = this._mesh(key, 'hotspot', { ...o, modes: o.modes || ['technical'], prov: o.prov || 'approximate-location' }, draw);
+    e.hotspot = { point: o.point, radius: r, representation: build ? 'simplified-part' : 'marker' };
     return e;
   }
 

@@ -1,0 +1,11 @@
+{
+  "name": "@cict/rtg-workbench",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Provisional ZP12-1874 RTG model and standalone viewer; no production registration",
+  "exports": { ".": { "types": "./viewer/adapter.d.mts", "import": "./viewer/adapter.mjs" }, "./viewer": "./viewer/rtg-viewer.mjs" },
+  "engines": { "node": ">=22.12" },
+  "scripts": { "build": "node tools/build.mjs", "start": "node tools/serve.mjs", "validate": "node tools/validate.mjs", "test:browser": "node tools/browser-check.mjs" },
+  "dependencies": { "three": "0.186.1" }
+}

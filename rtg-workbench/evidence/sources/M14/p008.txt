@@ -1,0 +1,55 @@
+                                                                        Chapter 1 
+6 
+start-up or stoppage. 
+ 
+(6) When the crane encounters a strong wind over 25 m/s, conduct the crane stowage procedure against 
+wind according to the related content in the manual.  
+ 
+ 
+ 
+ 
+ 
+1.5 SAFETY RULES FOR MAINTENANCE AND REPAIR 
+ 
+The maintenance work is different from the ordinary operations. When the crane is under maintenance, 
+some of its parts may be disassembled or unstable, thus special attentions should be paid to. 
+ 
+ 
+Observe the following safety rules when conducting maintenance or inspection work on the crane: 
+ 
+(1) Personnel unauthorized by the person responsible for the crane should not perform maintenance or 
+inspection work. 
+ 
+(2) Do not perform maintenance or inspection work when the crane is operating. 
+ 
+(3) Before conducting maintenance or inspection work, cut off the main power supply and all the power 
+resources; then verify if the crane is stopped completely. 
+ 
+(4) Before conducting maintenance or inspection work, release all the energy stored in the related system. 
+Spreader and headblock should be lowered down on the ground. 
+ 
+(5) Before conducting maintenance or inspection work, warn all the related workers of the work and 
+prohibit entry of those unauthorized workers into the maintenance and inspection areas. 
+ 
+(6) The crane should be in maintenance mode when conducting maintenance or inspection work. 
+ 
+(7) Secure the repair area by closing a wider area. During the maintenance of the crane, be sure to close 
+hatches on the machinery house and other places, or protect them with fences. 
+ 
+(8) When inspecting one of the cranes on the same gantry rails, attach the mechanical stoppers or station 
+a person to prevent collision of the cranes. 
+ 
+(9) Never fail to close the door to the walkways and the chains at the gate of the walkways. 
+ 
+(10) When removing bolts, pins, wire ropes, and cables, warn workers other than the service personnel of 
+the danger of attached parts falling. 
+ 
+(11) When relieving the residual pressure of the trim/list/skew and rope tensioning device, warn 
+maintenance personnel of the device. The sheaves may move and each wire rope may loosen due to 
+the relief of the pressure of the hydraulic cylinder. It may cause injury. 
+DANGER ZONE MUST BE BLOCKED BY SUITABLE MEASURES. 
+HAZARD AREAS MUST BE INDICATED PERMANENTLY BY CLEAR 
+INDICATIONS, SUCH AS COLORED SIGNS OR WARNING SIGNS. 
+BEFORE COMMENCEMENT OF SERVICE WORK THE CONTAINER CRANE 
+HAS TO BE MADE FREE OF LOAD, SET TO MAINTEN¬ANCE POSITION AND 
+SWITCHED OFF, IF NO OTHER NOTE IS GIVEN. 

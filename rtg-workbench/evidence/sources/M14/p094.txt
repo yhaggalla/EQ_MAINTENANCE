@@ -1,0 +1,68 @@
+ 
+ 
+   Chapter 4 
+ 
+ 
+11 
+ 
+(hydraulic) 
+jacking 
+machine 
+200t) 
+mechanic 
+worker 
+3 
+torque wrench 
+2 
+electric 
+worker 
+1 
+other mechanic 
+tools 
+some 
+ 
+ 
+Figure4-14 actual picture of drum coupling 
+ 
+1 
+ 
+2 
+3 
+4 
+5 
+ 
+ 
+6 
+1 
+Figure 4-153 disassembly drawing of drum 
+coupling 
+1  seal 
+2 outer end cover 
+3  load ring 
+4  outer teeth 
+hub 
+5  inner teeth 
+flange 
+6  inner end 
+cover 
+4.4.2 Replacement procedure 
+Lower the spreader to the ground and slacken the Main 
+Hoist ropes. 
+Lock out the crane’s motion which affect the safety by 
+performing lock-out and tag-out procedure. 
+Remove the limit switch device at drum end. 
+To avoid the force on drum caused by self weight of wire 
+rope, use chain block to tie down the wire ropes on reliable 
+item on the trolley. 
+Lift the drum , then remove the bolts of bearing block base, 
+take the drum with bearing block out from reducer shaft 
+transversely slowly. 
+ 
+Figure4-164 step5 
+Disconnect the drum coupling, be careful about outer teeth 
+hub and inner teeth flange if no abrasion. 
+ 
+Figure4-17 step 6 
+ 
+Figure4-18 disassembled inner teeth flange 
+ 

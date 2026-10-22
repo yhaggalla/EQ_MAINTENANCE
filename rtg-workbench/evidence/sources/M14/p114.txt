@@ -1,0 +1,49 @@
+ 
+ 
+   Chapter 4 
+ 
+ 
+31 
+ 
+around, but safety must be the most important.  
+ 
+ 
+Move the trolley to rest position, while sunshine with wind 
+speed less than 5m/s.(The room below the trolley is 
+enclosed by fenders, no crossing of vehicles or person), 
+personnel mush wear safety belt , make sure the jack up 
+point on trolley frame. 
+Lay the spreader on ground, slack 600mm wire rope at 
+least (To assure the trolley frame is contacted to crane after 
+being jacked up 350mm) 
+1) Lock out crane motions which affect safety by 
+proceeding lockout, tag-out procedure. Shown in 
+figure4-131 
+ 
+Figure4-131 step1~3 
+Choose the wheel to be dismounted. 
+ 
+Figure4-132 step4 
+Remove horizontal trolley wheel and its support or end 
+anti-collision plate, the removed parts should be fixed 
+reliably. 
+ 
+Figure4-133 step 5 
+If the energy chain system is ZPMC, the upper parts above 
+the bearing of floating head need to be dismounted. 
+Release the cable fixed to leading structure of trolley frame, 
+set aside enough cable to meet the requirement of jacking 
+up 300mm. Avoid the cable being extended too much to 
+cause broken, shown as the following figure. If the energy 
+chain system is IGUS or WAMPFLER, the above 
+operation is no needed. 
+ 
+Figure 4-134 step 6 
+Get the wire rope or chain block through the lug at front & 
+back ends of trolley, then tie the trolley down to the girder 
+bottom(set aside some allowance to let the trolley jacked 
+up smoothly ) no unexpected horizontal force is allowed. 
+ 
+ bind wire rope 
+the other side the 
+same 

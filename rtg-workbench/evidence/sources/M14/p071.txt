@@ -1,0 +1,123 @@
+ 
+ 
+Chapter 3
+ 
+ 
+32 
+ 
+2) deal with the worn shaft holes conform to the steps 
+listed hereinafter 
+a. 
+bore the hole after repair welding 
+b. enlarge the diameter of pin, axle sleeve, and shaft 
+hole 
+c. 
+replace axle sleeve 
+If the wear of the bushing reaches the amount shown in 
+Table 3-18, replace it. 
+Table 3-18： The Wear Limits of Bushings 
+D (mm) 
+Wear limita-tion of dia 
+(mm) 
+10~24 
+0.8 
+25~40 
+1.2 
+41~60 
+1.6 
+61~100 
+2.0 
+101~160 
+2.5 
+161~250 
+3.0 
+ 
+3.6.13 Inspection of oil seal  
+Please check the oil seal if leakage is founded according 
+as the description listed hereinafter.   
+1) whether there has been appropriate seal set in the 
+leakage point 
+2) Whether the brim seal is damaged by keyway, 
+spring, screw, rough surface or the brim of shaft 
+3) Whether the seal is set in reverse direction. 
+4) Whether the deformation of seal is caused by 
+setting with unsuitable tool. 
+5) Whether the venthole is jammed. 
+ 
+3.6.14 Bearing unit inspection 
+In the crane’s working, judge the state of the bearing 
+housing during operation, then take the following 
+measures if abnormality is observed. 
+(1) If vibration is found: 
+If the vibration is severe, first check the retaining bolts 
+for looseness and verify that there is no looseness 
+between the bearing unit and the installation base. 
+Tighten the bolts as necessary. If the vibration remains 
+after the above mentioned procedure, check if the causes 
+of other rolling element vibration such as bent shaft 
+exist. If no abnormal part is found, replace the bearing 
+unit since the excessive clearance due to wear inside the 
+bearing is suspected. 
+(2) If abnormal temperature rise is found. 
+If the temperature of the housing rises over 20C (36F) 
+after subtracting the ambient temperature, carry out the 
+inspections below. 
+1) 
+Check if any causes of the temperature rise 
+exist, such as no relief clearance due to the 
+one-side free bearing, overloading, etc. 
+2) 
+If no abnormal condition is found, replace the 
+bearing since the severe condition such as an 
+initial state of bearing damage etc. is suspected. 
+Especially the temperature rise with abnormal 
+noise is considered to be a sign of developing 
+damage. Replace the bearing immediately in 
+such a case. 
+(3) If abnormal noise is found. 
+If abnormal noise is heard from the bearing unit, carry 
+out the inspections below.  
+1) Measure the bearing block temperature. If the 
+temperature is less than 20C (36F) after 
+subtracting the ambient temperature, check the 
+retaining bolts for looseness and verify that 
+there is no looseness between the bearing unit 
+and the installation base. Tighten the bolts if 
+necessary. 
+2) If the abnormal noise remains after procedure 1, 
+the 
+following 
+causes 
+are 
+suspected. 
+Immediately replace the bearing judging from 
+the abnormal noise degree and the machine 
+importance. 
+ 
+Slight wear appears on the track surface 
+and/or rolling element of the bearing. 
+ 
+Inclination toward noise. 
+ 
+Foreign materials inside the bearing 
+3) Measure the bearing block temperature. If the 
+temperature 
+is 
+over 
+20℃ 
+(36℉) 
+after 
+subtracting the ambient temperature, replace 
+the bearing unit since the developing peeling of 
+the track surface or rolling element is 
+suspected. 
+3.6.15 Inspection procedure of key and keyway 
+The key and keyway suffer various kinds of damage 
+according to the used condition. If damage is found on 
+inspection, immediately replace the key. The damage 
+types and their cause are as follows: 
+(1) Shearing of key 
+The key may be sheared if the abnormal torque that is 
+larger than key strength is applied in such a case. The 
+keyway often may be deformed as well, so re-cut the 
+keyway and install the key with hardness of superior 

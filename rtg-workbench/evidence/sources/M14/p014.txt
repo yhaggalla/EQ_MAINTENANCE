@@ -1,0 +1,45 @@
+                                                                       Chapter 2  
+ 
+ 
+ 
+4
+Electrical room is equipped with air condition, to ensure proper working temperature. 
+ 
+ 
+◇ Main hoist mechanism is mounted on the trolley. It works with constant power control 
+and according to the lifting load automatically adjusts the lifting speed. It is equipped 
+with overload protection device, over speed protection device, to ensure work safety 
+and efficiency.                                                                                  
+ 
+◇ Trolley travelling mechanism is mounted on the trolley. It works with AC frequency 
+conversion control. The trolley is driven by the wheel directly driven method. 
+ 
+◇ Gantry travelling mechanism works with AC frequency conversion control. In order to 
+avoid collision between crane to crane, or crane to container, the crane is provided 
+with a manual and automatic steering system, and anti - collision device. 
+ 
+◇ In safety facilities, there is overload protection device, diesel engine over speed 
+protection, high oil temperature and low oil pressure signal device, wind speed 
+indicator, crane anti-collision device on four corners, emergency stop button and imit 
+switch, signal in the mechanism. 
+     
+◇ There is lighting and signal apparatus on the crane for night operations, and alarm 
+when gantry travelling. The driver can communicate with others with the phone, enlarger 
+and radio. 
+  
+◇ Diesel generator set is arranged in the power room on sill beam. It’s consisted by 
+CAT diesel engine and Zhejiang Zhongyuan generator. It is equipped with a lithium battery 
+system, and the energy recovery system. The generator is brushless self-excitation type. 
+The gen-set has the following characteristics. 
+a. Strong impact resistance, suitable for RTG frequent starting conditions. The 
+frequency and voltage fluctuation is very small. 
+b. Reliable electronic speed governor in diesel engine, and has high water temperature, 
+low oil pressure, over speed protection device. 
+c. Enough standby power, so the engine has enough power and keeps good work condition 
+even after wearing. 
+ 
+◇ The hoist wire ropes are used to anti sway by eight rope reeving system.  
+ 
+◇ The spreader has skew function to reduce position time. 
+ 
+ 

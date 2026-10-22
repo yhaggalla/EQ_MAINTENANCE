@@ -1,0 +1,73 @@
+ 
+ 
+Chapter 3
+ 
+ 
+5 
+ 
+2) 
+In maintenance when the oil filling cover, the 
+filter cover, inspecting holes or the oil pipe is 
+taken down, keep away from the flying dust. 
+The cover of the oil tank can not be opened 
+until the dirt around the tank cover has been 
+removed and the impurity at the connection 
+place has also been removed after loosing the 
+bolts (to refrain the water from infiltration, the 
+water can not be used to clean the impurity).  
+3) 
+Choose the cleaning materials without fibre 
+impurity dropping off and hammer with rubber 
+beating surface if they have to be used. 
+Hydraulic elements and hoses should be 
+cleaned and blow dry before assembling. The 
+filter also should be cleaned when oil changes. 
+The type of cleaning oil should be the same as 
+that of the system, the oil temperature should 
+be kept between 45～80℃.not lower than 
+25℃. In order to completely remove the 
+impurity in the system,  keep cleaning oil 
+flow in large capacity. Hydraulic system 
+should be cleaned over three times and after 
+each cleaning the cleaning oil used should be 
+sent out completely before it cool down. 
+Before fill new oil, the filter should be cleaned 
+and new filter element should be adopted.  
+B. Keep the air out of the hydraulic system 
+The entrained air in the hydraulics will cause 
+elements cavitation erosion, make the compressibility 
+increased and the operation instability, reduce the work 
+efficiency and make the actuator “crawl”. In addition, the 
+air will also make the oil oxidation and speeding up its 
+metamorphism. To keep the air out of the hydraulics the 
+following list should be paid attention to:    
+1) 
+Random check should be conducted after 
+maintenance and changing oil, and then begin 
+normal work.  
+2) 
+The mouth of the inlet pipe in the pump can 
+not come out of the oil lever and keep the inlet 
+pipe being well sealed. 
+3) 
+To keep well obturation for the driving axis of 
+the lubropump, oil seal certified commended 
+by the supplier should be adopted and ensure 
+the function of airproof and oil proofing. 
+C. Prevent water penetration into hydraulics 
+If the oil contains excessive water, that will make 
+the hydraulic elements corroded, the oil emulsified and 
+metamorphosed, the tenacity of lubricating film reduced 
+and abrasion speedup. If the water in the oil is exceeding 
+standard, the hydraulics needs to be clean thoroughly and 
+the oil should to be replaced. 
+D. Inspection of the filter element 
+Filter is the cleaning equipment used in the 
+hydraulic system. Inspect the squalidity degree of the 
+filter and the characters of the impurity on the filter 
+element to provide evidence for further fault diagnosis. 
+ 
+ 
+ 
+ 
+ 

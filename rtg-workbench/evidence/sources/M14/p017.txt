@@ -1,0 +1,126 @@
+                                                                       Chapter 2  
+ 
+ 
+ 
+7
+ 
+2.2.4  Gantry travelling mechanism parameters 
+It’s shown in table 2-5for gantry travelling mechanism parameters 
+ 
+Table 2-5 Gantry travelling mechanism parameters  
+item 
+value 
+unit 
+Note 
+Gantry travelling speed 
+With 
+rated 
+load 
+30 
+m/min 
+ 
+Without 
+load 
+90 
+m/min 
+ 
+Mot
+or 
+with 
+brak
+e 
+Type 
+FEIK-C21 MOUV
+YASKAWA
+Power 
+25 
+kw 
+ 
+Speed 
+1680 
+rpm 
+ 
+Voltage 
+380 
+V 
+ 
+Number 
+4 
+台 
+ 
+Type 
+Built in motor
+ 
+Brake torque 
+214 
+N.m 
+ 
+Number 
+4 
+Pcs 
+ 
+Rud
+er 
+and 
+chai
+n 
+driv
+e 
+Type 
+FVS370.30.D1B
+ZPMC 
+Input power 
+25 
+Kw 
+ 
+Ratio 
+30.61
+ 
+ 
+Number 
+4 
+Pcs 
+ 
+Chain type 
+160SW - 2102
+GB1243.1-83 
+Pitch 
+50.80 
+Mm 
+ 
+           Ratio 
+58/17=3.412 
+ 
+ 
+Totally ratio 
+104.43 
+ 
+tyre 
+Type 
+21.00-35  40 层(无内胎) 
+SIEMX
+Working diameter 
+~1860 
+Mm 
+ 
+Air pressure 
+10 
+kg/cm2 
+ 
+number (driving/totally) 
+4/8 
+pcs 
+ 
+ 
+ 
+2.3 General introduce for RTG’s configuration 
+RTG is one kind of port equipment used to handle container between yard block and truck. The below 
+is RTG’s main components. The general arrangement is as shown in Figure 2-1. The trolley arrangement is 
+shown in Figure 2-2. 
+○
+A Gantry frame: The main bodies are box section members. It’s consist by girder, leg and sill 
+beam. 
+○
+B Gantry travelling mechanism: The RTG is supported by 8 rubber tyres. Motor drive and power 
+transferred by reducer. It’s including the driving wheel system and driven wheel system. 
+ 

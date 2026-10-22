@@ -1,0 +1,85 @@
+ 
+ 
+Chapter 5 
+ 
+ 
+8 
+ 
+ 
+other methods also be taken, show as in figure 5-14 (b), 
+(c). Weld the end of the wire strands, and polish the end 
+to taper or crop shape. A ring can be welded to 
+convenient traction wire rope.  
+ 
+（a）lashed end 
+ 
+（b）taper type end 
+ 
+(c) lashed and welded end 
+ 
+(d) lashed and ring end welded 
+ 
+wire rope end 
+5.4 wire rope inspection 
+Wire rope service life is limited and influences by 
+many factors such as it quality, overload, environment, 
+and the maintenance. Different damage types will occur 
+as signs before it is useless. So regular inspection need to 
+be taken to find these signs and hidden dangers and 
+analysis the main reason to lead to the useless. Chang the 
+wire rope before it is useless and eliminate the adverse 
+factors in the future use to extend the service life.  
+ 
+ 
+The performances will drop 
+quickly before it’s useless. 
+When the wire rope close it’s 
+must exchange standard, 
+more inspection need to be 
+taken to make sure the safety 
+use. 
+5.4.1 factors influence the service life of wire rope 
+wire rope service life influence by many factors, 
+include the working condition, maintenance, working 
+environment and ect. For RTG wire rope, the main 
+factors are listed as follows: 
+1) 
+Wire rope bear variational load constantly and 
+at the same time it need to pass through drums 
+and sheaves, which make the wire rope 
+buckling repeatedly, and is easy to cause the 
+wire rope’s fatigue. 
+2) 
+Water, salt atmosphere make the wire rope 
+corrosion: the moisture mixed the soluble salt, 
+dissolved saline ions will accelerate the 
+diffusion of the oxygen ions in the air, which 
+result in the wire rope with the air oxidation 
+reaction speed fold increase. 
+3) 
+The impact of the embedded foreign matter in 
+the wire rope: because terminal operations are 
+out of doors, hostile working environment and 
+with big wind. Some objects such as grits, 
+sands are easy to be involved in the sheaves, 
+drums, wire ropes and even embedded in the 
+center of the wire ropes which will cause local 
+stress concentration and result in abnormal 
+wear and surface wire broken. 
+4) 
+The impact of wire rope frequently operation: 
+lubrication coat the wire as thin film. When the 
+wire rope be tightened, some of the lubrication 
+will be extruded out to the surface of the rope, 
+while some will be absorbed back to interior of 
+the rope. Repeated extrude out and absorb back 
+will lead to the release of the interior 
+lubrication and accelerate the oxidation of the 
+lubrication. 
+there are lots of other factors that influence the wire 
+rope service life, not only factors that involve in the 
+design and usage, but also other abnormal factors, such as 
+follows: 
+1) 
+Multi-layers of the rope on the drum can result 
+in severe distortion in the underlying layers. 

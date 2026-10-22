@@ -1,0 +1,25 @@
+                                                                     Chapter 2 
+ 
+ 
+ 
+6
+ 
+Figure 2-18 8 ropes spreader skew and horizontal side shift device 
+     a. When the cylinder on both ends of the frame into a reverse action simultaneously, the spreader can 
+skew 5.               
+     b. When the cylinder on both ends of the frame does the same action simultaneously, the spreader 
+can shift along trolley direction.  
+     c. When the cylinders in the middle of frame action simultaneously, the spreader can shift along 
+gantry direction.  
+The driving device of skew and horizontal side shift normally performed by the three sets of cylinders or 
+four sets of electric push rods. Cylinder without mid-frame shown as Figure 2-19. Cylinder with mid-frame 
+shown as Figure 2-20. 
+ More details please refer to the supplier’s manual.  
+ 
+Figure 2-19 cylinder without mid-frame          Figure 2-20 cylinder with mid-frame  
+ 
+ 
+ 
+ 
+ When the mirco-motion at max angle, the cylinder or the push rod can not be further 
+movement, the switch on the control console can return it to the initial position.  

@@ -1,0 +1,46 @@
+ 
+21
+ 
+i.e., the engine may be started again only after 2 minutes. Also it may be started 
+only after 2 minutes after the engine has been stopped. 
+ 
+10.2 Points for Attention in operation 
+ 
+10.2.1 No heating equipment is supplied with this machine. 
+ 
+10.2.2 Below 0C, antifreeze should be added into the cooling water to prevent 
+breakage of the engine body result from the freezing. 
+ 
+10.3 Inspection Items and period for maintenance 
+ 
+10.3.1 Make a record of water temperature, oil pressure, etc. Daily. 
+ 
+10.3.2 The air filter is provided with block indicator and the red color display in 
+the indicator shows that the strainer is blocked by dust and should be replaced. 
+ 
+10.3.3 The lubrication oil filter normally serves for 250 hours and then the filter 
+element is replaced. 
+ 
+10.3.4 The fuel filter serves 250 hours and the filter element is then replaced. 
+ 
+10.3.5 Automatic louvers in power house shall be maintain and clean every six 
+month. 
+ 
+10.3.6 Maintenance of the engine and alternator shall be done in accordance with 
+the Instructions for the diesel engine and the alternator. 
+ 
+11.  Energy-chain Mechanism 
+11.1 Construction and performance 
+ 
+Control power of the main hoist, trolley traversing, spreader skewing and the 
+power for the spreader is supplied through one row energy chain system. The 
+energy chain is made by Germany IGUS product. One end of the chain is fixed to 
+the girder, and the other end is fixed to the trolley, and the cable is led into the 
+junction box on the operator’s cab. 
+ 
+11.2 Points for Attention and Maintenance 
+ 
+11.2.1 frequently check bolt connections and fastening by bolts and re-tighten bolts 
+if they are loosened.  
+ 
+12.  Spreader and Headblock 

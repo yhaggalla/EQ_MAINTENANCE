@@ -1,0 +1,170 @@
+ 
+6
+ 
+2.1 Main Hoist Particulars 
+Item 
+Value 
+Unit 
+Remark 
+Number of wire ropes coming from the 
+drum 
+8 
+pieces 
+ 
+Wire rope multiple reeving of sheave 
+block 
+1 
+ 
+ 
+Lifting capacity  (under spreader) 
+40.5 
+t 
+ 
+Hoisting speed 
+full load 
+23 
+m/min 
+ 
+no load 
+52 
+m/min 
+ 
+ 
+ 
+ 
+Drum 
+Nominal diameter of the 
+drum 
+1200 
+mm 
+ 
+Number 
+of 
+groups 
+of 
+grooves on wire rope drum 
+8 
+pieces 
+ 
+Number of wraps of rope 
+for fixing 
+3 
+pieces 
+ 
+Capacity of the drum 
+(one group of grooves) 
+28 
+mm 
+ 
+ 
+ 
+ 
+AC motor 
+Model 
+5RN315L08B9 
+YASKAWA
+Power 
+180 
+kW 
+ 
+Speed of rotation 
+778/1760 
+rpm 
+ 
+Voltage 
+380 
+V 
+ 
+Frequency 
+50 
+Hz 
+ 
+Quantity 
+1 
+set 
+ 
+ 
+ 
+Reducer 
+Model 
+ML4PSF140E-1565 
+ SEW 
+Transmission ratio 
+       127.5 
+ 
+Input power 
+180 
+kW 
+ 
+Quantity 
+1 
+set 
+ 
+ 
+ 
+Brake 
+Model 
+YP31-630X30-ED1250 
+ZPMC 
+Braking  torque 
+4100 
+Nm 
+ 
+Braking setting torque 
+3900 
+Nm 
+ 
+Quantity 
+2 
+set 
+ 
+ 
+ 
+Wire rope 
+Model 
+IWRC  6XWS36 
+TOKYO 
+Diameter 
+28 
+mm 
+ 
+ 
+Length 
+43.5x2 
+m 
+ 
+42.3x4 
+m 
+ 
+44.9x2 
+m 
+ 
+2.2 
+ Trolley Particulars 
+Item 
+Value 
+Unit 
+Remark 
+Traversing speed 
+70 
+m/min 
+ 
+ 
+ 
+ 
+AC motor 
+Model 
+KH107DV160 
+SEW 
+Power 
+15 
+kW 
+ 
+Speed of rotation 
+1650 
+rpm 
+ 
+Voltage 
+380 
+V 
+ 

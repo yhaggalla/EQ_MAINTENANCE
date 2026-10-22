@@ -1,0 +1,26 @@
+ 
+ 
+第5 章  钢丝绳 
+ 
+ 
+5-14
+ 
+ 
+表 5-4 钢丝绳损坏变形图例 
+编号 
+描述 
+图解 
+1. 
+ 
+绳股顶部断丝[Crown wire breaks]
+通常由疲劳应起 
+2. 
+ 
+绳股股间断丝[Valley wire breaks]
+3. 
+ 
+钢丝绳局部集中断丝[Localized 
+grouping of broken wires ] 
+4. 
+ 
+钢丝凸出 [Wire protrusion] 

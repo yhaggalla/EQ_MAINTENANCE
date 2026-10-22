@@ -1,0 +1,99 @@
+ 
+ 
+   Chapter 4 
+ 
+ 
+7 
+ 
+ 
+Table 4-1 personnel and tools for bearing block 
+replacement 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+1 outer end 
+cover 
+2 seal 
+3 limit switch 
+shaft 
+4 
+bearing 
+block 
+5 bearing 
+6 seal 
+7end 
+cover 
+8 base 
+9 drum 
+ 
+Figure 4-1 disassembly drawing of bearing block 
+ 
+ 
+ 
+ 
+ 
+4.2.2 Replacement procedure 
+To avoid the force on drum caused by self weight of wire 
+rope, use chain block to tie down the wire ropes on reliable 
+item such as post of Machinery Room and so on. 
+Lower the spreader to the ground and slacken the Main 
+Hoist ropes. 
+Lock out the crane’s motion which affect safety by 
+performing lock-out and tag-out procedure. 
+Disconnect the limit switch device at the drum end. 
+Remove the oil collecting plate at the other side. 
+To avoid the force on drum caused by self weight of wire 
+rope, use chain block to tie down the wire ropes on reliable 
+item on the trolley. Slacken enough rope, so that the drum 
+can be moved uprightly. 
+Lift the side of bearing block with crane or RTG’s service 
+crane. The method as below also for consideration: put a 
+wood or bracket under the bearing block side of drum then 
+use a 5t jack to support drum. For safety, add woods as the 
+drum is jacked up, and tuck wedge block at both sides of 
+drum to avoid rolling. The jack point should be on the 
+Personnel/quantity 
+Tools/quantity 
+lifting 
+worker 
+1 
+lift crane or 
+service crane 
+1 (6 tons at 
+25m height) 
+mechanic 
+worker 
+2 
+jack 
+1 (5 t) 
+electric 
+worker 
+ 
+chain block 
+2 (2 t) 
+ 
+1 
+puller 
+1 
+ 
+ 
+line 
+some 
+ 
+ 
+other mechanic 
+tools 
+some 
+Figure 4-2 bearing block assembly 
+drawing of main hoist 

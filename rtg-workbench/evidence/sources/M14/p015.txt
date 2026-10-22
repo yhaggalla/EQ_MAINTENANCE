@@ -1,0 +1,137 @@
+                                                                       Chapter 2  
+ 
+ 
+ 
+5
+2.2 Main parameters for this project 
+ 
+2.2.1 Main technical parameters 
+It’s shown in table 2-2 for main technical parameters of RTG 
+ 
+Table 2-2   main technical parameters of RTG                                     
+item 
+value 
+unit 
+note 
+Rated load capacity 
+40.5 
+t 
+Under spreader 
+Lift height 
+21.2 
+m 
+ 
+spe
+ed 
+hoist 
+With 
+rated 
+load 
+23 
+m/min 
+ 
+ 
+Without 
+load 
+52 
+m/min 
+ 
+Gantry 
+travelling 
+With 
+rated 
+load 
+30 
+m/min 
+ 
+Without 
+load 
+90 
+m/min 
+ 
+Trolley travelling 
+70 
+m/min 
+ 
+Span 
+23.47 
+m 
+ 
+base 
+7.9 
+m 
+ 
+Total wheels/driving wheels 
+8/4 
+pcs 
+ 
+Spreader skewing 
+5 
+degree 
+ 
+Die
+sel 
+eng
+ine 
+type 
+C7 
+CAT 
+ 
+power 
+205 
+Kw 
+ 
+ 
+speed 
+1800 
+rpm 
+ 
+gen
+era
+tor 
+type 
+TYFZ18000-280L-G
+ZHONGYUAN 
+power 
+180 
+KVA 
+380V，50HZ，3PH
+speed 
+1800 
+rpm 
+ 
+Number of containers stacked by 
+the crane 
+7 
+container
+s 
+ 
+Number of containers the crane 
+may pass over 
+6 
+container
+s 
+ 
+ 
+2.2.2 Main hoist mechanism parameters 
+ 
+  It’s shown in table 2-3for main hoist mechanism parameters 
+ 
+ 
+Table 2-3 main hoist mechanism parameters                                
+item 
+value 
+unit 
+Note 
+Number of ropes on drum 
+8 
+pcs 
+ 
+Ratio of rope reeving 
+1 
+ 
+ 
+Rate load(under spreader) 
+40.5 
+t 
+ 

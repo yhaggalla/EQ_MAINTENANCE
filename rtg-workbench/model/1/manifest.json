@@ -1,0 +1,5480 @@
+{
+  "schemaVersion": 1,
+  "modelCode": "cict-zp12-1874-rtg-provisional",
+  "equipmentModelCode": "CICT-ZP12-1874-RTG-PROVISIONAL",
+  "version": 1,
+  "status": "draft",
+  "standaloneOnly": true,
+  "units": "m",
+  "axes": {
+    "up": "+Y",
+    "x": "+X across span / trolley travel",
+    "z": "+Z gantry travel"
+  },
+  "origin": "Ground at mid-span and mid-wheelbase; front +Z, rear -Z, left -X, stair side +X",
+  "generator": {
+    "name": "rtg-workbench",
+    "version": "0.1.0",
+    "three": "0.186.1",
+    "sourceState": "isolated source snapshot; existing checkout contains QC work"
+  },
+  "asset": {
+    "file": "scene.glb",
+    "sha256": "56fd39241dbc202c134fc2933b5747b26fd15966ebd0fee3b2e7a14fa6421db1",
+    "bytes": 2861384,
+    "triangles": 82348,
+    "drawCallsEstimate": 188,
+    "overallMode": {
+      "triangles": 81892,
+      "drawCallsEstimate": 179
+    },
+    "technicalMode": {
+      "triangles": 82348,
+      "drawCallsEstimate": 188
+    }
+  },
+  "bounds": {
+    "min": [
+      -13.75405216217041,
+      -7.152557324197062e-9,
+      -6.302000045776367
+    ],
+    "max": [
+      13.75405216217041,
+      29.559999997615815,
+      6.302000045776367
+    ]
+  },
+  "nodes": [
+    {
+      "key": "container.crane",
+      "kind": "container",
+      "label": "ZP12-1874 RTG",
+      "parentKey": null,
+      "classification": null,
+      "gltfNodeNames": [
+        "container.crane"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 10,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 20,
+            "figure": "Fig 2-1 / JL28600; Fig 2-3 p22",
+            "note": "Counts and topology verified; member profiles and connection thicknesses scaled estimates. M13 p71,246-249 corroborate shape."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -13.75405216217041,
+          -7.152557324197062e-9,
+          -6.302000045776367
+        ],
+        "max": [
+          13.75405216217041,
+          29.559999997615815,
+          6.302000045776367
+        ]
+      }
+    },
+    {
+      "key": "container.frame",
+      "kind": "container",
+      "label": "Gantry frame",
+      "parentKey": "container.crane",
+      "classification": null,
+      "gltfNodeNames": [
+        "container.frame"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 10,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 20,
+            "figure": "Fig 2-1 / JL28600; Fig 2-3 p22",
+            "note": "Counts and topology verified; member profiles and connection thicknesses scaled estimates. M13 p71,246-249 corroborate shape."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -12.3100004196167,
+          3.640000104904175,
+          -4.449999809265137
+        ],
+        "max": [
+          12.3100004196167,
+          28.503999710083008,
+          4.449999809265137
+        ]
+      }
+    },
+    {
+      "key": "structure.girder.rear",
+      "kind": "position",
+      "label": "rear main girder",
+      "parentKey": "container.frame",
+      "classification": {
+        "main": "15",
+        "sub": "151"
+      },
+      "gltfNodeNames": [
+        "structure.girder.rear"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 20,
+            "figure": "Fig 2-1 / JL28600; Fig 2-3 p22",
+            "note": "Counts and topology verified; member profiles and connection thicknesses scaled estimates. M13 p71,246-249 corroborate shape."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -12.300000190734863,
+          25.60650062561035,
+          -3.684999942779541
+        ],
+        "max": [
+          12.300000190734863,
+          27.691499710083008,
+          -2.7149999141693115
+        ]
+      }
+    },
+    {
+      "key": "trolley.rail.rear",
+      "kind": "position",
+      "label": "rear square rail 80 × 80",
+      "parentKey": "container.frame",
+      "classification": {
+        "main": "02",
+        "sub": "021"
+      },
+      "gltfNodeNames": [
+        "trolley.rail.rear"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 21,
+            "figure": "Fig 2-2 / JL28606",
+            "note": "Arrangement + direct double wheel drive; dimensions not explicitly in the dimension table are visual estimates. M13 p72 repeats this drawing."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -12.300000190734863,
+          27.673999786376953,
+          -3.240000009536743
+        ],
+        "max": [
+          12.300000190734863,
+          27.753999710083008,
+          -3.1600000858306885
+        ]
+      }
+    },
+    {
+      "key": "trolley.buffer.rear.left",
+      "kind": "position",
+      "label": "Trolley end buffer",
+      "parentKey": "container.frame",
+      "classification": {
+        "main": "02",
+        "sub": "021"
+      },
+      "gltfNodeNames": [
+        "trolley.buffer.rear.left"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 21,
+            "figure": "Fig 2-2 / JL28606",
+            "note": "Arrangement + direct double wheel drive; dimensions not explicitly in the dimension table are visual estimates. M13 p72 repeats this drawing."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -12.050000190734863,
+          27.70400047302246,
+          -3.4000000953674316
+        ],
+        "max": [
+          -11.550000190734863,
+          28.503999710083008,
+          -3
+        ]
+      }
+    },
+    {
+      "key": "trolley.buffer.rear.right",
+      "kind": "position",
+      "label": "Trolley end buffer",
+      "parentKey": "container.frame",
+      "classification": {
+        "main": "02",
+        "sub": "021"
+      },
+      "gltfNodeNames": [
+        "trolley.buffer.rear.right"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 21,
+            "figure": "Fig 2-2 / JL28606",
+            "note": "Arrangement + direct double wheel drive; dimensions not explicitly in the dimension table are visual estimates. M13 p72 repeats this drawing."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          11.550000190734863,
+          27.70400047302246,
+          -3.4000000953674316
+        ],
+        "max": [
+          12.050000190734863,
+          28.503999710083008,
+          -3
+        ]
+      }
+    },
+    {
+      "key": "structure.girder.front",
+      "kind": "position",
+      "label": "front main girder",
+      "parentKey": "container.frame",
+      "classification": {
+        "main": "15",
+        "sub": "151"
+      },
+      "gltfNodeNames": [
+        "structure.girder.front"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 20,
+            "figure": "Fig 2-1 / JL28600; Fig 2-3 p22",
+            "note": "Counts and topology verified; member profiles and connection thicknesses scaled estimates. M13 p71,246-249 corroborate shape."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -12.300000190734863,
+          25.60650062561035,
+          2.7149999141693115
+        ],
+        "max": [
+          12.300000190734863,
+          27.691499710083008,
+          3.684999942779541
+        ]
+      }
+    },
+    {
+      "key": "trolley.rail.front",
+      "kind": "position",
+      "label": "front square rail 80 × 80",
+      "parentKey": "container.frame",
+      "classification": {
+        "main": "02",
+        "sub": "021"
+      },
+      "gltfNodeNames": [
+        "trolley.rail.front"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 21,
+            "figure": "Fig 2-2 / JL28606",
+            "note": "Arrangement + direct double wheel drive; dimensions not explicitly in the dimension table are visual estimates. M13 p72 repeats this drawing."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -12.300000190734863,
+          27.673999786376953,
+          3.1600000858306885
+        ],
+        "max": [
+          12.300000190734863,
+          27.753999710083008,
+          3.240000009536743
+        ]
+      }
+    },
+    {
+      "key": "trolley.buffer.front.left",
+      "kind": "position",
+      "label": "Trolley end buffer",
+      "parentKey": "container.frame",
+      "classification": {
+        "main": "02",
+        "sub": "021"
+      },
+      "gltfNodeNames": [
+        "trolley.buffer.front.left"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 21,
+            "figure": "Fig 2-2 / JL28606",
+            "note": "Arrangement + direct double wheel drive; dimensions not explicitly in the dimension table are visual estimates. M13 p72 repeats this drawing."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -12.050000190734863,
+          27.70400047302246,
+          3
+        ],
+        "max": [
+          -11.550000190734863,
+          28.503999710083008,
+          3.4000000953674316
+        ]
+      }
+    },
+    {
+      "key": "trolley.buffer.front.right",
+      "kind": "position",
+      "label": "Trolley end buffer",
+      "parentKey": "container.frame",
+      "classification": {
+        "main": "02",
+        "sub": "021"
+      },
+      "gltfNodeNames": [
+        "trolley.buffer.front.right"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 21,
+            "figure": "Fig 2-2 / JL28606",
+            "note": "Arrangement + direct double wheel drive; dimensions not explicitly in the dimension table are visual estimates. M13 p72 repeats this drawing."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          11.550000190734863,
+          27.70400047302246,
+          3
+        ],
+        "max": [
+          12.050000190734863,
+          28.503999710083008,
+          3.4000000953674316
+        ]
+      }
+    },
+    {
+      "key": "structure.sill.left",
+      "kind": "position",
+      "label": "left sill beam",
+      "parentKey": "container.frame",
+      "classification": {
+        "main": "15",
+        "sub": "151"
+      },
+      "gltfNodeNames": [
+        "structure.sill.left"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 20,
+            "figure": "Fig 2-1 / JL28600; Fig 2-3 p22",
+            "note": "Counts and topology verified; member profiles and connection thicknesses scaled estimates. M13 p71,246-249 corroborate shape."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -12.15999984741211,
+          3.640000104904175,
+          -4.449999809265137
+        ],
+        "max": [
+          -11.3100004196167,
+          4.440000057220459,
+          4.449999809265137
+        ]
+      }
+    },
+    {
+      "key": "structure.leg.left.rear",
+      "kind": "position",
+      "label": "left.rear tapered leg",
+      "parentKey": "container.frame",
+      "classification": {
+        "main": "15",
+        "sub": "151"
+      },
+      "gltfNodeNames": [
+        "structure.leg.left.rear"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 20,
+            "figure": "Fig 2-1 / JL28600; Fig 2-3 p22",
+            "note": "Counts and topology verified; member profiles and connection thicknesses scaled estimates. M13 p71,246-249 corroborate shape."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -12.3100004196167,
+          4.440000057220459,
+          -4.449999809265137
+        ],
+        "max": [
+          -11.15999984741211,
+          25.624000549316406,
+          -2.7750000953674316
+        ]
+      }
+    },
+    {
+      "key": "structure.leg.left.front",
+      "kind": "position",
+      "label": "left.front tapered leg",
+      "parentKey": "container.frame",
+      "classification": {
+        "main": "15",
+        "sub": "151"
+      },
+      "gltfNodeNames": [
+        "structure.leg.left.front"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 20,
+            "figure": "Fig 2-1 / JL28600; Fig 2-3 p22",
+            "note": "Counts and topology verified; member profiles and connection thicknesses scaled estimates. M13 p71,246-249 corroborate shape."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -12.3100004196167,
+          4.440000057220459,
+          2.7750000953674316
+        ],
+        "max": [
+          -11.15999984741211,
+          25.624000549316406,
+          4.449999809265137
+        ]
+      }
+    },
+    {
+      "key": "structure.brace.left",
+      "kind": "position",
+      "label": "left upper transverse brace",
+      "parentKey": "container.frame",
+      "classification": {
+        "main": "15",
+        "sub": "151"
+      },
+      "gltfNodeNames": [
+        "structure.brace.left"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 20,
+            "figure": "Fig 2-1 / JL28600; Fig 2-3 p22",
+            "note": "Counts and topology verified; member profiles and connection thicknesses scaled estimates. M13 p71,246-249 corroborate shape."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -11.944999694824219,
+          21.875,
+          -3.4100000858306885
+        ],
+        "max": [
+          -11.524999618530273,
+          22.325000762939453,
+          3.4100000858306885
+        ]
+      }
+    },
+    {
+      "key": "structure.sill.right",
+      "kind": "position",
+      "label": "right sill beam",
+      "parentKey": "container.frame",
+      "classification": {
+        "main": "15",
+        "sub": "151"
+      },
+      "gltfNodeNames": [
+        "structure.sill.right"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 20,
+            "figure": "Fig 2-1 / JL28600; Fig 2-3 p22",
+            "note": "Counts and topology verified; member profiles and connection thicknesses scaled estimates. M13 p71,246-249 corroborate shape."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          11.3100004196167,
+          3.640000104904175,
+          -4.449999809265137
+        ],
+        "max": [
+          12.15999984741211,
+          4.440000057220459,
+          4.449999809265137
+        ]
+      }
+    },
+    {
+      "key": "structure.leg.right.rear",
+      "kind": "position",
+      "label": "right.rear tapered leg",
+      "parentKey": "container.frame",
+      "classification": {
+        "main": "15",
+        "sub": "151"
+      },
+      "gltfNodeNames": [
+        "structure.leg.right.rear"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 20,
+            "figure": "Fig 2-1 / JL28600; Fig 2-3 p22",
+            "note": "Counts and topology verified; member profiles and connection thicknesses scaled estimates. M13 p71,246-249 corroborate shape."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          11.15999984741211,
+          4.440000057220459,
+          -4.449999809265137
+        ],
+        "max": [
+          12.3100004196167,
+          25.624000549316406,
+          -2.7750000953674316
+        ]
+      }
+    },
+    {
+      "key": "structure.leg.right.front",
+      "kind": "position",
+      "label": "right.front tapered leg",
+      "parentKey": "container.frame",
+      "classification": {
+        "main": "15",
+        "sub": "151"
+      },
+      "gltfNodeNames": [
+        "structure.leg.right.front"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 20,
+            "figure": "Fig 2-1 / JL28600; Fig 2-3 p22",
+            "note": "Counts and topology verified; member profiles and connection thicknesses scaled estimates. M13 p71,246-249 corroborate shape."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          11.15999984741211,
+          4.440000057220459,
+          2.7750000953674316
+        ],
+        "max": [
+          12.3100004196167,
+          25.624000549316406,
+          4.449999809265137
+        ]
+      }
+    },
+    {
+      "key": "structure.brace.right",
+      "kind": "position",
+      "label": "right upper transverse brace",
+      "parentKey": "container.frame",
+      "classification": {
+        "main": "15",
+        "sub": "151"
+      },
+      "gltfNodeNames": [
+        "structure.brace.right"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 20,
+            "figure": "Fig 2-1 / JL28600; Fig 2-3 p22",
+            "note": "Counts and topology verified; member profiles and connection thicknesses scaled estimates. M13 p71,246-249 corroborate shape."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          11.524999618530273,
+          21.875,
+          -3.4100000858306885
+        ],
+        "max": [
+          11.944999694824219,
+          22.325000762939453,
+          3.4100000858306885
+        ]
+      }
+    },
+    {
+      "key": "container.gantry",
+      "kind": "container",
+      "label": "Eight-wheel gantry",
+      "parentKey": "container.crane",
+      "classification": null,
+      "gltfNodeNames": [
+        "container.gantry"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 10,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 24,
+            "figure": "Fig 2-5 / 2-6; JL28601 listed on p20",
+            "note": "Four driven outer wheels per project p17/23. Equalizer, carrier, bearing, steering, chain and guards simplified from eight-wheel views."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -12.429052352905273,
+          -7.152557324197062e-9,
+          -6.302000045776367
+        ],
+        "max": [
+          12.429052352905273,
+          4.559999942779541,
+          6.302000045776367
+        ]
+      }
+    },
+    {
+      "key": "gantry.equalizer.left.rear",
+      "kind": "position",
+      "label": "left.rear equalizer and wheel carriers",
+      "parentKey": "container.gantry",
+      "classification": {
+        "main": "04",
+        "sub": "041"
+      },
+      "gltfNodeNames": [
+        "gantry.equalizer.left.rear"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 24,
+            "figure": "Fig 2-5 / 2-6; JL28601 listed on p20",
+            "note": "Four driven outer wheels per project p17/23. Equalizer, carrier, bearing, steering, chain and guards simplified from eight-wheel views."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -12.404052734375,
+          0.75,
+          -6.302000045776367
+        ],
+        "max": [
+          -11.065947532653809,
+          4.059999942779541,
+          -1.5980000495910645
+        ]
+      }
+    },
+    {
+      "key": "gantry.steering.left.rear",
+      "kind": "position",
+      "label": "left.rear steering cylinder and linkage",
+      "parentKey": "container.gantry",
+      "classification": {
+        "main": "04",
+        "sub": "043"
+      },
+      "gltfNodeNames": [
+        "gantry.steering.left.rear"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 24,
+            "figure": "Fig 2-5 / 2-6; JL28601 listed on p20",
+            "note": "Four driven outer wheels per project p17/23. Equalizer, carrier, bearing, steering, chain and guards simplified from eight-wheel views."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -11.375,
+          2.490000009536743,
+          -5.349999904632568
+        ],
+        "max": [
+          -11.194999694824219,
+          2.6700000762939453,
+          -2.549999952316284
+        ]
+      }
+    },
+    {
+      "key": "gantry.turn.left.rear",
+      "kind": "position",
+      "label": "left.rear slewing bearings / locks",
+      "parentKey": "container.gantry",
+      "classification": {
+        "main": "04",
+        "sub": "045"
+      },
+      "gltfNodeNames": [
+        "gantry.turn.left.rear"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 24,
+            "figure": "Fig 2-5 / 2-6; JL28601 listed on p20",
+            "note": "Four driven outer wheels per project p17/23. Equalizer, carrier, bearing, steering, chain and guards simplified from eight-wheel views."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -12.21500015258789,
+          2.5250000953674316,
+          -5.829999923706055
+        ],
+        "max": [
+          -11.255000114440918,
+          2.720310926437378,
+          -2.069999933242798
+        ]
+      }
+    },
+    {
+      "key": "gantry.tyre.left.rear.outer",
+      "kind": "position",
+      "label": "left.rear.outer tyre / rim",
+      "parentKey": "container.gantry",
+      "classification": {
+        "main": "04",
+        "sub": "044"
+      },
+      "gltfNodeNames": [
+        "gantry.tyre.left.rear.outer"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 24,
+            "figure": "Fig 2-5 / 2-6; JL28601 listed on p20",
+            "note": "Four driven outer wheels per project p17/23. Equalizer, carrier, bearing, steering, chain and guards simplified from eight-wheel views."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -12.102000013589858,
+          -7.152557324197062e-9,
+          -6.280000007152557
+        ],
+        "max": [
+          -11.36799998641014,
+          1.8600000071525575,
+          -4.419999992847442
+        ]
+      }
+    },
+    {
+      "key": "gantry.drive.left.rear",
+      "kind": "position",
+      "label": "left.rear outer-wheel drive",
+      "parentKey": "container.gantry",
+      "classification": {
+        "main": "04",
+        "sub": "041"
+      },
+      "gltfNodeNames": [
+        "gantry.drive.left.rear"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 24,
+            "figure": "Fig 2-5 / 2-6; JL28601 listed on p20",
+            "note": "Four driven outer wheels per project p17/23. Equalizer, carrier, bearing, steering, chain and guards simplified from eight-wheel views."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -12.095000267028809,
+          2.875,
+          -5.710000038146973
+        ],
+        "max": [
+          -11.375,
+          4.559999942779541,
+          -4.989999771118164
+        ]
+      }
+    },
+    {
+      "key": "gantry.chain.left.rear",
+      "kind": "position",
+      "label": "left.rear chain drive and guard",
+      "parentKey": "container.gantry",
+      "classification": {
+        "main": "04",
+        "sub": "047"
+      },
+      "gltfNodeNames": [
+        "gantry.chain.left.rear"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 24,
+            "figure": "Fig 2-5 / 2-6; JL28601 listed on p20",
+            "note": "Four driven outer wheels per project p17/23. Equalizer, carrier, bearing, steering, chain and guards simplified from eight-wheel views."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -12.429052352905273,
+          0.48000001907348633,
+          -5.800000190734863
+        ],
+        "max": [
+          -12.2475004196167,
+          3.240000009536743,
+          -4.900000095367432
+        ]
+      }
+    },
+    {
+      "key": "gantry.tyre.left.rear.inner",
+      "kind": "position",
+      "label": "left.rear.inner tyre / rim",
+      "parentKey": "container.gantry",
+      "classification": {
+        "main": "04",
+        "sub": "044"
+      },
+      "gltfNodeNames": [
+        "gantry.tyre.left.rear.inner"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 24,
+            "figure": "Fig 2-5 / 2-6; JL28601 listed on p20",
+            "note": "Four driven outer wheels per project p17/23. Equalizer, carrier, bearing, steering, chain and guards simplified from eight-wheel views."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -12.102000013589858,
+          -7.152557324197062e-9,
+          -3.480000007152557
+        ],
+        "max": [
+          -11.36799998641014,
+          1.8600000071525575,
+          -1.6199999928474424
+        ]
+      }
+    },
+    {
+      "key": "gantry.equalizer.left.front",
+      "kind": "position",
+      "label": "left.front equalizer and wheel carriers",
+      "parentKey": "container.gantry",
+      "classification": {
+        "main": "04",
+        "sub": "041"
+      },
+      "gltfNodeNames": [
+        "gantry.equalizer.left.front"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 24,
+            "figure": "Fig 2-5 / 2-6; JL28601 listed on p20",
+            "note": "Four driven outer wheels per project p17/23. Equalizer, carrier, bearing, steering, chain and guards simplified from eight-wheel views."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -12.404052734375,
+          0.75,
+          1.5980000495910645
+        ],
+        "max": [
+          -11.065947532653809,
+          4.059999942779541,
+          6.302000045776367
+        ]
+      }
+    },
+    {
+      "key": "gantry.steering.left.front",
+      "kind": "position",
+      "label": "left.front steering cylinder and linkage",
+      "parentKey": "container.gantry",
+      "classification": {
+        "main": "04",
+        "sub": "043"
+      },
+      "gltfNodeNames": [
+        "gantry.steering.left.front"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 24,
+            "figure": "Fig 2-5 / 2-6; JL28601 listed on p20",
+            "note": "Four driven outer wheels per project p17/23. Equalizer, carrier, bearing, steering, chain and guards simplified from eight-wheel views."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -11.375,
+          2.490000009536743,
+          2.549999952316284
+        ],
+        "max": [
+          -11.194999694824219,
+          2.6700000762939453,
+          5.349999904632568
+        ]
+      }
+    },
+    {
+      "key": "gantry.turn.left.front",
+      "kind": "position",
+      "label": "left.front slewing bearings / locks",
+      "parentKey": "container.gantry",
+      "classification": {
+        "main": "04",
+        "sub": "045"
+      },
+      "gltfNodeNames": [
+        "gantry.turn.left.front"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 24,
+            "figure": "Fig 2-5 / 2-6; JL28601 listed on p20",
+            "note": "Four driven outer wheels per project p17/23. Equalizer, carrier, bearing, steering, chain and guards simplified from eight-wheel views."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -12.21500015258789,
+          2.5250000953674316,
+          2.069999933242798
+        ],
+        "max": [
+          -11.255000114440918,
+          2.720310926437378,
+          5.829999923706055
+        ]
+      }
+    },
+    {
+      "key": "gantry.tyre.left.front.inner",
+      "kind": "position",
+      "label": "left.front.inner tyre / rim",
+      "parentKey": "container.gantry",
+      "classification": {
+        "main": "04",
+        "sub": "044"
+      },
+      "gltfNodeNames": [
+        "gantry.tyre.left.front.inner"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 24,
+            "figure": "Fig 2-5 / 2-6; JL28601 listed on p20",
+            "note": "Four driven outer wheels per project p17/23. Equalizer, carrier, bearing, steering, chain and guards simplified from eight-wheel views."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -12.102000013589858,
+          -7.152557324197062e-9,
+          1.6199999928474424
+        ],
+        "max": [
+          -11.36799998641014,
+          1.8600000071525575,
+          3.480000007152557
+        ]
+      }
+    },
+    {
+      "key": "gantry.tyre.left.front.outer",
+      "kind": "position",
+      "label": "left.front.outer tyre / rim",
+      "parentKey": "container.gantry",
+      "classification": {
+        "main": "04",
+        "sub": "044"
+      },
+      "gltfNodeNames": [
+        "gantry.tyre.left.front.outer"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 24,
+            "figure": "Fig 2-5 / 2-6; JL28601 listed on p20",
+            "note": "Four driven outer wheels per project p17/23. Equalizer, carrier, bearing, steering, chain and guards simplified from eight-wheel views."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -12.102000013589858,
+          -7.152557324197062e-9,
+          4.419999992847442
+        ],
+        "max": [
+          -11.36799998641014,
+          1.8600000071525575,
+          6.280000007152557
+        ]
+      }
+    },
+    {
+      "key": "gantry.drive.left.front",
+      "kind": "position",
+      "label": "left.front outer-wheel drive",
+      "parentKey": "container.gantry",
+      "classification": {
+        "main": "04",
+        "sub": "041"
+      },
+      "gltfNodeNames": [
+        "gantry.drive.left.front"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 24,
+            "figure": "Fig 2-5 / 2-6; JL28601 listed on p20",
+            "note": "Four driven outer wheels per project p17/23. Equalizer, carrier, bearing, steering, chain and guards simplified from eight-wheel views."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -12.095000267028809,
+          2.875,
+          4.989999771118164
+        ],
+        "max": [
+          -11.375,
+          4.559999942779541,
+          5.710000038146973
+        ]
+      }
+    },
+    {
+      "key": "gantry.chain.left.front",
+      "kind": "position",
+      "label": "left.front chain drive and guard",
+      "parentKey": "container.gantry",
+      "classification": {
+        "main": "04",
+        "sub": "047"
+      },
+      "gltfNodeNames": [
+        "gantry.chain.left.front"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 24,
+            "figure": "Fig 2-5 / 2-6; JL28601 listed on p20",
+            "note": "Four driven outer wheels per project p17/23. Equalizer, carrier, bearing, steering, chain and guards simplified from eight-wheel views."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -12.429052352905273,
+          0.48000001907348633,
+          4.900000095367432
+        ],
+        "max": [
+          -12.2475004196167,
+          3.240000009536743,
+          5.800000190734863
+        ]
+      }
+    },
+    {
+      "key": "gantry.equalizer.right.rear",
+      "kind": "position",
+      "label": "right.rear equalizer and wheel carriers",
+      "parentKey": "container.gantry",
+      "classification": {
+        "main": "04",
+        "sub": "041"
+      },
+      "gltfNodeNames": [
+        "gantry.equalizer.right.rear"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 24,
+            "figure": "Fig 2-5 / 2-6; JL28601 listed on p20",
+            "note": "Four driven outer wheels per project p17/23. Equalizer, carrier, bearing, steering, chain and guards simplified from eight-wheel views."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          11.065947532653809,
+          0.75,
+          -6.302000045776367
+        ],
+        "max": [
+          12.404052734375,
+          4.059999942779541,
+          -1.5980000495910645
+        ]
+      }
+    },
+    {
+      "key": "gantry.steering.right.rear",
+      "kind": "position",
+      "label": "right.rear steering cylinder and linkage",
+      "parentKey": "container.gantry",
+      "classification": {
+        "main": "04",
+        "sub": "043"
+      },
+      "gltfNodeNames": [
+        "gantry.steering.right.rear"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 24,
+            "figure": "Fig 2-5 / 2-6; JL28601 listed on p20",
+            "note": "Four driven outer wheels per project p17/23. Equalizer, carrier, bearing, steering, chain and guards simplified from eight-wheel views."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          12.095000267028809,
+          2.490000009536743,
+          -5.349999904632568
+        ],
+        "max": [
+          12.274999618530273,
+          2.6700000762939453,
+          -2.549999952316284
+        ]
+      }
+    },
+    {
+      "key": "gantry.turn.right.rear",
+      "kind": "position",
+      "label": "right.rear slewing bearings / locks",
+      "parentKey": "container.gantry",
+      "classification": {
+        "main": "04",
+        "sub": "045"
+      },
+      "gltfNodeNames": [
+        "gantry.turn.right.rear"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 24,
+            "figure": "Fig 2-5 / 2-6; JL28601 listed on p20",
+            "note": "Four driven outer wheels per project p17/23. Equalizer, carrier, bearing, steering, chain and guards simplified from eight-wheel views."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          11.255000114440918,
+          2.5250000953674316,
+          -5.829999923706055
+        ],
+        "max": [
+          12.21500015258789,
+          2.720310926437378,
+          -2.069999933242798
+        ]
+      }
+    },
+    {
+      "key": "gantry.tyre.right.rear.outer",
+      "kind": "position",
+      "label": "right.rear.outer tyre / rim",
+      "parentKey": "container.gantry",
+      "classification": {
+        "main": "04",
+        "sub": "044"
+      },
+      "gltfNodeNames": [
+        "gantry.tyre.right.rear.outer"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 24,
+            "figure": "Fig 2-5 / 2-6; JL28601 listed on p20",
+            "note": "Four driven outer wheels per project p17/23. Equalizer, carrier, bearing, steering, chain and guards simplified from eight-wheel views."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          11.36799998641014,
+          -7.152557324197062e-9,
+          -6.280000007152557
+        ],
+        "max": [
+          12.102000013589858,
+          1.8600000071525575,
+          -4.419999992847442
+        ]
+      }
+    },
+    {
+      "key": "gantry.drive.right.rear",
+      "kind": "position",
+      "label": "right.rear outer-wheel drive",
+      "parentKey": "container.gantry",
+      "classification": {
+        "main": "04",
+        "sub": "041"
+      },
+      "gltfNodeNames": [
+        "gantry.drive.right.rear"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 24,
+            "figure": "Fig 2-5 / 2-6; JL28601 listed on p20",
+            "note": "Four driven outer wheels per project p17/23. Equalizer, carrier, bearing, steering, chain and guards simplified from eight-wheel views."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          11.375,
+          2.875,
+          -5.710000038146973
+        ],
+        "max": [
+          12.095000267028809,
+          4.559999942779541,
+          -4.989999771118164
+        ]
+      }
+    },
+    {
+      "key": "gantry.chain.right.rear",
+      "kind": "position",
+      "label": "right.rear chain drive and guard",
+      "parentKey": "container.gantry",
+      "classification": {
+        "main": "04",
+        "sub": "047"
+      },
+      "gltfNodeNames": [
+        "gantry.chain.right.rear"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 24,
+            "figure": "Fig 2-5 / 2-6; JL28601 listed on p20",
+            "note": "Four driven outer wheels per project p17/23. Equalizer, carrier, bearing, steering, chain and guards simplified from eight-wheel views."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          12.2475004196167,
+          0.48000001907348633,
+          -5.800000190734863
+        ],
+        "max": [
+          12.429052352905273,
+          3.240000009536743,
+          -4.900000095367432
+        ]
+      }
+    },
+    {
+      "key": "gantry.tyre.right.rear.inner",
+      "kind": "position",
+      "label": "right.rear.inner tyre / rim",
+      "parentKey": "container.gantry",
+      "classification": {
+        "main": "04",
+        "sub": "044"
+      },
+      "gltfNodeNames": [
+        "gantry.tyre.right.rear.inner"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 24,
+            "figure": "Fig 2-5 / 2-6; JL28601 listed on p20",
+            "note": "Four driven outer wheels per project p17/23. Equalizer, carrier, bearing, steering, chain and guards simplified from eight-wheel views."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          11.36799998641014,
+          -7.152557324197062e-9,
+          -3.480000007152557
+        ],
+        "max": [
+          12.102000013589858,
+          1.8600000071525575,
+          -1.6199999928474424
+        ]
+      }
+    },
+    {
+      "key": "gantry.equalizer.right.front",
+      "kind": "position",
+      "label": "right.front equalizer and wheel carriers",
+      "parentKey": "container.gantry",
+      "classification": {
+        "main": "04",
+        "sub": "041"
+      },
+      "gltfNodeNames": [
+        "gantry.equalizer.right.front"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 24,
+            "figure": "Fig 2-5 / 2-6; JL28601 listed on p20",
+            "note": "Four driven outer wheels per project p17/23. Equalizer, carrier, bearing, steering, chain and guards simplified from eight-wheel views."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          11.065947532653809,
+          0.75,
+          1.5980000495910645
+        ],
+        "max": [
+          12.404052734375,
+          4.059999942779541,
+          6.302000045776367
+        ]
+      }
+    },
+    {
+      "key": "gantry.steering.right.front",
+      "kind": "position",
+      "label": "right.front steering cylinder and linkage",
+      "parentKey": "container.gantry",
+      "classification": {
+        "main": "04",
+        "sub": "043"
+      },
+      "gltfNodeNames": [
+        "gantry.steering.right.front"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 24,
+            "figure": "Fig 2-5 / 2-6; JL28601 listed on p20",
+            "note": "Four driven outer wheels per project p17/23. Equalizer, carrier, bearing, steering, chain and guards simplified from eight-wheel views."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          12.095000267028809,
+          2.490000009536743,
+          2.549999952316284
+        ],
+        "max": [
+          12.274999618530273,
+          2.6700000762939453,
+          5.349999904632568
+        ]
+      }
+    },
+    {
+      "key": "gantry.turn.right.front",
+      "kind": "position",
+      "label": "right.front slewing bearings / locks",
+      "parentKey": "container.gantry",
+      "classification": {
+        "main": "04",
+        "sub": "045"
+      },
+      "gltfNodeNames": [
+        "gantry.turn.right.front"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 24,
+            "figure": "Fig 2-5 / 2-6; JL28601 listed on p20",
+            "note": "Four driven outer wheels per project p17/23. Equalizer, carrier, bearing, steering, chain and guards simplified from eight-wheel views."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          11.255000114440918,
+          2.5250000953674316,
+          2.069999933242798
+        ],
+        "max": [
+          12.21500015258789,
+          2.720310926437378,
+          5.829999923706055
+        ]
+      }
+    },
+    {
+      "key": "gantry.tyre.right.front.inner",
+      "kind": "position",
+      "label": "right.front.inner tyre / rim",
+      "parentKey": "container.gantry",
+      "classification": {
+        "main": "04",
+        "sub": "044"
+      },
+      "gltfNodeNames": [
+        "gantry.tyre.right.front.inner"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 24,
+            "figure": "Fig 2-5 / 2-6; JL28601 listed on p20",
+            "note": "Four driven outer wheels per project p17/23. Equalizer, carrier, bearing, steering, chain and guards simplified from eight-wheel views."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          11.36799998641014,
+          -7.152557324197062e-9,
+          1.6199999928474424
+        ],
+        "max": [
+          12.102000013589858,
+          1.8600000071525575,
+          3.480000007152557
+        ]
+      }
+    },
+    {
+      "key": "gantry.tyre.right.front.outer",
+      "kind": "position",
+      "label": "right.front.outer tyre / rim",
+      "parentKey": "container.gantry",
+      "classification": {
+        "main": "04",
+        "sub": "044"
+      },
+      "gltfNodeNames": [
+        "gantry.tyre.right.front.outer"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 24,
+            "figure": "Fig 2-5 / 2-6; JL28601 listed on p20",
+            "note": "Four driven outer wheels per project p17/23. Equalizer, carrier, bearing, steering, chain and guards simplified from eight-wheel views."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          11.36799998641014,
+          -7.152557324197062e-9,
+          4.419999992847442
+        ],
+        "max": [
+          12.102000013589858,
+          1.8600000071525575,
+          6.280000007152557
+        ]
+      }
+    },
+    {
+      "key": "gantry.drive.right.front",
+      "kind": "position",
+      "label": "right.front outer-wheel drive",
+      "parentKey": "container.gantry",
+      "classification": {
+        "main": "04",
+        "sub": "041"
+      },
+      "gltfNodeNames": [
+        "gantry.drive.right.front"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 24,
+            "figure": "Fig 2-5 / 2-6; JL28601 listed on p20",
+            "note": "Four driven outer wheels per project p17/23. Equalizer, carrier, bearing, steering, chain and guards simplified from eight-wheel views."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          11.375,
+          2.875,
+          4.989999771118164
+        ],
+        "max": [
+          12.095000267028809,
+          4.559999942779541,
+          5.710000038146973
+        ]
+      }
+    },
+    {
+      "key": "gantry.chain.right.front",
+      "kind": "position",
+      "label": "right.front chain drive and guard",
+      "parentKey": "container.gantry",
+      "classification": {
+        "main": "04",
+        "sub": "047"
+      },
+      "gltfNodeNames": [
+        "gantry.chain.right.front"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 24,
+            "figure": "Fig 2-5 / 2-6; JL28601 listed on p20",
+            "note": "Four driven outer wheels per project p17/23. Equalizer, carrier, bearing, steering, chain and guards simplified from eight-wheel views."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          12.2475004196167,
+          0.48000001907348633,
+          4.900000095367432
+        ],
+        "max": [
+          12.429052352905273,
+          3.240000009536743,
+          5.800000190734863
+        ]
+      }
+    },
+    {
+      "key": "container.trolley",
+      "kind": "container",
+      "label": "Moving trolley + cabin",
+      "parentKey": "container.crane",
+      "classification": null,
+      "gltfNodeNames": [
+        "container.trolley"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 10,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 21,
+            "figure": "Fig 2-2 / JL28606",
+            "note": "Arrangement + direct double wheel drive; dimensions not explicitly in the dimension table are visual estimates. M13 p72 repeats this drawing."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -3.1500000953674316,
+          4.929999999701977,
+          -4.050000190734863
+        ],
+        "max": [
+          3.555000066757202,
+          29.559999997615815,
+          4.050000190734863
+        ]
+      }
+    },
+    {
+      "key": "trolley.frame.main",
+      "kind": "position",
+      "label": "Trolley welded I-section frame",
+      "parentKey": "container.trolley",
+      "classification": {
+        "main": "02",
+        "sub": "021"
+      },
+      "gltfNodeNames": [
+        "trolley.frame.main"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 21,
+            "figure": "Fig 2-2 / JL28606",
+            "note": "Arrangement + direct double wheel drive; dimensions not explicitly in the dimension table are visual estimates. M13 p72 repeats this drawing."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -2.424999952316284,
+          27.753999710083008,
+          -3.424999952316284
+        ],
+        "max": [
+          2.424999952316284,
+          28.284000396728516,
+          3.424999952316284
+        ]
+      }
+    },
+    {
+      "key": "access.trolley.platforms",
+      "kind": "position",
+      "label": "Trolley walkways and handrails",
+      "parentKey": "container.trolley",
+      "classification": {
+        "main": "15",
+        "sub": "151"
+      },
+      "gltfNodeNames": [
+        "access.trolley.platforms"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 21,
+            "figure": "Fig 2-2 / JL28606",
+            "note": "Arrangement + direct double wheel drive; dimensions not explicitly in the dimension table are visual estimates. M13 p72 repeats this drawing."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -3.1500000953674316,
+          28.21649932861328,
+          -4.050000190734863
+        ],
+        "max": [
+          3.1500000953674316,
+          29.4060001373291,
+          4.050000190734863
+        ]
+      }
+    },
+    {
+      "key": "trolley.wheel.left.rear",
+      "kind": "position",
+      "label": "Trolley wheel Ø500",
+      "parentKey": "container.trolley",
+      "classification": {
+        "main": "02",
+        "sub": "021"
+      },
+      "gltfNodeNames": [
+        "trolley.wheel.left.rear"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 21,
+            "figure": "Fig 2-2 / JL28606",
+            "note": "Arrangement + direct double wheel drive; dimensions not explicitly in the dimension table are visual estimates. M13 p72 repeats this drawing."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -2.275,
+          27.754,
+          -3.365000006556511
+        ],
+        "max": [
+          -1.775,
+          28.254,
+          -3.0349999934434893
+        ]
+      }
+    },
+    {
+      "key": "trolley.guide.left.rear",
+      "kind": "position",
+      "label": "Twin horizontal guide rollers",
+      "parentKey": "container.trolley",
+      "classification": {
+        "main": "02",
+        "sub": "021"
+      },
+      "gltfNodeNames": [
+        "trolley.guide.left.rear"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 21,
+            "figure": "Fig 2-2 / JL28606",
+            "note": "Arrangement + direct double wheel drive; dimensions not explicitly in the dimension table are visual estimates. M13 p72 repeats this drawing."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -2.265000104904175,
+          27.68400001525879,
+          -3.494999885559082
+        ],
+        "max": [
+          -1.784999966621399,
+          27.888999938964844,
+          -3.1449999809265137
+        ]
+      }
+    },
+    {
+      "key": "trolley.drive.a",
+      "kind": "position",
+      "label": "Direct-wheel trolley drive",
+      "parentKey": "container.trolley",
+      "classification": {
+        "main": "02",
+        "sub": "021"
+      },
+      "gltfNodeNames": [
+        "trolley.drive.a"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 21,
+            "figure": "Fig 2-2 / JL28606",
+            "note": "Arrangement + direct double wheel drive; dimensions not explicitly in the dimension table are visual estimates. M13 p72 repeats this drawing."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -2.25,
+          27.753999710083008,
+          -3.7300000190734863
+        ],
+        "max": [
+          -1.7999999523162842,
+          28.823999404907227,
+          -3.369999885559082
+        ]
+      }
+    },
+    {
+      "key": "trolley.wheel.left.front",
+      "kind": "position",
+      "label": "Trolley wheel Ø500",
+      "parentKey": "container.trolley",
+      "classification": {
+        "main": "02",
+        "sub": "021"
+      },
+      "gltfNodeNames": [
+        "trolley.wheel.left.front"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 21,
+            "figure": "Fig 2-2 / JL28606",
+            "note": "Arrangement + direct double wheel drive; dimensions not explicitly in the dimension table are visual estimates. M13 p72 repeats this drawing."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -2.275,
+          27.754,
+          3.0349999934434893
+        ],
+        "max": [
+          -1.775,
+          28.254,
+          3.365000006556511
+        ]
+      }
+    },
+    {
+      "key": "trolley.guide.left.front",
+      "kind": "position",
+      "label": "Twin horizontal guide rollers",
+      "parentKey": "container.trolley",
+      "classification": {
+        "main": "02",
+        "sub": "021"
+      },
+      "gltfNodeNames": [
+        "trolley.guide.left.front"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 21,
+            "figure": "Fig 2-2 / JL28606",
+            "note": "Arrangement + direct double wheel drive; dimensions not explicitly in the dimension table are visual estimates. M13 p72 repeats this drawing."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -2.265000104904175,
+          27.68400001525879,
+          3.1449999809265137
+        ],
+        "max": [
+          -1.784999966621399,
+          27.888999938964844,
+          3.494999885559082
+        ]
+      }
+    },
+    {
+      "key": "trolley.wheel.right.rear",
+      "kind": "position",
+      "label": "Trolley wheel Ø500",
+      "parentKey": "container.trolley",
+      "classification": {
+        "main": "02",
+        "sub": "021"
+      },
+      "gltfNodeNames": [
+        "trolley.wheel.right.rear"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 21,
+            "figure": "Fig 2-2 / JL28606",
+            "note": "Arrangement + direct double wheel drive; dimensions not explicitly in the dimension table are visual estimates. M13 p72 repeats this drawing."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          1.775,
+          27.754,
+          -3.365000006556511
+        ],
+        "max": [
+          2.275,
+          28.254,
+          -3.0349999934434893
+        ]
+      }
+    },
+    {
+      "key": "trolley.guide.right.rear",
+      "kind": "position",
+      "label": "Twin horizontal guide rollers",
+      "parentKey": "container.trolley",
+      "classification": {
+        "main": "02",
+        "sub": "021"
+      },
+      "gltfNodeNames": [
+        "trolley.guide.right.rear"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 21,
+            "figure": "Fig 2-2 / JL28606",
+            "note": "Arrangement + direct double wheel drive; dimensions not explicitly in the dimension table are visual estimates. M13 p72 repeats this drawing."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          1.784999966621399,
+          27.68400001525879,
+          -3.494999885559082
+        ],
+        "max": [
+          2.265000104904175,
+          27.888999938964844,
+          -3.1449999809265137
+        ]
+      }
+    },
+    {
+      "key": "trolley.wheel.right.front",
+      "kind": "position",
+      "label": "Trolley wheel Ø500",
+      "parentKey": "container.trolley",
+      "classification": {
+        "main": "02",
+        "sub": "021"
+      },
+      "gltfNodeNames": [
+        "trolley.wheel.right.front"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 21,
+            "figure": "Fig 2-2 / JL28606",
+            "note": "Arrangement + direct double wheel drive; dimensions not explicitly in the dimension table are visual estimates. M13 p72 repeats this drawing."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          1.775,
+          27.754,
+          3.0349999934434893
+        ],
+        "max": [
+          2.275,
+          28.254,
+          3.365000006556511
+        ]
+      }
+    },
+    {
+      "key": "trolley.guide.right.front",
+      "kind": "position",
+      "label": "Twin horizontal guide rollers",
+      "parentKey": "container.trolley",
+      "classification": {
+        "main": "02",
+        "sub": "021"
+      },
+      "gltfNodeNames": [
+        "trolley.guide.right.front"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 21,
+            "figure": "Fig 2-2 / JL28606",
+            "note": "Arrangement + direct double wheel drive; dimensions not explicitly in the dimension table are visual estimates. M13 p72 repeats this drawing."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          1.784999966621399,
+          27.68400001525879,
+          3.1449999809265137
+        ],
+        "max": [
+          2.265000104904175,
+          27.888999938964844,
+          3.494999885559082
+        ]
+      }
+    },
+    {
+      "key": "trolley.drive.b",
+      "kind": "position",
+      "label": "Direct-wheel trolley drive",
+      "parentKey": "container.trolley",
+      "classification": {
+        "main": "02",
+        "sub": "021"
+      },
+      "gltfNodeNames": [
+        "trolley.drive.b"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 21,
+            "figure": "Fig 2-2 / JL28606",
+            "note": "Arrangement + direct double wheel drive; dimensions not explicitly in the dimension table are visual estimates. M13 p72 repeats this drawing."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          1.7999999523162842,
+          27.753999710083008,
+          3.369999885559082
+        ],
+        "max": [
+          2.25,
+          28.823999404907227,
+          3.7300000190734863
+        ]
+      }
+    },
+    {
+      "key": "container.hoist",
+      "kind": "container",
+      "label": "Hoist machinery and reeving",
+      "parentKey": "container.trolley",
+      "classification": null,
+      "gltfNodeNames": [
+        "container.hoist"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 10,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 25,
+            "figure": "Fig 2-10; JL2860608 listed p21",
+            "note": "One motor/reducer/drum, two brakes; shapes estimated. Eight groove GROUPS from p16 override generic four-group prose; pitch unavailable."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -2.174999952316284,
+          6.697631855488627,
+          -3.0799999237060547
+        ],
+        "max": [
+          2.549999952316284,
+          29.559999997615815,
+          3.0799999237060547
+        ]
+      }
+    },
+    {
+      "key": "hoist.drum.main",
+      "kind": "position",
+      "label": "Hoist drum · eight groove groups",
+      "parentKey": "container.hoist",
+      "classification": {
+        "main": "01",
+        "sub": "011"
+      },
+      "gltfNodeNames": [
+        "hoist.drum.main"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 25,
+            "figure": "Fig 2-10; JL2860608 listed p21",
+            "note": "One motor/reducer/drum, two brakes; shapes estimated. Eight groove GROUPS from p16 override generic four-group prose; pitch unavailable."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -1.534999966621399,
+          28.180000002384187,
+          -0.6899999976158142
+        ],
+        "max": [
+          1.534999966621399,
+          29.559999997615815,
+          0.6899999976158142
+        ]
+      }
+    },
+    {
+      "key": "hoist.bearings.main",
+      "kind": "position",
+      "label": "Drum bearing pedestals and couplings",
+      "parentKey": "container.hoist",
+      "classification": {
+        "main": "01",
+        "sub": "011"
+      },
+      "gltfNodeNames": [
+        "hoist.bearings.main"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 25,
+            "figure": "Fig 2-10; JL2860608 listed p21",
+            "note": "One motor/reducer/drum, two brakes; shapes estimated. Eight groove GROUPS from p16 override generic four-group prose; pitch unavailable."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -1.8899999856948853,
+          28.224000930786133,
+          -0.42500001192092896
+        ],
+        "max": [
+          1.8899999856948853,
+          29.1200008392334,
+          0.42500001192092896
+        ]
+      }
+    },
+    {
+      "key": "hoist.reducer.main",
+      "kind": "position",
+      "label": "Hoist reducer · casing only",
+      "parentKey": "container.hoist",
+      "classification": {
+        "main": "01",
+        "sub": "011"
+      },
+      "gltfNodeNames": [
+        "hoist.reducer.main"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 25,
+            "figure": "Fig 2-10; JL2860608 listed p21",
+            "note": "One motor/reducer/drum, two brakes; shapes estimated. Eight groove GROUPS from p16 override generic four-group prose; pitch unavailable."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          1.2599999904632568,
+          28.420000076293945,
+          -0.3250000476837158
+        ],
+        "max": [
+          2.0799999237060547,
+          29.31999969482422,
+          1.8250000476837158
+        ]
+      }
+    },
+    {
+      "key": "hoist.motor.main",
+      "kind": "position",
+      "label": "Hoist motor and cooling fan",
+      "parentKey": "container.hoist",
+      "classification": {
+        "main": "01",
+        "sub": "011"
+      },
+      "gltfNodeNames": [
+        "hoist.motor.main"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 25,
+            "figure": "Fig 2-10; JL2860608 listed p21",
+            "note": "One motor/reducer/drum, two brakes; shapes estimated. Eight groove GROUPS from p16 override generic four-group prose; pitch unavailable."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -0.5699999928474426,
+          28.268999099731445,
+          1.1399999856948853
+        ],
+        "max": [
+          1.0499999523162842,
+          29.270000457763672,
+          1.9900000095367432
+        ]
+      }
+    },
+    {
+      "key": "hoist.brake.a",
+      "kind": "position",
+      "label": "Hoist high-speed disc brake a",
+      "parentKey": "container.hoist",
+      "classification": {
+        "main": "01",
+        "sub": "011"
+      },
+      "gltfNodeNames": [
+        "hoist.brake.a"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 25,
+            "figure": "Fig 2-10; JL2860608 listed p21",
+            "note": "One motor/reducer/drum, two brakes; shapes estimated. Eight groove GROUPS from p16 override generic four-group prose; pitch unavailable."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          0.8500000238418579,
+          28.229000091552734,
+          1.1649999618530273
+        ],
+        "max": [
+          1.350000023841858,
+          29.184999465942383,
+          1.965000033378601
+        ]
+      }
+    },
+    {
+      "key": "hoist.brake.b",
+      "kind": "position",
+      "label": "Hoist high-speed disc brake b",
+      "parentKey": "container.hoist",
+      "classification": {
+        "main": "01",
+        "sub": "011"
+      },
+      "gltfNodeNames": [
+        "hoist.brake.b"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 25,
+            "figure": "Fig 2-10; JL2860608 listed p21",
+            "note": "One motor/reducer/drum, two brakes; shapes estimated. Eight groove GROUPS from p16 override generic four-group prose; pitch unavailable."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          2.049999952316284,
+          28.229000091552734,
+          1.1649999618530273
+        ],
+        "max": [
+          2.549999952316284,
+          29.184999465942383,
+          1.965000033378601
+        ]
+      }
+    },
+    {
+      "key": "container.suspended",
+      "kind": "container",
+      "label": "Headblock + spreader",
+      "parentKey": "container.trolley",
+      "classification": null,
+      "gltfNodeNames": [
+        "container.suspended"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 10,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 28,
+            "figure": "Fig 2-18; JL28606 p21; M13 p24",
+            "note": "Separate headblock and electric telescopic spreader. Retracted visual envelope only; no supplier manufacturing dimensions. Cylinders/turnbuckles are qualified simplified forms."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -1.25,
+          4.929999999701977,
+          -3.25
+        ],
+        "max": [
+          1.25,
+          7.171650648117065,
+          3.25
+        ]
+      }
+    },
+    {
+      "key": "headblock.frame.main",
+      "kind": "position",
+      "label": "Headblock and cable basket",
+      "parentKey": "container.suspended",
+      "classification": {
+        "main": "06",
+        "sub": "062"
+      },
+      "gltfNodeNames": [
+        "headblock.frame.main"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 28,
+            "figure": "Fig 2-18; JL28606 p21; M13 p24",
+            "note": "Separate headblock and electric telescopic spreader. Retracted visual envelope only; no supplier manufacturing dimensions. Cylinders/turnbuckles are qualified simplified forms."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -0.6449999809265137,
+          5.975000023841858,
+          -2.690000057220459
+        ],
+        "max": [
+          0.6449999809265137,
+          7.171650648117065,
+          2.690000057220459
+        ]
+      }
+    },
+    {
+      "key": "spreader.frame.main",
+      "kind": "position",
+      "label": "Electric telescopic spreader · retracted",
+      "parentKey": "container.suspended",
+      "classification": {
+        "main": "06",
+        "sub": "061"
+      },
+      "gltfNodeNames": [
+        "spreader.frame.main"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 28,
+            "figure": "Fig 2-18; JL28606 p21; M13 p24",
+            "note": "Separate headblock and electric telescopic spreader. Retracted visual envelope only; no supplier manufacturing dimensions. Cylinders/turnbuckles are qualified simplified forms."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -0.9750000238418579,
+          5.229999989271164,
+          -2.325000047683716
+        ],
+        "max": [
+          0.9750000238418579,
+          5.8299999833106995,
+          2.325000047683716
+        ]
+      }
+    },
+    {
+      "key": "spreader.telescopic.rear",
+      "kind": "position",
+      "label": "Telescopic end beam (fixed demo pose)",
+      "parentKey": "container.suspended",
+      "classification": {
+        "main": "06",
+        "sub": "061"
+      },
+      "gltfNodeNames": [
+        "spreader.telescopic.rear"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 28,
+            "figure": "Fig 2-18; JL28606 p21; M13 p24",
+            "note": "Separate headblock and electric telescopic spreader. Retracted visual envelope only; no supplier manufacturing dimensions. Cylinders/turnbuckles are qualified simplified forms."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -1.2200000286102295,
+          5.175000011920929,
+          -3.049999952316284
+        ],
+        "max": [
+          1.2200000286102295,
+          5.824999988079071,
+          -1.2000000476837158
+        ]
+      }
+    },
+    {
+      "key": "spreader.corner.left.rear",
+      "kind": "position",
+      "label": "Twistlock and flipper · provisional",
+      "parentKey": "container.suspended",
+      "classification": {
+        "main": "06",
+        "sub": "061"
+      },
+      "gltfNodeNames": [
+        "spreader.corner.left.rear"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 28,
+            "figure": "Fig 2-18; JL28606 p21; M13 p24",
+            "note": "Separate headblock and electric telescopic spreader. Retracted visual envelope only; no supplier manufacturing dimensions. Cylinders/turnbuckles are qualified simplified forms."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -1.25,
+          4.929999999701977,
+          -3.25
+        ],
+        "max": [
+          -0.9649999737739563,
+          5.550000011920929,
+          -2.8450000286102295
+        ]
+      }
+    },
+    {
+      "key": "spreader.corner.right.rear",
+      "kind": "position",
+      "label": "Twistlock and flipper · provisional",
+      "parentKey": "container.suspended",
+      "classification": {
+        "main": "06",
+        "sub": "061"
+      },
+      "gltfNodeNames": [
+        "spreader.corner.right.rear"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 28,
+            "figure": "Fig 2-18; JL28606 p21; M13 p24",
+            "note": "Separate headblock and electric telescopic spreader. Retracted visual envelope only; no supplier manufacturing dimensions. Cylinders/turnbuckles are qualified simplified forms."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          0.9649999737739563,
+          4.929999999701977,
+          -3.25
+        ],
+        "max": [
+          1.25,
+          5.550000011920929,
+          -2.8450000286102295
+        ]
+      }
+    },
+    {
+      "key": "spreader.telescopic.front",
+      "kind": "position",
+      "label": "Telescopic end beam (fixed demo pose)",
+      "parentKey": "container.suspended",
+      "classification": {
+        "main": "06",
+        "sub": "061"
+      },
+      "gltfNodeNames": [
+        "spreader.telescopic.front"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 28,
+            "figure": "Fig 2-18; JL28606 p21; M13 p24",
+            "note": "Separate headblock and electric telescopic spreader. Retracted visual envelope only; no supplier manufacturing dimensions. Cylinders/turnbuckles are qualified simplified forms."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -1.2200000286102295,
+          5.175000011920929,
+          1.2000000476837158
+        ],
+        "max": [
+          1.2200000286102295,
+          5.824999988079071,
+          3.049999952316284
+        ]
+      }
+    },
+    {
+      "key": "spreader.corner.left.front",
+      "kind": "position",
+      "label": "Twistlock and flipper · provisional",
+      "parentKey": "container.suspended",
+      "classification": {
+        "main": "06",
+        "sub": "061"
+      },
+      "gltfNodeNames": [
+        "spreader.corner.left.front"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 28,
+            "figure": "Fig 2-18; JL28606 p21; M13 p24",
+            "note": "Separate headblock and electric telescopic spreader. Retracted visual envelope only; no supplier manufacturing dimensions. Cylinders/turnbuckles are qualified simplified forms."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -1.25,
+          4.929999999701977,
+          2.8450000286102295
+        ],
+        "max": [
+          -0.9649999737739563,
+          5.550000011920929,
+          3.25
+        ]
+      }
+    },
+    {
+      "key": "spreader.corner.right.front",
+      "kind": "position",
+      "label": "Twistlock and flipper · provisional",
+      "parentKey": "container.suspended",
+      "classification": {
+        "main": "06",
+        "sub": "061"
+      },
+      "gltfNodeNames": [
+        "spreader.corner.right.front"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 28,
+            "figure": "Fig 2-18; JL28606 p21; M13 p24",
+            "note": "Separate headblock and electric telescopic spreader. Retracted visual envelope only; no supplier manufacturing dimensions. Cylinders/turnbuckles are qualified simplified forms."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          0.9649999737739563,
+          4.929999999701977,
+          2.8450000286102295
+        ],
+        "max": [
+          1.25,
+          5.550000011920929,
+          3.25
+        ]
+      }
+    },
+    {
+      "key": "headblock.adjustment.main",
+      "kind": "position",
+      "label": "Headblock adjustment cylinders / links",
+      "parentKey": "container.suspended",
+      "classification": {
+        "main": "11",
+        "sub": "111"
+      },
+      "gltfNodeNames": [
+        "headblock.adjustment.main"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 28,
+            "figure": "Fig 2-18; JL28606 p21; M13 p24",
+            "note": "Separate headblock and electric telescopic spreader. Retracted visual envelope only; no supplier manufacturing dimensions. Cylinders/turnbuckles are qualified simplified forms."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -0.4895298182964325,
+          6.304999947547913,
+          -2.7260000705718994
+        ],
+        "max": [
+          0.4895298182964325,
+          6.754999995231628,
+          2.7260000705718994
+        ]
+      }
+    },
+    {
+      "key": "reeving.sheave.fall-1",
+      "kind": "position",
+      "label": "Trolley fall sheave 1",
+      "parentKey": "container.hoist",
+      "classification": {
+        "main": "01",
+        "sub": "015"
+      },
+      "gltfNodeNames": [
+        "reeving.sheave.fall-1"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 27,
+            "figure": "Fig 2-14; JL2860603 listed p21",
+            "note": "Eight routes, twelve trolley sheaves, four paired edge terminations. Exact sheave-axis coordinates and drum departure tangencies unresolved; schematic paths."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -2.174999952316284,
+          27.760000228881836,
+          -3.0799999237060547
+        ],
+        "max": [
+          -2.0250000953674316,
+          28.540000915527344,
+          -2.299999952316284
+        ]
+      }
+    },
+    {
+      "key": "reeving.rope.route-1",
+      "kind": "position",
+      "label": "Hoist rope 1 · schematic route",
+      "parentKey": "container.hoist",
+      "classification": {
+        "main": "01",
+        "sub": "015"
+      },
+      "gltfNodeNames": [
+        "reeving.rope.route-1"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 27,
+            "figure": "Fig 2-14; JL2860603 listed p21",
+            "note": "Eight routes, twelve trolley sheaves, four paired edge terminations. Exact sheave-axis coordinates and drum departure tangencies unresolved; schematic paths."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -2.1120714727056136,
+          6.698868827033181,
+          -2.7040000004321336
+        ],
+        "max": [
+          -0.07792852729438637,
+          28.88381576538086,
+          0.60205078125
+        ]
+      }
+    },
+    {
+      "key": "reeving.sheave.guide-1",
+      "kind": "position",
+      "label": "Trolley guide sheave 1",
+      "parentKey": "container.hoist",
+      "classification": {
+        "main": "01",
+        "sub": "015"
+      },
+      "gltfNodeNames": [
+        "reeving.sheave.guide-1"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 27,
+            "figure": "Fig 2-14; JL2860603 listed p21",
+            "note": "Eight routes, twelve trolley sheaves, four paired edge terminations. Exact sheave-axis coordinates and drum departure tangencies unresolved; schematic paths."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -1.75,
+          28.399999618530273,
+          -2.5369999408721924
+        ],
+        "max": [
+          -0.9800000190734863,
+          28.5,
+          -1.7669999599456787
+        ]
+      }
+    },
+    {
+      "key": "reeving.sheave.fall-2",
+      "kind": "position",
+      "label": "Trolley fall sheave 2",
+      "parentKey": "container.hoist",
+      "classification": {
+        "main": "01",
+        "sub": "015"
+      },
+      "gltfNodeNames": [
+        "reeving.sheave.fall-2"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 27,
+            "figure": "Fig 2-14; JL2860603 listed p21",
+            "note": "Eight routes, twelve trolley sheaves, four paired edge terminations. Exact sheave-axis coordinates and drum departure tangencies unresolved; schematic paths."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          2.0250000953674316,
+          27.760000228881836,
+          -3.0799999237060547
+        ],
+        "max": [
+          2.174999952316284,
+          28.540000915527344,
+          -2.299999952316284
+        ]
+      }
+    },
+    {
+      "key": "reeving.rope.route-2",
+      "kind": "position",
+      "label": "Hoist rope 2 · schematic route",
+      "parentKey": "container.hoist",
+      "classification": {
+        "main": "01",
+        "sub": "015"
+      },
+      "gltfNodeNames": [
+        "reeving.rope.route-2"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 27,
+            "figure": "Fig 2-14; JL2860603 listed p21",
+            "note": "Eight routes, twelve trolley sheaves, four paired edge terminations. Exact sheave-axis coordinates and drum departure tangencies unresolved; schematic paths."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -0.8705926537513733,
+          6.698868827033181,
+          -2.7040000004321336
+        ],
+        "max": [
+          2.1120714727056136,
+          28.88297462463379,
+          0.6088944673538208
+        ]
+      }
+    },
+    {
+      "key": "reeving.sheave.guide-2",
+      "kind": "position",
+      "label": "Trolley guide sheave 2",
+      "parentKey": "container.hoist",
+      "classification": {
+        "main": "01",
+        "sub": "015"
+      },
+      "gltfNodeNames": [
+        "reeving.sheave.guide-2"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 27,
+            "figure": "Fig 2-14; JL2860603 listed p21",
+            "note": "Eight routes, twelve trolley sheaves, four paired edge terminations. Exact sheave-axis coordinates and drum departure tangencies unresolved; schematic paths."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          0.9800000190734863,
+          28.399999618530273,
+          -2.5369999408721924
+        ],
+        "max": [
+          1.75,
+          28.5,
+          -1.7669999599456787
+        ]
+      }
+    },
+    {
+      "key": "reeving.sheave.fall-3",
+      "kind": "position",
+      "label": "Trolley fall sheave 3",
+      "parentKey": "container.hoist",
+      "classification": {
+        "main": "01",
+        "sub": "015"
+      },
+      "gltfNodeNames": [
+        "reeving.sheave.fall-3"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 27,
+            "figure": "Fig 2-14; JL2860603 listed p21",
+            "note": "Eight routes, twelve trolley sheaves, four paired edge terminations. Exact sheave-axis coordinates and drum departure tangencies unresolved; schematic paths."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -2.174999952316284,
+          27.760000228881836,
+          2.299999952316284
+        ],
+        "max": [
+          -2.0250000953674316,
+          28.540000915527344,
+          3.0799999237060547
+        ]
+      }
+    },
+    {
+      "key": "reeving.rope.route-3",
+      "kind": "position",
+      "label": "Hoist rope 3 · schematic route",
+      "parentKey": "container.hoist",
+      "classification": {
+        "main": "01",
+        "sub": "015"
+      },
+      "gltfNodeNames": [
+        "reeving.rope.route-3"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 27,
+            "figure": "Fig 2-14; JL2860603 listed p21",
+            "note": "Eight routes, twelve trolley sheaves, four paired edge terminations. Exact sheave-axis coordinates and drum departure tangencies unresolved; schematic paths."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -2.1120714727056136,
+          6.698868827033181,
+          0.5933787226676941
+        ],
+        "max": [
+          -0.07792852729438637,
+          28.881961822509766,
+          2.7040000004321336
+        ]
+      }
+    },
+    {
+      "key": "reeving.sheave.guide-3",
+      "kind": "position",
+      "label": "Trolley guide sheave 3",
+      "parentKey": "container.hoist",
+      "classification": {
+        "main": "01",
+        "sub": "015"
+      },
+      "gltfNodeNames": [
+        "reeving.sheave.guide-3"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 27,
+            "figure": "Fig 2-14; JL2860603 listed p21",
+            "note": "Eight routes, twelve trolley sheaves, four paired edge terminations. Exact sheave-axis coordinates and drum departure tangencies unresolved; schematic paths."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -1.75,
+          28.399999618530273,
+          1.7669999599456787
+        ],
+        "max": [
+          -0.9800000190734863,
+          28.5,
+          2.5369999408721924
+        ]
+      }
+    },
+    {
+      "key": "reeving.sheave.fall-4",
+      "kind": "position",
+      "label": "Trolley fall sheave 4",
+      "parentKey": "container.hoist",
+      "classification": {
+        "main": "01",
+        "sub": "015"
+      },
+      "gltfNodeNames": [
+        "reeving.sheave.fall-4"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 27,
+            "figure": "Fig 2-14; JL2860603 listed p21",
+            "note": "Eight routes, twelve trolley sheaves, four paired edge terminations. Exact sheave-axis coordinates and drum departure tangencies unresolved; schematic paths."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          2.0250000953674316,
+          27.760000228881836,
+          2.299999952316284
+        ],
+        "max": [
+          2.174999952316284,
+          28.540000915527344,
+          3.0799999237060547
+        ]
+      }
+    },
+    {
+      "key": "reeving.rope.route-4",
+      "kind": "position",
+      "label": "Hoist rope 4 · schematic route",
+      "parentKey": "container.hoist",
+      "classification": {
+        "main": "01",
+        "sub": "015"
+      },
+      "gltfNodeNames": [
+        "reeving.rope.route-4"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 27,
+            "figure": "Fig 2-14; JL2860603 listed p21",
+            "note": "Eight routes, twelve trolley sheaves, four paired edge terminations. Exact sheave-axis coordinates and drum departure tangencies unresolved; schematic paths."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -0.1891120970249176,
+          6.698868827033181,
+          0.589974045753479
+        ],
+        "max": [
+          2.1120714727056136,
+          28.883272171020508,
+          2.7040000004321336
+        ]
+      }
+    },
+    {
+      "key": "reeving.sheave.guide-4",
+      "kind": "position",
+      "label": "Trolley guide sheave 4",
+      "parentKey": "container.hoist",
+      "classification": {
+        "main": "01",
+        "sub": "015"
+      },
+      "gltfNodeNames": [
+        "reeving.sheave.guide-4"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 27,
+            "figure": "Fig 2-14; JL2860603 listed p21",
+            "note": "Eight routes, twelve trolley sheaves, four paired edge terminations. Exact sheave-axis coordinates and drum departure tangencies unresolved; schematic paths."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          0.9800000190734863,
+          28.399999618530273,
+          1.7669999599456787
+        ],
+        "max": [
+          1.75,
+          28.5,
+          2.5369999408721924
+        ]
+      }
+    },
+    {
+      "key": "reeving.sheave.fall-5",
+      "kind": "position",
+      "label": "Trolley fall sheave 5",
+      "parentKey": "container.hoist",
+      "classification": {
+        "main": "01",
+        "sub": "015"
+      },
+      "gltfNodeNames": [
+        "reeving.sheave.fall-5"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 27,
+            "figure": "Fig 2-14; JL2860603 listed p21",
+            "note": "Eight routes, twelve trolley sheaves, four paired edge terminations. Exact sheave-axis coordinates and drum departure tangencies unresolved; schematic paths."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -2.174999952316284,
+          27.760000228881836,
+          -2.8399999141693115
+        ],
+        "max": [
+          -2.0250000953674316,
+          28.540000915527344,
+          -2.059999942779541
+        ]
+      }
+    },
+    {
+      "key": "reeving.rope.route-5",
+      "kind": "position",
+      "label": "Hoist rope 5 · schematic route",
+      "parentKey": "container.hoist",
+      "classification": {
+        "main": "01",
+        "sub": "015"
+      },
+      "gltfNodeNames": [
+        "reeving.rope.route-5"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 27,
+            "figure": "Fig 2-14; JL2860603 listed p21",
+            "note": "Eight routes, twelve trolley sheaves, four paired edge terminations. Exact sheave-axis coordinates and drum departure tangencies unresolved; schematic paths."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -2.117799000541012,
+          6.697631855488627,
+          -2.4667911952409494
+        ],
+        "max": [
+          0.17201288044452667,
+          28.882099151611328,
+          0.6071872115135193
+        ]
+      }
+    },
+    {
+      "key": "reeving.sheave.fall-6",
+      "kind": "position",
+      "label": "Trolley fall sheave 6",
+      "parentKey": "container.hoist",
+      "classification": {
+        "main": "01",
+        "sub": "015"
+      },
+      "gltfNodeNames": [
+        "reeving.sheave.fall-6"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 27,
+            "figure": "Fig 2-14; JL2860603 listed p21",
+            "note": "Eight routes, twelve trolley sheaves, four paired edge terminations. Exact sheave-axis coordinates and drum departure tangencies unresolved; schematic paths."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -2.174999952316284,
+          27.760000228881836,
+          2.059999942779541
+        ],
+        "max": [
+          -2.0250000953674316,
+          28.540000915527344,
+          2.8399999141693115
+        ]
+      }
+    },
+    {
+      "key": "reeving.rope.route-6",
+      "kind": "position",
+      "label": "Hoist rope 6 · schematic route",
+      "parentKey": "container.hoist",
+      "classification": {
+        "main": "01",
+        "sub": "015"
+      },
+      "gltfNodeNames": [
+        "reeving.rope.route-6"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 27,
+            "figure": "Fig 2-14; JL2860603 listed p21",
+            "note": "Eight routes, twelve trolley sheaves, four paired edge terminations. Exact sheave-axis coordinates and drum departure tangencies unresolved; schematic paths."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -2.117799000541012,
+          6.697631855488627,
+          0.07320880475905067
+        ],
+        "max": [
+          0.5078580379486084,
+          28.883695602416992,
+          2.4667911952409494
+        ]
+      }
+    },
+    {
+      "key": "reeving.sheave.fall-7",
+      "kind": "position",
+      "label": "Trolley fall sheave 7",
+      "parentKey": "container.hoist",
+      "classification": {
+        "main": "01",
+        "sub": "015"
+      },
+      "gltfNodeNames": [
+        "reeving.sheave.fall-7"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 27,
+            "figure": "Fig 2-14; JL2860603 listed p21",
+            "note": "Eight routes, twelve trolley sheaves, four paired edge terminations. Exact sheave-axis coordinates and drum departure tangencies unresolved; schematic paths."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          2.0250000953674316,
+          27.760000228881836,
+          -2.8399999141693115
+        ],
+        "max": [
+          2.174999952316284,
+          28.540000915527344,
+          -2.059999942779541
+        ]
+      }
+    },
+    {
+      "key": "reeving.rope.route-7",
+      "kind": "position",
+      "label": "Hoist rope 7 · schematic route",
+      "parentKey": "container.hoist",
+      "classification": {
+        "main": "01",
+        "sub": "015"
+      },
+      "gltfNodeNames": [
+        "reeving.rope.route-7"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 27,
+            "figure": "Fig 2-14; JL2860603 listed p21",
+            "note": "Eight routes, twelve trolley sheaves, four paired edge terminations. Exact sheave-axis coordinates and drum departure tangencies unresolved; schematic paths."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          0.5822009994589882,
+          6.697631855488627,
+          -2.4667911952409494
+        ],
+        "max": [
+          2.117799000541012,
+          28.883541107177734,
+          0.6035481095314026
+        ]
+      }
+    },
+    {
+      "key": "reeving.sheave.fall-8",
+      "kind": "position",
+      "label": "Trolley fall sheave 8",
+      "parentKey": "container.hoist",
+      "classification": {
+        "main": "01",
+        "sub": "015"
+      },
+      "gltfNodeNames": [
+        "reeving.sheave.fall-8"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 27,
+            "figure": "Fig 2-14; JL2860603 listed p21",
+            "note": "Eight routes, twelve trolley sheaves, four paired edge terminations. Exact sheave-axis coordinates and drum departure tangencies unresolved; schematic paths."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          2.0250000953674316,
+          27.760000228881836,
+          2.059999942779541
+        ],
+        "max": [
+          2.174999952316284,
+          28.540000915527344,
+          2.8399999141693115
+        ]
+      }
+    },
+    {
+      "key": "reeving.rope.route-8",
+      "kind": "position",
+      "label": "Hoist rope 8 · schematic route",
+      "parentKey": "container.hoist",
+      "classification": {
+        "main": "01",
+        "sub": "015"
+      },
+      "gltfNodeNames": [
+        "reeving.rope.route-8"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 27,
+            "figure": "Fig 2-14; JL2860603 listed p21",
+            "note": "Eight routes, twelve trolley sheaves, four paired edge terminations. Exact sheave-axis coordinates and drum departure tangencies unresolved; schematic paths."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          0.5822009994589882,
+          6.697631855488627,
+          0.07320880475905067
+        ],
+        "max": [
+          2.117799000541012,
+          28.883264541625977,
+          2.4667911952409494
+        ]
+      }
+    },
+    {
+      "key": "container.cabin",
+      "kind": "container",
+      "label": "Operator cabin",
+      "parentKey": "container.trolley",
+      "classification": null,
+      "gltfNodeNames": [
+        "container.cabin"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 10,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 34,
+            "figure": "Fig 2-35; JL2860606 listed p21; M13 p11",
+            "note": "Cab follows trolley. Angled lower glazing, door, support, seat and two consoles. Shape/offset except stated approximate height and width estimated."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "enclosure": true,
+      "bounds": {
+        "min": [
+          1,
+          23.850000381469727,
+          -1.0499999523162842
+        ],
+        "max": [
+          3.555000066757202,
+          27.854000091552734,
+          1.0499999523162842
+        ]
+      }
+    },
+    {
+      "key": "cabin.shell.main",
+      "kind": "position",
+      "label": "Cab glazing, door and suspension",
+      "parentKey": "container.cabin",
+      "classification": {
+        "main": "14",
+        "sub": "141"
+      },
+      "gltfNodeNames": [
+        "cabin.shell.main"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 34,
+            "figure": "Fig 2-35; JL2860606 listed p21; M13 p11",
+            "note": "Cab follows trolley. Angled lower glazing, door, support, seat and two consoles. Shape/offset except stated approximate height and width estimated."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "enclosure": true,
+      "bounds": {
+        "min": [
+          1,
+          23.850000381469727,
+          -1.0499999523162842
+        ],
+        "max": [
+          3.555000066757202,
+          27.854000091552734,
+          1.0499999523162842
+        ]
+      }
+    },
+    {
+      "key": "cabin.interior.main",
+      "kind": "position",
+      "label": "Seat, paired consoles and wiper",
+      "parentKey": "container.cabin",
+      "classification": {
+        "main": "14",
+        "sub": "141"
+      },
+      "gltfNodeNames": [
+        "cabin.interior.main"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 34,
+            "figure": "Fig 2-35; JL2860606 listed p21; M13 p11",
+            "note": "Cab follows trolley. Angled lower glazing, door, support, seat and two consoles. Shape/offset except stated approximate height and width estimated."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          1.1996077299118042,
+          23.899999618530273,
+          -0.824999988079071
+        ],
+        "max": [
+          2.8499999046325684,
+          25.957317352294922,
+          0.824999988079071
+        ]
+      }
+    },
+    {
+      "key": "container.access",
+      "kind": "container",
+      "label": "Stairs, landings and upper walkways",
+      "parentKey": "container.crane",
+      "classification": null,
+      "gltfNodeNames": [
+        "container.access"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 10,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 20,
+            "figure": "Fig 2-1 / JL28600; JL28604 listed",
+            "note": "Access route follows stair-side silhouette. Flight rise/run, tread count, rails and landing dimensions estimated; original JL28604 required."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -12.675000190734863,
+          0.24130892753601074,
+          -5.650000095367432
+        ],
+        "max": [
+          13.335000038146973,
+          28.86521339416504,
+          4.541999816894531
+        ]
+      }
+    },
+    {
+      "key": "access.stair.main",
+      "kind": "position",
+      "label": "Stair-side continuous access route",
+      "parentKey": "container.access",
+      "classification": {
+        "main": "15",
+        "sub": "151"
+      },
+      "gltfNodeNames": [
+        "access.stair.main"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 20,
+            "figure": "Fig 2-1 / JL28600; JL28604 listed",
+            "note": "Access route follows stair-side silhouette. Flight rise/run, tread count, rails and landing dimensions estimated; original JL28604 required."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          11.835000038146973,
+          0.24130892753601074,
+          -5.650000095367432
+        ],
+        "max": [
+          13.335000038146973,
+          28.86521339416504,
+          3.3499999046325684
+        ]
+      }
+    },
+    {
+      "key": "access.walkway.girders",
+      "kind": "position",
+      "label": "Upper girder walks and cross landings",
+      "parentKey": "container.access",
+      "classification": {
+        "main": "15",
+        "sub": "151"
+      },
+      "gltfNodeNames": [
+        "access.walkway.girders"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 20,
+            "figure": "Fig 2-1 / JL28600; JL28604 listed",
+            "note": "Access route follows stair-side silhouette. Flight rise/run, tread count, rails and landing dimensions estimated; original JL28604 required."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -12.675000190734863,
+          27.61400032043457,
+          -4.541999816894531
+        ],
+        "max": [
+          12.675000190734863,
+          28.81599998474121,
+          4.541999816894531
+        ]
+      }
+    },
+    {
+      "key": "container.electrical-room",
+      "kind": "container",
+      "label": "Electrical room",
+      "parentKey": "container.crane",
+      "classification": null,
+      "gltfNodeNames": [
+        "container.electrical-room"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 10,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 36,
+            "figure": "Fig 2-42; JL28607 listed p20",
+            "note": "E-room above sill. Cabinet identities and exact placement unavailable; qualified area markers only."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "enclosure": true,
+      "bounds": {
+        "min": [
+          10.484999656677246,
+          4.389999866485596,
+          -2.7720000743865967
+        ],
+        "max": [
+          13.75405216217041,
+          7.914999961853027,
+          2.7720000743865967
+        ]
+      }
+    },
+    {
+      "key": "electrical.room.shell",
+      "kind": "position",
+      "label": "electrical room enclosure",
+      "parentKey": "container.electrical-room",
+      "classification": {
+        "main": "15",
+        "sub": "151"
+      },
+      "gltfNodeNames": [
+        "electrical.room.shell"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 36,
+            "figure": "Fig 2-42; JL28607 listed p20",
+            "note": "E-room above sill. Cabinet identities and exact placement unavailable; qualified area markers only."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "enclosure": true,
+      "bounds": {
+        "min": [
+          10.484999656677246,
+          4.440000057220459,
+          -2.450000047683716
+        ],
+        "max": [
+          12.989999771118164,
+          7.289999961853027,
+          2.450000047683716
+        ]
+      }
+    },
+    {
+      "key": "access.electrical-room.platform",
+      "kind": "position",
+      "label": "electrical room platform and access",
+      "parentKey": "container.electrical-room",
+      "classification": {
+        "main": "15",
+        "sub": "151"
+      },
+      "gltfNodeNames": [
+        "access.electrical-room.platform"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 20,
+            "figure": "Fig 2-1 / JL28600; JL28604 listed",
+            "note": "Access route follows stair-side silhouette. Flight rise/run, tread count, rails and landing dimensions estimated; original JL28604 required."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          12.9350004196167,
+          4.389999866485596,
+          -2.7720000743865967
+        ],
+        "max": [
+          13.75405216217041,
+          5.561999797821045,
+          2.7720000743865967
+        ]
+      }
+    },
+    {
+      "key": "electrical.drives.area",
+      "kind": "hotspot",
+      "label": "drives · documented room, location unresolved",
+      "parentKey": "container.electrical-room",
+      "classification": {
+        "main": "07",
+        "sub": "071"
+      },
+      "gltfNodeNames": [
+        "electrical.drives.area"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 10,
+      "modes": [
+        "technical"
+      ],
+      "provenance": {
+        "kind": "approximate-location",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 36,
+            "figure": "Fig 2-42; JL28607 listed p20",
+            "note": "E-room above sill. Cabinet identities and exact placement unavailable; qualified area markers only."
+          }
+        ]
+      },
+      "qualifier": "Area marker only; not vendor geometry or exact mounting location",
+      "cameraHint": null,
+      "hotspot": {
+        "point": [
+          11.735,
+          5.54,
+          -1.15
+        ],
+        "radius": 0.55,
+        "representation": "qualified-area"
+      },
+      "bounds": {
+        "min": [
+          11.135000228881836,
+          4.789999961853027,
+          -1.524999976158142
+        ],
+        "max": [
+          12.335000038146973,
+          6.090000152587891,
+          -0.7749999761581421
+        ]
+      }
+    },
+    {
+      "key": "electrical.plc.area",
+      "kind": "hotspot",
+      "label": "plc · documented room, location unresolved",
+      "parentKey": "container.electrical-room",
+      "classification": {
+        "main": "08",
+        "sub": "081"
+      },
+      "gltfNodeNames": [
+        "electrical.plc.area"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 10,
+      "modes": [
+        "technical"
+      ],
+      "provenance": {
+        "kind": "approximate-location",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 36,
+            "figure": "Fig 2-42; JL28607 listed p20",
+            "note": "E-room above sill. Cabinet identities and exact placement unavailable; qualified area markers only."
+          }
+        ]
+      },
+      "qualifier": "Area marker only; not vendor geometry or exact mounting location",
+      "cameraHint": null,
+      "hotspot": {
+        "point": [
+          11.735,
+          5.54,
+          0
+        ],
+        "radius": 0.55,
+        "representation": "qualified-area"
+      },
+      "bounds": {
+        "min": [
+          11.135000228881836,
+          4.789999961853027,
+          -0.375
+        ],
+        "max": [
+          12.335000038146973,
+          6.090000152587891,
+          0.375
+        ]
+      }
+    },
+    {
+      "key": "electrical.control.area",
+      "kind": "hotspot",
+      "label": "control · documented room, location unresolved",
+      "parentKey": "container.electrical-room",
+      "classification": {
+        "main": "05",
+        "sub": "051"
+      },
+      "gltfNodeNames": [
+        "electrical.control.area"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 10,
+      "modes": [
+        "technical"
+      ],
+      "provenance": {
+        "kind": "approximate-location",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 36,
+            "figure": "Fig 2-42; JL28607 listed p20",
+            "note": "E-room above sill. Cabinet identities and exact placement unavailable; qualified area markers only."
+          }
+        ]
+      },
+      "qualifier": "Area marker only; not vendor geometry or exact mounting location",
+      "cameraHint": null,
+      "hotspot": {
+        "point": [
+          11.735,
+          5.54,
+          1.15
+        ],
+        "radius": 0.55,
+        "representation": "qualified-area"
+      },
+      "bounds": {
+        "min": [
+          11.135000228881836,
+          4.789999961853027,
+          0.7749999761581421
+        ],
+        "max": [
+          12.335000038146973,
+          6.090000152587891,
+          1.524999976158142
+        ]
+      }
+    },
+    {
+      "key": "auxiliary.aircon.electrical",
+      "kind": "hotspot",
+      "label": "Electrical-room air conditioner",
+      "parentKey": "container.electrical-room",
+      "classification": {
+        "main": "15",
+        "sub": "152"
+      },
+      "gltfNodeNames": [
+        "auxiliary.aircon.electrical"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 10,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "approximate-location",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 36,
+            "figure": "Fig 2-42; JL28607 listed p20",
+            "note": "E-room above sill. Cabinet identities and exact placement unavailable; qualified area markers only."
+          }
+        ]
+      },
+      "qualifier": "Location approximate; vendor drawing required",
+      "cameraHint": null,
+      "hotspot": {
+        "point": [
+          11.735,
+          7.24,
+          1.7
+        ],
+        "radius": 0.5
+      },
+      "bounds": {
+        "min": [
+          11.3100004196167,
+          7.264999866485596,
+          1.475000023841858
+        ],
+        "max": [
+          12.15999984741211,
+          7.914999961853027,
+          1.9249999523162842
+        ]
+      }
+    },
+    {
+      "key": "container.power-room",
+      "kind": "container",
+      "label": "Power room",
+      "parentKey": "container.crane",
+      "classification": null,
+      "gltfNodeNames": [
+        "container.power-room"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 10,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 14,
+            "figure": "section 2.1.2; JL28609 listed p20",
+            "note": "Diesel plus lithium battery verified. Power-room envelope estimated from GA. Vendor internals and battery mounting not established; area markers only."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "enclosure": true,
+      "bounds": {
+        "min": [
+          -13.75405216217041,
+          4.389999866485596,
+          -2.7720000743865967
+        ],
+        "max": [
+          -10.484999656677246,
+          7.315000057220459,
+          2.7720000743865967
+        ]
+      }
+    },
+    {
+      "key": "auxiliary.room.shell",
+      "kind": "position",
+      "label": "power room enclosure",
+      "parentKey": "container.power-room",
+      "classification": {
+        "main": "15",
+        "sub": "151"
+      },
+      "gltfNodeNames": [
+        "auxiliary.room.shell"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 14,
+            "figure": "section 2.1.2; JL28609 listed p20",
+            "note": "Diesel plus lithium battery verified. Power-room envelope estimated from GA. Vendor internals and battery mounting not established; area markers only."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "enclosure": true,
+      "bounds": {
+        "min": [
+          -12.989999771118164,
+          4.440000057220459,
+          -2.450000047683716
+        ],
+        "max": [
+          -10.484999656677246,
+          6.690000057220459,
+          2.450000047683716
+        ]
+      }
+    },
+    {
+      "key": "access.power-room.platform",
+      "kind": "position",
+      "label": "power room platform and access",
+      "parentKey": "container.power-room",
+      "classification": {
+        "main": "15",
+        "sub": "151"
+      },
+      "gltfNodeNames": [
+        "access.power-room.platform"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 20,
+            "figure": "Fig 2-1 / JL28600; JL28604 listed",
+            "note": "Access route follows stair-side silhouette. Flight rise/run, tread count, rails and landing dimensions estimated; original JL28604 required."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -13.75405216217041,
+          4.389999866485596,
+          -2.7720000743865967
+        ],
+        "max": [
+          -12.9350004196167,
+          5.561999797821045,
+          2.7720000743865967
+        ]
+      }
+    },
+    {
+      "key": "auxiliary.engine.area",
+      "kind": "hotspot",
+      "label": "engine · documented room, location unresolved",
+      "parentKey": "container.power-room",
+      "classification": {
+        "main": "09",
+        "sub": "091"
+      },
+      "gltfNodeNames": [
+        "auxiliary.engine.area"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 10,
+      "modes": [
+        "technical"
+      ],
+      "provenance": {
+        "kind": "approximate-location",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 14,
+            "figure": "section 2.1.2; JL28609 listed p20",
+            "note": "Diesel plus lithium battery verified. Power-room envelope estimated from GA. Vendor internals and battery mounting not established; area markers only."
+          }
+        ]
+      },
+      "qualifier": "Area marker only; not vendor geometry or exact mounting location",
+      "cameraHint": null,
+      "hotspot": {
+        "point": [
+          -11.735,
+          5.54,
+          -1.15
+        ],
+        "radius": 0.55,
+        "representation": "qualified-area"
+      },
+      "bounds": {
+        "min": [
+          -12.335000038146973,
+          4.789999961853027,
+          -1.524999976158142
+        ],
+        "max": [
+          -11.135000228881836,
+          6.090000152587891,
+          -0.7749999761581421
+        ]
+      }
+    },
+    {
+      "key": "auxiliary.generator.area",
+      "kind": "hotspot",
+      "label": "generator · documented room, location unresolved",
+      "parentKey": "container.power-room",
+      "classification": {
+        "main": "09",
+        "sub": "092"
+      },
+      "gltfNodeNames": [
+        "auxiliary.generator.area"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 10,
+      "modes": [
+        "technical"
+      ],
+      "provenance": {
+        "kind": "approximate-location",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 14,
+            "figure": "section 2.1.2; JL28609 listed p20",
+            "note": "Diesel plus lithium battery verified. Power-room envelope estimated from GA. Vendor internals and battery mounting not established; area markers only."
+          }
+        ]
+      },
+      "qualifier": "Area marker only; not vendor geometry or exact mounting location",
+      "cameraHint": null,
+      "hotspot": {
+        "point": [
+          -11.735,
+          5.54,
+          0
+        ],
+        "radius": 0.55,
+        "representation": "qualified-area"
+      },
+      "bounds": {
+        "min": [
+          -12.335000038146973,
+          4.789999961853027,
+          -0.375
+        ],
+        "max": [
+          -11.135000228881836,
+          6.090000152587891,
+          0.375
+        ]
+      }
+    },
+    {
+      "key": "auxiliary.battery.area",
+      "kind": "hotspot",
+      "label": "battery · documented room, location unresolved",
+      "parentKey": "container.power-room",
+      "classification": {
+        "main": "09",
+        "sub": "094"
+      },
+      "gltfNodeNames": [
+        "auxiliary.battery.area"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 10,
+      "modes": [
+        "technical"
+      ],
+      "provenance": {
+        "kind": "approximate-location",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 14,
+            "figure": "section 2.1.2; JL28609 listed p20",
+            "note": "Diesel plus lithium battery verified. Power-room envelope estimated from GA. Vendor internals and battery mounting not established; area markers only."
+          }
+        ]
+      },
+      "qualifier": "Area marker only; not vendor geometry or exact mounting location",
+      "cameraHint": null,
+      "hotspot": {
+        "point": [
+          -11.735,
+          5.54,
+          1.15
+        ],
+        "radius": 0.55,
+        "representation": "qualified-area"
+      },
+      "bounds": {
+        "min": [
+          -12.335000038146973,
+          4.789999961853027,
+          0.7749999761581421
+        ],
+        "max": [
+          -11.135000228881836,
+          6.090000152587891,
+          1.524999976158142
+        ]
+      }
+    },
+    {
+      "key": "auxiliary.aircon.power",
+      "kind": "hotspot",
+      "label": "Power-room cooling / exhaust area",
+      "parentKey": "container.power-room",
+      "classification": {
+        "main": "09",
+        "sub": "093"
+      },
+      "gltfNodeNames": [
+        "auxiliary.aircon.power"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 10,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "approximate-location",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 14,
+            "figure": "section 2.1.2; JL28609 listed p20",
+            "note": "Diesel plus lithium battery verified. Power-room envelope estimated from GA. Vendor internals and battery mounting not established; area markers only."
+          }
+        ]
+      },
+      "qualifier": "Location approximate; vendor drawing required",
+      "cameraHint": null,
+      "hotspot": {
+        "point": [
+          -11.735,
+          6.64,
+          1.7
+        ],
+        "radius": 0.5
+      },
+      "bounds": {
+        "min": [
+          -12.15999984741211,
+          6.664999961853027,
+          1.475000023841858
+        ],
+        "max": [
+          -11.3100004196167,
+          7.315000057220459,
+          1.9249999523162842
+        ]
+      }
+    },
+    {
+      "key": "trolley-drive.energy-chain.main",
+      "kind": "position",
+      "label": "IGUS energy chain · indicative route",
+      "parentKey": "container.crane",
+      "classification": {
+        "main": "02",
+        "sub": "023"
+      },
+      "gltfNodeNames": [
+        "trolley-drive.energy-chain.main"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 36,
+            "figure": "Fig 2-43/44; M13 p23",
+            "note": "Project IGUS 5050RHD.30.300.0. Exact guide, bend radius and fixed-end geometry unavailable; dynamic path illustrative."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -11.199999809265137,
+          27.819000244140625,
+          -4.824999809265137
+        ],
+        "max": [
+          11.199999809265137,
+          27.9689998626709,
+          -4.375
+        ]
+      }
+    },
+    {
+      "key": "auxiliary.floodlight.trolley",
+      "kind": "position",
+      "label": "Trolley floodlights · approximate fittings",
+      "parentKey": "container.trolley",
+      "classification": {
+        "main": "13",
+        "sub": "131"
+      },
+      "gltfNodeNames": [
+        "auxiliary.floodlight.trolley"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "document": "M14",
+            "pdfPage": 21,
+            "figure": "Fig 2-2 / JL28606 item 11",
+            "note": "Trolley floodlight shown; exact fitting shape/other crane lighting locations unavailable."
+          }
+        ]
+      },
+      "qualifier": "Provisional geometry; see source dimensions",
+      "cameraHint": null,
+      "bounds": {
+        "min": [
+          -0.20999999344348907,
+          27.823999404907227,
+          -3.690000057220459
+        ],
+        "max": [
+          0.20999999344348907,
+          28.083999633789062,
+          3.690000057220459
+        ]
+      }
+    }
+  ],
+  "instanceMaps": [],
+  "motion": {
+    "trolley": {
+      "nodeKey": "container.trolley",
+      "min": -9.25,
+      "max": 9.25,
+      "home": 0,
+      "units": "m",
+      "source": "M14 p20 JL28600 18500 operating range"
+    },
+    "hoist": {
+      "nodeKey": "container.suspended",
+      "min": 1,
+      "max": 21.2,
+      "home": 5,
+      "units": "m",
+      "source": "M14 p15 maximum lift; 1m minimum is a conservative demo envelope, not a lower limit setting"
+    },
+    "disabled": [
+      "gantry travel: no surveyed yard envelope",
+      "steering: pivots and cylinder strokes unresolved",
+      "spreader telescope/skew: supplier geometry and limits unresolved"
+    ],
+    "qualifier": "Visual demonstration only. Estimated rail/cab/rope geometry prevents certified kinematic acceptance."
+  },
+  "budgets": {
+    "trianglesMax": 150000,
+    "drawCallsMax": 200,
+    "assetBytesMax": 8388608
+  },
+  "accuracyStatus": "PROVISIONAL — material source gaps; not an exact replica",
+  "appearance": {
+    "status": "unresolved",
+    "display": "neutral inspection material; no identity artwork"
+  },
+  "catalogueApplicability": "source-qualified candidate subset for synthetic standalone demonstration only; Admin confirmation still required"
+}

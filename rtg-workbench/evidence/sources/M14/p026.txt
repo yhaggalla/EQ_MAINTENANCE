@@ -1,0 +1,32 @@
+                                                                     Chapter 2 
+ 
+ 
+ 
+4
+forced the filtered cooling air into the motor. Each motor is equipped with an encoder. 
+ More detail 
+instruction please refer to the motor supplier’s manual.  
+ 
+At the end of the drum, two switches are connectted to the drum shaft, one is overspeed protection switch, 
+another one is cam limit switch. The overspeed protection switch will be activatedwhen the motor speed reach 
+115% of normal speed. The switch will cut off the power of motor, dead stop all brakes. The cam limit switch 
+controls the position of spreader. It’s the backup switch of the motor encoder.  
+ 
+2.4.4.2 Wire rope reeving system 
+Main hoist device use the wire rope to lifting and lowering the spreader.  
+ 
+ 
+ 
+ 
+Figure 2-12 8 ropes reeving system  
+ 
+8 ropes reeving system  
+As shown in Fig 2-14, the auxiliary antisway wire ropes are directly replaced by hoist wire ropes. The force 
+of hoist rope is far bigger than auxiliary antisway wire rope force. 8 ropes reeving system use 12 sheaves to 
+enlarge the dip angle of the wire ropes. One end of the ropes are clamped on the drum, another end of the ropes 
+go round the sheaves on the trolley, and then two ropes a group connected  into midpoint of headblock’s four 
+edges though adjusting turnbuckle, and form four equal isosceles triangles. Because of the eight wire ropes are 
+diagonal connect with the headblock, their horizontal force prevent the spreader sway in both gantry and trolley 
+direction. So the 8 ropes reeving system don’t need additional anti-sway device.  
+ 
+Torque of the hoist brake 3680Nm! 

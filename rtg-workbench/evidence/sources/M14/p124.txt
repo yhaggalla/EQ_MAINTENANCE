@@ -1,0 +1,42 @@
+ 
+ 
+   Chapter 4 
+ 
+ 
+41 
+ 
+Figure4-205 step41 
+4.9.3 Adjusting of horizontal trolley wheel 
+A new RTG’s trolley wheel will run deviation after being 
+used for a while, which   may be also seen after changing 
+wheel. At this time adjusting for horizontal trolley wheel is 
+needed.The adjusting of horizontal wheel is mainly to 
+assist trolley wheel adjusting. The aim is to make trolley 
+run along straight line, with even clearance at both sides 
+between rail and horizontal wheels.While trolley running, 
+only one side contacting of horizontal trolley wheel. 
+Eccentric distance of wheel shaft is 5 mm. Shown in 
+Figure 4-206. Adjusting clearance by rotating eccentric 
+shaft.   
+ 
+Figure4-206 eccentric structure of horizontal 
+trolley wheel 
+ 
+Adjusting procedure: 
+Loose bolts which fix wheel shaft, create clearance 
+between locating block and base. So, horizontal wheel can 
+rotate freely. 
+ 
+ 
+Hold shaft head with spanner, then turn it as below method 
+to proper position. 
+A） Turn spanner as red arrow direction, the 
+clearance between wheel and rail gets 
+smaller. 
+ 
+Figure4-208 step 2 
+B） Turn spanner as red arrow direction, the 
+clearance between wheel and rail gets larger. 
+ 
+Figure4-209 step3 
+Then fasten the bolts of locating block. 

@@ -1,0 +1,124 @@
+ 
+25
+ 
+ 
+13.2.9 Carefully check the wire rope end securing bolts, especially the following 
+bolts and re-tighten them. 
+ 
+13.2.9.1 Securing bolts on wire rope clamps on the drum. 
+ 
+13.2.9.2 During wire rope replacement care must be taken not to damage the 
+thread on the bolts for the rope clamp because with damaged thread the bolts can 
+not be tightened to adequate torque. 
+ 
+Also take care not to damage the threads on other bolts of the mechanical devices. 
+ 
+13.2.10 After installation has been completed or after re-tightening, loosening of 
+some bolts in mechanical parts may result in misalignment, vibration, heating, etc. 
+That may cause reduction of service life of the corresponding components or may 
+be the cause of running failure. 
+ 
+13.2.11 Routinely re-tighten bolts, nuts, etc. 
+ 
+ 
+Re-tightening operation of bolts and nuts table 
+ 
+ 
+After 1
+week
+After 2 
+weeks 
+After 1
+month
+After 3 
+months 
+After 6 
+months 
+After 1
+year 
+Motor securing bolts 
+
+ 
+
+ 
+ 
+
+Brake securing bolts 
+
+ 
+
+ 
+ 
+
+Brake disc nuts 
+
+ 
+
+ 
+ 
+
+Reducer securing bolts 
+
+ 
+
+ 
+ 
+
+Shaft system base bolts 
+
+ 
+
+ 
+ 
+
+Base frame securing bolts  
+
+
+
+ 
+ 
+
+Wire rope securing bolts on 
+the drum  
+ 
+ 
+ 
+ 
+ 
+ 
+Wire rope clamp bolts 
+
+ 
+
+ 
+ 
+ 
+Connectors in the control 
+cabinet 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Re-tightening operation of bolts and nuts table 
+ 
+ 
+After 1
+week
+After 2 
+weeks 
+After 1
+month
+After 3 
+months 
+After 6 
+months 
+After 1
+year 

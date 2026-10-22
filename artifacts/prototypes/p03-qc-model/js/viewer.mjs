@@ -460,13 +460,26 @@ export class QcViewer {
     for (const c of cands) {
       if (n >= 30) break;
       const wa = this._worldAnchor(c); if (!wa) continue;
-      const p = wa.p.clone().project(this.camera); if (p.z > 1 || p.z < -1) continue;
-      const a = { x: (p.x + 1) / 2 * w, y: (1 - p.y) / 2 * h };
-      if (a.x < 0 || a.y < 48 || a.x > w || a.y > h - 30) continue; // keep clear of the status badge and legend
+      // U1 round 2 (U1-C09): a label whose anchor is outside the view (e.g. after the camera fitted a small selection) is
+      // pinned to the nearest edge with a direction arrow instead of disappearing; clicking it still drills down.
+      const pv = wa.p.clone().applyMatrix4(this.camera.matrixWorldInverse); const behind = this.camera.isPerspectiveCamera && pv.z > -0.01;
+      const p = wa.p.clone().project(this.camera); if (behind) { p.x = -p.x; p.y = -p.y; }
+      let a = { x: (p.x + 1) / 2 * w, y: (1 - p.y) / 2 * h };
+      const box = { x0: 14, x1: w - 14, y0: 56, y1: h - 40 }; // keep clear of the status badge and legend
+      const out = behind || a.x < box.x0 || a.x > box.x1 || a.y < box.y0 || a.y > box.y1;
+      let arrow = '';
+      if (out) {
+        const cx = w / 2, cy = (box.y0 + box.y1) / 2; let dx = a.x - cx, dy = a.y - cy; if (!dx && !dy) dy = 1;
+        const k = Math.min(Math.abs((box.x1 - cx) / (dx || 1e-9)), Math.abs((box.y1 - cy) / (dy || 1e-9)));
+        a = { x: cx + dx * Math.min(k, 1e6), y: cy + dy * Math.min(k, 1e6) };
+        a.x = Math.min(Math.max(a.x, box.x0), box.x1); a.y = Math.min(Math.max(a.y, box.y0), box.y1);
+        const ang = Math.atan2(dy, dx) * 180 / Math.PI; arrow = ['→', '↘', '↓', '↙', '←', '↖', '↑', '↗'][((Math.round(ang / 45) % 8) + 8) % 8];
+      }
       const el = document.createElement('div');
-      el.className = 'qc-label' + (c.selected ? ' sel' : '') + (c.tier ? ' tier' + c.tier : '') + (wa.hidden ? ' hidden-in-mode' : '');
+      el.className = 'qc-label' + (c.selected ? ' sel' : '') + (c.tier ? ' tier' + c.tier : '') + (wa.hidden ? ' hidden-in-mode' : '') + (out ? ' edge' : '');
       el.dataset.id = c.id;
-      el.textContent = c.text;
+      if (out) { const s = document.createElement('span'); s.className = 'qc-arrow'; s.textContent = arrow; el.appendChild(s); el.dataset.offscreen = '1'; }
+      el.appendChild(document.createTextNode(c.text));
       const badge = c.badge || (wa.hidden ? 'Technical' : null);
       if (badge) { const b = document.createElement('span'); b.className = 'qc-badge'; b.textContent = badge; el.appendChild(b); }
       if (c.work) { const b = document.createElement('span'); b.className = 'qc-work'; b.textContent = c.work; b.title = c.work + ' open job(s), synthetic'; el.appendChild(b); }
@@ -483,7 +496,7 @@ export class QcViewer {
       }
       if (!r) { el.remove(); continue; }
       el.style.transform = `translate(${Math.round(r.x)}px, ${Math.round(r.y)}px)`;
-      if (r.moved) {
+      if (r.moved && !out) {
         const ln = document.createElementNS('http://www.w3.org/2000/svg', 'line');
         const ex = Math.min(Math.max(a.x, r.x), r.x + lw), ey = r.y + (a.y > r.y ? lh : 0);
         ln.setAttribute('x1', a.x); ln.setAttribute('y1', a.y); ln.setAttribute('x2', ex); ln.setAttribute('y2', ey);

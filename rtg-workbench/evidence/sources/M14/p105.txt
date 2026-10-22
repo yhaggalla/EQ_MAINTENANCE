@@ -1,0 +1,41 @@
+ 
+ 
+   Chapter 4 
+ 
+ 
+22 
+ 
+Figure4-79 step8 
+Jack up the 2 hydraulic jacks simultaneously, make the idle 
+wheel out from ground(about up 50 mm from ground 
+surface), because the bolts and shear blocks have been 
+removed at the time, so the wheel will drop away by self 
+weight, for safety, some person should hold the wheel for  
+fear turnover. 
+ 
+Figure4-80 step9 
+Take down the idle wheel assembly, then move it to 
+specified position by forklift.(If the wheels don’t rotate 
+90°, because of carriage frame, fork lift can’t fork the 
+wheel easily, so let the wheel roll out from the frame first) 
+   
+ 
+ 
+Figure4-81 step10 
+Note: Assembly procedure is just the reversal of 
+disassembly procedure of idle wheel 
+4.6.3  Drive wheel disassembly of 8 wheels gantry 
+traveling 
+Stop trolley to right position, set safety working area. 
+    
+ 
+Figure4-82 step1 
+Rotate the wheel 90°which need disassembly (if the tyre 
+is broken, please overleap this step, and carry out step 3 
+directly.)         
+ 
+Figre4-83 step2 
+Remove the bolts from drive protection frame 
+ 
+Figure4-84 step3 
+Take down drive protection frame. 

@@ -1,0 +1,47 @@
+ 
+12
+ 
+6.4.1 Lubrication 
+ 
+When the oil (grease) is to be replaced the old oil (grease) must be drained 
+thoroughly. Generally the lubrication oil (grease) shall not be mixed, particularly 
+the grease. Mixed grease may cause blockage that results in bearing damage. 
+ 
+6.4.2 All parts and components 
+ 
+6.4.2.1 Check for loosening of fastening bolts 
+ 
+Frequently check for bolt loosening, especially one week after the crane first 
+running and then once per month all the bolts shall be inspected and re-tightened. 
+Special attention should be paid to those bolts that contribute to securing but are 
+easily neglected. 
+ 
+ Maintenance period: routine and once month  
+ 
+6.4.2.2 Check that lubrication is correct 
+ 
+Lubrication should be done in accordance with lubrication schedule. 
+ 
+ Period:  routine 
+ 
+6.4.3 Electrical Motors 
+ 
+6.4.3.1 Check temperature rise and overheating 
+ 
+6.4.3.2 Check whether the bearing is abnormally heated 
+ 
+6.4.3.3 Check for abnormal noise inside the motor 
+ 
+6.4.3.4 Check the motor axial play which is generally controlled within 3 mm and 
+max.5 mm. Excessive play may result in play along the tooth face width in the 
+internal and external gear ring of the gear coupling 
+ 
+ Maintenance period:  routine 
+ 
+6.4.4 Gear reducer 
+ 
+6.4.4.1 Check that the oil is adequate by using the oil level indicator 
+ 
+6.4.4.2 Check for oil leakage 
+6.4.4.3 Is there any abnormal temperature rise? If the temperature is more than 50 
+degrees above the ambient temperature, the internal portion should be inspected. 

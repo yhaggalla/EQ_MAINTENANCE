@@ -1,0 +1,89 @@
+{
+  "browser": "Chrome/155.0.8059.85",
+  "items": [
+    {
+      "name": "p02-r2-01-tree-13-lighting",
+      "note": "U1-C09: 13 Lighting selected in the tree: the floodlight fittings are highlighted and labelled (P02/U1 showed no labels)",
+      "file": "docs/evidence/U1/repair-r2/screenshots/p02-r2-01-tree-13-lighting.png",
+      "errors": []
+    },
+    {
+      "name": "p02-r2-02-tree-17-other-fallback",
+      "note": "U1-C09: 17 Other has nothing drawn on the crane: the main-mechanism labels stay, with a notice",
+      "file": "docs/evidence/U1/repair-r2/screenshots/p02-r2-02-tree-17-other-fallback.png",
+      "errors": []
+    },
+    {
+      "name": "p02-r2-03-part-edge-labels",
+      "note": "U1-C09: part selected and fitted: sibling labels outside the frame are pinned to the edge with an arrow",
+      "file": "docs/evidence/U1/repair-r2/screenshots/p02-r2-03-part-edge-labels.png",
+      "errors": []
+    },
+    {
+      "name": "p02-r2-04-fold-selected-main",
+      "note": "U1-C11: the fold icon of the selected main mechanism now collapses it (P02/U1 re-expanded it at once)",
+      "file": "docs/evidence/U1/repair-r2/screenshots/p02-r2-04-fold-selected-main.png",
+      "errors": []
+    },
+    {
+      "name": "p02-r2-05-after-reset",
+      "note": "U1-C10/C11: Reset: whole equipment, labels back on, tree folded to its initial state, full view (mode kept)",
+      "file": "docs/evidence/U1/repair-r2/screenshots/p02-r2-05-after-reset.png",
+      "errors": []
+    },
+    {
+      "name": "p02-r2-06-loadcell-boom-tip",
+      "note": "U1-C12: 013 load cells drawn at the boom-tip rope anchors (technical)",
+      "file": "docs/evidence/U1/repair-r2/screenshots/p02-r2-06-loadcell-boom-tip.png",
+      "errors": []
+    },
+    {
+      "name": "p02-r2-07-elevator",
+      "note": "U1-C16: elevator car at the landside leg with the landing levels",
+      "file": "docs/evidence/U1/repair-r2/screenshots/p02-r2-07-elevator.png",
+      "errors": []
+    },
+    {
+      "name": "p03-r2-01-tree-13-lighting",
+      "note": "U1-C09/C15: 13 Lighting selected in the tree: floodlight fittings highlighted and labelled",
+      "file": "docs/evidence/U1/repair-r2/screenshots/p03-r2-01-tree-13-lighting.png",
+      "errors": []
+    },
+    {
+      "name": "p03-r2-02-part-edge-labels",
+      "note": "U1-C09: part selected from the tree: sibling labels stay; off-screen ones are pinned to the edge with an arrow",
+      "file": "docs/evidence/U1/repair-r2/screenshots/p03-r2-02-part-edge-labels.png",
+      "errors": []
+    },
+    {
+      "name": "p03-r2-03-fold-selected-main",
+      "note": "U1-C11: fold icon collapses the selected main",
+      "file": "docs/evidence/U1/repair-r2/screenshots/p03-r2-03-fold-selected-main.png",
+      "errors": []
+    },
+    {
+      "name": "p03-r2-04-after-reset",
+      "note": "U1-C10/C11: Reset: whole equipment, labels on, tree folded, full view",
+      "file": "docs/evidence/U1/repair-r2/screenshots/p03-r2-04-after-reset.png",
+      "errors": []
+    },
+    {
+      "name": "p03-r2-05-loadcell",
+      "note": "U1-C12: 013 load cell system: load pins in the rope-end anchors at the boom tip",
+      "file": "docs/evidence/U1/repair-r2/screenshots/p03-r2-05-loadcell.png",
+      "errors": []
+    },
+    {
+      "name": "p03-r2-06-elevator",
+      "note": "U1-C16: 153 Elevator: mast and landings, car at the first landing outboard of leg B",
+      "file": "docs/evidence/U1/repair-r2/screenshots/p03-r2-06-elevator.png",
+      "errors": []
+    },
+    {
+      "name": "p03-r2-07-spreader-qc02",
+      "note": "U1-C16: 061 Spreader on QC-DEMO-02: corner castings, twistlocks and flippers instead of balls",
+      "file": "docs/evidence/U1/repair-r2/screenshots/p03-r2-07-spreader-qc02.png",
+      "errors": []
+    }
+  ]
+}

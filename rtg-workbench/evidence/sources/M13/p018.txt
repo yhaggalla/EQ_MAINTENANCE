@@ -1,0 +1,47 @@
+ 
+16
+ 
+adjusted through the eccentric shafts. 
+ 
+Horizontal wheels are made from No.45 forged steel, quenched and tempered and 
+surface hardened to HB310~350 with case depth 4mm that ensures 
+wear-resistance. Horizontal wheels are subject to heavy shock and frequent 
+vibration, therefore, the bolts should often be checked for loosening and tightened. 
+If abnormal noise is found during trolley traversing, the working condition and 
+clearances shall be inspected, Horizontal wheels shall be replaced when wear of 
+wheels reaches 3 mm. 
+ 
+7.4 Protection of the trolley 
+ 
+7.4.1 Both (forward and backward) traverse end protection. 
+ 
+7.4.2 Both (forward and backward) end extreme limit protection. 
+ 
+7.4.3 Both (forward and backward) end slow down. 
+ 
+7.4.4 Trolley anchoring limit protection. 
+ 
+7.4.5 Polyurethane buffer are fitted at both ends of the girder to protect the trolley 
+in case of failure of all the end protection and end extreme limit protection. 
+ 
+7.5 Points for Attention during trolley operation 
+ 
+7.5.1 In case of abnormal noise during traversing it is necessary to check if the 
+horizontal wheels are loosened or dropped, etc. After the cause is removed, if 
+abnormal noise still occurs the reason may be binding the rail or friction between 
+the rail and rail support beam. In this case add a little oil (grease) where the noise 
+occurs.   
+ 
+7.5.2 Each time after operation has been completed the operator shall position the 
+trolley at the parking location and anchor it using the anchoring device to prevent 
+the trolley from moving along the rail due to wind gust or other causes. Each time 
+before operation the anchor must be released. 
+ 
+7.5.3 Normally the trolley forward and backward end extreme limits are not 
+activated, and if they are activated the causes shall be found out and removed. 
+They shall be periodically checked and maintained. 
+ 
+7.5.4 Pay special attention to the nuts on the screw lever on the bumper support 
+and check them once per shift and tighten them if loosened. 
+ 
+7.5.5 Check carefully the operator’s cab suspension support, operation condition of 

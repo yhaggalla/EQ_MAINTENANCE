@@ -1,0 +1,73 @@
+ 
+ 
+Chapter 3
+ 
+ 
+25 
+ 
+Inspection items 
+Measuring Method 
+Maintenance tolerance 
+
+
+
+in the area without camber when there is not trolley.
+in the area with camber when there is trolley with full load.
+ 
+*Refer to Girder structural drawing for camber information. 
+Center distance 
+between rail and 
+web 
+Measured by a 
+steel ruler 
+d9≤＝t/2＝±6mm 
+ 
+Levelness 
+Measure by a 
+water level 
+0.1% of span 
+σ10≤6.9mm 
+ 
+ 
+ 
+3.6.6.2. 
+Common failures of rail support, rail clip 
+and rail installations 
+A. Rail support system: 
+1) Rail clip devices: 
+a. 
+Loosening of the bolts 
+b. 
+Breakage of bolts, studs, or weld fillets 
+c. 
+Elongation of holes 
+d. 
+Rotation of clips  
+B. Rail: 
+1) 
+Excessive wear or flattening of the rail head 
+2) 
+Wear of edges of rail head 
+3) 
+Rail breakage 
+4) 
+Deformation at joints caused by wheels running 
+over gaps 
+3.6.6.2.1Causes of dilapidation 
+Figure 3-17 shows the acting force of the trolley. 
+The crane operation causes repeated wheel loading of 
+the rail resulting in fatiguing cycles. Fatigue failure 
+occurs due to: 
+①   High stress in the rail support,  
+②  Rail movements causing fatigue in the rail 
+attachment components. 
+Figure 3-18 and Figure 3-19 shows the main 
+abrasion form. 
+ 
+Figure 3-17：Rail under stress 
+ 
+Figure 3-18：Side wear of rail  
+ 
+Figure 3-19：Surface wear of rail 
+Figure 3-20：“bow wave” effect 
+ 

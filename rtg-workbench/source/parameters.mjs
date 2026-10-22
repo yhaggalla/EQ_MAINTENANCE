@@ -1,0 +1,57 @@
+// Authoring dimensions are millimetres. Only the export builder converts to metres.
+// A read dimension does not make an entire simplified assembly exact.
+const dim = (value, document, pdfPage, figure, endpoints, kind = 'measured', confidence = 'high', note = '') => ({ value, unit: 'mm', document, pdfPage, figure, endpoints, kind, confidence, note });
+export const dimensions = {
+  span: dim(23470,'M14',20,'Fig 2-1 / JL28600','left/right gantry support centre planes in X; confirmed by table 2-2 p15'),
+  base: dim(7900,'M14',20,'Fig 2-1 / JL28600','front/rear equalizer pivot centres in Z; not outer tyre centres'),
+  bogiePitch: dim(2800,'M14',20,'Fig 2-1 / JL28600','two tyre axle centres within one equalizer'),
+  gauge: dim(6400,'M14',21,'Fig 2-2 / JL28606','two trolley rail/wheel running centre planes in Z'),
+  trolleyTravel: dim(18500,'M14',20,'Fig 2-1 / JL28600','extreme operating trolley centre positions in X'),
+  trolleyEndInset: dim(2485,'M14',20,'Fig 2-1 / JL28600','gantry support centre to extreme trolley centre; (23470-18500)/2','drawing-derived'),
+  lift: dim(21200,'M14',15,'Table 2-2; JL28600','ground to spreader lifting interface at highest position; not structural height'),
+  tyreDiameter: dim(1860,'M14',17,'Table 2-5','effective rolling diameter; source explicitly approximately 1860','measured','medium','Working diameter is approximate, not unloaded tyre envelope.'),
+  trolleyWheelDiameter: dim(500,'M14',16,'Table 2-4','trolley wheel rolling diameter'),
+  railSection: dim(80,'M14',16,'Table 2-4','square trolley rail side; confirmed M13 p11'),
+  drumDiameter: dim(1200,'M14',16,'Table 2-3','nominal drum barrel diameter'),
+  ropeDiameter: dim(28,'M14',16,'Table 2-3','nominal rope diameter; M13 p8 agrees; M13 p13 says 29','measured','medium','Conflict C03 remains unresolved.'),
+  railHeight: dim(27754,'M14',20,'Fig 2-1 / JL28600','ground to top of trolley rail; tentative raster reading','estimated','low','Last digits and exact arrow termination require original JL28600. Not an established exact dimension.'),
+  totalHeightRead: dim(null,'M14',20,'Fig 2-1 / JL28600','ground to highest trolley feature','unavailable','low','Approximate TOTAL HEIGHT annotation is not unambiguously legible; do not use as exact input.'),
+  cabHeight: dim(2200,'M13',11,'section 4','cab exterior bottom to roof','measured','medium','Text gives approximately 2.2 m.'),
+  cabWidth: dim(2000,'M13',11,'section 4','cab transverse width','measured','medium','Text gives 2 m; other shape dimensions estimated from M14 p21,34.'),
+  headblockRopeSpan: dim(5380,'M14',21,'Fig 2-2 / JL28606','outer headblock rope attachment centres along Z','measured','medium','5380 raster read; exact pin geometry unavailable.'),
+  headblockFrameSpan: dim(5000,'M14',21,'Fig 2-2 / JL28606','headblock end-frame reference lines along Z','measured','medium'),
+};
+// All below are deliberately estimates, with source-linked primitive-level recipes exported
+// to geometry-parameters.json. They are not fabrication dimensions or hidden internals.
+export const estimates = {
+  girderDepth: 2050, girderWidth: 900, girderLength: 24600,
+  sillTop: 4440, sillDepth: 800, sillWidth: 850, sillLength: 8900,
+  legBottomWidthX: 700, legTopWidthX: 1150, legBottomWidthZ: 700, legTopWidthZ: 850,
+  braceY: 22100, braceDiameter: 180,
+  tyreWidth: 560, tyreRimDiameter: 1050,
+  trolleyBase: 4050, trolleyFrameDepth: 480, trolleyFrameWidth: 5900,
+  trolleyFrameLength: 4850, trolleyFloor: 28004,
+  drumLength: 2900, drumCentreY: 28870, drumCentreZ: 0,
+  motorCentreZ: 1565, sheaveDiameter: 720, sheaveWidth: 100,
+  cabCentreX: 2250, cabCentreZ: 0, cabFloor: 23850, cabLength: 2400,
+  headblockWidth: 1200, headblockDepth: 430, spreaderDepth: 680,
+  spreaderLength: 6050, spreaderWidth: 2440, spreaderFrameCentreY: 360,
+  hoistHome: 5000, hoistMinDemo: 1000, hoistMaxDemo: 21200,
+  eRoomWidth: 2200, eRoomLength: 4200, eRoomHeight: 2800,
+  powerRoomWidth: 2300, powerRoomLength: 4300, powerRoomHeight: 2200,
+  railHeightApproxTolerance: 300,
+};
+export const sources = {
+  structure: { document:'M14', pdfPage:20, figure:'Fig 2-1 / JL28600; Fig 2-3 p22', note:'Counts and topology verified; member profiles and connection thicknesses scaled estimates. M13 p71,246-249 corroborate shape.' },
+  gantry: { document:'M14', pdfPage:24, figure:'Fig 2-5 / 2-6; JL28601 listed on p20', note:'Four driven outer wheels per project p17/23. Equalizer, carrier, bearing, steering, chain and guards simplified from eight-wheel views.' },
+  trolley: { document:'M14', pdfPage:21, figure:'Fig 2-2 / JL28606', note:'Arrangement + direct double wheel drive; dimensions not explicitly in the dimension table are visual estimates. M13 p72 repeats this drawing.' },
+  hoist: { document:'M14', pdfPage:25, figure:'Fig 2-10; JL2860608 listed p21', note:'One motor/reducer/drum, two brakes; shapes estimated. Eight groove GROUPS from p16 override generic four-group prose; pitch unavailable.' },
+  ropes: { document:'M14', pdfPage:27, figure:'Fig 2-14; JL2860603 listed p21', note:'Eight routes, twelve trolley sheaves, four paired edge terminations. Exact sheave-axis coordinates and drum departure tangencies unresolved; schematic paths.' },
+  spreader: { document:'M14', pdfPage:28, figure:'Fig 2-18; JL28606 p21; M13 p24', note:'Separate headblock and electric telescopic spreader. Retracted visual envelope only; no supplier manufacturing dimensions. Cylinders/turnbuckles are qualified simplified forms.' },
+  cabin: { document:'M14', pdfPage:34, figure:'Fig 2-35; JL2860606 listed p21; M13 p11', note:'Cab follows trolley. Angled lower glazing, door, support, seat and two consoles. Shape/offset except stated approximate height and width estimated.' },
+  electrical: { document:'M14', pdfPage:36, figure:'Fig 2-42; JL28607 listed p20', note:'E-room above sill. Cabinet identities and exact placement unavailable; qualified area markers only.' },
+  power: { document:'M14', pdfPage:14, figure:'section 2.1.2; JL28609 listed p20', note:'Diesel plus lithium battery verified. Power-room envelope estimated from GA. Vendor internals and battery mounting not established; area markers only.' },
+  chain: { document:'M14', pdfPage:36, figure:'Fig 2-43/44; M13 p23', note:'Project IGUS 5050RHD.30.300.0. Exact guide, bend radius and fixed-end geometry unavailable; dynamic path illustrative.' },
+  access: { document:'M14', pdfPage:20, figure:'Fig 2-1 / JL28600; JL28604 listed', note:'Access route follows stair-side silhouette. Flight rise/run, tread count, rails and landing dimensions estimated; original JL28604 required.' },
+  lights: { document:'M14', pdfPage:21, figure:'Fig 2-2 / JL28606 item 11', note:'Trolley floodlight shown; exact fitting shape/other crane lighting locations unavailable.' },
+};

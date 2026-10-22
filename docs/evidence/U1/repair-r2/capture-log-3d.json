@@ -1,0 +1,196 @@
+{
+  "gpu": "hardware",
+  "browser": "Chrome/155.0.8059.85",
+  "items": [
+    {
+      "view": "side",
+      "frame": {
+        "cx": 7.5,
+        "cy": 43.909774436090224,
+        "w": 143.98496240601503,
+        "h": 93.60902255639097
+      },
+      "px": [
+        3830,
+        2490
+      ],
+      "file": "artifacts/u1r2-captures/model-side.png"
+    },
+    {
+      "view": "end-ws",
+      "frame": {
+        "cx": 0,
+        "cy": 43.87218045112782,
+        "w": 32.03007518796992,
+        "h": 93.60902255639098
+      },
+      "px": [
+        852,
+        2490
+      ],
+      "file": "artifacts/u1r2-captures/model-end-ws.png"
+    },
+    {
+      "view": "end-ls",
+      "frame": {
+        "cx": 0,
+        "cy": 43.87218045112782,
+        "w": 32.03007518796992,
+        "h": 93.60902255639098
+      },
+      "px": [
+        852,
+        2490
+      ],
+      "file": "artifacts/u1r2-captures/model-end-ls.png"
+    },
+    {
+      "view": "top",
+      "frame": {
+        "cx": 7.5,
+        "cy": 0,
+        "w": 143.98496240601503,
+        "h": 32.03007518796992
+      },
+      "px": [
+        3830,
+        852
+      ],
+      "file": "artifacts/u1r2-captures/model-top.png"
+    },
+    {
+      "view": "persp-photo-angle",
+      "file": "artifacts/u1r2-captures/model-persp-photo-angle.png"
+    },
+    {
+      "view": "persp-overall",
+      "file": "artifacts/u1r2-captures/model-persp-overall.png"
+    },
+    {
+      "view": "persp-technical",
+      "file": "artifacts/u1r2-captures/model-persp-technical.png"
+    },
+    {
+      "view": "persp-house-closeup",
+      "file": "artifacts/u1r2-captures/model-persp-house-closeup.png"
+    },
+    {
+      "view": "persp-trolley-closeup",
+      "file": "artifacts/u1r2-captures/model-persp-trolley-closeup.png"
+    },
+    {
+      "view": "persp-logo-endwall",
+      "file": "artifacts/u1r2-captures/model-persp-logo-endwall.png"
+    },
+    {
+      "view": "persp-backreach",
+      "file": "artifacts/u1r2-captures/model-persp-backreach.png"
+    },
+    {
+      "view": "persp-cab-closeup",
+      "file": "artifacts/u1r2-captures/model-persp-cab-closeup.png"
+    },
+    {
+      "view": "persp-stair-tower",
+      "file": "artifacts/u1r2-captures/model-persp-stair-tower.png"
+    },
+    {
+      "view": "persp-house-technical",
+      "file": "artifacts/u1r2-captures/model-persp-house-technical.png"
+    },
+    {
+      "view": "persp-photo-angle-u1",
+      "file": "artifacts/u1r2-captures/model-persp-photo-angle-u1.png"
+    },
+    {
+      "ui": "01-overall-equipment",
+      "note": "Overall mode, full-crane reset view, equipment-level synthetic history",
+      "file": "docs/evidence/U1/repair-r2/screenshots-3d/01-overall-equipment.png"
+    },
+    {
+      "ui": "02-main-01-hoist-technical",
+      "note": "Main 01 Hoist selected: union of bound positions highlighted and fitted; tree, breadcrumb and descendant history synchronised",
+      "file": "docs/evidence/U1/repair-r2/screenshots-3d/02-main-01-hoist-technical.png"
+    },
+    {
+      "ui": "03-sub-011-hoist-technical",
+      "note": "Sub 011 selected: narrower set (motors, reducer, drums, high-speed brakes, boom-tip sheaves)",
+      "file": "docs/evidence/U1/repair-r2/screenshots-3d/03-sub-011-hoist-technical.png"
+    },
+    {
+      "ui": "04-part-motor-a-qc01",
+      "note": "Part: main hoist motor A on QC-DEMO-01, exact-position synthetic history (EQJ-SYN-0101)",
+      "file": "docs/evidence/U1/repair-r2/screenshots-3d/04-part-motor-a-qc01.png"
+    },
+    {
+      "ui": "05-part-motor-a-qc02",
+      "note": "Same semantic key on QC-DEMO-02 resolves to a different position ID and different history",
+      "file": "docs/evidence/U1/repair-r2/screenshots-3d/05-part-motor-a-qc02.png"
+    },
+    {
+      "ui": "06-container-machinery-house-overall",
+      "note": "Machinery house selected in Overall mode: spatial group only, contents grouped by mechanism, no maintenance identity",
+      "file": "docs/evidence/U1/repair-r2/screenshots-3d/06-container-machinery-house-overall.png"
+    },
+    {
+      "ui": "07-technical-isolated-house",
+      "note": "Technical mode, machinery house isolated: simplified internals with Approx. qualifiers and location markers",
+      "file": "docs/evidence/U1/repair-r2/screenshots-3d/07-technical-isolated-house.png"
+    },
+    {
+      "ui": "08-technical-transparent-house",
+      "note": "Technical mode: enclosure transparent and not pickable, internals and location markers visible",
+      "file": "docs/evidence/U1/repair-r2/screenshots-3d/08-technical-transparent-house.png"
+    },
+    {
+      "ui": "09-instanced-gantry-wheel",
+      "note": "Instanced gantry wheel WS-A 3 selected (instanceMaps identity), open synthetic work marker",
+      "file": "docs/evidence/U1/repair-r2/screenshots-3d/09-instanced-gantry-wheel.png"
+    },
+    {
+      "ui": "10-thin-rope-selection",
+      "note": "Thin rope set selected: minimum 0.5 m fit extent, quantity-lot position",
+      "file": "docs/evidence/U1/repair-r2/screenshots-3d/10-thin-rope-selection.png"
+    },
+    {
+      "ui": "11-spreader-technical",
+      "note": "Spreader (061) with twistlock/flipper corner markers",
+      "file": "docs/evidence/U1/repair-r2/screenshots-3d/11-spreader-technical.png"
+    },
+    {
+      "ui": "12-ui-aligned-side",
+      "note": "Aligned orthographic view inside the prototype UI",
+      "file": "docs/evidence/U1/repair-r2/screenshots-3d/12-ui-aligned-side.png"
+    },
+    {
+      "ui": "12-ui-aligned-end-ws",
+      "note": "Aligned orthographic view inside the prototype UI",
+      "file": "docs/evidence/U1/repair-r2/screenshots-3d/12-ui-aligned-end-ws.png"
+    },
+    {
+      "ui": "12-ui-aligned-top",
+      "note": "Aligned orthographic view inside the prototype UI",
+      "file": "docs/evidence/U1/repair-r2/screenshots-3d/12-ui-aligned-top.png"
+    },
+    {
+      "ui": "13-fallback-nowebgl",
+      "note": "WebGL unavailable: tree, breadcrumb, selection details and history remain usable",
+      "file": "docs/evidence/U1/repair-r2/screenshots-3d/13-fallback-nowebgl.png"
+    },
+    {
+      "ui": "14-fallback-loadfail",
+      "note": "Model request failed (404): fallback with reason",
+      "file": "docs/evidence/U1/repair-r2/screenshots-3d/14-fallback-loadfail.png"
+    },
+    {
+      "ui": "15-layout-1366x768",
+      "note": "1366 x 768 desktop layout",
+      "file": "docs/evidence/U1/repair-r2/screenshots-3d/15-layout-1366x768.png"
+    },
+    {
+      "ui": "16-layout-phone-390",
+      "note": "Phone width: viewer first, tree and panel stacked below",
+      "file": "docs/evidence/U1/repair-r2/screenshots-3d/16-layout-phone-390.png"
+    }
+  ]
+}

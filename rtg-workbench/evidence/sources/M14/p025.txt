@@ -1,0 +1,57 @@
+                                                                     Chapter 2 
+ 
+ 
+ 
+3
+ 
+2.4.3 Trolley frame 
+Trolley frame is one of the main structure of the RTG. It directly bears the lifting load and transfer the load 
+to the gantry frame through the wheels. The trolley frame is composed of two I-shaped girders and two end 
+beams. The frame will be mounted with wheels, driving device, hoisting device, operator cab, and other 
+auxiliary equipments to be a complete trolley.  
+     
+2.4.4 Hoist mechanism 
+2.4.4.1 Hoist driving mechanism 
+The hoist mechanism locates on the trollery. It consists of motor ○
+1 , high speed coupling○
+2 and 
+reducer○
+4 . The drum○
+6 use a lower speed coupling ○
+5 to connect with the reducer. One side of the reducer 
+has two high speed brakes○
+3 . The high and lower speed couplings transfer the driving force from the motor to 
+the hoist drum, to lifting or lowing the spreader.  
+ 
+The hoist mechanism is shown as Fig 2-10. High speed and low speed shafts of the reducer are on the same 
+level. The upper and lower housings of the reducer are split from the center line of the gears and subdivision 
+surface is sealed with sealant. At the bottom of the low speed shaft frame is provided with an oil discharge valve 
+and oil level indicator, a scale is arranged on indicator for easier observation of lubrication oil. The handhole 
+cover in the high-speed shaft frame is convenient for cleaning the inner cavity of reducer. The cover is equipped 
+with air breather, and observation hole. The main hoist drum is made of steel plate and of welded construction. 
+The pitch diameter of drum is above 30 times of the nominal diameter of wire rope. The drum has four sets of 
+grooves, One side of the drum is connected to the reducer by a drum coupling, another side of the drum is sitting 
+on the trolley frame through the bearing seat.  
+6
+5
+4
+3
+1
+2
+ 
+Figure 2-10 Hoist driving mechanism  
+ 
+○
+1 hoist motor    
+ ○
+2 hoist reducer  
+○
+3 high speed coupling 
+○
+4 hoist drum 
+     ○
+5 drum coupling   ○
+6 high speed brake 
+ 
+ 
+Motor’s forced ventilation is accomplished by a cooling fan with filter. Cooling fan at the driving side 

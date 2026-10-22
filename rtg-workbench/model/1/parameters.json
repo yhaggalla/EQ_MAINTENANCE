@@ -1,0 +1,326 @@
+{
+  "authoringUnits": "mm",
+  "exportUnits": "m",
+  "dimensions": {
+    "span": {
+      "value": 23470,
+      "unit": "mm",
+      "document": "M14",
+      "pdfPage": 20,
+      "figure": "Fig 2-1 / JL28600",
+      "endpoints": "left/right gantry support centre planes in X; confirmed by table 2-2 p15",
+      "kind": "measured",
+      "confidence": "high",
+      "note": ""
+    },
+    "base": {
+      "value": 7900,
+      "unit": "mm",
+      "document": "M14",
+      "pdfPage": 20,
+      "figure": "Fig 2-1 / JL28600",
+      "endpoints": "front/rear equalizer pivot centres in Z; not outer tyre centres",
+      "kind": "measured",
+      "confidence": "high",
+      "note": ""
+    },
+    "bogiePitch": {
+      "value": 2800,
+      "unit": "mm",
+      "document": "M14",
+      "pdfPage": 20,
+      "figure": "Fig 2-1 / JL28600",
+      "endpoints": "two tyre axle centres within one equalizer",
+      "kind": "measured",
+      "confidence": "high",
+      "note": ""
+    },
+    "gauge": {
+      "value": 6400,
+      "unit": "mm",
+      "document": "M14",
+      "pdfPage": 21,
+      "figure": "Fig 2-2 / JL28606",
+      "endpoints": "two trolley rail/wheel running centre planes in Z",
+      "kind": "measured",
+      "confidence": "high",
+      "note": ""
+    },
+    "trolleyTravel": {
+      "value": 18500,
+      "unit": "mm",
+      "document": "M14",
+      "pdfPage": 20,
+      "figure": "Fig 2-1 / JL28600",
+      "endpoints": "extreme operating trolley centre positions in X",
+      "kind": "measured",
+      "confidence": "high",
+      "note": ""
+    },
+    "trolleyEndInset": {
+      "value": 2485,
+      "unit": "mm",
+      "document": "M14",
+      "pdfPage": 20,
+      "figure": "Fig 2-1 / JL28600",
+      "endpoints": "gantry support centre to extreme trolley centre; (23470-18500)/2",
+      "kind": "drawing-derived",
+      "confidence": "high",
+      "note": ""
+    },
+    "lift": {
+      "value": 21200,
+      "unit": "mm",
+      "document": "M14",
+      "pdfPage": 15,
+      "figure": "Table 2-2; JL28600",
+      "endpoints": "ground to spreader lifting interface at highest position; not structural height",
+      "kind": "measured",
+      "confidence": "high",
+      "note": ""
+    },
+    "tyreDiameter": {
+      "value": 1860,
+      "unit": "mm",
+      "document": "M14",
+      "pdfPage": 17,
+      "figure": "Table 2-5",
+      "endpoints": "effective rolling diameter; source explicitly approximately 1860",
+      "kind": "measured",
+      "confidence": "medium",
+      "note": "Working diameter is approximate, not unloaded tyre envelope."
+    },
+    "trolleyWheelDiameter": {
+      "value": 500,
+      "unit": "mm",
+      "document": "M14",
+      "pdfPage": 16,
+      "figure": "Table 2-4",
+      "endpoints": "trolley wheel rolling diameter",
+      "kind": "measured",
+      "confidence": "high",
+      "note": ""
+    },
+    "railSection": {
+      "value": 80,
+      "unit": "mm",
+      "document": "M14",
+      "pdfPage": 16,
+      "figure": "Table 2-4",
+      "endpoints": "square trolley rail side; confirmed M13 p11",
+      "kind": "measured",
+      "confidence": "high",
+      "note": ""
+    },
+    "drumDiameter": {
+      "value": 1200,
+      "unit": "mm",
+      "document": "M14",
+      "pdfPage": 16,
+      "figure": "Table 2-3",
+      "endpoints": "nominal drum barrel diameter",
+      "kind": "measured",
+      "confidence": "high",
+      "note": ""
+    },
+    "ropeDiameter": {
+      "value": 28,
+      "unit": "mm",
+      "document": "M14",
+      "pdfPage": 16,
+      "figure": "Table 2-3",
+      "endpoints": "nominal rope diameter; M13 p8 agrees; M13 p13 says 29",
+      "kind": "measured",
+      "confidence": "medium",
+      "note": "Conflict C03 remains unresolved."
+    },
+    "railHeight": {
+      "value": 27754,
+      "unit": "mm",
+      "document": "M14",
+      "pdfPage": 20,
+      "figure": "Fig 2-1 / JL28600",
+      "endpoints": "ground to top of trolley rail; tentative raster reading",
+      "kind": "estimated",
+      "confidence": "low",
+      "note": "Last digits and exact arrow termination require original JL28600. Not an established exact dimension."
+    },
+    "totalHeightRead": {
+      "value": null,
+      "unit": "mm",
+      "document": "M14",
+      "pdfPage": 20,
+      "figure": "Fig 2-1 / JL28600",
+      "endpoints": "ground to highest trolley feature",
+      "kind": "unavailable",
+      "confidence": "low",
+      "note": "Approximate TOTAL HEIGHT annotation is not unambiguously legible; do not use as exact input."
+    },
+    "cabHeight": {
+      "value": 2200,
+      "unit": "mm",
+      "document": "M13",
+      "pdfPage": 11,
+      "figure": "section 4",
+      "endpoints": "cab exterior bottom to roof",
+      "kind": "measured",
+      "confidence": "medium",
+      "note": "Text gives approximately 2.2 m."
+    },
+    "cabWidth": {
+      "value": 2000,
+      "unit": "mm",
+      "document": "M13",
+      "pdfPage": 11,
+      "figure": "section 4",
+      "endpoints": "cab transverse width",
+      "kind": "measured",
+      "confidence": "medium",
+      "note": "Text gives 2 m; other shape dimensions estimated from M14 p21,34."
+    },
+    "headblockRopeSpan": {
+      "value": 5380,
+      "unit": "mm",
+      "document": "M14",
+      "pdfPage": 21,
+      "figure": "Fig 2-2 / JL28606",
+      "endpoints": "outer headblock rope attachment centres along Z",
+      "kind": "measured",
+      "confidence": "medium",
+      "note": "5380 raster read; exact pin geometry unavailable."
+    },
+    "headblockFrameSpan": {
+      "value": 5000,
+      "unit": "mm",
+      "document": "M14",
+      "pdfPage": 21,
+      "figure": "Fig 2-2 / JL28606",
+      "endpoints": "headblock end-frame reference lines along Z",
+      "kind": "measured",
+      "confidence": "medium",
+      "note": ""
+    }
+  },
+  "estimates": {
+    "girderDepth": 2050,
+    "girderWidth": 900,
+    "girderLength": 24600,
+    "sillTop": 4440,
+    "sillDepth": 800,
+    "sillWidth": 850,
+    "sillLength": 8900,
+    "legBottomWidthX": 700,
+    "legTopWidthX": 1150,
+    "legBottomWidthZ": 700,
+    "legTopWidthZ": 850,
+    "braceY": 22100,
+    "braceDiameter": 180,
+    "tyreWidth": 560,
+    "tyreRimDiameter": 1050,
+    "trolleyBase": 4050,
+    "trolleyFrameDepth": 480,
+    "trolleyFrameWidth": 5900,
+    "trolleyFrameLength": 4850,
+    "trolleyFloor": 28004,
+    "drumLength": 2900,
+    "drumCentreY": 28870,
+    "drumCentreZ": 0,
+    "motorCentreZ": 1565,
+    "sheaveDiameter": 720,
+    "sheaveWidth": 100,
+    "cabCentreX": 2250,
+    "cabCentreZ": 0,
+    "cabFloor": 23850,
+    "cabLength": 2400,
+    "headblockWidth": 1200,
+    "headblockDepth": 430,
+    "spreaderDepth": 680,
+    "spreaderLength": 6050,
+    "spreaderWidth": 2440,
+    "spreaderFrameCentreY": 360,
+    "hoistHome": 5000,
+    "hoistMinDemo": 1000,
+    "hoistMaxDemo": 21200,
+    "eRoomWidth": 2200,
+    "eRoomLength": 4200,
+    "eRoomHeight": 2800,
+    "powerRoomWidth": 2300,
+    "powerRoomLength": 4300,
+    "powerRoomHeight": 2200,
+    "railHeightApproxTolerance": 300
+  },
+  "estimateSources": {
+    "structure": {
+      "document": "M14",
+      "pdfPage": 20,
+      "figure": "Fig 2-1 / JL28600; Fig 2-3 p22",
+      "note": "Counts and topology verified; member profiles and connection thicknesses scaled estimates. M13 p71,246-249 corroborate shape."
+    },
+    "gantry": {
+      "document": "M14",
+      "pdfPage": 24,
+      "figure": "Fig 2-5 / 2-6; JL28601 listed on p20",
+      "note": "Four driven outer wheels per project p17/23. Equalizer, carrier, bearing, steering, chain and guards simplified from eight-wheel views."
+    },
+    "trolley": {
+      "document": "M14",
+      "pdfPage": 21,
+      "figure": "Fig 2-2 / JL28606",
+      "note": "Arrangement + direct double wheel drive; dimensions not explicitly in the dimension table are visual estimates. M13 p72 repeats this drawing."
+    },
+    "hoist": {
+      "document": "M14",
+      "pdfPage": 25,
+      "figure": "Fig 2-10; JL2860608 listed p21",
+      "note": "One motor/reducer/drum, two brakes; shapes estimated. Eight groove GROUPS from p16 override generic four-group prose; pitch unavailable."
+    },
+    "ropes": {
+      "document": "M14",
+      "pdfPage": 27,
+      "figure": "Fig 2-14; JL2860603 listed p21",
+      "note": "Eight routes, twelve trolley sheaves, four paired edge terminations. Exact sheave-axis coordinates and drum departure tangencies unresolved; schematic paths."
+    },
+    "spreader": {
+      "document": "M14",
+      "pdfPage": 28,
+      "figure": "Fig 2-18; JL28606 p21; M13 p24",
+      "note": "Separate headblock and electric telescopic spreader. Retracted visual envelope only; no supplier manufacturing dimensions. Cylinders/turnbuckles are qualified simplified forms."
+    },
+    "cabin": {
+      "document": "M14",
+      "pdfPage": 34,
+      "figure": "Fig 2-35; JL2860606 listed p21; M13 p11",
+      "note": "Cab follows trolley. Angled lower glazing, door, support, seat and two consoles. Shape/offset except stated approximate height and width estimated."
+    },
+    "electrical": {
+      "document": "M14",
+      "pdfPage": 36,
+      "figure": "Fig 2-42; JL28607 listed p20",
+      "note": "E-room above sill. Cabinet identities and exact placement unavailable; qualified area markers only."
+    },
+    "power": {
+      "document": "M14",
+      "pdfPage": 14,
+      "figure": "section 2.1.2; JL28609 listed p20",
+      "note": "Diesel plus lithium battery verified. Power-room envelope estimated from GA. Vendor internals and battery mounting not established; area markers only."
+    },
+    "chain": {
+      "document": "M14",
+      "pdfPage": 36,
+      "figure": "Fig 2-43/44; M13 p23",
+      "note": "Project IGUS 5050RHD.30.300.0. Exact guide, bend radius and fixed-end geometry unavailable; dynamic path illustrative."
+    },
+    "access": {
+      "document": "M14",
+      "pdfPage": 20,
+      "figure": "Fig 2-1 / JL28600; JL28604 listed",
+      "note": "Access route follows stair-side silhouette. Flight rise/run, tread count, rails and landing dimensions estimated; original JL28604 required."
+    },
+    "lights": {
+      "document": "M14",
+      "pdfPage": 21,
+      "figure": "Fig 2-2 / JL28606 item 11",
+      "note": "Trolley floodlight shown; exact fitting shape/other crane lighting locations unavailable."
+    }
+  }
+}

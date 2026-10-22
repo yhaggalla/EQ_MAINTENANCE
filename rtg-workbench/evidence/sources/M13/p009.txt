@@ -1,0 +1,161 @@
+ 
+7
+ 
+Frequency 
+50 
+Hz 
+ 
+Quantity 
+2 
+set 
+ 
+ 
+ 
+Reducer 
+Model 
+KH107DV160 
+SEW 
+Transmission ratio 
+        37 
+ 
+Input power 
+15 
+kW 
+ 
+Quantity 
+2 
+set 
+ 
+ 
+Brake 
+Model 
+Buit in motor 
+SEW 
+Brake torque 
+ 
+Nm 
+ 
+Brake setting torque 
+130 
+Nm 
+ 
+Quantity 
+2 
+set 
+ 
+Wheels 
+Diameter 
+500 
+mm 
+ 
+Quantity 
+4 
+pieces 
+ 
+Rail 
+Square bar 
+80x80 
+ 
+ 
+ 
+ 
+ 
+2.3 
+Gantry  Particulars 
+Item 
+Value 
+Unit 
+Remark 
+Traversing speed 
+full load 
+30 
+m/min 
+ 
+no load 
+90 
+m/min 
+ 
+ 
+ 
+ 
+AC motor 
+Model 
+FEIK-C21 MOUV 
+YASKAWA 
+Power 
+25 
+kW 
+ 
+Speed of rotation 
+1680 
+rpm 
+ 
+Voltage 
+380 
+V 
+ 
+Frequency 
+50 
+Hz 
+ 
+Quantity 
+4 
+set 
+ 
+ 
+Brake 
+Model 
+Buit in motor 
+ 
+Braking torque 
+214 
+Nm 
+ 
+Quantity 
+4 
+set 
+ 
+ 
+Item 
+Value 
+Unit 
+Remark 
+Reducer 
+ 
+ 
+Model 
+FVS370.30.D1B 
+ZPMC 
+Transmission ratio 
+30.61 
+ 
+Input power 
+25 
+kW 
+ 
+Quantity 
+4 
+set 
+ 
+ 
+Rubber 
+tyres 
+Model     
+21.00-35,  40ply  tubeless 
+   SIEMX 
+Effective diameter 
+1860 
+mm 
+ 
+Inflation pressure 
+10 
+kg/cm2 
+ 
+Quantity 
+8 
+pieces 
+ 
+ 
+ 
+ 
+ 

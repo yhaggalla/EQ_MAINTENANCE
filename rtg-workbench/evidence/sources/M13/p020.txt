@@ -1,0 +1,47 @@
+ 
+18
+ 
+shall first be run without load allowing the reducers, bearings. etc. To be lubricated  
+Fully and their condition carefully observed. Then operation with a load can be 
+started. 
+ 
+8.4 Inspection items and period for maintenance  
+ 
+8.4.1 Oil (grease) supply 
+ 
+During oil (grease) replacement the old oil (grease) shall be discharged thoroughly. 
+Generally speaking the lubricant shall not be mixed, especially the grease. Mixed 
+grease may result in blockage and bearing damage. 
+ 
+8.4.2 All parts and components 
+ 
+8.4.2.1 Loosening of securing bolts 
+ 
+Attention shall frequently be paid to loosening of the bolts, particularly after the 
+first week of Crane running and then once per month check all the bolts and 
+re-tighten them. 
+ 
+Special attention shall be paid to those bolts which contribute to fastening but are 
+easily neglected. 
+  Period:  routine and once per month 
+ 
+8.4.2.2 Check whether lubrication is correct. 
+Lubricate in accordance with lubrication schedule. 
+  Period:  routine 
+ 
+ 
+8.4.3 Motors 
+ 
+8.4.3.1 Check temperature rise for any abnormal condition 
+ 
+8.4.3.2 Check for any abnormal heating in the bearings 
+ 
+8.4.3.3 Check for any abnormal noise in the motor 
+ 
+8.4.3.4 Axial play of the motor is generally controlled within 3 mm and the 
+maximum shall not exceed 5 mm 
+  Period:  routine 
+ 
+8.4.4 reducer 
+ 
+8.4.4.1 Check whether oil level is adequate by using the oil level detector 

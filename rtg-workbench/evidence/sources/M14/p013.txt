@@ -1,0 +1,46 @@
+                                                                       Chapter 2  
+ 
+ 
+ 
+3
+The RTG’s type is: trolley double driving (direct driving wheel), double box section girder, rated load 
+40.5 ton, span 23.47m, and hoist height 21.2m above ground. 
+ 
+In the following are the RTG’s main features 
+ 
+◇ The RTG will be worked on the costumer’s yard. It meets the site’s infrastructure 
+condition and the local weather conditions. Design, manufacture, erecting and 
+acceptance are according to international and domestic standards and rules. It could 
+be operated and maintenance 24 hours every day in normal weather conditions. The 
+electrical, electronic and mechanical device shall meet the requirements of the weather 
+conditions and the work cycle. 
+ 
+◇ The RTG’s main structure is composed of two groups of box section structures of door 
+frame, supported by 8 inflatable rubber tires. The trolley is located on the girders’ 
+rail. It could move following the girder’s direction to handle the containers between 
+the legs. The driver cabin is fixed under the trolley. The driver can control the whole 
+movements of the RTG. 
+ 
+◇ The RTG has a electrical telescopic spreader to handle a container which weight is 
+40.5tons. It could lift a 9’6” high container to pass six stacking 9’6” containers’ 
+height. It also could cross width with six row 8’containers with the gap between the 
+containers 400 mm, and a container truck lane. The trolley’s effective travel range 
+is not less than 18.5m. 
+ 
+◇ The electric spreader is hanged under the trolley by wire rope system. The spreader 
+is supplied by BROMMA. It could telescopic to 20’ and 40’ positions. It also could 
+lift 45’ or 48’ container (with the corner fittings at the 40 'position). The spreader 
+system is composed by headblock and spreader body to achieve rapid replacement.  
+ 
+◇ There are three main mechanisms, main hoist, trolley travelling and gantry travelling. 
+The main hoist, trolley travelling could be separated or simultaneously operated with 
+rated load. As well as the gantry travelling, the trolley travelling could be separated 
+or simultaneously operated with rated load too. 
+ 
+◇ The RTG could move along the normal lane as straight line. Each wheel can be rotated 
+90 degrees, to form a right angle with the original way, in order to change operation 
+block. It also could be 360 ° turning around.  
+ 
+◇ Operation and control of the RTG are realized by the all digital AC variable frequency 
+drives, PLC and CMS. The control function is reliable and effective. The main electrical 
+control equipments are installed in the electrical room which is above the sill beam. 

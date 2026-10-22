@@ -1,0 +1,96 @@
+ 
+ 
+   Chapter 4 
+ 
+ 
+34 
+ 
+adjustable. Please refer to the 错误！未找到引用源。. 
+Eccentric structure of wheel refer to the Figure4-145 
+ 
+ 
+Figure4-144 Mark at the eccentric sleeve 
+ 
+ 
+ 2 
+ 1 
+ 
+2 
+ 
+ 
+2 1 
+ 
+2
+1 trolley wheel    2 eccentric sleeve also as bearing 
+block 
+Figure4-145 assembly of eccentric wheel 
+ 
+Through different turning combinations of these two 
+eccentric sleeves, the trolley wheels can be re-aligned in 
+three conditions. 1) Horizontally Deviated; 2) Vertically 
+leaned; 3) Vertical Lift-off. 
+Because side rigidity is not good, so should pay more 
+attention to horizontal deviation. If the deviation between 
+wheel and girder is over 30mm, the trolley wheel should 
+be adjusted. 
+As rigidity of trolley frame is no good, and gantry is soft, 
+the vertical leaning and deviation could be ignored. 
+Initial position of trolley wheel 
+ 
+ 
+ 
+ 
+ 
+2 1 
+ 
+2
+Figure 4-146 Initial position of trolley wheel 
+1  wheel 
+2  mark of eccentric sleeve 
+before adjusting 
+To express the question, Figure 4-146 suppose the initial 
+position of trolley wheel. But the eccentric of wheel is 
+exaggerated(not according to real scale). Attention! Mark 
+the initial position is very important. It is very useful for 
+adjusting trolley wheel, if the wheel can’t be adjusted to 
+good condition, the wheel can be resumed easily by using 
+the mark. 
+wheel horizontal deviation 
+图 4- shows how to adjust the wheel deviated horizontally. 
+Turn the left sleeve 90 degree clockwise, and turn the right 
+sleeve 90-degree anti-clockwise. The wheel can be 
+deviated horizontally to the left by 0.41°. If you turn the 
+two sleeves in the opposite direction, the wheel will be 
+deviated to the other direction. 
+ 
+ 
+1 
+ 
+ 
+2 
+ 
+ 
+3
+图 4-147  Figure4-147 wheel horizontal deviation 
+adjusting 
+1  wheel is lifted 
+<=1mm 
+2 
+ 
+rotate 
+90 ° 
+clockwise  
+3  rotate 90° 
+anti-clockwise 
+ 
+When doing this adjustment, 
+please 
+gradually 
+turn 
+the 
+eccentric sleeve. Every time, a 
+30 degree angle turning is 
+recommended, then see if the 
+trolley running condition has 
+been improved. If necessary, 
+Mark to measure position

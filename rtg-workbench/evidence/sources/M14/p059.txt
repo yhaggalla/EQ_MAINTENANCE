@@ -1,0 +1,36 @@
+ 
+ 
+Chapter 3
+ 
+ 
+20 
+ 
+ 
+Figure 3-15 Trolley lubricating points layout 
+3.5.7 
+Lubricating frequency 
+The lubricants and lubricating frequency are listed in Table 3-13. Lubricating frequency has relationship with the 
+weather such as temperature and rainfall, and the service condition of the crane at the terminal.  The lubricating frequency 
+listed in the table can be used in common condition. The maintenance people should observe whether the lubricating is 
+enough during the cranes service, to protract or shorten the lubricating periods properly. Refer to Figure 3-14: Gantry 
+Lubricating points layout and Figure 3-15: Trolley Lubricating points layout while using the table. 
+ 
+The lubricating frequency listed is based on ZPMC’s experience and common condition. Please keep 
+an intact note or log. Based on the maintenance note and well lubricating condition, the lubricating 
+frequency can be redefined or changed  
+ 
+The interval of lubrication is at most 3 years commonly. After this period, the lubrication should be 
+changed even if the lubrication is not metamorphosed. Refer to the lubrication suppliers’ 
+recommendation. 
+ 
+Sample the hydraulic oil and gear lubrication while the recommended replacing period listed in table 
+3-13 is reached. If the sample shows that the lubrication needn’t be changed, the lubrication can be 
+used while monitoring should be reinforced. What’s more, gear lubrication should be sampled every 
+2 years even if the replacing period is not reached. 
+ 
+The lubrication of forestay is very important for keeping well working status. If there is rust on the 
+friction surface between the pin and stay bar, appended bending moment will be engendered in the 
+stay bar while it is turning, and flaw can be engendered and expanded. So please remove ancient 
+grease and add new grease every month. 
+Table 3-13： Lubricating frequency 
+symbol 

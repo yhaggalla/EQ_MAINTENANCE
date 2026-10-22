@@ -1,0 +1,90 @@
+ 
+ 
+Chapter 5 
+ 
+ 
+12 
+ 
+ 
+beginning of next shift. 
+The content of discard criteria of  GB/T5972-2006  
+and  ISO 4309:2004（E） is as below. 
+5.4.5.1 Nature and number of broken wires 
+In the case of 6- and 8-strand ropes, broken wires 
+usually occur at the external surface. In the case of 
+rotation-resistant ropes, there is a probability that the 
+majority of broken wires will occur internally and are 
+“non-visible” fractures. Detail criteria are given in 错误！
+未找到引用源。. While the number of broken wires is not 
+less than that in the table, the wire rope must be discarded. 
+Picture 1 and Pictuer 2 in Table 5-4 are two typical 
+broken wires. 
+ 
+5.4.5.2 Broken wires at termination 
+If there are broken wires at, or adjacent to the 
+termination, the cause of this deterioration shall be 
+investigated and, where possible, the termination shall be 
+remade, shortening the rope if sufficient length remains 
+for further use, otherwise the rope shall be discarded.  
+ 
+5.4.5.3 Localized grouping of broken wires 
+Where broken wires are very close together, 
+constituting a localized grouping of such breaks, the rope 
+shall be discarded. If the grouping of such breaks occurs 
+in a length less than 6d or is concentrated in any one 
+strand, it may be necessary to discard the rope even if the 
+number of wire breaks is smaller than the maximum 
+number shown in 错误！未找到引用源。. Pictures 3 in 
+错误！未找到引用源。 show the typical localized 
+grouping of broken wires. They are usually the main 
+damages to the main hoist and anti-shaking device of 
+RTG. 
+ 
+5.4.5.4 Rate of increase of broken wires  
+In applications where the predominant cause of rope 
+deterioration is fatigue, broken wires will appear after a 
+certain period of use, and the number of breaks will 
+progressively increase over time. In these cases, it is 
+recommended that careful periodic examination and 
+recording of the number of broken wires be undertaken, 
+with a view to establishing the rate of increase in the 
+number of breaks. This premise may be used to propose a 
+future date for rope discard.  
+5.4.5.5 Fracture of strands  
+If a complete strand fracture occurs, the rope shall 
+be immediately discarded.  
+5.4.5.6 Reduction of rope diameter resulting from core 
+deterioration 
+Reduction 
+of 
+rope 
+diameter 
+resulting 
+from 
+deterioration of the core can be caused by:  
+1) 
+Internal wear and reduction of wire diameter .  
+2) 
+Internal wear caused by friction between 
+individual strands and wires in the rope. 
+3) 
+Deterioration of a fiber core; 
+4) 
+Fracture of a steel core.  
+5) 
+Fracture of internal layers in a 
+rotation-resistant rope.  
+If these factors cause the actual rope diameter to 
+decrease by 3 % of the nominal rope diameter for rotation 
+resistant ropes, or by 10 % for other ropes, the rope must 
+be discarded. 
+5.4.5.7 Decreased elasticity 
+Under certain circumstances elasticity decreasing is 
+usually associated with the working environment, a rope 
+can sustain a substantial decrease in elasticity and is thus 
+unsafe for further use.  
+Decreased elasticity is difficult to detect. However, 
+it is usually associated with the following:  
+1) 
+Reduction in rope diameter but different from 
+which caused by wear. 

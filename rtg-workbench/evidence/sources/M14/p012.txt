@@ -1,0 +1,81 @@
+                                                                       Chapter 2  
+ 
+ 
+ 
+2
+2.1 Outline and main parameters for RTG 
+ 
+2.1.1  The types of RTG 
+It’s shown in table 2-1 for the types of normal RTG  
+             
+Table 2-1 the types of normal RTG 
+No. 
+Classification method 
+Form 
+Using in this project 
+1 
+The type of  power 
+supply 
+Diesel generator power supply, 
+high voltage cable reel, 
+Low voltage (400V~1000V) cable 
+reel, 
+Low voltage (400V~690V) contact 
+bus
+diesel generator + lithium 
+battery system 
+ 
+2 
+The number of gantry 
+wheels
+8 wheels, 16 wheels 
+8 wheels 
+3 
+The type of hoist rope 
+reeving
+4 ropes, 8 ropes 
+8 ropes 
+4 
+The type of span 
+6+1，7+1 
+6+1 
+5 
+The hoist height 
+1 over 4 ，1 over 5 ，1 over 6 ，
+1 over 7 
+1 over 6  
+6 
+The rated load 
+40t(Lt)， 45t(Lt)，50t(Lt)，60 t(Lt)，
+65t(Lt) 
+40.5t 
+7 
+The type of trolley 
+driving 
+Rack and pinion, single drive 
+(universal shaft drive), double 
+drive (universal shaft drive), 
+double drive (direct drive wheel) 
+ 
+Double drive (direct drive 
+wheel) 
+             
+ 
+Note: this project’s form is shown in table 2-1. The main features are described in section 2.1.2. The 
+main parameters are shown in section 2.2.  In order to keep manual’s universal property; this manual 
+includes more information than normal project. In using, please check this project’s as built drawings. As 
+built drawings are special ready for this project. The other information’s are not belonging to this project 
+and for reference only. 
+ 
+ 
+2.1.2  The main features of this project 
+ 
+This equipment is specifically designed, manufactured and installated container handling 
+mechineryaccording the contract for CICT, Sri Lanka, totally 40 rubber-tyre gantry cranes (hereinafter 
+referred to as RTG) 
+ 
+The RTG is the latest model for handling container. The design and manufacture is based on the 
+long-term experience of ZPMC in crane manufacturing field and the latest technology. Compared with 
+traditional RTG, it has advanced performance of pratical and efficient operation. 
+ 
+ 

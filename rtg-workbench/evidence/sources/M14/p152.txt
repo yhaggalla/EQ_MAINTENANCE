@@ -1,0 +1,68 @@
+ 
+ 
+Chapter 5 
+ 
+ 
+26 
+ 
+ 
+ 
+Figure 0-37 Taking off the pressed joints 
+from the adjusting screw rod 
+9) 
+Connect the end of the new rope with the 
+turnbuckle by the pin. 
+10) Pull the new rope end to the main hoisting drum 
+and winding the wire ropes onto the drum by 3 
+loops (Note the loop number should be 
+consistent to which left on the drum). Then 
+fasten that ropes with bolts primarily.   
+11) Replace the whole 8 ropes according to the 
+above methods in turn. 
+12) Adjust the lengths of the ropes preliminarily. 
+13) Hoist the spreader slowly until the spreader is 
+200~300mm to the ground. Check the condition 
+of the rope and the headblock. Loose the clamp 
+bolts and tighten the rope. Cut the remaining 
+rope and tighten all the bolts to make sure the 
+rope suspension basically consistent. 
+14) When the spreader hoist up to max, check if 
+there are about 0.5~1 empty rope grooves on the 
+drum. Or the ropes need to be adjusted.  
+15) The suspended lengths of the 8 ropes must be 
+the same in 8-rope hoisting system. So the ropes 
+must be adjusted after replaced. 
+16) Cut the remaining rope and tighten all the bolts 
+according to 错误！未找到引用源。10. Due to 
+the rope is elastic, the tightening torque of the 
+bolts is less than the normal value.  
+17) Run the main hoist up and down slowly and 
+check if the control system is working properly 
+such as: the position of Cam. Correct every 
+abnormal phenomenon immediately.  
+18) Lubricate the ropes. The procedure can refer to 
+the steps listed above. 
+ 
+Table 5-10 Tighten torque of bolts 
+Bolts 
+Tighten torque
+Ｍ24 
+430N m 
+Ｍ30 
+750 N.m 
+ 
+ 
+During the procedure of 
+rope re-reeving, one 
+examiner is needed on the 
+trolley and one is needed on 
+the ground to observe the 
+operators and the ropes. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

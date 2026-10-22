@@ -1,0 +1,80 @@
+ 
+ 
+Chapter 3
+ 
+ 
+14 
+ 
+ 
+ 
+Figure 3-99： Clearance excursion of brake 
+ 
+3) 
+The up and down clearance of brake disk should 
+be the same, which means 
+1up=
+1down ,
+2
+
+up 
+=
+2
+
+down. Refer to Figure 3-9. 
+4) 
+Inspect the height of the brake to align its 
+central line with the brake disc center. The 
+deviation should not be more than 2mm. The 
+horizontal deviation of the brake lining from the 
+edge of disc should not be more than 5mm. 
+Refer to Figure 3-9. 
+5) 
+Inspect the position of the brake base in the 
+motor axial direction. The deviation of the 
+central line of disc thickness should not be more 
+than 0.5mm. Refer to Figure 3-99 
+6) 
+The contact area between the linings and the 
+disc should not be less than 70% when brake is 
+closed. 
+ 
+ 
+ 
+3.5 
+Lubrication 
+3.5.1 
+Summarization 
+Lubrication is a very important maintenance task. It 
+will determine the normal service and endurance life of the 
+components. Proper lubrication practice will help to avoid 
+premature wear and extend the endurance life of the 
+components. Lack of lubrication will destroy the 
+components. For example, if an anti-friction bearing is 
+short of lubrication, it will be damaged in a very short time. 
+It is very important to monitor the temperature and sound 
+level of the components to determine whether the 
+components get enough lubrication. The lubrication of 
+wire rope will be described in Chapter 4. 
+Attention: All used oil and grease must be 
+collected and disposed properly!   
+3.5.2 
+Lubricant 
+For well effect of lubrication, the type of lubricants 
+must be selected properly. Consistency should be 
+maintained on lubricants. Do not mix up different 
+lubricants together. If the lubricant supplier, type or grade 
+is changed, clean the bearing, reducer, pin, and other 
+devices thoroughly to remove the previous lubricant. If 
+different lubricants are mixed together, please contact the 
+lubricants supplier. 
+The lubricants and grease used in the crane are listed 
+in table 3-8~3-10. And the comparison of those products is 
+also listed in the tables. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

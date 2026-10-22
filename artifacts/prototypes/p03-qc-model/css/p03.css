@@ -84,3 +84,6 @@ button[aria-pressed="true"], button[aria-checked="true"] { background: var(--nav
   .tree-pane { order: 2; max-height: 40vh; } .view-pane { order: 1; } .info-pane { order: 3; }
 }
 @media (prefers-reduced-motion: reduce) { .hint-bubble { transition: none; } }
+/* U1 round 2 (U1-C09): labels of off-screen items are pinned to the viewport edge with a direction arrow */
+.qc-label.edge { background: rgba(240,244,248,.95); border-style: dotted; }
+.qc-label .qc-arrow { display: inline-block; margin-right: 4px; color: #0b4fb8; font-weight: 700; }

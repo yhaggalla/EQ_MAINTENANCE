@@ -1,0 +1,46 @@
+ 
+8
+ 
+3.  Attention for Safety 
+3.1 Preparation before crane starting 
+ 
+3.1.1 Check for obstructions in the crane path.                        
+ 
+3.1.2 Check that lubrication for every mechanical part is sufficient. 
+ 
+3.1.3 Check that every operation joysticks and operation switch is in normal 
+position . 
+ 
+3.1.4 Check that power supply voltage is normal. 
+ 
+3.1.5 A trial run without load should be done first and the running with load can 
+be stared only after it is confirmed that various safety devices and limit switches 
+are activated normally. 
+ 
+3.2 Attention after operation 
+ 
+3.2.1 Park the crane at the assigned location. 
+ 
+3.2.2 Park the trolley at the stowed location, i.e., anchoring location. 
+ 
+3.2.3 Return all the operation joysticks and switches in the cab to neutral position 
+and specified position. 
+ 
+3.2.4 Check the rubber-tyred wheels. 
+3.2.5 If the crane is not expected to be in use for a long period or a storm is forecast, 
+The crane should be secured with chock or anti-storm tie downs. 
+ 
+3.2.6 Repair defects found during operation and confirm that all lubricants are 
+correct for the next operation. 
+ 
+3.2.7 Lock the doors of the operator’s cab and electrical room to prevent 
+unauthorized entry. 
+ 
+3.3 Attention for operator 
+ 
+3.3.1 Operator should go up/down the RTG according the route regulated, i.e., 
+through the stairs on the stair-side and then to the operator’s cab via the platform.  
+ 
+3.3.2 The following should be paid attention while lifting the containers: lifted 
+container should be 500 to 600 mm higher than the top of container stack. 
+ 

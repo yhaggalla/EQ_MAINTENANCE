@@ -1,0 +1,59 @@
+                                                                     Chapter 2 
+ 
+ 
+ 
+8
+position will be setted when the headblock hoist at highest point and hitting the hammer limit switch under 
+trolley.  
+ 
+1) 
+Hoist over height stop 
+Hammer limit switch is located under the over height 
+position. This switch is connected with emergency stop 
+circuit, when this limit switch activated, it’ll be emergency 
+stop. The "limit bypass" selection switch located in the 
+electrical room can release the limit state. The hammer limit 
+switch shown as in Fig 2-23.  
+ 
+2) 
+Hoist normal stop 
+Programmable software limit switch. When it activated, 
+the switch will start ramp stop.  
+ 
+3) 
+Hoist smart slow down 
+Programmable software limit switch (fuction). The position 
+of this smart slow down is depending on the setting of hoist 
+slow down. 
+ More detail definition about “smart slow 
+down” please refer to the electrical manual.  
+ 
+4) 
+Lowering smart slow down 
+Programmable software limit switch (fuction). The position of this smart slow down is depending on the 
+setting of lowering slow down.  
+ 
+5) 
+Lowering normal end stop 
+Programmable software limit switch (fuction). When it activated, the switch will start ramp stop.  
+ 
+6) 
+Hoist stop check 
+Cam limit switch. If the encoder hasn’t stop the hoisting speed, then activate this switch will stop the hoist 
+speed.  
+ 
+7) 
+Hoist slow down check 
+Cam limit switch. If the encoder hasn’t decelerate the hoisting speed, then activate this switch will 
+decelerate the hoist speed.  
+ 
+8) 
+Lowering slow down check 
+Cam limit switch. If the encoder hasn’t decelerate the lowering speed, then activate this switch will 
+decelerate the lowering speed.  
+ 
+9) 
+Lowering terminal inspect 
+Cam limit switch. It’s the mechanical fuction backup of the over lowering protection. 
+ 
+Fig 2-23 Hammer limit switch 

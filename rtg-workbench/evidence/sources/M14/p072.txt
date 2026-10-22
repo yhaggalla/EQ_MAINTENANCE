@@ -1,0 +1,101 @@
+ 
+ 
+Chapter 3
+ 
+ 
+33 
+ 
+grade. 
+(2)    Crack of keyway 
+The stress concentrates on the edges of the shaft or the 
+keyway in the fillet engaged with the shaft. Therefore, 
+cracks may be caused if the part suffers abnormal torque 
+larger than their strength. 
+ 
+ 
+ 
+ 
+ 
+ 
+If the condition remains, the crack may be enlarged, 
+resulting in keyway damage of shaft failure. 
+(3) Wear of keyway side 
+The fatigue and deformation may be caused if abnormal 
+torque is applied to the keyway sides and abnormally 
+high surface pressure is struck on the keyway sides 
+repeatedly. 
+3.6.16 Inspection of consumable parts 
+Consumable-parts are those parts which may be 
+depleted or worn out by use of the crane and they do 
+not belong to guaranty products. During crane 
+maintenance and inspection, pay special attention to the 
+consumable parts listed as follows: 
+1) 
+Inspection of wire rope for abrasion, wire 
+breaks and other damage. 
+Refer to the 
+relative provisions in Chapter 5. 
+2) 
+Check if there is any oil leakage from gear 
+seal rings. 
+3) 
+ Inspection of braking shoe abrasion. 
+4) 
+Inspection of carbon brush of conducting ring 
+(such as DC motor and spreader cable reel 
+slip rings). 
+5) 
+Inspection of kryptol for trolley rail and wheel 
+lubrication. 
+6) 
+ Inspection of all lamp bulbs. 
+7) 
+ Make sure the spare fuses are available. 
+8) 
+Inspection of filters.  
+9) 
+Inspection of vulnerable parts, such as the 
+spreader flippers.  
+3.6.17 Inspection of steel structural members 
+ 
+The structural integrity of the crane 
+requires that no attachments or 
+fixtures of any kind be welded to any 
+part of the crane without prior written 
+approval of the responsible Structural 
+Engineer. 
+ 
+Please refer to Steel Structure 
+Maintenance Program for more 
+inspection information. 
+In order to maintain the crane in good condition, 
+continuing inspection is very important. When damages 
+occur to steel structural members, this crane may be 
+unusable and require detailed inspection. Not only 
+machine damage but also accidents including human 
+injury may arise. 
+Deformation of the steel structure members may be 
+caused by improper usage of the crane, development of 
+cracks, and loose bolts. Therefore, always follow the 
+operating procedures described in the container crane 
+operation instruction manual
+ and conduct the regular 
+inspections as described in this manual.  
+Inspection and diagnosis methods for metal 
+structure： 
+1) 
+Inspect and judge the metal structure by 
+human sense and experience: 
+ 
+Check  to find out whether the hinge points 
+and the interconnecting pieces run smoothly 
+and flexibly, whether have abnormal sound 
+and blocking phenomenon, whether have a 
+good lubrication and  a severe abrasion, 
+whether the center axle have movement and 
+so on.     
+ 
+Figure 3-44 Shearing of Key 
+Figure 3-29 Crack of Key Groove 
+ 
+Figure 2-30 Wear of Key Groove Side 

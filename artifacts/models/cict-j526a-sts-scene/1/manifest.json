@@ -3,8 +3,8 @@
   "modelCode": "cict-j526a-sts-scene",
   "equipmentModelCode": "CICT-J526A-STS",
   "version": 1,
-  "revision": 2,
-  "revisionNote": "U1 repair (2026-10-21): back-reach area, CICT logo, stair tower orientation, cab remodel, reeving paths and machinery-house layout re-checked against J526A00, J526A1000, J526A3000, J526A3100, J526A5000, J526A7100. Draft v1 revised in place: no equipment binding is active.",
+  "revision": 3,
+  "revisionNote": "U1 round 2 (2026-10-22): load cells at the trolley sheave shafts, girder-tail platforms and stairs, apex platform and boom-hoist sheave arrangement, floodlight fittings on the boom and girder, elevator position/car/landings and every location marker drawn as a simplified part (J526A0200, J526A2300, J526A5000, J526A5100). Previous: U1 repair (2026-10-21): back-reach area, CICT logo, stair tower orientation, cab remodel, reeving paths and machinery-house layout re-checked against J526A00, J526A1000, J526A3000, J526A3100, J526A5000, J526A7100. Draft v1 revised in place: no equipment binding is active.",
   "status": "draft",
   "statusNote": "P03 prototype, revised in the U1 repair while still a draft with no active binding. Not assigned to any equipment; bindings are made by Admin per equipment (DATA_CONTRACT s10.5).",
   "units": "m",
@@ -18,7 +18,7 @@
   "generator": {
     "name": "eq-model-generator",
     "version": "1.0.0",
-    "sourceCommit": "18f03b0321a97f7976daa632c482e823e42c4652",
+    "sourceCommit": "da409cab999ece233b41904ed363b18cc3b1a7cf",
     "sourceDirty": true,
     "three": "0.186.1",
     "node": "v24.15.0"
@@ -29,18 +29,18 @@
   },
   "asset": {
     "file": "scene.glb",
-    "sha256": "177f9dadbc4f27eac921f434589ea249158e2d5bbc23047b6b57a50705dee01a",
-    "bytes": 1714480,
-    "triangles": 38318,
-    "drawCallsEstimate": 177,
+    "sha256": "fe35835e9608c07a9eb57a9fa89a4e1ec65ec5baada87c6d8edf72730e54869b",
+    "bytes": 2196484,
+    "triangles": 46522,
+    "drawCallsEstimate": 194,
     "overallMode": {
-      "triangles": 30526,
-      "drawCallsEstimate": 121,
-      "meshObjects": 83
+      "triangles": 40286,
+      "drawCallsEstimate": 145,
+      "meshObjects": 95
     },
     "technicalMode": {
-      "triangles": 38316,
-      "drawCallsEstimate": 176,
+      "triangles": 46520,
+      "drawCallsEstimate": 193,
       "meshObjects": 125
     }
   },
@@ -1141,14 +1141,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -62.540001,
+          -64.625,
           47.720001,
-          -4.695
+          -4.62
         ],
         "max": [
           -0.299999,
-          56.049999,
-          4.695
+          55.080002,
+          4.62
         ]
       },
       "cameraHint": null
@@ -1211,7 +1211,7 @@
     {
       "key": "trolley.cable-system.main",
       "kind": "hotspot",
-      "label": "Trolley cable transport / sliding-contact system (location approximate)",
+      "label": "Trolley cable transport / sliding-contact system (representative festoon carriages; location approximate)",
       "parentKey": "container.girder",
       "classification": {
         "main": "02",
@@ -1238,6 +1238,11 @@
             "drawing": "J526A00",
             "pdfPage": 2,
             "note": "item J526A4100 slip-contact system listed; drawing not supplied (U-10)"
+          },
+          {
+            "drawing": "J526A00",
+            "pdfPage": 1,
+            "note": "item 15 catenary trolley rope reeving diagram (cable trolleys)"
           }
         ]
       },
@@ -1246,20 +1251,21 @@
         "point": [
           -20,
           49.7,
-          0
+          -3.15
         ],
-        "radius": 0.7
+        "radius": 0.7,
+        "representation": "simplified-part"
       },
       "bounds": {
         "min": [
-          -20.682449,
-          49,
-          -0.665339
+          -24.5,
+          48.850883,
+          -3.35
         ],
         "max": [
-          -19.317551,
-          50.400002,
-          0.665339
+          -15.5,
+          50.5,
+          -2.95
         ]
       },
       "cameraHint": null
@@ -1304,14 +1310,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -62.540001,
+          -64.625,
           47.720001,
-          -4.695
+          -4.62
         ],
         "max": [
           -51.974998,
-          56.049999,
-          4.695
+          55.080002,
+          4.62
         ]
       },
       "cameraHint": null
@@ -1319,7 +1325,7 @@
     {
       "key": "access.platform.girder-tail",
       "kind": "position",
-      "label": "Girder-tail end platform, handrails and ladder",
+      "label": "Girder-tail platforms (upper tail platform, lower end platform) with stairs and handrails",
       "parentKey": "container.back-reach",
       "classification": {
         "main": "15",
@@ -1346,12 +1352,12 @@
           {
             "drawing": "J526A5000",
             "pdfPage": 1,
-            "note": "girder platform at the tail end (item 5), scaled"
+            "note": "item 5 platform of girder: tail platform on the girders, end platform beyond the girder end at girder-underside level, centre stair between them and short flights from the outer walkways; scaled"
           },
           {
             "drawing": "J526A00",
             "pdfPage": 1,
-            "note": "side view: tail platform and inclined ladder"
+            "note": "side view: tail platform and inclined stair at the girder end"
           }
         ]
       },
@@ -1359,14 +1365,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -62.25,
-          48.849625,
-          -4.695
+          -64.625,
+          50.325569,
+          -4.62
         ],
         "max": [
           -56.474998,
           53.424999,
-          4.695
+          4.62
         ]
       },
       "cameraHint": null
@@ -1689,7 +1695,7 @@
           -4.605
         ],
         "max": [
-          74.899994,
+          74.900002,
           53.41,
           4.605
         ]
@@ -1732,7 +1738,7 @@
       "bounds": {
         "min": [
           -0.8,
-          49.299999,
+          50.5,
           -3.9
         ],
         "max": [
@@ -2156,8 +2162,8 @@
     {
       "key": "auxiliary.lighting.boom",
       "kind": "hotspot",
-      "label": "Boom/girder floodlights (location approximate)",
-      "parentKey": "container.boom",
+      "label": "Boom and girder floodlights (20 fittings; count and positions estimated)",
+      "parentKey": null,
       "classification": {
         "main": "13",
         "sub": "131"
@@ -2170,6 +2176,7 @@
       "pickable": true,
       "pickPriority": 60,
       "modes": [
+        "overall",
         "technical"
       ],
       "enclosure": false,
@@ -2183,28 +2190,34 @@
             "drawing": "J526A00",
             "pdfPage": 1,
             "note": "floodlight positions not dimensioned"
+          },
+          {
+            "drawing": "site photo 08_44_14 PM / 09_14_39 PM",
+            "pdfPage": null,
+            "note": "dark floodlight fittings hanging under the girder (AI-processed appearance reference, not a dimension source)"
           }
         ]
       },
       "qualifier": "Location approximate / simplified representation",
       "hotspot": {
         "point": [
-          40,
-          49.9,
+          5,
+          50,
           0
         ],
-        "radius": 0.6
+        "radius": 0.6,
+        "representation": "simplified-part"
       },
       "bounds": {
         "min": [
-          39.415043,
-          49.299999,
-          -0.570291
+          -56.310001,
+          49.818794,
+          -3.886985
         ],
         "max": [
-          40.584957,
+          66.309998,
           50.5,
-          0.570291
+          3.886985
         ]
       },
       "cameraHint": null
@@ -2254,7 +2267,7 @@
           -10.780364
         ],
         "max": [
-          0,
+          1.325,
           83.356003,
           11.754625
         ]
@@ -2664,7 +2677,7 @@
     {
       "key": "structure.a-frame.head",
       "kind": "position",
-      "label": "A-frame head and apex",
+      "label": "A-frame head, apex platform and sheave guard frame",
       "parentKey": "container.a-frame",
       "classification": {
         "main": "15",
@@ -2691,12 +2704,17 @@
           {
             "drawing": "J526A0100",
             "pdfPage": 1,
-            "note": "head 2300 wide; structural top 54000 + 25640"
+            "note": "head 2300 wide; structural top 54000 + 25640; stay pins at the apex detail (1650)"
+          },
+          {
+            "drawing": "J526A5000",
+            "pdfPage": 1,
+            "note": "item 2 platform of apex: deck and handrails, about 1.9 m landside / 3.3 m waterside of the centreline; scaled"
           },
           {
             "drawing": "J526A00",
             "pdfPage": 1,
-            "note": "apex marker 83356 = top of head; head shape estimated (U-06)"
+            "note": "apex marker 83356 = top of the sheave guard frame (U-06 interpretation); member sizes estimated"
           }
         ]
       },
@@ -2704,14 +2722,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -3.4,
+          -3.925,
           78.239998,
-          -4.374
+          -4.949
         ],
         "max": [
-          0,
+          1.325,
           83.356003,
-          4.374
+          4.949
         ]
       },
       "cameraHint": null
@@ -2719,7 +2737,7 @@
     {
       "key": "boom.sheave.apex",
       "kind": "position",
-      "label": "Apex boom-hoist sheaves",
+      "label": "Apex boom-hoist sheaves (guide sheaves and fall-sheave groups)",
       "parentKey": "container.a-frame",
       "classification": {
         "main": "03",
@@ -2744,14 +2762,14 @@
         "kind": "estimated",
         "sources": [
           {
+            "drawing": "J526A2300",
+            "pdfPage": 1,
+            "note": "Detail I: guide sheave on top, 50 waterside of the centreline; View A: sheave units 1-4 and equaliser unit 5, groups 2600 apart, 4256.5 overall; diameters about 950 / 850 / 810 / 700 read from the views; positions scaled"
+          },
+          {
             "drawing": "J526A00",
             "pdfPage": 1,
             "note": "boom hoist rope reeving diagram"
-          },
-          {
-            "drawing": "J526A2300",
-            "pdfPage": null,
-            "note": "reeving sheet not detailed in P03"
           }
         ]
       },
@@ -2759,14 +2777,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -2.55,
-          79.889999,
-          -1.5
+          -2.6,
+          79.839996,
+          -2.505
         ],
         "max": [
-          -1.05,
-          81.389999,
-          1.5
+          0,
+          82.540001,
+          2.505
         ]
       },
       "cameraHint": null
@@ -2806,7 +2824,7 @@
           {
             "drawing": "J526A5000",
             "pdfPage": 1,
-            "note": "View Q and item 2 platform of apex; flight count approximate"
+            "note": "View Q and item 2 platform of apex; flight count approximate; final flight to the apex platform added in U1 round 2"
           }
         ]
       },
@@ -2820,7 +2838,7 @@
         ],
         "max": [
           -1.375,
-          79.364998,
+          82.214996,
           11.754625
         ]
       },
@@ -3526,7 +3544,7 @@
     {
       "key": "emergency.drive.main",
       "kind": "hotspot",
-      "label": "Emergency hoist drive (37 kW; location approximate)",
+      "label": "Emergency hoist drive (37 kW motor and FH220 reducer; position approximate)",
       "parentKey": "container.machinery-house",
       "classification": {
         "main": "16",
@@ -3568,18 +3586,19 @@
           55.6,
           0.85
         ],
-        "radius": 0.5
+        "radius": 0.5,
+        "representation": "simplified-part"
       },
       "bounds": {
         "min": [
-          -39.987465,
-          55.099998,
-          0.374758
+          -40.25,
+          55,
+          0.47
         ],
         "max": [
-          -39.012535,
-          56.099998,
-          1.325242
+          -38.349998,
+          55.75,
+          1.23
         ]
       },
       "cameraHint": null
@@ -4254,7 +4273,7 @@
         "min": [
           -42.099998,
           53,
-          -7.875242
+          -7.72
         ],
         "max": [
           -31.6,
@@ -4313,7 +4332,7 @@
     {
       "key": "electrical.drives.main",
       "kind": "hotspot",
-      "label": "Drive / inverter cabinets (location approximate)",
+      "label": "Drive / inverter cabinets (cabinet section shown; which bays not established)",
       "parentKey": "container.electrical-room",
       "classification": {
         "main": "07",
@@ -4347,21 +4366,22 @@
       "hotspot": {
         "point": [
           -37,
-          55.7,
+          54.1,
           -5.65
         ],
-        "radius": 0.5
+        "radius": 0.5,
+        "representation": "simplified-part"
       },
       "bounds": {
         "min": [
-          -37.487465,
-          55.200001,
-          -6.125242
+          -38.220001,
+          53,
+          -6.01
         ],
         "max": [
-          -36.512535,
-          56.200001,
-          -5.174758
+          -35.779999,
+          55.240002,
+          -5.33
         ]
       },
       "cameraHint": null
@@ -4369,7 +4389,7 @@
     {
       "key": "electrical.plc.main",
       "kind": "hotspot",
-      "label": "PLC cabinet (location approximate)",
+      "label": "PLC cabinet (cabinet bay shown; which bay not established)",
       "parentKey": "container.electrical-room",
       "classification": {
         "main": "08",
@@ -4403,21 +4423,22 @@
       "hotspot": {
         "point": [
           -35,
-          55.7,
+          54.1,
           -7.4
         ],
-        "radius": 0.5
+        "radius": 0.5,
+        "representation": "simplified-part"
       },
       "bounds": {
         "min": [
-          -35.487465,
-          55.200001,
-          -7.875242
+          -35.419998,
+          53,
+          -7.72
         ],
         "max": [
-          -34.512535,
-          56.200001,
-          -6.924758
+          -34.580002,
+          55.240002,
+          -7.04
         ]
       },
       "cameraHint": null
@@ -4425,7 +4446,7 @@
     {
       "key": "electrical.control-power.main",
       "kind": "hotspot",
-      "label": "Control power (location approximate)",
+      "label": "Control power cabinet (cabinet bay shown; which bay not established)",
       "parentKey": "container.electrical-room",
       "classification": {
         "main": "05",
@@ -4459,21 +4480,22 @@
       "hotspot": {
         "point": [
           -39.4,
-          55.7,
+          54.1,
           -7.4
         ],
-        "radius": 0.5
+        "radius": 0.5,
+        "representation": "simplified-part"
       },
       "bounds": {
         "min": [
-          -39.887463,
-          55.200001,
-          -7.875242
+          -39.82,
+          53,
+          -7.72
         ],
         "max": [
-          -38.912537,
-          56.200001,
-          -6.924758
+          -38.98,
+          55.240002,
+          -7.04
         ]
       },
       "cameraHint": null
@@ -4481,7 +4503,7 @@
     {
       "key": "auxiliary.air-conditioning.electrical-room",
       "kind": "hotspot",
-      "label": "Electrical-room air conditioning (location approximate)",
+      "label": "Electrical-room air conditioning (wall unit shown; location approximate)",
       "parentKey": "container.electrical-room",
       "classification": {
         "main": "15",
@@ -4514,22 +4536,23 @@
       "qualifier": "Location approximate / simplified representation",
       "hotspot": {
         "point": [
-          -41.6,
-          57.2,
+          -41.85,
+          57.15,
           -6.55
         ],
-        "radius": 0.45
+        "radius": 0.45,
+        "representation": "simplified-part"
       },
       "bounds": {
         "min": [
-          -42.038719,
-          56.75,
-          -6.977718
+          -42,
+          56.900002,
+          -7.05
         ],
         "max": [
-          -41.161282,
-          57.650002,
-          -6.122282
+          -41.700001,
+          57.349998,
+          -6.05
         ]
       },
       "cameraHint": null
@@ -4629,7 +4652,7 @@
         ],
         "max": [
           72.720001,
-          54.07,
+          53.32,
           3.6
         ]
       },
@@ -5393,7 +5416,7 @@
     {
       "key": "cabin.air-conditioning",
       "kind": "hotspot",
-      "label": "Cabin air conditioning (location approximate)",
+      "label": "Cabin air conditioning unit (location from the plan, size approximate)",
       "parentKey": "container.trolley",
       "classification": {
         "main": "15",
@@ -5407,6 +5430,7 @@
       "pickable": true,
       "pickPriority": 60,
       "modes": [
+        "overall",
         "technical"
       ],
       "enclosure": false,
@@ -5432,21 +5456,22 @@
       "hotspot": {
         "point": [
           64,
-          48.699999999999996,
+          48.11,
           0.75
         ],
-        "radius": 0.4
+        "radius": 0.4,
+        "representation": "simplified-part"
       },
       "bounds": {
         "min": [
-          63.610027,
-          48.299999,
-          0.369806
+          63.849998,
+          47.799999,
+          0.35
         ],
         "max": [
-          64.389969,
-          49.099998,
-          1.130194
+          64.400002,
+          48.445,
+          1.17
         ]
       },
       "cameraHint": null
@@ -5454,7 +5479,7 @@
     {
       "key": "trolley.skew-system.main",
       "kind": "hotspot",
-      "label": "Trim/list/skew system (location approximate; J526A1000 device at the girder tail)",
+      "label": "Trim/list/skew hydraulic power unit (position approximate; J526A1000 device at the girder tail)",
       "parentKey": "container.back-reach",
       "classification": {
         "main": "11",
@@ -5468,6 +5493,7 @@
       "pickable": true,
       "pickPriority": 60,
       "modes": [
+        "overall",
         "technical"
       ],
       "enclosure": false,
@@ -5480,29 +5506,30 @@
           {
             "drawing": "J526A1000",
             "pdfPage": 1,
-            "note": "anti-snag and L/S/T device at the girder tail (GA item 7); hydraulic power unit not located"
+            "note": "anti-snag and L/S/T device at the girder tail (GA item 7); cylinders 200/140 x 1400; hydraulic power unit not located"
           }
         ]
       },
       "qualifier": "Location approximate / simplified representation",
       "hotspot": {
         "point": [
-          -57.300000000000004,
-          55.599999999999994,
-          0
+          -57.5,
+          52.9,
+          -1.3
         ],
-        "radius": 0.45
+        "radius": 0.45,
+        "representation": "simplified-part"
       },
       "bounds": {
         "min": [
-          -57.738716,
-          55.150002,
-          -0.427718
+          -58.626328,
+          52.299999,
+          -2.026059
         ],
         "max": [
-          -56.861282,
-          56.049999,
-          0.427718
+          -56.77367,
+          53.75,
+          2.014361
         ]
       },
       "cameraHint": null
@@ -5510,8 +5537,8 @@
     {
       "key": "hoist.loadcell.main",
       "kind": "hotspot",
-      "label": "Load cell system (location not established; marker at trolley for navigation)",
-      "parentKey": "container.trolley",
+      "label": "Load cell system (load pins in the main hoist rope-end anchors at the boom tip; hardware not identified on the sheets)",
+      "parentKey": "container.boom",
       "classification": {
         "main": "01",
         "sub": "013"
@@ -5534,6 +5561,11 @@
         "kind": "approximate-location",
         "sources": [
           {
+            "drawing": "J526A2000",
+            "pdfPage": 1,
+            "note": "Detail I (1:20): roller device (1), rope clamp device (2, 2 off) on an anchor pin 480 above the boom top, rereeving sheave (3) 260 waterside of the pin; the user indicated the boom-tip hoist rope sheaves (U1-C12)"
+          },
+          {
             "drawing": "J526A0300",
             "pdfPage": 1,
             "note": "load-cell position not shown on the reviewed sheets"
@@ -5543,22 +5575,23 @@
       "qualifier": "Location approximate / simplified representation",
       "hotspot": {
         "point": [
-          68.5,
-          53.62,
-          -1.8
+          74.05000000000001,
+          52.779999999999994,
+          0
         ],
-        "radius": 0.45
+        "radius": 0.45,
+        "representation": "simplified-part"
       },
       "bounds": {
         "min": [
-          68.061279,
-          53.169998,
-          -2.227718
+          73.099998,
+          52.599998,
+          -3.18
         ],
         "max": [
-          68.938721,
-          54.07,
-          -1.372282
+          74.370003,
+          52.959999,
+          3.18
         ]
       },
       "cameraHint": null
@@ -5566,7 +5599,7 @@
     {
       "key": "trolley.tension.main",
       "kind": "hotspot",
-      "label": "Trolley rope tensioning (location approximate; tensioners at the girder-tail end)",
+      "label": "Trolley rope tensioning cylinders (position approximate; tensioners at the girder-tail end)",
       "parentKey": "container.back-reach",
       "classification": {
         "main": "02",
@@ -5580,6 +5613,7 @@
       "pickable": true,
       "pickPriority": 60,
       "modes": [
+        "overall",
         "technical"
       ],
       "enclosure": false,
@@ -5604,22 +5638,23 @@
       "qualifier": "Location approximate / simplified representation",
       "hotspot": {
         "point": [
-          -59,
-          53.3,
+          -60.1,
+          52.86999999999999,
           0
         ],
-        "radius": 0.45
+        "radius": 0.45,
+        "representation": "simplified-part"
       },
       "bounds": {
         "min": [
-          -59.438717,
-          52.849998,
-          -0.427718
+          -60.849998,
+          52.720001,
+          -0.72
         ],
         "max": [
-          -58.561283,
-          53.75,
-          0.427718
+          -58.849998,
+          53.25,
+          0.72
         ]
       },
       "cameraHint": null
@@ -5664,14 +5699,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          68.688774,
-          44.549999,
-          -6.396
+          68.662933,
+          44.764999,
+          -6.456
         ],
         "max": [
-          71.311226,
+          71.337067,
           47.59,
-          6.396
+          6.456
         ]
       },
       "cameraHint": null
@@ -5898,6 +5933,7 @@
       "pickable": true,
       "pickPriority": 60,
       "modes": [
+        "overall",
         "technical"
       ],
       "enclosure": false,
@@ -5911,6 +5947,11 @@
             "drawing": "J526A00",
             "pdfPage": 2,
             "note": "STS45 spreader drawing not supplied (U-10); ISO corner positions"
+          },
+          {
+            "drawing": "site photo 08_44_08 PM",
+            "pdfPage": null,
+            "note": "orange flippers at the spreader corners (AI-processed appearance reference, not a dimension source)"
           }
         ]
       },
@@ -5921,18 +5962,19 @@
           44.9,
           5.946
         ],
-        "radius": 0.35
+        "radius": 0.35,
+        "representation": "simplified-part"
       },
       "bounds": {
         "min": [
-          70.628777,
-          44.549999,
-          5.61333
+          70.470001,
+          44.764999,
+          5.446
         ],
         "max": [
-          71.311226,
-          45.25,
-          6.278669
+          71.337067,
+          46,
+          6.456
         ]
       },
       "cameraHint": null
@@ -5954,6 +5996,7 @@
       "pickable": true,
       "pickPriority": 60,
       "modes": [
+        "overall",
         "technical"
       ],
       "enclosure": false,
@@ -5967,6 +6010,11 @@
             "drawing": "J526A00",
             "pdfPage": 2,
             "note": "STS45 spreader drawing not supplied (U-10); ISO corner positions"
+          },
+          {
+            "drawing": "site photo 08_44_08 PM",
+            "pdfPage": null,
+            "note": "orange flippers at the spreader corners (AI-processed appearance reference, not a dimension source)"
           }
         ]
       },
@@ -5977,18 +6025,19 @@
           44.9,
           5.946
         ],
-        "radius": 0.35
+        "radius": 0.35,
+        "representation": "simplified-part"
       },
       "bounds": {
         "min": [
-          68.688774,
-          44.549999,
-          5.61333
+          68.662933,
+          44.764999,
+          5.446
         ],
         "max": [
-          69.371223,
-          45.25,
-          6.278669
+          69.529999,
+          46,
+          6.456
         ]
       },
       "cameraHint": null
@@ -6010,6 +6059,7 @@
       "pickable": true,
       "pickPriority": 60,
       "modes": [
+        "overall",
         "technical"
       ],
       "enclosure": false,
@@ -6023,6 +6073,11 @@
             "drawing": "J526A00",
             "pdfPage": 2,
             "note": "STS45 spreader drawing not supplied (U-10); ISO corner positions"
+          },
+          {
+            "drawing": "site photo 08_44_08 PM",
+            "pdfPage": null,
+            "note": "orange flippers at the spreader corners (AI-processed appearance reference, not a dimension source)"
           }
         ]
       },
@@ -6033,18 +6088,19 @@
           44.9,
           -5.946
         ],
-        "radius": 0.35
+        "radius": 0.35,
+        "representation": "simplified-part"
       },
       "bounds": {
         "min": [
-          70.628777,
-          44.549999,
-          -6.278669
+          70.470001,
+          44.764999,
+          -6.456
         ],
         "max": [
-          71.311226,
-          45.25,
-          -5.61333
+          71.337067,
+          46,
+          -5.446
         ]
       },
       "cameraHint": null
@@ -6066,6 +6122,7 @@
       "pickable": true,
       "pickPriority": 60,
       "modes": [
+        "overall",
         "technical"
       ],
       "enclosure": false,
@@ -6079,6 +6136,11 @@
             "drawing": "J526A00",
             "pdfPage": 2,
             "note": "STS45 spreader drawing not supplied (U-10); ISO corner positions"
+          },
+          {
+            "drawing": "site photo 08_44_08 PM",
+            "pdfPage": null,
+            "note": "orange flippers at the spreader corners (AI-processed appearance reference, not a dimension source)"
           }
         ]
       },
@@ -6089,18 +6151,19 @@
           44.9,
           -5.946
         ],
-        "radius": 0.35
+        "radius": 0.35,
+        "representation": "simplified-part"
       },
       "bounds": {
         "min": [
-          68.688774,
-          44.549999,
-          -6.278669
+          68.662933,
+          44.764999,
+          -6.456
         ],
         "max": [
-          69.371223,
-          45.25,
-          -5.61333
+          69.529999,
+          46,
+          -5.446
         ]
       },
       "cameraHint": null
@@ -6258,19 +6321,19 @@
         "kind": "estimated",
         "sources": [
           {
+            "drawing": "J526A2300",
+            "pdfPage": 1,
+            "note": "drum -> apex guide sheave -> falls between the apex sheave groups and the boom blocks at B-B (Z2) and C-C (Z3); falls per side simplified to 4 + 3"
+          },
+          {
             "drawing": "J526A00",
             "pdfPage": 1,
-            "note": "boom hoist rope reeving diagram: drum to the apex sheaves, multi-fall between apex and boom sheave groups"
+            "note": "boom hoist rope reeving diagram"
           },
           {
             "drawing": "J526A0500",
             "pdfPage": 1,
             "note": "rope dia 35.5"
-          },
-          {
-            "drawing": "J526A2300",
-            "pdfPage": null,
-            "note": "reeving sheet not detailed; number of falls simplified to 4 per side"
           }
         ]
       },
@@ -6278,14 +6341,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -32.788616,
-          53.86364,
-          -2.894975
+          -32.789337,
+          53.713894,
+          -2.364997
         ],
         "max": [
-          61.915627,
-          81.42363,
-          2.894975
+          62.515263,
+          82.580116,
+          2.679996
         ]
       },
       "cameraHint": null
@@ -6293,7 +6356,7 @@
     {
       "key": "boom.sheave.boom-block",
       "kind": "position",
-      "label": "Boom hoist sheave blocks on the boom",
+      "label": "Boom hoist sheave blocks on the boom (Z2 and Z3)",
       "parentKey": "container.boom",
       "classification": {
         "main": "03",
@@ -6318,14 +6381,14 @@
         "kind": "estimated",
         "sources": [
           {
-            "drawing": "J526A00",
+            "drawing": "J526A2300",
             "pdfPage": 1,
-            "note": "boom hoist rope reeving diagram: sheave group on the boom end of the falls"
+            "note": "sections B-B (28000, 1350, 1425 to the boom centreline) and C-C (62500, 1200, 1690); cross-beam and side plates simplified"
           },
           {
-            "drawing": "J526A2300",
-            "pdfPage": null,
-            "note": "reeving sheet not detailed; position at the outer forestay bracket (Z3) and size estimated"
+            "drawing": "J526A00",
+            "pdfPage": 1,
+            "note": "boom hoist rope reeving diagram"
           }
         ]
       },
@@ -6333,14 +6396,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          61.349998,
+          27.5,
           52.299999,
-          -3.03
+          -3.45
         ],
         "max": [
-          62.450001,
-          54.349998,
-          3.03
+          63,
+          54.75,
+          3.45
         ]
       },
       "cameraHint": null
@@ -6464,6 +6527,7 @@
       "pickable": true,
       "pickPriority": 60,
       "modes": [
+        "overall",
         "technical"
       ],
       "enclosure": false,
@@ -6483,22 +6547,23 @@
       "qualifier": "Location approximate / simplified representation",
       "hotspot": {
         "point": [
-          0.7,
-          1.4,
+          0.55,
+          1.2,
           7.9
         ],
-        "radius": 0.35
+        "radius": 0.35,
+        "representation": "simplified-part"
       },
       "bounds": {
         "min": [
-          0.358775,
-          1.05,
-          7.56733
+          0.33,
+          0.35,
+          7.62
         ],
         "max": [
-          1.041225,
-          1.75,
-          8.23267
+          0.75,
+          1.94,
+          8.18
         ]
       },
       "cameraHint": null
@@ -6570,6 +6635,7 @@
       "pickable": true,
       "pickPriority": 60,
       "modes": [
+        "overall",
         "technical"
       ],
       "enclosure": false,
@@ -6589,22 +6655,23 @@
       "qualifier": "Location approximate / simplified representation",
       "hotspot": {
         "point": [
-          0.7,
-          1.4,
+          0.55,
+          1.2,
           -7.9
         ],
-        "radius": 0.35
+        "radius": 0.35,
+        "representation": "simplified-part"
       },
       "bounds": {
         "min": [
-          0.358775,
-          1.05,
-          -8.23267
+          0.33,
+          0.35,
+          -8.18
         ],
         "max": [
-          1.041225,
-          1.75,
-          -7.56733
+          0.75,
+          1.94,
+          -7.62
         ]
       },
       "cameraHint": null
@@ -6676,6 +6743,7 @@
       "pickable": true,
       "pickPriority": 60,
       "modes": [
+        "overall",
         "technical"
       ],
       "enclosure": false,
@@ -6695,22 +6763,23 @@
       "qualifier": "Location approximate / simplified representation",
       "hotspot": {
         "point": [
-          -29.3,
-          1.4,
+          -29.45,
+          1.2,
           7.9
         ],
-        "radius": 0.35
+        "radius": 0.35,
+        "representation": "simplified-part"
       },
       "bounds": {
         "min": [
-          -29.641224,
-          1.05,
-          7.56733
+          -29.67,
+          0.35,
+          7.62
         ],
         "max": [
-          -28.958775,
-          1.75,
-          8.23267
+          -29.25,
+          1.94,
+          8.18
         ]
       },
       "cameraHint": null
@@ -6782,6 +6851,7 @@
       "pickable": true,
       "pickPriority": 60,
       "modes": [
+        "overall",
         "technical"
       ],
       "enclosure": false,
@@ -6801,22 +6871,23 @@
       "qualifier": "Location approximate / simplified representation",
       "hotspot": {
         "point": [
-          -29.3,
-          1.4,
+          -29.45,
+          1.2,
           -7.9
         ],
-        "radius": 0.35
+        "radius": 0.35,
+        "representation": "simplified-part"
       },
       "bounds": {
         "min": [
-          -29.641224,
-          1.05,
-          -8.23267
+          -29.67,
+          0.35,
+          -8.18
         ],
         "max": [
-          -28.958775,
-          1.75,
-          -7.56733
+          -29.25,
+          1.94,
+          -7.62
         ]
       },
       "cameraHint": null
@@ -9365,13 +9436,13 @@
       "bounds": {
         "min": [
           -32.630001,
-          -0.065345,
-          -13.36
+          -0.070292,
+          -14.215
         ],
         "max": [
-          -28.105,
+          -29.155001,
           56.43,
-          -9.7
+          -7.315389
         ]
       },
       "cameraHint": null
@@ -9420,13 +9491,13 @@
       "bounds": {
         "min": [
           -32.630001,
-          -0.065345,
+          -0.070292,
           -13.36
         ],
         "max": [
           -30.655001,
           54.555,
-          -9.9
+          -7.315389
         ]
       },
       "cameraHint": null
@@ -9434,7 +9505,7 @@
     {
       "key": "access.elevator.mast",
       "kind": "position",
-      "label": "Elevator mast (rack and supports)",
+      "label": "Elevator mast (rack, ties to leg B) and landing platforms",
       "parentKey": "container.access",
       "classification": {
         "main": "15",
@@ -9461,7 +9532,7 @@
           {
             "drawing": "J526A5100",
             "pdfPage": 1,
-            "note": "SC40 rack-and-pinion lift on the seaside face of landside leg B; top 53430 + 3000"
+            "note": "SC40 rack-and-pinion lift outboard of landside leg B along the rail (location plan, C-C); landings 6500 / 15615 / 47845 / 53430 flush with the stair platforms; mast top 53430 + 3000; supports 1-3 to the leg; mast section and tie spacing estimated"
           }
         ]
       },
@@ -9469,14 +9540,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -29.32,
-          0,
-          -10.55
+          -32.59,
+          0.9,
+          -14.215
         ],
         "max": [
-          -29.1,
+          -29.264999,
           56.43,
-          -9.85
+          -11.3
         ]
       },
       "cameraHint": null
@@ -9484,7 +9555,7 @@
     {
       "key": "access.elevator.car",
       "kind": "position",
-      "label": "Elevator car (shown at the first landing)",
+      "label": "Elevator car and drive unit (shown at the first landing)",
       "parentKey": "container.access",
       "classification": {
         "main": "15",
@@ -9511,7 +9582,7 @@
           {
             "drawing": "J526A5100",
             "pdfPage": 1,
-            "note": "car 1000 x 1000 x 2150; first landing 6500"
+            "note": "SC40, 400 kg / 4 persons, 0.7 m/s, 11 kW; car 1000 x 1000 x 2150 inside; door on the outer face (C-C); first landing 6500; wall, roof and drive-unit sizes estimated"
           }
         ]
       },
@@ -9519,14 +9590,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -29.105,
-          6.5,
-          -10.7
+          -30.584999,
+          6.35,
+          -13.17
         ],
         "max": [
-          -28.105,
-          8.65,
-          -9.7
+          -29.155001,
+          9.975,
+          -11.69
         ]
       },
       "cameraHint": null

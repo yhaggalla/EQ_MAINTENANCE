@@ -1,0 +1,46 @@
+ 
+4
+ 
+1. General 
+Rubber-tyred gantry crane is used for handling containers in stack yards and for 
+general cargo handling. 
+ 
+The Crane is supported by 8 (eight) rubber-tyres and powered with a 
+diesel-alternator set and battery system which supplies power through silicon 
+controlled rectifier (SCR) to every movement  drive.  The Crane may move freely 
+in the yard without the restrictions of trailing cable or external power source. The 
+Crane is equipped with a telescopic spreader which is able to handle 20’, 40’, 45’ 
+standard containers. The Crane is provided with 8 wire system to reduce spreader 
+sway and increase productivity. The Crane also has a spreader skewing device for 
+easier spotting of the container. A 90 and 360°wheel turning system allows ease 
+of movement. 
+ 
+The Crane is six plus one and one over six type. 
+ 
+The gantry frame of the Crane is box-section welded. The trolley rail track is put 
+on the upper girder. The equalizer beam is connected to the sill beam through a 
+hinged pin that is fixed with a keeper board. For each equalizer beam, there is two 
+bogie trucks and two rubber tyres. 
+ 
+Main hoist system is controlled by constant power which allows the automatically 
+adjustment of the hoisting speed due to the load. The main hoist has an overload 
+protection device and over-speed protection to ensure safe and efficient operation 
+of the Crane. 
+ 
+The trolley traversing is provided with AC control. An operator’s cab is put 
+beneath the trolley frame. Operator will operate the Crane in the cab. Trolley is 
+two-wheel driven type.  
+The gantry traveling is also AC control system. To prevent the collision with other 
+cranes and containers, auto-steering system and anti-collision system are 
+provided. 
+ 
+Protective system for the crane includes overload protection, diesel engine 
+over-speed protection, high water temperature and low oil (lubrication)pressure 
+signaling, anti-collision devices for gantry traveling located on four corner, 
+emergency stop buttons, spreader load indicator, limit switch for every movement 
+and signal indicators, etc. 
+ 
+The Crane has lighting and signaling equipment for operation at night. Gantry 
+traveling is provided with alarms. For intercommunication between the operator 
+and the dock the crane has telephones, a public address system and radio 
+speakerphone as well as Remote Control Management System. 

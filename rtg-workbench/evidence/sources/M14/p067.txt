@@ -1,0 +1,45 @@
+ 
+ 
+Chapter 3
+ 
+ 
+28 
+ 
+(6)  Cracks or repair welding cracks in wheels is not 
+allowable. 
+(7)  Disfigurement with area over 3cm2 and more than 
+three points on the same surface, the wheel shall be 
+replaced. 
+(8)  The rigidity of RTG is weaker than STS, make the 
+wheel without flange in order to reduce side force 
+to avoid rail gnawing, the wear of two side wheel 
+will different because of offset track.when the 
+diameter difference of two sides of the wheel over 
+3mm,change the wheels. 
+After inspection, if the wear of trolley travel wheel 
+reaches the values indicated in Table 2-16, replace the 
+wheel. 
+The items listed above should be checked 
+periodically in peacetime, monthly and yearly.
+ 
+ 
+ 
+ 
+Table 2-16：  Wear Limitation of Trolley Wheel 
+ 
+Original 
+dimension 
+Wear Limitation
+D 
+difference of the 2 driving wheel diameter  
+D1’- D1’（0.5%D） 
+ 
+500mm 
+485mm 
+2.5mm  
+ 
+630mm 
+610mm 
+3.15mm 
+ 
+ 

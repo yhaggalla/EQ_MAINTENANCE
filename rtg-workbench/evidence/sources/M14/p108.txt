@@ -1,0 +1,47 @@
+ 
+ 
+   Chapter 4 
+ 
+ 
+25 
+ 
+Figure 4-97 step16 
+Jack up the 2 hydraulic jacks simultaneously, make the 
+drive wheel out from ground(about up 50 mm from ground 
+surface), because the bolts and shear blocks have been 
+removed at the time, so the wheel will drop away by self 
+weight, for safety, some person should hold the wheel for  
+fear turnover. 
+ 
+Figure4-98 step17 
+Take down the drive wheel assembly, then move it to 
+specified position by forklift.(If the wheels don’t rotate 
+90°, because of carriage frame, fork lift can’t fork the 
+wheel easily, so let the wheel roll out from the frame first) 
+ 
+ 
+Figure4-99 step18 
+Note: Assembly procedure is just the reversal of 
+disassembly procedure of idle wheel 
+ 
+4.6.4  Replacement of tyre 
+8 wheels type gantry traveling device have 2 types of 
+wheel assembly which are drive wheel assembly and idle 
+wheel assembly, shown as figure 4-112. 16 wheels type 
+gantry traveling only has one type of wheel assembly as 
+shown in Figure 4-115.   
+ 
+ 
+Figure 4-112 8 wheels gantry traveling type 
+ 
+1 drive rim 
+2 
+baffle ring 
+3 tyre 
+4 baffle ring
+5 
+tyre 
+race 
+6 seal 
+7 lock 
+ring 

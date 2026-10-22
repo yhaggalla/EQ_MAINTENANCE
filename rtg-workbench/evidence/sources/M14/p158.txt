@@ -1,0 +1,122 @@
+ 
+ 
+       Chapter  6 
+ 
+ 
+2 
+  
+ 
+Painting not only embellishes the crane, but also 
+has great impact on protecting the structure from the 
+corrosion. Can crane structure reach the max design 
+lifetime is mostly decided by the anticorrosion care 
+and maintenance work of the crane. 
+This chapter will descript the surface 
+treatment, 
+painting 
+appilication, 
+repairing 
+technology, inspection and judgement standard 
+when crane manufacture. 
+6.1 general principles 
+6.1.1 suitable scope 
+The procedure covers the surface preparation, 
+materials and coating application requirements for 
+coating 
+the 
+fabricated 
+steel, 
+equipment 
+and 
+appurtenances of the container crane structures. 
+The color of finish coating is to be in accordance 
+with the owner’s requirement, while that of the primer 
+and intermediate coating shall be up to the 
+manufacturer’s availability. 
+6.1.2 standards and codes 
+The latest edition of the ASTM, the Steel 
+Structures Painting Council Surface Preparation 
+(SSPC-SP) and the International standard (ISO) 
+written Specifications are part of this Specification. 
+international standard 
+standard 
+discription 
+ASTM A123 
+Zinc 
+(Hot-Dip 
+Galvanized) 
+Coatings on Iron and Steel 
+Products 
+SSPC-SP-1 
+Solvent Cleaning 
+SSPC-SP-2 
+Hand Tool Cleaning 
+SSPC-SP-3 
+Power Tool Cleaning 
+SSPC-SP-10 
+Brush-off blast cleaning 
+SSPC-SP-COM 
+Surface 
+Preparation 
+Commentary 
+SSPC-PA2 
+Measurement of DFT with M. 
+Gauge 
+SSPC-SP-11 
+Power Tool Cleaning to Bare 
+Metal 
+ISO 8501 
+Visual assessment of surface 
+cleanliness 
+ISO 8502 
+Tests for the assessment of the 
+surface cleanliness 
+ISO 8502-6 
+Sampling soluble impurities on 
+surface to be painted 
+ISO 8503 
+Surface 
+roughness 
+characteristics of blast-cleaned 
+steel surface substrates. 
+ISO 8504 
+Preparation of steel substrates 
+before application of paints 
+and related products 
+6.1.3 surface treatment 
+1) All surfaces to be coated shall be clean of all 
+contaminants that would affect the integrity of the 
+coating system. Prior to surface preparation, the 
+surfaces shall be cleaned, as necessary, to remove all 
+oil, grease, dirt, salts or other foreign materials. This 
+cleaning shall be done with appropriate detergent 
+and/or solvent cleaning. Detergent or solvent cleaning 
+shall be performed as outlined in SSPC-SP-1. 
+2) SSPC-SP-3 。When approved, power tool 
+cleaning shall be as per SSPC-SP-3 and SSPC-SP-11.  
+Hand tool cleaning shall be as per SSPC-SP-2. 
+3) 50mm around the damaged part of the painting 
+need to be thinned to ensure the adhesive force for the 
+original painting and the new painting. 
+6.1.4 painting application 
+1）Surface need to be clean, dry and dust free 
+before apply ZP842 
+2）Apply ZP842 within 4 hours after the surface 
+treatment. 
+3 ）Coatings shall be applied under the 
+environmental conditions prescribed in the pertinent 
+ZPMC’s product data sheets. 
+4 ）Coat shall be applied as per ZPMC’s 
+recommendations. 
+5）Thickness requirements shall be met with each 
+coat and total thickness shall not be “made-up” in any 
+one coat. 
+6）Maximum recoating interval time shall be as 
+per ZPMC’s recommendations. 
+7）All areas around the corners, welding lines, 
+sharp edges, bolts and nuts should be applied with 
+shop primer before painting. 
+6.1.5 painting regulation 
+1) Structure exterior 
+Surface treatment according to SSPC-SP-3 power 
+tool cleaning, see 6.1.3 

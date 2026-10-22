@@ -1,0 +1,26 @@
+                                                                       Chapter  2 
+ 
+ 
+ 
+2-26
+6) 
+Backward slow down limit switch 
+Proximate limit switch. Suppose the trolley pass the slow down limit switch as 100% speed then the 
+trolley slow down, until 10% speed travelling.  
+ 
+7) 
+Parking position 
+No dedicated limit switch. At parking position, normally use the painting marker on the girder to 
+guide the operator parking the trolley.  
+ 
+8) 
+Entrence door limit switch of the operator’s cabin platform。 
+In the platform of the operator’s cabin, a proximate limit switch is setted at the entrence door. When 
+the switch is triggered, the operation of the trolley will be banned.  
+ 
+2.4.6 Operator’s cabin 
+In order to provide the best view for the driver, operator’s cabin is positioned under the trolley frame, and 
+connect the trolley with shock absorber. Left side of the operator’s cabin install the energy chain or festoon 
+system. The trolley will drive the cabin and cable together. The driver in the cabin can observe spreader’s 
+loading conditions. Arrangement of the operator’s cabin shown as in figure 2-35.  
+Figure 2-35 Arrangement of the operator’s cabin  

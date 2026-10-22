@@ -1,0 +1,64 @@
+ 
+ 
+   Chapter 4 
+ 
+ 
+37 
+ 
+underside of maintenance crane, to get the sheave down to 
+ground. 
+Lay the spreader to ground and slack the main hoist rope. 
+Take out wire rope from groove of sheave and fixed it. 
+Lock out crane motions which affect safety by proceeding 
+lockout, tag-out procedure. Shown in figure4-131 
+Get wire rope from the sheave need replacement with 2 
+chain blocks. 
+Take down sheave assembly including shaft. Here are the 
+methods according to different base types: 
+ 
+Horizontal sheave of 4 rope type. Remove the 
+2 covers on the top, remove 2 stop plates, then take 
+out the sheave as a whole assembly including shaft. 
+Refer to Figure 4-153 
+ 
+Figure4-153 horizontal sheave of 4 
+rope type  
+ 
+Vertical sheave of 4 rope type. Remove 4 
+bolts at both side, remove upper half support, then 
+take out sheave as a whole assembly including 
+shaft. 
+ 
+Figure4-154 vertical sheave of 4 
+rope type 
+ 
+Horizontal sheave of 8 rope type. Limited by 
+circumstance, part of sheave may be under motor. 
+So in this condition the sheave can’t be lifted 
+upright directly, the bolts between sheave support 
+and trolley structure should be removed firstly, then 
+take out the sheave together with support. The next 
+is removing 2 stop plates, then take out sheave as a 
+whole. Refer to figure 4-155.  
+Figure4-155 horizontal sheave of 
+8 rope type 
+ 
+Leaning sheave of 8 rope type. Horizontal 
+sheave of 4 rope type. Remove the 2 covers on the 
+top, remove 2 stop plates, then take out the sheave 
+as a whole assembly including shaft. Because the 
+sheave is leaning, side force should be applied 
+during operation. Refer to Figure 4-156 
+          Figure4-156 leaning sheave of 4 
+rope type 
+ 
+Vertical overhang sheave of 8 rope type. 
+Remove 2 stop plates, then take out the sheave as a 
+whole assembly including shaft. Shown in 
+Figure4-157. 
+Figure4-157 
+vertical 
+overhang 
+sheave of 8 rope type 
+Lay the sheave assembly on the ground, repair it in shop. 
+Figure4-158 

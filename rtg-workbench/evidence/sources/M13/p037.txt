@@ -1,0 +1,47 @@
+ 
+35
+ 
+Capacity 135Lx2 
+ 
+13.6 Common Trouble and Troubleshooting for the Crane 
+ 
+13.6.1 Classification of the Crane Troubles 
+ 
+The Crane is used for lifting and handling goods. It is used widely in modern 
+industry, transportation and capital construction. However, after a certain period 
+of operation some troubles may appear due to wear and increase of clearance or 
+fatigue of some major member or components. Therefore, the Crane operators 
+must learn to recognize common troubles an immediately repair the defective 
+members and components to ensure the Crane safe operation. 
+ 
+13.6.1.1 Trouble in mechanical part 
+ 
+Any assembly consists of a number of parts and components and these assemblies 
+form the mechanism of the Crane. Mechanical trouble with the RTG occurs mainly 
+in the diesel engine alternator set, motors, brakes, reducers, sheave blocks, drum, 
+coupling, spreader, traveling wheels etc. Surface wear occurs during their 
+movement, and when the wear reaches a certain value the Crane’s operation may 
+be affected. 
+ 
+Brakes are on of the essential components on the Crane and their performance 
+governs the accuracy of each movement and safety of operation. For the main 
+hoisting the brakes must be absolutely reliable. The brakes should be inspected at 
+every shift and adjusted if mainly due to poor action of the transmission system, 
+jamming of the pivot pins, worn out parts un-replaced or the clearance between 
+the brake pads  and brake disc is improperly adjusted. Sometimes failure of the 
+brakes results from trouble with the hydraulic thruster or the brake size is 
+inadequate with too small a braking torque. 
+ 
+In a Crane the reducers are used for main hoist, trolley traversing and gantry 
+traveling to transfer the mechanical torque and to reduce revolutions. The 
+performance of reducers directly affects the Crane’s safe operation. After a long 
+period of running, the teeth surfaces may suffer fatigue, pitting and wear that 
+results in abnormal noise, vibration and heating. Therefore, if any defects are 
+found in the reducer, they must be eliminated immediately. 
+ 
+The couplings are also used for torque transfer but the speed is unreduced. 
+Couplings are divided into rigid couplings and flexible couplings. Wear of the 
+teeth commonly results from poor installation with misalignment between the two 
+shafts coupled and poor lubrication. Serious wear of the teeth on the gear coupling 
+may cause failure of transmission and / or serious accident. 
+ 

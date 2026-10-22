@@ -1,0 +1,85 @@
+ 
+ 
+Chapter 3
+ 
+ 
+27 
+ 
+ 
+Figure 3-24： Tighten the clip 
+3.6.7 
+Inspection of gantry travel tires 
+The gantry travel is indispensable for operation by 
+this machine. Therefore, it is important to maintain the 
+travel wheels in normal state all times. The following 
+passages describe the inspection procedure of the wheel. 
+The gantry tires is easy influenced by foreign hard 
+things, so inspection of tires need be careful. Include 
+tires and steel ring. Ref to Figure3-35 and 3-36 
+The following items should be checked during the 
+daily, monthly, and annual periodical inspections 
+1) 
+Air pressure. The normal air pressure is 
+10kg/m2. the air pressure should between 
+9.6kg/m2 10.4kg/m2。 
+2) 
+Check the surface of tires,and need to clean 
+foreign thing,if find damage,and the depth of 
+damage is more than 10mm,should more 
+attention to check air leakage.if find air 
+leakage,change the tires. 
+3) 
+Gantry Acceleration will strike the tire, 
+especially turning tires without jack up device 
+will wear the tires,if find air leakage,change 
+the tires. 
+4) 
+Check 
+the 
+cycle 
+value. 
+if 
+find 
+air 
+leakage,change the value. 
+5) 
+No break on the surface. If more than 3 places 
+disfigurement with dimeter over 40mm, or 1 
+places disfigurement with dimeter over 
+100mm, the tyre shall be changed. 
+6) 
+Surface of tire may weared with long time 
+use.when the decorative pattern reduce two 
+thirds,change the tire. 
+7) 
+Chaping. 
+The 
+Surface 
+of 
+tire 
+may 
+chaped.when the depth of chaping is more 
+than 1mm,change the tire. 
+8) Check the tire contact with the steel ring, if find 
+air leakage, maybe the tire have quality problem or steel 
+ring is damaged.check the seal ring,if find rust, 
+deformation or damage,change the steel ring. 
+ 
+Figure 0-35 gantry tires 
+图0-36 tire 
+3.6.8 
+Inspection of trolley travel wheel 
+The trolley travel are indispensable for operation 
+by this machine. Therefore, it is important to maintain 
+the travel wheels and rail in normal state all times. The 
+following passages describe the inspection procedure of 
+the wheel. 
+The following items should be checked during the daily, 
+monthly, and annual periodical inspections. 
+(1)  Wear in treads and flanges 
+(2)  No flanges riding on rail 
+(3)  During traveling, both sides moving smoothly in 
+parallel 
+(4)  Abnormal noise or vibration 
+(5)  Wear in wheels, bearings, etc., developing evenly 
+for both legs. 

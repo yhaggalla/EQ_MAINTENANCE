@@ -92,6 +92,7 @@ function render({ focus = true } = {}) {
     if (doFocus && !keys.length && !container) { if (state.iso) viewer.fitKeys(['container.machinery-house']); else resetCurrentView(); }
     if (doFocus && (keys.length || container) && !viewer.boundsOf(container ? [container] : keys)) hint('This selection has no visible representation in this mode; camera unchanged.');
     viewer.setLabelCandidates(labelCandidates());
+    if (doFocus && labelFallback) hint(labelFallback + ' has nothing to label below it in this view; the labels show the level above.');
   }
 }
 
@@ -112,42 +113,51 @@ function resetCurrentView() { if (state.view) applyView(); else viewer.resetView
 const lab = (n) => n.label.replace(/ \((location|count).*\)$/i, '');
 const boundKeysWhere = (pred) => manifest.nodes.filter((n) => (n.kind === 'position' || n.kind === 'hotspot') && pred(n) && I().binding.has(n.key)).map((n) => n.key);
 function labelCandidates() {
-  const ii = I(); const out = []; const work = openWorkByKey();
+  // U1 round 2 (U1-C09): labels never disappear when a selection is made in the tree. The level below the selection
+  // is labelled; when it has nothing to label (no bound geometry), the selection's own level is labelled with the
+  // selection highlighted, and failing that the main mechanisms (tier 1). Off-screen labels are pinned to the edge.
+  const ii = I(); const work = openWorkByKey();
   const workOf = (keys) => keys.reduce((a, k) => a + (work.get(k) || 0), 0) || undefined;
   const partLabel = (n, extra) => ({ id: n.key, keys: [n.key], text: lab(n), badge: n.kind === 'hotspot' ? 'Approx.' : qualOf(n), work: work.get(n.key), allowHidden: true, tier: 3, next: n.kind === 'hotspot' ? { hotspot: n.key } : { part: ii.binding.get(n.key)?.positionId }, ...extra });
-  if (state.container) {
-    const ck = 'container.' + state.container;
-    for (const n of manifest.nodes) if ((n.kind === 'position' || n.kind === 'hotspot') && isDesc(n, ck) && ii.binding.has(n.key)) out.push(partLabel(n, { priority: 40, allowHidden: false }));
-  } else if (state.part) {
-    const p = ii.positions.find((x) => x.id === state.part); const s = p && ii.subs.find((x) => x.id === p.subId);
-    for (const n of manifest.nodes) if (s && (n.kind === 'position' || n.kind === 'hotspot') && n.classification.sub === s.code && ii.binding.has(n.key)) {
-      out.push(partLabel(n, n.key === p.semanticKey ? { priority: 100, selected: true } : { priority: 40 }));
-    }
-  } else if (state.sub) {
-    const s = ii.subs.find((x) => x.id === state.sub);
-    for (const n of manifest.nodes) if (s && (n.kind === 'position' || n.kind === 'hotspot') && n.classification.sub === s.code && ii.binding.has(n.key)) out.push(partLabel(n, { priority: 60 }));
-  } else if (state.main) {
-    const m = ii.mains.find((x) => x.id === state.main);
-    for (const s of ii.subs.filter((x) => x.mainId === state.main)) {
+  const tier3 = (s, selKey) => manifest.nodes.filter((n) => s && (n.kind === 'position' || n.kind === 'hotspot') && n.classification.sub === s.code && ii.binding.has(n.key)).map((n) => partLabel(n, n.key === selKey ? { priority: 100, selected: true } : { priority: selKey ? 40 : 60 }));
+  const tier2 = (m, selSubId) => {
+    const out = [];
+    for (const s of ii.subs.filter((x) => x.mainId === m.id)) {
       const keys = boundKeysWhere((n) => n.classification.sub === s.code); if (!keys.length) continue;
-      out.push({ id: s.id, keys, text: `${s.code} ${s.name}`, work: workOf(keys), allowHidden: true, tier: 2, priority: 60, next: { sub: s.id }, hint: `${s.code} ${s.name}: ${keys.length} position(s) / marker(s). Click to show its parts.` });
+      out.push({ id: s.id, keys, text: `${s.code} ${s.name}`, work: workOf(keys), allowHidden: true, tier: 2, priority: s.id === selSubId ? 90 : 60, selected: s.id === selSubId, next: { sub: s.id }, hint: `${s.code} ${s.name}: ${keys.length} position(s) / part(s). Click to show its parts.` });
     }
-    if (m && !state.iso) { const keys = boundKeysWhere((n) => n.classification.main === m.code); if (keys.length) out.push({ id: m.id + '-head', keys, text: `${m.code} ${m.name}`, selected: true, tier: 1, priority: 30, allowHidden: true, next: { main: m.id } }); }
-  } else {
-    for (const m of ii.mains) {
-      const keys = boundKeysWhere((n) => n.classification.main === m.code); if (!keys.length) continue;
-      out.push({ id: m.id, keys, text: `${m.code} ${m.name}`, work: workOf(keys), allowHidden: true, tier: 1, priority: 50, next: { main: m.id }, hint: `${m.code} ${m.name}: click to show its submechanisms.` });
-    }
+    return out;
+  };
+  const tier1 = (selMainId) => ii.mains.map((m) => { const keys = boundKeysWhere((n) => n.classification.main === m.code); return keys.length ? { id: m.id, keys, text: `${m.code} ${m.name}`, work: workOf(keys), allowHidden: true, tier: 1, priority: m.id === selMainId ? 90 : 50, selected: m.id === selMainId, next: { main: m.id }, hint: `${m.code} ${m.name}: click to show its submechanisms.` } : null; }).filter(Boolean);
+  const head = (m) => { const keys = boundKeysWhere((n) => n.classification.main === m.code); return keys.length && !state.iso ? [{ id: m.id + '-head', keys, text: `${m.code} ${m.name}`, selected: true, tier: 1, priority: 30, allowHidden: true, next: { main: m.id } }] : []; };
+  labelFallback = null;
+  if (state.container) {
+    const ck = 'container.' + state.container; const out = [];
+    for (const n of manifest.nodes) if ((n.kind === 'position' || n.kind === 'hotspot') && isDesc(n, ck) && ii.binding.has(n.key)) out.push(partLabel(n, { priority: 40, allowHidden: false }));
+    return out;
   }
-  return out;
+  const m = ii.mains.find((x) => x.id === state.main); const s = ii.subs.find((x) => x.id === state.sub);
+  if (state.part) {
+    const p = ii.positions.find((x) => x.id === state.part);
+    const t3 = tier3(s, p?.semanticKey); if (t3.length) return t3;
+  } else if (s) {
+    const t3 = tier3(s, null); if (t3.length) return t3;
+  } else if (m) {
+    const t2 = tier2(m, null); if (t2.length) return [...t2, ...head(m)];
+    labelFallback = `${m.code} ${m.name}`; return tier1(m.id);
+  } else return tier1(null);
+  // the selected sub or part has nothing to label: keep its main's submechanisms, else the main mechanisms
+  if (m) { const t2 = tier2(m, s?.id); if (t2.length) { labelFallback = s ? `${s.code} ${s.name}` : null; return [...t2, ...head(m)]; } }
+  labelFallback = (s && `${s.code} ${s.name}`) || (m && `${m.code} ${m.name}`) || null; return tier1(m?.id);
 }
+let labelFallback = null;
 function onLabel(c) {
   if (!c.next) return;
   const hiddenHere = state.mode === 'overall' && c.keys.length && c.keys.every((k) => !nodeOf(k).modes.includes('overall'));
   if (hiddenHere) state.mode = 'technical';
   if (c.next.hotspot) {
     if (hiddenHere) { writeURL(); render({ focus: false }); }
-    viewer.fitKeys([c.next.hotspot]); hint(lab(nodeOf(c.next.hotspot)) + ': location marker (approximate) of the selected submechanism.'); return;
+    viewer.fitKeys([c.next.hotspot]); hint(lab(nodeOf(c.next.hotspot)) + ': representative part of the selected submechanism (location approximate).'); return;
   }
   select(c.next);
   if (hiddenHere) hint('Switched to Technical mode: ' + c.text + ' is inside the structure or enclosure.');
@@ -196,7 +206,7 @@ function renderTree() {
         const n = nodeOf(p.semanticKey);
         rows.push({ level: 4, id: p.id, text: p.name, sel: state.part === p.id, next: { part: p.id }, q: qualOf(n), work: work.get(p.semanticKey) });
       }
-      for (const h of manifest.nodes.filter((x) => x.kind === 'hotspot' && x.classification.sub === s.code)) rows.push({ level: 4, id: 'h-' + h.key, text: 'Location marker: ' + h.label.replace(/ \(.*\)$/, ''), sel: false, next: { sub: s.id }, q: 'Approx.' });
+      for (const h of manifest.nodes.filter((x) => x.kind === 'hotspot' && x.classification.sub === s.code)) rows.push({ level: 4, id: 'h-' + h.key, text: 'Representative part: ' + h.label.replace(/ \(.*\)$/, ''), sel: false, next: { sub: s.id }, q: 'Approx.' });
     }
   }
   const tree = $('#tree');
@@ -208,7 +218,7 @@ function renderTree() {
       r.cnt !== undefined ? el('span', { class: 'cnt' }, r.cnt + ' pos.') : null,
       r.q ? el('span', { class: 'q', title: r.q === 'Approx.' ? 'Location approximate / simplified representation' : 'Estimated geometry' }, r.q) : null,
       r.work ? el('span', { class: 'wk', title: r.work + ' open job(s), synthetic' }, r.work) : null);
-    item.addEventListener('click', (ev) => { if (ev.target.classList.contains('tw') && r.hasKids && r.level > 1) { toggle(r.id); return; } select(r.next); });
+    item.addEventListener('click', (ev) => { if (ev.target.closest('.tw') && r.hasKids && r.level > 1) { toggle(r.id); return; } select(r.next); });
     item.addEventListener('keydown', (ev) => treeKey(ev, rows, i));
     return item;
   }));
@@ -260,7 +270,7 @@ function renderInfo() {
     const inside = manifest.nodes.filter((x) => (x.kind === 'position' || x.kind === 'hotspot') && isDesc(x, ck));
     const byMain = new Map(); for (const x of inside) { const m = x.classification.main; if (!byMain.has(m)) byMain.set(m, []); byMain.get(m).push(x); }
     parts.push(el('p', null, el('strong', null, n.label), ' is a spatial group, not a mechanism. Selecting it assigns no maintenance identity to its contents.'));
-    parts.push(el('p', null, `${inside.length} positions / location markers inside, grouped by main mechanism:`));
+    parts.push(el('p', null, `${inside.length} positions / representative parts inside, grouped by main mechanism:`));
     for (const [m, list] of [...byMain].sort()) {
       parts.push(el('h3', null, `${m} ${catalog.main.get(m)?.name || ''}`));
       parts.push(el('ul', { class: 'poslist' }, ...list.map((x) => el('li', null, el('a', { href: '#', onclick: (ev) => { ev.preventDefault(); goNode(x.key); } }, x.label)))));
@@ -280,8 +290,8 @@ function renderInfo() {
   } else if (state.sub) {
     const s = ii.subs.find((x) => x.id === state.sub);
     const pos = ii.positions.filter((x) => x.subId === state.sub); const hs = manifest.nodes.filter((x) => x.kind === 'hotspot' && x.classification.sub === s?.code);
-    parts.push(el('h3', null, `${s.code} ${s.name}`), dl(['Sub instance', code(s.id)], ['Positions', String(pos.length)], ['Location markers', String(hs.length)]));
-    if (hs.length) parts.push(el('p', { class: 'qual' }, 'Location markers are approximate and represent the submechanism, not an exact component: ', hs.map((h) => h.label).join('; ')));
+    parts.push(el('h3', null, `${s.code} ${s.name}`), dl(['Sub instance', code(s.id)], ['Positions', String(pos.length)], ['Representative parts', String(hs.length)]));
+    if (hs.length) parts.push(el('p', { class: 'qual' }, 'Representative parts show where the submechanism is (location approximate); they are not exact components: ', hs.map((h) => h.label).join('; ')));
     parts.push(el('ul', { class: 'poslist' }, ...pos.map((x) => el('li', null, el('a', { href: '#', onclick: (ev) => { ev.preventDefault(); select({ part: x.id }); } }, x.name)))));
     parts.push(...paramBlock(s.mainCode));
     parts.push(...histFor((j) => j.subId === s.id, 'Submechanism history (direct and descendant)'));
@@ -291,7 +301,7 @@ function renderInfo() {
     parts.push(...paramBlock(m.code));
     parts.push(...histFor((j) => j.mainId === m.id, 'Main mechanism history (direct and descendant)'));
   } else {
-    parts.push(el('h3', null, `${e.code} ${e.name}`), dl(['Status', `${e.statusText}${e.statusReason ? ' - ' + e.statusReason : ''} (synthetic)`], ['Model template', 'CICT-J526A-STS v1 (draft; association is synthetic, not a fleet fact)'], ['Overall height', `${manifest.landmarks.overallHeight.toFixed(3)} m to apex head (J526A00 marker 83356); 63 m is total lift, not height`], ['Positions', `${ii.positions.length} positions, ${manifest.nodes.filter((x) => x.kind === 'hotspot').length} location markers`]));
+    parts.push(el('h3', null, `${e.code} ${e.name}`), dl(['Status', `${e.statusText}${e.statusReason ? ' - ' + e.statusReason : ''} (synthetic)`], ['Model template', 'CICT-J526A-STS v1 (draft; association is synthetic, not a fleet fact)'], ['Overall height', `${manifest.landmarks.overallHeight.toFixed(3)} m to apex head (J526A00 marker 83356); 63 m is total lift, not height`], ['Positions', `${ii.positions.length} positions, ${manifest.nodes.filter((x) => x.kind === 'hotspot').length} representative parts (location approximate)`]));
     parts.push(...paramBlock('equipment'));
     parts.push(...histFor(() => true, 'Equipment history (all levels)'));
   }
@@ -367,8 +377,19 @@ async function main() {
     else if (!viewer.fitKeys(container ? [container] : keys)) hint('This selection has no visible representation in this mode; camera unchanged.');
   });
   // Reset: the full frame of the current view (aligned view stays aligned; perspective returns to the full-crane view).
-  $('#btn-reset').addEventListener('click', () => { if (!viewer || viewerState !== 'ready') return; resetCurrentView(); });
+  // U1 round 2 (U1-C10/C11): Reset returns to the whole-equipment state: no selection or isolation, labels on, the tree
+  // folded back to its initial state and the full view of the current view type (mode and aligned view are kept).
+  $('#btn-reset').addEventListener('click', () => fullReset());
   $('#btn-labels').addEventListener('click', (ev) => { const on = ev.currentTarget.getAttribute('aria-pressed') !== 'true'; ev.currentTarget.setAttribute('aria-pressed', String(on)); viewer?.setLabels(on); });
+  function fullReset() {
+    Object.assign(state, { main: null, sub: null, part: null, container: null, iso: false });
+    expanded.clear();
+    $('#btn-labels').setAttribute('aria-pressed', 'true'); viewer?.setLabels(true);
+    writeURL(); lastFocusKey = null;
+    render({ focus: true }); // lastFocusKey was cleared, so render() resets the camera of the current view once
+    hint('Reset: whole equipment, labels on, tree folded, full view.');
+  }
+  window.__qc.reset = fullReset;
   $('#view-select').addEventListener('change', (ev) => {
     state.view = ev.target.value; writeURL();
     if (viewer && viewerState === 'ready') { applyView(); if (!state.view) viewer.resetView(); else { const { keys, container } = selectionKeys(); if (keys.length || container) viewer.fitKeys(container ? [container] : keys); } }

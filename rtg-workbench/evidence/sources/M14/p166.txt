@@ -1,0 +1,78 @@
+ 
+ 
+       Chapter  6 
+ 
+ 
+10 
+  
+ 
+toal 
+100 
+ 
+galvanized surface (internal) 
+coats 
+product name 
+DFT( microns) 
+primer 
+Hempel’s Wash Primer 15552-11630 
+5 
+top coat 
+ZP842 
+75 
+total 
+125 
+ 
+repair area (a) external area(big area) 
+coats 
+product name 
+DFT( microns) 
+primer 
+ZP2704 
+50 
+intermediate 
+ZP842 
+125 
+top coat 
+ZP135 
+50 
+total 
+250 
+ 
+repair area (b) internal area(small area) 
+coats 
+product name 
+DFT( microns) 
+intermediate 
+ZP842 
+100 
+intermediate 
+ZP842 
+125 
+top coat 
+ZP135 
+50 
+ 
+repair area(internal) 
+coats 
+product name 
+ 
+DFT( microns) 
+top coat 
+ZP842 
+125 
+total 
+125 
+ 
+no painting parts 
+1 
+rail head 
+2 
+wheel tread 
+3 
+groove of wire drum and sheave  
+4 
+inside of drum 
+5 
+inside of airtight box and pipe 
+6 
+stainless steel and hot-dipped galvanized items 

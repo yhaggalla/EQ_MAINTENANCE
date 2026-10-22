@@ -1,0 +1,46 @@
+ 
+17
+ 
+the wheels and the rail track for abnormal matter and the connection welds and 
+bolts on the cab support. 
+ 
+7.5.6 Periodically grease every lubrication point to ensure normal lubrication. 
+ 
+7.5.7 For motors, reducers, reducer, couplings, etc. Maintenance shall be the same 
+as that for the main hoist. 
+ 
+Other content about reducer, please see the reducer operations manual  
+ 
+ 
+8. Gantry traveling 
+8.1 Composition of gantry traveling mechanism 
+ 
+The gantry traveling has eight (8) rubber-inflated tyres. Through a lever system 
+each tyred wheel can be rotated about its center by 16 and 90.  This process 
+must be performed under non-operational conditions and at the assigned location.  
+ 
+The tyres are SIEMX Product 21.00-35,40ply tubeless layers tubeless, The tyres 
+have with external safeguard. 
+ 
+The traveling mechanism has 4 flange-mounted A.C. motors, which drive 4 sets of 
+gear reducers.  
+ 
+In addition, the gantry traveling mechanism has the auto-steering and 
+anti-collision device, telephone by which one can communicate with the operator 
+in the cab, acoustic and visual alarm for traveling, etc. 
+ 
+8.2 Replacement of the gantry wheels 
+ 
+When the wheel or bearing or shaft is to be replaced or and support bracket is to 
+be repaired, this is carried out in no-wind weather and preparation work shall be 
+done before hand (various replacement parts put at hand). The trolley shall be 
+parked on one end of the girder (i.e., the end where the gantry wheels are not to be 
+replaced). The gantry leg shall be lifted by two 20 t jacks which shall be replace 
+under the reduce pedestal of the other wheel that is not to be replaced and fitted 
+under the same equalizer beam with the wheel to be replaced (or lift the jacking 
+support frame) to enable the wheel to be lifted off the ground and then the wheel 
+may be removed and replaced. 
+ 
+8.3 Points for Attention in Operation 
+ 
+After a long term of non-operation or after disassembly and re-assembly the Crane 

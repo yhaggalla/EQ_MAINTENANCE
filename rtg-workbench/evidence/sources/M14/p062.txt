@@ -1,0 +1,97 @@
+ 
+ 
+Chapter 3
+ 
+ 
+23 
+ 
+3.6.2 
+Inspection of temperature rise  
+Temperature rise is a phenomenon. Maintenance 
+personnel who well understand the temperature rise 
+condition can judge the working condition of the crane. 
+If there are no otherwise specifications, the temperature 
+rise of the bearing should not exceed 60 ºC (140ºF) and 
+the absolute temperature of the oil should be less than 
+85 ºC (185ºF). Infrared thermoscope is in common use. 
+See Figure 3-16. The following temperature raise 
+locations on the crane should be carefully inspected: 
+ 
+Figure 3-16 Infrared thermoscope 
+(1)  High-speed rotation supporting locations, such as 
+the motor bearings and the high-speed shaft 
+bearing of reducers mainly used in main hoisting 
+and trolley.  
+(2)  Heavy-load and slow speed supporting locations, 
+such as reducer low-speed shaft bearing, drum 
+bearing pedestal, wheel bearing and sheaves 
+bearing.  
+(3)  Hydraulic actuator temperature rise, such as the 
+hydraulic thruster of the brake (especially 
+hydraulic thrusters of main hoist and trolley travel 
+mechanisms), the relief valve and the throttle 
+valve.   
+(4)  Hydraulic oil reservoirs, such as the multifunction 
+pump, emergency brake, gantry wheel turning and 
+spreader hydraulic power unit.  
+Normally, the inspection of temperature rise 
+condition can be achieved by hand touch and judging if 
+the temperature is abnormal. When there is abnormal 
+temperature rise, it is often accompanied with 
+abnormal noise. If there is abnormal temperature, 
+specialized thermometer should be used to measure 
+and to aid in finding the cause of temperature rise. 
+Only after the problem is solved, should the operation 
+be resumed.  
+Generally, the causes of temperature rising are: 
+ Improper lubrication 
+ Improper gear meshing 
+ Bearing clearance is too loose or too tight 
+(or bearing damage) 
+ The alignment coupling can’t meet standard. 
+ Brake not fully released or not centered (one 
+side released but the other side still  touching the 
+disc) 
+ Hydraulic thruster oil internal leakage 
+ Abnormal operation of the relief valve  
+3.6.3 
+Inspection of abnormal noise 
+The main cause of mechanical noise is vibration, 
+impact noise, friction noise and structural transmitting. 
+Maintenance personnel who understand the noise 
+change can judge the operating condition of the crane 
+through daily noise observation. Generally, the 
+abnormal noise may be caused by improper gear 
+meshing, bearing damage, loose bearing clearances, 
+shaft bending, loose bolts, interference or motor fan 
+damage, lack of lubrication, etc.  
+Noise can be identified/isolated by using an industrial 
+stethoscope. 
+Noise measurement directly with ear 
+may be harmful to ears, so only do 
+this when necessary and for a short 
+period.
+Generally, the abnormal noise and temperature rise 
+happen simultaneously, such as when the bearing 
+clearance is too big or the brakes are not fully released, 
+and so on. Therefore timely noise inspections can 
+avoid many equipment failures.  
+3.6.4 
+Inspection of abnormal vibration 
+Vibration is usually related to noise and element 
+fatigue. Close attention should be paid to the abnormal 
+vibration during crane inspection, such as for the motor 
+base, gear reducer base and drum support rigidity, base 
+rigidity, bolt pre-tightening, misalignment of motor and 
+gear reducer, dynamic balance of coupling and static 
+balance of drum. 
+ The inspection sequence is generally started with the 
+check of alignment (radial and axial vibrations). If the 
+vibration still exists after adjustment, the coupling 
+should be removed and the motor checked separately.  
+After causes of the motor and loose bolts are 
+eliminated and dynamic balance of coupling are 
+checked, the coupling can be connected and the 
+high-speed shaft bearing of the gear reducer and should 
+be driven and checked. Generally, the problems caused 
+by improper gear meshing and lack of adequate rigidity 

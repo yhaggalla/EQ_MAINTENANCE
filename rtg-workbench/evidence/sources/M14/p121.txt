@@ -1,0 +1,42 @@
+ 
+ 
+   Chapter 4 
+ 
+ 
+38 
+ 
+  
+Figure4-158 step7 
+Knock out wheel shaft, be careful not to break the grease 
+hole. 
+ 
+Figure4-159 step8 
+Take down sheave assembly. If there are problems, remove 
+the cover bolts. 
+ 
+Figure4-161 step9 
+Pull out the upper half bearing with puller. Puller can be 
+tied to bolt holes of sheave cover, its claw could hook the 
+inner ring of bearing. 
+ 
+Figure4-162 step10 
+Take out inner spacer ring, outer spacer ring and so on. 
+ 
+Figure4-163 step 11 
+ 
+Figure4-164 outer spacer ring(brown part) 
+Turn over the sheave, take out the other half bearing by 
+same way. 
+Assemble the sheave to initial condition reversely 
+according to above method. 
+Recover the wire rope. Have a test run, then finish the 
+replacement of sheave. 
+ 
+4.9 Replacement and adjusting of horizontal 
+trolley wheel 
+To avoid  rail gnawing, trolley wheel normally has no rim. 
+Horizontal trolley wheel take over the leading function. 
+Each horizontal trolley wheel is composed by 1 bracket, 2 
+eccentric shafts, 2 wheels and bearings and etc. They are 
+fixed to trolley frame by bolts. Assembly drawing is shown 
+in Figure 4-194 & Figure 4-195. 

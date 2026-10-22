@@ -1,0 +1,75 @@
+                                                                     Chapter 2 
+ 
+ 
+ 
+5
+4
+3
+1
+2
+ 
+ 
+○
+1 wire rope 
+○
+2 sheave 
+○
+3 adjusting screw 
+○
+4 push rod 
+ 
+ 
+ 
+ 
+ 
+Figure 2-14 8 ropes reeving  
+ 
+ 
+2.4.4.3 Mirco-motion of the spreader 
+The spreader can skew, trim and horizontal side shift through different sides combined movements of 
+hydraulic or electric push rod. Operate the reset switch, can recover the normal position. Parameter of the 
+fuction shown as Table 2-2.  
+Table 2-2 parameter of mirco-motion 
+Reering 
+type  
+Fuctioin  
+Driving device  
+Parameter 
+Remarks  
+8 ropes 
+reeving 
+device  
+Spreader skew 
++/-5 
+Hydraulic or electric 
+push rod  
+±5º 
+Standard 
+confiuaration 
+Trim(left & 
+right)  
+ 
+±2.5º 
+This function is not 
+available for 8 rope 
+system 
+Gantry 
+direction side 
+shift  
+Hydraulic or electric 
+push rod  
+±200mm
+Optional 
+Trolley 
+direction side 
+shift  
+Hydraulic or electric 
+push rod  
+±200mm
+Optional 
+ 
+(1) Skew and horizontal sideshift fuction of the 8 ropes spreader 
+The hydro-cylinder mounted between headblock and spreader or the electric push rod install on the 
+spreader can achieve the skew and horizontal side shift fuction of the 8 ropes reeving system. The headblock 
+consist of main frame, cable basket, junction box and electric push rod. Through the cylinder push the spreader 
+to achieve skew and horizontal shift fuction. Shown as in Figure 2-18.  

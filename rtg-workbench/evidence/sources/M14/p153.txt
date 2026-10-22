@@ -1,0 +1,92 @@
+ 
+ 
+Chapter 5 
+ 
+ 
+27 
+ 
+ 
+5.6.2  Re-adjusting rope lengths 
+During reeving of the wire ropes, the lengths of the 8 
+ropes must be the same. If not, the stress of the 8 ropes 
+will vary greatly and the spreader slewing position will be 
+not correct. Re-adjusting rope lengths in 8-rope system is a 
+complicated problem and needs to study carefully. The 
+manpower and tools needed for the rope adjustment are 
+given in Table 5-11. 
+Table 0-8  Manpower and tools for the rope 
+adjustment 
+Description 
+Quantity 
+Notes 
+Man 
+power 
+Mechanical 
+3 
+With radios and 
+one 
+act 
+as 
+operator  
+Supervisor 
+1 
+With radio 
+Tools 
+Wrench 
+1 
+M12 
+Pliers 
+1 
+ 
+Chalk/ 
+Punched 
+tape 
+1 
+For marking 
+ The procedure of the 8-rope adjustment is as follows: 
+1) 
+Ensure that the RTG is in Maintenance Mode. 
+All other operations affecting the safety are 
+banned. 
+2) 
+Rotate the spreader to zero position. If having 
+tilting or translation function, the spreader also 
+needs to return to zero position. 
+2) 
+Move the trolley to the parking position. Lower the 
+spreader until it is 200~500mm to the ground to make 
+sure it is convenient to observe. 
+3) 
+Observe whether the rotating beam is in a level. 
+If not, adjust it by the adjusting screw. If the 
+rotating beam is in a level, the spreader has been 
+adjusted. Refer to Figure 5-38. 
+ 
+Figure 0-38 he adjusting screw on the 
+rotating beam 
+4) 
+Hoist the spreader until it is 40 feet to the 
+ground and check the height that the four corners of 
+the spreader are to the ground. Refer to Figure 5-39 
+and  
+record.
+ 
+Figure 0-39 The height of the spreader 
+inspection 
+5) 
+Move the trolley to opposite the parking position. 
+Check the height that the four corners of the 
+spreader are to the ground and record. 
+6) 
+Compare the two sets of values above and 
+determine the ground which is more smooth be 
+measuring datum. 
+7) 
+When the spreader is 40 feet to the ground, 
+measure the distance from the two closer corners 
+of the spreader to the gantry. The two measuring 
+points on the spreader and the gantry shall be 
+小
+平
+衡
+梁

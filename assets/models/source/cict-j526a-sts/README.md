@@ -36,7 +36,7 @@ The GLB and the manifest are byte-identical for the same inputs, generator files
 - One maintenance position = one glTF node named by its semantic key, with `extras.nodeKey` equal to the key. Instanced positions are resolved only through `instanceMaps` (carrier node name + ordered key list).
 - A key that has been bound to an active position must keep its meaning in later versions. Renaming or splitting a node requires an explicit Admin mapping; history is never moved by label, order or index (`tools/p03/check_bindings.mjs` demonstrates the refusal).
 - Containers (`container.*`) are spatial groups only and carry no classification. Decorative context (rails, quay) carries none either.
-- Hotspots mark a submechanism whose exact geometry or location is not established; they are technical-mode only and labelled approximate.
+- Hotspots mark a submechanism whose exact geometry or location is not established and bind to the sub instance, never to a position; they are labelled approximate. Since revision 3 each is drawn as a simple part that looks like the component (`manifest.nodes[].hotspot.representation = 'simplified-part'`); internal ones stay technical-mode only, external ones (floodlights, spreader corners, wheel brakes, cab A/C, tail hydraulic units) show in both modes.
 
 ## Changing the model
 
@@ -48,3 +48,7 @@ The GLB and the manifest are byte-identical for the same inputs, generator files
 ## Revision 2 of draft v1 (U1 repair, 22 October 2026)
 
 The draft was revised in place (manifest `revision: 2`) because no equipment binding is active (rule 4 above applies once a binding is active). No key was removed or renamed and no kind, classification or instancing changed; 12 nodes were added and two hotspots (111 skew system, 022 trolley tension) moved to the new `container.back-reach` at the girder tail. Report: `docs/evidence/U1/repair/model-revision-diff.json` (`node tools/u1/model_diff.mjs`). Count parameters (`unit: "count"`) are read with `N()` in `build.mjs`. The CICT logo texture is embedded by `generate.mjs` (see `textures/README.md`); decals are listed in `manifest.decals`, are not maintenance identities, and pick as their container.
+
+## Revision 3 of draft v1 (U1 round 2, 22 October 2026)
+
+Revised in place again (manifest `revision: 3`; no equipment binding is active). No key added, removed or renamed; kinds, classification and instancing unchanged (`node tools/u1/model_diff.mjs --out docs/evidence/U1/repair-r2/model-revision-diff.json`: 0 added, 0 removed, 0 identity changes). Geometry corrections from J526A0200, J526A2000 (Detail I), J526A2300, J526A5000 and J526A5100: load cells at the boom-tip rope-end anchors (U1-C12), girder-tail upper and lower platforms with stairs (U1-C13), apex platform, guide sheaves, fall-sheave groups and two boom sheave blocks (U1-C14), floodlight fittings under the girder and boom (U1-C15), elevator outboard of landside leg B with landings and every location ball replaced by a simplified part (U1-C16). `SceneBuilder.hotspot(key, o, build)` takes an optional builder for that part. New parameters are marked "U1 round 2" in `params.json`; the stair-tower flight count per segment was recounted (1 / 4 / 10 / 2). Draw calls (all modes) 194 of the 200 budget.

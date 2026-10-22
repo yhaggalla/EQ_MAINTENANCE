@@ -69,6 +69,13 @@ window.EQ = window.EQ || {};
     ['reeving.sheave.girder-tail', '011', 'Main hoist rope tail sheaves', 'serialized', 'ea', 1, 'component', 'estimated', 'J526A1000 p1'],
     ['cabin.operator.seat', '141', 'Operator seat', 'serialized', 'ea', 1, 'component', 'estimated', 'J526A3100 p1 item 10'],
     ['cabin.operator.consoles', '141', 'Operator control consoles', 'serialized', 'ea', 1, 'component', 'approximate-location', 'J526A3100 p1'],
+    // U1 round 2 (appended so existing position IDs stay unchanged): floodlights, drives, emergency drive, apex and boom
+    // hoist sheaves, so every main mechanism with a part on the crane has a label in the flat view (U1-C09, C14, C15)
+    ['auxiliary.lighting.boom', '131', 'Boom and girder floodlights', 'quantityLot', 'ea', null, 'electrical', 'approximate-location', 'Count and positions estimated (U1-C15)'],
+    ['electrical.drives.main', '071', 'Drive / inverter cabinets', 'serialized', 'ea', 1, 'electrical', 'approximate-location', 'Location approximate (electrical room, U-11)'],
+    ['emergency.drive.main', '161', 'Emergency hoist drive', 'serialized', 'ea', 1, 'component', 'approximate-location', 'J526A0300 emergency mechanism data; position approximate'],
+    ['boom.sheave.apex', '031', 'Apex boom-hoist sheaves', 'serialized', 'ea', 1, 'component', 'estimated', 'J526A2300 p1 Detail I and View A'],
+    ['boom.sheave.boom-block', '031', 'Boom hoist sheave blocks (Z2, Z3)', 'serialized', 'ea', 1, 'component', 'estimated', 'J526A2300 p1 sections B-B and C-C'],
   ];
   const RTG_T = [
     ['hoist.drive.motor.a', '011', 'Hoist motor A', 'serialized', 'ea', 1, 'component', 'n/a', 'Synthetic RTG template'],

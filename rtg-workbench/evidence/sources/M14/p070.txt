@@ -1,0 +1,96 @@
+ 
+ 
+Chapter 3
+ 
+ 
+31 
+ 
+3.6.11  Inspection of hydraulic thruster brake  
+Brake should be inspected periodically with items listed 
+hereinafter: 
+1) 
+Whether the brake lining and brake disk is clean 
+and not covered with oil dirt. 
+2) 
+Whether the arm bars of the brake are flexible. 
+3) 
+Inspect whether the belleville spring is broken or 
+hydraulic oil is leaked to the belleville spring 
+through inspection window of the brake cylinder. 
+Repair or replace the failure part if the break or 
+leak happened. 
+4) 
+Inspect whether the push rod of the limit switch is 
+loose and the action is right. 
+ 
+Attention! Hydraulic thruster brake 
+cylinder has especial structure inside 
+and connecting proprietary technology. 
+So don’t disassembly it yourself and 
+avoid belleville spring collapsing and 
+hurting the people. Replace the fault 
+cylinder as one piece. 
+  
+5) 
+Inspect the abrasion condition of the brake lining. 
+If the attrited thickness of the brake lining is over 
+40% of the original thickness of the friction 
+material, a new brake lining should be set. 
+3.6.11 Inspection of brake disc 
+DANGER! Any grease on the brake 
+disc will cause the substantive drop of 
+the brake torque. 
+ 
+Inspection of the brake disc is very important to the 
+safety of the crane operation.  
+Periodically check if the brake disc is contaminated. 
+Any oil or grease on the disc must be cleaned with 
+detergent or solvent immediately.  
+Also check the brake disc surface roughness. If the 
+disc is damaged, scoring or cracked, if anything is found 
+as shown in Table 3-17 , the brake disc should be 
+replaced.
+Table 3-17：  Standards for Brake Disk Changing 
+ 
+Main hoist
+Trolley drive 
+Main hoist emergency brake 
+Brake disc thickness 
+30mm 
+30mm 
+40mm 
+Wear limitation 
+27mm 
+27mm 
+36mm 
+Convex or concave on the 
+disc surface 
+2mm 
+2mm 
+3mm 
+Brake lining wear limit 
+Attrited thickness should not more than 40% of base thickness. Interface 
+between brake lining and brake disk should not less than 75%. The brake 
+lining with adust face or aging should be replaced. 
+3.6.12 Inspection of shaft and axle sleeve 
+ 
+Some parts of the crane, such as equalizer pin of 
+gantry is equipped with shaft + axle sleeve (copper 
+sleeve commonly, sometimes copper sleeve with 
+plumbago lubrication). Check if the pin and bushing are 
+well lubricated and rotates relatively freely. The relative 
+rotation always happens between the bushing and the 
+pin. The bushing should stand still in the housing, so no 
+wear should occur on the outer diameter of the bushing. 
+The abrasion form of the shaft and axle sleeve and the 
+measure should be taken are listed hereinafter. 
+1. Sort according to the abrasion form which is 
+shown in Figure 3-28. 
+ 
+   Figure 3-28 Abrasion form of shaft hole 
+1) symmetrical wear  
+2) wear induced by unilateralism load 
+3) wear induced by bidirectional load 
+4) wear only on the both sides 
+2. Measure while the hole is worn. 
+1) replace the worn axle sleeve  

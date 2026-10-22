@@ -1,0 +1,104 @@
+ 
+ 
+       Chapter  6 
+ 
+ 
+4 
+  
+ 
+3) Abrasive Blasting Cleaning 
+Prior to abrasive blast cleaning of the steel, 
+remove oil and grease and other contaminations with a 
+suitable detergent / solvent, according to SSPC-SP1 
+“Solvent cleaning”. 
+All welding seams must have a surface finish that 
+ensures that the quality of the paint system will be 
+maintained in all respects. The sharp edges should be 
+smoothed and the radius of the rounding should be 
+approximately 1 mm. Holes in welding seam, 
+undercuts, cracks, residual flux and weld spatter etc. 
+should be avoided. If found, they must be remedied by 
+welding and/or grinding. 
+Steelwork (including welding, flame-cutting and 
+grinding) must be finished before the surface 
+preparation starts. 
+Prior to abrasive blasting, sight glasses, nametags, 
+machinery, electrical fixtures, etc. which are subject to 
+damage from either the blast or from the abrasive 
+material remaining shall be protected. If possible, 
+nametags should be installed after painting is complete. 
+If it is not possible to coat under the tags, their edges 
+shall be sealed with silicone to prevent moisture 
+accumulation. 
+Blasting shall be accomplished so that the 
+previously-painted surfaces will not be contaminated 
+by abrasive or blast wastes. 
+Only dry steel grits, silica sand and aluminum 
+silicate grit-type abrasives shall be used (refer to ISO 
+8504). The abrasive shall comply with government 
+regulations. The abrasive shall be used in accordance 
+with ZPMC’s Specifications and shall contain no 
+harmful impurities, such as salt. Beach sand or 
+rounded river sand is not acceptable. 
+All steel surfaces shall be abrasive blasting to 
+obtain: 
+Steel Surface Blasting Treatment 
+item 
+instrcution 
+Cleanliness 
+SSPC SP No.10 “Near White Blast 
+Cleaning” 
+“Sa 2.5” according to ISO 8501 or 
+“Near White Blast Cleaning”- SSPC 
+SP No.10. 
+Roughness 
+N9a to N10a (Ra = 6-12.5 micron) - 
+Rugotest No.3, Keane-Tator Surface 
+Compactor, 2-3 mils segments 
+(average maximum peak to valley 
+roughness 50-75 micron). 
+condition 
+Should be below No.3 scale as per 
+ISO 8504 
+Surfaces shall not be abrasive blast cleaned when 
+the ambient or the substrate temperature is less than 
+3°C above the dew point temperature. Blast cleaned 
+surfaces, which show evidence of rust bloom or has 
+been left uncoated overnight, shall be re-cleaned to the 
+specified degree of cleanliness. 
+Steel surface slivers, laminations, laps, scabs or 
+seams exposed by blasting shall be repaired on any 
+portion of the steel to be painted prior to coating. Such 
+area shall be re-blasted prior to coating. 
+No inhibitive washes intended to prevent rusting 
+shall be used after blasting. 
+Welding undercuts and porosities shall be 
+repaired by welding or grinding. No organic filler 
+materials are allowed. 
+When the abrasive blasting is completed, remove 
+all grits and dust. 
+Surfaces, which are impractical to blast clean 
+may be power tool or hand tool cleaned. Power 
+tool cleaning shall be in accordance with 
+SSPC-SP 11 or 3, listed in order of preference. 
+Hand tool cleaning shall be as per SSPC-SP-2. 
+4) Galvanized Surface 
+Generally， galvanized surface noneed to be 
+painted. 
+For better rust prevention, parts of the crane 
+galvanized components will be painted, such handrail. 
+Using detergent or solvent cleaning to clean the 
+surface dirts, no to break the galvanized surface when 
+using hand or power cleaning, otherwise zinc lay need 
+to be repaired. 
+6.2.3 shop primer 
+1) surface preparation 
+All steel plates, bars etc., which are to be coated 
+with shop-primer, must be abrasive blasted to Sa2.5 
+and surface profile equivalent to Rugotest No3 N9a to 
+N10a. Also refer to Paragraphs 6.1.3 
+When the abrasive blasting is completed, remove 
+all grits and dust. 
+2) When the treated surface is dry and free from 
+oil, dust, etc. ZP01704 should be applied by airless 
+spraying machine immediately on the automatic line.  

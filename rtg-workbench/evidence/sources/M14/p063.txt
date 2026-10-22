@@ -1,0 +1,92 @@
+ 
+ 
+Chapter 3
+ 
+ 
+24 
+ 
+of the installation base can be found during test 
+running.  
+If the vibration happens after the crane is put into 
+operation for a certain period, loss of alignment, loose 
+bolts, excessive bearing clearance or improper gear 
+meshing usually cause the vibration problem.  
+3.6.5 
+Inspection of crack 
+Crack inspection sometimes can prevent failure or 
+disaster of a crane at its early phase. The inspection of 
+crack consists of inspection of the driving parts, the 
+connecting parts and the structural parts. The cracks 
+are normally caused by fatigue and happen on locations 
+of fatigue source, stress concentration, and repeated 
+stress effect. 
+(1)  Driving parts: such as driving shaft, wheel, gear, 
+sprocket, sheave, coupling, braking wheel (disc), 
+bearing and so on.  
+(2)  Connecting parts: such as fixed shaft, wheel shaft, 
+sheave shaft, structural connecting pin shaft, 
+headblock connecting pin, spreader twistlock and 
+so on.  
+(3)  Structural parts: welding seam and base material.  
+The method of structural inspection can be visual 
+inspection, which can be judged through the surface 
+paint film. If the base material or welding seam is 
+cracked, the paint film will be also cracked. Telescope 
+can be used to inspect pre-determined regularly 
+inspecting locations. If there is any suspicion after 
+visual inspection, MT or UT inspection can be applied. 
+Please refer to the Steel Structure Maintenance 
+Program for details. Driving or connecting parts can 
+also be checked during maintenance when they are 
+knocked down.  
+3.6.6 
+Inspection of rail & rail clips 
+3.6.6.1. 
+Rail installation tolerances 
+When designing a complete container handling system, 
+the problems of the crane rail track never appear to be 
+insignificant, and that is important to crane’s using.  
+Failures of rails, to a great extent, can be attributed to 
+improper lying of rail during foundation work or the 
+crane or trolley may not be tracking accurately. If the 
+crane is used with curved or uneven leveled runway 
+rails, its structural members can be twisted causing 
+high stresses. Accordingly, the bolts in joints may be 
+loosened and the bases of the various machines on the 
+steel structure may be distorted. Thus, crane 
+performance may be impaired. 
+In order to prevent such troubles, at the time of annual 
+inspection, measure the level, straightness, span, etc. of 
+the trolley travel rail and gantry span and keep their 
+records. Also, carefully inspect the trolley travel rail for 
+cracks. If measured dimensions are not within the 
+allowable tolerance in  Table 3-15, immediately repair 
+or replace the trolley travel rail. 
+ 
+Table 3-15： Permissible Tolerances for Trolley Travel Rails 
+Inspection items 
+Measuring Method 
+Maintenance tolerance 
+Lateral 
+Straightness 
+Measured by a 
+transit or piano 
+wire 
+d4＝±4mm 
+ 
+Span (S) 
+Measured by a 
+steel tape 
+measure 
+ d2=10mm 
+ 
+Difference in 
+height 
+Measure by a 
+transit or a water 
+level 
+d3＝±10.3 mm 
+0.15% of span 
+ 
+Slope or grade 
+Less than1/200 

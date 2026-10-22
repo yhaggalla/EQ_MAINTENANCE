@@ -1,0 +1,144 @@
+ 
+ 
+Chapter 5 
+ 
+ 
+15 
+ 
+ 
+Table 0-1 Number, reached or exceeded, of visible broken wires in single-layer and parallel-closed 
+Ropes working in steel sheaves, signaling mandatory discard of rope1 
+Rope 
+category 
+Number  
+RCN2 
+Number of load 
+–bearing wires in all 
+outer strands of the 
+rope3 (n) 
+Number of visible broken wires4 
+Mechanism 
+group 
+of 
+M1~M4 
+Mechanism group of 
+M5~M8 
+in rope over a length of 5 
+in rope over a length of 
+6d 
+30d 
+6d 
+30d 
+01  
+n ≤ 50  
+2 
+4 
+4 
+8 
+02  
+51≤n ≤ 75  
+3 
+6 
+6 
+12 
+03  
+76 ≤ n ≤ 100  
+4 
+8 
+8 
+8 
+04  
+101 ≤ n ≤ 120  
+5 
+10 
+10 
+20 
+05  
+121 ≤ n ≤ 140  
+6 
+11 
+11 
+22 
+06  
+141 ≤ n ≤ 160  
+6 
+13 
+13 
+26 
+07  
+161 ≤ n ≤ 180  
+7 
+14 
+14 
+29 
+08  
+181 ≤ n ≤ 200  
+8 
+16 
+16 
+32 
+09  
+201 ≤ n ≤ 220  
+9 
+18 
+18 
+36 
+10  
+221 ≤ n ≤ 240  
+10 
+19 
+19 
+38 
+11  
+241 ≤ n ≤ 260  
+10 
+21 
+21 
+42 
+12  
+261 ≤ n ≤ 280  
+11 
+22 
+22 
+44 
+13  
+281 ≤ n ≤ 300  
+12 
+24 
+24 
+48 
+21  
+4-strand 
+ropes, 
+n 
+≤100   
+2 
+4 
+4 
+8 
+22  
+3 or 4- strand ropes，
+n ≥100 
+2 
+4 
+4 
+8 
+23  
+At least 10 outer 
+strands 
+2 
+4 
+4 
+8 
+1: Above values usually apply to ropes working in sheaves that are made of steel with 
+multi-layer coiling. They do not apply to ropes working in sheaves that are made of nylon 
+with single-layer coiling  
+2: Detail rope category number RCN. Where: 
+05-Including rope of 6XFi(29)-IWRC, 07-Including rope of 6X36WS-IWRC usually used for 
+main hoist. 23-Rotation-resistant rope usually used for maintenance vehicle. 
+3: Filler wires are not regarded as load-bearing wires and are not included in the value of n. In 
+ropes having a number of layers of strands, only the visible outer layer is considered in the 
+value of n. In ropes having a steel core, this is regarded as an internal strand and is not 
+considered in the value of n. 
+4: A broken wire may have two ends. 
+5: d=nominal diameter of rope. 

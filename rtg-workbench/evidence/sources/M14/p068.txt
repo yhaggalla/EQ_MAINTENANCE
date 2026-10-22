@@ -1,0 +1,90 @@
+ 
+ 
+Chapter 3
+ 
+ 
+29 
+ 
+3.6.9   Inspection of rope sheaves, drums, idler 
+and slap block 
+3.6.9.1. 
+Sheave 
+If the following symptoms are found, check the 
+wire rope for wear and replace the sheave at the same 
+time of replacing the wire rope. 
+(1) The flange is damaged or deformed  
+(2) The wear in the flange is 10% or more of the 
+diameter of the wire rope used. 
+(3) A trace of the wire rope lay can be observed at 
+the bottom of the sheave grooves 
+(4) The wear in the sheave groove is 15% or more 
+of the diameter of the wire rope used.Refer to 
+Figure 3-25. 
+ 
+Figure 3-25 limits of wear in sheave groove 
+ 
+Refer to Figure 3-25 for limits of wear 
+in sheave groove. The symbol “d” 
+indicates the diameter of the wire rope 
+used. 
+ 
+3.6.9.2. 
+Drum 
+Periodically check the drum groove for corrugation 
+and excessive wear. 
+The wear limit in the drum groove is 20% of the 
+diameter of the wire rope used. Refer Figure 3-26. 
+There should be no crack in drum groove, wire 
+rope fixing point and drum axis. 
+ 
+ 
+Figure 3-26 Limits of wear in drum groove 
+3.6.9.3. 
+Inspection of rope support roller and Slap 
+Block 
+The inspection of the rope support roller is described as 
+follows: 
+(1) Verify that roller rotates freely. 
+(2) Determine the anti-friction material is peeling, aged 
+or worn out. The wear resistant roller ring shall be 
+replaced when the amount of wear reaches 50% of its 
+original thickness. Make sure that the worn roller ring 
+has been replaced before the wire rope penetrates the 
+thickness of the roller to expose the base metal of the 
+roller shaft. If this happens, the wire rope will rub 
+against the metal to cause the abrasion failure of both 
+the wire rope and the roller shaft.  
+3.6.10 
+Inspection of the spreader 
+As a direct performer of loading container, the 
+load handling device’s reliability is very important. 
+Please refer to the spreader maintenance manual to get 
+the information about the detail of the spreader’s 
+maintenance standard. Following routine inspection to 
+the load handling device are suggested in handing over 
+or taking over: 
+1) The reliability of twistlock connected with 
+headblock and spreader. 
+2) Check the structure in the headlock and spreader to 
+eliminate damage, incomplete fusion or weld crack 
+in the parts easily to be stroked. Check lubricating 
+condition on the slide surface of flex arm and slide 
+rail. 
+3) Lubricating and movement condition of key parts 
+such as twist lock pin and peak-pin, reliability of 
+twist lock pin locknut. 
+4) The tightness of all the limit-board of spreader, the 
+integrity of limite switch, the correctness of signal. 
+5) The reliability of cable used in spreader, and 
+whether there is sudden damage. 
+6) The abrasion and damage condition of the head of 
+twist lock of spreader. 
+7) The damage condition of guide-flipper of spreader. 
+8)  Any leakage of hydraulic system and oil lever of 
+oil tank. 
+3.6.10.1  Inspection of twist lock pin 
+The twist lock pins become weaker against crack due to 
+wear and hardening caused by extended use. Therefore, 
+perform the following inspection once a year. 
+Perform the MT test or tint check. 
+Repair or replace the parts on condition 

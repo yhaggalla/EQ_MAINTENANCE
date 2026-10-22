@@ -1,0 +1,46 @@
+ 
+10
+ 
+noise is found check the steel rail, the trolley wheels and the shaft etc. 
+ 
+5.3.2 Regularly check for deformation and welds of the trolley frame. Pay special 
+attention to the wheel shafts and take appropriate measures immediately after any 
+abnormal condition is found. 
+ 
+5.3.3 Frequently check the welds and the affected zone of the major members. Pay 
+attention to all support points and remedy defects immediately after they are 
+found. Check bolts for their tightening. 
+ 
+5.3.4 If a convex-concave surface is found on the box-section structure, the crane 
+should be stopped and the cause should be examined and removed. 
+ 
+5.3.5 Any damage to the paint on the structural members should be immediately 
+touched up. 
+ 
+6.  Main Hoist 
+6.1 Drive device 
+ 
+The drive mechanism of the main hoist is installed at the center part of the trolley 
+and consists of an A.C. motor, a high speed flexible coupling, a gear reducer, a low 
+speed teeth-type coupling which drives the wire rope drum, two high-speed 
+brake， and tachometer, over-speed protection, limit protection, etc. The motor 
+drives the reducer through a flexible coupling and drives the drum through the 
+teeth-type coupling to wind up or pay out the eight set of wire ropes which in turn 
+lift or lower the spreader. The disc brake is fitted on the reducer high speed shaft 
+ends. The teeth-type coupling has a grease nipple fitting to grease it periodically 
+and a drainage hole is at 180 degree opposite the fitting to discharge old grease. 
+Wear of the teeth-type coupling should be inspected periodically. The brake disc 
+should be replaced if it is worn to the value equal to 30% of its thickness. Each of 
+the braking torque of the disc brake shall be 1.25 times greater than the motor 
+output torque.  
+ 
+The four stage cylindrical helical gear reducer has a centre-to-centre distance of 
+1565 mm, and its high speed and low speed shafts are laid on the same horizontal 
+plane. The reducer casing is the split type and split at the gear wheel’s centre. The 
+split baying surface is sealed with sealing glue. An oil drainage valve and an oil 
+level indicator with scales are on the lower casing underneath the low speed shaft 
+to control the lubrication. A manhole hatch cover is on the lower casing at the high 
+speed shaft end bottom for cleaning the inner portion of the reducer casing. The 
+cover casing has an air breather and inspection hole. Two setting pins are provided 
+together with the foundation bolts of the reducer for easier spotting during 
+installation of the reducer. The main hoist drum is made of plate steel with a 

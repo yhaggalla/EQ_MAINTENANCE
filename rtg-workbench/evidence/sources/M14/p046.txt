@@ -1,0 +1,94 @@
+ 
+ 
+Chapter 3
+ 
+ 
+7 
+ 
+3.3.2 
+Inspection of bolts 
+Due to alternating loading in working the bolts may 
+be loosened. In order to reduce stress amplitude, the bolts 
+shall be pretightened to set value.  
+Periodic inspection is aimed to insure the bolts loaded 
+uniformly. Replace the bolts having yield and been 
+lengthened or the deficiency-worried onebefore fatigue 
+broken. 
+Specification should be carried out during the 
+downtime of the crane. There are two methods about the 
+fastener specification ：visual check and using wrest 
+wrench，and visual check is mostly used  
+3.3.2.1. 
+ Visual check 
+Using the following methods to visually 
+checking, refer to the Figure 3-55:  
+2
+3 
+ 
+Figure 3-5：Methods of Finding a Loosened Bolt 
+1) 
+The sound of a pointed hammer hitting the head 
+of a bolt can indicate the looseness/tightness of 
+the bolt. 
+2) 
+The position between the nut and the connecting 
+part should be visually checked (during the 
+fabrication in the ZPMC’s facility, the positions 
+between some critical nuts and connecting parts 
+will be marked out with a marking pen). If the 
+marking positions are deviated, it indicates that 
+the bolts are loose. 
+3) 
+The paint film of nuts and connecting parts can 
+also be visually inspected. If the paint film has 
+fracture, the bolts should be inspected. 
+3.3.2.2. 
+Use the torque spanner 
+A. Common fasteners（excluding the Fasteners used 
+for metal structures） 
+1) 
+Before inspection, the crane should be off 
+working and make the bolts idly without 
+working stress. 
+2) 
+If needed, remove all the dirt and paint on the 
+fasteners. Spray a thin layer of oil-lubricant rust 
+remover (CRC or other equate product) on the 
+nut and washer. The lubricant rust remover is 
+functioned after 10~20 minutes. 
+3) 
+Mark the original location by a marking pen on 
+the nut and on the joint surface of the structure 
+and the washer (shown at Figure 3-6 ). 
+ 
+Figure 3-6：Marked bolt 
+4) 
+An initial tension of 75% of the final tension 
+shall be developed.  
+5) 
+Check the nut: if the nut can be turned, make it 
+out by a marking pen or painting and refasten or 
+replace it later on.  
+6) 
+If needed, the bolt joint should be replaced. 
+7) 
+Repeat the process 3)-6) to inspect the other bolt 
+joints.    
+8) 
+The rotating nut should be refastened after the 
+loosing the bolt and according to the methods 
+mentioned in the section 3.3.3.3-A. 
+9) 
+The non-rotating nut should be refastened 
+according to 10) ~11) step by step. 
+10) Turn the nut about 30°by a torque spanner to 
+loosen the nut. 
+11) Refasten the nut to its pretightening torque 
+requirement. 
+12) Remove all the dirt and use the proper solvent to 
+clean bolts, nuts, washer and places around the 
+joint surface of the structure, and then repair the 
+damaged paints according to paint repairing 
+process. 
+B. Fasteners structures（take the flanged connection 
+as an example） 

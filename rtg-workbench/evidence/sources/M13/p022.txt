@@ -1,0 +1,46 @@
+ 
+20
+ 
+  Period:  routine and once a month 
+ 
+9.2.2.2 Check that lubrication is correct 
+ 
+Lubrication shall be done in accordance with the lubrication schedule. 
+  Period:  routine 
+ 
+9.3 check sheaves 
+9.3.1 Sheaves 
+ 
+9.3.2 Check whether the sheave bearing is overheated. It is necessary to inspect the 
+inner part if the temperature of the casing is higher than the ambient temperature 
+by 50C. 
+ 
+9.3.3 Check whether bolts on the hollow cover are loosened and if the rope groove 
+is worn. 
+  Period:  routine 
+ 
+9.3.4 Limit switches 
+ 
+9.3.4.1 Check whether the securing nuts of the limit switches are loosened. 
+ 
+9.3.4.2 Check whether their position has shifted. 
+  Period:  routine 
+ 
+ 
+10. Power Unit 
+ 
+10.1 Composition 
+ 
+The power unit of the Crane consists of the diesel engine and battery system, CAT 
+CT by Caterpillar, and an alternator TYFZ18000-280L-G by Zhejiang Zhongyuan. 
+Horse power of the diesel engine is 150 kW, and the alternator has power of 
+180kW. The whole power unit has a common base frame so that the set may be 
+replaced and repaired. The engine starting, accelerating, stopping may be 
+controlled either in the engine room or from the operator cab. 
+ 
+The engine is provided with protection from overheating by cooling water, low 
+pressure of lubrication oil, over-peed and frequent starting, etc. When the water 
+temperature is too high or lubrication oil pressure is too low, the fuel throttle 
+(accelerator) is shut off and acoustic and visual alarms will be sent to the operator 
+cab. The starting time shall not exceed 30 seconds for one time or less than 5 times 
+of 10 seconds. When engine is too frequently started, it is automatically protected, 

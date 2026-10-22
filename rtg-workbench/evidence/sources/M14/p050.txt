@@ -1,0 +1,106 @@
+ 
+ 
+Chapter 3
+ 
+ 
+11 
+ 
+Table 3-6：Anti-loosening methods of the bolts used on the container crane 
+METHODS 
+Instruction /application 
+Figure for example 
+using 
+anti-loosing 
+glue 
+The anti-loosing glue is often used in the fields with 
+limited place, for example used on the fixing bolts of the 
+anti-abrasion block for the wire rope. 
+ 
+Lock 
+washer 
+and  
+Fastening with 
+wire rope  
+ 
+Both of these methods are comparatively reliable and 
+have been widely used. Such methods are commended to 
+be used in the fields without space restriction for example 
+on the running or moving parts like braking disk, sheave 
+and so on to prevent it from falling or flying off when the 
+bolts are loosened.  
+ 
+Nylon 
+anti-loosing nut 
+SPL nut  
+Double nuts 
+Nylon anti-loosing nut is the most widely used and it is 
+reliable to anti-loose when matching with bolts. 
+ SPL nut has a strict requirement on the retightening 
+torque and the nuts can be reused. 
+Double nuts are not used commonly on the crane for 
+inconvenience. 
+ 
+ 
+ 
+ 
+Spring 
+washer 
+or 
+other 
+anti-loosing 
+washer 
+Spring washer is not very reliable and usually generates 
+yellow water when used outdoors. Usually they are not 
+used in ZPMC’S crane. But in some outsourcing or 
+unimportant parts the stainless steel washers are still used. 
+ 
+3.4 
+Inspection of alignment 
+For rotary components such as couplings, inspection 
+of alignment should be completed periodically. The 
+alignment of couplings has great influence on the 
+mechanism running and life. Therefore, the coupling 
+alignment should be checked periodically. In the first year 
+that the crane is brought into service, the inspection cycle 
+should be shorter, e.g., once per three months. After the 
+mechanism get stable in the service, the inspection cycle 
+can be lengthened suitably. This inspection mainly 
+contrapose the motor coupling and drum coupling of main 
+hoist, and trolley travel drive and the motor coupling of 
+gantry travel drive. The standard of alignment is 
+determined by the request of motor’s alignment and the 
+style of coupling. Figure 3-3 shows the main check items 
+of coupling’s alignment. Table 3-7 shows the standard’s 
+detail of coupling’s alignment. 
+ 
+ 
+ 
+ 
+Figure 3-3 The check items of coupling’s 
+alignment 
+ 
+Table 3-7：The standard’s detail of coupling’s 
+alignment 
+Part 
+Style of 
+coupling 
+Δr 
+（mm） 
+Δb 
+Δa
+（mm）
+Main 
+hoist 
+high-speed 
+coupling  
+flexible 
+coupling 
+≤0.08 
+0.18 
+mm 
+＝Δr
+Radial misalignment               Δr 
+Gap(angular displacement)          Δb 
+Axial displacement                Δa 
+Correct
+Wrong 

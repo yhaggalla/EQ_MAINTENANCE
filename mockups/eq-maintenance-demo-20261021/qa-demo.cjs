@@ -1,0 +1,21 @@
+const {createRequire}=require('module');
+const fs=require('fs');const path=require('path');const {pathToFileURL}=require('url');
+const req=createRequire('C:/Users/yasas/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/probe.js');
+const {chromium}=req('playwright');
+const dir=__dirname;fs.mkdirSync(path.join(dir,'qa'),{recursive:true});
+(async()=>{
+ const browser=await chromium.launch({channel:'msedge',headless:true,args:['--enable-unsafe-swiftshader','--use-angle=swiftshader']});
+ const page=await browser.newPage({viewport:{width:1600,height:1060},deviceScaleFactor:1});
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto(pathToFileURL(path.join(dir,'index.html')).href,{waitUntil:'load'});
+ await page.waitForFunction(()=>window.Mockup);
+ console.log('INITIAL',JSON.stringify(await page.evaluate(()=>({equipment:Mockup.getState().equipment.length,jobs:Mockup.getState().jobs.length,parts:Mockup.getState().parts.length,view:Mockup.getUI().view}))));
+ await page.screenshot({path:path.join(dir,'qa','01-fleet-desktop.png'),fullPage:true});
+ await page.locator('.page-heading [data-action="open-eq"]').click();
+ await page.waitForFunction(()=>window.Mockup.getModelInfo()?.triangles>0,{timeout:20000});
+ await page.waitForTimeout(800);
+ console.log('MODEL',JSON.stringify(await page.evaluate(()=>Mockup.getModelInfo())));
+ await page.screenshot({path:path.join(dir,'qa','02-qc-explorer-desktop.png'),fullPage:true});
+ console.log('ERRORS',JSON.stringify(errors));
+ await browser.close();
+})().catch(e=>{console.error(e);process.exit(1)});

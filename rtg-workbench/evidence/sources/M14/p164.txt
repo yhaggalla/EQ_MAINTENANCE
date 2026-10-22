@@ -1,0 +1,85 @@
+ 
+ 
+       Chapter  6 
+ 
+ 
+8 
+  
+ 
+drawn with the tip of a drill bit applied on a coating, 
+the coating is considered to be in good condition. If the 
+coating is peeled off, repainting is required. 
+3) Deterioration of coating 
+The coating may be easily removable due to 
+external impacts and internal dissolution of the coating 
+itself. 
+Judgment for repainting: 
+If the coating is vertically and slightly struck with 
+a steel hammer of 5-10 mm diameter, it may become 
+easily removable or be actually removed. 
+If the coating is vertically and slightly struck with 
+a steel hammer of 5-10 mm diameter, the intermediate 
+coating or the top coating may be removed. 
+Such a coating is considered to be deteriorated 
+and requires repainting. 
+4) Cracks in coating 
+Cracks in a coating occur due to the following 
+causes and in the following ways. Refer to Figure A-1 
+“Crack in Coating” for diagnosis 
+If the crack occurs soon after painting, the cause 
+possibly lies in improper painting or poor painting 
+preparation (Applying top coating before the primer 
+dries up etc.) 
+The cause of cracks possibly lies in the aging of 
+the coating caused by the shrink and the expansion of 
+the painted steel due to temperature change.  
+In some cases, cracks can occur by sudden 
+temperature change. (Take a special measure for 
+painting in a cold area where temperature changes 
+excessively.) 
+ 
+（a）           （b） 
+ 
+（c）            （d）     
+a: Cracks only on top coating b: Cracks only on top 
+coating c: Cracks only in intermediate coating or 
+primer d: Cracks in both top coating and 
+intermediate/primer 
+cracks of the coating 
+Judgment for repainting: 
+For the State of A and C. No immediate 
+re-painting is required from the view of coating 
+protection. However, the severe cracks may possibly 
+develop into the state D shown in Figure A-1 
+For the State of B. The top coating is ineffective 
+and requires re-painting. Re-paint it according to the 
+primer protection effect and the rust condition.  
+For the state of D. In most cases, rust also occurs. 
+Repair the painting as soon as possible. 
+5) swelling of coating 
+The causes are considered to be the 
+followings: 
+In a cold area, the whole coating may be removed 
+in frozen state due to the swelling which once occurred. 
+Refer to Figure 6.2-2 “Surface View of Swelled 
+Coating”. The swelling could be caused due to: 
+Coating soaked in water 
+A drop of water heated in high temperature on the 
+coating  
+Affected by alkali and acid 
+Affected by heat 
+Judgment for repainting: 
+If swellings occur in both the top coating and 
+primer and rust may develop, repainting is required. 
+If the swelling occurs only in the top coating and 
+no rust is found on the steel surface, no immediate 
+repainting is required. 
+Coating 
+Surface 
+Condition 
+ 
+ 
+ 
+ 
+Coating 
+Section

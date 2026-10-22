@@ -34,6 +34,8 @@ const st = () => E('JSON.stringify(window.__qc.state)').then(JSON.parse);
 const posKey = (id) => E(`window.__qc.positions().find(p=>p.id===${JSON.stringify(id)})?.semanticKey`);
 const idOfKey = (k) => E(`window.__qc.binding().get(${JSON.stringify(k)})?.positionId`);
 const settle = () => sleep(900); // > 650 ms focus transition
+// U1 round 2: wait for a running camera transition to finish (software rendering can stretch the 650 ms tween)
+const settleCam = async () => { await sleep(300); for (let i = 0; i < 30; i++) { if (await E('!window.__qc.viewer || window.__qc.viewer._tween === null')) break; await sleep(100); } await sleep(150); };
 
 try {
   // 1 load
@@ -209,9 +211,9 @@ try {
     rec('p02-link-opens-p03-selection', 'P03 integration into the P02 review flow', href && key4 === 'hoist.drive.motor.a' && s4.mode === 'technical' && s5.sub === 'si-q01-011' && !s5.part && /not in the drawing-derived v1 template/.test(hint5), { href, resolvedKey: key4, placeholderOnlyKey: { href: href2, state: s5, hint: hint5 } });
   } catch (e) { rec('p02-link-opens-p03-selection', 'P03 integration into the P02 review flow', false, 'P02 server on 5312 not reachable or link missing: ' + e.message); }
   // ---------------- U1 repair checks (U1-C03..C07) ----------------
-  const labelTexts = () => E(`JSON.stringify([...document.querySelectorAll('.qc-label')].map(e=>e.textContent))`).then(JSON.parse);
+  const labelTexts = () => E(`JSON.stringify([...document.querySelectorAll('.qc-label')].map(e=>e.textContent.replace(/^[\u2190-\u2199]/, '')))`).then(JSON.parse); // U1 round 2: strip edge-pin arrows
   const clickLabel = async (re) => {
-    const r = await E(`(()=>{const e=[...document.querySelectorAll('.qc-label')].find(x=>${re}.test(x.textContent)); if(!e) return null; const b=e.getBoundingClientRect(); return JSON.stringify({x:b.left+b.width/2,y:b.top+b.height/2,t:e.textContent})})()`).then((x) => (x ? JSON.parse(x) : null));
+    const r = await E(`(()=>{const e=[...document.querySelectorAll('.qc-label')].find(x=>${re}.test(x.textContent.replace(/^[\u2190-\u2199]/,''))); if(!e) return null; const b=e.getBoundingClientRect(); return JSON.stringify({x:b.left+b.width/2,y:b.top+b.height/2,t:e.textContent})})()`).then((x) => (x ? JSON.parse(x) : null));
     if (!r) return null; await clickAt(r.x, r.y); await settle(); return r.t;
   };
   const camSig = () => E(`JSON.stringify({p:window.__qc.viewer.camera.position.toArray().map(v=>+v.toFixed(2)),t:window.__qc.viewer.controls.target.toArray().map(v=>+v.toFixed(2)),type:window.__qc.viewer.camera.type,zoom:+window.__qc.viewer.camera.zoom.toFixed(3)})`).then(JSON.parse);
@@ -259,7 +261,10 @@ try {
   await E(`window.__qc.select({ part: ${JSON.stringify(hinge)} }, { focus: false })`); await sleep(200);
   await E(`document.querySelector('#btn-fit').click()`); await settle();
   tb.fitSelection = await E(`(()=>{const v=window.__qc.viewer;const c=v.boundsOf(['boom.hinge.a']).getCenter(v.controls.target.clone());return c.distanceTo(v.controls.target)<0.05})()`);
-  await E(`document.querySelector('#btn-reset').click()`); await settle(); tb.reset = JSON.stringify((await camSig()).p) === JSON.stringify(reset0.p);
+  // U1 round 2 (U1-C10): Reset now also returns to the whole equipment (selection cleared), so the selection is made again
+  // before the aligned-view checks below (the P03/U1 version expected Reset to keep the selection).
+  await E(`document.querySelector('#btn-reset').click()`); await settleCam(); tb.reset = JSON.stringify((await camSig()).p) === JSON.stringify(reset0.p) && !(await st()).part;
+  await E(`window.__qc.select({ part: ${JSON.stringify(hinge)} }, { focus: false })`); await sleep(200);
   await E(`document.querySelector('#btn-labels').click()`); await sleep(200); tb.labelsOff = (await labelTexts()).length === 0;
   await E(`document.querySelector('#btn-labels').click()`); await sleep(200); tb.labelsOn = (await labelTexts()).length > 0;
   tb.views = {};
@@ -272,6 +277,7 @@ try {
     const z = await camSig();
     await E(`document.querySelector('#btn-reset').click()`); await sleep(300); const r = await camSig();
     tb.views[v] = a.type === 'OrthographicCamera' && fitOk && z.zoom > a.zoom && r.type === 'OrthographicCamera' && r.zoom === 1;
+    await E(`window.__qc.select({ part: ${JSON.stringify(hinge)} }, { focus: false })`); await sleep(150); // Reset cleared it (U1-C10)
   }
   await E(`(()=>{const s=document.querySelector('#view-select'); s.value=''; s.dispatchEvent(new Event('change'))})()`); await sleep(400);
   tb.backToPerspective = (await camSig()).type === 'PerspectiveCamera' && (await E('window.__qc.viewer.controls.enableRotate'));
@@ -284,6 +290,54 @@ try {
   await E(`document.querySelector('[data-mode="technical"]').click()`); await sleep(500);
   const logoTech = await E(`(()=>{let l=null;window.__qc.viewer.root.traverse(o=>{if(o.userData.decalOf) l=o});for(let p=l;p;p=p.parent) if(!p.visible) return false; return true})()`);
   rec('u1-model-content', 'U1-C03, U1-C04, U1-C06', mc.missing.length === 0 && mc.logo && mc.logoTexture && mc.logoTexture[0] === 512 && mc.logoVisibleOverall === true && logoTech === false, { ...mc, logoVisibleTechnical: logoTech });
+  // ---------------- U1 round 2 (U1-C09..C16) ----------------
+  const labelsNow = () => E(`JSON.stringify([...document.querySelectorAll('.qc-label')].map(e=>({t:e.textContent, edge:!!e.dataset.offscreen})))`).then(JSON.parse);
+  // 25 labels stay on the crane after any tree selection (every main, a sub and a part); off-screen ones are edge-pinned
+  await open('?eq=eq-qc-demo-01', 1366, 768); await settle();
+  const perMain = {};
+  for (const m of await E(`JSON.stringify([...document.querySelectorAll('#tree [aria-level="2"]')].map(e=>e.dataset.id))`).then(JSON.parse)) {
+    await E(`document.querySelector('#tree [data-id="${m}"]').click()`); await settle(); perMain[m] = (await labelsNow()).length;
+  }
+  await E(`document.querySelector('#tree [data-id="si-q01-011"]').click()`); await settle(); const subN = (await labelsNow()).length;
+  await E(`document.querySelector('#tree [data-id="${motorA}"]').click()`); await settle(); const partL = await labelsNow();
+  rec('u1r2-labels-persist-after-tree-selection', 'U1-C09, U1-C08', Object.values(perMain).every((n) => n >= 1) && subN >= 2 && partL.length >= 2 && partL.some((l) => /motor A/.test(l.t)), { perMain, subN, partLabels: partL });
+  // 26 Reset returns to the whole equipment with labels and the initial tree folds (mode is kept)
+  await E(`document.querySelector('#btn-iso').click()`); await settle();
+  await E(`document.querySelector('#btn-labels').click()`); await sleep(200);
+  const before26 = { labels: (await labelsNow()).length, expanded: await E(`document.querySelectorAll('#tree [aria-expanded="true"]').length`) };
+  await E(`window.__qc.viewer.resetView(true)`); await sleep(150); const r26cam = await camSig();
+  await E(`window.__qc.select({ sub: 'si-q01-031' })`); await settle();
+  await E(`document.querySelector('#btn-reset').click()`); await settleCam();
+  const s26 = await st();
+  const after26 = { labels: (await labelsNow()).length, pressed: await E(`document.querySelector('#btn-labels').getAttribute('aria-pressed')`), expanded: await E(`JSON.stringify([...document.querySelectorAll('#tree [aria-expanded="true"]')].map(e=>e.dataset.id))`).then(JSON.parse), search: await E('location.search'), cam: await camSig() };
+  const tier1n = await E(`JSON.stringify((()=>{const m=window.__qc.manifest;const keys=m.nodes.filter(n=>(n.kind==='position'||n.kind==='hotspot')&&window.__qc.binding().has(n.key));return new Set(keys.map(n=>n.classification.main)).size})())`).then(JSON.parse);
+  rec('u1r2-reset-whole-equipment', 'U1-C10, U1-C11', before26.labels === 0 && !s26.main && !s26.sub && !s26.part && !s26.container && !s26.iso && after26.pressed === 'true' && after26.labels === tier1n && JSON.stringify(after26.expanded) === '["eq"]' && after26.search === '?eq=eq-qc-demo-01&mode=technical' && JSON.stringify(after26.cam.p) === JSON.stringify(r26cam.p), { before26, after26, state: s26, tier1n });
+  // 27 tree fold icons work both ways, also on the selected mechanism
+  await E(`document.querySelector('#tree [data-id="mi-q01-01"]').click()`); await settle();
+  const exp = () => E(`JSON.stringify([...document.querySelectorAll('#tree [aria-expanded="true"]')].map(e=>e.dataset.id))`).then(JSON.parse);
+  const f0 = await exp(); await E(`document.querySelector('#tree [data-id="mi-q01-01"] .tw').click()`); await sleep(200); const f1 = await exp();
+  await E(`document.querySelector('#tree [data-id="mi-q01-01"] .tw').click()`); await sleep(200); const f2 = await exp();
+  await E(`document.querySelector('#tree [data-id="mi-q01-02"] .tw').click()`); await sleep(200); const f3 = await exp();
+  rec('u1r2-tree-fold-both-ways', 'U1-C11', f0.includes('mi-q01-01') && !f1.includes('mi-q01-01') && f2.includes('mi-q01-01') && f3.includes('mi-q01-02') && (await st()).main === 'mi-q01-01', { f0, f1, f2, f3 });
+  // 28 model content for U1-C12..C16 (manifest geometry, not appearance)
+  const mc2 = await E(`JSON.stringify((()=>{const m=window.__qc.manifest;const n=(k)=>m.nodes.find(x=>x.key===k);const b=(k)=>n(k).bounds;const L=m.landmarks;
+    const hot=m.nodes.filter(x=>x.kind==='hotspot');
+    return {markers: hot.filter(x=>x.hotspot.representation!=='simplified-part').map(x=>x.key), hotspots: hot.length,
+      loadcell: b('hoist.loadcell.main'), boomTip: L.boomTipX, trolleyRail: L.trolleyRail,
+      flood: b('auxiliary.lighting.boom'), floodModes: n('auxiliary.lighting.boom').modes,
+      car: b('access.elevator.car'), mast: b('access.elevator.mast'), legZ: L.legCentreSpacing/2,
+      head: b('structure.a-frame.head'), apexSheave: b('boom.sheave.apex'), overall: L.overallHeight, aTop: L.aFrameTop,
+      tail: b('access.platform.girder-tail'), tailX: L.girderTailX, blocks: b('boom.sheave.boom-block'), hingeX: L.hingeX}})())`).then(JSON.parse);
+  const c28 = {
+    noBallMarkers: mc2.markers.length === 0 && mc2.hotspots === 19,
+    loadcellAtBoomTip: mc2.loadcell.min[0] > mc2.boomTip - 4 && mc2.loadcell.min[1] > mc2.trolleyRail - 0.5,
+    floodlightsAlongGirderAndBoom: mc2.flood.min[0] < -40 && mc2.flood.max[0] > 60 && mc2.flood.max[1] < 50.6 && mc2.floodModes.includes('overall'),
+    elevatorOutboardOfLegB: mc2.car.max[2] < -mc2.legZ - 1.2 && Math.abs((mc2.car.min[0] + mc2.car.max[0]) / 2 + 30) < 1 && mc2.mast.max[1] > 56 && mc2.mast.min[0] < -31,
+    apexPlatformAndGuard: Math.abs(mc2.head.max[1] - mc2.overall) < 0.01 && mc2.head.max[0] - mc2.head.min[0] > 5 && mc2.apexSheave.max[1] > mc2.aTop + 1.5,
+    tailEndPlatformBeyondGirder: mc2.tail.min[0] < mc2.tailX - 3 && mc2.tail.min[1] < 50.8,
+    twoBoomBlocks: mc2.blocks.min[0] < mc2.hingeX + 29 && mc2.blocks.max[0] > mc2.hingeX + 62,
+  };
+  rec('u1r2-model-content', 'U1-C12, U1-C13, U1-C14, U1-C15, U1-C16', Object.values(c28).every(Boolean), { checks: c28, ...mc2 });
   rec('no-console-errors-overall', 'S16', b.errors().filter((e) => !/404|Not Found|model request failed|WebGL/i.test(e)).length === 0, b.errors());
 } catch (e) {
   rec('harness-exception', '-', false, String(e && e.stack || e));

@@ -1,0 +1,90 @@
+ 
+28
+ 
+1.4 
+Damage and torsion on spreader cable 
+Visual 
+1.5 
+Loosening of securing bolts 
+Visual 
+2. 
+If the various joysticks return to off position 
+Visual 
+3. 
+Any oil leakage at various oil pumps and hoses 
+Visual 
+4. 
+If various bearings, gears and other lubricated parts 
+are normal 
+Activation 
+5. 
+Any abnormal heating 
+Visual 
+6. 
+Any fracture or damage on various components 
+Visual 
+7. 
+If the power switch is disconnected 
+Starting 
+8. 
+If power pack is switched off 
+Visual 
+9. 
+If various components are clean 
+Visual 
+10. 
+If the operator’s cab door is locked  
+Visual 
+11. 
+Operation log and record of container handling  for 
+shift transferring 
+ 
+ 
+ 
+13.3.2.2 The objective of this inspection is to find out defects between monthly 
+inspections. 
+ 
+ 
+Inspection time 
+Inspection items 
+Inspection method 
+ 
+After operation  
+ 
+1. any loosening of bolts and damage of 
+bearings 
+Visual 
+2. any loosening of various pins, key 
+boards and end stopper boards 
+Visual 
+3. any torsion, damage, cracks of 
+festoon cable and any loosening , 
+corrosion of terminals 
+Visual 
+4. 
+activation 
+of 
+electric-magnetic 
+contacts, knife switch, etc. 
+Activation 
+ 
+ 
+13.3.2.3 Items Inspected every month, every year 
+ 
+The objective of regular inspection is to inspect the major parts of the Crane in 
+detail and to propose disassembly and repair when necessary and to find out 
+trouble that are not found during routine and weekly inspection and propose 
+repairing. Regular inspection is divided into monthly and annual inspection. 
+ 
+ 
+ 
+ 
+Category 
+Monthly Inspection 
+Annual Inspection 
+Inspection Items 
+Inspection Items 
+ 
+ 
+1. Loosening of securing bolts 
+1. Corrosion of steel 

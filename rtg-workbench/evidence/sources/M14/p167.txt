@@ -1,0 +1,52 @@
+ 
+ 
+       Chapter  6 
+ 
+ 
+11 
+  
+ 
+6.5 EUROPEAN RUST SCALE 
+  
+  
+  
+ 
+Re0   
+ 
+ 
+     Re1 
+ 
+ 
+ 
+ 
+Re2  
+ 
+        Re3 
+   
+  
+   
+ 
+Re4                Re5                      Re6                Re7 
+Ten different rusting degrees are in the European rust scale. Figure 6-3 shows 8 stages’ description. 
+The approximate percentages of rusting degree corresponding to the photos are shown as follow. These 
+percentages apply only to visible rust which has broken the paint coating. These percentages figures are intended for 
+the use of those who wish to refer to percentage as well as to the photo-graphs. 
+Re0 
+0% 
+Re4 
+3% 
+Re1 
+0.05% 
+Re5 
+8% 
+Re2 
+0.5% 
+Re6 
+15~20% 
+Re3 
+1% 
+Re7 
+40~50% 
+ 
+ 
+ 

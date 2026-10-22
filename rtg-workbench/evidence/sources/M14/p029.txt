@@ -1,0 +1,70 @@
+                                                                     Chapter 2 
+ 
+ 
+ 
+7
+ 
+2.4.4.4 Load sensor 
+The crane is equipped with four load sensors. These load sensors connect to the four wire ropes of the main 
+hoist reeving device, they measure the tension of each wire rope separately, and allow the PLC and CMS 
+calculate and record the load and load eccentricity. The model of load sensors is shown in table 2-3. Basic 
+element of weighing system comprises four sensors and an amplifier. Each load sensor will detect tension of one 
+rope. Four tension signals come into analog signal by amplifier. After conversion the analog output signal to the 
+digital meter in operator cabin and display the load in tons.  
+ 
+The crane monitor the load sensor though the PLC. Under normal operation conditions, the system will 
+identify the size of lifting rigging connected to the spreader. Programmable logic controller calculates the 
+allowable eccentrically load according to the size of lifting rigging. If over load, it’ll stop the hoisting and over 
+load alarm sound out from PA. At this time, the crane could only lower the goods in limit speed.  
+ Specification of the load sensor shown as Table 2-3.  
+ 
+Table 2-3 Specification of the load sensor 
+Pin shaft 
+type sensor 
+ 
+4 ropes 
+9t 
+Load 40Lt 
+11t 
+Load 50Lt 
+14t 
+Load 65Lt 
+8 ropes 
+16t 
+Load 40Lt 
+20t 
+Load 50-65Lt 
+Pressure 
+sensor  
+ 
+4 ropes 
+4.5t 
+Load 40Lt 
+5.5t 
+Load 50Lt 
+7t 
+Load 65Lt 
+8 ropes 
+4.5t 
+Load 40Lt 
+5.5t 
+Load 50Lt 
+7t 
+Load 65Lt 
+ 
+ 
+ 
+2.4.4.5 Hoist limit switch 
+At the end of the drum, two switches connect on the 
+drum shaft, one of them is overspeed protection switch, 
+another one is cam limit switch(as shown in Figure 2-22). 
+The overspeed protection switch will be activated, when the 
+speed reach 115% of normal speed. The switch will close the 
+power of motor, dead stop all brakes. The cam limit switch 
+controls the position of spreader. It’s the backup switch of 
+the motor encoder. 
+Normal hoist stop position controled by the pulse 
+encoder installed in the hoist motor. Hoist motion’s zero position set at the hoisting terminal place. The zero 
+ 
+Fig 2-22 Hoist overspeed protection 
+switch and can limit switch 

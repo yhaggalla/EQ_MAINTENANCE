@@ -1,0 +1,76 @@
+ 
+ 
+   Chapter 4 
+ 
+ 
+20 
+ 
+ 
+Table 4-9 personnel and tools for wheel 
+replacement 
+personnel/quantity 
+tools/quantity 
+mechanic 
+worker 
+3 
+hydraulic jack 
+2（50t） 
+ 
+ 
+professional 
+tyre 
+disassemble 
+tools 
+1set 
+ 
+ 
+torque wrench 
+1 
+ 
+ 
+other 
+mechanic 
+tools 
+some 
+ 
+ 
+fork lift 
+1 
+ 
+Preparations before replacement: 
+Jack up the crane with no suspended load in calm weather 
+with spreader on ground. 
+Lock out the crane’s motion which affect safety by 
+performing lock-out and tag-out procedure. 
+Enclose the safety area with guardrails, keeping away 
+independent person. 
+Move the trolley to the following position, to max travel 
+opposite to the side of wheel need replacement: 
+ 
+If the E-room and power house are at 
+different sides, when jack up power house 
+side wheels, trolley stop at max travel of 
+E-room side; when jack up E-room side 
+wheels, trolley stop at max travel of power 
+house side. 
+ 
+When power house and E-room are at same 
+sides, when jack up power house side wheels, 
+trolley stop at max travel of the other side, 
+when jack up the other side wheels, trolley 
+stop at max travel of power house side. 
+4.6.2   Idle wheel disassembly of 8 wheels gantry 
+traveling 
+Stop trolley to right position, set safety working area. 
+ 
+Figure 4-72 step1 
+Rotate the wheel 90°which need disassembly (if the tyre 
+is broken, please overleap this step, and carry out step 3 
+directly.)     
+ 
+Figure4-73 step2 
+Remove the bolts from idle wheel shield 
+    
+ 
+Figure4-74: step3 
+Take down idle wheel shield 

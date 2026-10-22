@@ -8,12 +8,15 @@
    U1 repair: back-reach area (girder-tail platform, anti-snag/TLS device and tail sheaves, outdoor service crane,
    festoon and cab service platform), the CICT logo on the machinery house, the stair tower on the landside leg and the
    A-frame stair, cab seat and consoles, machinery house narrowed to its 10.5 m drawing width, and tier 1 > 2 > 3
-   drill-down labels (same behaviour as the P03 3D view). It still proves one selection model (tree = scene = URL). */
+   drill-down labels (same behaviour as the P03 3D view). It still proves one selection model (tree = scene = URL).
+   U1 round 2: labels are pinned to the edge instead of disappearing; load cells at the boom-tip rope anchors; girder-tail
+   platforms and stairs; apex platform, guide sheaves and two boom blocks; floodlight fittings under the girder and
+   boom; elevator outboard of the landside leg with its landings; cabinets and parts instead of dashed circles. */
 window.EQ = window.EQ || {};
 (function (EQ) {
   const h = EQ.h;
   const Y = (hh) => 88 - hh; // metres above rail -> svg y
-  const BASE = { x: -14, y: 2, w: 144, h: 106 };
+  const BASE = { x: -16, y: 2, w: 144, h: 106 }; // U1 round 2: starts 2 m further landside so the girder-tail end platform is in view
   const view = (EQ.sceneView = { ...BASE });
   let anim = null;
 
@@ -29,6 +32,12 @@ window.EQ = window.EQ || {};
     return [h('polyline', { points: pts.map(([x, hh]) => x + ',' + Y(hh)).join(' '), class: 'sc-stair', fill: 'none' }), ...land];
   };
   const hitArea = (x0, h0, x1, h1) => rect(x0, h0, h1, x1 - x0, 'sc-hitpad');
+  // simple cabinet: body, door joint and name panel (replaces the dashed location circles, U1-C16)
+  const cabinet = (x0, h0, x1, h1) => [rect(x0, h0, h1, x1 - x0, 'sc-cab'), line((x0 + x1) / 2, h0 + 0.1, (x0 + x1) / 2, h1 - 0.1, 'sc-cab-line'), rect(x0 + 0.12, h1 - 0.55, h1 - 0.25, Math.min(0.5, (x1 - x0) / 2 - 0.2), 'sc-cab-panel')];
+  // floodlight fitting hanging under the girder/boom (U1-C15)
+  const flood = (x) => [line(x, 49, x, 48.55, 'sc-lamp-line'), h('polygon', { points: [[x - 0.55, 48.6], [x + 0.55, 48.6], [x + 0.75, 47.95], [x - 0.75, 47.95]].map(([a, b]) => a + ',' + Y(b)).join(' '), class: 'sc-lamp' }), line(x - 0.7, 47.98, x + 0.7, 47.98, 'sc-lens')];
+  const FLOOD_X = [-6, 4, 22, 38, 56, 68, 80, 92, 104, 116]; // model stations + 50 (estimated, same as the 3D model)
+  const LANDINGS = [6.5, 15.6, 47.8, 53.4]; // J526A5100 elevator landings
 
   // Machinery house (10.5 m wide in the J526A3000 drawing), on the girder; internals are schematic.
   const HX0 = 7.9, HX1 = 18.4, HB = 51, HT = 58.1, HR = 59.3;
@@ -41,14 +50,21 @@ window.EQ = window.EQ || {};
       { key: 'structure.portal.landside.leg.a', label: 'Portal landside leg', anchor: [21.5, 30], build: () => [poly([[18.6, 3.5], [21.4, 3.5], [21.8, 49], [18.2, 49]], 'sc-paint')] },
       { key: 'structure.portal.waterside.leg.a', label: 'Portal waterside leg', anchor: [51.6, 30], build: () => [poly([[48.6, 3.5], [51.4, 3.5], [51.8, 49], [48.2, 49]], 'sc-paint')] },
       { key: 'gantry.cable-reel.main', label: 'Gantry cable reel', anchor: [30, 9], build: () => [circ(27.5, 6.5, 3.1, 'sc-tech'), circ(27.5, 6.5, 1, 'sc-grey')] },
-      { key: 'access.elevator.car', label: 'Elevator', anchor: [54, 30], build: () => [rect(52.4, 4, 48.5, 1.8, 'sc-house')] },
+      // U1 round 2 (U1-C16): elevator outboard of the landside leg B along the rail (J526A5100 location plan / C-C), car at
+      // the first landing (6.5 m), door on the outer face; mast and landings in the context layer
+      { key: 'access.elevator.car', label: 'Elevator car', anchor: [20, 9.4], build: () => [rect(19.35, 6.5, 8.95, 1.3, 'sc-house'), rect(19.65, 6.6, 8.6, 0.7, 'sc-door'), line(19.3, 6.4, 20.7, 6.4, 'sc-rail')] },
       // U1-C03: stair tower on the landside face of the landside leg (J526A5000 View P: switch-back flights up to 53.4 m)
       { key: 'access.stair.landside-leg-b', label: 'Stair tower, landside leg', anchor: [17.2, 40], build: () => [hitArea(15.5, 3.6, 18.2, 53.4), ...zigzag(15.9, 18.0, 0, 53.4, 17), line(15.6, 0, 15.6, 53.4, 'sc-stair-post')] },
       { key: 'structure.girder.rear.main', label: 'Fixed rear girder', anchor: [2, 51], build: () => [rect(-11, 49, 51, 61, 'sc-paint')] },
       { key: 'boom.main.girder', label: 'Boom girder', anchor: [118, 51], build: () => [rect(50, 49, 51, 74, 'sc-paint')] },
-      { key: 'structure.mast.main', label: 'Mast / A-frame', anchor: [53.5, 62], build: () => [poly([[43, 51], [53.2, 51], [49.4, 79.4], [47.6, 79.4]], 'sc-paint'), line(48.5, 79.4, -11, 51, 'sc-paint-line')] },
-      { key: 'access.stair.a-frame', label: 'A-frame access stair', anchor: [45.6, 70], build: () => [hitArea(44.3, 51.5, 47.3, 77), ...zigzag(44.6, 46.9, 51.6, 76.6, 8)] },
-      { key: 'boom.rope.set.main', label: 'Boom stays / rope set', anchor: [88, 62], rope: true, build: () => [line(48.5, 79, 100, 51, 'sc-rope'), line(48.5, 79, 122, 51, 'sc-rope')] },
+      { key: 'structure.mast.main', label: 'Mast / A-frame', anchor: [53.5, 62], build: () => [poly([[43, 51], [53.2, 51], [49.4, 79.4], [47.6, 79.4]], 'sc-paint'), line(48.5, 80.4, -11, 51, 'sc-paint-line'),
+        // U1 round 2 (U1-C14): head block with stay pins, apex platform (J526A5002) with handrails, guard frame (top 83.4 m)
+        rect(47.5, 79.4, 81.0, 2.0, 'sc-paint'), rect(46.1, 80.95, 81.1, 5.2, 'sc-grate'), pline([[46.1, 82.2], [51.3, 82.2]], 'sc-rail'), line(46.1, 81.1, 46.1, 82.2, 'sc-rail'), line(51.3, 81.1, 51.3, 82.2, 'sc-rail'),
+        pline([[47.3, 81.1], [47.3, 83.36], [50.0, 83.36], [50.0, 81.1]], 'sc-rail'), circ(48.5, 80.5, 0.22, 'sc-grey'), circ(50.15, 80.5, 0.22, 'sc-grey')] },
+      { key: 'boom.sheave.apex', label: 'Apex boom-hoist sheaves', anchor: [49.2, 82.6], build: () => [circ(48.05, 81.95, 0.65, 'sc-tech'), circ(48.05, 81.95, 0.15, 'sc-grey'), circ(49.5, 80.25, 0.4, 'sc-tech')] },
+      { key: 'access.stair.a-frame', label: 'A-frame access stair', anchor: [45.6, 70], build: () => [hitArea(44.3, 51.5, 47.3, 81.1), ...zigzag(44.6, 46.9, 51.6, 78.2, 8), line(44.6, 78.2, 47.3, 81.1, 'sc-stair')] },
+      { key: 'boom.rope.set.main', label: 'Boom hoist rope set', anchor: [88, 62], rope: true, build: () => [line(17.2, 54.2, 47.4, 81.95, 'sc-rope'), line(48.7, 81.95, 49.5, 80.65, 'sc-rope'), line(49.8, 79.95, 78, 52.9, 'sc-rope'), line(49.8, 79.95, 112.5, 52.7, 'sc-rope')] },
+      { key: 'boom.sheave.boom-block', label: 'Boom hoist sheave blocks (Z2, Z3)', anchor: [95, 53.8], build: () => [rect(77.6, 51, 53.5, 0.8, 'sc-paint'), circ(78, 52.65, 0.4, 'sc-tech'), rect(112.1, 51, 53.3, 0.8, 'sc-paint'), circ(112.5, 52.5, 0.4, 'sc-tech')] },
       // U1-C04: main hoist ropes run back to the girder-tail sheaves, then forward to the trolley and headblock
       { key: 'hoist.rope.set.main', label: 'Main hoist rope set', anchor: [94, 36], rope: true, build: () => [line(12.4, 52.7, -8.05, 52.75, 'sc-rope'), line(-8.05, 51.65, 93.4, 52.6, 'sc-rope'), line(93.4, 52.6, 92.9, 21.2, 'sc-rope'), line(93.4, 52.6, 95.1, 21.2, 'sc-rope')] },
       { key: 'trolley.rope.set.main', label: 'Trolley rope set', anchor: [60, 51.6], rope: true, dash: true, build: () => [line(-10.1, 51.5, 124, 51.5, 'sc-rope')] },
@@ -59,7 +75,10 @@ window.EQ = window.EQ || {};
       { key: 'headblock.frame', label: 'Headblock', anchor: [95.6, 21.2], build: () => [rect(92.4, 19.2, 21.2, 3.2, 'sc-paint')] },
       { key: 'spreader.frame', label: 'Spreader frame', anchor: [100, 19], build: () => [rect(89, 17.6, 19.2, 11, 'sc-paint')] },
       // U1-C03 back-reach area (J526A00 item 7, J526A1000, J526A5000 items 5 and 8, J526A7100)
-      { key: 'access.platform.girder-tail', label: 'Girder-tail platform', anchor: [-9.5, 52.2], build: () => [rect(-12.2, 51, 51.15, 5.7, 'sc-grate'), pline([[-12.2, 52.1], [-6.5, 52.1]], 'sc-rail'), line(-12.2, 51, -12.2, 52.1, 'sc-rail'), line(-11.6, 49, -10.4, 51, 'sc-rail')] },
+      // U1 round 2 (U1-C13): upper tail platform on the girders, lower end platform beyond the girder end at girder-underside
+      // level, and the stair between them (J526A5000 item 5); the P03/U1 ladder ended in mid-air
+      { key: 'access.platform.girder-tail', label: 'Girder-tail platforms and stair', anchor: [-12.8, 50.6], build: () => [hitArea(-14.8, 48.9, -6.5, 52.3), rect(-11, 51, 51.15, 4.5, 'sc-grate'), pline([[-11, 52.1], [-6.5, 52.1]], 'sc-rail'),
+        rect(-14.6, 49.05, 49.2, 3.6, 'sc-grate'), pline([[-14.6, 49.2], [-14.6, 50.3], [-13.0, 50.3]], 'sc-rail'), line(-14.4, 48.9, -11, 50.2, 'sc-rail'), line(-13.0, 49.2, -11, 51.0, 'sc-stair'), line(-12.9, 50.3, -10.9, 52.1, 'sc-rail')] },
       { key: 'reeving.anti-snag-tls.device', label: 'Anti-snag / TLS device', anchor: [-7.2, 53.7], build: () => [rect(-9.2, 51, 51.35, 3.75, 'sc-paint'), rect(-9.1, 51.35, 53.7, 0.4, 'sc-paint'), line(-8.9, 53.55, -8.05, 52.2, 'sc-lever'), line(-8.9, 53.55, -5.2, 51.6, 'sc-cyl')] },
       { key: 'reeving.sheave.girder-tail', label: 'Hoist rope tail sheaves', anchor: [-6.95, 52.8], build: () => [circ(-8.05, 52.2, 0.55, 'sc-tech'), circ(-5.85, 52.2, 0.55, 'sc-tech')] },
       { key: 'auxiliary.service-crane.girder-tail', label: 'Outdoor service crane (tail)', anchor: [-10.8, 54], build: () => [rect(-10.55, 51, 53.8, 0.3, 'sc-paint'), rect(-9.15, 51, 53.8, 0.3, 'sc-paint'), rect(-12.54, 53.5, 53.8, 3.84, 'sc-paint'), line(-12.0, 53.5, -12.0, 52.6, 'sc-rope')] },
@@ -72,10 +91,14 @@ window.EQ = window.EQ || {};
       { key: 'hoist.drive.motor.b', label: 'Hoist motor B', tech: true, anchor: [15.4, 53.6], build: () => [rect(14.6, 51.6, 53.6, 1.6, 'sc-tech')] },
       { key: 'trolley.wheel.position.a', label: 'Trolley wheel A', tech: true, anchor: [89, 52.5], build: () => [circ(88.2, 51.7, 1, 'sc-tech')] },
       { key: 'trolley.wheel.position.b', label: 'Trolley wheel B', tech: true, anchor: [97, 52.5], build: () => [circ(96.4, 51.7, 1, 'sc-tech')] },
-      { key: 'hoist.loadcell.main', label: 'Load cell (approx.)', tech: true, hotspot: true, anchor: [95.6, 54.2], build: () => [circ(94.6, 53.6, 0.95, 'sc-hot')] },
-      { key: 'electrical.plc.main', label: 'PLC (approx.)', tech: true, hotspot: true, anchor: [17.4, 57.6], build: () => [circ(17.2, 57.0, 0.8, 'sc-hot')] },
-      { key: 'electrical.control-power.main', label: 'Control power (approx.)', tech: true, hotspot: true, anchor: [17.4, 55.4], build: () => [circ(17.2, 54.8, 0.8, 'sc-hot')] },
-      { key: 'electrical.hv.switchgear', label: 'HV switchgear (approx.)', tech: true, hotspot: true, anchor: [9.2, 58.0], build: () => [circ(9.2, 57.2, 0.8, 'sc-hot')] },
+      // U1 round 2 (U1-C12): load pins in the main hoist rope-end anchors at the boom tip (J526A2000 Detail I; approximate)
+      { key: 'hoist.loadcell.main', label: 'Load cells (boom-tip rope anchors, approx.)', tech: true, hotspot: true, anchor: [122.2, 52.3], build: () => [rect(121.0, 51.3, 51.75, 0.95, 'sc-grey'), circ(122.1, 51.55, 0.32, 'sc-tech'), rect(122.0, 51.95, 52.25, 0.45, 'sc-cab-panel'), line(122.25, 52.1, 121.4, 52.6, 'sc-rope')] },
+      { key: 'auxiliary.lighting.boom', label: 'Boom and girder floodlights', anchor: [56, 47.4], build: () => FLOOD_X.flatMap((x) => flood(x)) },
+      { key: 'electrical.plc.main', label: 'PLC cabinet (approx.)', tech: true, hotspot: true, anchor: [17.3, 57.9], build: () => cabinet(16.6, 56.2, 18.1, 57.8) },
+      { key: 'electrical.control-power.main', label: 'Control power cabinet (approx.)', tech: true, hotspot: true, anchor: [17.3, 55.9], build: () => cabinet(16.6, 54.2, 18.1, 55.8) },
+      { key: 'electrical.drives.main', label: 'Drive cabinets (approx.)', tech: true, hotspot: true, anchor: [17.3, 53.9], build: () => cabinet(16.4, 51.6, 18.2, 53.8) },
+      { key: 'electrical.hv.switchgear', label: 'HV switchgear (approx.)', tech: true, hotspot: true, anchor: [9.2, 58.0], build: () => cabinet(8.4, 56.2, 10.0, 57.9) },
+      { key: 'emergency.drive.main', label: 'Emergency hoist drive (approx.)', tech: true, hotspot: true, anchor: [10.6, 54.6], build: () => [rect(10.0, 53.45, 54.1, 0.6, 'sc-tech'), rect(10.65, 53.5, 54.0, 0.8, 'sc-tech'), line(10.6, 53.75, 10.7, 53.75, 'sc-deco')] },
     ];
   }
   EQ.sceneKeys = () => specs().map((s) => s.key);
@@ -113,6 +136,7 @@ window.EQ = window.EQ || {};
       rect(19.6, 0, 0.8, 0.5, null, { fill: '#38444e' }), rect(49.6, 0, 0.8, 0.5, null, { fill: '#38444e' }),
       line(21.6, 12, 48.4, 12.8, 'sc-paint-line'), line(21.6, 12.6, 48.4, 47, 'sc-paint-line'),
       pline([[21.6, 15.4], [48.4, 15.4]], 'sc-rail'), // tie-beam handrail (U1)
+      line(20.0, 1.25, 20.0, 56.4, 'sc-mast'), ...LANDINGS.map((hh) => line(15.5, hh, 20.8, hh, 'sc-landing')), // elevator mast and landings (U1 round 2)
       circ(50, 50, 0.9, 'sc-grey'),
       h('text', { x: -14, y: Y(-5), class: 'sc-text' }, 'LANDSIDE'),
       h('text', { x: 100, y: Y(-12.5), class: 'sc-text' }, 'WATERSIDE (boom side)'),
@@ -166,7 +190,7 @@ window.EQ = window.EQ || {};
       h('text', { x: HX0, y: Y(50), class: 'sc-text small tech-only' }, 'Internals: layout schematic'),
     ));
     // Open-work markers (separate from paint and from operational status)
-    if (opts.showWork && opts.work) {
+    if (opts.showWork && opts.work) { // work markers stay circles: they are overlays, not parts
       const g = h('g', { class: 'work-markers' });
       all.forEach((s) => {
         const n = opts.work.get(s.key); if (!n || (s.tech && !tech)) return;
@@ -200,12 +224,22 @@ window.EQ = window.EQ || {};
       const vis = sp.filter((s) => !s.tech || curMode === 'technical'); const use = vis.length ? vis : sp; const hidden = !vis.length;
       let best = use[0];
       if (use.length > 2) { let bd = Infinity; for (const s of use) { const d = use.reduce((a, t) => a + Math.hypot(s.anchor[0] - t.anchor[0], s.anchor[1] - t.anchor[1]), 0); if (d < bd) { bd = d; best = s; } } }
-      const a = toPx(best.anchor[0], best.anchor[1]);
-      if (a.x < 0 || a.y < 0 || a.x > lr.width || a.y > lr.height) continue;
+      let a = toPx(best.anchor[0], best.anchor[1]);
+      // U1 round 2 (U1-C09): an anchor outside the visible frame (after a zoom or fit) pins its label to the nearest
+      // edge with a direction arrow instead of dropping it; the label still drills down when clicked
+      const bx = { x0: 12, x1: lr.width - 12, y0: 12, y1: lr.height - 12 }; let arrow = '';
+      const out = a.x < bx.x0 || a.x > bx.x1 || a.y < bx.y0 || a.y > bx.y1;
+      if (out) {
+        const cx = lr.width / 2, cy = lr.height / 2; const dx = a.x - cx, dy = a.y - cy;
+        const k = Math.min(Math.abs((bx.x1 - cx) / (dx || 1e-9)), Math.abs((bx.y1 - cy) / (dy || 1e-9)));
+        a = { x: Math.min(Math.max(cx + dx * k, bx.x0), bx.x1), y: Math.min(Math.max(cy + dy * k, bx.y0), bx.y1) };
+        arrow = ['→', '↘', '↓', '↙', '←', '↖', '↑', '↗'][((Math.round(Math.atan2(dy, dx) * 180 / Math.PI / 45) % 8) + 8) % 8];
+      }
       const el = document.createElement('button'); el.type = 'button'; el.tabIndex = -1;
-      el.className = 'sc-label' + (c.selected ? ' sel' : '') + (c.tier ? ' tier' + c.tier : '') + (hidden ? ' hidden-in-mode' : '');
+      el.className = 'sc-label' + (c.selected ? ' sel' : '') + (c.tier ? ' tier' + c.tier : '') + (hidden ? ' hidden-in-mode' : '') + (out ? ' edge' : '');
       el.dataset.id = c.id; el.dataset.fk = 'lbl-' + c.id;
-      el.textContent = c.text;
+      if (out) { const s = document.createElement('span'); s.className = 'sc-arrow'; s.textContent = arrow; el.appendChild(s); el.dataset.offscreen = '1'; }
+      el.appendChild(document.createTextNode(c.text));
       if (hidden) { const b = document.createElement('span'); b.className = 'sc-label-badge'; b.textContent = 'Technical'; el.appendChild(b); }
       if (c.work) { const b = document.createElement('span'); b.className = 'sc-label-work'; b.textContent = c.work; el.appendChild(b); }
       el.title = c.hint || c.text;
@@ -220,7 +254,7 @@ window.EQ = window.EQ || {};
       }
       if (!r) { el.remove(); continue; }
       el.style.transform = `translate(${Math.round(r.x)}px, ${Math.round(r.y)}px)`;
-      if (r.moved) {
+      if (r.moved && !out) {
         const ln = document.createElementNS('http://www.w3.org/2000/svg', 'line');
         ln.setAttribute('x1', a.x); ln.setAttribute('y1', a.y); ln.setAttribute('x2', Math.min(Math.max(a.x, r.x), r.x + lw)); ln.setAttribute('y2', r.y + (a.y > r.y ? lh : 0));
         lines.appendChild(ln);
@@ -244,6 +278,7 @@ window.EQ = window.EQ || {};
     return isFinite(x0) ? { x: x0, y: y0, w: x1 - x0, h: y1 - y0 } : null;
   };
   EQ.containerBounds = () => ({ x: HX0 - 0.4, y: Y(HR + 0.2), w: HX1 - HX0 + 0.8, h: HR - HB + 0.4 });
+  EQ.HOUSE_KEYS = ['hoist.drive.motor.a', 'hoist.drive.gearbox.a', 'hoist.drive.drum.a', 'hoist.emergency.brake.a', 'hoist.drive.motor.b', 'electrical.plc.main', 'electrical.control-power.main', 'electrical.hv.switchgear', 'electrical.drives.main', 'emergency.drive.main'];
 
   const reduced = () => window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const clampView = (v) => {

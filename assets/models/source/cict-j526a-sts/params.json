@@ -718,15 +718,15 @@
     },
     "stairFlightsPerSegment": {
       "mm": [
-        2,
-        3,
+        1,
+        4,
         10,
         2
       ],
       "kind": "estimated",
       "source": "J526A5000 p1 View P: flights between ground, 6500 (A), 15615 (B), 47845 (C) and 53430, counted from the drawing",
       "unit": "count",
-      "note": "Count, not millimetres; build.mjs reads it with N() (P() divides by 1000)"
+      "note": "Count, not millimetres; build.mjs reads it with N() (P() divides by 1000). U1 round 2 (2026-10-22): recounted from J526A5000 p1 View P as 1 / 4 / 10 / 2 so that every elevator landing level is an outer landing (P03/U1 value 2 / 3 / 10 / 2); the first flight from the ground is longer (stairFirstFlightExtraRun)"
     },
     "aFrameStairFlights": {
       "mm": 8,
@@ -826,16 +826,148 @@
       "source": "J526A3100 p1 section B-B (826 front floor window)"
     },
     "boomBlockSheaveDia": {
-      "mm": 900,
+      "mm": 800,
       "kind": "estimated",
-      "source": "J526A00 p1 boom hoist rope reeving diagram: multi-fall sheave groups; size scaled"
+      "source": "J526A2300 p1 View A: fall-sheave diameters about 700-950 read from the views (U1 round 2; P03/U1 value 900 from the J526A00 diagram)"
     },
     "tailServiceCranePostSpacing": {
       "mm": 1400,
       "kind": "estimated",
       "source": "J526A7100 p1 Detail C (1400 between frame posts, read approximately)"
+    },
+    "stairFirstFlightExtraRun": {
+      "mm": 3000,
+      "kind": "estimated",
+      "source": "J526A5000 p1 View P: the flight from the ground to landing A (6500) is one long flight starting inboard of the tower (U1 round 2)"
+    },
+    "tailEndPlatformLength": {
+      "mm": 3600,
+      "kind": "estimated",
+      "source": "J526A5000 p1 side view and plan at the girder tail (item 5): lower end platform beyond the girder end, about 3.4-3.9 m (U1 round 2)"
+    },
+    "tailEndPlatformDeckAboveGirderUnderside": {
+      "mm": 200,
+      "kind": "estimated",
+      "source": "J526A5000 p1 side view: end-platform deck at about the girder underside line (U1 round 2)"
+    },
+    "tailEndStairRun": {
+      "mm": 2000,
+      "kind": "estimated",
+      "source": "J526A5000 p1 side view and plan: stair between the end platform and the girder top, run about 1.6-2.0 m (U1 round 2)"
+    },
+    "floodlightStationsX": {
+      "mm": [
+        -56000,
+        -46000,
+        -28000,
+        -12000,
+        6000,
+        18000,
+        30000,
+        42000,
+        54000,
+        66000
+      ],
+      "kind": "estimated",
+      "source": "Floodlight positions are not dimensioned in the supplied drawings; stations chosen about every 12 m along the girder and boom, one fitting under each outer girder edge; site photos show fittings hanging under the girder (U1 round 2, U1-C15)",
+      "note": "X stations in mm; two fittings (both sides) per station; station -28000 (not -24000) keeps the fitting clear of the festoon rail of the 023 cable carriages"
+    },
+    "apexPlatformAbovePins": {
+      "mm": 550,
+      "kind": "estimated",
+      "source": "J526A5000 p1 side view: apex platform deck about 0.6 m above the stay pins (U1 round 2)"
+    },
+    "apexPlatformLandside": {
+      "mm": 1900,
+      "kind": "estimated",
+      "source": "J526A5000 p1 side view: apex platform about 1.9 m landside of the A-frame centreline (U1 round 2)"
+    },
+    "apexPlatformWaterside": {
+      "mm": 3300,
+      "kind": "estimated",
+      "source": "J526A5000 p1 side view: apex platform about 3.3 m waterside of the A-frame centreline (U1 round 2)"
+    },
+    "apexPlatformBeyondLegZ": {
+      "mm": 1450,
+      "kind": "estimated",
+      "source": "J526A5000 p1 / J526A00 p1 waterside end view: apex platform beyond the A-frame leg tops, reaching the stair head (U1 round 2)"
+    },
+    "apexGuideSheaveSpacingZ": {
+      "mm": 4256.5,
+      "kind": "measured",
+      "source": "J526A2300 p1 View A: 4256.5 between the two guide-sheave units (U1 round 2)"
+    },
+    "apexGuideSheaveDia": {
+      "mm": 1300,
+      "kind": "estimated",
+      "source": "J526A2300 p1 Detail I: guide sheave read against the 1300 dimension (U1 round 2)"
+    },
+    "apexFallGroupInnerSpacingZ": {
+      "mm": 2600,
+      "kind": "measured",
+      "source": "J526A2300 p1 View A: 2600 between the inner sheave groups (U1 round 2)"
+    },
+    "apexFallGroupOuterZ": {
+      "mm": 2150,
+      "kind": "estimated",
+      "source": "J526A2300 p1 View A: outer sheave groups next to the guide-sheave units, scaled (U1 round 2)"
+    },
+    "apexGuardLandside": {
+      "mm": 700,
+      "kind": "estimated",
+      "source": "J526A00 p1 side view (boom raised): sheave guard frame about 0.7 m landside of the centreline; top = apex marker 83356 (U1 round 2)"
+    },
+    "apexGuardWaterside": {
+      "mm": 2000,
+      "kind": "estimated",
+      "source": "J526A00 p1 side view: sheave guard frame about 2.0 m waterside of the centreline (U1 round 2)"
+    },
+    "boomBlockInnerZ": {
+      "mm": 1425,
+      "kind": "measured",
+      "source": "J526A2300 p1 section B-B: 1425 to the boom centreline (U1 round 2)"
+    },
+    "boomBlockOuterZ": {
+      "mm": 1690,
+      "kind": "measured",
+      "source": "J526A2300 p1 section C-C: 1690 to the boom centreline (U1 round 2)"
+    },
+    "elevatorMastDepthZ": {
+      "mm": 230,
+      "kind": "measured",
+      "source": "J526A5100 p1 C-C: 230 between the leg face and the car-side face of the mast (U1 round 2)"
+    },
+    "elevatorCarFromLegFace": {
+      "mm": 570,
+      "kind": "estimated",
+      "source": "J526A5100 p1 C-C (1:30), scaled: car body begins about 0.57 m from the leg face, drive unit between (U1 round 2)"
+    },
+    "elevatorFoundationHeight": {
+      "mm": 1250,
+      "kind": "estimated",
+      "source": "J526A5100 p1 View A: 1250 / 1393 at the mast foundation near the sill (interpretation; U1 round 2)"
+    },
+    "elevatorTieSpacing": {
+      "mm": 6000,
+      "kind": "estimated",
+      "source": "J526A5100 p1 list: 32 support-1 ties; spacing simplified (U1 round 2)"
+    },
+    "elevatorLandingDepthZ": {
+      "mm": 1000,
+      "kind": "estimated",
+      "source": "J526A5100 p1 note 2: landings flush with the stair platforms; depth in front of the door estimated (U1 round 2)"
+    },
+    "ropeAnchorPinFromTip": {
+      "mm": 1850,
+      "kind": "estimated",
+      "source": "J526A2000 p1 Detail I: rope-end anchor pin of the rope clamp device at the boom tip; placed just landside of the modelled boom-tip sheaves (whose arrangement is simplified), distance estimated (U1 round 2, U1-C12)"
+    },
+    "ropeAnchorPinAboveBoomTop": {
+      "mm": 480,
+      "kind": "measured",
+      "source": "J526A2000 p1 Detail I: 480 from the boom top to the anchor pin (U1 round 2, U1-C12)"
     }
   },
-  "revision": 2,
-  "revisionNote": "U1 repair (2026-10-21): back-reach area, CICT logo, stair tower orientation, cab remodel, reeving paths and machinery-house layout re-checked against J526A00, J526A1000, J526A3000, J526A3100, J526A5000, J526A7100. Draft v1 revised in place: no equipment binding is active."
+  "revision": 3,
+  "revisionNote": "U1 round 2 (2026-10-22): load cells at the trolley sheave shafts, girder-tail platforms and stairs, apex platform and boom-hoist sheave arrangement, floodlight fittings on the boom and girder, elevator position/car/landings and every location marker drawn as a simplified part (J526A0200, J526A2300, J526A5000, J526A5100). Previous: U1 repair (2026-10-21): back-reach area, CICT logo, stair tower orientation, cab remodel, reeving paths and machinery-house layout re-checked against J526A00, J526A1000, J526A3000, J526A3100, J526A5000, J526A7100. Draft v1 revised in place: no equipment binding is active."
 }

@@ -1,0 +1,72 @@
+ 
+ 
+   Chapter 4 
+ 
+ 
+10 
+ 
+ 
+Figure4-10 step 12 
+Next is the procedure of re-align the new motor coupling. 
+Newly bought coupling should be anti-corrosion treated, 
+sealed well. 
+ 
+Figure4-11Folded motor coupling 
+After unfold the cover, clean the anti-rust oil, heating the 
+two half couplings by electric furnace, or by oil bath while 
+no choice. 
+Use scraper to clean the anti-rust oil, to achieve required 
+degree, each position should be cleaned thoroughly. 
+ 
+Figure4-12 step 14 
+When re-aligning, match the serial number between the 
+half coupling and the brake disc. 
+ 
+Figure4-13 step 15 
+Normally, the serial number in 
+disc includes item number, 
+mechanism number, and brake 
+disc front or back (A or B). B 
+and B aims at half coupling, A 
+aims at half flange. 
+ 
+Thread the heating half coupling into the reducer shaft, for 
+blocking proof the quicker the better, not more than ten 
+minute. 
+Realign the motor coupling according to the related criteria, 
+as for coupling allowable compensation rate, install 
+separation, nuts torque, please refer to the coupling 
+manual. 
+4.4 Replacement of drum coupling 
+4.4.1 Preparations 
+The drum coupling includes main hoist mechanism, which 
+is curved tooth coupling, shown in 错误！未找到引用
+源。,4-15. Before replacement, carefully research the 
+drawings, understand the drum coupling constitution，the 
+drawings about drum coupling on 错误！未找到引用源。
+4. Personnel and tools on 错误！未找到引用源。. 
+coupling drawing for refer 
+Main hoist drum coupling 
+JL120060501 
+Table 4-5: personnel and tools for drum coupling 
+replacement 
+personnel/quantity
+tools/quantity 
+lifting 
+worker 
+2
+lift 
+crane 
+or 
+service crane 
+1 (3 tons at 
+25m 
+height) 
+ 
+ 
+chain block 
+2（2t） 
+painter 
+1
+puller 
+1 

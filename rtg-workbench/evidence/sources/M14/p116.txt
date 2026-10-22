@@ -1,0 +1,54 @@
+ 
+ 
+   Chapter 4 
+ 
+ 
+33 
+ 
+ 
+Figure4-140 step12 
+ 
+Mark the assembly position 
+before operation, the 
+eccentric sleeve should be 
+assembled like used to be. 
+ 
+After jacking up trolley, 
+insert wood blocks between 
+trolley and rail. 
+ 
+Lift the wheel to ground with lifting crane or service crane. 
+Move it to shop. 
+ 
+Figure4-141 step13 
+ 
+ 
+The repair work or 
+replacement of wheel or 
+shaft should be done at 
+shop. 
+At shop, first remove end cover. 
+ 
+Figure 4-142 step14 
+Pull out bearings with puller, move them away. 
+ 
+Figure4-143 step 15 
+The fit between wheel and shaft is tight, so the wheel and 
+shaft should be replaced together to ensure the proper fit 
+tight enough to deliver required torque. 
+Use new wheel , shaft  or new bearing to take place of old 
+ones, and assemble the wheel reversely according to the 
+above procedure. Mount cover, fasten bolts and input the 
+wire. 
+Have a test run of trolley. If no problem the replacement of 
+wheel and bearing is finished. 
+ 
+4.7.3 Adjusting of trolley wheel 
+To reduce self-weight, RTG frame normally is designed to 
+be light and relatively soft. A new RTG’s trolley wheel will 
+run deviation after being used for a while, which   may 
+be also seen after changing wheel. This time adjusting for 
+wheel is needed.  
+Each trolley wheel is supported by two anti-friction 
+bearings which are housed inside two eccentric bearing 
+sleeves., Both eccentric bearing sleeves are 1mm 

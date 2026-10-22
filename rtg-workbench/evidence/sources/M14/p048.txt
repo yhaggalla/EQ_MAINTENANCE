@@ -1,0 +1,178 @@
+ 
+ 
+Chapter 3
+ 
+ 
+9 
+ 
+3.3.3.2. 
+Tightening torque for the bolts 
+As listed in the table 3-4 is the tightening torque for 
+the bolts, studs and screws. if no special requirement, the 
+data in the table can be used directly. Pretightening torque 
+Mo ＝K*Fo*d (K is the torque factor, Fo is the 
+pretightening force and d is the bolt diameter). The friction 
+factor of the nut and washer, the nut and bolt changes will 
+cause the torque factor change correspondingly, so even 
+when the required pretightening force is unchanged, but 
+the torque factor is changing. Generally under dry 
+connection, the torque factor K＝0.145, if a little lubricant 
+or MoS2 is filled, K=0.12. For the important connection, 
+the torque factor is got by spot-check of the each bolt or 
+that of the same connection and measuring through 
+experiments. Before finishing tightening the fact torque 
+factor of all the high-strength bolts or other similar 
+connection should be measured. 
+Table 3-4：Tightening Torque of Stainless Steel 
+Bolts with Small Size (Grade A2-70 级) 
+Size 
+M5
+M6
+M8 
+M10 
+M12
+M14
+Tightening 
+torque 
+(Nm) 
+3.2
+5.5
+13 
+26 
+46 
+74 
+ 
+ 
+Table 3-5：Tightening Torque of Major Bolts 
+Size 
+Tightening torque (Nm) 
+Tightening force (N) 
+8.8s* 
+Grade 8.8s** 
+10.9s * 
+10.9s** 
+8.8s  
+10.9s 
+M 12 
+66 
+54 
+92 
+76 
+37766 
+53109 
+M 14 
+105 
+87 
+147 
+122 
+51520 
+72450 
+M 16  
+163 
+135 
+229 
+190 
+70336 
+98910 
+M 18  
+225 
+186 
+316 
+261 
+86016 
+120960 
+M 20 
+318 
+263 
+448 
+370 
+109760 
+154350 
+M 22  
+433 
+358 
+609 
+504 
+135744 
+190890 
+M 24  
+550 
+455 
+774 
+640 
+158144 
+222390 
+M 27  
+805 
+666 
+1132 
+937 
+205632 
+289170 
+M 30  
+1093 
+905 
+1537 
+1272 
+251328 
+353430 
+M 33  
+1488 
+1231 
+2092 
+1731 
+310912 
+437220 
+M 36 
+1911 
+1581 
+2687 
+2224 
+366016 
+514710 
+M 39  
+2473 
+2046 
+3477 
+2878 
+437248 
+614880 
+M 42  
+2851 
+2360 
+4009 
+3318 
+468168 
+658362 
+M 45  
+3818 
+3160 
+5369 
+4443 
+585109 
+822809 
+M 48  
+4593 
+3801 
+6459 
+5346 
+659973 
+928087 
+M 52  
+5937 
+4913 
+8349 
+6909 
+787401 
+1107282 
+ 
+ 
+The torque listed in the table is only suit for the connection surface without special requirements. The 
+bolts in such connection are only bearing pretightening force, and the working force is vertical to the 
+bolts and transferred through the friction from the connection surface. For those bolts bearing not 
+only the pretightening force but also the working force, for example the bolts used in the bearing 
+pedestal and the motor base, the pretightening force should be recalculated (the tightening torque is 
+often less than the one listed in the table), please refer to the related drawing.       
+Note:  
+* = without lubrication  
+** = with a little lubricant or MoS2 lubrication 

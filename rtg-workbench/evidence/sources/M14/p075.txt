@@ -1,0 +1,113 @@
+ 
+ 
+Chapter 3
+ 
+ 
+36 
+ 
+8. 
+If power pack is switched off 
+Visual 
+9. 
+If various components are clean 
+Visual 
+10. 
+If the operator’s cab door is locked  
+Visual 
+11. 
+Operation log and record of container handling  for shift 
+transferring 
+ 
+ 
+Table 0-23 The objective of this inspection is to find out defects between monthly inspections. 
+ 
+Inspection time 
+Inspection items 
+Inspection method 
+ 
+After operation  
+ 
+1. any loosening of bolts and damage of bearings 
+Visual 
+2. any loosening of various pins, key boards and 
+end stopper boards 
+Visual 
+3. any torsion, damage, cracks of festoon cable and 
+any loosening , corrosion of terminals 
+Visual 
+4. activation of electric-magnetic contacts, knife 
+switch, etc. 
+Activation 
+ 
+Table 0-24 Items Inspected every month, every annual 
+ 
+The objective of regular inspection is to inspect the major parts of the Crane in detail and to propose disassembly 
+and repair when necessary and to find out trouble that are not found during routine and weekly inspection and 
+propose repairing. Regular inspection is divided into monthly and annual inspection. 
+ 
+Category 
+Monthly Inspection 
+Annual Inspection 
+Inspection Items 
+Inspection Items 
+ 
+Steel 
+Structure 
+ 
+Steel 
+Structure 
+1. Loosening of securing bolts 
+1. Corrosion of steel 
+2. Fracture of welds 
+2. Peeling off of coating 
+3. Deformation, fracture of steel 
+3. Wear of shafts, pins 
+4. Grease for shafts, pins 
+ 
+5. Loosening of bolts on stairs, 
+handrails, platforms 
+ 
+ 
+ 
+ 
+ 
+ 
+Steel 
+Structure 
+ 
+ 
+ 
+ 
+ 
+Trolley 
+rail 
+1. Rail end wear and sinking 
+1. Rail span 
+2. 
+Elevation 
+difference 
+between the two rails 
+3. Bending in vertical direction
+4. 
+Bending 
+in 
+horizontal 
+direction 
+5. Slope 
+6.Misalignment of rail joints 
+7.Damageand corrosion of end 
+bumpers 
+Bearings 
+1. Abnormal noise, abnormal heating 
+1. Any cutting scrap in the oil 
+(grease) 
+2. Damage or fracture of the body 
+2. Clearance between the pin 
+and bush 
+3. Loosening of securing bolts 
+3. Wear of the bearing 
+Shaft 
+ 
+1. Wear, fracture 
+ 
+2. Loosening of the key 

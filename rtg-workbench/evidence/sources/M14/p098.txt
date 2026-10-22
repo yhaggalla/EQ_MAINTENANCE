@@ -1,0 +1,46 @@
+ 
+ 
+   Chapter 4 
+ 
+ 
+15 
+ 
+4  brake shoe 
+5  brake spring 
+6  thruster 
+4.5.2 Replacement procedure 
+Lower the spreader to the ground and slacken the Main 
+Hoist ropes. 
+Avoid the crane’s motions which affect safety by 
+performing lock-out and tag-out procedure. 
+Only  necessary，remove the whole brake., next we will 
+introduce how to replace the whole brake and its 
+accessories. 
+4.5.3 Replacement of whole brake 
+Remove the power wire from the thruster, remove the L.S, 
+and release the brake by hand. 
+ 
+Figure4-35 step4 
+Remove the base bolts 
+ 
+Figure4-36 step5 
+Lift the brake away, mark the original position 
+ 
+Figure4-37 step6 
+According to the mark, fully install a new brake, relocation 
+and adjusting is needed if necessary 
+ 
+Figure4-38 step7 
+Remove lock-out and tag-out devices and Pre-Op the crane. 
+Startup and monitor the crane to verify its operation before 
+returning it to service 
+4.5.3.1 REPLACEMENT OF THRUSTER 
+Remove the cotter pins of up & down pins of thruster. 
+ 
+Figure4-39 step1 
+Take out the pin of thruster head, lean the thruster down 
+reliably. 
+ 
+Figure4-40 step2 
+Take out the pin of bracket. 
+ 

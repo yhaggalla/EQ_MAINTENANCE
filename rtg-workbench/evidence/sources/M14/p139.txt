@@ -1,0 +1,91 @@
+ 
+ 
+Chapter 5 
+ 
+ 
+13 
+ 
+ 
+2) 
+Elongation of the rope lay length  
+3) 
+Lack of clearance between individual wires 
+and 
+between 
+strands, 
+caused 
+by 
+the 
+compression of the component parts against 
+each other. 
+4) 
+Increased stiffness 
+If any above phenomenon are observed or examiner 
+has any doubt, advice shall be obtained from a specialist. 
+Decreased elasticity of a rope can lead to abrupt failure 
+under dynamic loading and is sufficient justification for 
+immediate discard.  
+5.4.5.8 External wear  
+See Picture 13 in 错误！未找到引用源。 for the 
+reference. Wear is promoted by lack of lubrication, or 
+incorrect lubrication, and also by the presence of dust and 
+grit. Wear reduces the strength of ropes by reducing the 
+cross-sectional area of the steel strands. If, due to external 
+wear, the actual rope diameter has decreased by 7 % or 
+more of the nominal rope diameter, the rope shall be 
+discarded even if no wire breaks are visible.  
+5.4.5.9 External and internal corrosion  
+Corrosion occurs particularly in marine and polluted 
+industrial atmospheres. It will diminish the breaking 
+strength of the rope by reducing the metallic 
+cross-sectional area, and it will accelerate fatigue by 
+causing surface irregularities which lead to stress 
+cracking. Severe corrosion can cause decreased elasticity 
+of the rope.  
+Corrosion of the outer wires can often be detected 
+visually. See Picture 14 in 错误！未找到引用源。.  
+See Picture 14 in 错误！未找到引用源。 for the 
+internal corrosion. It is more difficult to detect than the 
+external corrosion which frequently accompanies it, but 
+the following indications can be recognized: 
+1) 
+Variation in rope diameter; in locations where 
+the rope bends around sheaves, a reduction in 
+diameter 
+usually 
+occurs. 
+However, 
+in 
+stationary ropes it is uncommon for variation 
+in diameter to occur.  
+2) 
+Loss of clearance between the strands in the 
+outer layer of the rope, frequently combined 
+with wire breaks between or within the strands. 
+If there is any indication of internal corrosion, the 
+rope should be subjected to internal examination as 
+indicated in Clause 5.4.2. Confirmation of severe internal 
+corrosion is justification for immediate rope discard.  
+5.4.5.10 Waviness  
+See picture 11 in 错误！未找到引用源。 for 
+reference. In the case of waviness (see Figure 5-18), the 
+wire rope shall be discarded if, under any load condition 
+on a straight portion of rope that does not bend around a 
+sheave or drum, the following condition is met: d1>4d/3 
+or d1>1.1d.  
+ 
+Figure 0-3 Waviness 
+5.4.5.11 Basket or lantern deformation  
+See picture 12 in 错误！未找到引用源。. Basket or 
+lantern deformation, is a result of a difference in length 
+between the rope core and the outer layer of strands. 
+Different mechanisms such as excessive fleet angle that 
+cause the rope touch the flange or the rope running over a 
+“tight sheave”. The rope shall be discarded if the basket 
+or lantern deformation occurs.  
+5.4.5.12 Core or strand protrusion/distortion  
+See picture 5, 7 in 错误！未找到引用源。. Rope 
+with core or strand protrusion/distortion shall be 
+immediately changed. 
+5.4.5.13 Wire protrusion 
+See picture 4 in 错误！未找到引用源。. In wire 

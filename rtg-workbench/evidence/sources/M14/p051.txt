@@ -1,0 +1,92 @@
+ 
+ 
+Chapter 3
+ 
+ 
+12 
+ 
+Trolley 
+high-speed 
+coupling 
+flexible 
+coupling 
+≤0.08 
+0.18 
+mm 
+＝Δr
+Gantry 
+high-speed 
+coupling 
+flexible 
+coupling 
+≤0.08 
+0.10 
+mm 
+＝Δr
+Main 
+hoist  
+drum 
+coupling 
+Gear 
+coupling 
+--- 
+10’ 
+--- 
+ 
+3.4.1 
+Redress methods for alignment of motor and 
+gear reducer 
+3.4.1.1 Use the laser alignment measuring instrument 
+controlled by microcomputer.  
+Please see the following diagram and procedures.  
+1) 
+Coupling needn’t be taken apart in the inspection. 
+The laser generatrix is fixed on the shaft on one side 
+of the coupling and the receiver is fixed on the other 
+side. (See Figure 3-40). Both the generatrix and the 
+receiver should round together.  
+Figure 3-40 Alignment Check by Laser Measuring 
+Instrument 
+2) 
+Input correlative dimensions into the microcomputer, 
+such as the dimensions of the motor pedestal, and the 
+distance between the coupling center and the motor 
+shaft ends (See Figure 3-43). 
+3) 
+Before rotating, the initial value should be reset to 
+zero. 
+4) 
+Turning both the motor shaft and the reducer shaft 
+only up to 60o-75o 
+5) 
+Both the angular deviation of δz and the radial 
+deviation of δy will show on the panel. The accuracy 
+of the readings will be up to 1μm 
+6) 
+The microcomputer will automatically calculate the 
+value of displacement of the motor and the difference 
+of the shim thickness which are advantageous for an 
+operator to re-align the motor. The microcomputer 
+has memory and printing function. 
+7) 
+Add or reduce the shims to decrease the windage in 
+vertical direction, adjust the fitting bolts or blocks for 
+motor pedestal to decrease the windage in horizontal 
+direction. See Figure 3-5. 
+Figure 3-5 
+8) 
+Maybe the step 2~7 has to be repeated until the 
+windages meet the standard. 
+ 
+3.4.2 
+Inspect the alignment with a dial indicator 
+Figure 3-6 shows the alignment measure method 
+with a dial indicator. 
+ 
+Figure 3-6 The measure method with a dial 
+indicator 
+1) The indicator base is set on the shaft face of inner 
+half-coupling and the finger contacts the other one. 
+x
+z
+y

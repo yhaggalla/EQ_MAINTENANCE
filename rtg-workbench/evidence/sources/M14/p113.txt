@@ -1,0 +1,123 @@
+ 
+ 
+   Chapter 4 
+ 
+ 
+30 
+ 
+4.7 Replacement and adjusting of trolley 
+wheel 
+4.7.1 Preparations 
+Trolley wheels are part of the trolley assembly (1 wheel 
+per corner, 4 wheels in total). For RTG trolley, wheels 
+have 2 type which are driving wheels and driven 
+wheels.This device is driven by universal shaft, the reducer 
+driving 
+type 
+please 
+refer 
+to 
+other 
+drawings.The 
+constitution of wheel assembly is shown in Figure 
+4-130.Before replacement understand the drawing for the 
+trolley wheel structure (错误！未找到引用源。). Personnel 
+and tools requirements needed are show in 错误！未找到
+引用源。. 
+Table 4-10 wheel drawings for refer 
+trolley 
+traveling 
+wheel 
+JL2200601，JL220060101 
+Table 4-11 personnel and tools for wheel 
+replacement 
+personnel/quantity 
+tools/quantity 
+lifting worker 
+2 
+jack 
+4 (15t) 
+mechanic 
+worker 
+2 
+hand chain block 
+4 (3t) 
+ 
+ 
+torque wrench 
+1 
+ 
+ 
+other mechanic 
+tools 
+some 
+ 
+ 
+Figure4-129 trolley wheel 
+ 
+ 
+1Blind 
+cover bolt 
+2Blind 
+cover 
+3bearing 
+block 
+bolt 
+4bearing 
+block 
+5bearing
+6oil 
+seal 
+7through 
+cover 
+8through 
+cover bolt 
+9wheel 
+10shaft 
+sleeve 
+11wheel 
+shaft 
+12shaft 
+sleeve 
+13bearing
+14through 
+cover 
+15oil seal
+16bearing 
+block 
+17oil 
+seal 
+18through 
+cover 
+ 
+Figure4-130 disassembly drawing of trolley wheel 
+4.7.2 Replacement procedure 
+If noise or metal dust is evident 
+when the wheels are running. 
+Stop at once and check them. 
+Take appropriate action to 
+correct the problems. 
+During the running in time for 
+new cranes (150~300h)，
+checking is very important. 
+When build up stress is 
+released, a trolley frame can 
+deform appreciably. Trolley 
+wheels must be checked and 
+adjusted. 
+Once adjustment is complete, 
+conduct a trial run with an 
+empty load. If these results are 
+successful, conduct a trial run 
+with a rated load. During this 
+period, if these is any problem, 
+adjust the wheel eccentric sleeve 
+seat  until performance is 
+acceptable 
+Trolley 
+wheel 
+replacement 
+requires 
+considerable 
+technology. Workers must read the ZPMC instructions 
+carefully, arrange the procedure consider conditions 

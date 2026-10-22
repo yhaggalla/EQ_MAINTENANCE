@@ -1,0 +1,2668 @@
+[
+  {
+    "id": "M13",
+    "file": "RTG drawings\\user manual (mechanical part).pdf",
+    "bytes": 13689519,
+    "sha256": "c1bb5305a98b2516ab85da4fdec89dd2403ab7d6c91c3afe0774a2d9e32c0d85",
+    "pages": 255,
+    "metadata": {
+      "format": "PDF 1.6",
+      "title": "Microsoft Word - \u5c01\u9762cover",
+      "author": "wuxiaoping",
+      "subject": "",
+      "keywords": "",
+      "creator": "PScript5.dll Version 5.2.2",
+      "producer": "Acrobat Distiller 9.3.3 (Windows)",
+      "creationDate": "D:20130618093305+08'00'",
+      "modDate": "D:20130618093305+08'00'",
+      "trapped": "",
+      "encryption": null
+    },
+    "pageInventory": [
+      {
+        "pdfPage": 1,
+        "textCharacters": 297,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 2,
+        "textCharacters": 109,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 3,
+        "textCharacters": 36,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 4,
+        "textCharacters": 4140,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 5,
+        "textCharacters": 1406,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 6,
+        "textCharacters": 2395,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 7,
+        "textCharacters": 1135,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 8,
+        "textCharacters": 1222,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 9,
+        "textCharacters": 1021,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 10,
+        "textCharacters": 1600,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 11,
+        "textCharacters": 2235,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 12,
+        "textCharacters": 2616,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 13,
+        "textCharacters": 2483,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 14,
+        "textCharacters": 1544,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 15,
+        "textCharacters": 1155,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 16,
+        "textCharacters": 1492,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 17,
+        "textCharacters": 2253,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 18,
+        "textCharacters": 2114,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 19,
+        "textCharacters": 1994,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 20,
+        "textCharacters": 1432,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 21,
+        "textCharacters": 1416,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 22,
+        "textCharacters": 1697,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 23,
+        "textCharacters": 1723,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 24,
+        "textCharacters": 1444,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 25,
+        "textCharacters": 1241,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 26,
+        "textCharacters": 1977,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 27,
+        "textCharacters": 1456,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 28,
+        "textCharacters": 1780,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 29,
+        "textCharacters": 1580,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 30,
+        "textCharacters": 1690,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 31,
+        "textCharacters": 1181,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 32,
+        "textCharacters": 1322,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 33,
+        "textCharacters": 1227,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 34,
+        "textCharacters": 1547,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 35,
+        "textCharacters": 1274,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 36,
+        "textCharacters": 1131,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 37,
+        "textCharacters": 2501,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 38,
+        "textCharacters": 2535,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 39,
+        "textCharacters": 1954,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 40,
+        "textCharacters": 2003,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 41,
+        "textCharacters": 1832,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 42,
+        "textCharacters": 1292,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 43,
+        "textCharacters": 1351,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 44,
+        "textCharacters": 1441,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 45,
+        "textCharacters": 1382,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 46,
+        "textCharacters": 1074,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 47,
+        "textCharacters": 1416,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 48,
+        "textCharacters": 607,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 49,
+        "textCharacters": 85,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 50,
+        "textCharacters": 730,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 51,
+        "textCharacters": 1890,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 52,
+        "textCharacters": 1895,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 53,
+        "textCharacters": 1895,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 54,
+        "textCharacters": 1886,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 55,
+        "textCharacters": 1736,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 56,
+        "textCharacters": 977,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 57,
+        "textCharacters": 262,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 58,
+        "textCharacters": 747,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 59,
+        "textCharacters": 1066,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 60,
+        "textCharacters": 877,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 61,
+        "textCharacters": 992,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 62,
+        "textCharacters": 1163,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 63,
+        "textCharacters": 1300,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 64,
+        "textCharacters": 311,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 65,
+        "textCharacters": 1134,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 66,
+        "textCharacters": 1220,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 67,
+        "textCharacters": 911,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 68,
+        "textCharacters": 884,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 69,
+        "textCharacters": 1050,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 70,
+        "textCharacters": 593,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 71,
+        "textCharacters": 165,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 72,
+        "textCharacters": 144,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 73,
+        "textCharacters": 305,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 74,
+        "textCharacters": 716,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 75,
+        "textCharacters": 137,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 76,
+        "textCharacters": 289,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 77,
+        "textCharacters": 553,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 78,
+        "textCharacters": 1011,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 79,
+        "textCharacters": 459,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 80,
+        "textCharacters": 725,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 81,
+        "textCharacters": 661,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 82,
+        "textCharacters": 568,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 83,
+        "textCharacters": 943,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 84,
+        "textCharacters": 833,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 85,
+        "textCharacters": 484,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 86,
+        "textCharacters": 811,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 87,
+        "textCharacters": 423,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 88,
+        "textCharacters": 764,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 89,
+        "textCharacters": 497,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 90,
+        "textCharacters": 553,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 91,
+        "textCharacters": 562,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 92,
+        "textCharacters": 647,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 93,
+        "textCharacters": 940,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 94,
+        "textCharacters": 819,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 95,
+        "textCharacters": 897,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 96,
+        "textCharacters": 926,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 97,
+        "textCharacters": 554,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 98,
+        "textCharacters": 630,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 99,
+        "textCharacters": 471,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 100,
+        "textCharacters": 7789,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 101,
+        "textCharacters": 223,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 102,
+        "textCharacters": 599,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 103,
+        "textCharacters": 1034,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 104,
+        "textCharacters": 657,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 105,
+        "textCharacters": 1115,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 106,
+        "textCharacters": 1109,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 107,
+        "textCharacters": 647,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 108,
+        "textCharacters": 981,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 109,
+        "textCharacters": 1156,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 110,
+        "textCharacters": 1484,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 111,
+        "textCharacters": 862,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 112,
+        "textCharacters": 459,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 113,
+        "textCharacters": 893,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 114,
+        "textCharacters": 683,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 115,
+        "textCharacters": 822,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 116,
+        "textCharacters": 738,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 117,
+        "textCharacters": 1619,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 118,
+        "textCharacters": 994,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 119,
+        "textCharacters": 634,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 120,
+        "textCharacters": 466,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 121,
+        "textCharacters": 1210,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 122,
+        "textCharacters": 817,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 123,
+        "textCharacters": 1213,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 124,
+        "textCharacters": 1327,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 125,
+        "textCharacters": 76,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 126,
+        "textCharacters": 67,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 127,
+        "textCharacters": 127,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 128,
+        "textCharacters": 379,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 129,
+        "textCharacters": 918,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 130,
+        "textCharacters": 898,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 131,
+        "textCharacters": 1000,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 132,
+        "textCharacters": 531,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 133,
+        "textCharacters": 660,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 134,
+        "textCharacters": 479,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 135,
+        "textCharacters": 798,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 136,
+        "textCharacters": 737,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 137,
+        "textCharacters": 745,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 138,
+        "textCharacters": 730,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 139,
+        "textCharacters": 764,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 140,
+        "textCharacters": 983,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 141,
+        "textCharacters": 530,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 142,
+        "textCharacters": 1033,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 143,
+        "textCharacters": 846,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 144,
+        "textCharacters": 789,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 145,
+        "textCharacters": 836,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 146,
+        "textCharacters": 849,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 147,
+        "textCharacters": 975,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 148,
+        "textCharacters": 851,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 149,
+        "textCharacters": 737,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 150,
+        "textCharacters": 1049,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 151,
+        "textCharacters": 1034,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 152,
+        "textCharacters": 985,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 153,
+        "textCharacters": 1049,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 154,
+        "textCharacters": 972,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 155,
+        "textCharacters": 999,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 156,
+        "textCharacters": 1033,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 157,
+        "textCharacters": 942,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 158,
+        "textCharacters": 738,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 159,
+        "textCharacters": 7427,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 160,
+        "textCharacters": 250,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 161,
+        "textCharacters": 462,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 162,
+        "textCharacters": 159,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 163,
+        "textCharacters": 184,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 164,
+        "textCharacters": 515,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 165,
+        "textCharacters": 1197,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 166,
+        "textCharacters": 783,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 167,
+        "textCharacters": 582,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 168,
+        "textCharacters": 805,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 169,
+        "textCharacters": 404,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 170,
+        "textCharacters": 434,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 171,
+        "textCharacters": 848,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 172,
+        "textCharacters": 535,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 173,
+        "textCharacters": 339,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 174,
+        "textCharacters": 377,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 175,
+        "textCharacters": 355,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 176,
+        "textCharacters": 834,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 177,
+        "textCharacters": 334,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 178,
+        "textCharacters": 509,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 179,
+        "textCharacters": 346,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 180,
+        "textCharacters": 468,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 181,
+        "textCharacters": 539,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 182,
+        "textCharacters": 289,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 183,
+        "textCharacters": 440,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 184,
+        "textCharacters": 540,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 185,
+        "textCharacters": 631,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 186,
+        "textCharacters": 1018,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 187,
+        "textCharacters": 587,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 188,
+        "textCharacters": 1053,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 189,
+        "textCharacters": 509,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 190,
+        "textCharacters": 496,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 191,
+        "textCharacters": 775,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 192,
+        "textCharacters": 1124,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 193,
+        "textCharacters": 830,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 194,
+        "textCharacters": 816,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 195,
+        "textCharacters": 570,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 196,
+        "textCharacters": 547,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 197,
+        "textCharacters": 391,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 198,
+        "textCharacters": 349,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 199,
+        "textCharacters": 388,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 200,
+        "textCharacters": 633,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 201,
+        "textCharacters": 303,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 202,
+        "textCharacters": 488,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 203,
+        "textCharacters": 4392,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 204,
+        "textCharacters": 241,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 205,
+        "textCharacters": 640,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 206,
+        "textCharacters": 561,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 207,
+        "textCharacters": 289,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 208,
+        "textCharacters": 588,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 209,
+        "textCharacters": 497,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 210,
+        "textCharacters": 950,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 211,
+        "textCharacters": 1312,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 212,
+        "textCharacters": 853,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 213,
+        "textCharacters": 1311,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 214,
+        "textCharacters": 1325,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 215,
+        "textCharacters": 1130,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 216,
+        "textCharacters": 901,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 217,
+        "textCharacters": 216,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 218,
+        "textCharacters": 275,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 219,
+        "textCharacters": 211,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 220,
+        "textCharacters": 245,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 221,
+        "textCharacters": 907,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 222,
+        "textCharacters": 1040,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 223,
+        "textCharacters": 886,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 224,
+        "textCharacters": 831,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 225,
+        "textCharacters": 755,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 226,
+        "textCharacters": 835,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 227,
+        "textCharacters": 759,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 228,
+        "textCharacters": 1143,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 229,
+        "textCharacters": 934,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 230,
+        "textCharacters": 85,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 231,
+        "textCharacters": 3633,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 232,
+        "textCharacters": 411,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 233,
+        "textCharacters": 1385,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 234,
+        "textCharacters": 1601,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 235,
+        "textCharacters": 1652,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 236,
+        "textCharacters": 1557,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 237,
+        "textCharacters": 1410,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 238,
+        "textCharacters": 1009,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 239,
+        "textCharacters": 809,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 240,
+        "textCharacters": 347,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 241,
+        "textCharacters": 418,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 242,
+        "textCharacters": 1046,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 243,
+        "textCharacters": 220,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 244,
+        "textCharacters": 972,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 245,
+        "textCharacters": 586,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 246,
+        "textCharacters": 31,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 247,
+        "textCharacters": 29,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 248,
+        "textCharacters": 29,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 249,
+        "textCharacters": 29,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 250,
+        "textCharacters": 31,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 251,
+        "textCharacters": 31,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 252,
+        "textCharacters": 32,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 253,
+        "textCharacters": 32,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 254,
+        "textCharacters": 32,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 255,
+        "textCharacters": 465,
+        "width": 595.219970703125,
+        "height": 842.0
+      }
+    ]
+  },
+  {
+    "id": "M14",
+    "file": "RTG drawings\\user manual for CICT 40 RTGs (mechanical).pdf",
+    "bytes": 10848326,
+    "sha256": "962f3de6afb7e7b80eae34eafc6265b84fc0be867121a88c8d8e9ba8c10f08c5",
+    "pages": 182,
+    "metadata": {
+      "format": "PDF 1.6",
+      "title": "",
+      "author": "wuxiaoping",
+      "subject": "",
+      "keywords": "",
+      "creator": "PScript5.dll Version 5.2.2",
+      "producer": "Acrobat Distiller 10.1.0 (Windows)",
+      "creationDate": "D:20140916091838+08'00'",
+      "modDate": "D:20140916091838+08'00'",
+      "trapped": "",
+      "encryption": null
+    },
+    "pageInventory": [
+      {
+        "pdfPage": 1,
+        "textCharacters": 293,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 2,
+        "textCharacters": 976,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 3,
+        "textCharacters": 569,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 4,
+        "textCharacters": 1720,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 5,
+        "textCharacters": 2531,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 6,
+        "textCharacters": 2416,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 7,
+        "textCharacters": 2526,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 8,
+        "textCharacters": 2628,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 9,
+        "textCharacters": 2674,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 10,
+        "textCharacters": 1281,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 11,
+        "textCharacters": 840,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 12,
+        "textCharacters": 2048,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 13,
+        "textCharacters": 2659,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 14,
+        "textCharacters": 2288,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 15,
+        "textCharacters": 1313,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 16,
+        "textCharacters": 1301,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 17,
+        "textCharacters": 1497,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 18,
+        "textCharacters": 2148,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 19,
+        "textCharacters": 646,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 20,
+        "textCharacters": 152,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 21,
+        "textCharacters": 136,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 22,
+        "textCharacters": 635,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 23,
+        "textCharacters": 1611,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 24,
+        "textCharacters": 175,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 25,
+        "textCharacters": 2167,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 26,
+        "textCharacters": 1637,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 27,
+        "textCharacters": 1412,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 28,
+        "textCharacters": 1113,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 29,
+        "textCharacters": 2221,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 30,
+        "textCharacters": 1860,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 31,
+        "textCharacters": 2226,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 32,
+        "textCharacters": 826,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 33,
+        "textCharacters": 1597,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 34,
+        "textCharacters": 1180,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 35,
+        "textCharacters": 2056,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 36,
+        "textCharacters": 1819,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 37,
+        "textCharacters": 419,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 38,
+        "textCharacters": 1597,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 39,
+        "textCharacters": 7870,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 40,
+        "textCharacters": 563,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 41,
+        "textCharacters": 1842,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 42,
+        "textCharacters": 3650,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 43,
+        "textCharacters": 2964,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 44,
+        "textCharacters": 2690,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 45,
+        "textCharacters": 2417,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 46,
+        "textCharacters": 2880,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 47,
+        "textCharacters": 4129,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 48,
+        "textCharacters": 2677,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 49,
+        "textCharacters": 3093,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 50,
+        "textCharacters": 2580,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 51,
+        "textCharacters": 2067,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 52,
+        "textCharacters": 2807,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 53,
+        "textCharacters": 2078,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 54,
+        "textCharacters": 1801,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 55,
+        "textCharacters": 291,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 56,
+        "textCharacters": 4124,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 57,
+        "textCharacters": 1580,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 58,
+        "textCharacters": 334,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 59,
+        "textCharacters": 1884,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 60,
+        "textCharacters": 1899,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 61,
+        "textCharacters": 3445,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 62,
+        "textCharacters": 3946,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 63,
+        "textCharacters": 3040,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 64,
+        "textCharacters": 1364,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 65,
+        "textCharacters": 2614,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 66,
+        "textCharacters": 2397,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 67,
+        "textCharacters": 913,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 68,
+        "textCharacters": 3187,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 69,
+        "textCharacters": 554,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 70,
+        "textCharacters": 2964,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 71,
+        "textCharacters": 3738,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 72,
+        "textCharacters": 2884,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 73,
+        "textCharacters": 3163,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 74,
+        "textCharacters": 2249,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 75,
+        "textCharacters": 2063,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 76,
+        "textCharacters": 1844,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 77,
+        "textCharacters": 2027,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 78,
+        "textCharacters": 2021,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 79,
+        "textCharacters": 2018,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 80,
+        "textCharacters": 1699,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 81,
+        "textCharacters": 2796,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 82,
+        "textCharacters": 2175,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 83,
+        "textCharacters": 6892,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 84,
+        "textCharacters": 616,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 85,
+        "textCharacters": 1176,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 86,
+        "textCharacters": 314,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 87,
+        "textCharacters": 333,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 88,
+        "textCharacters": 336,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 89,
+        "textCharacters": 569,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 90,
+        "textCharacters": 1636,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 91,
+        "textCharacters": 2396,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 92,
+        "textCharacters": 1556,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 93,
+        "textCharacters": 1722,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 94,
+        "textCharacters": 1112,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 95,
+        "textCharacters": 1162,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 96,
+        "textCharacters": 808,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 97,
+        "textCharacters": 1325,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 98,
+        "textCharacters": 1136,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 99,
+        "textCharacters": 972,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 100,
+        "textCharacters": 698,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 101,
+        "textCharacters": 702,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 102,
+        "textCharacters": 891,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 103,
+        "textCharacters": 1527,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 104,
+        "textCharacters": 619,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 105,
+        "textCharacters": 1116,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 106,
+        "textCharacters": 639,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 107,
+        "textCharacters": 987,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 108,
+        "textCharacters": 1133,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 109,
+        "textCharacters": 898,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 110,
+        "textCharacters": 1443,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 111,
+        "textCharacters": 1228,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 112,
+        "textCharacters": 2688,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 113,
+        "textCharacters": 2083,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 114,
+        "textCharacters": 1543,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 115,
+        "textCharacters": 1147,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 116,
+        "textCharacters": 1439,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 117,
+        "textCharacters": 2102,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 118,
+        "textCharacters": 2516,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 119,
+        "textCharacters": 1458,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 120,
+        "textCharacters": 1986,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 121,
+        "textCharacters": 1148,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 122,
+        "textCharacters": 1000,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 123,
+        "textCharacters": 457,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 124,
+        "textCharacters": 1254,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 125,
+        "textCharacters": 30,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 126,
+        "textCharacters": 4546,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 127,
+        "textCharacters": 627,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 128,
+        "textCharacters": 1532,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 129,
+        "textCharacters": 1553,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 130,
+        "textCharacters": 690,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 131,
+        "textCharacters": 318,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 132,
+        "textCharacters": 1575,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 133,
+        "textCharacters": 1514,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 134,
+        "textCharacters": 2814,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 135,
+        "textCharacters": 2438,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 136,
+        "textCharacters": 2931,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 137,
+        "textCharacters": 3131,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 138,
+        "textCharacters": 3204,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 139,
+        "textCharacters": 3161,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 140,
+        "textCharacters": 1792,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 141,
+        "textCharacters": 1853,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 142,
+        "textCharacters": 250,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 143,
+        "textCharacters": 254,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 144,
+        "textCharacters": 205,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 145,
+        "textCharacters": 228,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 146,
+        "textCharacters": 2321,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 147,
+        "textCharacters": 2279,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 148,
+        "textCharacters": 2615,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 149,
+        "textCharacters": 1953,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 150,
+        "textCharacters": 1152,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 151,
+        "textCharacters": 2276,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 152,
+        "textCharacters": 1776,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 153,
+        "textCharacters": 2065,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 154,
+        "textCharacters": 2245,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 155,
+        "textCharacters": 74,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 156,
+        "textCharacters": 3655,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 157,
+        "textCharacters": 1220,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 158,
+        "textCharacters": 3379,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 159,
+        "textCharacters": 3313,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 160,
+        "textCharacters": 3947,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 161,
+        "textCharacters": 4134,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 162,
+        "textCharacters": 4291,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 163,
+        "textCharacters": 3568,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 164,
+        "textCharacters": 2818,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 165,
+        "textCharacters": 1581,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 166,
+        "textCharacters": 797,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 167,
+        "textCharacters": 700,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 168,
+        "textCharacters": 1041,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 169,
+        "textCharacters": 549,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 170,
+        "textCharacters": 2392,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 171,
+        "textCharacters": 2062,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 172,
+        "textCharacters": 231,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 173,
+        "textCharacters": 27,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 174,
+        "textCharacters": 25,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 175,
+        "textCharacters": 25,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 176,
+        "textCharacters": 25,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 177,
+        "textCharacters": 27,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 178,
+        "textCharacters": 28,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 179,
+        "textCharacters": 28,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 180,
+        "textCharacters": 28,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 181,
+        "textCharacters": 28,
+        "width": 595.219970703125,
+        "height": 842.0
+      },
+      {
+        "pdfPage": 182,
+        "textCharacters": 557,
+        "width": 595.219970703125,
+        "height": 842.0
+      }
+    ]
+  }
+]

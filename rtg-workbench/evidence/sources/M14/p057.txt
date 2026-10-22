@@ -1,0 +1,59 @@
+ 
+ 
+Chapter 3
+ 
+ 
+18 
+ 
+one's abilities. 
+2) Sample from the machine used latently and sample 
+when the temperature of lubricant is near that at 
+working time. 
+3) Sample from the lower reaches of working group. 
+Refer to Figure 3-20. Don’t sample from the points 
+listed below:  
+ 
+Figure 3-10:  Step 1 
+Where there is only a little lubricant or lubricant 
+is not ambulatory. 
+Where remnant and water conglomerating (for 
+example, in the relief valve) 
+The end of blind-tube 
+The lower reaches of filter 
+The drainage valve on the bottom of the tank 
+4) Don’t sample while the lubricant has just been 
+changed. 
+5) Keep clean of the sampling tool (dry, no remnant). 
+3.5.5.2 Sampling tool in common use 
+Table 3-12： Sampling tool 
+ 
+sampling bottle 
+sampling canal 
+ 
+ 
+sampling pump 
+sample label / sampling 
+point label
+3.5.5.3 The steps of sampling 
+1) Take off the cover of a clean, dry sampling bottle and 
+screw the bottle into the pump. 
+ 
+Figure 3-112:  Step 1 
+2) Shear the ends of a new section of pipe to 45 degree. 
+ 
+Figure 3-22: Step 2 
+3) Tuck the pipe in the pump until the pipe into the bottle 
+through the top of the pump, and then tweak the screw 
+to fix the pipe. 
+ 
+Figure 3-12:  Step 3 
+4) Tuck the end of the pipe into the sampling point, keep 
+the bottle upward. Absorb the lubricant to the bottle 
+with the pump, and remain 25mm air clearance. 
+ 
+Figure 3-13:  Step 4 
+5) Turn off the bottle and tweak the cover to avoid 
+pollution. 
+6) Fill in the sampling label clearly and stick it to the 
+sampling bottle. The collection of lubricant is 
+completed. 

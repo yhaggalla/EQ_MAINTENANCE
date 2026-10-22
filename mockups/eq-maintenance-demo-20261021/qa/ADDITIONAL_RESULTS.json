@@ -1,0 +1,44 @@
+{
+  "passed": 9,
+  "failed": 0,
+  "results": [
+    {
+      "name": "3D labels, technical/overall modes and camera presets",
+      "status": "PASS"
+    },
+    {
+      "name": "3D PNG download and full-screen toggle",
+      "status": "PASS"
+    },
+    {
+      "name": "Work edit updates the existing work order",
+      "status": "PASS"
+    },
+    {
+      "name": "Multi-position replacements reject duplicates and install two exact positions",
+      "status": "PASS"
+    },
+    {
+      "name": "Admin correction keeps prior record and physical replacement history",
+      "status": "PASS"
+    },
+    {
+      "name": "Maintenance/Breakdown reason validation prevents an incomplete status update",
+      "status": "PASS"
+    },
+    {
+      "name": "Reserved main code 10 remains unassigned; duplicate equipment rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "No uncaught errors or invalid form pattern errors",
+      "status": "PASS"
+    },
+    {
+      "name": "No-WebGL fallback preserves mechanism and work navigation",
+      "status": "PASS"
+    }
+  ],
+  "browserErrors": [],
+  "consoleErrors": []
+}

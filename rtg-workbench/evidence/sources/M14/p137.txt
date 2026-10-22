@@ -1,0 +1,96 @@
+ 
+ 
+Chapter 5 
+ 
+ 
+11 
+ 
+ 
+equipment occurs, and decreases the inspection interval 
+after that. 
+Wire rope also should decrease the inspection 
+interval before it close to the replacement period. 
+ 
+According to the usage 
+situation, inspection period 
+should be shortened when 
+necessary. 
+5.4.4 Inspection content 
+To find the wire rope wear and break as early as 
+possible, schedule should be made according to it actual 
+situation. A whole inspection procedure should include 
+the follows: 
+1) 
+Inspect wire rope diameter to see if it is 
+decreasing, and how about the decrease rate. 
+2) 
+If there is any corrosion, and how about the 
+lubrication 
+3) 
+The exterior and interior wear situation. 
+4) 
+If there is any visible break, and the property 
+of the break. Wire rope must be changed if the 
+break reaches specified degree. 
+5) 
+If there is any phenomenon of crushing, 
+flattening, bird cage flattening, kinking, or 
+other distortion, kinking wire rope and other 
+kinds of severe deformation wire rope cannot 
+be repaired and used. 
+6) 
+Inspect the components which are connected or 
+contacted with the wire rope, broken joint must 
+be changed immediately; the surface situation 
+of the sheave and drum grooves, if they are 
+reach the changeable degree. 
+The result of the inspection should be recorded in 
+the work diary or special log. 
+ 
+The inspection result should 
+be recorded for following. 
+Refer to ISO 4309:2004(E) Annex B which lists the 
+recommend format for single inspection and working 
+record. The working record can be used to predict the 
+wire rope lifetime and do more exact inspection period, it 
+also can be used to analyze and take measures which can 
+increase the lifetime of the wire rope.  
+5.4.5 Discard criteria 
+Wire rope’s safety usage is qualified by the 
+following criteria: 
+1) 
+Broken wires: property and quantity, wire 
+break at the joint position, concentrate wire 
+break and the increase rate of the broken wires. 
+Usually wire break is the main damage form in 
+RTG hoist, trolley, tray trolley. 
+2) 
+Wire strand breakage 
+3) 
+Reduced wire rope diameter, and the wire 
+core’s degeneration. 
+4) 
+Weakening of the elasticity 
+5) 
+Exterior and interior wear 
+6) 
+Distortion: waviness, cage flatten, wire core or 
+wire strand protrusion or distortion, wire 
+protrusion, local increase in wire rope diameter, 
+flattening, kinking, bending. 
+7) 
+Damage cause by electric arc or heating 
+8) 
+Rate of permanency elongation 
+Not only consider the each aspect impacts 
+individually, but also consider the comprehensive impacts 
+to judge if the wire rope reaches the discard criteria.   
+The discard criteria can be found in GB/T5972-2006, 
+ISO 4309:2004（E），DIN15020, DIN3088 and etc. The 
+local criteria shall be taken priority of those criteria. Due 
+to a variety of factors, there is no precise rule deciding 
+when the wire rope must be discarded. According to the 
+judgment of qualified personnel, it may be allowed to use 
+to the end of the shift even if the wire rope meet one of 
+the discard criteria. The wire rope should be discarded 
+after the shift, at the end of the day or before the 

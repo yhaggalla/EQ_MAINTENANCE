@@ -1,0 +1,184 @@
+ 
+ 
+Chapter 3
+ 
+ 
+41 
+ 
+2 
+Support  
+Visual, 
+Knocking  
+No cracks, firm 
+connection 
+per month 
+3 
+Spring  
+Visual  
+No 
+abnormal 
+condition 
+per month 
+17 
+Headblock 
+twistlock 
+1 
+Cracks, damage  
+Visual, 
+NDT 
+No 
+cracks, 
+no 
+damage  
+per year 
+2 
+Wear  
+Inspection  
+As 
+technically 
+required 
+3 months 
+18 
+Spreader 
+telescopic 
+1 
+Load bearing  
+Visual  
+Measure  
+No 
+damage 
+no 
+wear 
+per month 
+2 
+Rail  
+Visual 
+Measure  
+No defects, wear 
+within 
+permitted 
+range 
+per month 
+19 
+Cable carrier 
+1 
+Cable clamp 
+Visual 
+Measure  
+Perfect 
+no 
+loosening 
+per month 
+2 
+Roller  
+Visual  
+Proper lubrication, 
+no damage 
+per month 
+3 
+Support bracket 
+Visual  
+Perfect  
+per month 
+4 
+Bolt connection 
+Visual, 
+knocking 
+No loosening 
+per month 
+5 
+cable 
+Visual  
+No damage 
+per month 
+20 
+Spreader 
+twistlock 
+1 
+Plastic 
+deformation 
+Visual  
+No 
+plastic 
+deformation 
+per month 
+2 
+damage 
+Visual  
+No damage  
+per month 
+3 
+Turning angle 
+Testing  
+0, 90 
+per month 
+4 
+wear 
+Measure  
+As 
+technically 
+required  
+per year 
+5 
+cracks 
+Visual  
+No cracks 
+per year 
+21 
+ 
+ 
+Steel structure 
+Box-s
+ectio
+n 
+mem
+bers 
+welds 
+Visual 
+Telescope rulers
+No 
+cracks, 
+ultrasonic 
+and 
+X-ray 
+test 
+if 
+necessary depth of 
+corrosion 
+10% 
+weld height 
+3 months 
+Plate surface 
+Visual, 
+rulers 
+No cracks, local 
+deformation 
+3% 
+depth 
+of 
+corrosion 
+10% 
+Walk
+-way 
+stair 
+Oil  
+(grease) 
+contami-nate 
+damage 
+visual 
+Normal-walking 
+No damage 
+per month 
+railin
+gs 
+damage 
+Visual  
+No damage 
+per month 
+ 
+ 
+ 
+3.8.2 
+Causes of Common Troubles and Troubleshooting 
+Causes of general troubles in the Crane parts and components and their remedies are shown in the 
+following table 3-29: 

@@ -1,0 +1,42 @@
+                                                                       Chapter  2 
+ 
+ 
+ 
+2-30
+2.4.10 Auxiliary facilities 
+ 
+ 2.4.10.1 Side guide rollers 
+In order to ensure the trolley moving along the rail 
+safely, two ends of one trolley beam install with a pair 
+of guide rollers.  
+Each set of side guide roller consists of a bracket, 
+two eccentric shaft, two rollers and bearings etc. The 
+gap between the guide roller and side of rail can be 
+adjusted by eccentric shaft. The side guide rollers as 
+shown in figure 2-48.  
+ 
+ 
+ 
+ 2.4.10.2 Trolley anchor device 
+In order to prevent the trolley from moving by high winds when the RTG not working in a long time, 
+two anchor devices have been set in both side of the trolley frame. When the trolley pariking in the anchor 
+position, and the wind speed exceed the warning, the archor pin need to plug. When the pin plug, the limit 
+switch will forbid the crane to be operated. If the trolley is not anchored and storm wind come it’ll be very 
+dangerous. Even if it has the brake, the trolley could move along the rail. Once the trolley moving, it'll be 
+enormous kinetic energy and may cause the accident  
+ 
+ 
+ 
+ 
+2.4.10.3 Buffer 
+In order to fully guarantee the trolley safety, buffers are  
+installed at the end of the girder to prevent the trolley from 
+running out of the girder. The buffer shown as in Figureure 2-50. 
+The bufferinstalled on the rigid support. 
+ 
+            
+Figure 2-48 Side guide rollers 
+ 
+Figureure 2-50 Buffer 
+When the wind speed above 25m/s, the crane will out of service. The 
+RTG must be in anchoring state. 

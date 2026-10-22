@@ -1,0 +1,100 @@
+ 
+ 
+       Chapter  6 
+ 
+ 
+7 
+  
+ 
+Completion of surface preparation, prior to 
+primer application. 
+Completion of application of each coat (primer, 
+intermediate and topcoat). 
+Holiday detection and repair. 
+Final acceptance of completed coating work. 
+3) Scaffolding - Beam clamps or any other 
+equipment which will interfere with or damage coating 
+shall not be used. Building yard shall provide safe 
+accesses to all areas for inspections by the inspector. 
+4) Prior to final coating acceptance, the entire 
+painted surface shall be cleaned with fresh water.  If 
+necessary, a finish coat may be applied to areas stained 
+and contaminated by grinding, weld spatter, general 
+traffic, etc. Areas contaminated by grinding, weld 
+spatter, and other particulate contamination shall be 
+lightly hand-sanded to dislodge particulate prior to 
+coating. 
+6.2.6 OTHERS 
+1) External / Internal Galvanized 
+- Apply HEMUCRUL TI-COAT 16490, Grey 
+19840 on broken galvanized surface. 
+ONE coat of HEMPEL’S 15552 organic epoxy 
+primer approved at 50-micron DFT 
+Apply by airless spray ONE full coats of ZP135 
+polyurethane finish or similar approved at 50-micron 
+DFT. 
+2) Stainless Steel 
+Stainless steel should not be painted 
+3) Non-Ferrous material 
+Non-ferrous materials need not to be painted 
+4) Machined surfaces 
+Machined surfaces are to be masked prior to 
+painting 
+5) Faying Surface 
+Apply ZP2704 at 75-microns DFT. 
+6.2.7 REPAIR/TOUCH-UP 
+1) External Steelworks 
+When the coating is damaged down to the steel, 
+spot cleaning is necessary: 
+For areas larger than 0.25 square meters (if the 
+width of the area is over 0.5 meter), the area shall be 
+isolated, blasted to Sa 2.5 / SSSPC - SP - No. 10 in. 
+After the metal surface has been cleaned, the edge of 
+the surrounding coating shall be feather-edged to 
+remove all the cracked, loose or damaged coatings. 
+Feather-edging shall be accomplished by power or 
+hand-sanding with a grit wheel or sandpaper. The 
+prepared surface shall be free of loose, burnt, or 
+blistered coatings. Carry out touch-up coating 
+procedure 
+with 
+inorganic 
+zinc 
+followed 
+by 
+intermediate and top coat.  
+For areas smaller than 0.25 square meters, use 
+power tool cleaning and apply ZP842 at 125-micron 
+DFT and followed by top coat. 
+2) Internal Steelworks 
+Whenever possible, surface preparation must be 
+restored to the degree as originally specified, or as per 
+hand /power tool standards. Apply touch-up coating 
+with airless spray (large areas) or with brush (small 
+areas) ZP842 at 125-micron DFT. If the application is 
+brush, the paint should be applied in two or more coats 
+to achieve the specified total DFT of 125 microns. 
+6.3 inspection 
+and 
+judgment 
+for 
+repainting 
+The following passages describe the inspection and 
+repair procedure for the painting system of the crane. 
+6.3.1 aging or deterioration of coating and 
+judging standard for repair 
+1) rust spreading throughout the steel surface 
+In some cases, the coating can be removed with 
+the primer in a wide area. In such a case, the rust will 
+eat the steel to make a hole. 
+Judgment for repainting: consider repainting the 
+coating when the above mentioned defect is found. 
+2) peeling of the coating 
+Peeling of the whole coating due to insufficient primer 
+adhesion to the steel surface. 
+Peeling of the top coating due to insufficient adhesion 
+between the top coating and the intermediate coating. 
+Peeling of the coating due to cracks. 
+Peeling of the coating due to poor preparation for 
+painting. 
+Judgment for repainting: If a straight line can be 

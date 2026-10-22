@@ -1,0 +1,50 @@
+ 
+ 
+ Chapter  7 
+ 
+ 2 
+ 
+7.1 general 
+Metal structure is the frame of the crane, and affects the performance and safety of the crane directly. The crane 
+need to be shut down and carefully inspected, when crack is founded. If the crack is not find and repair in time, it 
+will lead to structural damage which will not only broken the crane, but also cause the causalities. So structure needs 
+the routine inspection and periodic annual inspection. 
+ 
+The deformation of the structure part may be caused by the misuse of the crane，crack extension or bolt 
+loosening. Inspection procedures and the routine inspections in the manual are needed to strictly obey. 
+ 
+ 
+No attachment or device can be welded on to crane, without 
+the written authorization of the responsible structural 
+engineer. This is the crane’s structural integrity requirement.
+ 
+The inspection ways of the structure include the follows: 
+1) 
+using the visual sense and experience to observe and judge the structure 
+ 
+If the connecting part of the structure is stable, flexible and without abnormal noise when operation 
+process. 
+ 
+If there is any loosening of the bolts. 
+ 
+If there is any paint wrinkle, peel off or weld crack phenomenon around the connecting part or welds. 
+ 
+If there is any entire or local deformation, and any bend, fold, twist, damage phenomenon. 
+2) 
+Using the nondestructive inspection to do the periodic inspection of important welds. 
+3) 
+Using electrical logging tension method to do the carefully quantitative inspection of the metal structure, 
+which can make a scientific judge to the metal structure’s status. 
+the follows need to be pay more attention 
+1) 
+Inspect the structure deformation, corrosion, flaw, weld crack, bolt loosening in routine inspection, month 
+and annual periodic inspection.  
+2) 
+Structure deformation will increase the concentric error of the mechanism which installed on it, increase 
+the operation noise, lead to the bad mesh of the gears. 
+3) 
+Structure deformation, flaw extension, weld crack, bolt loosening should be report to the maintenance 
+department instantly, and do the repair work under the guide of the structural engineer. 
+4) 
+The jam drainage holes need to be cleaned to avoid the corrosion of the structure. Repaint the rusty place. 
+Corrosion will decrease the thickness of the structure, enlarge the stress, and may lead to the crack. To 

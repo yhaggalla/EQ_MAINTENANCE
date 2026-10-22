@@ -1,0 +1,47 @@
+ 
+14
+ 
+6.4.8.1 Check whether the transmission is in good condition and meshing is correct. 
+Regular lubrication and monthly maintenance. 
+ 
+6.4.8.2 Once per week check wear and gear meshing condition in the cam 
+mechanism. 
+ 
+6.4.8.3 Check that each pair of cams is fastened properly and that there is no 
+position drift. Pay special attention to inspection of correct activation of cam limit 
+switches for the slow down and end stop. 
+  Period:  routine 
+ 
+6.4.8.4 When the wire rope is replaced the cam position may not be accurate due to 
+rope stretch, therefore, it is necessary to frequently check the accuracy of the cam 
+position and to adjust it if drift is found. 
+  Period:  once a week 
+ 
+6.4.9 Brake disc 
+ 
+6.4.9.1 Check the disc surface for unevenness (convex-concave) Which should not 
+exceed 0.3 mm, and correct if necessary. 
+  Period:  once a month 
+ 
+6.4.9.2 Check whether wear exceeds limit and replace the disc when wear exceeds 
+30% of thickness. 
+  Period:  once a month 
+ 
+6.4.9.3 Check whether temperature rise is abnormal on surface. 
+  Period:  routine 
+ 
+6.4.9.4 Check whether the disc surface is damaged or contaminated with oil 
+(grease). 
+  Period:  routine 
+ 
+6.4.9.5 Check for fine cracks. 
+  Period:  routine 
+ 
+6.4.10 Brake 
+ 
+6.4.10.1 Check that the brake action is maneuverable 
+ 
+6.4.10.2 Check wear of the brake. The limit value is 3 mm and replace if the limit is 
+exceeded. 
+6.4.10.3 Clearance at the brake shoe shall be kept to 0.5~1.5 mm. 
+ 

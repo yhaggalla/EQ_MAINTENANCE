@@ -1,0 +1,261 @@
+ 
+ 
+Chapter 3
+ 
+ 
+13 
+ 
+ Figure 3-74  
+2) Initially, set the reading to zero. Suppose that the 
+starting point is 0, then the values of 
+
+90
+
+, 
+
+180
+
+ 
+and 
+
+270
+
+can be read after the coupling rounds 270 
+(please note the positive and negative signs). The 
+circumferential jumping value in the vertical direction 
+is 
+2
+/
+180
+y
+
+
+
+
+r
+. 
+3) The 
+circumferential 
+jumping 
+value 
+along 
+the 
+horizontal central line is 
+2
+/)
+(
+270
+90
+
+
+
+
+
+
+zr
+. 
+The maximum circumferential jumping value is 
+2
+2
+z
+y
+r
+r
+r
+
+
+
+
+
+.(See Figure 3-44). 
+4) Similar as shown in the Figure 3-, make the finger 
+contact the end face of the other half-coupling or 
+surface of the brake dick, and adjust the value to zero. 
+After turning 270, the values of 
+
+90
+
+, 
+
+180
+
+ and 
+
+270
+
+can 
+be 
+read. 
+And
+
+
+
+180
+
+y
+a
+,
+
+
+
+
+270
+90
+
+
+za
+, 
+then 
+r
+a
+arctg
+b
+y
+y
+/
+
+
+
+,
+r
+a
+arctg
+b
+z
+z
+/
+
+
+
+. 
+Figure 3-14  
+5)  Estimate the thickness of shims under the motor 
+pedestal and the translate in horizontal direction by 
+xr
+
+ 
+and 
+yr
+
+. And estimate circumrotation in direction Y (the 
+windage of thickness between the front and back shims) as 
+well as the circumrotation in direction X (the windage of 
+thickness between the left and right shims) by 
+a
+ and 
+b
+.  Refer to 3.4.1.1 step 7) and adjust the estate of 
+motor to meet the standard. 
+3.4.3 
+Adjustment methods of alignment for drum 
+coupling 
+1) The indicator base is placed on one side of the coupling 
+and the finger contacts the outer ring of the other side of 
+the coupling. Refer to Figure 3-8  
+ 
+Figure 3-8：Inspect alignment of low-speed 
+coupling with dial indicator 
+2) Initially, set the reading to zero. So the values of 
+
+90
+
+, 
+
+180
+
+ and 
+
+270
+
+can be read after turning 270 (please 
+note the positive and negative signs). 
+3) Survey the radius r of measure-point. 
+4) Similar as shown in the Figure 3-8, make the finger 
+contact the end surface of the other coupling or surface of 
+the brake dick, and adjust the value to zero. After turning 
+270, the values of
+
+90
+
+, 
+
+180
+
+ and 
+
+270
+
+can be 
+read 
+.And
+
+
+
+180
+
+y
+a
+,
+
+
+
+
+270
+90
+
+
+za
+, 
+then 
+r
+a
+arctg
+b
+y
+y
+/
+
+
+
+,
+r
+a
+arctg
+b
+z
+z
+/
+
+
+
+. 
+5) Adjust the thickness of the shims under the drum 
+bearing pedestal and the bearing pedestal’s position to 
+meet the standard. 
+6) The drums are supported by the low-speed shaft of 
+reducer and in the center of it, so there are only angular 
+deviation and axial deviation, no radial deviation. 
+3.4.4 
+ Alignment of brake-disc 
+1) 
+When the brake is open, the clearances between 
+the two brake linings and disc should be the 
+same. 
+5.1
+~
+1
+2
+1
+
+
+
+mm. Refer to Figure 
+3-19 
+2) 
+1
+ and 
+2
+
+should not be less than the 
+minimum value of 1mm set for the brake. Refer 
+to Figure 3-9. 

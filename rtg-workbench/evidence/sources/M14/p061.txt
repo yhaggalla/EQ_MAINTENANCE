@@ -1,0 +1,128 @@
+ 
+ 
+Chapter 3
+ 
+ 
+22 
+ 
+3.6 
+Prevention and inspection  
+In order to ensure reliable crane operation and 
+prolong the crane’s life, each component on the crane 
+must be operated correctly, and a proper maintenance 
+schedule must be followed. To keep up the operating 
+status and operational safety of the crane, please 
+accomplish the maintenance of the crane at regular 
+intervals listed in the rear of the chapter. The crane 
+routine maintenance and inspection can be started with 
+the following aspects. 
+ 
+3.6.1 
+Summarize 
+    The inspection is used to judge whether the crane is 
+in a safe and reliable state. It is basically a visual 
+inspection and functional test. If an adequate assessment 
+is not possible by this, further tests have to be taken, e.g. 
+nondestructive testing. If necessary, disassemble the 
+crane parts to observe the hid parts. When performing 
+inspection and maintenance on the crane, the appropriate 
+preventive actions should be taken according to 
+TABLE 3-13. 
+     The abnormal temperature, sound, or libration can 
+be the omen of failure, abrasion or mangle. The following 
+sections list the detail. 
+ 
+Table 3-143：  Preventive action (mechanical) 
+Inspection Items 
+Contents of Inspection 
+Preventive Action 
+Gear 
+Gear coupling 
+Grease on gear 
+Alignment 
+Gear engagement and wear 
+Apply grease if poorly greased. 
+Realign if out of tolerance 
+Adjust the attachment if engagement is not 
+proper. 
+Replace excessive wear ones 
+Sliding surface of bearing, 
+sheaves, wheel, pins, lever 
+pins, etc. 
+Lubricating condition 
+Apply if necessary so that respective 
+lubrication points are lubricated as required. 
+Wear condition 
+Replace if wear is excessive 
+Bolts, nuts, keys, pins, 
+shaft coupling bolts 
+Looseness, Attachment 
+condition of split pin retainer
+Tighten sufficiently. 
+Replace if quality is deteriorated 
+Gear box 
+Lubrication 
+Temperature 
+sound 
+Add oil if the amount of oil is low. 
+Replace if quality is deteriorated. 
+Check abnormal sound 
+Wire ropes 
+Lubricating condition, broken 
+wires, 
+abrasion 
+Apply grease as necessary if grease is 
+insufficient or degraded. 
+ 
+Wire rope end termination
+Condition of wire end 
+Tighten loose bolts with specified torque. 
+See Section 3.4.7 
+High strength bolts, and 
+welding for steel structure
+Looseness 
+Crack, damage 
+Replace if loose. 
+Repair if crack or damage is observed. 
+Brake lining 
+Wear, fitness to brake disc 
+Replace if wear is excessive. 
+Brake disc 
+Wear of sliding surface 
+Repair if sliding surface is worn or rough. 
+Rail and rail clip 
+Bolt looseness, 
+Rail abrasion, 
+Rail distortion 
+Tighten loose bolts with specified torque, 
+Replace excessive wear ones, 
+Realign 
+Twist lock for headblock 
+and spreader  
+Abrasion, 
+ crack 
+Replace excessive  abrasion ones or ones 
+with crack  
+Sheave, drum, 
+friction-block 
+Abrasion 
+Replace if wear is excessive 
+Other consumable 
+parts(such as seal, bulb） 
+Abrasion, 
+damage 
+Replace if wear is excessive, 
+Repair or replace damaged 
+Steel structure 
+Crack, paint, etc. 
+Refer to Steel structure maintenance manual 
+Safety device 
+Any abnormity 
+Repair while there is abnormity. 
+ 
+ 
+ 
+The crane and its additional equipment, primarily the safety devices, have to be checked for 
+proper condition and function depending on work use. It requires special supervision of: − 
+emergency-stop button and control; − drive & brake; − electrical equipment; − limit switch and 
+overload protection. 

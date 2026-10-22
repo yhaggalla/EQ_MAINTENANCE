@@ -1,0 +1,164 @@
+ 
+41
+ 
+Inspected 
+components 
+Inspection 
+Items
+Inspection 
+Method and 
+apparatus 
+Inspection 
+criteria 
+Inspection
+period 
+Item description
+Item description 
+3 
+Wire rope 
+2 
+wear 
+measure 
+Diameter 
+reduced 
+by 
+7% 
+per month 
+3 
+Wire broken, 
+strand 
+broken 
+Visual  
+Broken 
+wire 
+10% 
+no 
+strand 
+is 
+broken 
+per month 
+4 
+Torsion 
+or 
+corrosion 
+Visual  
+no torsion, no 
+corrosion 
+per month 
+4 
+Sheave  
+1 
+Cracks  
+Visual  
+no cracks 
+per month 
+2 
+Sheave 
+rotation 
+Hearing test 
+Maneuverable 
+no 
+abnormal 
+noise 
+per month 
+3 
+Uneven 
+wear of the 
+groove  
+Measure  
+Less 
+than 
+3 
+mm 
+3 months 
+4 
+Wear 
+of 
+groove 
+thickness 
+Measure  
+20% 
+original 
+rope diameter 
+3 months 
+5 
+Wear 
+at 
+groove 
+bottom 
+diameter 
+Measure  
+50% 
+wire 
+rope diameter 
+3 months 
+6 
+Damage  
+Visual  
+no damage 
+per month 
+7 
+bearing 
+Hearing, 
+Visual 
+no 
+abnormal 
+noise 
+proper 
+lubrication 
+per month 
+5 
+brake 
+1 
+Brake 
+base 
+frame 
+Visual  
+no cracks 
+per month 
+2 
+Wear 
+of 
+thickness of 
+brake pads 
+Measure  
+50% original 
+thickness 
+per month 
+3 
+Spring  
+Visual 
+Measure  
+no 
+yield 
+deformation 
+3 months 
+4 
+Wear 
+of 
+shaft or bore
+Measure  
+6% 
+original 
+diameter 
+per month 
+5 
+Hydraulic 
+thruster 
+Visual  
+no 
+oil 
+drip, 
+normal 
+activation 
+per month 
+6 
+Clearance 
+when 
+released 
+Visual 
+Measure  
+ 0.6 mm 
+ 1.2 mm 
+per month 
+ 

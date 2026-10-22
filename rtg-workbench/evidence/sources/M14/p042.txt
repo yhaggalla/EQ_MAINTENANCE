@@ -1,0 +1,90 @@
+ 
+ 
+Chapter 3
+ 
+ 
+3 
+ 
+3.2. Cleanliness  
+The dust, oil dirt, water, impurity interfusing into the 
+lubricant, rust and etc. may erode, speedup abrasion and 
+depress even destroy partial original performance like 
+reduce the braking torque, bring the electrical system short 
+circuit or other malfunction, infect the leak-proofness of 
+the hydraulic system and even destroy the hydraulic parts 
+and  bring severe result like system malfunction. 
+Cleanliness is not only to keep a friendly environment but 
+also to keep the machine super performance and prolong 
+its lifetime. So in the routine maintenance the impassive 
+contamination to the parts and equipments should be 
+timely removed and keep the equipment leak tightness, 
+without dust and oil dirt. The following are the routine 
+methods and typical examples to keep the crane clean.    
+3.2.1 
+Major methods of cleanliness 
+3.2.1.1. 
+Dry cleaning 
+“Dry cleaning” used here means adopting physical 
+methods to remove the contamination from the surface 
+without water or solvent. Shown in Figure 3-1, the main 
+methods including:   
+1) 
+The cleaner can directly remove the dust and 
+small dirt from the body surface. To create a 
+clean environment and improve the service life 
+and stability of equipment, the place where 
+mechanical and electric equipments concentrate 
+like machinery house, electric house and cab 
+should be cleaned periodly. 
+2) 
+Air compressor and air blower can directly 
+remove the powder, iron chipping and other 
+waste falling off from body surface easily. Its 
+application including: cleanness of the faying 
+face of the precision components such as 
+bearing and deadeye, and wiping off dust from 
+the surface of complicated shape part, electric 
+element and other elements .  
+3) 
+Cleaning by machining： 
+a. 
+Use wire brush or electric polisher with 
+copper brush. This method can remove the 
+flotation rust or metal surface treatment 
+before repairing paint. 
+b. Cleanness by finish machining such as 
+turning or grinding. This method only is 
+adopted in renovating the defective surface 
+such as bulge or sunken in the brake disc, 
+brake lining and so on. 
+3.2.1.2. 
+Using cleanser 
+The cleanser is needed when the oil dirt on the 
+surface is difficult to remove. In choosing the cleanser, 
+advert to the problem that the solvent or cleanser based on 
+halogenated hydrocarbon like trichloroethylene and 
+dichloromethane will bring chemical reaction (injecting 
+little water into the trichloroethylene, hydrochloric acid 
+will generate) with the aluminum part, austenitic steel and 
+galvanized part, and the part will be oxygenized. On 
+extreme condition, such reaction will bring explosion. So 
+the solvent or cleanser based on halogenated hydrocarbon 
+shouldn’t be used when cleaning the metal parts of the 
+crane. In addition, the acid and alkali liquor shouldn’t be 
+used to clean the mental parts of the crane either, or it will 
+destroy the parts directly. To cope with the common dirt, 
+such cleanser as general gasoline bought in the market and 
+industrial benzene can be used. As for the dogged dirt, use 
+the cleanser such as dimethyl benzene. 
+ 
+ 
+Industry Cleaner 
+Air Compressor and Air Blower  
+Wire Brush、Copper Brush and Corner Grinder 
+Figure 3-1：Routine dry cleaning method 
+ 
+Attention: Necessary protective equipments such as the goggles, gauntlet and costume should be worn 
+to prohibit hurting to the body by powder, scrap iron and even the cold wind.   
+ 
+Attention: Some cleansers such as methylbenzene, dimethyle benzene, acetone, and trichloroethylene 
+are poisonous. The related instruction book should be read carefully before using it. 

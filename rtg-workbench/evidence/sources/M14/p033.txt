@@ -1,0 +1,41 @@
+                                                                       Chapter  2 
+ 
+ 
+ 
+2-25
+2.4.5.3 Trolley limit switch 
+In order to make the trolley travelling safely in the effective working aera, the limit switchs are setted in 
+both sides of the trolley rail. The slow down limit switch can slow the trolley speed, terminal limit switch can 
+stop the trolley and over travel limit switch can finally stop the trolley. Trolley limit switch arrangement refer 
+to Figure 2-30.  
+ 
+ 
+Figure 2-30 Trolley limit switch arrangement 
+ 
+1) 
+Forward over travel stop  
+Mechanical limit switch, setting at the end of girder, and connect with emergency stop circuit. When 
+this limit switch is activated, it’ll be emergency stop. The "limit bypass" selection switch located in 
+the electrical room can relieve the limit state.  
+ 
+2) 
+Backward over travel stop 
+Mechanical limit switch, setting at the end of girder, and connect with emergency stop circuit. When 
+this limit switch is activated, it’ll be emergency stop. The "limit bypass" selection switch located in 
+the electrical room can relieve the limit state.  
+ 
+3) 
+Forward normal stop 
+Mechanical limit switch. When this limit switch is actived the trolley will stop, it’s normal stop, no 
+need bypass.  
+ 
+4) 
+Backward normal stop 
+Mechanical limit switch. When this limit switch is activated the trolley will stop, it’s normal stop, no 
+need bypass.  
+ 
+5) 
+Forward slow down limit switch 
+Proximate limit switch. Suppose the trolley pass the slow down limit switch as 100% speed then the 
+trolley slow down, until 10% speed travelling 
+ 

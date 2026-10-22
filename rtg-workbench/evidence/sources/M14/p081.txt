@@ -1,0 +1,126 @@
+ 
+ 
+Chapter 3
+ 
+ 
+42 
+ 
+Table 0-29 Causes of general troubles and their remedies 
+Troubles 
+Reasons 
+Remedy 
+High temperature 
+Lack of grease or no grease 
+Add sufficient grease 
+Contamination in the bearing(s) 
+Clean the bearing with kerosene 
+and fill with grease 
+Noise in rolling bearing is 
+increased 
+Poor installation misalignment of the 
+bearing or over tightened and jammed
+Check correctness of installation 
+and adjust 
+Damaged or worn bearing elements 
+Replace bearing 
+Periodic chattering noise of 
+the gearing in the reducer, 
+particularly from the idle 
+gear wheel 
+Excessive error of the teeth pitch. 
+Teeth 
+lateral 
+backlash 
+exceeds 
+standard value 
+Remedy, re-assemble 
+Sharp friction sound and 
+clatter sound in the reducer 
+Clearance of gearing is too small , 
+misalignment of the gear wheel, sharp 
+and thin edge on the teeth top, teeth 
+face uneven due to wear 
+Remedy, re-assemble or replace 
+Uneven meshing, 
+continuous knocking 
+Sound heard from any point 
+on the reducer casing and 
+vibration of the reducer 
+Defects on tooth lateral surface 
+(laminated texture) 
+Replace 
+ 
+Troubles 
+Reasons 
+Remedy 
+Knocking sound in the worm 
+gear reducer, alternate high 
+and low and the period 
+coincides with that of 
+gearing rotation sound 
+Excessive axial backlash of the worn 
+or the teeth of worm gear are seriously 
+worn, pitch circle of the fear is 
+eccentric in relation to the shaft, 
+accumulated error of the circular pitch 
+of the gear 
+Replace 
+ 
+ 
+ 
+ 
+ 
+Repair  or  re-assemble 
+Heating of the reducer 
+Wrong oil level. More than 50°C 
+temperature 
+difference 
+between 
+housing and enviroment 
+Oil level shall be kept between 
+the two pointer scales 
+High noise of shock in the 
+gear reducer 
+Excessive wear of gear wheel 
+Replace gear wheel 
+Foreign matter in the casing 
+Remove the foreign matter 
+bearing is damaged 
+Replace bearing 
+Foreign matter in the bearing 
+Clean the bearing 
+Bearing overheated in the 
+reducer 
+Contamination in bearing 
+Disassemble 
+and 
+clean 
+the 
+bearing 
+Too small clearance 
+Adjust 
+Lack of grease (oil) 
+Add grease (oil) 
+Brakes can not hold the load 
+(excessive braking distance 
+of the trolley or gantry) 
+Oil (grease) on the brake disc or brake 
+pads 
+Clean up the brake element jam 
+and grease the pivots 
+Clean brake disc and brake pads 
+with kerosene 
+Jam in the joints of lever system 
+Clean the brake, remove jam and 
+add grease to the joints 
+Excessive wear of the brake pads 
+Replace brake pads 
+Main spring damaged or loosened 
+results in insufficient tension 
+Replace spring or adjust the nut 
+to make the spring tension 
+sufficient 
+Loosening of the lock nut of the lever, 
+lever’s play 
+Adjust the lever and tighten nut 
+Burnt spots on brake disc Uneven clearance between brake disc Adjust clearance to make it even, 

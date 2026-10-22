@@ -1,0 +1,92 @@
+ 
+ 
+       Chapter  6 
+ 
+ 
+9 
+  
+ 
+ 
+ 
+ 
+Surface View of Swelled Coating 
+ 
+6) Discoloring of coating: 
+a. The coating may be suddenly discolored due to 
+internal and external causes after painting.  
+In most cases, the causes are improper selection 
+of paint for the following conditions or use of inferior 
+paint. 
+ 
+b. The coating gradually becomes discolored as 
+time passes after the paint completion. 
+Judgment for repainting: 
+If the coating terribly discolors comparison with 
+the original color, it requires immediate repainting. 
+In case of slight discoloring, no repainting is 
+required. 
+7) Blurred coating 
+In general, the coating loses its gloss by 40% in 
+3-6 months and 60% in 6-12 months after painting. 
+Therefore the coating will be blurred as time passes. 
+Judgment for repainting: 
+Compare the coating with an original sample. If 
+the coating is only blurred, no repainting is required. 
+6.4 painting system 
+Table 6-1 shows the primer, intermediate, top 
+coat product number and DFT used on the 
+crane. No need painting parts are also be 
+showed.
+ 
+ 
+All values of film thickness are minimum DFT! 
+ 
+coating system 
+ 
+shop primer 
+coats 
+product name 
+DFT( microns) 
+shop primer 
+ZP1704 
+20 
+total 
+20 
+ 
+external area 
+coats 
+product name 
+DFT( microns) 
+primer 
+ZP2704 
+75 
+intermediate 
+ZP842 
+125 
+top coat 
+ZP135 
+50 
+total 
+250 
+ 
+internal area 
+coats 
+product name 
+DFT( microns) 
+top coat 
+ZP842 
+125 
+total 
+125 
+ 
+ 
+galvanized surface(external) 
+coats 
+product name 
+DFT( microns) 
+primer 
+Hempel’s Wash Primer 15552-11630 
+50 
+top coat 
+ZP135 
+50 

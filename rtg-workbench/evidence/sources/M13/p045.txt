@@ -1,0 +1,155 @@
+ 
+43
+ 
+To continue 
+Inspected 
+components 
+Inspection 
+Items
+Inspection 
+Method and 
+apparatus 
+Inspection 
+criteria 
+Inspection
+period 
+Item description
+Item description 
+10 
+Trolley 
+wheel 
+3 
+Bending 
+deformation 
+of 
+wheel 
+flange 
+in 
+thickness 
+Measure  
+ 20% original 
+thickness 
+3 months 
+4 
+Wear 
+of 
+tread 
+in 
+thickness 
+Measure  
+ 16% original 
+thickness 
+3 months 
+5 
+Ellipticity  
+Measure  
+ 1 mm 
+3 months 
+11 
+Rubber 
+tyres  
+1 
+Inflation 
+pressure 
+Measure  
+10kg/m2 
+per week 
+2 
+Surface 
+of 
+the tyres 
+Visual  
+no racks 
+per week 
+3 
+Wheel 
+bearing 
+Visual, 
+testing 
+Proper 
+lubrication, no 
+abnormal 
+per week 
+4 
+Connection 
+bolts 
+Visual, 
+knocking test 
+Normal 
+condition, no 
+loosening 
+per week 
+12 
+Diesel 
+engine 
+1 
+Air filter 
+Visual  
+clean 
+per week 
+2 
+Lubrication 
+Check  
+Foreign matter 
+and 
+water 
+content meets 
+standard 
+per month 
+3 
+Water 
+tank 
+cover 
+Visual  
+no missing, no 
+damage 
+per week 
+4 
+Diesel 
+fuel 
+tank cover 
+Visual  
+no missing, no 
+damage 
+per week 
+5 
+Fan belt 
+Test  
+Tension meets 
+requirement 
+per week 
+6 
+Sealing  
+Visual  
+no leakage 
+per week 
+7 
+Abnormal 
+noise 
+Hearing  
+no abnormal 
+noise  
+per week 
+13 
+Alternator 
+set 
+1  
+Resistance of 
+insulation 
+Measure   
+1 M in cold 
+state  
+0.6M in hot 
+state 
+3 months 
+2 
+Wire 
+connection 
+Visual,  
+Knocking test 
+No 
+damage, 
+no loosening  
+per week 
+ 
+ 

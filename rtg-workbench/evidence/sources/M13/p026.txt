@@ -1,0 +1,46 @@
+ 
+24
+ 
+Other content about spreader, please see the spreader operations manual 
+provided by BROMMA. 
+ 
+ 
+13. Crane Maintenance 
+13.1 Crane travel operation 
+ 
+13.1.1 In non-operational conditions the trolley shall be anchored. 
+ 
+13.1.2 The Crane traveling is controlled with operation switch and limit switch 
+interlocks; therefore, the control parts such as limit switches shall not be removed 
+without permission. 
+ 
+13.2 Management  
+ 
+13.2.1 The Crane shall be operated in accordance with operation Manual for the 
+Electrical System since the electrical devices are controlled through the PLC. 
+13.2.2 Before operation the activation of limit switches for every mechanism shall 
+be confirmed to be accurate. 
+ 
+13.2.3 Pay close attention to the fastening bolts of every mechanism to ensure that 
+they are not loosened. Particular attention should be paid to the securing bolts on 
+the main hoist mechanism and on the spreader for safe load lifting and lowing. 
+ 
+13.2.4 Pay attention to the brake disc and brake shoe pads that are easily worn out 
+parts in comparison with other parts. In addition, clearance between the brake disc 
+and brake shoe pads shall be kept between 0.5 mm and 1.0 mm. 
+ 
+13.2.5 Frequently check that the remaining wraps of the main hoist wire rope on 
+the drum are more than two.  Check whether the rope clamp bolts on the drum 
+are loosened and re-tighten them if necessary. Bolt loosening may result in the 
+wire rope falling. 
+ 
+13.2.6 Malfunction of the limit switches due to wire rope stretch should be 
+corrected through adjustment of the rope length. Particularly after rope 
+replacement the new wire rope may be stretched after a certain time period of 
+operation and, therefore, for the first stage of operation of new wire rope more 
+frequent inspection should be made. 
+ 
+13.2.7 The wire rope lubrication shall be checked every day and lubricant added if 
+necessary. 
+ 
+13.2.8 Replace parts when they are worn to the permitted limit. 

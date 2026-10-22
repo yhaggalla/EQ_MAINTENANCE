@@ -1,0 +1,239 @@
+ 
+ 
+Chapter 3
+ 
+ 
+21 
+ 
+D 
+Daily 
+3M 
+Every three month or～1000 hours 
+W 
+Weekly 
+6M 
+Every six month or～2000 hours 
+M 
+Monthly ～or 300 hours 
+A 
+Annually or～4000 hours 
+H 
+According to working time (hour) or else  
+ 
+ 
+Abbreviation of lubrication （Refer toTable2-8～Table2-10） 
+A1 
+ISO VG 320 
+A2 
+Mobil SHC 632 
+B1 
+ISO VG 32 
+B2 
+ISO VG 46 
+C1 
+EP 2 
+C2 
+Chesterton 
+C3 
+Mobile(refer to supplier) 
+ 
+ 
+Abbreviation Of Lubrication Points Types： 
+Ⅰ 
+Hydraulic  
+Ⅱ 
+Gear 
+Ⅲ 
+Common anti-friction Bearing 
+Ⅳ
+Motor Bearing 
+Ⅴ 
+Sliding Bearing 
+Ⅵ 
+Chain drive 
+Ⅶ 
+Gear Coupling or Spline 
+Ⅷ 
+Wire Rope 
+Ⅸ 
+Others such as spring, seal… 
+ 
+ 
+ 
+Refer to drawing / correlative independent 
+part maintenance manual 
+ 
+ 
+ 
+ 
+Lubric-
+ation 
+point P 
+period 
+lubricant 
+(code 
+name) 
+Lubrication point style / 
+remark  
+Amount/
+RTG 
+ 
+D 
+Ｗ 
+Ｍ 
+3M 
+6M 
+Ａ 
+H 
+1 
+ 
+ 
+ 
+●
+ 
+ 
+ 
+C1 
+Gantry wheel shaft 
+support 
+16 
+ 
+2 
+ 
+ 
+ 
+ 
+ 
+● 
+A1 
+Gantry reducer 
+4 
+Refer 
+to 
+reducer 
+maintenance manual 
+3 
+ 
+ 
+ 
+● 
+ 
+ 
+C1 
+Equalizer pin/slewing 
+bearing/steering system 
+32 
+ 
+4 
+ 
+ 
+● 
+ 
+ 
+ 
+C1 
+Chain/ reducer 
+bearing/pin 
+20 
+ 
+5 
+ 
+ 
+ 
+ 
+ 
+● 
+C3 
+Gantry motor 
+4 
+Refer to YASKAWA 
+motor 
+maintenance 
+manual 
+6 
+ 
+ 
+ 
+ 
+ 
+● 
+A1 
+Main hoist reducer / 
+trolley reducer 
+3 
+Refer 
+to 
+reducer 
+maintenance manual 
+7 
+ 
+ 
+ 
+ 
+ 
+● 
+B1 
+Brake  
+2 
+Refer 
+to 
+brake 
+maintenance manual 
+8 
+ 
+ 
+ 
+●
+ 
+ 
+ 
+C1 
+Sheave/trolley 
+wheel/drum bearing 
+support/side 
+roller/floating frame 
+29 
+ 
+9 
+ 
+ 
+● 
+ 
+ 
+ 
+C3 
+wire 
+8 
+Refer 
+to 
+wire 
+maintenance manual 
+10 
+ 
+ 
+● 
+ 
+ 
+ 
+C1 
+Reducer bearing/drum 
+coupling 
+5 
+Refer 
+to 
+reducer 
+maintenance manual 
+11 
+ 
+ 
+ 
+ 
+ 
+● 
+C3 
+Main hoist motor 
+1 
+Refer to YASKAWA 
+maintenance manual 
+Attention: To oil seal lubrication, add grease according to the direction of nameplate near the oil fitting, to avoid 
+redundant grease come into the tank and mix with the gear lubrication. 
