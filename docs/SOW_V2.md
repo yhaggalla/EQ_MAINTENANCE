@@ -1,8 +1,10 @@
 # CICT EQ & FAC Maintenance - Scope of Work V2
 
-Version 2.0 DRAFT | 22 October 2026 | For user confirmation
+Version 2.0 DRAFT, revision 2 | 22 October 2026 | For user confirmation
 
 Supersedes SOW V1 (`documents/SOW.docx`) only on the points below. Everything in V1, in the approved requirements v1.1 and in the confirmed U1 changes (U1-C01 to U1-C16) stays valid for the EQ section unless this document says otherwise. The prompt pack is not changed until you confirm this SOW.
+
+Revision 2 records your answers to Q1-Q8 (section 9) and adds the EQ Jobs tab changes: special jobs, daily jobs read from ZMMS, automatic EQ status and the spare-part condition register (section 4).
 
 ## 1 What changes in V2
 
@@ -12,13 +14,14 @@ Supersedes SOW V1 (`documents/SOW.docx`) only on the points below. Everything in
 - FAC work starts from the supplied master list (`Facility- Dashboard.xlsx`, 111 jobs). Each job can have a job picture and completion pictures; neither is mandatory.
 - FAC data entry is kept short: a job has a handful of fields and the daily action is one "update progress" form.
 - The FAC Dashboard is built for management: a constantly moving live board where the progress of every job is visible without clicking.
-- EQ section: no functional change in V2.
+- EQ section: the Jobs tab has three parts - special jobs (manual, bound to a mechanism or part) with the daily maintenance jobs read from ZMMS listed below them, EQ status (automatic from ZMMS, with manual correction) and the condition of major spare parts. The crane view shows the current state only; work history is kept in the Jobs tab.
 
 ## 2 Application structure
 
 ```
 +-- ENG Portal > EQ & FAC Maintenance ---------------- [  EQ  |  FAC  ] --- user v --+
 |  EQ   :  Fleet  |  Jobs                     (equipment detail opens from Fleet)    |
+|          Jobs = Special & daily jobs | EQ status | Spare parts condition           |
 |  FAC  :  FAC Dashboard  |  FAC Jobs         (job detail opens from either tab)     |
 |  Admin  (Admin only: EQ settings, FAC settings, Access)                            |
 +------------------------------------------------------------------------------------+
@@ -40,7 +43,7 @@ PortalAdmin assigns one or more of these roles to a user in the ENG Portal. The 
 | --- | --- | --- |
 | Admin | eq-maintenance:admin | Everything in both sections, plus app Admin |
 | Management | eq-maintenance:management | Read-only in both sections |
-| EQ Team | eq-maintenance:eq-team | Works on EQ (jobs, operational status, replacements); can read FAC |
+| EQ Team | eq-maintenance:eq-team | Works on EQ (special jobs, status correction, spare-part condition); can read FAC |
 | FAC Team | eq-maintenance:fac-team (new in V2) | Works on FAC (progress, photos, one-time jobs); can read EQ |
 
 A user who holds both EQ Team and FAC Team works in both sections. The Portal role is the ceiling: the app can narrow what a role sees and switch on only the optional rights listed below. It can never give Management write access, and it never makes anyone an app Admin.
@@ -53,7 +56,7 @@ A simple on/off matrix of features by role. Defaults:
 | --- | --- | --- | --- | --- |
 | EQ Fleet tab and equipment detail (view) | Always | On | Always | On |
 | EQ Jobs tab (view) | Always | On | Always | On |
-| EQ work: jobs, status, replacements | Always | Not allowed | Always | Not allowed |
+| EQ work: special jobs, status correction, spare-part condition | Always | Not allowed | Always | Not allowed |
 | FAC Dashboard (view) | Always | On | On | Always |
 | FAC Jobs tab (view) | Always | On | On | Always |
 | FAC work: update progress, hold, photos | Always | Not allowed | Not allowed | Always |
@@ -71,9 +74,72 @@ Rules:
 - Every change records who changed what and when, and takes effect at the user's next refresh (within 60 seconds).
 - A user whose tabs are all switched off sees a "No access - contact the EQ & FAC Maintenance Admin" page, not an error.
 
-## 4 EQ section (no change)
+## 4 EQ section
 
-As V1, approved requirements v1.1 and the U1 changes: Fleet tab with Ready for OPS / Breakdown / Maintenance / Unreported, equipment detail with the QC 3D and flat views and tier 1 > 2 > 3 drill-down, Jobs tab with Pending / Current / Completed work, replacement history and Admin catalogue. The U1 walkthrough of the EQ prototype is still open (see section 8).
+The Fleet tab, the equipment (crane) view with the QC 3D and flat views, the tier 1 > 2 > 3 drill-down and the Admin catalogue stay as in V1, the approved requirements v1.1 and the U1 changes, except for the points below.
+
+### 4.1 Crane view: current state only
+
+- Selecting a mechanism or part shows its current state in the right panel: open special jobs, current spare-part condition (Original/Replaced, brand, replaced date, next predicted replacement) and specifications.
+- No work history is shown in the crane view. An "Open in Jobs" link opens the Jobs tab filtered to that equipment and selection, where the full history is kept.
+- Fleet cards show whether the status is automatic (ZMMS) or a manual correction, and the number of today's ZMMS daily jobs.
+
+### 4.2 EQ Jobs tab - three parts
+
+```
+EQ Jobs:  [ Special & daily jobs ]   [ EQ status ]   [ Spare parts condition ]
+          +-- Special jobs (manual, per mechanism / sub-mechanism / part) ----+
+          |  ...                                                              |
+          +-- Daily maintenance jobs (from ZMMS, read-only) -----------------+
+          |  ...                                                              |
+          +-------------------------------------------------------------------+
+```
+
+All three parts share the filters equipment, type (QC/RTG/ES), date range and search, and keep their full history.
+
+### 4.3 Special jobs (manual)
+
+- Major or non-routine work entered and updated manually by the EQ Team. Each special job is bound to one equipment and to its main mechanism, sub-mechanism or main part (as the V1 job record).
+- Fields as V1: title, Repair or Replacement, description, planned date, responsible person (optional), status Pending / Current / Completed, completion date and note, optional photos. Cancellation and Admin correction rules as V1.
+- Completing a Replacement special job opens the spare-part condition form for the selected part, pre-filled (4.6).
+- The list shows open jobs first; completed and cancelled jobs remain as history in this tab.
+
+### 4.4 Daily maintenance jobs (from ZMMS)
+
+- Source: the ZMMS (CMMS.LK) daily all-job list, `https://www.zmms.lk/?r=job/daily-alljob`. The page needs a login (checked 22 October 2026); you provide a separate account for this.
+- The app server reads the list automatically once a day (default 06:00 Asia/Colombo; Admin can change the time and press "Sync now"). Reading only - the app never writes to ZMMS.
+- Each record keeps what ZMMS gives, at least: ZMMS job number, date, equipment, job description or type and job status. The exact field list is fixed once the account is available.
+- ZMMS equipment names or codes are matched to app equipment through a mapping table in Admin. Rows that do not match are listed in Admin for mapping and are not lost.
+- The daily jobs are listed in the Jobs tab below the special jobs, read-only, with the same filters. Every synced day is kept, so the Jobs tab holds the daily-job history. They are linked to the equipment only, not to a mechanism or part.
+- Sync health: Admin sees the last sync time, rows read and any failure; users see "ZMMS data from dd Mon hh:mm". A failed sync keeps the previous data, retries, and warns Admin.
+- The ZMMS account is kept in the server configuration, never in code, logs or the browser.
+- Method: a ZMMS export or API if ZMMS offers one; otherwise the app reads the daily job page with the account. This needs the ZMMS owner's agreement (Q9).
+
+### 4.5 EQ status - automatic, with manual correction
+
+- After each sync the app sets each mapped equipment's status automatically: an open ZMMS breakdown job today -> Breakdown; an open maintenance job today -> Maintenance; otherwise Ready for OPS. Which ZMMS job types and statuses mean Breakdown or Maintenance is set in Admin (Q11).
+- If the automatic status is wrong, an EQ Team user changes it with a reason. The status then shows "Manual". It returns to automatic at the next sync that detects a different state for that equipment, or when a user selects "Back to automatic" (Q12).
+- Equipment with no ZMMS mapping keeps the V1 manual status.
+- The EQ status part of the Jobs tab lists every status change with its source (ZMMS sync or user), time and reason.
+- This replaces the V1 rule that the status is only set by hand and the "no telemetry" note on the Fleet tab.
+
+### 4.6 Condition of major spare parts
+
+- Admin marks which main-part positions of the mechanism tree are major spare parts (for example hoist motors, gearboxes, brakes, wire ropes, spreader). Each equipment has its own register.
+- Fields per part: Condition (Original / Replaced), brand, model or part number (optional), serial number (optional), replaced date (blank for Original), expected life in months, next predicted replacement, remarks.
+- Expected life is set per part type by Admin and can be changed per equipment. Next predicted replacement = replaced date + expected life; for an Original part the equipment's commissioning date is used. If that date is unknown, no prediction is shown (Q13).
+- Parts past their predicted date are marked overdue, and parts within 90 days are marked "due soon" (Admin setting).
+- The EQ Team updates the register directly or through a completed Replacement special job. Each change keeps the previous values, so the replacement history of a part is visible in this tab.
+
+## 4A Changes to V1 rules caused by section 4
+
+| V1 / approved requirements v1.1 | V2 |
+| --- | --- |
+| Operational status is set only manually; no telemetry | Automatic from ZMMS daily jobs, with manual correction |
+| No external system link (Maximo/EAM) | Still no Maximo/EAM link; ZMMS daily jobs are read (read-only) |
+| Right panel in the equipment view shows scoped history (S07) | Right panel shows the current state; history in the Jobs tab |
+| Jobs workspace: Pending / Current / Completed for all work (S08) | Special jobs keep those statuses; daily jobs come from ZMMS |
+| Remaining or predicted life not in stage 1 | Simple predicted replacement date from the expected life in months |
 
 ## 5 FAC section
 
@@ -103,15 +169,15 @@ The app calculates, so nobody types them: next due date, completed and pending q
 | Weekly | 7 days |
 | Monthly | 1 calendar month |
 | Quarterly | 3 months |
-| Tri-annually | 4 months (3 times a year) - confirm, Q3 |
-| Bi-annually | 6 months (twice a year, as the sheet's +182 days) - confirm, Q3 |
+| Tri-annually | 4 months (3 times a year) |
+| Bi-annually | 6 months (twice a year, as the sheet's +182 days) |
 | Annually | 12 months |
 | Once in 2 / 3 / 5 years | 24 / 36 / 60 months |
 | Running hours (e.g. chiller compressor oil at 5000 h) | No automatic date: next due date is entered at each completion |
 | As required (no fixed frequency) | No due date |
 
-- Next due = last done date + interval, counted in calendar months (the sheet's +30/+31 days become "1 month").
-- When a cycle is completed, last done = completion date and the next cycle opens automatically as Pending (question Q4).
+- When a user adds a new job, they choose its frequency from this list (Admin maintains the list).
+- Recurring jobs only: next due = last done date + interval, counted in calendar months (the sheet's +30/+31 days become "1 month"). When a cycle is completed, last done = completion date and the next cycle opens automatically as Pending.
 - Due soon = within 7 days of the due date (Admin setting). Daily jobs are due today.
 - Overdue = past the due date and the cycle not completed; the number of days overdue is shown.
 - One-time jobs close on completion. Continuous jobs have no due date and are tracked by quantity until marked completed.
@@ -195,12 +261,12 @@ Purpose: a manager in front of the screen sees, without clicking, what work is m
 - Times shown in Asia/Colombo; work dates are kept as business dates.
 - Screens: desktop 1920 x 1080 and 1366 x 768, tablet, phone. FAC Jobs is fully usable on a phone; the EQ 3D view stays optional on phones.
 - Intranet only: fonts, icons and libraries are bundled, no external internet services.
-- Own SQL Server database; no Maximo/EAM link.
+- Own SQL Server database; no Maximo/EAM link. The only external system the app reads is ZMMS (4.4).
 
 ## 7 Not in V2
 
 - FAC: email/SMS/WhatsApp reminders (possible later), automatic running-hour readings, contractor management, costs and budgets, spare parts and stock, detailed per-item inspection checklists, maps/GIS, links from FAC jobs to EQ equipment, offline mode.
-- EQ: V1 exclusions unchanged.
+- EQ: writing anything back to ZMMS; reading ZMMS jobs other than the daily job list; linking ZMMS daily jobs to mechanisms or parts; predictions from running hours, sensors or AI; spare-part stock and purchasing. Other V1 exclusions unchanged.
 
 ## 8 Effect on the implementation plan (information only - the prompt pack is not changed yet)
 
@@ -208,28 +274,43 @@ After you confirm this SOW, the pack is updated as follows. Completed work (P00-
 
 | Area | Planned change |
 | --- | --- |
-| Approved requirements | Version 2.0: FAC scope items, FAC Team role, feature-permission matrix, FAC exclusions |
-| P01 contracts | Addendum: FAC tables (jobs, cycles, updates, photos), FAC API, permission matrix |
-| P02 prototype | Section switch, FAC Dashboard and FAC Jobs prototype with the imported list |
+| Approved requirements | Version 2.0: FAC scope items, FAC Team role, feature-permission matrix, EQ changes of section 4A, ZMMS read-only import, FAC exclusions |
+| P01 contracts | Addendum: FAC tables (jobs, cycles, updates, photos), FAC API, permission matrix, ZMMS daily jobs, status source, spare-part register |
+| P02 prototype | Section switch, FAC Dashboard and FAC Jobs prototype with the imported list; EQ Jobs tab in three parts; crane view without history |
 | P05 Portal integration | Fourth role code `eq-maintenance:fac-team` and the display name; P05 has not started, so nothing is redone |
-| P06 Admin | Access matrix, FAC master list and Excel import |
+| P06 Admin | Access matrix, FAC master list and Excel import, ZMMS equipment mapping and status rules, major spare-part selection and expected life |
+| P07 | Special jobs, automatic/manual status, spare-part register |
+| New ZMMS phase | Daily sync with the separate account, mapping, sync health, automatic status |
 | New FAC build phase | FAC jobs, cycles, progress updates, photos |
-| P09 | FAC Dashboard alongside the EQ Fleet tab |
-| Reviews and acceptance | FAC acceptance cases; R02/R04 cover FAC |
-| U1 checkpoint | Either approve the EQ prototype now and review FAC at a short extra checkpoint, or review both together after the FAC prototype (question Q8) |
+| P09 / P10 | FAC Dashboard beside the EQ Fleet tab; right panel shows the current state only |
+| Reviews and acceptance | FAC and ZMMS acceptance cases; reviews cover both |
+| Checkpoints | Planned when the prompt pack is updated |
 
-## 9 Decisions needed from you
+## 9 Decisions
+
+### 9.1 Confirmed by you (22 October 2026)
+
+| No. | Question | Your answer |
+| --- | --- | --- |
+| Q1 | App name | Display "EQ & FAC Maintenance"; technical code stays `eq-maintenance` |
+| Q2 | Who manages the FAC master list? | Admin; Admin can give the right to FAC Team in Access |
+| Q3 | Frequencies | Tri-annually = every 4 months; bi-annually = every 6 months; the user sets the frequency when adding a new job |
+| Q4 | Next due date | From the actual completion date, for recurring jobs only |
+| Q5 | Gaps in the sheet | Import with blanks and complete them in Admin |
+| Q6 | Daily and weekly checks | One-tap "Done today" / "Done this week" |
+| Q7 | Management access to FAC | Both FAC tabs, read-only; tab visibility adjustable in Admin |
+| Q8 | U1 checkpoint | Not decided now; this revision only updates the SOW |
+
+### 9.2 Still open (new in revision 2)
 
 | No. | Question | Recommended answer |
 | --- | --- | --- |
-| Q1 | App name | Display "EQ & FAC Maintenance"; keep technical code `eq-maintenance` |
-| Q2 | Who manages the FAC master list? | Admin; Admin can switch it on for FAC Team in Access |
-| Q3 | Tri-annually and bi-annually | Tri-annually = every 4 months; bi-annually = every 6 months |
-| Q4 | Next due date counted from | The actual completion date (as the sheet does), not a fixed calendar |
-| Q5 | Gaps in the sheet (Appendix A) | Import with blanks (quantity 1, no PIC, no dates) and complete them in Admin |
-| Q6 | Daily and weekly checks | Track them with a one-tap "Done today" / "Done this week" |
-| Q7 | Management access to FAC Jobs | Both FAC tabs, read-only |
-| Q8 | U1 checkpoint | Finish the EQ U1 walkthrough now; review FAC at a short extra checkpoint after its prototype |
+| Q9 | ZMMS access | You provide a read-only ZMMS account and confirm the ZMMS owner allows automated daily reading; tell us if ZMMS has an export or API |
+| Q10 | ZMMS sync timing | Once a day at 06:00 plus Admin "Sync now"; Admin may set more syncs per day if status must follow ZMMS more closely |
+| Q11 | Which ZMMS jobs mean Breakdown or Maintenance | Decided in Admin after the first sample of ZMMS data |
+| Q12 | How long a manual status correction lasts | Until the next sync detects a different state for that equipment, or "Back to automatic" |
+| Q13 | Basis for the next predicted replacement | Expected life in months; Original parts count from the commissioning date |
+| Q14 | Which parts are "major spare parts" | Admin selects them from the mechanism-tree part positions |
 
 ## Appendix A - supplied FAC list (`documents/Facility- Dashboard.xlsx`)
 
