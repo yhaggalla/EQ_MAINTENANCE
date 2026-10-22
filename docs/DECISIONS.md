@@ -190,7 +190,7 @@ None of these blocks P01. Each is modelled as configurable data or a visible sou
 
 | Checkpoint | Date | Decision | Notes |
 | --- | --- | --- | --- |
-| U1 (after R02) | 2026-10-22 | CHANGES REQUESTED (round 2) | Round 1: "2026-10-21 U1 CHANGES REQUESTED" (U1-C01..C08), repaired 22 Oct (`docs/evidence/U1/repair-20261022.md`). Round 2: "2026-10-22 U1 CHANGES REQUESTED (round 2)" (U1-C09..C16), repaired 22 Oct (`docs/evidence/U1/repair-r2-20261022.md`); U1 to be repeated (user walkthrough) |
+| U1 (after R02) | 2026-10-22 | CHANGES REQUESTED (round 3) | Round 1: "2026-10-21 U1 CHANGES REQUESTED" (U1-C01..C08), repaired 22 Oct (`docs/evidence/U1/repair-20261022.md`). Round 2: "2026-10-22 U1 CHANGES REQUESTED (round 2)" (U1-C09..C16), repaired 22 Oct (`docs/evidence/U1/repair-r2-20261022.md`); Round 3: "2026-10-22 U1 CHANGES REQUESTED (round 3)" (U1-C17..C18); repair pending, then U1 again |
 | U2 (after P11) | not yet reached | | |
 
 ### 2026-10-21 U1 CHANGES REQUESTED
@@ -224,3 +224,14 @@ Given by the user in chat after reviewing the Repair-U1 result (commit `3129a73`
 | U1-C14 | "need to adjust apex section.." Rework the A-frame apex head (circled): its shape, the boom-hoist sheave arrangement and platforms, per J526A00 and the related structure drawings. | 10.png |
 | U1-C15 | "flood lights should goes to boom grder.. and make it as a lights.." Move the 131 floodlights onto the boom/girder (arrows point outward to both sides) and model them as recognisable floodlight fittings, not a marker ball. | 11.png |
 | U1-C16 | "elevator platform need to be corrected.." and "change all these ball shape parts with actual looking parts.." Correct the elevator car and its landing platform (circled) per J526A5100; and replace every ball-shaped location marker on the crane (circled on the cab and spreader, and all others) with simple parts that look like the real component. Where the real location is not established, keep the part labelled approximate rather than using a ball. | 12.png, 13.png |
+
+### 2026-10-22 U1 CHANGES REQUESTED (round 3)
+
+Given by the user in chat after reviewing the Repair-U1 round 2 result (commit `1ff226b`), viewed through the published 3D page. Screenshots: `docs/evidence/U1/14.png` (3D trolley, Technical mode, labels on) and `15.png` (3D spreader and headblock, side view).
+
+| ID | Change (user's words, then how it is read) | Screens |
+| --- | --- | --- |
+| U1-C17 | "trolley should be adjusted as per the drawing.. sheave places are wrong.." Rebuild the trolley (frame, wheels, main hoist sheave sets A/B, rope sheaves and the rope paths over them) to the trolley drawings: sheave positions, count and arrangement, wheel positions and frame shape. Keep anything the drawings do not fix labelled as an estimate. | 14.png |
+| U1-C18 | "re do the spreader as per the drawing.." Remodel the spreader (and the headblock interface it hangs from) to the spreader/headblock drawings: main beam, telescopic arms, end beams, twistlock/flipper corners and the headblock connection, replacing the current flat bar arrangement. | 15.png |
+
+Both apply to the 3D model; the flat view (P02) follows where it draws these parts (U1-C08 parity).
