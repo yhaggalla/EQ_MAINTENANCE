@@ -1,0 +1,59 @@
+{
+  "browser": "Chrome/141.0.7390.37",
+  "items": [
+    {
+      "name": "p02-r3-01-trolley-021",
+      "note": "U1-C17 flat: 021 Trolley selected (technical): frame, wheels A/B at 2370 / 2070, sheave shafts A (B behind) at 900 either side, equalizer sheaves, labels",
+      "file": "docs/evidence/U1/repair-r3/screenshots/p02-r3-01-trolley-021.png",
+      "errors": []
+    },
+    {
+      "name": "p02-r3-02-hoist-rope-falls",
+      "note": "U1-C17 flat: 015 main hoist rope set: falls from the trolley sheave tangents to the headblock sheaves (drawing pattern)",
+      "file": "docs/evidence/U1/repair-r3/screenshots/p02-r3-02-hoist-rope-falls.png",
+      "errors": []
+    },
+    {
+      "name": "p02-r3-03-spreader-headblock",
+      "note": "U1-C18 flat: 06 Spreader: headblock (2090, two dia 1000 sheaves, fence, twistlocks) and spreader end-on (2440, main beams, flippers, twistlocks)",
+      "file": "docs/evidence/U1/repair-r3/screenshots/p02-r3-03-spreader-headblock.png",
+      "errors": []
+    },
+    {
+      "name": "p02-r3-04-cable-reel-014",
+      "note": "U1-C17 flat: 014 spreader cable reel in the trolley body with the cable to the headblock",
+      "file": "docs/evidence/U1/repair-r3/screenshots/p02-r3-04-cable-reel-014.png",
+      "errors": []
+    },
+    {
+      "name": "p03-r3-01-trolley-container",
+      "note": "U1-C17 3D: trolley spatial group fitted (technical, the 14.png state): labelled wheels LS-A/LS-B/WS-A/WS-B, sheave sides A/B, equalizer sheaves, frame, cable reel",
+      "file": "docs/evidence/U1/repair-r3/screenshots/p03-r3-01-trolley-container.png",
+      "errors": []
+    },
+    {
+      "name": "p03-r3-01b-trolley-021",
+      "note": "U1-C17 3D: 021 trolley sub-mechanism selected: tier-3 labels for every 021 position (house drive, tail sheaves, trolley parts)",
+      "file": "docs/evidence/U1/repair-r3/screenshots/p03-r3-01b-trolley-021.png",
+      "errors": []
+    },
+    {
+      "name": "p03-r3-02-spreader-061-qc02",
+      "note": "U1-C18 3D: 061 Spreader on QC-DEMO-02: spreader frame and the four twistlock / flipper corners",
+      "file": "docs/evidence/U1/repair-r3/screenshots/p03-r3-02-spreader-061-qc02.png",
+      "errors": []
+    },
+    {
+      "name": "p03-r3-03-headblock-062",
+      "note": "U1-C18 3D: 062 Headblock: frame, sheave boxes A/B with twistlocks",
+      "file": "docs/evidence/U1/repair-r3/screenshots/p03-r3-03-headblock-062.png",
+      "errors": []
+    },
+    {
+      "name": "p03-r3-04-cable-reel-014",
+      "note": "U1-C17 3D: 014 spreader cable reel (new position) inside the trolley body",
+      "file": "docs/evidence/U1/repair-r3/screenshots/p03-r3-04-cable-reel-014.png",
+      "errors": []
+    }
+  ]
+}

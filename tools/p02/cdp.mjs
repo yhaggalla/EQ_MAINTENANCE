@@ -5,12 +5,14 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 
-const CHROME = ['C:/Program Files/Google/Chrome/Application/chrome.exe', 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'].find((p) => fs.existsSync(p));
+// EQ_CHROME overrides; the Linux path is the Playwright Chromium used in the cloud container (U1 round 3).
+const CHROME = [process.env.EQ_CHROME, 'C:/Program Files/Google/Chrome/Application/chrome.exe', 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe', '/opt/pw-browsers/chromium-1194/chrome-linux/chrome'].filter(Boolean).find((p) => fs.existsSync(p));
+const LINUX_ARGS = process.platform === 'linux' ? ['--no-sandbox'] : []; // the container runs as root
 
 export async function launch({ port = 9340 } = {}) {
   if (!CHROME) throw new Error('No Chrome/Edge found');
   const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'eq-p02-chrome-'));
-  const proc = spawn(CHROME, ['--headless=new', '--disable-gpu', '--hide-scrollbars', '--no-first-run', '--no-default-browser-check', '--disable-extensions', '--remote-debugging-port=' + port, '--user-data-dir=' + profile, 'about:blank'], { stdio: 'ignore' });
+  const proc = spawn(CHROME, ['--headless=new', ...LINUX_ARGS, '--disable-gpu', '--hide-scrollbars', '--no-first-run', '--no-default-browser-check', '--disable-extensions', '--remote-debugging-port=' + port, '--user-data-dir=' + profile, 'about:blank'], { stdio: 'ignore' });
   let ver;
   for (let i = 0; i < 60; i++) {
     try { ver = await (await fetch('http://127.0.0.1:' + port + '/json/version')).json(); break; } catch { await new Promise((r) => setTimeout(r, 250)); }

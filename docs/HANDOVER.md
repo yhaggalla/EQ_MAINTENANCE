@@ -4,6 +4,83 @@ Rolling handover for CICT EQ Maintenance. Each phase appends its record; the new
 
 ---
 
+## Repair-U1 round 3 User changes U1-C17..U1-C18 - 22 October 2026
+
+### Runtime record
+
+| Item | Value |
+| --- | --- |
+| Recommended profile | Codex gpt-6.1-sol, high; Claude Code claude-opus-5-5, high, adaptive thinking (Repair profile; P03 profile inherited) |
+| Actual client | Claude Code subagent eq-build-opus-high (delegated by the orchestrator; prompt in `docs/runs/Repair-U1r3-20261022.md`) |
+| Actual model / effort | claude-opus-5-5; effort high (per agent definition) |
+| Fallback / escalation | None. Run in a Linux cloud container (`/home/user/EQ_MAINTENANCE`, branch `main-xqosal`), no hardware GPU: all browser checks and renders used SwiftShader; PowerShell absent (node/python used); `F:\CODEX\CICT-ENG_MAIN_PAGE` not available and not needed |
+
+### Outcome
+
+Repair complete for U1-C17 (trolley, sheaves, wheels, rope paths to J526A0200 / J526A2100) and U1-C18 (headblock to J526A1200, spreader remodelled) in the P03 model (draft v1 revision 4) and, where it draws these parts, the P02 flat view. Prototype-only, synthetic data; no production code, database, Portal change or deployment. Not committed (orchestrator instruction). U1 was not repeated by this run. Details and proof: `docs/evidence/U1/repair-r3-20261022.md`.
+
+### Change IDs
+
+- U1-C17: open trolley frame and centre body; 4 wheels (one per corner, dia 630 at 2370 / 2070 on the 6300 rails) instead of 8; four sheave shafts at 900 with two dia 1000 sheaves each (sets A/B per rope side, waterside pair staggered 80); trolley-rope equalizer sheaves at the 2560 / 2260 rope lines (new position, 021 proposed); spreader cable reel (new position, 014); main hoist loops per the drawing (4 ropes, 8 falls) and trolley ropes on the J526A2100 1050 / 950 lanes (tip and tail trolley-rope sheaves moved to 1050). Flat view redrawn to the same proportions with four appended template positions. Checks P03 `u1r3-trolley-spreader-content`, P02 `U1R3-C17-C18`; overlays `repair-r3/comparison/trolley-plan-overlay.png`, `trolley-side-overlay.png`.
+- U1-C18: headblock per J526A1200 (1210 beam, 1640 box, 2090 guards, sheaves at 1010 / 970, fence to 1670, twistlocks dia 140 at 950); spreader as an STS45-type telescopic spreader (main frame 1300 beam spacing from DT1500F, landing castings under the headblock twistlocks, arms, end beams, twistlocks at ISO 40 ft corners, flippers, power pack). The STS45 drawing is not in the supplied set, so the spreader body is estimated (U-27). Pairs `headblock-end-pair.png`, `headblock-front-pair.png`, `before-after-15-spreader.png`.
+
+Requirement IDs touched (prototype evidence only; acceptance cases remain NOT RUN): S04, S05, S06, S12 (kept keys; removed nonexistent draft positions, D-84), S14, S16; supports VIS01-VIS06, VIS08-VIS10.
+
+### Files changed
+
+Modified:
+- Model source/pipeline: `assets/models/source/cict-j526a-sts/build.mjs`, `params.json` (rev 4, new "U1 round 3" parameters, `trolleyWheelPairPitch` removed), `README.md`; `tools/model-generator/generate.mjs` (colour-factor rounding)
+- Generated model: `artifacts/models/cict-j526a-sts-scene/1/` (`scene.glb`, `manifest.json`, `provenance.md`, `landmarks.json`, `checksums.json`)
+- P02: `artifacts/prototypes/p02-ui/js/preview.js`, `js/fixtures.js`, `css/app.css`, `README.md`
+- P03: `artifacts/prototypes/p03-qc-model/README.md`
+- Checks/tools: `tools/p02/cdp.mjs`, `tools/p03/cdp.mjs` (Linux Chromium path, `EQ_CHROME`, `--no-sandbox` on Linux), `tools/p02/check_prototype.mjs` (+`U1R3-C17-C18`), `tools/p03/check_model_prototype.mjs` (+`u1r3-trolley-spreader-content`)
+- Records: `docs/DECISIONS.md` (D-83..D-88, U-27, U-28, U1 row), `docs/IMPLEMENTATION_STATUS.md`, `docs/HANDOVER.md`
+
+New:
+- `tools/u1/capture_u1r3_model.mjs`, `tools/u1/capture_u1r3_ui.mjs`, `tools/u1/compose_u1r3.py`
+- `docs/evidence/U1/repair-r3-20261022.md`; `docs/evidence/U1/repair-r3/` (check JSON, model diff, capture logs, `closeups/` 16, `screenshots/` 10, `comparison/` 6)
+
+Untouched: `documents/`, `As-bulit drawing/`, `RTG drawings/`, `mockups/`, `.claude/`, earlier evidence folders. Scratch outputs in `tmp/u1r3-det-a`, `tmp/u1r3-det-b` (git-ignored).
+
+### Checks run and results (after the last change; SwiftShader only)
+
+| Check | Result |
+| --- | --- |
+| `generate.mjs` x3 | identical GLB sha256 `af9d1338...f9a369` (2,546,744 bytes) and manifest; 54,146 triangles; draw calls 196 (Overall 147, Technical 195) of 200; no landmark failure |
+| `validate.mjs` | 26/26, validated |
+| `check_bindings.mjs` | 11/11 |
+| `tools/u1/model_diff.mjs` | 2 added, 4 removed (`trolley.wheel.*.2`), 0 identity changes |
+| `check_model_prototype.mjs --gpu swiftshader` | 41/41 twice on the final model (one earlier run on an intermediate build had 2 click-timing failures, reruns passed; reported in the evidence) |
+| `check_no_webgl.mjs` | pass |
+| `tools/p02/check_prototype.mjs` | 59/59 |
+| `tools/p02/check_contrast.py` | 37 pairs, 0 below threshold |
+| captures and comparisons | 16 + 9 + 6 images, reviewed; no console errors (favicon 404 only) |
+
+Evidence type: drawing reading, scripted model checks and headless SwiftShader browser checks with synthetic data. No hardware-GPU, authenticated, target-environment or production verification. SwiftShader orbit 8.9 fps (software rendering, not the reference device).
+
+### Open issues and impact
+
+| ID | Issue | Impact |
+| --- | --- | --- |
+| U-27 | STS45 spreader drawing not supplied; spreader body estimated from interfaces | Visual; ask the user at the U1 repeat whether to supply it (not blocking) |
+| U-28 | Several trolley readings scaled (equalizer Z, reel, sheave height, buffer Z, body width); rope lane grazes the simplified girder box | Visual only |
+| D-84 / D-85 | Four nonexistent draft wheel positions removed; sheave sets stay per rope side, per-shaft split proposed for Admin | P06 Admin review |
+| Platform | GLB colour factors now rounded, so this Linux build and a Windows rebuild should give the same bytes; not re-verified on Windows in this run | Re-run `generate.mjs` once on the workstation to confirm |
+| Perf | No hardware-GPU measurement in this run | Measure on the reference desktop in P11 |
+| Earlier | U-19, U-20..U-26, D-61, D-02 unchanged | As before |
+
+No genuinely missing business information blocks the repeat of U1. Question for the user at the walkthrough (optional): supply the STS45 (Bromma) spreader GA if the spreader must match it exactly (U-27).
+
+### Git
+
+Branch `main-xqosal`, HEAD `fdade57`; all round-3 changes are **uncommitted** (orchestrator commits).
+
+### Next prompt
+
+**U1 user checkpoint, repeated** (user walkthrough of the P02 prototype on port 5312 and the P03 model on port 5313: `node artifacts/prototypes/p02-ui/serve.mjs 5312`, `node artifacts/prototypes/p03-qc-model/serve.mjs 5313`). The user's approval or further changes are recorded in `docs/DECISIONS.md` s4 before P04 starts.
+
+---
+
 ## Repair-U1 User changes U1-C01..U1-C08 - 22 October 2026
 
 ### Runtime record

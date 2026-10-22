@@ -222,6 +222,13 @@ tr.inactive td { color: var(--ink-muted); background: var(--surface-subtle); }
 .sc-grey { fill: #7d8a95; stroke: #4b5964; stroke-width: .25; }
 .sc-tech { fill: #dfe7ed; stroke: #496072; stroke-width: .3; }
 .sc-rope { stroke: #3d4a55; stroke-width: .35; fill: none; }
+/* U1 round 3: headblock/spreader yellow and orange flippers (site photos, as in the 3D model); fine strokes for the
+   small trolley, headblock and spreader parts (units are metres); dashed outline for parts hidden behind side A */
+.sc-yellow { fill: #e0b020; stroke: #7a5c0c; stroke-width: .2; }
+.sc-flipper { fill: #e8742a; stroke: #8f4512; stroke-width: .12; }
+.sc-fine { stroke-width: .07; }
+.sc-rope-fine { stroke-width: .12; }
+.sc-behind { fill: none; stroke-dasharray: .18 .12; }
 .sc-deco { fill: none; stroke: #7f8d98; stroke-width: .3; }
 .sc-text { font-family: var(--font); font-weight: 650; font-size: calc(var(--k, .16) * 12.5px); fill: #1d3346; paint-order: stroke; stroke: rgb(255 255 255 / 88%); stroke-width: calc(var(--k, .16) * 3px); pointer-events: none; }
 .sc-text.small { font-size: calc(var(--k, .16) * 10.5px); font-weight: 500; }

@@ -1,6 +1,6 @@
 # Implementation status
 
-Ledger of phases in the prompt-pack run order. A phase is marked complete only when its evidence exists. Last updated: 22 October 2026 (Repair-U1).
+Ledger of phases in the prompt-pack run order. A phase is marked complete only when its evidence exists. Last updated: 22 October 2026 (Repair-U1 round 3).
 
 ## Phase ledger
 
@@ -12,7 +12,7 @@ Ledger of phases in the prompt-pack run order. A phase is marked complete only w
 | 4 | P02 UI prototype | **Complete** | 2026-10-21 | `artifacts/prototypes/p02-ui/`, `docs/UX_SPEC.md`, `docs/evidence/P02/` | Synthetic, in-memory prototype; 50/50 browser checks, 37/37 contrast pairs, 70 screenshots; QC viewer is an SVG placeholder |
 | 5 | P03 QC model prototype | **Complete** | 2026-10-21 | `docs/evidence/P03/`, `assets/models/source/cict-j526a-sts/`, `tools/model-generator/`, `artifacts/models/cict-j526a-sts-scene/1/`, `artifacts/prototypes/p03-qc-model/` | Drawing-derived CICT-J526A-STS v1 (168 nodes, 135 positions); validator 25/25, bindings 11/11, browser checks 31/31 hardware and 31/31 SwiftShader, no-WebGL pass, P02 regression 50/50; synthetic bindings only |
 | 6 | R02 UX and model-fidelity review | **PASS** | 2026-10-21 | `docs/evidence/R02/review-20261021-2052.md` | 6 non-blocking findings (phone status badge, viewer loading state, label clipping, prototype data shortcuts, fleet error time, which QC view to judge) carried to P06/P10 |
-| 7 | U1 User checkpoint | **CHANGES REQUESTED (round 3)** | 2026-10-22 | `docs/DECISIONS.md` s4, `docs/evidence/U1/` | Round 1 U1-C01..C08 repaired (3129a73); round 2 U1-C09..C16 repaired (1ff226b, `docs/evidence/U1/repair-r2-20261022.md`); round 3 U1-C17..C18 (trolley sheaves, spreader); next: repair U1 |
+| 7 | U1 User checkpoint | **CHANGES REQUESTED (round 3), repaired** | 2026-10-22 | `docs/DECISIONS.md` s4, `docs/evidence/U1/` | Round 1 U1-C01..C08 repaired (3129a73); round 2 U1-C09..C16 repaired (1ff226b, `docs/evidence/U1/repair-r2-20261022.md`); round 3 U1-C17..C18 (trolley, spreader) repaired (`docs/evidence/U1/repair-r3-20261022.md`, model draft v1 rev 4); next: repeat U1 walkthrough |
 | 8 | P04 App foundation | Not started | | | Needs .NET 10 SDK (D-02) |
 | 9 | P05 Portal integration | Not started | | | Only phase allowed to edit the Portal repo |
 | 10 | R03 Identity and compatibility review | Not started | | | |
@@ -38,7 +38,7 @@ Every case in `documents/prompt-pack/ACCEPTANCE_CHECKLIST.md` is **NOT RUN**. P0
 
 ## Open source issues
 
-U-01 to U-22 in `docs/DECISIONS.md` s3 (U-20 to U-22 added in Repair-U1) (U-16 to U-18 added in P01, all planned P05 Portal items; U-19 girder/trolley-rail elevation interpretation added in P03). None blocks R02. D-02 (.NET 10 SDK missing, rechecked in P01) blocks P04 until installed.
+U-01 to U-28 in `docs/DECISIONS.md` s3 (U-20 to U-22 added in Repair-U1, U-23 to U-26 in round 2, U-27 and U-28 in round 3) (U-16 to U-18 added in P01, all planned P05 Portal items; U-19 girder/trolley-rail elevation interpretation added in P03). None blocks R02. D-02 (.NET 10 SDK missing, rechecked in P01) blocks P04 until installed.
 
 2026-10-21 R01 VERDICT: NEEDS FIXES (eq-review-opus-high) - docs/evidence/R01/review-20261021-1357.md; next: repair R01
 2026-10-21 Repair-R01 complete (eq-build-opus-high) - F1-F5 fixed in DATA/API/PORTAL contracts, D-42..D-44 added; evidence docs/evidence/R01/repair-20261021-1403.md; next: repeat R01
@@ -51,3 +51,4 @@ U-01 to U-22 in `docs/DECISIONS.md` s3 (U-20 to U-22 added in Repair-U1) (U-16 t
 2026-10-22 U1 CHANGES REQUESTED (round 2) by user: U1-C09..C16 (tree/labels/reset/fold in both views, load cell position, girder-tail stair, apex, floodlights, elevator, replace ball markers); next: repair U1
 2026-10-22 Repair-U1 round 2 complete (eq-build-opus-high) - U1-C09..C16 fixed in the P02 flat view and the P03 model/viewer; evidence docs/evidence/U1/repair-r2-20261022.md; committed 1ff226b; next: repeat U1 user checkpoint
 2026-10-22 U1 CHANGES REQUESTED (round 3) by user: U1-C17 (trolley and sheave positions per drawing), U1-C18 (spreader per drawing); next: repair U1
+2026-10-22 Repair-U1 round 3 complete (eq-build-opus-high) - U1-C17 (trolley to J526A0200/J526A2100: 4 wheels, 4 sheave shafts x 2 sheaves, open frame, equalizers, cable reel 014, rope paths) and U1-C18 (headblock to J526A1200, spreader remodel; STS45 drawing not supplied, U-27) in the P03 model (rev 4) and the P02 flat view; decisions D-83..D-88, U-27..U-28; evidence docs/evidence/U1/repair-r3-20261022.md; not committed; next: repeat U1 user checkpoint

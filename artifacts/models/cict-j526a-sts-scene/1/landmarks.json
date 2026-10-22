@@ -94,8 +94,8 @@
     {
       "name": "trolley wheels on the girder rail",
       "expected": 52.42,
-      "actual": 52.419998,
-      "deviationPct": 0,
+      "actual": 52.384998,
+      "deviationPct": 0.067,
       "tolerancePct": 1,
       "pass": true,
       "kind": "drawing-derived",

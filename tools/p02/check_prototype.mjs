@@ -582,6 +582,20 @@ try {
     return { ok, detail: JSON.stringify(r) };
   });
 
+  // ---------------- U1 round 3 (U1-C17, U1-C18), flat view ----------------
+  await step('U1R3-C17-C18', 'Flat schematic content at drawing proportions (trolley centre x = 94): trolley-rope lines 2560 / 2260 plus 400 buffers, wheels at 2370 / 2070, sheave shafts A/B at 900 either side, equalizer sheaves and cable reel bound, cab 3000 landside of the frame, headblock 2090, spreader end-on 2440, 021 selection fits to at most 16 m', async () => {
+    await go('eqTeam', `/equipment/${Q1}?mode=technical`); await b.wait(500);
+    const r = await ev(`(()=>{const bb=(k)=>{const e=document.querySelector('[data-key="'+k+'"]'); if(!e) return null; const b=e.getBBox(); return {x0:+b.x.toFixed(3), x1:+(b.x+b.width).toFixed(3), bound: !e.classList.contains('unbound')};};
+      return {frame: bb('trolley.frame'), wa: bb('trolley.wheel.position.a'), wb: bb('trolley.wheel.position.b'), sa: bb('trolley.sheave.set.a'), sb: bb('trolley.sheave.set.b'), eqz: bb('trolley.sheave.equalizer'), reel: bb('trolley.spreader-cable-reel'), cab: bb('cabin.operator.main'), hb: bb('headblock.frame'), sp: bb('spreader.frame')};})()`);
+    const near = (a, v, t) => Math.abs(a - v) <= t;
+    const okGeo = r.frame && near(r.frame.x0, 94 - 2.96, 0.01) && near(r.frame.x1, 94 + 2.66, 0.01) && r.wa && near((r.wa.x0 + r.wa.x1) / 2, 94 - 2.37, 0.01) && r.wb && near((r.wb.x0 + r.wb.x1) / 2, 94 + 2.07, 0.01)
+      && r.sa && r.sa.bound && near(r.sa.x0, 94 - 1.4, 0.01) && near(r.sa.x1, 94 + 1.4, 0.01) && r.sb && r.sb.bound && r.eqz && r.eqz.bound && r.reel && r.reel.bound
+      && r.cab && near(r.cab.x0, 88.5, 0.01) && near(r.cab.x1, 91.5, 0.01) && r.hb && near(r.hb.x0, 94 - 1.045, 0.01) && near(r.hb.x1, 94 + 1.045, 0.01) && r.sp && near(r.sp.x0, 94 - 1.28, 0.01) && near(r.sp.x1, 94 + 1.28, 0.01);
+    await go('eqTeam', `/equipment/${Q1}?main=mi-q01-02&sub=si-q01-021&mode=technical`); await b.wait(900);
+    const vb = await ev(`document.getElementById('scene-svg').getAttribute('viewBox').split(' ').map(Number)`);
+    return { ok: okGeo && vb[2] <= 16.01, detail: JSON.stringify({ ...r, viewBox021: vb }) };
+  });
+
   // ---------------- responsive ----------------
   const sizes = [[1920, 1080, false], [1366, 768, false], [1024, 768, false], [768, 1024, false], [390, 844, true]];
   for (const [w, h, mob] of sizes) {

@@ -1,0 +1,120 @@
+{
+  "gpu": "swiftshader",
+  "browser": "Chrome/141.0.7390.37",
+  "items": [
+    {
+      "name": "c17-trolley-top-ls",
+      "note": "U1-C17: trolley from above the landside end (the 14.png viewpoint): open frame, 4 wheels, 4 sheave shafts with 2 sheaves each, equalizer sheaves, rope loops",
+      "query": "cam=64.5,58.5,9.5&tgt=70,52.5,0.4&fov=46",
+      "file": "docs/evidence/U1/repair-r3/closeups/c17-trolley-top-ls.png",
+      "errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "name": "c17-trolley-top-ws",
+      "note": "U1-C17: trolley from above the waterside end, -Z side",
+      "query": "cam=76.5,58,-8.5&tgt=70,52.4,0&fov=46",
+      "file": "docs/evidence/U1/repair-r3/closeups/c17-trolley-top-ws.png",
+      "errors": []
+    },
+    {
+      "name": "c17-trolley-falls",
+      "note": "U1-C17: falls from the trolley sheaves to the headblock sheaves and the spreader cable reel inside the open centre body",
+      "query": "mode=technical&cam=74.5,48.6,1.4&tgt=69.8,51.9,0&fov=60",
+      "file": "docs/evidence/U1/repair-r3/closeups/c17-trolley-falls.png",
+      "errors": []
+    },
+    {
+      "name": "c17-trolley-wheel",
+      "note": "U1-C17: landside wheel on the +Z rail: one dia 630 wheel per corner between the bracket cheek plates",
+      "query": "cam=66.4,52.95,5.7&tgt=67.63,52.65,3.15&fov=38",
+      "file": "docs/evidence/U1/repair-r3/closeups/c17-trolley-wheel.png",
+      "errors": []
+    },
+    {
+      "name": "c17-trolley-side-ortho",
+      "note": "U1-C17: aligned side view (orthographic, from +Z) for comparison with the J526A0200 side view",
+      "query": "view=side&cx=69.6&cy=50.6&w=10&h=6.43",
+      "file": "docs/evidence/U1/repair-r3/closeups/c17-trolley-side-ortho.png",
+      "errors": []
+    },
+    {
+      "name": "c17-trolley-top-ortho",
+      "note": "U1-C17: aligned plan (orthographic, from above) for comparison with the J526A0200 plan",
+      "query": "view=top&cx=69.6&cy=0&w=11&h=7.07",
+      "file": "docs/evidence/U1/repair-r3/closeups/c17-trolley-top-ortho.png",
+      "errors": []
+    },
+    {
+      "name": "c17-trolley-rope-equalizers",
+      "note": "U1-C17: waterside end: trolley ropes from the boom-tip sheave unit (1050 lanes) around the two horizontal equalizer sheaves",
+      "query": "cam=73.3,54.2,2.6&tgt=72.2,52.6,0&fov=42",
+      "file": "docs/evidence/U1/repair-r3/closeups/c17-trolley-rope-equalizers.png",
+      "errors": []
+    },
+    {
+      "name": "c17-trolley-tip-sheaves",
+      "note": "U1-C17: boom-tip sheave node: main hoist sheaves at the 2600 lanes and the trolley rope sheave units at 1050 (J526A2100)",
+      "query": "cam=71.5,56,6&tgt=75,53,0&fov=46",
+      "file": "docs/evidence/U1/repair-r3/closeups/c17-trolley-tip-sheaves.png",
+      "errors": []
+    },
+    {
+      "name": "c18-spreader-side",
+      "note": "U1-C18: headblock and spreader from the waterside / +Z (the 15.png direction): main frame, telescopic arms, end beams, corner twistlocks and flippers",
+      "query": "cam=78,46.2,11&tgt=70,45.7,0&fov=50",
+      "file": "docs/evidence/U1/repair-r3/closeups/c18-spreader-side.png",
+      "errors": []
+    },
+    {
+      "name": "c18-spreader-waterside",
+      "note": "U1-C18: headblock and spreader from the waterside at spreader height (the 15.png viewpoint): main frame, telescopic arms, end beams, flippers, twistlocks",
+      "query": "cam=88,46.1,0.8&tgt=70,45.9,0&fov=40",
+      "file": "docs/evidence/U1/repair-r3/closeups/c18-spreader-waterside.png",
+      "errors": []
+    },
+    {
+      "name": "c18-spreader-top",
+      "note": "U1-C18: spreader and headblock from above: two main beams, landing castings under the headblock twistlocks, power pack, arms and end beams",
+      "query": "cam=74,51,9.5&tgt=70,45.6,0&fov=50",
+      "file": "docs/evidence/U1/repair-r3/closeups/c18-spreader-top.png",
+      "errors": []
+    },
+    {
+      "name": "c18-spreader-below",
+      "note": "U1-C18: spreader from below: twistlocks at the ISO 40 ft corner positions",
+      "query": "cam=75,41.5,7.5&tgt=70,45.3,1&fov=50",
+      "file": "docs/evidence/U1/repair-r3/closeups/c18-spreader-below.png",
+      "errors": []
+    },
+    {
+      "name": "c18-headblock-close",
+      "note": "U1-C18: headblock end: sheave box, two sheaves dia 1000 at 1010, guards, fence, twistlocks dia 140 at 950 landing on the spreader",
+      "query": "cam=72.6,47.9,4.6&tgt=70,46.6,1.6&fov=44",
+      "file": "docs/evidence/U1/repair-r3/closeups/c18-headblock-close.png",
+      "errors": []
+    },
+    {
+      "name": "c18-spreader-side-ortho",
+      "note": "U1-C18: aligned view along the rails (from +Z) of the headblock (2090, two dia 1000 sheaves at 1010, twistlocks at 950) and the spreader end-on, for comparison with the J526A1200 end view",
+      "query": "view=side&cx=70&cy=46.3&w=5.6&h=3.6",
+      "file": "docs/evidence/U1/repair-r3/closeups/c18-spreader-side-ortho.png",
+      "errors": []
+    },
+    {
+      "name": "c18-spreader-end-ortho",
+      "note": "U1-C18: aligned view from the waterside of the headblock (5440, sheave boxes at 5200) and the 40 ft spreader (twistlocks 11985 apart), for comparison with the J526A1200 front view",
+      "query": "view=end-ws&cx=0&cy=46.6&w=14&h=9",
+      "file": "docs/evidence/U1/repair-r3/closeups/c18-spreader-end-ortho.png",
+      "errors": []
+    },
+    {
+      "name": "overall-perspective",
+      "note": "Overall mode full-crane view after round 3",
+      "query": "hideQuay=0&bg=%23e9eef2",
+      "file": "docs/evidence/U1/repair-r3/closeups/overall-perspective.png",
+      "errors": []
+    }
+  ]
+}
