@@ -1,6 +1,6 @@
 # Stage 1 acceptance checklist
 
-Version 1.1 | 21 October 2026
+Version 2.0 | 22 October 2026 | Adds the SOW V2 cases (sections and access, ZMMS, spare parts, FAC jobs, FAC Dashboard): 94 cases
 
 These are checks for the future implementation, not results from this prompt-pack authoring task. **Every implementation case starts as NOT RUN.** Do not mark a case passed from a design document, a fixture-only screenshot or a supplied test prompt.
 
@@ -23,7 +23,7 @@ During implementation create an evidence table with `case ID`, `status`, `test/m
 | --- | --- | --- |
 | AUTH01 | S15 | From the local same-origin Portal, sign in as a synthetic user with an EQ role and open its registry tile. EQ opens without another password; a valid direct /eq-maintenance equipment URL also restores the intended route. |
 | AUTH02 | S11/S15 | Sign in without EQ access, with a wrong audience and without authentication. App data/files are denied by the server with the appropriate 401/403 behaviour. A visible route or manually added tile cannot grant access. |
-| AUTH03 | S09/S10/S11 | Management attempts direct API writes for status, job creation/completion, attachments and Admin configuration. All fail. EQ Team succeeds for work/status and fails for catalogue changes/completed-work correction. Admin succeeds only within its app authority. |
+| AUTH03 | S09/S10/S11 | Management attempts direct API writes for status, job creation/completion, attachments, FAC progress and Admin configuration. All fail. EQ Team succeeds for EQ work/status and fails for catalogue changes, completed-work correction and FAC writes. FAC Team succeeds for FAC progress and fails for EQ writes. Admin succeeds only within its app authority. |
 | AUTH04 | S15 | Provision/retry/update/deactivate the same subject through the central convergence contract. Exactly one local profile persists, stale revisions cannot override current state and no display-name matching or browser-defined binding grants access. |
 | AUTH05 | S15 | Test expired session, refresh, must-change-password, logout and unsafe/external return URLs. Current Portal behaviour is preserved, users see actionable state and no credentials/tokens enter browser storage or logs. |
 | AUTH06 | S13/S15 | Attempt unsafe requests with missing/bad CSRF or cross-origin context. The current Portal security contract is enforced without a Development runtime bypass. Test auth exists only inside automated test hosts. |
@@ -45,7 +45,7 @@ During implementation create an evidence table with `case ID`, `status`, `test/m
 | ID | Requirement | Action and expected result |
 | --- | --- | --- |
 | JOB01 | S08/S09 | EQ Team creates Pending work, moves it to Current and completes it with valid notes/date. It persists and appears in the correct tab after reload. Direct Pending -> Completed supports already-performed work with valid completion data. |
-| JOB02 | S03/S09/S13 | Set Maintenance, complete a job, then inspect fleet status. It remains Maintenance until an explicit authorized status change to Ready for OPS. Each status change records actor/time/reason and is visible to Management. |
+| JOB02 | S03/S09/S13 | On equipment without a ZMMS mapping, set Maintenance, complete a job, then inspect fleet status. It remains Maintenance until an explicit authorized status change to Ready for OPS. Each status change records actor/time/reason and is visible to Management. |
 | JOB03 | S08/S09 | Create an equipment-level job. It appears in equipment history and does not appear as a copy under every main mechanism. A targeted job uses the correct equipment/ancestor chain. |
 | JOB04 | S09/S12 | Complete a replacement at one motor position with a known new item and unknown old serial. Current installation and history reflect exactly that position; an unknown removed serial/date remains unknown. |
 | JOB05 | S12/S13 | Complete one job with several replacement lines on the same equipment. Every valid line commits once. Duplicate position lines and a line from another equipment are rejected without partial changes. |
@@ -66,6 +66,7 @@ During implementation create an evidence table with `case ID`, `status`, `test/m
 | HIS02 | S07/S08 | A main/sub selection includes direct and descendant work. A multicomponent job appears once with its matching lines. A part selection shows exact-position history; another rope category's same display name does not leak into it. |
 | HIS03 | S07/S12/S13 | Replace the same position twice and make an audited correction. Prior removed/installed items, original events and correction records remain readable; latest known installation is computed consistently. |
 | HIS04 | S07/S14 | Select a component with no work and incomplete source data. Show empty/unknown states without asserting healthy, original, never replaced or an inferred installation date. |
+| HIS06 | S07/S08 | Select a main, sub and part in the crane view. The right panel shows current state only, with no work history; Open in Jobs opens the EQ Jobs tab with the same direct/descendant or exact-position history as HIS02. |
 | HIS05 | S07/S16 | Rapidly switch selected parts/equipment while delaying API responses. Out-of-order results cannot show an old component's history in the new selection panel; errors identify the current request/target. |
 
 ## QC model and interaction
@@ -74,7 +75,7 @@ During implementation create an evidence table with `case ID`, `status`, `test/m
 | --- | --- | --- |
 | VIS01 | S04 | Compare aligned side/end/top views with source sheets. The CICT frame/mast/boom/girder, cabin/house and bogie relationships are recognizable. Source dimensions meet the model brief's declared tolerance; qualified estimates remain declared. |
 | VIS02 | S04/S14 | Inspect units and geometry/provenance manifest. Rail gauge is 30 m, outreach 70 m, backreach 20 m for this drawing family. Overall height comes from appropriate source dimensions, not 63 m total lift. |
-| VIS03 | S05/S06/S07 | Select main -> sub -> part via scene and tree. Both routes select the same persisted identities, update breadcrumbs, focus useful bounds and show the same scoped history. Technical mode exposes useful simplified internals/source details. |
+| VIS03 | S05/S06/S07 | Select main -> sub -> part via scene and tree. Both routes select the same persisted identities, update breadcrumbs, focus useful bounds, show the same current state and open the same scoped history through Open in Jobs. Technical mode exposes useful simplified internals/source details. |
 | VIS04 | S04/S06/S16 | Exercise reset/fit, orbit during camera transition, transparent enclosure picking, thin ropes and hidden/empty groups. No unbounded camera jumps, fighting controls or unreachable selected parts occur. Reduced motion is respected. |
 | VIS05 | S04/S05/S12 | Reorder scene nodes/change a model version. Existing part histories remain bound by semantic position. Orphaned mappings are reported and cannot silently become another component through index/name guessing. |
 | VIS06 | S02/S04/S16 | Inspect normal CICT paint and job/status overlays. Red structural paint is distinct from Breakdown indication; status uses text/icons and a legend. There is no fabricated live movement/control or structural health score. |
@@ -104,18 +105,82 @@ During implementation create an evidence table with `case ID`, `status`, `test/m
 | OPS05 | S17 | Build the release from a clean dependency restore and inspect its manifest/package. No credentials, test auth, fixture-only adapters or synthetic production fleet/history are included. Migrations/seeds are explicit and the configured target is never assumed disposable. |
 | OPS06 | S17 | Rehearse documented release/rollback on an isolated target if available. Preserve business records/uploads and version relationships; record any untested real IIS/hosting/auth-consumer prerequisites. Preparing a package is not reported as production deployment. |
 
+## Sections and access (V2)
+
+| ID | Requirement | Action and expected result |
+| --- | --- | --- |
+| ACC01 | S18 | Sign in as each role and as a user holding EQ Team and FAC Team. Each sees only permitted sections and tabs; the switch is hidden when one section is permitted; first-visit and last-used landing work; the app reads "EQ & FAC Maintenance". |
+| ACC02 | S19 | Admin switches a view tab off for Management. It disappears at the next refresh (within 60 seconds) and its routes, API, exports and photo links return 403 for Management; switching it on restores access. Each change records actor, time and old -> new values. |
+| ACC03 | S19 | Through the UI and the API, try to give Management a write right, FAC Team an EQ write, EQ Team a FAC write, or any role Admin pages. All are refused; Admin rights cannot be switched off. |
+| ACC04 | S19/S23 | Grant FAC Team "manage master job list": a FAC Team user can add/edit recurring jobs. Revoke it: the same requests fail on the server. |
+| ACC05 | S19 | A user whose tabs are all switched off sees the No access page, not an error or an empty shell. |
+
+## ZMMS daily jobs and automatic status (V2)
+
+| ID | Requirement | Action and expected result |
+| --- | --- | --- |
+| ZM01 | S20 | Sync a sanitised fixture of a normal day. Rows are stored once, keyed by ZMMS job number and date; a repeated run and a concurrent Sync now create no duplicates; the run record shows its counts. |
+| ZM02 | S20 | Use fixtures for a login failure, timeout, changed layout and partial page. Each run records a failure, keeps the previous data, changes no status, retries per policy and warns Admin. |
+| ZM03 | S20 | Rows with unknown equipment text stay in the unmatched queue. After Admin maps them they attach to that equipment without duplicates. |
+| ZM04 | S15/S20 | Search source, configuration examples, logs, API responses, stored rows, fixtures, evidence and the release package for the ZMMS account. It appears nowhere, and the browser never receives it. |
+| ZM05 | S21 | With an empty job-type mapping, a sync stores daily jobs and changes no status. After mapping: a breakdown job sets Breakdown, a maintenance job sets Maintenance and equipment not in the day's plan becomes Ready for OPS, each with its source and causing ZMMS jobs. |
+| ZM06 | S21 | EQ Team corrects an automatic status with a reason. It shows Manual and holds over the same day's second sync; the next day's first successful sync returns it to automatic; Back to automatic ends it earlier. A correction without a reason is rejected; Management cannot correct. |
+| ZM07 | S08/S20 | The EQ Jobs tab lists daily jobs below the special jobs, read-only and filterable by equipment and date, with "ZMMS data from". Earlier days remain available. Daily jobs are not attached to any mechanism or part. |
+| ZM08 | S20 | If the account is configured, run one live read-only sync: only the login and the daily job list are requested, and the stored rows match the parsed page totals. Otherwise BLOCKED with the configuration key names. |
+
+## Spare-part condition (V2)
+
+| ID | Requirement | Action and expected result |
+| --- | --- | --- |
+| SP01 | S22 | Admin marks positions as major spare parts with an expected life; a per-position override works; another QC with the same template keeps its own register. |
+| SP02 | S12/S13/S22 | Complete a Replacement special job: the pre-filled condition form saves in the same transaction. A forced failure rolls back job, installation and condition together; a retry creates no duplicate. |
+| SP03 | S22 | Next predicted replacement = replaced date + expected life; Original parts use the commissioning date; with no commissioning date no prediction is shown; due-soon (90 days) and overdue flags are correct. |
+| SP04 | S07/S22 | Edit a part's condition twice. The previous values stay in its history in the Jobs tab; the crane view shows only the current condition. |
+
+## FAC jobs (V2)
+
+| ID | Requirement | Action and expected result |
+| --- | --- | --- |
+| FAC01 | S23 | Run the import preview from fac-job-list.json: 114 jobs with their issues shown per row and nothing saved before Admin confirms. Confirm, then re-run: no duplicates. After the first progress, a re-run is refused. |
+| FAC02 | S23 | Imported values: blank quantity is 1; blank PIC, mode and dates stay blank; the three two-frequency rows are two jobs each; row 14 opens On hold with its remark; sheet percentages are not stored as typed values. |
+| FAC03 | S24 | For each frequency, completing a recurring cycle sets last done and the next due date in calendar months/days (including 31 January + 1 month, a leap year and Asia/Colombo midnight). One-time closes; continuous has no due date; running-hours asks for the next due date; as-required has none. |
+| FAC04 | S24 | Due soon (7 days), overdue and days overdue are correct; a job without a last done date shows no due date. |
+| FAC05 | S24/S25 | Done today on a daily job and Done this week on a weekly job complete the current cycle once; repeating the tap does not double count. |
+| FAC06 | S25 | Partial updates accumulate; an update that exceeds the quantity is rejected; reaching the quantity completes the cycle after confirmation; a future date is rejected. |
+| FAC07 | S13/S25 | A double submit and two users updating one cycle give one correct result or a useful conflict. Same-day undo of the user's own last update works; undo the next day or of another user's update is refused; Admin correction with a reason keeps the prior values. |
+| FAC08 | S25 | Hold requires a reason and shows On hold in the list and on the dashboard; releasing it returns the job to its previous status. |
+| FAC09 | S26 | From a phone viewport upload a job picture and five completion photos. A sixth photo, an oversized file, a disguised type or a traversal name is rejected; photos are resized with thumbnails; unauthenticated and wrong-role URLs are denied; own same-day removal and Admin removal with a reason are recorded. |
+| FAC10 | S28 | FAC Team's My work shows overdue, due-soon and in-progress jobs with their own PIC first; filters and search persist in the URL; job detail shows the timeline and previous cycles with on time/late. |
+| FAC11 | S11/S19 | Management and EQ Team attempt FAC writes through the API; all fail. FAC Team attempts EQ writes and Admin pages; all fail. |
+| FAC12 | S29 | Export a filtered FAC list and an EQ list. The file holds exactly the filtered rows, the source columns plus the calculated ones, and nothing from tabs the user cannot view. |
+
+## FAC Dashboard (V2)
+
+| ID | Requirement | Action and expected result |
+| --- | --- | --- |
+| FDB01 | S27 | KPIs reconcile with the FAC Jobs list for the same filters; clicking a KPI applies its filter. |
+| FDB02 | S27 | Each lane lists Overdue, On hold, In progress, Due soon, Pending, then jobs completed in the last 7 days, scrolling continuously and looping; a status change glows briefly and moves the job. |
+| FDB03 | S16/S27 | Hover, keyboard focus and Pause stop the motion; with reduced motion requested the lists flip pages every 8 seconds; moving content has a static accessible alternative and no focus trap. |
+| FDB04 | S27 | A 60-second refresh updates rows without resetting the scroll position or jumping the layout; a failed refresh keeps the last data with a warning and "Updated hh:mm". |
+| FDB05 | S27 | TV mode at 1920x1080 hides navigation and enlarges text; it needs a normal signed-in Management user and there is no anonymous dashboard URL; 30 minutes of running show no memory growth. |
+| FDB06 | S16/S27 | On a phone: KPIs and one combined list without auto-scroll; the latest-proof carousel shows only permitted thumbnails. |
+
 ## Minimum demonstration script
 
-Use clearly synthetic `QC-DEMO-01`, `QC-DEMO-02`, `RTG-DEMO-01` and `ES-DEMO-01`, not assumed real fleet records.
+Use clearly synthetic `QC-DEMO-01`, `QC-DEMO-02`, `RTG-DEMO-01` and `ES-DEMO-01`, not assumed real fleet records, sanitised ZMMS fixtures, and the FAC list from `reference/fac-job-list.json` with synthetic progress.
 
 1. Admin registers/assigns the correct model and distinct positions to the two QCs.
-2. EQ Team marks QC-DEMO-01 Maintenance with a reason, creates a replacement at its selected hoist motor and completes it with evidence.
+2. EQ Team marks QC-DEMO-01 Maintenance with a reason, creates a replacement special job at its selected hoist motor and completes it with evidence and the pre-filled spare-part condition.
 3. Verify QC-DEMO-01 stays Maintenance, the installed item/history persists, and a retried completion creates no duplicate.
-4. Management opens the fleet, then QC -> Hoist -> Hoist -> motor through the 3D view and sees exactly that replacement. The tree opens the same record.
+4. Management opens the fleet, then QC -> Hoist -> Hoist -> motor through the 3D view and sees the motor's current condition; Open in Jobs shows exactly that replacement. The tree opens the same record.
 5. Open QC-DEMO-02 at the same visual motor; QC-DEMO-01 history is absent.
 6. Attempt the same writes as Management; verify server denials.
 7. EQ Team explicitly sets Ready for OPS; fleet refresh and status history agree.
 8. Open RTG/ES, then simulate unavailable WebGL; their permitted record/work interfaces and QC tree fallback remain useful.
+9. Map QC-DEMO-01 to ZMMS and set the job-type mapping. Run two fixture syncs: QC-DEMO-01 becomes Maintenance from its daily job; EQ Team corrects it to Ready for OPS with a reason; the correction holds over the second sync and ends at the next day's first sync. The daily jobs appear below the special jobs.
+10. Admin previews and confirms the FAC import. FAC Team, on a phone viewport, logs partial progress with a photo, then completes a recurring job; its next due date rolls forward.
+11. Management watches the FAC Dashboard in TV mode: the job moves to its new place, and the ticker and latest proof show the update.
+12. Admin switches the FAC Jobs tab off for Management: the tab disappears and its API returns 403; switching it on restores it.
 
 ## Exit interpretation
 

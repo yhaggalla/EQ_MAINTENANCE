@@ -2,7 +2,7 @@
   Prints the exact prompt text for one prompt-pack phase:
   Bootstrap + Master control + the phase block (verbatim from the pack).
   Usage: powershell -NoProfile -ExecutionPolicy Bypass -File tools\extract-phase.ps1 -Phase P03
-  Phases: P00-P13, R01-R05, Repair, Resume
+  Phases: P00-P13, P01B, P02B, P07B, P08B, R01-R05, R02B, Repair, Resume
 #>
 param([Parameter(Mandatory = $true)][string]$Phase)
 $ErrorActionPreference = 'Stop'
@@ -40,8 +40,8 @@ $id = $Phase.Trim().ToUpper()
 switch -Regex ($id) {
     '^REPAIR$'  { $heading = '^## Repair prompt'; break }
     '^RESUME$'  { $heading = '^## Resume prompt'; break }
-    '^[PR]\d\d$' { $heading = "^## $id "; break }
-    default { throw "Unknown phase '$Phase'. Use P00-P13, R01-R05, Repair or Resume." }
+    '^[PR]\d\dB?$' { $heading = "^## $id "; break }
+    default { throw "Unknown phase '$Phase'. Use P00-P13, P01B, P02B, P07B, P08B, R01-R05, R02B, Repair or Resume." }
 }
 
 $phaseText = Get-TextBlock $heading

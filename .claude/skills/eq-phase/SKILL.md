@@ -1,7 +1,7 @@
 ---
 name: eq-phase
 description: Run the next (or a named) CICT EQ Maintenance prompt-pack phase by delegating it to the subagent with the pack's model and effort. Use when the user types /eq-phase.
-argument-hint: next | P00..P13 | R01..R05 | U1 | U2 | repair <R0x|P0x|U1|U2> | resume | status
+argument-hint: next | P00..P13 | P01B | P02B | P07B | P08B | R01..R05 | R02B | U1 | U2 | repair <R0x|P0x|U1|U2> | resume | status
 disable-model-invocation: true
 ---
 
@@ -15,15 +15,17 @@ You are the orchestrator. You do not implement or review anything yourself; you 
 
 | Phase | Subagent | Model / effort |
 | --- | --- | --- |
-| P00, P01, P03, P05, P06, P07, P08, P10, P11 | eq-build-opus-high | Opus 5.5 / high |
-| P02, P12, P13 | eq-build-sonnet-high | Sonnet 5.5 / high |
+| P00, P01, P01B, P03, P05, P06, P07, P07B, P08, P08B, P10, P11 | eq-build-opus-high | Opus 5.5 / high |
+| P02, P02B, P12, P13 | eq-build-sonnet-high | Sonnet 5.5 / high |
 | P04, P09, Resume | eq-build-sonnet-medium | Sonnet 5.5 / medium |
-| R01, R02, R05 | eq-review-opus-high | Opus 5.5 / high |
+| R01, R02, R02B, R05 | eq-review-opus-high | Opus 5.5 / high |
 | R03, R04 | eq-review-opus-xhigh | Opus 5.5 / xhigh |
 | Repair after R03 or R04 | eq-build-opus-xhigh | Opus 5.5 / xhigh |
 | Repair after anything else | eq-build-opus-high | Opus 5.5 / high |
 
-Run order: P00, P01, R01, P02, P03, R02, **U1**, P04, P05, R03, P06, P07, P08, P09, P10, R04, P11, **U2**, P12, R05, P13.
+Run order (pack 2.0): P00, P01, R01, P02, P03, R02, P01B, P02B, R02B, **U1**, P04, P05, R03, P06, P07, P07B, P08, P08B, P09, P10, R04, P11, **U2**, P12, R05, P13.
+
+U1 reviews the QC model (with its round 1-3 repairs) and the V2 prototype together; its affected phases are P02, P02B and P03.
 
 U1 and U2 are user checkpoints, not agent work (see step 4a).
 

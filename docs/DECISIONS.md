@@ -22,6 +22,14 @@ Source: `documents/prompt-pack/APPROVED_REQUIREMENTS.md` s1 and `documents/EQ_MA
 | B-10 | Exactly three operational statuses (Ready for OPS, Breakdown, Maintenance) plus a neutral Unreported display; reason mandatory for Breakdown and Maintenance; job completion never sets Ready for OPS. |
 | B-11 | Roles: EQ Maintenance Admin, EQ Team, Management (read-only). EQ Admin is not PortalAdmin. |
 | B-12 | Run order with user checkpoints U1 (after R02) and U2 (after P11). |
+| B-13 | SOW V2 revision 4 confirmed by the user on 22 October 2026 (`documents/SOW_V2.docx`); prompt pack 2.0 applied. Supersedes B-12: run order adds P01B, P02B and R02B before U1 (U1 reviews the QC model and the V2 prototype together), P07B after P07 and P08B after P08. |
+| B-14 | Two sections, EQ and FAC; display name "EQ & FAC Maintenance"; technical code `eq-maintenance` unchanged. |
+| B-15 | Roles (supersedes B-11): Admin, Management, EQ Team, FAC Team, assigned in the Portal; tab visibility and optional rights in the in-app Access matrix, never above a role's ceiling. |
+| B-16 | EQ Jobs tab in three parts (special jobs with ZMMS daily jobs below, EQ status, spare-part condition); no work history in the crane view. |
+| B-17 | ZMMS daily all-job list read by login twice a day (Admin-set times), read-only; ZMMS is CICT-owned and its owner (the user) agrees; no API exists. The account stays out of source and documents. |
+| B-18 | Automatic status from the day's ZMMS plan (supersedes the manual-only part of B-10 for mapped equipment); job-type mapping set in Admin after the first real data; a manual correction lasts the current day only. |
+| B-19 | Spare-part condition: Admin selects major spare parts; next predicted replacement = replaced date + expected life in months; Original parts from the commissioning date. |
+| B-20 | FAC: master list seeded from `documents/Facility- Dashboard.xlsx` with blanks completed in Admin; Admin manages it and can grant FAC Team; tri-annually 4 months, bi-annually 6 months; user picks the frequency for new jobs; next due from completion for recurring jobs only; one-tap Done today/this week; Management read-only. |
 
 ## 2 Routine implementation defaults
 

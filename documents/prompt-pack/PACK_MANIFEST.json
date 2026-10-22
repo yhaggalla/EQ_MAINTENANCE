@@ -1,6 +1,6 @@
 {
-  "packVersion": "1.2",
-  "preparedOn": "2026-10-21",
+  "packVersion": "2.0",
+  "preparedOn": "2026-10-22",
   "timezone": "Asia/Colombo",
   "purpose": "Implementation prompt pack only; application implementation not performed",
   "buildPrompts": [
@@ -8,11 +8,15 @@
     "P01",
     "P02",
     "P03",
+    "P01B",
+    "P02B",
     "P04",
     "P05",
     "P06",
     "P07",
+    "P07B",
     "P08",
+    "P08B",
     "P09",
     "P10",
     "P11",
@@ -22,58 +26,64 @@
   "reviewPrompts": [
     "R01",
     "R02",
+    "R02B",
     "R03",
     "R04",
     "R05"
   ],
-  "futureAcceptanceCases": 58,
-  "executionProfileCount": 22,
+  "futureAcceptanceCases": 94,
+  "executionProfileCount": 27,
   "executionProfiles": "reference/phase-model-settings.json",
   "files": [
     {
       "file": "ACCEPTANCE_CHECKLIST.md",
-      "bytes": 17087,
-      "sha256": "1516ba903227560b19505d3745e847286c2d6093625d0c959dd5a25a292f340d"
+      "bytes": 26269,
+      "sha256": "ae2b17628f163ab5224970e9e092446bafe9071f1257b17ba811e4da3e88e744"
     },
     {
       "file": "APPROVED_REQUIREMENTS.md",
-      "bytes": 21705,
-      "sha256": "db89e7ceeff25008b10501a4399bc7800f7eccdce9d1e5200b657585fe4c5bed"
+      "bytes": 40156,
+      "sha256": "0f63c399c593a4055fac32ad16e72d3f80b42c505c7ad615612e38bcaa22b344"
     },
     {
       "file": "CHANGELOG.md",
-      "bytes": 2346,
-      "sha256": "e04e5893bfcc860e2b5803983885e79b21aa543f206c36800d171e6a74de65ee"
+      "bytes": 4236,
+      "sha256": "3b86b49706ec566093e821c2dead95beaca412791244de66f8f1f37fe7c3163a"
     },
     {
       "file": "EQ_MAINTENANCE_IMPLEMENTATION_PROMPT_PACK.md",
-      "bytes": 61907,
-      "sha256": "5a8be7e57bc47f8e3ef02f09b99dafab61777b23ec8c68668d4d52c59fc8e178"
+      "bytes": 83268,
+      "sha256": "9d8e1a8a3442c1d5d3edab34ccaae1e2f97b4e2180970cfe8583c986fa42fffd"
     },
     {
       "file": "MODEL_AND_EFFORT_GUIDE.md",
-      "bytes": 9530,
-      "sha256": "71462a5904e7f7c8fdca99572c632ed369cfb1360e7991abe73023349a175557"
+      "bytes": 10302,
+      "sha256": "e366799b34cb549caf6b75a0bbf7a81ad1f8c04f24e777f9238249e74192592c"
     },
     {
       "file": "PACK_VALIDATION.md",
-      "bytes": 5397,
-      "sha256": "eb926d81fc4f165c1bf154b00b4b37d84422f91f1ce9bc2e6a8b1afacf4f564a"
+      "bytes": 5027,
+      "sha256": "85b978c99602cc7f79012ec34c20dd70c9e133d406fb74e9f584cc81e9ece976"
     },
     {
       "file": "QC_3D_MODELLING_BRIEF.md",
-      "bytes": 14604,
-      "sha256": "28274f3f3cd22432d5402b6bb5a3f26de1e8a4523c8a49a6567d44c4854442c0"
+      "bytes": 14857,
+      "sha256": "92d8fb44485d956edc30378712b5134a3e34e212cd1ce469284c608ff290685c"
     },
     {
       "file": "README.md",
-      "bytes": 6422,
-      "sha256": "e876eeb7d661bcba9da9af528d9d308795632e9c6d7e94d2a1167dc17e7575bb"
+      "bytes": 7787,
+      "sha256": "7c2661f352dea94db0586e93062e0c378b23a7679ff19ab527754731c481e488"
     },
     {
       "file": "reference/drawing-register.json",
       "bytes": 16955,
       "sha256": "33f52b10ddc56ed56580b52bd4409dabd002018e03e64a8c944d15ba39857f01"
+    },
+    {
+      "file": "reference/fac-job-list.json",
+      "bytes": 68948,
+      "sha256": "20f943fdf74bec960f7e75eb8b5aa67fddc2fde63adc136ac84b02bea2238b23"
     },
     {
       "file": "reference/major-parameters.json",
@@ -92,8 +102,8 @@
     },
     {
       "file": "reference/phase-model-settings.json",
-      "bytes": 9034,
-      "sha256": "2fba3c5eb55d07a0ec197440b7c51ae27ce0a078b0eebe110d031366477ed52b"
+      "bytes": 10826,
+      "sha256": "37fa54d0a8427eeef635b84ec8c889ea19d68fe63b1619d0b83f7eba1a19a67d"
     }
   ],
   "externalOriginalSources": [
@@ -108,6 +118,18 @@
     {
       "projectRelativePath": "documents/images2.jpg",
       "sha256": "d3f5f30136b194bc714f34c2fdaa7794bfd1831a341854ba5a050db6fe093d84"
+    },
+    {
+      "projectRelativePath": "documents/SOW_V2.docx",
+      "sha256": "8073659698c2c396b302b881afefbfc1f80b067c326bff9efbf1fa176c9f65d2"
+    },
+    {
+      "projectRelativePath": "documents/SOW_V2.md",
+      "sha256": "c9fb33d4db94a1e4659acfc2f348bf9432f721b3655fd551f77eed786aab54b8"
+    },
+    {
+      "projectRelativePath": "documents/Facility- Dashboard.xlsx",
+      "sha256": "a7ee8c710cd4ed379d594b659b096f0aefe07c8e6fafcafed63c3b06bea5e6d0"
     }
   ],
   "drawingChecksums": "reference/drawing-register.json"

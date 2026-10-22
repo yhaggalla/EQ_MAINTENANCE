@@ -1,5 +1,20 @@
 # Prompt pack changelog
 
+## 2.0 | 22 October 2026 | SOW V2 revision 4
+
+The user confirmed SOW V2 revision 4 (`documents/SOW_V2.docx`, same text in `documents/SOW_V2.md`) and the facility job list `documents/Facility- Dashboard.xlsx`. Their decisions are recorded in `APPROVED_REQUIREMENTS.md` section 1.
+
+| Area | Change |
+| --- | --- |
+| Requirements | Version 2.0. S03, S07, S08, S09 changed; S18-S29 added (sections, Access matrix, ZMMS, automatic status, spare parts, FAC list, cycles, progress, pictures, FAC Dashboard, FAC Jobs, export). New sections 4.2 (Access), 5A (ZMMS and automatic status), 5B (spare parts), 6A (FAC). Four roles; display name "EQ & FAC Maintenance"; technical code unchanged |
+| Run order | New phases P01B (V2 contracts), P02B (V2 prototype) and R02B (their review) before U1, so U1 reviews the QC model and the V2 prototype together; P07B (ZMMS) after P07; P08B (FAC jobs) after P08. P00-P03, R01 and R02 stay valid |
+| Prompts | Bootstrap lists SOW V2 and the facility list and the settled V2 decisions; Master control adds the ZMMS boundary (only P07B contacts ZMMS; account never requested, committed or printed) and V2 invariants; P04-P06, P09-P13, R03-R05 extended for four roles, the Access matrix, FAC and ZMMS; P07 covers special jobs and spare parts; P08/P10 move history from the crane view to the EQ Jobs tab |
+| Acceptance | 94 cases: ACC01-05, ZM01-08, SP01-04, FAC01-12, FDB01-06 and HIS06 added; AUTH03, JOB02 and VIS03 adjusted; demonstration steps 9-12 added |
+| Reference | `reference/fac-job-list.json`: normalised seed of the 111 sheet rows (114 jobs), frequency list and known source issues |
+| Model brief | Version 1.1: right panel shows current state; history opens in the EQ Jobs tab |
+| Profiles | 27 profiles (P01B, P02B, R02B, P07B, P08B added) |
+| Runner | `tools/extract-phase.ps1` accepts the B phases; the `/eq-phase` map and run order are updated |
+
 ## 1.2 | 21 October 2026 | Pre-implementation review
 
 Reviewed the SOW, requirements review, every pack document and the reference data against each other. The mechanism catalogue parsing, drawing register and parameter observations were re-checked and are unchanged.

@@ -1,6 +1,6 @@
 # QC model and interaction brief
 
-Version 1.0 | 21 October 2026 | Stage 1 model authoring and verification
+Version 1.1 | 22 October 2026 | Stage 1 model authoring and verification; V2: the right panel shows current state, and work history opens in the EQ Jobs tab
 
 ## 1 Intended result
 
@@ -109,9 +109,9 @@ Do not seed an electrical hotspot into an arbitrary exact location if the suppli
 
 - Overall mode: normal CICT appearance, major named assemblies and a clear selected equipment status badge outside the geometry.
 - Technical mode: optional enclosure transparency/isolation and simplified internals, useful labels and source-linked parameters. Keep unverified details visibly qualified.
-- Main mechanism selection: highlight its bound geometry, fit the camera to its union bounds, synchronize the tree and show direct/descendant work in the right panel.
-- Submechanism selection: focus its representation or clearly labelled location hotspot, synchronize the breadcrumb and load its narrower history.
-- Main part selection: show exact installed position, installation details and exact-position timeline.
+- Main mechanism selection: highlight its bound geometry, fit the camera to its union bounds, synchronize the tree and show its current state in the right panel (open special jobs, spare-part condition, parameters); Open in Jobs shows its direct/descendant history in the EQ Jobs tab.
+- Submechanism selection: focus its representation or clearly labelled location hotspot, synchronize the breadcrumb and load its narrower current state.
+- Main part selection: show exact installed position, current installation and spare-part condition; Open in Jobs shows the exact-position timeline.
 - Pointer selection and tree selection use one state model. Back/forward/deep links reproduce the same equipment and component selection.
 - Camera movement must not fight orbit controls. Cancel an in-progress focus transition when a newer selection or user drag begins. Respect reduced-motion preferences.
 - Empty/background click must not clear an unsaved job form without a normal unsaved-changes decision. A ray through an enclosing transparent mesh should follow a documented picking policy.

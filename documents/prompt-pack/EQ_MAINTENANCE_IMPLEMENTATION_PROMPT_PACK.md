@@ -1,8 +1,8 @@
-# CICT EQ Maintenance implementation prompt pack
+# CICT EQ & FAC Maintenance implementation prompt pack
 
-Version 1.2 | 21 October 2026 | Approved stage 1 scope, review decisions, user checkpoints and per-phase model settings
+Version 2.0 | 22 October 2026 | SOW V2 revision 4: EQ and FAC sections, feature permissions, ZMMS daily jobs, automatic status, spare-part condition; approved stage 1 scope, review decisions, user checkpoints and per-phase model settings
 
-Build an independently deployable ENG Portal app for fleet readiness, equipment maintenance and component replacement history. Stage 1 includes QC interactive 3D and QC/RTG/ES register/dashboard/workflows. The user has answered the five scope questions and four pre-implementation review questions; their decisions are recorded in `APPROVED_REQUIREMENTS.md`.
+Build an independently deployable ENG Portal app, displayed as "EQ & FAC Maintenance", with two sections. EQ: fleet readiness, special maintenance jobs, ZMMS daily jobs, automatic status, spare-part condition and component replacement history, with QC interactive 3D and QC/RTG/ES register/dashboard/workflows. FAC: facility inspection/service jobs with a moving management dashboard. The user's answers to the scope, review and SOW V2 questions are recorded in `APPROVED_REQUIREMENTS.md`.
 
 This is an implementation instruction pack, not an implemented app. Use the supplied drawings to create the QC geometry and use the supplied coded mechanism hierarchy to classify records.
 
@@ -13,7 +13,7 @@ This is an implementation instruction pack, not an implemented app. Use the supp
 3. At a review checkpoint, run its review prompt in a fresh, independent context. The Claude Code runner in this workspace (`/eq-phase` or `tools\run-phase.ps1`, described in `CLAUDE.md`) does this with the phase's model and effort; in any other client, open a fresh chat manually.
 4. Resolve blocking findings using the Repair prompt, then repeat the failed checkpoint. Do not skip a checkpoint because builds are green.
 5. If context is lost, use the Resume prompt. Preserve the phase ledger and handover rather than restarting or rebuilding completed stages.
-6. Stop at the user checkpoints U1 and U2. They are not agent prompts: the user inspects the result and records approval or change requests in `docs/DECISIONS.md`. Do not start the next phase until that approval is recorded. Change requests go through Repair against the affected phase.
+6. Stop at the user checkpoints U1 (after R02B) and U2 (after P11). They are not agent prompts: the user inspects the result and records approval or change requests in `docs/DECISIONS.md`. Do not start the next phase until that approval is recorded. Change requests go through Repair against the affected phase.
 
 For a fresh coding chat, paste Bootstrap again before the selected phase. Each phase assumes the master control and linked local documents are available. Finish only the selected phase; do not turn one pasted phase into an unbounded all-stage run.
 
@@ -27,23 +27,28 @@ For a fresh coding chat, paste Bootstrap again before the selected phase. Each p
 | 4 | P02 | Reviewable UI prototype |
 | 5 | P03 | Drawing-grounded QC model prototype |
 | 6 | R02 | UX and model-fidelity review |
-| 7 | U1 | User checkpoint: inspect the UI prototype and QC model; approve or request changes |
-| 8 | P04 | Runnable application foundation |
-| 9 | P05 | Portal authentication and provisioning integration |
-| 10 | R03 | Identity and existing-app compatibility review |
-| 11 | P06 | Database, catalogue, equipment and Admin workflows |
-| 12 | P07 | Jobs, status and replacement workflows |
-| 13 | P08 | Protected drawings, attachments and scoped history |
-| 14 | P09 | Real-data fleet dashboard and equipment detail |
-| 15 | P10 | Production-code QC viewer and history drill-down |
-| 16 | R04 | Full workflow, data isolation and file-access review |
-| 17 | P11 | Acceptance tests, accessibility and measured performance |
-| 18 | U2 | User checkpoint: walk through the working local app using the minimum demonstration script; approve or request changes |
-| 19 | P12 | Local release package, migration and rollback preparation |
-| 20 | R05 | Release-readiness review |
-| 21 | P13 | Resolve accepted findings and deliver final handover |
+| 7 | P01B | V2 contracts addendum: sections, Access matrix, FAC, ZMMS, automatic status, spare parts |
+| 8 | P02B | V2 prototype: section switch, FAC Dashboard and FAC Jobs, EQ Jobs in three parts, crane view without history |
+| 9 | R02B | V2 contracts and prototype review |
+| 10 | U1 | User checkpoint: inspect the UI prototype (EQ and FAC) and QC model; approve or request changes |
+| 11 | P04 | Runnable application foundation |
+| 12 | P05 | Portal authentication and provisioning integration |
+| 13 | R03 | Identity and existing-app compatibility review |
+| 14 | P06 | Database, catalogue, equipment, Access matrix and Admin workflows |
+| 15 | P07 | Special jobs, status and replacement workflows, spare-part condition |
+| 16 | P07B | ZMMS daily jobs and automatic status |
+| 17 | P08 | Protected drawings, attachments and scoped history |
+| 18 | P08B | FAC jobs, cycles, progress and photos |
+| 19 | P09 | Real-data fleet dashboard, equipment detail and FAC Dashboard |
+| 20 | P10 | Production-code QC viewer and current-state drill-down |
+| 21 | R04 | Full workflow, data isolation and file-access review (EQ, ZMMS and FAC) |
+| 22 | P11 | Acceptance tests, accessibility and measured performance |
+| 23 | U2 | User checkpoint: walk through the working local app using the minimum demonstration script; approve or request changes |
+| 24 | P12 | Local release package, migration and rollback preparation |
+| 25 | R05 | Release-readiness review |
+| 26 | P13 | Resolve accepted findings and deliver final handover |
 
-The 14 numbered build prompts are P00-P13. The five R prompts are review-only. U1 and U2 are user checkpoints with no agent prompt. Repair and Resume are reusable helper prompts.
+The 18 build prompts are P00-P13 plus the V2 additions P01B, P02B, P07B and P08B. The six R prompts (R01-R05 and R02B) are review-only. U1 and U2 are user checkpoints with no agent prompt. Repair and Resume are reusable helper prompts. P00-P03, R01 and R02 were completed under pack 1.2; their results stay valid and P01B/P02B extend them.
 
 ## Models and effort by phase
 
@@ -60,12 +65,17 @@ See [the model and effort guide](MODEL_AND_EFFORT_GUIDE.md) for rationale, exact
 | P02 | GPT-6.1 Sol | High | Claude Sonnet 5.5 | High |
 | P03 | GPT-6 Astra | Extra high (`xhigh`) | Claude Opus 5.5 | High |
 | R02 | GPT-6 Astra | High | Claude Opus 5.5 | High |
+| P01B | GPT-6 Astra | High | Claude Opus 5.5 | High |
+| P02B | GPT-6.1 Sol | High | Claude Sonnet 5.5 | High |
+| R02B | GPT-6 Astra | High | Claude Opus 5.5 | High |
 | P04 | GPT-6.1 Sol | High | Claude Sonnet 5.5 | Medium |
 | P05 | GPT-6 Astra | High | Claude Opus 5.5 | High |
 | R03 | GPT-6 Astra | Extra high (`xhigh`) | Claude Opus 5.5 | Extra high (`xhigh`) |
 | P06 | GPT-6.1 Sol | High | Claude Opus 5.5 | High |
 | P07 | GPT-6 Astra | High | Claude Opus 5.5 | High |
+| P07B | GPT-6 Astra | High | Claude Opus 5.5 | High |
 | P08 | GPT-6.1 Sol | High | Claude Opus 5.5 | High |
+| P08B | GPT-6.1 Sol | High | Claude Opus 5.5 | High |
 | P09 | GPT-6.1 Sol | High | Claude Sonnet 5.5 | Medium |
 | P10 | GPT-6 Astra | High | Claude Opus 5.5 | High |
 | R04 | GPT-6 Astra | Extra high (`xhigh`) | Claude Opus 5.5 | Extra high (`xhigh`) |
@@ -86,7 +96,7 @@ Codex: gpt-6.1-sol; reasoning effort high.
 Claude Code: claude-opus-5-5; effort high; adaptive thinking.
 These recommendations do not switch the actual runtime model or effort.
 
-You are the senior full-stack developer and technical 3D designer implementing CICT EQ Maintenance.
+You are the senior full-stack developer and technical 3D designer implementing CICT EQ & FAC Maintenance (technical code eq-maintenance).
 
 Work in F:\CODEX\EQ_MAINTENANCE. Read applicable AGENTS.md or CLAUDE.md instructions and inspect the current working tree before edits. Follow later explicit user instructions over this pack.
 
@@ -98,13 +108,15 @@ F:\CODEX\EQ_MAINTENANCE\documents\prompt-pack\MODEL_AND_EFFORT_GUIDE.md
 F:\CODEX\EQ_MAINTENANCE\documents\prompt-pack\EQ_MAINTENANCE_IMPLEMENTATION_PROMPT_PACK.md
 
 Use these authorities:
-- Original SOW: F:\CODEX\EQ_MAINTENANCE\documents\SOW.docx
+- Original SOW (V1): F:\CODEX\EQ_MAINTENANCE\documents\SOW.docx
+- SOW V2 revision 4 (wins over V1 where they differ): F:\CODEX\EQ_MAINTENANCE\documents\SOW_V2.docx (same text: SOW_V2.md)
+- Facility job list: F:\CODEX\EQ_MAINTENANCE\documents\Facility- Dashboard.xlsx, normalised in documents\prompt-pack\reference\fac-job-list.json
 - Engineering references: F:\CODEX\EQ_MAINTENANCE\As-bulit drawing
 - Approved taxonomy and original pasted list: documents\prompt-pack\reference
 - Appearance photos: documents\images.jpg and documents\images2.jpg
 - Existing Portal integration source: F:\CODEX\CICT-ENG_MAIN_PAGE
 
-The five business decisions are settled: QC 3D first; QC/RTG/ES fleet support; separate Portal-integrated app; EQ Team creates/completes jobs with Admin correction/history; preserve the approved mechanism codes and names; build simplified but proportionally accurate QC geometry and useful simplified internals. The pre-implementation review decisions are also settled: no EAM/Maximo work-order reference or synchronisation; no bulk import of historical records; QC main parts derived from the drawings for Admin review; EQ Team may cancel uncompleted jobs they created, with a reason. Do not ask those questions again.
+The five business decisions are settled: QC 3D first; QC/RTG/ES fleet support; separate Portal-integrated app; EQ Team creates/completes jobs with Admin correction/history; preserve the approved mechanism codes and names; build simplified but proportionally accurate QC geometry and useful simplified internals. The pre-implementation review decisions are also settled: no EAM/Maximo work-order reference or synchronisation; no bulk import of historical records; QC main parts derived from the drawings for Admin review; EQ Team may cancel uncompleted jobs they created, with a reason. The SOW V2 decisions are settled too (APPROVED_REQUIREMENTS s1): EQ and FAC sections; Portal roles Admin, Management, EQ Team and FAC Team with an in-app Access matrix; FAC master list seeded from the supplied sheet; FAC frequencies and next-due rules; EQ Jobs tab in three parts; ZMMS daily jobs read by login twice a day; automatic status with a current-day manual correction; spare-part condition with expected-life prediction; no history in the crane view. Do not ask those questions again.
 
 Apply the Master control below to every build/review prompt. Execute only the phase supplied with this Bootstrap. Make reasonable routine technical choices and document them. Ask only for genuinely missing business information that cannot be resolved from the sources, while continuing independent authorized work. Do not invent exact geometry, fleet facts, current condition or deployment success.
 ```
@@ -119,6 +131,7 @@ Apply the Master control below to every build/review prompt. Execute only the ph
 - Local builds, fixtures, prototypes and disposable development/test databases are part of implementation. Use a dedicated database name and prove the target is disposable before migrations or seed operations. No startup migration or fleet/status seeding against an unknown connection.
 - These prompts prepare local source and releases. Do not deploy, change live IIS, issue SQL against shared/production records, publish packages, or purchase external models unless a later user instruction explicitly authorizes that action.
 - Keep all credentials, connection strings, keys and runtime tokens outside source and outputs. Never print them. Central authentication owns credentials; the EQ app does not create another production password flow.
+- ZMMS (https://www.zmms.lk) is the only external system the app reads. Only P07B and later checks of it contact ZMMS, only through the connector with the account from runtime configuration, only the login and the daily all-job list, and never write. Every other phase and every automated test uses sanitised fixtures. The ZMMS account is never requested in chat, committed, printed or stored in evidence.
 - Use existing source patterns where compatible, but recheck current contracts and dependency/runtime support. Do not treat old handover claims as live proof. Do not upgrade neighbouring apps incidentally.
 
 ### Persistence and evidence
@@ -137,7 +150,10 @@ Do not claim a test was run if it was only specified. Report the actual failure/
 - Operational status is independent of job status. No automatic Ready for OPS on job completion.
 - Replacement completion is atomic and retry-safe; corrections preserve prior values and subsequent installation events.
 - Use actual CICT appearance and drawing proportions. Total lift height 63 m is not overall crane height. Keep source conflicts/approximate internals qualified.
-- Management is read-only in the API. Enforce writer/Admin permissions on every relevant endpoint, not just tabs.
+- Management is read-only in the API. Enforce writer/Admin permissions and the Access matrix on every relevant endpoint, export and file link, not just tabs. The matrix never widens a Portal role ceiling.
+- A ZMMS sync that fails or is partial changes no stored data or status. A manual status correction lasts for the current Asia/Colombo day only.
+- The crane view shows current state, not work history; scoped history lives in the EQ Jobs tab under the same identity and de-duplication rules.
+- FAC progress never exceeds the job quantity; corrections keep prior values; next due derives from recorded completion dates, not from typed sheet values.
 - All drawing, model and work-evidence access must obey the app's authentication/authorization boundary.
 
 ### Review decision format
@@ -287,7 +303,76 @@ Exercise main -> sub -> part selection from the tree and the scene, camera cance
 
 Evaluate management scanning, EQ Team entry effort, read-only presentation, responsive panels, keyboard navigation, synthetic-data labels and loading/empty/conflict/error states. Do not require every bolt or vendor internals; enforce the agreed major-assembly scope.
 
-Report concrete findings with screenshot/artifact and code evidence, then PASS/NEEDS FIXES. No edits. PASS means the reviewed design/model can go to the U1 user checkpoint; it is not business or engineering certification. If changes are needed, use Repair and repeat this review.
+Report concrete findings with screenshot/artifact and code evidence, then PASS/NEEDS FIXES. No edits. PASS means the reviewed design/model can go on to P01B, P02B and R02B, after which the U1 user checkpoint reviews them together; it is not business or engineering certification. If changes are needed, use Repair and repeat this review.
+```
+
+## P01B V2 contracts addendum
+
+```text
+Execution recommendation (choose one platform; select in client controls):
+Codex: gpt-6-astra; reasoning effort high.
+Claude Code: claude-opus-5-5; effort high; adaptive thinking.
+These recommendations do not switch the actual runtime model or effort.
+
+Execute P01B under the Bootstrap and Master control. Extend the reviewed P01 contracts for SOW V2 revision 4 before any V2 prototype or code. This is a contract phase: do not edit app or Portal implementation.
+
+Read documents\SOW_V2.md (same text as SOW_V2.docx), APPROVED_REQUIREMENTS.md version 2.0 (sections 1, 2, 4, 5, 5A, 5B, 6A, 7 and 8), reference\fac-job-list.json and the existing docs\ARCHITECTURE.md, DATA_CONTRACT.md, API_CONTRACT.md, PORTAL_INTEGRATION_PLAN.md, UX_SPEC.md and DECISIONS.md. Keep every P01/R01 decision that V2 does not change. Where V2 changes one, record the superseded rule and its replacement in DECISIONS.md.
+
+Specify entities, invariants, stable keys, transitions and endpoints for:
+- Sections and navigation: EQ and FAC route trees under /eq-maintenance, section switch, landing rules, display name "EQ & FAC Maintenance".
+- Roles and feature permissions: the fourth role eq-maintenance:fac-team; the Access matrix as a server-evaluated policy (role ceilings, optional rights and defaults from APPROVED_REQUIREMENTS s4, audit, propagation within 60 seconds) applied to routes, API, exports and files. The matrix can never widen a ceiling.
+- EQ: special jobs (the V1 jobs, rules unchanged); operational status with its source (ZMMS or manual), the current-day manual correction and its end at the next day's first successful sync, Back to automatic, and the ZMMS jobs that caused an automatic change; major spare-part selection, expected life, equipment commissioning date, condition register and its append-only history; how a Replacement special-job completion writes the condition together with the V1 installation events in one transaction.
+- ZMMS: connector boundary (configuration key names without values, schedule, single-run lock, timeouts, retry/backoff), sync-run record, daily-job record keyed by ZMMS job number and date, equipment mapping and unmatched queue, job-type/status mapping, fail-closed parsing, and the rule that a failed or partial run changes nothing. Fields that only the real page can fix are marked provisional for P07B.
+- FAC: job master, frequency list, cycles, progress updates, hold, photos, one-time and continuous kinds, Done today/this week, due computation in Asia/Colombo calendar days/months, same-day undo, Admin correction, import preview/confirm/re-run rules for fac-job-list.json, Excel export columns.
+- FAC Dashboard read model: one summary endpoint sized for a 60-second poll (KPIs, lane lists in display order, ticker, latest-proof thumbnails, 8-week due load) with ETag or equivalent cheap revalidation.
+- Crane view: a current-state query for the right panel. The scoped, de-duplicated history queries of P01 move to the EQ Jobs tab endpoints unchanged in their rules.
+
+Update the Portal integration plan for the fourth role and the display name only; P05 has not started. Update the requirement-to-component-to-acceptance map for S01-S29 and the acceptance IDs in ACCEPTANCE_CHECKLIST.md.
+
+Produce updated docs\ARCHITECTURE.md, DATA_CONTRACT.md, API_CONTRACT.md, PORTAL_INTEGRATION_PLAN.md and a short report in docs\evidence\P01B\ listing every changed contract section. Finish with the questions only the real ZMMS page can answer and P02B as the next step.
+```
+
+## P02B V2 prototype
+
+```text
+Execution recommendation (choose one platform; select in client controls):
+Codex: gpt-6.1-sol; reasoning effort high.
+Claude Code: claude-sonnet-5-5; effort high; adaptive thinking.
+These recommendations do not switch the actual runtime model or effort.
+
+Execute P02B under the Bootstrap and Master control. Extend the reviewed P02 prototype, and the P03 viewer prototype where its right panel is affected, to SOW V2 and the P01B contracts. Synthetic in-memory data only; do not imply persistence, authentication or a live ZMMS connection.
+
+Create or update connected views:
+- Top bar with the EQ | FAC section switch and per-section tabs, shown for Admin, Management, EQ Team, FAC Team, a user holding EQ Team and FAC Team, and a user whose tabs are all switched off.
+- Crane view right panel with the current state only (open special jobs, spare-part condition, specifications, Open in Jobs) in both the flat view and the 3D viewer prototype. Keep the U1-C01..C18 behaviour and flat/3D parity (U1-C08).
+- EQ Fleet cards with the status source (Auto/Manual) and today's ZMMS daily-job count; replace the "manual status, no telemetry" note with the automatic-status meaning.
+- EQ Jobs tab in three parts: special jobs with the read-only ZMMS daily jobs below them and "ZMMS data from"; EQ status with correction, Back to automatic and history; spare-parts condition register with due-soon/overdue flags and per-part history.
+- FAC Dashboard per SOW V2 5.5: KPI strip, three moving discipline lanes, live ticker, latest-proof carousel, 8-week due load, TV mode, Pause, reduced-motion page flip, filters in the URL, phone layout, stale/error state. Load the 114 jobs from reference\fac-job-list.json plus clearly labelled synthetic progress, photos and updates.
+- FAC Jobs per 5.6: My work, board/list, one-tap actions, the update-progress form with camera upload on a phone, hold, job detail with timeline and previous cycles, one-time job form, export button.
+- Admin: Access matrix, FAC master list and the import preview showing the JSON's issues, ZMMS equipment mapping, job-type mapping, sync times and health (including a synthetic failed run), major spare-part selection and expected life.
+
+Make the moving dashboard genuinely readable for management: a measured, steady scroll speed, no layout jump when data refreshes, no keyboard focus trap in the moving lists or ticker, and a static accessible alternative for moving content. Check 1920x1080 TV mode, 1366x768, tablet and phone.
+
+Update docs\UX_SPEC.md (sections, Access states, crane-view panel, EQ Jobs parts, FAC screens, motion rules). Store screenshots and browser-check results under docs\evidence\P02B. Rerun the existing P02 and P03 prototype checks so the U1 changes do not regress. Finish with what is synthetic and R02B next.
+```
+
+## R02B V2 contracts and prototype review
+
+```text
+Execution recommendation (choose one platform; select in client controls):
+Codex: gpt-6-astra; reasoning effort high.
+Claude Code: claude-opus-5-5; effort high; adaptive thinking.
+These recommendations do not switch the actual runtime model or effort.
+
+Execute R02B as a read-only review under the Master control. Review P01B and P02B against SOW V2 revision 4, APPROVED_REQUIREMENTS.md version 2.0 and the earlier R01/R02 results. Inspect the runnable prototype, not only its code.
+
+Check that every SOW V2 item has a contract and a prototype screen. Check that the Access matrix cannot widen a role ceiling (Management write, FAC Team EQ write, EQ Team FAC write, non-Admin Admin) and that server enforcement is specified for routes, API, exports and files.
+
+Check the ZMMS design: the account stays out of source, logs, browser and evidence; it reads only the daily job list; parsing fails closed; a failed or partial run changes no data or status; the current-day manual correction holds over the second sync and ends at the next day's first successful sync (Asia/Colombo midnight); no status changes before the job-type mapping is set.
+
+Check that special-job completion and the spare-part register stay atomic with the V1 installation identity, that the predicted replacement never invents a date, and that the crane view shows no history while the Jobs tab keeps the scoped, de-duplicated history. Check FAC due computation, cycles, undo/correction and import rules against the confirmed answers. Check that the dashboard is readable by management at a glance, pauses, respects reduced motion and has an accessible alternative. Confirm that U1-C01..C18 behaviour did not regress.
+
+Report findings and PASS/NEEDS FIXES. No edits. PASS means the V2 design and the reviewed QC model can go to the U1 user checkpoint together; it is not business approval. If changes are needed, use Repair and repeat this review.
 ```
 
 ## P04 Runnable app foundation
@@ -302,7 +387,7 @@ Execute P04 under the Bootstrap and Master control. Build the application founda
 
 Create the selected ASP.NET Core/EF Core solution and React/TS/Vite app with pinned compatible 3D dependencies. Use a single deployable host, clear domain/application/data modules and a normal test structure. Do not install an unsupported runtime merely to match an old README. Preserve the Portal's existing runtime/source.
 
-Implement /eq-maintenance path handling, API base paths, SPA deep-link fallback and safe asset resolution. Build the shell/navigation, shared error/loading forms, data-client boundary and server authorization policies for the three EQ roles. Normal runtime endpoints must not contain a developer authentication bypass; test authentication handlers belong only to automated test hosts.
+Implement /eq-maintenance path handling, API base paths, SPA deep-link fallback and safe asset resolution. Build the shell/navigation, shared error/loading forms, data-client boundary and server authorization policies for the four roles and the Access matrix, and the EQ | FAC section shell with per-section tabs. Normal runtime endpoints must not contain a developer authentication bypass; test authentication handlers belong only to automated test hosts.
 
 Create the minimal subject-bound user projection/persistence needed for P05 integration and an explicit disposable local database setup. Keep connections external and startup migrations/seeding disabled. Define the protected storage abstraction and safe configuration validation.
 
@@ -323,7 +408,7 @@ These recommendations do not switch the actual runtime model or effort.
 
 Execute P05 under the Bootstrap and Master control. Implement narrow local integration in EQ_MAINTENANCE and CICT-ENG_MAIN_PAGE using the current Portal contracts. This phase does not deploy or alter shared/live accounts/databases.
 
-Register the new app code, /eq-maintenance launch path, audience and exact three role codes. Add the local binding claim and subject-keyed provisioning/convergence connector if required by the existing pattern. Implement the EQ-side protected provisioning endpoint and idempotent local profile convergence with desired revisions/state hashes or the current equivalent contract. Never match people by display name or accept a browser-submitted identity binding.
+Register the new app code, the /eq-maintenance launch path with the display name "EQ & FAC Maintenance", the audience and exactly four role codes (admin, management, eq-team, fac-team). Add the local binding claim and subject-keyed provisioning/convergence connector if required by the existing pattern. Implement the EQ-side protected provisioning endpoint and idempotent local profile convergence with desired revisions/state hashes or the current equivalent contract. Never match people by display name or accept a browser-submitted identity binding.
 
 Use the existing shared cookie/JWKS validation and CSRF/Origin protections. Handle session recovery, refresh, must-change-password, expiration, logout, validated internal return targets and app-denied states using current Portal patterns. Credentials/tokens remain server-side/HttpOnly; the CSRF value follows the Portal's memory-only browser handling. No new production login screen.
 
@@ -348,7 +433,7 @@ These recommendations do not switch the actual runtime model or effort.
 
 Execute R03 as a read-only review under the Master control. Review the P04/P05 source changes, test evidence and an authenticated local Portal -> EQ walkthrough.
 
-Verify audience/role registration, scoped claims, trusted subject/binding, idempotent provisioning/revisions, disabled-user handling, launcher visibility, must-change-password/session expiry/logout, safe return targets, CSRF/Origin protection and server-side Admin/EQ Team/Management policies. Confirm no local production password flow or runtime auth bypass was added.
+Verify audience/role registration, scoped claims, trusted subject/binding, idempotent provisioning/revisions, disabled-user handling, launcher visibility, must-change-password/session expiry/logout, safe return targets, CSRF/Origin protection and server-side Admin/EQ Team/FAC Team/Management policies, including Access-matrix evaluation that never widens a role ceiling. Confirm no local production password flow or runtime auth bypass was added.
 
 Test/inspect an old-consumer/new-token scenario. Identify actual validation versions and reject a rollout that adds globally unknown audiences/roles before consumers can accept the registered contract. Confirm no widened validation, cross-app grant escalation, incidental neighbouring-app edits or secret material in artifacts.
 
@@ -379,7 +464,9 @@ Populate a separate development/test fixture set with conspicuously synthetic QC
 
 Test taxonomy import/retry, deactivation, applicability, duplicate codes, forged cross-equipment parent IDs, preserving existing instances after template updates, source-conflict display, reserved-code rejection and Admin-only writes. Exercise the Admin screens against the real disposable SQL Server database.
 
-Generate reviewed migration SQL/rollback notes and record the exact disposable database validation. Finish with S01/S10/S14 evidence and P07 next.
+Implement the V2 Admin settings from the P01B contract: the Access matrix (defaults, ceilings, audit, propagation) with server enforcement tests for all four roles; major spare-part selection per template and position, expected life per part type with per-position override, and the optional equipment commissioning date; ZMMS equipment mapping, job-type/status mapping, sync times and the health view shell (the connector itself is P07B). The FAC master list and import are P08B.
+
+Generate reviewed migration SQL/rollback notes and record the exact disposable database validation. Finish with S01/S10/S14/S19 evidence and P07 next.
 ```
 
 ## P07 Jobs operational status and replacements
@@ -390,7 +477,7 @@ Codex: gpt-6-astra; reasoning effort high.
 Claude Code: claude-opus-5-5; effort high; adaptive thinking.
 These recommendations do not switch the actual runtime model or effort.
 
-Execute P07 under the Bootstrap and Master control. Implement real repair/replacement work and equipment-status workflows end to end.
+Execute P07 under the Bootstrap and Master control. Implement real special-job repair/replacement work, equipment-status workflows and the spare-part condition register end to end. The jobs in this prompt are the V2 special jobs; the EQ Jobs tab holds them, the EQ status part and the spare-parts part.
 
 Build the job workspace, create/edit forms, Pending/Current/Completed views, equipment/target filters and role-appropriate actions. EQ Team and Admin can create and complete work; Management cannot write. Admin corrects/reopens completed work with a reason and retained prior values. Implement cancellation of uncompleted jobs with a mandatory reason: EQ Team for jobs they created, Admin for any job. Use the separate cancellation marker and Include cancelled filter, not a fourth normal work column or a hard delete. Completed work cannot be cancelled.
 
@@ -398,7 +485,9 @@ Validate equipment and target hierarchy on the server. Support equipment-level g
 
 Commit job completion, replacement/installation changes and audit in a transaction. Enforce concurrency tokens and idempotency so double-clicks, network retries and parallel requests cannot duplicate replacement events or overwrite a later installed part. A transaction failure must not leave a job Completed with missing installations, or an installation changed with no completed work/audit record.
 
-Implement explicit operational-status changes with actor/time, a mandatory reason for Breakdown and Maintenance, an optional link to a related job on the same equipment, current state and history. Expose time in current status computed only from recorded history. Keep operational status independent from job progress. Ready for OPS, Breakdown and Maintenance are the only selected operational values; do not treat new/unreported equipment as Ready. Show update freshness.
+Implement the spare-part condition register (APPROVED_REQUIREMENTS s5B): direct updates by EQ Team/Admin with append-only history, next predicted replacement from replaced date or commissioning date plus expected life (none when the date is unknown), due-soon/overdue flags, and the pre-filled condition form saved inside the same transaction as a Replacement special-job completion.
+
+Implement explicit operational-status changes with source, actor/time, a mandatory reason for Breakdown and Maintenance and for any manual correction of an automatic status, the current-day correction marker and Back to automatic (its end at the next day's sync is completed in P07B), an optional link to a related job on the same equipment, current state and history. Expose time in current status computed only from recorded history. Keep operational status independent from job progress. Ready for OPS, Breakdown and Maintenance are the only selected operational values; do not treat new/unreported equipment as Ready. Show update freshness.
 
 Use Asia/Colombo for displayed business dates and UTC for audit instants. Validate completion dates, preserve date-only knowledge where exact times are absent, and do not overwrite actual work date with entry time. Do not require a new Admin completion approval.
 
@@ -406,7 +495,28 @@ Provide Admin correction operations that retain superseded values. Reopening a c
 
 Test actual database persistence after reload; role denials; target mismatch; Pending -> Completed historical entry; double submission; two concurrent editors; partial transaction failure; multicomponent completion; quantity-based position behaviour; correction/reopen after a later replacement; cancellation by the creator, by another EQ Team user (denied), by Admin and of completed work (denied); status changes without a required reason or with another equipment's job (rejected); and explicit Ready-status independence.
 
-Record API and authenticated browser evidence, then update the acceptance matrix. Finish with P08 next.
+Record API and authenticated browser evidence, then update the acceptance matrix. Finish with P07B next.
+```
+
+## P07B ZMMS daily jobs and automatic status
+
+```text
+Execution recommendation (choose one platform; select in client controls):
+Codex: gpt-6-astra; reasoning effort high.
+Claude Code: claude-opus-5-5; effort high; adaptive thinking.
+These recommendations do not switch the actual runtime model or effort.
+
+Execute P07B under the Bootstrap and Master control. Implement the read-only ZMMS connector, daily-job storage, equipment mapping, sync health and automatic status (APPROVED_REQUIREMENTS s5A).
+
+Account: the user supplies the ZMMS account out of band into the local runtime configuration (user secrets or environment variables, using the key names in the P01B contract). Never ask for it in chat, write it to a repository file, print it, place it in a URL, test, fixture or evidence, or echo it in an error. If it is not configured, build and test everything against fixtures and mark the live checks BLOCKED with the configuration key names needed.
+
+Discovery with the configured account, only through the connector code or a throwaway diagnostic using the same HTTP client, never an interactive browser session: sign in, read today's daily all-job page and record the page structure, columns, paging/date parameters and equipment text formats. Save a sanitised fixture with people's names replaced, no session cookies and no account. Fix the provisional field list in docs\DATA_CONTRACT.md. Read nothing else on ZMMS and submit no form other than the login. Prove whether the page needs script execution before considering a headless browser.
+
+Implement: a hosted background service with two Admin-set daily times (default 06:00 and 14:00 Asia/Colombo) and Sync now; a single-run lock; timeouts; retry with backoff; session handling; a parser that fails closed on unexpected structure; upsert by ZMMS job number and date in one transaction per run; the sync-run record and Admin health view; equipment mapping and the unmatched queue; the job-type/status mapping (empty at first, so no status changes until Admin sets it); automatic status per mapped active equipment from the day's plan; the end of the P07 current-day manual correction at the next day's first successful sync; the ZMMS jobs that caused each change; "ZMMS data from" freshness on Fleet and Jobs; the read-only daily-job list below special jobs with filters and kept history.
+
+Test with fixtures: normal day, empty day, two syncs on one day, a correction held over the second sync and ended the next day, Back to automatic, unmatched equipment, unmapped job types, login failure, timeout, changed layout, partial page, duplicate rows, a repeated run, concurrent Sync now, the Asia/Colombo midnight boundary, retired equipment, and Management/EQ Team denial of the Admin ZMMS settings. Assert that the account never appears in logs, responses or stored records. If the account is configured, run one live read-only sync, compare the stored rows with the parsed page totals and record the result without personal data.
+
+Finish with evidence under docs\evidence\P07B, S20/S21 status, and P08 next.
 ```
 
 ## P08 Protected evidence and scoped history
@@ -431,7 +541,30 @@ Integrate the work evidence uploader and technical drawing preview/download into
 
 Test direct unauthenticated and wrong-role access, arbitrary guessed IDs, target-equipment mismatch, traversal/oversized/mislabeled files, missing file recovery, duplicate drawing import, Management download vs upload permissions, descendant query de-duplication and exact-position history after several replacements.
 
-Finish with storage/import instructions, permission and history evidence, and P09 next.
+Serve these history queries from the EQ Jobs tab endpoints (special jobs, status history, spare-part history); the crane view does not show history. Make the protected storage reusable for FAC job and completion photos in P08B.
+
+Finish with storage/import instructions, permission and history evidence, and P08B next.
+```
+
+## P08B FAC jobs cycles progress and photos
+
+```text
+Execution recommendation (choose one platform; select in client controls):
+Codex: gpt-6.1-sol; reasoning effort high.
+Claude Code: claude-opus-5-5; effort high; adaptive thinking.
+These recommendations do not switch the actual runtime model or effort.
+
+Execute P08B under the Bootstrap and Master control. Implement FAC persistence and workflows end to end on the protected-storage foundation from P08 (APPROVED_REQUIREMENTS s6A, SOW V2 5.1-5.4, 5.6, 5.7).
+
+Build the FAC tables and migrations from the P01B contract: disciplines, types, frequency list, jobs, cycles, progress updates, holds, photos, corrections and audit. Implement the Admin import: load reference\fac-job-list.json, show the preview with every issue, save only on Admin confirmation, allow a re-run over the imported set until the first progress, and record the source checksum. Do not invent PIC, quantities or dates beyond the confirmed rules (blank quantity imports as 1).
+
+Implement the FAC Jobs tab: My work, board/list by status, filters and search kept in the URL, one-tap Update progress, Done today, Done this week and Hold, the phone-first update form with camera capture, job detail with timeline and previous cycles, one-time jobs, Admin master-list management and the optional FAC Team rights from the Access matrix, and Excel export.
+
+Rules: next due for recurring jobs from the completion date in calendar months/days (Asia/Colombo); due soon and overdue; daily/weekly cycles; one-time jobs close; continuous jobs have no due date; completed quantity never exceeds the job quantity; completion confirmation; same-day undo of the user's own last update; Admin correction with a reason and kept values; idempotent update requests and concurrency tokens. Photos: signature check, 10 MB limit, 5 per update, resize and thumbnail, protected streaming, same-day removal by the uploader and Admin removal with a reason.
+
+Test against the real disposable SQL Server: every frequency including month-end dates (31 January + 1 month) and leap years, running-hours and as-required jobs, import preview/confirm/re-run and refusal after progress, partial and full progress, over-quantity rejection, double submit, two users updating one cycle, undo refused after midnight, Admin correction history, hold reason, photo type/size/traversal/unauthorised access, Management and EQ Team write denials, FAC Team denied Admin pages and master-list writes until Access grants it, and export contents.
+
+Finish with evidence under docs\evidence\P08B, S23-S26/S28/S29 status, and P09 next.
 ```
 
 ## P09 Fleet dashboard and real equipment detail
@@ -442,19 +575,21 @@ Codex: gpt-6.1-sol; reasoning effort high.
 Claude Code: claude-sonnet-5-5; effort medium; adaptive thinking.
 These recommendations do not switch the actual runtime model or effort.
 
-Execute P09 under the Bootstrap and Master control. Replace prototype fixtures with real application data for the fleet dashboard and equipment detail pages.
+Execute P09 under the Bootstrap and Master control. Replace prototype fixtures with real application data for the fleet dashboard, the equipment detail pages and the FAC Dashboard.
+
+Implement the FAC Dashboard from the P01B read model and the reviewed P02B design (SOW V2 5.5): KPI strip with filter clicks, three discipline lanes as continuously moving lists in the required order, live ticker, latest-proof carousel with protected thumbnails, 8-week due load, TV mode, Pause, reduced-motion page flip, filters in the URL, phone layout, a static accessible alternative, 60-second refresh with revalidation and visible stale state. Data refreshes must not reset the scroll position or jump the layout. Show fleet cards with the status source and today's ZMMS daily-job count, and apply the section switch, landing rules and Access matrix to every page.
 
 Implement QC/RTG/ES groups, equipment search, operational-status filter, active/retired handling, compact card/row display, status labels/icons/legend, time in current status, counts and last-update/freshness. Calculate each equipment once; open jobs and multiple replacement lines must not multiply fleet totals. Exclude retired equipment by default while allowing history lookup.
 
 Use lightweight thumbnails/silhouettes on the fleet page, not separate live 3D canvases. Support a configurable lightweight refresh, defaulting to 60 seconds, plus refresh after successful writes. Keep last good values visibly stale on request failure rather than setting everything Ready or clearing the fleet. Cancel obsolete requests when filters/equipment change.
 
-Implement equipment detail with real mechanism tree, equipment-specific part positions, specifications/source links, current jobs and the right-side scoped history panel. Use the existing shared selection/URL state contract so the forthcoming model viewer can attach without creating a second data source.
+Implement equipment detail with real mechanism tree, equipment-specific part positions, specifications/source links and the right-side current-state panel (open special jobs, spare-part condition, specifications, Open in Jobs to the scoped history). Do not show work history in this view. Use the existing shared selection/URL state contract so the forthcoming model viewer can attach without creating a second data source.
 
 For RTG/ES, provide the full register/technical/work/history interface with an honest stage-1 3D-unavailable state and suitable type thumbnail. New QC items without verified model binding get the same record-first fallback instead of silently borrowing the wrong model family.
 
 Check Management and EQ Team layouts, deep-link/back behaviour, 1920x1080 and 1366x768 usability, tablet panel collapse and phone work forms. Only show writer actions to authorized roles while keeping API denials independent.
 
-Test mixed statuses including unset, empty register, large synthetic fleet, stale responses, concurrent refresh/status edit, page reload, deep-link filters and state-specific counts. Capture authenticated real-data browser evidence. Finish with P10 next.
+Test mixed statuses including unset, automatic and manual, empty register, large synthetic fleet, stale responses, concurrent refresh/status edit, page reload, deep-link filters and state-specific counts. For the FAC Dashboard test KPI reconciliation with the FAC Jobs list, lane order, pause/reduced motion, refresh without jumps, TV mode at 1920x1080 and an empty or failed refresh. Capture authenticated real-data browser evidence. Finish with P10 next.
 ```
 
 ## P10 QC viewer and maintenance drill-down
@@ -471,7 +606,7 @@ Bind the correct versioned QC model template to each verified equipment item. Lo
 
 Implement Overall and Technical modes, tree/scene bidirectional selection, main -> sub -> part breadcrumbs, union-bounds camera focus, orbit/pan/zoom, reset/fit, useful labels and appropriate simplified internals or qualified hotspots for hidden systems. Cancel stale model/history requests and camera transitions when selection/equipment changes; the right panel must never show the previous component's work as current selection.
 
-Selecting main/sub shows the same direct-and-descendant history query as the text interface; selecting a part shows exact-position installations/replacements and source-linked parameters. Preserve job identity when one job replaces several selected descendants. Expose add-work navigation for writers using the selected target, without inventing a part when the current selection is only a group.
+Selecting main/sub/part shows its current state in the right panel (open special jobs, current spare-part condition, source-linked parameters) and an Open in Jobs link that opens the EQ Jobs tab with the same direct-and-descendant or exact-position history query and selection. Do not show work history in the crane view. Expose add-special-job navigation for writers using the selected target, without inventing a part when the current selection is only a group.
 
 Use a clear selection/work overlay legend while preserving normal CICT red paint. Avoid fabricated component health scores, live-telemetry labels or real crane movement controls. Simplified internals must remain recognizable and honestly qualified.
 
@@ -492,7 +627,9 @@ These recommendations do not switch the actual runtime model or effort.
 
 Execute R04 as a read-only review under the Master control. Use the actual local app, real disposable SQL Server records and authenticated test roles where available.
 
-Follow one complete scenario: Admin registers a QC/model and positions; EQ Team sets Maintenance, creates a repair/replacement job, starts/completes it with evidence; Management finds the same work through fleet -> QC -> main -> sub -> exact part; equipment stays Maintenance until an explicit authorized Ready update. Repeat on another QC with the same model to prove history isolation. Check RTG/ES record workflows without QC model substitution.
+Follow one complete scenario: Admin registers a QC/model and positions; EQ Team sets Maintenance, creates a replacement special job, starts/completes it with evidence and the pre-filled spare-part condition; Management finds the same work through fleet -> QC -> main -> sub -> exact part and Open in Jobs; equipment stays Maintenance until an explicit authorized Ready update or a later successful ZMMS sync for mapped equipment. Repeat on another QC with the same model to prove history isolation. Check RTG/ES record workflows without QC model substitution.
+
+Run the ZMMS fixtures through two syncs and a day change with a manual correction in between, a failed run and an unmatched equipment; confirm no status change from a failed run or before the job-type mapping exists, and that no account material appears anywhere. Run a FAC scenario: Admin imports the list, FAC Team logs partial and full progress with photos on a phone viewport, a recurring cycle rolls to its next due date, Management sees it move on the dashboard; attempt FAC writes as Management and EQ Team, Admin pages as FAC Team, and Access-matrix changes that would widen a ceiling.
 
 Inspect and exercise database transactions, idempotent retry, conflicting edits, correction/reopen after a later replacement, template changes/deactivation and exact vs descendant history de-duplication. Confirm immutable prior installation and audit records, unknown initial values and date semantics.
 
@@ -515,11 +652,11 @@ Execute P11 under the Bootstrap and Master control. Complete the acceptance evid
 
 Run the relevant backend, SQL Server integration, frontend type/lint/build and browser tests. Use ACCEPTANCE_CHECKLIST.md as the contract. Add meaningful tests for uncovered business invariants, authorization/identity boundaries, replacement retries/concurrency/transaction rollback, history scoping, protected assets, subpaths and selection/request races.
 
-Exercise all three roles and the two-QC isolation scenario in an authenticated browser. Verify persistence after restart/reload. Mark real automated results, manual local checks and unexecuted target-environment checks distinctly. Use synthetic development data only.
+Exercise all four roles, the Access matrix, the two-QC isolation scenario, the ZMMS fixture scenarios and the FAC workflows in an authenticated browser. Verify persistence after restart/reload. Mark real automated results, manual local checks and unexecuted target-environment checks distinctly. Use synthetic development data only.
 
 Review keyboard access, visible focus, form labels/errors, status text/icons, screen-reader-friendly tree/record alternatives, reduced motion, desktop/tablet/phone layouts and 3D fallback. Fix material problems and capture evidence.
 
-Measure the QC viewer against its provisional triangle/draw-call/asset-size/load/orbit budgets on a recorded desktop/browser. Check demand rendering and resource behaviour over repeated navigation. Profile query/payload costs with a representative synthetic fleet and work history. Tune the observed bottlenecks rather than claiming FPS from an API test or silently changing budgets.
+Measure the FAC Dashboard's summary payload, refresh cost and animation smoothness in TV mode over at least 30 minutes without memory growth. Measure the QC viewer against its provisional triangle/draw-call/asset-size/load/orbit budgets on a recorded desktop/browser. Check demand rendering and resource behaviour over repeated navigation. Profile query/payload costs with a representative synthetic fleet and work history. Tune the observed bottlenecks rather than claiming FPS from an API test or silently changing budgets.
 
 Check same-origin/intranet operation without external fonts/decoders/textures, production build fixture exclusion, error/freshness behaviour, model missing/corrupt cases and source-file authorization. Perform regression checks required by actual shared-contract changes without concurrent builds sharing outputs.
 
@@ -546,9 +683,9 @@ Document the proposed /eq-maintenance IIS application, dedicated pool, selected 
 
 Prepare the coordinated Portal/shared-auth rollout manifest from P05, including consumer versions required before the new shared audience/roles are issued. Specify explicit registry/provisioning activation steps and rollback order. Keep existing app routes, app pools, configuration and data outside this EQ package.
 
-Create docs/DEPLOYMENT_PREPARATION.md, docs/ROLLBACK.md, docs/ADMIN_GUIDE.md, docs/EQ_TEAM_GUIDE.md and a release manifest identifying exact commit/build/model/schema versions and checksums. The guides cover equipment/applicability setup, Unreported status, work completion, replacement positions, corrections and source-conflict handling.
+Create docs/DEPLOYMENT_PREPARATION.md, docs/ROLLBACK.md, docs/ADMIN_GUIDE.md, docs/EQ_TEAM_GUIDE.md, docs/FAC_TEAM_GUIDE.md, docs/MANAGEMENT_GUIDE.md (including TV mode) and a release manifest identifying exact commit/build/model/schema versions and checksums. The guides cover equipment/applicability setup, Unreported and automatic status, ZMMS mapping and sync health, the Access matrix, special-job completion, replacement positions, spare-part condition, the FAC import and progress updates, corrections and source-conflict handling. Document the ZMMS account as a target configuration item supplied by its owner, with key names only.
 
-Prepare a target acceptance script/checklist that verifies authenticated Portal launch, all three role behaviours, fleet status, real 3D selection/history, protected files, restart/deep-link behaviour and neighbouring-app sign-in after a later authorized release. HTTP health endpoints alone are insufficient.
+Prepare a target acceptance script/checklist that verifies authenticated Portal launch, all four role behaviours and the Access matrix, fleet status, a live read-only ZMMS sync, the FAC Dashboard in TV mode, real 3D selection/history, protected files, restart/deep-link behaviour and neighbouring-app sign-in after a later authorized release. HTTP health endpoints alone are insufficient.
 
 Finish with artifact paths, what was actually validated locally, unmet deployment prerequisites and R05-ready evidence. Do not mark stage 1 deployed.
 ```
@@ -563,7 +700,7 @@ These recommendations do not switch the actual runtime model or effort.
 
 Execute R05 as a read-only review under the Master control. Review final source, release/model/schema manifests, acceptance results and deployment/rollback documents.
 
-Check S01-S17 against actual evidence. Confirm the package excludes credentials, test auth, synthetic production fleet/history and uncontrolled public technical files. Verify exact binary/asset/schema versions, build reproducibility, .NET/runtime prerequisites, /eq-maintenance routing and protected storage/import setup.
+Check S01-S29 against actual evidence. Confirm the package excludes credentials (including any ZMMS account), ZMMS page fixtures with personal data, test auth, synthetic production fleet/history and uncontrolled public technical files. Verify exact binary/asset/schema versions, build reproducibility, .NET/runtime prerequisites, /eq-maintenance routing and protected storage/import setup.
 
 Review shared-auth consumer compatibility and rollout/rollback ordering. Review database migrations and backup/rollback limits, especially preservation of uploaded evidence and business records created after release. Reject a plan that upgrades the issuer before dependent consumers can accept the registered contract.
 
@@ -586,7 +723,7 @@ Execute P13 under the Bootstrap and Master control. Resolve any remaining in-sco
 Reconcile the implementation ledger, source mappings, decisions, acceptance matrix and release manifest with the actual final code/assets. Remove stale claims and clearly mark any unmet requirement rather than declaring completion because the phase list ended.
 
 Deliver docs/HANDOVER.md with:
-- Implemented scope S01-S17 and actual proof for the primary management/EQ Team flows.
+- Implemented scope S01-S29 and actual proof for the primary management, EQ Team and FAC Team flows, the ZMMS sync and the Access matrix.
 - Exact local start/test/build steps, selected runtime/package versions and clean configuration requirements.
 - Portal integration changes/dependencies and all repository boundaries touched.
 - Mechanism seed/applicability rules, installed-position/replacement semantics and Admin correction rules.
@@ -622,7 +759,7 @@ Claude Code: claude-sonnet-5-5; effort medium; adaptive thinking.
 These recommendations do not switch the actual runtime model or effort.
 After context recovery, switch to the next selected phase profile before doing its work.
 
-Resume CICT EQ Maintenance in F:\CODEX\EQ_MAINTENANCE.
+Resume CICT EQ & FAC Maintenance in F:\CODEX\EQ_MAINTENANCE.
 
 Read applicable workspace instructions and:
 documents\prompt-pack\APPROVED_REQUIREMENTS.md
@@ -641,6 +778,6 @@ Briefly state current scope, completed evidence, remaining blockers and the next
 
 ## What this pack deliberately leaves configurable
 
-Current equipment identifiers/counts, per-model applicability, installed-position inventories, initial operational status and unknown service/serial data are Admin inputs. Exact crane-family assignment and unresolved drawing observations require source-backed technical decisions. They do not authorize synthetic facts to enter production seed data.
+Current equipment identifiers/counts, per-model applicability, installed-position inventories, initial operational status, unknown service/serial/commissioning data, major spare-part selection and expected life, ZMMS equipment and job-type mappings, sync times, the Access matrix and the blanks in the facility job list are Admin inputs. Exact crane-family assignment and unresolved drawing observations require source-backed technical decisions. They do not authorize synthetic facts to enter production seed data.
 
 Model choice, local ports and exact package patches are implementation decisions to resolve from installed tools and current primary documentation in P00. The pack specifies architecture and compatibility constraints, not an arbitrary unverified patch-version lockfile.

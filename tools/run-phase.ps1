@@ -48,7 +48,7 @@ if ($id -eq 'REPAIR') {
     if (-not $Affected -or -not $Report) { throw 'Repair needs -Affected <phase/review> and -Report <path to failed review report>.' }
     $text += "`n`n=== REPAIR TARGET ===`nAffected phase/review: $Affected`nFailed review report: $Report`nFix the blocking findings in that report, then stop. The review is repeated separately."
 }
-if ($id -match '^R\d\d$') {
+if ($id -match '^R\d\dB?$') {
     $text += "`n`n=== RUNNER NOTE ===`nThis is a read-only review. Do not modify project files, except: save your full report to docs\evidence\$id\review-<yyyyMMdd-HHmm>.md and append one line with the verdict to docs\IMPLEMENTATION_STATUS.md. End the report with 'VERDICT: PASS' or 'VERDICT: NEEDS FIXES'."
 }
 

@@ -1,6 +1,6 @@
 # Models and effort by phase
 
-Version 1.1 | Verified 21 October 2026 | Codex and Claude Code alternatives
+Version 2.0 | Verified 21 October 2026, phases added 22 October 2026 | Codex and Claude Code alternatives
 
 Use one platform for each phase. The Codex and Claude columns are alternatives; running both is not required. The table is a quality-oriented starting recommendation based on the phase's work and failure consequences, not a benchmark result for this application. Preserve the same scope, sources and acceptance criteria regardless of provider.
 
@@ -19,12 +19,17 @@ In the Codex column, Sol means **GPT-6.1 Sol** (`gpt-6.1-sol`), and Astra means 
 | P02 | UI prototype | Sol | High | Sonnet | High | Concrete screen and interaction work with established scope and visual review. |
 | P03 | QC model prototype | Astra | Extra high (`xhigh`) | Opus | High | Spatial source interpretation, semantic model mapping and a reproducible geometry pipeline. |
 | R02 | UX and model fidelity review | Astra | High | Opus | High | Compare actual views with drawings and inspect interaction/identity behaviour. |
+| P01B | V2 contracts addendum | Astra | High | Opus | High | Same contract work as P01 for the access, ZMMS, spare-part and FAC rules. |
+| P02B | V2 prototype | Sol | High | Sonnet | High | Concrete screens on settled contracts, like P02, including the moving dashboard. |
+| R02B | V2 contracts and prototype review | Astra | High | Opus | High | Check access ceilings, ZMMS safety and FAC rules before code locks them in. |
 | P04 | Runnable app foundation | Sol | High | Sonnet | Medium | Bounded scaffolding and subpath setup after the architecture is defined. |
 | P05 | Portal identity integration | Astra | High | Opus | High | Trusted profiles, shared-token compatibility and cross-application regressions. |
 | R03 | Identity and compatibility review | Astra | Extra high (`xhigh`) | Opus | Extra high (`xhigh`) | Examine authorization and rollout failure paths before other workflows depend on them. |
 | P06 | Database, catalogue and Admin | Sol | High | Opus | High | Implement explicit schemas and seed rules while preserving installed identities. |
 | P07 | Jobs, status and replacements | Astra | High | Opus | High | Transactions, retries, concurrency and later-installation corrections interact. |
+| P07B | ZMMS daily jobs and automatic status | Astra | High | Opus | High | Fail-closed parsing of an unknown page, credentials handling and time-boundary status rules. |
 | P08 | Protected evidence and history | Sol | High | Opus | High | File authorization, source provenance and exact/descendant query scope. |
+| P08B | FAC jobs, cycles and photos | Sol | High | Opus | High | Calendar due rules, idempotent progress, corrections and protected photos. |
 | P09 | Fleet and detail UI | Sol | High | Sonnet | Medium | Connect well-specified views to established APIs and test freshness/counts. |
 | P10 | Real QC viewer and drill-down | Astra | High | Opus | High | Coordinate spatial selection, stable records, camera state and asynchronous history. |
 | R04 | Full workflow and data/access review | Astra | Extra high (`xhigh`) | Opus | Extra high (`xhigh`) | Probe data isolation, replacement integrity and protected resource access end to end. |
@@ -35,7 +40,7 @@ In the Codex column, Sol means **GPT-6.1 Sol** (`gpt-6.1-sol`), and Astra means 
 | Repair | Correct a concrete finding | Sol by default; inherit affected phase | High by default; inherit higher effort | Opus | High by default; inherit higher effort | Auth, data-integrity and geometry defects use the originating phase/review profile. |
 | Resume | Recover state and identify next work | Sol | Medium | Sonnet | Medium | Read the ledger and handover; switch to the next selected phase's profile before implementation. |
 
-User checkpoints U1 (after R02) and U2 (after P11) are human reviews and have no model profile.
+User checkpoints U1 (after R02B) and U2 (after P11) are human reviews and have no model profile.
 
 The increased effort in P03/R03/R04 is an initial judgment for these difficult tasks. Compare its actual usefulness against High on representative cases and reduce it if it adds delay without improving the required result. No phase defaults to Max or Ultra. Those settings are optional escalation choices after a concrete failure demonstrates a need.
 
