@@ -3,8 +3,8 @@
   "modelCode": "cict-j526a-sts-scene",
   "equipmentModelCode": "CICT-J526A-STS",
   "version": 1,
-  "revision": 5,
-  "revisionNote": "U1 round 6 (2026-10-23): 013 load cell moved from the boom-tip rope-end anchor pins to in-line load cells in the horizontal main hoist ropes at the boom tip (user answer to U-23, U1-C25; point estimated); the J526A2000 Detail I rope-end anchors stay in reeving.sheave.boom-tip. Previous: U1 round 3 (2026-10-22): trolley rebuilt from J526A0200 / J526A2100 (4 wheels instead of 8, four sheave shafts with two sheaves each, open frame and centre body, trolley-rope equalizer sheaves, spreader cable reel, main hoist and trolley rope paths on the trolley); headblock re-read from J526A1200 and spreader remodelled (STS45 drawing still not supplied; ISO 1161 corner positions, DT1500F cradle spacing). Previous: U1 round 2 (2026-10-22): load cells at the trolley sheave shafts, girder-tail platforms and stairs, apex platform and boom-hoist sheave arrangement, floodlight fittings on the boom and girder, elevator position/car/landings and every location marker drawn as a simplified part (J526A0200, J526A2300, J526A5000, J526A5100). Previous: U1 repair (2026-10-21): back-reach area, CICT logo, stair tower orientation, cab remodel, reeving paths and machinery-house layout re-checked against J526A00, J526A1000, J526A3000, J526A3100, J526A5000, J526A7100. Draft v1 revised in place: no equipment binding is active.",
+  "revision": 6,
+  "revisionNote": "U1 round 7 (2026-10-23): 013 load cells moved from the in-line position about 2.6 m inboard to the boom tip end, in-line on the horizontal cross-over of the main hoist ropes at the very end of the boom (user reference image, U1-C27; closes U-36; points estimated). Previous: U1 round 6 (2026-10-23): 013 load cell moved from the boom-tip rope-end anchor pins to in-line load cells in the horizontal main hoist ropes at the boom tip (user answer to U-23, U1-C25; point estimated); the J526A2000 Detail I rope-end anchors stay in reeving.sheave.boom-tip. Previous: U1 round 3 (2026-10-22): trolley rebuilt from J526A0200 / J526A2100 (4 wheels instead of 8, four sheave shafts with two sheaves each, open frame and centre body, trolley-rope equalizer sheaves, spreader cable reel, main hoist and trolley rope paths on the trolley); headblock re-read from J526A1200 and spreader remodelled (STS45 drawing still not supplied; ISO 1161 corner positions, DT1500F cradle spacing). Previous: U1 round 2 (2026-10-22): load cells at the trolley sheave shafts, girder-tail platforms and stairs, apex platform and boom-hoist sheave arrangement, floodlight fittings on the boom and girder, elevator position/car/landings and every location marker drawn as a simplified part (J526A0200, J526A2300, J526A5000, J526A5100). Previous: U1 repair (2026-10-21): back-reach area, CICT logo, stair tower orientation, cab remodel, reeving paths and machinery-house layout re-checked against J526A00, J526A1000, J526A3000, J526A3100, J526A5000, J526A7100. Draft v1 revised in place: no equipment binding is active.",
   "status": "draft",
   "statusNote": "P03 prototype, revised in the U1 repair while still a draft with no active binding. Not assigned to any equipment; bindings are made by Admin per equipment (DATA_CONTRACT s10.5).",
   "units": "m",
@@ -18,7 +18,7 @@
   "generator": {
     "name": "eq-model-generator",
     "version": "1.0.0",
-    "sourceCommit": "6d4b64db30deb395bd041824d90c4cd1db76171b",
+    "sourceCommit": "5580b109e188d61c40617f51a348073624d50ec2",
     "sourceDirty": true,
     "three": "0.186.1",
     "node": "v24.15.0"
@@ -29,8 +29,8 @@
   },
   "asset": {
     "file": "scene.glb",
-    "sha256": "26440078e92b829ce2370d8c5037e9b1bf30cb292b7f0c810199db013d4a9c08",
-    "bytes": 2570284,
+    "sha256": "01fb0ae0a2c66029928bb6b8be9f31229e68ae9ed27f03aeddc6801993531b9a",
+    "bytes": 2570288,
     "triangles": 54674,
     "drawCallsEstimate": 196,
     "overallMode": {
@@ -5477,7 +5477,7 @@
     {
       "key": "hoist.loadcell.main",
       "kind": "hotspot",
-      "label": "Load cell system (in-line load cells in the horizontal main hoist ropes at the boom tip; point and hardware not fixed on the sheets)",
+      "label": "Load cell system (in-line load cells in the horizontal main hoist rope at the boom tip end; point and hardware not fixed on the sheets)",
       "parentKey": "container.boom",
       "classification": {
         "main": "01",
@@ -5503,7 +5503,7 @@
           {
             "drawing": "J526A2000",
             "pdfPage": 1,
-            "note": "Detail I: main hoist rope ends at the boom tip; the load-cell point is not shown. Placement from the user answer to U-23 (U1 round 6, U1-C25): \"load cell is connected in boom tip horizontal cable\"; distance from the tip estimated"
+            "note": "Detail I: main hoist rope ends at the boom tip; the load-cell point is not shown. Placement from the user answer to U-23 (\"load cell is connected in boom tip horizontal cable\") and the user reference image of the place (U1 round 7, U1-C27: the boom tip end); points on the tip cross-over estimated"
           },
           {
             "drawing": "J526A0300",
@@ -5515,8 +5515,8 @@
       "qualifier": "Location approximate / simplified representation",
       "hotspot": {
         "point": [
-          73.30000000000001,
-          53.423398098387764,
+          75.60000000000001,
+          52.9,
           0
         ],
         "radius": 0.45,
@@ -5524,14 +5524,14 @@
       },
       "bounds": {
         "min": [
-          72.89711,
-          52.641609,
-          -2.825472
+          74.888565,
+          52.636993,
+          -2.4
         ],
         "max": [
-          74.015152,
-          53.797188,
-          2.825472
+          75.720001,
+          53.259998,
+          2.4
         ]
       },
       "cameraHint": null

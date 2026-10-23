@@ -772,31 +772,28 @@ export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
       for (const x of [x1 - 0.35, x1 - 0.15]) g.add('steel', cyl([x, G_TOP + 1.1, z1 - 0.2], 'y', 0.09, 0.7, 12)); // accumulators
       g.add('steel', tube([x1, G_TOP + 0.5, (z0 + z1) / 2], [XAS0 + 0.6, G_TOP + 0.5, -ZR + 0.6], 0.03, 6), tube([x1, G_TOP + 0.6, (z0 + z1) / 2], [XAS0 + 0.6, G_TOP + 0.6, ZR - 0.6], 0.03, 6)); // pressure lines to the cylinders
     });
-  // U1 round 6 (U1-C25): user answer to U-23, "load cell is connected in boom tip horizontal cable". Round 2 (U1-C12) had drawn the
-  // 013 load cells as load-measuring anchor pins in the J526A2000 Detail I rope-end anchors; they are now in-line load cells (tension
-  // links with clevis ends) in the four horizontal main hoist ropes between the trolley sheave tops and the boom-tip sheaves, at an
-  // estimated distance from the boom tip, with one junction box per rope side and its signal cable to the boom deck. The points lie
-  // exactly on the modelled rope runs (same expressions as the reeving below). The sheets do not fix the point or the hardware, so the
-  // representation stays "location approximate" (technical mode). The anchors stay in reeving.sheave.boom-tip.
-  const rrMH = rTG + RT2; const yTopMH = yTSh + rrMH; // as in hoist.rope.set.main
-  const MH_RUNS = [];
-  for (const s of [1, -1]) for (const [xs, lanes, dzTip] of [[XT - SO, LANE_LS, -0.15], [XT + SO, LANE_WS, 0.15]]) MH_RUNS.push({ s, from: [xs, yTopMH, s * (ZH + lanes[1])], to: [XTIP - 0.9, G_TOP + 1.2, s * ZR + s * dzTip] });
-  const onRun = (run, x) => { const t = (x - run.from[0]) / (run.to[0] - run.from[0]); return [x, run.from[1] + (run.to[1] - run.from[1]) * t, run.from[2] + (run.to[2] - run.from[2]) * t]; };
-  const xLC = XTIP - P('loadCellInlineFromTip');
-  const yLC = MH_RUNS.reduce((a, r) => a + onRun(r, xLC)[1], 0) / MH_RUNS.length;
-  S.hotspot('hoist.loadcell.main', { parentKey: B_, sub: '013', point: [xLC, yLC, 0], radius: 0.45, label: 'Load cell system (in-line load cells in the horizontal main hoist ropes at the boom tip; point and hardware not fixed on the sheets)', sources: [src('J526A2000', 1, 'Detail I: main hoist rope ends at the boom tip; the load-cell point is not shown. Placement from the user answer to U-23 (U1 round 6, U1-C25): "load cell is connected in boom tip horizontal cable"; distance from the tip estimated'), src('J526A0300', 1, 'load-cell position not shown on the reviewed sheets')] },
+  // U1 round 7 (U1-C27): the user marked the place on a reference image ("Use this referance place for load cells.. image is just to
+  // show the place", docs/evidence/U1/r7-loadcell-location-reference.jpg): the outermost waterside end of the boom. Round 6 (U1-C25)
+  // had put in-line load cells about 2.6 m inboard on the horizontal rope runs; round 2 (U1-C12) at the Detail I rope-end anchors.
+  // The 013 load cells are now in-line load cells (tension links with clevis ends) in the main hoist rope where it reaches the boom-tip
+  // end: on the horizontal cross-over of the main hoist ropes at the very end of the boom (same expressions as the cross-over in
+  // hoist.rope.set.main, whose geometry is unchanged), two per rope side just inboard of the main hoist tip sheaves, with one junction
+  // box per side and its signal cable to the boom deck. The sheets (J526A2000 Detail I) do not fix the point or the hardware, so the
+  // representation stays "location approximate" (technical mode). The Detail I rope-end anchors stay in reeving.sheave.boom-tip.
+  const XLC = XTIP - 0.3, YLC = G_TOP + 0.6; // tip cross-over of the main hoist ropes, as in hoist.rope.set.main
+  const ZLC = P('loadCellCrossoverZ'); // load-cell centres either side of the boom centreline (estimated)
+  S.hotspot('hoist.loadcell.main', { parentKey: B_, sub: '013', point: [XLC, YLC, 0], radius: 0.45, label: 'Load cell system (in-line load cells in the horizontal main hoist rope at the boom tip end; point and hardware not fixed on the sheets)', sources: [src('J526A2000', 1, 'Detail I: main hoist rope ends at the boom tip; the load-cell point is not shown. Placement from the user answer to U-23 ("load cell is connected in boom tip horizontal cable") and the user reference image of the place (U1 round 7, U1-C27: the boom tip end); points on the tip cross-over estimated'), src('J526A0300', 1, 'load-cell position not shown on the reviewed sheets')] },
     (g) => {
-      for (const run of MH_RUNS) {
-        const p0 = onRun(run, xLC - 0.28), p1 = onRun(run, xLC + 0.28);
-        g.add('lamp', tube(p0, p1, 0.085, 12)); // load cell body (tension link) around the rope
-        g.add('steel', tube(onRun(run, xLC - 0.4), p0, 0.055, 10), tube(p1, onRun(run, xLC + 0.4), 0.055, 10)); // clevis / rope-socket ends
-      }
       for (const s of [1, -1]) {
-        const runs = MH_RUNS.filter((r) => r.s === s).map((r) => onRun(r, xLC));
-        const zc = (runs[0][2] + runs[1][2]) / 2; const yc = Math.max(runs[0][1], runs[1][1]);
-        g.add('lamp', boxMinMax([xLC - 0.12, yc + 0.16, zc - 0.17], [xLC + 0.12, yc + 0.36, zc + 0.17])); // junction box above the two ropes
-        for (const r of runs) g.add('lamp', tube([xLC, r[1] + 0.08, r[2]], [xLC, yc + 0.16, r[2]], 0.018, 6)); // sensor leads
-        g.add('lamp', tube([xLC + 0.12, yc + 0.26, zc], [xLC + 0.7, G_TOP + 0.35, zc], 0.02, 6)); // signal cable to the boom deck
+        for (const zc of ZLC) {
+          const z = s * zc;
+          g.add('lamp', tube([XLC, YLC, z - 0.2], [XLC, YLC, z + 0.2], 0.085, 12)); // load cell body (tension link) around the rope
+          g.add('steel', tube([XLC, YLC, z - 0.3], [XLC, YLC, z - 0.2], 0.055, 10), tube([XLC, YLC, z + 0.2], [XLC, YLC, z + 0.3], 0.055, 10)); // clevis / rope-socket ends
+        }
+        const zb = s * (ZLC[0] + ZLC[1]) / 2;
+        g.add('lamp', boxMinMax([XLC - 0.12, YLC + 0.16, zb - 0.17], [XLC + 0.12, YLC + 0.36, zb + 0.17])); // junction box above the two cells
+        for (const zc of ZLC) g.add('lamp', tube([XLC, YLC + 0.08, s * zc], [XLC, YLC + 0.2, zb + Math.sign(s * zc - zb) * 0.12], 0.018, 6)); // sensor leads
+        g.add('lamp', tube([XLC - 0.12, YLC + 0.26, zb], [XLC - 0.7, G_TOP + 0.35, zb], 0.02, 6)); // signal cable to the boom deck
       }
     });
   S.hotspot('trolley.tension.main', { parentKey: BR, sub: '022', modes: ['overall', 'technical'], point: [xTT, yTT, 0], radius: 0.45, label: 'Trolley rope tensioning cylinders (position approximate; tensioners at the girder-tail end)', sources: [s00('trolley rope reeving diagram: tensioners at the tail end'), src('J526A2100', null, 'trolley reeving sheet not detailed')] },

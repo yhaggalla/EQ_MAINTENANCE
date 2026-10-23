@@ -4,6 +4,59 @@ Rolling handover for CICT EQ Maintenance. Each phase appends its record; the new
 
 ---
 
+## Repair-U1 round 7 (U1-C27) - 23 October 2026
+
+### Runtime record
+
+| Item | Value |
+| --- | --- |
+| Recommended profile | Repair inheriting P03/P02: Codex gpt-6.1-sol/high or Claude Code claude-opus-5-5/high |
+| Client | Claude Code subagent eq-build-opus-high; exact prompt `docs/runs/Repair-U1r7-20261023-1650.md` (orchestrator-owned) |
+| Model / effort | claude-opus-5-5; effort high (per agent definition) |
+| Fallback / escalation | None |
+
+### Outcome
+
+Repair complete for U1-C27 (closes U-36). U1 was not repeated or approved by this run. Full report: `docs/evidence/U1/repair-r7-20261023.md`. Requirement IDs: U1-C27 (with U1-C25, U1-C08), VIS01-VIS03, VIS09, S04.
+
+- 3D model draft v1 revision 6 (in place, no binding active): the 013 load cells are in-line on the horizontal cross-over of the main hoist ropes at the very end of the boom (point 0.3 m inboard of the boom end, previously about 2.6 m), two per rope side, one junction box and signal cable per side; technical mode, "Location approximate" (D-161). Key, kind, classification, parent and binding unchanged; `hoist.rope.set.main` geometry unchanged; `loadCellInlineFromTip` replaced by the estimated `loadCellCrossoverZ`.
+- Flat view: the horizontal hoist rope line ends in the load cell at the boom end, with junction box and cable; label "Load cell (in the horizontal hoist rope at the boom tip end, approx.)".
+- Checks: only R6-04/R6-05 of `check_u1_r6.mjs` moved to the new position rule (D-162). U1-C01..C26 unchanged.
+
+### Files changed
+
+`assets/models/source/cict-j526a-sts/{build.mjs,params.json,README.md}`; regenerated `artifacts/models/cict-j526a-sts-scene/1/{scene.glb,manifest.json,checksums.json,provenance.md}`; `artifacts/prototypes/p02-ui/js/preview.js`; `tools/p02b/check_u1_r6.mjs`; new `tools/u1/capture_u1r7.mjs`; `docs/DECISIONS.md` (D-161, D-162, round 7 supersession, U-36 closed, U1 row), `docs/UX_SPEC.md` (s24), `docs/IMPLEMENTATION_STATUS.md`, this handover; evidence `docs/evidence/U1/repair-r7-20261023.md` and `docs/evidence/U1/repair-r7/`.
+
+### Checks run and actual results
+
+| Check | Result |
+| --- | --- |
+| R6-04/R6-05 (new rule) before the change | 0/2 PASS (reproduction, `repair-r7/u1-r7-before.json`) |
+| `tools/p02b/check_u1_r6.mjs` | 9/9 PASS |
+| Model: generate, determinism, `validate.mjs`, `check_bindings.mjs`, `model_diff.mjs` | revision 6, draw calls 196/200, GLB identical on regeneration; all PASS (validated); 11/11; 0 added / 0 removed / 1 changed / 0 identity changes |
+| `tools/p03/check_model_prototype.mjs --gpu swiftshader`; `tools/p02b/check_p03_panel.mjs` | 41/41; 8/8 PASS |
+| `tools/p02/check_prototype.mjs`; `tools/p02b/check_u1_r5.mjs`; `tools/p02b/check_p02b.mjs` | 59/59; 11/11; 63/63 PASS |
+| `node --check`, `git diff --check` (excluding `rtg-workbench/`) | clean |
+| Close-ups `tools/u1/capture_u1r7.mjs` (inspected) | 3D boom-tip end (3), 3D page with 013 selected, flat view close-up and overview; one favicon 404 on the first capture page load |
+
+Prototype and model evidence only: synthetic in-memory data, simulated persona, no authentication, database, live ZMMS, target environment or production. Formal acceptance remains NOT RUN.
+
+### Open issues and impact
+
+- The exact load-cell point and hardware are not on the supplied sheets; the cells stay "Location approximate" (estimate `loadCellCrossoverZ`). Visual only.
+- U-27 stays open (STS45 spreader drawing to be supplied by the user).
+- Carried over: `tools/p03/check_no_webgl.mjs` stale assertion (P10); prototype gaps listed in round 6.
+
+### Git and boundaries
+
+Branch `main`, HEAD `5580b10`; repair uncommitted for the orchestrator. `rtg-workbench/` and `RTG drawings/` were not edited or included; the pre-existing `rtg-workbench/HANDOVER.md` modification was left alone. No `documents/`, Portal, deployment, SQL or ZMMS contact. All tool outputs went to `docs/evidence/U1/repair-r7/`; no other committed evidence file was overwritten. Prototype servers on 5312/5313 were running (from disk) for every browser check and capture.
+
+### Next prompt
+
+**U1 user checkpoint, repeated**: walkthrough of the round 7 load-cell position (boom tip end, flat and 3D) with the earlier U1 items. The user's decision is recorded in DECISIONS s4 before P04.
+
+---
+
 ## Repair-U1 round 6 (U1-C23..U1-C26) - 23 October 2026
 
 ### Runtime record

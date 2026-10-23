@@ -1,0 +1,39 @@
+{
+  "tool": "tools/p02b/check_u1_r6.mjs",
+  "browser": "Chrome/155.0.8059.85",
+  "p02": "http://127.0.0.1:5312/",
+  "p03": "http://127.0.0.1:5313/",
+  "manifest": "artifacts/models/cict-j526a-sts-scene/1/manifest.json",
+  "date": "2026-10-23T11:29:51.440Z",
+  "note": "Prototype-level checks of the U1 round 6 repair against the synthetic prototypes and the regenerated model manifest; not acceptance execution.",
+  "passed": 0,
+  "failed": 2,
+  "results": [
+    {
+      "id": "R6-04",
+      "covers": [
+        "U1-C25",
+        "U1-C27",
+        "U1-C08",
+        "VIS03"
+      ],
+      "name": "Flat view (U1 round 7 rule, U1-C27): the 013 load cell is an in-line part at the boom tip end: the horizontal main hoist rope line ends in the load-cell body (rope height inside the body), and the part lies within 1.2 m of the boom end; labelled \"boom tip end\", approximate; no longer about 2.6 m inboard",
+      "status": "FAIL",
+      "detail": "{\"title\":\"Load cell (in the horizontal hoist rope at the boom tip, approx.) - Location approximate / simplified representation\",\"rope\":[93.1,36.12,123,35.8],\"body\":[120.78,35.68,0.64,0.2700000000000031],\"ropeEndY\":35.8,\"ropeMeets\":false,\"boomEnd\":124,\"x0\":120.62,\"x1\":121.9,\"bound\":true,\"endDist\":2.9}"
+    },
+    {
+      "id": "R6-05",
+      "covers": [
+        "U1-C25",
+        "U1-C27",
+        "VIS01",
+        "VIS02",
+        "VIS09",
+        "S04"
+      ],
+      "name": "3D model (U1 round 7 rule, U1-C27; draft v1 rev 6): the 013 hotspot sits at the boom tip end, in-line on the horizontal cross-over of the main hoist ropes (point 0.3 m inboard of the tip at the cross-over height, bounds within 1.2 m of the tip, both rope sides, within the boom width, the hoist rope set reaches the point), labelled \"boom tip end\" and approximate, technical mode; moved outboard of the round 6 point when compared with a committed revision 5; the key set, kinds and classification are unchanged against the committed revision; the 3D page selects it",
+      "status": "FAIL",
+      "detail": "{\"point\":[73.30000000000001,53.423398098387764,0],\"bounds\":{\"min\":[72.89711,52.641609,-2.825472],\"max\":[74.015152,53.797188,2.825472]},\"basePoint\":[73.30000000000001,53.423398098387764,0],\"baseRevision\":5,\"moved\":true,\"ropeMaxX\":75.643303,\"gTopTip\":52.299999,\"revision\":5,\"sameIdentity\":true,\"nodes\":178,\"label\":\"Load cell system (in-line load cells in the horizontal main hoist ropes at the boom tip; point and hardware not fixed on the sheets)\",\"page\":{\"sel\":\"▾QC-DEMO-01\",\"crumbs\":\"QC-DEMO-01013 Load cell system\",\"label\":\"Load cell system (in-line load cells in the horizontal main hoist ropes at the boom tip; point and hardware not fixed on the sheets)\",\"fallback\":false},\"errors\":[],\"landmarksKeys\":17}"
+    }
+  ]
+}

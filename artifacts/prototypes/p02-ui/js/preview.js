@@ -14,7 +14,8 @@
    boom; elevator outboard of the landside leg with its landings; cabinets and parts instead of dashed circles.
    U1 round 3: trolley (frame, 2 wheel positions, sheave shafts A/B, equalizer sheaves, spreader cable reel), main hoist
    falls, cab position, headblock and spreader redrawn to the J526A0200 / J526A1200 side-elevation proportions.
-   U1 round 6 (U1-C25): the 013 load cell sits in the horizontal main hoist rope at the boom tip (in-line tension link, approximate). */
+   U1 round 6 (U1-C25): the 013 load cell sits in the horizontal main hoist rope at the boom tip (in-line tension link, approximate).
+   U1 round 7 (U1-C27): moved to the boom tip end, where the horizontal hoist rope line reaches the end of the boom (approximate). */
 window.EQ = window.EQ || {};
 (function (EQ) {
   const h = EQ.h;
@@ -113,11 +114,12 @@ window.EQ = window.EQ || {};
       { key: 'hoist.drive.motor.b', label: 'Hoist motor B', tech: true, anchor: [15.4, 53.6], build: () => [rect(14.6, 51.6, 53.6, 1.6, 'sc-tech')] },
       { key: 'trolley.wheel.position.a', label: 'Trolley wheel A (landside)', tech: true, anchor: [91.4, 52.3], build: () => [circ(91.63, 51.315, 0.315, 'sc-tech sc-fine'), circ(91.63, 51.315, 0.07, 'sc-grey')] },
       { key: 'trolley.wheel.position.b', label: 'Trolley wheel B (waterside)', tech: true, anchor: [96.3, 52.3], build: () => [circ(96.07, 51.315, 0.315, 'sc-tech sc-fine'), circ(96.07, 51.315, 0.07, 'sc-grey')] },
-      // U1 round 6 (U1-C25, user: "load cell is connected in boom tip horizontal cable"): an in-line load cell (tension link with clevis
-      // ends) in the horizontal main hoist rope just landside of the boom tip, on the rope line drawn above (93.1, 51.88) -> (123.0, 52.2);
-      // junction box and signal cable to the boom. Exact point not fixed by the reviewed drawings: approximate. Replaces the round-2
-      // load pins in the rope-end anchors.
-      { key: 'hoist.loadcell.main', label: 'Load cell (in the horizontal hoist rope at the boom tip, approx.)', tech: true, hotspot: true, anchor: [121.1, 52.75], build: () => [rect(120.62, 52.11, 52.25, 0.16, 'sc-grey'), rect(120.78, 52.05, 52.32, 0.64, 'sc-tech'), rect(121.42, 52.11, 52.25, 0.16, 'sc-grey'), rect(120.98, 52.42, 52.72, 0.32, 'sc-cab-panel'), line(121.14, 52.32, 121.14, 52.42, 'sc-rope sc-rope-fine'), line(121.3, 52.55, 121.9, 51.35, 'sc-rope sc-rope-fine')] },
+      // U1 round 7 (U1-C27, user reference image of the place: the boom tip end; with the U-23 answer "load cell is connected in boom
+      // tip horizontal cable"): the in-line load cell (tension link with clevis ends) sits where the horizontal main hoist rope line drawn
+      // above (93.1, 51.88) -> (123.0, 52.2) reaches the boom tip end (boom end x = 124): the rope ends in the cell, whose outboard clevis
+      // ties into the rope cross-over at the tip (seen end-on); junction box and signal cable to the boom. Exact point not fixed by the
+      // reviewed drawings: approximate. Replaces the round 6 position about 2.6 m inboard (and the round-2 anchor load pins).
+      { key: 'hoist.loadcell.main', label: 'Load cell (in the horizontal hoist rope at the boom tip end, approx.)', tech: true, hotspot: true, anchor: [123.4, 52.95], build: () => [rect(123.0, 52.13, 52.27, 0.12, 'sc-grey'), rect(123.12, 52.06, 52.34, 0.52, 'sc-tech'), rect(123.64, 52.13, 52.27, 0.12, 'sc-grey'), circ(123.83, 52.2, 0.07, 'sc-grey'), rect(123.22, 52.45, 52.75, 0.32, 'sc-cab-panel'), line(123.38, 52.34, 123.38, 52.45, 'sc-rope sc-rope-fine'), line(123.22, 52.6, 122.9, 51.0, 'sc-rope sc-rope-fine')] },
       { key: 'auxiliary.lighting.boom', label: 'Boom and girder floodlights', anchor: [56, 47.4], build: () => FLOOD_X.flatMap((x) => flood(x)) },
       { key: 'electrical.plc.main', label: 'PLC cabinet (approx.)', tech: true, hotspot: true, anchor: [17.3, 57.9], build: () => cabinet(16.6, 56.2, 18.1, 57.8) },
       { key: 'electrical.control-power.main', label: 'Control power cabinet (approx.)', tech: true, hotspot: true, anchor: [17.3, 55.9], build: () => cabinet(16.6, 54.2, 18.1, 55.8) },

@@ -966,10 +966,13 @@
       "kind": "measured",
       "source": "J526A2000 p1 Detail I: 480 from the boom top to the anchor pin (U1 round 2, U1-C12)"
     },
-    "loadCellInlineFromTip": {
-      "mm": 2600,
+    "loadCellCrossoverZ": {
+      "mm": [
+        2100,
+        1420
+      ],
       "kind": "estimated",
-      "source": "U1 round 6 (U1-C25): user answer to U-23, load cell in the boom-tip horizontal (main hoist) rope; the drawings do not fix the point, so it is placed on the modelled horizontal rope run between the trolley (display pose at the outreach limit) and the boom-tip sheaves, clear of the trolley buffers"
+      "source": "U1 round 7 (U1-C27): user reference image of the load-cell place (the boom tip end) with the user answer to U-23 (load cell in the boom-tip horizontal cable); two in-line load cells per rope side on the horizontal cross-over of the main hoist ropes at the boom tip end (XTIP - 300, 600 above the boom top, as modelled in hoist.rope.set.main), centres this far either side of the boom centreline, just inboard of the main hoist tip sheaves and clear of the trolley-rope tip sheaves; J526A2000 Detail I does not fix the point. Supersedes the round 6 loadCellInlineFromTip (2600)"
     },
     "trolleyBufferFaceLandside": {
       "mm": 2960,
@@ -1152,6 +1155,6 @@
       "source": "J526A1200 p1 end view (1640 over the twistlock housings under the sheave box) (U1 round 3, U1-C18)"
     }
   },
-  "revision": 5,
-  "revisionNote": "U1 round 6 (2026-10-23): 013 load cell moved from the boom-tip rope-end anchor pins to in-line load cells in the horizontal main hoist ropes at the boom tip (user answer to U-23, U1-C25; point estimated); the J526A2000 Detail I rope-end anchors stay in reeving.sheave.boom-tip. Previous: U1 round 3 (2026-10-22): trolley rebuilt from J526A0200 / J526A2100 (4 wheels instead of 8, four sheave shafts with two sheaves each, open frame and centre body, trolley-rope equalizer sheaves, spreader cable reel, main hoist and trolley rope paths on the trolley); headblock re-read from J526A1200 and spreader remodelled (STS45 drawing still not supplied; ISO 1161 corner positions, DT1500F cradle spacing). Previous: U1 round 2 (2026-10-22): load cells at the trolley sheave shafts, girder-tail platforms and stairs, apex platform and boom-hoist sheave arrangement, floodlight fittings on the boom and girder, elevator position/car/landings and every location marker drawn as a simplified part (J526A0200, J526A2300, J526A5000, J526A5100). Previous: U1 repair (2026-10-21): back-reach area, CICT logo, stair tower orientation, cab remodel, reeving paths and machinery-house layout re-checked against J526A00, J526A1000, J526A3000, J526A3100, J526A5000, J526A7100. Draft v1 revised in place: no equipment binding is active."
+  "revision": 6,
+  "revisionNote": "U1 round 7 (2026-10-23): 013 load cells moved from the in-line position about 2.6 m inboard to the boom tip end, in-line on the horizontal cross-over of the main hoist ropes at the very end of the boom (user reference image, U1-C27; closes U-36; points estimated). Previous: U1 round 6 (2026-10-23): 013 load cell moved from the boom-tip rope-end anchor pins to in-line load cells in the horizontal main hoist ropes at the boom tip (user answer to U-23, U1-C25; point estimated); the J526A2000 Detail I rope-end anchors stay in reeving.sheave.boom-tip. Previous: U1 round 3 (2026-10-22): trolley rebuilt from J526A0200 / J526A2100 (4 wheels instead of 8, four sheave shafts with two sheaves each, open frame and centre body, trolley-rope equalizer sheaves, spreader cable reel, main hoist and trolley rope paths on the trolley); headblock re-read from J526A1200 and spreader remodelled (STS45 drawing still not supplied; ISO 1161 corner positions, DT1500F cradle spacing). Previous: U1 round 2 (2026-10-22): load cells at the trolley sheave shafts, girder-tail platforms and stairs, apex platform and boom-hoist sheave arrangement, floodlight fittings on the boom and girder, elevator position/car/landings and every location marker drawn as a simplified part (J526A0200, J526A2300, J526A5000, J526A5100). Previous: U1 repair (2026-10-21): back-reach area, CICT logo, stair tower orientation, cab remodel, reeving paths and machinery-house layout re-checked against J526A00, J526A1000, J526A3000, J526A3100, J526A5000, J526A7100. Draft v1 revised in place: no equipment binding is active."
 }

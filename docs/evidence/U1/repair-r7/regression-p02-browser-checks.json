@@ -1,0 +1,360 @@
+{
+ "generated": "2026-10-23T11:41:26.390Z",
+ "base": "http://127.0.0.1:5312/",
+ "results": [
+  {
+   "id": "C01-admin",
+   "name": "Route smoke, 18 routes as admin: no console errors, every control named, unique ids, one h1, zero canvases",
+   "status": "PASS",
+   "detail": ""
+  },
+  {
+   "id": "C01-eqTeam",
+   "name": "Route smoke, 18 routes as eqTeam: no console errors, every control named, unique ids, one h1, zero canvases",
+   "status": "PASS",
+   "detail": ""
+  },
+  {
+   "id": "C01-management",
+   "name": "Route smoke, 18 routes as management: no console errors, every control named, unique ids, one h1, zero canvases",
+   "status": "PASS",
+   "detail": ""
+  },
+  {
+   "id": "C02",
+   "name": "Fleet counts reconcile with cards for every status filter; retired excluded by default",
+   "status": "PASS",
+   "detail": "active 16: ready 7, breakdown 3, maintenance 3, unreported 3; with retired 17"
+  },
+  {
+   "id": "C03",
+   "name": "Unreported equipment shows no duration and is not counted Ready",
+   "status": "PASS",
+   "detail": ""
+  },
+  {
+   "id": "C04",
+   "name": "Status is never colour-only: every status badge has an icon and text",
+   "status": "PASS",
+   "detail": ""
+  },
+  {
+   "id": "C05",
+   "name": "Tree, breadcrumb, URL and scene share one selection (main, then part via the scene)",
+   "status": "PASS",
+   "detail": "hash #/eq/equipment/eq-qc-demo-01?main=mi-q01-01&mode=technical&sub=si-q01-011&part=pp-q01-007; tree selected pp-q01-007"
+  },
+  {
+   "id": "C06",
+   "name": "Back/forward reproduces the selection",
+   "status": "PASS",
+   "detail": ""
+  },
+  {
+   "id": "C07",
+   "name": "Tree selection matches the scene: sub selection highlights exactly its bound positions",
+   "status": "PASS",
+   "detail": "gantry.bogie.landside.a,gantry.bogie.waterside.a"
+  },
+  {
+   "id": "C08",
+   "name": "Same template, different equipment: motor A history is separate (HIS01) [P02B adapted: history now lives in EQ Jobs, not the crane view]",
+   "status": "PASS",
+   "detail": "QC-01 history shows SYN-0001 only; QC-02 shows SYN-0009 and SYN-0017; same key, different position IDs"
+  },
+  {
+   "id": "C09",
+   "name": "Scoped history: descendant jobs de-duplicated, equipment-level job not repeated, exact part scope does not leak",
+   "status": "PASS",
+   "detail": "{\"mainCompleted\":[\"EQJ-2026-000101\",\"EQJ-2026-000102\"],\"mainOpen\":[\"EQJ-2026-000104\"],\"partCompleted\":[\"EQJ-2026-000102\"],\"eqCount\":7,\"dupMain\":false,\"equipmentJobInMain\":false}"
+  },
+  {
+   "id": "C10",
+   "name": "No-work and unknown states never claim healthy/original; empty history says No work recorded [P02B adapted: shown in the EQ Jobs scoped history]",
+   "status": "PASS",
+   "detail": ""
+  },
+  {
+   "id": "C11",
+   "name": "Late history responses for a previous selection are discarded (HIS05)",
+   "status": "PASS",
+   "detail": "panel echo eq-qc-demo-01|maintenance|part|pp-q01-008; log has DISCARDED: true"
+  },
+  {
+   "id": "C12",
+   "name": "Management is read-only in the UI: no write controls, persistent read-only indicator, navigation still works",
+   "status": "PASS",
+   "detail": " nav=Fleet,Jobs"
+  },
+  {
+   "id": "C13",
+   "name": "Simulated server refuses every write for Management (403) and Admin-only writes for EQ Team",
+   "status": "PASS",
+   "detail": "Management {\"job\":403,\"status\":403,\"complete\":403,\"cancel\":403,\"move\":403,\"edit\":403,\"eq\":403,\"app\":403,\"reopen\":403} EQ Team {\"eq\":403,\"app\":403,\"reopen\":403,\"retire\":403,\"cat\":403,\"pos\":403,\"job\":true}"
+  },
+  {
+   "id": "C14",
+   "name": "Admin area: EQ Team and Management get a 403 explanation and no Admin nav; Admin sees the screens",
+   "status": "PASS",
+   "detail": ""
+  },
+  {
+   "id": "C15",
+   "name": "Cancel rules: EQ Team only own uncompleted jobs; Admin any uncompleted; completed never; reopened protected (J6)",
+   "status": "PASS",
+   "detail": "{\"ownPending\":true,\"otherCreator\":false,\"completed\":false,\"adminOther\":true,\"adminCompleted\":false,\"reopenedEq\":false,\"reopenedAdminWithLines\":false,\"cancelOwn\":true,\"cancelledHidden\":true,\"cancelNoReason\":409}"
+  },
+  {
+   "id": "C16",
+   "name": "Cancelled jobs leave the three columns and appear with Include cancelled (with reason and actor)",
+   "status": "PASS",
+   "detail": ""
+  },
+  {
+   "id": "C17",
+   "name": "Completion through the dialog: replacement committed once (events of this job counted; P02B adapted: a baseline Original event now precedes it), history updated, equipment stays Maintenance, retry replays",
+   "status": "PASS",
+   "detail": "{\"r\":{\"status\":\"completed\",\"ev\":1,\"eqStatus\":\"maintenance\",\"open\":false},\"again\":{\"replayed\":true,\"ok\":true,\"ev\":1},\"other\":\"job_already_completed\"}"
+  },
+  {
+   "id": "C18",
+   "name": "Completion validation: errors summarised and linked, duplicate position refused, nothing saved [P02B adapted: a baseline Original event can exist at the position, so the events of this job are counted and the position's total event count must stay unchanged]",
+   "status": "PASS",
+   "detail": "Nothing was saved. 3 items need attention:Enter a completion date that is not in the future (Asia/Colombo).Enter a compl | Nothing was saved. 2 items need attention:Line 1: Quantity must be greater than 0.Line 2: Duplicate position: this job already has a line for it (422 duplicate_position). | position events 1 -> 1"
+  },
+  {
+   "id": "C19",
+   "name": "Atomic completion: one valid and one invalid line commit nothing; out-of-order date refused; quantity rules per position kind",
+   "status": "PASS",
+   "detail": "{\"afterBad\":{\"ok\":false,\"status\":\"pending\",\"n\":0},\"old\":\"Earlier than the latest recorded replacement at this position (30 Sept 2026). Enter past work oldest first (409 out_of_order_installation).\",\"ser2\":\"A serialized position takes exactly 1 ea.\",\"other\":\"That position belongs to another equipment (422).\",\"good\":true,\"goodN\":2,\"lotQty\":\"2 rope\",\"fut\":\"Enter a completion date that is not in the future (Asia/Colombo).\"}"
+  },
+  {
+   "id": "C20",
+   "name": "Status rules (P02B adapted: change count is relative, two accepted changes): reason required for Breakdown/Maintenance (and for every correction of a ZMMS-mapped equipment, even Ready), same status refused and Ready needs no reason on unmapped equipment, foreign job refused, job completion never sets Ready",
+   "status": "PASS",
+   "detail": "{\"noReason\":\"A reason is required for every correction of an automatic status.\",\"same\":\"The equipment is already Ready for OPS (409 status_unchanged).\",\"foreign\":\"That job belongs to another equipment (422).\",\"ok\":true,\"readyNoReasonMapped\":false,\"ready\":true,\"unk\":true,\"changes\":2,\"retired\":\"equipment_retired\"}"
+  },
+  {
+   "id": "C21",
+   "name": "Version conflict: stale save returns 409 with current values and nothing is lost",
+   "status": "PASS",
+   "detail": ""
+  },
+  {
+   "id": "C22",
+   "name": "Job form: invalid state shows a linked error summary; unsaved-changes guard on close; no EAM/Maximo field",
+   "status": "PASS",
+   "detail": "dialogs 2->1"
+  },
+  {
+   "id": "C23",
+   "name": "Status dialog: reason required is reported per field [P02B adapted: automatic-status wording]",
+   "status": "PASS",
+   "detail": ""
+  },
+  {
+   "id": "C24",
+   "name": "Keyboard: skip link is first; mechanism tree supports arrows, expand/collapse and Enter",
+   "status": "PASS",
+   "detail": "first=skip-link|Skip to content f1=mi-q01-01 exp=true/true hash=#/eq/equipment/eq-qc-demo-01?main=mi-q01-01&sub=si-q01-011 focus=si-q01-011"
+  },
+  {
+   "id": "C25",
+   "name": "Dialog keeps focus inside (40 Tab presses) and every dialog control has an accessible name",
+   "status": "PASS",
+   "detail": ""
+  },
+  {
+   "id": "C26",
+   "name": "Visible keyboard focus indicator (>= 2 px outline) on nav links, buttons, inputs, tree items, chips",
+   "status": "PASS",
+   "detail": ".nav-link:ok, .eq-head button:ok, [data-fk=\"tf\"]:ok, .vp-bar button:ok, .chips button:ok, .tabs button:ok, treeitem:ok"
+  },
+  {
+   "id": "C27",
+   "name": "Non-WebGL, context lost and failed-load states: viewer explains, tree, panel tabs and work stay usable, never a canvas [P02B adapted: the selected part's record is asserted in its Technical tab (current installation, serial SYN-0001) instead of the removed history tab]",
+   "status": "PASS",
+   "detail": "selected part record (Main hoist motor A, serial SYN-0001) shown in every state"
+  },
+  {
+   "id": "C28",
+   "name": "RTG/ES say 3D is not available (never a QC model); QC without verified model is not shown a model [P02B adapted: open work only]",
+   "status": "PASS",
+   "detail": " (P02B adapted: open work only in the crane view)"
+  },
+  {
+   "id": "C29",
+   "name": "Machinery house is a spatial container: selects nothing, lists contained positions grouped by mechanism",
+   "status": "PASS",
+   "detail": ""
+  },
+  {
+   "id": "C30",
+   "name": "Camera: Fit and Reset change the viewBox; thin rope gets a minimum extent; transition completes",
+   "status": "PASS",
+   "detail": "fit 140.0, reset 144.0, refit 140.0"
+  },
+  {
+   "id": "C31",
+   "name": "Reduced motion: selection fit is instant; a newer selection cancels a running transition",
+   "status": "PASS",
+   "detail": "reduced-motion width after 120 ms 60.0; final centre x after superseded fit 93.9 (trolley region)"
+  },
+  {
+   "id": "C32",
+   "name": "Overall mode hides technical internals; Technical shows them; red paint never carries status (separate legend)",
+   "status": "PASS",
+   "detail": "overall none, technical inline"
+  },
+  {
+   "id": "C33",
+   "name": "Open-work markers carry numbers and tooltips and can be switched off",
+   "status": "PASS",
+   "detail": ""
+  },
+  {
+   "id": "C34",
+   "name": "Admin catalogue: 16 main, 43 sub, 41 active, 048/063 inactive, no main 10, 061 Spreader, 062 Headblock, original labels visible",
+   "status": "PASS",
+   "detail": "{\"m\":16,\"s\":43,\"a\":41,\"res\":[\"048\",\"063\"],\"ten\":false,\"strs\":true}"
+  },
+  {
+   "id": "C35",
+   "name": "Applicability: edit raises the template revision but changes no installed position, job or history; unknown is not treated as applicable",
+   "status": "PASS",
+   "detail": "{\"before\":{\"pos\":170,\"jobs\":20,\"ev\":14,\"rev\":4},\"after\":{\"pos\":170,\"jobs\":20,\"ev\":14,\"rev\":5},\"q1Has047\":false,\"qcHasTyreEngine\":false}"
+  },
+  {
+   "id": "C36",
+   "name": "Admin equipment: duplicate code refused; new equipment is Unreported with no model; retire refused with open jobs; drafts confirm",
+   "status": "PASS",
+   "detail": "{\"dup\":\"Code \\\"qc-demo-01\\\" already exists (duplicates are refused).\",\"status\":null,\"model\":null,\"assoc\":\"unassigned\",\"retire\":\"equipment_has_open_jobs\",\"draftTarget\":\"Only confirmed (active) positions can be targeted.\",\"afterConfirm\":true}"
+  },
+  {
+   "id": "C37",
+   "name": "Specifications: gantry speed keeps 46 and 45.5 m/min; trolley motor 275 and 270 kW; total lift is not overall height; resolution keeps observations",
+   "status": "PASS",
+   "detail": "conflicts visible before resolution; observations kept after"
+  },
+  {
+   "id": "C38",
+   "name": "Resolution requires a reason and is Admin-only",
+   "status": "PASS",
+   "detail": ""
+  },
+  {
+   "id": "C39",
+   "name": "Bindings preview: exact-key proposals only; RTG/unverified equipment cannot be bound; drafts block activation",
+   "status": "PASS",
+   "detail": ""
+  },
+  {
+   "id": "C40",
+   "name": "Data states: stale keeps last good data with a notice; error shows nothing as Ready; empty and loading handled on fleet, jobs and equipment",
+   "status": "PASS",
+   "detail": ""
+  },
+  {
+   "id": "C41",
+   "name": "Prototype does not imply persistence: banner on every page, nothing in browser storage except the last-used tab path (D-90), reload restores fixtures [P02B adapted]",
+   "status": "PASS",
+   "detail": ""
+  },
+  {
+   "id": "C42",
+   "name": "Only synthetic equipment: every equipment code contains -DEMO- (or the single Admin-registered test code) and records are marked DevelopmentFixture",
+   "status": "PASS",
+   "detail": ""
+  },
+  {
+   "id": "U1-C01",
+   "name": "QC type icon is the ship-to-shore crane outline (legs, girder and boom, A-frame with stays, trolley rope and spreader) on QC cards",
+   "status": "PASS",
+   "detail": "<path d=\"M1.5 10h21M5 20.5V10M10 20.5V10M5 15.5h5M3.5 20.5h3M8.5 20.5h3\"></path><path d=\"M7 10 8.5 3.5 10 10M8.5 3.5 1.5 10M8.5 3.5 22.5 10\"></path><path d=\"M17"
+  },
+  {
+   "id": "U1-C02",
+   "name": "Fleet [P02B adapted: automatic-status meaning replaces the no-telemetry note]: no heading block; status / Unreported meaning kept as a compact note; the whole synthetic fleet fits one 1366x768 screen; cards at most 60 px high (P02 cards were about 95 px)",
+   "status": "PASS",
+   "detail": "{\"pageHead\":false,\"eyebrow\":false,\"h1\":\"sr-only\",\"h1h\":1,\"note\":\"Status is set automatically from today's ZMMS daily jobs (Auto): a breakdown job means Breakdown, a maintenance job means Maintenance, equipment not in the day's plan is Ready for OPS. The EQ Team can correct it with a reason (Manual); the correction holds for the current day and the equipment returns to automatic at the first sync of the next day. Equipment not linked to ZMMS keeps a manual status. Equipment that has never been set shows Unreported, not Ready. | Automatic status from ZMMSStatus is set automatically from today's ZMMS daily jobs (Auto): a breakdown job means Breakdown, a maintenance job means Maintenance, equipment not in the day's plan is Ready for OPS. The EQ Team can correct it with a reason (Manual); the correction holds for the current day and the equipment returns to automatic at the first sync of the next day. Equipment not linked to ZMMS keeps a manual status. Equipment that has never been set shows Unreported, not Ready.\",\"cards\":16,\"maxBottom\":623.96875,\"maxH\":50.03125}"
+  },
+  {
+   "id": "U1-C03",
+   "name": "Flat schematic: back-reach area, CICT logo (Overall only) and stairs are drawn and selectable",
+   "status": "PASS",
+   "detail": "{\"bad\":[],\"logoW\":3.4000000953674316,\"logoHref\":\"img/cict-logo.png\",\"logoShown\":\"inline\",\"hash\":\"#/eq/equipment/eq-qc-demo-01?main=mi-q01-11&sub=si-q01-111&part=pp-q01-033\",\"title\":\"Anti-snag and trim/list/skew device\",\"logoTech\":\"none\"}"
+  },
+  {
+   "id": "U1-C07",
+   "name": "Flat drill-down: tier 1 mains, click -> tier 2 subs, click -> tier 3 parts (switches to Technical for internals); tree and URL follow",
+   "status": "PASS",
+   "detail": "{\"t1\":[\"01 Hoist1\",\"02 Trolley\",\"03 Boom1\",\"04 Gantry\",\"05 Control PowerTechnical\",\"06 Spreader\",\"07 Driver SystemTechnical\",\"08 PLCTechnical\",\"11 Skew system\",\"12 HV systemTechnical\",\"13 Lighting\",\"14 Cabin\",\"15 Auxiliary system\",\"16 Emergency mechanismTechnical\"],\"expect1\":14,\"t2\":[\"011 Hoist1\",\"012 Hoist emergency brakerTechnical\",\"013 Load cell systemTechnical\",\"014 spreader cable wheel\",\"015 steel rope\",\"01 Hoist\"],\"t3\":[\"Hoist emergency brake A\"],\"h3\":\"#/eq/equipment/eq-qc-demo-01?main=mi-q01-01&sub=si-q01-012&mode=technical&part=pp-q01-011\",\"treeSel\":\"pp-q01-011\"}"
+  },
+  {
+   "id": "U1-C05-C08",
+   "name": "Flat toolbar parity: Isolate machinery house (switches to Technical, dims the rest, fits the house), Labels on/off, Overall clears isolation",
+   "status": "PASS",
+   "detail": "{\"hash\":\"#/eq/equipment/eq-qc-demo-01?mode=technical&iso=1\",\"iso\":true,\"tech\":true,\"vbw\":19.209999999999994,\"pressed\":\"true\",\"n1\":14,\"n0\":0,\"n2\":14,\"h2\":\"#/eq/equipment/eq-qc-demo-01?mode=overall\"}"
+  },
+  {
+   "id": "U1R2-C09",
+   "name": "Flat: selecting any main, a sub or a part in the tree keeps labels on the crane (drill-down level, else the level above with a notice); off-screen labels are pinned to the edge",
+   "status": "PASS",
+   "detail": "{\"per\":{\"mi-q01-01\":6,\"mi-q01-02\":3,\"mi-q01-03\":3,\"mi-q01-04\":3,\"mi-q01-05\":2,\"mi-q01-06\":3,\"mi-q01-07\":2,\"mi-q01-08\":2,\"mi-q01-11\":2,\"mi-q01-12\":2,\"mi-q01-13\":2,\"mi-q01-14\":2,\"mi-q01-15\":3,\"mi-q01-16\":2,\"mi-q01-17\":14},\"fb17\":\"17 Other has no part drawn in this schematic, so the labels show the level above it.\",\"subL\":5,\"partL\":[{\"t\":\"→Main hoist motor ATechnical\",\"edge\":true},{\"t\":\"→Main hoist motor BTechnical1\",\"edge\":true},{\"t\":\"→Main hoist gearbox ATechnical\",\"edge\":true},{\"t\":\"→Main hoist drum ATechnical\",\"edge\":true},{\"t\":\"Main hoist rope tail sheaves\",\"edge\":false}]}"
+  },
+  {
+   "id": "U1R2-C10-C11",
+   "name": "Flat: Reset returns to the whole equipment (no selection, container or isolation), turns labels back on, folds the tree back and resets the view; fold icons work both ways on the selected mechanism",
+   "status": "PASS",
+   "detail": "{\"f0\":[\"root\",\"mi-q01-01\",\"si-q01-011\"],\"f1\":[\"root\"],\"f2\":[\"root\",\"mi-q01-01\",\"si-q01-011\"],\"off\":0,\"hash\":\"#/eq/equipment/eq-qc-demo-01?mode=technical\",\"vb\":\"-16 2 144 106\",\"pressed\":\"true\",\"iso\":false,\"sel\":\"root\",\"after\":[\"root\"],\"lab\":14}"
+  },
+  {
+   "id": "U1R2-C12-C16",
+   "name": "Flat schematic content: load cells at the boom-tip rope anchors, floodlight fittings under girder and boom, elevator car at the landside leg, apex platform and sheaves, boom blocks, girder-tail end platform with stair, cabinets instead of dashed circles",
+   "status": "PASS",
+   "detail": "{\"loadcell\":{\"x0\":122.9,\"x1\":123.9,\"bound\":true},\"flood\":{\"x0\":-6.75,\"x1\":116.75,\"bound\":true},\"lamps\":10,\"car\":{\"x0\":19.3,\"x1\":20.7,\"bound\":true},\"apex\":{\"x0\":47.4,\"x1\":49.9,\"bound\":true},\"blocks\":{\"x0\":77.6,\"x1\":112.9,\"bound\":true},\"tail\":{\"x0\":-14.8,\"x1\":-6.5,\"bound\":true},\"drives\":{\"x0\":16.4,\"x1\":18.2,\"bound\":true},\"emerg\":{\"x0\":10,\"x1\":11.45,\"bound\":true},\"dashed\":0,\"cabs\":4}"
+  },
+  {
+   "id": "U1R3-C17-C18",
+   "name": "Flat schematic content at drawing proportions (trolley centre x = 94): trolley-rope lines 2560 / 2260 plus 400 buffers, wheels at 2370 / 2070, sheave shafts A/B at 900 either side, equalizer sheaves and cable reel bound, cab 3000 landside of the frame, headblock 2090, spreader end-on 2440, 021 selection fits to at most 16 m",
+   "status": "PASS",
+   "detail": "{\"frame\":{\"x0\":91.04,\"x1\":96.66,\"bound\":true},\"wa\":{\"x0\":91.315,\"x1\":91.945,\"bound\":true},\"wb\":{\"x0\":95.755,\"x1\":96.385,\"bound\":true},\"sa\":{\"x0\":92.6,\"x1\":95.4,\"bound\":true},\"sb\":{\"x0\":92.72,\"x1\":95.52,\"bound\":true},\"eqz\":{\"x0\":91.12,\"x1\":96.58,\"bound\":true},\"reel\":{\"x0\":93.5,\"x1\":95.1,\"bound\":true},\"cab\":{\"x0\":88.5,\"x1\":91.5,\"bound\":true},\"hb\":{\"x0\":92.955,\"x1\":95.045,\"bound\":true},\"sp\":{\"x0\":92.72,\"x1\":95.28,\"bound\":true},\"viewBox021\":[85.85000228881836,31.621111339992947,16,11.777777777777771]}"
+  },
+  {
+   "id": "C43-1920",
+   "name": "Layout 1920x1080: no horizontal page overflow on fleet, equipment, jobs, admin; panels inline",
+   "status": "PASS",
+   "detail": " viewport 904px"
+  },
+  {
+   "id": "C43-1366",
+   "name": "Layout 1366x768: no horizontal page overflow on fleet, equipment, jobs, admin; panels inline",
+   "status": "PASS",
+   "detail": " viewport 622px"
+  },
+  {
+   "id": "C43-1024",
+   "name": "Layout 1024x768: no horizontal page overflow on fleet, equipment, jobs, admin; panels in drawers",
+   "status": "PASS",
+   "detail": " viewport 983px"
+  },
+  {
+   "id": "C43-768",
+   "name": "Layout 768x1024: no horizontal page overflow on fleet, equipment, jobs, admin; panels in drawers",
+   "status": "PASS",
+   "detail": " viewport 737px"
+  },
+  {
+   "id": "C43-390",
+   "name": "Layout 390x844: no horizontal page overflow on fleet, equipment, jobs, admin; panels in drawers",
+   "status": "PASS",
+   "detail": " viewport 366px"
+  },
+  {
+   "id": "C44",
+   "name": "Phone width: fleet cards single column, dialogs full-screen, 3D preview optional (job form usable)",
+   "status": "PASS",
+   "detail": "cols 1, dialog 390x844"
+  }
+ ]
+}

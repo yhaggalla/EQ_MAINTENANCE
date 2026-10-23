@@ -89,18 +89,18 @@ try {
     return { ok, detail: { lanes: m.lanes.map((l) => ({ code: l.code, total: l.total, rows: l.rows, order: l.order, upToDate: l.upto.length })), kpiActive: m.kpiActive, civil: m.civil, focusCompletedUpToDate: m.focus, focusOverdueUpToDate: m.focusOther, dom: { pills: dom.pills.length, sample: dom.pills.slice(0, 2), dues: dom.dues.slice(0, 3), counts: dom.counts } } };
   });
 
-  // ------------------------------------------------------------- U1-C25
-  await step('R6-04', ['U1-C25', 'U1-C08', 'VIS03'], 'Flat view: the 013 load cell is an in-line part on the horizontal main hoist rope at the boom tip (the rope line passes through the load-cell body), labelled approximate; no longer at the rope-end anchors', async () => {
+  // ------------------------------------------------------------- U1-C25, position rule replaced by U1-C27 (U1 round 7)
+  await step('R6-04', ['U1-C25', 'U1-C27', 'U1-C08', 'VIS03'], 'Flat view (U1 round 7 rule, U1-C27): the 013 load cell is an in-line part at the boom tip end: the horizontal main hoist rope line ends in the load-cell body (rope height inside the body), and the part lies within 1.2 m of the boom end; labelled "boom tip end", approximate; no longer about 2.6 m inboard', async () => {
     await go('eqTeam', `/eq/equipment/${Q1}?mode=technical&main=mi-q01-01&sub=si-q01-013`, 900);
     const r = await ev(`(()=>{const g=document.querySelector('[data-key="hoist.loadcell.main"]'); if(!g) return null; const rope=[...document.querySelectorAll('[data-key="hoist.rope.set.main"] line')].map(l=>[+l.getAttribute('x1'),+l.getAttribute('y1'),+l.getAttribute('x2'),+l.getAttribute('y2')]).filter(l=>l[2]-l[0]>20 && l[0]>80 && (l[1]||l[3]) && l[2]>115)[0];
-      const body=g.querySelector('rect.sc-tech'); const bx=+body.getAttribute('x'), bw=+body.getAttribute('width'), by=+body.getAttribute('y'), bh=+body.getAttribute('height'); const cx=bx+bw/2;
-      const ry=rope? rope[1]+(rope[3]-rope[1])*(cx-rope[0])/(rope[2]-rope[0]) : null; const bb=g.getBBox();
-      return {title:g.querySelector('title').textContent, rope, body:[bx,by,bw,bh], ropeY:ry, through: ry!=null && ry>=by && ry<=by+bh && cx>rope[0] && cx<rope[2], x0:+bb.x.toFixed(2), x1:+(bb.x+bb.width).toFixed(2), bound:!g.classList.contains('unbound'), tipDist:+(rope?rope[2]-cx:0).toFixed(2)};})()`);
-    const ok = r && r.through && /horizontal hoist rope/i.test(r.title) && /approx/i.test(r.title) && /Location approximate/.test(r.title) && r.x0 > 118 && r.bound && r.tipDist > 0 && r.tipDist < 4;
+      const body=g.querySelector('rect.sc-tech'); const bx=+body.getAttribute('x'), bw=+body.getAttribute('width'), by=+body.getAttribute('y'), bh=+body.getAttribute('height'); const boom=document.querySelector('[data-key="boom.main.girder"] rect'); const boomEnd=boom? +boom.getAttribute('x') + +boom.getAttribute('width') : null;
+      const ry=rope? rope[3] : null; const bb=g.getBBox(); const x0=bb.x, x1=bb.x+bb.width;
+      return {title:g.querySelector('title').textContent, rope, body:[bx,by,bw,bh], ropeEndY:ry, ropeMeets: !!rope && rope[2]>=x0-0.05 && rope[2]<=bx+0.05 && ry>=by && ry<=by+bh, boomEnd, x0:+x0.toFixed(2), x1:+x1.toFixed(2), bound:!g.classList.contains('unbound'), endDist:+(boomEnd!=null? boomEnd-(bx+bw/2) : 99).toFixed(2)};})()`);
+    const ok = r && r.ropeMeets && r.boomEnd != null && r.x1 <= r.boomEnd + 0.05 && r.x0 >= r.boomEnd - 1.2 && r.endDist > 0 && r.endDist < 1 && /horizontal hoist rope/i.test(r.title) && /boom tip end/i.test(r.title) && /approx/i.test(r.title) && /Location approximate/.test(r.title) && r.bound;
     return { ok, detail: r };
   });
 
-  await step('R6-05', ['U1-C25', 'VIS01', 'VIS02', 'VIS09', 'S04'], '3D model (draft v1 rev 5): the 013 hotspot sits on the four horizontal main hoist rope runs near the boom tip (bounds contain the rope height and both rope lanes, x within 4 m of the tip, above the old anchor pins), labelled approximate, technical mode; the key set, kinds and classification are unchanged against the committed revision; the 3D page selects it', async () => {
+  await step('R6-05', ['U1-C25', 'U1-C27', 'VIS01', 'VIS02', 'VIS09', 'S04'], '3D model (U1 round 7 rule, U1-C27; draft v1 rev 6): the 013 hotspot sits at the boom tip end, in-line on the horizontal cross-over of the main hoist ropes (point 0.3 m inboard of the tip at the cross-over height, bounds within 1.2 m of the tip, both rope sides, within the boom width, the hoist rope set reaches the point), labelled "boom tip end" and approximate, technical mode; moved outboard of the round 6 point when compared with a committed revision 5; the key set, kinds and classification are unchanged against the committed revision; the 3D page selects it', async () => {
     const M = JSON.parse(fs.readFileSync(manifestFile, 'utf8'));
     const n = M.nodes.find((x) => x.key === 'hoist.loadcell.main'); const L = M.landmarks || {};
     const tipX = 75.9, gTop = n ? n.hotspot.point[1] - 1.1 : 0;
@@ -114,10 +114,12 @@ try {
     await sleep(600);
     const page = await ev(`({sel:[...document.querySelectorAll('#tree [aria-selected=true]')].map(e=>e.textContent.trim()).join('|'), crumbs:(document.querySelector('#crumbs')||{}).textContent||'', label:(window.__qc.manifest.nodes.find(x=>x.key==='hoist.loadcell.main')||{}).label, fallback:!!window.__qcFallback})`);
     const errs = b.errors();
-    const ok = n && n.kind === 'hotspot' && n.classification.sub === '013' && n.modes.join() === 'technical' && /horizontal main hoist ropes/.test(n.label) && /approximate/i.test(n.qualifier)
-      && n.bounds.min[0] > tipX - 4 && n.bounds.max[0] < tipX && pt[1] > n.bounds.min[1] && pt[1] < n.bounds.max[1] && n.bounds.min[2] < -2.7 && n.bounds.max[2] > 2.7
-      && (!baseNode || pt[1] > baseNode.hotspot.point[1] + 0.4) && M.revision === 5 && sameIdentity === true && /horizontal main hoist ropes/.test(page.label) && !page.fallback && !errs.length;
-    return { ok, detail: { point: pt, bounds: n.bounds, oldPoint: baseNode && baseNode.hotspot.point, revision: M.revision, sameIdentity, nodes: M.nodes.length, label: n.label, page: { ...page, crumbs: page.crumbs.slice(0, 80) }, errors: errs.slice(0, 3), landmarksKeys: Object.keys(L).length } };
+    const rope = M.nodes.find((x) => x.key === 'hoist.rope.set.main'); const gTopTip = (M.nodes.find((x) => x.key === 'reeving.sheave.boom-tip') || { bounds: { min: [0, 0] } }).bounds.min[1];
+    const moved = !baseNode || (base.revision < M.revision ? pt[0] > baseNode.hotspot.point[0] + 1.5 : JSON.stringify(baseNode.hotspot.point) === JSON.stringify(pt));
+    const ok = n && n.kind === 'hotspot' && n.classification.sub === '013' && n.modes.join() === 'technical' && /horizontal main hoist rope at the boom tip end/.test(n.label) && /approximate/i.test(n.qualifier)
+      && Math.abs(pt[0] - (tipX - 0.3)) < 0.05 && Math.abs(pt[1] - (gTopTip + 0.6)) < 0.05 && n.bounds.min[0] > tipX - 1.2 && n.bounds.max[0] < tipX && pt[1] > n.bounds.min[1] && pt[1] < n.bounds.max[1] && n.bounds.min[2] < -1.3 && n.bounds.max[2] > 1.3 && n.bounds.min[2] > -3 && n.bounds.max[2] < 3 && rope.bounds.max[0] >= pt[0] && rope.bounds.max[0] < pt[0] + 0.2
+      && moved && M.revision >= 6 && sameIdentity === true && /horizontal main hoist rope at the boom tip end/.test(page.label) && !page.fallback && !errs.length;
+    return { ok, detail: { point: pt, bounds: n.bounds, basePoint: baseNode && baseNode.hotspot.point, baseRevision: base && base.revision, moved, ropeMaxX: rope && rope.bounds.max[0], gTopTip, revision: M.revision, sameIdentity, nodes: M.nodes.length, label: n.label, page: { ...page, crumbs: page.crumbs.slice(0, 80) }, errors: errs.slice(0, 3), landmarksKeys: Object.keys(L).length } };
   });
 
   // ------------------------------------------------------------- U1-C26 special jobs

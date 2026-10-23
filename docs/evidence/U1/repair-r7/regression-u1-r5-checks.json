@@ -1,0 +1,145 @@
+{
+  "tool": "tools/p02b/check_u1_r5.mjs",
+  "browser": "Chrome/155.0.8059.85",
+  "date": "2026-10-23T11:42:39.553Z",
+  "note": "Prototype-level checks of the U1 round 5 repair against the synthetic prototype; not acceptance execution.",
+  "passed": 11,
+  "failed": 0,
+  "results": [
+    {
+      "id": "R5-01",
+      "covers": [
+        "U1-C20",
+        "S08",
+        "ZM07",
+        "HIS06"
+      ],
+      "name": "EQ Jobs has four tabs - Special/Projects, Daily work (CMMS), EQ status, Spare parts condition; Special/Projects holds the special jobs only, Daily work (CMMS) holds the read-only ZMMS daily jobs only with \"ZMMS data from\", default today, earlier days by From/To; shared filters carry across the tabs",
+      "status": "PASS",
+      "detail": "{\"navS\":\"Special/Projects*|Daily work (CMMS)|EQ status|Spare parts condition\",\"navD\":\"Special/Projects|Daily work (CMMS)*|EQ status|Spare parts condition\",\"special\":{\"board\":true,\"daily\":false,\"dailyTable\":false,\"heading\":\"Special jobs|Pending|Current|Completed\"},\"daily\":{\"board\":false,\"daily\":true,\"fresh\":\"Daily work from CMMS (ZMMS daily jobs, read-only)ZMMS data f\",\"ro\":0,\"rows\":8,\"addJob\":false},\"wantToday\":8,\"days\":7,\"carry\":true,\"mgmt\":{\"rows\":8,\"buttons\":0}}"
+    },
+    {
+      "id": "R5-02",
+      "covers": [
+        "U1-C20",
+        "U1-C19",
+        "S07"
+      ],
+      "name": "Crane view links follow the split: Maintenance \"Open in Jobs\" opens Daily work (CMMS) for the equipment and today; Projects/Special opens Special/Projects with the scope; the legacy /eq/jobs route still lands on Special/Projects",
+      "status": "PASS",
+      "detail": "{\"maintenance\":\"#/eq/jobs/daily?equipment=eq-qc-demo-01&from=2026-10-23&to=2026-10-23\",\"special\":\"#/eq/jobs/special?equipment=eq-qc-demo-01&scope=main&target=mi-q01-01\",\"legacy\":\"#/eq/jobs/special\"}"
+    },
+    {
+      "id": "R5-03",
+      "covers": [
+        "U1-C21",
+        "S09",
+        "S07",
+        "JOB01"
+      ],
+      "name": "Writers see \"Add special job\" in Special/Projects and in the crane view (whole equipment and any selection), pre-filled with the equipment and the selected mechanism/part; the job is created and appears as open; Management and FAC Team see no add action",
+      "status": "PASS",
+      "detail": "{\"tabBtn\":\"Add special job\",\"wholeBtn\":\"Add special job\",\"wholePre\":{\"eq\":\"eq-qc-demo-01\",\"level\":\"equipment\",\"title\":\"Add special job\"},\"partPre\":{\"eq\":\"eq-qc-demo-01\",\"level\":\"part\",\"part\":\"pp-q01-007\"},\"created\":{\"level\":\"part\",\"positionId\":\"pp-q01-007\",\"eq\":\"eq-qc-demo-01\",\"status\":\"pending\"},\"open0\":0,\"open1\":1,\"shown\":true,\"readOnly\":{\"management\":{\"tab\":false,\"crane\":false},\"facTeam\":{\"tab\":false,\"crane\":false}},\"adminBtn\":true}"
+    },
+    {
+      "id": "R5-04",
+      "covers": [
+        "U1-C21",
+        "S22",
+        "SP01",
+        "SP04",
+        "ACC03",
+        "AUTH03"
+      ],
+      "name": "Add spare part (simulated server): EQ Team and Admin add a non-designated active position with type, condition, date, brand and expected life; the entry starts its history (source registerAdd); Management and FAC Team are refused (403); duplicates, inactive positions, future dates, invalid life, unknown type and Original over recorded history are refused and save nothing; Admin-only designation settings stay Admin-only",
+      "status": "PASS",
+      "detail": "{\"mgmt\":[403,\"forbidden_role\"],\"mgmtNothing\":true,\"fac\":[403,\"forbidden_role\"],\"facNothing\":true,\"future\":[422,[\"replacedOn\"]],\"life\":[422,[\"lifeMonths\"]],\"type\":[422,[\"typeId\"]],\"noCond\":[422,[\"condition\"]],\"badNothing\":true,\"add\":{\"ok\":true,\"major\":true,\"cond\":\"replaced\",\"on\":true,\"brand\":\"CheckBrand\",\"life\":84,\"lifeSource\":\"override\",\"predicted\":\"2033-04-06\",\"inRegister\":true,\"hist\":1,\"src\":\"registerAdd\",\"before\":null,\"by\":\"u-eq-a\",\"remarks\":\"added by EQ Team\"},\"dup\":[409,\"already_major_spare_part\"],\"dupNothing\":true,\"histPos\":false,\"draft\":[422,\"position_not_active\"],\"draftNothing\":true,\"wrongEq\":[422,\"target_not_in_equipment\"],\"designateStillAdmin\":403,\"admin\":{\"ok\":true,\"cond\":\"original\",\"life\":60,\"lifeSource\":\"type\",\"src\":\"registerAdd\"}}"
+    },
+    {
+      "id": "R5-05",
+      "covers": [
+        "U1-C21",
+        "S22",
+        "SP04",
+        "S07"
+      ],
+      "name": "Spare parts condition tab: \"Add spare part\" for EQ Team and Admin opens a form (equipment, main, sub, position, type, condition, date, brand, expected life); saving adds the row with its first history entry; the crane-view Spare parts tab offers the same action pre-filled with the selection (a non-designated part is pre-selected); Management sees neither",
+      "status": "PASS",
+      "detail": "{\"btn\":\"Add spare part\",\"title\":\"Add spare part - QC-DEMO-01\",\"missingFields\":[],\"eqPre\":\"eq-qc-demo-01\",\"pick\":\"pp-q01-029\",\"saved\":{\"cond\":\"replaced\",\"brand\":\"FormBrand\",\"life\":48,\"on\":\"2026-09-23\",\"hist\":[\"registerAdd\"]},\"inTable\":true,\"dialogGone\":true,\"cranePart\":{\"btn\":true,\"notMajor\":true},\"cranePre\":{\"eq\":\"eq-qc-demo-01\",\"main\":\"mi-q01-15\",\"sub\":\"si-q01-151\",\"pos\":\"pp-q01-001\"},\"freePart\":{\"id\":\"pp-q01-001\",\"main\":\"mi-q01-15\",\"sub\":\"si-q01-151\"},\"dialogClosed\":true,\"craneWhole\":true,\"adminBtn\":true,\"mgmt\":{\"tab\":false,\"crane\":false}}"
+    },
+    {
+      "id": "R5-06",
+      "covers": [
+        "U1-C21",
+        "S19",
+        "ACC01"
+      ],
+      "name": "Access matrix wording follows U1-C21: the EQ work row names adding spare parts (EQ Team and Admin fixed, FAC Team and Management not allowed); the Admin row keeps spare-part types and expected-life settings; no console errors on the changed screens",
+      "status": "PASS",
+      "detail": "{\"ceil\":{\"admin\":\"F\",\"eqTeam\":\"F\",\"facTeam\":\"N\",\"management\":\"N\"},\"adminNote\":\"EQ Team and Admin add major spare parts to the register of an equipment from EQ Jobs > Spare parts condition or the crane view (U1-C21, replaces the Admin-only marking of SOW V2 s4.\",\"errs\":[]}"
+    },
+    {
+      "id": "R5-07",
+      "covers": [
+        "U1-C22",
+        "SRC01",
+        "SRC02",
+        "SRC03",
+        "ADM04",
+        "ACC03"
+      ],
+      "name": "Mechanism catalogue (simulated server): Admin adds main and sub mechanisms with new string codes and edits names/descriptions with audit and prior values kept; main 10, duplicates, wrong code format and inactive parents are refused; 061 Spreader / 062 Headblock names are fixed; reserved 048/063 stay reserved; EQ Team and Management get 403; a fixtures reset restores the approved 16/43 catalogue",
+      "status": "PASS",
+      "detail": "{\"btns\":{\"main\":true,\"sub\":true,\"edit\":true,\"lock\":true},\"r\":{\"eqTeam\":[403,\"forbidden\"],\"mgmt\":[403,\"forbidden\"],\"mgmtEdit\":[403,\"forbidden\"],\"unchanged\":true,\"ten\":[422,\"code_unassigned_reserved\"],\"dupMain\":[409,\"duplicate_code\"],\"badMain\":[422,[\"code\"]],\"noName\":[\"name\"],\"unchanged2\":true,\"addMain\":true,\"addSub\":true,\"dupSub\":[409,\"duplicate_code\"],\"wrongPrefix\":[\"code\"],\"inactiveParent\":[422,\"parent_inactive\"],\"lock\":[409,\"approved_name_locked\"],\"lockDesc\":true,\"reserved\":[422,\"reserved_definition\"],\"reservedStill\":true,\"rename\":true,\"logPrior\":true,\"audit\":[\"catalog.sub.edit\",\"catalog.sub.edit\",\"catalog.main.activate\",\"catalog.main.deactivate\",\"catalog.sub.add\",\"catalog.main.add\"],\"counts\":{\"main\":16,\"sub\":43,\"total\":[17,44],\"ten\":false}},\"screen\":{\"block18\":true,\"row181\":true,\"log\":true},\"dlgTitle\":\"Add main mechanism\",\"formAdded\":true,\"formRefusal\":\"Main code 10 stays absent from the catalogue and cannot be created. (422 code_unassigned_reserved)\",\"reset\":{\"m\":16,\"s\":43,\"active\":41,\"n061\":\"Spreader\",\"n062\":\"Headblock\",\"n011\":\"Hoist\",\"ten\":false,\"r048\":true,\"r063\":true}}"
+    },
+    {
+      "id": "R5-08",
+      "covers": [
+        "U1-C22",
+        "ADM02",
+        "ADM03",
+        "HIS01",
+        "VIS05"
+      ],
+      "name": "Main-part positions (simulated server): Admin adds a DRAFT position to one equipment (other QC unchanged) and edits name, kind, parent mechanism and binding key while draft; after confirmation the key and parent are frozen (409 position_key_frozen / ancestors_frozen), kind is frozen once history exists (409 history_exists), the name stays editable with audit; bad keys, duplicate keys and container. keys are refused; EQ Team gets 403; the form adds a draft row",
+      "status": "PASS",
+      "detail": "{\"addBtn\":true,\"r\":{\"eqTeam\":[403,\"forbidden\"],\"badKey\":[\"key\"],\"container\":[\"key\"],\"dupKey\":[409,\"duplicate_semantic_key\"],\"lotNoUom\":[\"uom\"],\"added\":{\"ok\":true,\"state\":\"draft\",\"eq\":\"eq-qc-demo-01\",\"main\":true,\"origin\":\"admin\",\"other\":true},\"draftEdit\":{\"ok\":true,\"key\":\"hoist.drive.motor.c2\",\"sub\":true,\"main\":true,\"kind\":\"quantityLot\",\"uom\":\"set\"},\"confirmed\":\"active\",\"keyFrozen\":[409,\"position_key_frozen\"],\"subFrozen\":[409,\"ancestors_frozen\"],\"kindNoHist\":true,\"rename\":true,\"histKind\":[409,\"history_exists\"],\"histRename\":true,\"log\":[\"edited\",\"edited\",\"edited\",\"added\"],\"logPrior\":true,\"audit\":[\"position.edit\",\"position.edit\",\"position.edit\",\"position.confirm\",\"position.edit\",\"position.add\"]},\"rowShown\":true,\"missingFields\":[],\"formAdded\":{\"state\":\"draft\",\"row\":true,\"open\":false},\"editBtn\":true}"
+    },
+    {
+      "id": "R5-09",
+      "covers": [
+        "U1-C22",
+        "ADM06",
+        "SRC05",
+        "S14"
+      ],
+      "name": "Specifications (simulated server): Admin adds a specification row with value, unit and source (labelled Admin-entered, no drawing observation) and edits it with the prior definition kept; records new values on drawing rows with the prior value kept and observations unchanged; drawing definitions cannot be edited (409); a missing source or duplicate name is refused; EQ Team gets 403; the new row shows in the Technical tab of its mechanism",
+      "status": "PASS",
+      "detail": "{\"addBtn\":true,\"setBtn\":true,\"r\":{\"eqTeam\":[403,\"forbidden\"],\"eqTeamVal\":[403,\"forbidden\"],\"noSource\":[\"source\"],\"add\":{\"ok\":true,\"code\":\"adm-hoist-brake-torque-check-r5-09\",\"origin\":\"admin\",\"obs\":0,\"val\":\"1200\",\"basis\":\"adminEntered\"},\"dup\":[409,\"duplicate_code\"],\"edit\":true,\"defHist\":[\"Hoist brake torque (check R5-09)\"],\"newVal\":true,\"valHist\":[\"1200\"],\"rg1\":true,\"rg2\":true,\"rgCur\":\"30.48\",\"rgHist\":[\"30.5\"],\"obsSame\":true,\"rgBasis\":\"adminEntered\",\"drawingEdit\":[409,\"source_definition_fixed\"],\"noReason\":[422,\"validation_failed\"],\"audit\":[\"parameter.value\",\"parameter.value\",\"parameter.value\",\"parameter.edit\",\"parameter.add\"]},\"adminRow\":{\"text\":\"Hoist brake torque, service (check R5-09)Admin-enteredNo drawing observationtechnical · main 01Admin value: 1.25 kNmSource: Nameplate photo (synthetic)New value...Edit\",\"hist\":true,\"rgHist\":true},\"tech\":{\"has\":true,\"admin\":true,\"val\":true},\"techEq\":{\"rg\":true,\"obs\":true}}"
+    },
+    {
+      "id": "R5-10",
+      "covers": [
+        "U1-C22",
+        "U1-C21",
+        "SP01",
+        "SP04",
+        "ACC03"
+      ],
+      "name": "Spare parts (Admin settings): Admin adds, renames and retires spare-part types (prior values logged; a retired type is not offered for new parts and is refused for new designations or additions, while registered parts keep it); Admin adds parts to the register from the settings page (Add spare part / Add with condition, pre-selected) and edits register entries with the register actions; EQ Team gets 403 on type changes",
+      "status": "PASS",
+      "detail": "{\"ui0\":{\"add\":true,\"typeAdd\":true,\"entry\":true,\"addWith\":true,\"retire\":true},\"r\":{\"eqTeam\":[[403,\"forbidden_role\"],[403,\"forbidden_role\"],[403,\"forbidden_role\"]],\"bad\":[\"code\",\"name\",\"defaultLife\"],\"dup\":[409,\"duplicate_code\"],\"add\":{\"ok\":true,\"life\":150,\"active\":true},\"rename\":true,\"retire\":true,\"keep\":true,\"designRetired\":[422,\"validation_failed\"],\"addRetired\":[\"typeId\"],\"addNew\":true,\"typeLog\":[\"hoist-brake:retired\",\"boom-hoist-motor:renamed\",\"boom-hoist-motor:added\"],\"freePos\":\"pp-q01-002\"},\"retiredShown\":true,\"pre\":{\"title\":\"Add spare part - QC-DEMO-01\",\"pos\":\"pp-q01-002\",\"types\":[\"\",\"spt-hoist-motor\",\"spt-hoist-gearbox\",\"spt-wire-rope-main-hoist\",\"spt-wire-rope-boom\",\"spt-wire-rope-trolley\",\"spt-trolley-wheel\",\"spt-spreader\",\"spt-tyre-set\",\"spt-engine\",\"spt-boom-hoist-motor\"]},\"entryId\":\"sp-entry-pp-q01-006\",\"entryTitle\":\"Update condition - Boom hoist rope set (QC-DEMO-01)\",\"entryActs\":[\"replacement\",\"amend\",\"remarks\"],\"entrySaved\":true,\"formType\":true}"
+    },
+    {
+      "id": "R5-11",
+      "covers": [
+        "U1-C22",
+        "ACC03",
+        "AUTH03"
+      ],
+      "name": "Admin-only ceiling unchanged: EQ Team, FAC Team and Management cannot open Admin > EQ settings and every new add/adjust command refuses them (403); no console errors on the Admin pages changed in round 5",
+      "status": "PASS",
+      "detail": "{\"res\":{\"eqTeam\":{\"page\":false,\"cmds\":[403,403,403,403,403,403,403,403,403,403,403]},\"facTeam\":{\"page\":false,\"cmds\":[403,403,403,403,403,403,403,403,403,403,403]},\"management\":{\"page\":false,\"cmds\":[403,403,403,403,403,403,403,403,403,403,403]}},\"errs\":[]}"
+    }
+  ]
+}

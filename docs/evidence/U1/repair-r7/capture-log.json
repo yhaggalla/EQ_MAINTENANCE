@@ -1,0 +1,58 @@
+{
+  "tool": "tools/u1/capture_u1r7.mjs",
+  "gpu": "swiftshader",
+  "browser": "Chrome/155.0.8059.85",
+  "date": "2026-10-23T11:53:12.862Z",
+  "items": [
+    {
+      "name": "r7-01-3d-loadcell-boom-tip-end",
+      "note": "U1-C27: 013 load cells in-line on the horizontal cross-over of the main hoist ropes at the boom tip end (two per rope side, junction box and signal cable per side); technical mode, location approximate",
+      "query": "mode=technical&cam=79.5,55.6,5.2&tgt=75.3,52.8,0.6&fov=40",
+      "file": "docs/evidence/U1/repair-r7/r7-01-3d-loadcell-boom-tip-end.png",
+      "errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ]
+    },
+    {
+      "name": "r7-02-3d-loadcell-tip-side",
+      "note": "U1-C27: the +Z side of the boom tip end: rope from the tip sheave down to the cross-over, the two load cells and the junction box",
+      "query": "mode=technical&cam=76.6,53.6,6.2&tgt=75.5,52.9,1.8&fov=38",
+      "file": "docs/evidence/U1/repair-r7/r7-02-3d-loadcell-tip-side.png",
+      "errors": []
+    },
+    {
+      "name": "r7-03-3d-boom-tip-context",
+      "note": "U1-C27: context view of the boom end (compare the place circled on r7-loadcell-location-reference.jpg)",
+      "query": "mode=technical&cam=92,64,24&tgt=70,52,0&fov=40",
+      "file": "docs/evidence/U1/repair-r7/r7-03-3d-boom-tip-context.png",
+      "errors": []
+    },
+    {
+      "name": "r7-04-3d-page-loadcell-selected",
+      "note": "U1-C27: P03 3D page, 013 Load cell system selected (technical mode); the view frames the boom tip end",
+      "url": "?eq=eq-qc-demo-01&sub=si-q01-013&mode=technical",
+      "file": "docs/evidence/U1/repair-r7/r7-04-3d-page-loadcell-selected.png",
+      "errors": []
+    },
+    {
+      "name": "r7-05-flat-loadcell-boom-tip-end",
+      "note": "U1-C27: flat view (technical), 013 selected, zoomed to the boom tip end: the horizontal hoist rope line ends in the load cell at the end of the boom",
+      "url": "#/eq/equipment/eq-qc-demo-01?mode=technical&main=mi-q01-01&sub=si-q01-013",
+      "fit": [
+        118.6,
+        33.2,
+        7,
+        4.6
+      ],
+      "file": "docs/evidence/U1/repair-r7/r7-05-flat-loadcell-boom-tip-end.png",
+      "errors": []
+    },
+    {
+      "name": "r7-06-flat-loadcell-overview",
+      "note": "U1-C27: flat view (technical), 013 selected, default framing",
+      "url": "#/eq/equipment/eq-qc-demo-01?mode=technical&main=mi-q01-01&sub=si-q01-013",
+      "file": "docs/evidence/U1/repair-r7/r7-06-flat-loadcell-overview.png",
+      "errors": []
+    }
+  ]
+}

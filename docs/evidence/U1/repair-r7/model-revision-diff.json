@@ -1,0 +1,47 @@
+{
+  "base": "HEAD",
+  "baseAsset": {
+    "sha256": "26440078e92b829ce2370d8c5037e9b1bf30cb292b7f0c810199db013d4a9c08",
+    "bytes": 2570284,
+    "nodes": 178
+  },
+  "revised": {
+    "revision": 6,
+    "sha256": "01fb0ae0a2c66029928bb6b8be9f31229e68ae9ed27f03aeddc6801993531b9a",
+    "bytes": 2570288,
+    "nodes": 178
+  },
+  "summary": {
+    "added": 0,
+    "removed": 0,
+    "changed": 1,
+    "identityChanges": 0
+  },
+  "note": "Draft v1 revised in place (no binding active). Keys, kinds, classification and instancing of existing nodes are unchanged unless listed; bounds changes are geometry corrections.",
+  "added": [],
+  "removed": [],
+  "changed": [
+    {
+      "key": "hoist.loadcell.main",
+      "boundsChanged": true,
+      "label": [
+        "Load cell system (in-line load cells in the horizontal main hoist ropes at the boom tip; point and hardware not fixed on the sheets)",
+        "Load cell system (in-line load cells in the horizontal main hoist rope at the boom tip end; point and hardware not fixed on the sheets)"
+      ],
+      "hotspot": [
+        [
+          73.30000000000001,
+          53.423398098387764,
+          0
+        ],
+        [
+          75.60000000000001,
+          52.9,
+          0
+        ],
+        "simplified-part",
+        "simplified-part"
+      ]
+    }
+  ]
+}
