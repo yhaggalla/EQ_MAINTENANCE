@@ -4,6 +4,53 @@ Rolling handover for CICT EQ Maintenance. Each phase appends its record; the new
 
 ---
 
+## Repair-R02B round 2 - 23 October 2026
+
+### Runtime record
+
+| Item | Value |
+| --- | --- |
+| Recommended inherited profile | R02B: Codex gpt-6-astra/high or Claude Code claude-opus-5-5/high |
+| Client | Codex subagent eq-build-opus-high; exact prompt `docs/runs/Repair-R02B-20261023-0938.md` (orchestrator-owned) |
+| Agent-definition model / effort | Codex-opus-5-5; high (per agent definition). Actual execution model identity was not independently exposed; the configured name is not runtime proof |
+| Fallback / escalation | None |
+
+### Outcome and changes
+
+Repair complete for both findings of `docs/evidence/R02B/review-20261023-0933.md`. R02B was not repeated or passed by this run; U1 remains pending. Full reproduction, acceptance matrix and exact changed-file list: `docs/evidence/R02B/repair-round2-20261023/REPAIR_REPORT.md`.
+
+1. Finding 1: `currentSpecial` now projects detached allowlisted current-state job fields and matching position IDs only. Reopened jobs keep their previous completion/events/corrections in the stored record. The shared crane card displays position names rather than historical replacement details. API/DATA define a separate `CurrentSpecialJob` DTO, not `JobSummary` or a full replacement line (D-145). B05 checks a reopened payload and history retention, alongside denied reads and hidden links.
+2. Finding 2: the FAC on-time cycle population now uses the same discipline/type/mode/PIC predicates as the board. Electrical returns null, 0/0; Civil inspection returns 71%, 5/7. Existing rolling-date/state eligibility is preserved; KPI focus narrows rows only. API/DATA clarify this (D-146). H12 checks visible results and the VM independently checks numerator/denominator and nonempty mode/PIC combinations.
+
+Requirement/acceptance support: ACC02, S19, S07, HIS06; FDB01, S27; U1-C08/U1-C19 panel parity. All formal application acceptance cases remain NOT RUN.
+
+### Files changed
+
+Prototype: `artifacts/prototypes/p02-ui/js/{store,panel-tabs,fac}.js`. Contracts/records: `docs/{API_CONTRACT,DATA_CONTRACT,DECISIONS,IMPLEMENTATION_STATUS,HANDOVER}.md`. Tests: `tools/p02b/check_p02b.mjs`, new `tools/p02b/check_r02b_round2.mjs`. Evidence: `docs/evidence/R02B/repair-round2-20261023/` (report, six JSON outputs and one inspected screenshot). The exact run prompt is separately maintained by the orchestrator.
+
+### Fresh checks and actual results
+
+| Check | Result |
+| --- | --- |
+| Focused VM reproduction before edits | Exit 1: 4 pass / 5 fail of 9; both reported defects reproduced |
+| Final focused VM regression | Exit 0: 10/10 pass, including detached references, source-history retention, filter arithmetic and zero/nonempty populations |
+| `check_p02b.mjs --only=B05,H01,H12` | Exit 0: 3/3 pass, Chrome 155.0.8059.85 |
+| `check_p03_panel.mjs` | Exit 0: 8/8 pass, software WebGL; 21 flat/3D comparisons |
+| V2 / V1 contract coverage | Exit 0: 15/15 and 9/9 pass |
+| Electrical screenshot | Captured without console errors; inspected 18 active jobs and no on-time percentage |
+| `git diff --check` | Exit 0; no whitespace errors, LF/CRLF notices only |
+| Pre-existing RTG handover SHA-256 | Unchanged: `9F8235251E29FB03D67C615DCF8EC955A3FDF993AF1D19DF9516362CAA7F3226` |
+
+Exact commands and outputs are in the repair report. Evidence is contract/source and synthetic prototype only. No real authentication, database, live ZMMS, target-environment or production verification. Full P02/P02B/P03 model-browser suites and model/binding checks were not rerun; their previous results remain prior evidence. Geometry, model assets, generator and viewer core are unchanged by this repair.
+
+### Git, boundaries and open issues
+
+Branch `main`, baseline HEAD `ff6b77c`; repair uncommitted for orchestrator review/commit. Preserved the pre-existing `rtg-workbench/HANDOVER.md` edit. No source-authority, Portal, RTG, other-app or production changes. Healthy existing fixture listeners on ports 5312/5313 reused; no new server started.
+
+No repair blocker or new business question. U-31/U-33 and P07B discovery retain their existing scope/impact. Next prompt: **R02B V2 contracts and prototype review, repeated in a fresh independent context**, then U1 only after PASS. No later phase started.
+
+---
+
 ## R02B independent repeat review - 23 October 2026
 
 ### Runtime record

@@ -460,11 +460,23 @@ The four right-panel tabs of the crane view (DATA s18.1, D-122). All `F:eq.fleet
 | --- | --- |
 | `GET /equipment/{equipmentId}/current-state/summary?scope=&targetId=` | `{ status: StatusSummary; badges: { maintenanceToday: number | null; specialOpen: number; sparePartsOverdue: number; sparePartsDueSoon: number } }` |
 | `GET /equipment/{equipmentId}/current-state/maintenance?scope=&targetId=` | `{ zmmsMapped: boolean; businessDate: DateOnly; dataFrom: Instant | null; stale: boolean; equipmentLevelNote: true; jobs: ZmmsDailyJobView[] }` - today's present rows only; `jobs: []` with `zmmsMapped: false` for unmapped equipment |
-| `GET /equipment/{equipmentId}/current-state/special?scope=&targetId=` | `{ openJobs: Array<JobSummary & { matchingLines: ReplacementLineView[] }>; counts: { pending: number; current: number; completed: number; cancelled: number }; openInJobs: { equipment: Id; scope: string; target: Id | null } | null }` - DATA s9 scope rule, de-duplicated; completed jobs counted only. `openJobs` items are `JobSummary` (no description, completion fields, corrections, attachments or evidence). `openInJobs` is null when the caller lacks `eq.jobs.view` (the panel then shows no Open in Jobs link and no job-record links, D-139) |
+| `GET /equipment/{equipmentId}/current-state/special?scope=&targetId=` | `{ openJobs: CurrentSpecialJob[]; counts: { pending: number; current: number; completed: number; cancelled: number }; openInJobs: { equipment: Id; scope: string; target: Id | null } | null }` - DATA s9 scope rule, de-duplicated; completed jobs counted only. Uses the separate allowlisted DTO below, never `JobSummary` or `ReplacementLineView`, including for reopened jobs. `openInJobs` is null when the caller lacks `eq.jobs.view` (the panel then shows no Open in Jobs link and no job-record links, D-139) |
 | `GET /equipment/{equipmentId}/current-state/technical?scope=&targetId=` | `{ identity: {...}; model: {...} | null; attributes: { commissionedOn: DateOnly | null; serialNumber: string | null; manufacturer: string | null } | null; definition: { code: string; name: string; description: string | null } | null; positionCounts: { serialized: number; quantityLot: number } | null; currentInstallations: InstallationView[] | null; sourceReferences: [...]; provenance: {...} | null; parameters: ParameterItem[]; sceneUnavailableReason: string | null }` - fields per scope as DATA s18.1; `ParameterItem` = s4.10 item |
 | `GET /equipment/{equipmentId}/current-state/spare-parts?scope=&targetId=` | `{ rows: SparePartRow[]; notMajorSparePart: boolean }` (`notMajorSparePart` true for a part scope whose position is not designated) |
 
 ```ts
+// Fleet current-state projection; these are the only fields allowed, even with eq.jobs.view.
+type CurrentSpecialJob = {
+  id: Id; number: string; equipment: { id: Id; code: string; type: string };
+  target: TargetRef; kind: 'repair' | 'replacement'; title: string;
+  workStatus: 'pending' | 'current'; plannedOn: DateOnly | null;
+  matchingPositions: { id: Id; displayName: string }[];
+};
+// No description, completion/cancellation fields, actors/audit timestamps, events,
+// corrections, attachments/evidence, or replacement installation/removal details.
+// Matching positions identify scope membership only; they are not replacement events.
+// The prototype represents target/equipment as scalar IDs and matchingPositions as
+// matchingLines: [{ positionId }], with the same allowlist and detached value semantics.
 type ZmmsDailyJobView = { id: Id; zmmsJobNumber: string; jobDate: DateOnly; equipment: { id: Id; code: string } | null;
   equipmentText: string; jobType: string | null; jobStatus: string | null; description: string | null;
   typeEffect: 'breakdown' | 'maintenance' | 'none' | 'unmapped'; statusEffect: 'open' | 'closed' | 'unmapped';
@@ -622,6 +634,8 @@ Response:
   latestProof: Array<{ photoId: Id; thumbUrl: string; job: { id: Id; name: string }; workDate: DateOnly; who: string }>;
   dueLoad: { excludes: 'dailyAndWeeklyChecks'; weeks: Array<{ weekStart: DateOnly; byDiscipline: Record<string, number> }> } }
 ```
+
+The `discipline`, `type`, `mode` and `pic` predicates apply to both `onTimeBasis` counts and every other block (DATA s18.4). With no eligible completed cycle, `onTimePercent30d` is null and `onTimeBasis` is `{ onTime: 0, total: 0 }`; the UI shows no percentage. Matching completed rolling cycles remain eligible if their job has since closed or deactivated. `focus` narrows lane rows only.
 
 Rows are in display order (group order, then the in-group sort of DATA s18.4). The client keeps its scroll position and only patches changed rows on refresh (FDB04); on failure it keeps the last data with "Updated hh:mm" and a warning.
 

@@ -107,7 +107,13 @@ window.EQ = window.EQ || {};
     const H = scoped(eqId, scope, true);
     const rows = [...H.open, ...H.completed];
     const open = H.open.filter((r) => !r.job.isCancelled);
-    return { ok: true, equipmentId: eqId, scope, openJobs: open.map((r) => ({ job: r.job, matchingLines: r.matchingLines })),
+    // Explicit CurrentSpecialJob/position allowlists (API s4.16). Reopened jobs keep
+    // prior completion/history internally; none may cross this current-state read.
+    return { ok: true, equipmentId: eqId, scope: { level: scope.level, id: scope.id }, openJobs: open.map(({ job: j, matchingLines }) => ({
+      job: { id: j.id, number: j.number, equipmentId: j.equipmentId, level: j.level, mainId: j.mainId, subId: j.subId,
+        positionId: j.positionId, kind: j.kind, title: j.title, workStatus: j.workStatus, plannedOn: j.plannedOn },
+      matchingLines: matchingLines.map((l) => ({ positionId: l.positionId })),
+    })),
       counts: { pending: open.filter((r) => r.job.workStatus === 'pending').length, current: open.filter((r) => r.job.workStatus === 'current').length,
         completed: H.completed.filter((r) => !r.job.isCancelled).length, cancelled: rows.filter((r) => r.job.isCancelled).length },
       openInJobs: EQ.access.srv('eq.jobs.view') ? null : { equipment: eqId, scope: scope.level, target: scope.id || null } };

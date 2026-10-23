@@ -138,14 +138,16 @@ try {
   });
 
   // Repair-R02B finding 1: a switched-off tab must be blocked on the data reads, not only on the route (B01 only called EQ.access.srv)
-  await step('B05', ['ACC02', 'S19', 'S07', 'HIS06'], 'EQ Jobs switched off for Management while EQ Fleet stays on: scoped history, job list, job record and export are refused by the simulated server (403 feature_disabled), also when a view function is called directly behind the route gate; the crane view keeps its open-job summaries and counts but shows no job-record link and no Open in Jobs in any tab [Repair-R02B]', async () => {
+  await step('B05', ['ACC02', 'S19', 'S07', 'HIS06'], 'EQ Jobs off with Fleet on: history/list/record/export refuse; a reopened job exposes only allowlisted current fields and matching position IDs while retaining its source history; no job links or history render in the crane tabs [Repair-R02B round 2]', async () => {
     await go('admin', '/admin/access');
+    const reopened = await ev(`EQ.api.reopenJob('job-101','B05: prior completion must stay in Jobs history').ok`);
     await ev(`EQ.setPersona('management')`); await ev(`EQ.nav('/eq/fleet',{})`); await b.wait(300);
     // Admin saves while Management's UI snapshot still shows the Jobs tab
     const save = await ev(`(()=>{const keep=EQ.state.role; EQ.state.role='admin'; const r=EQ.access.save([{role:'management',feature:'eq.jobs.view',on:false}], EQ.state.D.access.version, 'check B05'); EQ.state.role=keep; return r.ok;})()`);
     const reads = await ev(`(()=>{const sc={level:'equipment',id:null}; const h=EQ.history('${Q1}',sc,true), hp=EQ.history('${Q1}',{level:'part',id:'pp-q01-007'},true), js=EQ.readJobs(), j=EQ.readJob('job-101'), ex=EQ.eqExport('special',{}), cs=EQ.currentSpecial('${Q1}',sc);
       return {history:[h.status,h.code,'completed' in h], part:[hp.status,hp.code,'events' in hp], jobs:[js.status,js.code,'items' in js], job:[j.status,j.code,'job' in j], exp:ex.status,
-        current:{ok:cs.ok, open:cs.ok?cs.openJobs.length:-1, listsCompleted:cs.ok&&cs.openJobs.some(r=>r.job.workStatus==='completed'||r.job.isCancelled), counts:cs.counts, openInJobs:cs.openInJobs}};})()`);
+        current:{ok:cs.ok, open:cs.ok?cs.openJobs.length:-1, listsCompleted:cs.ok&&cs.openJobs.some(r=>r.job.workStatus==='completed'||r.job.isCancelled), counts:cs.counts, openInJobs:cs.openInJobs,
+          reopened:cs.openJobs.find(r=>r.job.id==='job-101'), sourceHistoryKept:!!EQ.job('job-101').completedOn&&!!EQ.job('job-101').completionNote&&EQ.job('job-101').events.some(e=>e.kind==='reopened')}};})()`);
     // the record and board views themselves refuse to render data when the server read is refused (independent of the route gate)
     const rec = await ev(`EQ.views.job('job-101').textContent`); const board = await ev(`EQ.specialBoard({}).textContent`);
     await ev(`EQ.nav('/eq/jobs/special/job-101',{})`); await b.wait(500); const route = await text('main');
@@ -157,7 +159,11 @@ try {
     }
     await ev(`(()=>{EQ.state.role='admin'; EQ.access.save([{role:'management',feature:'eq.jobs.view',on:true}], EQ.state.D.access.version,'restore'); EQ.access.refreshSession('restore');})()`);
     const R = reads, P = panel;
-    const ok = save && R.history[0] === 403 && R.history[1] === 'feature_disabled' && !R.history[2] && R.part[0] === 403 && !R.part[2] && R.jobs[0] === 403 && !R.jobs[2] && R.job[0] === 403 && !R.job[2] && R.exp === 403
+    const currentJobKeys = ['id','number','equipmentId','level','mainId','subId','positionId','kind','title','workStatus','plannedOn'].sort();
+    const reopenedPayload = R.current.reopened;
+    const payloadSafe = reopenedPayload && JSON.stringify(Object.keys(reopenedPayload.job).sort()) === JSON.stringify(currentJobKeys)
+      && reopenedPayload.matchingLines.length > 0 && reopenedPayload.matchingLines.every(l=>JSON.stringify(Object.keys(l)) === '["positionId"]');
+    const ok = reopened && payloadSafe && R.current.sourceHistoryKept && save && R.history[0] === 403 && R.history[1] === 'feature_disabled' && !R.history[2] && R.part[0] === 403 && !R.part[2] && R.jobs[0] === 403 && !R.jobs[2] && R.job[0] === 403 && !R.job[2] && R.exp === 403
       && /403/.test(rec) && /feature_disabled/.test(rec) && !/Replace main hoist motor A/.test(rec) && /403/.test(board) && !/EQJ-/.test(board) && /403/.test(route) && /feature_disabled/.test(route)
       && R.current.ok && R.current.open >= 3 && !R.current.listsCompleted && R.current.counts.completed >= 1 && R.current.openInJobs === null
       && Object.values(P).every((t) => t.jobsLinks === 0 && !t.corr) && P.special.nums.length === R.current.open && P.special.off && P.maintenance.off && P.spareParts.off;
@@ -620,7 +626,7 @@ try {
     await go('management', '/fac/dashboard', { data: 'empty' }, 700); const em = await text('main');
     return { ok: !!hh && /Showing the last good data from \d\d:\d\d/.test(st) && /STALE/.test(upd) && /Updated \d\d:\d\d/.test(upd) && rows > 50 && /could not be loaded/.test(er) && eRows === 0 && /No FAC jobs yet/.test(em) && /Admin > FAC > Import/.test(em), detail: JSON.stringify({ upd, banner: st.slice(0, 60), rows }) };
   });
-  await step('H12', ['S27', 'FAC10', 'FDB01'], 'Dashboard filters (discipline, type, in-house/outsource, PIC) are applied, kept in the URL and restore from a pasted link; Clear filters resets', async () => {
+  await step('H12', ['S27', 'FAC10', 'FDB01'], 'Dashboard filters persist and restore; filtered on-time KPI shows Civil inspection 71%, 5/7, and Electrical no percentage with no eligible cycles; Clear filters resets [Repair-R02B round 2]', async () => {
     await go('management', '/fac/dashboard', {}, 900);
     await ev(`(()=>{const s=document.getElementById('df-d'); s.value='mechanical'; s.dispatchEvent(new Event('change',{bubbles:true}))})()`); await b.wait(500);
     await ev(`(()=>{const s=document.getElementById('df-t'); s.value='inspection'; s.dispatchEvent(new Event('change',{bubbles:true}))})()`); await b.wait(500);
@@ -629,7 +635,16 @@ try {
     await b.goto(base + h1 + (h1.includes('?') ? '' : '')); await b.wait(900); const again = await ev(`({d:document.getElementById('df-d').value, t:document.getElementById('df-t').value})`);
     const withRole = url({ role: 'management' }, h1.replace('#', '')); await b.goto(withRole); await b.wait(900); const restored = await ev(`({d:document.getElementById('df-d').value, t:document.getElementById('df-t').value, lanes:[...document.querySelectorAll('.lane')].filter(l=>!l.hidden).length})`);
     await b.clickText('.dash-filters button', 'Clear filters'); await b.wait(500); const cleared = await ev('location.hash');
-    return { ok: /discipline=mechanical/.test(h1) && /type=inspection/.test(h1) && lanes.length === 1 && lanes[0] === 'mechanical' && types && String(want) === shown && restored.d === 'mechanical' && restored.t === 'inspection' && restored.lanes === 1 && !/discipline=/.test(cleared), detail: JSON.stringify({ h1, want, shown, restored, cleared }) };
+    // Review repeat F2: assert the visible performance KPI, including zero denominator,
+    // rather than only active counts. Seeded Civil inspection cycles are 5 on time / 7.
+    await go('management', '/fac/dashboard?discipline=electrical', {}, 900);
+    const electrical = await text('[data-kpi=ontime]');
+    const electricalN = await text('[data-kpi=active] .k-n');
+    await go('management', '/fac/dashboard?discipline=civil&type=inspection', {}, 900);
+    const civilInspection = await text('[data-kpi=ontime]');
+    const performance = electricalN === '18' && /no cycles completed yet/.test(electrical) && !/%/.test(electrical)
+      && /71\s*%/.test(civilInspection) && /5 of 7 cycles/.test(civilInspection);
+    return { ok: performance && /discipline=mechanical/.test(h1) && /type=inspection/.test(h1) && lanes.length === 1 && lanes[0] === 'mechanical' && types && String(want) === shown && restored.d === 'mechanical' && restored.t === 'inspection' && restored.lanes === 1 && !/discipline=/.test(cleared), detail: JSON.stringify({ h1, want, shown, restored, cleared, electrical, civilInspection }) };
   });
   await step('H13', ['S27', 'FDB06', 'S16'], 'Phone (390x844): KPI strip and one combined list without auto-scroll, lanes hidden, latest-proof carousel with thumbnails only, no horizontal scroll', async () => {
     await b.viewport(390, 844, true, 2); await go('management', '/fac/dashboard', {}, 1200);

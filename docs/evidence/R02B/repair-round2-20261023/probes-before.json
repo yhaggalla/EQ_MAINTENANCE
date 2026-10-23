@@ -1,0 +1,469 @@
+{
+  "tool": "tools/p02b/check_r02b_round2.mjs",
+  "generatedUtc": "2026-10-23T04:11:37.473Z",
+  "boundary": "Isolated Node VM, synthetic prototype fixtures only",
+  "passed": 4,
+  "failed": 5,
+  "checks": [
+    {
+      "id": "F1-reopened-hidden-history",
+      "status": "PASS",
+      "detail": {
+        "historyStatus": 403,
+        "currentOk": true,
+        "reopened": true
+      }
+    },
+    {
+      "id": "F1-current-job-allowlist",
+      "status": "FAIL",
+      "detail": {
+        "actualKeys": [
+          "id",
+          "number",
+          "equipmentId",
+          "level",
+          "mainId",
+          "subId",
+          "positionId",
+          "kind",
+          "title",
+          "description",
+          "priority",
+          "plannedOn",
+          "responsible",
+          "workStatus",
+          "completedOn",
+          "completionNote",
+          "isCancelled",
+          "cancelReason",
+          "cancelledBy",
+          "cancelledUtc",
+          "createdBy",
+          "createdUtc",
+          "updatedUtc",
+          "reopenCount",
+          "version",
+          "lines",
+          "events",
+          "corrections"
+        ],
+        "expectedKeys": [
+          "equipmentId",
+          "id",
+          "kind",
+          "level",
+          "mainId",
+          "number",
+          "plannedOn",
+          "positionId",
+          "subId",
+          "title",
+          "workStatus"
+        ]
+      }
+    },
+    {
+      "id": "F1-position-allowlist",
+      "status": "FAIL",
+      "detail": {
+        "actualKeys": [
+          [
+            "id",
+            "jobId",
+            "positionId",
+            "mode",
+            "removedKnown",
+            "removedDesc",
+            "removedSerial",
+            "item",
+            "qty",
+            "uom",
+            "replacedOn",
+            "note",
+            "state",
+            "eventId"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "F1-source-history-preserved",
+      "status": "PASS",
+      "detail": {
+        "completedOn": "2026-08-12",
+        "eventKinds": [
+          "created",
+          "completed",
+          "reopened"
+        ],
+        "corrections": 1
+      }
+    },
+    {
+      "id": "F1-reference-isolation",
+      "status": "FAIL",
+      "detail": {
+        "jobDetached": false,
+        "positionDetached": false,
+        "scopeDetached": false
+      }
+    },
+    {
+      "id": "F2-filtered-numerator-denominator",
+      "status": "FAIL",
+      "detail": [
+        {
+          "q": {},
+          "want": {
+            "n": 8,
+            "ok": 6,
+            "pct": 75
+          },
+          "actual": {
+            "n": 8,
+            "ok": 6,
+            "pct": 75
+          }
+        },
+        {
+          "q": {
+            "discipline": "electrical"
+          },
+          "want": {
+            "n": 0,
+            "ok": 0,
+            "pct": null
+          },
+          "actual": {
+            "n": 8,
+            "ok": 6,
+            "pct": 75
+          }
+        },
+        {
+          "q": {
+            "discipline": "civil"
+          },
+          "want": {
+            "n": 8,
+            "ok": 6,
+            "pct": 75
+          },
+          "actual": {
+            "n": 8,
+            "ok": 6,
+            "pct": 75
+          }
+        },
+        {
+          "q": {
+            "type": "inspection"
+          },
+          "want": {
+            "n": 7,
+            "ok": 5,
+            "pct": 71
+          },
+          "actual": {
+            "n": 8,
+            "ok": 6,
+            "pct": 75
+          }
+        },
+        {
+          "q": {
+            "type": "service"
+          },
+          "want": {
+            "n": 1,
+            "ok": 1,
+            "pct": 100
+          },
+          "actual": {
+            "n": 8,
+            "ok": 6,
+            "pct": 75
+          }
+        },
+        {
+          "q": {
+            "mode": "inHouse"
+          },
+          "want": {
+            "n": 0,
+            "ok": 0,
+            "pct": null
+          },
+          "actual": {
+            "n": 8,
+            "ok": 6,
+            "pct": 75
+          }
+        },
+        {
+          "q": {
+            "mode": "outsource"
+          },
+          "want": {
+            "n": 0,
+            "ok": 0,
+            "pct": null
+          },
+          "actual": {
+            "n": 8,
+            "ok": 6,
+            "pct": 75
+          }
+        },
+        {
+          "q": {
+            "mode": "none"
+          },
+          "want": {
+            "n": 8,
+            "ok": 6,
+            "pct": 75
+          },
+          "actual": {
+            "n": 8,
+            "ok": 6,
+            "pct": 75
+          }
+        },
+        {
+          "q": {
+            "pic": "unassigned"
+          },
+          "want": {
+            "n": 8,
+            "ok": 6,
+            "pct": 75
+          },
+          "actual": {
+            "n": 8,
+            "ok": 6,
+            "pct": 75
+          }
+        },
+        {
+          "q": {
+            "pic": "me"
+          },
+          "want": {
+            "n": 0,
+            "ok": 0,
+            "pct": null
+          },
+          "actual": {
+            "n": 8,
+            "ok": 6,
+            "pct": 75
+          }
+        },
+        {
+          "q": {
+            "discipline": "civil",
+            "type": "inspection",
+            "mode": "none",
+            "pic": "unassigned"
+          },
+          "want": {
+            "n": 7,
+            "ok": 5,
+            "pct": 71
+          },
+          "actual": {
+            "n": 8,
+            "ok": 6,
+            "pct": 75
+          }
+        },
+        {
+          "q": {
+            "discipline": "civil",
+            "type": "inspection",
+            "mode": "none",
+            "pic": "unassigned"
+          },
+          "want": {
+            "n": 7,
+            "ok": 5,
+            "pct": 71
+          },
+          "actual": {
+            "n": 8,
+            "ok": 6,
+            "pct": 75
+          }
+        },
+        {
+          "q": {
+            "discipline": "civil",
+            "type": "service",
+            "mode": "none",
+            "pic": "unassigned"
+          },
+          "want": {
+            "n": 1,
+            "ok": 1,
+            "pct": 100
+          },
+          "actual": {
+            "n": 8,
+            "ok": 6,
+            "pct": 75
+          }
+        },
+        {
+          "q": {
+            "discipline": "civil",
+            "type": "inspection",
+            "mode": "none",
+            "pic": "unassigned"
+          },
+          "want": {
+            "n": 7,
+            "ok": 5,
+            "pct": 71
+          },
+          "actual": {
+            "n": 8,
+            "ok": 6,
+            "pct": 75
+          }
+        },
+        {
+          "q": {
+            "discipline": "civil",
+            "type": "inspection",
+            "mode": "none",
+            "pic": "unassigned"
+          },
+          "want": {
+            "n": 7,
+            "ok": 5,
+            "pct": 71
+          },
+          "actual": {
+            "n": 8,
+            "ok": 6,
+            "pct": 75
+          }
+        },
+        {
+          "q": {
+            "discipline": "civil",
+            "type": "inspection",
+            "mode": "none",
+            "pic": "unassigned"
+          },
+          "want": {
+            "n": 7,
+            "ok": 5,
+            "pct": 71
+          },
+          "actual": {
+            "n": 8,
+            "ok": 6,
+            "pct": 75
+          }
+        },
+        {
+          "q": {
+            "discipline": "civil",
+            "type": "inspection",
+            "mode": "none",
+            "pic": "unassigned"
+          },
+          "want": {
+            "n": 7,
+            "ok": 5,
+            "pct": 71
+          },
+          "actual": {
+            "n": 8,
+            "ok": 6,
+            "pct": 75
+          }
+        },
+        {
+          "q": {
+            "discipline": "civil",
+            "type": "inspection",
+            "mode": "none",
+            "pic": "unassigned"
+          },
+          "want": {
+            "n": 7,
+            "ok": 5,
+            "pct": 71
+          },
+          "actual": {
+            "n": 8,
+            "ok": 6,
+            "pct": 75
+          }
+        }
+      ]
+    },
+    {
+      "id": "F2-empty-population",
+      "status": "FAIL",
+      "detail": {
+        "active": 18,
+        "completed": 1,
+        "inProgress": 3,
+        "onHold": 1,
+        "overdue": 1,
+        "dueSoon": 1,
+        "onTimePct": 75,
+        "onTimeN": 8,
+        "onTimeOk": 6,
+        "checksDone": 1,
+        "checksTotal": 1
+      }
+    },
+    {
+      "id": "F2-unfiltered-regression",
+      "status": "PASS",
+      "detail": {
+        "active": 114,
+        "completed": 14,
+        "inProgress": 7,
+        "onHold": 2,
+        "overdue": 7,
+        "dueSoon": 5,
+        "onTimePct": 75,
+        "onTimeN": 8,
+        "onTimeOk": 6,
+        "checksDone": 4,
+        "checksTotal": 14
+      }
+    },
+    {
+      "id": "F2-completion-window-scope",
+      "status": "PASS",
+      "detail": {
+        "actual": {
+          "active": 40,
+          "completed": 7,
+          "inProgress": 3,
+          "onHold": 0,
+          "overdue": 4,
+          "dueSoon": 0,
+          "onTimePct": 75,
+          "onTimeN": 8,
+          "onTimeOk": 6,
+          "checksDone": 0,
+          "checksTotal": 0
+        },
+        "expected": {
+          "n": 8,
+          "ok": 6,
+          "pct": 75
+        }
+      }
+    }
+  ]
+}

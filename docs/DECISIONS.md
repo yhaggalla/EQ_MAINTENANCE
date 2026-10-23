@@ -240,6 +240,13 @@ V2 contract defaults (SOW V2 revision 4, requirements v2.0). Full context: `docs
 | D-143 | FAC dashboard readability: two-line ticker items 30 em wide (full job names); due-load chart drawn 720 x 140 with larger labels; on screens at least 1200 x 900 the lanes (min 21.5 rem, at least four rows) and a 13.5 rem bottom row share the height so ticker, latest proof and due load are on the first 1920 x 1080 screen | R02B finding 6; UX_SPEC s21; checked by H04-H10, K02 |
 | D-144 | Regression-check corrections: P02 C18 is marked "P02B adapted" and again asserts that the position's event count is unchanged; C27 asserts the selected part's record (Technical tab, serial SYN-0001) in every viewer fallback state; P3-06 expects the P03 viewer's links to open P02 as the same read-only Management persona | R02B findings 4 and 7 |
 
+### Repair-R02B round 2 additions (23 October 2026)
+
+| ID | Decision | Basis |
+| --- | --- | --- |
+| D-145 | Fleet Projects/Special uses a distinct allowlisted `CurrentSpecialJob` DTO, never a `JobSummary` or full replacement line: job identity, equipment/target identity, kind, title, Pending/Current state, planned date and matching position identities/names only. Reopened jobs retain prior completion/events/corrections internally, but the current-state projection excludes all history fields and replacement installation/removal details regardless of whether EQ Jobs is also enabled. Prototype values are detached from the stored job, position matches and caller scope. Current cards show matching position names only | Repeat R02B finding 1; ACC02, S19, S07, HIS06; API s4.16, DATA s18.1 |
+| D-146 | FAC 30-day on-time numerator and denominator apply the same discipline/type/mode/PIC predicates as the board. Zero eligible cycles returns null percentage and 0/0 basis. Preserve the existing completion-window population, including matching jobs later closed/deactivated; current-state blocks still use active jobs. KPI focus narrows lane rows only. No source fixture or completion history is rewritten | Repeat R02B finding 2; FDB01, S27; DATA s18.4, API s4.25 |
+
 ### P01B supersessions (22 October 2026)
 
 Every P01/R01/P02 rule not listed here still holds. Each superseded rule was changed by a confirmed V2 decision (B-13 to B-20) or by the user's U1 round 4 instruction (U1-C19); the replacement is the authority from now on.

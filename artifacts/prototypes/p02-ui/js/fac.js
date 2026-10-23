@@ -283,11 +283,12 @@ window.EQ = window.EQ || {};
     const deny = EQ.access.srv('fac.dashboard.view'); if (deny) return deny;
     q = q || {};
     const today = EQ.todayColombo(), d = D(), set = d.settings;
-    const active = F.filterJobs(d.jobs.filter((j) => j.state === 'active'), q);
+    const filtered = F.filterJobs(d.jobs, q);
+    const active = filtered.filter((j) => j.state === 'active');
     const infos = active.map((j) => ({ j, i: F.info(j, today) }));
     const rolling = infos.filter((x) => !x.i.period);
     // on-time: rolling cycles with a due date completed in [today-29, today]
-    const win = []; d.jobs.forEach((j) => { if (isPeriod(j)) return; j.cycles.filter((c) => c.state === 'completed' && c.dueOn && c.completedOn >= addDays(today, -29) && c.completedOn <= today).forEach((c) => win.push({ ok: c.completedOn <= c.dueOn })); });
+    const win = []; filtered.forEach((j) => { if (isPeriod(j)) return; j.cycles.filter((c) => c.state === 'completed' && c.dueOn && c.completedOn >= addDays(today, -29) && c.completedOn <= today).forEach((c) => win.push({ ok: c.completedOn <= c.dueOn })); });
     const dailies = infos.filter((x) => x.j.freqCode === 'daily' && x.j.kind === 'recurring');
     const kpi = {
       active: infos.length, completed: infos.filter((x) => x.i.status === 'completed').length, inProgress: infos.filter((x) => x.i.status === 'inProgress').length, onHold: infos.filter((x) => x.i.status === 'onHold').length, overdue: infos.filter((x) => x.i.overdue).length,
