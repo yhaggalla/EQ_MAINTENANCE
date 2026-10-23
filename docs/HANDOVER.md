@@ -2,6 +2,14 @@
 
 Rolling handover for CICT EQ Maintenance. Each phase appends its record; the newest is first.
 
+## 24 October 2026 - U1-C35 selected spare-part condition repair
+
+**U1 remains IN PROGRESS / CHANGES REQUESTED, NOT COMPLETE and NOT APPROVED; P04 is Not started.** Baseline `aaa84ad` on `main`. Active Codex agent; model/effort not independently recorded; no delegated or independent R review. Exact prompt: `docs/runs/Repair-U1-C35-20261024.md`.
+
+Reproduced the user's Spreader frame case: the part was already registered with no condition. Its Add action opened an empty position picker because Add excludes registered positions. Registered cards now offer Update condition using the existing dialog; a selected registered part no longer offers Add. Unregistered selected parts still use Add and refresh into a registered card after saving. Legacy Add calls with an already registered position open its condition dialog. Existing role/data validation and prior-value history remain intact. No persistence or model change.
+
+Source: `artifacts/prototypes/p02-ui/js/{panel-tabs,views-eqjobs}.js`; checks: `tools/p02b/check_u1_c35.mjs`. The focused browser flow covers immediate 3D/Flat updates, Original/replacement/amendment, invalid/cancel, new registration, isolation, area/Jobs consistency and read-only denial. Results, prior regressions and screenshots: `docs/evidence/U1/spare-panel-c35/REPORT.md`. The unrelated RTG handover edit is excluded. Next: continue U1 walkthrough/refinements; await explicit approval before P04.
+
 ## 24 October 2026 - U1-C34 viewer refinements
 
 **U1 is IN PROGRESS / CHANGES REQUESTED, NOT COMPLETE and NOT APPROVED.** These adjustments extend the same checkpoint; P04 is Not started. Baseline `37ff115` on `main`; this record and the C34 implementation are committed together. Active Codex agent; no delegated phase or independent R verdict, model/effort not independently recorded. Exact request: `docs/runs/Repair-U1-C34-20261024.md`.

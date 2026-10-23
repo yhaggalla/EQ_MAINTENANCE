@@ -127,15 +127,23 @@ window.EQ = window.EQ || {};
     const box = h('div', { class: 'stack' });
     const rows = EQ.spares.rows(eq.id, scope.level === 'equipment' ? null : scope);
     const c = EQ.spares.counts(rows);
+    const canUpdate = EQ.perm.write() && eq.lifecycle === 'active' && EQ.dlg?.spare;
     box.appendChild(h('p', { class: 'small muted', style: 'margin:0' }, 'Current condition of the major spare parts registered for ' + eq.code + (scope.level === 'equipment' ? '.' : ' in this selection.') + ' Earlier changes are kept in Jobs > Spare parts condition.'));
     if (scope.level === 'part' && !rows.length) box.appendChild(h('div', { class: 'nonwork' }, h('strong', null, 'Not a major spare part'), 'This position is not in the spare-part register of ' + eq.code + '. The EQ Team or an Admin can add it.'));
     else if (!rows.length) box.appendChild(h('div', { class: 'nonwork' }, h('strong', null, 'No major spare parts in this selection'), 'Nothing here is in the register of ' + eq.code + '.'));
     else {
       box.appendChild(h('div', { class: 'row', role: 'group', 'aria-label': 'Spare part flags in this scope' }, tag(rows.length + ' registered'), tag(c.overdue + ' overdue', c.overdue ? 'red' : ''), tag(c.dueSoon + ' due soon', c.dueSoon ? 'gold' : '')));
-      box.appendChild(h('ul', { class: 'tl' }, rows.map((r) => P.sparePartRow(r))));
+      box.appendChild(h('ul', { class: 'tl' }, rows.map((r) => {
+        const row = P.sparePartRow(r);
+        if (canUpdate) row.appendChild(h('div', { class: 'row' }, h('button', { type: 'button', class: 'btn-sm',
+          'data-fk': 'update-spare-' + r.posId, 'aria-label': 'Update condition for ' + r.pos.name,
+          onClick: () => EQ.dlg.spare(EQ.spares.row(r.posId)) }, icon('edit'), 'Update condition')));
+        return row;
+      })));
     }
     // U1-C21: EQ Team and Admin add a spare part, pre-filled with the equipment and the selection (a part is pre-selected when it can be added)
-    const addSpare = EQ.perm.write() && eq.lifecycle === 'active' && EQ.dlg && EQ.dlg.addSpare ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'add-spare', onClick: () => EQ.dlg.addSpare({ equipmentId: eq.id, main: sel.main || '', sub: sel.sub || '', part: sel.part || '' }) }, icon('plus'), 'Add spare part') : null;
+    const selectedRegistered = scope.level === 'part' && rows.some((r) => r.posId === sel.part);
+    const addSpare = !selectedRegistered && EQ.perm.write() && eq.lifecycle === 'active' && EQ.dlg && EQ.dlg.addSpare ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'add-spare', onClick: () => EQ.dlg.addSpare({ equipmentId: eq.id, main: sel.main || '', sub: sel.sub || '', part: sel.part || '' }) }, icon('plus'), 'Add spare part') : null;
     box.appendChild(h('div', { class: 'row' }, openInJobs(eq, scope, 'spareParts'), addSpare));
     return box;
   };

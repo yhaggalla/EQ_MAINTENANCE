@@ -265,6 +265,9 @@ window.EQ = window.EQ || {};
   function addSpareDialog(prefill) {
     const K = kit(), P = EQ.spares;
     prefill = prefill || {};
+    // U1-C35: a selected registered position needs its condition updated, not an empty Add form.
+    const selected = EQ.pos(prefill.part);
+    if (selected && selected.equipmentId === prefill.equipmentId && P.isMajor(selected.id)) return spareDialog(P.row(selected.id));
     const st = { equipmentId: prefill.equipmentId || '', mainId: prefill.main || '', subId: prefill.sub || '', posId: '', typeId: '', lifeMonths: '', cond: null, replacedOn: '', desc: '', brand: '', model: '', serial: '', remarks: '' };
     const eq0 = EQ.eq(st.equipmentId);
     if (eq0 && prefill.part && P.addable(eq0.id).some((p) => p.id === prefill.part)) { const pp = EQ.pos(prefill.part); st.posId = pp.id; st.mainId = pp.mainId; st.subId = pp.subId; }

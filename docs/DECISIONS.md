@@ -404,7 +404,7 @@ None of these blocks P01. Each is modelled as configurable data or a visible sou
 
 | Checkpoint | Date | Decision | Notes |
 | --- | --- | --- | --- |
-| U1 (after R02/R02B) | 2026-10-24 | **CHANGES REQUESTED - IN PROGRESS; NOT COMPLETE / NOT APPROVED** | User explicitly confirmed all adjustments remain U1 and U1 is not completed. Request history U1-C01..C34 follows below; current C34 evidence: `docs/evidence/U1/viewer-refinements-c34/REPORT.md`. Latest committed repairs: `86018c9`, `32081d0`, C32 `4a8b270`, C33 `7d773fa`; commits and prototype checks are not checkpoint approval. Continue U1 review/refinements; FAC Dashboard restyle waits for the user's EQ review. P04 remains Not started until explicit U1 approval is recorded here. |
+| U1 (after R02/R02B) | 2026-10-24 | **CHANGES REQUESTED - IN PROGRESS; NOT COMPLETE / NOT APPROVED** | User explicitly confirmed all adjustments remain U1 and U1 is not completed. Request history U1-C01..C35 follows below; C34 evidence: `docs/evidence/U1/viewer-refinements-c34/REPORT.md`. Latest committed repairs: `86018c9`, `32081d0`, C32 `4a8b270`, C33 `7d773fa`; commits and prototype checks are not checkpoint approval. C35 selected spare repair: `docs/evidence/U1/spare-panel-c35/REPORT.md`. Continue U1 review/refinements; FAC Dashboard restyle waits for the user's EQ review. P04 remains Not started until explicit U1 approval is recorded here. |
 | U2 (after P11) | not yet reached | | |
 
 ### 2026-10-21 U1 CHANGES REQUESTED
@@ -567,3 +567,15 @@ This clarification classifies the existing adjustments; it is not a new numbered
 | D-177 | Flat remains initial unless a link selects 3D. 3D home uses the supplied waterside three-quarter reference, boom to the right and quay/sea diagonal below, fitting the individual assembly bounds for the current aspect. Reset preserves Flat/3D and restores its full-crane home framing while clearing selection/isolation and restoring labels/tree folds. Resize refits isolated areas/selected parts, and unchanged host dimensions do not trigger refitting. | Latest U1-C34 request supersedes D-171's forced-Flat Reset rule. The 3D reference is a visual camera target, not new crane geometry. |
 
 Evidence and limitations: `docs/evidence/U1/viewer-refinements-c34/REPORT.md`; exact prompt: `docs/runs/Repair-U1-C34-20261024.md`. **U1 is IN PROGRESS / CHANGES REQUESTED, NOT COMPLETE and NOT APPROVED.** P04 is Not started.
+
+### 2026-10-24 U1 CHANGES REQUESTED (U1-C35: selected spare part does not update)
+
+| ID | User request / reproduced cause |
+| --- | --- |
+| U1-C35 | "when add spare part from selected view, its not updating.." Screenshot shows selected Spreader frame already registered but Not recorded. The Add form excludes registered positions, leaving an empty position list. The selected registered part needs its condition recorded/updated. |
+
+| Decision | Implementation rule | Basis |
+| --- | --- | --- |
+| D-178 | Registered spare-part cards offer Update condition to active-equipment writers using the existing condition dialog and mutation rules. A registered exact-part selection no longer offers Add spare part; unregistered selections still offer Add with that position prefilled. Legacy Add calls for a registered selected position open its condition dialog. Save refreshes the current card, aggregates and Jobs from the shared state, preserving equipment/part/view/isolation, prior values and the register's single position identity. | U1-C35; no change to role ceilings, Admin-only type/life settings, registration validation or prototype persistence. Earlier work is preserved in history. |
+
+Evidence: `docs/evidence/U1/spare-panel-c35/REPORT.md`; exact request: `docs/runs/Repair-U1-C35-20261024.md`. U1 remains **NOT COMPLETE / NOT APPROVED**. P04 is Not started.

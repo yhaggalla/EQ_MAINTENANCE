@@ -1,0 +1,19 @@
+{
+  "before": {
+    "selected": "pp-q01-022",
+    "registered": true,
+    "condition": null,
+    "panel": "Current condition of the major spare parts registered for QC-DEMO-01 in this selection. Earlier changes are kept in Jobs > Spare parts condition.1 registered0 overdue0 due soonSpreader frameNot recordedSpreader · 06 / 061Condition not recorded. This does not show that the part is original, healthy or never replaced. No prediction (condition not recorded)Open in JobsAdd spare part"
+  },
+  "form": {
+    "title": "Add spare part - QC-DEMO-01",
+    "pos": "",
+    "options": [
+      {
+        "id": "",
+        "name": "No position left to add here"
+      }
+    ],
+    "errors": "Add spare part - QC-DEMO-01Adds a main-part position of one equipment to its major spare-part register and records its first condition; the entry starts its own history. EQ Team and Admin can add parts (U1-C21). Spare-part types and their default expected life are Admin settings; changing the type of an added part or removing it from the register is done by an Admin in Admin > EQ > Spare parts. Prototype: kept in memory only.EquipmentChoose equipmentQC-DEMO-01QC-DEMO-02RTG-DEMO-01RTG-DEMO-02RTG-DEMO-03ES-DEMO-01Main mechanismAll main mechanisms01  Hoist02  Trolley03  Boom04  Gantry05  Control Power06  Spreader07  Driver System08  PLC11  Skew system12  HV system13  Lighting14  Cabin15  Auxiliary system16  Emergency mechanism17  OtherNarrows the position list.SubmechanismAll submechanisms061  Spreader062  HeadblockMain-part positionNo position left to add hereConfirmed (active) positions of QC-DEMO-01 that are not yet in its register.Spare-part typeChoose a typeHoist motor (120 months)Hoist gearbox (180 months)Hoist brake (96 months)Wire rope set, main hoist (36 months)Wire rope set, boom hoist (48 months)Wire rope set, trolley (36 months)Trolley wheel (60 months)Spreader (240 months)Tyre set (36 months)Engine (no default life)Expected life (months)Leave blank to use the part-type default. A value here applies to this equipment only.Condition *OriginalReplacedItem descriptionBrandModel / part number (optional)Serial number (optional)RemarksCancelAdd spare part"
+  }
+}
