@@ -1,5 +1,8 @@
 # CICT EQ Maintenance - P03 QC model prototype
 
+> **Current entry (U1-C32):** Run `node artifacts/prototypes/p02-ui/serve.mjs 5312` and open `http://127.0.0.1:5312/#/eq/equipment/eq-qc-demo-01`. One renderer/model now supplies 3D and fixed-side Flat modes within the equipment page. The P03 entry redirects saved links to that page. Older separate-page/SVG descriptions and tests below are historical; current checks are `tools/p02b/check_unified_viewer.mjs`. The P03 model, renderer and capture helpers remain shared source/evidence assets.
+
+
 Interactive Three.js prototype of the drawing-derived CICT-J526A-STS model (version 1). **Synthetic equipment, bindings and history only. Nothing is saved, there is no sign-in, and the QC-DEMO association is not a fleet fact.**
 
 ## Run

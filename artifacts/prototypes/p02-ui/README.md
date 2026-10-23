@@ -1,5 +1,8 @@
 # CICT EQ & FAC Maintenance - P02 / P02B interface prototype
 
+> **Current entry (U1-C32):** Run `node artifacts/prototypes/p02-ui/serve.mjs 5312` and open `http://127.0.0.1:5312/#/eq/equipment/eq-qc-demo-01`. One renderer/model now supplies 3D and fixed-side Flat modes within the equipment page. The P03 entry redirects saved links to that page. Older separate-page/SVG descriptions and tests below are historical; current checks are `tools/p02b/check_unified_viewer.mjs`. The P03 model, renderer and capture helpers remain shared source/evidence assets.
+
+
 Static review prototype. **Synthetic data only. Nothing is saved, there is no sign-in, there is no live ZMMS connection, and the persona switch is a simulation of the Portal role assignment.** P02B (22 October 2026) extended it to SOW V2: EQ | FAC sections, Access matrix, the four-tab crane panel (U1-C19), EQ Jobs in three parts, ZMMS daily jobs and automatic status, the spare-part register, the FAC Dashboard and FAC Jobs (114 jobs from `reference/fac-job-list.json`) and the matching Admin screens.
 
 ## Run

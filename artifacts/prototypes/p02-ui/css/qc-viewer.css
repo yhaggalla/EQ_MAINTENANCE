@@ -1,0 +1,23 @@
+/* Shared model viewport; scoped so fleet/FAC styles are unaffected. */
+.unified-qc { overflow: hidden; --sel: #1677ff; --work: #6941a5; }
+.unified-qc .vp-bar { gap: 8px; }
+.unified-qc .vp-bar button { min-height: 44px; min-width: 44px; }
+.unified-qc-stage { position: relative; height: clamp(360px, 62vh, 720px); overflow: hidden; background: #e9eef2; }
+.unified-qc .qc-notice { position: absolute; z-index: 3; bottom: 8px; left: 8px; right: 8px; margin: 0; padding: 8px; border-radius: 4px; background: #fff; color: #173550; font-size: 13px; }
+.unified-qc .qc-notice[hidden] { display: none; }
+.unified-qc .qc-notice button { margin-left: 8px; }
+.unified-qc .vp-info { flex-wrap: wrap; }
+.qc-canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+.qc-labels { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.qc-label { position: absolute; left: 0; top: 0; background: rgba(255,255,255,.93); border: 1px solid #8b99a6; border-radius: 3px; padding: 1px 5px; font-size: 11.5px; white-space: nowrap; color: var(--ink); line-height: 1.35; }
+.qc-label.hover { border-color: var(--sel); background: #fff; }
+.qc-label.tier1 { font-weight: 600; border-color: #51657a; }
+.qc-label.tier2 { border-color: #51657a; background: rgba(247,250,252,.96); }
+.qc-label.hidden-in-mode { border-style: dashed; }
+.qc-leaders { position: absolute; left: 0; top: 0; pointer-events: none; overflow: visible; }
+.qc-leaders line { stroke: #51657a; stroke-width: 1; } .qc-leaders circle { fill: #51657a; }
+.qc-label.sel { border-color: var(--sel); box-shadow: 0 0 0 1px var(--sel); font-weight: 600; }
+.qc-badge { margin-left: 4px; font-size: 10px; background: #e6f4f8; color: #0b4f63; border-radius: 2px; padding: 0 3px; }
+.qc-work { margin-left: 4px; font-size: 10px; background: var(--work); color: #fff; border-radius: 8px; padding: 0 5px; }
+.qc-label.edge { background: rgba(240,244,248,.95); border-style: dotted; }
+.qc-label .qc-arrow { display: inline-block; margin-right: 4px; color: #0b4fb8; font-weight: 700; }

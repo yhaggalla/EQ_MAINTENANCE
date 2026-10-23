@@ -1,0 +1,115 @@
+{
+  "ranAt": "2026-10-23T16:28:26.537Z",
+  "p02": "http://127.0.0.1:5325/",
+  "head": "http://127.0.0.1:5322/",
+  "note": "Prototype-level checks only (synthetic data, simulated personas, no persistence, no ZMMS contact).",
+  "pass": 8,
+  "total": 9,
+  "results": [
+    {
+      "id": "R8-01",
+      "covers": [
+        "U1-C28",
+        "S02",
+        "OPS02",
+        "FDB05"
+      ],
+      "name": "EQ Fleet TV mode (#/eq/fleet?tv=1) at 1920x1080 for every role that can see EQ Fleet: navigation hidden, visible \"EQ Fleet\" title, the whole synthetic fleet on one screen without page scroll, large type (code >= 22 px, KPI numbers >= 40 px, card text >= 15 px), read-only (no links, inputs or editing buttons; only Pause and Exit TV mode), auto-refresh note; a role without EQ Fleet gets the 403 / No access page and no TV",
+      "status": "PASS",
+      "detail": "{\"admin\":{\"tv\":true,\"topbar\":\"none\",\"h1\":\"EQ Fleet\",\"h1px\":32,\"scroll\":0,\"cards\":16,\"visible\":16,\"active\":16,\"inView\":true,\"codePx\":24,\"metaPx\":16,\"durPx\":16.8,\"kpiPx\":46.4,\"links\":0,\"inputs\":0,\"buttons\":[\"Pause\",\"Exit TV mode\"],\"updated\":\"Updated 21:56 Asia/Colombo · refreshes every 60 s\",\"pages\":1},\"eqTeam\":{\"tv\":true,\"topbar\":\"none\",\"h1\":\"EQ Fleet\",\"h1px\":32,\"scroll\":0,\"cards\":16,\"visible\":16,\"active\":16,\"inView\":true,\"codePx\":24,\"metaPx\":16,\"durPx\":16.8,\"kpiPx\":46.4,\"links\":0,\"inputs\":0,\"buttons\":[\"Pause\",\"Exit TV mode\"],\"updated\":\"Updated 21:56 Asia/Colombo · refreshes every 60 s\",\"pages\":1},\"management\":{\"tv\":true,\"topbar\":\"none\",\"h1\":\"EQ Fleet\",\"h1px\":32,\"scroll\":0,\"cards\":16,\"visible\":16,\"active\":16,\"inView\":true,\"codePx\":24,\"metaPx\":16,\"durPx\":16.8,\"kpiPx\":46.4,\"links\":0,\"inputs\":0,\"buttons\":[\"Pause\",\"Exit TV mode\"],\"updated\":\"Updated 21:56 Asia/Colombo · refreshes every 60 s\",\"pages\":1},\"eqfac\":{\"tv\":true,\"topbar\":\"none\",\"h1\":\"EQ Fleet\",\"h1px\":32,\"scroll\":0,\"cards\":16,\"visible\":16,\"active\":16,\"inView\":true,\"codePx\":24,\"metaPx\":16,\"durPx\":16.8,\"kpiPx\":46.4,\"links\":0,\"inputs\":0,\"buttons\":[\"Pause\",\"Exit TV mode\"],\"updated\":\"Updated 21:56 Asia/Colombo · refreshes every 60 s\",\"pages\":1},\"facTeamOff\":{\"tv\":false,\"text\":\"403 - This tab is not available for your roleThe feature \\\"EQ Fleet tab and equipment detail (view)\\\" is switched off for your role in Admin > Access (403 feature\",\"cards\":0},\"noAccess\":{\"tv\":false,\"text\":\"No accessYour Portal role is recognised, but no tab of EQ & FAC Maintenance is s\"}}"
+    },
+    {
+      "id": "R8-02",
+      "covers": [
+        "U1-C28",
+        "S02",
+        "S03",
+        "OPS01"
+      ],
+      "name": "TV mode behaviour: URL-addressable (TV button opens ?tv=1 with the current type/status/source filters; ?tv=1&type=QC shows only QC); refresh on the same poll (EQ.refresh, as the 60 s timer calls it, updates the time; a status change by an EQ Team writer reaches the TV view and its counts); Esc and Exit TV mode return to the normal fleet with the filters kept; counts reconcile with the cards",
+      "status": "PASS",
+      "detail": "{\"viaBtn\":{\"hash\":\"#/eq/fleet?type=QC&source=auto&tv=1\",\"tv\":true,\"types\":[\"QC\"],\"n\":4,\"want\":4},\"afterEsc\":{\"hash\":\"#/eq/fleet?type=QC&source=auto\",\"tv\":false,\"topbar\":\"flex\"},\"t0\":\"Updated 21:54 Asia/Colombo · refreshes every 60 s\",\"before\":{\"blink\":null,\"maint\":\"3\"},\"after\":{\"blink\":\"maintenance\",\"maint\":\"4\",\"cards\":16,\"kpi\":{\"total\":\"16\",\"share\":\"38 %\",\"readyForOps\":\"6\",\"breakdown\":\"3\",\"maintenance\":\"4\",\"unreported\":\"3\"},\"upd\":\"Updated 21:56 Asia/Colombo · refreshes every 60 s\"},\"afterExit\":{\"hash\":\"#/eq/fleet\",\"tv\":false,\"links\":16},\"qcOnly\":{\"types\":[\"QC\"],\"groups\":1,\"total\":\"6\"}}"
+    },
+    {
+      "id": "R8-03",
+      "covers": [
+        "U1-C28",
+        "OPS02"
+      ],
+      "name": "TV mode when the fleet does not fit one screen (1366x768, and 1920x1080 with 40 extra synthetic RTGs added in memory for this check): no page scroll, the cards are split into pages that each fit, every active card is on exactly one page, \"Page n of m\" shown; the page turns every 10 s and Pause stops the turn",
+      "status": "PASS",
+      "detail": "{\"s1366\":{\"pages\":2,\"fits\":true,\"all\":true,\"extra\":0,\"scroll\":0,\"pager\":\"Page 2 of 2 · next page in 10 s\"},\"s1920big\":{\"pages\":3,\"fits\":true,\"all\":true,\"extra\":0,\"scroll\":0,\"pager\":\"Page 3 of 3 · next page in 10 s\"},\"rot\":{\"turned\":1,\"pausedPage\":1,\"paused\":true,\"txt\":\"Page 2 of 2 · paused\"}}"
+    },
+    {
+      "id": "R8-04",
+      "covers": [
+        "U1-C29",
+        "VIS06",
+        "VIS10",
+        "S02"
+      ],
+      "name": "QC, RTG and ES illustrations on the fleet cards, group headers and the KPI tile (normal and TV): in-house inline SVG with the recognisable parts (QC: boom, A-frame, forestays, backstay, legs, portal, machinery house, trolley, cab, ropes, spreader, container; RTG: legs, girder, trolley, cab, spreader, container rows, tyres, e-house; ES: mast, side-pick spreader, empty container, cab, counterweight, wheels), each card shows its own type, CICT red on QC/RTG structure, no images, external references, gradients or canvases; QC proportions follow the drawing (boom tip to waterside leg : rail gauge = 75.9 : 30 within 5 %)",
+      "status": "PASS",
+      "detail": "{\"normal\":{\"count\":22,\"places\":{\"kpi\":3,\"group\":3,\"card\":16},\"types\":[\"ES\",\"QC\",\"RTG\"],\"missing\":[],\"cardTypeOk\":true,\"images\":false,\"canvases\":0,\"ratio\":2.537,\"want\":2.53,\"reds\":[\"#c7261c\",\"#c7261c\"],\"aria\":true},\"tv\":{\"count\":22,\"places\":{\"kpi\":3,\"group\":3,\"card\":16},\"types\":[\"ES\",\"QC\",\"RTG\"],\"missing\":[],\"cardTypeOk\":true,\"images\":false,\"canvases\":0,\"ratio\":2.537,\"want\":2.53,\"reds\":[\"#c7261c\",\"#c7261c\"],\"aria\":true}}"
+    },
+    {
+      "id": "R8-05",
+      "covers": [
+        "U1-C30",
+        "VIS06",
+        "OPS02"
+      ],
+      "name": "Blink: every active Breakdown card pulses rose (2.5 s, 0.4 flashes/s) and every Maintenance card amber (3.5 s, 0.29 flashes/s), both below 3 flashes per second, with different colours, rhythm and stripe pattern (solid / dashed); Ready for OPS and Unreported never blink; status stays as icon + text badge and in the accessible name; the blink changes no layout (card boxes identical at 0, 25, 50, 75 % of the cycle); peak colours differ in hue from each other (>= 40 degrees) and from the CICT paint red; also in TV mode",
+      "status": "PASS",
+      "detail": "{\"hueGap\":62,\"normal\":{\"peaks\":{\"maintenance\":\"rgb(250, 226, 160)\",\"breakdown\":\"rgb(251, 217, 227)\"},\"sameBoxes\":true,\"anims\":6,\"cards\":[\"qc-demo-01:maintenance:3.5s:dashed\",\"qc-demo-02:-:0s:none\",\"qc-demo-03:-:0s:none\",\"qc-demo-04:breakdown:2.5s:rgb(194, 65, 107)\",\"qc-demo-05:-:0s:none\",\"qc-demo-06:maintenance:3.5s:dashed\",\"rtg-demo-01:-:0s:none\",\"rtg-demo-02:-:0s:none\",\"rtg-demo-03:breakdown:2.5s:rgb(194, 65, 107)\",\"rtg-demo-04:-:0s:none\",\"rtg-demo-05:-:0s:none\",\"rtg-demo-06:maintenance:3.5s:dashed\",\"es-demo-01:-:0s:none\",\"es-demo-02:-:0s:none\",\"es-demo-03:-:0s:none\",\"es-demo-04:breakdown:2.5s:rgb(194, 65, 107)\"]},\"tv\":{\"peaks\":{\"maintenance\":\"rgb(250, 226, 160)\",\"breakdown\":\"rgb(251, 217, 227)\"},\"sameBoxes\":true,\"anims\":6}}"
+    },
+    {
+      "id": "R8-06",
+      "covers": [
+        "U1-C30",
+        "OPS02",
+        "FDB03"
+      ],
+      "name": "Reduced motion, Pause and motion=off: with prefers-reduced-motion the blinking cards show a steady highlighted fill and ring (no animation) in normal and TV mode; the Pause blinking control (aria-pressed) gives the same steady state and Resume restores the blink; ?motion=off starts paused with the control disabled; the legend and badges keep the meaning without colour",
+      "status": "PASS",
+      "detail": "{\"normalReduced\":[\"m:none:rgb(254, 245, 220)\",\"b:none:rgb(253, 232, 238)\",\"m:none:rgb(254, 245, 220)\",\"b:none:rgb(253, 232, 238)\"],\"tvReduced\":[\"m:none:rgb(254, 245, 220)\",\"b:none:rgb(253, 232, 238)\",\"m:none:rgb(254, 245, 220)\",\"b:none:rgb(253, 232, 238)\"],\"paused\":[\"m:none:rgb(254, 245, 220)\",\"b:none:rgb(253, 232, 238)\",\"m:none:rgb(254, 245, 220)\",\"b:none:rgb(253, 232, 238)\"],\"pausedBtn\":{\"pressed\":\"true\",\"text\":\"Resume blinking\",\"page\":\"paused\"},\"resumed\":[\"m:pa-blink-maintenance:rgb(255, 253, 248)\",\"b:pa-blink-breakdown:rgb(254, 249, 251)\",\"m:pa-blink-maintenance:rgb(255, 253, 248)\",\"b:pa-blink-breakdown:rgb(254, 249, 251)\"],\"motionOff\":[\"m:none:rgb(254, 245, 220)\",\"b:none:rgb(253, 232, 238)\",\"m:none:rgb(254, 245, 220)\",\"b:none:rgb(253, 232, 238)\"],\"motionOffBtn\":{\"disabled\":true,\"pressed\":\"true\"},\"legend\":[\"BreakdownMaintenancecards blink\"]}"
+    },
+    {
+      "id": "R8-07",
+      "covers": [
+        "U1-C31",
+        "U1-C02",
+        "S02",
+        "OPS02"
+      ],
+      "name": "Flat pastel professional EQ Fleet: light neutral page, white rounded cards and KPI tiles with soft shadows, a six-tile KPI row (active with type illustrations, Ready-for-OPS share, four status tiles that filter), restrained colours; no gradients, glow (text-shadow), backdrop blur, neon or glass anywhere on the page; sans-serif type; U1-C02 density kept (cards <= 60 px, whole fleet on one 1366x768 screen); status colours distinct from CICT paint red",
+      "status": "PASS",
+      "detail": "{\"1366\":{\"page\":\"rgb(242, 242, 238)\",\"grad\":[],\"glow\":[],\"kpis\":[\"total\",\"share\",\"readyForOps\",\"breakdown\",\"maintenance\",\"unreported\"],\"kpiWhite\":true,\"kpiRadius\":14,\"kpiShadow\":true,\"statusButtons\":4,\"cardRadius\":12,\"cardShadow\":true,\"font\":\"Inter, \\\"Segoe UI\\\", Roboto, Helvetica, Arial, sans-serif\",\"maxH\":57.984375,\"maxBottom\":738.71875,\"h1\":\"sr-only\",\"scrollX\":0},\"1920\":{\"page\":\"rgb(242, 242, 238)\",\"grad\":[],\"glow\":[],\"kpis\":[\"total\",\"share\",\"readyForOps\",\"breakdown\",\"maintenance\",\"unreported\"],\"kpiWhite\":true,\"kpiRadius\":14,\"kpiShadow\":true,\"statusButtons\":4,\"cardRadius\":12,\"cardShadow\":true,\"font\":\"Inter, \\\"Segoe UI\\\", Roboto, Helvetica, Arial, sans-serif\",\"maxH\":57.984375,\"maxBottom\":746.71875,\"h1\":\"sr-only\",\"scrollX\":0}}"
+    },
+    {
+      "id": "R8-08",
+      "covers": [
+        "U1-C28",
+        "U1-C30",
+        "U1-C31",
+        "S02",
+        "OPS01",
+        "OPS02"
+      ],
+      "name": "Accessibility and reconciliation after the restyle: the self-audit finds no issue on the normal and TV fleet (names, ids, aria references, no focusable inside aria-hidden) at 1920, 1366, tablet and phone; status tile filters reconcile with the cards; phone shows one card column and two KPI columns without horizontal scroll; no console errors",
+      "status": "PASS",
+      "detail": "{\"bad\":[],\"phone\":{\"cols\":1,\"kpiCols\":2},\"filters\":[[\"readyForOps\",\"7\",7,\"true\"],[\"breakdown\",\"3\",3,\"true\"],[\"maintenance\",\"3\",3,\"true\"],[\"unreported\",\"3\",3,\"true\"]]}"
+    },
+    {
+      "id": "R8-09",
+      "covers": [
+        "U1-C31",
+        "S23",
+        "S27"
+      ],
+      "name": "FAC screens (and the other EQ screens) look unchanged: computed styles of every element on the FAC Dashboard (normal and TV), FAC Jobs, a FAC job, EQ Jobs and the equipment page are identical between the committed prototype (git HEAD) and this repair",
+      "status": "FAIL",
+      "detail": "[{\"route\":\"management /fac/dashboard?motion=off\",\"elements\":[9042,9042],\"differences\":0,\"sample\":[]},{\"route\":\"management /fac/dashboard?tv=1&motion=off\",\"elements\":[9038,9038],\"differences\":0,\"sample\":[]},{\"route\":\"facTeam /fac/jobs\",\"elements\":[1050,1050],\"differences\":0,\"sample\":[]},{\"route\":\"facTeam /fac/jobs/fj-3\",\"elements\":[125,125],\"differences\":0,\"sample\":[]},{\"route\":\"eqTeam /eq/jobs/special\",\"elements\":[653,653],\"differences\":0,\"sample\":[]},{\"route\":\"eqTeam /eq/equipment/eq-qc-demo-01\",\"elements\":[721,339],\"differences\":3,\"sample\":[{\"i\":195,\"head\":\"SECTION.panel viewport|rgb(15, 33, 51)|rgb(255, 255, 255)|none|16px|400|Inter, \\\"Segoe UI\\\", Roboto, Helvetica, Arial, sans-serif|23.2px|rgb(213, 224, 232)|1px|solid|rgb(213, 224, 232)|1px|12px|rgba(7, 30, 48, 0.07) 0px 2px 8px 0px|0px|0px|0px|0px|grid|0px|901.625px|row|none|normal|1|none|visible\",\"now\":\"SECTION.panel unified-qc|rgb(15, 33, 51)|rgb(255, 255, 255)|none|16px|400|Inter, \\\"Segoe UI\\\", Roboto, Helvetica, Arial, sans-serif|23.2px|rgb(213, 224, 232)|1px|solid|rgb(213, 224, 232)|1px|12px|rgba(7, 30, 48, 0.07) 0px 2px 8px 0px|0px|0px|0px|0px|block|normal|none|row|none|normal|1|none|visible\"},{\"i\":196,\"head\":\"DIV.vp-bar|rgb(15, 33, 51)|rgb(247, 249, 251)|none|16px|400|Inter, \\\"Segoe UI\\\", Roboto, Helvetica, Arial, sans-serif|23.2px|rgb(15, 33, 51)|0px|none|rgb(15, 33, 51)|0px|0px|none|7.2px|9.6px|0px|0px|flex|6.4px 12.8px|none|row|none|normal|1|none|visible\",\"now\":\"DIV.vp-bar|rgb(15, 33, 51)|rgb(247, 249, 251)|none|16px|400|Inter, \\\"Segoe UI\\\", Roboto, Helvetica, Arial, sans-serif|23.2px|rgb(15, 33, 51)|0px|none|rgb(15, 33, 51)|0px|0px|none|7.2px|9.6px|0px|0px|flex|8px|none|row|none|normal|1|none|visible\"},{\"i\":200,\"head\":\"BUTTON.btn-sm|rgb(12, 66, 104)|rgb(255, 255, 255)|none|13.12px|700|Inter, \\\"Segoe UI\\\", Roboto, Helvetica, Arial, sans-serif|19.024px|rgb(108, 132, 150)|1px|solid|rgb(108, 132, 150)|1px|7.2px|none|4px|9.6px|0px|0px|flex|6.4px|none|row|none|normal|1|none|visible\",\"now\":\"DIV.seg|rgb(15, 33, 51)|rgb(255, 255, 255)|none|16px|400|Inter, \\\"Segoe UI\\\", Roboto, Helvetica, Arial, sans-serif|23.2px|rgb(108, 132, 150)|1px|solid|rgb(108, 132, 150)|1px|7.2px|none|0px|0px|0px|0px|flex|normal|none|row|none|normal|1|none|visible\"}]}]"
+    }
+  ]
+}

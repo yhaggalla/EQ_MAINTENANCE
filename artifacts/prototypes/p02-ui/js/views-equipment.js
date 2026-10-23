@@ -1,5 +1,5 @@
-/* Equipment detail: mechanism tree (ARIA tree), central viewport (placeholder / fallbacks), breadcrumb, Overall/Technical,
-   right-side history/technical panel. The URL is the single selection model; tree, breadcrumb and scene all call select(). */
+/* Equipment detail: mechanism tree (ARIA tree), shared model viewport (3D / Flat / fallbacks), breadcrumb, Overall/Technical,
+   right-side current-state panel. The URL is the single selection model; tree, breadcrumb and scene all call select(). */
 window.EQ = window.EQ || {};
 (function (EQ) {
   const h = EQ.h, icon = EQ.icon;
@@ -113,55 +113,16 @@ window.EQ = window.EQ || {};
     return out;
   }
   function scopeOf(sel) { return sel.part ? { level: 'part', id: sel.part } : sel.sub ? { level: 'sub', id: sel.sub } : sel.main ? { level: 'main', id: sel.main } : { level: 'equipment', id: null }; }
-  function selectedKeys(eq, sel) {
-    const ps = EQ.positionsOf(eq.id).filter((p) => p.state === 'active');
-    if (sel.part) return new Set(ps.filter((p) => p.id === sel.part).map((p) => p.key));
-    if (sel.sub) return new Set(ps.filter((p) => p.subId === sel.sub).map((p) => p.key));
-    if (sel.main) return new Set(ps.filter((p) => p.mainId === sel.main).map((p) => p.key));
-    return new Set();
-  }
   function crumbs(eq, sel, q) {
     const items = [{ label: 'Fleet', href: '#/eq/fleet' }, { label: eq.code, sel: {}, cur: !sel.main && !q.container }];
     if (sel.main) { const m = eq.mains.find((x) => x.id === sel.main); items.push({ label: EQ.defLabel(m.code) + ' (' + m.code + ')', sel: { main: m.id }, cur: !sel.sub }); }
     if (sel.sub) { const s = eq.subs.find((x) => x.id === sel.sub); items.push({ label: EQ.defLabel(s.code) + ' (' + s.code + ')', sel: { main: sel.main, sub: s.id }, cur: !sel.part }); }
     if (sel.part) { const p = EQ.pos(sel.part); items.push({ label: p.name, cur: true }); }
-    if (q.container) items.push({ label: 'Machinery house (container)', cur: true });
+    if (q.container) items.push({ label: EQ.qc?.containerName(q.container) || 'Spatial group', cur: true });
     return h('nav', { 'aria-label': 'Breadcrumb' }, h('ol', { class: 'breadcrumb' }, items.map((c) => h('li', null, c.cur ? h('span', { 'aria-current': 'page' }, c.label) : c.href ? h('a', { href: c.href }, c.label) : h('a', { href: '#', onClick: (e) => { e.preventDefault(); select(eq, c.sel); } }, c.label)))));
   }
 
-  // ---------------------------------------------------------------- drill-down labels (U1-C07/C08)
-  // Tier 1 = main mechanisms (equipment level), tier 2 = submechanisms of the selected main, tier 3 = parts of the selected
-  // submechanism (siblings stay labelled when a part is selected). Clicking a label makes the same selection as the tree.
-  function sceneLabelCands(eq, sel, q, work) {
-    // U1 round 2 (U1-C09): the level below the selection is labelled; when it has nothing drawn in this schematic, the
-    // selection's own level is labelled with the selection highlighted, and failing that the main mechanisms (tier 1),
-    // so selecting a mechanism in the tree never leaves the crane without labels. Off-screen labels are edge-pinned.
-    const ps = EQ.positionsOf(eq.id).filter((p) => p.state === 'active' && EQ.sceneSpec(p.key));
-    const workOf = (keys) => keys.reduce((a, k) => a + (work.get(k) || 0), 0) || undefined;
-    const part = (p, extra) => ({ id: p.id, keys: [p.key], text: p.name, tier: 3, work: work.get(p.key), next: { main: p.mainId, sub: p.subId, part: p.id }, ...extra });
-    const tier3 = (subId, selPart) => ps.filter((p) => p.subId === subId).map((p) => part(p, p.id === selPart ? { priority: 100, selected: true } : { priority: selPart ? 40 : 60 }));
-    const tier2 = (mainId, selSub) => eq.subs.filter((s) => s.mainId === mainId).map((s) => {
-      const keys = ps.filter((p) => p.subId === s.id).map((p) => p.key);
-      return keys.length ? { id: s.id, keys, text: s.code + ' ' + EQ.defLabel(s.code), tier: 2, priority: s.id === selSub ? 90 : 60, selected: s.id === selSub, work: workOf(keys), next: { main: mainId, sub: s.id }, hint: s.code + ' ' + EQ.defLabel(s.code) + ': click to show its parts' } : null;
-    }).filter(Boolean);
-    const head = (mainId) => { const m = eq.mains.find((x) => x.id === mainId); const mk = ps.filter((p) => p.mainId === mainId).map((p) => p.key); return m && mk.length ? [{ id: m.id + '-head', keys: mk, text: m.code + ' ' + EQ.defLabel(m.code), tier: 1, selected: true, priority: 30, next: { main: m.id } }] : []; };
-    const tier1 = (selMain) => [...eq.mains].sort((a, b) => EQ.cmp(a.code, b.code)).map((m) => {
-      const keys = ps.filter((p) => p.mainId === m.id).map((p) => p.key);
-      return keys.length ? { id: m.id, keys, text: m.code + ' ' + EQ.defLabel(m.code), tier: 1, priority: m.id === selMain ? 90 : 50, selected: m.id === selMain, work: workOf(keys), next: { main: m.id }, hint: m.code + ' ' + EQ.defLabel(m.code) + ': click to show its submechanisms' } : null;
-    }).filter(Boolean);
-    ui.labelFallback = null;
-    if (q.container === 'machinery-house') return ps.filter((p) => HOUSE_KEYS.includes(p.key)).map((p) => part(p, { priority: 40 }));
-    if (sel.part) { const t = tier3(EQ.pos(sel.part).subId, sel.part); if (t.length) return t; }
-    else if (sel.sub) { const t = tier3(sel.sub, null); if (t.length) return t; }
-    else if (sel.main) { const t = tier2(sel.main, null); if (t.length) return [...t, ...head(sel.main)]; }
-    else return tier1(null);
-    const lbl = (id, list) => { const x = list.find((y) => y.id === id); return x ? x.code + ' ' + EQ.defLabel(x.code) : null; };
-    ui.labelFallback = sel.sub ? lbl(sel.sub, eq.subs) : lbl(sel.main, eq.mains);
-    if (sel.sub) { const t = tier2(sel.main, sel.sub); if (t.length) return [...t, ...head(sel.main)]; }
-    return tier1(sel.main);
-  }
-
-  // ---------------------------------------------------------------- viewport
+  // The shared model adapter owns both camera views and scene labels.
   function viewport(eq, sel, q, mode) {
     const S = EQ.state;
     const vp = h('section', { class: 'panel viewport', 'aria-label': 'Model area' });
@@ -179,87 +140,7 @@ window.EQ = window.EQ || {};
     if (S.viewer === 'contextlost') { vp.appendChild(msg('alert', '3D context lost', 'The graphics context was lost. Records stay available. The viewer tries once to restore.', h('button', { type: 'button', onClick: () => { EQ.setViewer('preview'); } }, icon('refresh'), 'Restore the viewer'))); return vp; }
     if (S.viewer === 'loadfailed') { vp.appendChild(msg('wifi-off', 'The model could not be loaded', 'The model file request failed (404 or 403 in production). No path or detail is exposed. Tree and records are unaffected.', h('button', { type: 'button', onClick: () => { EQ.setViewer('preview'); } }, icon('refresh'), 'Retry'))); return vp; }
 
-    const keys = selectedKeys(eq, sel);
-    const containerSel = q.container === 'machinery-house';
-    const iso = q.iso === '1' && mode === 'technical';
-    const posByKey = new Map(EQ.positionsOf(eq.id).filter((p) => p.state === 'active').map((p) => [p.key, p]));
-    const work = new Map();
-    EQ.shownOpenJobs(eq.id).forEach((j) => { if (j.positionId) { const p = EQ.pos(j.positionId); work.set(p.key, (work.get(p.key) || 0) + 1); } });
-    const svg = EQ.buildScene({
-      mode, iso, selectedKeys: keys, showWork: ui.showWork, work, containerSel,
-      getPos: (k) => posByKey.get(k),
-      onPick: (k) => { const p = posByKey.get(k); if (p) select(eq, { main: p.mainId, sub: p.subId, part: p.id }, mode === 'technical' ? {} : {}); },
-      onContainer: () => { EQ.nav('/eq/equipment/' + eq.id, { ...EQ.route.query, main: '', sub: '', part: '', container: 'machinery-house' }); },
-    });
-    const hasActive = posByKey.size > 0;
-    const sig = eq.id + '|' + (sel.part || sel.sub || sel.main || '') + '|' + (q.container || '') + '|' + mode + '|' + (iso ? 'iso' : '');
-    // fit once per selection change (cancelled by newer selection or drag)
-    if (EQ.eqUI.lastSig !== sig) {
-      EQ.eqUI.lastSig = sig;
-      EQ.eqUI.noVisual = false;
-      requestAnimationFrame(() => {
-        const s = document.getElementById('scene-svg'); if (!s) return;
-        if (containerSel || (iso && !keys.size)) { EQ.fitBounds(EQ.containerBounds()); EQ.eqUI.hadSel = true; return; }
-        if (!keys.size) { if (EQ.eqUI.hadSel) EQ.resetView(); EQ.eqUI.hadSel = false; return; }
-        EQ.eqUI.hadSel = true;
-        const b = EQ.boundsOfKeys(s, keys);
-        if (b) EQ.fitBounds(b); else { EQ.eqUI.noVisual = true; EQ.rerender(); }
-      });
-    }
-    const noVisual = keys.size > 0 && EQ.eqUI.noVisual === true && EQ.eqUI.lastSig === sig;
-
-    vp.appendChild(h('div', { class: 'vp-bar' },
-      h('div', { class: 'seg', role: 'group', 'aria-label': 'View mode' },
-        h('button', { type: 'button', 'aria-pressed': mode === 'overall' ? 'true' : 'false', 'data-fk': 'mode-overall', onClick: () => EQ.nav('/eq/equipment/' + eq.id, { ...q, mode: 'overall', iso: '' }) }, 'Overall'),
-        h('button', { type: 'button', 'aria-pressed': mode === 'technical' ? 'true' : 'false', 'data-fk': 'mode-technical', onClick: () => EQ.nav('/eq/equipment/' + eq.id, { ...q, mode: 'technical' }) }, 'Technical')),
-      h('button', { type: 'button', class: 'btn-sm', 'aria-pressed': iso ? 'true' : 'false', 'data-fk': 'iso', title: mode === 'technical' ? 'Show only the machinery house and its equipment' : 'Switches to Technical mode and shows only the machinery house', onClick: () => EQ.nav('/eq/equipment/' + eq.id, { ...q, mode: 'technical', iso: iso ? '' : '1' }) }, 'Isolate machinery house'),
-      h('div', { class: 'row', role: 'group', 'aria-label': 'View controls' },
-        h('button', { type: 'button', class: 'btn-sm', 'aria-label': 'Zoom in', onClick: () => EQ.zoomView(0.8) }, icon('zoom-in')),
-        h('button', { type: 'button', class: 'btn-sm', 'aria-label': 'Zoom out', onClick: () => EQ.zoomView(1.25) }, icon('zoom-out')),
-        h('button', { type: 'button', class: 'btn-sm', 'aria-label': 'Fit selection', title: 'Fit selection', onClick: () => { const b = containerSel ? EQ.containerBounds() : EQ.boundsOfKeys(document.getElementById('scene-svg'), keys); if (b) EQ.fitBounds(b); } }, icon('fit'), 'Fit'),
-        h('button', { type: 'button', class: 'btn-sm', 'aria-label': 'Reset', 'data-fk': 'reset', title: 'Reset: whole equipment, labels on, tree folded, full view', onClick: () => fullReset(eq, q) }, icon('reset'), 'Reset')),
-      h('button', { type: 'button', class: 'btn-sm', 'aria-pressed': ui.labels ? 'true' : 'false', 'data-fk': 'labels', onClick: () => { ui.labels = !ui.labels; EQ.rerender(); } }, 'Labels'),
-      h('label', { class: 'check' }, h('input', { type: 'checkbox', checked: ui.showWork ? true : null, 'data-fk': 'work', onChange: (e) => { ui.showWork = e.target.checked; EQ.rerender(); } }), 'Open-work markers'),
-      ));
-    // P03 integration: open the drawing-derived 3D model prototype for the same synthetic equipment and selection.
-    // P03 runs on its own local server (node artifacts/prototypes/p03-qc-model/serve.mjs). Part keys are passed as
-    // semantic keys ('.' -> '_' for the deep-link character rule); P03 resolves them by exact key only.
-    const p03 = ['eq-qc-demo-01', 'eq-qc-demo-02'].includes(eq.id) ? (() => {
-      const u = new URLSearchParams({ eq: eq.id, from: 'p02' });
-      if (sel.main) u.set('main', sel.main); if (sel.sub) u.set('sub', sel.sub);
-      if (sel.part) { const p = EQ.pos(sel.part); if (p) u.set('pkey', p.key.replace(/\./g, '_')); }
-      if (mode === 'technical') u.set('mode', 'technical');
-      if (q.container === 'machinery-house') u.set('container', 'machinery-house');
-      return h('a', { class: 'btn-sm', href: 'http://127.0.0.1:5313/?' + u.toString(), target: '_blank', rel: 'noopener', 'data-fk': 'open-p03', title: 'Opens the P03 three-dimensional model prototype (separate local server on port 5313) for this equipment and selection' }, 'Open 3D model (P03)');
-    })() : null;
-    vp.appendChild(h('div', { class: 'vp-info' }, h('span', { class: 'row' }, EQ.statusBadge(eq.status, true), h('span', { class: 'small muted' }, 'Paint colour is never status')), h('span', { class: 'row' }, h('span', { class: 'tag gold' }, 'Placeholder schematic, not the P03 model'), p03)));
-    const cands = sceneLabelCands(eq, sel, q, work); // before the stage, so the fallback notice matches this render
-    const stage = h('div', { class: 'vp-stage' },
-      svg,
-      h('div', { id: 'scene-labels', class: 'scene-labels', 'aria-hidden': 'true' }),
-      ui.labelFallback && ui.labels && !noVisual ? h('div', { class: 'notice info vp-fallback', style: 'position:absolute;left:.6rem;right:.6rem;bottom:.6rem', role: 'status', 'data-fk': 'label-fallback' }, icon('info'), h('p', null, ui.labelFallback + ' has no part drawn in this schematic, so the labels show the level above it.')) : null,
-      noVisual ? h('div', { class: 'notice warn', style: 'position:absolute;left:.6rem;right:.6rem;bottom:.6rem', role: 'status' }, icon('info'), h('p', null, 'The selection has no visible representation in ' + (mode === 'technical' ? 'Technical' : 'Overall') + ' mode. ' + (mode === 'overall' ? 'Switch to Technical mode to see internals. ' : '') + 'The camera did not move.')) : null,
-      !hasActive ? h('div', { class: 'notice warn', style: 'position:absolute;left:.6rem;right:.6rem;bottom:.6rem', role: 'status' }, icon('info'), h('p', null, 'No active scene binding: this equipment\'s positions are still drafts awaiting Admin confirmation, so nothing can be selected in the scene. Use the tree.')) : null);
-    vp.appendChild(stage);
-    EQ.setSceneLabels(cands, {
-      on: ui.labels, mode,
-      onClick: (c, hidden) => EQ.nav('/eq/equipment/' + eq.id, { ...EQ.route.query, main: c.next.main || '', sub: c.next.sub || '', part: c.next.part || '', container: '', ...(hidden && mode === 'overall' ? { mode: 'technical' } : {}) }),
-    });
-    vp.appendChild(h('details', { class: 'vp-legend' }, h('summary', null, 'Legend: appearance, selection and work overlays, status'),
-      h('div', { class: 'legend-grid' },
-        h('div', null, h('h4', null, 'Appearance (not status)'), h('ul', null, h('li', null, h('span', { class: 'sw sw-paint' }), 'CICT structural paint (red)'), h('li', null, h('span', { class: 'sw sw-house' }), 'Machinery house enclosure (light)'), h('li', null, h('span', { class: 'sw sw-hot' }), '"(approx.)" part: representative shape, location approximate'))),
-        h('div', null, h('h4', null, 'Selection and work'), h('ul', null, h('li', null, h('span', { class: 'sw sw-sel' }), 'Selected: dashed blue outline + glow'), h('li', null, h('span', { class: 'sw sw-work' }), 'Gold circle with number: open jobs at that position'))),
-        h('div', null, h('h4', null, 'Operational status (badges only)'), h('ul', null, ['readyForOps', 'breakdown', 'maintenance', 'unreported'].map((k) => h('li', null, EQ.statusBadge(k === 'unreported' ? null : k)))), h('p', { class: 'small muted', style: 'margin:.3rem 0 0' }, 'Red paint is never a Breakdown indication.')))));
-    vp.appendChild(h('div', { class: 'chips', role: 'group', 'aria-label': 'Assemblies (same selection as the tree)' },
-      h('span', { class: 'small muted', style: 'align-self:center' }, 'Assemblies:'),
-      EQ.assemblyChips.filter((c) => !c.tech || mode === 'technical' || true).map((c) => {
-        const subInst = c.sub ? eq.subs.find((s) => s.code === c.sub) : null;
-        const mainInst = c.main ? eq.mains.find((m) => m.code === c.main) : null;
-        const pressed = c.container ? containerSel : subInst ? sel.sub === subInst.id && !sel.part : mainInst ? sel.main === mainInst.id && !sel.sub : false;
-        const dis = !c.container && !subInst && !mainInst;
-        return h('button', { type: 'button', 'aria-pressed': pressed ? 'true' : 'false', 'aria-disabled': dis ? 'true' : null, 'data-fk': 'chip-' + c.id, onClick: () => { if (dis) return; if (c.container) EQ.nav('/eq/equipment/' + eq.id, { ...q, main: '', sub: '', part: '', container: 'machinery-house' }); else if (subInst) select(eq, { main: subInst.mainId, sub: subInst.id }); else select(eq, { main: mainInst.id }); } }, c.label);
-      })));
-    return vp;
+    return EQ.qc ? EQ.qc.render(eq, sel, q, mode) : h('div', { class: 'panel panel-pad', role: 'status' }, 'Loading the viewer… Use the local prototype server for the interactive model.');
   }
 
   /** U1 round 2 (U1-C10/C11): Reset returns to the whole-equipment state with labels: no selection, container or
@@ -269,7 +150,8 @@ window.EQ = window.EQ || {};
     [...EQ.state.expanded].filter((k) => k.startsWith(eq.id + ':')).forEach((k) => EQ.state.expanded.delete(k));
     EQ.eqUI.treeFocus = 'root'; ui.treeSelSig = null; EQ.eqUI.lastSig = null; EQ.eqUI.hadSel = true;
     EQ.nav('/eq/equipment/' + eq.id, { ...q, main: '', sub: '', part: '', container: '', iso: '' });
-    EQ.resetView();
+    // The shared viewer keeps the current camera mode when resetting.
+    if (!EQ.qc) EQ.resetView();
   }
   EQ.fullReset = fullReset;
 
@@ -361,10 +243,10 @@ window.EQ = window.EQ || {};
   }
   function containerTab(eq) {
     const box = h('div', { class: 'stack' });
-    const ps = EQ.positionsOf(eq.id).filter((p) => p.state === 'active' && HOUSE_KEYS.includes(p.key));
+    const ps = EQ.qc?.containerPositions(eq, EQ.route.query.container) || EQ.positionsOf(eq.id).filter((p) => p.state === 'active' && HOUSE_KEYS.includes(p.key));
     const groups = {};
     ps.forEach((p) => { const s = eq.subs.find((x) => x.id === p.subId); const m = EQ.mainDef(eq.mains.find((x) => x.id === p.mainId).code); (groups[m.code + ' ' + m.name] = groups[m.code + ' ' + m.name] || []).push([p, s]); });
-    box.appendChild(h('div', { class: 'notice info' }, icon('info'), h('p', null, h('strong', null, 'Machinery house: spatial container. '), 'It is not a mechanism and owns no history. It contains positions from several mechanisms; select a position to see its own records.')));
+    box.appendChild(h('div', { class: 'notice info' }, icon('info'), h('p', null, h('strong', null, (EQ.qc?.containerName(EQ.route.query.container) || 'Machinery house') + ': spatial container. '), 'It is not a mechanism and owns no history. It contains positions from several mechanisms; select a position to see its own records.')));
     Object.entries(groups).forEach(([g, items]) => box.appendChild(h('div', { class: 'sec' }, h('h3', null, g), h('ul', { class: 'tl' }, items.map(([p]) => h('li', null, h('a', { href: '#', onClick: (e) => { e.preventDefault(); select(eq, { main: p.mainId, sub: p.subId, part: p.id }, { mode: 'technical' }); } }, p.name), h('span', { class: 'when' }, p.prov === 'approximate-location' ? 'Location approximate / simplified representation' : p.prov)))))));
     return box;
   }
@@ -391,6 +273,7 @@ window.EQ = window.EQ || {};
     if (S.data === 'loading') { page.appendChild(h('div', { 'aria-busy': 'true', role: 'status' }, h('span', { class: 'sr-only' }, 'Loading equipment'), h('div', { class: 'skeleton', style: 'height:4rem;margin-bottom:.7rem' }), h('div', { class: 'detail-grid' }, h('div', { class: 'skeleton', style: 'height:26rem' }), h('div', { class: 'skeleton', style: 'height:26rem' }), h('div', { class: 'skeleton', style: 'height:26rem' })))); return page; }
     if (S.data === 'error') { page.appendChild(h('div', { class: 'notice error', role: 'alert' }, icon('wifi-off'), h('div', null, h('p', null, h('strong', null, 'This equipment could not be loaded. '), 'No data is shown and nothing is assumed Ready.'), h('div', { class: 'actions' }, h('button', { type: 'button', class: 'btn-sm', onClick: () => EQ.refresh(true) }, 'Retry'), h('a', { href: '#/eq/fleet' }, 'Back to the fleet'))))); return page; }
 
+    EQ.qc?.prepare(eq);
     const sel = resolveSel(eq, q);
     const mode = q.mode === 'technical' ? 'technical' : 'overall';
     const pq = q.panel === 'history' ? 'special' : q.panel;
@@ -429,7 +312,7 @@ window.EQ = window.EQ || {};
     const nOf = { maintenance: sum.maintenance, special: sum.special, spareParts: sum.spare.overdue + sum.spare.dueSoon };
     const nLabel = { maintenance: 'jobs today', special: 'open', spareParts: 'overdue or due soon' };
     const sideHead = h('div', { class: 'sp-head' },
-      h('div', { class: 'row between' }, h('div', null, h('p', { class: 'eyebrow' }, sel.part ? 'Part position' : sel.sub ? 'Submechanism' : sel.main ? 'Main mechanism' : q.container ? 'Spatial container' : 'Equipment'), h('h2', { 'data-fk': 'scope-title' }, q.container ? 'Machinery house' : scopeLabel(eq, sel))), h('button', { type: 'button', class: 'btn-sm drawer-btns', 'aria-label': 'Close details', onClick: () => closeDrawer() }, icon('x'))),
+      h('div', { class: 'row between' }, h('div', null, h('p', { class: 'eyebrow' }, sel.part ? 'Part position' : sel.sub ? 'Submechanism' : sel.main ? 'Main mechanism' : q.container ? 'Spatial container' : 'Equipment'), h('h2', { 'data-fk': 'scope-title' }, q.container ? (EQ.qc?.containerName(q.container) || 'Spatial group') : scopeLabel(eq, sel))), h('button', { type: 'button', class: 'btn-sm drawer-btns', 'aria-label': 'Close details', onClick: () => closeDrawer() }, icon('x'))),
       h('div', { class: 'tabs four', role: 'tablist', 'aria-label': 'Current state of the selection' }, EQ.panelTabs.TABS.map(([k, long, short]) => {
         const n = nOf[k];
         return h('button', { type: 'button', role: 'tab', id: 'tab-' + k, 'aria-controls': 'tabpanel', 'aria-selected': panelTab === k ? 'true' : 'false', tabindex: panelTab === k ? '0' : '-1', 'aria-label': long + (n ? ', ' + n + ' ' + nLabel[k] : ''), 'data-fk': 'tab-' + k,

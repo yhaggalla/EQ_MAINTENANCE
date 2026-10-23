@@ -1,0 +1,21 @@
+{
+  "ranAt": "2026-10-23T16:30:48.013Z",
+  "p02": "http://127.0.0.1:5325/",
+  "head": "http://127.0.0.1:5322/",
+  "note": "Prototype-level checks only (synthetic data, simulated personas, no persistence, no ZMMS contact).",
+  "pass": 1,
+  "total": 1,
+  "results": [
+    {
+      "id": "R8-09",
+      "covers": [
+        "U1-C31",
+        "S23",
+        "S27"
+      ],
+      "name": "FAC screens and EQ Jobs look unchanged: computed styles of every element on the FAC Dashboard (normal and TV), FAC Jobs, a FAC job and EQ Jobs are identical to the committed baseline; equipment viewer superseded by U1-C32",
+      "status": "PASS",
+      "detail": "[{\"route\":\"management /fac/dashboard?motion=off\",\"elements\":[9042,9042],\"differences\":0,\"sample\":[]},{\"route\":\"management /fac/dashboard?tv=1&motion=off\",\"elements\":[9038,9038],\"differences\":0,\"sample\":[]},{\"route\":\"facTeam /fac/jobs\",\"elements\":[1050,1050],\"differences\":0,\"sample\":[]},{\"route\":\"facTeam /fac/jobs/fj-3\",\"elements\":[125,125],\"differences\":0,\"sample\":[]},{\"route\":\"eqTeam /eq/jobs/special\",\"elements\":[653,653],\"differences\":0,\"sample\":[]}]"
+    }
+  ]
+}

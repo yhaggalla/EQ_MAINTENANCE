@@ -1,0 +1,22 @@
+{
+  "tool": "tools/p02b/check_p02b.mjs",
+  "browser": "Chrome/155.0.8059.85",
+  "date": "2026-10-23T16:34:47.337Z",
+  "note": "Prototype-level checks against the synthetic P02B prototype; not acceptance execution.",
+  "passed": 1,
+  "failed": 0,
+  "results": [
+    {
+      "id": "K01",
+      "covers": [
+        "OPS02",
+        "S16",
+        "FDB05",
+        "FDB06"
+      ],
+      "name": "Layout at 1920x1080, 1366x768, tablet (1024x768 and 768x1024) and phone (390x844): every new route has no horizontal page overflow, no console error, no accessibility-audit issue (names, ids, focus) and the section switch and tabs stay reachable",
+      "status": "PASS",
+      "detail": "80 route/size/persona combinations clean"
+    }
+  ]
+}

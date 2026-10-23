@@ -29,8 +29,9 @@ window.EQ = window.EQ || {};
   }
   // J526A family candidates follow docs/SOURCE_MAP.md s6 item 4 (candidates for Admin review, not confirmed facts).
   // U1 round 3: 014 spreader cable wheel added (J526A0200 item 11 spreader cable reel; SOURCE_MAP lists 011-015).
+  // U1-C32: 032 is represented by the reviewed model (proposed classification; synthetic binding only).
   const J526A = applic(
-    ['011', '012', '013', '014', '015', '021', '022', '024', '031', '033', '041', '042', '051', '061', '062', '071', '081', '111', '121', '131', '141', '151', '152', '153', '161', '171'],
+    ['011', '012', '013', '014', '015', '021', '022', '024', '031', '032', '033', '041', '042', '051', '061', '062', '071', '081', '111', '121', '131', '141', '151', '152', '153', '161', '171'],
     ['043', '044', '045', '091', '092', '093', '094'],
   );
   const RTGM = applic(['011', '013', '015', '021', '024', '041', '043', '044', '046', '051', '061', '062', '071', '081', '091', '092', '093', '094', '131', '141', '151', '161'], []);

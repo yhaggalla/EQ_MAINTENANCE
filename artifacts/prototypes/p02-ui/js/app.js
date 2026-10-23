@@ -171,6 +171,7 @@ window.EQ = window.EQ || {};
       document.body.dataset.page = eqFleet && !L.noAccess ? 'eq-fleet' : '';
       document.body.dataset.section = currentSection();
       if (mainEl.childNodes.length !== 1 || mainEl.firstChild !== view) mainEl.replaceChildren(view);
+      EQ.qc?.afterRender();
       paintChrome();
 
       document.title = APP_NAME + ' prototype - ' + title;

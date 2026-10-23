@@ -1,0 +1,13 @@
+{
+  "data": {
+    "url": "http://127.0.0.1:5312/?role=management#/eq/equipment/eq-qc-demo-02?panel=technical&view=flat&part=pp-q02-007&sub=si-q02-011&main=mi-q02-01",
+    "ready": true,
+    "key": "hoist.drive.motor.a",
+    "id": "pp-q02-007",
+    "view": "flat",
+    "modelPositions": 144,
+    "unmapped": [],
+    "duplicates": 0
+  },
+  "errors": []
+}

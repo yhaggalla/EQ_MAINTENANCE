@@ -1,89 +1,26 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>QC model prototype</title>
-  <meta name="description" content="CICT EQ Maintenance P03: interactive CICT-J526A-STS QC model prototype with synthetic equipment bindings. Nothing is saved; not a production view.">
-  <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="css/p03.css">
-  <link rel="stylesheet" href="css/p03-panel.css">
-  <script type="importmap">
-  { "imports": { "three": "./vendor/three/three.module.js", "three/addons/": "./vendor/three/addons/" } }
-  </script>
-</head>
-<body>
-  <a class="skip" href="#tree">Skip to mechanism tree</a>
-  <header class="top">
-    <div class="brand"><strong>EQ Maintenance</strong> <span class="sep">/</span> QC model prototype <span class="tag">P03 - synthetic bindings, nothing saved</span></div>
-    <label class="eqpick">Equipment
-      <select id="eq-select" aria-describedby="eq-note"></select>
-    </label>
-    <span id="eq-note" class="note">Synthetic QC-DEMO items share the CICT-J526A-STS v1 template; each has its own position IDs and history.</span>
-  </header>
-  <nav class="crumbs" aria-label="Breadcrumb"><ol id="crumbs"></ol></nav>
-  <main class="layout">
-    <section class="pane tree-pane" aria-labelledby="tree-h">
-      <h2 id="tree-h">Mechanisms</h2>
-      <div id="tree" role="tree" aria-labelledby="tree-h" tabindex="-1"></div>
-      <h2 id="cont-h">Spatial groups <span class="hint">(not mechanisms)</span></h2>
-      <div id="containers" class="chips" role="group" aria-labelledby="cont-h"></div>
-    </section>
-    <section class="pane view-pane" aria-label="3D model viewport">
-      <div class="toolbar" role="toolbar" aria-label="Viewer controls">
-        <div class="seg" role="radiogroup" aria-label="Display mode">
-          <button type="button" data-mode="overall" role="radio">Overall</button>
-          <button type="button" data-mode="technical" role="radio">Technical</button>
-        </div>
-        <button type="button" id="btn-iso" aria-pressed="false">Isolate machinery house</button>
-        <button type="button" id="btn-fit">Fit selection</button>
-        <button type="button" id="btn-reset" title="Reset: whole equipment, labels on, tree folded, full view">Reset</button>
-        <button type="button" id="btn-labels" aria-pressed="true">Labels</button>
-        <label class="views">Aligned view
-          <select id="view-select">
-            <option value="">Perspective (orbit)</option>
-            <option value="side">Side elevation</option>
-            <option value="end-ws">End view from waterside</option>
-            <option value="end-ls">End view from landside</option>
-            <option value="top">Plan (top)</option>
-          </select>
-        </label>
-      </div>
-      <div id="viewport" class="viewport">
-        <div id="status-badge" class="status-badge" aria-live="polite"></div>
-        <div id="orient" class="orient" aria-hidden="true"></div>
-        <div id="hint" class="hint-bubble" role="status" aria-live="polite"></div>
-        <div id="fallback" class="fallback" hidden></div>
-        <div class="legend" aria-label="Legend">
-          <span><i class="sw paint"></i>CICT red paint (normal appearance, not a status)</span>
-          <span><i class="sw sel"></i>Selected</span>
-          <span><i class="sw hot"></i>Approx. = representative part, location approximate</span>
-          <span><i class="sw work"></i>Open work (synthetic)</span>
-          <span>Click a label: mechanism, then submechanism, then part</span>
-        </div>
-      </div>
-      <div id="perf" class="perf" aria-live="off"></div>
-    </section>
-    <section class="pane info-pane" aria-labelledby="info-h">
-      <h2 id="info-h">Selection</h2>
-      <div id="info-head"></div>
-      <div id="info-tabs" class="ptabs" role="tablist" aria-label="Current state of the selection"></div>
-      <div id="info" role="tabpanel" tabindex="-1"></div>
-    </section>
-  </main>
-  <!-- P02B / U1-C19: the right panel reuses the P02 prototype's synthetic V2 data layer (ZMMS daily jobs, special jobs, spare-part
-       register) and its four-tab renderer, so the flat view and this 3D view show the same current state for the same selection.
-       Classic scripts, served read-only from the P02 folder by serve.mjs; the Fac stub keeps the FAC fixtures out of this page. -->
-  <script>window.EQ = { fac: { build() {} } };</script>
-  <script src="p02/js/util.js"></script>
-  <script src="p02/js/catalog.js"></script>
-  <script src="p02/js/params.js"></script>
-  <script src="p02/js/fixtures.js"></script>
-  <script src="p02/js/access.js"></script>
-  <script src="p02/js/store.js"></script>
-  <script src="p02/js/zmms.js"></script>
-  <script src="p02/js/spares.js"></script>
-  <script src="p02/js/panel-tabs.js"></script>
-  <script type="module" src="js/app.mjs"></script>
-</body>
-</html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="data:,"><title>Open crane viewer</title></head>
+<body><p id="message">Opening the shared crane viewer…</p><a id="open" href="http://127.0.0.1:5312/">Open EQ &amp; FAC Maintenance</a>
+<script type="module">
+// Compatibility entry for saved P03 links. There is one interactive viewer, on the equipment page.
+const old = new URLSearchParams(location.search), q = new URLSearchParams();
+const eq = ['eq-qc-demo-01', 'eq-qc-demo-02'].includes(old.get('eq')) ? old.get('eq') : 'eq-qc-demo-01';
+for (const key of ['main', 'sub', 'container', 'mode', 'iso', 'panel']) if (old.has(key)) q.set(key, old.get(key));
+q.set('view', old.get('view') === 'side' || old.get('view') === 'flat' ? 'flat' : '3d');
+try {
+  if (old.has('pkey')) q.set('pkey', old.get('pkey'));
+  else if (old.has('part')) {
+    const response = await fetch((location.pathname.startsWith('/qc/') ? '../' : '') + 'models/cict-j526a-sts-scene/1/manifest.json');
+    if (!response.ok) throw new Error('manifest');
+    const manifest = await response.json(), nodes = manifest.nodes.filter(n => n.kind === 'position');
+    const prefix = eq === 'eq-qc-demo-01' ? 'pp-q01-' : 'pp-q02-';
+    const id = old.get('part'), index = id.startsWith(prefix) ? Number(id.slice(prefix.length)) - 1 : -1;
+    if (Number.isInteger(index) && nodes[index]) q.set('pkey', nodes[index].key.replaceAll('.', '_'));
+    else q.set('part', 'invalid-legacy-part');
+  }
+  const target = location.pathname.startsWith('/qc/') ? new URL('../', location.href) : new URL('http://' + location.hostname + ':5312/');
+  target.search = '?role=management'; target.hash = '/eq/equipment/' + eq + '?' + q;
+  document.getElementById('open').href = target.href;
+  location.replace(target.href);
+} catch { document.getElementById('message').textContent = 'The saved part link could not be resolved. Open the equipment viewer and select it from the tree.'; }
+</script></body></html>

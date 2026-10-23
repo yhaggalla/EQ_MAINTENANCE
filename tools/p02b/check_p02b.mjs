@@ -814,9 +814,16 @@ try {
       await b.viewport(w, h, mobile, mobile ? 2 : 1);
       for (const [role, hash] of ROUTES) {
         await go(role, hash, {}, 450); n += 1;
+        // U1-C32: the equipment page now owns one real canvas; other routes still own none.
+        // Wait for the rendered route/model rather than auditing during module loading.
+        const modelPage = hash.startsWith('/eq/equipment/');
+        for (let retry = 0; retry < 50; retry++) {
+          if (await ev(`!!document.querySelector('main h1') && ${modelPage ? '!!window.EQ?.qc?.session?.ready' : 'true'}`)) break;
+          await b.wait(200);
+        }
         const a = await ev(`(()=>{const au=window.__protoAudit(); const sw=document.scrollingElement.scrollWidth, iw=innerWidth; const bar=document.querySelector('.topbar'); const br=bar?bar.getBoundingClientRect():null; return {issues:au.issues.slice(0,2), over:sw>iw+1?sw+'>'+iw:null, h1:au.h1, canvases:au.canvases, nav:!bar||getComputedStyle(bar).display!=='none'}})()`);
         const errs = b.errors();
-        if (a.issues.length || a.over || errs.length || a.h1 < 1 || a.canvases) bad.push(label + ' ' + role + ' ' + hash.split('?')[0] + ' => ' + JSON.stringify({ i: a.issues, o: a.over, e: errs.slice(0, 1), h1: a.h1, c: a.canvases }));
+        if (a.issues.length || a.over || errs.length || a.h1 < 1 || a.canvases !== (modelPage ? 1 : 0)) bad.push(label + ' ' + role + ' ' + hash.split('?')[0] + ' => ' + JSON.stringify({ i: a.issues, o: a.over, e: errs.slice(0, 1), h1: a.h1, c: a.canvases }));
       }
       // top bar reachability: the section switch and tabs of a user with both sections are on screen
       await go('eqfac', '/eq/fleet', {}, 450); const bar = await ev(`(()=>{const q=(s)=>{const e=document.querySelector(s); if(!e) return null; const r=e.getBoundingClientRect(); return r.right<=innerWidth+1 && r.width>0}; const links=[...document.querySelectorAll('.topnav .nav-link, .section-switch .sec-link')].map(a=>{const r=a.getBoundingClientRect(); return r.width>0 && r.left>=0 && r.right<=innerWidth+1}); return links.every(Boolean)})()`);

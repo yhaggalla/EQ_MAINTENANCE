@@ -228,8 +228,10 @@ try {
   });
 
   // ------------------------------------------------------------- FAC unchanged
-  if (HEAD) await step('R8-09', ['U1-C31', 'S23', 'S27'], 'FAC screens (and the other EQ screens) look unchanged: computed styles of every element on the FAC Dashboard (normal and TV), FAC Jobs, a FAC job, EQ Jobs and the equipment page are identical between the committed prototype (git HEAD) and this repair', async () => {
-    const ROUTES = [['management', '/fac/dashboard?motion=off'], ['management', '/fac/dashboard?tv=1&motion=off'], ['facTeam', '/fac/jobs'], ['facTeam', '/fac/jobs/fj-3'], ['eqTeam', '/eq/jobs/special'], ['eqTeam', '/eq/equipment/eq-qc-demo-01']];
+  // U1-C32 deliberately replaces the equipment viewport. Its behavior is covered by check_unified_viewer.mjs.
+  // Retain exact style comparisons for every unaffected FAC route and EQ Jobs.
+  if (HEAD) await step('R8-09', ['U1-C31', 'S23', 'S27'], 'FAC screens and EQ Jobs look unchanged: computed styles of every element on the FAC Dashboard (normal and TV), FAC Jobs, a FAC job and EQ Jobs are identical to the committed baseline; equipment viewer superseded by U1-C32', async () => {
+    const ROUTES = [['management', '/fac/dashboard?motion=off'], ['management', '/fac/dashboard?tv=1&motion=off'], ['facTeam', '/fac/jobs'], ['facTeam', '/fac/jobs/fj-3'], ['eqTeam', '/eq/jobs/special']];
     const PROPS = ['color', 'background-color', 'background-image', 'font-size', 'font-weight', 'font-family', 'line-height', 'border-top-color', 'border-top-width', 'border-top-style', 'border-left-color', 'border-left-width', 'border-top-left-radius', 'box-shadow', 'padding-top', 'padding-left', 'margin-top', 'margin-left', 'display', 'gap', 'grid-template-columns', 'flex-direction', 'text-transform', 'letter-spacing', 'opacity', 'animation-name', 'visibility'];
     const fp = async (base, role, hash) => { await go(role, hash, 1100, base); return ev(`(()=>{const P=${JSON.stringify(PROPS)}; const els=[document.documentElement, document.body, ...document.querySelectorAll('.proto-banner, .proto-banner *, .topbar, .topbar *, main, main *')];
       return {n:els.length, rows:els.map(e=>{const cs=getComputedStyle(e); return (e.tagName+'.'+(typeof e.className==='string'?e.className:(e.className&&e.className.baseVal)||'')).slice(0,80)+'|'+P.map(p=>cs.getPropertyValue(p)).join('|')})}})()`); };

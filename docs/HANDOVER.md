@@ -4,6 +4,18 @@ Rolling handover for CICT EQ Maintenance. Each phase appends its record; the new
 
 ---
 
+## Repair-U1 round 9 (U1-C32: shared 3D / Flat viewer) - 23 October 2026
+
+User explicitly requested review of completed work through `32081d0`, one shared viewer, recheck and commit. Executed by the active Codex agent; model/effort not independently exposed. D-168..D-170, UX_SPEC s26, exact request in `docs/runs/Repair-U1-C32-20261023.md`.
+
+The equipment page owns the reviewed revision-6 crane model and one renderer. 3D enables perspective orbit; Flat locks a side orthographic camera with pan/zoom. The existing tree, stable selection IDs and four panels are shared. Old P03 links redirect by semantic key. All 144 model positions are reachable; existing record IDs stay intact. Source drawings and model geometry were not changed.
+
+Verification: shared-viewer suite 11/11; P02B 63 unique checks with K01 corrected/rerun (80 layout combinations); round-8 9 unique checks with the intentionally replaced equipment comparison moved to the new suite; model validation 26/26, bindings 11/11; normal-port redirect and all-position audit clean. Initial obsolete-assertion failures are retained and explained in **`docs/evidence/U1/unified-viewer/REPORT.md`**. Local synthetic prototype only; no production acceptance or independent R review claimed.
+
+Open `http://127.0.0.1:5312/#/eq/equipment/eq-qc-demo-01`. Next: repeat U1 user walkthrough; no U1 approval recorded and no P04 work started. The existing RTG handover edit is unrelated and excluded from this commit.
+
+---
+
 ## Repair-U1 round 8 (U1-C28..U1-C31, EQ Fleet dashboard) - 23 October 2026
 
 ### Runtime record

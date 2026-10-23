@@ -512,6 +512,10 @@ export class QcViewer {
     const w = Math.max(1, this.host.clientWidth), h = Math.max(1, this.host.clientHeight);
     this.renderer.setSize(w, h, true);
     this.persp.aspect = w / h; this.persp.updateProjectionMatrix();
+    // Preserve orthographic scale without stretching when the detail panel or viewport resizes.
+    const halfHeight = (this.ortho.top - this.ortho.bottom) / 2;
+    this.ortho.left = -halfHeight * w / h; this.ortho.right = halfHeight * w / h;
+    this.ortho.updateProjectionMatrix();
     this.requestRender();
   }
 
