@@ -1,0 +1,128 @@
+{
+  "tool": "tools/p02b/check_u1_r6.mjs",
+  "browser": "Chrome/155.0.8059.85",
+  "p02": "http://127.0.0.1:5322/",
+  "p03": "http://127.0.0.1:5323/",
+  "manifest": "C:/Users/yasas/AppData/Local/Temp/claude/F--CODEX-EQ-MAINTENANCE/6a927a63-fd6f-47da-ba7d-c755ac826e5f/scratchpad/head/artifacts/models/cict-j526a-sts-scene/1/manifest.json",
+  "date": "2026-10-23T09:43:05.778Z",
+  "note": "Prototype-level checks of the U1 round 6 repair against the synthetic prototypes and the regenerated model manifest; not acceptance execution.",
+  "passed": 0,
+  "failed": 9,
+  "results": [
+    {
+      "id": "R6-01",
+      "covers": [
+        "U1-C23",
+        "S07",
+        "HIS02",
+        "HIS06",
+        "U1-C19"
+      ],
+      "name": "Crane-view Projects/Special lists open AND completed special jobs of the selection (whole crane all; mechanism with descendants, de-duplicated; part exact), newest first; cancelled jobs are counted, not listed; completed cards show only the completion date (no note, correction or installation details)",
+      "status": "FAIL",
+      "detail": "EXCEPTION eval failed: TypeError: Cannot read properties of undefined (reading 'map')\n    at <anonymous>:1:100\n    at <anonymous>:1:177"
+    },
+    {
+      "id": "R6-02",
+      "covers": [
+        "U1-C23",
+        "HIS06",
+        "S07",
+        "ACC02"
+      ],
+      "name": "Projects/Special payload stays the CurrentSpecialJob allowlist for completed and reopened jobs (adds only completedOn and listedOn; matching positions as IDs); a reopened job is listed as open with no completion date while its Jobs-tab history is kept; with EQ Jobs switched off the list still shows and job numbers are plain text",
+      "status": "FAIL",
+      "detail": "EXCEPTION eval failed: TypeError: Cannot read properties of undefined (reading 'map')\n    at <anonymous>:3:44\n    at <anonymous>:6:150"
+    },
+    {
+      "id": "R6-03",
+      "covers": [
+        "U1-C24",
+        "S27",
+        "FDB02",
+        "FDB01"
+      ],
+      "name": "FAC Dashboard lanes list every active job: jobs completed earlier and not yet due again are listed last as \"Done · up to date\" with their next due date (not hidden); group order Overdue, On hold, In progress, Due soon, Pending, Completed in the last 7 days, Up to date; filters and the completed KPI focus still apply",
+      "status": "FAIL",
+      "detail": "{\"lanes\":[{\"code\":\"electrical\",\"total\":18,\"rows\":18,\"order\":true,\"upToDate\":0},{\"code\":\"mechanical\",\"total\":55,\"rows\":55,\"order\":true,\"upToDate\":0},{\"code\":\"civil\",\"total\":41,\"rows\":36,\"order\":true,\"upToDate\":0}],\"kpiActive\":114,\"civil\":[[\"civil\",41,36]],\"focusCompletedUpToDate\":0,\"focusOverdueUpToDate\":0,\"dom\":{\"pills\":0,\"sample\":[],\"dues\":[],\"counts\":[\"18 in the list · 18 active\",\"55 in the list · 55 active\",\"36 in the list · 41 active\"]}}"
+    },
+    {
+      "id": "R6-04",
+      "covers": [
+        "U1-C25",
+        "U1-C08",
+        "VIS03"
+      ],
+      "name": "Flat view: the 013 load cell is an in-line part on the horizontal main hoist rope at the boom tip (the rope line passes through the load-cell body), labelled approximate; no longer at the rope-end anchors",
+      "status": "FAIL",
+      "detail": "EXCEPTION eval failed: TypeError: Cannot read properties of null (reading 'getAttribute')\n    at <anonymous>:2:66\n    at <anonymous>:4:301"
+    },
+    {
+      "id": "R6-05",
+      "covers": [
+        "U1-C25",
+        "VIS01",
+        "VIS02",
+        "VIS09",
+        "S04"
+      ],
+      "name": "3D model (draft v1 rev 5): the 013 hotspot sits on the four horizontal main hoist rope runs near the boom tip (bounds contain the rope height and both rope lanes, x within 4 m of the tip, above the old anchor pins), labelled approximate, technical mode; the key set, kinds and classification are unchanged against the committed revision; the 3D page selects it",
+      "status": "FAIL",
+      "detail": "{\"point\":[74.05000000000001,52.779999999999994,0],\"bounds\":{\"min\":[73.099998,52.599998,-3.18],\"max\":[74.370003,52.959999,3.18]},\"oldPoint\":[74.05000000000001,52.779999999999994,0],\"revision\":4,\"sameIdentity\":true,\"nodes\":178,\"label\":\"Load cell system (load pins in the main hoist rope-end anchors at the boom tip; hardware not identified on the sheets)\",\"page\":{\"sel\":\"▾QC-DEMO-01\",\"crumbs\":\"QC-DEMO-01013 Load cell system\",\"label\":\"Load cell system (load pins in the main hoist rope-end anchors at the boom tip; hardware not identified on the sheets)\",\"fallback\":false},\"errors\":[],\"landmarksKeys\":17}"
+    },
+    {
+      "id": "R6-06",
+      "covers": [
+        "U1-C26",
+        "S07",
+        "S02",
+        "ACC03",
+        "AUTH03",
+        "HIS06"
+      ],
+      "name": "Special job \"Show on dashboard / 3D\" (simulated server): EQ Team and Admin switch any special job (also completed), Management and FAC Team are refused (403, nothing changed), a stale version is 409; a hidden job leaves the crane panel list and counts, the tree/label work badges and the fleet-card count, and stays in the Jobs tab, the scoped history and the export; audited with the previous value; default shown",
+      "status": "FAIL",
+      "detail": "EXCEPTION eval failed: TypeError: Cannot read properties of undefined (reading 'map')\n    at snap (<anonymous>:4:72)\n    at <anonymous>:5:16\n    at <anonymous>:15:20"
+    },
+    {
+      "id": "R6-07",
+      "covers": [
+        "U1-C26",
+        "S07",
+        "S02",
+        "U1-C08"
+      ],
+      "name": "Special job switch on screens: the job record offers \"Show on dashboard / 3D\" to EQ Team (switch) and shows the state read-only to Management; switching it off removes the job from the flat crane panel, the tree badge and the fleet card, adds a \"Hidden from dashboard / 3D\" tag in the Jobs tab; the 3D page hides it from its Projects/Special tab and label badges the same way",
+      "status": "FAIL",
+      "detail": "EXCEPTION click: no element [data-fk=\"vis-job-104\"]"
+    },
+    {
+      "id": "R6-08",
+      "covers": [
+        "U1-C26",
+        "S27",
+        "S28",
+        "FDB01",
+        "FAC11",
+        "ACC03",
+        "AUTH03"
+      ],
+      "name": "FAC job \"Show on dashboard\" (simulated server): FAC Team and Admin switch any FAC job (recurring, one-time, continuous), EQ Team and Management are refused; a hidden job leaves every dashboard block (KPIs, lanes, ticker, latest proof, due load, on-time basis) and the dashboard-only detail (404); it stays in FAC Jobs, its timeline and the export; data version bumps; audited; default shown",
+      "status": "FAIL",
+      "detail": "EXCEPTION eval failed: TypeError: A.setVisibility is not a function\n    at <anonymous>:11:78\n    at <anonymous>:27:20"
+    },
+    {
+      "id": "R6-09",
+      "covers": [
+        "U1-C26",
+        "S27",
+        "S28",
+        "S19",
+        "ACC01"
+      ],
+      "name": "FAC screens: the FAC job detail offers the \"Show on dashboard\" switch to FAC Team and Admin and shows the state read-only to EQ Team and Management; switching it off makes the job disappear from the Management dashboard and TV mode (shared setting) and tags it \"Hidden from dashboard\" in FAC Jobs; the Access matrix names the right in the EQ work and FAC work rows; no console errors",
+      "status": "FAIL",
+      "detail": "EXCEPTION click: no element [data-fk=\"vis-fj-81\"]"
+    }
+  ]
+}

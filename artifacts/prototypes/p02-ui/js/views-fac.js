@@ -12,20 +12,20 @@ window.EQ = window.EQ || {};
   const dash = (EQ.dash = { root: null, q: null, model: null, lastGood: null, paused: false, staticMode: false, raf: null, last: 0, hover: false, focus: false, lanes: {}, ticker: null, proof: { i: 0, clock: 0 }, signature: {}, mql: null, phone: false, reduced: false, speedScale: 1, stats: { frames: 0 } });
   const FLIP_S = 8, PROOF_S = 6;
   const LANE_CODES = [['electrical', 'Electrical'], ['mechanical', 'Mechanical'], ['civil', 'Civil']];
-  const STATUS_ICON = { overdue: 'octagon-x', onHold: 'hold', inProgress: 'clock', dueSoon: 'flag', pending: 'dashed', completed: 'check-circle', recent: 'check-circle' };
-  const GROUP_CLASS = { overdue: 'g-overdue', onHold: 'g-hold', inProgress: 'g-prog', dueSoon: 'g-soon', pending: 'g-pend', recent: 'g-done' };
+  const STATUS_ICON = { overdue: 'octagon-x', onHold: 'hold', inProgress: 'clock', dueSoon: 'flag', pending: 'dashed', completed: 'check-circle', recent: 'check-circle', upToDate: 'check-circle' };
+  const GROUP_CLASS = { overdue: 'g-overdue', onHold: 'g-hold', inProgress: 'g-prog', dueSoon: 'g-soon', pending: 'g-pend', recent: 'g-done', upToDate: 'g-done g-upto' };
 
   // ---------------------------------------------------------------- shared row pieces (also used by FAC Jobs)
-  EQ.facPill = function facPill(status, overdue, dueSoon) {
+  EQ.facPill = function facPill(status, overdue, dueSoon, group) {
     const k = overdue ? 'overdue' : status === 'completed' ? 'completed' : status;
-    const label = overdue ? 'Overdue' : F().STATUS_NAME[status];
+    const label = overdue ? 'Overdue' : group === 'upToDate' ? 'Done · up to date' : F().STATUS_NAME[status]; // U1-C24
     return h('span', { class: 'pill st-' + k }, icon(STATUS_ICON[k] || 'dashed'), label);
   };
   EQ.facBar = function facBar(done, target, pct) {
     return h('span', { class: 'prog' }, h('span', { class: 'bar', 'aria-hidden': 'true' }, h('i', { style: 'width:' + Math.min(100, pct) + '%' })), h('span', { class: 'qty' }, done + '/' + target + ' · ' + pct + ' %'));
   };
   function rowLabel(r) {
-    return r.name + '. ' + F().TYPE_NAME[r.type] + ', ' + r.freq + (r.pic !== 'Unassigned' ? ', PIC ' + r.pic : '') + (r.mode ? ', ' + r.mode : '') + '. ' + (r.overdue ? 'Overdue' : F().STATUS_NAME[r.status]) + ', ' + r.done + ' of ' + r.target + ' done, ' + r.pct + ' percent. ' + r.dueLabel + (r.holdReason ? '. On hold: ' + r.holdReason : '') + '.';
+    return r.name + '. ' + F().TYPE_NAME[r.type] + ', ' + r.freq + (r.pic !== 'Unassigned' ? ', PIC ' + r.pic : '') + (r.mode ? ', ' + r.mode : '') + '. ' + (r.overdue ? 'Overdue' : r.group === 'upToDate' ? 'Done, up to date' : F().STATUS_NAME[r.status]) + ', ' + r.done + ' of ' + r.target + ' done, ' + r.pct + ' percent. ' + r.dueLabel + (r.holdReason ? '. On hold: ' + r.holdReason : '') + '.';
   }
   function rowEl(r, o) {
     o = o || {};
@@ -35,7 +35,7 @@ window.EQ = window.EQ || {};
         h('span', { class: 'name', title: r.name }, r.name),
         h('span', { class: 'meta' }, icon(r.type === 'inspection' ? 'inspect' : 'service'), F().TYPE_NAME[r.type] + ' · ' + r.freq + ' · ' + r.pic + (r.mode ? ' · ' + r.mode : '')),
         r.holdReason ? h('span', { class: 'hold-reason' }, 'On hold: ' + r.holdReason) : EQ.facBar(r.done, r.target, r.pct)),
-      h('span', { class: 'side' }, EQ.facPill(r.status, r.overdue, r.dueSoon), h('span', { class: 'due due-' + r.dueKind }, r.dueLabel)));
+      h('span', { class: 'side' }, EQ.facPill(r.status, r.overdue, r.dueSoon, r.group), h('span', { class: 'due due-' + r.dueKind }, r.dueLabel)));
     const li = h('li', { class: 'frow ' + (GROUP_CLASS[r.group] || ''), 'data-key': r.key, 'data-sig': r.sig }, a);
     if (o.disc) li.querySelector('.meta').appendChild(h('span', { class: 'disc d-' + r.discipline }, F().DISC_NAME[r.discipline]));
     return li;
@@ -278,7 +278,7 @@ window.EQ = window.EQ || {};
     if (body.dataset.sig === sig) return; body.dataset.sig = sig;
     body.replaceChildren(h('div', { class: 'table-wrap' }, h('table', null, h('caption', null, 'All dashboard jobs, in dashboard order, by discipline'),
       h('thead', null, h('tr', null, ['Discipline', 'Job', 'Frequency', 'PIC', 'Progress', 'Status', 'Due'].map((c) => h('th', { scope: 'col' }, c)))),
-      h('tbody', null, m.lanes.flatMap((l) => l.rows.map((r) => h('tr', null, h('td', null, l.name), h('th', { scope: 'row' }, h('a', { href: F().jobHref(r.id) }, r.name)), h('td', null, r.freq), h('td', null, r.pic), h('td', null, r.done + '/' + r.target + ' (' + r.pct + ' %)'), h('td', null, r.overdue ? 'Overdue' : F().STATUS_NAME[r.status]), h('td', null, r.dueLabel))))))));
+      h('tbody', null, m.lanes.flatMap((l) => l.rows.map((r) => h('tr', null, h('td', null, l.name), h('th', { scope: 'row' }, h('a', { href: F().jobHref(r.id) }, r.name)), h('td', null, r.freq), h('td', null, r.pic), h('td', null, r.done + '/' + r.target + ' (' + r.pct + ' %)'), h('td', null, r.overdue ? 'Overdue' : r.group === 'upToDate' ? 'Done, up to date' : F().STATUS_NAME[r.status]), h('td', null, r.dueLabel))))))));
   }
   function patchCombined(m) {
     const ol = dash.refs.combined.querySelector('ol');

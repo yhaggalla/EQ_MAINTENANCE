@@ -2,6 +2,8 @@
 
 Prepared in P01 on 21 October 2026. Status: **design contract for R01 review**, revised by Repair-R01 on 21 October 2026 (findings F1, F2, F5 of `docs/evidence/R01/review-20261021-1357.md`); implemented in P04-P10. Entity rules referenced as "DATA s<n>" are in `docs/DATA_CONTRACT.md`.
 
+**U1 round 6 addendum (23 October 2026, U1-C23..U1-C26).** Changed sections: s4.2 (fleet `openJobs` exclude hidden jobs), s4.7 (`display` filter, `showOnDashboard` in `JobSummary`), s4.8 (new `PUT /jobs/{jobId}/display`, `F:eq.work`), s4.16 (Projects/Special returns open **and completed** jobs as `jobs`, `CurrentSpecialJob` adds `completedOn` and `listedOn`; hidden jobs excluded from every tab, count and badge), s4.22 (`showOnDashboard` in `FacJobSummary`, `display` filter; dashboard-only detail excludes hidden jobs), s4.23 (new `PUT /fac/jobs/{jobId}/display`, `F:fac.work`), s4.24 (dashboard-only photo reads: active and shown jobs), s4.25 (population excludes hidden jobs; new lane group `upToDate`). DATA_CONTRACT round 6 addendum gives the rules (J7, F7, s18.1, s18.4).
+
 **U1 round 5 addendum (23 October 2026, U1-C20..U1-C22).** Changed sections: s4.12 (catalogue add/edit bodies and refusals), s4.13 (positions add/edit, parameter definitions and value source), s4.17 (daily jobs in the Daily work (CMMS) tab), s4.18 (new `POST /equipment/{equipmentId}/spare-parts`, `F:eq.work`: EQ Team and Admin add spare parts), s4.19 (type retire rule). DATA_CONTRACT round 5 addendum gives the rules.
 
 **P01B addendum (22 October 2026, SOW V2 revision 4).** Changed sections: s1.1, s1.2, s1.6, s1.7, s2 (feature policies replace the three role policies), s3, s4.1, s4.2, s4.3, s4.6, s4.7, s4.8, s4.9, s4.13, s5, s7. New endpoint groups: s4.16 crane-view current state, s4.17 EQ Jobs tab (daily jobs, status board, status history, spare-part register), s4.18 spare-part register commands, s4.19 Admin spare parts and EQ settings, s4.20 Admin ZMMS, s4.21 Admin Access matrix, s4.22 FAC queries, s4.23 FAC commands, s4.24 FAC photos, s4.25 FAC Dashboard, s4.26 Admin FAC, s4.27 Excel exports. Implemented in P06-P10 (P07B ZMMS, P08B FAC).
@@ -153,6 +155,7 @@ type JobSummary = {
   plannedOn: DateOnly | null; completedOn: DateOnly | null;
   responsiblePerson: string | null; createdBy: Actor; createdUtc: Instant; updatedUtc: Instant;
   lineCount: number; attachmentCount: number;
+  showOnDashboard: boolean;   // U1-C26: the shared "Show on dashboard / 3D" switch (DATA J7)
 };
 ```
 
@@ -209,7 +212,7 @@ Capabilities and `access` are presentation hints only; the server rechecks every
                   items: Array<{ id: Id; code: string; name: string | null; lifecycle: 'active' | 'retired';
                                  model: { code: string; association: 'unassigned' | 'verified' } | null;
                                  status: StatusSummary; lastActivityUtc: Instant;
-                                 openJobs: { pending: number; current: number };   // distinct non-cancelled jobs
+                                 openJobs: { pending: number; current: number };   // distinct non-cancelled jobs shown on the dashboard / 3D (U1-C26)
                                  thumbnail: 'qc' | 'rtg' | 'es' | 'generic'; has3dView: boolean;
                                  zmmsToday: { count: number } | null }> }>;      // V2: today's present daily jobs; null when not ZMMS-mapped
   // V2 (S20): ZMMS freshness for "ZMMS data from <date time>"
@@ -294,7 +297,7 @@ Each job appears once per response even when several of its lines match; `matchi
 
 | Method and path | Policy | Purpose / acceptance |
 | --- | --- | --- |
-| `GET /jobs?status=pending,current,completed&includeCancelled=false&equipmentId=&type=&kind=&mainCode=&subCode=&targetLevel=&dateField=created|planned|completed&from=&to=&q=&mine=false&limit=&cursor=&sort=updated_desc` | `F:eq.jobs.view` | Jobs workspace lists and board columns (S08, JOB01, JOB12) |
+| `GET /jobs?status=pending,current,completed&includeCancelled=false&equipmentId=&type=&kind=&mainCode=&subCode=&targetLevel=&dateField=created|planned|completed&from=&to=&q=&mine=false&display=all|shown|hidden&limit=&cursor=&sort=updated_desc` | `F:eq.jobs.view` | Jobs workspace lists and board columns (S08, JOB01, JOB12) |
 | `GET /jobs/board-counts?…same filters…` | `F:eq.jobs.view` | `{ pending, current, completed, cancelled }` counts for the tabs |
 | `GET /jobs/{jobId}` | `F:eq.jobs.view` | Full job: `JobSummary` + description, completion fields, `lines: ReplacementLineView[]`, `attachments`, `progress`, `corrections`, `cancellation` `{ reason, by, utc } | null` |
 
@@ -313,6 +316,7 @@ V2 (Repair-R02B, D-139): every endpoint of this section, the job attachments (s4
 | `POST /jobs/{jobId}/complete` | `F:eq.work`; Idempotency-Key | see below | 200 completed job (JOB01, JOB04-JOB08, JOB10, JOB11) |
 | `POST /jobs/{jobId}/cancel` | `F:eq.work`; Idempotency-Key | `{ version, reason }` | 200. 403 `not_job_creator` (EQ Team, other creator); 409 `job_completed`; 409 `job_previously_completed` (EQ Team, reopened job); 409 `job_has_committed_replacements` (Admin, reopened job still holding committed lines; void them by correction first); 422 `reason_required` (JOB12, JOB09) |
 | `POST /jobs/{jobId}/reopen` | `F:eq.work.admin`; Idempotency-Key | `{ version, reason }` | completed -> current; installations unchanged; 409 `job_not_completed` (JOB09) |
+| `PUT /jobs/{jobId}/display` (U1-C26) | `F:eq.work` (EQ Team and Admin; Management and FAC Team 403 `forbidden_role`) | `{ version, showOnDashboard: boolean, reason: string | null }` (reason <= 500) | 200 `JobSummary`. Any special job, whatever its creator, work state or cancellation; an unchanged value writes nothing; 409 `version_conflict`; 422 `validation_failed`. Changes no work field or status; `JobStatusEvent` `displayShown`/`displayHidden` and `AuditEntry` `job.display` (DATA J7). A hidden job leaves s4.16 and the s4.2 counts and stays in s4.6, s4.7 and the export |
 | `POST /jobs/{jobId}/corrections` | `F:eq.work.admin`; Idempotency-Key | see below | 200 corrected job + correction record; 409 `later_installation_exists`, `out_of_order_installation`; 422 field errors (JOB09, HIS03). Allowed on completed jobs and, for line amendments and voids only, on reopened jobs (DATA s4.1, s5.3) |
 
 Complete request:
@@ -458,13 +462,13 @@ Scene versions are registered only by `AdminCli register-scene-version` (no brow
 
 ### 4.16 Crane view current state (V2: S07, U1-C19, HIS06)
 
-The four right-panel tabs of the crane view (DATA s18.1, D-122). All `F:eq.fleet.view`. Common query: `scope=equipment|main|sub|part&targetId=` (targetId required unless `scope=equipment`; 422 `target_not_in_equipment`). Every response starts with the echo `{ equipmentId, scope, targetId, tab }` for the race guard (HIS05). No endpoint here returns completed jobs, installation events, status changes, register history or earlier ZMMS days.
+The four right-panel tabs of the crane view (DATA s18.1, D-122). All `F:eq.fleet.view`. Common query: `scope=equipment|main|sub|part&targetId=` (targetId required unless `scope=equipment`; 422 `target_not_in_equipment`). Every response starts with the echo `{ equipmentId, scope, targetId, tab }` for the race guard (HIS05). No endpoint here returns installation events, status changes, corrections, job progress, register history or earlier ZMMS days; `special` lists completed special jobs as the allowlisted projection only (U1-C23, D-155). Special jobs whose display switch is off (DATA J7) are in no response, count or badge here (U1-C26).
 
 | Method and path | Response (after the echo) |
 | --- | --- |
-| `GET /equipment/{equipmentId}/current-state/summary?scope=&targetId=` | `{ status: StatusSummary; badges: { maintenanceToday: number | null; specialOpen: number; sparePartsOverdue: number; sparePartsDueSoon: number } }` |
+| `GET /equipment/{equipmentId}/current-state/summary?scope=&targetId=` | `{ status: StatusSummary; badges: { maintenanceToday: number | null; specialOpen: number; sparePartsOverdue: number; sparePartsDueSoon: number } }` (`specialOpen` = open, shown jobs; the same count feeds the tree and flat/3D label work badges) |
 | `GET /equipment/{equipmentId}/current-state/maintenance?scope=&targetId=` | `{ zmmsMapped: boolean; businessDate: DateOnly; dataFrom: Instant | null; stale: boolean; equipmentLevelNote: true; jobs: ZmmsDailyJobView[] }` - today's present rows only; `jobs: []` with `zmmsMapped: false` for unmapped equipment |
-| `GET /equipment/{equipmentId}/current-state/special?scope=&targetId=` | `{ openJobs: CurrentSpecialJob[]; counts: { pending: number; current: number; completed: number; cancelled: number }; openInJobs: { equipment: Id; scope: string; target: Id | null } | null }` - DATA s9 scope rule, de-duplicated; completed jobs counted only. Uses the separate allowlisted DTO below, never `JobSummary` or `ReplacementLineView`, including for reopened jobs. `openInJobs` is null when the caller lacks `eq.jobs.view` (the panel then shows no Open in Jobs link and no job-record links, D-139) |
+| `GET /equipment/{equipmentId}/current-state/special?scope=&targetId=` | `{ jobs: CurrentSpecialJob[]; moreCompleted: boolean; counts: { pending: number; current: number; completed: number; cancelled: number }; openInJobs: { equipment: Id; scope: string; target: Id | null } | null }` - DATA s9 scope rule, de-duplicated; U1-C23: `jobs` holds every open job and the 50 most recent completed jobs of the scope (cancelled jobs counted only), newest first by `listedOn` then number desc; `moreCompleted` when older completed jobs exist (they are in the Jobs tab); hidden jobs (U1-C26) are in neither `jobs` nor `counts`. Uses the separate allowlisted DTO below, never `JobSummary` or `ReplacementLineView`, including for reopened jobs. `openInJobs` is null when the caller lacks `eq.jobs.view` (the panel then shows no Open in Jobs link and no job-record links, D-139) |
 | `GET /equipment/{equipmentId}/current-state/technical?scope=&targetId=` | `{ identity: {...}; model: {...} | null; attributes: { commissionedOn: DateOnly | null; serialNumber: string | null; manufacturer: string | null } | null; definition: { code: string; name: string; description: string | null } | null; positionCounts: { serialized: number; quantityLot: number } | null; currentInstallations: InstallationView[] | null; sourceReferences: [...]; provenance: {...} | null; parameters: ParameterItem[]; sceneUnavailableReason: string | null }` - fields per scope as DATA s18.1; `ParameterItem` = s4.10 item |
 | `GET /equipment/{equipmentId}/current-state/spare-parts?scope=&targetId=` | `{ rows: SparePartRow[]; notMajorSparePart: boolean }` (`notMajorSparePart` true for a part scope whose position is not designated) |
 
@@ -473,11 +477,13 @@ The four right-panel tabs of the crane view (DATA s18.1, D-122). All `F:eq.fleet
 type CurrentSpecialJob = {
   id: Id; number: string; equipment: { id: Id; code: string; type: string };
   target: TargetRef; kind: 'repair' | 'replacement'; title: string;
-  workStatus: 'pending' | 'current'; plannedOn: DateOnly | null;
+  workStatus: 'pending' | 'current' | 'completed'; plannedOn: DateOnly | null;
+  completedOn: DateOnly | null;   // U1-C23: completion business date of a completed job; null for open and reopened jobs
+  listedOn: DateOnly;             // U1-C23: sort date = completedOn, or the Asia/Colombo business date of CreatedUtc for an open job
   matchingPositions: { id: Id; displayName: string }[];
 };
-// No description, completion/cancellation fields, actors/audit timestamps, events,
-// corrections, attachments/evidence, or replacement installation/removal details.
+// No description, completion note, completer, cancellation fields, actors/audit timestamps, events,
+// corrections, attachments/evidence, or replacement installation/removal details (completed jobs too).
 // Matching positions identify scope membership only; they are not replacement events.
 // The prototype represents target/equipment as scalar IDs and matchingPositions as
 // matchingLines: [{ positionId }], with the same allowlist and detached value semantics.
@@ -582,13 +588,14 @@ type FacJobSummary = { id: Id; number: string; version: Version;
                   dueOn: DateOnly | null; dueBasis: string; noDueReason: string | null; daysOverdue: number | null; dueInDays: number | null;
                   completedQuantity: number; targetQuantity: number; percent: number };
   lastDoneOn: DateOnly | null; jobPicture: { photoId: Id; thumbUrl: string } | null; remarks: string | null;
-  origin: 'facImport' | 'user'; sourceRow: number | null; updatedUtc: Instant; statusChangedUtc: Instant | null };
+  origin: 'facImport' | 'user'; sourceRow: number | null; updatedUtc: Instant; statusChangedUtc: Instant | null;
+  showOnDashboard: boolean };   // U1-C26: the shared "Show on dashboard" switch (DATA F7)
 ```
 
 | Method and path | Policy | Purpose / acceptance |
 | --- | --- | --- |
-| `GET /fac/jobs?view=mywork|all&status=pending,inProgress,onHold,completed&flag=overdue,dueSoon&discipline=&type=&mode=&pic=&frequency=&kind=&state=active|closed|deactivated|all&q=&sort=&limit=&cursor=` | `F:fac.jobs.view` | FAC Jobs board/list and My work (own PIC first) (FAC10). `pic` = a profile ID or `name-<slug>` of a typed name. Counts per status in `totals` |
-| `GET /fac/jobs/{jobId}` | `F:fac.jobs.view|fac.dashboard.view` | `FacJobSummary` + timeline (newest first: updates with photos and undo marks, holds/releases, corrections, master edits) + the 14 most recent previous cycles `{ sequence, periodOrDue, completedOn, onTime: 'onTime' | 'late' | 'missed' | 'noDueDate', lateDays }` and `moreCycles: boolean` (read-only for Management). Resource rule (D-140): a caller with `fac.dashboard.view` but without `fac.jobs.view` may read only an **active** job (the population of the dashboard, s4.25), because this is the detail a dashboard row opens (SOW V2 5.5.7); a closed or deactivated job then returns 404 `not_found` |
+| `GET /fac/jobs?view=mywork|all&status=pending,inProgress,onHold,completed&flag=overdue,dueSoon&discipline=&type=&mode=&pic=&frequency=&kind=&state=active|closed|deactivated|all&display=all|shown|hidden&q=&sort=&limit=&cursor=` | `F:fac.jobs.view` | FAC Jobs board/list and My work (own PIC first) (FAC10). `pic` = a profile ID or `name-<slug>` of a typed name. Counts per status in `totals` |
+| `GET /fac/jobs/{jobId}` | `F:fac.jobs.view|fac.dashboard.view` | `FacJobSummary` + timeline (newest first: updates with photos and undo marks, holds/releases, corrections, master edits) + the 14 most recent previous cycles `{ sequence, periodOrDue, completedOn, onTime: 'onTime' | 'late' | 'missed' | 'noDueDate', lateDays }` and `moreCycles: boolean` (read-only for Management). Resource rule (D-140): a caller with `fac.dashboard.view` but without `fac.jobs.view` may read only an **active** job (the population of the dashboard, s4.25), because this is the detail a dashboard row opens (SOW V2 5.5.7); a closed or deactivated job, or one whose display switch is off (U1-C26, D-159), then returns 404 `not_found` |
 | `GET /fac/jobs/{jobId}/cycles?limit=&cursor=` | `F:fac.jobs.view` | all cycles (paged); FAC Jobs tab only (D-140) |
 | `GET /fac/lists` | `F:fac.jobs.view|fac.dashboard.view|admin.access` | active disciplines, types, frequencies and the FAC Team users selectable as PIC (display names only) |
 
@@ -607,20 +614,21 @@ All POSTs carry an Idempotency-Key. Concurrency: job `version` for master/hold c
 | `POST /fac/jobs/{jobId}/hold` / `release` | `F:fac.work` | `{ version, reason }` / `{ version }` | 422 `reason_required` (FAC08) |
 | `POST /fac/progress-updates/{updateId}/undo` | `F:fac.work` (author only) | `{ reason: string | null }` | 403 `not_update_author`; 409 `undo_window_passed`, `not_latest_update`, `later_progress_exists` (FAC07) |
 | `POST /fac/jobs/{jobId}/job-picture` | `F:fac.work` or `F:fac.masterList.manage` | `{ version, photoUploadId }` | replaces the active picture (FAC09) |
+| `PUT /fac/jobs/{jobId}/display` (U1-C26) | `F:fac.work` (FAC Team and Admin; EQ Team and Management 403 `forbidden_role`) | `{ version, showOnDashboard: boolean, reason: string | null }` (reason <= 500) | 200 `FacJobSummary`. Any FAC job of any kind (recurring, one-time, continuous) and state; an unchanged value writes nothing; 409 `version_conflict`; 422 `validation_failed`. Changes no master field, cycle, progress or photo; timeline entry, `AuditEntry` `fac.job.display`, FacDataVersion + 1 (DATA F7) |
 
 ### 4.24 FAC photos (V2: S26)
 
 | Method and path | Policy | Purpose / acceptance |
 | --- | --- | --- |
 | `POST /fac/photo-uploads` | `F:fac.work|fac.masterList.manage|fac.oneTimeJobs.add`; Idempotency-Key; `multipart/form-data` (`file`) | Stage one photo: `{ uploadId, expiresUtc, width, height, bytes }`; 413 `file_too_large` (> 10 MiB); 415 `unsupported_media_type` (extension and signature must both be JPEG or PNG); 422 `validation_failed` (undecodable, > 50 MP, unsafe filename) (FAC09). The phone UI uses `<input type="file" accept="image/jpeg,image/png" capture="environment">` |
-| `GET /fac/photos/{photoId}/content?size=full|thumb` | `F:fac.dashboard.view|fac.jobs.view`; removed photos `F:fac.work.admin`; with `fac.dashboard.view` alone only photos of active jobs (D-140) | Streams the re-encoded image; `private, no-cache`, sha256 ETag, `nosniff`; unknown/guessed/removed IDs 404 `not_found` (FAC09, FDB06) |
+| `GET /fac/photos/{photoId}/content?size=full|thumb` | `F:fac.dashboard.view|fac.jobs.view`; removed photos `F:fac.work.admin`; with `fac.dashboard.view` alone only photos of active jobs shown on the dashboard (D-140, D-159) | Streams the re-encoded image; `private, no-cache`, sha256 ETag, `nosniff`; unknown/guessed/removed IDs 404 `not_found` (FAC09, FDB06) |
 | `POST /fac/photos/{photoId}/remove` | `F:fac.work` (uploader, same business day) or `F:fac.work.admin` (any, reason required) | `{ reason: string | null }`; marks removed; content retained (FAC09) |
 
 ### 4.25 FAC Dashboard (V2: S27)
 
 | Method and path | Policy | Purpose / acceptance |
 | --- | --- | --- |
-| `GET /fac/dashboard?discipline=&type=&mode=&pic=&focus=overdue|dueSoon|inProgress|completed|onHold` | `F:fac.dashboard.view` | One summary call for the 60-second poll (DATA s18.4). `ETag` + `If-None-Match` -> 304 (D-120). TV mode and the phone layout use the same call. There is no anonymous or token-in-URL variant (FDB05) |
+| `GET /fac/dashboard?discipline=&type=&mode=&pic=&focus=overdue|dueSoon|inProgress|completed|onHold` | `F:fac.dashboard.view` | One summary call for the 60-second poll (DATA s18.4). Population: jobs whose display switch is on (U1-C26). `ETag` + `If-None-Match` -> 304 (D-120). TV mode and the phone layout use the same call. There is no anonymous or token-in-URL variant (FDB05) |
 
 Response:
 
@@ -631,7 +639,7 @@ Response:
   kpis: { totalActive: number; completedThisCycle: number; inProgress: number; onHold: number; overdue: number; dueSoon: number;
           onTimePercent30d: number | null; onTimeBasis: { onTime: number; total: number }; todaysChecks: { done: number; total: number } };
   lanes: Array<{ discipline: { code: string; name: string }; completionPercent: number | null; counts: { active: number; completed: number };
-                 rows: Array<{ group: 'overdue' | 'onHold' | 'inProgress' | 'dueSoon' | 'pending' | 'completedRecently';
+                 rows: Array<{ group: 'overdue' | 'onHold' | 'inProgress' | 'dueSoon' | 'pending' | 'completedRecently' | 'upToDate';   // upToDate: U1-C24
                                job: Pick<FacJobSummary, 'id' | 'number' | 'type' | 'name' | 'frequency' | 'pic' | 'mode' | 'status' | 'flags' | 'holdReason' | 'jobPicture' | 'statusChangedUtc'>;
                                progress: { completed: number; target: number; percent: number };
                                due: { label: 'dueInDays' | 'overdueDays' | 'dueToday' | 'dueThisWeek' | 'none'; days: number | null; dueOn: DateOnly | null } }> }>;
@@ -642,7 +650,7 @@ Response:
 
 The `discipline`, `type`, `mode` and `pic` predicates apply to both `onTimeBasis` counts and every other block (DATA s18.4). With no eligible completed cycle, `onTimePercent30d` is null and `onTimeBasis` is `{ onTime: 0, total: 0 }`; the UI shows no percentage. Matching completed rolling cycles remain eligible if their job has since closed or deactivated. `focus` narrows lane rows only.
 
-Rows are in display order (group order, then the in-group sort of DATA s18.4). The client keeps its scroll position and only patches changed rows on refresh (FDB04); on failure it keeps the last data with "Updated hh:mm" and a warning.
+Rows are in display order (group order, then the in-group sort of DATA s18.4). U1-C24: every active, shown job of a lane is a row; jobs completed more than 7 days ago that are not yet due soon or overdue are the last group, `upToDate` ("Done, up to date" with `due.dueOn` = the next due date, or `due.label` `none`); `focus=completed` includes them. The client keeps its scroll position and only patches changed rows on refresh (FDB04); on failure it keeps the last data with "Updated hh:mm" and a warning.
 
 ### 4.26 Admin: FAC (V2: S23-S25)
 
@@ -710,7 +718,8 @@ A health response is never acceptance evidence on its own (Master control).
 | Scene | 4.11, 4.14 | VIS05, VIS07, VIS08, VIS09 |
 | Admin config | 4.13 | ADM01, ADM02, ADM04, ADM05, SRC04 |
 | (V2) Session, sections, Access matrix | 4.1, 2, 4.21 | ACC01, ACC02, ACC03, ACC04, ACC05 |
-| (V2) Crane view current state | 4.16 | HIS06, SP04, VIS03 |
+| (V2) Crane view current state | 4.16 | HIS06, SP04, VIS03 (U1-C23, U1-C26) |
+| (U1 round 6) Display switch | 4.8 `PUT /jobs/{jobId}/display`, 4.23 `PUT /fac/jobs/{jobId}/display` | ACC03, AUTH03, FDB01, HIS06 (U1-C26) |
 | (V2) EQ Jobs tab: daily jobs, status, spare parts | 4.3, 4.17, 4.18 | ZM05, ZM06, ZM07, SP01, SP02, SP03, SP04, JOB02 |
 | (V2) Admin spare parts | 4.19 | SP01, SP03 |
 | (V2) Admin ZMMS | 4.20 | ZM01, ZM02, ZM03, ZM04, ZM05, ZM08 |

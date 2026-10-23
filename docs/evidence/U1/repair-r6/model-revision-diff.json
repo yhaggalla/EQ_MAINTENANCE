@@ -1,0 +1,55 @@
+{
+  "base": "HEAD",
+  "baseAsset": {
+    "sha256": "af9d1338ecd737c4c78493cc0407e4286789e054ab6f7d7c6b203a7086f9a369",
+    "bytes": 2546744,
+    "nodes": 178
+  },
+  "revised": {
+    "revision": 5,
+    "sha256": "26440078e92b829ce2370d8c5037e9b1bf30cb292b7f0c810199db013d4a9c08",
+    "bytes": 2570284,
+    "nodes": 178
+  },
+  "summary": {
+    "added": 0,
+    "removed": 0,
+    "changed": 2,
+    "identityChanges": 0
+  },
+  "note": "Draft v1 revised in place (no binding active). Keys, kinds, classification and instancing of existing nodes are unchanged unless listed; bounds changes are geometry corrections.",
+  "added": [],
+  "removed": [],
+  "changed": [
+    {
+      "key": "reeving.sheave.boom-tip",
+      "boundsChanged": true,
+      "label": [
+        "Boom-tip hoist rope sheaves",
+        "Boom-tip hoist rope sheaves and rope-end anchors"
+      ]
+    },
+    {
+      "key": "hoist.loadcell.main",
+      "boundsChanged": true,
+      "label": [
+        "Load cell system (load pins in the main hoist rope-end anchors at the boom tip; hardware not identified on the sheets)",
+        "Load cell system (in-line load cells in the horizontal main hoist ropes at the boom tip; point and hardware not fixed on the sheets)"
+      ],
+      "hotspot": [
+        [
+          74.05000000000001,
+          52.779999999999994,
+          0
+        ],
+        [
+          73.30000000000001,
+          53.423398098387764,
+          0
+        ],
+        "simplified-part",
+        "simplified-part"
+      ]
+    }
+  ]
+}

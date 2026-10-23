@@ -33,12 +33,26 @@ window.EQ = window.EQ || {};
     return acts;
   }
 
+  /** U1-C26: the shared "Show on dashboard / 3D" switch (one setting everyone sees). Writers get a real switch; read-only roles see the
+   *  state as text. Every change goes through the simulated server command (eq.work / fac.work) and is audited. */
+  EQ.displaySwitch = function displaySwitch(o) {
+    const id = 'vis-' + o.id;
+    if (!o.canSet) return h('p', { class: 'small', 'data-fk': 'vis-state-' + o.id }, o.label + ': ', h('strong', null, o.shown ? 'Shown' : 'Hidden'), o.shown ? '' : ' (' + o.hiddenNote + ')');
+    return h('label', { class: 'check vis-switch', for: id, style: 'min-height:2.2rem' },
+      h('input', { type: 'checkbox', role: 'switch', id, 'data-fk': id, checked: o.shown ? true : null, 'aria-describedby': id + '-note',
+        onChange: (e) => { const r = o.onChange(e.target.checked); if (!r.ok) { e.target.checked = o.shown; EQ.toast(r.message); } else EQ.toast((e.target.checked ? 'Shown on ' : 'Hidden from ') + o.where + ': ' + o.name, 'Shared setting; audited. Prototype: in memory only.'); } }),
+      h('span', null, o.label, h('span', { class: 'small muted', id: id + '-note', style: 'display:block' }, o.shown ? 'Everyone sees it on ' + o.where + '.' : 'Hidden from ' + o.where + ' for everyone; ' + o.hiddenNote + '.')));
+  };
+  const jobSwitch = (j) => EQ.displaySwitch({ id: j.id, shown: EQ.shownOnDashboard(j), canSet: EQ.perm.write(), label: 'Show on dashboard / 3D', where: 'the crane view (flat and 3D), its labels and the fleet cards', name: j.number, hiddenNote: 'it stays in Jobs, history and exports',
+    onChange: (show) => EQ.api.setJobVisibility(j.id, { show, version: j.version }) });
+  const hiddenTag = (j) => (EQ.shownOnDashboard(j) ? null : h('span', { class: 'tag dashed', 'data-fk': 'hidden-tag', style: 'margin-left:.25rem', title: 'Not shown on the crane view (flat and 3D) or the fleet cards (U1-C26)' }, 'Hidden from dashboard / 3D'));
+
   function card(j) {
     const eq = EQ.eq(j.equipmentId);
     const ctx = {};
     const acts = actions(j, ctx);
     return h('article', { class: 'job' + (j.isCancelled ? ' cancelled' : ''), 'aria-label': j.number + ' ' + j.title },
-      h('div', { class: 'row between' }, h('a', { href: '#/eq/jobs/special/' + j.id, class: 'mono' }, j.number), h('span', null, h('span', { class: 'tag' }, KIND[j.kind]), ' ', statusTag(j), j.priority === 'high' ? h('span', { class: 'tag gold', style: 'margin-left:.25rem' }, 'High priority') : null)),
+      h('div', { class: 'row between' }, h('a', { href: '#/eq/jobs/special/' + j.id, class: 'mono' }, j.number), h('span', null, h('span', { class: 'tag' }, KIND[j.kind]), ' ', statusTag(j), j.priority === 'high' ? h('span', { class: 'tag gold', style: 'margin-left:.25rem' }, 'High priority') : null, hiddenTag(j))),
       h('h3', null, j.title),
       h('div', { class: 'meta' }, h('span', null, h('a', { href: '#/eq/equipment/' + eq.id }, eq.code)), h('span', null, EQ.targetLabel(j))),
       h('div', { class: 'meta' },
@@ -109,7 +123,7 @@ window.EQ = window.EQ || {};
     const eq = EQ.eq(j.equipmentId);
     const ctx = {};
     page.appendChild(h('nav', { 'aria-label': 'Breadcrumb' }, h('ol', { class: 'breadcrumb', style: 'margin-bottom:.6rem' }, h('li', null, h('a', { href: '#/eq/jobs/special' }, 'Jobs')), h('li', null, h('span', { 'aria-current': 'page' }, j.number)))));
-    page.appendChild(h('header', { class: 'panel eq-head' }, h('div', null, h('p', { class: 'eyebrow' }, KIND[j.kind] + ' job'), h('h1', null, j.number, statusTag(j))), h('div', { class: 'facts' }, h('strong', null, j.title)), h('div', { class: 'actions' }, actions(j, ctx).filter((_, i) => i > 0))));
+    page.appendChild(h('header', { class: 'panel eq-head' }, h('div', null, h('p', { class: 'eyebrow' }, KIND[j.kind] + ' job'), h('h1', null, j.number, statusTag(j), hiddenTag(j))), h('div', { class: 'facts' }, h('strong', null, j.title)), h('div', { class: 'actions' }, actions(j, ctx).filter((_, i) => i > 0))));
     if (ctx.why) page.appendChild(h('p', { class: 'small muted' }, 'Cancel unavailable: ' + ctx.why));
     const kv = (rows) => h('dl', { class: 'kv' }, rows.filter(Boolean).map(([k, v]) => [h('dt', null, k), h('dd', null, v)]));
     page.appendChild(h('div', { class: 'grid-2', style: 'align-items:start;margin-top:.7rem' },
@@ -118,7 +132,8 @@ window.EQ = window.EQ || {};
         ['Planned', j.plannedOn ? EQ.fmtDate(j.plannedOn) : 'Not set'], ['Responsible', j.responsible || 'Not set'], ['Created', EQ.fmtInstant(j.createdUtc) + ' by ' + EQ.userName(j.createdBy)], ['Version', String(j.version)],
         j.workStatus === 'completed' ? ['Completed on', EQ.fmtDate(j.completedOn) + ' (business date)'] : null, j.completionNote ? ['Completion note', j.completionNote] : null, j.description ? ['Description', j.description] : null,
         j.isCancelled ? ['Cancelled', EQ.fmtInstant(j.cancelledUtc) + ' by ' + EQ.userName(j.cancelledBy) + ': ' + j.cancelReason] : null]),
-        h('div', { class: 'notice info' }, icon('info'), h('p', null, eq.code + ' operational status is ' + EQ.STATUS[EQ.statusKey(eq.status)].label + '. This job does not change it.'))),
+        h('div', { class: 'notice info' }, icon('info'), h('p', null, eq.code + ' operational status is ' + EQ.STATUS[EQ.statusKey(eq.status)].label + '. This job does not change it.')),
+        jobSwitch(j)),
       h('section', { class: 'panel panel-pad stack' }, h('h2', null, 'Progress and corrections'), h('ul', { class: 'tl' }, [...j.events].reverse().map((e) => h('li', { class: 'status' }, h('strong', null, e.kind), h('span', { class: 'when' }, EQ.fmtInstant(e.at) + ' by ' + EQ.userName(e.by)), e.note ? h('span', null, e.note) : null))),
         j.corrections.length ? h('div', { class: 'stack' }, h('h3', null, 'Admin corrections (prior values retained)'), j.corrections.map((c) => h('div', { class: 'nonwork' }, h('strong', null, 'Correction ' + c.n + ': ' + c.reason), c.items.map((it) => h('div', null, it.field + ': ', h('s', null, it.before), ' → ', h('strong', null, it.after))), h('span', { class: 'small muted' }, EQ.userName(c.by) + ', ' + EQ.fmtInstant(c.at))))) : null)));
     page.appendChild(h('section', { class: 'panel panel-pad stack', style: 'margin-top:.7rem' }, h('h2', null, 'Replacement lines'),

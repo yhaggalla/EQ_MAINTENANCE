@@ -1,0 +1,12 @@
+PASS QC-DEMO-01-v1-exact-binding
+PASS QC-DEMO-01-hotspots-to-sub-instances
+PASS QC-DEMO-02-v1-exact-binding
+PASS QC-DEMO-02-hotspots-to-sub-instances
+PASS two-equipment-independent
+PASS reordered-scene-same-identities
+PASS instanced-identity-via-map
+PASS v2-orphans-reported
+PASS v2-no-fuzzy-match
+PASS v2-activation-refused-while-orphans
+PASS v2-admin-repair-activates
+{ passed: 11, failed: 0 }

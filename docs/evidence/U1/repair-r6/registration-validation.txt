@@ -1,0 +1,27 @@
+PASS schema
+PASS units
+PASS asset-sha256
+PASS asset-bytes
+PASS gltf-names-exactly-once
+PASS glb-keys-in-manifest
+PASS node-name-equals-key
+PASS keys-unique
+PASS keys-grammar
+PASS parents-exist-no-cycles
+PASS parents-are-containers
+PASS classification
+PASS no-inactive-subcodes
+PASS no-tyre-steer-diesel-on-qc
+PASS bounds-finite-nonempty
+PASS thin-items-flagged
+PASS hotspots-point-radius-qualifier
+PASS instance-maps
+PASS no-external-uris
+PASS decals-embedded-and-not-identities
+PASS plausible-gauge
+PASS overall-height-not-total-lift
+PASS budget-triangles
+PASS budget-draw-calls
+PASS budget-asset-size
+PASS landmarks-within-tolerance
+status: validated {"nodes":178,"positions":144,"hotspots":19,"containers":11,"decorative":4}

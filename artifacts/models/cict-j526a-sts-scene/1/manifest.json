@@ -3,8 +3,8 @@
   "modelCode": "cict-j526a-sts-scene",
   "equipmentModelCode": "CICT-J526A-STS",
   "version": 1,
-  "revision": 4,
-  "revisionNote": "U1 round 3 (2026-10-22): trolley rebuilt from J526A0200 / J526A2100 (4 wheels instead of 8, four sheave shafts with two sheaves each, open frame and centre body, trolley-rope equalizer sheaves, spreader cable reel, main hoist and trolley rope paths on the trolley); headblock re-read from J526A1200 and spreader remodelled (STS45 drawing still not supplied; ISO 1161 corner positions, DT1500F cradle spacing). Previous: U1 round 2 (2026-10-22): load cells at the trolley sheave shafts, girder-tail platforms and stairs, apex platform and boom-hoist sheave arrangement, floodlight fittings on the boom and girder, elevator position/car/landings and every location marker drawn as a simplified part (J526A0200, J526A2300, J526A5000, J526A5100). Previous: U1 repair (2026-10-21): back-reach area, CICT logo, stair tower orientation, cab remodel, reeving paths and machinery-house layout re-checked against J526A00, J526A1000, J526A3000, J526A3100, J526A5000, J526A7100. Draft v1 revised in place: no equipment binding is active.",
+  "revision": 5,
+  "revisionNote": "U1 round 6 (2026-10-23): 013 load cell moved from the boom-tip rope-end anchor pins to in-line load cells in the horizontal main hoist ropes at the boom tip (user answer to U-23, U1-C25; point estimated); the J526A2000 Detail I rope-end anchors stay in reeving.sheave.boom-tip. Previous: U1 round 3 (2026-10-22): trolley rebuilt from J526A0200 / J526A2100 (4 wheels instead of 8, four sheave shafts with two sheaves each, open frame and centre body, trolley-rope equalizer sheaves, spreader cable reel, main hoist and trolley rope paths on the trolley); headblock re-read from J526A1200 and spreader remodelled (STS45 drawing still not supplied; ISO 1161 corner positions, DT1500F cradle spacing). Previous: U1 round 2 (2026-10-22): load cells at the trolley sheave shafts, girder-tail platforms and stairs, apex platform and boom-hoist sheave arrangement, floodlight fittings on the boom and girder, elevator position/car/landings and every location marker drawn as a simplified part (J526A0200, J526A2300, J526A5000, J526A5100). Previous: U1 repair (2026-10-21): back-reach area, CICT logo, stair tower orientation, cab remodel, reeving paths and machinery-house layout re-checked against J526A00, J526A1000, J526A3000, J526A3100, J526A5000, J526A7100. Draft v1 revised in place: no equipment binding is active.",
   "status": "draft",
   "statusNote": "P03 prototype, revised in the U1 repair while still a draft with no active binding. Not assigned to any equipment; bindings are made by Admin per equipment (DATA_CONTRACT s10.5).",
   "units": "m",
@@ -18,10 +18,10 @@
   "generator": {
     "name": "eq-model-generator",
     "version": "1.0.0",
-    "sourceCommit": "fdade575546c98f488a4b48355cc33a53ef341c8",
+    "sourceCommit": "6d4b64db30deb395bd041824d90c4cd1db76171b",
     "sourceDirty": true,
     "three": "0.186.1",
-    "node": "v22.22.0"
+    "node": "v24.15.0"
   },
   "source": {
     "params": "assets/models/source/cict-j526a-sts/params.json",
@@ -29,17 +29,17 @@
   },
   "asset": {
     "file": "scene.glb",
-    "sha256": "af9d1338ecd737c4c78493cc0407e4286789e054ab6f7d7c6b203a7086f9a369",
-    "bytes": 2546744,
-    "triangles": 54146,
+    "sha256": "26440078e92b829ce2370d8c5037e9b1bf30cb292b7f0c810199db013d4a9c08",
+    "bytes": 2570284,
+    "triangles": 54674,
     "drawCallsEstimate": 196,
     "overallMode": {
-      "triangles": 47910,
+      "triangles": 48094,
       "drawCallsEstimate": 147,
       "meshObjects": 93
     },
     "technicalMode": {
-      "triangles": 54144,
+      "triangles": 54672,
       "drawCallsEstimate": 195,
       "meshObjects": 123
     }
@@ -2107,7 +2107,7 @@
     {
       "key": "reeving.sheave.boom-tip",
       "kind": "position",
-      "label": "Boom-tip hoist rope sheaves",
+      "label": "Boom-tip hoist rope sheaves and rope-end anchors",
       "parentKey": "container.boom",
       "classification": {
         "main": "01",
@@ -2140,6 +2140,11 @@
             "drawing": "J526A2000",
             "pdfPage": null,
             "note": "reeving sheet not detailed in P03"
+          },
+          {
+            "drawing": "J526A2000",
+            "pdfPage": 1,
+            "note": "Detail I (1:20): rope clamp device (2, 2 off) on an anchor pin 480 above the boom top; anchors kept here since U1 round 6 (the 013 load cell moved to the horizontal rope, U1-C25)"
           }
         ]
       },
@@ -2147,7 +2152,7 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          74.099998,
+          73.099998,
           52.299999,
           -3
         ],
@@ -5472,7 +5477,7 @@
     {
       "key": "hoist.loadcell.main",
       "kind": "hotspot",
-      "label": "Load cell system (load pins in the main hoist rope-end anchors at the boom tip; hardware not identified on the sheets)",
+      "label": "Load cell system (in-line load cells in the horizontal main hoist ropes at the boom tip; point and hardware not fixed on the sheets)",
       "parentKey": "container.boom",
       "classification": {
         "main": "01",
@@ -5498,7 +5503,7 @@
           {
             "drawing": "J526A2000",
             "pdfPage": 1,
-            "note": "Detail I (1:20): roller device (1), rope clamp device (2, 2 off) on an anchor pin 480 above the boom top, rereeving sheave (3) 260 waterside of the pin; the user indicated the boom-tip hoist rope sheaves (U1-C12)"
+            "note": "Detail I: main hoist rope ends at the boom tip; the load-cell point is not shown. Placement from the user answer to U-23 (U1 round 6, U1-C25): \"load cell is connected in boom tip horizontal cable\"; distance from the tip estimated"
           },
           {
             "drawing": "J526A0300",
@@ -5510,8 +5515,8 @@
       "qualifier": "Location approximate / simplified representation",
       "hotspot": {
         "point": [
-          74.05000000000001,
-          52.779999999999994,
+          73.30000000000001,
+          53.423398098387764,
           0
         ],
         "radius": 0.45,
@@ -5519,14 +5524,14 @@
       },
       "bounds": {
         "min": [
-          73.099998,
-          52.599998,
-          -3.18
+          72.89711,
+          52.641609,
+          -2.825472
         ],
         "max": [
-          74.370003,
-          52.959999,
-          3.18
+          74.015152,
+          53.797188,
+          2.825472
         ]
       },
       "cameraHint": null

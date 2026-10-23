@@ -182,6 +182,7 @@ window.EQ = window.EQ || {};
         isCancelled: !!o.cancelled, cancelReason: o.cancelReason || null, cancelledBy: o.cancelledBy || null, cancelledUtc: o.cancelled ? ago(30) : null,
         createdBy: o.by || 'u-eq-a', createdUtc: ago(o.createdHoursAgo || 24 * 20), updatedUtc: ago(o.updatedHoursAgo || 24 * 5),
         reopenCount: 0, version: o.version || 1, lines: [], events: [], corrections: [],
+        showOnDashboard: true, // U1-C26 default: shown
       };
       if (target[0] === 'main') j.mainId = mainId(k, target[1]);
       if (target[0] === 'sub') { j.subId = subId(k, target[1]); j.mainId = eq.subs.find((s) => s.id === j.subId)?.mainId; }

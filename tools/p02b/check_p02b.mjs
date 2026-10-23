@@ -138,7 +138,7 @@ try {
   });
 
   // Repair-R02B finding 1: a switched-off tab must be blocked on the data reads, not only on the route (B01 only called EQ.access.srv)
-  await step('B05', ['ACC02', 'S19', 'S07', 'HIS06'], 'EQ Jobs off with Fleet on: history/list/record/export refuse; a reopened job exposes only allowlisted current fields and matching position IDs while retaining its source history; no job links or history render in the crane tabs [Repair-R02B round 2]', async () => {
+  await step('B05', ['ACC02', 'S19', 'S07', 'HIS06'], 'EQ Jobs off with Fleet on: history/list/record/export refuse; a reopened job exposes only allowlisted current fields and matching position IDs while retaining its source history; no job links or history render in the crane tabs [Repair-R02B round 2; adapted to U1-C23: completed jobs listed with the same allowlist plus completedOn/listedOn]', async () => {
     await go('admin', '/admin/access');
     const reopened = await ev(`EQ.api.reopenJob('job-101','B05: prior completion must stay in Jobs history').ok`);
     await ev(`EQ.setPersona('management')`); await ev(`EQ.nav('/eq/fleet',{})`); await b.wait(300);
@@ -146,7 +146,7 @@ try {
     const save = await ev(`(()=>{const keep=EQ.state.role; EQ.state.role='admin'; const r=EQ.access.save([{role:'management',feature:'eq.jobs.view',on:false}], EQ.state.D.access.version, 'check B05'); EQ.state.role=keep; return r.ok;})()`);
     const reads = await ev(`(()=>{const sc={level:'equipment',id:null}; const h=EQ.history('${Q1}',sc,true), hp=EQ.history('${Q1}',{level:'part',id:'pp-q01-007'},true), js=EQ.readJobs(), j=EQ.readJob('job-101'), ex=EQ.eqExport('special',{}), cs=EQ.currentSpecial('${Q1}',sc);
       return {history:[h.status,h.code,'completed' in h], part:[hp.status,hp.code,'events' in hp], jobs:[js.status,js.code,'items' in js], job:[j.status,j.code,'job' in j], exp:ex.status,
-        current:{ok:cs.ok, open:cs.ok?cs.openJobs.length:-1, listsCompleted:cs.ok&&cs.openJobs.some(r=>r.job.workStatus==='completed'||r.job.isCancelled), counts:cs.counts, openInJobs:cs.openInJobs,
+        current:{ok:cs.ok, open:cs.ok?cs.openJobs.length:-1, listed:cs.ok?cs.jobs.length:-1, listsCompleted:cs.ok&&cs.openJobs.some(r=>r.job.workStatus==='completed'||r.job.isCancelled), listsCancelled:cs.ok&&cs.jobs.some(r=>r.job.isCancelled), jobKeys:cs.ok?[...new Set(cs.jobs.map(r=>JSON.stringify(Object.keys(r.job).sort())))]:[], counts:cs.counts, openInJobs:cs.openInJobs,
           reopened:cs.openJobs.find(r=>r.job.id==='job-101'), sourceHistoryKept:!!EQ.job('job-101').completedOn&&!!EQ.job('job-101').completionNote&&EQ.job('job-101').events.some(e=>e.kind==='reopened')}};})()`);
     // the record and board views themselves refuse to render data when the server read is refused (independent of the route gate)
     const rec = await ev(`EQ.views.job('job-101').textContent`); const board = await ev(`EQ.specialBoard({}).textContent`);
@@ -159,14 +159,16 @@ try {
     }
     await ev(`(()=>{EQ.state.role='admin'; EQ.access.save([{role:'management',feature:'eq.jobs.view',on:true}], EQ.state.D.access.version,'restore'); EQ.access.refreshSession('restore');})()`);
     const R = reads, P = panel;
-    const currentJobKeys = ['id','number','equipmentId','level','mainId','subId','positionId','kind','title','workStatus','plannedOn'].sort();
+    // U1-C23 (round 6): the allowlist adds completedOn and listedOn (completed jobs are listed); nothing else
+    const currentJobKeys = ['id','number','equipmentId','level','mainId','subId','positionId','kind','title','workStatus','plannedOn','completedOn','listedOn'].sort();
     const reopenedPayload = R.current.reopened;
-    const payloadSafe = reopenedPayload && JSON.stringify(Object.keys(reopenedPayload.job).sort()) === JSON.stringify(currentJobKeys)
+    const payloadSafe = reopenedPayload && JSON.stringify(Object.keys(reopenedPayload.job).sort()) === JSON.stringify(currentJobKeys) && reopenedPayload.job.completedOn === null
+      && R.current.jobKeys.length === 1 && R.current.jobKeys[0] === JSON.stringify(currentJobKeys) && !R.current.listsCancelled
       && reopenedPayload.matchingLines.length > 0 && reopenedPayload.matchingLines.every(l=>JSON.stringify(Object.keys(l)) === '["positionId"]');
     const ok = reopened && payloadSafe && R.current.sourceHistoryKept && save && R.history[0] === 403 && R.history[1] === 'feature_disabled' && !R.history[2] && R.part[0] === 403 && !R.part[2] && R.jobs[0] === 403 && !R.jobs[2] && R.job[0] === 403 && !R.job[2] && R.exp === 403
       && /403/.test(rec) && /feature_disabled/.test(rec) && !/Replace main hoist motor A/.test(rec) && /403/.test(board) && !/EQJ-/.test(board) && /403/.test(route) && /feature_disabled/.test(route)
       && R.current.ok && R.current.open >= 3 && !R.current.listsCompleted && R.current.counts.completed >= 1 && R.current.openInJobs === null
-      && Object.values(P).every((t) => t.jobsLinks === 0 && !t.corr) && P.special.nums.length === R.current.open && P.special.off && P.maintenance.off && P.spareParts.off;
+      && Object.values(P).every((t) => t.jobsLinks === 0 && !t.corr) && P.special.nums.length === R.current.listed && R.current.listed === R.current.open + R.current.counts.completed && P.special.off && P.maintenance.off && P.spareParts.off;
     return { ok, detail: JSON.stringify({ reads: R, recordView: rec.slice(0, 90), boardView: board.slice(0, 60), route: route.slice(0, 40), panel: Object.fromEntries(Object.entries(P).map(([k, v]) => [k, { links: v.jobsLinks, plainNumbers: v.nums.length, offNote: v.off }])) }) };
   });
   await step('B06', ['ACC02', 'FAC12', 'S19', 'S27'], 'FAC Jobs switched off for Management while the Dashboard stays on: the FAC Jobs list, the full cycle list and the FAC export are refused (403); a dashboard row opens the read-only dashboard detail of an active job without FAC Jobs actions; a deactivated job is 404 there; the FAC Jobs route answers 403 [Repair-R02B findings 1 and 7]', async () => {
@@ -202,31 +204,33 @@ try {
     const ok = Object.values(out).every((o) => o.names === 'Maintenance|Projects/Special|Technical|Spare parts' && o.selected === 'maintenance' && !o.clipped && o.inside);
     return { ok, detail: JSON.stringify(out) };
   });
-  await step('C02', ['U1-C19', 'S07', 'HIS06', 'SP04'], 'The crane view shows current state only: no tab contains work history (completed jobs, installation events, status changes); each tab shows its own current content', async () => {
-    const hist = /Completed work(?! \()|Installation events|Operational status changes|Installed now \(latest known\)|Correction history|Completed on /;
+  await step('C02', ['U1-C19', 'U1-C23', 'S07', 'HIS06', 'SP04'], 'The crane view shows current state only: no tab contains work history (installation events, status changes, corrections; completed jobs only in Projects/Special, U1-C23); each tab shows its own current content', async () => {
+    const hist = /Completed work(?! \()|Installation events|Operational status changes|Installed now \(latest known\)|Correction history|Completion note|Completed on /;
+    const histSpecial = /Completed work(?! \()|Installation events|Operational status changes|Installed now \(latest known\)|Correction history|Completion note|Corrected \d/; // U1-C23: Projects/Special lists completed jobs with their completion date only
     const bad = [], seen = {};
     for (const [hash, sel] of [[`/eq/equipment/${Q1}`, 'whole'], [`/eq/equipment/${Q1}?main=mi-q01-01`, 'main'], [`/eq/equipment/${Q1}?main=mi-q01-01&sub=si-q01-011`, 'sub'], [`/eq/equipment/${Q1}?main=mi-q01-01&sub=si-q01-011&part=pp-q01-007`, 'part']]) {
       for (const tab of ['maintenance', 'special', 'technical', 'spareParts']) {
         await go('eqTeam', hash, {}, 250); await ev(`EQ.nav('/eq/equipment/${Q1}', Object.assign(Object.fromEntries(new URLSearchParams(location.hash.split('?')[1]||'')), {panel:'${tab}'}))`); await b.wait(500);
         const t = await panelText(); seen[sel + '/' + tab] = t.length;
-        if (hist.test(t)) bad.push(sel + '/' + tab + ': ' + (t.match(hist) || [''])[0]);
+        const rx = tab === 'special' ? histSpecial : hist;
+        if (rx.test(t)) bad.push(sel + '/' + tab + ': ' + (t.match(rx) || [''])[0]);
         if (!t.length) bad.push(sel + '/' + tab + ': empty');
       }
     }
     return { ok: !bad.length, detail: bad.length ? bad.join('; ') : 'no history text in 16 tab/scope combinations' };
   });
-  await step('C03', ['U1-C19', 'S07', 'HIS02', 'HIS06'], 'Projects/Special lists exactly the open special jobs of the scope (equipment all, mechanism with descendants de-duplicated, part exact), counts open/completed/cancelled, completed jobs are counted not listed', async () => {
+  await step('C03', ['U1-C19', 'U1-C23', 'S07', 'HIS02', 'HIS06'], 'Projects/Special lists exactly the open and completed (non-cancelled) special jobs of the scope (equipment all, mechanism with descendants de-duplicated, part exact), counts open/completed/cancelled; cancelled jobs are counted not listed (U1-C23 supersedes the open-only reading)', async () => {
     const res = [];
     for (const [hash, scope, level] of [[`/eq/equipment/${Q1}`, "{level:'equipment',id:null}", 'whole'], [`/eq/equipment/${Q1}?main=mi-q01-01`, "{level:'main',id:'mi-q01-01'}", 'main'], [`/eq/equipment/${Q1}?main=mi-q01-02&sub=si-q01-021`, "{level:'sub',id:'si-q01-021'}", 'sub'], [`/eq/equipment/${Q1}?main=mi-q01-01&sub=si-q01-011&part=pp-q01-008`, "{level:'part',id:'pp-q01-008'}", 'part']]) {
       await go('eqTeam', hash, { }, 250); await ev(`EQ.nav('/eq/equipment/${Q1}', Object.assign(Object.fromEntries(new URLSearchParams(location.hash.split('?')[1]||'')), {panel:'special'}))`); await b.wait(500);
-      const want = await ev(`(()=>{const H=EQ.history('${Q1}',${scope},true); return {open:H.open.filter(r=>!r.job.isCancelled).map(r=>r.job.number), completed:H.completed.filter(r=>!r.job.isCancelled).length, cancelled:[...H.open,...H.completed].filter(r=>r.job.isCancelled).length}})()`);
+      const want = await ev(`(()=>{const H=EQ.history('${Q1}',${scope},true); return {open:H.open.filter(r=>!r.job.isCancelled).map(r=>r.job.number), listed:[...H.open,...H.completed].filter(r=>!r.job.isCancelled).map(r=>r.job.number), completed:H.completed.filter(r=>!r.job.isCancelled).length, cancelled:[...H.open,...H.completed].filter(r=>r.job.isCancelled).length}})()`);
       const got = await ev(`({nums:[...document.querySelectorAll('.side-panel .sp-body .tl a')].map(a=>a.textContent), tags:[...document.querySelectorAll('.side-panel [role=group] .tag')].map(t=>t.textContent)})`);
       const uniq = new Set(got.nums).size === got.nums.length;
-      const same = JSON.stringify([...got.nums].sort()) === JSON.stringify([...want.open].sort());
+      const same = JSON.stringify([...got.nums].sort()) === JSON.stringify([...want.listed].sort());
       const tagsOk = got.tags[0] === want.open.length + ' open' && got.tags[1] === want.completed + ' completed' && got.tags[2] === want.cancelled + ' cancelled';
-      res.push({ level, want: want.open.length, got: got.nums.length, uniq, same, tagsOk });
+      res.push({ level, want: want.listed.length, got: got.nums.length, uniq, same, tagsOk });
     }
-    const wholeJobs = await ev(`EQ.history('${Q1}',{level:'equipment',id:null},false).open.length`);
+    const wholeJobs = await ev(`(()=>{const H=EQ.history('${Q1}',{level:'equipment',id:null},false); return H.open.length+H.completed.length})()`);
     return { ok: res.every((r) => r.uniq && r.same && r.tagsOk) && wholeJobs >= 3 && res[0].got === wholeJobs, detail: JSON.stringify(res) };
   });
   await step('C04', ['U1-C19', 'ZM07', 'S20'], "Maintenance tab: today's ZMMS daily jobs of the equipment only, status with its source, 'ZMMS data from', same list for any selection, no earlier days, no history; unmapped equipment says Not linked to ZMMS", async () => {

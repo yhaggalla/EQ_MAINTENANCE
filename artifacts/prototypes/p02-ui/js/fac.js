@@ -64,6 +64,7 @@ window.EQ = window.EQ || {};
         mode: r.mode === 'In-house' ? 'inHouse' : r.mode === 'Outsource' ? 'outsource' : null, lastDoneOn: r.lastDone || null, openingLastDoneOn: r.lastDone || null, remarks: r.remarks || null,
         state: 'active', isOnHold: false, holdReason: null, heldSince: null, origin: 'facImport', issues: (r.issues || []).slice(), sheetStatus: r.sheetStatus, sheetCompletedQty: r.sheetCompletedQty,
         cycles: [], updates: [], holds: [], corrections: [], edits: [], periodVersions: {}, picture: null, synthetic: {},
+        showOnDashboard: true, // U1-C26 default: shown
       };
       if (nm !== r.name) job.issues.push('replacement-character-in-text');
       fac.jobs.push(job);
@@ -135,7 +136,7 @@ window.EQ = window.EQ || {};
     if (c.basis === 'period') { dueLabel = freq(job).code === 'daily' ? 'Due today' : 'Due ' + EQ.fmtDate(c.dueOn).replace(/ \d{4}$/, ''); dueKind = c.completed ? 'ok' : 'soon'; if (c.completed) dueLabel = freq(job).code === 'daily' ? 'Done today' : 'Done this week'; }
     else if (hasDue) {
       const dd = diffDays(c.dueOn, today);
-      if (c.completed || status === 'completed' && !dueSoon && !overdue) { dueLabel = 'Next due ' + EQ.fmtDate(c.dueOn).replace(/ \d{4}$/, '') ; dueKind = 'ok'; }
+      if (c.completed || status === 'completed' && !dueSoon && !overdue) { dueLabel = 'Next due ' + (c.dueOn.slice(0, 4) === today.slice(0, 4) ? EQ.fmtDate(c.dueOn).replace(/ \d{4}$/, '') : EQ.fmtDate(c.dueOn)); dueKind = 'ok'; } // U1-C24: the year is shown when the next due date is in a later year
       else if (overdue) { dueLabel = 'Overdue ' + daysOverdue + ' d'; dueKind = 'overdue'; }
       else if (dd === 0) { dueLabel = 'Due today'; dueKind = 'soon'; }
       else { dueLabel = 'Due in ' + dd + ' d'; dueKind = dueSoon ? 'soon' : 'ok'; }
@@ -144,14 +145,16 @@ window.EQ = window.EQ || {};
       noDue = !f ? 'Frequency not set: no due date' : job.kind !== 'recurring' ? 'No due date (' + F.KIND_NAME[job.kind].toLowerCase() + ' job)' : f.kind === 'runningHours' ? 'Next due is entered at each completion' : f.kind === 'asRequired' ? 'No fixed frequency: no due date' : 'No due date until the first completion or an Admin-entered date';
       dueLabel = 'No due date';
     }
-    const group = job.state !== 'active' ? null : overdue ? 'overdue' : status === 'onHold' ? 'onHold' : status === 'inProgress' ? 'inProgress' : dueSoon ? 'dueSoon' : status === 'pending' ? 'pending' : (status === 'completed' && completedOn && diffDays(today, completedOn) <= 6 ? 'recent' : null);
+    const group = job.state !== 'active' ? null : overdue ? 'overdue' : status === 'onHold' ? 'onHold' : status === 'inProgress' ? 'inProgress' : dueSoon ? 'dueSoon' : status === 'pending' ? 'pending' : (status === 'completed' && completedOn && diffDays(today, completedOn) <= 6 ? 'recent' : status === 'completed' ? 'upToDate' : null); // U1-C24: done earlier, not yet due again: listed, not hidden
     return { job, cycle: c, status, overdue, daysOverdue, dueSoon, dueOn: c.dueOn, dueLabel, dueKind, noDue, done, target, pending: Math.max(0, target - done), pct, group, completedOn, period: c.basis === 'period', awaitingConfirmation: !c.completed && c.done >= c.target && c.target > 0 };
   };
-  F.GROUPS = ['overdue', 'onHold', 'inProgress', 'dueSoon', 'pending', 'recent'];
-  F.GROUP_NAME = { overdue: 'Overdue', onHold: 'On hold', inProgress: 'In progress', dueSoon: 'Due soon', pending: 'Pending', recent: 'Completed in the last 7 days' };
+  F.GROUPS = ['overdue', 'onHold', 'inProgress', 'dueSoon', 'pending', 'recent', 'upToDate'];
+  F.GROUP_NAME = { overdue: 'Overdue', onHold: 'On hold', inProgress: 'In progress', dueSoon: 'Due soon', pending: 'Pending', recent: 'Completed in the last 7 days', upToDate: 'Done, up to date (not yet due again)' };
   F.STATUS_NAME = { pending: 'Pending', inProgress: 'In progress', completed: 'Completed', onHold: 'On hold' };
   F.picDisplay = (job) => (job.picProfileId ? F.userName(job.picProfileId) : job.picName || 'Unassigned');
   F.byId = (id) => D().jobs.find((j) => j.id === id);
+  /** U1-C26: shown on the FAC Dashboard unless its shared "Show on dashboard" switch is off (default shown). */
+  F.shown = (job) => job.showOnDashboard !== false;
   /** Simulated GET /fac/jobs/{id} (API s4.22, D-140): fac.jobs.view reads any job; fac.dashboard.view alone reads only an active job,
    *  because that is the read-only detail a dashboard row opens (SOW V2 5.5.7). The FAC Jobs list, the full cycle list and the export
    *  stay fac.jobs.view only (Repair-R02B findings 1 and 7). */
@@ -159,7 +162,7 @@ window.EQ = window.EQ || {};
     const full = !EQ.access.srv('fac.jobs.view');
     if (!full && EQ.access.srv('fac.dashboard.view')) return EQ.access.srv('fac.jobs.view');
     const job = F.byId(id);
-    if (!job || (!full && job.state !== 'active')) return fail(404, 'not_found', 'No FAC job with this link exists (404).');
+    if (!job || (!full && (job.state !== 'active' || !F.shown(job)))) return fail(404, 'not_found', 'No FAC job with this link exists (404).'); // dashboard population only (D-140, U1-C26)
     return { ok: true, job, via: full ? 'jobs' : 'dashboard' };
   };
   /** Simulated GET /fac/jobs/{id}/cycles: the full paged cycle list belongs to the FAC Jobs tab. */
@@ -283,7 +286,7 @@ window.EQ = window.EQ || {};
     const deny = EQ.access.srv('fac.dashboard.view'); if (deny) return deny;
     q = q || {};
     const today = EQ.todayColombo(), d = D(), set = d.settings;
-    const filtered = F.filterJobs(d.jobs, q);
+    const filtered = F.filterJobs(d.jobs, q).filter(F.shown); // U1-C26: hidden jobs leave every block (KPIs, on-time, lanes, ticker, proof, due load)
     const active = filtered.filter((j) => j.state === 'active');
     const infos = active.map((j) => ({ j, i: F.info(j, today) }));
     const rolling = infos.filter((x) => !x.i.period);
@@ -333,13 +336,13 @@ window.EQ = window.EQ || {};
     return rows.filter((x) => x.job.state === 'active' && !x.job.isOnHold && (x.info.overdue || x.info.dueSoon || x.info.status === 'inProgress'))
       .sort((a, b) => (b.job.picProfileId === me) - (a.job.picProfileId === me) || ORDER[a.info.group] - ORDER[b.info.group] || b.info.daysOverdue - a.info.daysOverdue || EQ.cmp(a.info.dueOn || '9999', b.info.dueOn || '9999') || EQ.cmp(a.job.name, b.job.name));
   };
-  F.EXPORT_COLUMNS = ['Section', 'Internal Section', 'Inspection/ Service', 'Description', 'Frequency', 'Quantity', 'Last Date', 'Next Date', 'PIC', 'In-house/ Outsource', 'Completion Progress', 'Status', 'Completed qty', 'Pending qty', 'Completed percentage', 'Remarks', 'Job number', 'Due soon', 'Overdue', 'Days overdue', 'On hold reason', 'State', 'Source row'];
+  F.EXPORT_COLUMNS = ['Section', 'Internal Section', 'Inspection/ Service', 'Description', 'Frequency', 'Quantity', 'Last Date', 'Next Date', 'PIC', 'In-house/ Outsource', 'Completion Progress', 'Status', 'Completed qty', 'Pending qty', 'Completed percentage', 'Remarks', 'Job number', 'Due soon', 'Overdue', 'Days overdue', 'On hold reason', 'State', 'Source row', 'Shown on dashboard'];
   const safe = (v) => { if (v == null) return ''; const s = String(v); return /^[=+\-@\t\r]/.test(s) ? "'" + s : s; };
   F.exportRows = function exportRows(q) {
     const deny = EQ.access.srv('export.excel') || EQ.access.srv('fac.jobs.view'); if (deny) return deny;
     const l = F.list(q); if (!l.ok) return l;
     if (l.rows.length > 10000) return fail(422, 'export_too_large', 'More than 10 000 rows.');
-    const rows = l.rows.map(({ job, info }) => [safe('Facility'), safe(F.DISC_NAME[job.discipline]), safe(F.TYPE_NAME[job.typeCode]), safe(job.name), safe(F.freqLabel(job)), job.quantity, job.lastDoneOn || '', info.dueOn || '', safe(F.picDisplay(job) === 'Unassigned' ? '' : F.picDisplay(job)), safe(job.mode ? F.MODE_NAME[job.mode] : ''), safe(F.KIND_NAME[job.kind]), safe(F.STATUS_NAME[info.status]), info.done, info.pending, info.pct + '%', safe(job.remarks), safe(job.number), info.dueSoon ? 'Yes' : '', info.overdue ? 'Yes' : '', info.daysOverdue || '', safe(job.isOnHold ? job.holdReason : ''), safe(job.state), job.sourceRow || '']);
+    const rows = l.rows.map(({ job, info }) => [safe('Facility'), safe(F.DISC_NAME[job.discipline]), safe(F.TYPE_NAME[job.typeCode]), safe(job.name), safe(F.freqLabel(job)), job.quantity, job.lastDoneOn || '', info.dueOn || '', safe(F.picDisplay(job) === 'Unassigned' ? '' : F.picDisplay(job)), safe(job.mode ? F.MODE_NAME[job.mode] : ''), safe(F.KIND_NAME[job.kind]), safe(F.STATUS_NAME[info.status]), info.done, info.pending, info.pct + '%', safe(job.remarks), safe(job.number), info.dueSoon ? 'Yes' : '', info.overdue ? 'Yes' : '', info.daysOverdue || '', safe(job.isOnHold ? job.holdReason : ''), safe(job.state), job.sourceRow || '', F.shown(job) ? 'Yes' : 'No']);
     return { ok: true, columns: F.EXPORT_COLUMNS, rows };
   };
   F.exportCsv = function exportCsv(q) {
@@ -402,6 +405,20 @@ window.EQ = window.EQ || {};
       job.isOnHold = false; job.holds.push({ kind: 'release', reason: null, actorId: EQ.user().id, at: new Date().toISOString() }); job.holdReason = null;
       bump(); audit('fac.release', job); EQ.notify(); return { ok: true, job };
     },
+    /** U1-C26: simulated PUT /fac/jobs/{jobId}/display (API s4.23). The shared "Show on dashboard" switch of one FAC job (any kind and
+     *  state): fac.work (FAC Team and Admin); EQ Team and Management are refused. Changes no master field, cycle or progress; a hidden
+     *  job leaves every FAC Dashboard block and stays in FAC Jobs, its timeline and the export. Audited; FacDataVersion + 1. */
+    setVisibility(jobId, p) {
+      const deny = EQ.access.srv('fac.work'); if (deny) return deny;
+      const job = F.byId(jobId); if (!job) return fail(404, 'not_found', 'No such job.');
+      if (typeof p.show !== 'boolean') return fail(422, 'validation_failed', 'Choose shown or hidden.', { show: 'Required.' });
+      const before = F.shown(job);
+      if (before === p.show) return { ok: true, job, unchanged: true };
+      job.showOnDashboard = p.show;
+      job.edits.unshift({ at: new Date().toISOString(), by: EQ.user().id, changes: [{ field: 'Show on dashboard', before: before ? 'Shown' : 'Hidden', after: p.show ? 'Shown' : 'Hidden' }], reason: (p.reason || '').trim() || null });
+      bump(); D().audit.unshift({ at: new Date().toISOString(), by: EQ.user().id, action: 'fac.job.display', job: job.number, reason: (p.reason || '').trim() || null, before: { showOnDashboard: before }, after: { showOnDashboard: p.show } });
+      EQ.log('audit: fac.job.display ' + job.number + ' ' + (p.show ? 'shown' : 'hidden')); EQ.notify(); return { ok: true, job };
+    },
     /** Same-day undo of the author's own latest active update (DATA s17.6). */
     undo(jobId) {
       const deny = EQ.access.srv('fac.work'); if (deny) return deny;
@@ -440,7 +457,7 @@ window.EQ = window.EQ || {};
       if (p.lastDoneOn && (!validDate(p.lastDoneOn) || p.lastDoneOn > todayStr())) f.lastDoneOn = 'Enter a past or current date.';
       if (Object.keys(f).length) return fail(422, 'validation_failed', 'Nothing was saved.', f);
       const job = { id: 'fj-n' + (D().seq++), number: 'FAC-' + String(D().jobs.length + 1).padStart(5, '0'), sourceRow: null, split: null, discipline: p.discipline, typeCode: p.typeCode, name: p.name.trim(), freqCode: p.kind === 'oneTime' ? 'as-required' : p.freqCode, freqText: '', kind: p.kind, quantity: q, picName: (p.picName || '').trim() || null, picProfileId: p.picProfileId || null, mode: p.mode || null, lastDoneOn: p.kind === 'oneTime' ? null : p.lastDoneOn || null, openingLastDoneOn: p.lastDoneOn || null, remarks: (p.remarks || '').trim() || null,
-        state: 'active', isOnHold: false, holdReason: null, heldSince: null, origin: 'user', issues: [], cycles: [], updates: [], holds: [], corrections: [], edits: [], periodVersions: {}, picture: null, synthetic: {}, createdBy: EQ.user().id, createdUtc: new Date().toISOString() };
+        state: 'active', isOnHold: false, holdReason: null, heldSince: null, origin: 'user', issues: [], cycles: [], updates: [], holds: [], corrections: [], edits: [], periodVersions: {}, picture: null, synthetic: {}, createdBy: EQ.user().id, createdUtc: new Date().toISOString(), showOnDashboard: p.showOnDashboard !== false };
       D().jobs.unshift(job); openFirstCycle(job, 'jobCreated'); bump(); audit('fac.job.create', job); EQ.notify(); return { ok: true, job };
     },
     updateJob(jobId, p) {

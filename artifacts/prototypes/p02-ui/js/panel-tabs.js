@@ -1,7 +1,8 @@
 /* P02B / U1-C19: the crane-view right panel is current state only, in exactly four tabs (DATA_CONTRACT s18.1, API s4.16):
-   Maintenance (today's ZMMS daily jobs), Projects/Special (open special jobs in the selected scope), Technical (specification
-   summary of the selected area) and Spare parts (current register rows in scope). No work history is shown here; the scoped history
-   lives in the EQ Jobs tab ("Open in Jobs"). Used by the flat view; the P03 3D viewer page builds the same four tabs in its own module. */
+   Maintenance (today's ZMMS daily jobs), Projects/Special (open and completed special jobs in the selected scope; U1-C23 makes this
+   tab the one exception to "no history in the crane view"), Technical (specification summary of the selected area) and Spare parts
+   (current register rows in scope). Other work history (events, corrections, installations, status changes, earlier ZMMS days) lives
+   in the EQ Jobs tab ("Open in Jobs"). Jobs switched off with "Show on dashboard / 3D" are not shown here (U1-C26). Used by the flat view; the P03 3D viewer page builds the same four tabs in its own module. */
 window.EQ = window.EQ || {};
 (function (EQ) {
   const h = EQ.h, icon = EQ.icon;
@@ -80,7 +81,7 @@ window.EQ = window.EQ || {};
       h('div', { class: 'row between' }, num, h('span', null, h('span', { class: 'tag' }, j.kind === 'replacement' ? 'Replacement' : 'Repair'), ' ', h('span', { class: 'tag ' + (j.workStatus === 'completed' ? 'green' : 'gold') }, j.isCancelled ? 'Cancelled' : j.workStatus === 'completed' ? 'Completed' : j.workStatus === 'current' ? 'Current' : 'Pending'))),
       h('strong', null, j.title),
       h('span', { class: 'when' }, 'Target: ' + EQ.targetLabel(j)),
-      j.workStatus === 'completed' ? h('span', { class: 'when' }, 'Completed on ' + EQ.fmtDate(j.completedOn) + ' (business date)' + (j.corrections.length ? ' · Corrected ' + j.corrections.length + ' time(s)' : '')) : h('span', { class: 'when' }, j.plannedOn ? 'Planned ' + EQ.fmtDate(j.plannedOn) : 'No planned date'),
+      j.workStatus === 'completed' ? h('span', { class: 'when' }, 'Completed on ' + EQ.fmtDate(j.completedOn) + ' (business date)' + (!opts.current && j.corrections && j.corrections.length ? ' · Corrected ' + j.corrections.length + ' time(s)' : '')) : h('span', { class: 'when' }, j.plannedOn ? 'Planned ' + EQ.fmtDate(j.plannedOn) : 'No planned date'),
       j.isCancelled ? h('span', { class: 'when' }, 'Cancelled by ' + EQ.userName(j.cancelledBy) + ': ' + j.cancelReason) : null,
       lines && lines.length ? h('ul', { class: 'lines' }, lines.map((l) => { const p = EQ.pos(l.positionId); return opts.current ? h('li', null, 'Matching position: ' + p.name) : h('li', null, p.name + ': installed ' + l.item.desc + (l.item.serial ? ' (serial ' + l.item.serial + ')' : ' (serial unknown)') + ', ' + l.qty + ' ' + l.uom + ', ' + EQ.fmtDate(l.replacedOn) + (l.removedKnown ? '; removed ' + (l.removedDesc || 'item') + (l.removedSerial ? ' (serial ' + l.removedSerial + ')' : '') : '; removed item Unknown')); })) : null,
       !opts.current && j.corrections.length ? h('details', null, h('summary', { class: 'small' }, 'Correction history (prior values kept)'), j.corrections.map((c) => h('div', { class: 'small', style: 'margin-top:.3rem' }, 'Correction ' + c.n + ' by ' + EQ.userName(c.by) + ', ' + EQ.fmtInstantShort(c.at) + ': ' + c.reason, c.items.map((it) => h('div', null, it.field + ': ', h('s', null, it.before), ' → ', h('strong', null, it.after)))))) : null);
@@ -89,15 +90,17 @@ window.EQ = window.EQ || {};
   P.special = function special(eq, sel, scope) {
     const jobMini = (j, lines) => P.jobMini(j, lines, { current: true });
     const box = h('div', { class: 'stack' });
-    // simulated GET current-state/special (eq.fleet.view): open jobs and counts only, never the scoped history (D-139)
+    // simulated GET current-state/special (eq.fleet.view): open and completed jobs as the allowlisted projection and counts (U1-C23),
+    // never the scoped history record (events, corrections, installations; D-139 / D-145)
     const cs = EQ.currentSpecial(eq.id, scope);
     if (!cs.ok) { box.appendChild(h('div', { class: 'notice error', role: 'alert' }, icon('alert'), h('p', null, cs.message))); return box; }
     const cancelled = cs.counts.cancelled, completed = cs.counts.completed;
-    const open = cs.openJobs;
-    box.appendChild(h('p', { class: 'small muted', style: 'margin:0' }, scope.level === 'equipment' ? 'Open special jobs of ' + eq.code + ' (an equipment-level job appears once).' : scope.level === 'part' ? 'Open special jobs at this exact position.' : 'Open special jobs targeted here and at everything below it. A job with several lines appears once.'));
-    box.appendChild(h('div', { class: 'row', role: 'group', 'aria-label': 'Special job counts in this scope' }, tag(open.length + ' open', open.length ? 'gold' : ''), tag(completed + ' completed'), tag(cancelled + ' cancelled')));
-    box.appendChild(h('div', { class: 'sec' }, h('h3', null, 'Open special jobs ', tag(String(open.length))),
-      open.length ? h('ul', { class: 'tl' }, open.map((r) => jobMini(r.job, r.matchingLines))) : h('div', { class: 'nonwork' }, h('strong', null, 'No open special jobs'), 'Nothing is Pending or Current in this scope. Completed work (' + completed + ') stays in the Jobs tab history; it is not repeated here.')));
+    const open = cs.openJobs, list = cs.jobs;
+    box.appendChild(h('p', { class: 'small muted', style: 'margin:0' }, (scope.level === 'equipment' ? 'Open and completed special jobs of ' + eq.code + ' (an equipment-level job appears once)' : scope.level === 'part' ? 'Open and completed special jobs at this exact position' : 'Open and completed special jobs targeted here and at everything below it; a job with several lines appears once') + ', newest first. Cancelled jobs are counted only.'));
+    box.appendChild(h('div', { class: 'row', role: 'group', 'aria-label': 'Special job counts in this scope' }, tag(open.length + ' open', open.length ? 'gold' : ''), tag(completed + ' completed', completed ? 'green' : ''), tag(cancelled + ' cancelled')));
+    box.appendChild(h('div', { class: 'sec' }, h('h3', null, 'Special jobs ', tag(String(list.length))),
+      list.length ? h('ul', { class: 'tl', 'data-fk': 'special-list' }, list.map((r) => jobMini(r.job, r.matchingLines))) : h('div', { class: 'nonwork' }, h('strong', null, 'No special jobs'), 'Nothing is Pending, Current or Completed in this scope.'),
+      cs.moreCompleted ? h('p', { class: 'small muted', 'data-fk': 'more-completed' }, 'Only the ' + EQ.CURRENT_COMPLETED_LIMIT + ' most recent completed jobs are listed here; the rest are in Jobs.') : null));
     box.appendChild(h('div', { class: 'row' }, openInJobs(eq, scope, 'special'),
       // U1-C21: writers add a special job from the crane view, pre-filled with the equipment and the selection (whole equipment too)
       EQ.perm.write() && eq.lifecycle === 'active' && EQ.dlg && EQ.dlg.jobForm ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'add-for-sel', onClick: () => EQ.dlg.jobForm({ equipmentId: eq.id, prefill: sel }) }, icon('plus'), 'Add special job') : null));

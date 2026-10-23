@@ -43,7 +43,7 @@ window.EQ = window.EQ || {};
   }
   function eqCard(e) {
     const dur = EQ.inStatusFor(e);
-    const open = EQ.openJobs(e.id).length;
+    const open = EQ.shownOpenJobs(e.id).length; // U1-C26: jobs switched off for the dashboard / 3D are not counted on the fleet card
     const m = EQ.zmms.mode(e);
     const zc = EQ.zmms.todayCount(e);
     const model = EQ.verified(e) ? e.modelCode : (e.typeCode === 'QC' ? 'No verified model' : 'No 3D in stage 1');
@@ -59,7 +59,7 @@ window.EQ = window.EQ || {};
       h('tbody', null, list.map((e) => { const d = EQ.inStatusFor(e); return h('tr', { class: e.lifecycle === 'retired' ? 'inactive' : '' },
         h('th', { scope: 'row' }, h('a', { href: '#/eq/equipment/' + e.id }, e.code), e.lifecycle === 'retired' ? ' (retired)' : ''),
         h('td', null, e.typeCode), h('td', null, EQ.statusBadge(e.status)), h('td', null, srcTag(e), ' ', EQ.zmms.mode(e).key === 'manualUnmapped' ? h('span', { class: 'small muted' }, 'not linked to ZMMS') : null), h('td', null, EQ.zmms.todayCount(e) == null ? '-' : String(EQ.zmms.todayCount(e))), h('td', null, d != null ? EQ.duration(d) : 'Not reported'),
-        h('td', null, String(EQ.openJobs(e.id).length)), h('td', null, EQ.fmtInstantShort(e.lastActivity)), h('td', null, EQ.verified(e) ? e.modelCode : 'None verified')); }))));
+        h('td', null, String(EQ.shownOpenJobs(e.id).length)), h('td', null, EQ.fmtInstantShort(e.lastActivity)), h('td', null, EQ.verified(e) ? e.modelCode : 'None verified')); }))));
   }
 
   EQ.views.fleet = function fleet(q) {

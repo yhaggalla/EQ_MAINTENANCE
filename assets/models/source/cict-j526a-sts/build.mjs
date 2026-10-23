@@ -280,9 +280,18 @@ export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
     S.position(`boom.forestay.outer.${side}`, { parentKey: B_, sub: '031', category: 'structural', label: `Outer forestay ${side.toUpperCase()}`, prov: 'drawing-derived', sources: [s0100('Z3 = Z2 + 34500; segments 15800 + 21300 + 30116; slope 27480 / 64500; bar section S2-S2')] },
       (g) => g.add('paint', beam([XMAST + P('forestayApexPinOffsetWaterside'), PIN_Y + 0.3, s * ZA], [XZ3, G_TOP + P('forestayOuterBracket'), s * ZG], 0.35, 0.42)));
   }
-  S.position('reeving.sheave.boom-tip', { parentKey: B_, sub: '011', classificationNote: 'Sheaves carrying hoist rope: 011 (hoist mechanism, "roller") proposed; Admin to confirm', category: 'component', label: 'Boom-tip hoist rope sheaves', prov: 'estimated', sources: [s00('main hoist reeving diagram'), src('J526A2000', null, 'reeving sheet not detailed in P03')] },
+  S.position('reeving.sheave.boom-tip', { parentKey: B_, sub: '011', classificationNote: 'Sheaves carrying hoist rope: 011 (hoist mechanism, "roller") proposed; Admin to confirm', category: 'component', label: 'Boom-tip hoist rope sheaves and rope-end anchors', prov: 'estimated', sources: [s00('main hoist reeving diagram'), src('J526A2000', null, 'reeving sheet not detailed in P03'), src('J526A2000', 1, 'Detail I (1:20): rope clamp device (2, 2 off) on an anchor pin 480 above the boom top; anchors kept here since U1 round 6 (the 013 load cell moved to the horizontal rope, U1-C25)')] },
     // U1 round 3: trolley-rope sheave units at 1050 either side of the boom centreline, dia 830 (J526A2100 Detail I, A-A)
-    (g) => { for (const z of [-2.6, 2.6, -P('trolleyRopeLaneZ'), P('trolleyRopeLaneZ')]) g.add('steel', sheave([XTIP - 0.9, G_TOP + 0.6, z], 'z', Math.abs(z) > 2 ? 1.2 : P('trolleyTipSheaveDia'), 0.18)); g.add('paint', boxMinMax([XTIP - 1.8, G_TOP, -3.0], [XTIP - 0.1, G_TOP + 0.3, 3.0])); });
+    (g) => { for (const z of [-2.6, 2.6, -P('trolleyRopeLaneZ'), P('trolleyRopeLaneZ')]) g.add('steel', sheave([XTIP - 0.9, G_TOP + 0.6, z], 'z', Math.abs(z) > 2 ? 1.2 : P('trolleyTipSheaveDia'), 0.18)); g.add('paint', boxMinMax([XTIP - 1.8, G_TOP, -3.0], [XTIP - 0.1, G_TOP + 0.3, 3.0]));
+      // U1 round 6 (U1-C25): the J526A2000 Detail I rope-end anchors (cheek plates, plain anchor pin, rope clamp body; one per rope side)
+      // drawn in round 2 as part of the load-cell hotspot stay here as reeving hardware, without the load-cell sensor heads.
+      const xA = XTIP - P('ropeAnchorPinFromTip'), yA = G_TOP + P('ropeAnchorPinAboveBoomTop');
+      for (const s of [1, -1]) {
+        const z = s * 2.6;
+        g.add('paint', boxMinMax([xA - 0.32, G_TOP + 0.3, z - 0.32], [xA + 0.32, yA + 0.18, z - 0.24]), boxMinMax([xA - 0.32, G_TOP + 0.3, z + 0.24], [xA + 0.32, yA + 0.18, z + 0.32])); // anchor cheek plates
+        g.add('steel', cyl([xA, yA, z], 'z', 0.07, 0.64, 14), boxMinMax([xA - 0.95, yA - 0.09, z - 0.12], [xA - 0.05, yA + 0.09, z + 0.12])); // anchor pin and rope clamp body
+      }
+    });
   // U1 round 2 (U1-C15): floodlight fittings under both outer edges of the boom and the rear girder, aimed down and
   // outward, instead of one ball under the boom. Count and spacing are not dimensioned in the drawings (estimated);
   // the site photos show dark fittings hanging under the girder.
@@ -598,6 +607,7 @@ export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
   const XAX_LS = XT - P('trolleyWheelAxleLandside'), XAX_WS = XT + P('trolleyWheelAxleWaterside'); const rw = P('trolleyWheelDia') / 2;
   const XEQ_L = XT - P('trolleyEqualizerSheaveXLandside'), XEQ_W = XT + P('trolleyEqualizerSheaveXWaterside'); const ZEQ = P('trolleyEqualizerSheaveZ');
   const yTR = RT + P('trolleyRopeAboveRail'); const ZTR = P('trolleyRopeLaneZ');
+  const RT2 = 0.032; // display radius of the ropes on the trolley sheaves (keeps them clear of the neighbouring sheaves); U1 round 6: declared here, used by the reeving and the 013 load cell
   const trSrc = (note) => [src('J526A0200', 1, note), src('J526A0200', 2, 'subsidiary list')];
   S.position('trolley.frame', { parentKey: T_, sub: '021', category: 'structural', label: 'Trolley frame', prov: 'drawing-derived', sources: trSrc('side view 400 + 2560 / 2260 + 400 (trolley-rope lines and buffers B1), 990 body below the rail, frame top about 600 above the rail; plan 1840 / 1540 centre body, wheel boxes at the corners; C-C / D-D 620 between the side-frame plates; member sections and bracing simplified') },
     (g) => {
@@ -762,22 +772,31 @@ export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
       for (const x of [x1 - 0.35, x1 - 0.15]) g.add('steel', cyl([x, G_TOP + 1.1, z1 - 0.2], 'y', 0.09, 0.7, 12)); // accumulators
       g.add('steel', tube([x1, G_TOP + 0.5, (z0 + z1) / 2], [XAS0 + 0.6, G_TOP + 0.5, -ZR + 0.6], 0.03, 6), tube([x1, G_TOP + 0.6, (z0 + z1) / 2], [XAS0 + 0.6, G_TOP + 0.6, ZR - 0.6], 0.03, 6)); // pressure lines to the cylinders
     });
-  // U1 round 2 (U1-C12): the 013 marker sat in the middle of the trolley deck. The user's arrows (8.png) point from it to
-  // the main hoist rope sheaves at the boom tip. J526A2000 p1 Detail I shows the main hoist rope dead ends anchored
-  // there: roller device (item 1), rope clamp device (item 2, 2 off) on an anchor pin 480 above the boom top, and the
-  // rereeving sheave (item 3, 260 waterside of the pin). The load cells are drawn as load-measuring anchor pins with
-  // sensor heads in those two rope-end anchors (one per rope side); the sheets do not identify the load-cell hardware,
-  // so the representation stays "location approximate" (technical mode).
-  const xLC = XTIP - P('ropeAnchorPinFromTip'); const yLC = G_TOP + P('ropeAnchorPinAboveBoomTop');
-  S.hotspot('hoist.loadcell.main', { parentKey: B_, sub: '013', point: [xLC, yLC, 0], radius: 0.45, label: 'Load cell system (load pins in the main hoist rope-end anchors at the boom tip; hardware not identified on the sheets)', sources: [src('J526A2000', 1, 'Detail I (1:20): roller device (1), rope clamp device (2, 2 off) on an anchor pin 480 above the boom top, rereeving sheave (3) 260 waterside of the pin; the user indicated the boom-tip hoist rope sheaves (U1-C12)'), src('J526A0300', 1, 'load-cell position not shown on the reviewed sheets')] },
+  // U1 round 6 (U1-C25): user answer to U-23, "load cell is connected in boom tip horizontal cable". Round 2 (U1-C12) had drawn the
+  // 013 load cells as load-measuring anchor pins in the J526A2000 Detail I rope-end anchors; they are now in-line load cells (tension
+  // links with clevis ends) in the four horizontal main hoist ropes between the trolley sheave tops and the boom-tip sheaves, at an
+  // estimated distance from the boom tip, with one junction box per rope side and its signal cable to the boom deck. The points lie
+  // exactly on the modelled rope runs (same expressions as the reeving below). The sheets do not fix the point or the hardware, so the
+  // representation stays "location approximate" (technical mode). The anchors stay in reeving.sheave.boom-tip.
+  const rrMH = rTG + RT2; const yTopMH = yTSh + rrMH; // as in hoist.rope.set.main
+  const MH_RUNS = [];
+  for (const s of [1, -1]) for (const [xs, lanes, dzTip] of [[XT - SO, LANE_LS, -0.15], [XT + SO, LANE_WS, 0.15]]) MH_RUNS.push({ s, from: [xs, yTopMH, s * (ZH + lanes[1])], to: [XTIP - 0.9, G_TOP + 1.2, s * ZR + s * dzTip] });
+  const onRun = (run, x) => { const t = (x - run.from[0]) / (run.to[0] - run.from[0]); return [x, run.from[1] + (run.to[1] - run.from[1]) * t, run.from[2] + (run.to[2] - run.from[2]) * t]; };
+  const xLC = XTIP - P('loadCellInlineFromTip');
+  const yLC = MH_RUNS.reduce((a, r) => a + onRun(r, xLC)[1], 0) / MH_RUNS.length;
+  S.hotspot('hoist.loadcell.main', { parentKey: B_, sub: '013', point: [xLC, yLC, 0], radius: 0.45, label: 'Load cell system (in-line load cells in the horizontal main hoist ropes at the boom tip; point and hardware not fixed on the sheets)', sources: [src('J526A2000', 1, 'Detail I: main hoist rope ends at the boom tip; the load-cell point is not shown. Placement from the user answer to U-23 (U1 round 6, U1-C25): "load cell is connected in boom tip horizontal cable"; distance from the tip estimated'), src('J526A0300', 1, 'load-cell position not shown on the reviewed sheets')] },
     (g) => {
+      for (const run of MH_RUNS) {
+        const p0 = onRun(run, xLC - 0.28), p1 = onRun(run, xLC + 0.28);
+        g.add('lamp', tube(p0, p1, 0.085, 12)); // load cell body (tension link) around the rope
+        g.add('steel', tube(onRun(run, xLC - 0.4), p0, 0.055, 10), tube(p1, onRun(run, xLC + 0.4), 0.055, 10)); // clevis / rope-socket ends
+      }
       for (const s of [1, -1]) {
-        const z = s * 2.6;
-        g.add('lamp', boxMinMax([xLC - 0.32, G_TOP + 0.3, z - 0.32], [xLC + 0.32, yLC + 0.18, z - 0.24]), boxMinMax([xLC - 0.32, G_TOP + 0.3, z + 0.24], [xLC + 0.32, yLC + 0.18, z + 0.32])); // anchor cheek plates
-        g.add('steel', cyl([xLC, yLC, z], 'z', 0.07, 0.8, 14)); // load-measuring anchor pin
-        g.add('lamp', boxMinMax([xLC - 0.1, yLC - 0.1, z + s * 0.4 - 0.05], [xLC + 0.1, yLC + 0.1, z + s * 0.4 + 0.05]), cyl([xLC, yLC, z + s * 0.5], 'z', 0.045, 0.12, 10)); // sensor head and cable gland
-        g.add('steel', boxMinMax([xLC - 0.95, yLC - 0.09, z - 0.12], [xLC - 0.05, yLC + 0.09, z + 0.12])); // rope clamp body (wedge housing) towards the roller device
-        g.add('lamp', tube([xLC, yLC, z + s * 0.56], [xLC - 0.6, G_TOP + 0.35, z + s * 0.56], 0.02, 6)); // signal cable
+        const runs = MH_RUNS.filter((r) => r.s === s).map((r) => onRun(r, xLC));
+        const zc = (runs[0][2] + runs[1][2]) / 2; const yc = Math.max(runs[0][1], runs[1][1]);
+        g.add('lamp', boxMinMax([xLC - 0.12, yc + 0.16, zc - 0.17], [xLC + 0.12, yc + 0.36, zc + 0.17])); // junction box above the two ropes
+        for (const r of runs) g.add('lamp', tube([xLC, r[1] + 0.08, r[2]], [xLC, yc + 0.16, r[2]], 0.018, 6)); // sensor leads
+        g.add('lamp', tube([xLC + 0.12, yc + 0.26, zc], [xLC + 0.7, G_TOP + 0.35, zc], 0.02, 6)); // signal cable to the boom deck
       }
     });
   S.hotspot('trolley.tension.main', { parentKey: BR, sub: '022', modes: ['overall', 'technical'], point: [xTT, yTT, 0], radius: 0.45, label: 'Trolley rope tensioning cylinders (position approximate; tensioners at the girder-tail end)', sources: [s00('trolley rope reeving diagram: tensioners at the tail end'), src('J526A2100', null, 'trolley reeving sheet not detailed')] },
@@ -884,7 +903,6 @@ export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
   // around the two horizontal equalizer sheaves (U-turn to the other lane) and back; likewise at the landside end via
   // the girder-tail tension device (J526A2100 Detail I, Detail III, A-A, C-C; J526A0200 E-E).
   const arcPts = (cx, cy, r, a0, a1, z0, z1, n = 8) => { const out = []; for (let k = 0; k <= n; k++) { const t = k / n; const a = a0 + (a1 - a0) * t; out.push([cx + r * Math.cos(a), cy + r * Math.sin(a), z0 + (z1 - z0) * t]); } return out; };
-  const RT2 = 0.032; // display radius of the ropes on the trolley sheaves (keeps them clear of the neighbouring sheaves)
   S.position('hoist.rope.set.main', { sub: '015', positionKind: 'quantityLot', uom: 'rope', category: 'ropeSet', label: 'Main hoist rope set (4 ropes, 8 falls; path simplified away from the trolley)', prov: 'estimated', sources: [s00('main hoist rope reeving diagram: 4 ropes from 2 drums over the girder-tail sheaves, trolley and headblock to the boom tip'), src('J526A0200', 1, 'main hoist rope reeving sketch and side view: each rope loops once between a trolley shaft (2 sheaves) and one headblock sheave'), src('J526A0300', 1, 'IWRC 6xWS(36) dia 31.5'), src('J526A1000', 1, 'tail sheaves on the anti-snag levers'), src('J526A2000', null, 'boom-tip anchors (Detail I); path simplified')] },
     (g) => {
       const rr = rTG + RT2; const rh = P('headblockSheaveDia') / 2 - 0.05 + RT2; const yTop = yTSh + rr;

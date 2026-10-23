@@ -20,13 +20,14 @@ source.corrections.push({ reason: 'Synthetic prior correction', items: [{ before
 const saved = E.access.save([{ role: 'management', feature: 'eq.jobs.view', on: false }], E.state.D.access.version, 'R02B regression');
 E.state.role = 'management'; E.access.refreshSession('regression');
 const result = E.currentSpecial(eq, scope), row = result.openJobs.find(r => r.job.id === source.id);
-const keys = ['id', 'number', 'equipmentId', 'level', 'mainId', 'subId', 'positionId', 'kind', 'title', 'workStatus', 'plannedOn'].sort();
+// U1-C23 (round 6): completed jobs are listed too, so the allowlist adds completedOn (null for open/reopened jobs) and listedOn; nothing else
+const keys = ['id', 'number', 'equipmentId', 'level', 'mainId', 'subId', 'positionId', 'kind', 'title', 'workStatus', 'plannedOn', 'completedOn', 'listedOn'].sort();
 const sameKeys = (v, expected) => JSON.stringify(Object.keys(v).sort()) === JSON.stringify(expected);
 const checks = [];
 const check = (id, ok, detail) => checks.push({ id, status: ok ? 'PASS' : 'FAIL', detail });
 check('F1-reopened-hidden-history', reopened.ok && saved.ok && E.history(eq, scope, true).status === 403 && result.ok && !!row,
   { historyStatus: E.history(eq, scope, true).status, currentOk: result.ok, reopened: reopened.ok });
-check('F1-current-job-allowlist', !!row && sameKeys(row.job, keys), { actualKeys: row && Object.keys(row.job), expectedKeys: keys });
+check('F1-current-job-allowlist', !!row && sameKeys(row.job, keys) && row.job.completedOn === null && result.jobs.every((r) => sameKeys(r.job, keys)), { actualKeys: row && Object.keys(row.job), expectedKeys: keys, reopenedCompletedOn: row && row.job.completedOn });
 check('F1-position-allowlist', !!row && row.matchingLines.length > 0 && row.matchingLines.every(l => sameKeys(l, ['positionId'])),
   { actualKeys: row && row.matchingLines.map(l => Object.keys(l)) });
 check('F1-source-history-preserved', source.completedOn && source.completionNote && source.events.some(e => e.kind === 'reopened') && source.corrections.length > 0,

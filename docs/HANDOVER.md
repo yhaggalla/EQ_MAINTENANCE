@@ -4,6 +4,64 @@ Rolling handover for CICT EQ Maintenance. Each phase appends its record; the new
 
 ---
 
+## Repair-U1 round 6 (U1-C23..U1-C26) - 23 October 2026
+
+### Runtime record
+
+| Item | Value |
+| --- | --- |
+| Recommended profile | Repair inheriting P01B/P02B/P03: Codex gpt-6.1-sol/high or Claude Code claude-opus-5-5/high |
+| Client | Claude Code subagent eq-build-opus-high; exact prompt `docs/runs/Repair-U1r6-20261023-1453.md` (orchestrator-owned) |
+| Model / effort | claude-opus-5-5; effort high (per agent definition) |
+| Fallback / escalation | None. The run stopped once at an API usage limit and was resumed by the orchestrator; the on-disk work was checked and completed |
+
+### Outcome
+
+Repair complete for U1-C23, U1-C24, U1-C25 and U1-C26. U1 was not repeated or approved by this run. Full report: `docs/evidence/U1/repair-r6-20261023.md`.
+
+- U1-C23: the crane-view Projects/Special tab (flat and 3D) lists open and completed special jobs of the selection, newest first; cancelled jobs are counted only; `CurrentSpecialJob` adds only `completedOn` and `listedOn` (D-155).
+- U1-C24: FAC Dashboard lanes list every active, shown job; done-not-due jobs are the last group "Done, up to date" with their next due date (D-156).
+- U1-C25: the 013 load cell is drawn in-line in the horizontal main hoist ropes at the boom tip, in the model (draft v1 revision 5, keys, kinds and classification unchanged) and in the flat view; the rope-end anchors stay with the boom-tip sheaves (D-157). Reading question U-36.
+- U1-C26: a shared "Show on dashboard / 3D" switch per special job (`eq.work`: Admin, EQ Team) and "Show on dashboard" per FAC job (`fac.work`: Admin, FAC Team), audited; hidden jobs leave the FAC Dashboard, the crane view and fleet counts and stay in Jobs, history and exports (D-158, D-159). Default shown (orchestrator default).
+- U1-C01..C22 and the R02B repairs are unchanged; regression checks below.
+
+### Files changed
+
+Prototype: `artifacts/prototypes/p02-ui/js/{access,fac,fixtures,panel-tabs,preview,store,views-eqjobs,views-equipment,views-fac,views-facjobs,views-fleet,views-jobs}.js`, `artifacts/prototypes/p02-ui/README.md`. Model: `assets/models/source/cict-j526a-sts/{build.mjs,params.json,README.md}`; regenerated `artifacts/models/cict-j526a-sts-scene/1/{scene.glb,manifest.json,provenance.md,landmarks.json,checksums.json}`. Contracts/records: `docs/{DATA_CONTRACT,API_CONTRACT,UX_SPEC,ARCHITECTURE,DECISIONS,IMPLEMENTATION_STATUS,HANDOVER}.md`. Tests: new `tools/p02b/check_u1_r6.mjs`; adapted `tools/p02b/check_p02b.mjs` (B05, C02, C03), `tools/p02b/check_r02b_round2.mjs`, `tools/p02b/check_p03_panel.mjs` (P3-07) (D-160). Evidence: `docs/evidence/U1/repair-r6-20261023.md`, `docs/evidence/U1/repair-r6/` (check JSON, before-run JSON, regression JSON, model validation, binding and diff reports, contract coverage, 9 screenshots).
+
+### Checks run and actual results
+
+| Check | Result |
+| --- | --- |
+| `tools/p02b/check_u1_r6.mjs` | 9/9 PASS (before, against a HEAD copy: 0/9) |
+| `tools/p02b/check_p02b.mjs` full suite | 63/63 PASS after B05/C02/C03 were moved to the U1-C23 rule (first run 60/63) |
+| `tools/p02b/check_p03_panel.mjs` | 8/8 PASS (21 flat/3D comparisons; first run 7/8 on the old P3-07 wording) |
+| `tools/p02b/check_u1_r5.mjs`; `tools/p02b/check_r02b_round2.mjs`; `tools/p02/check_prototype.mjs` | 11/11, 10/10, 59/59 PASS |
+| Model: generate, determinism, `validate.mjs`, `check_bindings.mjs`, `model_diff.mjs` | revision 5, draw calls 196/200, GLB identical on regeneration; 26/26; 11/11; 0 added / 0 removed / 2 changed / 0 identity changes |
+| `tools/p03/check_model_prototype.mjs --gpu swiftshader` | 41/41 PASS |
+| `tools/p03/check_no_webgl.mjs` | pass false: fallback and tree work, but its P03-era text assertion expects "04" in the info panel, which opens on Maintenance since P02B; viewer code unchanged by this repair |
+| Contract coverage V1 / V2 | 9/9, 15/15 PASS |
+| `smoke.mjs`, `node --check`, `git diff --check` (excluding `rtg-workbench/`) | clean |
+
+Prototype and contract evidence only: synthetic in-memory data, simulated persona, no authentication, database, live ZMMS, target environment or production. Formal acceptance remains NOT RUN.
+
+### Open issues and impact
+
+- U-36: reading of "boom tip horizontal cable" (along-boom horizontal hoist ropes, built; or the equalising cross-over rope). Visual only; user at the U1 repeat.
+- U-27 stays open (STS45 spreader drawing to be supplied by the user).
+- Prototype gaps: no `display` list filters; FAC switch without a version check; the 3D page does not see switches set in the P02 page (separate in-memory pages).
+- `tools/p03/check_no_webgl.mjs` needs its assertion updated in P10.
+
+### Git and boundaries
+
+Branch `main`, HEAD `6d4b64d`; repair uncommitted for the orchestrator. `rtg-workbench/` and `RTG drawings/` were not read, edited or included; the pre-existing `rtg-workbench/HANDOVER.md` modification was left alone. No `documents/`, Portal, deployment, SQL or ZMMS contact. `check_bindings.mjs` overwrote `docs/evidence/P03/binding-validation.json` by default; the file was restored from git and the result kept in `repair-r6/`. Servers on 5312/5313 were started from disk (twice, after the usage-limit stop); a HEAD copy served on 5322/5323 from the scratchpad was used only for the before-run.
+
+### Next prompt
+
+**U1 user checkpoint, repeated**: walkthrough of round 6 (completed jobs in Projects/Special, Up to date FAC rows, load cell position with U-36, Show on dashboard / 3D switches) with the earlier U1 items. The user's decision is recorded in DECISIONS s4 before P04.
+
+---
+
 ## Repair-U1 round 5 (U1-C20..U1-C22) - 23 October 2026
 
 ### Runtime record

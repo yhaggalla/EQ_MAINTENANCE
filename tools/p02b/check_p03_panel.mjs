@@ -102,7 +102,7 @@ try {
   await step('P3-07', ['U1-C19', 'VIS08', 'S16'], 'Fallbacks keep the four tabs usable: no WebGL (simulated) shows the fallback list and the tabs; the panel needs no WebGL', async () => {
     await openP03('?eq=eq-qc-demo-01&viewer=nowebgl&main=mi-q01-01&panel=special'); const fb = await E(`!document.querySelector('#fallback').hidden`); const t = await tabs3(); const body = await p3text(); const canv = await E(`document.querySelectorAll('canvas').length`);
     await E(`document.querySelector('#info-tabs [data-tab="technical"]').click()`); await sleep(200); const tech = await p3text();
-    return { ok: fb && t.length === 4 && /Open special jobs/.test(body) && /Main instance/.test(tech) && canv === 0, detail: JSON.stringify({ fb, tabs: t.length, canv }) };
+    return { ok: fb && t.length === 4 && /Open and completed special jobs/.test(body) && /Main instance/.test(tech) && canv === 0 /* U1-C23 (round 6): the tab text changed from "Open special jobs" */, detail: JSON.stringify({ fb, tabs: t.length, canv }) };
   });
   await step('P3-08', ['U1-C19', 'OPS02', 'S16'], 'The 3D page panel at 1920x1080, 1366x768, tablet and phone: no horizontal page overflow, tabs visible and unclipped, no console errors', async () => {
     const out = []; let bad = [];

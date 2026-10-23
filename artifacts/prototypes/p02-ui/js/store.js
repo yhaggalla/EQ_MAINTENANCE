@@ -104,24 +104,40 @@ window.EQ = window.EQ || {};
   /** Simulated GET /equipment/{id}/history (API s4.6): the EQ Jobs tab's scoped history. Needs eq.jobs.view on the live matrix;
    *  otherwise the refusal object (403 feature_disabled / forbidden_role) and no data at all. */
   EQ.history = (eqId, scope, includeCancelled) => readDeny('eq.jobs.view') || { ok: true, ...scoped(eqId, scope, includeCancelled) };
-  /** Simulated GET /equipment/{id}/current-state/special (API s4.16): what the crane view may read with eq.fleet.view only:
-   *  open, non-cancelled jobs (summaries + matching lines) and counts. No completed job, no correction, no event, no status change. */
+  /** U1-C26: a special job is shown on the dashboards / crane view unless the shared "Show on dashboard / 3D" switch is off. */
+  EQ.shownOnDashboard = (j) => j.showOnDashboard !== false;
+  EQ.CURRENT_COMPLETED_LIMIT = 50;
+  const colomboDay = (iso) => new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Colombo' }).format(new Date(iso));
+  /** Simulated GET /equipment/{id}/current-state/special (API s4.16): what the crane view may read with eq.fleet.view only.
+   *  U1-C23: `jobs` lists the open AND completed (non-cancelled) special jobs of the scope, newest first (listedOn = completion date of
+   *  a completed job, creation business date of an open one), at most 50 completed (`moreCompleted`); cancelled jobs are counted only.
+   *  U1-C26: jobs whose "Show on dashboard / 3D" switch is off are left out of the list and of every count (they stay in the Jobs tab).
+   *  Explicit CurrentSpecialJob allowlist: no description, completion note, completer, events, corrections, evidence or installation
+   *  details, also for completed and reopened jobs. `openJobs` is the open subset (tree/label/fleet badges). */
   EQ.currentSpecial = (eqId, scope) => {
     const deny = readDeny('eq.fleet.view'); if (deny) return deny;
     const H = scoped(eqId, scope, true);
-    const rows = [...H.open, ...H.completed];
-    const open = H.open.filter((r) => !r.job.isCancelled);
-    // Explicit CurrentSpecialJob/position allowlists (API s4.16). Reopened jobs keep
-    // prior completion/history internally; none may cross this current-state read.
-    return { ok: true, equipmentId: eqId, scope: { level: scope.level, id: scope.id }, openJobs: open.map(({ job: j, matchingLines }) => ({
+    const shown = (r) => EQ.shownOnDashboard(r.job);
+    const rows = [...H.open, ...H.completed].filter(shown);
+    const open = H.open.filter((r) => !r.job.isCancelled && shown(r));
+    const completed = H.completed.filter((r) => !r.job.isCancelled && shown(r));
+    const project = ({ job: j, matchingLines }) => ({
       job: { id: j.id, number: j.number, equipmentId: j.equipmentId, level: j.level, mainId: j.mainId, subId: j.subId,
-        positionId: j.positionId, kind: j.kind, title: j.title, workStatus: j.workStatus, plannedOn: j.plannedOn },
+        positionId: j.positionId, kind: j.kind, title: j.title, workStatus: j.workStatus, plannedOn: j.plannedOn,
+        completedOn: j.workStatus === 'completed' ? j.completedOn : null, listedOn: j.workStatus === 'completed' ? j.completedOn : colomboDay(j.createdUtc) },
       matchingLines: matchingLines.map((l) => ({ positionId: l.positionId })),
-    })),
+    });
+    const byNewest = (a, b) => EQ.cmp(b.job.listedOn || '', a.job.listedOn || '') || EQ.cmp(b.job.number, a.job.number);
+    const listedCompleted = completed.map(project).sort(byNewest);
+    const jobs = [...open.map(project), ...listedCompleted.slice(0, EQ.CURRENT_COMPLETED_LIMIT)].sort(byNewest);
+    return { ok: true, equipmentId: eqId, scope: { level: scope.level, id: scope.id }, jobs, moreCompleted: listedCompleted.length > EQ.CURRENT_COMPLETED_LIMIT,
+      openJobs: jobs.filter((r) => r.job.workStatus !== 'completed'),
       counts: { pending: open.filter((r) => r.job.workStatus === 'pending').length, current: open.filter((r) => r.job.workStatus === 'current').length,
-        completed: H.completed.filter((r) => !r.job.isCancelled).length, cancelled: rows.filter((r) => r.job.isCancelled).length },
+        completed: completed.length, cancelled: rows.filter((r) => r.job.isCancelled).length },
       openInJobs: EQ.access.srv('eq.jobs.view') ? null : { equipment: eqId, scope: scope.level, target: scope.id || null } };
   };
+  /** Fleet cards and crane work markers (U1-C26): open, non-cancelled special jobs that are shown on the dashboard / 3D. */
+  EQ.shownOpenJobs = (eqId) => EQ.openJobs(eqId).filter(EQ.shownOnDashboard);
   /** Simulated GET /jobs and GET /jobs/{id} (API s4.7): EQ Jobs tab records, eq.jobs.view only. */
   EQ.readJobs = () => readDeny('eq.jobs.view') || { ok: true, items: S.D.jobs.slice() };
   EQ.readJob = (id) => readDeny('eq.jobs.view') || (EQ.job(id) ? { ok: true, job: EQ.job(id) } : { ok: false, status: 404, code: 'not_found', message: 'No job with this link exists (404).' });
@@ -166,7 +182,7 @@ window.EQ = window.EQ || {};
         kind: p.kind, title: p.title.trim(), description: p.description || '', priority: p.priority || null, plannedOn: p.plannedOn || null, responsible: p.responsible || null,
         workStatus: p.initialStatus === 'current' ? 'current' : 'pending', completedOn: null, completionNote: null,
         isCancelled: false, cancelReason: null, cancelledBy: null, cancelledUtc: null,
-        createdBy: EQ.user().id, createdUtc: new Date().toISOString(), updatedUtc: new Date().toISOString(), reopenCount: 0, version: 1, lines: [],
+        createdBy: EQ.user().id, createdUtc: new Date().toISOString(), updatedUtc: new Date().toISOString(), reopenCount: 0, version: 1, lines: [], showOnDashboard: p.showOnDashboard !== false, // U1-C26 default shown
         events: [{ kind: 'created', at: new Date().toISOString(), by: EQ.user().id, note: null }], corrections: [],
       };
       S.D.jobs.unshift(job); eq.lastActivity = job.createdUtc;
@@ -509,6 +525,23 @@ window.EQ = window.EQ || {};
       job.events.push({ kind: 'reopened', at: new Date().toISOString(), by: EQ.user().id, note: reason.trim() + ' (installations stay committed)' });
       audit('job.reopen', job.number, reason); EQ.notify();
       return { ok: true };
+    },
+    /** U1-C26: simulated PUT /jobs/{jobId}/display (API s4.8a). The shared "Show on dashboard / 3D" switch of one special job.
+     *  eq.work (EQ Team and Admin; any special job, any work state); Management and FAC Team are refused. It changes no work field
+     *  and no work status: only where the job is displayed. Audited (job.display) with the previous value; a progress event is kept. */
+    setJobVisibility(id, p) {
+      const deny = EQ.access.srv('eq.work'); if (deny) return deny; // 403 forbidden_role (Management, FAC Team) on the live matrix
+      const job = EQ.job(id); if (!job) return fail(404, 'not_found', 'No job with this link exists (404).');
+      if (typeof p.show !== 'boolean') return fail(422, 'validation_failed', 'Choose shown or hidden.', { show: 'Required.' });
+      if (p.version != null && p.version !== job.version) return fail(409, 'version_conflict', 'This job changed since you opened it.', {});
+      const before = EQ.shownOnDashboard(job);
+      if (before === p.show) return { ok: true, job, unchanged: true };
+      job.showOnDashboard = p.show; job.version += 1; job.updatedUtc = new Date().toISOString();
+      job.displayChangedUtc = job.updatedUtc; job.displayChangedBy = EQ.user().id;
+      job.events.push({ kind: p.show ? 'shown on dashboard / 3D' : 'hidden from dashboard / 3D', at: job.updatedUtc, by: EQ.user().id, note: (p.reason || '').trim() || null });
+      S.D.audit.unshift({ at: job.updatedUtc, by: EQ.user().id, action: 'job.display', entity: job.number, reason: (p.reason || '').trim() || null, before: { showOnDashboard: before }, after: { showOnDashboard: p.show } });
+      EQ.log('audit: job.display ' + job.number + ' ' + (p.show ? 'shown' : 'hidden')); EQ.notify();
+      return { ok: true, job };
     },
   };
   // ---- U1-C22 helpers ----

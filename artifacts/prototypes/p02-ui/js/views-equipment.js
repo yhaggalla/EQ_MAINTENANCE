@@ -184,7 +184,7 @@ window.EQ = window.EQ || {};
     const iso = q.iso === '1' && mode === 'technical';
     const posByKey = new Map(EQ.positionsOf(eq.id).filter((p) => p.state === 'active').map((p) => [p.key, p]));
     const work = new Map();
-    EQ.openJobs(eq.id).forEach((j) => { if (j.positionId) { const p = EQ.pos(j.positionId); work.set(p.key, (work.get(p.key) || 0) + 1); } });
+    EQ.shownOpenJobs(eq.id).forEach((j) => { if (j.positionId) { const p = EQ.pos(j.positionId); work.set(p.key, (work.get(p.key) || 0) + 1); } });
     const svg = EQ.buildScene({
       mode, iso, selectedKeys: keys, showWork: ui.showWork, work, containerSel,
       getPos: (k) => posByKey.get(k),
