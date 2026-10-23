@@ -158,8 +158,9 @@ window.EQ = window.EQ || {};
         else if (a === 'jobs') { view = EQ.views.eqJobs(b || 'special', c, r.query); title = 'EQ Jobs'; }
         else { view = EQ.views.fleet(r.query); title = 'Fleet'; }
       } else if (r.name === 'fac') {
-        const [, a, b] = r.segs;
-        if (a === 'jobs' && b) { view = EQ.views.facJob(b, r.query); title = 'FAC job'; }
+        const [, a, b, c] = r.segs;
+        if (a === 'dashboard' && b === 'jobs' && c) { view = EQ.views.facJob(c, r.query, { fromDashboard: true }); title = 'FAC job'; }
+        else if (a === 'jobs' && b) { view = EQ.views.facJob(b, r.query); title = 'FAC job'; }
         else if (a === 'jobs') { view = EQ.views.facJobs(r.query); title = 'FAC Jobs'; }
         else { view = EQ.views.facDashboard(r.query); title = 'FAC Dashboard'; }
       } else if (r.name === 'admin') { view = EQ.views.admin(r.segs[1] || 'eq', r.segs[2] || '', r.query); title = 'Admin'; }

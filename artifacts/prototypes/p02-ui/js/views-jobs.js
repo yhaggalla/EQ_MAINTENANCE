@@ -52,7 +52,9 @@ window.EQ = window.EQ || {};
 
   function filtered(q) {
     const S = EQ.state;
-    let list = S.D.jobs.filter((j) => q.includeCancelled === '1' || !j.isCancelled);
+    const res = EQ.readJobs(); // simulated GET /jobs: eq.jobs.view on the live matrix (D-139)
+    if (!res.ok) return res;
+    let list = res.items.filter((j) => q.includeCancelled === '1' || !j.isCancelled);
     if (q.equipment) list = list.filter((j) => j.equipmentId === q.equipment);
     if (q.type) list = list.filter((j) => EQ.eq(j.equipmentId).typeCode === q.type);
     if (q.kind) list = list.filter((j) => j.kind === q.kind);
@@ -80,6 +82,7 @@ window.EQ = window.EQ || {};
       h('div', { class: 'field' }, h('span', { class: 'label', id: 'jl' }, 'Layout'), h('div', { class: 'seg', role: 'group', 'aria-labelledby': 'jl' }, ['board', 'tabs'].map((v) => h('button', { type: 'button', 'aria-pressed': (q.layout || 'board') === v ? 'true' : 'false', 'data-fk': 'jl-' + v, onClick: () => setQ({ layout: v }) }, v === 'board' ? 'Board' : 'Tabs'))))));
 
     const list = filtered(q);
+    if (!Array.isArray(list)) { EQ.access.refreshSession('403 ' + list.code); setTimeout(() => EQ.rerender(), 0); return EQ.views.forbidden('eq.jobs.view', '/eq/jobs/special', list.code); }
     const cols = ['pending', 'current', 'completed'];
     const by = (s) => list.filter((j) => !j.isCancelled && j.workStatus === s).sort((a, b) => (s === 'completed' ? EQ.cmp(b.completedOn || '', a.completedOn || '') : EQ.cmp(a.plannedOn || '9999', b.plannedOn || '9999')));
     const layout = q.layout || 'board';
@@ -98,7 +101,9 @@ window.EQ = window.EQ || {};
   };
 
   EQ.views.job = function job(id) {
-    const j = EQ.job(id);
+    const res = EQ.readJob(id); // simulated GET /jobs/{id}: eq.jobs.view on the live matrix (D-139)
+    if (!res.ok && res.status === 403) { EQ.access.refreshSession('403 ' + res.code); setTimeout(() => EQ.rerender(), 0); return EQ.views.forbidden('eq.jobs.view', '/eq/jobs/special', res.code); }
+    const j = res.ok ? res.job : null;
     const page = h('div', { class: 'page' });
     if (!j) { page.appendChild(h('div', { class: 'notice error', role: 'alert' }, icon('alert'), h('p', null, 'No job with this link exists (404).'))); return page; }
     const eq = EQ.eq(j.equipmentId);

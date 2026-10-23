@@ -210,8 +210,9 @@ try {
     const other = await ev(`EQ.api.completeJob('job-104',{key:'another-key',completedOn:'2026-10-01',note:'x',lines:[]}).code`);
     return { ok: r.status === 'completed' && r.ev === 1 && r.eqStatus === 'maintenance' && !r.open && again.replayed && again.ev === 1 && other === 'job_already_completed', detail: JSON.stringify({ r, again, other }) };
   });
-  await step('C18', 'Completion validation: errors summarised and linked, duplicate position refused, nothing saved', async () => {
+  await step('C18', 'Completion validation: errors summarised and linked, duplicate position refused, nothing saved [P02B adapted: a baseline Original event can exist at the position, so the events of this job are counted and the position\'s total event count must stay unchanged]', async () => {
     await go('eqTeam', '/jobs?equipment=' + Q1);
+    const posEv0 = await ev(`(()=>{const id=EQ.positionsOf('${Q1}').find(p=>p.key==='boom.rope.set.main').id; return EQ.state.D.events.filter(e=>e.positionId===id).length;})()`);
     await b.clickIn('.job', 'Boom rope set replacement', 'Complete...'); await b.wait(250);
     await b.setValue('#cf-date', '');
     await b.click('dialog button[type="submit"]'); await b.wait(900);
@@ -223,9 +224,9 @@ try {
     await b.setValue('#cl0-desc', 'rope'); await b.setValue('#cl1-desc', 'rope'); await b.setValue('#cl0-qty', '0'); await b.setValue('#cl1-qty', '2');
     await b.click('dialog button[type="submit"]'); await b.wait(900);
     const sum2 = await text('#err-summary');
-    const saved = await ev(`({st:EQ.job('job-107').workStatus, ev:EQ.state.D.events.filter(e=>e.jobId==='job-107').length})`);
+    const saved = await ev(`(()=>{const id=EQ.positionsOf('${Q1}').find(p=>p.key==='boom.rope.set.main').id; return {st:EQ.job('job-107').workStatus, ev:EQ.state.D.events.filter(e=>e.jobId==='job-107').length, posEv:EQ.state.D.events.filter(e=>e.positionId===id).length};})()`);
     const focused = await ev(`document.activeElement && document.activeElement.id`);
-    return { ok: /not in the future/.test(sum) && /Duplicate position/.test(sum2) && /greater than 0/.test(sum2) && saved.st === 'pending' && saved.ev === 0 && focused === 'err-summary', detail: sum.slice(0, 120) + ' | ' + sum2.slice(0, 200) };
+    return { ok: /not in the future/.test(sum) && /Duplicate position/.test(sum2) && /greater than 0/.test(sum2) && saved.st === 'pending' && saved.ev === 0 && saved.posEv === posEv0 && focused === 'err-summary', detail: sum.slice(0, 120) + ' | ' + sum2.slice(0, 200) + ' | position events ' + posEv0 + ' -> ' + saved.posEv };
   });
   await step('C19', 'Atomic completion: one valid and one invalid line commit nothing; out-of-order date refused; quantity rules per position kind', async () => {
     await go('eqTeam', '/fleet');
@@ -335,20 +336,23 @@ try {
   });
 
   // ---------------- viewer behaviour ----------------
-  await step('C27', 'Non-WebGL, context lost and failed-load states: viewer explains, tree, panel tabs and work stay usable, never a canvas [P02B adapted: tabs instead of history]', async () => {
+  await step('C27', 'Non-WebGL, context lost and failed-load states: viewer explains, tree, panel tabs and work stay usable, never a canvas [P02B adapted: the selected part\'s record is asserted in its Technical tab (current installation, serial SYN-0001) instead of the removed history tab]', async () => {
     const bad = [];
     for (const v of ['nowebgl', 'contextlost', 'loadfailed', 'loading']) {
-      await go('eqTeam', `/equipment/${Q1}?main=mi-q01-01&sub=si-q01-011&part=pp-q01-007`, { viewer: v });
+      await go('eqTeam', `/equipment/${Q1}?main=mi-q01-01&sub=si-q01-011&part=pp-q01-007&panel=technical`, { viewer: v });
       await b.wait(500);
       const m = await text('.viewport');
       const tree = await ev(`document.querySelectorAll('[role=treeitem]').length`);
       const side = await text('.side-panel');
+      const body = await text('.side-panel .sp-body');
+      const title = await text('[data-fk="scope-title"]');
       const canv = await ev(`document.querySelectorAll('canvas').length`);
       const addJob = await ev(`!!document.querySelector('[data-fk="add-job"]')`);
       const msg = { nowebgl: 'WebGL is not available', contextlost: 'context lost', loadfailed: 'could not be loaded', loading: 'Loading the model' }[v];
-      if (!m.includes(msg) || tree < 10 || !(side.includes('Maintenance') && side.includes('Spare parts')) || canv || !addJob) bad.push(v);
+      const partRecord = /Main hoist motor A/.test(title) && body.includes('SYN-0001') && /Semantic key/.test(body) && /hoist\.drive\.motor\.a/.test(body);
+      if (!m.includes(msg) || tree < 10 || !(side.includes('Maintenance') && side.includes('Spare parts')) || !partRecord || canv || !addJob) bad.push(v + (partRecord ? '' : ' (part record missing)'));
     }
-    return { ok: !bad.length, detail: bad.join(',') };
+    return { ok: !bad.length, detail: bad.join(',') || 'selected part record (Main hoist motor A, serial SYN-0001) shown in every state' };
   });
   await step('C28', 'RTG/ES say 3D is not available (never a QC model); QC without verified model is not shown a model [P02B adapted: open work only]', async () => {
     const out = [];

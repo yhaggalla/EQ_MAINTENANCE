@@ -1,0 +1,31 @@
+{
+ "base": "http://127.0.0.1:5322/",
+ "at": "2026-10-23T01:27:23.098Z",
+ "finding1_eq": {
+  "historyCompletedReturned": 3,
+  "refused": null,
+  "facList": "403 feature_disabled"
+ },
+ "finding1_panel": {
+  "openInJobs": true,
+  "jobLinks": 4
+ },
+ "finding1_facRowHref": "#/fac/jobs/fj-12",
+ "finding2": {
+  "runDateWrong": [
+   7,
+   6,
+   5,
+   4,
+   3
+  ],
+  "automaticRows": 10,
+  "autoOnAnotherDayThanTheirRun": 9,
+  "autoWithReason": 5,
+  "autoBreakdownMaintenanceWithoutCause": [
+   "RTG-DEMO-06"
+  ],
+  "futureCreatedRows": 13
+ },
+ "errors": []
+}

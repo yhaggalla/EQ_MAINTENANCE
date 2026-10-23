@@ -157,7 +157,7 @@ window.EQ = window.EQ || {};
           h('td', null, h('span', { class: 'src ' + (m.label === 'Auto' ? 'auto' : 'manual') }, m.label), h('div', { class: 'small muted' }, m.long)),
           h('td', null, e.statusSince ? EQ.fmtInstantShort(e.statusSince) : 'Never set'), h('td', null, e.statusReason || '-'),
           h('td', null, e.overrideOn ? fmtD(e.overrideOn) + (e.overrideOn >= EQ.todayColombo() ? ' (today)' : ' (expired)') : '-'),
-          h('td', null, e.statusCauses && e.statusCauses.length ? e.statusCauses.map((c) => h('span', { class: 'tag mono', style: 'margin-right:.2rem' }, c)) : '-'),
+          h('td', null, e.statusCauses && e.statusCauses.length && e.statusSource === 'zmms' ? [e.statusCauses.map((c) => h('span', { class: 'tag mono', style: 'margin-right:.2rem' }, c)), h('div', { class: 'small muted' }, 'Plan of ' + fmtD(e.statusPlanDate))] : EQ.zmms.causeText(e) || '-'),
           h('td', null, EQ.perm.write() ? h('div', { class: 'row' }, h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'correct-' + e.id, onClick: () => EQ.dlg.status(e) }, e.zmmsMapped ? 'Correct...' : 'Update...'), e.zmmsMapped && e.overrideOn ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'auto-' + e.id, onClick: () => { const r = EQ.zmms.backToAutomatic(e.id); EQ.toast(r.ok ? e.code + ' is back to automatic' + (r.awaiting ? " (awaiting today's ZMMS sync)" : '') : r.message, 'Prototype: in memory only.'); } }, 'Back to automatic') : null) : h('span', { class: 'small muted' }, 'Read-only')));
       })))));
     // history across equipment
@@ -169,8 +169,8 @@ window.EQ = window.EQ || {};
       hist.length ? h('div', { class: 'table-wrap' }, h('table', null, h('caption', { class: 'sr-only' }, 'Status changes with source'), h('thead', null, h('tr', null, ['When', 'Equipment', 'Change', 'Source', 'By', 'Reason', 'Causing ZMMS jobs'].map((c) => h('th', { scope: 'col' }, c)))),
         h('tbody', null, hist.map((c) => h('tr', { 'data-sc': c.id }, h('td', null, EQ.fmtInstantShort(c.at)), h('th', { scope: 'row' }, EQ.eq(c.equipmentId).code),
           h('td', null, c.prev ? EQ.STATUS[c.prev].label + ' → ' : 'First: ', EQ.statusBadge(c.status)),
-          h('td', null, h('span', { class: 'src ' + (c.source === 'zmms' ? 'auto' : 'manual') }, c.source === 'zmms' ? 'ZMMS sync' + (c.runId ? ' #' + c.runId : '') : 'User'), h('div', { class: 'small muted' }, SOURCE_LABEL[c.kind] || c.kind)),
-          h('td', null, c.source === 'zmms' ? 'System' : EQ.userName(c.by)), h('td', null, c.reason || '-'), h('td', null, c.causes && c.causes.length ? c.causes.join(', ') : '-')))))) : h('div', { class: 'nonwork' }, h('strong', null, 'No status changes in this selection'), 'Nothing is inferred from before tracking began.')));
+          h('td', null, h('span', { class: 'src ' + (c.source === 'zmms' ? 'auto' : 'manual') }, c.source === 'zmms' ? 'ZMMS sync' + (c.runId ? ' #' + c.runId : '') : 'User'), h('div', { class: 'small muted' }, (SOURCE_LABEL[c.kind] || c.kind) + (c.planDate ? ' · plan of ' + fmtD(c.planDate) : ''))),
+          h('td', null, c.source === 'zmms' ? 'System' : EQ.userName(c.by)), h('td', null, c.reason || '-'), h('td', null, c.causes && c.causes.length ? c.causes.join(', ') : c.source === 'zmms' && c.status === 'readyForOps' && c.planDate ? 'Not in the ZMMS plan for ' + fmtD(c.planDate) : '-')))))) : h('div', { class: 'nonwork' }, h('strong', null, 'No status changes in this selection'), 'Nothing is inferred from before tracking began.')));
   }
   EQ.todayOf = (iso) => new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Colombo' }).format(new Date(iso));
 

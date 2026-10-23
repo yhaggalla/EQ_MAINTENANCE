@@ -20,11 +20,16 @@ window.EQ = window.EQ || {};
     Object.entries(scopeParams(eq, scope)).forEach(([k, v]) => qs.set(k, v));
     return P.base + '#/eq/jobs/special?' + qs.toString();
   };
-  const openInJobs = (eq, scope, tab) => h('a', { class: 'btn btn-sm', href: P.jobsLink(eq, scope, tab), 'data-fk': 'open-in-jobs-' + tab, ...ext() }, icon('ext'), 'Open in Jobs');
+  /** EQ Jobs links are offered only when the session holds eq.jobs.view (Repair-R02B finding 1, D-139): with the Jobs tab switched off
+   *  the link would only lead to the 403 page, and the job records behind it are refused by the server anyway. */
+  P.jobsAllowed = () => EQ.access.has('eq.jobs.view');
+  const openInJobs = (eq, scope, tab) => (P.jobsAllowed() ? h('a', { class: 'btn btn-sm', href: P.jobsLink(eq, scope, tab), 'data-fk': 'open-in-jobs-' + tab, ...ext() }, icon('ext'), 'Open in Jobs')
+    : h('p', { class: 'small muted', style: 'margin:0', 'data-fk': 'jobs-tab-off-' + tab }, 'The EQ Jobs tab is not available for your role, so earlier work and job records are not shown.'));
 
   /** Tab badges (summary query): today's ZMMS job count, open special jobs, spare parts overdue / due soon. */
   P.summary = function summary(eq, scope) {
-    const open = EQ.history(eq.id, scope, false).open.length;
+    const cs = EQ.currentSpecial(eq.id, scope);
+    const open = cs.ok ? cs.openJobs.length : 0;
     const rows = EQ.spares.rows(eq.id, scope.level === 'equipment' ? null : scope);
     const c = EQ.spares.counts(rows);
     return { maintenance: eq.zmmsMapped ? EQ.zmms.todayJobs(eq.id).length : null, special: open, spare: c };
@@ -51,7 +56,7 @@ window.EQ = window.EQ || {};
     const fresh = EQ.zmms.freshness();
     box.appendChild(h('div', { class: 'sec' }, h('h3', null, 'Equipment status'),
       h('div', { class: 'row' }, EQ.statusBadge(eq.status), tag(mode.label === 'Auto' ? 'Auto (ZMMS)' : 'Manual', mode.label === 'Auto' ? '' : 'gold')),
-      h('span', { class: 'small muted' }, mode.long + (eq.statusCauses && eq.statusCauses.length ? '. Caused by ' + eq.statusCauses.join(', ') : '')),
+      h('span', { class: 'small muted', 'data-fk': 'status-cause' }, mode.long + (EQ.zmms.causeText(eq) ? '. ' + EQ.zmms.causeText(eq) : '')),
       eq.statusReason && mode.label !== 'Auto' ? h('span', { class: 'small' }, 'Reason: ' + eq.statusReason) : null));
     if (!eq.zmmsMapped) {
       box.appendChild(h('div', { class: 'nonwork' }, h('strong', null, 'Not linked to ZMMS'), eq.code + ' has no ZMMS equipment mapping, so no daily jobs are listed and its status keeps the manual rule. An Admin links it in Admin > EQ > ZMMS.'));
@@ -66,25 +71,29 @@ window.EQ = window.EQ || {};
     return box;
   };
 
-  P.jobMini = function jobMini(j, lines) {
+  /** One job card. opts.current: crane-view use (current-state summary only, API s4.16): no correction history, and the job number is a
+   *  link only when the session holds eq.jobs.view (D-139). The EQ Jobs tab calls it without opts and keeps the full card. */
+  P.jobMini = function jobMini(j, lines, opts) {
+    opts = opts || {};
+    const num = opts.current && !P.jobsAllowed() ? h('span', { class: 'mono', 'data-fk': 'job-num-' + j.id }, j.number) : h('a', { href: P.base + '#/eq/jobs/special/' + j.id, ...ext() }, j.number);
     return h('li', { class: j.workStatus === 'completed' ? '' : 'open' },
-      h('div', { class: 'row between' }, h('a', { href: P.base + '#/eq/jobs/special/' + j.id, ...ext() }, j.number), h('span', null, h('span', { class: 'tag' }, j.kind === 'replacement' ? 'Replacement' : 'Repair'), ' ', h('span', { class: 'tag ' + (j.workStatus === 'completed' ? 'green' : 'gold') }, j.isCancelled ? 'Cancelled' : j.workStatus === 'completed' ? 'Completed' : j.workStatus === 'current' ? 'Current' : 'Pending'))),
+      h('div', { class: 'row between' }, num, h('span', null, h('span', { class: 'tag' }, j.kind === 'replacement' ? 'Replacement' : 'Repair'), ' ', h('span', { class: 'tag ' + (j.workStatus === 'completed' ? 'green' : 'gold') }, j.isCancelled ? 'Cancelled' : j.workStatus === 'completed' ? 'Completed' : j.workStatus === 'current' ? 'Current' : 'Pending'))),
       h('strong', null, j.title),
       h('span', { class: 'when' }, 'Target: ' + EQ.targetLabel(j)),
       j.workStatus === 'completed' ? h('span', { class: 'when' }, 'Completed on ' + EQ.fmtDate(j.completedOn) + ' (business date)' + (j.corrections.length ? ' · Corrected ' + j.corrections.length + ' time(s)' : '')) : h('span', { class: 'when' }, j.plannedOn ? 'Planned ' + EQ.fmtDate(j.plannedOn) : 'No planned date'),
       j.isCancelled ? h('span', { class: 'when' }, 'Cancelled by ' + EQ.userName(j.cancelledBy) + ': ' + j.cancelReason) : null,
       lines && lines.length ? h('ul', { class: 'lines' }, lines.map((l) => { const p = EQ.pos(l.positionId); return h('li', null, p.name + ': installed ' + l.item.desc + (l.item.serial ? ' (serial ' + l.item.serial + ')' : ' (serial unknown)') + ', ' + l.qty + ' ' + l.uom + ', ' + EQ.fmtDate(l.replacedOn) + (l.removedKnown ? '; removed ' + (l.removedDesc || 'item') + (l.removedSerial ? ' (serial ' + l.removedSerial + ')' : '') : '; removed item Unknown')); })) : null,
-      j.corrections.length ? h('details', null, h('summary', { class: 'small' }, 'Correction history (prior values kept)'), j.corrections.map((c) => h('div', { class: 'small', style: 'margin-top:.3rem' }, 'Correction ' + c.n + ' by ' + EQ.userName(c.by) + ', ' + EQ.fmtInstantShort(c.at) + ': ' + c.reason, c.items.map((it) => h('div', null, it.field + ': ', h('s', null, it.before), ' → ', h('strong', null, it.after)))))) : null);
+      !opts.current && j.corrections.length ? h('details', null, h('summary', { class: 'small' }, 'Correction history (prior values kept)'), j.corrections.map((c) => h('div', { class: 'small', style: 'margin-top:.3rem' }, 'Correction ' + c.n + ' by ' + EQ.userName(c.by) + ', ' + EQ.fmtInstantShort(c.at) + ': ' + c.reason, c.items.map((it) => h('div', null, it.field + ': ', h('s', null, it.before), ' → ', h('strong', null, it.after)))))) : null);
   };
 
-  P.special = function special(eq, sel, scope, jobMini) {
-    jobMini = jobMini || P.jobMini;
+  P.special = function special(eq, sel, scope) {
+    const jobMini = (j, lines) => P.jobMini(j, lines, { current: true });
     const box = h('div', { class: 'stack' });
-    const H = EQ.history(eq.id, scope, true);
-    const rows = [...H.open, ...H.completed];
-    const cancelled = rows.filter((r) => r.job.isCancelled).length;
-    const completed = H.completed.filter((r) => !r.job.isCancelled).length;
-    const open = H.open.filter((r) => !r.job.isCancelled);
+    // simulated GET current-state/special (eq.fleet.view): open jobs and counts only, never the scoped history (D-139)
+    const cs = EQ.currentSpecial(eq.id, scope);
+    if (!cs.ok) { box.appendChild(h('div', { class: 'notice error', role: 'alert' }, icon('alert'), h('p', null, cs.message))); return box; }
+    const cancelled = cs.counts.cancelled, completed = cs.counts.completed;
+    const open = cs.openJobs;
     box.appendChild(h('p', { class: 'small muted', style: 'margin:0' }, scope.level === 'equipment' ? 'Open special jobs of ' + eq.code + ' (an equipment-level job appears once).' : scope.level === 'part' ? 'Open special jobs at this exact position.' : 'Open special jobs targeted here and at everything below it. A job with several lines appears once.'));
     box.appendChild(h('div', { class: 'row', role: 'group', 'aria-label': 'Special job counts in this scope' }, tag(open.length + ' open', open.length ? 'gold' : ''), tag(completed + ' completed'), tag(cancelled + ' cancelled')));
     box.appendChild(h('div', { class: 'sec' }, h('h3', null, 'Open special jobs ', tag(String(open.length))),

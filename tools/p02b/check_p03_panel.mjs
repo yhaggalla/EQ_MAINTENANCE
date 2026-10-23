@@ -92,11 +92,12 @@ try {
     const wantJob = await E(`EQ.history('eq-qc-demo-01', {level:'part', id: EQ.positionsOf('eq-qc-demo-01').find(p=>p.key==='hoist.drive.motor.b').id}, false).open.map(r=>r.job.number)`);
     return { ok: !!s.part && /Main hoist motor B/.test(title) && tab === 'special' && wantJob.length === 1 && sp.includes(wantJob[0]) && /Replace main hoist motor B/.test(sp) && /Main hoist motor B/.test(spare) && /Original|Replaced|Not recorded/.test(spare), detail: JSON.stringify({ part: s.part, title, tab, job: wantJob }) };
   });
-  await step('P3-06', ['U1-C19', 'S07'], 'Open in Jobs from the 3D page opens the P02 EQ Jobs tab with the same equipment and scope; job numbers link there too', async () => {
+  await step('P3-06', ['U1-C19', 'S07'], 'Open in Jobs from the 3D page opens the P02 EQ Jobs tab with the same equipment and scope, as the same read-only Management persona the viewer page runs as; job numbers link there too [Repair-R02B finding 7: was role=eqTeam]', async () => {
     await openP03('?eq=eq-qc-demo-01&main=mi-q01-01&panel=special'); const href = await E(`document.querySelector('[data-fk="open-in-jobs-special"]').href`); const target = await E(`document.querySelector('[data-fk="open-in-jobs-special"]').target`);
     const link = await E(`(document.querySelector('#info .tl a')||{}).href`);
     await b.goto(href); await sleep(900); const t = await E(`document.querySelector('#sh-h') ? document.querySelector('#sh-h').textContent : ''`); const nums = await E(`[...document.querySelectorAll('section[aria-labelledby="sh-h"] .tl a')].map(a=>a.textContent).filter(x=>/^EQJ/.test(x))`);
-    return { ok: href.startsWith(P02) && /scope=main/.test(href) && /target=mi-q01-01/.test(href) && target === '_blank' && /\/\?role=eqTeam#\/eq\/jobs\/special\//.test(link || '') && /History of/.test(t) && nums.length >= 2, detail: JSON.stringify({ href, nums }) };
+    const ro = await E(`({persona:EQ.state.role, write:EQ.perm.write(), chip:!!document.querySelector('.readonly-chip')})`);
+    return { ok: href.startsWith(P02) && /\/\?role=management#/.test(href) && /scope=main/.test(href) && /target=mi-q01-01/.test(href) && target === '_blank' && /\/\?role=management#\/eq\/jobs\/special\//.test(link || '') && /History of/.test(t) && nums.length >= 2 && ro.persona === 'management' && !ro.write && ro.chip, detail: JSON.stringify({ href, nums, ro }) };
   });
   await step('P3-07', ['U1-C19', 'VIS08', 'S16'], 'Fallbacks keep the four tabs usable: no WebGL (simulated) shows the fallback list and the tabs; the panel needs no WebGL', async () => {
     await openP03('?eq=eq-qc-demo-01&viewer=nowebgl&main=mi-q01-01&panel=special'); const fb = await E(`!document.querySelector('#fallback').hidden`); const t = await tabs3(); const body = await p3text(); const canv = await E(`document.querySelectorAll('canvas').length`);

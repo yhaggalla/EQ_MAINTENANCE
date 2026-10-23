@@ -137,6 +137,50 @@ try {
     return { ok, detail: JSON.stringify(r) };
   });
 
+  // Repair-R02B finding 1: a switched-off tab must be blocked on the data reads, not only on the route (B01 only called EQ.access.srv)
+  await step('B05', ['ACC02', 'S19', 'S07', 'HIS06'], 'EQ Jobs switched off for Management while EQ Fleet stays on: scoped history, job list, job record and export are refused by the simulated server (403 feature_disabled), also when a view function is called directly behind the route gate; the crane view keeps its open-job summaries and counts but shows no job-record link and no Open in Jobs in any tab [Repair-R02B]', async () => {
+    await go('admin', '/admin/access');
+    await ev(`EQ.setPersona('management')`); await ev(`EQ.nav('/eq/fleet',{})`); await b.wait(300);
+    // Admin saves while Management's UI snapshot still shows the Jobs tab
+    const save = await ev(`(()=>{const keep=EQ.state.role; EQ.state.role='admin'; const r=EQ.access.save([{role:'management',feature:'eq.jobs.view',on:false}], EQ.state.D.access.version, 'check B05'); EQ.state.role=keep; return r.ok;})()`);
+    const reads = await ev(`(()=>{const sc={level:'equipment',id:null}; const h=EQ.history('${Q1}',sc,true), hp=EQ.history('${Q1}',{level:'part',id:'pp-q01-007'},true), js=EQ.readJobs(), j=EQ.readJob('job-101'), ex=EQ.eqExport('special',{}), cs=EQ.currentSpecial('${Q1}',sc);
+      return {history:[h.status,h.code,'completed' in h], part:[hp.status,hp.code,'events' in hp], jobs:[js.status,js.code,'items' in js], job:[j.status,j.code,'job' in j], exp:ex.status,
+        current:{ok:cs.ok, open:cs.ok?cs.openJobs.length:-1, listsCompleted:cs.ok&&cs.openJobs.some(r=>r.job.workStatus==='completed'||r.job.isCancelled), counts:cs.counts, openInJobs:cs.openInJobs}};})()`);
+    // the record and board views themselves refuse to render data when the server read is refused (independent of the route gate)
+    const rec = await ev(`EQ.views.job('job-101').textContent`); const board = await ev(`EQ.specialBoard({}).textContent`);
+    await ev(`EQ.nav('/eq/jobs/special/job-101',{})`); await b.wait(500); const route = await text('main');
+    await ev(`EQ.access.refreshSession('60 s poll'); EQ.rerender()`); await b.wait(300);
+    const panel = {};
+    for (const tab of ['maintenance', 'special', 'technical', 'spareParts']) {
+      await ev(`EQ.nav('/eq/equipment/${Q1}',{panel:'${tab}'})`); await b.wait(600);
+      panel[tab] = await ev(`({jobsLinks:[...document.querySelectorAll('.side-panel a, .eq-head a')].filter(a=>(a.getAttribute('href')||'').includes('eq/jobs')).length, nums:[...document.querySelectorAll('.side-panel [data-fk^="job-num-"]')].map(e=>e.textContent), off:!!document.querySelector('[data-fk^="jobs-tab-off-"]'), corr:/Correction history/.test(document.querySelector('.side-panel').textContent)})`);
+    }
+    await ev(`(()=>{EQ.state.role='admin'; EQ.access.save([{role:'management',feature:'eq.jobs.view',on:true}], EQ.state.D.access.version,'restore'); EQ.access.refreshSession('restore');})()`);
+    const R = reads, P = panel;
+    const ok = save && R.history[0] === 403 && R.history[1] === 'feature_disabled' && !R.history[2] && R.part[0] === 403 && !R.part[2] && R.jobs[0] === 403 && !R.jobs[2] && R.job[0] === 403 && !R.job[2] && R.exp === 403
+      && /403/.test(rec) && /feature_disabled/.test(rec) && !/Replace main hoist motor A/.test(rec) && /403/.test(board) && !/EQJ-/.test(board) && /403/.test(route) && /feature_disabled/.test(route)
+      && R.current.ok && R.current.open >= 3 && !R.current.listsCompleted && R.current.counts.completed >= 1 && R.current.openInJobs === null
+      && Object.values(P).every((t) => t.jobsLinks === 0 && !t.corr) && P.special.nums.length === R.current.open && P.special.off && P.maintenance.off && P.spareParts.off;
+    return { ok, detail: JSON.stringify({ reads: R, recordView: rec.slice(0, 90), boardView: board.slice(0, 60), route: route.slice(0, 40), panel: Object.fromEntries(Object.entries(P).map(([k, v]) => [k, { links: v.jobsLinks, plainNumbers: v.nums.length, offNote: v.off }])) }) };
+  });
+  await step('B06', ['ACC02', 'FAC12', 'S19', 'S27'], 'FAC Jobs switched off for Management while the Dashboard stays on: the FAC Jobs list, the full cycle list and the FAC export are refused (403); a dashboard row opens the read-only dashboard detail of an active job without FAC Jobs actions; a deactivated job is 404 there; the FAC Jobs route answers 403 [Repair-R02B findings 1 and 7]', async () => {
+    await go('admin', '/admin/access');
+    const prep = await ev(`(()=>{const act=EQ.state.D.fac.jobs.filter(j=>j.state==='active'); const victim=act[act.length-1].id; const d=EQ.fac.api.deactivate(victim,'check B06'); const s=EQ.access.save([{role:'management',feature:'fac.jobs.view',on:false}], EQ.state.D.access.version, 'check B06'); return {victim, deact:d.ok, save:s.ok};})()`);
+    await ev(`EQ.setPersona('management')`); await ev(`EQ.nav('/fac/dashboard',{})`); await b.wait(1300);
+    const reads = await ev(`(()=>{const F=EQ.fac; const a=EQ.state.D.fac.jobs.find(j=>j.state==='active'); const l=F.list({}), c=F.cycles(a.id), e=F.exportRows({}), d=F.detail(a.id), x=F.detail('${prep.victim}');
+      return {list:[l.status,l.code], cycles:[c.status,c.code], exp:[e.status,e.code], detail:[d.ok,d.via], deactivated:[x.status,x.code]};})()`);
+    const href = await ev(`document.querySelector('.lane .row-link').getAttribute('href')`);
+    await ev(`location.hash=document.querySelector('.lane .row-link').getAttribute('href')`); await b.wait(800);
+    const det = await ev(`({t:document.querySelector('main').textContent, note:!!document.querySelector('[data-fk="dash-detail-note"]'), back:!!document.querySelector('[data-fk="back-dashboard"]'), acts:document.querySelectorAll('main .eq-head .actions button, main [data-fk="job-pic"], main .btn-act').length})`);
+    await ev(`EQ.nav('/fac/jobs',{})`); await b.wait(500); const route = await text('main');
+    await ev(`EQ.nav('/fac/dashboard/jobs/${prep.victim}',{})`); await b.wait(500); const gone = await text('main');
+    await ev(`(()=>{EQ.state.role='admin'; EQ.access.save([{role:'management',feature:'fac.jobs.view',on:true}], EQ.state.D.access.version,'restore'); EQ.access.refreshSession('restore');})()`);
+    const ok = prep.deact && prep.save && reads.list[0] === 403 && reads.cycles[0] === 403 && reads.exp[0] === 403 && reads.detail[0] === true && reads.detail[1] === 'dashboard' && reads.deactivated[0] === 404
+      && /^#\/fac\/dashboard\/jobs\//.test(href) && det.note && det.back && det.acts === 0 && /Current cycle/.test(det.t) && /Timeline/.test(det.t) && /Previous cycles/.test(det.t)
+      && /403/.test(route) && /feature_disabled/.test(route) && /404/.test(gone);
+    return { ok, detail: JSON.stringify({ prep, reads, href, detail: { note: det.note, back: det.back, actions: det.acts }, route: route.slice(0, 80), deactivatedOnDashboardRoute: gone.slice(0, 60) }) };
+  });
+
   // =============================================================== C. crane view right panel (U1-C19) in the flat view
   const tabsOf = () => ev(`[...document.querySelectorAll('.side-panel [role=tab]')].map(t=>({k:t.dataset.fk.replace('tab-',''), label:t.textContent.replace(/\\d+$/,'').trim(), sel:t.getAttribute('aria-selected'), tab:t.getAttribute('tabindex'), w:Math.round(t.getBoundingClientRect().width)}))`);
   const panelText = () => text('.side-panel .sp-body');
@@ -379,6 +423,16 @@ try {
   });
 
   // =============================================================== G. spare-part rules
+  await step('F06', ['ZM06', 'S21'], "Back to automatic never sets a missing value: when today's evaluation stopped at unmapped values (RTG-DEMO-06, WireRope not mapped) it keeps the corrected value as awaiting today's ZMMS sync instead of applying a null status; with a computed evaluation it applies that value [Repair-R02B finding 3]", async () => {
+    await go('eqTeam', '/eq/jobs/status', {}, 600);
+    const r = await ev(`(()=>{const Z=EQ.zmms; const w='eq-rtg-demo-06', q='eq-qc-demo-02'; const evW=EQ.state.D.zmms.evaluations.find(x=>x.equipmentId===w), evQ=EQ.state.D.zmms.evaluations.find(x=>x.equipmentId===q);
+      Z.correct(w,{status:'breakdown',reason:'check F06'}); const a=Z.backToAutomatic(w); const ew=EQ.eq(w); const lastW=EQ.state.D.statusChanges.filter(c=>c.equipmentId===w).slice(-1)[0];
+      Z.correct(q,{status:'breakdown',reason:'check F06'}); const b2=Z.backToAutomatic(q); const eq2=EQ.eq(q);
+      return {evW:[evW.computed, evW.skip], w:{ok:a.ok, awaiting:a.awaiting, status:ew.status, mode:Z.mode(ew).key, lastKind:lastW.kind, lastSource:lastW.source, lastStatus:lastW.status}, evQ:[evQ.computed, evQ.skip], q:{ok:b2.ok, awaiting:b2.awaiting, status:eq2.status, mode:Z.mode(eq2).key}};})()`);
+    const ok = r.evW[0] === null && r.evW[1] === 'unmappedValues' && r.w.ok && r.w.awaiting === true && r.w.status === 'breakdown' && r.w.lastKind === 'backToAutomatic' && r.w.lastSource === 'manual' && r.w.lastStatus === 'breakdown' && r.w.mode === 'awaitingAuto'
+      && r.evQ[0] === 'readyForOps' && r.q.ok && r.q.awaiting === false && r.q.status === 'readyForOps' && r.q.mode === 'automatic';
+    return { ok, detail: JSON.stringify(r) };
+  });
   await step('G01', ['SP03', 'S22'], 'Prediction = replaced date + expected life (calendar months); Original uses the commissioning date; unknown commissioning date or life shows no prediction and never a fabricated date; due soon (90 days) and overdue flags are correct (independent recomputation)', async () => {
     await go('admin', '/eq/jobs/spare-parts', {}, 600);
     const r = await ev(`(()=>{
@@ -763,6 +817,22 @@ try {
     return { ok, detail: JSON.stringify({ out, tablet: tab }) };
   });
 
+  await step('L04', ['ZM05', 'ZM06', 'S20', 'S21'], "Synthetic ZMMS and status history are self-consistent: every run's business date is the Asia/Colombo date of its start; every automatic or override-ended status row was written by a succeeded run of its own date at that run's end, with no reason and no user, and every automatic Breakdown/Maintenance lists causing ZMMS jobs from that run's plan; every Auto Breakdown/Maintenance equipment shows its causes; no daily job was created after now [Repair-R02B finding 2]", async () => {
+    await go('admin', '/eq/jobs/status', {}, 600);
+    const r = await ev(`(()=>{const z=EQ.state.D.zmms, now=Date.now(); const bad=[];
+      z.runs.forEach(r=>{ if (r.businessDate!==EQ.todayOf(r.startedUtc)) bad.push('run '+r.id+' date'); if (Date.parse(r.endedUtc)>now) bad.push('run '+r.id+' in the future'); });
+      const sys=EQ.state.D.statusChanges.filter(c=>c.kind==='automatic'||c.kind==='overrideEnded');
+      sys.forEach(c=>{ const run=z.runs.find(r=>r.id===c.runId); if(!run||run.outcome!=='succeeded'){bad.push(c.id+' no run'); return;}
+        if (EQ.todayOf(c.at)!==run.businessDate || c.planDate!==run.businessDate) bad.push(c.id+' date '+EQ.todayOf(c.at)+' vs run '+run.businessDate);
+        if (c.at!==run.endedUtc) bad.push(c.id+' not at run end'); if (c.reason!==null) bad.push(c.id+' reason'); if (c.by) bad.push(c.id+' user');
+        if (c.status!=='readyForOps') { if(!c.causes.length) bad.push(c.id+' no causes'); c.causes.forEach(no=>{ const j=z.jobs.find(x=>x.jobNo===no && x.date===run.businessDate && x.equipmentId===c.equipmentId); if(!j) bad.push(c.id+' cause '+no+' not in plan'); }); }
+        else if (c.causes.length) bad.push(c.id+' ready with causes'); });
+      EQ.state.D.equipment.filter(e=>e.zmmsMapped && e.statusSource==='zmms' && e.status && e.status!=='readyForOps').forEach(e=>{ if(!(e.statusCauses||[]).length) bad.push(e.code+' auto '+e.status+' without cause'); });
+      const future=z.jobs.filter(j=>Date.parse(j.created.replace(' ','T')+'+05:30')>now).map(j=>j.jobNo);
+      return {bad, future, automaticRows:sys.length, runsUsed:new Set(sys.map(c=>c.runId)).size, days:new Set(sys.map(c=>c.planDate)).size, rtg06:[EQ.eq('eq-rtg-demo-06').status, EQ.zmms.causeText(EQ.eq('eq-rtg-demo-06'))]};})()`);
+    const board = await text('.status-board');
+    return { ok: !r.bad.length && !r.future.length && r.automaticRows >= 5 && r.runsUsed >= 2 && r.days >= 2 && /Caused by ZMMS job/.test(r.rtg06[1]) && /Not in the ZMMS plan for/.test(board), detail: JSON.stringify(r) };
+  });
   // =============================================================== L. hygiene, provenance and the ZMMS boundary
   await step('L01', ['S16', 'S17'], 'No page shows the words null, undefined, NaN or [object Object] and the prototype banner is on every route, for every persona', async () => {
     const bad = []; const routes = ['/eq/fleet', `/eq/equipment/${Q1}`, `/eq/equipment/${Q1}?main=mi-q01-01&panel=technical`, '/eq/equipment/eq-rtg-demo-01', '/eq/jobs/special', '/eq/jobs/status', '/eq/jobs/spare-parts', '/fac/dashboard', '/fac/dashboard?tv=1', '/fac/jobs', '/fac/jobs?view=board', '/fac/jobs/fj-2', '/admin/access', '/admin/fac/master-list', '/admin/fac/import', '/admin/fac/settings', '/admin/eq/equipment', '/admin/eq/zmms', '/admin/eq/spare-parts', '/admin/eq/positions'];

@@ -68,8 +68,9 @@ window.EQ = window.EQ || {};
     return parts.join(' / ');
   };
 
-  /** History for one scope (DATA_CONTRACT s9): direct + descendant jobs, de-duplicated, with matching lines. */
-  EQ.history = (eqId, scope, includeCancelled) => {
+  /** Scope rows (DATA_CONTRACT s9): direct + descendant jobs, de-duplicated, with matching lines. Internal: the two simulated read
+   *  endpoints below apply the Access matrix before returning any of it (Repair-R02B finding 1, API s2 / s4.6 / s4.16, D-139). */
+  const scoped = (eqId, scope, includeCancelled) => {
     const jobs = EQ.jobsOf(eqId, includeCancelled);
     const inScope = (l) => {
       const p = EQ.pos(l.positionId);
@@ -95,6 +96,27 @@ window.EQ = window.EQ || {};
     out.empty = !open.length && !completed.length && !out.events.length;
     return out;
   };
+  const readDeny = (f) => { const d = EQ.access.srv(f); if (d) EQ.log('server refused a read: ' + d.status + ' ' + d.code + ' (' + f + ')'); return d; };
+  /** Simulated GET /equipment/{id}/history (API s4.6): the EQ Jobs tab's scoped history. Needs eq.jobs.view on the live matrix;
+   *  otherwise the refusal object (403 feature_disabled / forbidden_role) and no data at all. */
+  EQ.history = (eqId, scope, includeCancelled) => readDeny('eq.jobs.view') || { ok: true, ...scoped(eqId, scope, includeCancelled) };
+  /** Simulated GET /equipment/{id}/current-state/special (API s4.16): what the crane view may read with eq.fleet.view only:
+   *  open, non-cancelled jobs (summaries + matching lines) and counts. No completed job, no correction, no event, no status change. */
+  EQ.currentSpecial = (eqId, scope) => {
+    const deny = readDeny('eq.fleet.view'); if (deny) return deny;
+    const H = scoped(eqId, scope, true);
+    const rows = [...H.open, ...H.completed];
+    const open = H.open.filter((r) => !r.job.isCancelled);
+    return { ok: true, equipmentId: eqId, scope, openJobs: open.map((r) => ({ job: r.job, matchingLines: r.matchingLines })),
+      counts: { pending: open.filter((r) => r.job.workStatus === 'pending').length, current: open.filter((r) => r.job.workStatus === 'current').length,
+        completed: H.completed.filter((r) => !r.job.isCancelled).length, cancelled: rows.filter((r) => r.job.isCancelled).length },
+      openInJobs: EQ.access.srv('eq.jobs.view') ? null : { equipment: eqId, scope: scope.level, target: scope.id || null } };
+  };
+  /** Simulated GET /jobs and GET /jobs/{id} (API s4.7): EQ Jobs tab records, eq.jobs.view only. */
+  EQ.readJobs = () => readDeny('eq.jobs.view') || { ok: true, items: S.D.jobs.slice() };
+  EQ.readJob = (id) => readDeny('eq.jobs.view') || (EQ.job(id) ? { ok: true, job: EQ.job(id) } : { ok: false, status: 404, code: 'not_found', message: 'No job with this link exists (404).' });
+  /** Open-job count for the crane-view tree badges (current state only). */
+  EQ.openCount = (eqId, scope) => { const r = EQ.currentSpecial(eqId, scope); return r.ok ? r.openJobs.length : 0; };
 
   // ---- simulated server rules ----
   const fail = (status, code, message, fields) => ({ ok: false, status, code, message, fields: fields || {} });

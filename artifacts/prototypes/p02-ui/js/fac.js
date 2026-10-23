@@ -152,6 +152,21 @@ window.EQ = window.EQ || {};
   F.STATUS_NAME = { pending: 'Pending', inProgress: 'In progress', completed: 'Completed', onHold: 'On hold' };
   F.picDisplay = (job) => (job.picProfileId ? F.userName(job.picProfileId) : job.picName || 'Unassigned');
   F.byId = (id) => D().jobs.find((j) => j.id === id);
+  /** Simulated GET /fac/jobs/{id} (API s4.22, D-140): fac.jobs.view reads any job; fac.dashboard.view alone reads only an active job,
+   *  because that is the read-only detail a dashboard row opens (SOW V2 5.5.7). The FAC Jobs list, the full cycle list and the export
+   *  stay fac.jobs.view only (Repair-R02B findings 1 and 7). */
+  F.detail = function detail(id) {
+    const full = !EQ.access.srv('fac.jobs.view');
+    if (!full && EQ.access.srv('fac.dashboard.view')) return EQ.access.srv('fac.jobs.view');
+    const job = F.byId(id);
+    if (!job || (!full && job.state !== 'active')) return fail(404, 'not_found', 'No FAC job with this link exists (404).');
+    return { ok: true, job, via: full ? 'jobs' : 'dashboard' };
+  };
+  /** Simulated GET /fac/jobs/{id}/cycles: the full paged cycle list belongs to the FAC Jobs tab. */
+  F.cycles = function cycles(id) { const deny = EQ.access.srv('fac.jobs.view'); if (deny) return deny; const job = F.byId(id); return job ? { ok: true, items: F.previousCycles(job) } : fail(404, 'not_found', 'No such job.'); };
+  /** Where a dashboard row, ticker item or proof caption links: the FAC Jobs record when the session holds fac.jobs.view, else the
+   *  read-only dashboard detail route (gated by fac.dashboard.view). */
+  F.jobHref = (id) => (EQ.access.has('fac.jobs.view') ? '#/fac/jobs/' : '#/fac/dashboard/jobs/') + id;
   F.jobPic = (job) => (job.picture && job.picture.state === 'active' ? job.picture : null);
 
   /** Previous cycles for the detail view: completion date, on time / late by n d / missed / no due date. */

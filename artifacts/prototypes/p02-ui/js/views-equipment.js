@@ -35,7 +35,7 @@ window.EQ = window.EQ || {};
     const nodes = [];
     const f = filter.trim().toLowerCase();
     const match = (t) => !f || t.toLowerCase().includes(f);
-    const jobs = (scope) => EQ.history(eq.id, scope).open.length;
+    const jobs = (scope) => EQ.openCount(eq.id, scope); // current state (API s4.16), not the Jobs-tab history
     const mainsSorted = [...eq.mains].sort((a, b) => EQ.cmp(a.code, b.code));
     mainsSorted.forEach((m) => {
       const mNode = { id: m.id, kind: 'main', level: 2, code: m.code, label: EQ.defLabel(m.code), sel: { main: m.id }, jobs: jobs({ level: 'main', id: m.id }), children: [] };
@@ -84,7 +84,7 @@ window.EQ = window.EQ || {};
         row, n.children.length && open ? h('ul', { role: 'group' }, n.children.map(li)) : null);
     };
     function toggle(n) { const k = eq.id + ':' + n.id; if (exp.has(k)) exp.delete(k); else exp.add(k); EQ.rerender(); }
-    const openWork = EQ.history(eq.id, { level: 'equipment' }).open.length;
+    const openWork = EQ.openCount(eq.id, { level: 'equipment', id: null });
     const rootLi = h('li', { role: 'treeitem', tabindex: focusId === 'root' ? '0' : '-1', 'aria-level': '1', 'aria-expanded': 'true', 'aria-selected': selId === 'root' ? 'true' : 'false', 'aria-label': eq.code + ', whole equipment' + (openWork ? ', ' + openWork + ' open jobs' : ''), 'data-fk': 'ti-root', 'data-nid': 'root' },
       h('div', { class: 'ti', onClick: () => { EQ.eqUI.treeFocus = 'root'; select(eq, {}); } }, h('span', { class: 'twist', 'aria-hidden': 'true' }, icon('chevron-d')), h('span', { class: 'grow' }, h('strong', null, eq.code), ' (whole equipment)'), openWork ? h('span', { class: 'jobs' }, openWork + ' open') : null),
       h('ul', { role: 'group' }, nodes.map(li)));
@@ -283,6 +283,7 @@ window.EQ = window.EQ || {};
     const box = h('div', { class: 'stack', 'aria-live': 'polite', 'aria-busy': loaded ? 'false' : 'true', 'data-echo': key });
     if (!loaded) { box.appendChild(h('div', { class: 'stack' }, h('p', { class: 'muted small', style: 'margin:0' }, 'Loading history for ' + scopeLabel(eq, sel) + '...'), h('div', { class: 'skeleton', style: 'height:4rem' }), h('div', { class: 'skeleton', style: 'height:4rem' }))); return box; }
     const H = EQ.history(eq.id, scope, ui.inclCancelled);
+    if (!H.ok) { EQ.access.refreshSession('403 ' + H.code); box.appendChild(h('div', { class: 'notice error', role: 'alert' }, icon('alert'), h('p', null, H.message))); return box; }
     box.appendChild(h('label', { class: 'check small' }, h('input', { type: 'checkbox', checked: ui.inclCancelled ? true : null, 'data-fk': 'inclc', onChange: (e) => { ui.inclCancelled = e.target.checked; EQ.rerender(); } }), 'Include cancelled jobs'));
     box.appendChild(h('p', { class: 'small muted', style: 'margin:0' }, scope.level === 'part' ? 'Exact-position history only.' : scope.level === 'equipment' ? 'Every job of ' + eq.code + ' (an equipment-level job appears here once).' : 'Includes work targeted here and at everything below it. A job with several lines appears once.'));
     if (scope.level === 'part') {
@@ -371,7 +372,7 @@ window.EQ = window.EQ || {};
     const loaded = ensureHistory(key, label);
     const box = h('div', { class: 'stack', 'aria-live': 'polite', 'aria-busy': loaded ? 'false' : 'true', 'data-echo': key });
     if (!loaded) { box.appendChild(h('div', { class: 'stack' }, h('p', { class: 'muted small', style: 'margin:0' }, 'Loading ' + (EQ.panelTabs.TABS.find((t) => t[0] === tab)[1]) + ' for ' + scopeLabel(eq, sel) + '...'), h('div', { class: 'skeleton', style: 'height:4rem' }), h('div', { class: 'skeleton', style: 'height:4rem' }))); return box; }
-    box.appendChild(tab === 'maintenance' ? EQ.panelTabs.maintenance(eq, scope) : tab === 'special' ? EQ.panelTabs.special(eq, sel, scope, jobMini) : tab === 'spareParts' ? EQ.panelTabs.spare(eq, sel, scope) : technicalTab(eq, sel, q));
+    box.appendChild(tab === 'maintenance' ? EQ.panelTabs.maintenance(eq, scope) : tab === 'special' ? EQ.panelTabs.special(eq, sel, scope) : tab === 'spareParts' ? EQ.panelTabs.spare(eq, sel, scope) : technicalTab(eq, sel, q));
     return box;
   }
 
@@ -401,7 +402,7 @@ window.EQ = window.EQ || {};
         eq.statusReason ? h('span', null, 'Reason: ' + eq.statusReason) : null,
         h('span', null, 'Model: ' + (EQ.verified(eq) ? eq.modelCode + ' (verified)' : 'no verified association')),
         h('span', null, h('span', { class: 'tag ' + (mode2.label === 'Auto' ? '' : 'gold'), title: mode2.long }, mode2.label === 'Auto' ? 'Auto (ZMMS)' : 'Manual'), ' ', mode2.long + (eq.zmmsMapped ? ' · ' + EQ.zmms.freshLabel() : '')),
-        h('a', { href: '#/eq/jobs/special?equipment=' + eq.id }, EQ.plural(EQ.openJobs(eq.id).length, 'open special job'))),
+        EQ.panelTabs.jobsAllowed() ? h('a', { href: '#/eq/jobs/special?equipment=' + eq.id }, EQ.plural(EQ.openCount(eq.id, { level: 'equipment', id: null }), 'open special job')) : h('span', null, EQ.plural(EQ.openCount(eq.id, { level: 'equipment', id: null }), 'open special job'))),
       h('div', { class: 'actions' },
         EQ.perm.write() && eq.lifecycle === 'active' ? [h('button', { type: 'button', 'data-fk': 'set-status', onClick: () => EQ.dlg.status(eq) }, icon('refresh'), eq.zmmsMapped ? 'Correct status' : 'Update status'), eq.zmmsMapped && eq.overrideOn ? h('button', { type: 'button', 'data-fk': 'back-auto', onClick: () => { const r = EQ.zmms.backToAutomatic(eq.id); EQ.toast(r.ok ? eq.code + ' is back to automatic' + (r.awaiting ? " (awaiting today's ZMMS sync)" : '') : r.message, 'Prototype: in memory only.'); } }, icon('undo'), 'Back to automatic') : null, h('button', { type: 'button', class: 'primary', 'data-fk': 'add-job', onClick: () => EQ.dlg.jobForm({ equipmentId: eq.id }) }, icon('plus'), 'Add job')]
           : h('span', { class: 'tag gold' }, EQ.perm.write() ? 'Retired: no new jobs or status changes' : 'Read-only: Management cannot change records'))));
@@ -439,9 +440,10 @@ window.EQ = window.EQ || {};
   function closeDrawer() { const op = EQ.eqUI.drawerOpener; EQ.eqUI.drawer = null; EQ.rerender(); if (op) document.querySelector('[data-fk="' + op + '"]')?.focus(); }
   EQ.closeDrawer = closeDrawer;
   function rtgSummary(eq) {
-    const list = EQ.openJobs(eq.id).slice(0, 4);
+    const cs = EQ.currentSpecial(eq.id, { level: 'equipment', id: null });
+    const list = cs.ok ? cs.openJobs.slice(0, 4) : [];
     return h('section', { class: 'panel panel-pad stack', 'aria-label': 'Records summary' }, h('h2', null, 'Records for ' + eq.code), h('p', { class: 'small muted', style: 'margin:0' }, 'Same panel as a QC: applicable mechanism tree (left) and the four current-state tabs (right); work history is in the Jobs tab. Only the 3D view is deferred.'),
-      list.length ? h('ul', { class: 'tl' }, list.map((j) => jobMini(j, j.lines))) : h('p', { class: 'muted small', style: 'margin:0' }, 'No jobs recorded.'));
+      list.length ? h('ul', { class: 'tl' }, list.map((r) => EQ.panelTabs.jobMini(r.job, r.matchingLines, { current: true }))) : h('p', { class: 'muted small', style: 'margin:0' }, 'No open special jobs.'));
   }
   EQ.eqv = { historyTab, jobMini, scopeLabel, resolveSel, scopeOf, ensureHistory, select, technicalTab, containerTab };
 })(window.EQ);

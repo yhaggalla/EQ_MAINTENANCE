@@ -12,6 +12,9 @@ window.EQ = window.EQ || {};
   EQ.shiftDay = shiftDay;
   /** Start of the current Asia/Colombo day as a UTC millisecond value (Colombo is UTC+05:30, no daylight saving). */
   EQ.colomboDayStartMs = () => { const [y, m, d] = EQ.todayColombo().split('-').map(Number); return Date.UTC(y, m - 1, d) - 5.5 * 3600e3; };
+  const colomboDate = (ms) => new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Colombo' }).format(new Date(ms));
+  /** 'YYYY-MM-DD HH:MM:SS' in Asia/Colombo (UTC+05:30), the format of the export's Created column. */
+  const colomboStamp = (ms) => new Date(ms + 5.5 * 3600e3).toISOString().slice(0, 19).replace('T', ' ');
   const normKey = (t) => (t || '').trim().replace(/\s+/g, ' ').toUpperCase();
   EQ.zmmsKey = normKey;
 
@@ -49,6 +52,30 @@ window.EQ = window.EQ || {};
     const vm = (field, text, effect) => z.valueMappings.push({ id: z.valueMappings.length + 1, field, key: normKey(text), text, effect, lastSeenUtc: ago(3), by: 'u-admin' });
     vm('jobType', 'BreakDown', 'breakdown'); vm('jobType', 'CM', 'maintenance'); vm('jobType', 'PM', 'maintenance'); vm('jobType', 'Defect', 'none'); vm('jobType', 'WireRope', 'unmapped');
     vm('jobStatus', 'Initialized', 'open'); vm('jobStatus', 'Added To Daily', 'open'); vm('jobStatus', 'Re-Added to Daily', 'open'); vm('jobStatus', 'Hold', 'open'); vm('jobStatus', 'Completed', 'closed');
+    // ---- time model (Repair-R02B finding 2) ----
+    // Runs sit at the scheduled times (06:00 and 14:00 Asia/Colombo) of the last three business days, and BusinessDate =
+    // BusinessDay(StartedUtc) (DATA s15.5). Automatic status was already switched on before the first listed run; older runs are not
+    // in this short fixture list. Before 06:05 today an Admin "Sync now" stands in for the first scheduled run, so today always has data.
+    const t0 = EQ.colomboDayStartMs();
+    const slot = (dayBack, hh, mm) => t0 - dayBack * 864e5 + (hh * 60 + (mm || 0)) * 60e3;
+    const iso = (ms) => new Date(ms).toISOString();
+    const runs = []; let rid = 0;
+    const mkRun = (trigger, startMs, minutes, outcome, extra) => {
+      const r = { id: ++rid, trigger, startedUtc: iso(startMs), endedUtc: iso(startMs + minutes * 60e3), businessDate: colomboDate(startMs), outcome, failureCode: null, failureDetail: null, retryOf: null, requestedBy: null,
+        pagesRead: outcome === 'succeeded' ? 3 : 1, rowsRead: 0, rowsNew: 0, rowsUpdated: 0, rowsUnchanged: 0, rowsAbsent: 0, rowsUnmatched: 0, evaluated: 0, applied: 0, suppressed: 0, ...(extra || {}) };
+      runs.push(r); return r;
+    };
+    mkRun('schedule', slot(2, 6), 2, 'succeeded'); mkRun('schedule', slot(2, 14), 2, 'succeeded');
+    mkRun('schedule', slot(1, 6), 2, 'succeeded');
+    const failedRun = mkRun('schedule', slot(1, 14), 1, 'failed', { failureCode: 'layout_changed', failureDetail: Z.RUN_FAILURES.layout_changed, nextRetryUtc: iso(slot(1, 14, 6)), rowsRead: 7 });
+    mkRun('retry', slot(1, 14, 6), 2, 'succeeded', { retryOf: failedRun.id }); // parse failures are retried once after 5 minutes (s15.5 rule 4)
+    const elapsed = now - t0;
+    if (elapsed > (6 * 60 + 5) * 60e3) mkRun('schedule', slot(0, 6), 2, 'succeeded');
+    else mkRun('manual', t0 + elapsed * 0.5, Math.min(2, (elapsed * 0.2) / 60e3), 'succeeded', { requestedBy: 'u-admin' });
+    if (elapsed > (14 * 60 + 5) * 60e3) mkRun('schedule', slot(0, 14), 2, 'succeeded');
+    const okRuns = runs.filter((r) => r.outcome === 'succeeded');
+    const runsOn = (date) => okRuns.filter((r) => r.businessDate === date);
+
     // ---- daily job rows (all synthetic; columns as in the export) ----
     const TB = 'BreakDown', TC = 'CM', TP = 'PM', TD = 'Defect', TW = 'WireRope', SI = 'Initialized', SA = 'Added To Daily', SR = 'Re-Added to Daily', SH = 'Hold', SC = 'Completed';
     const rows = [];
@@ -58,8 +85,11 @@ window.EQ = window.EQ || {};
       x = x || {}; const d = DEPT[text.slice(0, 2).toUpperCase()] || ['QC', 'Quay Crane'];
       const done = status === SC;
       const jobNo = x.no || String(++n);
-      rows.push({ jobNo, cwo: x.cwo === undefined ? (type === TP ? '' : n % 4 === 0 ? String(326100 + n % 97) : '') : x.cwo, date: shiftDay(today, -dayOffset), text, type, status, desc, absent: !!x.absent,
-        priority: x.priority || (type === TB ? 'High' : type === TW ? 'Medium' : 'Low'), created: x.created || (shiftDay(today, -dayOffset - (type === TP ? 3 : 0)) + (type === TP ? ' 06:51:31' : ' 08:' + String(10 + n % 45).padStart(2, '0') + ':' + String(10 + n % 50).padStart(2, '0'))),
+      const date = shiftDay(today, -dayOffset);
+      // created before the day's first sync (Repair-R02B finding 2): a PM is planned three days ahead, other jobs the afternoon before
+      const created = x.created || (type === TP ? shiftDay(date, -3) + ' 06:51:31' : shiftDay(date, -1) + ' ' + String(15 + (n % 6)).padStart(2, '0') + ':' + String(10 + (n % 45)).padStart(2, '0') + ':' + String(10 + (n % 50)).padStart(2, '0'));
+      rows.push({ jobNo, cwo: x.cwo === undefined ? (type === TP ? '' : n % 4 === 0 ? String(326100 + n % 97) : '') : x.cwo, date, text, type, status, desc, absent: !!x.absent,
+        priority: x.priority || (type === TB ? 'High' : type === TW ? 'Medium' : 'Low'), created,
         dept: d[0], eqType: d[1], mechStaff: type === TP || done ? String(1 + n % 3) : '-', mechHours: type === TP || done ? [2, 4, 8, 10][n % 4].toFixed(2) : '-', elecStaff: n % 5 === 0 ? '1' : '-', elecHours: n % 5 === 0 ? '4.00' : '-',
         fault: type === TB || type === TD ? 'Reported fault text (synthetic)' : '', faultDesc: type === TB ? 'Fault description text (synthetic)' : '', corrective: done && type !== TP ? 'Corrective action text (synthetic)' : '', remark: '', instruction: type === TP ? 'Job instruction text (synthetic)' : '', workDone: done ? 'Work done summary text (synthetic)' : '', statusRemarks: status === SH ? 'Waiting for a part (synthetic)' : '' });
     };
@@ -70,7 +100,7 @@ window.EQ = window.EQ || {};
     add(0, 'QC-906', TC, SI, 'Scheduled overhaul, day 12 (synthetic)', { priority: 'Medium' });
     add(0, 'RT903', TB, SI, 'Engine fault diagnosis (synthetic)');
     add(0, 'RT901', TP, SC, 'Quarterly structural walk-down, part 1 (synthetic)');
-    add(0, 'RT906', TW, SI, 'Wire rope inspection (synthetic)');
+    add(0, 'RT906', TW, SI, 'Wire rope inspection (synthetic; WireRope is a value first seen today and not mapped yet)');
     add(0, 'ES901', TD, SR, 'Hydraulic hose check (synthetic; a Defect has no status effect)');
     add(0, 'QC999', TC, SI, 'Spreader-side lighting (synthetic; equipment code not mapped)');
     add(0, 'QC999', TD, SI, 'Cabin door defect (synthetic; equipment code not mapped)');
@@ -83,11 +113,12 @@ window.EQ = window.EQ || {};
     add(0, 'WS901', TC, SI, 'Workshop crane (synthetic; not mapped)');
     // earlier days (history kept for every synced day)
     for (let d = 1; d <= 6; d += 1) {
-      add(d, 'QC901', d <= 2 ? TC : TP, d === 1 ? SI : SC, d <= 2 ? 'Motor B replacement preparation, day ' + (3 - d) + ' (synthetic)' : 'Routine inspection (synthetic)');
+      add(d, 'QC901', d <= 2 ? TC : TP, d <= 2 ? SI : SC, d <= 2 ? 'Motor B replacement preparation, day ' + (3 - d) + ' (synthetic)' : 'Routine inspection (synthetic)');
       add(d, 'QC902', d % 2 ? TP : TC, SC, d % 2 ? 'Routine inspection (synthetic)' : 'Gantry bogie alignment follow-up (synthetic)');
       add(d, 'RT903', d < 2 ? TB : TC, d < 2 ? SI : SC, d < 2 ? 'Engine fault, first report (synthetic)' : 'Engine oil sampling (synthetic)');
       add(d, 'QC-906', TC, SI, 'Scheduled overhaul, day ' + (12 - d) + ' (synthetic)');
-      if (d === 1) add(d, 'QC902', TC, SI, 'Spreader twist-lock inspection (synthetic)', { no: '900020', absent: true }); // dropped from a later complete run
+      if (d === 1) add(d, 'QC902', TC, SI, 'Spreader twist-lock inspection (synthetic)', { no: '900020', absent: true }); // dropped from a later complete run of that day
+      if (d === 1) add(d, 'RT906', TC, SI, 'Tyre change (synthetic)');
       if (d === 2) add(d, 'QC999', TP, SC, 'Daily check (synthetic)');
       if (d === 3) add(d, 'SQ901', TC, SC, 'Spreader repair (synthetic)');
     }
@@ -96,55 +127,76 @@ window.EQ = window.EQ || {};
       const key = normKey(r.text);
       const m = z.mappings.find((x) => x.key === key && x.state === 'active');
       const eq = m && m.action === 'map' ? eqs.find((e) => e.id === m.equipmentId) : null;
+      const day = runsOn(r.date);
+      // first and last run that saw the row (rows of days before the listed runs keep null); an absent row was seen by the day's first run only
+      const firstRun = day.length ? day[0].id : null, lastRun = day.length ? (r.absent ? day[0].id : day[day.length - 1].id) : null;
       z.jobs.push({
         id: i + 1, jobNo: r.jobNo, cwo: r.cwo, date: r.date, equipmentText: r.text, equipmentKey: key, equipmentId: eq ? eq.id : null,
         match: m ? (m.action === 'ignore' ? 'ignored' : 'matched') : 'unmatched',
         desc: r.desc, typeText: r.type, typeKey: normKey(r.type), statusText: r.status, statusKey: normKey(r.status), priority: r.priority, created: r.created, dept: r.dept, eqType: r.eqType,
         mechStaff: r.mechStaff, mechHours: r.mechHours, elecStaff: r.elecStaff, elecHours: r.elecHours, fault: r.fault, faultDesc: r.faultDesc, corrective: r.corrective, remark: r.remark, instruction: r.instruction, workDone: r.workDone, statusRemarks: r.statusRemarks,
-        sourceState: r.absent ? 'absentFromSource' : 'present', origin: 'developmentFixture', firstRun: 1, lastRun: 1,
+        sourceState: r.absent ? 'absentFromSource' : 'present', origin: 'developmentFixture', firstRun, lastRun,
       });
     });
-    // ---- sync runs (newest first). One synthetic failed run and its retry. ----
-    const run = (id, trig, hoursAgo, outcome, extra) => ({ id, trigger: trig, startedUtc: ago(hoursAgo + 0.03), endedUtc: ago(hoursAgo), outcome, failureCode: null, failureDetail: null, businessDate: today, pagesRead: outcome === 'succeeded' ? 3 : 1, rowsRead: outcome === 'succeeded' ? 21 : 0, rowsNew: 0, rowsUpdated: 0, rowsUnchanged: 0, rowsAbsent: 0, rowsUnmatched: 0, evaluated: 0, applied: 0, suppressed: 0, retryOf: null, ...(extra || {}) });
-    z.runs = [
-      run(8, 'schedule', 2.5, 'succeeded', { rowsRead: 21, rowsNew: 4, rowsUpdated: 2, rowsUnchanged: 14, rowsAbsent: 1, rowsUnmatched: 4, evaluated: 10, applied: 1, suppressed: 2 }),
-      run(7, 'schedule', 12, 'succeeded', { rowsRead: 17, rowsNew: 1, rowsUpdated: 3, rowsUnchanged: 13, rowsUnmatched: 3, evaluated: 10, applied: 0, suppressed: 1 }),
-      run(6, 'retry', 24.1, 'succeeded', { retryOf: 5, rowsRead: 19, rowsNew: 5, rowsUpdated: 1, rowsUnchanged: 13, rowsUnmatched: 3, evaluated: 10, applied: 2, suppressed: 0 }),
-      run(5, 'schedule', 24.3, 'failed', { failureCode: 'layout_changed', failureDetail: Z.RUN_FAILURES.layout_changed, nextRetryUtc: ago(24.2) }),
-      run(4, 'schedule', 36, 'succeeded', { rowsRead: 18, rowsNew: 2, rowsUpdated: 2, rowsUnchanged: 14, rowsUnmatched: 2, evaluated: 10, applied: 1, suppressed: 0 }),
-      run(3, 'schedule', 48, 'succeeded', { rowsRead: 16, rowsNew: 3, rowsUpdated: 0, rowsUnchanged: 13, rowsUnmatched: 2, evaluated: 10, applied: 0, suppressed: 0 }),
-    ];
-    z.seq = 9;
-    // ---- equipment annotations: mapped or not, status source/mode ----
+    // run counters from what each run saw
+    const seenBy = (r) => z.jobs.filter((j) => j.date === r.businessDate && j.firstRun != null && j.firstRun <= r.id && j.lastRun >= r.id);
+    okRuns.forEach((r) => {
+      const seen = seenBy(r); const prevRun = runsOn(r.businessDate).filter((x) => x.id < r.id).slice(-1)[0];
+      r.rowsRead = seen.length; r.rowsNew = seen.filter((j) => j.firstRun === r.id).length; r.rowsUnchanged = r.rowsRead - r.rowsNew;
+      r.rowsAbsent = prevRun ? z.jobs.filter((j) => j.date === r.businessDate && j.lastRun === prevRun.id && j.sourceState === 'absentFromSource').length : 0;
+      r.rowsUnmatched = seen.filter((j) => j.match === 'unmatched').length;
+    });
+
+    // ---- automatic status, replayed run by run (Repair-R02B finding 2) ----
+    // Every automatic row is written by the run that computed it, at that run's end, with reason null and its causes (DATA s3.7, s15.7).
+    // Unmapped equipment keeps the V1 manual history. A mapped equipment keeps only the manual rows recorded before the first listed run.
     const mappedIds = new Set(z.mappings.filter((m) => m.action === 'map' && m.state === 'active').map((m) => m.equipmentId));
-    eqs.forEach((e) => { e.zmmsMapped = mappedIds.has(e.id); e.overrideOn = null; e.statusSource = e.zmmsMapped ? 'zmms' : 'manual'; e.statusCauses = []; });
-    // QC-DEMO-04 carries a manual correction made today: the plan says maintenance, the crane is in breakdown.
+    eqs.forEach((e) => { e.zmmsMapped = mappedIds.has(e.id); e.overrideOn = null; e.statusSource = e.zmmsMapped ? 'zmms' : 'manual'; e.statusCauses = []; e.statusPlanDate = null; e.statusRunId = null; });
+    D.statusChanges.forEach((c) => { c.source = 'manual'; c.kind = 'manualStatus'; c.causes = []; c.runId = null; c.planDate = null; });
+    const goLive = new Date(okRuns[0].startedUtc).getTime();
+    D.statusChanges = D.statusChanges.filter((c) => !mappedIds.has(c.equipmentId) || new Date(c.at).getTime() < goLive);
+    const mapped = eqs.filter((e) => e.zmmsMapped && e.lifecycle === 'active');
+    const st = new Map(mapped.map((e) => {
+      const last = D.statusChanges.filter((c) => c.equipmentId === e.id).sort((a, b) => new Date(a.at) - new Date(b.at)).slice(-1)[0];
+      return [e.id, last ? { status: last.status, since: last.at, source: 'manual', reason: last.reason || null, causes: [], planDate: null, runId: null, overrideOn: null } : { status: null, since: null, source: null, reason: null, causes: [], planDate: null, runId: null, overrideOn: null }];
+    }));
+    const push = (e, c) => { const s = st.get(e.id); D.statusChanges.push({ id: 'sc-v2-' + e.key + '-' + D.statusChanges.length, equipmentId: e.id, seq: 0, prev: s.status, relatedJobId: null, ...c }); if (c.status !== s.status) s.since = c.at; s.status = c.status; s.source = c.source; s.reason = c.reason; };
+    // QC-DEMO-04: an EQ Team correction made today after the day's first sync (the plan says maintenance, the crane is in breakdown)
     const q04 = eqs.find((e) => e.id === 'eq-qc-demo-04');
-    const mid = EQ.colomboDayStartMs() + Math.max(20, (now - EQ.colomboDayStartMs()) / 60000 / 2) * 60000;
-    q04.overrideOn = today; q04.statusSource = 'manual'; q04.statusSince = new Date(mid).toISOString(); q04.statusReason = 'Hoist overload trip, cause not yet found; the ZMMS plan lists only a routine check (synthetic)';
-    q04.statusCauses = [];
-    // initial evaluation of the latest run (shows causes and skip reasons)
-    z.evaluations = [];
-    eqs.filter((e) => e.zmmsMapped && e.lifecycle === 'active').forEach((e) => {
-      const ev = Z.compute(e, today);
-      const held = e.overrideOn && e.overrideOn >= today;
-      z.evaluations.push({ runId: 8, equipmentId: e.id, computed: ev.computed, applied: false, skip: held ? 'manualOverride' : ev.skip || (ev.computed === e.status ? 'unchanged' : null), causes: ev.causes });
-      if (!held && e.status && e.status === ev.computed) e.statusCauses = ev.causes;
+    const firstToday = runsOn(today)[0];
+    const corrAt = new Date(firstToday.endedUtc).getTime() + Math.max(1000, (now - new Date(firstToday.endedUtc).getTime()) * 0.5);
+    const q04Reason = 'Hoist overload trip, cause not yet found; the ZMMS plan lists only a routine check (synthetic)';
+    let corrected = false;
+    const correctQ04 = () => { corrected = true; push(q04, { status: 'breakdown', source: 'manual', kind: 'manualCorrection', reason: q04Reason, causes: [], runId: null, planDate: null, at: iso(corrAt), by: 'u-eq-a' }); const s = st.get(q04.id); s.overrideOn = today; s.causes = []; s.planDate = null; s.runId = null; };
+    let lastEvals = [];
+    okRuns.forEach((r) => {
+      if (!corrected && corrAt < new Date(r.startedUtc).getTime()) correctQ04();
+      const evals = [];
+      mapped.forEach((e) => {
+        r.evaluated += 1;
+        const s = st.get(e.id);
+        const ev = Z.evalPlan(seenBy(r).filter((j) => j.equipmentId === e.id));
+        const rec = { runId: r.id, equipmentId: e.id, computed: ev.computed, applied: false, skip: ev.skip, causes: ev.causes };
+        evals.push(rec);
+        if (ev.skip) { r.suppressed += 1; return; }
+        if (s.overrideOn && s.overrideOn >= r.businessDate) { rec.skip = 'manualOverride'; r.suppressed += 1; return; }
+        if (s.status === ev.computed && s.source === 'zmms') { rec.skip = 'unchanged'; s.causes = ev.causes; s.planDate = r.businessDate; s.runId = r.id; return; }
+        push(e, { status: ev.computed, source: 'zmms', kind: 'automatic', reason: null, causes: ev.causes, runId: r.id, planDate: r.businessDate, at: r.endedUtc, by: null });
+        s.causes = ev.causes; s.planDate = r.businessDate; s.runId = r.id; rec.applied = true; r.applied += 1;
+      });
+      lastEvals = evals;
     });
-    // status change log: add source/kind to every existing record, then the automatic/manual entries
-    D.statusChanges.forEach((c) => { c.source = 'manual'; c.kind = 'manualStatus'; c.causes = []; c.runId = null; });
-    const sc = (eq, status, prev, source, kind, hoursAgo, reason, causes, runId, by) => D.statusChanges.push({ id: 'sc-v2-' + eq.key + '-' + D.statusChanges.length, equipmentId: eq.id, seq: D.statusChanges.filter((c) => c.equipmentId === eq.id).length + 1, status, prev, reason, relatedJobId: null, at: ago(hoursAgo), by: by || null, source, kind, causes: causes || [], runId: runId || null });
-    // retag the latest records of mapped equipment as automatic where the story says so
-    ['eq-qc-demo-01', 'eq-qc-demo-02', 'eq-qc-demo-05', 'eq-qc-demo-06', 'eq-rtg-demo-01', 'eq-rtg-demo-02', 'eq-rtg-demo-03', 'eq-rtg-demo-06', 'eq-es-demo-01'].forEach((id) => {
-      const list = D.statusChanges.filter((c) => c.equipmentId === id).sort((a, b) => b.seq - a.seq);
-      if (list[0]) { list[0].source = 'zmms'; list[0].kind = 'automatic'; list[0].by = null; list[0].runId = 8; list[0].causes = (eqs.find((e) => e.id === id).statusCauses || []).slice(); }
+    if (!corrected) correctQ04();
+    z.evaluations = lastEvals;
+    mapped.forEach((e) => {
+      const s = st.get(e.id);
+      e.status = s.status; e.statusSince = s.since; e.statusSource = s.source; e.statusReason = s.source === 'manual' ? s.reason : null;
+      e.statusCauses = s.causes.slice(); e.statusPlanDate = s.planDate; e.statusRunId = s.runId; e.overrideOn = s.overrideOn;
     });
-    const q04e = D.statusChanges.filter((c) => c.equipmentId === q04.id).sort((a, b) => b.seq - a.seq)[0];
-    if (q04e) { q04e.at = q04.statusSince; q04e.source = 'manual'; q04e.kind = 'manualCorrection'; q04e.by = 'u-eq-a'; q04e.reason = q04.statusReason; q04e.prev = q04e.prev || 'maintenance'; }
-    sc(q04, 'maintenance', null, 'zmms', 'automatic', Math.max(2, (now - mid) / 3600e3 + 1), 'Automatic from the ZMMS day plan', ['900103'], 7, null);
-    // keep seq ordering sensible: the automatic entry precedes the correction
-    const q04list = D.statusChanges.filter((c) => c.equipmentId === q04.id).sort((a, b) => new Date(a.at) - new Date(b.at));
-    q04list.forEach((c, i) => { c.seq = i + 1; });
+    // sequence numbers follow time per equipment
+    eqs.forEach((e) => D.statusChanges.filter((c) => c.equipmentId === e.id).sort((a, b) => new Date(a.at) - new Date(b.at)).forEach((c, i) => { c.seq = i + 1; }));
+    z.runs = runs.slice().reverse(); // newest first
+    z.seq = rid + 1;
     // QC-DEMO-03 has no ZMMS mapping and was never set; e04 unmapped keeps its V1 manual status.
     z.healthTick = now;
   };
@@ -170,6 +222,14 @@ window.EQ = window.EQ || {};
     const stale = latest.outcome === 'failed' || hours > z.settings.staleAfterHours;
     return { from: last ? last.endedUtc : null, stale, latestOutcome: latest.outcome, failureCode: latest.failureCode, hours };
   };
+  /** Why the current status is what it is, for the panel and the status board (DATA s3.7: a Ready result has no causes and shows
+   *  "Not in the ZMMS plan for <date>"; Breakdown/Maintenance list every causing ZMMS job of the plan that produced it). */
+  Z.causeText = function causeText(eq) {
+    if (!eq.zmmsMapped || eq.statusSource !== 'zmms' || !eq.statusPlanDate) return '';
+    const when = EQ.fmtDate(eq.statusPlanDate) + (eq.statusPlanDate === EQ.todayColombo() ? ' (today)' : '');
+    if (eq.statusCauses && eq.statusCauses.length) return 'Caused by ZMMS job ' + eq.statusCauses.join(', ') + ' in the plan of ' + when;
+    return eq.status === 'readyForOps' ? 'Not in the ZMMS plan for ' + when : '';
+  };
   Z.freshLabel = () => { const f = Z.freshness(); return f.from ? 'ZMMS data from ' + EQ.fmtInstantShort(f.from) : 'No ZMMS data yet'; };
   Z.valueEffect = (field, key) => { const v = Zd().valueMappings.find((x) => x.field === field && x.key === key); return v ? v.effect : 'unmapped'; };
   Z.unmatched = function unmatched() {
@@ -181,8 +241,9 @@ window.EQ = window.EQ || {};
   Z.canEnableAuto = () => (Z.lastSuccess() && !Z.unmappedValues().length ? { ok: true } : { ok: false, why: Z.lastSuccess() ? 'Values seen in the latest run still have no effect: ' + Z.unmappedValues().map((v) => v.text).join(', ') + '.' : 'No successful run exists yet.' });
 
   /** Day plan of an equipment on a date and the status it computes (DATA s15.7 steps 1-4). */
-  Z.compute = function compute(eq, date) {
-    const plan = Z.jobsOn(eq.id, date, false);
+  Z.compute = function compute(eq, date) { return Z.evalPlan(Z.jobsOn(eq.id, date, false)); };
+  /** DATA s15.7 steps 3-4 on a given set of day-plan rows (also used to replay the fixture runs). */
+  Z.evalPlan = function evalPlan(plan) {
     for (const r of plan) {
       if (Z.valueEffect('jobType', r.typeKey) === 'unmapped' || Z.valueEffect('jobStatus', r.statusKey) === 'unmapped') return { plan, computed: null, skip: 'unmappedValues', causes: [] };
     }
@@ -194,9 +255,11 @@ window.EQ = window.EQ || {};
     return { plan, computed: 'readyForOps', skip: null, causes: [] };
   };
 
-  function logStatus(eq, status, prev, source, kind, reason, causes, runId) {
+  function logStatus(eq, status, prev, source, kind, reason, causes, runId, planDate) {
     const D = EQ.state.D;
-    D.statusChanges.push({ id: 'sc-' + eq.key + '-z' + (D.statusChanges.length + 1), equipmentId: eq.id, seq: D.statusChanges.filter((c) => c.equipmentId === eq.id).length + 1, status, prev, reason: reason || null, relatedJobId: null, at: new Date().toISOString(), by: source === 'manual' ? actor() : null, source, kind, causes: causes || [], runId: runId || null });
+    // automatic and overrideEnded rows carry no reason (the causes explain them, DATA s3.7); they are recorded by no user
+    const sys = kind === 'automatic' || kind === 'overrideEnded';
+    D.statusChanges.push({ id: 'sc-' + eq.key + '-z' + (D.statusChanges.length + 1), equipmentId: eq.id, seq: D.statusChanges.filter((c) => c.equipmentId === eq.id).length + 1, status, prev, reason: sys ? null : reason || null, relatedJobId: null, at: new Date().toISOString(), by: sys || source !== 'manual' && kind !== 'backToAutomatic' ? null : actor(), source, kind, causes: causes || [], runId: runId || null, planDate: planDate || null });
   }
 
   /** One simulated sync run (DATA s15.5-s15.7). opts: { outcome: 'succeeded' | failureCode, businessDate, inject: [{ equipmentText, type, status, desc }], trigger }.
@@ -223,7 +286,7 @@ window.EQ = window.EQ || {};
       const eq = m && m.action === 'map' ? EQ.eq(m.equipmentId) : null;
       const no = r.jobNo || String(900500 + z.jobs.length);
       const existing = z.jobs.find((j) => j.jobNo === no && j.date === date);
-      const row = { jobNo: no, date, equipmentText: r.equipmentText, equipmentKey: key, equipmentId: eq ? eq.id : null, match: m ? (m.action === 'ignore' ? 'ignored' : 'matched') : 'unmatched', desc: r.desc || 'Injected by the prototype simulation (synthetic)', typeText: r.type, typeKey: normKey(r.type), statusText: r.status || 'Initialized', statusKey: normKey(r.status || 'Initialized'), cwo: '', priority: r.priority || 'Medium', created: date + ' 09:00:00', dept: 'QC', eqType: 'Quay Crane', mechStaff: '-', mechHours: '-', elecStaff: '-', elecHours: '-', fault: '', faultDesc: '', corrective: '', remark: '', instruction: '', workDone: '', statusRemarks: '', sourceState: 'present', origin: 'developmentFixture', firstRun: id, lastRun: id };
+      const row = { jobNo: no, date, equipmentText: r.equipmentText, equipmentKey: key, equipmentId: eq ? eq.id : null, match: m ? (m.action === 'ignore' ? 'ignored' : 'matched') : 'unmatched', desc: r.desc || 'Injected by the prototype simulation (synthetic)', typeText: r.type, typeKey: normKey(r.type), statusText: r.status || 'Initialized', statusKey: normKey(r.status || 'Initialized'), cwo: '', priority: r.priority || 'Medium', created: colomboStamp(Date.now()), dept: 'QC', eqType: 'Quay Crane', mechStaff: '-', mechHours: '-', elecStaff: '-', elecHours: '-', fault: '', faultDesc: '', corrective: '', remark: '', instruction: '', workDone: '', statusRemarks: '', sourceState: 'present', origin: 'developmentFixture', firstRun: id, lastRun: id };
       if (existing) { Object.assign(existing, row, { id: existing.id }); run.rowsUpdated += 1; } else { row.id = z.jobs.length + 1; z.jobs.push(row); run.rowsNew += 1; }
       ['jobType', 'jobStatus'].forEach((f) => { const k = f === 'jobType' ? row.typeKey : row.statusKey; if (!z.valueMappings.some((v) => v.field === f && v.key === k)) z.valueMappings.push({ id: z.valueMappings.length + 1, field: f, key: k, text: f === 'jobType' ? row.typeText : row.statusText, effect: 'unmapped', lastSeenUtc: new Date().toISOString(), by: null }); });
     });
@@ -240,14 +303,16 @@ window.EQ = window.EQ || {};
       if (ev.skip) { run.suppressed += 1; return; }
       if (e.overrideOn && e.overrideOn >= date) { rec.skip = 'manualOverride'; run.suppressed += 1; return; }
       if (e.overrideOn && e.overrideOn < date) {
-        logStatus(e, ev.computed, e.status, 'zmms', 'overrideEnded', 'Manual correction ended; ZMMS plan applied', ev.causes, id);
-        e.overrideOn = null; e.status = ev.computed; e.statusSince = new Date().toISOString(); e.statusReason = null; e.statusSource = 'zmms'; e.statusCauses = ev.causes; rec.applied = true; run.applied += 1; return;
+        logStatus(e, ev.computed, e.status, 'zmms', 'overrideEnded', null, ev.causes, id, date);
+        if (ev.computed !== e.status) e.statusSince = new Date().toISOString();
+        e.overrideOn = null; e.status = ev.computed; e.statusReason = null; e.statusSource = 'zmms'; e.statusCauses = ev.causes; e.statusPlanDate = date; e.statusRunId = id; rec.applied = true; run.applied += 1; return;
       }
       if (ev.computed !== e.status || e.statusSource === 'manual') {
-        if (ev.computed === e.status) { e.statusSource = 'zmms'; e.statusCauses = ev.causes; rec.skip = 'unchanged'; return; }
-        logStatus(e, ev.computed, e.status, 'zmms', 'automatic', 'Automatic from the ZMMS day plan', ev.causes, id);
-        e.status = ev.computed; e.statusSince = new Date().toISOString(); e.statusReason = null; e.statusSource = 'zmms'; e.statusCauses = ev.causes; e.version += 1; rec.applied = true; run.applied += 1;
-      } else { e.statusCauses = ev.causes; rec.skip = 'unchanged'; }
+        // same value but the source was manual (e.g. after Back to automatic with no evaluation yet): a source-only automatic row (O1)
+        logStatus(e, ev.computed, e.status, 'zmms', 'automatic', null, ev.causes, id, date);
+        if (ev.computed !== e.status) e.statusSince = new Date().toISOString();
+        e.status = ev.computed; e.statusReason = null; e.statusSource = 'zmms'; e.statusCauses = ev.causes; e.statusPlanDate = date; e.statusRunId = id; e.version += 1; rec.applied = true; run.applied += 1;
+      } else { e.statusCauses = ev.causes; e.statusPlanDate = date; e.statusRunId = id; rec.skip = 'unchanged'; }
     });
     z.runs.unshift(run);
     EQ.log('ZMMS run #' + id + ' succeeded: ' + run.rowsRead + ' rows, ' + run.applied + ' status change(s), ' + run.suppressed + ' evaluation(s) not applied'); EQ.notify();
@@ -278,11 +343,13 @@ window.EQ = window.EQ || {};
     if (!eq.overrideOn) return fail(409, 'not_manual', 'The status is already automatic.');
     const z = Zd(), today = EQ.todayColombo();
     const ev = z.evaluations.find((x) => x.equipmentId === eq.id);
-    const lastToday = Z.lastSuccess() && Z.lastSuccess().businessDate === today && ev && ev.computed;
+    const lastToday = !!(Z.lastSuccess() && Z.lastSuccess().businessDate === today && ev && ev.computed);
     if (lastToday) {
       const comp = ev.computed;
-      logStatus(eq, comp, eq.status, 'zmms', 'backToAutomatic', 'Back to automatic', ev.causes, Z.lastSuccess().id);
-      eq.status = comp; eq.statusSince = new Date().toISOString(); eq.statusReason = null; eq.statusSource = 'zmms'; eq.statusCauses = ev.causes.slice();
+      // only an evaluation with a computed value is applied (DATA s15.7 step 6, Repair-R02B finding 3)
+      logStatus(eq, comp, eq.status, 'zmms', 'backToAutomatic', null, ev.causes, Z.lastSuccess().id, today);
+      if (comp !== eq.status) eq.statusSince = new Date().toISOString();
+      eq.status = comp; eq.statusReason = null; eq.statusSource = 'zmms'; eq.statusCauses = ev.causes.slice(); eq.statusPlanDate = today; eq.statusRunId = Z.lastSuccess().id;
     } else {
       logStatus(eq, eq.status, eq.status, 'manual', 'backToAutomatic', "Back to automatic: awaiting today's ZMMS sync", [], null);
       eq.statusSource = 'manual'; // shown "Automatic - awaiting today's ZMMS sync"

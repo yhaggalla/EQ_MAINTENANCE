@@ -106,28 +106,36 @@ window.EQ = window.EQ || {};
   function filterQ(q) { const o = {}; ['discipline', 'type', 'mode', 'pic', 'frequency', 'kind', 'status', 'flag', 'q'].forEach((k) => { if (q[k]) o[k] = q[k]; }); return o; }
 
   // ---------------------------------------------------------------- job detail
-  EQ.views.facJob = function facJob(id) {
-    const job = F().byId(id);
+  /** FAC job detail. opts.fromDashboard: the read-only detail a dashboard row opens (route /fac/dashboard/jobs/{id}, fac.dashboard.view,
+   *  SOW V2 5.5.7, D-140): same record, no FAC Jobs actions, back link to the dashboard. The data come from the simulated GET
+   *  /fac/jobs/{id}, which refuses a dashboard-only caller anything but an active job. */
+  EQ.views.facJob = function facJob(id, q, opts) {
+    opts = opts || {};
+    const res = F().detail(id);
     const page = h('div', { class: 'page facjob-page' });
+    if (!res.ok && res.status === 403) { EQ.access.refreshSession('403 ' + res.code); setTimeout(() => EQ.rerender(), 0); return EQ.views.forbidden(opts.fromDashboard ? 'fac.dashboard.view' : 'fac.jobs.view', opts.fromDashboard ? '/fac/dashboard' : '/fac/jobs', res.code); }
+    const job = res.ok ? res.job : null;
     if (!job) { page.appendChild(h('div', { class: 'notice error', role: 'alert' }, icon('alert'), h('p', null, 'No FAC job with this link exists (404).'))); return page; }
+    const dashView = !!opts.fromDashboard;
     const info = F().info(job);
     const cy = info.cycle;
-    page.appendChild(h('nav', { 'aria-label': 'Breadcrumb' }, h('ol', { class: 'breadcrumb', style: 'margin-bottom:.6rem' }, h('li', null, h('a', { href: '#/fac/jobs' }, 'FAC Jobs')), h('li', null, h('span', { 'aria-current': 'page' }, job.number)))));
-    const adm = !EQ.access.srv('fac.work.admin');
+    page.appendChild(h('nav', { 'aria-label': 'Breadcrumb' }, h('ol', { class: 'breadcrumb', style: 'margin-bottom:.6rem' }, dashView ? h('li', null, h('a', { href: '#/fac/dashboard', 'data-fk': 'back-dashboard' }, 'FAC Dashboard')) : h('li', null, h('a', { href: '#/fac/jobs' }, 'FAC Jobs')), h('li', null, h('span', { 'aria-current': 'page' }, job.number)))));
+    const adm = !dashView && !EQ.access.srv('fac.work.admin');
+    if (dashView) page.appendChild(h('p', { class: 'small muted', 'data-fk': 'dash-detail-note' }, 'Read-only job detail opened from the FAC Dashboard. ' + (EQ.access.has('fac.jobs.view') ? 'Updates are made in FAC Jobs.' : 'The FAC Jobs tab is not available for your role.')));
     page.appendChild(h('header', { class: 'panel eq-head' }, h('div', null, h('p', { class: 'eyebrow' }, F().DISC_NAME[job.discipline] + ' · ' + F().TYPE_NAME[job.typeCode]), h('h1', null, job.name, ' ', EQ.facPill(info.status, info.overdue, info.dueSoon), info.dueSoon && !info.overdue ? h('span', { class: 'pill st-dueSoon' }, icon('flag'), 'Due soon') : null, job.state !== 'active' ? h('span', { class: 'tag' }, job.state) : null)),
       h('div', { class: 'facts' }, h('span', null, h('span', { class: 'due due-' + info.dueKind }, info.dueLabel)), h('span', null, 'Frequency: ' + F().freqLabel(job)), h('span', null, 'PIC: ' + F().picDisplay(job))),
-      h('div', { class: 'actions' }, actionsFor(job, info),
+      dashView ? null : h('div', { class: 'actions' }, actionsFor(job, info),
         EQ.access.has('fac.work') ? h('button', { type: 'button', class: 'btn-act', 'data-fk': 'undo', onClick: () => { const r = F().api.undo(job.id); EQ.toast(r.ok ? 'Last update undone' : r.message, r.ok ? 'Prototype: in memory only.' : null); } }, icon('undo'), 'Undo my last update') : null,
         EQ.access.has('fac.masterList.manage') && job.state === 'active' ? h('button', { type: 'button', class: 'btn-act', 'data-fk': 'edit-job', onClick: () => EQ.dlg.facJobForm({ job }) }, icon('edit'), 'Edit job') : null,
         adm ? h('button', { type: 'button', class: 'btn-act', 'data-fk': 'correct', onClick: () => EQ.dlg.facCorrect(job) }, icon('sliders'), 'Correct (Admin)...') : null)));
-    if (!canWork()) page.appendChild(h('p', { class: 'small muted' }, 'Read-only: Management and EQ Team cannot change FAC records.'));
+    if (!canWork() && !dashView) page.appendChild(h('p', { class: 'small muted' }, 'Read-only: Management and EQ Team cannot change FAC records.'));
     const kv = (rows) => h('dl', { class: 'kv' }, rows.filter(Boolean).map(([k, v]) => [h('dt', null, k), h('dd', null, v)]));
     const pic = F().jobPic(job);
     const prev = F().previousCycles(job);
     page.appendChild(h('div', { class: 'grid-2 detail-cols', style: 'align-items:start;margin-top:.7rem' },
       h('section', { class: 'panel panel-pad stack' }, h('h2', null, 'Job'),
         h('div', { class: 'job-pic' }, pic ? h('img', { src: pic.src, alt: 'Job picture: ' + job.name + (pic.synthetic ? ' (synthetic placeholder image)' : '') }) : h('div', { class: 'nonwork' }, 'No job picture (optional).'),
-          canWork() ? h('label', { class: 'btn btn-sm file-btn' }, icon('camera'), pic ? 'Replace job picture' : 'Add job picture', h('input', { type: 'file', accept: 'image/jpeg,image/png', capture: 'environment', class: 'sr-only', 'data-fk': 'job-pic', onChange: (e) => { const f = e.target.files[0]; if (!f) return; const err = photoError(f); if (err) { EQ.toast(err); return; } F().api.setPicture(job.id, F().newPhoto(job.name, EQ.user().id, URL.createObjectURL(f), f.name)); EQ.toast('Job picture set', 'Prototype: stays in this browser tab only.'); } })) : null),
+          canWork() && !dashView ? h('label', { class: 'btn btn-sm file-btn' }, icon('camera'), pic ? 'Replace job picture' : 'Add job picture', h('input', { type: 'file', accept: 'image/jpeg,image/png', capture: 'environment', class: 'sr-only', 'data-fk': 'job-pic', onChange: (e) => { const f = e.target.files[0]; if (!f) return; const err = photoError(f); if (err) { EQ.toast(err); return; } F().api.setPicture(job.id, F().newPhoto(job.name, EQ.user().id, URL.createObjectURL(f), f.name)); EQ.toast('Job picture set', 'Prototype: stays in this browser tab only.'); } })) : null),
         kv([['Job number', job.number], ['Discipline', F().DISC_NAME[job.discipline]], ['Type', F().TYPE_NAME[job.typeCode]], ['Frequency', F().freqLabel(job)], ['Quantity', String(job.quantity)], ['Kind', F().KIND_NAME[job.kind]], ['PIC', F().picDisplay(job)], ['In-house / Outsource', job.mode ? F().MODE_NAME[job.mode] : 'Not set'], ['Last done', job.lastDoneOn ? EQ.fmtDate(job.lastDoneOn) : 'Not set'], ['Remarks', job.remarks || '-'], ['State', job.state + (job.sourceRow ? ' · source row ' + job.sourceRow + (job.split != null ? ' (split ' + (job.split + 1) + ')' : '') : ' · created in the app')]]),
         job.issues.length ? h('div', { class: 'small muted' }, 'Import notes: ' + job.issues.map((i) => i.replace(/-/g, ' ')).join('; ')) : null),
       h('section', { class: 'panel panel-pad stack' }, h('h2', null, 'Current cycle'),
@@ -144,17 +152,17 @@ window.EQ = window.EQ || {};
     job.edits.forEach((e) => tl.push({ at: e.at, kind: 'edit', e }));
     tl.sort((a, b) => EQ.cmp(b.at, a.at));
     page.appendChild(h('section', { class: 'panel panel-pad stack', style: 'margin-top:.7rem', 'aria-labelledby': 'tl-h' }, h('h2', { id: 'tl-h' }, 'Timeline ', h('span', { class: 'tag' }, String(tl.length))),
-      tl.length ? h('ul', { class: 'tl' }, tl.map((t) => timelineItem(job, t))) : h('div', { class: 'nonwork' }, h('strong', null, 'No updates yet'), 'Every update is recorded here with who, when, quantity, note and photos.')));
+      tl.length ? h('ul', { class: 'tl' }, tl.map((t) => timelineItem(job, t, dashView))) : h('div', { class: 'nonwork' }, h('strong', null, 'No updates yet'), 'Every update is recorded here with who, when, quantity, note and photos.')));
     return page;
   };
-  function timelineItem(job, t) {
+  function timelineItem(job, t, readOnly) {
     if (t.kind === 'update') {
       const u = t.u;
       return h('li', { class: u.state === 'active' ? '' : 'voided', 'data-up': u.id },
         h('div', { class: 'row between' }, h('strong', null, u.kind === 'importOpening' ? 'Opening quantity: ' + u.qty : (u.kind === 'doneToday' ? 'Done today' : u.kind === 'doneThisWeek' ? 'Done this week' : '+' + u.qty) + (u.completes ? ' · cycle completed' : '')), h('span', { class: 'when' }, EQ.fmtInstantShort(u.recordedUtc))),
         h('span', { class: 'when' }, (u.state === 'undone' ? 'UNDONE (kept). ' : u.state === 'voidedByCorrection' ? 'Voided by an Admin correction (kept). ' : '') + 'By ' + F().userName(u.actorId) + (u.workDate ? ' · work date ' + EQ.fmtDate(u.workDate) : '')),
         u.note ? h('span', null, u.note) : null,
-        u.photos.length ? h('div', { class: 'photos' }, u.photos.map((p) => p.state === 'active' ? h('figure', { class: 'ph' }, h('button', { type: 'button', class: 'ph-btn', 'aria-label': 'Open photo ' + p.name, onClick: () => EQ.dlg.photo(p) }, h('img', { src: p.src, alt: 'Completion photo' + (p.synthetic ? ' (synthetic placeholder)' : '') })), canRemove(u) ? h('button', { type: 'button', class: 'btn-sm', onClick: () => EQ.dlg.reason({ title: 'Remove photo', message: 'The removal is recorded; the file is kept and shown to Admin only.', label: 'Reason', confirm: 'Remove photo', danger: true, onSubmit: (r) => F().api.removePhoto(job.id, u.id, p.id, r) }) }, 'Remove') : null) : h('span', { class: 'tag dashed' }, 'Photo removed: ' + p.removedReason))) : null);
+        u.photos.length ? h('div', { class: 'photos' }, u.photos.map((p) => p.state === 'active' ? h('figure', { class: 'ph' }, h('button', { type: 'button', class: 'ph-btn', 'aria-label': 'Open photo ' + p.name, onClick: () => EQ.dlg.photo(p) }, h('img', { src: p.src, alt: 'Completion photo' + (p.synthetic ? ' (synthetic placeholder)' : '') })), !readOnly && canRemove(u) ? h('button', { type: 'button', class: 'btn-sm', onClick: () => EQ.dlg.reason({ title: 'Remove photo', message: 'The removal is recorded; the file is kept and shown to Admin only.', label: 'Reason', confirm: 'Remove photo', danger: true, onSubmit: (r) => F().api.removePhoto(job.id, u.id, p.id, r) }) }, 'Remove') : null) : h('span', { class: 'tag dashed' }, 'Photo removed: ' + p.removedReason))) : null);
     }
     if (t.kind === 'hold') return h('li', { class: 'status' }, h('div', { class: 'row between' }, h('strong', null, t.x.kind === 'hold' ? 'Put on hold' : 'Hold released'), h('span', { class: 'when' }, EQ.fmtInstantShort(t.x.at))), t.x.reason ? h('span', null, t.x.reason) : null, h('span', { class: 'when' }, 'By ' + F().userName(t.x.actorId)));
     if (t.kind === 'corr') return h('li', { class: 'open' }, h('div', { class: 'row between' }, h('strong', null, 'Admin correction ' + t.c.n), h('span', { class: 'when' }, EQ.fmtInstantShort(t.c.at))), h('span', null, 'Reason: ' + t.c.reason), t.c.items.map((it) => h('div', { class: 'small' }, it.entity + ' · ' + it.field + ': ', h('s', null, String(it.before)), ' → ', h('strong', null, String(it.after)))), h('span', { class: 'when' }, 'By ' + F().userName(t.c.by) + '. Previous values are kept above.'));

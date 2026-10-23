@@ -29,7 +29,7 @@ window.EQ = window.EQ || {};
   }
   function rowEl(r, o) {
     o = o || {};
-    const a = h('a', { class: 'row-link', href: '#/fac/jobs/' + r.id + (EQ.route && EQ.route.query && EQ.route.query.tv === '1' ? '' : ''), 'aria-label': rowLabel(r), tabindex: o.tab0 ? '0' : '-1', 'data-key': r.key },
+    const a = h('a', { class: 'row-link', href: F().jobHref(r.id), 'aria-label': rowLabel(r), tabindex: o.tab0 ? '0' : '-1', 'data-key': r.key },
       h('span', { class: 'thumb' }, r.thumb ? h('img', { src: r.thumb, alt: '', loading: 'lazy' }) : icon(r.type === 'inspection' ? 'inspect' : 'service')),
       h('span', { class: 'main' },
         h('span', { class: 'name', title: r.name }, r.name),
@@ -162,7 +162,7 @@ window.EQ = window.EQ || {};
     const mk = (it, copy) => {
       const when = EQ.fmtTime(it.at).slice(0, 5);
       const txt = it.kind === 'hold' ? 'put on hold' : it.kind === 'release' ? 'released' : '+' + it.qty + (it.completed ? ' · completed' : '');
-      const a = h('a', { class: 'tick-link' + (it.completed ? ' done' : ''), href: '#/fac/jobs/' + it.jobId, 'data-key': it.key, tabindex: '-1', 'aria-label': when + ' ' + it.who + ', ' + it.jobName + ', ' + txt.replace('·', ',') }, h('span', { class: 'tk-t' }, when), h('span', { class: 'tk-w' }, it.who.replace('Synthetic ', '')), h('span', { class: 'tk-j', title: it.jobName }, it.jobName), h('span', { class: 'tk-q' }, it.completed ? icon('check-circle') : null, txt));
+      const a = h('a', { class: 'tick-link' + (it.completed ? ' done' : ''), href: F().jobHref(it.jobId), 'data-key': it.key, tabindex: '-1', 'aria-label': when + ' ' + it.who + ', ' + it.jobName + ', ' + txt.replace('·', ',') }, h('span', { class: 'tk-t' }, when), h('span', { class: 'tk-w' }, it.who.replace('Synthetic ', '')), h('span', { class: 'tk-j', title: it.jobName }, it.jobName), h('span', { class: 'tk-q' }, it.completed ? icon('check-circle') : null, txt));
       if (copy) a.setAttribute('tabindex', '-1');
       return h('li', { class: 'tick', 'data-key': it.key, 'data-sig': it.key }, a);
     };
@@ -222,7 +222,7 @@ window.EQ = window.EQ || {};
     T.replaceChildren(...[
       h('button', { type: 'button', class: 'btn-sm', 'aria-pressed': dash.paused ? 'true' : 'false', 'data-fk': 'dash-pause', 'aria-label': dash.paused ? 'Resume the moving lists' : 'Pause the moving lists', onClick: () => { dash.paused = !dash.paused; patchTools(dash.model, EQ.route.query); } }, icon(dash.paused ? 'play' : 'pause'), dash.paused ? 'Resume' : 'Pause'),
       h('button', { type: 'button', class: 'btn-sm', 'aria-pressed': dash.staticMode ? 'true' : 'false', 'data-fk': 'dash-static', onClick: () => { dash.staticMode = !dash.staticMode; EQ.nav('/fac/dashboard', { ...EQ.route.query, motion: dash.staticMode ? 'off' : '' }); } }, icon('list'), 'Static view'),
-      EQ.access.has('export.excel') && !tv ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'dash-export', onClick: () => { const r = F().exportRows({ discipline: q.discipline, type: q.type, mode: q.mode, pic: q.pic }); if (r.ok) { EQ.downloadCsv('fac-dashboard-jobs.csv', r.columns, r.rows); EQ.toast('Exported ' + r.rows.length + ' filtered job(s)', 'Prototype stand-in: CSV, not the server-generated .xlsx.'); } else EQ.toast(r.message); } }, icon('download'), 'Export') : null,
+      EQ.access.has('export.excel') && EQ.access.has('fac.jobs.view') && !tv ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'dash-export', title: 'Exports the FAC Jobs list with the dashboard filters (needs the FAC Jobs tab, D-140)', onClick: () => { const r = F().exportRows({ discipline: q.discipline, type: q.type, mode: q.mode, pic: q.pic }); if (r.ok) { EQ.downloadCsv('fac-dashboard-jobs.csv', r.columns, r.rows); EQ.toast('Exported ' + r.rows.length + ' filtered job(s)', 'Prototype stand-in: CSV, not the server-generated .xlsx.'); } else EQ.toast(r.message); } }, icon('download'), 'Export') : null,
       h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'dash-refresh', onClick: () => EQ.refresh(true) }, icon('refresh'), 'Refresh'),
       tv ? h('button', { type: 'button', class: 'btn-sm primary', 'data-fk': 'dash-tv', onClick: () => { try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) { /* ignore */ } EQ.nav('/fac/dashboard', { ...EQ.route.query, tv: '' }); } }, icon('x'), 'Exit TV mode')
         : h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'dash-tv', onClick: () => { EQ.nav('/fac/dashboard', { ...EQ.route.query, tv: '1' }); try { document.documentElement.requestFullscreen && document.documentElement.requestFullscreen().catch(() => {}); } catch (e) { /* fullscreen is optional */ } } }, icon('tv'), 'TV mode')].filter(Boolean));
@@ -240,7 +240,7 @@ window.EQ = window.EQ || {};
     }
     paintProof();
     // due load
-    const W = 480, Hh = 190, pad = 28, bw = 38, gap = (W - pad * 2 - bw * 8) / 7;
+    const W = 720, Hh = 140, pad = 26, bw = 60, gap = (W - pad * 2 - bw * 8) / 7; // Repair-R02B finding 6: flatter chart, so its labels render larger in the same box
     const max = Math.max(4, ...m.dueLoad.map((w) => w.electrical + w.mechanical + w.civil));
     const lsig = JSON.stringify(m.dueLoad);
     const host = dash.refs.load.querySelector('.load-chart');
@@ -249,8 +249,8 @@ window.EQ = window.EQ || {};
       const bars = []; let tot = 0;
       m.dueLoad.forEach((w, i) => {
         const x = pad + i * (bw + gap); let y = Hh - 34; const t = w.electrical + w.mechanical + w.civil; tot += t;
-        [['electrical', 'E'], ['mechanical', 'M'], ['civil', 'C']].forEach(([d, ch]) => { const n = w[d]; if (!n) return; const ht = (n / max) * (Hh - 70); y -= ht; bars.push(h('rect', { x, y, width: bw, height: ht, class: 'lb d-' + d, 'data-d': d }), ht > 14 ? h('text', { x: x + bw / 2, y: y + ht / 2 + 4, 'text-anchor': 'middle', class: 'lb-t' }, ch + n) : null); });
-        bars.push(h('text', { x: x + bw / 2, y: Hh - 38 - (t / max) * (Hh - 70) - 4, 'text-anchor': 'middle', class: 'lb-total' }, String(t)), h('text', { x: x + bw / 2, y: Hh - 18, 'text-anchor': 'middle', class: 'lb-wk' }, EQ.fmtDate(w.start).replace(/ \d{4}$/, '')));
+        [['electrical', 'E'], ['mechanical', 'M'], ['civil', 'C']].forEach(([d, ch]) => { const n = w[d]; if (!n) return; const ht = (n / max) * (Hh - 70); y -= ht; bars.push(h('rect', { x, y, width: bw, height: ht, class: 'lb d-' + d, 'data-d': d }), ht > 16 ? h('text', { x: x + bw / 2, y: y + ht / 2 + 5, 'text-anchor': 'middle', class: 'lb-t' }, ch + n) : null); });
+        bars.push(h('text', { x: x + bw / 2, y: Hh - 38 - (t / max) * (Hh - 70) - 4, 'text-anchor': 'middle', class: 'lb-total' }, String(t)), h('text', { x: x + bw / 2, y: Hh - 12, 'text-anchor': 'middle', class: 'lb-wk' }, EQ.fmtDate(w.start).replace(/ \d{4}$/, '')));
       });
       host.replaceChildren(h('svg', { viewBox: '0 0 ' + W + ' ' + Hh, class: 'load-svg', role: 'img', 'aria-label': 'Jobs due per week for the next 8 weeks, ' + tot + ' in total, stacked by discipline' }, ...bars.filter(Boolean)),
         h('div', { class: 'load-legend' }, LANE_CODES.map(([c, n]) => h('span', null, h('i', { class: 'sw-d d-' + c }), n[0] + ' ' + n))),
@@ -268,7 +268,7 @@ window.EQ = window.EQ || {};
     dash.proof.key = p.key;
     if (img.getAttribute('src') !== p.src) img.setAttribute('src', p.src);
     img.alt = 'Completion photo for ' + p.jobName + (p.synthetic ? ' (synthetic placeholder image)' : '');
-    cap.replaceChildren(h('a', { href: '#/fac/jobs/' + p.jobId }, p.jobName), ' · ' + EQ.fmtDate(p.workDate) + ' · ' + p.who + (p.synthetic ? ' · synthetic photo' : ''));
+    cap.replaceChildren(h('a', { href: F().jobHref(p.jobId) }, p.jobName), ' · ' + EQ.fmtDate(p.workDate) + ' · ' + p.who + (p.synthetic ? ' · synthetic photo' : ''));
     n.textContent = 'Photo ' + (i + 1) + ' of ' + ps.length;
     const pb = P.querySelector('[data-fk="proof-pause"]'); if (pb) { pb.setAttribute('aria-pressed', dash.proof.paused ? 'true' : 'false'); pb.replaceChildren(icon(dash.proof.paused ? 'play' : 'pause')); pb.setAttribute('aria-label', dash.proof.paused ? 'Resume the photo rotation' : 'Pause the photo rotation'); }
   }
@@ -278,7 +278,7 @@ window.EQ = window.EQ || {};
     if (body.dataset.sig === sig) return; body.dataset.sig = sig;
     body.replaceChildren(h('div', { class: 'table-wrap' }, h('table', null, h('caption', null, 'All dashboard jobs, in dashboard order, by discipline'),
       h('thead', null, h('tr', null, ['Discipline', 'Job', 'Frequency', 'PIC', 'Progress', 'Status', 'Due'].map((c) => h('th', { scope: 'col' }, c)))),
-      h('tbody', null, m.lanes.flatMap((l) => l.rows.map((r) => h('tr', null, h('td', null, l.name), h('th', { scope: 'row' }, h('a', { href: '#/fac/jobs/' + r.id }, r.name)), h('td', null, r.freq), h('td', null, r.pic), h('td', null, r.done + '/' + r.target + ' (' + r.pct + ' %)'), h('td', null, r.overdue ? 'Overdue' : F().STATUS_NAME[r.status]), h('td', null, r.dueLabel))))))));
+      h('tbody', null, m.lanes.flatMap((l) => l.rows.map((r) => h('tr', null, h('td', null, l.name), h('th', { scope: 'row' }, h('a', { href: F().jobHref(r.id) }, r.name)), h('td', null, r.freq), h('td', null, r.pic), h('td', null, r.done + '/' + r.target + ' (' + r.pct + ' %)'), h('td', null, r.overdue ? 'Overdue' : F().STATUS_NAME[r.status]), h('td', null, r.dueLabel))))))));
   }
   function patchCombined(m) {
     const ol = dash.refs.combined.querySelector('ol');

@@ -4,6 +4,76 @@ Rolling handover for CICT EQ Maintenance. Each phase appends its record; the new
 
 ---
 
+## Repair-R02B Findings 1-7 of the R02B review - 23 October 2026
+
+### Runtime record
+
+| Item | Value |
+| --- | --- |
+| Recommended profile | Codex gpt-6.1-sol, high; Claude Code claude-opus-5-5, high, adaptive thinking (Repair profile; R02B/P01B profile inherited) |
+| Actual client | Claude Code subagent eq-build-opus-high (delegated by the `/eq-phase` orchestrator; prompt in `docs/runs/Repair-R02B-20261023-0600.md`) |
+| Actual model / effort | claude-opus-5-5; effort high (per agent definition) |
+| Fallback / escalation | None |
+
+### Outcome
+
+Repair complete for findings 1-7 of `docs/evidence/R02B/review-20261023-0157.md` (blocking 1 plus 2-7, user instruction). Contracts and prototype only; synthetic data; no database, ZMMS, Portal or deployment action. R02B was not repeated by this run. Details, reproduction and proof: `docs/evidence/R02B/repair-20261023.md`.
+
+### Finding IDs and changes
+
+1. EQ Jobs data (`/jobs`, board counts, job record, attachments, EQ work evidence, position technical sheet) need `eq.jobs.view`; the crane view reads only `current-state/*` (open summaries + counts, `openInJobs` null without Jobs). FAC Jobs list and full cycles need `fac.jobs.view`; the job detail stays readable with the dashboard feature for active jobs only (dashboard row click, route `/fac/dashboard/jobs/{id}`). Prototype gates the same reads on the live matrix; checks B05, B06 (D-139, D-140).
+2. Synthetic ZMMS fixtures rebuilt on a scheduled-run time model; automatic rows replayed per run with no reason and with causes; RTG-DEMO-06 keeps yesterday's cause; created times in the past; check L04 (D-142).
+3. DATA s15.7 step 6: only an evaluation with a computed value is applied, else "awaiting today's ZMMS sync"; check F06 (D-141).
+4. P02B evidence count corrected (10 adapted assertions); P02 C18 marked and strengthened; C27 asserts the selected part's record (D-144).
+5. Stale "not committed / main-fpkbjt" records corrected to `e5a4eec` on `main`.
+6. Dashboard: two-line ticker with full names, larger due-load labels, ticker/proof/due load on the first 1920 x 1080 screen (D-143, UX_SPEC s21).
+7. FAC export = FAC Jobs only (dashboard Export button only with FAC Jobs); P03 viewer links open P02 as Management (P3-06).
+
+Requirement/acceptance IDs touched (all still NOT RUN; prototype evidence only): ACC02, ACC03, FAC11, FAC12, AUTH03, ZM05, ZM06, HIS06, S07, S19, S21, S27, FDB02-FDB05.
+
+### Files changed
+
+Contracts/docs: `docs/API_CONTRACT.md`, `docs/DATA_CONTRACT.md`, `docs/ARCHITECTURE.md` (route table, D-96), `docs/DECISIONS.md` (D-96 text, D-139..D-144), `docs/UX_SPEC.md` (s21), `docs/evidence/P02B/P02B_EVIDENCE.md` (findings 4, 5), `docs/IMPLEMENTATION_STATUS.md`, `docs/HANDOVER.md` (this entry; P02B entry corrected).
+Prototype P02: `artifacts/prototypes/p02-ui/js/store.js`, `panel-tabs.js`, `views-equipment.js`, `views-jobs.js`, `views-eqjobs.js`, `zmms.js`, `fac.js`, `views-fac.js`, `views-facjobs.js`, `app.js`, `css/v2.css`. Prototype P03: `artifacts/prototypes/p03-qc-model/js/app.mjs`.
+Checks: `tools/p02b/check_p02b.mjs` (+B05, B06, F06, L04), `tools/p02b/check_p03_panel.mjs` (P3-06), `tools/p02/check_prototype.mjs` (C18, C27).
+New evidence: `docs/evidence/R02B/repair-20261023.md`, `docs/evidence/R02B/repair-20261023/` (check JSON, reproduction before/after, contrast, coverage, 6 screenshots).
+Untouched: `documents/`, `As-bulit drawing/`, `RTG drawings/` and `rtg-workbench/` (another session's work, not read; its `HANDOVER.md` modification predates this run), the model and its generator, `F:\CODEX\CICT-ENG_MAIN_PAGE` (clean at `47f7bd9`).
+
+### Checks run and results (after the last change unless noted)
+
+| Check | Result |
+| --- | --- |
+| `node tools/p02b/check_p02b.mjs` | 63/63 PASS |
+| `node tools/p02/check_prototype.mjs` | 59/59 PASS (one earlier run 58/59: U1R2-C10-C11 floating-point viewBox after Reset, untouched code; rerun passed) |
+| `node tools/p02b/check_p03_panel.mjs` | 8/8 PASS (before the final dashboard-export tweak, which it does not exercise) |
+| `node tools/p03/check_model_prototype.mjs --gpu swiftshader` | 41/41 PASS (same note) |
+| `python -I tools/p02b/check_contrast_v2.py` | 22 pairs, 0 below threshold |
+| `python -I tools/p01b/check_contract_coverage_v2.py` / `tools/p01/check_contract_coverage.py` | 15/15 / 9/9 |
+| Reproduction probe on the unrepaired prototype vs the repaired one | findings 1 and 2 reproduced before, absent after (`repro-before-e5a4eec.json`, `repro-after-repair.json`) |
+
+Evidence type: contract review and headless-browser checks of the synthetic prototype. No authenticated, target-environment or production verification.
+
+### Open issues and impact
+
+| ID | Issue | Impact |
+| --- | --- | --- |
+| U-31, U-33, U-34, UX-4..UX-7 | Unchanged confirmation items | U1 repeat / P07B |
+| ZMMS export file | R02B unresolved question (download within the read-only boundary; whether the committed export stays tracked) | Owner decision; not blocking |
+| U1R2-C10-C11 | Floating-point viewBox comparison can flake | Add a tolerance in P10 |
+| D-02 | .NET 10 SDK not installed | Blocks P04 only |
+
+No genuinely missing business information blocks the repeat of R02B.
+
+### Git
+
+Branch `main`, HEAD `ce7fc4d`; all Repair-R02B changes are uncommitted (the orchestrator commits).
+
+### Next prompt
+
+**R02B V2 contracts and prototype review, repeated** (read-only, fresh context; Claude Code claude-opus-5-5, high). Start both servers (`node artifacts/prototypes/p02-ui/serve.mjs 5312`, `node artifacts/prototypes/p03-qc-model/serve.mjs 5313`). The U1 repeat follows a PASS.
+
+---
+
 ## P02B V2 prototype - 22 October 2026
 
 ### Runtime record
@@ -23,7 +93,7 @@ P02B complete at prototype level: the P02 prototype and the P03 viewer page now 
 
 S02, S03, S07, S08, S16, S18-S29 as UI/behaviour prototypes; supporting evidence for HIS02, HIS05, HIS06, ACC01-ACC05, ZM01-ZM03, ZM05-ZM07, SP01-SP04, FAC01-FAC11 (rules simulated), FDB01-FDB06 (not FDB05's 30 minutes), OPS02. All stay NOT RUN against the real app.
 
-### Files changed (this run; not committed)
+### Files changed (this run; committed afterwards by the orchestrator as `e5a4eec` on `main`)
 
 Prototype P02: `artifacts/prototypes/p02-ui/css/v2.css`, `js/panel-tabs.js` (jobMini moved here, link base), `js/views-equipment.js`, `js/views-fleet.js`, `js/views-fac.js`, `js/views-admin2.js` (import row-by-row table, matrix checkbox fix), `js/zmms.js` (fixture consistency, header), `README.md`.
 Prototype P03: `artifacts/prototypes/p03-qc-model/index.html`, `js/app.mjs` (four tabs, shared data layer), `js/data.mjs` (own jobs removed), `serve.mjs` (read-only `/p02/js/` whitelist), `css/p03.css`, new `css/p03-panel.css`, `README.md`.
@@ -37,7 +107,7 @@ Untouched: `documents/`, `As-bulit drawing/`, `RTG drawings/`, `rtg-workbench/` 
 | --- | --- |
 | `node tools/p02b/check_p02b.mjs` | 59/59 PASS |
 | `node tools/p02b/check_p03_panel.mjs` (SwiftShader) | 8/8 PASS |
-| `node tools/p02/check_prototype.mjs` (regression, 5 adapted assertions) | 59/59 PASS |
+| `node tools/p02/check_prototype.mjs` (regression, 10 adapted assertions; "5" corrected by Repair-R02B) | 59/59 PASS |
 | `node tools/p03/check_model_prototype.mjs --gpu swiftshader` (regression) | 41/41 PASS in the final run; two earlier runs after the viewer change failed 3 and 2 timing-sensitive checks (fixed 200 ms waits; the waits now follow the rendered frame); the baseline passed once |
 | Contrast: P02 37 pairs; V2 22 token pairs | all at or above threshold |
 | Screenshots | 48, no console errors |
@@ -67,7 +137,7 @@ No missing business information blocks R02B.
 
 ### Git
 
-Repository `/home/user/EQ_MAINTENANCE` (F:\CODEX\EQ_MAINTENANCE), branch `main-fpkbjt`, base commit 5895126; all P02B changes of this run are uncommitted (the orchestrator commits).
+Repository `/home/user/EQ_MAINTENANCE` (F:\CODEX\EQ_MAINTENANCE). The run worked on branch `main-fpkbjt` from base 5895126; the orchestrator committed the result on `main` as `e5a4eec` (record corrected by Repair-R02B, finding 5).
 
 ### Next prompt
 

@@ -6,7 +6,7 @@ import { EQUIPMENT, instantiate } from './data.mjs';
 // Shared synthetic V2 data layer and four-tab renderer from the P02 prototype (classic scripts loaded by index.html). P02B / U1-C19.
 const EQ = window.EQ;
 EQ.state.role = 'management'; // the viewer page is read-only; there is no sign-in and no persona switch here
-EQ.panelTabs.base = location.protocol + '//' + location.hostname + ':5312/?role=eqTeam'; // Open in Jobs and job numbers open the P02 prototype
+EQ.panelTabs.base = location.protocol + '//' + location.hostname + ':5312/?role=management'; // Open in Jobs and job numbers open the P02 prototype as the same read-only Management persona (Repair-R02B finding 7)
 EQ.reset();
 
 const MODEL_BASE = 'models/cict-j526a-sts-scene/1/';
@@ -185,7 +185,7 @@ function dataScopeFor(level, idOrKey) {
 /** Open special jobs in a scope: the same rule as the Projects/Special tab (descendants included, de-duplicated). */
 function openCount(level, idOrKey) {
   const sc = dataScopeFor(level, idOrKey);
-  return sc ? EQ.history(state.eq, sc, false).open.filter((r) => !r.job.isCancelled).length : 0;
+  return sc ? EQ.openCount(state.eq, sc) : 0; // current state (API s4.16), not the Jobs-tab history (D-139)
 }
 function currentDataScope() {
   if (state.part) { const p = I().positions.find((x) => x.id === state.part); return { want: 'part', scope: p ? dataScopeFor('part', p.semanticKey) : null, name: p ? p.name : 'this position' }; }

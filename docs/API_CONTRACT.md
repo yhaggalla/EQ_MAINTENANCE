@@ -89,7 +89,7 @@ V2 (S19): every endpoint is authorized by **feature policies** evaluated against
 | `ProvisioningCredential` | Only for `/eq-maintenance/internal/provisioning/*`: valid service credential header (fixed-time compare); no browser session involved |
 | Fallback | Deny (any endpoint without an explicit policy fails closed) |
 
-Former names: `EqRead` on an EQ read endpoint = `F:eq.fleet.view` (fleet, equipment, hierarchy, parameters, drawings, scene/model assets, crane current state) or `F:eq.jobs.view` (jobs, scoped history, status history, daily jobs, spare-part register) as stated per endpoint; endpoints read by both screens use `F:eq.fleet.view|eq.jobs.view`. `EqWrite` = `F:eq.work`. `EqAdmin` = `F:admin.access` for configuration and `F:eq.work.admin` for completed-work corrections, reopen, cancel-any and register voids (both held only by Admin).
+Former names: `EqRead` on an EQ read endpoint = `F:eq.fleet.view` (fleet, equipment, hierarchy, parameters, drawings, scene/model assets, crane current state) or `F:eq.jobs.view` (jobs, scoped history, status history, daily jobs, spare-part register) as stated per endpoint. `F:eq.fleet.view|eq.jobs.view` is used only for identity and reference data that both tabs need (equipment header, catalogue, register list, ZMMS freshness); no work record (special job, replacement line, progress, correction, attachment, EQ work evidence, installation event, scoped history) is served under `eq.fleet.view` alone. The crane view's only work data are the open-job summaries and counts of the current-state endpoints (s4.16), which carry no completed job, correction, attachment or evidence (Repair-R02B, D-139). `EqWrite` = `F:eq.work`. `EqAdmin` = `F:admin.access` for configuration and `F:eq.work.admin` for completed-work corrections, reopen, cancel-any and register voids (both held only by Admin).
 
 Failure responses: 401 without a valid EQ session; 403 `access_not_ready` for a profile problem; 403 `forbidden_role` when no held role's ceiling allows the feature; 403 `feature_disabled` when a ceiling allows it but the matrix switched it off for every held role.
 
@@ -241,7 +241,7 @@ Status request and rules (DATA s4.2):
 | Method and path | Policy | Purpose / acceptance |
 | --- | --- | --- |
 | `GET /equipment/{equipmentId}/hierarchy?includeInactive=false` | `F:eq.fleet.view` | Full tree for the tree view and viewer binding (S05, VIS03) |
-| `GET /equipment/{equipmentId}/positions/{positionId}` | `F:eq.fleet.view|eq.jobs.view` | Technical sheet for a part (S07, S14, HIS04). V2: used by the EQ Jobs tab part view and Admin; the crane view uses the current-state Technical tab (s4.16), which omits the latest event |
+| `GET /equipment/{equipmentId}/positions/{positionId}` | `F:eq.jobs.view` | Technical sheet for a part (S07, S14, HIS04). V2: used by the EQ Jobs tab part view and Admin; it includes the latest installation event, so it is Jobs-tab data (Repair-R02B, D-139). The crane view uses the current-state Technical tab (s4.16, `F:eq.fleet.view`), which omits the latest event |
 | `GET /equipment/{equipmentId}/positions/{positionId}/installations` | `F:eq.jobs.view` | Installation lots/items and events at the position, including voided events and correction references (HIS03, JOB10). V2: history, so EQ Jobs tab only |
 
 Hierarchy response (one call; sized for a few hundred positions):
@@ -292,11 +292,13 @@ Each job appears once per response even when several of its lines match; `matchi
 
 | Method and path | Policy | Purpose / acceptance |
 | --- | --- | --- |
-| `GET /jobs?status=pending,current,completed&includeCancelled=false&equipmentId=&type=&kind=&mainCode=&subCode=&targetLevel=&dateField=created|planned|completed&from=&to=&q=&mine=false&limit=&cursor=&sort=updated_desc` | `F:eq.fleet.view|eq.jobs.view` | Jobs workspace lists and board columns (S08, JOB01, JOB12) |
-| `GET /jobs/board-counts?…same filters…` | `F:eq.fleet.view|eq.jobs.view` | `{ pending, current, completed, cancelled }` counts for the tabs |
-| `GET /jobs/{jobId}` | `F:eq.fleet.view|eq.jobs.view` | Full job: `JobSummary` + description, completion fields, `lines: ReplacementLineView[]`, `attachments`, `progress`, `corrections`, `cancellation` `{ reason, by, utc } | null` |
+| `GET /jobs?status=pending,current,completed&includeCancelled=false&equipmentId=&type=&kind=&mainCode=&subCode=&targetLevel=&dateField=created|planned|completed&from=&to=&q=&mine=false&limit=&cursor=&sort=updated_desc` | `F:eq.jobs.view` | Jobs workspace lists and board columns (S08, JOB01, JOB12) |
+| `GET /jobs/board-counts?…same filters…` | `F:eq.jobs.view` | `{ pending, current, completed, cancelled }` counts for the tabs |
+| `GET /jobs/{jobId}` | `F:eq.jobs.view` | Full job: `JobSummary` + description, completion fields, `lines: ReplacementLineView[]`, `attachments`, `progress`, `corrections`, `cancellation` `{ reason, by, utc } | null` |
 
 `mainCode`/`subCode` match jobs targeting that definition **or** having lines below it (same rule as DATA s9), each job listed once. V2: these are the special jobs of the EQ Jobs tab; the list adds `reopenCount` and `committedLineCount` to `JobSummary` (UX-1, so the UI can explain cancel refusals before a request). Cancelled jobs appear only with `includeCancelled=true` and carry `isCancelled: true`; they are never counted in `completed`.
+
+V2 (Repair-R02B, D-139): every endpoint of this section, the job attachments (s4.9) and EQ work-evidence content need `eq.jobs.view`, because they are the EQ Jobs tab's records (special jobs, their history, corrections and evidence). A user whose matrix switches EQ Jobs off while EQ Fleet stays on receives 403 `feature_disabled` here and still sees the crane view's open-job summaries through s4.16. The crane view does not call these endpoints; its job numbers and "Open in Jobs" links are rendered only when the session holds `eq.jobs.view` (otherwise the number is plain text).
 
 ### 4.8 Job commands
 
@@ -353,9 +355,9 @@ Correction request (one atomic correction, DATA s5.3):
 | Method and path | Policy | Purpose / acceptance |
 | --- | --- | --- |
 | `POST /jobs/{jobId}/attachments` | `F:eq.work`; Idempotency-Key; `multipart/form-data` (`file`, `caption?`, `replacementLineId?`) | Upload evidence to a non-cancelled job (FILE02, FILE03). 413 `file_too_large`, 415 `unsupported_media_type` (extension and signature must both be JPEG/PNG/PDF), 409 `job_cancelled` |
-| `GET /jobs/{jobId}/attachments` | `F:eq.fleet.view|eq.jobs.view` | Attachment metadata (`documentId`, sanitized name, type, bytes, caption, uploader, utc, state) |
+| `GET /jobs/{jobId}/attachments` | `F:eq.jobs.view` | Attachment metadata (`documentId`, sanitized name, type, bytes, caption, uploader, utc, state) |
 | `POST /jobs/{jobId}/attachments/{attachmentId}/remove` | `F:eq.work` (uploader while job uncompleted) or `F:eq.work.admin`; Idempotency-Key | `{ reason }`; marks removed, content retained |
-| `GET /documents/{documentId}` | by kind (DATA s14.4): drawings, reference photos, model assets `F:eq.fleet.view`; work evidence `F:eq.fleet.view|eq.jobs.view` | Metadata: kind, title, drawing number, pages, bytes, sha256, links (no storage key or path) |
+| `GET /documents/{documentId}` | by kind (DATA s14.4): drawings, reference photos, model assets `F:eq.fleet.view`; work evidence `F:eq.jobs.view` (Repair-R02B, D-139) | Metadata: kind, title, drawing number, pages, bytes, sha256, links (no storage key or path) |
 | `GET /documents/{documentId}/content?disposition=inline|attachment` | as metadata, by kind; FAC photo kinds are not served here (s4.24) | Streams content; range requests supported; `Content-Disposition` with sanitized RFC 6266 filename; `X-Content-Type-Options: nosniff`; PDFs/images inline, others attachment; `Cache-Control: private, no-store`; ETag = sha256. Unknown/removed/guessed IDs -> 404 `not_found`; missing file -> 404 `file_unavailable` (FILE01, FILE04, FILE05) |
 | `GET /equipment-models/{modelId}/documents` | `F:eq.fleet.view` | Source drawings linked to a model family with page references (S14) |
 
@@ -458,7 +460,7 @@ The four right-panel tabs of the crane view (DATA s18.1, D-122). All `F:eq.fleet
 | --- | --- |
 | `GET /equipment/{equipmentId}/current-state/summary?scope=&targetId=` | `{ status: StatusSummary; badges: { maintenanceToday: number | null; specialOpen: number; sparePartsOverdue: number; sparePartsDueSoon: number } }` |
 | `GET /equipment/{equipmentId}/current-state/maintenance?scope=&targetId=` | `{ zmmsMapped: boolean; businessDate: DateOnly; dataFrom: Instant | null; stale: boolean; equipmentLevelNote: true; jobs: ZmmsDailyJobView[] }` - today's present rows only; `jobs: []` with `zmmsMapped: false` for unmapped equipment |
-| `GET /equipment/{equipmentId}/current-state/special?scope=&targetId=` | `{ openJobs: Array<JobSummary & { matchingLines: ReplacementLineView[] }>; counts: { pending: number; current: number; completed: number; cancelled: number }; openInJobs: { equipment: Id; scope: string; target: Id | null } }` - DATA s9 scope rule, de-duplicated; completed jobs counted only |
+| `GET /equipment/{equipmentId}/current-state/special?scope=&targetId=` | `{ openJobs: Array<JobSummary & { matchingLines: ReplacementLineView[] }>; counts: { pending: number; current: number; completed: number; cancelled: number }; openInJobs: { equipment: Id; scope: string; target: Id | null } | null }` - DATA s9 scope rule, de-duplicated; completed jobs counted only. `openJobs` items are `JobSummary` (no description, completion fields, corrections, attachments or evidence). `openInJobs` is null when the caller lacks `eq.jobs.view` (the panel then shows no Open in Jobs link and no job-record links, D-139) |
 | `GET /equipment/{equipmentId}/current-state/technical?scope=&targetId=` | `{ identity: {...}; model: {...} | null; attributes: { commissionedOn: DateOnly | null; serialNumber: string | null; manufacturer: string | null } | null; definition: { code: string; name: string; description: string | null } | null; positionCounts: { serialized: number; quantityLot: number } | null; currentInstallations: InstallationView[] | null; sourceReferences: [...]; provenance: {...} | null; parameters: ParameterItem[]; sceneUnavailableReason: string | null }` - fields per scope as DATA s18.1; `ParameterItem` = s4.10 item |
 | `GET /equipment/{equipmentId}/current-state/spare-parts?scope=&targetId=` | `{ rows: SparePartRow[]; notMajorSparePart: boolean }` (`notMajorSparePart` true for a part scope whose position is not designated) |
 
@@ -568,9 +570,9 @@ type FacJobSummary = { id: Id; number: string; version: Version;
 
 | Method and path | Policy | Purpose / acceptance |
 | --- | --- | --- |
-| `GET /fac/jobs?view=mywork|all&status=pending,inProgress,onHold,completed&flag=overdue,dueSoon&discipline=&type=&mode=&pic=&frequency=&kind=&state=active|closed|deactivated|all&q=&sort=&limit=&cursor=` | `F:fac.jobs.view|fac.dashboard.view` | FAC Jobs board/list and My work (own PIC first) (FAC10). `pic` = a profile ID or `name-<slug>` of a typed name. Counts per status in `totals` |
-| `GET /fac/jobs/{jobId}` | `F:fac.jobs.view|fac.dashboard.view` | `FacJobSummary` + timeline (newest first: updates with photos and undo marks, holds/releases, corrections, master edits) + previous cycles `{ sequence, periodOrDue, completedOn, onTime: 'onTime' | 'late' | 'missed' | 'noDueDate', lateDays }` (read-only for Management) |
-| `GET /fac/jobs/{jobId}/cycles?limit=&cursor=` | as above | all cycles (paged) |
+| `GET /fac/jobs?view=mywork|all&status=pending,inProgress,onHold,completed&flag=overdue,dueSoon&discipline=&type=&mode=&pic=&frequency=&kind=&state=active|closed|deactivated|all&q=&sort=&limit=&cursor=` | `F:fac.jobs.view` | FAC Jobs board/list and My work (own PIC first) (FAC10). `pic` = a profile ID or `name-<slug>` of a typed name. Counts per status in `totals` |
+| `GET /fac/jobs/{jobId}` | `F:fac.jobs.view|fac.dashboard.view` | `FacJobSummary` + timeline (newest first: updates with photos and undo marks, holds/releases, corrections, master edits) + the 14 most recent previous cycles `{ sequence, periodOrDue, completedOn, onTime: 'onTime' | 'late' | 'missed' | 'noDueDate', lateDays }` and `moreCycles: boolean` (read-only for Management). Resource rule (D-140): a caller with `fac.dashboard.view` but without `fac.jobs.view` may read only an **active** job (the population of the dashboard, s4.25), because this is the detail a dashboard row opens (SOW V2 5.5.7); a closed or deactivated job then returns 404 `not_found` |
+| `GET /fac/jobs/{jobId}/cycles?limit=&cursor=` | `F:fac.jobs.view` | all cycles (paged); FAC Jobs tab only (D-140) |
 | `GET /fac/lists` | `F:fac.jobs.view|fac.dashboard.view|admin.access` | active disciplines, types, frequencies and the FAC Team users selectable as PIC (display names only) |
 
 ### 4.23 FAC commands (V2: S23-S25, S28)
@@ -594,7 +596,7 @@ All POSTs carry an Idempotency-Key. Concurrency: job `version` for master/hold c
 | Method and path | Policy | Purpose / acceptance |
 | --- | --- | --- |
 | `POST /fac/photo-uploads` | `F:fac.work|fac.masterList.manage|fac.oneTimeJobs.add`; Idempotency-Key; `multipart/form-data` (`file`) | Stage one photo: `{ uploadId, expiresUtc, width, height, bytes }`; 413 `file_too_large` (> 10 MiB); 415 `unsupported_media_type` (extension and signature must both be JPEG or PNG); 422 `validation_failed` (undecodable, > 50 MP, unsafe filename) (FAC09). The phone UI uses `<input type="file" accept="image/jpeg,image/png" capture="environment">` |
-| `GET /fac/photos/{photoId}/content?size=full|thumb` | `F:fac.dashboard.view|fac.jobs.view`; removed photos `F:fac.work.admin` | Streams the re-encoded image; `private, no-cache`, sha256 ETag, `nosniff`; unknown/guessed/removed IDs 404 `not_found` (FAC09, FDB06) |
+| `GET /fac/photos/{photoId}/content?size=full|thumb` | `F:fac.dashboard.view|fac.jobs.view`; removed photos `F:fac.work.admin`; with `fac.dashboard.view` alone only photos of active jobs (D-140) | Streams the re-encoded image; `private, no-cache`, sha256 ETag, `nosniff`; unknown/guessed/removed IDs 404 `not_found` (FAC09, FDB06) |
 | `POST /fac/photos/{photoId}/remove` | `F:fac.work` (uploader, same business day) or `F:fac.work.admin` (any, reason required) | `{ reason: string | null }`; marks removed; content retained (FAC09) |
 
 ### 4.25 FAC Dashboard (V2: S27)
@@ -644,7 +646,7 @@ All need `F:export.excel` **plus** the list's view feature (DATA s14.4, s19). Ea
 
 | Method and path | View feature | Columns |
 | --- | --- | --- |
-| `GET /exports/fac-jobs.xlsx?<s4.22 filters>` | `fac.jobs.view` or `fac.dashboard.view` | DATA s19 FAC jobs |
+| `GET /exports/fac-jobs.xlsx?<s4.22 filters>` | `fac.jobs.view` | DATA s19 FAC jobs. The export belongs to the FAC Jobs tab (SOW V2 5.6); the dashboard has no export (SOW V2 5.5), so `fac.dashboard.view` alone does not allow it (D-140) |
 | `GET /exports/eq-special-jobs.xlsx?<s4.7 filters>` | `eq.jobs.view` | DATA s19 EQ special jobs |
 | `GET /exports/zmms-daily-jobs.xlsx?<s4.17 daily-job filters>` | `eq.jobs.view` | DATA s19 ZMMS daily jobs |
 | `GET /exports/spare-parts.xlsx?<s4.17 spare-part filters>` | `eq.jobs.view` | DATA s19 spare-part register |
