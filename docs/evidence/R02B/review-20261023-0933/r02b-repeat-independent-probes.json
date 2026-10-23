@@ -1,0 +1,44 @@
+{
+  "reviewedCommit": "e48b38d",
+  "generatedUtc": "2026-10-23T04:00:47.751Z",
+  "boundary": "Independent inspection of unchanged prototype scripts loaded into an isolated Node VM. Synthetic in-memory state only. No browser, network, database or source writes.",
+  "hiddenTabReproduction": {
+    "reopened": true,
+    "matrixSaved": true,
+    "persona": "management",
+    "eqJobsFeature": false,
+    "eqFleetFeature": true,
+    "historyRefusedStatus": 403,
+    "currentSpecialSucceeded": true,
+    "exposed": {
+      "jobId": "job-101",
+      "workStatus": "current",
+      "completedOn": "2026-08-12",
+      "completionNote": "Motor replaced and alignment checked (synthetic).",
+      "description": "Synthetic example job.",
+      "eventKinds": [
+        "created",
+        "completed",
+        "reopened"
+      ],
+      "correctionsFieldPresent": true
+    }
+  },
+  "filteredKpiReproduction": {
+    "url": "http://127.0.0.1:5312/?role=management#/fac/dashboard?discipline=electrical",
+    "all": {
+      "active": 114,
+      "onTimePct": 75,
+      "onTimeN": 8,
+      "onTimeOk": 6
+    },
+    "electrical": {
+      "active": 18,
+      "onTimePct": 75,
+      "onTimeN": 8,
+      "onTimeOk": 6
+    },
+    "expectedElectricalEligibleCycles": 0,
+    "expectedElectricalOnTimePct": null
+  }
+}

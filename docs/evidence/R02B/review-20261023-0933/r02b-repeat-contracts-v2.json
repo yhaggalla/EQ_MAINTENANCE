@@ -1,0 +1,229 @@
+{
+  "tool": "tools/p01b/check_contract_coverage_v2.py",
+  "passed": 15,
+  "total": 15,
+  "results": [
+    {
+      "check": "acceptance IDs in checklist v2.0 (expect 94)",
+      "passed": true,
+      "detail": 94
+    },
+    {
+      "check": "every acceptance ID mapped in ARCHITECTURE s15",
+      "passed": true,
+      "detail": {
+        "missing": []
+      }
+    },
+    {
+      "check": "S01-S29 each have an ownership row",
+      "passed": true,
+      "detail": {
+        "missing": []
+      }
+    },
+    {
+      "check": "D-19..D-44, D-89..D-128 defined in ARCHITECTURE s13",
+      "passed": true,
+      "detail": {
+        "missing": []
+      }
+    },
+    {
+      "check": "D-19..D-44, D-89..D-128 recorded once in DECISIONS.md",
+      "passed": true,
+      "detail": {
+        "missing": [],
+        "duplicated": []
+      }
+    },
+    {
+      "check": "cross-document section references resolve",
+      "passed": true,
+      "detail": {
+        "checked": 262,
+        "ownChecked": 92,
+        "broken": []
+      }
+    },
+    {
+      "check": "taxonomy facts used by the contracts",
+      "passed": true,
+      "detail": {
+        "main": 16,
+        "sub": 43,
+        "subActive": 41,
+        "reservedInactive": [
+          "048",
+          "063"
+        ],
+        "main10Absent": true,
+        "allStringCodes": true,
+        "061": "Spreader",
+        "062": "Headblock"
+      }
+    },
+    {
+      "check": "approved identifiers (four roles, display name) present",
+      "passed": true,
+      "detail": {
+        "ARCH": [],
+        "PORTAL": [],
+        "DATA": [],
+        "API": []
+      }
+    },
+    {
+      "check": "no secret material or ZMMS account value in contracts/decisions/evidence",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "check": "S18-S29 referenced in DATA/API",
+      "passed": true,
+      "detail": {
+        "missing": []
+      }
+    },
+    {
+      "check": "V2 acceptance IDs referenced in DATA/API",
+      "passed": true,
+      "detail": {
+        "count": 36,
+        "missing": []
+      }
+    },
+    {
+      "check": "DATA s6 matrix matches SOW V2 s3.2 ceilings and defaults (13 toggles)",
+      "passed": true,
+      "detail": {
+        "toggles": 13,
+        "mismatches": {},
+        "features": [
+          "admin.access",
+          "eq.fleet.view",
+          "eq.jobs.view",
+          "eq.work",
+          "eq.work.admin",
+          "export.excel",
+          "fac.dashboard.view",
+          "fac.jobs.view",
+          "fac.masterList.manage",
+          "fac.oneTimeJobs.add",
+          "fac.work",
+          "fac.work.admin"
+        ]
+      }
+    },
+    {
+      "check": "API feature policies use only DATA s6 features; API s1.1 lists all",
+      "passed": true,
+      "detail": {
+        "used": [
+          "admin.access",
+          "eq.fleet.view",
+          "eq.jobs.view",
+          "eq.work",
+          "eq.work.admin",
+          "export.excel",
+          "fac.dashboard.view",
+          "fac.jobs.view",
+          "fac.masterList.manage",
+          "fac.oneTimeJobs.add",
+          "fac.work",
+          "fac.work.admin"
+        ],
+        "unknown": [],
+        "listedInS1.1": 12
+      }
+    },
+    {
+      "check": "fac-job-list.json facts used by DATA s17",
+      "passed": true,
+      "detail": {
+        "counts": {
+          "sheetRows": 111,
+          "importJobs": 114
+        },
+        "frequencies": {
+          "daily": [
+            0,
+            1
+          ],
+          "weekly": [
+            0,
+            7
+          ],
+          "monthly": [
+            1,
+            0
+          ],
+          "quarterly": [
+            3,
+            0
+          ],
+          "tri-annually": [
+            4,
+            0
+          ],
+          "bi-annually": [
+            6,
+            0
+          ],
+          "annually": [
+            12,
+            0
+          ],
+          "2-years": [
+            24,
+            0
+          ],
+          "3-years": [
+            36,
+            0
+          ],
+          "5-years": [
+            60,
+            0
+          ],
+          "running-hours": [
+            null,
+            null
+          ],
+          "as-required": [
+            null,
+            null
+          ]
+        },
+        "labelsMissingInDATA17.1": [],
+        "row2": [
+          345,
+          414
+        ],
+        "row14": [
+          "continuous",
+          4,
+          4
+        ]
+      }
+    },
+    {
+      "check": "U1-C19 four crane-view tabs in DATA s18.1 and API s4.16",
+      "passed": true,
+      "detail": {
+        "dataTabs": [
+          "Maintenance",
+          "Projects/Special",
+          "Technical",
+          "Spare parts"
+        ],
+        "apiPaths": [
+          "/current-state/maintenance",
+          "/current-state/special",
+          "/current-state/technical",
+          "/current-state/spare-parts"
+        ]
+      }
+    }
+  ]
+}

@@ -4,6 +4,42 @@ Rolling handover for CICT EQ Maintenance. Each phase appends its record; the new
 
 ---
 
+## R02B independent repeat review - 23 October 2026
+
+### Runtime record
+
+| Item | Value |
+| --- | --- |
+| Recommended profile | Codex gpt-6-astra / high; Claude Code claude-opus-5-5 / high |
+| Actual client | Codex orchestrator delegating to fresh-context `eq-review-opus-high`; exact prompt `docs/runs/R02B-20261023-0909.md` |
+| Actual model / effort | Not independently exposed by the reviewer runtime; selected agent definition configures high effort. The profile name is not proof of the runtime model |
+| Fallback / escalation | None; same prescribed reviewer role |
+
+### Outcome
+
+**VERDICT: NEEDS FIXES.** Reviewed repair commit `e48b38d` on `main`. Full unchanged reviewer report: `docs/evidence/R02B/review-20261023-0933.md`. Durable sanitised outputs: `docs/evidence/R02B/review-20261023-0933/` (README maps original scratch paths). No implementation edits were made by this review.
+
+1. High: `EQ.currentSpecial` returns the raw reopened job, including previous completion fields, events and corrections, while EQ Jobs is disabled. Project an allowlisted current-state summary and test its payload (ACC02, S19, S07, HIS06). Earlier finding 1 is incomplete.
+2. Medium: FAC on-time KPI uses all jobs when the dashboard is filtered. Filter its eligible completion population and handle a zero denominator (FDB01, S27).
+
+Previous findings 2-7 are resolved within the reviewed scope. All formal real-application acceptance cases remain NOT RUN. The next step is **repair R02B**, then a fresh R02B review. U1 approval and P04 have not been reached.
+
+### Checks and evidence boundary
+
+Fresh independent checks: V2 coverage 15/15, V1 9/9, model validator 26/26, bindings 11/11, contrast 22/22, P02B 63 unique passing checks across valid runs, stable P02 59/59, P03 four-tab panel 8/8. The initial listeners disappeared during testing: four affected P02B checks were rerun successfully after restart; P02 received a complete stable rerun. Interrupted-run failures are retained and labelled as environmental failures. The full 41-check P03 model browser suite was **not rerun**; earlier results are prior evidence. Model/generator/viewer-core diff from `e5a4eec` is empty, and the live QC overview rendered. No live ZMMS, authentication, database, deployment or production acceptance was performed.
+
+Commands: phase prompt extracted with `powershell -NoProfile -ExecutionPolicy Bypass -File tools/extract-phase.ps1 -Phase R02B`; reviewer ran existing `tools/p01[b]/check_contract_coverage[_v2].py`, `tools/model-generator/validate.mjs`, `tools/p03/check_bindings.mjs`, `tools/p02b/check_contrast_v2.py`, `tools/p02b/check_p02b.mjs`, `tools/p02/check_prototype.mjs`, `tools/p02b/check_p03_panel.mjs`, with sanitised outputs in the evidence directory. Two independent unchanged-script probes reproduce the findings. Full evaluated requirement/acceptance IDs are in the report; U1-C01..C19 checks performed found no regressions.
+
+### Records and Git
+
+Changed by the orchestrator: this handover, `docs/IMPLEMENTATION_STATUS.md`, exact run prompt, full review report, evidence README and the nine reviewer-allowlisted JSON outputs. Branch `main`; reviewed HEAD `e48b38d`; review records committed separately after recording. `docs/DECISIONS.md` is unchanged because no new user decision was given. Original source authorities, Portal, runtime implementation and unrelated RTG work were preserved. Pre-existing `rtg-workbench/HANDOVER.md` edit remains unstaged, with its pre-review SHA-256 unchanged.
+
+Reviewer's owned localhost fixture servers: P02 port 5312 (PID 3364, session 14498); P03 port 5313 (PID 10448, session 39276). These are time-specific process references, not deployment state; recheck availability before reuse.
+
+Open business questions U-31/U-33 and P07B ZMMS discovery remain documented and do not block the repair. No new business information is needed for either finding.
+
+---
+
 ## Repair-R02B Findings 1-7 of the R02B review - 23 October 2026
 
 ### Runtime record

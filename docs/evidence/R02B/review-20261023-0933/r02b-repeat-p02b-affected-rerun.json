@@ -1,0 +1,55 @@
+{
+  "tool": "tools/p02b/check_p02b.mjs",
+  "browser": "Chrome/155.0.8059.85",
+  "date": "2026-10-23T03:53:50.979Z",
+  "note": "Prototype-level checks against the synthetic P02B prototype; not acceptance execution.",
+  "passed": 4,
+  "failed": 0,
+  "results": [
+    {
+      "id": "K01",
+      "covers": [
+        "OPS02",
+        "S16",
+        "FDB05",
+        "FDB06"
+      ],
+      "name": "Layout at 1920x1080, 1366x768, tablet (1024x768 and 768x1024) and phone (390x844): every new route has no horizontal page overflow, no console error, no accessibility-audit issue (names, ids, focus) and the section switch and tabs stay reachable",
+      "status": "PASS",
+      "detail": "80 route/size/persona combinations clean"
+    },
+    {
+      "id": "K02",
+      "covers": [
+        "FDB05",
+        "S27",
+        "OPS02"
+      ],
+      "name": "FAC Dashboard at 1366x768 (normal and TV) and at 1920x1080: lanes readable (row text >= 13 px, at least 4 rows visible per lane), TV mode fits the screen without page scroll; tablet shows lanes in one column; moving lists keep a steady speed at each size",
+      "status": "PASS",
+      "detail": "{\"out\":{\"1920x1080\":{\"normal\":{\"viewH\":352,\"rowH\":84,\"fs\":14.688,\"rowsVisible\":4,\"speed\":20.87890625},\"tv\":{\"sh\":1080,\"ih\":1080,\"sw\":1920,\"iw\":1920,\"parts\":true,\"rowH\":97,\"rowsVisible\":5}},\"1366x768\":{\"normal\":{\"viewH\":415,\"rowH\":84,\"fs\":14.688,\"rowsVisible\":4,\"speed\":20.87890625},\"tv\":{\"sh\":768,\"ih\":768,\"sw\":1366,\"iw\":1366,\"parts\":true,\"rowH\":97,\"rowsVisible\":3}}},\"tablet\":{\"cols\":1,\"sw\":768,\"iw\":768,\"mode\":\"scroll\"}}"
+    },
+    {
+      "id": "L04",
+      "covers": [
+        "ZM05",
+        "ZM06",
+        "S20",
+        "S21"
+      ],
+      "name": "Synthetic ZMMS and status history are self-consistent: every run's business date is the Asia/Colombo date of its start; every automatic or override-ended status row was written by a succeeded run of its own date at that run's end, with no reason and no user, and every automatic Breakdown/Maintenance lists causing ZMMS jobs from that run's plan; every Auto Breakdown/Maintenance equipment shows its causes; no daily job was created after now [Repair-R02B finding 2]",
+      "status": "PASS",
+      "detail": "{\"bad\":[],\"future\":[],\"automaticRows\":15,\"runsUsed\":4,\"days\":3,\"rtg06\":[\"maintenance\",\"Caused by ZMMS job 900122 in the plan of 22 Oct 2026\"]}"
+    },
+    {
+      "id": "L01",
+      "covers": [
+        "S16",
+        "S17"
+      ],
+      "name": "No page shows the words null, undefined, NaN or [object Object] and the prototype banner is on every route, for every persona",
+      "status": "PASS",
+      "detail": "120 page views clean"
+    }
+  ]
+}
