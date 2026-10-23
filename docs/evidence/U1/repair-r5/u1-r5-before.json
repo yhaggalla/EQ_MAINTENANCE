@@ -1,0 +1,82 @@
+{
+  "tool": "tools/p02b/check_u1_r5.mjs",
+  "browser": "Chrome/155.0.8059.85",
+  "date": "2026-10-23T05:04:34.332Z",
+  "note": "Prototype-level checks of the U1 round 5 repair against the synthetic prototype; not acceptance execution.",
+  "passed": 0,
+  "failed": 6,
+  "results": [
+    {
+      "id": "R5-01",
+      "covers": [
+        "U1-C20",
+        "S08",
+        "ZM07",
+        "HIS06"
+      ],
+      "name": "EQ Jobs has four tabs - Special/Projects, Daily work (CMMS), EQ status, Spare parts condition; Special/Projects holds the special jobs only, Daily work (CMMS) holds the read-only ZMMS daily jobs only with \"ZMMS data from\", default today, earlier days by From/To; shared filters carry across the tabs",
+      "status": "FAIL",
+      "detail": "{\"navS\":\"Special & daily jobs*|EQ status|Spare parts condition\",\"navD\":\"Special & daily jobs*|EQ status|Spare parts condition\",\"special\":{\"board\":true,\"daily\":true,\"dailyTable\":true,\"heading\":\"Special jobs|Pending|Current|Completed|Daily maintenance jobs (from ZMMS, read-only)\"},\"daily\":{\"board\":true,\"daily\":true,\"fresh\":\"Daily maintenance jobs (from ZMMS, read-only)ZMMS data from \",\"ro\":0,\"rows\":8,\"addJob\":true},\"wantToday\":8,\"days\":7,\"carry\":true,\"mgmt\":{\"rows\":8,\"buttons\":0}}"
+    },
+    {
+      "id": "R5-02",
+      "covers": [
+        "U1-C20",
+        "U1-C19",
+        "S07"
+      ],
+      "name": "Crane view links follow the split: Maintenance \"Open in Jobs\" opens Daily work (CMMS) for the equipment and today; Projects/Special opens Special/Projects with the scope; the legacy /eq/jobs route still lands on Special/Projects",
+      "status": "FAIL",
+      "detail": "{\"maintenance\":\"#/eq/jobs/special?equipment=eq-qc-demo-01&from=2026-10-23&to=2026-10-23\",\"special\":\"#/eq/jobs/special?equipment=eq-qc-demo-01&scope=main&target=mi-q01-01\",\"legacy\":\"#/eq/jobs/special\"}"
+    },
+    {
+      "id": "R5-03",
+      "covers": [
+        "U1-C21",
+        "S09",
+        "S07",
+        "JOB01"
+      ],
+      "name": "Writers see \"Add special job\" in Special/Projects and in the crane view (whole equipment and any selection), pre-filled with the equipment and the selected mechanism/part; the job is created and appears as open; Management and FAC Team see no add action",
+      "status": "FAIL",
+      "detail": "EXCEPTION click: no element [data-fk=\"add-for-sel\"]"
+    },
+    {
+      "id": "R5-04",
+      "covers": [
+        "U1-C21",
+        "S22",
+        "SP01",
+        "SP04",
+        "ACC03",
+        "AUTH03"
+      ],
+      "name": "Add spare part (simulated server): EQ Team and Admin add a non-designated active position with type, condition, date, brand and expected life; the entry starts its history (source registerAdd); Management and FAC Team are refused (403); duplicates, inactive positions, future dates, invalid life, unknown type and Original over recorded history are refused and save nothing; Admin-only designation settings stay Admin-only",
+      "status": "FAIL",
+      "detail": "EXCEPTION eval failed: TypeError: P.add is not a function\n    at <anonymous>:7:53\n    at <anonymous>:30:660"
+    },
+    {
+      "id": "R5-05",
+      "covers": [
+        "U1-C21",
+        "S22",
+        "SP04",
+        "S07"
+      ],
+      "name": "Spare parts condition tab: \"Add spare part\" for EQ Team and Admin opens a form (equipment, main, sub, position, type, condition, date, brand, expected life); saving adds the row with its first history entry; the crane-view Spare parts tab offers the same action pre-filled with the selection (a non-designated part is pre-selected); Management sees neither",
+      "status": "FAIL",
+      "detail": "EXCEPTION click: no element [data-fk=\"add-spare\"]"
+    },
+    {
+      "id": "R5-06",
+      "covers": [
+        "U1-C21",
+        "S19",
+        "ACC01"
+      ],
+      "name": "Access matrix wording follows U1-C21: the EQ work row names adding spare parts (EQ Team and Admin fixed, FAC Team and Management not allowed); the Admin row keeps spare-part types and expected-life settings; no console errors on the changed screens",
+      "status": "FAIL",
+      "detail": "{\"ceil\":{\"admin\":\"F\",\"eqTeam\":\"F\",\"facTeam\":\"N\",\"management\":\"N\"},\"adminNote\":\"\",\"errs\":[]}"
+    }
+  ]
+}

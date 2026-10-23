@@ -10,7 +10,7 @@ window.EQ = window.EQ || {};
   const FEATURES = [
     ['eq.fleet.view', 'EQ Fleet tab and equipment detail (view)', { admin: 'F', eqTeam: 'F', facTeam: 'T1', management: 'T1' }],
     ['eq.jobs.view', 'EQ Jobs tab (view)', { admin: 'F', eqTeam: 'F', facTeam: 'T1', management: 'T1' }],
-    ['eq.work', 'EQ work: special jobs, status correction, spare-part condition', { admin: 'F', eqTeam: 'F', facTeam: 'N', management: 'N' }],
+    ['eq.work', 'EQ work: special jobs, status correction, add spare parts and update their condition (U1-C21)', { admin: 'F', eqTeam: 'F', facTeam: 'N', management: 'N' }],
     ['eq.work.admin', 'EQ corrections: reopen completed work, cancel any job, void register entries', { admin: 'F', eqTeam: 'N', facTeam: 'N', management: 'N' }],
     ['fac.dashboard.view', 'FAC Dashboard (view)', { admin: 'F', eqTeam: 'T1', facTeam: 'F', management: 'T1' }],
     ['fac.jobs.view', 'FAC Jobs tab (view)', { admin: 'F', eqTeam: 'T1', facTeam: 'F', management: 'T1' }],
@@ -19,7 +19,7 @@ window.EQ = window.EQ || {};
     ['fac.masterList.manage', 'FAC: manage the master job list (add, edit, deactivate recurring jobs)', { admin: 'F', eqTeam: 'N', facTeam: 'T0', management: 'N' }],
     ['fac.work.admin', 'FAC corrections: cycles, Admin due date, remove any photo', { admin: 'F', eqTeam: 'N', facTeam: 'N', management: 'N' }],
     ['export.excel', 'Export to Excel', { admin: 'F', eqTeam: 'T1', facTeam: 'T1', management: 'T1' }],
-    ['admin.access', 'Admin pages (EQ settings, FAC settings, Access)', { admin: 'F', eqTeam: 'N', facTeam: 'N', management: 'N' }],
+    ['admin.access', 'Admin pages (EQ settings incl. spare-part types and expected life, FAC settings, Access)', { admin: 'F', eqTeam: 'N', facTeam: 'N', management: 'N' }],
   ];
   const FEATURE_KEYS = FEATURES.map((f) => f[0]);
   const CEIL = Object.fromEntries(FEATURES.map((f) => [f[0], f[2]]));

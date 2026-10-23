@@ -1,0 +1,713 @@
+{
+  "tool": "tools/p02b/check_p02b.mjs",
+  "browser": "Chrome/155.0.8059.85",
+  "date": "2026-10-23T06:21:46.695Z",
+  "note": "Prototype-level checks against the synthetic P02B prototype; not acceptance execution.",
+  "passed": 63,
+  "failed": 0,
+  "results": [
+    {
+      "id": "A01",
+      "covers": [
+        "ACC01",
+        "S18"
+      ],
+      "name": "Top bar per persona: section switch, per-section tabs, Admin link, read-only chip, app name EQ & FAC Maintenance",
+      "status": "PASS",
+      "detail": "{\"admin\":{\"sw\":\"EQ*/FAC\",\"tabs\":\"Fleet|Jobs|Admin\",\"ro\":false,\"landing\":\"/eq/fleet\"},\"management\":{\"sw\":\"EQ*/FAC\",\"tabs\":\"Fleet|Jobs\",\"ro\":true,\"landing\":\"/eq/fleet\"},\"eqTeam\":{\"sw\":\"EQ*/FAC\",\"tabs\":\"Fleet|Jobs\",\"ro\":false,\"landing\":\"/eq/fleet\"},\"facTeam\":{\"sw\":\"EQ/FAC*\",\"tabs\":\"FAC Dashboard|FAC Jobs\",\"ro\":false,\"landing\":\"/fac/dashboard\"},\"eqfac\":{\"sw\":\"EQ*/FAC\",\"tabs\":\"Fleet|Jobs\",\"ro\":false,\"landing\":\"/eq/fleet\"},\"noAccess\":{\"sw\":\"\",\"tabs\":\"\",\"ro\":false,\"landing\":\"/no-access\"}}"
+    },
+    {
+      "id": "A02",
+      "covers": [
+        "ACC01",
+        "ACC05",
+        "S18"
+      ],
+      "name": "A user whose four view tabs are switched off sees the No access page (not an error): role text, no tabs, no switch, no 403 shell",
+      "status": "PASS",
+      "detail": "route /eq/fleet and /fac/jobs both show the No access page"
+    },
+    {
+      "id": "A03",
+      "covers": [
+        "ACC01",
+        "S18"
+      ],
+      "name": "First-visit landing: FAC Team lands on FAC Dashboard; EQ Team + FAC Team and every other role on EQ Fleet; last used tab restores; storage failure falls back to the role default",
+      "status": "PASS",
+      "detail": "{\"fac\":\"/fac/dashboard\",\"eqfac\":\"/eq/fleet\",\"mgmt\":\"/eq/fleet\",\"admin\":\"/eq/fleet\",\"last\":\"/fac/jobs\",\"stored\":\"[[\\\"eq-maintenance:last-route:u-eqfac:fac\\\",\\\"/fac/jobs\\\"],[\\\"eq-maintenance:last-route:u-eqfac\\\",\\\"/fac/jobs\\\"]]\",\"blocked\":\"/fac/dashboard\",\"errs\":[]}"
+    },
+    {
+      "id": "A04",
+      "covers": [
+        "ACC01",
+        "ACC02",
+        "S18"
+      ],
+      "name": "Section switch is hidden when only one section is permitted; a switched-off tab answers 403 feature_disabled on its direct route; Admin pages answer 403 forbidden_role",
+      "status": "PASS",
+      "detail": "{\"save\":true,\"tabs\":[\"Fleet\",\"Jobs\"],\"sw\":false,\"fac\":\"403 - This tab is not available for your roleThe feature \\\"FAC Dashboard (view)\\\" \",\"admin\":\"403 - EQ Maintenance Admin onlyThe Admin pages are for the app Admin. A hidden link is not\"}"
+    },
+    {
+      "id": "B01",
+      "covers": [
+        "ACC02",
+        "S19"
+      ],
+      "name": "Switching a view tab off for Management: the server refuses at once (403 feature_disabled), the UI follows at its next session read, exports and direct routes are blocked, the change is audited (actor, time, old -> new), switching it on restores access",
+      "status": "PASS",
+      "detail": "{\"before\":{\"tab\":true,\"srv\":null},\"serverRefusedAtOnce\":{\"api\":\"feature_disabled\",\"export\":403},\"afterTab\":false,\"log\":{\"version\":2,\"role\":\"management\",\"feature\":\"eq.jobs.view\",\"oldOn\":true,\"newOn\":false,\"reason\":\"check B01\",\"by\":\"u-admin\",\"at\":\"2026-10-23T06:13:02.371Z\"},\"restored\":true,\"note\":\"UI lag (60 s session read) is a design rule; a single browser page cannot show a stale second session\"}"
+    },
+    {
+      "id": "B02",
+      "covers": [
+        "ACC03",
+        "S19",
+        "AUTH03"
+      ],
+      "name": "The matrix never widens a Portal ceiling: Management write, FAC Team EQ write, EQ Team FAC write, any role Admin pages and any Admin cell are refused as a whole (422 access_cell_not_toggleable), nothing stored; only the 13 toggleable cells have switches",
+      "status": "PASS",
+      "detail": "{\"switches\":13,\"refused\":9,\"mixed\":[422,\"access_cell_not_toggleable\"],\"versionSame\":true,\"roles\":{\"management\":403,\"eqTeam\":403,\"facTeam\":403}}"
+    },
+    {
+      "id": "B03",
+      "covers": [
+        "ACC04",
+        "S19",
+        "S23"
+      ],
+      "name": "Granting FAC Team \"manage master list\" lets it add a recurring job through the API; revoking it makes the same request fail on the server",
+      "status": "PASS",
+      "detail": "{\"before\":[403,\"feature_disabled\"],\"grant\":true,\"after\":[true,\"Check job B03\"],\"revoke\":true,\"again\":[403,\"feature_disabled\"]}"
+    },
+    {
+      "id": "B04",
+      "covers": [
+        "ACC03",
+        "FAC11",
+        "AUTH03",
+        "S11"
+      ],
+      "name": "Role write matrix on the simulated server: Management refused for EQ and FAC writes; EQ Team refused for FAC writes and Admin pages; FAC Team refused for EQ writes and Admin pages; one-time FAC jobs allowed for FAC Team by default",
+      "status": "PASS",
+      "detail": "{\"management\":{\"eqJob\":403,\"eqStatus\":403,\"facHold\":403,\"facProgress\":403,\"zmmsSync\":403,\"access\":403,\"oneTime\":403},\"eqTeam\":{\"eqJob\":\"ok\",\"eqStatus\":\"ok\",\"facHold\":403,\"facProgress\":403,\"zmmsSync\":403,\"access\":403,\"oneTime\":403},\"facTeam\":{\"eqJob\":403,\"eqStatus\":403,\"facHold\":\"ok\",\"facProgress\":409,\"zmmsSync\":403,\"access\":403,\"oneTime\":\"ok\"}}"
+    },
+    {
+      "id": "B05",
+      "covers": [
+        "ACC02",
+        "S19",
+        "S07",
+        "HIS06"
+      ],
+      "name": "EQ Jobs off with Fleet on: history/list/record/export refuse; a reopened job exposes only allowlisted current fields and matching position IDs while retaining its source history; no job links or history render in the crane tabs [Repair-R02B round 2]",
+      "status": "PASS",
+      "detail": "{\"reads\":{\"history\":[403,\"feature_disabled\",false],\"part\":[403,\"feature_disabled\",false],\"jobs\":[403,\"feature_disabled\",false],\"job\":[403,\"feature_disabled\",false],\"exp\":403,\"current\":{\"ok\":true,\"open\":5,\"listsCompleted\":false,\"counts\":{\"pending\":3,\"current\":2,\"completed\":2,\"cancelled\":0},\"openInJobs\":null,\"reopened\":{\"job\":{\"id\":\"job-101\",\"number\":\"EQJ-2026-000101\",\"equipmentId\":\"eq-qc-demo-01\",\"level\":\"part\",\"mainId\":\"mi-q01-01\",\"subId\":\"si-q01-011\",\"positionId\":\"pp-q01-007\",\"kind\":\"replacement\",\"title\":\"Replace main hoist motor A\",\"workStatus\":\"current\",\"plannedOn\":\"2026-08-10\"},\"matchingLines\":[{\"positionId\":\"pp-q01-007\"}]},\"sourceHistoryKept\":true}},\"recordView\":\"403 - This tab is not available for your roleThe feature \\\"EQ Jobs tab (view)\\\" is switched \",\"boardView\":\"403 - This tab is not available for your roleThe feature \\\"EQ\",\"route\":\"403 - This tab is not available for your\",\"panel\":{\"maintenance\":{\"links\":0,\"plainNumbers\":0,\"offNote\":true},\"special\":{\"links\":0,\"plainNumbers\":5,\"offNote\":true},\"technical\":{\"links\":0,\"plainNumbers\":0,\"offNote\":false},\"spareParts\":{\"links\":0,\"plainNumbers\":0,\"offNote\":true}}}"
+    },
+    {
+      "id": "B06",
+      "covers": [
+        "ACC02",
+        "FAC12",
+        "S19",
+        "S27"
+      ],
+      "name": "FAC Jobs switched off for Management while the Dashboard stays on: the FAC Jobs list, the full cycle list and the FAC export are refused (403); a dashboard row opens the read-only dashboard detail of an active job without FAC Jobs actions; a deactivated job is 404 there; the FAC Jobs route answers 403 [Repair-R02B findings 1 and 7]",
+      "status": "PASS",
+      "detail": "{\"prep\":{\"victim\":\"fj-112\",\"deact\":true,\"save\":true},\"reads\":{\"list\":[403,\"feature_disabled\"],\"cycles\":[403,\"feature_disabled\"],\"exp\":[403,\"feature_disabled\"],\"detail\":[true,\"dashboard\"],\"deactivated\":[404,\"not_found\"]},\"href\":\"#/fac/dashboard/jobs/fj-12\",\"detail\":{\"note\":true,\"back\":true,\"actions\":0},\"route\":\"403 - This tab is not available for your roleThe feature \\\"FAC Jobs tab (view)\\\" i\",\"deactivatedOnDashboardRoute\":\"No FAC job with this link exists (404).\"}"
+    },
+    {
+      "id": "C01",
+      "covers": [
+        "U1-C19",
+        "S07",
+        "HIS06"
+      ],
+      "name": "Flat view right panel has exactly four tabs - Maintenance, Projects/Special, Technical, Spare parts - in a tablist; default Maintenance; every tab name fully visible at 1920 and 1366",
+      "status": "PASS",
+      "detail": "{\"1366\":{\"names\":\"Maintenance|Projects/Special|Technical|Spare parts\",\"selected\":\"maintenance\",\"clipped\":false,\"inside\":true},\"1920\":{\"names\":\"Maintenance|Projects/Special|Technical|Spare parts\",\"selected\":\"maintenance\",\"clipped\":false,\"inside\":true}}"
+    },
+    {
+      "id": "C02",
+      "covers": [
+        "U1-C19",
+        "S07",
+        "HIS06",
+        "SP04"
+      ],
+      "name": "The crane view shows current state only: no tab contains work history (completed jobs, installation events, status changes); each tab shows its own current content",
+      "status": "PASS",
+      "detail": "no history text in 16 tab/scope combinations"
+    },
+    {
+      "id": "C03",
+      "covers": [
+        "U1-C19",
+        "S07",
+        "HIS02",
+        "HIS06"
+      ],
+      "name": "Projects/Special lists exactly the open special jobs of the scope (equipment all, mechanism with descendants de-duplicated, part exact), counts open/completed/cancelled, completed jobs are counted not listed",
+      "status": "PASS",
+      "detail": "[{\"level\":\"whole\",\"want\":4,\"got\":4,\"uniq\":true,\"same\":true,\"tagsOk\":true},{\"level\":\"main\",\"want\":1,\"got\":1,\"uniq\":true,\"same\":true,\"tagsOk\":true},{\"level\":\"sub\",\"want\":1,\"got\":1,\"uniq\":true,\"same\":true,\"tagsOk\":true},{\"level\":\"part\",\"want\":1,\"got\":1,\"uniq\":true,\"same\":true,\"tagsOk\":true}]"
+    },
+    {
+      "id": "C04",
+      "covers": [
+        "U1-C19",
+        "ZM07",
+        "S20"
+      ],
+      "name": "Maintenance tab: today's ZMMS daily jobs of the equipment only, status with its source, 'ZMMS data from', same list for any selection, no earlier days, no history; unmapped equipment says Not linked to ZMMS",
+      "status": "PASS",
+      "detail": "{\"want\":[\"900101\",\"900102\"],\"nums1\":[\"900101\",\"900102\"],\"nums2\":[\"900101\",\"900102\"],\"earlierDaysExistButHidden\":1}"
+    },
+    {
+      "id": "C05",
+      "covers": [
+        "U1-C19",
+        "S22",
+        "SP04",
+        "SP03"
+      ],
+      "name": "Spare parts tab: current register rows inside the selection with condition, brand, replaced date, expected life, next predicted replacement and flags; no history; non-designated part says Not a major spare part",
+      "status": "PASS",
+      "detail": "{\"whole\":10,\"main\":5,\"none\":\"Current condition of the major spare parts registered for QC-DEMO-01 in this sel\"}"
+    },
+    {
+      "id": "C06",
+      "covers": [
+        "U1-C19",
+        "S07",
+        "HIS06"
+      ],
+      "name": "Technical tab: specification summary of the selected area (equipment, mechanism, part) with source-linked parameters; 63 m stays total lift height and the 46 / 45.5 m/min conflict stays visible",
+      "status": "PASS",
+      "detail": "{\"eq\":1548,\"main4\":true,\"part\":true}"
+    },
+    {
+      "id": "C07",
+      "covers": [
+        "U1-C19",
+        "S07",
+        "HIS06",
+        "VIS03"
+      ],
+      "name": "Open in Jobs: Projects/Special opens EQ Jobs with the same equipment and scope and shows the same scoped history (descendants de-duplicated, exact part); Spare parts opens the register scoped to the selection; Maintenance opens today's daily jobs",
+      "status": "PASS",
+      "detail": "{\"href\":\"#/eq/jobs/special?equipment=eq-qc-demo-01&scope=main&target=mi-q01-01\",\"histNums\":[\"EQJ-2026-000101\",\"EQJ-2026-000102\",\"EQJ-2026-000104\"],\"want\":[\"EQJ-2026-000101\",\"EQJ-2026-000102\",\"EQJ-2026-000104\"],\"href2\":\"#/eq/jobs/spare-parts?equipment=eq-qc-demo-01&main=mi-q01-01\",\"rows\":5,\"href3\":\"#/eq/jobs/daily?equipment=eq-qc-demo-01&from=2026-10-23&to=2026-10-23\"}"
+    },
+    {
+      "id": "C08",
+      "covers": [
+        "U1-C19",
+        "S16",
+        "OPS02"
+      ],
+      "name": "Tabs are keyboard-operable (arrow keys, Home/End, roving tab stop) and the selection model of the tree is unchanged by tab changes",
+      "status": "PASS",
+      "detail": "{\"a\":{\"h\":\"#/eq/equipment/eq-qc-demo-01?main=mi-q01-01&panel=special\",\"f\":\"tab-special\",\"tabs\":\"-1,0,-1,-1\"},\"e\":{\"h\":\"#/eq/equipment/eq-qc-demo-01?main=mi-q01-01&panel=spareParts\",\"f\":\"tab-spareParts\"},\"hm\":{\"h\":\"#/eq/equipment/eq-qc-demo-01?main=mi-q01-01&panel=maintenance\",\"f\":\"tab-maintenance\"}}"
+    },
+    {
+      "id": "C09",
+      "covers": [
+        "HIS05",
+        "S07"
+      ],
+      "name": "Late panel responses for a previous selection are discarded (out-of-order protection survives the four-tab panel)",
+      "status": "PASS",
+      "detail": "echo eq-qc-demo-01|special|part|pp-q01-008; DISCARDED logged: true"
+    },
+    {
+      "id": "D01",
+      "covers": [
+        "S02",
+        "S03",
+        "ZM05",
+        "OPS01"
+      ],
+      "name": "Fleet: every card shows the status source (Auto/Manual) and today's ZMMS daily-job count; the 'manual status, no telemetry' note is replaced by the automatic-status meaning; unmapped equipment is Manual and has no count",
+      "status": "PASS",
+      "detail": "{\"n\":16,\"auto\":9,\"manual\":7,\"unmapped\":6}"
+    },
+    {
+      "id": "D02",
+      "covers": [
+        "S02",
+        "S03",
+        "OPS01"
+      ],
+      "name": "Fleet Auto/Manual source filter reconciles with the cards; the manual correction held by QC-DEMO-04 shows Manual although it is mapped; freshness line shows ZMMS data from",
+      "status": "PASS",
+      "detail": "{\"man\":7,\"auto\":9,\"total\":16,\"q4\":[true,\"manualCorrection\"],\"fr\":\"ZMMS data from 23 Oct 2026 06:02\"}"
+    },
+    {
+      "id": "E01",
+      "covers": [
+        "S08",
+        "ZM07",
+        "HIS06",
+        "U1-C20"
+      ],
+      "name": "EQ Jobs Special/Projects and Daily work (CMMS) tabs (U1-C20 split of part 1): special jobs on their own tab, the read-only ZMMS daily jobs on the Daily work tab with \"ZMMS data from\"; unmatched equipment never listed here; filters (equipment, type, date range, search) apply to both lists and stay in the URL; earlier days are kept",
+      "status": "PASS",
+      "detail": "{\"nav\":\"Special/Projects*|Daily work (CMMS)|EQ status|Spare parts condition\",\"specialOnly\":true,\"dailyOnly\":true,\"ro\":0,\"today\":8,\"wantToday\":8,\"unmatchedHidden\":9,\"rtg\":3,\"rtgJobs\":3,\"allDays\":7,\"absent\":true,\"q2Only\":true,\"urlKeeps\":true}"
+    },
+    {
+      "id": "E02",
+      "covers": [
+        "S08",
+        "S21",
+        "ZM06",
+        "JOB13"
+      ],
+      "name": "EQ Jobs part 2 (EQ status): one row per active equipment with source and mode; EQ Team corrects with a mandatory reason (Manual for today), Back to automatic ends it; the status history lists source, actor or sync run and reason; Management has no action buttons",
+      "status": "PASS",
+      "detail": "{\"rows\":16,\"want\":16,\"after\":{\"s\":\"breakdown\",\"m\":\"manualCorrection\"},\"back\":{\"mode\":\"automatic\",\"status\":\"readyForOps\"},\"histKinds\":\"manualStatus:manual,manualStatus:manual,automatic:zmms,automatic:zmms,automatic:zmms,manualCorrection:manual,backToAutomatic:zmms\",\"mgmtButtons\":0}"
+    },
+    {
+      "id": "E03",
+      "covers": [
+        "S08",
+        "S22",
+        "SP03",
+        "SP04"
+      ],
+      "name": "EQ Jobs part 3 (spare parts condition): register per equipment with due-soon / overdue flags, flag filter, per-part history that keeps previous values after two edits; Management has no update buttons",
+      "status": "PASS",
+      "detail": "{\"rows\":22,\"want\":22,\"flags\":{\"over\":2,\"soon\":1,\"rowsOver\":2},\"overdueIds\":2,\"history\":3,\"craneShowsOnlyCurrent\":true,\"mgmtUpdate\":0}"
+    },
+    {
+      "id": "F01",
+      "covers": [
+        "ZM02",
+        "S20"
+      ],
+      "name": "A failed run (login failure, layout change, timeout, HTTP error) records itself, keeps every row and every status unchanged, marks the data stale and warns; \"ZMMS data from\" stays at the last good run",
+      "status": "PASS",
+      "detail": "{\"unchanged\":true,\"runs\":{\"login_failed\":[true,true,\"failed\",\"login_failed\"],\"layout_changed\":[true,true,\"failed\",\"layout_changed\"],\"timeout\":[true,true,\"failed\",\"timeout\"],\"http_error\":[true,true,\"failed\",\"http_error\"]},\"stale\":true,\"fleetFresh\":\"ZMMS data from 23 Oct 2026 06:02 · stale: latest sync failed (timeout)\"}"
+    },
+    {
+      "id": "F02",
+      "covers": [
+        "ZM05",
+        "S21"
+      ],
+      "name": "Automatic status: unmapped job-type values stop the status change for the equipment concerned and automatic mode cannot be switched on until mapped; after mapping a breakdown job gives Breakdown, a maintenance job Maintenance, nothing in the plan gives Ready for OPS, each with its causing ZMMS jobs",
+      "status": "PASS",
+      "detail": "{\"empty\":{\"changed\":false,\"applied\":0},\"autoRefused\":{\"ok\":false,\"status\":422,\"code\":\"zmms_mapping_incomplete\",\"message\":\"Automatic status cannot be switched on: Values seen in the latest run still have no effect: BreakDown, CM, PM, Defect, WireRope, Initialized, Added To Daily, Re-Added to Daily, Hold, Completed.\",\"fields\":{}},\"autoOn\":true,\"after\":{\"bd\":[\"breakdown\",\"zmms\",[\"900105\"]],\"ready\":[\"readyForOps\"],\"wire\":[\"maintenance\",[\"900107\"]],\"applied\":1,\"ranOk\":true}}"
+    },
+    {
+      "id": "F03",
+      "covers": [
+        "ZM06",
+        "S21",
+        "JOB13"
+      ],
+      "name": "Manual correction needs a reason, shows Manual, holds over the same day's second sync, returns to automatic at the first sync of the next day; Back to automatic ends it earlier; Management cannot correct",
+      "status": "PASS",
+      "detail": "{\"noReason\":\"validation_failed\",\"ok\":true,\"mode\":\"manualCorrection\",\"status\":\"breakdown\",\"afterSecondSync\":{\"status\":\"breakdown\",\"mode\":\"manualCorrection\",\"ev\":\"readyForOps\"},\"nextDay\":{\"status\":\"readyForOps\",\"mode\":\"automatic\",\"source\":\"zmms\",\"overrideCleared\":true,\"last\":\"overrideEnded\"},\"early\":{\"ok\":true,\"mode\":\"awaitingAuto\"},\"mgmt\":403}"
+    },
+    {
+      "id": "F04",
+      "covers": [
+        "ZM01",
+        "ZM03",
+        "S20"
+      ],
+      "name": "Rows are keyed by job number and date (a repeat creates no duplicate); a concurrent Sync now is refused as already running; unmatched rows stay in the queue and attach to equipment after Admin maps them without duplicates",
+      "status": "PASS",
+      "detail": "{\"upsert\":{\"new1\":1,\"new2\":0,\"upd2\":1,\"count\":1,\"added\":1},\"concurrent\":{\"ok\":true,\"status\":202,\"alreadyRunning\":true,\"runId\":99},\"map\":{\"ok\":true,\"attached\":3,\"rowsBefore\":3,\"total\":true,\"eqMapped\":true,\"nowMatched\":3,\"queueAfter\":5,\"unmatchedBefore\":6},\"dupMap\":\"validation_failed\"}"
+    },
+    {
+      "id": "F05",
+      "covers": [
+        "ZM02",
+        "ZM03",
+        "ZM05",
+        "S20",
+        "S21"
+      ],
+      "name": "Admin ZMMS page: sync times and Sync now, health with last success and a synthetic failed run, recent runs, equipment mapping with an ignore entry, unmatched queue, job type and status mapping, status evaluation; Management and EQ Team get 403",
+      "status": "PASS",
+      "detail": "{\"has\":{\"times\":true,\"health\":true,\"failed\":true,\"runs\":true,\"maps\":true,\"ignore\":true,\"unmatched\":true,\"values\":true,\"evalu\":true,\"syncNow\":true,\"synth\":true},\"runsAfter\":\"manual\"}"
+    },
+    {
+      "id": "F06",
+      "covers": [
+        "ZM06",
+        "S21"
+      ],
+      "name": "Back to automatic never sets a missing value: when today's evaluation stopped at unmapped values (RTG-DEMO-06, WireRope not mapped) it keeps the corrected value as awaiting today's ZMMS sync instead of applying a null status; with a computed evaluation it applies that value [Repair-R02B finding 3]",
+      "status": "PASS",
+      "detail": "{\"evW\":[null,\"unmappedValues\"],\"w\":{\"ok\":true,\"awaiting\":true,\"status\":\"breakdown\",\"mode\":\"awaitingAuto\",\"lastKind\":\"backToAutomatic\",\"lastSource\":\"manual\",\"lastStatus\":\"breakdown\"},\"evQ\":[\"readyForOps\",\"unchanged\"],\"q\":{\"ok\":true,\"awaiting\":false,\"status\":\"readyForOps\",\"mode\":\"automatic\"}}"
+    },
+    {
+      "id": "G01",
+      "covers": [
+        "SP03",
+        "S22"
+      ],
+      "name": "Prediction = replaced date + expected life (calendar months); Original uses the commissioning date; unknown commissioning date or life shows no prediction and never a fabricated date; due soon (90 days) and overdue flags are correct (independent recomputation)",
+      "status": "PASS",
+      "detail": "{\"n\":22,\"unknown\":9,\"bad\":[],\"noComm\":{\"cond\":\"original\",\"predicted\":null,\"why\":\"No prediction (commissioning date unknown)\"}}"
+    },
+    {
+      "id": "G02",
+      "covers": [
+        "SP01",
+        "S22",
+        "ADM02"
+      ],
+      "name": "Admin selects major spare parts per position with an expected life by type and a per-equipment override; the override changes only that equipment (another QC from the same template keeps its own register); undesignating hides the row but keeps history",
+      "status": "PASS",
+      "detail": "{\"before\":[120,120],\"after\":[{\"months\":12,\"source\":\"override\"},{\"months\":120,\"source\":\"type\"}],\"pred\":[\"2027-08-12\",\"2036-09-30\"],\"o\":true,\"hidden\":true,\"histKept\":true,\"badLife\":[422,\"validation_failed\"],\"eqTeam\":403,\"typeNoLife\":true,\"typeLife\":null}"
+    },
+    {
+      "id": "G03",
+      "covers": [
+        "SP02",
+        "S22",
+        "JOB05",
+        "JOB08",
+        "JOB06"
+      ],
+      "name": "Completing a Replacement special job writes the condition register in the same commit (brand, model, serial, replaced date from the line, history source jobCompletion); an invalid second line commits nothing at all; a retry with the same key replays and adds no history row",
+      "status": "PASS",
+      "detail": "{\"rollback\":{\"ok\":false,\"status\":\"pending\",\"events\":0,\"hist\":0,\"cond\":\"Synthetic Brakes\"},\"committed\":{\"ok\":true,\"cond\":\"replaced\",\"brand\":\"BrakeCo\",\"model\":\"BR-77\",\"serial\":\"BR-0001\",\"on\":true,\"src\":\"jobCompletion\",\"job\":true,\"remarks\":\"fitted with new pads\",\"newHist\":1,\"status\":\"readyForOps\"},\"retry\":{\"replayed\":true,\"hist\":1,\"events\":1}}"
+    },
+    {
+      "id": "G04",
+      "covers": [
+        "SP02",
+        "S22"
+      ],
+      "name": "The completion dialog for a Replacement job at a major spare part shows the condition notice and pre-fills nothing it does not know (no invented brand, serial or date)",
+      "status": "PASS",
+      "detail": "{\"desc\":\"\",\"sn\":\"\",\"mfr\":\"\"}"
+    },
+    {
+      "id": "H01",
+      "covers": [
+        "S27",
+        "FAC01",
+        "FAC02",
+        "FDB01"
+      ],
+      "name": "FAC Dashboard loads the 114 jobs of reference\\fac-job-list.json (by sheet row and split index) with clearly labelled synthetic progress; KPI strip with eight figures reconciling with the FAC Jobs list for the same filters; clicking a KPI filters the lanes and is kept in the URL",
+      "status": "PASS",
+      "detail": "{\"ref\":{\"ref\":114,\"app\":114,\"same\":true,\"byDisc\":{\"electrical\":18,\"mechanical\":55,\"civil\":41},\"refDisc\":{\"electrical\":18,\"mechanical\":55,\"civil\":41},\"qtyBlankToOne\":true},\"kpis\":{\"active\":\"114\",\"completed\":\"14\",\"inProgress\":\"7\",\"onHold\":\"2\",\"overdue\":\"7\",\"dueSoon\":\"5\",\"ontime\":\"75 %\",\"checks\":\"4 of 14\"},\"recon\":true,\"nOver\":7,\"overdue\":7}"
+    },
+    {
+      "id": "H02",
+      "covers": [
+        "S27",
+        "FDB02"
+      ],
+      "name": "Three discipline lanes (Electrical, Mechanical, Civil) in the order Overdue, On hold, In progress, Due soon, Pending, then completed in the last 7 days; each lane header carries a completion ring; rows show type icon, name, frequency, progress with quantity and %, due countdown, PIC, mode, picture or icon; status uses colour plus icon plus text",
+      "status": "PASS",
+      "detail": "{\"order\":{\"electrical\":{\"n\":18,\"mono\":true},\"mechanical\":{\"n\":55,\"mono\":true},\"civil\":{\"n\":36,\"mono\":true}},\"rings\":3,\"pics\":26,\"sample\":{\"icon\":true,\"name\":true,\"meta\":\"Service · Annually · Mahesh · In-house\",\"bar\":true,\"pill\":true,\"due\":\"Overdue 72 d\"},\"model\":\"electrical,18,6,18;mechanical,55,9,55;civil,41,20,36\"}"
+    },
+    {
+      "id": "H03",
+      "covers": [
+        "S27",
+        "FDB02"
+      ],
+      "name": "A status change glows briefly and the job moves to its new place; a new update slides into the live ticker and the latest-proof carousel; the due-load chart shows 8 weeks stacked by discipline",
+      "status": "PASS",
+      "detail": "{\"moved\":[29,2],\"grp\":\"frow g-hold glow\",\"glow\":2,\"tick\":[17,19],\"proof\":{\"n\":\"Photo 2 of 12\",\"caption\":\"Electrical Panel Board · 23 Oct 2026 · Synthetic FAC user A · synthetic photo\"},\"bars\":13,\"wk\":8}"
+    },
+    {
+      "id": "H04",
+      "covers": [
+        "S27",
+        "FDB04"
+      ],
+      "name": "Refreshing every 60 seconds patches in place: the DOM nodes of unchanged rows survive, the layout does not move (KPI strip, lane headers, ticker, proof and due-load boxes keep their rectangles), the scroll anchor is kept; the page says \"Updated hh:mm\"",
+      "status": "PASS",
+      "detail": "{\"moved\":[],\"survivors\":108,\"rows\":109,\"offsets\":[35.49205273437502,35.49205273437502],\"upd\":\"Updated 11:45 Asia/Colombo · refreshes every 60 s\"}"
+    },
+    {
+      "id": "H05",
+      "covers": [
+        "S27",
+        "FDB02",
+        "FDB03",
+        "S16"
+      ],
+      "name": "Moving lists run at a measured, steady speed (px/s from the Admin setting, readable), the ticker moves faster horizontally, and the loop is seamless",
+      "status": "PASS",
+      "detail": "{\"declaredPxPerSec\":20.9,\"measuredMean\":20.9,\"maxWindowDeviation\":\"0.2 %\",\"rowsPerMinute\":15,\"rowH\":84,\"tickerPxPerSec\":52.2,\"windows\":7}"
+    },
+    {
+      "id": "H06",
+      "covers": [
+        "S27",
+        "FDB03",
+        "S16"
+      ],
+      "name": "Hover and keyboard focus stop the lane or the ticker they are on, the Pause button stops everything, and releasing them resumes the motion",
+      "status": "PASS",
+      "detail": "{\"base\":{\"lane\":true,\"tick\":true},\"hover\":{\"lane\":false,\"tick\":true},\"released\":{\"lane\":true,\"tick\":true},\"tickerHover\":{\"lane\":true,\"tick\":false},\"focus\":{\"lane\":false,\"tick\":true},\"unfocused\":{\"lane\":true,\"tick\":true},\"tickerFocus\":{\"lane\":true,\"tick\":false},\"paused\":{\"lane\":false,\"tick\":false},\"resumed\":{\"lane\":true,\"tick\":true}}"
+    },
+    {
+      "id": "H07",
+      "covers": [
+        "S27",
+        "FDB03",
+        "S16",
+        "OPS02"
+      ],
+      "name": "No keyboard focus trap: one tab stop per lane and for the ticker (roving), Tab walks through the whole page and reaches the controls after the moving lists, Shift+Tab walks back, and arrows move inside a lane",
+      "status": "PASS",
+      "detail": "{\"stops\":{\"lanes\":[1,1,1],\"dupFocusable\":0,\"ticker\":1},\"perLaneTabStops\":[1,1,1],\"steps\":32,\"k\":[\"fj-81\",\"fj-80\",\"fj-81\"],\"back\":\"mechanical\"}"
+    },
+    {
+      "id": "H08",
+      "covers": [
+        "S27",
+        "FDB03",
+        "S16"
+      ],
+      "name": "Static accessible alternative: a collapsible full table of every dashboard job (skip link and Static view button), motion off in Static view, with every job reachable by link",
+      "status": "PASS",
+      "detail": "{\"rows\":109,\"want\":109,\"mode\":\"static\"}"
+    },
+    {
+      "id": "H09",
+      "covers": [
+        "S27",
+        "FDB03",
+        "S16"
+      ],
+      "name": "prefers-reduced-motion: the lanes flip a page every 8 seconds instead of scrolling (page indicator shown), the ticker is static, nothing scrolls continuously",
+      "status": "PASS",
+      "detail": "{\"mode\":\"flip\",\"ind\":\"Page 1 of 14\",\"pages\":[0,0,1],\"t\":[\"translateY(0px)\",\"translateY(-334.062px)\"],\"ind1\":\"Page 2 of 14\"}"
+    },
+    {
+      "id": "H10",
+      "covers": [
+        "S27",
+        "FDB05",
+        "S16"
+      ],
+      "name": "TV mode at 1920x1080: navigation hidden, larger text, the whole dashboard (KPIs, three lanes, ticker, proof, due load) fits one screen without page scroll, Exit TV mode works; management only (no anonymous dashboard)",
+      "status": "PASS",
+      "detail": "{\"fontNormal\":14.688,\"fontTv\":17.136,\"scrollHeight\":1080,\"innerHeight\":1080,\"parts\":[[\".kpis\",93,155],[\".lanes\",163,808],[\".ticker\",816,866],[\".proof\",874,1074],[\".load\",874,1074]],\"exited\":true}"
+    },
+    {
+      "id": "H11",
+      "covers": [
+        "S27",
+        "FDB04",
+        "OPS01"
+      ],
+      "name": "Stale and error states: a failed refresh keeps the last good data with \"Updated hh:mm\", a STALE marker and a warning; an error state shows no data and never presents jobs as completed; empty state explains the import",
+      "status": "PASS",
+      "detail": "{\"upd\":\"Updated 11:46 Asia/Colombo · refreshes every 60 s · STALE\",\"banner\":\"Showing the last good data from 11:46. The refresh at 11:46 \",\"rows\":218}"
+    },
+    {
+      "id": "H12",
+      "covers": [
+        "S27",
+        "FAC10",
+        "FDB01"
+      ],
+      "name": "Dashboard filters persist and restore; filtered on-time KPI shows Civil inspection 71%, 5/7, and Electrical no percentage with no eligible cycles; Clear filters resets [Repair-R02B round 2]",
+      "status": "PASS",
+      "detail": "{\"h1\":\"#/fac/dashboard?discipline=mechanical&type=inspection\",\"want\":33,\"shown\":\"33\",\"restored\":{\"d\":\"mechanical\",\"t\":\"inspection\",\"lanes\":1},\"cleared\":\"#/fac/dashboard\",\"electrical\":\"On time, 30 d-no cycles completed yet\",\"civilInspection\":\"On time, 30 d71 %5 of 7 cycles\"}"
+    },
+    {
+      "id": "H13",
+      "covers": [
+        "S27",
+        "FDB06",
+        "S16"
+      ],
+      "name": "Phone (390x844): KPI strip and one combined list without auto-scroll, lanes hidden, latest-proof carousel with thumbnails only, no horizontal scroll",
+      "status": "PASS",
+      "detail": "{\"mode\":\"combined\",\"comb\":\"block\",\"lanes\":\"none\",\"kpis\":8,\"kpiVisible\":true,\"rows\":109,\"sw\":390,\"iw\":390,\"proofImg\":true,\"ticker\":\"flex\"}"
+    },
+    {
+      "id": "I01",
+      "covers": [
+        "S28",
+        "FAC10"
+      ],
+      "name": "FAC Jobs opens on My work (overdue, due soon, in progress; own PIC first), then Board (Pending, In progress, On hold, Completed this cycle) and List; filters and search are kept in the URL and restore from the link",
+      "status": "PASS",
+      "detail": "{\"view\":\"My work*|Board|List\",\"mine\":27,\"ownFirst\":4,\"cols\":\"Pending|In progress|On hold|Completed (this cycle)\",\"colCounts\":[91,7,2,14],\"h1\":\"#/fac/jobs?view=list&discipline=civil&frequency=quarterly\",\"n1\":\"3 job(s) match. Export uses the same filters.\"}"
+    },
+    {
+      "id": "I02",
+      "covers": [
+        "S28",
+        "FAC05",
+        "FAC07",
+        "S25"
+      ],
+      "name": "One-tap Done today / Done this week completes the current cycle once (a repeat is refused, nothing double counted); same-day undo of the own last update works; undo of another user's update or after midnight is refused; Admin correction with a reason keeps the previous values",
+      "status": "PASS",
+      "detail": "{\"before\":0,\"after\":{\"done\":414,\"status\":\"completed\",\"btn\":false},\"again\":[false,\"cycle_already_completed\",414],\"wk\":[true,\"cycle_already_completed\",\"kind_frequency_mismatch\",2],\"und\":{\"other\":[403,\"not_update_author\"],\"late\":[409,\"undo_window_passed\"],\"own\":[true,0,1]},\"corr\":{\"noReason\":\"reason_required\",\"ok\":true,\"prev\":20,\"next\":10,\"reason\":\"Typed the wrong quantity (check I02)\",\"by\":\"u-admin\",\"before\":365,\"facTeam\":403}}"
+    },
+    {
+      "id": "I03",
+      "covers": [
+        "S25",
+        "FAC06",
+        "FAC03",
+        "FAC04"
+      ],
+      "name": "Update progress: partial updates accumulate; more than the remaining quantity and a future date are refused; reaching the quantity asks for confirmation and completes the cycle; the next due date follows the recorded completion date in calendar months and the next cycle opens (the job shows Completed, next due date, per DATA s17.11)",
+      "status": "PASS",
+      "detail": "{\"e0\":\"Update progress - Weighbridge maintenance0 of 3 done · 3 rem\",\"e1\":\"Update progress - Weighbridge maintenance0 of 3 done · 3 remaining · Due in 22 d\",\"e2\":\"Update progress - Weighbridge maintenance0 of 3 done · 3 remaining · Due in 22 d\",\"d1\":1,\"d2\":2,\"conf\":true,\"job\":{\"status\":\"completed\",\"done\":3,\"lastDone\":\"2026-10-23\",\"dueOn\":\"2026-11-23\",\"wantDue\":\"2026-11-23\",\"cycles\":[[1,\"completed\"],[2,\"open\"]],\"open\":1,\"ups\":3}}"
+    },
+    {
+      "id": "I04",
+      "covers": [
+        "S25",
+        "FAC08",
+        "S26",
+        "FAC09"
+      ],
+      "name": "Hold needs a reason, shows On hold, blocks progress updates and release restores the previous status; photos: camera capture input (JPG/PNG), at most 5 per update, oversized, disguised and traversal-named files refused",
+      "status": "PASS",
+      "detail": "{\"held\":{\"status\":\"onHold\",\"hold\":true,\"reason\":\"Area not released by OPS (check I04)\"},\"blocked\":[409,\"job_on_hold\"],\"dashHold\":\"onHold\",\"rel\":{\"status\":\"inProgress\",\"hold\":false},\"pe\":[\"Only JPG or PNG photos are acc\",\"The file type does not match a\",\"Photos can be at most 10 MB (4\",\"The file name contains path or\",\"ok\"],\"six\":[422,\"validation_failed\"],\"input\":{\"capture\":\"environment\",\"accept\":\"image/jpeg,image/png\",\"multiple\":true,\"label\":true}}"
+    },
+    {
+      "id": "I05",
+      "covers": [
+        "S28",
+        "FAC10"
+      ],
+      "name": "Job detail: fields, current cycle progress, timeline of updates with who/when/quantity/note/photos, previous cycles with On time / Late by n days, Admin correction visible",
+      "status": "PASS",
+      "detail": "{\"use\":\"fj-88\",\"uid\":\"fj-2\",\"imgs\":2,\"hasResult\":true}"
+    },
+    {
+      "id": "I06",
+      "covers": [
+        "S28",
+        "S23",
+        "ACC04",
+        "FAC11"
+      ],
+      "name": "One-time job form (FAC Team, default on): creates a job with no frequency or due date that closes on completion; EQ Team and Management have no add button; the export button exports exactly the filtered rows with the source columns plus the calculated ones",
+      "status": "PASS",
+      "detail": "{\"job\":{\"kind\":\"oneTime\",\"freq\":\"as-required\",\"due\":null,\"status\":\"pending\",\"id\":\"fj-n1\"},\"done\":{\"ok\":true,\"status\":\"completed\",\"open\":0,\"state\":\"closed\"},\"ex\":{\"cols\":[\"Section\",\"Internal Section\",\"Inspection/ Service\",\"Description\",\"Frequency\",\"Quantity\",\"Last Date\",\"Next Date\",\"PIC\",\"In-house/ Outsource\",\"Completion Progress\",\"Status\"],\"colsAll\":23,\"rows\":3,\"list\":3,\"btn\":true},\"exOff\":[403,\"feature_disabled\"],\"exNoView\":[403,\"feature_disabled\"]}"
+    },
+    {
+      "id": "I07",
+      "covers": [
+        "S28",
+        "S26",
+        "OPS02",
+        "FAC09"
+      ],
+      "name": "FAC Jobs on a phone (390x844): one column, filters folded, large one-tap buttons, the Update progress form is full screen with the camera control and no horizontal scroll",
+      "status": "PASS",
+      "detail": "{\"r\":{\"sw\":390,\"iw\":390,\"cols\":1,\"fold\":false,\"btnH\":44,\"nav\":\"flex\"},\"d\":{\"w\":390,\"h\":844,\"camVisible\":true,\"subH\":40,\"sw\":390,\"iw\":390}}"
+    },
+    {
+      "id": "J01",
+      "covers": [
+        "S23",
+        "FAC01",
+        "FAC02",
+        "ADM05"
+      ],
+      "name": "Admin FAC import preview: 114 jobs from 111 sheet rows, every row shown with how it will be saved (blank quantity 1, blank PIC/mode/dates stay blank, two-frequency rows as two jobs, row 14 On hold with its remark), the JSON's issues and known source issues (U-30) listed, nothing saved before Admin confirms, a re-run locked after progress",
+      "status": "PASS",
+      "detail": "{\"rows\":114,\"splits\":6,\"blankQ\":74,\"known\":7,\"issues\":6,\"wantIssues\":4,\"tiles\":[\"111sheet rows\",\"114jobs to create\"],\"dlg\":\"Confirm the FAC master-list importThis is a re-run. Progress has already been recorded on imported jobs, so the server r\"}"
+    },
+    {
+      "id": "J02",
+      "covers": [
+        "S23",
+        "ADM04",
+        "ACC04"
+      ],
+      "name": "Admin FAC master list: all jobs listed, add a recurring job, edit, deactivate with a reason (never delete, history kept) and reactivate; FAC Team sees no master-list controls unless the right is granted",
+      "status": "PASS",
+      "detail": "{\"rows\":30,\"total\":114,\"add\":[true,\"2027-01-03\"],\"off\":[\"reason_required\",true,\"deactivated\",true],\"blockedWhenOff\":[409,\"job_not_active\"],\"on\":[true,\"active\"],\"edit\":[true,true],\"ftBtn\":false}"
+    },
+    {
+      "id": "J03",
+      "covers": [
+        "S27",
+        "S24"
+      ],
+      "name": "Admin FAC settings: due-soon window, refresh interval and dashboard scroll speed are validated and applied (the dashboard speed follows the setting); the frequency list shows the seeded intervals (tri-annually 4 months, bi-annually 6 months)",
+      "status": "PASS",
+      "detail": "{\"r\":{\"bad\":[422,\"dueSoonDays,refreshSeconds,scrollPxPerSec\"],\"ok\":true,\"s\":{\"dueSoonDays\":10,\"refreshSeconds\":60,\"scrollPxPerSec\":30}},\"speed\":31.318359375,\"soon\":\"Due in 10 d\"}"
+    },
+    {
+      "id": "K01",
+      "covers": [
+        "OPS02",
+        "S16",
+        "FDB05",
+        "FDB06"
+      ],
+      "name": "Layout at 1920x1080, 1366x768, tablet (1024x768 and 768x1024) and phone (390x844): every new route has no horizontal page overflow, no console error, no accessibility-audit issue (names, ids, focus) and the section switch and tabs stay reachable",
+      "status": "PASS",
+      "detail": "80 route/size/persona combinations clean"
+    },
+    {
+      "id": "K02",
+      "covers": [
+        "FDB05",
+        "S27",
+        "OPS02"
+      ],
+      "name": "FAC Dashboard at 1366x768 (normal and TV) and at 1920x1080: lanes readable (row text >= 13 px, at least 4 rows visible per lane), TV mode fits the screen without page scroll; tablet shows lanes in one column; moving lists keep a steady speed at each size",
+      "status": "PASS",
+      "detail": "{\"out\":{\"1920x1080\":{\"normal\":{\"viewH\":352,\"rowH\":84,\"fs\":14.688,\"rowsVisible\":4,\"speed\":20.87890625},\"tv\":{\"sh\":1080,\"ih\":1080,\"sw\":1920,\"iw\":1920,\"parts\":true,\"rowH\":97,\"rowsVisible\":5}},\"1366x768\":{\"normal\":{\"viewH\":415,\"rowH\":84,\"fs\":14.688,\"rowsVisible\":4,\"speed\":20.87890625},\"tv\":{\"sh\":768,\"ih\":768,\"sw\":1366,\"iw\":1366,\"parts\":true,\"rowH\":97,\"rowsVisible\":3}}},\"tablet\":{\"cols\":1,\"sw\":768,\"iw\":768,\"mode\":\"scroll\"}}"
+    },
+    {
+      "id": "L04",
+      "covers": [
+        "ZM05",
+        "ZM06",
+        "S20",
+        "S21"
+      ],
+      "name": "Synthetic ZMMS and status history are self-consistent: every run's business date is the Asia/Colombo date of its start; every automatic or override-ended status row was written by a succeeded run of its own date at that run's end, with no reason and no user, and every automatic Breakdown/Maintenance lists causing ZMMS jobs from that run's plan; every Auto Breakdown/Maintenance equipment shows its causes; no daily job was created after now [Repair-R02B finding 2]",
+      "status": "PASS",
+      "detail": "{\"bad\":[],\"future\":[],\"automaticRows\":15,\"runsUsed\":4,\"days\":3,\"rtg06\":[\"maintenance\",\"Caused by ZMMS job 900122 in the plan of 22 Oct 2026\"]}"
+    },
+    {
+      "id": "L01",
+      "covers": [
+        "S16",
+        "S17"
+      ],
+      "name": "No page shows the words null, undefined, NaN or [object Object] and the prototype banner is on every route, for every persona",
+      "status": "PASS",
+      "detail": "120 page views clean"
+    },
+    {
+      "id": "L02",
+      "covers": [
+        "ZM04",
+        "S20",
+        "S15"
+      ],
+      "name": "The prototype never contacts ZMMS or any external host: every network request during a full walk-through is to 127.0.0.1 or a data URI; no account, password or token appears in the page, in browser storage or in the prototype source",
+      "status": "PASS",
+      "detail": "{\"requests\":25,\"external\":[],\"storage\":\"[[[\\\"eq-maintenance:last-route:u-mgmt:eq\\\",\\\"/eq/jobs/special\\\"],[\\\"eq-maintenance:last-route:u-mgmt:fac\\\",\\\"/fac/dashboard\\\"],[\",\"secretPatternHits\":[],\"zmmsUrlsInSource\":[]}"
+    },
+    {
+      "id": "L03",
+      "covers": [
+        "ZM01",
+        "ZM07",
+        "S20"
+      ],
+      "name": "The synthetic ZMMS daily-job fixtures follow the layout of the real daily export profiled on 22 Oct 2026 (documents\\Daily All Running Jobs_CMMS-LK-2026-10-22.xls, structure only): same column set, same vocabularies, equipment code formats, non-fleet items in the unmatched / ignored list; no description or personal data is copied",
+      "status": "PASS",
+      "detail": "{\"exportColumns\":24,\"types\":[\"Defect\",\"WireRope\",\"CM\",\"PM\",\"BreakDown\"],\"status\":[\"Completed\",\"Added To Daily\",\"Initialized\",\"Hold\",\"Re-Added to Daily\"],\"priority\":[\"Low\",\"Medium\",\"High\"],\"fixtureTypes\":[\"CM\",\"PM\",\"BreakDown\",\"WireRope\",\"Defect\"],\"fixtureStatus\":[\"Initialized\",\"Completed\",\"Added To Daily\",\"Re-Added to Daily\",\"Hold\"],\"nonFleetRows\":4,\"equipmentFormat\":\"LLddd\",\"copiedDescriptions\":0}"
+    }
+  ]
+}

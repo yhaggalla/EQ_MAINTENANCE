@@ -115,7 +115,7 @@ window.EQ = window.EQ || {};
   S$.counts = (rows) => ({ total: rows.length, overdue: rows.filter((r) => r.flag === 'overdue').length, dueSoon: rows.filter((r) => r.flag === 'dueSoon').length });
   S$.history = (posId) => Sd().history.filter((h) => h.posId === posId).sort((a, b) => b.rev - a.rev);
 
-  // ---------------------------------------------------------------- register actions (eq.work) and designation (admin.access)
+  // ---------------------------------------------------------------- register actions and Add spare part (eq.work, U1-C21); designation settings (admin.access)
   const nextRev = (posId) => Sd().history.filter((h) => h.posId === posId).length + 1;
   function pushHist(pos, source, before, after, reason) { Sd().history.push({ posId: pos.id, equipmentId: pos.equipmentId, rev: nextRev(pos.id), source, before, after, reason: reason || null, by: EQ.user().id, at: new Date().toISOString(), jobId: null }); }
   const snapshot = (r) => ({ condition: r.condition, replacedOn: r.replacedOn, brand: r.brand, model: r.model, serial: r.serial, remarks: r.remarks });
@@ -167,6 +167,48 @@ window.EQ = window.EQ || {};
     const before = snapshot(S$.row(posId)); Sd().remarks[posId] = (text || '').slice(0, 2000);
     pushHist(pos, 'registerRemarks', before, snapshot(S$.row(posId)), null); EQ.notify(); return { ok: true };
   };
+  /** Add spare part (U1-C21, DATA s16.3, API s4.18 POST /equipment/{id}/spare-parts): EQ Team and Admin (eq.work) add an active,
+   *  non-designated position of one equipment to its register and record its first condition in one atomic step. Nothing is saved
+   *  on any refusal. condition '' keeps an installation that is already recorded at the position (job or earlier register entry).
+   *  p = { equipmentId, posId, typeId, lifeMonths ('' = part-type default), condition ('original'|'replaced'|''), replacedOn, desc, brand, model, serial, remarks } */
+  S$.add = function add(p) {
+    const deny = EQ.access.srv('eq.work'); if (deny) return deny;
+    const pos = EQ.pos(p.posId); const eq = EQ.eq(p.equipmentId);
+    if (!pos || !eq) return fail(404, 'not_found', 'Unknown equipment or position.');
+    if (pos.equipmentId !== eq.id) return fail(422, 'target_not_in_equipment', 'The position does not belong to ' + eq.code + '.');
+    if (eq.lifecycle !== 'active') return fail(409, 'equipment_retired', eq.code + ' is not active.');
+    if (pos.state !== 'active') return fail(422, 'position_not_active', 'Only confirmed (active) positions can be added.');
+    if (Sd().designated[pos.id]) return fail(409, 'already_major_spare_part', pos.name + ' is already in the register of ' + eq.code + '. Use Update... to change its condition.');
+    const evs = EQ.state.D.events.filter((e) => e.positionId === pos.id && !e.voided).sort((a, b) => a.seq - b.seq);
+    const last = evs[evs.length - 1] || null;
+    const cond = p.condition || '';
+    if (cond === 'original' && last) return fail(409, 'position_has_installation_history', 'This position already has installation history, so it cannot be recorded as Original. Keep the recorded installation or record a replacement.');
+    const f = {}; const today = EQ.todayColombo();
+    const t = S$.typeOf(p.typeId);
+    if (!t || !t.active) f.typeId = 'Choose a spare-part type (an Admin maintains the types).';
+    const life = p.lifeMonths === '' || p.lifeMonths == null ? null : Number(p.lifeMonths);
+    if (life != null && !(Number.isInteger(life) && life >= 1 && life <= 600)) f.lifeMonths = 'Expected life must be a whole number of 1 to 600 months, or blank for the part-type default.';
+    if (!['original', 'replaced', ''].includes(cond) || (cond === '' && !last)) f.condition = 'Choose Original or Replaced.';
+    if (cond && !(p.desc || '').trim()) f.desc = 'Describe the installed item.';
+    if (cond === 'replaced') {
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(p.replacedOn || '') || p.replacedOn > today) f.replacedOn = 'Enter a fitted/replaced date that is not in the future (Asia/Colombo).';
+      else if (last && last.businessDate && p.replacedOn < last.businessDate) f.replacedOn = 'Earlier than the latest recorded replacement (' + EQ.fmtDate(last.businessDate) + ') (409 out_of_order_installation).';
+    }
+    if (Object.keys(f).length) return fail(422, 'validation_failed', 'Nothing was saved.', f);
+    // one transaction: designation + first condition + one history row
+    const prevHist = Sd().history.filter((x) => x.posId === pos.id).slice(-1)[0];
+    Sd().designated[pos.id] = { typeId: t.id, lifeOverride: life, addedBy: EQ.user().id };
+    const all = EQ.state.D.events.filter((e) => e.positionId === pos.id);
+    const item = () => ({ desc: p.desc.trim(), mfr: p.brand || null, partNo: p.model || null, serial: p.serial || null, qty: 1, uom: pos.uom });
+    if (cond === 'original') EQ.state.D.events.push({ id: 'ev-add-' + pos.id + '-' + all.length, positionId: pos.id, seq: all.length + 1, kind: 'baselineRecorded', businessDate: null, jobId: null, lineId: null, removedFromEventId: null, removedKnown: false, removedDesc: null, removedSerial: null, installed: item(), recordedUtc: new Date().toISOString(), recordedBy: EQ.user().id, voided: false });
+    if (cond === 'replaced') EQ.state.D.events.push({ id: 'ev-add-' + pos.id + '-' + all.length, positionId: pos.id, seq: all.length + 1, kind: 'conditionReplacement', businessDate: p.replacedOn, jobId: null, lineId: null, removedFromEventId: last ? last.id : null, removedKnown: !!last, removedDesc: last ? last.installed.desc : null, removedSerial: last ? last.installed.serial : null, installed: item(), recordedUtc: new Date().toISOString(), recordedBy: EQ.user().id, voided: false });
+    if (p.remarks) Sd().remarks[pos.id] = String(p.remarks).slice(0, 2000);
+    pushHist(pos, 'registerAdd', prevHist ? prevHist.after : null, { ...snapshot(S$.row(pos.id)), typeId: t.id, lifeOverride: life }, null);
+    EQ.log('audit: sparepart.add ' + eq.code + ' ' + pos.name); EQ.notify();
+    return { ok: true, row: S$.row(pos.id) };
+  };
+  /** Positions an EQ writer may add: active, not designated, of an active equipment, optionally inside a main/sub. */
+  S$.addable = (eqId, mainId, subId) => EQ.positionsOf(eqId).filter((p) => p.state === 'active' && !Sd().designated[p.id] && (!mainId || p.mainId === mainId) && (!subId || p.subId === subId));
   S$.designate = function designate(posId, p) {
     const deny = EQ.access.srv('admin.access'); if (deny) return deny;
     const pos = EQ.pos(posId); if (!pos) return fail(404, 'not_found', 'Unknown position.');
@@ -176,6 +218,7 @@ window.EQ = window.EQ || {};
     if (!p.on) { delete sp.designated[posId]; } else {
       const f = {};
       if (!S$.typeOf(p.typeId)) f.typeId = 'Choose a spare-part type.';
+      else if (!S$.typeOf(p.typeId).active && !(before && before.typeId === p.typeId)) f.typeId = 'This spare-part type is retired; choose an active type.';
       if (p.lifeOverride !== '' && p.lifeOverride != null && !(Number(p.lifeOverride) >= 1 && Number(p.lifeOverride) <= 600)) f.lifeOverride = 'Expected life must be 1 to 600 months.';
       if (Object.keys(f).length) return fail(422, 'validation_failed', 'Nothing was saved.', f);
       sp.designated[posId] = { typeId: p.typeId, lifeOverride: p.lifeOverride === '' || p.lifeOverride == null ? null : Number(p.lifeOverride) };
@@ -194,6 +237,44 @@ window.EQ = window.EQ || {};
     const deny = EQ.access.srv('admin.access'); if (deny) return deny;
     const t = S$.typeOf(typeId); if (!t) return fail(404, 'not_found', 'Unknown type.');
     if (months !== '' && !(Number(months) >= 1 && Number(months) <= 600)) return fail(422, 'validation_failed', 'Expected life must be 1 to 600 months.', { life: 'Enter 1 to 600 months, or leave blank for none.' });
-    t.defaultLife = months === '' ? null : Number(months); EQ.log('audit: sparepart.typeLife ' + t.code + ' ' + t.defaultLife); EQ.notify(); return { ok: true };
+    const before = t.defaultLife;
+    t.defaultLife = months === '' ? null : Number(months); typeLog(t, 'life', { defaultLife: before }, { defaultLife: t.defaultLife });
+    EQ.log('audit: sparepart.typeLife ' + t.code + ' ' + t.defaultLife); EQ.notify(); return { ok: true };
+  };
+  // ---------------------------------------------------------------- U1-C22: Admin adds, edits and retires spare-part types (API s4.19)
+  function typeLog(t, action, before, after) { (Sd().typeLog = Sd().typeLog || []).unshift({ typeId: t.id, code: t.code, action, before, after, by: EQ.user().id, at: new Date().toISOString() }); }
+  const lifeErr = (v) => (v === '' || v == null ? null : (Number.isInteger(Number(v)) && Number(v) >= 1 && Number(v) <= 600 ? null : 'Enter a whole number of 1 to 600 months, or leave blank for none.'));
+  /** POST /admin/spare-part-types: { code, name, defaultLife } - code immutable and unique (409 duplicate_code). */
+  S$.addType = function addType(p) {
+    const deny = EQ.access.srv('admin.access'); if (deny) return deny;
+    const code = String(p.code || '').trim(); const name = String(p.name || '').trim(); const f = {};
+    if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(code) || code.length > 32) f.code = 'Use lowercase letters, digits and hyphens, at most 32 characters (for example boom-hoist-motor).';
+    else if (Sd().types.some((t) => t.code === code)) return fail(409, 'duplicate_code', 'A spare-part type with code ' + code + ' already exists.', { code: 'Already exists.' });
+    if (!name) f.name = 'Enter the type name.'; else if (name.length > 200) f.name = 'At most 200 characters.';
+    else if (Sd().types.some((t) => t.name.toLowerCase() === name.toLowerCase())) f.name = 'Another type has this name.';
+    const le = lifeErr(p.defaultLife); if (le) f.defaultLife = le;
+    if (Object.keys(f).length) return fail(422, 'validation_failed', 'Nothing was saved.', f);
+    const t = { id: 'spt-' + code, code, name, defaultLife: p.defaultLife === '' || p.defaultLife == null ? null : Number(p.defaultLife), active: true, origin: 'admin' };
+    Sd().types.push(t); typeLog(t, 'added', null, { name, defaultLife: t.defaultLife });
+    EQ.log('audit: sparepart.type.add ' + code); EQ.notify(); return { ok: true, type: t };
+  };
+  /** PUT /admin/spare-part-types/{id}: name (code never changes); prior value kept in the type log. */
+  S$.renameType = function renameType(typeId, name) {
+    const deny = EQ.access.srv('admin.access'); if (deny) return deny;
+    const t = S$.typeOf(typeId); if (!t) return fail(404, 'not_found', 'Unknown type.');
+    name = String(name || '').trim();
+    if (!name || name.length > 200) return fail(422, 'validation_failed', 'Enter a type name of at most 200 characters.', { name: 'Enter a name.' });
+    if (Sd().types.some((x) => x !== t && x.name.toLowerCase() === name.toLowerCase())) return fail(422, 'validation_failed', 'Another type has this name.', { name: 'Another type has this name.' });
+    if (name === t.name) return { ok: true };
+    const before = t.name; t.name = name; typeLog(t, 'renamed', { name: before }, { name });
+    EQ.log('audit: sparepart.type.rename ' + t.code); EQ.notify(); return { ok: true };
+  };
+  /** POST /admin/spare-part-types/{id}/deactivate|activate: a retired type is not offered for new spare parts; designated positions keep it. */
+  S$.setTypeActive = function setTypeActive(typeId, active) {
+    const deny = EQ.access.srv('admin.access'); if (deny) return deny;
+    const t = S$.typeOf(typeId); if (!t) return fail(404, 'not_found', 'Unknown type.');
+    if (t.active === !!active) return { ok: true };
+    t.active = !!active; typeLog(t, active ? 'reactivated' : 'retired', { active: !active }, { active: !!active });
+    EQ.log('audit: sparepart.type.' + (active ? 'activate' : 'deactivate') + ' ' + t.code); EQ.notify(); return { ok: true };
   };
 })(window.EQ);

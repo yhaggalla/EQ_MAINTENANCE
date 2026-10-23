@@ -15,7 +15,7 @@ Useful links (query parameters set the simulation; the hash is the route):
 | Link | Shows |
 | --- | --- |
 | `?role=<persona>` | persona: `admin`, `management`, `eqTeam`, `facTeam`, `eqfac` (EQ Team + FAC Team), `noAccess` (all tabs off) |
-| `#/eq/fleet`, `#/eq/jobs/special|status|spare-parts`, `#/eq/equipment/<id>?panel=maintenance|special|technical|spareParts` | EQ section |
+| `#/eq/fleet`, `#/eq/jobs/special|daily|status|spare-parts` (four tabs, U1-C20), `#/eq/equipment/<id>?panel=maintenance|special|technical|spareParts` | EQ section |
 | `?role=management#/fac/dashboard` (`&data=stale` / `error` / `empty`, `?tv=1`, `?motion=off`, `?discipline=..&type=..&focus=overdue`) | FAC Dashboard |
 | `?role=facTeam#/fac/jobs` (`?view=board|list`), `#/fac/jobs/fj-2` | FAC Jobs |
 | `?role=admin#/admin/access`, `#/admin/fac/master-list|import|settings`, `#/admin/eq/zmms|spare-parts` | Admin |

@@ -143,7 +143,7 @@ try {
     for (const r of [`/equipment/${Q1}`, '/jobs', '/fleet', `/equipment/${Q1}?part=pp-q01-007&sub=si-q01-011&main=mi-q01-01`]) {
       await go('management', r);
       const labels = await ev(`[...document.querySelectorAll('main button, main a.btn')].map(x=>x.textContent.trim())`);
-      const forbidden = labels.filter((l) => /^(Add job|Update status|Complete|Edit|Start|Return to Pending|Cancel\.\.\.|Register equipment|Add job for this selection)/.test(l));
+      const forbidden = labels.filter((l) => /^(Add job|Add special job|Add spare part|Update status|Complete|Edit|Start|Return to Pending|Cancel\.\.\.|Register equipment|Add job for this selection)/.test(l));
       if (forbidden.length) bad.push(r + ': ' + forbidden.join(','));
     }
     const chip = await text('.readonly-chip');

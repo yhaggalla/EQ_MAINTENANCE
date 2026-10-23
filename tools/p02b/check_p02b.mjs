@@ -303,24 +303,28 @@ try {
 
 
   // =============================================================== E. EQ Jobs tab in three parts
-  await step('E01', ['S08', 'ZM07', 'HIS06'], 'EQ Jobs part 1: special jobs first, the read-only ZMMS daily jobs below them with "ZMMS data from"; unmatched equipment never listed here; filters (equipment, type, date range, search) apply to both lists and stay in the URL; earlier days are kept', async () => {
+  // U1-C20 (round 5): the first part is split into two tabs, Special/Projects and Daily work (CMMS); the same checks run on each tab.
+  await step('E01', ['S08', 'ZM07', 'HIS06', 'U1-C20'], 'EQ Jobs Special/Projects and Daily work (CMMS) tabs (U1-C20 split of part 1): special jobs on their own tab, the read-only ZMMS daily jobs on the Daily work tab with "ZMMS data from"; unmatched equipment never listed here; filters (equipment, type, date range, search) apply to both lists and stay in the URL; earlier days are kept', async () => {
     await go('eqTeam', '/eq/jobs/special', {}, 700);
     const nav = await ev(`[...document.querySelectorAll('.subtabs a')].map(a=>a.textContent+(a.getAttribute('aria-current')==='page'?'*':'')).join('|')`);
-    const order = await ev(`(()=>{const sp=[...document.querySelectorAll('h2')].find(h=>h.textContent==='Special jobs'); const dj=document.getElementById('dj-h'); return !!sp && !!dj && !!(sp.compareDocumentPosition(dj) & Node.DOCUMENT_POSITION_FOLLOWING) && !!document.querySelector('.job')})()`);
+    const specialOnly = await ev(`!!document.querySelector('.job') && [...document.querySelectorAll('h2')].some(h=>h.textContent==='Special jobs') && !document.getElementById('dj-h')`);
+    await go('eqTeam', '/eq/jobs/daily', {}, 700);
+    const dailyOnly = await ev(`!!document.getElementById('dj-h') && !document.querySelector('.job')`);
     const fresh = await text('#daily'); const ro = await ev(`document.querySelectorAll('#daily .daily-table input, #daily .daily-table select, #daily .daily-table textarea, #daily .daily-table button').length`);
     const today = await ev(`[...document.querySelectorAll('.daily-table tbody tr')].map(r=>r.dataset.zjob)`);
     const wantToday = await ev(`EQ.zmms.jobsOn('${Q1}',EQ.todayColombo(),false).length + EQ.state.D.zmms.jobs.filter(j=>j.match==='matched' && j.date===EQ.todayColombo() && j.sourceState==='present' && j.equipmentId!=='${Q1}').length`);
     const unm = await ev(`EQ.state.D.zmms.jobs.filter(j=>j.match!=='matched' && j.date===EQ.todayColombo()).map(j=>j.jobNo)`);
     // filters
-    await go('eqTeam', `/eq/jobs/special?type=RTG`, {}, 600); const rtgRows = await ev(`[...document.querySelectorAll('.daily-table tbody tr')].map(r=>r.querySelector('td a').textContent)`); const rtgJobs = await ev(`[...document.querySelectorAll('.job')].map(j=>j.textContent.match(/(QC|RTG|ES)-DEMO-\\d+/)[1])`);
-    await go('eqTeam', `/eq/jobs/special?equipment=${Q1}&from=${'2000-01-01'}&to=2999-01-01`, {}, 600); const allDays = await ev(`new Set([...document.querySelectorAll('.daily-table tbody tr td:first-child')].map(t=>t.textContent)).size`);
-    await go('eqTeam', `/eq/jobs/special?equipment=${Q2}&from=${'2000-01-01'}&to=2999-01-01`, {}, 600);
+    await go('eqTeam', `/eq/jobs/daily?type=RTG`, {}, 600); const rtgRows = await ev(`[...document.querySelectorAll('.daily-table tbody tr')].map(r=>r.querySelector('td a').textContent)`);
+    await go('eqTeam', `/eq/jobs/special?type=RTG`, {}, 600); const rtgJobs = await ev(`[...document.querySelectorAll('.job')].map(j=>j.textContent.match(/(QC|RTG|ES)-DEMO-\\d+/)[1])`);
+    await go('eqTeam', `/eq/jobs/daily?equipment=${Q1}&from=${'2000-01-01'}&to=2999-01-01`, {}, 600); const allDays = await ev(`new Set([...document.querySelectorAll('.daily-table tbody tr td:first-child')].map(t=>t.textContent)).size`);
+    await go('eqTeam', `/eq/jobs/daily?equipment=${Q2}&from=${'2000-01-01'}&to=2999-01-01`, {}, 600);
     const absent = await ev(`!!document.querySelector('.daily-table tr.inactive') && [...document.querySelectorAll('.daily-table')].some(t=>/No longer in the ZMMS list/.test(t.textContent))`);
-    await go('eqTeam', `/eq/jobs/special?equipment=${Q2}`, {}, 600); const q2Only = await ev(`[...document.querySelectorAll('.daily-table tbody tr')].every(r=>r.querySelector('td a').textContent==='QC-DEMO-02')`);
-    const urlKeeps = await ev(`location.hash.includes('equipment=${Q2}')`);
+    await go('eqTeam', `/eq/jobs/daily?equipment=${Q2}`, {}, 600); const q2Only = await ev(`[...document.querySelectorAll('.daily-table tbody tr')].every(r=>r.querySelector('td a').textContent==='QC-DEMO-02')`);
+    const urlKeeps = await ev(`location.hash.includes('equipment=${Q2}') && [...document.querySelectorAll('.subtabs a')].every(a=>a.getAttribute('href').includes('equipment=${Q2}'))`);
     const listed = await ev(`(EQ.dailyRows({}).map(j=>j.jobNo))`);
-    return { ok: /Special & daily jobs\*\|EQ status\|Spare parts condition/.test(nav) && order && /ZMMS data from \d/.test(fresh) && ro === 0 && today.length === wantToday && !unm.some((n) => listed.includes(n)) && rtgRows.length >= 3 && rtgRows.every((c) => /^RTG-/.test(c)) && rtgJobs.every((c) => c === 'RTG') && allDays >= 3 && absent && q2Only && urlKeeps,
-      detail: JSON.stringify({ nav, order, ro, today: today.length, wantToday, unmatchedHidden: unm.length, rtg: rtgRows.length, rtgJobs: rtgJobs.length, allDays, absent }) };
+    return { ok: /^Special\/Projects\*\|Daily work \(CMMS\)\|EQ status\|Spare parts condition$/.test(nav) && specialOnly && dailyOnly && /ZMMS data from \d/.test(fresh) && ro === 0 && today.length === wantToday && !unm.some((n) => listed.includes(n)) && rtgRows.length >= 3 && rtgRows.every((c) => /^RTG-/.test(c)) && rtgJobs.length > 0 && rtgJobs.every((c) => c === 'RTG') && allDays >= 3 && absent && q2Only && urlKeeps,
+      detail: JSON.stringify({ nav, specialOnly, dailyOnly, ro, today: today.length, wantToday, unmatchedHidden: unm.length, rtg: rtgRows.length, rtgJobs: rtgJobs.length, allDays, absent, q2Only, urlKeeps }) };
   });
   await step('E02', ['S08', 'S21', 'ZM06', 'JOB13'], 'EQ Jobs part 2 (EQ status): one row per active equipment with source and mode; EQ Team corrects with a mandatory reason (Manual for today), Back to automatic ends it; the status history lists source, actor or sync run and reason; Management has no action buttons', async () => {
     await go('eqTeam', '/eq/jobs/status', {}, 700);

@@ -4,6 +4,60 @@ Rolling handover for CICT EQ Maintenance. Each phase appends its record; the new
 
 ---
 
+## Repair-U1 round 5 (U1-C20..U1-C22) - 23 October 2026
+
+### Runtime record
+
+| Item | Value |
+| --- | --- |
+| Recommended profile | Repair inheriting P01B/P02B: Codex gpt-6.1-sol/high or Claude Code claude-opus-5-5/high |
+| Client | Claude Code subagent eq-build-opus-high; exact prompt `docs/runs/Repair-U1r5-20261023-1028.md` (orchestrator-owned) |
+| Model / effort | claude-opus-5-5; effort high (per agent definition) |
+| Fallback / escalation | None. Resume of a first run that stopped at an API usage limit; its uncommitted partial work was inspected, kept and completed. U1-C22 was added by the user after that run |
+
+### Outcome
+
+Repair complete for U1-C20, U1-C21 and U1-C22. U1 was not repeated or approved by this run. Full report: `docs/evidence/U1/repair-r5-20261023.md`.
+
+- U1-C20: EQ Jobs has four tabs: Special/Projects, Daily work (CMMS), EQ status, Spare parts condition (D-147). Crane-view Maintenance "Open in Jobs" opens Daily work (CMMS).
+- U1-C21: "Add special job" everywhere, including the crane view for the whole equipment (D-148). EQ Team and Admin add spare parts with their first condition from Spare parts condition and the crane-view Spare parts tab (`eq.work`, D-149). This changes SOW V2 s4.6 / APPROVED_REQUIREMENTS, recorded as a supersession in DECISIONS; DATA s16, API s4.18 (`POST /equipment/{equipmentId}/spare-parts`) and the Access matrix wording follow. `documents/` was not edited.
+- U1-C22: Admin add/adjust in Mechanism catalogue, Main-part positions, Specifications and Spare parts, audited with previous values kept (D-150..D-153). Codes never change. `10` is never created, `061` Spreader / `062` Headblock names are fixed and `048`/`063` stay reserved. Positions are added as drafts, and their key and parent freeze on confirmation. Drawing observations are never edited. A retired spare-part type is not offered for new parts.
+- The R02B repairs (hidden-tab gating, current-state DTO, ZMMS sample consistency, FAC KPI) and U1-C01..C19 are unchanged; regression checks below.
+
+### Files changed
+
+Prototype: `artifacts/prototypes/p02-ui/js/{access,dialogs,panel-tabs,spares,store,views-admin,views-admin2,views-eqjobs,views-equipment}.js`, `artifacts/prototypes/p02-ui/README.md`. Contracts/records: `docs/{DATA_CONTRACT,API_CONTRACT,UX_SPEC,ARCHITECTURE,DECISIONS,IMPLEMENTATION_STATUS,HANDOVER}.md`. Tests: new `tools/p02b/check_u1_r5.mjs`; `tools/p02b/check_p02b.mjs` (E01 adapted to the four tabs); `tools/p02/check_prototype.mjs` (C12 label list extended). Evidence: `docs/evidence/U1/repair-r5-20261023.md`, `docs/evidence/U1/repair-r5/` (check JSON, regression JSON, contract coverage JSON, 8 screenshots, the first run's `u1-r5-before.json`).
+
+### Checks run and actual results
+
+| Check | Result |
+| --- | --- |
+| `tools/p02b/check_u1_r5.mjs` | 11/11 PASS |
+| `tools/p02b/check_p02b.mjs` full suite | 63/63 PASS after E01 was adapted. The first full run was 62/63, with E01 failing on the superseded one-page layout |
+| `tools/p02b/check_p03_panel.mjs` | 8/8 PASS (21 flat/3D comparisons) |
+| `tools/p02b/check_r02b_round2.mjs` | 10/10 PASS |
+| `tools/p02b/smoke.mjs` | completed without error output |
+| Contract coverage V1 / V2 | 9/9, 15/15 PASS |
+| `node --check` (changed JS), `git diff --check` (excluding `rtg-workbench/`) | clean |
+
+All of this is prototype and contract evidence only: synthetic in-memory data, a simulated persona and no authentication, database, live ZMMS, target environment or production. Formal acceptance remains NOT RUN. Not rerun: the old P02 suite (pre-P02B routes), contrast (no CSS change) and the P03 model checks (model unchanged).
+
+### Open issues and impact
+
+- U-35 (DECISIONS s3): should every delivered mechanism name be locked? As built, only `061`/`062` are locked and other names can be renamed with audit, with the source label kept. The user decides at the U1 repeat; this does not block anything.
+- Template-level position editing is in the contract (API s4.13) but not in the prototype.
+- The P03 3D page does not show in-memory Admin specification edits made in the P02 page. In production both views read API s4.16.
+
+### Git and boundaries
+
+Branch `main`, HEAD `faf40d0`; repair uncommitted for the orchestrator. `rtg-workbench/` and `RTG drawings/` were not read, edited or included; the pre-existing `rtg-workbench/HANDOVER.md` modification is someone else's work and was left alone. No `documents/`, Portal, deployment, SQL or ZMMS contact. The prototype servers on 5312/5313 were down at the start and were started from disk with `serve.mjs`.
+
+### Next prompt
+
+**U1 user checkpoint, repeated**: a walkthrough of round 5 (four EQ Jobs tabs, Add special job / Add spare part, Admin add/adjust) together with the earlier U1 items. The user's decision is recorded in DECISIONS s4 before P04.
+
+---
+
 ## R02B independent PASS after round-2 repair - 23 October 2026
 
 ### Runtime and outcome

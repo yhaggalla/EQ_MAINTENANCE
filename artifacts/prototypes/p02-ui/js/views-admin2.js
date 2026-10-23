@@ -220,26 +220,63 @@ window.EQ = window.EQ || {};
   }
 
   // ---------------------------------------------------------------- major spare parts (EQ settings)
+  // U1-C21: EQ Team and Admin add spare parts to a register (EQ Jobs / crane view). U1-C22: here an Admin adds, edits and retires the
+  // spare-part types and their expected life, adds parts to the register, changes type/life per equipment, edits register entries
+  // (the same register actions as EQ Jobs) and removes parts from the register. Every change is audited; history is kept.
   function spareSection(q) {
     const sp = EQ.state.D.spare;
     const eqs = EQ.state.D.equipment.filter((e) => e.lifecycle === 'active' && EQ.positionsOf(e.id).some((p) => p.state === 'active'));
     const eqId = q.equipment || ui.spareEq; const eq = EQ.eq(eqId) || eqs[0];
     const positions = EQ.positionsOf(eq.id).filter((p) => p.state === 'active').sort((a, b) => EQ.cmp(a.name, b.name));
-    const types = h('div', { class: 'panel table-wrap' }, h('table', null, h('caption', { class: 'sr-only' }, 'Spare-part types and default expected life'), h('thead', null, h('tr', null, ['Code', 'Type', 'Default expected life (months)', 'Designated positions'].map((c) => h('th', { scope: 'col' }, c)))),
-      h('tbody', null, sp.types.map((t) => h('tr', null, h('td', { class: 'mono' }, t.code), h('th', { scope: 'row' }, t.name), h('td', null, h('input', { type: 'number', min: 1, max: 600, value: t.defaultLife == null ? '' : t.defaultLife, placeholder: 'not set', 'aria-label': 'Default expected life in months for ' + t.name, 'data-fk': 'life-' + t.code, style: 'max-width:8rem', onChange: (e) => { const r = EQ.spares.setTypeLife(t.id, e.target.value); EQ.toast(r.ok ? 'Default life saved for ' + t.name : r.message, 'Prototype: in memory only.'); EQ.rerender(); } })), h('td', null, String(Object.values(sp.designated).filter((d) => d.typeId === t.id).length)))))));
+    const typeRow = (t) => h('tr', { class: t.active ? '' : 'inactive', 'data-type': t.code },
+      h('td', { class: 'mono' }, t.code),
+      h('th', { scope: 'row' }, h('input', { type: 'text', value: t.name, maxlength: 200, 'aria-label': 'Name of spare-part type ' + t.code, 'data-fk': 'type-name-' + t.code, onChange: (e) => { const r = EQ.spares.renameType(t.id, e.target.value); EQ.toast(r.ok ? 'Type renamed' : r.message, 'Prototype: in memory only; audited.'); EQ.rerender(); } }), t.origin === 'admin' ? h('span', { class: 'tag gold', style: 'margin-left:.35rem' }, 'Added by Admin') : null),
+      h('td', null, h('input', { type: 'number', min: 1, max: 600, value: t.defaultLife == null ? '' : t.defaultLife, placeholder: 'not set', 'aria-label': 'Default expected life in months for ' + t.name, 'data-fk': 'life-' + t.code, style: 'max-width:8rem', onChange: (e) => { const r = EQ.spares.setTypeLife(t.id, e.target.value); EQ.toast(r.ok ? 'Default life saved for ' + t.name : r.message, 'Prototype: in memory only.'); EQ.rerender(); } })),
+      h('td', null, String(Object.values(sp.designated).filter((d) => d.typeId === t.id).length)),
+      h('td', null, t.active ? h('span', { class: 'tag green' }, 'Active') : h('span', { class: 'tag' }, 'Retired')),
+      h('td', null, h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'type-act-' + t.code, onClick: () => { const r = EQ.spares.setTypeActive(t.id, !t.active); EQ.toast(r.ok ? t.name + (t.active ? ' reactivated' : ' retired: not offered for new spare parts; registered parts keep it') : r.message, 'Prototype: in memory only; audited.'); EQ.rerender(); } }, t.active ? 'Retire' : 'Reactivate')));
+    const types = h('div', { class: 'panel table-wrap' }, h('table', null, h('caption', { class: 'sr-only' }, 'Spare-part types and default expected life'), h('thead', null, h('tr', null, ['Code', 'Type', 'Default expected life (months)', 'Designated positions', 'State', 'Action'].map((c) => h('th', { scope: 'col' }, c)))),
+      h('tbody', null, sp.types.map(typeRow))));
     const rows = positions.map((p) => {
-      const d = sp.designated[p.id]; const st = { on: !!d, typeId: d ? d.typeId : sp.types[0].id, lifeOverride: d && d.lifeOverride != null ? String(d.lifeOverride) : '' };
+      const d = sp.designated[p.id]; const firstActive = (sp.types.find((t) => t.active) || sp.types[0]);
+      const st = { on: !!d, typeId: d ? d.typeId : firstActive.id, lifeOverride: d && d.lifeOverride != null ? String(d.lifeOverride) : '' };
+      const typeOpts = sp.types.filter((t) => t.active || t.id === st.typeId);
+      const row = d ? EQ.spares.row(p.id) : null;
       return h('tr', { 'data-pos': p.id },
         h('th', { scope: 'row' }, p.name, h('div', { class: 'small muted mono' }, p.key)),
         h('td', null, h('label', { class: 'check' }, h('input', { type: 'checkbox', checked: st.on ? true : null, 'data-fk': 'sp-on-' + p.id, 'aria-label': 'Major spare part: ' + p.name, onChange: (e) => { const r = EQ.spares.designate(p.id, { on: e.target.checked, typeId: st.typeId, lifeOverride: st.lifeOverride }); if (!r.ok) EQ.toast(r.message); EQ.rerender(); } }), st.on ? 'Major' : 'No')),
-        h('td', null, h('select', { 'aria-label': 'Spare-part type for ' + p.name, 'data-fk': 'sp-type-' + p.id, disabled: st.on ? null : true, onChange: (e) => { const r = EQ.spares.designate(p.id, { on: true, typeId: e.target.value, lifeOverride: st.lifeOverride }); if (!r.ok) EQ.toast(r.message); EQ.rerender(); } }, sp.types.map((t) => h('option', { value: t.id, selected: st.typeId === t.id ? true : null }, t.name)))),
+        h('td', null, h('select', { 'aria-label': 'Spare-part type for ' + p.name, 'data-fk': 'sp-type-' + p.id, disabled: st.on ? null : true, onChange: (e) => { const r = EQ.spares.designate(p.id, { on: true, typeId: e.target.value, lifeOverride: st.lifeOverride }); if (!r.ok) EQ.toast(r.message); EQ.rerender(); } }, typeOpts.map((t) => h('option', { value: t.id, selected: st.typeId === t.id ? true : null }, t.name + (t.active ? '' : ' (retired)'))))),
         h('td', null, h('input', { type: 'number', min: 1, max: 600, value: st.lifeOverride, placeholder: 'type default', 'aria-label': 'Expected life override in months for ' + p.name, 'data-fk': 'sp-life-' + p.id, disabled: st.on ? null : true, style: 'max-width:8rem', onChange: (e) => { const r = EQ.spares.designate(p.id, { on: true, typeId: st.typeId, lifeOverride: e.target.value }); EQ.toast(r.ok ? 'Expected life saved' : r.message); EQ.rerender(); } })),
-        h('td', null, st.on ? (EQ.spares.expectedLife(p.id).months != null ? EQ.spares.expectedLife(p.id).months + ' mo (' + EQ.spares.expectedLife(p.id).source + ')' : 'Not set') : '-'));
+        h('td', null, st.on ? (EQ.spares.expectedLife(p.id).months != null ? EQ.spares.expectedLife(p.id).months + ' mo (' + EQ.spares.expectedLife(p.id).source + ')' : 'Not set') : '-'),
+        h('td', null, row ? h('div', { class: 'row' }, h('span', { class: 'small' }, row.condition ? (row.condition === 'replaced' ? 'Replaced ' + EQ.fmtDate(row.replacedOn) : 'Original') : 'Not recorded'),
+          h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'sp-entry-' + p.id, 'aria-label': 'Edit register entry of ' + p.name, onClick: () => EQ.dlg.spare(row) }, icon('edit'), 'Edit entry'))
+          : h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'sp-add-' + p.id, 'aria-label': 'Add ' + p.name + ' with its condition', onClick: () => EQ.dlg.addSpare({ equipmentId: eq.id, main: p.mainId, sub: p.subId, part: p.id }) }, icon('plus'), 'Add with condition')));
     });
-    return h('div', { class: 'stack' }, h('h2', null, 'Major spare parts: selection and expected life'),
-      h('div', { class: 'notice info' }, icon('info'), h('p', null, 'An Admin marks which main-part positions are major spare parts (Q14). Each equipment keeps its own register over its own positions: two QCs from one template stay independent. Expected life is set per part type and can be changed per equipment. Types and lives are Admin decisions, not drawing facts: the values here are synthetic examples. Undesignating hides a position from the register; its history stays.')),
-      h('h3', null, 'Spare-part types'), types,
+    return h('div', { class: 'stack' }, h('div', { class: 'row between' }, h('h2', null, 'Major spare parts: types, expected life and register'),
+        h('button', { type: 'button', class: 'primary', 'data-fk': 'sp-admin-add', onClick: () => EQ.dlg.addSpare({ equipmentId: eq.id }) }, icon('plus'), 'Add spare part')),
+      h('div', { class: 'notice info' }, icon('info'), h('p', null, 'EQ Team and Admin add major spare parts to the register of an equipment from EQ Jobs > Spare parts condition or the crane view (U1-C21, replaces the Admin-only marking of SOW V2 s4.6). Here an Admin also adds, renames and retires the spare-part types and their default expected life, adds parts to the register (with or without a first condition), changes the type or the per-equipment life of any position, edits register entries with the same register actions as EQ Jobs and removes parts from the register (U1-C22). A retired type is not offered for new spare parts; registered parts keep it. Each equipment keeps its own register over its own positions: two QCs from one template stay independent. Types and lives are Admin decisions, not drawing facts: the values here are synthetic examples. Removing a part from the register hides it; its history stays. Every change is audited.')),
+      h('div', { class: 'row between' }, h('h3', null, 'Spare-part types'), h('button', { type: 'button', 'data-fk': 'type-add', onClick: () => addTypeDialog() }, icon('plus'), 'Add type')), types,
+      (sp.typeLog || []).length ? h('details', { class: 'panel panel-pad' }, h('summary', null, 'Type changes (' + sp.typeLog.length + ')'), h('ul', { class: 'tl' }, sp.typeLog.slice(0, 30).map((x) => h('li', { class: 'status' }, h('span', { class: 'small' }, x.code + ' ' + x.action + ': ', x.before ? h('s', null, JSON.stringify(x.before)) : null, ' -> ' + JSON.stringify(x.after) + ', ' + EQ.fmtInstantShort(x.at) + ' by ' + EQ.userName(x.by)))))) : null,
       h('div', { class: 'row between' }, h('h3', null, 'Positions of ' + eq.code), h('div', { class: 'field', style: 'min-width:14rem' }, h('label', { for: 'sp-eq' }, 'Equipment'), h('select', { id: 'sp-eq', 'data-fk': 'sp-eq', onChange: (e) => { ui.spareEq = e.target.value; EQ.nav('/admin/eq/spare-parts', { equipment: e.target.value }); } }, eqs.map((e) => h('option', { value: e.id, selected: e.id === eq.id ? true : null }, e.code))))),
-      h('div', { class: 'panel table-wrap' }, h('table', null, h('caption', { class: 'sr-only' }, 'Positions and spare-part designation'), h('thead', null, h('tr', null, ['Position', 'Major spare part', 'Type', 'Life override (months)', 'Effective life'].map((c) => h('th', { scope: 'col' }, c)))), h('tbody', null, rows))));
+      h('div', { class: 'panel table-wrap' }, h('table', null, h('caption', { class: 'sr-only' }, 'Positions and spare-part designation'), h('thead', null, h('tr', null, ['Position', 'Major spare part', 'Type', 'Life override (months)', 'Effective life', 'Register entry'].map((c) => h('th', { scope: 'col' }, c)))), h('tbody', null, rows))));
+  }
+  /** POST /admin/spare-part-types (API s4.19): code, name, default expected life. */
+  function addTypeDialog() {
+    const st = { code: '', name: '', defaultLife: '' }; let errors = {}, message = null;
+    return K().openDialog({ build(api) {
+      return {
+        title: 'Add spare-part type',
+        body: [message ? h('div', { class: 'notice error', role: 'alert' }, icon('alert'), h('p', null, message)) : null,
+          h('div', { class: 'notice info' }, icon('info'), h('p', null, 'The code never changes afterwards. The default expected life applies to every registered part of this type unless an equipment has its own life. Prototype: in memory only.')),
+          h('div', { class: 'grid-2' }, K().field('ty-code', 'Code', K().input(st, 'code', { maxlength: 32, autocomplete: 'off' }), { required: true, error: errors.code, hint: 'Lowercase letters, digits and hyphens, for example boom-hoist-motor.' }),
+            K().field('ty-name', 'Name', K().input(st, 'name', { maxlength: 200 }), { required: true, error: errors.name })),
+          K().field('ty-life', 'Default expected life (months)', K().input(st, 'defaultLife', { type: 'number', min: 1, max: 600, step: 1, style: 'max-width:9rem' }), { error: errors.defaultLife, hint: 'Blank = not set (no prediction until a life is set).' })],
+        foot: K().footButtons(api, 'Add type', () => {
+          const r = EQ.spares.addType(st);
+          if (r.ok) { api.close(r); EQ.toast('Spare-part type ' + st.name.trim() + ' added', 'Prototype: in memory only; audited.'); }
+          else { errors = r.fields || {}; message = r.code === 'validation_failed' ? null : r.message + ' (' + r.status + ' ' + r.code + ')'; api.render(); }
+        }),
+      };
+    } });
   }
 })(window.EQ);

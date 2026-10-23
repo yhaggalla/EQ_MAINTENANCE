@@ -12,12 +12,16 @@ window.EQ = window.EQ || {};
   EQ.subscribe = (fn) => subs.push(fn);
   EQ.notify = () => subs.forEach((f) => f());
   EQ.log = (msg) => { S.log.unshift(EQ.fmtTime(Date.now()) + '  ' + msg); S.log.length = Math.min(S.log.length, 60); };
-  EQ.reset = () => { S.D = EQ.buildFixtures(); EQ.buildV2(S.D); EQ.access.refreshSession('fixtures reset'); S.expanded = new Set(); S.refreshedAt = Date.now(); S.lastGoodAt = Date.now(); EQ.log('Fixtures reset (synthetic data restored)'); };
+  // U1-C22: the approved catalogue as loaded; a fixtures reset restores it in place (Admin additions and edits are in memory only).
+  const CAT0 = JSON.stringify(EQ.catalog || { mains: [], subs: [] });
+  const restoreCatalog = () => { const c = JSON.parse(CAT0); EQ.catalog.mains.splice(0, EQ.catalog.mains.length, ...c.mains); EQ.catalog.subs.splice(0, EQ.catalog.subs.length, ...c.subs); };
+  EQ.reset = () => { restoreCatalog(); S.D = EQ.buildFixtures(); EQ.buildV2(S.D); EQ.access.refreshSession('fixtures reset'); S.expanded = new Set(); S.refreshedAt = Date.now(); S.lastGoodAt = Date.now(); EQ.log('Fixtures reset (synthetic data restored)'); };
 
   EQ.user = () => EQ.USERS[S.role];
   // Server-side checks use the live Access matrix (EQ.access.srv); EQ.perm.* is what the UI shows from its session snapshot.
   const isWriter = () => !EQ.access.srv('eq.work');
   const isAdmin = () => !EQ.access.srv('eq.work.admin');
+  const isCfgAdmin = () => !EQ.access.srv('admin.access'); // configuration endpoints (API s4.12, s4.13, s4.19)
   EQ.perm = {
     write: () => EQ.access.has('eq.work'), admin: () => EQ.access.has('eq.work.admin'),
     /** Cancel: Admin any uncompleted job; EQ Team only own jobs and never a reopened (previously completed) job. */
@@ -339,17 +343,162 @@ window.EQ = window.EQ || {};
     },
     setCatalogActive(code, active) {
       if (!isAdmin()) return forbid();
-      const d = EQ.subDef(code); if (!d) return fail(404, 'not_found', 'Unknown code');
+      const d = EQ.subDef(code) || EQ.mainDef(code); if (!d) return fail(404, 'not_found', 'Unknown code');
       if (d.reserved) return fail(409, 'reserved_definition', code + ' is a reserved inactive entry. An Admin must first give it an explicit definition.');
-      S.D.catalogOverrides[code] = active; d.active = active; audit('catalog.sub.' + (active ? 'activate' : 'deactivate'), code); EQ.notify();
+      const level = EQ.subDef(code) ? 'sub' : 'main';
+      if (d.active === active) return { ok: true };
+      catLog(code, active ? 'activated' : 'deactivated', { active: !active }, { active }, null);
+      S.D.catalogOverrides[code] = active; d.active = active; audit('catalog.' + level + '.' + (active ? 'activate' : 'deactivate'), code); EQ.notify();
       return { ok: true };
     },
-    resolveParameter(code, value, reason) {
-      if (!isAdmin()) return forbid();
+    /** POST /admin/parameters/values (API s4.13; DATA s3.8): a new current value for the model scope; the prior value is kept
+     *  (superseded, never overwritten) and the drawing observations stay visible. basis: resolvedConflict | adminEntered. */
+    resolveParameter(code, value, reason, opts) {
+      if (!isCfgAdmin()) return forbid();
+      opts = opts || {};
+      const def = EQ.paramDef(code); if (!def) return fail(404, 'not_found', 'Unknown parameter.');
       if (!(reason || '').trim()) return fail(422, 'validation_failed', 'A reason is required.', { reason: 'Enter the reason / technical decision reference.' });
-      S.D.resolved = S.D.resolved || {}; S.D.resolved[code] = { value, reason: reason.trim(), by: EQ.user().id, at: new Date().toISOString() };
-      audit('parameter.resolve', code + ' = ' + value, reason); EQ.notify();
+      const f = {};
+      if (value == null || !String(value).trim()) f.value = 'Enter the value.'; else if (String(value).length > 100) f.value = 'At most 100 characters.';
+      if (opts.source != null && String(opts.source).length > 300) f.source = 'At most 300 characters.';
+      if (Object.keys(f).length) return fail(422, 'validation_failed', 'Nothing was saved.', f);
+      S.D.resolved = S.D.resolved || {}; S.D.paramHistory = S.D.paramHistory || {};
+      const prev = S.D.resolved[code];
+      if (prev) (S.D.paramHistory[code] = S.D.paramHistory[code] || []).unshift({ kind: 'value', ...prev, supersededAt: new Date().toISOString(), supersededBy: EQ.user().id });
+      const conflict = new Set((def.observations || []).map((o) => o.value)).size > 1;
+      S.D.resolved[code] = { value: String(value).trim(), reason: reason.trim(), source: String(opts.source || '').trim() || null, basis: opts.basis || (conflict ? 'resolvedConflict' : 'adminEntered'), by: EQ.user().id, at: new Date().toISOString() };
+      audit('parameter.value', code + ' = ' + String(value).trim() + (prev ? ' (was ' + prev.value + ')' : ''), reason); EQ.notify();
       return { ok: true };
+    },
+
+    // ---------------- U1-C22: Admin add/adjust in EQ settings (F:admin.access; every change audited, prior values kept) ----------------
+    /** POST /admin/catalog/main-mechanisms (API s4.12; DATA s3.1 C2): a new code chosen by Admin; never 10, never an existing code. */
+    addMainDef(p) {
+      if (!isCfgAdmin()) return forbid();
+      const code = String(p.code || '').trim(); const name = String(p.name || '').trim(); const f = {};
+      if (code === '10') return fail(422, 'code_unassigned_reserved', 'Main code 10 stays absent from the catalogue and cannot be created.', { code: 'Main code 10 stays absent from the catalogue.' });
+      if (!/^\d{2}$/.test(code) || code === '00') f.code = 'Enter a new two-digit main code as text, for example 18.';
+      else if (EQ.mainDef(code)) return fail(409, 'duplicate_code', 'Main code ' + code + ' already exists (' + EQ.mainDef(code).name + '). Codes are never reused or renumbered.', { code: 'Code ' + code + ' already exists.' });
+      if (!name) f.name = 'Enter a name.'; else if (name.length > 200) f.name = 'At most 200 characters.';
+      if ((p.description || '').length > 2000) f.description = 'At most 2000 characters.';
+      if (Object.keys(f).length) return fail(422, 'validation_failed', 'Nothing was saved.', f);
+      const d = { code, name, sourceName: null, description: String(p.description || '').trim() || null, active: true, origin: 'admin', nameDecision: 'admin_defined' };
+      EQ.catalog.mains.push(d); EQ.catalog.mains.sort((a, b) => a.code.localeCompare(b.code));
+      catLog(code, 'added', null, { name: d.name, description: d.description, active: true }, p.reason);
+      audit('catalog.main.add', code + ' ' + name, p.reason); EQ.notify(); return { ok: true, definition: d };
+    },
+    /** POST /admin/catalog/sub-mechanisms (API s4.12): code = parent main code + one digit, unique across the catalogue; parent immutable. */
+    addSubDef(p) {
+      if (!isCfgAdmin()) return forbid();
+      const code = String(p.code || '').trim(); const name = String(p.name || '').trim(); const m = EQ.mainDef(p.main); const f = {};
+      if (!m) f.main = 'Choose the main mechanism.';
+      else if (m.active === false) return fail(422, 'parent_inactive', 'Main ' + m.code + ' is inactive; activate it before adding submechanisms.', { main: 'The main mechanism is inactive.' });
+      if (!/^\d{3}$/.test(code)) f.code = 'Enter a three-digit code as text: the main code plus one digit.';
+      else if (m && !code.startsWith(m.code)) f.code = 'A submechanism code starts with its main code (' + m.code + 'x).';
+      else if (EQ.subDef(code)) return fail(409, 'duplicate_code', 'Code ' + code + ' already exists (' + EQ.defLabel(code) + '). Codes are never reused or renumbered.', { code: 'Code ' + code + ' already exists.' });
+      if (!name) f.name = 'Enter a name.'; else if (name.length > 200) f.name = 'At most 200 characters.';
+      if ((p.description || '').length > 2000) f.description = 'At most 2000 characters.';
+      if (Object.keys(f).length) return fail(422, 'validation_failed', 'Nothing was saved.', f);
+      const d = { code, main: m.code, name, sourceName: null, description: String(p.description || '').trim() || null, active: true, reserved: false, origin: 'admin', nameDecision: 'admin_defined' };
+      EQ.catalog.subs.push(d); EQ.catalog.subs.sort((a, b) => a.code.localeCompare(b.code));
+      catLog(code, 'added', null, { name: d.name, description: d.description, active: true }, p.reason);
+      audit('catalog.sub.add', code + ' ' + name + ' under ' + m.code, p.reason); EQ.notify(); return { ok: true, definition: d };
+    },
+    /** PUT /admin/catalog/{main|sub}-mechanisms/{id} (API s4.12; DATA s11): name and description, audited, prior values kept; code and
+     *  parent never change. 061 Spreader and 062 Headblock are user-confirmed names (21 Oct 2026) and stay; reserved 048/063 are refused. */
+    editDef(code, p) {
+      if (!isCfgAdmin()) return forbid();
+      const d = EQ.subDef(code) || EQ.mainDef(code); if (!d) return fail(404, 'not_found', 'Unknown code.');
+      if (d.reserved) return fail(422, 'reserved_definition', code + ' is a reserved inactive entry; it stays reserved until an explicit define-reserved decision.');
+      const name = String(p.name == null ? d.name : p.name).trim();
+      const desc = p.description == null ? (d.description || null) : (String(p.description).trim() || null);
+      const f = {};
+      if (LOCKED_NAMES[code] && name !== LOCKED_NAMES[code]) return fail(409, 'approved_name_locked', code + ' ' + LOCKED_NAMES[code] + ' is a user-confirmed name and is not renamed. Its description can be edited.', { name: 'The name ' + LOCKED_NAMES[code] + ' is fixed.' });
+      if (!name) f.name = 'Enter a name.'; else if (name.length > 200) f.name = 'At most 200 characters.';
+      if (desc && desc.length > 2000) f.description = 'At most 2000 characters.';
+      if (Object.keys(f).length) return fail(422, 'validation_failed', 'Nothing was saved.', f);
+      if (name === d.name && desc === (d.description || null)) return fail(422, 'no_change', 'Nothing changed.');
+      const before = { name: d.name, description: d.description || null };
+      d.name = name; d.description = desc; if (before.name !== name && d.nameDecision !== 'admin_defined') d.nameDecision = 'admin_renamed';
+      catLog(code, 'edited', before, { name, description: desc }, p.reason);
+      audit('catalog.' + (EQ.subDef(code) ? 'sub' : 'main') + '.edit', code + (before.name !== name ? ' "' + before.name + '" -> "' + name + '"' : ' description'), p.reason); EQ.notify(); return { ok: true };
+    },
+    /** POST /admin/equipment/{id}/positions (API s4.13; DATA s3.4 P2): a new DRAFT position of one equipment under one of its sub instances. */
+    addPosition(eqId, p) {
+      if (!isCfgAdmin()) return forbid();
+      const eq = EQ.eq(eqId); if (!eq) return fail(404, 'not_found', 'Unknown equipment.');
+      if (eq.lifecycle !== 'active') return fail(409, 'equipment_retired', eq.code + ' is not active.');
+      const f = posFields(eq, p, null);
+      if (f.status) return f;
+      if (Object.keys(f).length) return fail(422, 'validation_failed', 'Nothing was saved.', f);
+      const si = eq.subs.find((x) => x.id === p.subId);
+      const n = S.D.positions.filter((x) => x.equipmentId === eq.id && x.origin === 'admin').length + 1;
+      const pos = { id: 'pp-' + eq.key + '-a' + String(n).padStart(2, '0'), equipmentId: eq.id, mainId: si.mainId, subId: si.id, key: String(p.key).trim(), name: String(p.name).trim(), kind: p.kind, uom: p.kind === 'serialized' ? 'ea' : String(p.uom).trim(), nominal: p.kind === 'serialized' ? 1 : null, category: 'component', state: 'draft', prov: 'n/a', src: String(p.source || '').trim() || 'Admin entry (no drawing reference given)', origin: 'admin' };
+      S.D.positions.push(pos);
+      (S.D.positionLog = S.D.positionLog || []).unshift({ posId: pos.id, equipmentId: eq.id, action: 'added', before: null, after: posSnap(pos), by: EQ.user().id, at: new Date().toISOString() });
+      audit('position.add', eq.code + ' ' + pos.key + ' (draft)'); EQ.notify(); return { ok: true, position: pos };
+    },
+    /** PUT /admin/equipment/{id}/positions/{positionId} (API s4.13; DATA s3.4 P2/P3, s11): name always (audited); key and parent only
+     *  while draft (409 position_key_frozen / ancestors_frozen); kind and UOM only before history (409 history_exists). */
+    editPosition(posId, p) {
+      if (!isCfgAdmin()) return forbid();
+      const pos = EQ.pos(posId); if (!pos) return fail(404, 'not_found', 'Unknown position.');
+      const eq = EQ.eq(pos.equipmentId);
+      const want = { name: p.name == null ? pos.name : p.name, key: p.key == null ? pos.key : String(p.key).trim(), subId: p.subId == null ? pos.subId : p.subId, kind: p.kind == null ? pos.kind : p.kind, uom: p.uom == null ? pos.uom : String(p.uom).trim(), source: p.source == null ? pos.src : p.source };
+      const hist = posHasHistory(pos);
+      if (want.key !== pos.key && pos.state !== 'draft') return fail(409, 'position_key_frozen', 'The semantic key of a confirmed position never changes. Deactivate it and add a new position instead.', { key: 'Frozen since confirmation.' });
+      if (want.subId !== pos.subId && (pos.state !== 'draft' || hist)) return fail(409, 'ancestors_frozen', 'The mechanism of a position can change only while it is a draft without references.', { subId: 'Frozen since confirmation.' });
+      if ((want.kind !== pos.kind || (want.kind !== 'serialized' && want.uom !== pos.uom)) && hist) return fail(409, 'history_exists', 'Kind and unit are frozen once history exists at the position.', { kind: 'Frozen: history exists.' });
+      const f = posFields(eq, want, pos);
+      if (f.status) return f;
+      if (Object.keys(f).length) return fail(422, 'validation_failed', 'Nothing was saved.', f);
+      const before = posSnap(pos);
+      const si = eq.subs.find((x) => x.id === want.subId);
+      const next = { name: String(want.name).trim(), key: want.key, subId: si.id, mainId: si.mainId, kind: want.kind, uom: want.kind === 'serialized' ? 'ea' : want.uom, src: String(want.source || '').trim() || pos.src };
+      if (JSON.stringify(before) === JSON.stringify(posSnap(next))) return fail(422, 'no_change', 'Nothing changed.');
+      Object.assign(pos, next);
+      (S.D.positionLog = S.D.positionLog || []).unshift({ posId: pos.id, equipmentId: eq.id, action: 'edited', before, after: posSnap(pos), by: EQ.user().id, at: new Date().toISOString() });
+      audit('position.edit', eq.code + ' ' + pos.key); EQ.notify(); return { ok: true };
+    },
+    /** POST /admin/parameters/definitions + first value (API s4.13; DATA s3.8): an Admin-entered specification row for a model scope
+     *  with its value, unit and source; it has no drawing observation and is labelled Admin-entered wherever it is shown. */
+    addSpec(p) {
+      if (!isCfgAdmin()) return forbid();
+      const label = String(p.label || '').trim(); const f = {};
+      const code = 'adm-' + label.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 48);
+      if (!label) f.label = 'Enter the specification name.'; else if (label.length > 120) f.label = 'At most 120 characters.';
+      else if (EQ.allParams().some((x) => x.label.toLowerCase() === label.toLowerCase() || x.code === code)) return fail(409, 'duplicate_code', 'A specification named "' + label + '" already exists. Record a new value on it instead.', { label: 'Already exists.' });
+      if (p.value == null || !String(p.value).trim()) f.value = 'Enter the value.'; else if (String(p.value).length > 100) f.value = 'At most 100 characters.';
+      if (String(p.unit || '').length > 16) f.unit = 'At most 16 characters.';
+      if (!String(p.source || '').trim()) f.source = 'Enter where the value comes from (document and page, nameplate or decision).';
+      if (!['major', 'technical'].includes(p.use)) f.use = 'Choose Major or Technical.';
+      if (p.mainCode && !EQ.mainDef(p.mainCode)) f.mainCode = 'Unknown main mechanism.';
+      if (Object.keys(f).length) return fail(422, 'validation_failed', 'Nothing was saved.', f);
+      const at = new Date().toISOString();
+      const def = { code, label, unit: String(p.unit || '').trim(), condition: String(p.condition || '').trim() || null, use: p.use, verification: 'admin_entered', operator: null, motorCount: null, observations: [], origin: 'admin', modelCode: p.modelCode || 'CICT-J526A-STS', mainCode: p.mainCode || null, addedBy: EQ.user().id, addedAt: at };
+      (S.D.specAdded = S.D.specAdded || []).push(def);
+      S.D.resolved = S.D.resolved || {}; S.D.resolved[code] = { value: String(p.value).trim(), reason: String(p.reason || '').trim() || 'Specification added by Admin', source: String(p.source).trim(), basis: 'adminEntered', by: EQ.user().id, at };
+      audit('parameter.add', code + ' = ' + String(p.value).trim() + (def.unit ? ' ' + def.unit : ''), p.source); EQ.notify(); return { ok: true, definition: def };
+    },
+    /** PUT /admin/parameters/definitions/{code}: label, unit, condition, use and mechanism link of an Admin-entered row (prior kept).
+     *  Drawing-derived definitions are source facts and are refused (record a value instead). */
+    editSpec(code, p) {
+      if (!isCfgAdmin()) return forbid();
+      const def = EQ.paramDef(code); if (!def) return fail(404, 'not_found', 'Unknown parameter.');
+      if (def.origin !== 'admin') return fail(409, 'source_definition_fixed', 'This row comes from the drawings; its observations are never edited. Record a value with a reason instead.');
+      const f = {}; const label = String(p.label == null ? def.label : p.label).trim();
+      if (!label) f.label = 'Enter the specification name.'; else if (EQ.allParams().some((x) => x !== def && x.label.toLowerCase() === label.toLowerCase())) f.label = 'Another specification has this name.';
+      if (p.unit != null && String(p.unit).length > 16) f.unit = 'At most 16 characters.';
+      if (p.use != null && !['major', 'technical'].includes(p.use)) f.use = 'Choose Major or Technical.';
+      if (p.mainCode && !EQ.mainDef(p.mainCode)) f.mainCode = 'Unknown main mechanism.';
+      if (Object.keys(f).length) return fail(422, 'validation_failed', 'Nothing was saved.', f);
+      const snap = (d) => ({ label: d.label, unit: d.unit, condition: d.condition, use: d.use, mainCode: d.mainCode });
+      const before = snap(def);
+      const next = { label, unit: p.unit == null ? def.unit : String(p.unit).trim(), condition: p.condition == null ? def.condition : (String(p.condition).trim() || null), use: p.use || def.use, mainCode: p.mainCode === undefined ? def.mainCode : (p.mainCode || null) };
+      if (JSON.stringify(before) === JSON.stringify(snap(next))) return fail(422, 'no_change', 'Nothing changed.');
+      Object.assign(def, next);
+      S.D.paramHistory = S.D.paramHistory || {}; (S.D.paramHistory[code] = S.D.paramHistory[code] || []).unshift({ kind: 'definition', before, after: snap(def), by: EQ.user().id, at: new Date().toISOString() });
+      audit('parameter.edit', code, null); EQ.notify(); return { ok: true };
     },
     reopenJob(id, reason) {
       if (!isAdmin()) return forbid();
@@ -362,6 +511,34 @@ window.EQ = window.EQ || {};
       return { ok: true };
     },
   };
+  // ---- U1-C22 helpers ----
+  const LOCKED_NAMES = { '061': 'Spreader', '062': 'Headblock' };
+  EQ.catalogLockedName = (code) => LOCKED_NAMES[code] || null;
+  function catLog(code, action, before, after, reason) { (S.D.catalogLog = S.D.catalogLog || []).unshift({ code, action, before, after, reason: (reason || '').trim() || null, by: EQ.user().id, at: new Date().toISOString() }); }
+  const KEY_RE = /^[a-z0-9]+(-[a-z0-9]+)*(\.[a-z0-9]+(-[a-z0-9]+)*){1,11}$/;
+  const posSnap = (p) => ({ name: p.name, key: p.key, subId: p.subId, kind: p.kind, uom: p.uom, src: p.src });
+  const posHasHistory = (p) => S.D.events.some((e) => e.positionId === p.id) || S.D.jobs.some((j) => j.positionId === p.id || (j.lines || []).some((l) => l.positionId === p.id));
+  EQ.posHasHistory = posHasHistory;
+  /** Field checks shared by add/edit position (DATA s10.2 key grammar; UQ (EquipmentId, SemanticKey); active, non-reserved definition). */
+  function posFields(eq, p, self) {
+    const f = {};
+    const name = String(p.name || '').trim(); const key = String(p.key || '').trim();
+    if (!name) f.name = 'Enter the position name.'; else if (name.length > 200) f.name = 'At most 200 characters.';
+    if (!KEY_RE.test(key) || key.length > 128) f.key = 'Use lowercase segments joined by dots, 2 to 12 segments, for example hoist.drive.motor.c.';
+    else if (key.startsWith('container.')) f.key = 'The container. prefix is reserved for spatial containers, which are never positions.';
+    else if (S.D.positions.some((x) => x !== self && x.equipmentId === eq.id && x.key === key)) return fail(409, 'duplicate_semantic_key', 'Another position of ' + eq.code + ' already uses the key ' + key + '.', { key: 'Already used on ' + eq.code + '.' });
+    const si = eq.subs.find((x) => x.id === p.subId);
+    if (!si) f.subId = 'Choose the submechanism of ' + eq.code + '.';
+    else { const d = EQ.subDef(si.code); if (!d || d.active === false || d.reserved) f.subId = si.code + ' is inactive or reserved and cannot take new positions.'; else if (si.state && si.state !== 'active') f.subId = 'This mechanism instance is deactivated.'; }
+    if (!['serialized', 'quantityLot'].includes(p.kind)) f.kind = 'Choose Serialized or Quantity lot.';
+    else if (p.kind === 'quantityLot' && !/^[A-Za-z]{1,16}$/.test(String(p.uom || '').trim())) f.uom = 'Enter the unit of a quantity lot, for example rope, set, m or pcs.';
+    if ((p.source || '').length > 300) f.source = 'At most 300 characters.';
+    return f;
+  }
+  /** Drawing-derived parameters plus the Admin-entered specification rows (U1-C22). */
+  EQ.allParams = () => EQ.sourceParams.concat((S.D && S.D.specAdded) || []);
+  EQ.paramDef = (code) => EQ.allParams().find((x) => x.code === code);
+
   function inTarget(job, pos) {
     if (job.level === 'equipment') return true;
     if (job.level === 'main') return pos.mainId === job.mainId;

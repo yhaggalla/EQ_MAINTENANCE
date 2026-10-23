@@ -2,6 +2,8 @@
 
 Prepared in P01 on 21 October 2026. Status: **design contract for R01 review**, revised by Repair-R01 on 21 October 2026 (findings F1, F2, F5 of `docs/evidence/R01/review-20261021-1357.md`); implemented in P04-P10. Entity rules referenced as "DATA s<n>" are in `docs/DATA_CONTRACT.md`.
 
+**U1 round 5 addendum (23 October 2026, U1-C20..U1-C22).** Changed sections: s4.12 (catalogue add/edit bodies and refusals), s4.13 (positions add/edit, parameter definitions and value source), s4.17 (daily jobs in the Daily work (CMMS) tab), s4.18 (new `POST /equipment/{equipmentId}/spare-parts`, `F:eq.work`: EQ Team and Admin add spare parts), s4.19 (type retire rule). DATA_CONTRACT round 5 addendum gives the rules.
+
 **P01B addendum (22 October 2026, SOW V2 revision 4).** Changed sections: s1.1, s1.2, s1.6, s1.7, s2 (feature policies replace the three role policies), s3, s4.1, s4.2, s4.3, s4.6, s4.7, s4.8, s4.9, s4.13, s5, s7. New endpoint groups: s4.16 crane-view current state, s4.17 EQ Jobs tab (daily jobs, status board, status history, spare-part register), s4.18 spare-part register commands, s4.19 Admin spare parts and EQ settings, s4.20 Admin ZMMS, s4.21 Admin Access matrix, s4.22 FAC queries, s4.23 FAC commands, s4.24 FAC photos, s4.25 FAC Dashboard, s4.26 Admin FAC, s4.27 Excel exports. Implemented in P06-P10 (P07B ZMMS, P08B FAC).
 
 ## 1 Conventions
@@ -399,10 +401,10 @@ All `F:admin.access`; POSTs carry Idempotency-Key; every change audited.
 
 | Method and path | Body | Notes |
 | --- | --- | --- |
-| `POST /admin/catalog/main-mechanisms` | `{ code, name }` | 409 `duplicate_code`; 422 `code_unassigned_reserved` for `10` |
-| `PUT /admin/catalog/main-mechanisms/{id}` | `{ version, name }` | code immutable |
-| `POST /admin/catalog/sub-mechanisms` | `{ code, mainDefinitionId, name, description }` | parent immutable afterwards |
-| `PUT /admin/catalog/sub-mechanisms/{id}` | `{ version, name, description }` | 422 `reserved_definition` (use define-reserved) |
+| `POST /admin/catalog/main-mechanisms` | `{ code, name, description?, reason? }` | two-digit string code (U1-C22); 409 `duplicate_code`; 422 `code_unassigned_reserved` for `10`; 422 `validation_failed` for another format or `00` |
+| `PUT /admin/catalog/main-mechanisms/{id}` | `{ version, name, description, reason? }` | code immutable; prior values kept in the audit (DATA s3.1 C2a) |
+| `POST /admin/catalog/sub-mechanisms` | `{ code, mainDefinitionId, name, description, reason? }` | code = parent main code + one digit, unique across the catalogue; 409 `duplicate_code`; 422 `parent_inactive`; parent immutable afterwards |
+| `PUT /admin/catalog/sub-mechanisms/{id}` | `{ version, name, description, reason? }` | 422 `reserved_definition` (use define-reserved); 409 `approved_name_locked` when the name of `061` Spreader or `062` Headblock would change (description editable) |
 | `POST /admin/catalog/sub-mechanisms/{id}/define-reserved` | `{ version, name, description, reason }` | only `048`/`063`-style reserved entries |
 | `POST /admin/catalog/{main|sub}-mechanisms/{id}/deactivate` and `/activate` | `{ version, reason }` | deactivation keeps history (ADM04) |
 | `GET /admin/catalog/import-report` | - | last `import-mechanisms` report (created/updated/unchanged/conflicts) (ADM05) |
@@ -428,9 +430,11 @@ Every `/admin/...` endpoint in s4.13 and s4.14 requires `F:admin.access` (resolv
 | `POST /admin/equipment/{id}/instantiation` | `{ templateRevision, includeUnknownSubDefinitionIds: Id[] }` -> creates `draft` instances/positions only | ADM02, P2, P4 |
 | `POST /admin/equipment/{id}/positions/confirm` | `{ positionIds: Id[] }` (with each `version`) -> `active` | B-08 |
 | `POST /admin/equipment/{id}/mechanism-instances`, `POST .../{instanceId}/deactivate|activate` | equipment-specific additions/removals, audited | S10 |
-| `POST /admin/equipment/{id}/positions`; `PUT /admin/equipment/{id}/positions/{positionId}`; `POST .../{positionId}/deactivate|reactivate|delete` | add, rename; edit SemanticKey only while the position is `draft` (409 `position_key_frozen` once confirmed); edit kind/UOM until history exists (409 `history_exists`); delete only draft without references (DATA s3.4 P2/P3) | P2, P3 |
+| `POST /admin/equipment/{id}/positions`; `PUT /admin/equipment/{id}/positions/{positionId}`; `POST .../{positionId}/deactivate|reactivate|delete` | add (U1-C22: `{ name, subInstanceId, semanticKey, kind, uom?, sourceReference? }` -> a `draft` position of this equipment only; 409 `duplicate_semantic_key`; 422 for the s10.2 grammar, a `container.` key or an inactive/reserved definition), rename; edit SemanticKey and the sub instance only while the position is `draft` without references (409 `position_key_frozen` / `ancestors_frozen` once confirmed); edit kind/UOM until history exists (409 `history_exists`); delete only draft without references (DATA s3.4 P2/P3) | P2, P3 |
 | `POST /admin/equipment/{id}/positions/{positionId}/baseline-installation` | `{ itemDescription, manufacturer?, modelOrPartNumber?, serialNumber?, quantity, uom, installedOn: DateOnly | null, sourceNote }` (D-36) | HIS04 |
-| `POST /admin/parameters/values` | `{ parameterCode, scopeType, scopeId, value, unit, condition, selectedObservationId?, reason }` -> new current value, prior kept | ADM06, SRC05 |
+| `POST /admin/parameters/values` | `{ parameterCode, scopeType, scopeId, value, unit, condition, selectedObservationId?, reason, sourceNote? }` -> new current value, prior kept (superseded, IsCurrent = 0); Basis `resolvedConflict` for a conflicting parameter, else `adminEntered` (U1-C22) | ADM06, SRC05 |
+| `POST /admin/parameters/definitions` (U1-C22) | `{ label, unit, condition?, use: major|technical, equipmentModelId, mechanismCode?, value, sourceNote, reason? }` -> an Admin-entered ParameterDefinition (Origin `admin`) and its first value in one transaction; 409 `duplicate_code` for an existing label/code; 422 without `sourceNote` | ADM06 |
+| `PUT /admin/parameters/definitions/{code}` (U1-C22) | `{ version, label, unit, condition, use, mechanismCode }` - Admin-entered rows only (409 `source_definition_fixed` for drawing-derived rows); prior definition kept in the audit | ADM06 |
 | `POST /admin/parameters/observations` | manual observation with source document/page | S14 |
 
 All IDs in bodies are verified to belong to the equipment/model in the route (422 `target_not_in_equipment`) (ADM03).
@@ -500,7 +504,7 @@ Shared filters on every list here: `equipmentId=`, `type=QC|RTG|ES` (equipment t
 
 | Method and path | Policy | Purpose / acceptance |
 | --- | --- | --- |
-| `GET /zmms/daily-jobs?equipmentId=&type=&from=&to=&q=&sourceState=present,absentFromSource&limit=&cursor=&sort=date_desc` | `F:eq.jobs.view` | Read-only daily jobs below the special jobs; matched rows only; every synced day; `{ items: ZmmsDailyJobView[]; nextCursor; dataFrom: Instant | null; stale: boolean }` (ZM07). Default range: today |
+| `GET /zmms/daily-jobs?equipmentId=&type=&from=&to=&q=&sourceState=present,absentFromSource&limit=&cursor=&sort=date_desc` | `F:eq.jobs.view` | Read-only daily jobs shown in the Daily work (CMMS) tab (U1-C20); matched rows only; every synced day; `{ items: ZmmsDailyJobView[]; nextCursor; dataFrom: Instant | null; stale: boolean }` (ZM07). Default range: today |
 | `GET /zmms/freshness` | `F:eq.fleet.view|eq.jobs.view` | `{ enabled, lastSucceededRunEndUtc, businessDate, stale }` for "ZMMS data from" |
 | `GET /status-board?type=&q=&source=zmms,manual&mode=` | `F:eq.jobs.view` | EQ status part: one row per active equipment `{ equipment, status: StatusSummary }` with Correct / Back to automatic offered by capabilities (S21) |
 | `GET /status-changes?equipmentId=&type=&from=&to=&source=&kind=&limit=&cursor=` | `F:eq.jobs.view` | Status history across equipment, newest first, same item shape as s4.3 status history (ZM05, ZM06, JOB02) |
@@ -513,6 +517,7 @@ All `F:eq.work`, Idempotency-Key, body `version` = the register row's version (n
 
 | Method and path | Body |
 | --- | --- |
+| `POST /equipment/{equipmentId}/spare-parts` (U1-C21) | `{ positionId, sparePartTypeId, expectedLifeMonthsOverride: number | null, condition: 'original' | 'replaced' | 'keep', replacedOn?: DateOnly, itemDescription?, brand?, modelOrPartNumber?, serialNumber?, remarks? }` - EQ Team and Admin add a not-yet-designated active position of this equipment to its register with its first condition in one transaction (DATA s16.3 "Add spare part"); 422 `target_not_in_equipment`, `position_not_active`, `validation_failed` (inactive type, life outside 1..600, missing description, `keep` without an installation), `date_in_future`; 409 `already_major_spare_part`, `position_has_installation_history`, `out_of_order_installation`, `equipment_retired`. Response `SparePartRow`; history source `registerAdd` |
 | `POST /equipment/{equipmentId}/positions/{positionId}/spare-part/record-original` | `{ version, itemDescription, brand?, modelOrPartNumber?, serialNumber?, remarks? }` -> 409 `position_has_installation_history` |
 | `POST /equipment/{equipmentId}/positions/{positionId}/spare-part/record-replacement` | `{ version, expectedCurrentInstallationId: Id | null, replacedOn: DateOnly, itemDescription, brand?, modelOrPartNumber?, serialNumber?, removedItemKnown: boolean, removedItemDescription?, removedItemSerial?, quantity, uom, remarks? }` -> 409 `installation_changed`, `out_of_order_installation`; 422 `date_in_future`, `quantity_invalid` |
 | `POST /equipment/{equipmentId}/positions/{positionId}/spare-part/amend` | `{ version, itemDescription?, brand?, modelOrPartNumber?, serialNumber?, reason }` (amends the current installation; no event) |
@@ -527,9 +532,9 @@ All `F:admin.access`; Idempotency-Key on POST; audited.
 
 | Method and path | Body / purpose | Acceptance |
 | --- | --- | --- |
-| `GET /admin/spare-part-types`; `POST /admin/spare-part-types`; `PUT /admin/spare-part-types/{id}`; `POST .../{id}/deactivate|activate` | `{ code, name, defaultExpectedLifeMonths | null, sortOrder }` / `{ version, name, defaultExpectedLifeMonths, sortOrder }` | SP01 |
+| `GET /admin/spare-part-types`; `POST /admin/spare-part-types`; `PUT /admin/spare-part-types/{id}`; `POST .../{id}/deactivate|activate` | `{ code, name, defaultExpectedLifeMonths | null, sortOrder }` / `{ version, name, defaultExpectedLifeMonths, sortOrder }`; 409 `duplicate_code`; a deactivated (retired) type is refused for new designations and additions, designated positions keep it (U1-C22) | SP01 |
 | `PUT /admin/equipment-models/{id}/position-templates/{templateId}/spare-part` | `{ version, sparePartTypeId | null }` (template designation; existing positions unchanged) | SP01 |
-| `PUT /admin/equipment/{id}/positions/{positionId}/spare-part` | `{ version, isMajorSparePart, sparePartTypeId | null, expectedLifeMonthsOverride | null }` (history row `designation`) | SP01, SP03 |
+| `PUT /admin/equipment/{id}/positions/{positionId}/spare-part` | `{ version, isMajorSparePart, sparePartTypeId | null, expectedLifeMonthsOverride | null }` (history row `designation`). Admin-only type/life changes and undesignation; adding a part with its condition is `POST /equipment/{equipmentId}/spare-parts` (s4.18, `F:eq.work`, U1-C21) | SP01, SP03 |
 | `GET /admin/settings/eq`; `PUT /admin/settings/eq` | `{ version, sparePartDueSoonDays, fleetRefreshSeconds }` | SP03 |
 | `PUT /admin/equipment/{id}` (s4.13) | `commissionedOn` is the commissioning date used for Original parts | SP03 |
 

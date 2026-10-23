@@ -1,13 +1,14 @@
-/* EQ Jobs tab in three parts (SOW V2 s4.2-s4.6, DATA_CONTRACT s18.2): Special & daily jobs | EQ status | Spare parts condition.
-   Shared filters (equipment, type, date range, search) are kept in the URL across the parts. Work history lives here, not in the
-   crane view: the scoped history (DATA s9) opens with equipment + scope + target ("Open in Jobs"). Synthetic data only. */
+/* EQ Jobs tab in four tabs (U1-C20, supersedes the SOW V2 s4.2 three-part layout; DATA_CONTRACT s18.2): Special/Projects |
+   Daily work (CMMS) | EQ status | Spare parts condition. Shared filters (equipment, type, date range, search) are kept in the URL across
+   the tabs. Work history lives here, not in the crane view: the scoped history (DATA s9) opens with equipment + scope + target ("Open in
+   Jobs"). EQ Team and Admin add special jobs and spare parts here (U1-C21). Synthetic data only. */
 window.EQ = window.EQ || {};
 (function (EQ) {
   const h = EQ.h, icon = EQ.icon;
   EQ.views = EQ.views || {};
   const kit = () => EQ._dlg;
 
-  const PARTS = [['special', 'Special & daily jobs'], ['status', 'EQ status'], ['spare-parts', 'Spare parts condition']];
+  const PARTS = [['special', 'Special/Projects'], ['daily', 'Daily work (CMMS)'], ['status', 'EQ status'], ['spare-parts', 'Spare parts condition']];
   const SHARED = ['equipment', 'type', 'from', 'to'];
   const fmtD = (iso) => EQ.fmtDate(iso);
 
@@ -61,7 +62,7 @@ window.EQ = window.EQ || {};
     const setQ = (patch, p2) => EQ.nav('/eq/jobs/' + (p2 || part), { ...q, ...patch });
     const keepShared = Object.fromEntries(SHARED.filter((k) => q[k]).map((k) => [k, q[k]]));
     page.appendChild(h('div', { class: 'page-head' }, h('div', null, h('p', { class: 'eyebrow' }, 'EQ'), h('h1', null, 'Jobs'),
-      h('p', null, 'Special jobs and the daily jobs read from ZMMS, the EQ status with its manual corrections, and the condition of major spare parts. Work history is kept here; the crane view shows only the current state.'))));
+      h('p', null, 'Special/Projects work entered by the EQ Team, the daily work read from ZMMS (CMMS.LK), the EQ status with its manual corrections, and the condition of major spare parts. Work history is kept here; the crane view shows only the current state.'))));
     page.appendChild(h('nav', { class: 'subtabs', 'aria-label': 'EQ Jobs parts' }, PARTS.map(([k, label]) => h('a', { href: '#/eq/jobs/' + k + (Object.keys(keepShared).length ? '?' + new URLSearchParams(keepShared).toString() : ''), 'aria-current': k === part ? 'page' : null, 'data-fk': 'jp-' + k }, label))));
 
     if (S.data === 'loading') { page.appendChild(h('div', { 'aria-busy': 'true', role: 'status', class: 'board' }, [1, 2, 3].map(() => h('div', { class: 'skeleton', style: 'height:16rem' })))); return page; }
@@ -82,17 +83,19 @@ window.EQ = window.EQ || {};
       h('button', { type: 'button', class: 'btn-sm', onClick: () => { EQ.jobsUI.q = ''; EQ.nav('/eq/jobs/' + part, {}); } }, 'Clear filters')));
 
     if (part === 'special') special(page, q, setQ);
+    else if (part === 'daily') daily(page, q);
     else if (part === 'status') statusPart(page, q);
     else sparePart(page, q, setQ);
     return page;
   };
 
-  // ---------------------------------------------------------------- part 1: special jobs + daily jobs
+  // ---------------------------------------------------------------- tab 1: Special/Projects (manual, SOW V2 s4.3)
   function special(page, q, setQ) {
     const head = h('div', { class: 'row between', style: 'margin-bottom:.5rem' }, h('h2', null, 'Special jobs'), h('div', { class: 'row' },
       EQ.access.has('export.excel') ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'export-special', onClick: () => { const r = EQ.eqExport('special', q); if (r.ok) { EQ.downloadCsv('eq-special-jobs.csv', r.columns, r.rows); EQ.toast('Exported ' + r.rows.length + ' special job(s)', 'Prototype stand-in: CSV, not the server-generated .xlsx.'); } } }, icon('download'), 'Export') : null,
-      EQ.perm.write() ? h('button', { type: 'button', class: 'primary', 'data-fk': 'add-job', onClick: () => EQ.dlg.jobForm({ equipmentId: q.equipment || '' }) }, icon('plus'), 'Add job') : h('span', { class: 'tag gold' }, 'Read-only: you cannot create or change special jobs')));
+      EQ.perm.write() ? h('button', { type: 'button', class: 'primary', 'data-fk': 'add-job', onClick: () => EQ.dlg.jobForm({ equipmentId: q.equipment || '' }) }, icon('plus'), 'Add special job') : h('span', { class: 'tag gold' }, 'Read-only: you cannot create or change special jobs')));
     page.appendChild(head);
+    page.appendChild(h('p', { class: 'small muted', style: 'margin:0 0 .5rem' }, 'Major or non-routine work entered by hand, bound to one equipment and to the whole equipment, a main mechanism, a submechanism or a part. The daily work read from ZMMS is in the Daily work (CMMS) tab.'));
     // scoped history (Open in Jobs from the crane view)
     if (q.equipment && EQ.eq(q.equipment)) {
       const eq = EQ.eq(q.equipment);
@@ -103,22 +106,27 @@ window.EQ = window.EQ || {};
         else {
           const sel = sc.level === 'part' ? EQ.eqv.resolveSel(eq, { part: sc.id }) : sc.level === 'sub' ? EQ.eqv.resolveSel(eq, { sub: sc.id }) : EQ.eqv.resolveSel(eq, { main: sc.id });
           page.appendChild(h('section', { class: 'panel panel-pad stack', 'aria-labelledby': 'sh-h', style: 'margin-bottom:.8rem' },
-            h('div', { class: 'row between' }, h('h2', { id: 'sh-h' }, 'History of ' + EQ.eqv.scopeLabel(eq, sel)), h('a', { class: 'btn btn-sm', href: '#/eq/jobs/special?' + new URLSearchParams({ ...Object.fromEntries(SHARED.filter((k) => q[k]).map((k) => [k, q[k]])), equipment: eq.id }).toString(), 'data-fk': 'clear-scope' }, icon('x'), 'Clear scope')),
+            h('div', { class: 'row between' }, h('h2', { id: 'sh-h' }, 'History of ' + EQ.eqv.scopeLabel(eq, sel)), h('div', { class: 'row' },
+              EQ.perm.write() && eq.lifecycle === 'active' ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'add-job-scope', onClick: () => EQ.dlg.jobForm({ equipmentId: eq.id, prefill: sel }) }, icon('plus'), 'Add special job here') : null,
+              h('a', { class: 'btn btn-sm', href: '#/eq/jobs/special?' + new URLSearchParams({ ...Object.fromEntries(SHARED.filter((k) => q[k]).map((k) => [k, q[k]])), equipment: eq.id }).toString(), 'data-fk': 'clear-scope' }, icon('x'), 'Clear scope'))),
             EQ.eqv.historyTab(eq, sel, sc)));
         }
       }
     }
     page.appendChild(EQ.specialBoard(q));
-    // daily jobs
+  }
+
+  // ---------------------------------------------------------------- tab 2: Daily work (CMMS), the read-only ZMMS daily jobs (SOW V2 s4.4)
+  function daily(page, q) {
     const rows = dailyRows(q);
     const today = EQ.todayColombo();
     const range = q.from || q.to ? (q.from ? fmtD(q.from) : 'start') + ' to ' + (q.to ? fmtD(q.to) : 'today') : 'today only (' + fmtD(today) + ')';
     const fresh = EQ.zmms.freshness();
-    page.appendChild(h('section', { class: 'panel panel-pad stack', id: 'daily', 'aria-labelledby': 'dj-h', style: 'margin-top:1rem' },
-      h('div', { class: 'row between' }, h('h2', { id: 'dj-h' }, 'Daily maintenance jobs (from ZMMS, read-only)'),
+    page.appendChild(h('section', { class: 'panel panel-pad stack', id: 'daily', 'aria-labelledby': 'dj-h' },
+      h('div', { class: 'row between' }, h('h2', { id: 'dj-h' }, 'Daily work from CMMS (ZMMS daily jobs, read-only)'),
         h('div', { class: 'row' }, h('span', { class: 'zmms-fresh' + (fresh.stale ? ' stale' : ''), 'data-fk': 'zmms-fresh' }, icon(fresh.stale ? 'alert' : 'sync'), EQ.zmms.freshLabel(), fresh.stale ? h('strong', null, ' · stale') : null),
           EQ.access.has('export.excel') ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'export-daily', onClick: () => { const r = EQ.eqExport('daily', q); if (r.ok) { EQ.downloadCsv('zmms-daily-jobs.csv', r.columns, r.rows); EQ.toast('Exported ' + r.rows.length + ' daily job(s)', 'Prototype stand-in: CSV, not the server-generated .xlsx.'); } } }, icon('download'), 'Export') : null)),
-      h('p', { class: 'small muted', style: 'margin:0' }, 'Showing ' + range + '. ' + rows.length + ' job(s). Daily jobs come from the ZMMS daily all-job list and are linked to the equipment only, never to a mechanism or part. Every synced day is kept: set From and To above to see earlier days. Unmatched equipment appears only in Admin > EQ > ZMMS.'),
+      h('p', { class: 'small muted', style: 'margin:0' }, 'Showing ' + range + '. ' + rows.length + ' job(s). Daily work comes from the ZMMS (CMMS.LK) daily all-job list, read twice a day; it is never entered or changed in this app and is linked to the equipment only, never to a mechanism or part. Every synced day is kept: set From and To above to see earlier days. Unmatched equipment appears only in Admin > EQ > ZMMS.'),
       h('div', { class: 'notice info' }, icon('info'), h('p', null, 'Synthetic rows. The columns follow the real daily export profiled on 22 Oct 2026 (a file export, not the live page); the exact field list is fixed in P07B.')),
       fresh.stale ? h('div', { class: 'notice warn', role: 'status' }, icon('alert'), h('p', null, 'The latest ZMMS sync failed or is overdue. The previous data is kept unchanged and no status was changed.')) : null,
       rows.length ? dailyTable(rows) : h('div', { class: 'nonwork' }, h('strong', null, 'No ZMMS daily jobs for this selection'), 'Nothing matches the equipment, type, date range and search above. This is not evidence that no work was done.')));
@@ -140,7 +148,7 @@ window.EQ = window.EQ || {};
       }))));
   }
 
-  // ---------------------------------------------------------------- part 2: EQ status
+  // ---------------------------------------------------------------- tab 3: EQ status
   const SOURCE_LABEL = { automatic: 'Automatic (ZMMS sync)', overrideEnded: 'Correction ended (ZMMS sync)', backToAutomatic: 'Back to automatic', manualCorrection: 'Manual correction', manualStatus: 'Manual status' };
   function statusPart(page, q) {
     const list = eqList(q).filter((e) => e.lifecycle === 'active');
@@ -174,7 +182,7 @@ window.EQ = window.EQ || {};
   }
   EQ.todayOf = (iso) => new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Colombo' }).format(new Date(iso));
 
-  // ---------------------------------------------------------------- part 3: spare parts condition
+  // ---------------------------------------------------------------- tab 4: spare parts condition
   const FLAGS = { overdue: ['Overdue', 'red'], dueSoon: ['Due soon', 'gold'] };
   const histOpen = new Set();
   function sparePart(page, q, setQ) {
@@ -182,13 +190,14 @@ window.EQ = window.EQ || {};
     const c = EQ.spares.counts(rows);
     const sc = scopeFromQ(q);
     page.appendChild(h('div', { class: 'row between', style: 'margin:.2rem 0 .5rem' }, h('h2', null, 'Major spare parts: condition register'), h('div', { class: 'row' },
-      EQ.access.has('export.excel') ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'export-spare', onClick: () => { const r = EQ.eqExport('spare', q); if (r.ok) { EQ.downloadCsv('spare-part-register.csv', r.columns, r.rows); EQ.toast('Exported ' + r.rows.length + ' register row(s)', 'Prototype stand-in: CSV, not the server-generated .xlsx.'); } } }, icon('download'), 'Export') : null)));
+      EQ.access.has('export.excel') ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'export-spare', onClick: () => { const r = EQ.eqExport('spare', q); if (r.ok) { EQ.downloadCsv('spare-part-register.csv', r.columns, r.rows); EQ.toast('Exported ' + r.rows.length + ' register row(s)', 'Prototype stand-in: CSV, not the server-generated .xlsx.'); } } }, icon('download'), 'Export') : null,
+      EQ.perm.write() ? h('button', { type: 'button', class: 'primary', 'data-fk': 'add-spare', onClick: () => addSpareDialog({ equipmentId: q.equipment || '', main: q.main || '', sub: q.sub || '', part: q.part || '' }) }, icon('plus'), 'Add spare part') : null)));
     page.appendChild(h('div', { class: 'row', role: 'group', 'aria-label': 'Register summary' },
       h('span', { class: 'tag' }, rows.length + ' registered'), h('span', { class: 'tag ' + (c.overdue ? 'red' : '') }, c.overdue + ' overdue'), h('span', { class: 'tag ' + (c.dueSoon ? 'gold' : '') }, c.dueSoon + ' due soon'),
       sc ? h('span', { class: 'tag dashed' }, 'Scoped to the selection from the crane view ', h('a', { href: '#/eq/jobs/spare-parts?' + new URLSearchParams(Object.fromEntries(SHARED.filter((k) => q[k]).map((k) => [k, q[k]]))).toString() }, 'clear')) : null,
       h('label', { class: 'field', style: 'display:flex;gap:.4rem;align-items:center;margin-left:auto' }, h('span', { class: 'label', style: 'margin:0' }, 'Flag'), h('select', { 'data-fk': 'flt-flag', 'aria-label': 'Filter by flag', onChange: (e) => setQ({ flag: e.target.value }) }, [['', 'All'], ['overdue', 'Overdue'], ['dueSoon', 'Due soon'], ['notRecorded', 'Condition not recorded']].map(([v, l]) => h('option', { value: v, selected: (q.flag || '') === v ? true : null }, l))))));
     page.appendChild(h('div', { class: 'notice info' }, icon('info'), h('p', null, 'Next predicted replacement = replaced date + expected life in months; an Original part counts from the commissioning date. It is a calendar estimate, not a condition assessment. With an unknown date or life no prediction is shown. Due soon = within ' + EQ.state.D.spare.dueSoonDays + ' days (Admin setting).')));
-    if (!rows.length) { page.appendChild(h('div', { class: 'panel empty' }, icon('cube'), h('p', null, 'No major spare parts match. An Admin chooses them in Admin > EQ > Spare parts.'))); return; }
+    if (!rows.length) { page.appendChild(h('div', { class: 'panel empty' }, icon('cube'), h('p', null, 'No major spare parts match. ' + (EQ.perm.write() ? 'Use Add spare part to register one.' : 'The EQ Team or an Admin adds them.')))); return; }
     page.appendChild(h('div', { class: 'panel table-wrap' }, h('table', { class: 'spare-table' },
       h('caption', { class: 'sr-only' }, 'Spare-part condition register'),
       h('thead', null, h('tr', null, ['Equipment / part', 'Condition', 'Brand · model · serial', 'Replaced', 'Expected life', 'Next predicted replacement', 'Flag', 'Remarks', 'Actions'].map((c2) => h('th', { scope: 'col' }, c2)))),
@@ -209,7 +218,7 @@ window.EQ = window.EQ || {};
         if (open) {
           const hist = EQ.spares.history(r.posId);
           out.push(h('tr', { class: 'hist-row' }, h('td', { colspan: 9 }, h('div', { class: 'stack' }, h('strong', null, 'History of ' + r.pos.name + ' (' + r.eq.code + ')'),
-            hist.length ? h('ul', { class: 'tl' }, hist.map((x) => h('li', { class: 'status' }, h('div', { class: 'row between' }, h('strong', null, 'Revision ' + x.rev + ' · ' + ({ jobCompletion: 'Replacement special job completed', registerOriginal: 'Original recorded', registerReplacement: 'Replacement recorded', registerAmend: 'Current item amended', registerRemarks: 'Remarks edited', designation: 'Designation changed', correction: 'Admin correction' }[x.source] || x.source)), h('span', { class: 'when' }, EQ.fmtInstantShort(x.at) + ' by ' + EQ.userName(x.by))),
+            hist.length ? h('ul', { class: 'tl' }, hist.map((x) => h('li', { class: 'status' }, h('div', { class: 'row between' }, h('strong', null, 'Revision ' + x.rev + ' · ' + ({ jobCompletion: 'Replacement special job completed', registerOriginal: 'Original recorded', registerReplacement: 'Replacement recorded', registerAmend: 'Current item amended', registerRemarks: 'Remarks edited', registerAdd: 'Added to the register', designation: 'Designation changed', correction: 'Admin correction' }[x.source] || x.source)), h('span', { class: 'when' }, EQ.fmtInstantShort(x.at) + ' by ' + EQ.userName(x.by))),
               x.before ? h('span', { class: 'small' }, 'Before: ', h('s', null, fmtState(x.before))) : h('span', { class: 'small muted' }, 'Before: nothing recorded'), h('span', { class: 'small' }, 'After: ', h('strong', null, fmtState(x.after))), x.reason ? h('span', { class: 'when' }, 'Reason: ' + x.reason) : null, x.jobId ? h('span', { class: 'when' }, 'Job: ', h('a', { href: '#/eq/jobs/special/' + x.jobId }, (EQ.job(x.jobId) || {}).number || x.jobId)) : null))) : h('div', { class: 'nonwork' }, h('strong', null, 'No history'), 'Nothing has been recorded for this part.')))));
         }
         return out;
@@ -217,8 +226,9 @@ window.EQ = window.EQ || {};
   }
   function fmtState(s) {
     if (!s) return 'removed';
-    if (s.typeId) return 'designated (' + (EQ.spares.typeOf(s.typeId) || {}).name + (s.lifeOverride != null ? ', ' + s.lifeOverride + ' months for this equipment' : '') + ')';
-    return [s.condition ? s.condition : 'not recorded', s.replacedOn ? 'replaced ' + EQ.fmtDate(s.replacedOn) : null, s.brand, s.model, s.serial ? 'serial ' + s.serial : null, s.remarks ? 'remarks: ' + s.remarks : null].filter(Boolean).join(' · ');
+    const des = s.typeId ? 'designated (' + (EQ.spares.typeOf(s.typeId) || {}).name + (s.lifeOverride != null ? ', ' + s.lifeOverride + ' months for this equipment' : ', part-type life') + ')' : null;
+    if (des && !('condition' in s)) return des;
+    return [des, s.condition ? s.condition : 'not recorded', s.replacedOn ? 'replaced ' + EQ.fmtDate(s.replacedOn) : null, s.brand, s.model, s.serial ? 'serial ' + s.serial : null, s.remarks ? 'remarks: ' + s.remarks : null].filter(Boolean).join(' · ');
   }
 
   function spareDialog(r) {
@@ -248,4 +258,58 @@ window.EQ = window.EQ || {};
     return api;
   }
   EQ.dlg.spare = spareDialog;
+
+  /** Add spare part (U1-C21; DATA s16.3; API s4.18 POST /equipment/{id}/spare-parts): EQ Team and Admin (eq.work) choose the equipment
+   *  and the main-part position, then type, condition, fitted/replaced date, brand and expected life. The entry starts its history.
+   *  prefill = { equipmentId, main, sub, part } from the Spare parts tab filters or the crane-view selection. */
+  function addSpareDialog(prefill) {
+    const K = kit(), P = EQ.spares;
+    prefill = prefill || {};
+    const st = { equipmentId: prefill.equipmentId || '', mainId: prefill.main || '', subId: prefill.sub || '', posId: '', typeId: '', lifeMonths: '', cond: null, replacedOn: '', desc: '', brand: '', model: '', serial: '', remarks: '' };
+    const eq0 = EQ.eq(st.equipmentId);
+    if (eq0 && prefill.part && P.addable(eq0.id).some((p) => p.id === prefill.part)) { const pp = EQ.pos(prefill.part); st.posId = pp.id; st.mainId = pp.mainId; st.subId = pp.subId; }
+    let errors = {}, message = null;
+    const api = K.openDialog({ build(api) {
+      const eq = EQ.eq(st.equipmentId);
+      const eqs = EQ.state.D.equipment.filter((e) => e.lifecycle === 'active' && EQ.positionsOf(e.id).some((p) => p.state === 'active'));
+      const mains = eq ? eq.mains.map((m) => ({ value: m.id, label: m.code + '  ' + EQ.defLabel(m.code) })) : [];
+      const subs = eq ? eq.subs.filter((s) => !st.mainId || s.mainId === st.mainId).map((s) => ({ value: s.id, label: s.code + '  ' + EQ.defLabel(s.code) })) : [];
+      const positions = eq ? P.addable(eq.id, st.mainId, st.subId).sort((a, b) => EQ.cmp(a.name, b.name)) : [];
+      const pos = st.posId ? EQ.pos(st.posId) : null;
+      const recorded = pos ? EQ.state.D.events.filter((e) => e.positionId === pos.id && !e.voided).sort((a, b) => a.seq - b.seq).slice(-1)[0] : null;
+      const types = P.types().filter((t) => t.active);
+      const type = P.typeOf(st.typeId);
+      const condOpts = recorded ? [{ value: '', label: 'Keep the recorded installation' }, { value: 'replaced', label: 'Replaced (record the replacement)' }] : [{ value: 'original', label: 'Original' }, { value: 'replaced', label: 'Replaced' }];
+      const itemFields = st.cond !== '';
+      return {
+        title: 'Add spare part' + (eq ? ' - ' + eq.code : ''),
+        body: [K.writerGuard(),
+          message ? h('div', { class: 'notice error', role: 'alert' }, icon('alert'), h('p', null, message)) : null,
+          h('div', { class: 'notice info' }, icon('info'), h('p', null, 'Adds a main-part position of one equipment to its major spare-part register and records its first condition; the entry starts its own history. EQ Team and Admin can add parts (U1-C21). Spare-part types and their default expected life are Admin settings; changing the type of an added part or removing it from the register is done by an Admin in Admin > EQ > Spare parts. Prototype: kept in memory only.')),
+          h('div', { class: 'grid-2' },
+            K.field('as-eq', 'Equipment', K.select(st, 'equipmentId', eqs.map((e) => ({ value: e.id, label: e.code })), () => { st.mainId = st.subId = st.posId = ''; st.cond = null; api.render(); }, 'Choose equipment'), { required: true }),
+            K.field('as-main', 'Main mechanism', K.select(st, 'mainId', mains, () => { st.subId = st.posId = ''; st.cond = null; api.render(); }, eq ? 'All main mechanisms' : 'Choose equipment first'), { hint: 'Narrows the position list.' }),
+            K.field('as-sub', 'Submechanism', K.select(st, 'subId', subs, () => { const s = eq && eq.subs.find((x) => x.id === st.subId); if (s) st.mainId = s.mainId; st.posId = ''; st.cond = null; api.render(); }, eq ? 'All submechanisms' : 'Choose equipment first'), {}),
+            K.field('as-pos', 'Main-part position', K.select(st, 'posId', positions.map((p) => ({ value: p.id, label: p.name })), () => { const p = EQ.pos(st.posId); if (p) { st.mainId = p.mainId; st.subId = p.subId; } st.cond = null; api.render(); }, !eq ? 'Choose equipment first' : positions.length ? 'Choose a position' : 'No position left to add here'), { required: true, error: errors.posId, hint: eq ? 'Confirmed (active) positions of ' + eq.code + ' that are not yet in its register.' : null })),
+          recorded ? h('div', { class: 'notice info', 'data-fk-note': 'recorded' }, icon('info'), h('p', null, 'Recorded at this position now: ' + recorded.installed.desc + (recorded.businessDate ? ', replaced ' + fmtD(recorded.businessDate) : ', original') + '. It cannot be recorded as Original again; keep it or record a replacement.')) : null,
+          h('div', { class: 'grid-2' },
+            K.field('as-type', 'Spare-part type', K.select(st, 'typeId', types.map((t) => ({ value: t.id, label: t.name + (t.defaultLife != null ? ' (' + t.defaultLife + ' months)' : ' (no default life)') })), () => { const t = P.typeOf(st.typeId); if (t && !st.desc) st.desc = t.name; api.render(); }, types.length ? 'Choose a type' : 'No types: an Admin adds them'), { required: true, error: errors.typeId }),
+            K.field('as-life', 'Expected life (months)', K.input(st, 'lifeMonths', { type: 'number', min: 1, max: 600, step: 1, placeholder: type && type.defaultLife != null ? 'type default ' + type.defaultLife : 'type default' }), { error: errors.lifeMonths, hint: 'Leave blank to use the part-type default. A value here applies to this equipment only.' })),
+          K.radios(st, 'cond', 'as-cond', condOpts, () => api.render(), 'Condition *', errors.condition),
+          st.cond === 'replaced' ? K.field('as-date', 'Fitted / replaced date', K.input(st, 'replacedOn', { type: 'date' }), { required: true, error: errors.replacedOn, hint: 'Business date, not in the future' + (recorded && recorded.businessDate ? ', not before ' + fmtD(recorded.businessDate) : '') + '. An Original part counts from the commissioning date of the equipment.' }) : null,
+          itemFields ? K.field('as-desc', 'Item description', K.input(st, 'desc', { maxlength: 200 }), { required: true, error: errors.desc }) : null,
+          itemFields ? h('div', { class: 'grid-2' }, K.field('as-brand', 'Brand', K.input(st, 'brand', { maxlength: 100 }), {}), K.field('as-model', 'Model / part number (optional)', K.input(st, 'model', { maxlength: 100 }), {}), K.field('as-serial', 'Serial number (optional)', K.input(st, 'serial', { maxlength: 100 }), {})) : null,
+          K.field('as-remarks', 'Remarks', K.area(st, 'remarks', { rows: 2, maxlength: 2000 }), {})],
+        foot: K.footButtons(api, 'Add spare part', () => {
+          errors = {}; message = null;
+          if (!st.posId) { errors.posId = 'Choose the main-part position.'; api.render(); return; }
+          const res = P.add({ equipmentId: st.equipmentId, posId: st.posId, typeId: st.typeId, lifeMonths: st.lifeMonths, condition: st.cond == null ? 'none' : st.cond, replacedOn: st.replacedOn, desc: st.desc, brand: st.brand, model: st.model, serial: st.serial, remarks: st.remarks });
+          if (res.ok) { const p = EQ.pos(st.posId); api.close(res); EQ.toast('Added ' + p.name + ' to the spare-part register of ' + EQ.eq(st.equipmentId).code, 'Prototype: kept in memory only; the entry starts its history.'); }
+          else { errors = res.fields || {}; message = Object.keys(errors).length ? null : res.message + (res.code ? ' (' + res.status + ' ' + res.code + ')' : ''); api.render(); }
+        }),
+      };
+    } });
+    return api;
+  }
+  EQ.dlg.addSpare = addSpareDialog;
 })(window.EQ);

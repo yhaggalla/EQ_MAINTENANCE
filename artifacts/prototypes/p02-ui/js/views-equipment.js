@@ -314,11 +314,17 @@ window.EQ = window.EQ || {};
     const resolved = EQ.state.D.resolved && EQ.state.D.resolved[p.code];
     const conflict = new Set(p.observations.map((o) => o.value)).size > 1;
     const fmt = (v) => (p.operator ? p.operator + ' ' : '') + v + (p.unit ? ' ' + p.unit : '');
+    // U1-C22: an Admin-entered specification has no drawing observation; it is labelled as such and shows its source.
+    if (p.origin === 'admin') return h('div', { class: 'stack', style: 'gap:.2rem;padding:.4rem 0;border-bottom:1px solid var(--border)', 'data-param': p.code },
+      h('div', { class: 'row between' }, h('strong', null, p.label), h('span', { class: 'tag gold' }, 'Admin-entered')),
+      p.condition ? h('span', { class: 'small muted' }, 'Condition: ' + p.condition) : null,
+      h('span', null, resolved ? fmt(resolved.value) : 'Not set'),
+      h('span', { class: 'small muted' }, 'Entered by an Admin' + (resolved && resolved.source ? ' from ' + resolved.source : '') + '; not a drawing observation.'));
     return h('div', { class: 'stack', style: 'gap:.2rem;padding:.4rem 0;border-bottom:1px solid var(--border)' },
-      h('div', { class: 'row between' }, h('strong', null, p.label + (p.motorCount ? ' (x' + p.motorCount + ')' : '')), conflict && !resolved ? h('span', { class: 'tag red' }, 'Unresolved source conflict') : h('span', { class: 'tag' }, resolved ? 'Resolved by Admin' : 'Read from drawing')),
+      h('div', { class: 'row between' }, h('strong', null, p.label + (p.motorCount ? ' (x' + p.motorCount + ')' : '')), conflict && !resolved ? h('span', { class: 'tag red' }, 'Unresolved source conflict') : h('span', { class: 'tag' }, resolved ? (resolved.basis === 'adminEntered' && !conflict ? 'Admin value' : 'Resolved by Admin') : 'Read from drawing')),
       p.condition ? h('span', { class: 'small muted' }, 'Condition: ' + p.condition) : null,
       conflict ? h('ul', { class: 'lines', style: 'margin:0' }, p.observations.map((o) => h('li', null, fmt(o.value) + ' — ' + o.drawing + ' p' + o.page + (o.supplementary ? ' (supplementary observation)' : '')))) : h('span', null, fmt(p.observations[0].value)),
-      resolved ? h('span', { class: 'small' }, 'Chosen: ' + resolved.value + ' ' + p.unit + ' (' + resolved.reason + '). Source observations are kept.') : null,
+      resolved ? h('span', { class: 'small' }, (resolved.basis === 'adminEntered' && !conflict ? 'Admin value: ' : 'Chosen: ') + resolved.value + ' ' + p.unit + ' (' + resolved.reason + (resolved.source ? '; source ' + resolved.source : '') + '). Source observations are kept.') : null,
       !conflict ? h('span', { class: 'small muted' }, h('span', { class: 'tag' }, h('span', null, p.observations[0].drawing + ' p' + p.observations[0].page)), ' visually read from the drawing, not independently verified') : null,
       p.code === 'total-lift-height' ? h('span', { class: 'small' }, 'This is total lift height. It is not the overall height of the crane; an overall height is not established in the reference data.') : null,
       conflict && !resolved && EQ.perm.admin() ? h('div', null, h('button', { type: 'button', class: 'btn-sm', onClick: () => EQ.dlg.resolveParam(p) }, 'Resolve with a reason')) : null);
@@ -346,7 +352,7 @@ window.EQ = window.EQ || {};
     // parameters
     const fam = EQ.verified(eq) && eq.modelCode === 'CICT-J526A-STS';
     const pm = sel.main ? EQ.mainDef(eq.mains.find((x) => x.id === sel.main).code).code : null;
-    const params = EQ.sourceParams.filter((p) => (pm ? (PARAM_MAIN[pm] || []).includes(p.code) : p.use === 'major'));
+    const params = EQ.allParams().filter((p) => (!p.modelCode || p.modelCode === eq.modelCode) && (pm ? (PARAM_MAIN[pm] || []).includes(p.code) || p.mainCode === pm : p.use === 'major'));
     box.appendChild(h('div', { class: 'sec' }, h('h3', null, pm ? 'Family parameters for main ' + pm : 'Major parameters'),
       fam ? h('div', null, h('p', { class: 'small muted', style: 'margin:0 0 .3rem' }, 'Drawing observations for the CICT-J526A-STS family (J526A00 general arrangement). They apply to this equipment only because an Admin verified its model association; they are not measurements of this item.'), params.length ? params.map((p) => paramRow(p, eq)) : h('p', { class: 'small muted' }, 'No source parameters are recorded for this mechanism.'))
         : h('div', { class: 'nonwork' }, h('strong', null, 'No family parameters'), eq.typeCode === 'QC' ? 'This equipment has no verified model association, so no drawing values are shown for it.' : 'No source parameters exist for ' + eq.typeCode + ' in the reference data.')));
@@ -404,7 +410,7 @@ window.EQ = window.EQ || {};
         h('span', null, h('span', { class: 'tag ' + (mode2.label === 'Auto' ? '' : 'gold'), title: mode2.long }, mode2.label === 'Auto' ? 'Auto (ZMMS)' : 'Manual'), ' ', mode2.long + (eq.zmmsMapped ? ' · ' + EQ.zmms.freshLabel() : '')),
         EQ.panelTabs.jobsAllowed() ? h('a', { href: '#/eq/jobs/special?equipment=' + eq.id }, EQ.plural(EQ.openCount(eq.id, { level: 'equipment', id: null }), 'open special job')) : h('span', null, EQ.plural(EQ.openCount(eq.id, { level: 'equipment', id: null }), 'open special job'))),
       h('div', { class: 'actions' },
-        EQ.perm.write() && eq.lifecycle === 'active' ? [h('button', { type: 'button', 'data-fk': 'set-status', onClick: () => EQ.dlg.status(eq) }, icon('refresh'), eq.zmmsMapped ? 'Correct status' : 'Update status'), eq.zmmsMapped && eq.overrideOn ? h('button', { type: 'button', 'data-fk': 'back-auto', onClick: () => { const r = EQ.zmms.backToAutomatic(eq.id); EQ.toast(r.ok ? eq.code + ' is back to automatic' + (r.awaiting ? " (awaiting today's ZMMS sync)" : '') : r.message, 'Prototype: in memory only.'); } }, icon('undo'), 'Back to automatic') : null, h('button', { type: 'button', class: 'primary', 'data-fk': 'add-job', onClick: () => EQ.dlg.jobForm({ equipmentId: eq.id }) }, icon('plus'), 'Add job')]
+        EQ.perm.write() && eq.lifecycle === 'active' ? [h('button', { type: 'button', 'data-fk': 'set-status', onClick: () => EQ.dlg.status(eq) }, icon('refresh'), eq.zmmsMapped ? 'Correct status' : 'Update status'), eq.zmmsMapped && eq.overrideOn ? h('button', { type: 'button', 'data-fk': 'back-auto', onClick: () => { const r = EQ.zmms.backToAutomatic(eq.id); EQ.toast(r.ok ? eq.code + ' is back to automatic' + (r.awaiting ? " (awaiting today's ZMMS sync)" : '') : r.message, 'Prototype: in memory only.'); } }, icon('undo'), 'Back to automatic') : null, h('button', { type: 'button', class: 'primary', 'data-fk': 'add-job', onClick: () => EQ.dlg.jobForm({ equipmentId: eq.id }) }, icon('plus'), 'Add special job')]
           : h('span', { class: 'tag gold' }, EQ.perm.write() ? 'Retired: no new jobs or status changes' : 'Read-only: Management cannot change records'))));
 
     page.appendChild(h('div', { class: 'toolbar' }, crumbs(eq, sel, q),

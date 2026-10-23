@@ -2,6 +2,8 @@
 
 Prepared in P01 on 21 October 2026. Status: **design contract for R01 review**, revised by Repair-R01 on 21 October 2026 (findings F1, F2, F3, F5 of `docs/evidence/R01/review-20261021-1357.md`: J6, s4.1, s5.1, s5.3-s5.5, s8, alternate keys); P06/P07/P08/P10 implement it. Section numbers are referenced from `docs/ARCHITECTURE.md` and `docs/API_CONTRACT.md`. Requirement text quoted as "s<n>" refers to `documents/prompt-pack/APPROVED_REQUIREMENTS.md`.
 
+**U1 round 5 addendum (23 October 2026, U1-C20..U1-C22, user instructions in chat; DECISIONS "2026-10-23 U1 CHANGES REQUESTED (round 5)").** Changed sections: s3.1 (Admin-added definitions, fixed 061/062 names), s3.4 (draft re-parenting, Admin-added positions), s3.8 (Admin-entered specification rows, value source), s6 (`eq.work` adds spare parts; `admin.access` wording), s11, s14.1, s16.1, s16.3 (Add spare part), s16.6 (`registerAdd`), s18.1 (Maintenance "Open in Jobs" target) and s18.2 (four EQ Jobs tabs). These supersede SOW V2 s4.2 (one "Special & daily jobs" part) and s4.6 / APPROVED_REQUIREMENTS (only Admin marks major spare parts) where they differ.
+
 **P01B addendum (22 October 2026, SOW V2 revision 4, requirements v2.0).** Extended for R02B review; P06, P07, P07B, P08, P08B, P09 and P10 implement it. Changed sections: s1, s2, s3.2, s3.3, s3.4, s3.5, s3.6, s3.7, s3.9, s3.11, s3.12, s4.2, s5.1, s6, s7, s8, s9, s11, s12, s13. New sections: s14 sections, navigation and the Access matrix; s15 ZMMS daily jobs and automatic status; s16 spare-part condition register; s17 FAC; s18 read models (crane current state, EQ Jobs tab, FAC Dashboard); s19 Excel exports; s20 ZMMS fields provisional until P07B. Every P01/R01 rule not named as superseded in `docs/DECISIONS.md` ("P01B supersessions") still holds. In V2 the P01 "jobs" are the EQ **special jobs**; their rules are unchanged.
 
 ## 1 Conventions
@@ -98,8 +100,9 @@ erDiagram
 | Column | Type / constraint | Notes |
 | --- | --- | --- |
 | Id | PK | |
-| Code | nvarchar(8), UQ, immutable | `01`...`17`; `10` is absent |
+| Code | nvarchar(8), UQ, immutable | `01`...`17` as delivered; `10` is absent and never created; Admin-added codes are new two-digit strings (U1-C22) |
 | Name | nvarchar(200), not null | display name |
+| Description | nvarchar(2000) null | (U1-C22) Admin-entered; null for the delivered mains |
 | SourceName | nvarchar(200) null | as supplied |
 | IsActive | bit | |
 | Origin | `referenceImport` / `admin` | |
@@ -116,14 +119,15 @@ erDiagram
 | MainDefinitionId | FK -> MainMechanismDefinition, **immutable** | supplied parent kept |
 | Name | nvarchar(200) null | null only while reserved; `061` = Spreader, `062` = Headblock |
 | SourceName, Description, SourceDescription | nvarchar | original label/description retained (`061` source label `lp`, `062` blank) |
-| NameDecision | `preserve_source` / `user_confirmed_2026-10-21` / `admin_defined` | |
+| NameDecision | `preserve_source` / `user_confirmed_2026-10-21` / `admin_defined` / `admin_renamed` (U1-C22) | |
 | IsActive, IsReserved | bit | `048`, `063`: IsActive = 0, IsReserved = 1 |
 | Origin, ImportedValuesHash, SourceLine, RowVersion | | as above |
 
 Invariants:
 
 - C1 After the reference import the catalogue holds exactly 16 main and 43 sub definitions, 41 active and 2 reserved inactive (`048`, `063`); `015`, `024`, `033` are three separate definitions (SRC01-SRC03). The importer verifies these counts and the source checksum before writing (s12).
-- C2 Codes and parents never change. The API refuses creating main code `10` (listed in `unassignedMainCodes`) or reusing any existing code; any later new definition uses a new code chosen by Admin (no renumbering).
+- C2 Codes and parents never change. The API refuses creating main code `10` (listed in `unassignedMainCodes`) or reusing any existing code; any later new definition uses a new code chosen by Admin (no renumbering). (U1-C22) Admin adds main definitions with a new two-digit string code (`00` and `10` refused, 422 `code_unassigned_reserved` for `10`, 409 `duplicate_code`) and sub definitions whose code is the parent main code plus one digit, unique across the whole catalogue (422 `validation_failed` for another format, 422 `parent_inactive` under an inactive main). Added rows have Origin `admin`, NameDecision `admin_defined`, SourceName null; they never count toward the C1 reference totals (16 main / 43 sub stay as delivered).
+- C2a (U1-C22) Admin edits Name and Description of any non-reserved definition with an audit row that keeps the previous values (catalogue change log); a rename of a reference definition sets NameDecision `admin_renamed` and keeps SourceName visible. The user-confirmed names `061` Spreader and `062` Headblock are fixed (409 `approved_name_locked`; their descriptions remain editable). Reserved `048`/`063` are refused (422 `reserved_definition`) and change only through define-reserved (C3).
 - C3 A reserved definition is unselectable for new instances, positions or job targets until an Admin gives it an explicit name/description (`define-reserved`), which sets IsReserved = 0, IsActive = 1, NameDecision = `admin_defined`, audited.
 - C4 Definitions are deactivated, never deleted. An inactive definition cannot be used for new applicability, instances or job targets; existing instances, positions and history stay readable.
 - C5 Main 06 and sub 061 are both displayed "Spreader"; every UI shows code + name so the levels stay distinguishable.
@@ -209,7 +213,7 @@ Every composite FK in this contract references a key declared as a primary key o
 Invariants:
 
 - P1 Positions are per equipment. `QC-DEMO-01 / 011 / hoist.drive.motor.a` and `QC-DEMO-02 / 011 / hoist.drive.motor.a` are different rows with different IDs and independent history (ADM02, HIS01).
-- P2 Instantiating a template copies applicable sub instances and confirmed position templates into `draft` rows for that equipment; Admin confirms (all or selected) to make them `active`. While a position is `draft` Admin may also edit its SemanticKey. Before any history exists Admin may add, rename, change kind/UOM or deactivate; positions in `draft` with no references may be deleted (s11). Once confirmed, the SemanticKey never changes (409 `position_key_frozen`); a wrong key on an active position is handled by deactivating it and adding a new position, so bindings and history never follow a re-keyed row.
+- P2 Instantiating a template copies applicable sub instances and confirmed position templates into `draft` rows for that equipment; Admin confirms (all or selected) to make them `active`. While a position is `draft` Admin may also edit its SemanticKey. Before any history exists Admin may add, rename, change kind/UOM or deactivate; positions in `draft` with no references may be deleted (s11). (U1-C22) Admin may add a position to one equipment (`POST /admin/equipment/{id}/positions`): it starts as `draft` under an active, non-reserved sub instance of that equipment, with a key that satisfies s10.2, is unique for the equipment (409 `duplicate_semantic_key`) and never starts with `container.`; other equipment from the same template are unchanged (P1). While a position is `draft` and has no references Admin may also move it to another sub instance of the same equipment (ancestor chain rewritten in one statement; 409 `ancestors_frozen` once confirmed or referenced). Once confirmed, the SemanticKey never changes (409 `position_key_frozen`); a wrong key on an active position is handled by deactivating it and adding a new position, so bindings and history never follow a re-keyed row.
 - P3 After history exists: DisplayName may be renamed (audited); SemanticKey, ancestor chain and PositionKind are frozen; deactivation is allowed (no new work) and keeps all history readable.
 - P4 Re-applying a newer template revision previews additions only (new sub instances/positions); it never deletes, renames or re-parents existing rows. Removing something requires an explicit Admin deactivation.
 - P5 A spatial container (machinery house, trolley assembly, portal frame) is never a PartPosition; it exists only in the scene manifest (s10.10).
@@ -326,11 +330,11 @@ Time in current status = now - Equipment.CurrentStatusSinceUtc; shown only when 
 
 ### 3.8 Source parameters
 
-**ParameterDefinition**: Code (PK string, e.g. `rail-gauge`, `gantry-speed`); Label; Unit; DataType (`number`, `text`); Stage1Use (`major`, `technical`); SortOrder. Required major fields: SWL under spreader / cargo beam, rail gauge, outreach, backreach, lift height above rail, total lift height (s6).
+**ParameterDefinition**: Code (PK string, e.g. `rail-gauge`, `gantry-speed`); Label; Unit; DataType (`number`, `text`); Stage1Use (`major`, `technical`); SortOrder; (U1-C22) Origin (`referenceImport` / `admin`); EquipmentModelId (null for reference definitions, the model scope of an Admin-entered row); Condition (null); RowVersion. Admin adds specification rows (`POST /admin/parameters/definitions`, with the first ParameterValue, Basis `adminEntered`, in the same transaction) and edits Label, Unit, Condition, Stage1Use and the ParameterMechanismLink of Admin-entered rows only, keeping the previous definition in AuditEntry; reference definitions are refused (409 `source_definition_fixed`). Admin-entered rows have no ParameterObservation and are labelled "Admin-entered" wherever they appear (Technical tab included). Required major fields: SWL under spreader / cargo beam, rail gauge, outreach, backreach, lift height above rail, total lift height (s6).
 
 **ParameterObservation** (immutable source fact): Id; ParameterCode; EquipmentModelId (the drawing family the observation belongs to, e.g. `CICT-J526A-STS`); NumericValue / TextValue; Unit; Condition (e.g. "65 t under spreader", "Not overall crane height"); SourceDocumentId (FK, when registered) + DrawingNumber + PdfPage; Verification (`visually_read_from_drawing`, ...); ImportBatchId; ObservedBy (`referenceImport` or Admin profile). UQ (ParameterCode, EquipmentModelId, DrawingNumber, PdfPage, NumericValue, TextValue, Condition) so repeat imports are no-ops.
 
-**ParameterValue** (an authorized chosen value): Id; ParameterCode; ScopeType (`equipmentModel`, `equipment`); ScopeId; NumericValue/TextValue; Unit; Condition; Basis (`resolvedConflict`, `adminEntered`, `equipmentOverride`); SelectedObservationId null; Reason (required); DecidedByProfileId; DecidedUtc; IsCurrent; RowVersion. UQ (ParameterCode, ScopeType, ScopeId, Condition) WHERE IsCurrent = 1. A superseded value is kept (IsCurrent = 0) and audited.
+**ParameterValue** (an authorized chosen value): Id; ParameterCode; ScopeType (`equipmentModel`, `equipment`); ScopeId; NumericValue/TextValue; Unit; Condition; Basis (`resolvedConflict`, `adminEntered`, `equipmentOverride`); SelectedObservationId null; Reason (required); SourceNote (nvarchar(300) null, U1-C22: document/page, nameplate or decision the value comes from; required for an Admin-entered definition's first value); DecidedByProfileId; DecidedUtc; IsCurrent; RowVersion. UQ (ParameterCode, ScopeType, ScopeId, Condition) WHERE IsCurrent = 1. A superseded value is kept (IsCurrent = 0) and audited.
 
 Effective value for an equipment item: equipment override -> model-scoped ParameterValue -> the single observation for its verified model -> **unresolved conflict** when the model has two or more differing observations and no ParameterValue (gantry speed 46 vs 45.5 m/min, U-01; trolley motor 275 vs 270 kW, U-02). Equipment without a verified model shows no family parameters (SRC06). Observations stay visible beside any chosen value (ADM06, SRC05). `total-lift-height` (63 m) carries the condition "Not overall crane height" and no overall-height parameter exists in the reference data.
 
@@ -556,7 +560,7 @@ Each permission below is an **Access-matrix feature** (s14). The Portal role set
 | --- | --- | --- | --- | --- | --- |
 | `eq.fleet.view` | Read EQ Fleet tab and equipment detail (crane view), hierarchy, parameters, drawings, model assets | Fixed | Fixed | Toggle (on) | Toggle (on) |
 | `eq.jobs.view` | Read EQ Jobs tab: special jobs and their scoped history, ZMMS daily jobs, EQ status board/history, spare-part register/history, EQ work evidence | Fixed | Fixed | Toggle (on) | Toggle (on) |
-| `eq.work` | Create special jobs, edit/start/return Pending/Current work, complete jobs and replacement lines, cancel own uncompleted jobs, correct the operational status (manual, current day) and Back to automatic, update spare-part condition, attach EQ work evidence, remove own evidence while the job is uncompleted | Fixed | Fixed | No | No |
+| `eq.work` | Create special jobs, edit/start/return Pending/Current work, complete jobs and replacement lines, cancel own uncompleted jobs, correct the operational status (manual, current day) and Back to automatic, add spare parts to an equipment's register and update spare-part condition (U1-C21, s16.3), attach EQ work evidence, remove own evidence while the job is uncompleted | Fixed | Fixed | No | No |
 | `eq.work.admin` | Correct or reopen completed EQ work, cancel any uncompleted job, void register entries, record a baseline as Admin (D-36), remove any evidence with reason | Fixed | No | No | No |
 | `fac.dashboard.view` | Read FAC Dashboard (including TV mode), the FAC photo thumbnails it shows and the read-only detail of an active job opened from a dashboard row (SOW V2 5.5.7, D-140); not the FAC Jobs list, the full cycle list or the FAC export | Fixed | Toggle (on) | Fixed | Toggle (on) |
 | `fac.jobs.view` | Read FAC Jobs tab, job detail, timeline, previous cycles, FAC photos | Fixed | Toggle (on) | Fixed | Toggle (on) |
@@ -565,7 +569,7 @@ Each permission below is an **Access-matrix feature** (s14). The Portal role set
 | `fac.masterList.manage` | Add, edit, deactivate and reactivate FAC master-list jobs (all kinds) | Fixed | No | Toggle (off) | No |
 | `fac.work.admin` | Correct FAC cycles and updates, set an Admin due date, remove any FAC photo, with reason | Fixed | No | No | No |
 | `export.excel` | Export filtered lists to .xlsx (only lists of tabs the user can view) | Fixed | Toggle (on) | Toggle (on) | Toggle (on) |
-| `admin.access` | Admin pages: EQ settings (equipment, models, catalogue, positions, applicability, specifications, bindings, spare-part selection and expected life, ZMMS mapping, job-type mapping, sync times and health), FAC settings (master list, import, lists, settings), Access matrix, raw audit, user profiles | Fixed | No | No | No |
+| `admin.access` | Admin pages: EQ settings (equipment, models, catalogue add/edit, positions add/edit, applicability, specifications add/edit and values, bindings, spare-part types, expected life and register adjustments (U1-C22), ZMMS mapping, job-type mapping, sync times and health), FAC settings (master list, import, lists, settings), Access matrix, raw audit, user profiles | Fixed | No | No | No |
 | central identity / Portal role administration | Alter central identities or grant arbitrary Portal roles | No endpoint exists | No | No | No |
 
 Rules:
@@ -735,18 +739,19 @@ A container (for example `container.machinery-house`, which contains hoist, trol
 
 | Item | Stable identifier | May change | Never changes | Removal |
 | --- | --- | --- | --- | --- |
-| Main/sub definition | Code (string) | Name, description (audited); active flag | Code, parent | Deactivate only |
+| Main/sub definition | Code (string) | Name, description (audited, prior kept; `061`/`062` names fixed, U1-C22); active flag | Code, parent | Deactivate only |
 | Equipment type | Code | Name, sort | Code | Deactivate (no new equipment) |
 | EquipmentModel | Code | Name, description, applicability, templates (TemplateRevision) | Code, type | Retire |
 | PositionTemplate | (model, SemanticKey) | Everything while draft | Key after any instantiation | Deactivate; delete only while draft and never instantiated |
 | Equipment | Id | Code (unique, audited), name, known attributes, model association | Id, type | Retire; hard delete only when it has no instances in use, jobs, status changes, attachments or bindings (audited) |
 | Mechanism instance | Id | State | Equipment, definition, parent | Deactivate |
-| PartPosition | Id | DisplayName; SemanticKey only while `draft`; kind/UOM only before history | Id, equipment, ancestors; SemanticKey from confirmation (`active`); kind after history | Deactivate; delete only while `draft` with no references |
+| PartPosition | Id | DisplayName; SemanticKey and ancestors (same equipment) only while `draft` with no references (U1-C22); kind/UOM only before history | Id, equipment; ancestors and SemanticKey from confirmation (`active`); kind after history | Deactivate; delete only while `draft` with no references |
 | Installation / InstallationEvent | Id; (position, Sequence) | Attributes via correction (audited) | Sequence, kind, position | Void by correction only (latest event rule) |
 | Job | Id, Number | Fields while uncompleted; Admin correction afterwards | Equipment, Number, CreatedBy | Cancel (uncompleted) only; never deleted |
 | ReplacementLine | Id | Attributes via correction | Job, position (move = void + add) | Void by correction |
 | OperationalStatusChange | Id, (equipment, Sequence) | Nothing | Everything | Never; a wrong status is followed by a new change |
 | ParameterObservation | Id | Nothing | Everything | Never (a mistaken Admin observation is marked superseded by a value with reason) |
+| (U1-C22) ParameterDefinition | Code | Admin-entered rows: Label, Unit, Condition, Stage1Use, mechanism link (audited, prior kept); reference rows: nothing | Code, Origin | Never deleted |
 | ParameterValue | Id | New current value supersedes old | Old rows | Superseded, kept |
 | Document | Id, Sha256, StorageKey | Title/links | Content, key, hash | Mark removed (content retained) |
 | SceneModelVersion / SceneNode | (model, Version), (version, NodeKey) | Status | Asset, manifest, nodes | Retire |
@@ -758,7 +763,7 @@ A container (for example `container.machinery-house`, which contains hoist, trol
 | (V2) ZmmsSyncRun | Id | Outcome/counters until the run ends | Everything after the run ends | Never |
 | (V2) ZmmsDailyJob | Id; (ZmmsJobNumber, JobDate) | Fields from a later successful run (previous values in ZmmsDailyJobRevision); EquipmentId/MatchState by mapping | Key | Never; a row missing from a later complete run is marked `absentFromSource` |
 | (V2) ZmmsEquipmentMapping, ZmmsValueMapping | Id; normalised source key | Target / effect (audited) | Source key | Retire (mapping), effect set to `unmapped` (value) |
-| (V2) SparePartType | Code | Name, default life, active flag | Code | Deactivate |
+| (V2) SparePartType | Code | Name, default life, active flag (audited, prior kept, U1-C22) | Code | Deactivate (retired: not offered for new designations or additions; designated positions keep it) |
 | (V2) SparePartCondition | PartPositionId | Through register actions, job completion and corrections only | Position | Never; undesignating hides it from the register, history kept |
 | (V2) FacDiscipline, FacJobType, FacFrequency | Code | Name/label, sort, active, interval (frequency: affects cycles opened afterwards only) | Code | Deactivate (no new jobs) |
 | (V2) FacJob | Id, Number, (SourceRow, SourceSplitIndex) for imported jobs | Master fields (s17.2) with audit; State | Id, Number, Origin, import key | Deactivate / close; never deleted (S23) |
@@ -819,7 +824,7 @@ No import or seed runs at host startup. Reference imports never create equipment
 | Section | Tab | View feature | Contents |
 | --- | --- | --- | --- |
 | EQ | Fleet | `eq.fleet.view` | Fleet overview; equipment detail (crane view) opens from it |
-| EQ | Jobs | `eq.jobs.view` | Three parts: Special & daily jobs; EQ status; Spare parts condition (s18.2) |
+| EQ | Jobs | `eq.jobs.view` | Four tabs (U1-C20): Special/Projects; Daily work (CMMS); EQ status; Spare parts condition (s18.2) |
 | FAC | Dashboard | `fac.dashboard.view` | Moving management board (s18.4), TV mode |
 | FAC | Jobs | `fac.jobs.view` | My work, board/list, job detail (s18.5) |
 | (shared) | Admin | `admin.access` | EQ settings, FAC settings, Access |
@@ -990,6 +995,8 @@ AutomaticStatusEnabled can be switched on only when the latest succeeded run exi
 
 **SparePartType**: Id; Code (nvarchar(32), UQ, immutable, e.g. `hoist-motor`, `wire-rope-main-hoist`); Name; DefaultExpectedLifeMonths (int null, 1..600); IsActive; SortOrder; RowVersion. Admin-maintained; no seed list (types and lives are Admin decisions, not drawing facts).
 
+- (U1-C21) Adding a part to the register is no longer Admin-only: EQ Team and Admin (`eq.work`) add an active, not-yet-designated position of one active equipment with its type, optional life override and first condition in one transaction ("Add spare part", s16.3). Admin keeps the types and their default life, type and life changes per position, and undesignation (`admin.access`, `PUT /admin/equipment/{id}/positions/{positionId}/spare-part`). This supersedes SOW V2 s4.6 / APPROVED_REQUIREMENTS where only Admin marks major spare parts.
+- (U1-C22) Admin adds, renames and retires SparePartTypes; a retired type is refused for new designations and additions (422 `validation_failed`, field `sparePartTypeId`) while designated positions keep it. Each type change is audited with the prior values.
 - Template level: PositionTemplate.SparePartTypeId (s3.2). Instantiation copies it into PartPosition.IsMajorSparePart/SparePartTypeId (Admin can adjust per equipment afterwards, SP01). Changing a template later never changes existing positions (T1).
 - Position level: IsMajorSparePart, SparePartTypeId, ExpectedLifeMonthsOverride (s3.4). Each equipment has its own register over its own position instances (P1): two QCs from one template keep independent registers (SP01).
 - Effective expected life = ExpectedLifeMonthsOverride ?? SparePartType.DefaultExpectedLifeMonths ?? unknown.
@@ -1009,6 +1016,7 @@ All need `eq.work`, take an Idempotency-Key and the condition `version`, lock th
 
 | Action | Precondition | Effect on installation identity (s3.5) | Register |
 | --- | --- | --- | --- |
+| Add spare part (U1-C21, `eq.work`) | Equipment active (409 `equipment_retired`); position belongs to it (422 `target_not_in_equipment`), is `active` (422 `position_not_active`) and not yet designated (409 `already_major_spare_part`); SparePartType active (422); life override 1..600 or null (422); condition `original` only when the position has no non-voided installation event (else 409 `position_has_installation_history`), `replaced` with ReplacedOn <= today and >= the latest non-voided event date (422 `date_in_future` / 409 `out_of_order_installation`), or `keep` (only when an installation is already recorded) | `original`: as Record Original; `replaced`: as Record replacement (closes the current installation); `keep`: none | Sets IsMajorSparePart, SparePartTypeId, ExpectedLifeMonthsOverride and the first condition in ONE transaction; one history row with source `registerAdd` (BeforeJson = the previous register state or null). Nothing is saved on any refusal |
 | Record Original | Position designated; no non-voided installation event at the position (else 409 `position_has_installation_history`) | Creates a `baselineRecorded` event and installation (InstalledOn null = unknown; never the commissioning date) with the entered item description, brand (Manufacturer), model/part no. and serial | Condition `original` |
 | Record replacement | Position designated, active; `expectedCurrentInstallationId` matches (409 `installation_changed`); ReplacedOn <= today and >= the latest non-voided event date (409 `out_of_order_installation`, D-32) | Creates a `conditionReplacement` event (I5) that closes the current installation (or declares the removed item Unknown) and installs the new item. Serialized: quantity 1 `ea`; quantityLot: `full` replacement of all open lots (partial lot changes go through a special job) | Condition `replaced`, ReplacedOn |
 | Amend current | Position designated; current installation exists | Amends attributes (description, brand, model/part no., serial) of the current installation, audited; no event | Same condition; changed fields; remarks |
@@ -1029,7 +1037,7 @@ Completion writes the register in the same transaction as the job, lines, events
 
 ### 16.6 Entities
 
-**SparePartCondition** (one row per position that has ever been designated): PartPositionId PK + EquipmentId (composite FK -> PartPosition (Id, EquipmentId)); Condition (`original`, `replaced`, null = not recorded); ReplacedOn date null; ReplacedPartial bit; Brand; ModelOrPartNumber; SerialNumber; ItemDescription; Remarks (<= 2000); CurrentInstallationId; LastSource (`registerOriginal`, `registerReplacement`, `registerAmend`, `registerRemarks`, `jobCompletion`, `correction`); LastJobId null; LastReplacementLineId null; Revision (int); UpdatedUtc; UpdatedByProfileId; RowVersion. CHECK: Condition = `replaced` => ReplacedOn not null; Condition = `original` => ReplacedOn null.
+**SparePartCondition** (one row per position that has ever been designated): PartPositionId PK + EquipmentId (composite FK -> PartPosition (Id, EquipmentId)); Condition (`original`, `replaced`, null = not recorded); ReplacedOn date null; ReplacedPartial bit; Brand; ModelOrPartNumber; SerialNumber; ItemDescription; Remarks (<= 2000); CurrentInstallationId; LastSource (`registerAdd` (U1-C21), `registerOriginal`, `registerReplacement`, `registerAmend`, `registerRemarks`, `jobCompletion`, `correction`); LastJobId null; LastReplacementLineId null; Revision (int); UpdatedUtc; UpdatedByProfileId; RowVersion. CHECK: Condition = `replaced` => ReplacedOn not null; Condition = `original` => ReplacedOn null.
 
 **SparePartConditionHistory** (append-only, SP04): Id; PartPositionId + EquipmentId; Revision (UQ (PartPositionId, Revision)); Source (as LastSource, plus `designation` when Admin designates/undesignates or changes the life override, so prediction changes are explainable); BeforeJson; AfterJson (condition, dates, brand, model, serial, description, remarks, effective life); JobId, ReplacementLineId, InstallationEventId, JobCorrectionId (as applicable); Reason; ActorProfileId; OccurredUtc. Shown in the Spare parts part of the EQ Jobs tab only; the crane view shows the current row only (SP04).
 
@@ -1210,17 +1218,18 @@ The crane-view right panel has exactly four tabs (U1-C19, D-122). Each is a sepa
 
 A summary query returns the four tab badges for the scope (today's ZMMS job count, open special jobs, spare parts overdue/due soon) so the panel can label tabs without loading all four.
 
-"Open in Jobs" parameters: Projects/Special -> EQ Jobs special part with `equipment`, `scope`, `target` (scoped history of s9); Spare parts -> Spare parts part with `equipment`, `main`/`sub`/`part`; Maintenance -> special & daily part with `equipment` and today's date range.
+"Open in Jobs" parameters: Projects/Special -> EQ Jobs special part with `equipment`, `scope`, `target` (scoped history of s9); Spare parts -> Spare parts part with `equipment`, `main`/`sub`/`part`; Maintenance -> Daily work (CMMS) tab with `equipment` and today's date range (U1-C20).
 
 **ParameterMechanismLink** (D-123): (ParameterCode, MechanismCode) PK, MechanismCode a main or sub code string; Admin-maintained; P06 proposes initial links (for example hoist speeds -> 01, gantry speed -> 04) for Admin review. Unlinked parameters show at equipment level only.
 
 ### 18.2 EQ Jobs tab (S08)
 
-Shared filters for all three parts: equipment, type (QC/RTG/ES), date range, search. Each part keeps its full history.
+Four tabs (U1-C20, supersedes the SOW V2 s4.2 layout where the daily jobs sit below the special jobs in one part). Shared filters for all four tabs: equipment, type (QC/RTG/ES), date range, search; they are kept in the URL across the tabs. Each tab keeps its full history.
 
-| Part | Queries | Notes |
+| Tab | Queries | Notes |
 | --- | --- | --- |
-| Special & daily jobs | Special jobs list/board (Pending, Current, Completed, Include cancelled) and job record (existing P01 queries); scoped history s9 when opened with equipment/scope/target; below them the ZMMS daily jobs list (matched rows only; JobDate in the date range; `absentFromSource` rows shown with "No longer in the ZMMS list"), with "ZMMS data from" | Daily jobs are read-only and linked to equipment only (ZM07). Unmatched rows appear only in Admin |
+| Special/Projects | Special jobs list/board (Pending, Current, Completed, Include cancelled) and job record (existing P01 queries); scoped history s9 when opened with equipment/scope/target; "Add special job" for `eq.work` (also from the crane view, pre-filled with the selection, U1-C21) | Manual entry only (SOW V2 s4.3) |
+| Daily work (CMMS) | The ZMMS daily jobs list (matched rows only; JobDate in the date range; `absentFromSource` rows shown with "No longer in the ZMMS list"), with "ZMMS data from" | Daily jobs are read-only and linked to equipment only (ZM07). Unmatched rows appear only in Admin |
 | EQ status | Status board: one row per active equipment with current status, source (Auto/Manual), mode (s3.3 E5), since, reason, override day and the causing ZMMS jobs; actions Correct and Back to automatic for `eq.work`. Status history across equipment (source, kind, actor or sync run, reason, causes) | S21 |
 | Spare parts condition | Register rows per equipment with flags; per-position history (s16.6) | S22, SP04 |
 

@@ -166,10 +166,11 @@ Order of middleware and endpoint groups in `Cict.EqMaintenance.Api`:
 | `/eq-maintenance/` | Landing: last used permitted tab (browser storage) or the role default; No-access page when nothing is permitted (D-90) | `EqSession` |
 | `/eq-maintenance/eq/fleet?type=&status=&lifecycle=&source=` | EQ Fleet (S02/S03): cards with status source Auto/Manual and today's ZMMS job count | `eq.fleet.view` |
 | `/eq-maintenance/eq/equipment/{equipmentId}?main=&sub=&part=&container=&mode=overall|technical&panel=maintenance|special|technical|spareParts` | Equipment detail (crane view): tree, viewer or fallback, right panel with the four current-state tabs of U1-C19 (S04-S07, S14; D-122) | `eq.fleet.view` |
-| `/eq-maintenance/eq/jobs/special?status=&equipment=&type=&kind=&main=&dateField=&from=&to=&includeCancelled=&scope=&target=` | EQ Jobs, special & daily jobs part (special jobs; scoped history when `equipment`+`scope`+`target`; ZMMS daily jobs below) (S08/S09/S20) | `eq.jobs.view` |
+| `/eq-maintenance/eq/jobs/special?status=&equipment=&type=&kind=&main=&dateField=&from=&to=&includeCancelled=&scope=&target=` | EQ Jobs, Special/Projects tab (manual special jobs; scoped history when `equipment`+`scope`+`target`) (S08/S09; U1-C20) | `eq.jobs.view` |
+| `/eq-maintenance/eq/jobs/daily?equipment=&type=&from=&to=` | EQ Jobs, Daily work (CMMS) tab: read-only ZMMS daily jobs, default today (S08/S20; U1-C20) | `eq.jobs.view` |
 | `/eq-maintenance/eq/jobs/special/{jobId}` | Special job record, completion (with the pre-filled condition form), evidence (S09/S13/S22) | `eq.jobs.view` |
 | `/eq-maintenance/eq/jobs/status?equipment=&type=&source=&from=&to=` | EQ Jobs, EQ status part: board, correction, Back to automatic, history (S21) | `eq.jobs.view` |
-| `/eq-maintenance/eq/jobs/spare-parts?equipment=&type=&main=&sub=&part=&flag=` | EQ Jobs, spare parts condition part: register, flags, per-part history (S22) | `eq.jobs.view` |
+| `/eq-maintenance/eq/jobs/spare-parts?equipment=&type=&main=&sub=&part=&flag=` | EQ Jobs, spare parts condition part: register, flags, per-part history; Add spare part for `eq.work` (S22; U1-C21) | `eq.jobs.view` |
 | `/eq-maintenance/fac/dashboard?discipline=&type=&mode=&pic=&focus=&tv=1` | FAC Dashboard (S27); `tv=1` = TV mode | `fac.dashboard.view` |
 | `/eq-maintenance/fac/jobs?view=mywork|board|list&status=&flag=&discipline=&type=&mode=&pic=&frequency=&kind=&q=` | FAC Jobs (S28) | `fac.jobs.view` |
 | `/eq-maintenance/fac/dashboard/jobs/{jobId}` | Read-only FAC job detail opened from a dashboard row (SOW V2 5.5.7): the same detail as below for an active job, without the FAC Jobs actions; the back link returns to the dashboard with its filters (Repair-R02B, D-140) | `fac.dashboard.view` |
@@ -381,7 +382,7 @@ Components: **Api** (host endpoints/security), **App** (Application services), *
 | S05 | Dom catalogue/instances/positions (DATA s3.1, s3.4); App hierarchy query (API s4.4); Web tree; Viewer selection | P06, P10 | SRC01, SRC02, SRC03, ADM02, ADM03, VIS03, VIS05 |
 | S06 | Viewer overall/technical modes (DATA s10.6); App parameters (API s4.10) | P03, P10 | VIS03, VIS04 |
 | S07 | V2: App crane current-state queries, four tabs (DATA s18.1, API s4.16); scoped history composition served to the EQ Jobs tab (DATA s9, API s4.6); Web right panel with response-echo guard; Viewer focus | P02B, P08, P10 | HIS01, HIS02, HIS03, HIS04, HIS05, HIS06, VIS03, SP04 |
-| S08 | App job queries (API s4.7), daily-job, status-board and spare-part queries (API s4.17); Web EQ Jobs tab in three parts | P02, P02B, P07, P07B, P08 | JOB01, JOB03, JOB12, OPS02, ZM07, HIS06 |
+| S08 | App job queries (API s4.7), daily-job, status-board and spare-part queries (API s4.17); Web EQ Jobs tab in four tabs (U1-C20) | P02, P02B, P07, P07B, P08 | JOB01, JOB03, JOB12, OPS02, ZM07, HIS06 |
 | S09 | Dom job state machine (DATA s4.1); App job/completion/status/register commands; Api feature policies | P07 | JOB01-JOB13, AUTH03, SP02 |
 | S10 | App admin services; Dom definitions/templates/bindings; Web admin; Cli imports | P06, P07 | ADM01-ADM06, JOB09, SRC04 |
 | S11 | Api feature policies/fallback-deny; App resource rules; Web read-only presentation | P04, P05, P07, P08, P08B | AUTH02, AUTH03, FILE02, FAC11 |

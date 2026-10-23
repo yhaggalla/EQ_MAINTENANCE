@@ -182,7 +182,7 @@ window.EQ = window.EQ || {};
             !editing ? radios(st, 'initialStatus', 'jf-init', [{ value: 'pending', label: 'Pending' }, { value: 'current', label: 'Current (started)' }], null, 'Initial work status') : null),
           h('p', { class: 'muted small' }, PROTO_NOTE),
         ];
-        return { title: editing ? 'Edit job ' + job.number : 'Add job', body, focusSummary: summary.length > 0, foot: footButtons(api, editing ? 'Save changes' : 'Create job', submit, { busy }) };
+        return { title: editing ? 'Edit job ' + job.number : 'Add special job', body, focusSummary: summary.length > 0, foot: footButtons(api, editing ? 'Save changes' : 'Create job', submit, { busy }) };
       },
     });
     function submit() {
