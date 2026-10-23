@@ -1,0 +1,90 @@
+[
+  {
+    "area": "portal",
+    "iso": "container.portal",
+    "mode": "technical",
+    "visible": true,
+    "context": false,
+    "labels": 16
+  },
+  {
+    "area": "girder",
+    "iso": "container.girder",
+    "mode": "technical",
+    "visible": true,
+    "context": false,
+    "labels": 9
+  },
+  {
+    "area": "back-reach",
+    "iso": "container.back-reach",
+    "mode": "technical",
+    "visible": true,
+    "context": false,
+    "labels": 8
+  },
+  {
+    "area": "boom",
+    "iso": "container.boom",
+    "mode": "technical",
+    "visible": true,
+    "context": false,
+    "labels": 10
+  },
+  {
+    "area": "a-frame",
+    "iso": "container.a-frame",
+    "mode": "technical",
+    "visible": true,
+    "context": false,
+    "labels": 11
+  },
+  {
+    "area": "machinery-house",
+    "iso": "container.machinery-house",
+    "mode": "technical",
+    "visible": true,
+    "context": false,
+    "labels": 30
+  },
+  {
+    "area": "electrical-room",
+    "iso": "container.electrical-room",
+    "mode": "technical",
+    "visible": true,
+    "context": false,
+    "labels": 4
+  },
+  {
+    "area": "trolley",
+    "iso": "container.trolley",
+    "mode": "technical",
+    "visible": true,
+    "context": false,
+    "labels": 13
+  },
+  {
+    "area": "headblock-spreader",
+    "iso": "container.headblock-spreader",
+    "mode": "technical",
+    "visible": true,
+    "context": false,
+    "labels": 8
+  },
+  {
+    "area": "gantry",
+    "iso": "container.gantry",
+    "mode": "technical",
+    "visible": true,
+    "context": false,
+    "labels": 53
+  },
+  {
+    "area": "access",
+    "iso": "container.access",
+    "mode": "technical",
+    "visible": true,
+    "context": false,
+    "labels": 3
+  }
+]

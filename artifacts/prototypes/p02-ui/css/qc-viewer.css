@@ -21,3 +21,6 @@
 .qc-work { margin-left: 4px; font-size: 10px; background: var(--work); color: #fff; border-radius: 8px; padding: 0 5px; }
 .qc-label.edge { background: rgba(240,244,248,.95); border-style: dotted; }
 .qc-label .qc-arrow { display: inline-block; margin-right: 4px; color: #0b4fb8; font-weight: 700; }
+
+.qc-area { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; font-weight: 600; }
+.qc-area select { min-height: 44px; max-width: min(300px, 100%); }

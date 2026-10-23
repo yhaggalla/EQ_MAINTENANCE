@@ -316,7 +316,7 @@ export class QcViewer {
   /** Useful full-crane view (3/4 view from the landside, +Z side). */
   resetView(instant = false) {
     if (this.camera !== this.persp) this.useOrtho(null);
-    const box = (this.modelBox || new THREE.Box3(new THREE.Vector3(-62, 0, -14), new THREE.Vector3(76, 84, 14))).clone();
+    const box = (this.craneBox || this.modelBox || new THREE.Box3(new THREE.Vector3(-62, 0, -14), new THREE.Vector3(76, 84, 14))).clone();
     box.min.z = Math.max(box.min.z, -16); box.max.z = Math.min(box.max.z, 16); // ignore the wide quay context slab
     const c = box.getCenter(new THREE.Vector3()); const r = box.getSize(new THREE.Vector3()).length() / 2;
     const vFov = THREE.MathUtils.degToRad(this.persp.fov); const hFov = 2 * Math.atan(Math.tan(vFov / 2) * this.persp.aspect);
@@ -516,6 +516,7 @@ export class QcViewer {
     const halfHeight = (this.ortho.top - this.ortho.bottom) / 2;
     this.ortho.left = -halfHeight * w / h; this.ortho.right = halfHeight * w / h;
     this.ortho.updateProjectionMatrix();
+    this.opts.onResize?.();
     this.requestRender();
   }
 

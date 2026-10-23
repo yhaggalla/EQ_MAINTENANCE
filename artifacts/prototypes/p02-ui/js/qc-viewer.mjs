@@ -1,5 +1,6 @@
 // One geometry, renderer and selection contract for 3D and fixed-side Flat modes.
 // Prototype bindings only. Existing position IDs and work records are never remapped.
+import * as THREE from 'three';
 import { QcViewer, webglAvailable } from '../qc/js/viewer.mjs';
 const EQ = window.EQ, h = EQ.h;
 const BASE = 'models/cict-j526a-sts-scene/1/';
@@ -48,7 +49,7 @@ function message(s, text) { s.notice.textContent = text; s.notice.hidden = !text
 function pick(s, key) {
   const n = manifest.nodes.find(n => n.key === key), eq = s.eq;
   if (n?.kind === 'container') {
-    EQ.eqv.select(eq, {}, { container: key.slice('container.'.length) }); return;
+    EQ.eqv.select(eq, {}, { container: key.slice('container.'.length), area: key.slice('container.'.length), mode: 'technical' }); return;
   }
   const p = EQ.positionsOf(eq.id).find(p => p.key === key && p.state === 'active');
   if (p) { EQ.eqv.select(eq, { part: p.id }); return; }
@@ -80,19 +81,23 @@ function candidates(s, nodes, work) {
 }
 function side(s) {
   const aspect = Math.max(1, s.host.clientWidth) / Math.max(1, s.host.clientHeight);
-  const height = Math.max(92, 146 / aspect);
-  s.viewer.useOrtho('side', { cx: 7.5, cy: 41.5, w: height * aspect, h: height });
+  const b = s.viewer.craneBox, size = b.getSize(new THREE.Vector3()), c = b.getCenter(new THREE.Vector3());
+  const height = Math.max(size.y + 6, size.x / aspect) * 1.08;
+  s.viewer.useOrtho('side', { cx: c.x, cy: c.y - 2, w: height * aspect, h: height });
 }
-function resetCamera(s) { if (s.q.view === 'flat') side(s); else s.viewer.resetView(); }
+function resetCamera(s) { if (s.q.view !== '3d') side(s); else s.viewer.resetView(); }
 function update(s) {
   if (!s.ready) return;
   const v = s.viewer, { eq, sel, q, mode } = s;
-  const flat = q.view === 'flat';
+  const flat = q.view !== '3d';
   const cameraChanged = s.flat !== flat;
   if (cameraChanged) { if (flat) side(s); else v.useOrtho(null); s.flat = flat; }
-  const iso = q.iso === '1' && mode === 'technical' ? 'container.machinery-house' : null;
+  const area = q.area || (q.iso === '1' ? 'machinery-house' : '');
+  const iso = manifest.nodes.some(n => n.kind === 'container' && n.key === 'container.' + area) ? 'container.' + area : null;
+  s.context && (s.context.visible = !iso);
   if (v.mode !== mode) v.setMode(mode);
   if (v.isolate !== iso) v.setIsolate(iso);
+  v.objByKey.get('gantry.quay.reference').visible = false;
   const ps = EQ.positionsOf(eq.id).filter(p => p.state === 'active');
   const byKey = new Map(ps.map(p => [p.key, p]));
   const nodes = manifest.nodes.filter(n => (n.kind === 'position' && byKey.has(n.key)) ||
@@ -115,7 +120,7 @@ function update(s) {
   const work = new Map();
   ps.forEach(p => { const count = EQ.openCount(eq.id, { level: 'part', id: p.id }); if (count) work.set(p.key, count); });
   v.setWorkMarkers(EQ.eqUI.showWork ? work : new Map());
-  v.setLabels(EQ.eqUI.labels); v.setLabelCandidates(candidates(s, nodes, work));
+  v.setLabels(EQ.eqUI.labels); v.setLabelCandidates(candidates(s, iso ? nodes.filter(n => descendants(n, iso)) : nodes, work));
 }
 function render(eq, sel, q, mode) {
   if (!eligible(eq)) return h('div', { class: 'panel panel-pad' }, 'No reviewed model binding is available for this equipment. Use the mechanism tree and records.');
@@ -133,24 +138,26 @@ function render(eq, sel, q, mode) {
   const box = h('section', { class: 'panel unified-qc', 'aria-label': 'Crane viewer' },
     h('div', { class: 'vp-bar' },
       h('div', { class: 'seg', role: 'group', 'aria-label': 'Camera view' },
-        btn('view-3d', '3D', () => nav({ view: '3d' }), q.view !== 'flat'),
-        btn('view-flat', 'Flat', () => nav({ view: 'flat' }), q.view === 'flat')),
+        btn('view-3d', '3D', () => nav({ view: '3d' }), q.view === '3d'),
+        btn('view-flat', 'Flat', () => nav({ view: 'flat' }), q.view !== '3d')),
       h('div', { class: 'seg', role: 'group', 'aria-label': 'Display mode' },
-        btn('mode-overall', 'Overall', () => nav({ mode: 'overall', iso: '' }), mode === 'overall'),
+        btn('mode-overall', 'Overall', () => nav({ mode: 'overall', iso: '', area: '', container: '' }), mode === 'overall'),
         btn('mode-technical', 'Technical', () => nav({ mode: 'technical' }), mode === 'technical')),
-      btn('iso', 'Isolate machinery house', () => nav({ mode: 'technical', iso: q.iso === '1' ? '' : '1' }), q.iso === '1'),
+      h('label', { class: 'qc-area' }, 'Isolate area', h('select', { 'aria-label': 'Isolate area', 'data-fk': 'isolate-area',
+        onChange: e => nav({ area: e.target.value, container: e.target.value, main: '', sub: '', part: '', iso: '', ...(e.target.value ? { mode: 'technical' } : {}) }) },
+        h('option', { value: '', selected: !q.area && q.iso !== '1' }, 'Whole crane'),
+        manifest.nodes.filter(n => n.kind === 'container').map(n => h('option', { value: n.key.slice(10), selected: (q.area || (q.iso === '1' ? 'machinery-house' : '')) === n.key.slice(10) }, n.label)))),
       btn('fit', 'Fit selection', () => { if (s.ready) { const v = s.viewer; if (!v.selected.size && !v.selContainer) resetCamera(s); else v.fitKeys(v.selContainer ? [v.selContainer] : [...v.selected]); } }),
       btn('zoom-in', 'Zoom in', () => zoom(s, 1.25)),
       btn('zoom-out', 'Zoom out', () => zoom(s, 0.8)),
       btn('reset', 'Reset', () => { s.signature = null; EQ.fullReset(eq, q); }),
       btn('labels', 'Labels', () => { EQ.eqUI.labels = !EQ.eqUI.labels; EQ.rerender(); }, EQ.eqUI.labels),
       h('label', { class: 'check' }, h('input', { type: 'checkbox', checked: EQ.eqUI.showWork || null, 'data-fk': 'work', onChange: e => { EQ.eqUI.showWork = e.target.checked; EQ.rerender(); } }), 'Open-work markers')),
-    h('div', { class: 'vp-info' }, EQ.statusBadge(eq.status, true), h('span', { class: 'small muted' }, q.view === 'flat' ? 'Fixed side view · right-drag to pan · scroll to zoom' : '3D view · drag to rotate · right-drag to pan · scroll to zoom')),
+    h('div', { class: 'vp-info' }, EQ.statusBadge(eq.status, true), h('span', { class: 'small muted' }, q.view !== '3d' ? 'Fixed side view · right-drag to pan · scroll to zoom' : '3D view · drag to rotate · right-drag to pan · scroll to zoom')),
     s.host,
     h('details', { class: 'vp-legend' }, h('summary', null, 'Legend and model information'),
-      h('p', { class: 'panel-pad small' }, 'Red: crane paint, independent of status. Blue: selected part. Purple number: open work. Approx.: representative part or approximate location. Both views use the same drawing-derived model (draft revision ' + manifest.revision + '), with synthetic equipment bindings.')),
-    h('div', { class: 'chips', role: 'group', 'aria-label': 'Spatial groups' }, manifest.nodes.filter(n => n.kind === 'container').map(n =>
-      btn('container-' + n.key, n.label, () => EQ.eqv.select(eq, {}, { container: n.key.slice('container.'.length) }), q.container === n.key.slice('container.'.length)))));
+      h('p', { class: 'panel-pad small' }, 'Red: crane paint, independent of status. Blue: selected part. Purple number: open work. Approx.: representative part or approximate location. Both views use the same drawing-derived model (draft revision ' + manifest.revision + '), with synthetic equipment bindings. Yard/rail level: 0 m; sea level: -5 m (user-specified display context).' )),
+    );
   requestAnimationFrame(() => { if (session === s && s.host.isConnected) start(s); });
   return box;
 }
@@ -161,6 +168,7 @@ async function start(s) {
   try {
     s.viewer = new QcViewer(s.host, {
       onPick: hit => pick(s, hit.key),
+      onResize: () => { if (s.ready && !s.sel.main && !s.sel.sub && !s.sel.part && !s.q.area && !s.q.container) resetCamera(s); },
       onLabel: c => {
         // A hidden technical label must reveal the internals when selected.
         if (s.mode === 'overall' && !s.viewer.boundsOf(c.keys)) s.q.mode = 'technical';
@@ -170,8 +178,24 @@ async function start(s) {
     });
     await s.viewer.load(BASE + 'scene.glb', manifest, { signal: s.abort.signal });
     if (session !== s) { s.viewer.dispose(); return; }
-    s.ready = true; update(s);
+    addContext(s); s.ready = true; update(s);
   } catch (e) { if (session === s && e.name !== 'AbortError') retry(s, 'The model could not be loaded. Records remain available.'); }
+}
+// Display context only: the user's 5 m level difference is independent of the reviewed crane asset.
+function addContext(s) {
+  const v = s.viewer;
+  v.objByKey.get('gantry.quay.reference').visible = false;
+  const group = s.context = new THREE.Group(); v.scene.add(group);
+  const box = (name, size, xyz, color) => {
+    const mesh = new THREE.Mesh(new THREE.BoxGeometry(...size), new THREE.MeshStandardMaterial({ color, roughness: 0.9 }));
+    mesh.name = name; mesh.position.set(...xyz); group.add(mesh);
+  };
+  // Quay edge at +5.3 m from the waterside rail (existing drawing context); rail top y=0, sea y=-5.
+  box('Yard', [1005.3, 1000, 2000], [-497.35, -500, 0], '#c3c5c0');
+  box('Sea', [1000, 1000, 2000], [505.3, -505, 0], '#5a9cbb');
+  v.craneBox = new THREE.Box3();
+  for (const n of manifest.nodes.filter(n => n.kind !== 'decorative'))
+    v.craneBox.union(new THREE.Box3(new THREE.Vector3(...n.bounds.min), new THREE.Vector3(...n.bounds.max)));
 }
 function retry(s, text) {
   message(s, text);
@@ -185,6 +209,12 @@ function zoom(s, scale) {
   v.controls.update(); v.requestRender();
 }
 EQ.qc = { prepare, render,
+  selectionArea(eq, sel) {
+    const area = EQ.route.query.area;
+    if (!area || !manifest) return '';
+    const ps = EQ.positionsOf(eq.id).filter(p => sel.part ? p.id === sel.part : sel.sub ? p.subId === sel.sub : sel.main ? p.mainId === sel.main : false);
+    return ps.some(p => descendants(manifest.nodes.find(n => n.key === p.key), 'container.' + area)) ? area : '';
+  },
   containerName(key) { return manifest?.nodes.find(n => n.key === 'container.' + key)?.label; },
   containerPositions(eq, key) { return manifest && EQ.positionsOf(eq.id).filter(p => p.state === 'active' && descendants(manifest.nodes.find(n => n.key === p.key), 'container.' + key)); },
   afterRender() { if (session && !session.host.isConnected) dispose(); },

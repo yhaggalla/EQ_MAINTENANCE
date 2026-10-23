@@ -52,7 +52,7 @@ try {
   });
   await step('04 scene label clicks drill down through tree and panel in both views', async () => {
     for (const view of ['3d', 'flat']) {
-      await click('view-' + view); await click('reset'); await b.wait(900);
+      await click('reset'); await click('view-' + view); await b.wait(900);
       for (const wanted of ['mi-q01-01', 'si-q01-011', 'hoist.drive.motor.a']) {
         const rect = await ev(`(()=>{const v=EQ.qc.session.viewer;const p=v._placedLabels.find(p=>p.c.id===${JSON.stringify(wanted)});if(!p)return null;const r=v.renderer.domElement.getBoundingClientRect();return {x:r.x+p.r.x+p.r.w/2,y:r.y+p.r.y+p.r.h/2}})()`);
         assert(rect, 'label missing ' + wanted);
@@ -64,7 +64,7 @@ try {
     }
   });
   await step('05 technical isolation, labels, markers and reset retain Flat', async () => {
-    await click('iso'); await b.wait(500);
+    await b.setValue('[data-fk="isolate-area"]', 'machinery-house'); await b.wait(500);
     assert(await ev(`EQ.qc.session.viewer.mode==='technical'&&EQ.qc.session.viewer.isolate==='container.machinery-house'`), 'isolation');
     await click('labels'); await click('work');
     assert(await ev('!EQ.qc.session.viewer.labelsOn&&EQ.qc.session.viewer.work.size===0'), 'toggle controls');

@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Flat default, rotation locked",
+    "pass": true
+  },
+  {
+    "name": "Yard/sea levels differ by 5 m",
+    "pass": true
+  },
+  {
+    "name": "Full crane occupies at least 90% of the limiting viewport dimension",
+    "pass": true
+  },
+  {
+    "name": "Isolate portal",
+    "pass": true
+  },
+  {
+    "name": "Isolate girder",
+    "pass": true
+  },
+  {
+    "name": "Isolate back-reach",
+    "pass": true
+  },
+  {
+    "name": "Isolate boom",
+    "pass": true
+  },
+  {
+    "name": "Isolate a-frame",
+    "pass": true
+  },
+  {
+    "name": "Isolate machinery-house",
+    "pass": true
+  },
+  {
+    "name": "Isolate electrical-room",
+    "pass": true
+  },
+  {
+    "name": "Isolate trolley",
+    "pass": true
+  },
+  {
+    "name": "Isolate headblock-spreader",
+    "pass": true
+  },
+  {
+    "name": "Isolate gantry",
+    "pass": true
+  },
+  {
+    "name": "Isolate access",
+    "pass": true
+  },
+  {
+    "name": "Part records retain area isolation",
+    "pass": true
+  },
+  {
+    "name": "Reset restores whole Flat crane and environment",
+    "pass": true
+  },
+  {
+    "name": "Dropdown fits phone width",
+    "pass": true
+  },
+  {
+    "name": "No browser errors",
+    "pass": true
+  }
+]

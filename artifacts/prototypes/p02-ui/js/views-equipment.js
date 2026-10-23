@@ -27,7 +27,7 @@ window.EQ = window.EQ || {};
   }
 
   function select(eq, sel, extra) {
-    EQ.nav('/eq/equipment/' + eq.id, { ...EQ.route.query, main: sel.main || '', sub: sel.sub || '', part: sel.part || '', container: '', ...(extra || {}) });
+    EQ.nav('/eq/equipment/' + eq.id, { ...EQ.route.query, area: EQ.qc?.selectionArea(eq, sel) || '', main: sel.main || '', sub: sel.sub || '', part: sel.part || '', container: '', ...(extra || {}) });
   }
 
   // ---------------------------------------------------------------- tree
@@ -149,7 +149,7 @@ window.EQ = window.EQ || {};
     ui.labels = true; ui.container = null; ui.treeFilter = '';
     [...EQ.state.expanded].filter((k) => k.startsWith(eq.id + ':')).forEach((k) => EQ.state.expanded.delete(k));
     EQ.eqUI.treeFocus = 'root'; ui.treeSelSig = null; EQ.eqUI.lastSig = null; EQ.eqUI.hadSel = true;
-    EQ.nav('/eq/equipment/' + eq.id, { ...q, main: '', sub: '', part: '', container: '', iso: '' });
+    EQ.nav('/eq/equipment/' + eq.id, { ...q, main: '', sub: '', part: '', container: '', iso: '', area: '', view: 'flat' });
     // The shared viewer keeps the current camera mode when resetting.
     if (!EQ.qc) EQ.resetView();
   }
