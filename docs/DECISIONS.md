@@ -404,7 +404,7 @@ None of these blocks P01. Each is modelled as configurable data or a visible sou
 
 | Checkpoint | Date | Decision | Notes |
 | --- | --- | --- | --- |
-| U1 (after R02) | 2026-10-22 | CHANGES REQUESTED (round 8) | Round 1: "2026-10-21 U1 CHANGES REQUESTED" (U1-C01..C08), repaired 22 Oct (`docs/evidence/U1/repair-20261022.md`). Round 2: "2026-10-22 U1 CHANGES REQUESTED (round 2)" (U1-C09..C16), repaired 22 Oct (`docs/evidence/U1/repair-r2-20261022.md`); Round 3: "2026-10-22 U1 CHANGES REQUESTED (round 3)" (U1-C17..C18), repaired 22 Oct (`docs/evidence/U1/repair-r3-20261022.md`); Round 4: "2026-10-22 U1 CHANGES REQUESTED (round 4)" (U1-C19), built in P02B after P01B (pack 2.0 run order); U1 walkthrough to be repeated; Round 5: "2026-10-23 U1 CHANGES REQUESTED (round 5)" (U1-C20..C22), repaired 23 Oct (`docs/evidence/U1/repair-r5-20261023.md`, D-147..D-154, U-35; not committed by the repair run); U1 walkthrough to be repeated; Round 6: "2026-10-23 U1 CHANGES REQUESTED (round 6)" (U1-C23..C26), repaired 23 Oct (`docs/evidence/U1/repair-r6-20261023.md`, D-155..D-160, U-36; not committed by the repair run); U1 walkthrough to be repeated; Round 7: "2026-10-23 U1 CHANGES REQUESTED (round 7)" (U1-C27, closes U-36), repaired 23 Oct (`docs/evidence/U1/repair-r7-20261023.md`, D-161..D-162; not committed by the repair run); U1 walkthrough to be repeated; Round 8: "2026-10-23 U1 CHANGES REQUESTED (round 8)" (U1-C28..C31; EQ dashboard first, FAC style after the user sees EQ), EQ Fleet repaired 23 Oct (`docs/evidence/U1/repair-r8-20261023.md`, D-163..D-167, U-37; not committed by the repair run); FAC Dashboard restyle waits for the user's review of the EQ result; U1 walkthrough to be repeated |
+| U1 (after R02/R02B) | 2026-10-24 | **CHANGES REQUESTED - IN PROGRESS; NOT COMPLETE / NOT APPROVED** | User explicitly confirmed all adjustments remain U1 and U1 is not completed. Request history U1-C01..C33 follows below. Latest committed repairs: `86018c9`, `32081d0`, C32 `4a8b270`, C33 `7d773fa`; commits and prototype checks are not checkpoint approval. Continue U1 review/refinements; FAC Dashboard restyle waits for the user's EQ review. P04 remains Not started until explicit U1 approval is recorded here. |
 | U2 (after P11) | not yet reached | | |
 
 ### 2026-10-21 U1 CHANGES REQUESTED
@@ -521,14 +521,14 @@ Given by the user in chat after the round 7 repair (`33a1edf`). Style reference:
 
 | Decision | Confirmed implementation | Basis |
 | --- | --- | --- |
-| D-168 | The equipment detail at `#/eq/equipment/<id>` owns one QcViewer instance and one GLB. 3D uses perspective orbit; Flat uses a fixed side orthographic camera with rotation disabled, pan and zoom enabled. Both share the existing tree, selection URL, four current-state panels, labels and work markers. Switching and Reset preserve camera mode; switching preserves selection, tab, display mode, isolation and labels. | U1-C32 supersedes U1-C08's separate flat/3D implementations and D-63's separate-page link / SVG placeholder. Functional parity remains required by construction. |
+| D-168 | The equipment detail at `#/eq/equipment/<id>` owns one QcViewer instance and one GLB. 3D uses perspective orbit; Flat uses a fixed side orthographic camera with rotation disabled, pan and zoom enabled. Both share the existing tree, selection URL, four current-state panels, labels and work markers. Switching camera mode preserves selection, tab, display mode, isolation and labels. The original Reset rule was superseded by U1-C33 / D-171: Reset returns to Flat. | U1-C32 supersedes U1-C08's separate flat/3D implementations and D-63's separate-page link / SVG placeholder. Functional parity remains required by construction. |
 | D-169 | Local P02 server serves the reviewed P03 renderer, vendored Three.js and model directly. Saved P03 links redirect to the equipment detail; old P03 part IDs translate through the manifest to semantic keys. Exact-key matches preserve existing P02 position IDs; absent model positions get equipment-specific synthetic IDs. The synthetic model applicability includes 032 so its reviewed emergency-brake node stays reachable; its proposed classification still needs Admin confirmation for production. No fuzzy remapping, geometry change or production binding. | Stable equipment/part identity; current model stays draft v1 revision 6. Only QC-DEMO-01/02 have reviewed prototype bindings. |
 | D-170 | The new unified-viewer suite covers both cameras and failure/lifecycle paths. P02B K01 expects one canvas only on QC detail and waits for route/model readiness. R8-09 continues full computed-style comparisons for FAC and EQ Jobs; the deliberately replaced equipment page is checked under U1-C32. Earlier separate-page/SVG assertions remain historical evidence and are not presented as current passes. | Explicit user request changes the old zero-canvas / unchanged-equipment assumptions. |
 
 U1 approval is still pending. This repair does not start P04 or approve production acceptance. Evidence: `docs/evidence/U1/unified-viewer/`.
 
 
-## 24 October 2026 - U1-C33: default Flat and area isolation
+### 2026-10-24 U1 CHANGES REQUESTED (U1-C33: default Flat and area isolation)
 
 User request: default Flat; fill the available viewport on default/reset; extend yard/sea with sea 5 m below rail; replace physical-assembly buttons with a dropdown that isolates the chosen area and all included parts.
 
@@ -537,3 +537,18 @@ Implemented: Flat is the default and Reset returns to the full Flat crane. Full-
 The extended yard and sea are decorative viewer context, outside maintenance identity and camera bounds. Rail/yard level is y=0; sea surface is y=-5 m per the user. The quay edge remains at x=5.3 m as in the existing drawing context; horizontal extents are illustrative. Crane GLB, manifest and original source authorities are unchanged.
 
 Checks: `node tools/p02b/check_flat_isolation.mjs` (18 assertions: default, framing, levels, 11 areas, part selection, reset, phone width, no browser errors). Shared-viewer regression: 11/11 after replacing the old isolate-button test with the dropdown and applying the new Reset rule. Desktop and isolated-area screenshots inspected. Evidence: `docs/evidence/U1/flat-isolation/`. Local synthetic prototype only; U1 approval remains pending, no production acceptance or deployment.
+
+
+| Decision | Current implementation rule | Basis / supersession |
+| --- | --- | --- |
+| D-171 | Flat is the default unless a saved link explicitly selects 3D. Reset returns to the whole crane in Flat, clears selection/isolation, restores labels and initial tree folds, and keeps Overall/Technical and the active panel. Fit uses crane bounds excluding scenery and adapts to viewport aspect. | U1-C33; supersedes the camera-preserving Reset portions of D-69, D-74 and D-168. Shared model/tree/panels remain required. |
+| D-172 | One Isolate area dropdown replaces bottom physical-area buttons and the machinery-house-only button. Choosing any of the 11 manifest containers opens Technical mode and fits its descendants; part selection inside the area retains isolation. Whole crane exits isolation; an unrelated mechanism selection exits it. | U1-C33; extends D-69 isolation to every physical area. Physical assemblies are spatial containers, not new maintenance mechanisms. |
+| D-173 | Extend decorative yard and sea context in the viewer: yard/rail level 0 m, sea surface -5 m; hide it in isolation and exclude it from crane fitting. Keep the existing quay edge at x=5.3 m; horizontal extents are illustrative. | U1-C33; user-specified display context, not a new surveyed dimension or source-model revision. GLB/manifest remain unchanged. |
+
+### 2026-10-24 User clarification: U1 remains open
+
+Exact request: "all these adjustments are U1 changes.. update the documents accordingly and U1 is not completed yet.. review the work and commit after work done.."
+
+**U1 is IN PROGRESS / CHANGES REQUESTED: NOT COMPLETE and NOT APPROVED.** All adjustments through U1-C33, including the fleet changes, shared 3D / Flat viewer, Flat default, framing, yard/sea context and area isolation, remain U1 work. Passing prototype checks and committed repairs do not close the checkpoint. Continue the U1 walkthrough and requested refinements; P04 remains Not started and requires explicit user approval recorded in `docs/DECISIONS.md`.
+
+This clarification classifies the existing adjustments; it is not a new numbered UI change or approval. C32 was committed as `4a8b270`; C33 as `7d773fa`. Historical "repair complete" statements mean that individual repair's implementation, not U1 completion. Open source issues and deferred FAC styling remain unresolved unless separately closed by an explicit decision. Documentation review: `docs/evidence/U1/document-review-20261024.md`.

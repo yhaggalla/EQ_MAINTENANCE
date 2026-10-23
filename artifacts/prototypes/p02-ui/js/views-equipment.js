@@ -150,7 +150,7 @@ window.EQ = window.EQ || {};
     [...EQ.state.expanded].filter((k) => k.startsWith(eq.id + ':')).forEach((k) => EQ.state.expanded.delete(k));
     EQ.eqUI.treeFocus = 'root'; ui.treeSelSig = null; EQ.eqUI.lastSig = null; EQ.eqUI.hadSel = true;
     EQ.nav('/eq/equipment/' + eq.id, { ...q, main: '', sub: '', part: '', container: '', iso: '', area: '', view: 'flat' });
-    // The shared viewer keeps the current camera mode when resetting.
+    // U1-C33: the shared viewer returns to Flat; retain the legacy fallback reset.
     if (!EQ.qc) EQ.resetView();
   }
   EQ.fullReset = fullReset;

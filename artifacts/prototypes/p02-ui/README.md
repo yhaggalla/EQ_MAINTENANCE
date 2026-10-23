@@ -1,6 +1,6 @@
 # CICT EQ & FAC Maintenance - P02 / P02B interface prototype
 
-> **Current entry (U1-C32):** Run `node artifacts/prototypes/p02-ui/serve.mjs 5312` and open `http://127.0.0.1:5312/#/eq/equipment/eq-qc-demo-01`. One renderer/model now supplies 3D and fixed-side Flat modes within the equipment page. The P03 entry redirects saved links to that page. Older separate-page/SVG descriptions and tests below are historical; current checks are `tools/p02b/check_unified_viewer.mjs`. The P03 model, renderer and capture helpers remain shared source/evidence assets.
+> **Current entry (U1-C32/C33; U1 NOT COMPLETE / NOT APPROVED):** Run `node artifacts/prototypes/p02-ui/serve.mjs 5312` and open `http://127.0.0.1:5312/#/eq/equipment/eq-qc-demo-01`. One renderer/model now supplies 3D and fixed-side Flat modes within the equipment page. Flat is the default; Reset fits the whole crane in Flat. Isolate area opens any of the 11 physical containers with its included parts. Yard/rail is at 0 m and sea at -5 m; this decorative context is hidden in isolation. The P03 entry redirects saved links to that page. Older separate-page/SVG descriptions and tests below are historical; current checks are `tools/p02b/check_unified_viewer.mjs` and `tools/p02b/check_flat_isolation.mjs`. These adjustments remain U1 work; P04 is Not started. The P03 model, renderer and capture helpers remain shared source/evidence assets.
 
 
 Static review prototype. **Synthetic data only. Nothing is saved, there is no sign-in, there is no live ZMMS connection, and the persona switch is a simulation of the Portal role assignment.** P02B (22 October 2026) extended it to SOW V2: EQ | FAC sections, Access matrix, the four-tab crane panel (U1-C19), EQ Jobs in three parts, ZMMS daily jobs and automatic status, the spare-part register, the FAC Dashboard and FAC Jobs (114 jobs from `reference/fac-job-list.json`) and the matching Admin screens.
@@ -11,7 +11,7 @@ Static review prototype. **Synthetic data only. Nothing is saved, there is no si
 node artifacts/prototypes/p02-ui/serve.mjs        # http://127.0.0.1:5312/
 ```
 
-or open `artifacts/prototypes/p02-ui/index.html` directly (classic scripts, no modules, no CDN, no build step).
+Use the HTTP server above for the current shared viewer (ES modules and model assets). Direct file opening is not a supported full-viewer review path. No CDN or build step is required.
 
 Useful links (query parameters set the simulation; the hash is the route):
 

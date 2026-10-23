@@ -2,6 +2,16 @@
 
 Rolling handover for CICT EQ Maintenance. Each phase appends its record; the newest is first.
 
+## 24 October 2026 - current U1 status and documentation review
+
+**U1 is IN PROGRESS / CHANGES REQUESTED: NOT COMPLETE and NOT APPROVED.** All adjustments through U1-C33, including the fleet changes, shared 3D / Flat viewer, Flat default, framing, yard/sea context and area isolation, remain U1 work. Passing prototype checks and committed repairs do not close the checkpoint. Continue the U1 walkthrough and requested refinements; P04 remains Not started and requires explicit user approval recorded in `docs/DECISIONS.md`.
+
+Current committed implementation: EQ Fleet refinements `86018c9`, slower Breakdown/Maintenance pulses (2.5 s / 3.5 s) `32081d0`, shared viewer `4a8b270`, Flat default and physical-area isolation `7d773fa`. These are U1 adjustments. Older entries below retain their run-time results and Git state; their "repair complete" wording does not complete U1. The newer C33 Reset and dropdown rules supersede C32's camera-preserving Reset and earlier controls.
+
+This pass reconciled the checkpoint tables, decisions D-171..D-173, UX rules, prototype READMEs and a stale Reset code comment against the committed source and evidence. No runtime behavior changed. Prior C33 evidence records 18/18 focused checks and 11/11 shared-viewer regressions; those browser checks were not rerun for this documentation-only correction. Review details and validation: `docs/evidence/U1/document-review-20261024.md`. Exact request: `docs/runs/U1-document-review-20261024.md`.
+
+Next: continue the U1 walkthrough and refinements. FAC Dashboard restyle still awaits the user's EQ review; source issues such as U-27 remain open. No independent R verdict, production acceptance or user approval is claimed. The unrelated `rtg-workbench/HANDOVER.md` edit is excluded.
+
 ---
 
 
