@@ -320,6 +320,23 @@ export class QcViewer {
     box.min.z = Math.max(box.min.z, -16); box.max.z = Math.min(box.max.z, 16); // ignore the wide quay context slab
     const c = box.getCenter(new THREE.Vector3()); const r = box.getSize(new THREE.Vector3()).length() / 2;
     const vFov = THREE.MathUtils.degToRad(this.persp.fov); const hFov = 2 * Math.atan(Math.tan(vFov / 2) * this.persp.aspect);
+    if (this.opts.homeDirection) {
+      const dir = new THREE.Vector3(...this.opts.homeDirection).normalize();
+      const right = new THREE.Vector3().crossVectors(this.persp.up, dir).normalize();
+      const up = new THREE.Vector3().crossVectors(dir, right).normalize();
+      // Fit the actual assemblies; the empty upper corners of the whole-crane box waste the viewport.
+      const bounds = this.manifest?.nodes.filter((n) => n.kind === 'position').map((n) => n.bounds) || [{ min: box.min.toArray(), max: box.max.toArray() }];
+      const points = bounds.flatMap((b) => [b.min[0], b.max[0]].flatMap((x) => [b.min[1], b.max[1]].flatMap((y) => [b.min[2], b.max[2]].map((z) => new THREE.Vector3(x, y, z)))));
+      const xs = points.map((p) => p.clone().sub(c).dot(right)), ys = points.map((p) => p.clone().sub(c).dot(up));
+      // Leave room beyond the boom tip, as in the supplied full-crane composition.
+      c.addScaledVector(right, (Math.min(...xs) + Math.max(...xs)) / 2 + 6).addScaledVector(up, (Math.min(...ys) + Math.max(...ys)) / 2 - 1);
+      let distance = 0;
+      for (const point of points) {
+        const p = point.clone().sub(c), depth = p.dot(dir);
+        distance = Math.max(distance, depth + Math.abs(p.dot(right)) / (Math.tan(hFov / 2) * 0.86), depth + Math.abs(p.dot(up)) / (Math.tan(vFov / 2) * 0.86));
+      }
+      this._transition(c.clone().addScaledVector(dir, distance), c, instant); return;
+    }
     const d = r / Math.sin(Math.min(vFov, hFov) / 2) * 0.92;
     const dir = new THREE.Vector3(-0.42, 0.32, 0.85).normalize();
     this._transition(c.clone().add(dir.multiplyScalar(d)), c, instant);
@@ -510,13 +527,15 @@ export class QcViewer {
 
   resize() {
     const w = Math.max(1, this.host.clientWidth), h = Math.max(1, this.host.clientHeight);
+    const changed = this._width !== w || this._height !== h;
+    this._width = w; this._height = h;
     this.renderer.setSize(w, h, true);
     this.persp.aspect = w / h; this.persp.updateProjectionMatrix();
     // Preserve orthographic scale without stretching when the detail panel or viewport resizes.
     const halfHeight = (this.ortho.top - this.ortho.bottom) / 2;
     this.ortho.left = -halfHeight * w / h; this.ortho.right = halfHeight * w / h;
     this.ortho.updateProjectionMatrix();
-    this.opts.onResize?.();
+    if (changed) this.opts.onResize?.();
     this.requestRender();
   }
 

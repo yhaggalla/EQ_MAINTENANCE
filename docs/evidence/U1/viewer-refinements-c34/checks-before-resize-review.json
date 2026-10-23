@@ -1,0 +1,90 @@
+{
+  "base": "http://127.0.0.1:5312/",
+  "browser": "Chrome/155.0.8059.85",
+  "results": [
+    {
+      "name": "Initial view remains Flat",
+      "pass": true
+    },
+    {
+      "name": "Desktop controls occupy one row, area label is inline, all controls visible",
+      "pass": true
+    },
+    {
+      "name": "All four tabs work within portal",
+      "pass": true
+    },
+    {
+      "name": "All four tabs work within girder",
+      "pass": true
+    },
+    {
+      "name": "All four tabs work within back-reach",
+      "pass": true
+    },
+    {
+      "name": "All four tabs work within boom",
+      "pass": true
+    },
+    {
+      "name": "All four tabs work within a-frame",
+      "pass": true
+    },
+    {
+      "name": "All four tabs work within machinery-house",
+      "pass": true
+    },
+    {
+      "name": "All four tabs work within electrical-room",
+      "pass": true
+    },
+    {
+      "name": "All four tabs work within trolley",
+      "pass": true
+    },
+    {
+      "name": "All four tabs work within headblock-spreader",
+      "pass": true
+    },
+    {
+      "name": "All four tabs work within gantry",
+      "pass": true
+    },
+    {
+      "name": "All four tabs work within access",
+      "pass": true
+    },
+    {
+      "name": "Area scope excludes unrelated targets and deduplicates multiple replacement lines",
+      "pass": true
+    },
+    {
+      "name": "Area selection opens a part and preserves isolation while switching tabs",
+      "pass": true
+    },
+    {
+      "name": "3D home uses reference direction and frames the complete crane",
+      "pass": true
+    },
+    {
+      "name": "3D Reset restores the reference after zoom and area isolation",
+      "pass": true
+    },
+    {
+      "name": "Static water and quay retain the 5 m rail-to-sea drop",
+      "pass": true
+    },
+    {
+      "name": "Flat Reset and keyboard tabs remain usable",
+      "pass": true
+    },
+    {
+      "name": "Phone and landscape controls and area dropdown stay within the page",
+      "pass": true
+    },
+    {
+      "name": "No browser errors",
+      "pass": true
+    }
+  ]
+}

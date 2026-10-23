@@ -1,7 +1,11 @@
 /* Shared model viewport; scoped so fleet/FAC styles are unaffected. */
 .unified-qc { overflow: hidden; --sel: #1677ff; --work: #6941a5; }
-.unified-qc .vp-bar { gap: 8px; }
-.unified-qc .vp-bar button { min-height: 44px; min-width: 44px; }
+.unified-qc .vp-bar { gap: 6px; flex-wrap: nowrap; overflow-x: auto; padding: 6px; font-size: 12px; }
+.unified-qc .vp-bar > * { flex-shrink: 0; }
+.unified-qc .vp-bar button { min-height: 44px; min-width: 44px; padding: 6px 8px; white-space: nowrap; font-size: inherit; }
+.unified-qc .vp-bar .seg { flex-shrink: 0; }
+.unified-qc .vp-bar .check { font-size: inherit; white-space: nowrap; margin: 0; gap: 5px; }
+.unified-qc .vp-bar [data-fk^="zoom-"] { font-size: 21px; font-weight: 500; }
 .unified-qc-stage { position: relative; height: clamp(360px, 62vh, 720px); overflow: hidden; background: #e9eef2; }
 .unified-qc .qc-notice { position: absolute; z-index: 3; bottom: 8px; left: 8px; right: 8px; margin: 0; padding: 8px; border-radius: 4px; background: #fff; color: #173550; font-size: 13px; }
 .unified-qc .qc-notice[hidden] { display: none; }
@@ -22,5 +26,10 @@
 .qc-label.edge { background: rgba(240,244,248,.95); border-style: dotted; }
 .qc-label .qc-arrow { display: inline-block; margin-right: 4px; color: #0b4fb8; font-weight: 700; }
 
-.qc-area { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; font-weight: 600; }
-.qc-area select { min-height: 44px; max-width: min(300px, 100%); }
+.unified-qc .qc-area { display: flex; align-items: center; flex: 1 1 230px; min-width: 180px; gap: 6px; font-size: inherit; font-weight: 600; margin: 0; white-space: nowrap; }
+.unified-qc .qc-area select { min-height: 44px; width: 100%; min-width: 0; max-width: 240px; flex: 1 1 160px; padding-inline: 6px; font-size: inherit; }
+@media (max-width: 700px) {
+  .unified-qc .vp-bar { flex-wrap: wrap; overflow-x: visible; }
+  .unified-qc .qc-area { order: 2; flex: 1 0 100%; min-width: 0; }
+  .unified-qc .qc-area select { max-width: none; }
+}

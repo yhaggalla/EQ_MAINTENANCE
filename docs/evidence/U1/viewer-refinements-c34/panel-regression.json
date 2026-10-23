@@ -1,0 +1,114 @@
+{
+  "tool": "tools/p02b/check_p02b.mjs",
+  "browser": "Chrome/155.0.8059.85",
+  "date": "2026-10-23T19:09:30.026Z",
+  "note": "Prototype-level checks against the synthetic P02B prototype; not acceptance execution.",
+  "passed": 9,
+  "failed": 0,
+  "results": [
+    {
+      "id": "C01",
+      "covers": [
+        "U1-C19",
+        "S07",
+        "HIS06"
+      ],
+      "name": "Flat view right panel has exactly four tabs - Maintenance, Projects/Special, Technical, Spare parts - in a tablist; default Maintenance; every tab name fully visible at 1920 and 1366",
+      "status": "PASS",
+      "detail": "{\"1366\":{\"names\":\"Maintenance|Projects/Special|Technical|Spare parts\",\"selected\":\"maintenance\",\"clipped\":false,\"inside\":true},\"1920\":{\"names\":\"Maintenance|Projects/Special|Technical|Spare parts\",\"selected\":\"maintenance\",\"clipped\":false,\"inside\":true}}"
+    },
+    {
+      "id": "C02",
+      "covers": [
+        "U1-C19",
+        "U1-C23",
+        "S07",
+        "HIS06",
+        "SP04"
+      ],
+      "name": "The crane view shows current state only: no tab contains work history (installation events, status changes, corrections; completed jobs only in Projects/Special, U1-C23); each tab shows its own current content",
+      "status": "PASS",
+      "detail": "no history text in 16 tab/scope combinations"
+    },
+    {
+      "id": "C03",
+      "covers": [
+        "U1-C19",
+        "U1-C23",
+        "S07",
+        "HIS02",
+        "HIS06"
+      ],
+      "name": "Projects/Special lists exactly the open and completed (non-cancelled) special jobs of the scope (equipment all, mechanism with descendants de-duplicated, part exact), counts open/completed/cancelled; cancelled jobs are counted not listed (U1-C23 supersedes the open-only reading)",
+      "status": "PASS",
+      "detail": "[{\"level\":\"whole\",\"want\":7,\"got\":7,\"uniq\":true,\"same\":true,\"tagsOk\":true},{\"level\":\"main\",\"want\":3,\"got\":3,\"uniq\":true,\"same\":true,\"tagsOk\":true},{\"level\":\"sub\",\"want\":2,\"got\":2,\"uniq\":true,\"same\":true,\"tagsOk\":true},{\"level\":\"part\",\"want\":1,\"got\":1,\"uniq\":true,\"same\":true,\"tagsOk\":true}]"
+    },
+    {
+      "id": "C04",
+      "covers": [
+        "U1-C19",
+        "ZM07",
+        "S20"
+      ],
+      "name": "Maintenance tab: today's ZMMS daily jobs of the equipment only, status with its source, 'ZMMS data from', same list for any selection, no earlier days, no history; unmapped equipment says Not linked to ZMMS",
+      "status": "PASS",
+      "detail": "{\"want\":[\"900101\",\"900102\"],\"nums1\":[\"900101\",\"900102\"],\"nums2\":[\"900101\",\"900102\"],\"earlierDaysExistButHidden\":1}"
+    },
+    {
+      "id": "C05",
+      "covers": [
+        "U1-C19",
+        "S22",
+        "SP04",
+        "SP03"
+      ],
+      "name": "Spare parts tab: current register rows inside the selection with condition, brand, replaced date, expected life, next predicted replacement and flags; no history; non-designated part says Not a major spare part",
+      "status": "PASS",
+      "detail": "{\"whole\":10,\"main\":5,\"none\":\"Current condition of the major spare parts registered for QC-DEMO-01 in this sel\"}"
+    },
+    {
+      "id": "C06",
+      "covers": [
+        "U1-C19",
+        "S07",
+        "HIS06"
+      ],
+      "name": "Technical tab: specification summary of the selected area (equipment, mechanism, part) with source-linked parameters; 63 m stays total lift height and the 46 / 45.5 m/min conflict stays visible",
+      "status": "PASS",
+      "detail": "{\"eq\":1548,\"main4\":true,\"part\":true}"
+    },
+    {
+      "id": "C07",
+      "covers": [
+        "U1-C19",
+        "S07",
+        "HIS06",
+        "VIS03"
+      ],
+      "name": "Open in Jobs: Projects/Special opens EQ Jobs with the same equipment and scope and shows the same scoped history (descendants de-duplicated, exact part); Spare parts opens the register scoped to the selection; Maintenance opens today's daily jobs",
+      "status": "PASS",
+      "detail": "{\"href\":\"#/eq/jobs/special?equipment=eq-qc-demo-01&scope=main&target=mi-q01-01\",\"histNums\":[\"EQJ-2026-000101\",\"EQJ-2026-000102\",\"EQJ-2026-000104\"],\"want\":[\"EQJ-2026-000101\",\"EQJ-2026-000102\",\"EQJ-2026-000104\"],\"href2\":\"#/eq/jobs/spare-parts?equipment=eq-qc-demo-01&main=mi-q01-01\",\"rows\":5,\"href3\":\"#/eq/jobs/daily?equipment=eq-qc-demo-01&from=2026-10-24&to=2026-10-24\"}"
+    },
+    {
+      "id": "C08",
+      "covers": [
+        "U1-C19",
+        "S16",
+        "OPS02"
+      ],
+      "name": "Tabs are keyboard-operable (arrow keys, Home/End, roving tab stop) and the selection model of the tree is unchanged by tab changes",
+      "status": "PASS",
+      "detail": "{\"a\":{\"h\":\"#/eq/equipment/eq-qc-demo-01?main=mi-q01-01&panel=special\",\"f\":\"tab-special\",\"tabs\":\"-1,0,-1,-1\"},\"e\":{\"h\":\"#/eq/equipment/eq-qc-demo-01?main=mi-q01-01&panel=spareParts\",\"f\":\"tab-spareParts\"},\"hm\":{\"h\":\"#/eq/equipment/eq-qc-demo-01?main=mi-q01-01&panel=maintenance\",\"f\":\"tab-maintenance\"}}"
+    },
+    {
+      "id": "C09",
+      "covers": [
+        "HIS05",
+        "S07"
+      ],
+      "name": "Late panel responses for a previous selection are discarded (out-of-order protection survives the four-tab panel)",
+      "status": "PASS",
+      "detail": "echo eq-qc-demo-01|special|part|pp-q01-008; DISCARDED logged: true"
+    }
+  ]
+}

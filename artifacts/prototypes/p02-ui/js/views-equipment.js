@@ -149,8 +149,8 @@ window.EQ = window.EQ || {};
     ui.labels = true; ui.container = null; ui.treeFilter = '';
     [...EQ.state.expanded].filter((k) => k.startsWith(eq.id + ':')).forEach((k) => EQ.state.expanded.delete(k));
     EQ.eqUI.treeFocus = 'root'; ui.treeSelSig = null; EQ.eqUI.lastSig = null; EQ.eqUI.hadSel = true;
-    EQ.nav('/eq/equipment/' + eq.id, { ...q, main: '', sub: '', part: '', container: '', iso: '', area: '', view: 'flat' });
-    // U1-C33: the shared viewer returns to Flat; retain the legacy fallback reset.
+    EQ.nav('/eq/equipment/' + eq.id, { ...q, main: '', sub: '', part: '', container: '', iso: '', area: '', view: q.view === '3d' ? '3d' : 'flat' });
+    // U1-C34: Reset restores the full crane in the current camera mode.
     if (!EQ.qc) EQ.resetView();
   }
   EQ.fullReset = fullReset;
@@ -246,7 +246,7 @@ window.EQ = window.EQ || {};
     const ps = EQ.qc?.containerPositions(eq, EQ.route.query.container) || EQ.positionsOf(eq.id).filter((p) => p.state === 'active' && HOUSE_KEYS.includes(p.key));
     const groups = {};
     ps.forEach((p) => { const s = eq.subs.find((x) => x.id === p.subId); const m = EQ.mainDef(eq.mains.find((x) => x.id === p.mainId).code); (groups[m.code + ' ' + m.name] = groups[m.code + ' ' + m.name] || []).push([p, s]); });
-    box.appendChild(h('div', { class: 'notice info' }, icon('info'), h('p', null, h('strong', null, (EQ.qc?.containerName(EQ.route.query.container) || 'Machinery house') + ': spatial container. '), 'It is not a mechanism and owns no history. It contains positions from several mechanisms; select a position to see its own records.')));
+    box.appendChild(h('div', { class: 'notice info' }, icon('info'), h('p', null, h('strong', null, (EQ.qc?.containerName(EQ.route.query.container) || 'Physical area') + '. '), ps.length + ' included part positions. Select a part to see its specifications and records.')));
     Object.entries(groups).forEach(([g, items]) => box.appendChild(h('div', { class: 'sec' }, h('h3', null, g), h('ul', { class: 'tl' }, items.map(([p]) => h('li', null, h('a', { href: '#', onClick: (e) => { e.preventDefault(); select(eq, { main: p.mainId, sub: p.subId, part: p.id }, { mode: 'technical' }); } }, p.name), h('span', { class: 'when' }, p.prov === 'approximate-location' ? 'Location approximate / simplified representation' : p.prov)))))));
     return box;
   }
@@ -278,7 +278,7 @@ window.EQ = window.EQ || {};
     const mode = q.mode === 'technical' ? 'technical' : 'overall';
     const pq = q.panel === 'history' ? 'special' : q.panel;
     const panelTab = EQ.panelTabs.KEYS.includes(pq) ? pq : 'maintenance';
-    const scope = scopeOf(sel);
+    const scope = q.container ? { level: 'area', id: q.container } : scopeOf(sel);
     const dur = EQ.inStatusFor(eq);
     const mode2 = EQ.zmms.mode(eq);
 
@@ -312,14 +312,14 @@ window.EQ = window.EQ || {};
     const nOf = { maintenance: sum.maintenance, special: sum.special, spareParts: sum.spare.overdue + sum.spare.dueSoon };
     const nLabel = { maintenance: 'jobs today', special: 'open', spareParts: 'overdue or due soon' };
     const sideHead = h('div', { class: 'sp-head' },
-      h('div', { class: 'row between' }, h('div', null, h('p', { class: 'eyebrow' }, sel.part ? 'Part position' : sel.sub ? 'Submechanism' : sel.main ? 'Main mechanism' : q.container ? 'Spatial container' : 'Equipment'), h('h2', { 'data-fk': 'scope-title' }, q.container ? (EQ.qc?.containerName(q.container) || 'Spatial group') : scopeLabel(eq, sel))), h('button', { type: 'button', class: 'btn-sm drawer-btns', 'aria-label': 'Close details', onClick: () => closeDrawer() }, icon('x'))),
+      h('div', { class: 'row between' }, h('div', null, h('p', { class: 'eyebrow' }, sel.part ? 'Part position' : sel.sub ? 'Submechanism' : sel.main ? 'Main mechanism' : q.container ? 'Physical area' : 'Equipment'), h('h2', { 'data-fk': 'scope-title' }, q.container ? (EQ.qc?.containerName(q.container) || 'Physical area') : scopeLabel(eq, sel))), h('button', { type: 'button', class: 'btn-sm drawer-btns', 'aria-label': 'Close details', onClick: () => closeDrawer() }, icon('x'))),
       h('div', { class: 'tabs four', role: 'tablist', 'aria-label': 'Current state of the selection' }, EQ.panelTabs.TABS.map(([k, long, short]) => {
         const n = nOf[k];
         return h('button', { type: 'button', role: 'tab', id: 'tab-' + k, 'aria-controls': 'tabpanel', 'aria-selected': panelTab === k ? 'true' : 'false', tabindex: panelTab === k ? '0' : '-1', 'aria-label': long + (n ? ', ' + n + ' ' + nLabel[k] : ''), 'data-fk': 'tab-' + k,
           onKeydown: (e) => { const keys = EQ.panelTabs.KEYS; const i = keys.indexOf(k); const j = e.key === 'ArrowRight' ? (i + 1) % 4 : e.key === 'ArrowLeft' ? (i + 3) % 4 : e.key === 'Home' ? 0 : e.key === 'End' ? 3 : -1; if (j >= 0) { e.preventDefault(); EQ.nav('/eq/equipment/' + eq.id, { ...q, panel: keys[j] }); setTimeout(() => document.querySelector('[data-fk="tab-' + keys[j] + '"]')?.focus(), 0); } },
           onClick: () => EQ.nav('/eq/equipment/' + eq.id, { ...q, panel: k }) }, h('span', { class: 'lbl-long' }, long === 'Projects/Special' ? ['Projects/', h('wbr'), 'Special'] : long), n ? h('span', { class: 'tab-n', 'aria-hidden': 'true' }, String(n)) : null);
       })));
-    const sideBody = h('div', { class: 'sp-body', role: 'tabpanel', id: 'tabpanel', 'aria-labelledby': 'tab-' + panelTab }, q.container ? containerTab(eq) : tabBody(eq, sel, scope, q, panelTab));
+    const sideBody = h('div', { class: 'sp-body', role: 'tabpanel', id: 'tabpanel', 'aria-labelledby': 'tab-' + panelTab }, tabBody(eq, sel, scope, q, panelTab));
     const side = h('aside', { class: 'panel side-panel' + (EQ.eqUI.drawer === 'panel' ? ' open' : ''), 'aria-label': 'Current state of the selection' }, sideHead, sideBody);
 
     page.appendChild(h('div', { class: 'detail-grid' }, treePanel, h('div', { class: 'stack' }, viewport(eq, sel, q, mode), eq.typeCode !== 'QC' ? rtgSummary(eq) : null), side));

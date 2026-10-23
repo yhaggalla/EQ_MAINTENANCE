@@ -108,6 +108,10 @@ window.EQ = window.EQ || {};
       if (scope.level === 'main') list = list.filter((p) => p.mainId === scope.id);
       else if (scope.level === 'sub') list = list.filter((p) => p.subId === scope.id);
       else if (scope.level === 'part') list = list.filter((p) => p.id === scope.id);
+      else if (scope.level === 'area') {
+        const ids = new Set((EQ.qc?.containerPositions(eq, scope.id) || []).map((p) => p.id));
+        list = list.filter((p) => ids.has(p.id));
+      }
     }
     return list.map((p) => S$.row(p.id)).sort((a, b) => EQ.cmp(a.mainCode + a.subCode + a.pos.name, b.mainCode + b.subCode + b.pos.name));
   };

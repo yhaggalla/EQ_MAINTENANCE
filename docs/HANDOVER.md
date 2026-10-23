@@ -2,6 +2,16 @@
 
 Rolling handover for CICT EQ Maintenance. Each phase appends its record; the newest is first.
 
+## 24 October 2026 - U1-C34 viewer refinements
+
+**U1 is IN PROGRESS / CHANGES REQUESTED, NOT COMPLETE and NOT APPROVED.** These adjustments extend the same checkpoint; P04 is Not started. Baseline `37ff115` on `main`; this record and the C34 implementation are committed together. Active Codex agent; no delegated phase or independent R verdict, model/effort not independently recorded. Exact request: `docs/runs/Repair-U1-C34-20261024.md`.
+
+Fixed physical-area tabs: the old container branch always rendered the Technical parts list. All four tabs now render independently. Projects/Special and its badge use the area's included position targets/replacement lines, deduplicated and passed through the existing current-state projection; hidden work stays excluded. Spare parts and its badge use registered included positions. Maintenance remains equipment-level ZMMS daily work. Technical lists the area's parts; selecting one retains isolation. Areas are filters, not new maintenance/history owners. The heading now says Physical area.
+
+The desktop toolbar is one compact row with an inline area selector, accessible zoom controls and unchanged touch-target sizes. It wraps on phones. Sea has static world-space wave detail and a quay coping strip, keeping the 5 m drop. Initial view remains Flat. Per the latest 3D reference, Reset now preserves the current camera mode: 3D restores the reference three-quarter angle/framing, Flat restores the full side elevation. Isolated areas/parts refit when dimensions change; tab rerenders at the same dimensions do not refit the camera. These Reset semantics supersede C33's forced-Flat rule (D-177).
+
+Verification and visual review are recorded in `docs/evidence/U1/viewer-refinements-c34/REPORT.md`. Current browser checks use synthetic data and software WebGL; formal application acceptance remains NOT RUN. Source drawings, GLB/manifest and unrelated RTG work remain outside this change. Next: continue U1 walkthrough/refinements; await explicit U1 approval before P04. Deferred FAC restyling and open source issues are unchanged.
+
 ## 24 October 2026 - current U1 status and documentation review
 
 **U1 is IN PROGRESS / CHANGES REQUESTED: NOT COMPLETE and NOT APPROVED.** All adjustments through U1-C33, including the fleet changes, shared 3D / Flat viewer, Flat default, framing, yard/sea context and area isolation, remain U1 work. Passing prototype checks and committed repairs do not close the checkpoint. Continue the U1 walkthrough and requested refinements; P04 remains Not started and requires explicit user approval recorded in `docs/DECISIONS.md`.

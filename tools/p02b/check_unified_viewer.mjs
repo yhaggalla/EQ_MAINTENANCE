@@ -2,7 +2,7 @@
 import fs from 'node:fs';
 import { launch } from '../p03/cdp.mjs';
 const base = process.argv[2] || 'http://127.0.0.1:5324/';
-const out = 'docs/evidence/U1/unified-viewer';
+const out = process.argv[3] || 'docs/evidence/U1/unified-viewer';
 fs.mkdirSync(out, { recursive: true });
 const b = await launch({ port: 9384 }), results = [];
 const ev = x => b.eval(x);
@@ -54,8 +54,14 @@ try {
     for (const view of ['3d', 'flat']) {
       await click('reset'); await click('view-' + view); await b.wait(900);
       for (const wanted of ['mi-q01-01', 'si-q01-011', 'hoist.drive.motor.a']) {
-        const rect = await ev(`(()=>{const v=EQ.qc.session.viewer;const p=v._placedLabels.find(p=>p.c.id===${JSON.stringify(wanted)});if(!p)return null;const r=v.renderer.domElement.getBoundingClientRect();return {x:r.x+p.r.x+p.r.w/2,y:r.y+p.r.y+p.r.h/2}})()`);
-        assert(rect, 'label missing ' + wanted);
+        let rect;
+        // Read placed labels after camera/DOM updates; wall-clock sleeps can sample an intermediate focus frame.
+        for (let attempt = 0; attempt < 40; attempt++) {
+          rect = await ev(`(()=>{const v=EQ.qc.session.viewer;if(v._tween)return null;const p=v._placedLabels.find(p=>p.c.id===${JSON.stringify(wanted)});if(!p)return null;const r=v.renderer.domElement.getBoundingClientRect();return {x:r.x+p.r.x+p.r.w/2,y:r.y+p.r.y+p.r.h/2}})()`);
+          if (rect) break;
+          await b.wait(150);
+        }
+        assert(rect, 'label missing ' + wanted + ' in ' + view);
         await b.send('Input.dispatchMouseEvent', { type: 'mousePressed', ...rect, button: 'left', clickCount: 1 });
         await b.send('Input.dispatchMouseEvent', { type: 'mouseReleased', ...rect, button: 'left', clickCount: 1 });
         await b.wait(900);

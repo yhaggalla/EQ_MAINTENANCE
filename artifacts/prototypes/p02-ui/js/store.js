@@ -76,8 +76,11 @@ window.EQ = window.EQ || {};
    *  endpoints below apply the Access matrix before returning any of it (Repair-R02B finding 1, API s2 / s4.6 / s4.16, D-139). */
   const scoped = (eqId, scope, includeCancelled) => {
     const jobs = EQ.jobsOf(eqId, includeCancelled);
+    // A physical area is a read filter over bound positions, never a new work/history owner.
+    const areaIds = scope.level === 'area' ? new Set((EQ.qc?.containerPositions(EQ.eq(eqId), scope.id) || []).map((p) => p.id)) : null;
     const inScope = (l) => {
       const p = EQ.pos(l.positionId);
+      if (areaIds) return areaIds.has(p?.id);
       if (scope.level === 'equipment') return true;
       if (scope.level === 'main') return p.mainId === scope.id;
       if (scope.level === 'sub') return p.subId === scope.id;
@@ -85,6 +88,7 @@ window.EQ = window.EQ || {};
     };
     const hit = (j) => {
       if (scope.level === 'equipment') return true;
+      if (areaIds) return areaIds.has(j.positionId) || j.lines.some((l) => l.state === 'committed' && inScope(l));
       const direct = scope.level === 'main' ? j.mainId === scope.id : scope.level === 'sub' ? j.subId === scope.id : j.positionId === scope.id;
       return direct || j.lines.some((l) => l.state === 'committed' && inScope(l));
     };

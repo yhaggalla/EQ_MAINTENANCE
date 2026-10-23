@@ -2,7 +2,7 @@
    Maintenance (today's ZMMS daily jobs), Projects/Special (open and completed special jobs in the selected scope; U1-C23 makes this
    tab the one exception to "no history in the crane view"), Technical (specification summary of the selected area) and Spare parts
    (current register rows in scope). Other work history (events, corrections, installations, status changes, earlier ZMMS days) lives
-   in the EQ Jobs tab ("Open in Jobs"). Jobs switched off with "Show on dashboard / 3D" are not shown here (U1-C26). Used by the flat view; the P03 3D viewer page builds the same four tabs in its own module. */
+   in the EQ Jobs tab ("Open in Jobs"). Jobs switched off with "Show on dashboard / 3D" are not shown here (U1-C26). Used by both shared-viewer cameras; physical areas filter to their included positions (U1-C34). */
 window.EQ = window.EQ || {};
 (function (EQ) {
   const h = EQ.h, icon = EQ.icon;
@@ -13,7 +13,7 @@ window.EQ = window.EQ || {};
   P.TABS = [['maintenance', 'Maintenance', 'Maintenance'], ['special', 'Projects/Special', 'Projects/Special'], ['technical', 'Technical', 'Technical'], ['spareParts', 'Spare parts', 'Spare parts']];
   P.KEYS = P.TABS.map((t) => t[0]);
 
-  const scopeParams = (eq, scope) => (scope.level === 'equipment' ? { equipment: eq.id } : { equipment: eq.id, scope: scope.level, target: scope.id });
+  const scopeParams = (eq, scope) => (scope.level === 'equipment' || scope.level === 'area' ? { equipment: eq.id } : { equipment: eq.id, scope: scope.level, target: scope.id });
   P.jobsLink = (eq, scope, tab) => {
     const qs = new URLSearchParams();
     if (tab === 'spareParts') { const p = scopeParams(eq, scope); qs.set('equipment', eq.id); if (scope.level === 'main') qs.set('main', scope.id); if (scope.level === 'sub') qs.set('sub', scope.id); if (scope.level === 'part') qs.set('part', scope.id); return P.base + '#/eq/jobs/spare-parts?' + qs.toString(); }
@@ -24,7 +24,7 @@ window.EQ = window.EQ || {};
   /** EQ Jobs links are offered only when the session holds eq.jobs.view (Repair-R02B finding 1, D-139): with the Jobs tab switched off
    *  the link would only lead to the 403 page, and the job records behind it are refused by the server anyway. */
   P.jobsAllowed = () => EQ.access.has('eq.jobs.view');
-  const openInJobs = (eq, scope, tab) => (P.jobsAllowed() ? h('a', { class: 'btn btn-sm', href: P.jobsLink(eq, scope, tab), 'data-fk': 'open-in-jobs-' + tab, ...ext() }, icon('ext'), 'Open in Jobs')
+  const openInJobs = (eq, scope, tab) => (P.jobsAllowed() ? h('a', { class: 'btn btn-sm', href: P.jobsLink(eq, scope, tab), 'data-fk': 'open-in-jobs-' + tab, ...ext() }, icon('ext'), scope.level === 'area' ? 'Open equipment in Jobs' : 'Open in Jobs')
     : h('p', { class: 'small muted', style: 'margin:0', 'data-fk': 'jobs-tab-off-' + tab }, 'The EQ Jobs tab is not available for your role, so earlier work and job records are not shown.'));
 
   /** Tab badges (summary query): today's ZMMS job count, open special jobs, spare parts overdue / due soon. */
@@ -96,7 +96,7 @@ window.EQ = window.EQ || {};
     if (!cs.ok) { box.appendChild(h('div', { class: 'notice error', role: 'alert' }, icon('alert'), h('p', null, cs.message))); return box; }
     const cancelled = cs.counts.cancelled, completed = cs.counts.completed;
     const open = cs.openJobs, list = cs.jobs;
-    box.appendChild(h('p', { class: 'small muted', style: 'margin:0' }, (scope.level === 'equipment' ? 'Open and completed special jobs of ' + eq.code + ' (an equipment-level job appears once)' : scope.level === 'part' ? 'Open and completed special jobs at this exact position' : 'Open and completed special jobs targeted here and at everything below it; a job with several lines appears once') + ', newest first. Cancelled jobs are counted only.'));
+    box.appendChild(h('p', { class: 'small muted', style: 'margin:0' }, (scope.level === 'area' ? 'Open and completed special jobs targeted at included positions or with replacement lines at those positions; each job appears once' : scope.level === 'equipment' ? 'Open and completed special jobs of ' + eq.code + ' (an equipment-level job appears once)' : scope.level === 'part' ? 'Open and completed special jobs at this exact position' : 'Open and completed special jobs targeted here and at everything below it; a job with several lines appears once') + ', newest first. Cancelled jobs are counted only.'));
     box.appendChild(h('div', { class: 'row', role: 'group', 'aria-label': 'Special job counts in this scope' }, tag(open.length + ' open', open.length ? 'gold' : ''), tag(completed + ' completed', completed ? 'green' : ''), tag(cancelled + ' cancelled')));
     box.appendChild(h('div', { class: 'sec' }, h('h3', null, 'Special jobs ', tag(String(list.length))),
       list.length ? h('ul', { class: 'tl', 'data-fk': 'special-list' }, list.map((r) => jobMini(r.job, r.matchingLines))) : h('div', { class: 'nonwork' }, h('strong', null, 'No special jobs'), 'Nothing is Pending, Current or Completed in this scope.'),
