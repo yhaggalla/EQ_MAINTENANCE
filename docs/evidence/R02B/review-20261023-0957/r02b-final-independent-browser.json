@@ -1,0 +1,265 @@
+{
+  "browser": "Chrome/155.0.8059.85",
+  "checks": [
+    {
+      "id": "independent-current-state-four-scopes",
+      "ok": true,
+      "evidence": {
+        "denied": 403,
+        "views": [
+          {
+            "scope": "equipment",
+            "job": {
+              "job": {
+                "id": "job-101",
+                "number": "EQJ-2026-000101",
+                "equipmentId": "eq-qc-demo-01",
+                "level": "part",
+                "mainId": "mi-q01-01",
+                "subId": "si-q01-011",
+                "positionId": "pp-q01-007",
+                "kind": "replacement",
+                "title": "Replace main hoist motor A",
+                "workStatus": "current",
+                "plannedOn": "2026-08-10"
+              },
+              "matchingLines": [
+                {
+                  "positionId": "pp-q01-007"
+                }
+              ]
+            },
+            "ids": [
+              "job-101",
+              "job-104",
+              "job-105",
+              "job-106",
+              "job-107"
+            ],
+            "link": null
+          },
+          {
+            "scope": "main",
+            "job": {
+              "job": {
+                "id": "job-101",
+                "number": "EQJ-2026-000101",
+                "equipmentId": "eq-qc-demo-01",
+                "level": "part",
+                "mainId": "mi-q01-01",
+                "subId": "si-q01-011",
+                "positionId": "pp-q01-007",
+                "kind": "replacement",
+                "title": "Replace main hoist motor A",
+                "workStatus": "current",
+                "plannedOn": "2026-08-10"
+              },
+              "matchingLines": [
+                {
+                  "positionId": "pp-q01-007"
+                }
+              ]
+            },
+            "ids": [
+              "job-101",
+              "job-104"
+            ],
+            "link": null
+          },
+          {
+            "scope": "sub",
+            "job": {
+              "job": {
+                "id": "job-101",
+                "number": "EQJ-2026-000101",
+                "equipmentId": "eq-qc-demo-01",
+                "level": "part",
+                "mainId": "mi-q01-01",
+                "subId": "si-q01-011",
+                "positionId": "pp-q01-007",
+                "kind": "replacement",
+                "title": "Replace main hoist motor A",
+                "workStatus": "current",
+                "plannedOn": "2026-08-10"
+              },
+              "matchingLines": [
+                {
+                  "positionId": "pp-q01-007"
+                }
+              ]
+            },
+            "ids": [
+              "job-101",
+              "job-104"
+            ],
+            "link": null
+          },
+          {
+            "scope": "part",
+            "job": {
+              "job": {
+                "id": "job-101",
+                "number": "EQJ-2026-000101",
+                "equipmentId": "eq-qc-demo-01",
+                "level": "part",
+                "mainId": "mi-q01-01",
+                "subId": "si-q01-011",
+                "positionId": "pp-q01-007",
+                "kind": "replacement",
+                "title": "Replace main hoist motor A",
+                "workStatus": "current",
+                "plannedOn": "2026-08-10"
+              },
+              "matchingLines": [
+                {
+                  "positionId": "pp-q01-007"
+                }
+              ]
+            },
+            "ids": [
+              "job-101"
+            ],
+            "link": null
+          }
+        ],
+        "leaked": false,
+        "sourceKept": true
+      }
+    },
+    {
+      "id": "independent-dashboard-populations",
+      "ok": false,
+      "evidence": {
+        "arithmetic": [
+          {
+            "q": {},
+            "k": {
+              "active": 114,
+              "completed": 14,
+              "inProgress": 7,
+              "onHold": 2,
+              "overdue": 7,
+              "dueSoon": 5,
+              "onTimePct": 75,
+              "onTimeN": 8,
+              "onTimeOk": 6,
+              "checksDone": 4,
+              "checksTotal": 14
+            }
+          },
+          {
+            "q": {
+              "discipline": "electrical"
+            },
+            "k": {
+              "active": 18,
+              "completed": 1,
+              "inProgress": 3,
+              "onHold": 1,
+              "overdue": 1,
+              "dueSoon": 1,
+              "onTimePct": null,
+              "onTimeN": 0,
+              "onTimeOk": 0,
+              "checksDone": 1,
+              "checksTotal": 1
+            }
+          },
+          {
+            "q": {
+              "discipline": "civil",
+              "type": "inspection"
+            },
+            "k": {
+              "active": 35,
+              "completed": 7,
+              "inProgress": 3,
+              "onHold": 0,
+              "overdue": 4,
+              "dueSoon": 0,
+              "onTimePct": 71,
+              "onTimeN": 7,
+              "onTimeOk": 5,
+              "checksDone": 0,
+              "checksTotal": 0
+            }
+          },
+          {
+            "q": {
+              "discipline": "civil",
+              "type": "service"
+            },
+            "k": {
+              "active": 6,
+              "completed": 1,
+              "inProgress": 0,
+              "onHold": 0,
+              "overdue": 0,
+              "dueSoon": 0,
+              "onTimePct": 100,
+              "onTimeN": 1,
+              "onTimeOk": 1,
+              "checksDone": 0,
+              "checksTotal": 0
+            }
+          },
+          {
+            "q": {
+              "discipline": "mechanical"
+            },
+            "k": {
+              "active": 55,
+              "completed": 5,
+              "inProgress": 1,
+              "onHold": 1,
+              "overdue": 2,
+              "dueSoon": 4,
+              "onTimePct": null,
+              "onTimeN": 0,
+              "onTimeOk": 0,
+              "checksDone": 3,
+              "checksTotal": 13
+            }
+          }
+        ],
+        "want": [
+          [
+            114,
+            6,
+            8,
+            75
+          ],
+          [
+            18,
+            0,
+            0,
+            null
+          ],
+          [
+            23,
+            5,
+            7,
+            71
+          ],
+          [
+            18,
+            1,
+            1,
+            100
+          ],
+          [
+            55,
+            0,
+            0,
+            null
+          ]
+        ]
+      }
+    },
+    {
+      "id": "independent-browser-errors",
+      "ok": true,
+      "evidence": []
+    }
+  ]
+}

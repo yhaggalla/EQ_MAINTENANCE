@@ -1,0 +1,144 @@
+{
+  "tool": "tools/p02b/check_p02b.mjs",
+  "browser": "Chrome/155.0.8059.85",
+  "date": "2026-10-23T04:26:26.770Z",
+  "note": "Prototype-level checks against the synthetic P02B prototype; not acceptance execution.",
+  "passed": 12,
+  "failed": 0,
+  "results": [
+    {
+      "id": "B02",
+      "covers": [
+        "ACC03",
+        "S19",
+        "AUTH03"
+      ],
+      "name": "The matrix never widens a Portal ceiling: Management write, FAC Team EQ write, EQ Team FAC write, any role Admin pages and any Admin cell are refused as a whole (422 access_cell_not_toggleable), nothing stored; only the 13 toggleable cells have switches",
+      "status": "PASS",
+      "detail": "{\"switches\":13,\"refused\":9,\"mixed\":[422,\"access_cell_not_toggleable\"],\"versionSame\":true,\"roles\":{\"management\":403,\"eqTeam\":403,\"facTeam\":403}}"
+    },
+    {
+      "id": "B04",
+      "covers": [
+        "ACC03",
+        "FAC11",
+        "AUTH03",
+        "S11"
+      ],
+      "name": "Role write matrix on the simulated server: Management refused for EQ and FAC writes; EQ Team refused for FAC writes and Admin pages; FAC Team refused for EQ writes and Admin pages; one-time FAC jobs allowed for FAC Team by default",
+      "status": "PASS",
+      "detail": "{\"management\":{\"eqJob\":403,\"eqStatus\":403,\"facHold\":403,\"facProgress\":403,\"zmmsSync\":403,\"access\":403,\"oneTime\":403},\"eqTeam\":{\"eqJob\":\"ok\",\"eqStatus\":\"ok\",\"facHold\":403,\"facProgress\":403,\"zmmsSync\":403,\"access\":403,\"oneTime\":403},\"facTeam\":{\"eqJob\":403,\"eqStatus\":403,\"facHold\":\"ok\",\"facProgress\":409,\"zmmsSync\":403,\"access\":403,\"oneTime\":\"ok\"}}"
+    },
+    {
+      "id": "F01",
+      "covers": [
+        "ZM02",
+        "S20"
+      ],
+      "name": "A failed run (login failure, layout change, timeout, HTTP error) records itself, keeps every row and every status unchanged, marks the data stale and warns; \"ZMMS data from\" stays at the last good run",
+      "status": "PASS",
+      "detail": "{\"unchanged\":true,\"runs\":{\"login_failed\":[true,true,\"failed\",\"login_failed\"],\"layout_changed\":[true,true,\"failed\",\"layout_changed\"],\"timeout\":[true,true,\"failed\",\"timeout\"],\"http_error\":[true,true,\"failed\",\"http_error\"]},\"stale\":true,\"fleetFresh\":\"ZMMS data from 23 Oct 2026 06:02 · stale: latest sync failed (timeout)\"}"
+    },
+    {
+      "id": "F02",
+      "covers": [
+        "ZM05",
+        "S21"
+      ],
+      "name": "Automatic status: unmapped job-type values stop the status change for the equipment concerned and automatic mode cannot be switched on until mapped; after mapping a breakdown job gives Breakdown, a maintenance job Maintenance, nothing in the plan gives Ready for OPS, each with its causing ZMMS jobs",
+      "status": "PASS",
+      "detail": "{\"empty\":{\"changed\":false,\"applied\":0},\"autoRefused\":{\"ok\":false,\"status\":422,\"code\":\"zmms_mapping_incomplete\",\"message\":\"Automatic status cannot be switched on: Values seen in the latest run still have no effect: BreakDown, CM, PM, Defect, WireRope, Initialized, Added To Daily, Re-Added to Daily, Hold, Completed.\",\"fields\":{}},\"autoOn\":true,\"after\":{\"bd\":[\"breakdown\",\"zmms\",[\"900105\"]],\"ready\":[\"readyForOps\"],\"wire\":[\"maintenance\",[\"900107\"]],\"applied\":1,\"ranOk\":true}}"
+    },
+    {
+      "id": "F03",
+      "covers": [
+        "ZM06",
+        "S21",
+        "JOB13"
+      ],
+      "name": "Manual correction needs a reason, shows Manual, holds over the same day's second sync, returns to automatic at the first sync of the next day; Back to automatic ends it earlier; Management cannot correct",
+      "status": "PASS",
+      "detail": "{\"noReason\":\"validation_failed\",\"ok\":true,\"mode\":\"manualCorrection\",\"status\":\"breakdown\",\"afterSecondSync\":{\"status\":\"breakdown\",\"mode\":\"manualCorrection\",\"ev\":\"readyForOps\"},\"nextDay\":{\"status\":\"readyForOps\",\"mode\":\"automatic\",\"source\":\"zmms\",\"overrideCleared\":true,\"last\":\"overrideEnded\"},\"early\":{\"ok\":true,\"mode\":\"awaitingAuto\"},\"mgmt\":403}"
+    },
+    {
+      "id": "F04",
+      "covers": [
+        "ZM01",
+        "ZM03",
+        "S20"
+      ],
+      "name": "Rows are keyed by job number and date (a repeat creates no duplicate); a concurrent Sync now is refused as already running; unmatched rows stay in the queue and attach to equipment after Admin maps them without duplicates",
+      "status": "PASS",
+      "detail": "{\"upsert\":{\"new1\":1,\"new2\":0,\"upd2\":1,\"count\":1,\"added\":1},\"concurrent\":{\"ok\":true,\"status\":202,\"alreadyRunning\":true,\"runId\":99},\"map\":{\"ok\":true,\"attached\":3,\"rowsBefore\":3,\"total\":true,\"eqMapped\":true,\"nowMatched\":3,\"queueAfter\":5,\"unmatchedBefore\":6},\"dupMap\":\"validation_failed\"}"
+    },
+    {
+      "id": "F05",
+      "covers": [
+        "ZM02",
+        "ZM03",
+        "ZM05",
+        "S20",
+        "S21"
+      ],
+      "name": "Admin ZMMS page: sync times and Sync now, health with last success and a synthetic failed run, recent runs, equipment mapping with an ignore entry, unmatched queue, job type and status mapping, status evaluation; Management and EQ Team get 403",
+      "status": "PASS",
+      "detail": "{\"has\":{\"times\":true,\"health\":true,\"failed\":true,\"runs\":true,\"maps\":true,\"ignore\":true,\"unmatched\":true,\"values\":true,\"evalu\":true,\"syncNow\":true,\"synth\":true},\"runsAfter\":\"manual\"}"
+    },
+    {
+      "id": "G01",
+      "covers": [
+        "SP03",
+        "S22"
+      ],
+      "name": "Prediction = replaced date + expected life (calendar months); Original uses the commissioning date; unknown commissioning date or life shows no prediction and never a fabricated date; due soon (90 days) and overdue flags are correct (independent recomputation)",
+      "status": "PASS",
+      "detail": "{\"n\":22,\"unknown\":9,\"bad\":[],\"noComm\":{\"cond\":\"original\",\"predicted\":null,\"why\":\"No prediction (commissioning date unknown)\"}}"
+    },
+    {
+      "id": "G03",
+      "covers": [
+        "SP02",
+        "S22",
+        "JOB05",
+        "JOB08",
+        "JOB06"
+      ],
+      "name": "Completing a Replacement special job writes the condition register in the same commit (brand, model, serial, replaced date from the line, history source jobCompletion); an invalid second line commits nothing at all; a retry with the same key replays and adds no history row",
+      "status": "PASS",
+      "detail": "{\"rollback\":{\"ok\":false,\"status\":\"pending\",\"events\":0,\"hist\":0,\"cond\":\"Synthetic Brakes\"},\"committed\":{\"ok\":true,\"cond\":\"replaced\",\"brand\":\"BrakeCo\",\"model\":\"BR-77\",\"serial\":\"BR-0001\",\"on\":true,\"src\":\"jobCompletion\",\"job\":true,\"remarks\":\"fitted with new pads\",\"newHist\":1,\"status\":\"readyForOps\"},\"retry\":{\"replayed\":true,\"hist\":1,\"events\":1}}"
+    },
+    {
+      "id": "H06",
+      "covers": [
+        "S27",
+        "FDB03",
+        "S16"
+      ],
+      "name": "Hover and keyboard focus stop the lane or the ticker they are on, the Pause button stops everything, and releasing them resumes the motion",
+      "status": "PASS",
+      "detail": "{\"base\":{\"lane\":true,\"tick\":true},\"hover\":{\"lane\":false,\"tick\":true},\"released\":{\"lane\":true,\"tick\":true},\"tickerHover\":{\"lane\":true,\"tick\":false},\"focus\":{\"lane\":false,\"tick\":true},\"unfocused\":{\"lane\":true,\"tick\":true},\"tickerFocus\":{\"lane\":true,\"tick\":false},\"paused\":{\"lane\":false,\"tick\":false},\"resumed\":{\"lane\":true,\"tick\":true}}"
+    },
+    {
+      "id": "H08",
+      "covers": [
+        "S27",
+        "FDB03",
+        "S16"
+      ],
+      "name": "Static accessible alternative: a collapsible full table of every dashboard job (skip link and Static view button), motion off in Static view, with every job reachable by link",
+      "status": "PASS",
+      "detail": "{\"rows\":109,\"want\":109,\"mode\":\"static\"}"
+    },
+    {
+      "id": "H09",
+      "covers": [
+        "S27",
+        "FDB03",
+        "S16"
+      ],
+      "name": "prefers-reduced-motion: the lanes flip a page every 8 seconds instead of scrolling (page indicator shown), the ticker is static, nothing scrolls continuously",
+      "status": "PASS",
+      "detail": "{\"mode\":\"flip\",\"ind\":\"Page 1 of 14\",\"pages\":[0,0,1],\"t\":[\"translateY(0px)\",\"translateY(-334.062px)\"],\"ind1\":\"Page 2 of 14\"}"
+    }
+  ]
+}

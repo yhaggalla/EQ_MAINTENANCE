@@ -1,0 +1,45 @@
+{
+  "tool": "tools/p02b/check_p02b.mjs",
+  "browser": "Chrome/155.0.8059.85",
+  "date": "2026-10-23T04:22:59.049Z",
+  "note": "Prototype-level checks against the synthetic P02B prototype; not acceptance execution.",
+  "passed": 3,
+  "failed": 0,
+  "results": [
+    {
+      "id": "B05",
+      "covers": [
+        "ACC02",
+        "S19",
+        "S07",
+        "HIS06"
+      ],
+      "name": "EQ Jobs off with Fleet on: history/list/record/export refuse; a reopened job exposes only allowlisted current fields and matching position IDs while retaining its source history; no job links or history render in the crane tabs [Repair-R02B round 2]",
+      "status": "PASS",
+      "detail": "{\"reads\":{\"history\":[403,\"feature_disabled\",false],\"part\":[403,\"feature_disabled\",false],\"jobs\":[403,\"feature_disabled\",false],\"job\":[403,\"feature_disabled\",false],\"exp\":403,\"current\":{\"ok\":true,\"open\":5,\"listsCompleted\":false,\"counts\":{\"pending\":3,\"current\":2,\"completed\":2,\"cancelled\":0},\"openInJobs\":null,\"reopened\":{\"job\":{\"id\":\"job-101\",\"number\":\"EQJ-2026-000101\",\"equipmentId\":\"eq-qc-demo-01\",\"level\":\"part\",\"mainId\":\"mi-q01-01\",\"subId\":\"si-q01-011\",\"positionId\":\"pp-q01-007\",\"kind\":\"replacement\",\"title\":\"Replace main hoist motor A\",\"workStatus\":\"current\",\"plannedOn\":\"2026-08-10\"},\"matchingLines\":[{\"positionId\":\"pp-q01-007\"}]},\"sourceHistoryKept\":true}},\"recordView\":\"403 - This tab is not available for your roleThe feature \\\"EQ Jobs tab (view)\\\" is switched \",\"boardView\":\"403 - This tab is not available for your roleThe feature \\\"EQ\",\"route\":\"403 - This tab is not available for your\",\"panel\":{\"maintenance\":{\"links\":0,\"plainNumbers\":0,\"offNote\":true},\"special\":{\"links\":0,\"plainNumbers\":5,\"offNote\":true},\"technical\":{\"links\":0,\"plainNumbers\":0,\"offNote\":false},\"spareParts\":{\"links\":0,\"plainNumbers\":0,\"offNote\":true}}}"
+    },
+    {
+      "id": "H01",
+      "covers": [
+        "S27",
+        "FAC01",
+        "FAC02",
+        "FDB01"
+      ],
+      "name": "FAC Dashboard loads the 114 jobs of reference\\fac-job-list.json (by sheet row and split index) with clearly labelled synthetic progress; KPI strip with eight figures reconciling with the FAC Jobs list for the same filters; clicking a KPI filters the lanes and is kept in the URL",
+      "status": "PASS",
+      "detail": "{\"ref\":{\"ref\":114,\"app\":114,\"same\":true,\"byDisc\":{\"electrical\":18,\"mechanical\":55,\"civil\":41},\"refDisc\":{\"electrical\":18,\"mechanical\":55,\"civil\":41},\"qtyBlankToOne\":true},\"kpis\":{\"active\":\"114\",\"completed\":\"14\",\"inProgress\":\"7\",\"onHold\":\"2\",\"overdue\":\"7\",\"dueSoon\":\"5\",\"ontime\":\"75 %\",\"checks\":\"4 of 14\"},\"recon\":true,\"nOver\":7,\"overdue\":7}"
+    },
+    {
+      "id": "H12",
+      "covers": [
+        "S27",
+        "FAC10",
+        "FDB01"
+      ],
+      "name": "Dashboard filters persist and restore; filtered on-time KPI shows Civil inspection 71%, 5/7, and Electrical no percentage with no eligible cycles; Clear filters resets [Repair-R02B round 2]",
+      "status": "PASS",
+      "detail": "{\"h1\":\"#/fac/dashboard?discipline=mechanical&type=inspection\",\"want\":33,\"shown\":\"33\",\"restored\":{\"d\":\"mechanical\",\"t\":\"inspection\",\"lanes\":1},\"cleared\":\"#/fac/dashboard\",\"electrical\":\"On time, 30 d-no cycles completed yet\",\"civilInspection\":\"On time, 30 d71 %5 of 7 cycles\"}"
+    }
+  ]
+}

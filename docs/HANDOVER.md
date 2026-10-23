@@ -4,6 +4,28 @@ Rolling handover for CICT EQ Maintenance. Each phase appends its record; the new
 
 ---
 
+## R02B independent PASS after round-2 repair - 23 October 2026
+
+### Runtime and outcome
+
+Recommended profile: Codex gpt-6-astra/high or Claude Code claude-opus-5-5/high. Actual client: Codex orchestrator with fresh-context `eq-review-opus-high`; high configured effort, actual runtime model identity not independently exposed. No fallback/escalation. Exact prompt: `docs/runs/R02B-20261023-0950.md`.
+
+**VERDICT: PASS**, reviewed `main` at `0da3bd53ec3fd748b4792e32b4b294873817b855`. Full unchanged report: `docs/evidence/R02B/review-20261023-0957.md`; durable sanitised outputs and inspected screenshots: `docs/evidence/R02B/review-20261023-0957/`. Both previous findings are resolved. Independent browser probes confirm hidden reopened-job history is withheld across equipment/main/sub/part scopes while source history remains intact, and FAC on-time arithmetic reconciles for five filtered populations. No new proven defect or blocking question.
+
+### Fresh verification and limits
+
+Fresh V1/V2 contract coverage 9/9 + 15/15; round-2 VM probes 10/10; affected browser B05/H01/H12 3/3; boundary browser checks B02/B04/F01-F05/G01/G03/H06/H08/H09 12/12; shared-panel checks 8/8 including 21 flat/3D comparisons. Independent browser checks and two visually inspected filtered dashboard screenshots also pass. Existing `tools/p01/check_contract_coverage.py`, `tools/p01b/check_contract_coverage_v2.py`, `tools/p02b/check_r02b_round2.mjs`, `tools/p02b/check_p02b.mjs --only=<affected or boundary IDs>` and `tools/p02b/check_p03_panel.mjs` were used; JSON outputs record the selected checks. The initial independent arithmetic probe had incorrect expected Civil counts; its recorded correction and reference-derived 35/6 counts are preserved together with the initial artifact.
+
+Full P02/P02B/P03 model-browser suites were not rerun. Unchanged model/generator/viewer-core and U1 drill-down/reset/folding evidence remain prior evidence; fresh panel checks cover the affected surfaces. This is local synthetic prototype/contract evidence, not real authentication, database, live ZMMS, hardware, target-environment or production acceptance. Formal application acceptance remains NOT RUN. Acceptance IDs evaluated are listed in full in the report (access, ZMMS, spare parts, FAC/dashboard, history/jobs, viewer/layout and U1 changes).
+
+### Records, boundaries and next step
+
+Orchestrator changes only: this handover, status ledger, exact prompt, full review report, evidence README and ten allowlisted reviewer artifacts. No implementation, source-authority, Portal, RTG/model or production edits. Pre-existing RTG handover edit remains unstaged with its baseline SHA-256 unchanged. Review records are committed separately after recording; reviewed baseline remains `0da3bd5`. Existing localhost fixture listeners on 5312/5313 were reused.
+
+**Next: U1 user checkpoint** for the combined EQ/FAC prototype and QC model. No U1 approval was given, `docs/DECISIONS.md` is unchanged, and P04 was not started. U-31 (open-only Projects/Special with completed/cancelled counts), U-33 (ZMMS spreader-code mapping) and P07B live discovery questions retain their documented impact; no new decision blocks U1.
+
+---
+
 ## Repair-R02B round 2 - 23 October 2026
 
 ### Runtime record

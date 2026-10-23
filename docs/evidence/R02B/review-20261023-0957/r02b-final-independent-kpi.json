@@ -1,0 +1,132 @@
+{
+  "browser": "Chrome/155.0.8059.85",
+  "note": "Active counts independently counted from authority fac-job-list.json. Prior ad hoc probe used mistaken Civil type counts 23/18 instead of authority 35/6; those failed expectations were reviewer error. Performance expectations unchanged.",
+  "checks": [
+    {
+      "q": {},
+      "expected": {
+        "active": 114,
+        "onTimeOk": 6,
+        "onTimeN": 8,
+        "onTimePct": 75
+      },
+      "actual": {
+        "active": 114,
+        "completed": 14,
+        "inProgress": 7,
+        "onHold": 2,
+        "overdue": 7,
+        "dueSoon": 5,
+        "onTimePct": 75,
+        "onTimeN": 8,
+        "onTimeOk": 6,
+        "checksDone": 4,
+        "checksTotal": 14
+      },
+      "ok": true
+    },
+    {
+      "q": {
+        "discipline": "electrical"
+      },
+      "expected": {
+        "active": 18,
+        "onTimeOk": 0,
+        "onTimeN": 0,
+        "onTimePct": null
+      },
+      "actual": {
+        "active": 18,
+        "completed": 1,
+        "inProgress": 3,
+        "onHold": 1,
+        "overdue": 1,
+        "dueSoon": 1,
+        "onTimePct": null,
+        "onTimeN": 0,
+        "onTimeOk": 0,
+        "checksDone": 1,
+        "checksTotal": 1
+      },
+      "ok": true
+    },
+    {
+      "q": {
+        "discipline": "civil",
+        "type": "inspection"
+      },
+      "expected": {
+        "active": 35,
+        "onTimeOk": 5,
+        "onTimeN": 7,
+        "onTimePct": 71
+      },
+      "actual": {
+        "active": 35,
+        "completed": 7,
+        "inProgress": 3,
+        "onHold": 0,
+        "overdue": 4,
+        "dueSoon": 0,
+        "onTimePct": 71,
+        "onTimeN": 7,
+        "onTimeOk": 5,
+        "checksDone": 0,
+        "checksTotal": 0
+      },
+      "ok": true
+    },
+    {
+      "q": {
+        "discipline": "civil",
+        "type": "service"
+      },
+      "expected": {
+        "active": 6,
+        "onTimeOk": 1,
+        "onTimeN": 1,
+        "onTimePct": 100
+      },
+      "actual": {
+        "active": 6,
+        "completed": 1,
+        "inProgress": 0,
+        "onHold": 0,
+        "overdue": 0,
+        "dueSoon": 0,
+        "onTimePct": 100,
+        "onTimeN": 1,
+        "onTimeOk": 1,
+        "checksDone": 0,
+        "checksTotal": 0
+      },
+      "ok": true
+    },
+    {
+      "q": {
+        "discipline": "mechanical"
+      },
+      "expected": {
+        "active": 55,
+        "onTimeOk": 0,
+        "onTimeN": 0,
+        "onTimePct": null
+      },
+      "actual": {
+        "active": 55,
+        "completed": 5,
+        "inProgress": 1,
+        "onHold": 1,
+        "overdue": 2,
+        "dueSoon": 4,
+        "onTimePct": null,
+        "onTimeN": 0,
+        "onTimeOk": 0,
+        "checksDone": 3,
+        "checksTotal": 13
+      },
+      "ok": true
+    }
+  ],
+  "errors": []
+}
