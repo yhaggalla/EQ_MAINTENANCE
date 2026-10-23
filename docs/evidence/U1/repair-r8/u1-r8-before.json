@@ -1,0 +1,104 @@
+{
+  "ranAt": "2026-10-23T13:22:24.707Z",
+  "p02": "http://127.0.0.1:5322/",
+  "head": null,
+  "note": "Prototype-level checks only (synthetic data, simulated personas, no persistence, no ZMMS contact).",
+  "pass": 0,
+  "total": 8,
+  "results": [
+    {
+      "id": "R8-01",
+      "covers": [
+        "U1-C28",
+        "S02",
+        "OPS02",
+        "FDB05"
+      ],
+      "name": "EQ Fleet TV mode (#/eq/fleet?tv=1) at 1920x1080 for every role that can see EQ Fleet: navigation hidden, visible \"EQ Fleet\" title, the whole synthetic fleet on one screen without page scroll, large type (code >= 22 px, KPI numbers >= 40 px, card text >= 15 px), read-only (no links, inputs or editing buttons; only Pause and Exit TV mode), auto-refresh note; a role without EQ Fleet gets the 403 / No access page and no TV",
+      "status": "FAIL",
+      "detail": "EXCEPTION eval failed: TypeError: EQ.fleetTvState is not a function\n    at <anonymous>:7:93\n    at <anonymous>:7:116"
+    },
+    {
+      "id": "R8-02",
+      "covers": [
+        "U1-C28",
+        "S02",
+        "S03",
+        "OPS01"
+      ],
+      "name": "TV mode behaviour: URL-addressable (TV button opens ?tv=1 with the current type/status/source filters; ?tv=1&type=QC shows only QC); refresh on the same poll (EQ.refresh, as the 60 s timer calls it, updates the time; a status change by an EQ Team writer reaches the TV view and its counts); Esc and Exit TV mode return to the normal fleet with the filters kept; counts reconcile with the cards",
+      "status": "FAIL",
+      "detail": "EXCEPTION eval failed: TypeError: Cannot read properties of null (reading 'click')\n    at <anonymous>:1:47"
+    },
+    {
+      "id": "R8-03",
+      "covers": [
+        "U1-C28",
+        "OPS02"
+      ],
+      "name": "TV mode when the fleet does not fit one screen (1366x768, and 1920x1080 with 40 extra synthetic RTGs added in memory for this check): no page scroll, the cards are split into pages that each fit, every active card is on exactly one page, \"Page n of m\" shown; the page turns every 10 s and Pause stops the turn",
+      "status": "FAIL",
+      "detail": "EXCEPTION eval failed: TypeError: EQ.fleetTvState is not a function\n    at <anonymous>:1:24\n    at <anonymous>:4:335"
+    },
+    {
+      "id": "R8-04",
+      "covers": [
+        "U1-C29",
+        "VIS06",
+        "VIS10",
+        "S02"
+      ],
+      "name": "QC, RTG and ES illustrations on the fleet cards, group headers and the KPI tile (normal and TV): in-house inline SVG with the recognisable parts (QC: boom, A-frame, forestays, backstay, legs, portal, machinery house, trolley, cab, ropes, spreader, container; RTG: legs, girder, trolley, cab, spreader, container rows, tyres, e-house; ES: mast, side-pick spreader, empty container, cab, counterweight, wheels), each card shows its own type, CICT red on QC/RTG structure, no images, external references, gradients or canvases; QC proportions follow the drawing (boom tip to waterside leg : rail gauge = 75.9 : 30 within 5 %)",
+      "status": "FAIL",
+      "detail": "EXCEPTION eval failed: TypeError: Cannot read properties of null (reading 'querySelector')\n    at bb (<anonymous>:6:97)\n    at <anonymous>:6:157\n    at <anonymous>:10:281"
+    },
+    {
+      "id": "R8-05",
+      "covers": [
+        "U1-C30",
+        "VIS06",
+        "OPS02"
+      ],
+      "name": "Blink: every active Breakdown card pulses rose (1.2 s, 0.83 flashes/s) and every Maintenance card amber (2.4 s, 0.42 flashes/s), both below 3 flashes per second, with different colours, rhythm and stripe pattern (solid / dashed); Ready for OPS and Unreported never blink; status stays as icon + text badge and in the accessible name; the blink changes no layout (card boxes identical at 0, 25, 50, 75 % of the cycle); peak colours differ from the CICT paint red; also in TV mode",
+      "status": "FAIL",
+      "detail": "EXCEPTION eval failed: TypeError: Cannot read properties of undefined (reading 'status')\n    at <anonymous>:2:135\n    at Array.map (<anonymous>)\n    at <anonymous>:2:22\n    at <anonymous>:4:18"
+    },
+    {
+      "id": "R8-06",
+      "covers": [
+        "U1-C30",
+        "OPS02",
+        "FDB03"
+      ],
+      "name": "Reduced motion, Pause and motion=off: with prefers-reduced-motion the blinking cards show a steady highlighted fill and ring (no animation) in normal and TV mode; the Pause blinking control (aria-pressed) gives the same steady state and Resume restores the blink; ?motion=off starts paused with the control disabled; the legend and badges keep the meaning without colour",
+      "status": "FAIL",
+      "detail": "EXCEPTION eval failed: TypeError: Cannot read properties of undefined (reading 'status')\n    at <anonymous>:2:135\n    at Array.map (<anonymous>)\n    at <anonymous>:2:22\n    at <anonymous>:4:18"
+    },
+    {
+      "id": "R8-07",
+      "covers": [
+        "U1-C31",
+        "U1-C02",
+        "S02",
+        "OPS02"
+      ],
+      "name": "Flat pastel professional EQ Fleet: light neutral page, white rounded cards and KPI tiles with soft shadows, a six-tile KPI row (active with type illustrations, Ready-for-OPS share, four status tiles that filter), restrained colours; no gradients, glow (text-shadow), backdrop blur, neon or glass anywhere on the page; sans-serif type; U1-C02 density kept (cards <= 60 px, whole fleet on one 1366x768 screen); status colours distinct from CICT paint red",
+      "status": "FAIL",
+      "detail": "{\"1366\":{\"page\":\"rgb(243, 246, 249)\",\"grad\":[],\"glow\":[],\"kpis\":[],\"kpiWhite\":true,\"kpiRadius\":null,\"kpiShadow\":true,\"statusButtons\":0,\"cardRadius\":12,\"cardShadow\":false,\"font\":\"Inter, \\\"Segoe UI\\\", Roboto, Helvetica, Arial, sans-serif\",\"maxH\":50.03125,\"maxBottom\":623.96875,\"h1\":\"sr-only\",\"scrollX\":0},\"1920\":{\"page\":\"rgb(243, 246, 249)\",\"grad\":[],\"glow\":[],\"kpis\":[],\"kpiWhite\":true,\"kpiRadius\":null,\"kpiShadow\":true,\"statusButtons\":0,\"cardRadius\":12,\"cardShadow\":false,\"font\":\"Inter, \\\"Segoe UI\\\", Roboto, Helvetica, Arial, sans-serif\",\"maxH\":50.03125,\"maxBottom\":480.734375,\"h1\":\"sr-only\",\"scrollX\":0}}"
+    },
+    {
+      "id": "R8-08",
+      "covers": [
+        "U1-C28",
+        "U1-C30",
+        "U1-C31",
+        "S02",
+        "OPS01",
+        "OPS02"
+      ],
+      "name": "Accessibility and reconciliation after the restyle: the self-audit finds no issue on the normal and TV fleet (names, ids, aria references, no focusable inside aria-hidden) at 1920, 1366, tablet and phone; status tile filters reconcile with the cards; phone shows one card column and two KPI columns without horizontal scroll; no console errors",
+      "status": "FAIL",
+      "detail": "{\"bad\":[],\"phone\":{\"cols\":1,\"kpiCols\":0},\"filters\":[[\"readyForOps\",\"7\",7,\"true\"],[\"breakdown\",\"3\",3,\"true\"],[\"maintenance\",\"3\",3,\"true\"],[\"unreported\",\"3\",3,\"true\"]]}"
+    }
+  ]
+}

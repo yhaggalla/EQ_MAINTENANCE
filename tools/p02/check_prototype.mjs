@@ -499,10 +499,12 @@ try {
   });
 
   // ---------------- U1 repair (U1-C01..C03, C05, C07, C08) ----------------
-  await step('U1-C01', 'QC type icon is the ship-to-shore crane outline (legs, girder and boom, A-frame with stays, trolley rope and spreader) on QC cards', async () => {
+  // U1-C29 (round 8, D-166): the stroke outline became the in-house flat STS illustration (js/fleet-art.js); the same parts are required.
+  await step('U1-C01', 'QC type icon is the ship-to-shore crane (legs, girder and boom, A-frame with stays, trolley rope and spreader) on QC cards [U1-C29: flat illustration]', async () => {
     await go('eqTeam', '/fleet');
-    const r = await ev(`(()=>{const c=[...document.querySelectorAll('.eq-card')].find(x=>x.textContent.includes('QC-DEMO-01')); const svg=c&&c.querySelector('.thumb svg'); return svg?svg.innerHTML:''})()`);
-    return { ok: /M8\.5 3\.5 22\.5 10/.test(r) && /M17\.5 10v4\.5/.test(r) && /M1\.5 10h21/.test(r), detail: r.slice(0, 160) };
+    const r = await ev(`(()=>{const c=[...document.querySelectorAll('.eq-card')].find(x=>x.textContent.includes('QC-DEMO-01')); const svg=c&&c.querySelector('.thumb svg'); return svg?{art:svg.dataset.art, parts:[...svg.querySelectorAll('g[data-part]')].map(g=>g.dataset.part)}:{parts:[]}})()`);
+    const need = ['legs', 'portal', 'boom-and-girder', 'a-frame', 'forestays', 'backstay', 'trolley', 'hoist-ropes', 'spreader'];
+    return { ok: r.art === 'QC' && need.every((p) => r.parts.includes(p)), detail: JSON.stringify(r) };
   });
   await step('U1-C02', 'Fleet [P02B adapted: automatic-status meaning replaces the no-telemetry note]: no heading block; status / Unreported meaning kept as a compact note; the whole synthetic fleet fits one 1366x768 screen; cards at most 60 px high (P02 cards were about 95 px)', async () => {
     await b.viewport(1366, 768);

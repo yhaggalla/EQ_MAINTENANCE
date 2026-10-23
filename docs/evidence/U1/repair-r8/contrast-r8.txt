@@ -1,0 +1,54 @@
+PASS 5.93:1 (need 4.5) Electrical lane title on white
+PASS 7.38:1 (need 4.5) Mechanical lane title on white
+PASS 6.29:1 (need 4.5) Civil lane title on white
+PASS 8.58:1 (need 4.5) pill On hold
+PASS 10.17:1 (need 4.5) pill In progress
+PASS 7.53:1 (need 4.5) pill Overdue
+PASS 7.53:1 (need 4.5) pill Due soon
+PASS 6.39:1 (need 4.5) pill Pending
+PASS 6.74:1 (need 4.5) pill Completed
+PASS 11.95:1 (need 4.5) KPI label
+PASS 8.83:1 (need 4.5) KPI overdue number
+PASS 6.92:1 (need 4.5) KPI due soon number
+PASS 7.69:1 (need 4.5) KPI completed number
+PASS 10.12:1 (need 4.5) KPI on hold number
+PASS 16.97:1 (need 4.5) ticker text on navy
+PASS 9.32:1 (need 4.5) LIVE badge
+PASS 8.56:1 (need 4.5) tab count badge
+PASS 9.62:1 (need 4.5) src tag Auto
+PASS 8.56:1 (need 4.5) read-only chip text
+PASS 11.55:1 (need 4.5) prototype banner
+PASS 9.32:1 (need 4.5) section switch current
+PASS 13.17:1 (need 4.5) section switch idle on navy
+PASS 15.17:1 (need 4.5) R8 KPI number / card code (ink) on white
+PASS 6.25:1 (need 4.5) R8 KPI label / card meta (muted) on white
+PASS 5.57:1 (need 4.5) R8 freshness / TV footer (muted) on page
+PASS 9.19:1 (need 4.5) R8 TV updated (ink-2) on page
+PASS 4.80:1 (need 4.5) R8 card meta on Breakdown blink peak
+PASS 11.65:1 (need 4.5) R8 card code on Breakdown blink peak
+PASS 7.93:1 (need 4.5) R8 ZMMS count / TV duration on Breakdown peak
+PASS 4.90:1 (need 4.5) R8 card meta on Maintenance blink peak
+PASS 11.88:1 (need 4.5) R8 card code on Maintenance blink peak
+PASS 8.08:1 (need 4.5) R8 ZMMS count / TV duration on Maintenance peak
+PASS 5.34:1 (need 4.5) R8 card meta on Breakdown steady (reduced motion / paused)
+PASS 5.75:1 (need 4.5) R8 card meta on Maintenance steady
+PASS 9.62:1 (need 4.5) R8 src tag Auto inside a card
+PASS 8.56:1 (need 4.5) R8 src tag Manual inside a card
+PASS 7.53:1 (need 4.5) R8 badge Breakdown text
+PASS 7.53:1 (need 4.5) R8 badge Maintenance text
+PASS 6.74:1 (need 4.5) R8 badge Ready text
+PASS 6.39:1 (need 4.5) R8 badge Unreported text
+PASS 15.17:1 (need 4.5) R8 segmented control on (white on ink)
+PASS 15.17:1 (need 4.5) R8 button text on white
+PASS 8.38:1 (need 4.5) R8 group count pill / Synthetic tag
+PASS 5.82:1 (need 4.5) R8 retired card meta
+PASS 4.93:1 (need 3) R8 Breakdown blink ring vs white (non-text)
+PASS 3.79:1 (need 3) R8 Breakdown ring vs its peak fill (non-text)
+PASS 4.30:1 (need 3) R8 Maintenance blink ring vs white (non-text)
+PASS 3.37:1 (need 3) R8 Maintenance ring vs its peak fill (non-text)
+PASS 6.63:1 (need 3) R8 KPI icon Ready on soft circle (non-text)
+PASS 7.22:1 (need 3) R8 KPI icon Breakdown (non-text)
+PASS 7.45:1 (need 3) R8 KPI icon Maintenance (non-text)
+PASS 6.28:1 (need 3) R8 KPI icon Unreported (non-text)
+PASS 4.27:1 (need 3) R8 donut value vs white (non-text)
+53 pairs, 0 below threshold

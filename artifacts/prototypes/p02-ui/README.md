@@ -15,7 +15,7 @@ Useful links (query parameters set the simulation; the hash is the route):
 | Link | Shows |
 | --- | --- |
 | `?role=<persona>` | persona: `admin`, `management`, `eqTeam`, `facTeam`, `eqfac` (EQ Team + FAC Team), `noAccess` (all tabs off) |
-| `#/eq/fleet`, `#/eq/jobs/special|daily|status|spare-parts` (four tabs, U1-C20), `#/eq/equipment/<id>?panel=maintenance|special|technical|spareParts` | EQ section |
+| `#/eq/fleet` (`?tv=1` TV mode, `&motion=off` no blinking, U1-C28/C30), `#/eq/jobs/special|daily|status|spare-parts` (four tabs, U1-C20), `#/eq/equipment/<id>?panel=maintenance|special|technical|spareParts` | EQ section |
 | `?role=management#/fac/dashboard` (`&data=stale` / `error` / `empty`, `?tv=1`, `?motion=off`, `?discipline=..&type=..&focus=overdue`) | FAC Dashboard |
 | `?role=facTeam#/fac/jobs` (`?view=board|list`), `#/fac/jobs/fj-2` | FAC Jobs |
 | `?role=admin#/admin/access`, `#/admin/fac/master-list|import|settings`, `#/admin/eq/zmms|spare-parts` | Admin |
@@ -37,6 +37,7 @@ Useful links (query parameters set the simulation; the hash is the route):
 - `js/store.js` - in-memory store and the simulated server rules (permissions, validation, atomic completion, idempotency).
 - `js/preview.js` - the SVG placeholder for the QC viewer (not the P03 model, no WebGL).
 - `js/views-*.js`, `js/dialogs.js`, `js/app.js` - screens, forms, router, prototype controls.
+- `js/fleet-art.js`, `css/eq-fleet.css` - U1 round 8: in-house flat QC/RTG/ES illustrations and the EQ Fleet restyle, blink and TV mode (scoped to the EQ Fleet page; FAC unchanged).
 
 Checks: `node tools/p02/check_prototype.mjs` (needs the server above and Chrome or Edge), `python -I tools/p02/check_contrast.py`,
 screenshots: `node tools/p02/capture.mjs`. See `docs/evidence/P02/P02_EVIDENCE.md`.
@@ -52,3 +53,5 @@ U1 round 3 (22 October 2026): the trolley, cab position, headblock, spreader and
 New files: `css/v2.css`; `js/access.js` (personas, Access matrix, landing), `js/zmms.js` (synthetic ZMMS daily jobs, runs, automatic status, mappings; shaped like the real export, invented values), `js/spares.js` (spare-part register), `js/fac.js` and generated `js/fac-ref.js` (`node tools/p02b/build_fac_ref.mjs`; FAC rules and the 114 reference jobs, synthetic progress/photos/updates), `js/panel-tabs.js` (the four crane-panel tabs, also used by the P03 viewer page), `js/views-eqjobs.js`, `js/views-fac.js`, `js/views-facjobs.js`, `js/views-admin2.js`. Checks: `node tools/p02b/check_p02b.mjs`, `node tools/p02b/check_p03_panel.mjs` (both servers, SwiftShader), `node tools/p02/check_prototype.mjs` (regression; assertions of superseded V1 behaviour are marked "P02B adapted"), `node tools/p02b/capture.mjs` (screenshots). Evidence: `docs/evidence/P02B/`.
 
 U1 round 6 (23 October 2026): the crane-view Projects/Special tab lists open and completed special jobs, newest first (U1-C23); the FAC Dashboard lists jobs completed earlier and not yet due again as a last "Done, up to date" group (U1-C24); the schematic draws the 013 load cell in the horizontal main hoist rope at the boom tip (U1-C25); special jobs (job record) and FAC jobs (FAC job detail) have a shared "Show on dashboard / 3D" or "Show on dashboard" switch for Admin and the owning team, hidden jobs leave the dashboards, the crane view and the fleet-card counts and stay in Jobs and exports (U1-C26). Checks: `node tools/p02b/check_u1_r6.mjs` (needs both servers). See `docs/evidence/U1/repair-r6-20261023.md`.
+
+U1 round 8 (23 October 2026, EQ Fleet only): flat pastel restyle with a KPI tile row (U1-C31), in-house SVG illustrations of the QC, RTG and ES on cards, group headers and the KPI tile (U1-C29), Breakdown cards blink rose (1.2 s) and Maintenance cards amber (2.4 s) with a Pause blinking control and a steady highlight under reduced motion (U1-C30), and a read-only TV mode `#/eq/fleet?tv=1` with Pause, Esc / Exit TV mode and paging when the fleet does not fit (U1-C28). The FAC Dashboard is restyled only after the user reviews the EQ result. Checks: `node tools/p02b/check_u1_r8.mjs [url] [out] --head=<committed copy url>`; screenshots `node tools/u1/capture_u1r8.mjs`. See `docs/evidence/U1/repair-r8-20261023.md`.

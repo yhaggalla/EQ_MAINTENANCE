@@ -1,0 +1,130 @@
+{
+  "tool": "tools/p02b/check_u1_r6.mjs",
+  "browser": "Chrome/155.0.8059.85",
+  "p02": "http://127.0.0.1:5312/",
+  "p03": "http://127.0.0.1:5313/",
+  "manifest": "artifacts/models/cict-j526a-sts-scene/1/manifest.json",
+  "date": "2026-10-23T13:48:04.209Z",
+  "note": "Prototype-level checks of the U1 round 6 repair against the synthetic prototypes and the regenerated model manifest; not acceptance execution.",
+  "passed": 9,
+  "failed": 0,
+  "results": [
+    {
+      "id": "R6-01",
+      "covers": [
+        "U1-C23",
+        "S07",
+        "HIS02",
+        "HIS06",
+        "U1-C19"
+      ],
+      "name": "Crane-view Projects/Special lists open AND completed special jobs of the selection (whole crane all; mechanism with descendants, de-duplicated; part exact), newest first; cancelled jobs are counted, not listed; completed cards show only the completion date (no note, correction or installation details)",
+      "status": "PASS",
+      "detail": "[{\"eqId\":\"eq-qc-demo-01\",\"label\":\"whole\",\"want\":7,\"got\":7,\"same\":true,\"uniq\":true,\"domOrder\":true,\"sorted\":true,\"completedCards\":3,\"wantCompleted\":3,\"tags\":[\"4 open\",\"3 completed\",\"0 cancelled\"],\"tagsOk\":true,\"leak\":false},{\"eqId\":\"eq-qc-demo-01\",\"label\":\"main 01\",\"want\":3,\"got\":3,\"same\":true,\"uniq\":true,\"domOrder\":true,\"sorted\":true,\"completedCards\":2,\"wantCompleted\":2,\"tags\":[\"1 open\",\"2 completed\",\"0 cancelled\"],\"tagsOk\":true,\"leak\":false},{\"eqId\":\"eq-qc-demo-01\",\"label\":\"sub 011\",\"want\":2,\"got\":2,\"same\":true,\"uniq\":true,\"domOrder\":true,\"sorted\":true,\"completedCards\":1,\"wantCompleted\":1,\"tags\":[\"1 open\",\"1 completed\",\"0 cancelled\"],\"tagsOk\":true,\"leak\":false},{\"eqId\":\"eq-qc-demo-01\",\"label\":\"part 007\",\"want\":1,\"got\":1,\"same\":true,\"uniq\":true,\"domOrder\":true,\"sorted\":true,\"completedCards\":1,\"wantCompleted\":1,\"tags\":[\"0 open\",\"1 completed\",\"0 cancelled\"],\"tagsOk\":true,\"leak\":false},{\"eqId\":\"eq-qc-demo-02\",\"label\":\"whole\",\"want\":5,\"got\":5,\"same\":true,\"uniq\":true,\"domOrder\":true,\"sorted\":true,\"completedCards\":4,\"wantCompleted\":4,\"tags\":[\"1 open\",\"4 completed\",\"1 cancelled\"],\"tagsOk\":true,\"leak\":false}]"
+    },
+    {
+      "id": "R6-02",
+      "covers": [
+        "U1-C23",
+        "HIS06",
+        "S07",
+        "ACC02"
+      ],
+      "name": "Projects/Special payload stays the CurrentSpecialJob allowlist for completed and reopened jobs (adds only completedOn and listedOn; matching positions as IDs); a reopened job is listed as open with no completion date while its Jobs-tab history is kept; with EQ Jobs switched off the list still shows and job numbers are plain text",
+      "status": "PASS",
+      "detail": "{\"reo\":true,\"keys\":[\"13 keys\"],\"lineKeys\":[\"[\\\"positionId\\\"]\"],\"completed\":[[\"EQJ-2026-000103\",\"2026-09-02\"],[\"EQJ-2026-000102\",\"2026-05-03\"]],\"reopened\":{\"id\":\"job-101\",\"number\":\"EQJ-2026-000101\",\"equipmentId\":\"eq-qc-demo-01\",\"level\":\"part\",\"mainId\":\"mi-q01-01\",\"subId\":\"si-q01-011\",\"positionId\":\"pp-q01-007\",\"kind\":\"replacement\",\"title\":\"Replace main hoist motor A\",\"workStatus\":\"current\",\"plannedOn\":\"2026-08-10\",\"completedOn\":null,\"listedOn\":\"2026-10-03\"},\"detached\":true,\"sourceKept\":true,\"off\":{\"nums\":[\"EQJ-2026-000105\",\"EQJ-2026-000104\",\"EQJ-2026-000106\",\"EQJ-2026-000107\",\"EQJ-2026-000101\",\"EQJ-2026-000103\",\"EQJ-2026-000102\"],\"links\":0,\"completed\":2}}"
+    },
+    {
+      "id": "R6-03",
+      "covers": [
+        "U1-C24",
+        "S27",
+        "FDB02",
+        "FDB01"
+      ],
+      "name": "FAC Dashboard lanes list every active job: jobs completed earlier and not yet due again are listed last as \"Done · up to date\" with their next due date (not hidden); group order Overdue, On hold, In progress, Due soon, Pending, Completed in the last 7 days, Up to date; filters and the completed KPI focus still apply",
+      "status": "PASS",
+      "detail": "{\"lanes\":[{\"code\":\"electrical\",\"total\":18,\"rows\":18,\"order\":true,\"upToDate\":0},{\"code\":\"mechanical\",\"total\":55,\"rows\":55,\"order\":true,\"upToDate\":0},{\"code\":\"civil\",\"total\":41,\"rows\":41,\"order\":true,\"upToDate\":5}],\"kpiActive\":114,\"civil\":[[\"civil\",41,41]],\"focusCompletedUpToDate\":5,\"focusOverdueUpToDate\":0,\"dom\":{\"pills\":5,\"sample\":[\"Done · up to date\",\"Done · up to date\"],\"dues\":[\"Next due 28 Sept 2027\",\"Next due 03 Oct 2027\",\"Next due 08 Oct 2027\"],\"counts\":[\"18 in the list · 18 active\",\"55 in the list · 55 active\",\"41 in the list · 41 active\"]}}"
+    },
+    {
+      "id": "R6-04",
+      "covers": [
+        "U1-C25",
+        "U1-C27",
+        "U1-C08",
+        "VIS03"
+      ],
+      "name": "Flat view (U1 round 7 rule, U1-C27): the 013 load cell is an in-line part at the boom tip end: the horizontal main hoist rope line ends in the load-cell body (rope height inside the body), and the part lies within 1.2 m of the boom end; labelled \"boom tip end\", approximate; no longer about 2.6 m inboard",
+      "status": "PASS",
+      "detail": "{\"title\":\"Load cell (in the horizontal hoist rope at the boom tip end, approx.) - Location approximate / simplified representation\",\"rope\":[93.1,36.12,123,35.8],\"body\":[123.12,35.66,0.52,0.28000000000000114],\"ropeEndY\":35.8,\"ropeMeets\":true,\"boomEnd\":124,\"x0\":122.9,\"x1\":123.9,\"bound\":true,\"endDist\":0.62}"
+    },
+    {
+      "id": "R6-05",
+      "covers": [
+        "U1-C25",
+        "U1-C27",
+        "VIS01",
+        "VIS02",
+        "VIS09",
+        "S04"
+      ],
+      "name": "3D model (U1 round 7 rule, U1-C27; draft v1 rev 6): the 013 hotspot sits at the boom tip end, in-line on the horizontal cross-over of the main hoist ropes (point 0.3 m inboard of the tip at the cross-over height, bounds within 1.2 m of the tip, both rope sides, within the boom width, the hoist rope set reaches the point), labelled \"boom tip end\" and approximate, technical mode; moved outboard of the round 6 point when compared with a committed revision 5; the key set, kinds and classification are unchanged against the committed revision; the 3D page selects it",
+      "status": "PASS",
+      "detail": "{\"point\":[75.60000000000001,52.9,0],\"bounds\":{\"min\":[74.888565,52.636993,-2.4],\"max\":[75.720001,53.259998,2.4]},\"basePoint\":[75.60000000000001,52.9,0],\"baseRevision\":6,\"moved\":true,\"ropeMaxX\":75.643303,\"gTopTip\":52.299999,\"revision\":6,\"sameIdentity\":true,\"nodes\":178,\"label\":\"Load cell system (in-line load cells in the horizontal main hoist rope at the boom tip end; point and hardware not fixed on the sheets)\",\"page\":{\"sel\":\"▾QC-DEMO-01\",\"crumbs\":\"QC-DEMO-01013 Load cell system\",\"label\":\"Load cell system (in-line load cells in the horizontal main hoist rope at the boom tip end; point and hardware not fixed on the sheets)\",\"fallback\":false},\"errors\":[],\"landmarksKeys\":17}"
+    },
+    {
+      "id": "R6-06",
+      "covers": [
+        "U1-C26",
+        "S07",
+        "S02",
+        "ACC03",
+        "AUTH03",
+        "HIS06"
+      ],
+      "name": "Special job \"Show on dashboard / 3D\" (simulated server): EQ Team and Admin switch any special job (also completed), Management and FAC Team are refused (403, nothing changed), a stale version is 409; a hidden job leaves the crane panel list and counts, the tree/label work badges and the fleet-card count, and stays in the Jobs tab, the scoped history and the export; audited with the previous value; default shown",
+      "status": "PASS",
+      "detail": "{\"defaultShown\":true,\"mgmt\":[403,\"forbidden_role\"],\"fac\":[403,\"forbidden_role\"],\"refusedNothing\":true,\"stale\":[409,\"version_conflict\"],\"staleNothing\":true,\"hide\":{\"ok\":true,\"flag\":false,\"version\":4,\"audit\":{\"at\":\"2026-10-23T13:47:44.490Z\",\"by\":\"u-eq-a\",\"action\":\"job.display\",\"entity\":\"EQJ-2026-000104\",\"reason\":\"not for the TV board\",\"before\":{\"showOnDashboard\":true},\"after\":{\"showOnDashboard\":false}},\"event\":\"hidden from dashboard / 3D\",\"workUnchanged\":true},\"before\":{\"list\":[\"EQJ-2026-000105\",\"EQJ-2026-000104\",\"EQJ-2026-000106\",\"EQJ-2026-000107\",\"EQJ-2026-000103\",\"EQJ-2026-000101\",\"EQJ-2026-000102\"],\"cnt\":{\"pending\":3,\"current\":1,\"completed\":3,\"cancelled\":0},\"part\":1,\"fleet\":4,\"hist\":[\"EQJ-2026-000104\",\"EQJ-2026-000105\",\"EQJ-2026-000106\",\"EQJ-2026-000107\"],\"jobs\":true,\"exp\":[\"EQJ-2026-000104\",\"QC-DEMO-01\",\"replacement\",\"Replace main hoist motor B\",\"current\",\"\",\"2026-10-20\",\"\",\"Yes\"]},\"after\":{\"list\":[\"EQJ-2026-000105\",\"EQJ-2026-000106\",\"EQJ-2026-000107\",\"EQJ-2026-000103\",\"EQJ-2026-000101\",\"EQJ-2026-000102\"],\"cnt\":{\"pending\":3,\"current\":0,\"completed\":3,\"cancelled\":0},\"part\":0,\"fleet\":3,\"hist\":[\"EQJ-2026-000104\",\"EQJ-2026-000105\",\"EQJ-2026-000106\",\"EQJ-2026-000107\"],\"jobs\":true,\"exp\":[\"EQJ-2026-000104\",\"QC-DEMO-01\",\"replacement\",\"Replace main hoist motor B\",\"current\",\"\",\"2026-10-20\",\"\",\"No\"]},\"completedHidden\":true,\"restored\":true,\"auditTrail\":[[\"EQJ-2026-000102\",false,true,\"u-admin\"],[\"EQJ-2026-000104\",false,true,\"u-admin\"],[\"EQJ-2026-000102\",true,false,\"u-admin\"],[\"EQJ-2026-000104\",true,false,\"u-eq-a\"]]}"
+    },
+    {
+      "id": "R6-07",
+      "covers": [
+        "U1-C26",
+        "S07",
+        "S02",
+        "U1-C08"
+      ],
+      "name": "Special job switch on screens: the job record offers \"Show on dashboard / 3D\" to EQ Team (switch) and shows the state read-only to Management; switching it off removes the job from the flat crane panel, the tree badge and the fleet card, adds a \"Hidden from dashboard / 3D\" tag in the Jobs tab; the 3D page hides it from its Projects/Special tab and label badges the same way",
+      "status": "PASS",
+      "detail": "{\"sw\":{\"has\":true,\"checked\":true,\"role\":\"switch\"},\"after\":{\"checked\":false,\"tag\":true,\"flag\":false},\"boardTag\":[true],\"crane\":{\"nums\":[],\"badge\":\"\"},\"card0\":\"For 2 d 13 h · 4 open · Auto · ZMMS 2\",\"card1\":\"For 2 d 13 h · 3 open · Auto · ZMMS 2\",\"mgmt\":{\"sw\":false,\"state\":\"Show on dashboard / 3D: Hidden (it stays in Jobs, history and exports)\"},\"errs\":[],\"p3\":{\"pid\":\"pp-q01-053\",\"before\":{\"open\":1,\"listed\":[\"EQJ-2026-000105\",\"EQJ-2026-000104\",\"EQJ-2026-000106\",\"EQJ-2026-000107\",\"EQJ-2026-000103\",\"EQJ-2026-000101\",\"EQJ-2026-000102\"]},\"ok\":true,\"after\":{\"open\":0,\"listed\":[\"EQJ-2026-000105\",\"EQJ-2026-000106\",\"EQJ-2026-000107\",\"EQJ-2026-000103\",\"EQJ-2026-000101\",\"EQJ-2026-000102\"]},\"text\":\"Open and completed special jobs at this exact position, newest first. Cancelled jobs are counted only.\\n\\n0 open\\n0 completed\\n0 cancelled\\nSpecial jobs\\n0\\nNo special\",\"errs\":[]}}"
+    },
+    {
+      "id": "R6-08",
+      "covers": [
+        "U1-C26",
+        "S27",
+        "S28",
+        "FDB01",
+        "FAC11",
+        "ACC03",
+        "AUTH03"
+      ],
+      "name": "FAC job \"Show on dashboard\" (simulated server): FAC Team and Admin switch any FAC job (recurring, one-time, continuous), EQ Team and Management are refused; a hidden job leaves every dashboard block (KPIs, lanes, ticker, latest proof, due load, on-time basis) and the dashboard-only detail (404); it stays in FAC Jobs, its timeline and the export; data version bumps; audited; default shown",
+      "status": "PASS",
+      "detail": "{\"defaultShown\":true,\"kinds\":[\"recurring\",\"continuous\",\"oneTime\"],\"eq\":[403,\"forbidden_role\"],\"mgmt\":[403,\"forbidden_role\"],\"refusedNothing\":true,\"hide\":{\"ok\":true,\"version\":2,\"audit\":\"fac.job.display\",\"auditBefore\":{\"showOnDashboard\":true},\"edit\":{\"field\":\"Show on dashboard\",\"before\":\"Shown\",\"after\":\"Hidden\"}},\"kpi\":[114,112],\"lanes\":[true,false,true,false],\"ticker\":[true,false],\"proof\":[true,false],\"dueLoad\":[29,28],\"onTime\":[8,8],\"list\":true,\"exp\":[\"Facility\",\"Electrical\",\"Service\",\"Electrical Panel Board\",\"Annually\",414,\"\",\"\",\"Mahesh\",\"In-house\",\"Recurring\",\"In progress\",365,49,\"88%\",\"\",\"FAC-00001\",\"\",\"\",\"\",\"\",\"active\",2,\"No\"],\"expCol\":\"Shown on dashboard\",\"admin\":[true,true,true,true],\"dashDetailHidden\":[404,\"not_found\"],\"dashDetailShown\":true,\"ids\":[\"fj-2\",\"fj-3\"]}"
+    },
+    {
+      "id": "R6-09",
+      "covers": [
+        "U1-C26",
+        "S27",
+        "S28",
+        "S19",
+        "ACC01"
+      ],
+      "name": "FAC screens: the FAC job detail offers the \"Show on dashboard\" switch to FAC Team and Admin and shows the state read-only to EQ Team and Management; switching it off makes the job disappear from the Management dashboard and TV mode (shared setting) and tags it \"Hidden from dashboard\" in FAC Jobs; the Access matrix names the right in the EQ work and FAC work rows; no console errors",
+      "status": "PASS",
+      "detail": "{\"id\":\"fj-81\",\"fsw\":{\"has\":true,\"checked\":true},\"flag\":false,\"tag\":true,\"dashboardListed\":false,\"tvListed\":false,\"mState\":{\"sw\":false,\"state\":\"Show on dashboard: Hidden (it stays in FAC Jobs, its timeline and the export)\"},\"eState\":{\"sw\":false,\"state\":\"Show on dashboard: Hidden (it stays in FAC Jobs, its timeline and the export)\"},\"adminSwitch\":true,\"errs\":[]}"
+    }
+  ]
+}

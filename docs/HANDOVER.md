@@ -4,6 +4,59 @@ Rolling handover for CICT EQ Maintenance. Each phase appends its record; the new
 
 ---
 
+## Repair-U1 round 8 (U1-C28..U1-C31, EQ Fleet dashboard) - 23 October 2026
+
+### Runtime record
+
+| Item | Value |
+| --- | --- |
+| Recommended profile | Repair inheriting P02B: Codex gpt-6.1-sol/high or Claude Code claude-opus-5-5/high |
+| Client | Claude Code subagent eq-build-opus-high; exact prompt `docs/runs/Repair-U1r8-20261023-1832.md` (orchestrator-owned) |
+| Model / effort | claude-opus-5-5; effort high (per agent definition) |
+| Fallback / escalation | None. The orchestrator reported a usage-limit interruption; the on-disk work was checked and completed |
+
+### Outcome
+
+Repair complete for U1-C28..U1-C31 on the **EQ Fleet dashboard only**; the FAC Dashboard restyle waits for the user's review of the EQ result. U1 was not repeated or approved by this run. Full report: `docs/evidence/U1/repair-r8-20261023.md`. Requirement IDs: U1-C28..C31 (with U1-C02), S02, S03, OPS01, OPS02, VIS06, VIS10, FDB03/FDB05 (TV pattern).
+
+- U1-C28: TV mode `#/eq/fleet?tv=1` for every role that can see EQ Fleet: no top bar, large type, read-only (cards not links; only Pause and Exit TV mode), Esc exits, same 60 s poll, filters in the address kept, measured paging (10 s) when the fleet does not fit (D-163).
+- U1-C29: in-house flat SVG illustrations of the QC (J526A proportions, CICT red), RTG and ES on cards, group headers and the KPI tile (D-164; ES colour U-37).
+- U1-C30: Breakdown cards blink rose (1.2 s) and Maintenance cards amber (2.4 s), solid / dashed stripe, badge text kept, no layout movement; Pause blinking, reduced motion and `motion=off` give a steady highlight; also in TV (D-165).
+- U1-C31: flat pastel restyle with a KPI tile row, scoped to EQ Fleet through new `--pa-*`/`--blink-*` tokens; FAC and the other screens computed-style identical to the committed prototype (D-166).
+
+### Files changed
+
+Prototype: `artifacts/prototypes/p02-ui/{index.html,README.md}`, `artifacts/prototypes/p02-ui/js/{app.js,views-fleet.js}`, new `artifacts/prototypes/p02-ui/js/fleet-art.js`, new `artifacts/prototypes/p02-ui/css/eq-fleet.css`. Tests: new `tools/p02b/check_u1_r8.mjs`, new `tools/u1/capture_u1r8.mjs`, `tools/p02/check_prototype.mjs` (U1-C01 assertion moved, D-167), `tools/p02b/check_contrast_v2.py` (+31 pairs). Records: `docs/{DECISIONS,UX_SPEC,IMPLEMENTATION_STATUS,HANDOVER}.md`. Evidence: `docs/evidence/U1/repair-r8-20261023.md`, `docs/evidence/U1/repair-r8/` (check and regression JSON, before-run JSON, contrast output, 17 screenshots, capture index).
+
+### Checks run and actual results
+
+| Check | Result |
+| --- | --- |
+| `tools/p02b/check_u1_r8.mjs` (with `--head` committed copy on :5322) | 9/9 PASS (before, against the committed prototype: 0/8) |
+| `tools/p02/check_prototype.mjs` | 59/59 PASS (one earlier run 58/59: view-reset timing read in U1R2-C10-C11, passed on rerun and on the final run) |
+| `tools/p02b/check_p02b.mjs`; `check_u1_r5.mjs`; `check_u1_r6.mjs`; `check_p03_panel.mjs`; `check_r02b_round2.mjs` | 63/63; 11/11; 9/9; 8/8; 10/10 PASS |
+| `tools/p02b/check_contrast_v2.py` | 53/53 pairs pass |
+| `smoke.mjs`, `node --check` | clean |
+| Screenshots `tools/u1/capture_u1r8.mjs` (inspected) | `r8-01..r8-12` in `docs/evidence/U1/repair-r8/` |
+
+Prototype evidence only: synthetic in-memory data, simulated persona, no authentication, database, live ZMMS, target environment or production. Formal acceptance remains NOT RUN.
+
+### Open issues and impact
+
+- U-37: CICT ES paint colour not in the sources (generic yellow). Visual only.
+- FAC Dashboard restyle pending the user's EQ review (by instruction). TV ordering of Breakdown/Maintenance first is a review question.
+- Carried over: U-27; `tools/p03/check_no_webgl.mjs` stale assertion (P10).
+
+### Git and boundaries
+
+Branch `main`, HEAD `fa90fd7`; repair uncommitted for the orchestrator. `rtg-workbench/` and `RTG drawings/` were not edited; the pre-existing `rtg-workbench/HANDOVER.md` modification was left alone. No `documents/`, Portal, deployment, SQL or ZMMS contact. Every tool output was written to `docs/evidence/U1/repair-r8/` with explicit output paths; no other committed evidence file was overwritten. Servers on 5312/5313 were running from disk for every run; a scratchpad HEAD copy on 5322 was used only for the before-run and the FAC comparison.
+
+### Next prompt
+
+**U1 user checkpoint, repeated**: review of the EQ Fleet round 8 result (screenshots `docs/evidence/U1/repair-r8/`); on approval of the EQ look, a further round restyles the FAC Dashboard the same way. The user's decision is recorded in DECISIONS s4 before P04.
+
+---
+
 ## Repair-U1 round 7 (U1-C27) - 23 October 2026
 
 ### Runtime record

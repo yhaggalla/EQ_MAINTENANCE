@@ -1,0 +1,99 @@
+{
+  "tool": "tools/p02b/check_p03_panel.mjs",
+  "browser": "Chrome/155.0.8059.85",
+  "gpu": "swiftshader (software WebGL)",
+  "date": "2026-10-23T13:50:16.882Z",
+  "note": "Prototype-level checks of the P03 viewer panel against the P02 flat panel; synthetic data.",
+  "passed": 8,
+  "failed": 0,
+  "results": [
+    {
+      "id": "P3-01",
+      "covers": [
+        "U1-C19",
+        "S07",
+        "U1-C08"
+      ],
+      "name": "3D viewer right panel has exactly four tabs (Maintenance, Projects/Special, Technical, Spare parts) in a tablist, default Maintenance, no history anywhere",
+      "status": "PASS",
+      "detail": "{\"tabs\":[\"Maintenance\",\"Projects/Special\",\"Technical\",\"Spare parts\"],\"bad\":[]}"
+    },
+    {
+      "id": "P3-02",
+      "covers": [
+        "U1-C19",
+        "U1-C08",
+        "S07",
+        "HIS06"
+      ],
+      "name": "Flat/3D parity: for 7 selections x the three data tabs the 3D panel shows exactly the same current state as the flat view (ZMMS jobs today, open special jobs, spare-part register rows); counts and flags equal; Technical is the model-derived specification summary",
+      "status": "PASS",
+      "detail": "21 tab/selection views identical in text; both pages read as Management so the write-only Add job button is absent in both (whole/maintenance:682, whole/special:1275, whole/spareParts:3129, main 01/maintenance:682 ...)"
+    },
+    {
+      "id": "P3-03",
+      "covers": [
+        "U1-C19",
+        "S07"
+      ],
+      "name": "The Technical tab of the 3D page is the specification summary of the selected area: part identity, semantic key, binding, provenance, source drawings; mechanism level lists its submechanisms and source-linked parameters; 63 m stays total lift and the 46 / 45.5 m/min conflict stays visible; the machinery house is a spatial group with no tab content",
+      "status": "PASS",
+      "detail": "{\"eq\":797,\"m4\":true,\"part\":true,\"house\":true}"
+    },
+    {
+      "id": "P3-04",
+      "covers": [
+        "U1-C19",
+        "S16",
+        "OPS02"
+      ],
+      "name": "Tabs are keyboard-operable in the 3D page (arrows, Home/End, roving tab stop), the active tab is in the URL, and the tree selection is unchanged by tab changes",
+      "status": "PASS",
+      "detail": "{\"a\":{\"f\":\"special\",\"sel\":\"special\",\"url\":\"?eq=eq-qc-demo-01&main=mi-q01-01&panel=special\",\"tabs\":\"-1,0,-1,-1\"},\"e\":{\"f\":\"spareParts\",\"url\":\"?eq=eq-qc-demo-01&main=mi-q01-01&panel=spareParts\"},\"h\":{\"f\":\"maintenance\",\"url\":\"?eq=eq-qc-demo-01&main=mi-q01-01\",\"st\":\"mi-q01-01\"},\"reload\":\"spareParts\"}"
+    },
+    {
+      "id": "P3-05",
+      "covers": [
+        "U1-C19",
+        "VIS03",
+        "S05",
+        "S07"
+      ],
+      "name": "Selecting in the 3D scene (a real canvas click on a part) updates the panel to that part: scope title, Projects/Special for exactly that position, Spare parts row, tree and URL follow; the tab chosen stays",
+      "status": "PASS",
+      "detail": "{\"part\":\"pp-q01-053\",\"title\":\"Main hoist motor B (450 kW)\",\"tab\":\"special\",\"job\":[\"EQJ-2026-000104\"]}"
+    },
+    {
+      "id": "P3-06",
+      "covers": [
+        "U1-C19",
+        "S07"
+      ],
+      "name": "Open in Jobs from the 3D page opens the P02 EQ Jobs tab with the same equipment and scope, as the same read-only Management persona the viewer page runs as; job numbers link there too [Repair-R02B finding 7: was role=eqTeam]",
+      "status": "PASS",
+      "detail": "{\"href\":\"http://127.0.0.1:5312/?role=management#/eq/jobs/special?equipment=eq-qc-demo-01&scope=main&target=mi-q01-01\",\"nums\":[\"EQJ-2026-000104\",\"EQJ-2026-000101\",\"EQJ-2026-000102\"],\"ro\":{\"persona\":\"management\",\"write\":false,\"chip\":true}}"
+    },
+    {
+      "id": "P3-07",
+      "covers": [
+        "U1-C19",
+        "VIS08",
+        "S16"
+      ],
+      "name": "Fallbacks keep the four tabs usable: no WebGL (simulated) shows the fallback list and the tabs; the panel needs no WebGL",
+      "status": "PASS",
+      "detail": "{\"fb\":true,\"tabs\":4,\"canv\":0}"
+    },
+    {
+      "id": "P3-08",
+      "covers": [
+        "U1-C19",
+        "OPS02",
+        "S16"
+      ],
+      "name": "The 3D page panel at 1920x1080, 1366x768, tablet and phone: no horizontal page overflow, tabs visible and unclipped, no console errors",
+      "status": "PASS",
+      "detail": "[[1920,1920,1920,true],[1366,1366,1366,true],[1024,1024,1024,true],[390,390,390,true]]"
+    }
+  ]
+}

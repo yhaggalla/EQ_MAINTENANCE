@@ -165,7 +165,10 @@ window.EQ = window.EQ || {};
         else { view = EQ.views.facDashboard(r.query); title = 'FAC Dashboard'; }
       } else if (r.name === 'admin') { view = EQ.views.admin(r.segs[1] || 'eq', r.segs[2] || '', r.query); title = 'Admin'; }
       else { location.replace('#' + EQ.access.landing()); view = h('div'); }
-      document.body.classList.toggle('tv', r.name === 'fac' && r.segs[1] !== 'jobs' && r.query.tv === '1');
+      // TV mode: FAC Dashboard (P02B) and EQ Fleet (U1-C28) at ?tv=1; data-page scopes the round 8 fleet restyle (U1-C31)
+      const eqFleet = r.name === 'eq' && (!r.segs[1] || r.segs[1] === 'fleet');
+      document.body.classList.toggle('tv', (r.name === 'fac' && r.segs[1] !== 'jobs' && r.query.tv === '1') || (eqFleet && r.query.tv === '1' && !(feat && !EQ.access.has(feat)) && !L.noAccess));
+      document.body.dataset.page = eqFleet && !L.noAccess ? 'eq-fleet' : '';
       document.body.dataset.section = currentSection();
       if (mainEl.childNodes.length !== 1 || mainEl.firstChild !== view) mainEl.replaceChildren(view);
       paintChrome();
@@ -194,7 +197,10 @@ window.EQ = window.EQ || {};
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && EQ.eqUI && EQ.eqUI.drawer && !document.querySelector('dialog[open]')) EQ.closeDrawer();
-    if (e.key === 'Escape' && document.body.classList.contains('tv') && !document.querySelector('dialog[open]')) EQ.nav('/fac/dashboard', { ...EQ.route.query, tv: '' });
+    if (e.key === 'Escape' && document.body.classList.contains('tv') && !document.querySelector('dialog[open]')) {
+      try { if (document.fullscreenElement) document.exitFullscreen(); } catch (err) { /* ignore */ }
+      EQ.nav(EQ.route.name === 'eq' ? '/eq/fleet' : '/fac/dashboard', { ...EQ.route.query, tv: '' });
+    }
   });
 
   // ---------------- accessibility self-audit (used by tools/p02/check_prototype.mjs and by reviewers) ----------------

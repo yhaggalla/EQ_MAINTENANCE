@@ -1,0 +1,78 @@
+{
+  "tool": "tools/u1/capture_u1r8.mjs",
+  "p02": "http://127.0.0.1:5312/",
+  "date": "2026-10-23T13:57:35.164Z",
+  "note": "Synthetic prototype data; screenshots are visual evidence only.",
+  "shots": [
+    {
+      "file": "docs/evidence/U1/repair-r8/r8-01-eq-fleet-1920.png",
+      "note": "EQ Fleet, EQ Team, 1920x1080 (blink frozen at its peak)",
+      "errors": []
+    },
+    {
+      "file": "docs/evidence/U1/repair-r8/r8-05-breakdown-card-blink-peak.png",
+      "note": "Breakdown card at the blink peak (rose fill and ring, solid stripe, 1.2 s cycle)"
+    },
+    {
+      "file": "docs/evidence/U1/repair-r8/r8-06-maintenance-card-blink-peak.png",
+      "note": "Maintenance card at the blink peak (amber fill and ring, dashed stripe, 2.4 s cycle)"
+    },
+    {
+      "file": "docs/evidence/U1/repair-r8/r8-05b-breakdown-card-blink-off.png",
+      "note": "Breakdown card at the off phase of the blink (stripe stays)"
+    },
+    {
+      "file": "docs/evidence/U1/repair-r8/r8-06b-maintenance-card-blink-off.png",
+      "note": "Maintenance card at the off phase of the blink (dashed stripe stays)"
+    },
+    {
+      "file": "docs/evidence/U1/repair-r8/r8-12-kpi-row-1920.png",
+      "note": "KPI tile row: active equipment with type illustrations, Ready-for-OPS share, four status tiles (filters)"
+    },
+    {
+      "file": "docs/evidence/U1/repair-r8/r8-02-eq-fleet-1366.png",
+      "note": "EQ Fleet, EQ Team, 1366x768 (whole synthetic fleet on one screen; blink at peak)",
+      "errors": []
+    },
+    {
+      "file": "docs/evidence/U1/repair-r8/r8-03-tv-1920.png",
+      "note": "TV mode, Management, 1920x1080: one screen, read-only, Pause and Exit TV mode (blink at peak)",
+      "errors": []
+    },
+    {
+      "file": "docs/evidence/U1/repair-r8/r8-04-tv-1366-page1.png",
+      "note": "TV mode at 1366x768: the fleet does not fit, so it is shown in pages that turn every 10 s (Page 1 of 2)",
+      "errors": []
+    },
+    {
+      "file": "docs/evidence/U1/repair-r8/r8-07-reduced-motion-1920.png",
+      "note": "prefers-reduced-motion: no blinking; Breakdown and Maintenance cards keep a steady fill, ring and stripe",
+      "errors": []
+    },
+    {
+      "file": "docs/evidence/U1/repair-r8/r8-07b-reduced-motion-tv-1920.png",
+      "note": "TV mode with prefers-reduced-motion: steady highlight",
+      "errors": []
+    },
+    {
+      "file": "docs/evidence/U1/repair-r8/r8-08-tablet-820.png",
+      "note": "EQ Fleet, tablet 820x1180 (full page)",
+      "errors": []
+    },
+    {
+      "file": "docs/evidence/U1/repair-r8/r8-09-phone-390.png",
+      "note": "EQ Fleet, phone 390x844 (full page): KPI tiles in two columns, one card column",
+      "errors": []
+    },
+    {
+      "file": "docs/evidence/U1/repair-r8/r8-10-illustrations.png",
+      "note": "The three equipment illustrations at a large size (QC at drawing proportions; RTG and ES typical)",
+      "errors": []
+    },
+    {
+      "file": "docs/evidence/U1/repair-r8/r8-11-fac-dashboard-unchanged-1920.png",
+      "note": "FAC Dashboard after the repair (unchanged; restyle follows after the EQ review)",
+      "errors": []
+    }
+  ]
+}
