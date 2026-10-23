@@ -115,9 +115,9 @@ body[data-page="eq-fleet"] { background: var(--pa-page); }
   0%, 100% { background-color: var(--pa-card); border-color: var(--pa-line); box-shadow: var(--pa-shadow); }
   50% { background-color: var(--blink-m-bg); border-color: var(--blink-m-ring); box-shadow: var(--pa-shadow), inset 0 0 0 1px var(--blink-m-ring); }
 }
-/* Breakdown 1.2 s (0.83 flashes/s), Maintenance 2.4 s (0.42 flashes/s): different colour and rhythm, both below 3 per second */
-.pa .eq-card.blink-breakdown { animation: pa-blink-breakdown 1.2s ease-in-out infinite; }
-.pa .eq-card.blink-maintenance { animation: pa-blink-maintenance 2.4s ease-in-out infinite; }
+/* Breakdown 2.5 s (0.4 flashes/s), Maintenance 3.5 s (0.29 flashes/s); user request 2026-10-23: different colour and rhythm, both below 3 per second */
+.pa .eq-card.blink-breakdown { animation: pa-blink-breakdown 2.5s ease-in-out infinite; }
+.pa .eq-card.blink-maintenance { animation: pa-blink-maintenance 3.5s ease-in-out infinite; }
 /* Pause control or motion=off: steady highlight */
 .pa.blink-paused .eq-card.blink-breakdown { animation: none; background-color: var(--blink-b-steady); border-color: var(--blink-b-ring); box-shadow: var(--pa-shadow), inset 0 0 0 1px var(--blink-b-ring); }
 .pa.blink-paused .eq-card.blink-maintenance { animation: none; background-color: var(--blink-m-steady); border-color: var(--blink-m-ring); box-shadow: var(--pa-shadow), inset 0 0 0 1px var(--blink-m-ring); }

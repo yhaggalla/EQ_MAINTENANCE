@@ -131,7 +131,7 @@ try {
     const info=cards.map(c=>{const cs=getComputedStyle(c), be=getComputedStyle(c,'::before'); const k=EQ.statusKey(EQ.eq(c.dataset.eq).status);
       return {id:c.dataset.eq, k, blink:c.dataset.blink||null, anim:cs.animationName, dur:cs.animationDuration, iter:cs.animationIterationCount, bg:cs.backgroundColor, shadow:cs.boxShadow, stripe:be.content!=='none'?(be.borderLeftStyle==='dashed'?'dashed':be.backgroundColor):'none', badge:!!(c.querySelector('.badge svg')&&c.querySelector('.badge').textContent.trim()===EQ.STATUS[k].label), label:c.getAttribute('aria-label')||''}});
     return info})()`);
-  await step('R8-05', ['U1-C30', 'VIS06', 'OPS02'], 'Blink: every active Breakdown card pulses rose (1.2 s, 0.83 flashes/s) and every Maintenance card amber (2.4 s, 0.42 flashes/s), both below 3 flashes per second, with different colours, rhythm and stripe pattern (solid / dashed); Ready for OPS and Unreported never blink; status stays as icon + text badge and in the accessible name; the blink changes no layout (card boxes identical at 0, 25, 50, 75 % of the cycle); peak colours differ in hue from each other (>= 40 degrees) and from the CICT paint red; also in TV mode', async () => {
+  await step('R8-05', ['U1-C30', 'VIS06', 'OPS02'], 'Blink: every active Breakdown card pulses rose (2.5 s, 0.4 flashes/s) and every Maintenance card amber (3.5 s, 0.29 flashes/s), both below 3 flashes per second, with different colours, rhythm and stripe pattern (solid / dashed); Ready for OPS and Unreported never blink; status stays as icon + text badge and in the accessible name; the blink changes no layout (card boxes identical at 0, 25, 50, 75 % of the cycle); peak colours differ in hue from each other (>= 40 degrees) and from the CICT paint red; also in TV mode', async () => {
     const res = {};
     for (const [label, hash] of [['normal', '/eq/fleet'], ['tv', '/eq/fleet?tv=1']]) {
       await go('eqTeam', hash, 800);
@@ -150,8 +150,8 @@ try {
       const act = r.info;
       const bd = act.filter((x) => x.k === 'breakdown'), mt = act.filter((x) => x.k === 'maintenance'), other = act.filter((x) => x.k === 'readyForOps' || x.k === 'unreported');
       const pk = r.rects.peaks; const pb = rgb(pk.breakdown || ''), pm = rgb(pk.maintenance || ''), paint = [0xc7, 0x26, 0x1c];
-      return bd.length >= 1 && mt.length >= 1 && bd.every((x) => x.blink === 'breakdown' && x.anim === 'pa-blink-breakdown' && x.dur === '1.2s' && x.iter === 'infinite' && x.stripe !== 'none' && x.stripe !== 'dashed')
-        && mt.every((x) => x.blink === 'maintenance' && x.anim === 'pa-blink-maintenance' && x.dur === '2.4s' && x.iter === 'infinite' && x.stripe === 'dashed')
+      return bd.length >= 1 && mt.length >= 1 && bd.every((x) => x.blink === 'breakdown' && x.anim === 'pa-blink-breakdown' && x.dur === '2.5s' && x.iter === 'infinite' && x.stripe !== 'none' && x.stripe !== 'dashed')
+        && mt.every((x) => x.blink === 'maintenance' && x.anim === 'pa-blink-maintenance' && x.dur === '3.5s' && x.iter === 'infinite' && x.stripe === 'dashed')
         && other.every((x) => x.blink === null && x.anim === 'none' && x.stripe === 'none') && act.every((x) => x.badge && x.label.includes(EQ_LABEL[x.k]))
         && 1 / 1.2 < 3 && 1 / 2.4 < 3 && r.rects.same && r.rects.n === bd.length + mt.length && hueGap(pb, pm) >= 40 && hueGap(pb, paint) >= 20 && dist(pb, paint) > 120 && dist(pm, paint) > 120;
     };
