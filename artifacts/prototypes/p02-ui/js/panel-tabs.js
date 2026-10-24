@@ -76,7 +76,7 @@ window.EQ = window.EQ || {};
     opts = opts || {};
     const num = opts.current && !P.jobsAllowed() ? h('span', { class: 'mono', 'data-fk': 'job-num-' + j.id }, j.number) : h('a', { href: P.base + '#/eq/jobs/special/' + j.id, ...ext() }, j.number);
     return h('li', { class: j.workStatus === 'completed' ? '' : 'open' },
-      h('div', { class: 'row between' }, num, h('span', null, h('span', { class: 'tag' }, j.kind === 'replacement' ? 'Replacement' : 'Repair'), ' ', h('span', { class: 'tag ' + (j.workStatus === 'completed' ? 'green' : 'gold') }, j.isCancelled ? 'Cancelled' : j.workStatus === 'completed' ? 'Completed' : j.workStatus === 'current' ? 'Current' : 'Pending'))),
+      h('div', { class: 'row between' }, num, h('span', null, h('span', { class: 'tag' }, EQ.JOB_KIND[j.kind]), ' ', h('span', { class: 'tag ' + (j.workStatus === 'completed' ? 'green' : 'gold') }, j.isCancelled ? 'Cancelled' : j.workStatus === 'completed' ? 'Completed' : j.workStatus === 'current' ? 'Current' : 'Pending'))),
       h('strong', null, j.title),
       h('span', { class: 'when' }, 'Target: ' + EQ.targetLabel(j)),
       j.workStatus === 'completed' ? h('span', { class: 'when' }, 'Completed on ' + EQ.fmtDate(j.completedOn) + ' (business date)' + (!opts.current && j.corrections && j.corrections.length ? ' · Corrected ' + j.corrections.length + ' time(s)' : '')) : h('span', { class: 'when' }, j.plannedOn ? 'Planned ' + EQ.fmtDate(j.plannedOn) : 'No planned date'),

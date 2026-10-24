@@ -1,0 +1,100 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import vm from 'node:vm';
+
+const out = process.argv[2] || 'docs/evidence/U1/fleet-jobs-c51/model-checks.json';
+const box = vm.createContext({ console, Intl, Date, URLSearchParams, setTimeout, clearTimeout }); box.window = box;
+for (const file of ['util', 'catalog', 'params', 'fac-ref', 'fixtures', 'access', 'store', 'zmms', 'spares', 'fac', 'dialogs', 'views-jobs', 'views-eqjobs']) {
+  vm.runInContext(fs.readFileSync(`artifacts/prototypes/p02-ui/js/${file}.js`, 'utf8'), box, { filename: file + '.js' });
+}
+const E = box.EQ, checks = [];
+const check = (name, ok, detail) => { checks.push({ name, pass: !!ok, detail }); if (!ok) throw Error(name + ': ' + JSON.stringify(detail)); };
+const role = (value) => { E.state.role = value; E.access.refreshSession('C51 test'); };
+const scope = { level: 'equipment', id: null };
+const fleet = (kind = 'project', patch = {}) => ({ equipmentId: 'all', equipmentTypeCode: 'QC', level: 'equipment', kind, title: 'Synthetic fleet programme', ...patch });
+let key = 0;
+const progress = (j, percent, lines = []) => ({ version: j.version, key: 'C51-' + ++key, percent, workDate: E.todayColombo(), note: 'Shared progress note', lines });
+const fingerprint = () => JSON.stringify(E.state.D);
+const operational = () => JSON.stringify(E.state.D.equipment.map(e => [e.id, e.status, e.statusSince, e.statusSource]));
+const rejectCreate = (name, patch) => { const before = fingerprint(), r = E.api.createJob(fleet('project', patch)); check(name, r.status === 422 && fingerprint() === before, r); };
+
+try {
+  E.reset(); role('eqTeam');
+  for (const value of ['', 'BAD']) rejectCreate('Invalid fleet type ' + value, { equipmentTypeCode: value });
+  rejectCreate('Fleet target cannot be a component', { level: 'part', positionId: E.state.D.positions[0].id });
+  rejectCreate('Selected single equipment must match selected type', { equipmentId: 'eq-rtg-demo-01' });
+  rejectCreate('Unknown kind is rejected', { kind: 'constructor' });
+  const active = E.state.D.equipment.filter(e => e.typeCode === 'QC' && e.lifecycle === 'active');
+  const before = E.state.D.jobs.length, made = E.api.createJob(fleet()), job = made.job;
+  check('One Project record covers the live type scope', made.ok && E.state.D.jobs.length === before + 1 && job.kind === 'project' && job.equipmentId === null && job.equipmentTypeCode === 'QC');
+  check('Each active QC finds the same job once', active.every(e => E.jobsOf(e.id).filter(j => j.id === job.id).length === 1));
+  check('Other types and retired equipment are excluded', E.state.D.equipment.filter(e => e.typeCode !== 'QC' || e.lifecycle !== 'active').every(e => !E.jobsOf(e.id).some(j => j.id === job.id)));
+  check('Equipment pages receive one detached current-state identity', active.every(e => { const r = E.currentSpecial(e.id, scope).jobs.find(r => r.job.id === job.id); return r?.job.equipmentId === e.id && r.job.equipmentTypeCode === 'QC'; }));
+  check('Whole-fleet work is not attached to an arbitrary component', !E.currentSpecial(active[0].id, { level: 'main', id: active[0].mains[0].id }).jobs.some(r => r.job.id === job.id));
+  const statusBefore = operational(), partial = progress(job, 40), saved = E.api.updateJobProgress(job.id, partial);
+  check('Shared progress starts the same job for every QC', saved.ok && job.progressPercent === 40 && active.every(e => E.openJobs(e.id).find(j => j.id === job.id).workStatus === 'current') && operational() === statusBefore);
+  const replayBefore = fingerprint();
+  check('Shared progress retry creates no duplicate', E.api.updateJobProgress(job.id, partial).replayed && fingerprint() === replayBefore);
+  const stale = E.api.updateJobProgress(job.id, { ...progress(job, 55), version: partial.version });
+  check('Stale shared update preserves current progress', stale.status === 409 && job.progressPercent === 40);
+  check('Equipment and type filters each return one group entry', active.every(e => E.specialJobs({ equipment: e.id }).filter(j => j.id === job.id).length === 1) && E.specialJobs({ type: 'RTG' }).every(j => j.id !== job.id));
+  E.jobsUI.q = active[1].code;
+  check('Member-code search and export include the group once', E.specialJobs({}).filter(j => j.id === job.id).length === 1 && E.eqExport('special', {}).rows.filter(r => r[0] === job.number).length === 1);
+  E.jobsUI.q = '';
+  check('Kind filter and export use Project', E.specialJobs({ kind: 'project' }).some(j => j.id === job.id) && E.eqExport('special', { kind: 'project' }).rows.every(r => r[2] === 'project'));
+  E.api.setJobVisibility(job.id, { show: false, version: job.version });
+  check('Shared visibility hides every equipment page but keeps Jobs', active.every(e => !E.currentSpecial(e.id, scope).jobs.some(r => r.job.id === job.id)) && E.specialJobs({}).some(j => j.id === job.id));
+  E.api.setJobVisibility(job.id, { show: true, version: job.version });
+  const scopeBefore = fingerprint(), retarget = E.api.updateJob(job.id, { ...job, equipmentId: active[0].id, version: job.version, title: job.title });
+  check('Editing cannot move a group to a different scope', retarget.status === 422 && fingerprint() === scopeBefore);
+  role('admin');
+  check('Open shared work blocks retirement of a member', E.api.retireEquipment(active[0].id).status === 409);
+  const extra = E.api.createEquipment({ code: 'QC-C51-NEW', typeCode: 'QC', name: 'Synthetic later equipment' }).eq;
+  check('New QC automatically joins existing shared progress', E.jobsOf(extra.id).find(j => j.id === job.id)?.progressPercent === 40 && E.currentSpecial(extra.id, scope).jobs.some(r => r.job.id === job.id));
+  role('eqTeam');
+  const done = E.api.updateJobProgress(job.id, progress(job, 100));
+  check('Project completion needs no replacement line and applies to all members', done.ok && job.lines.length === 0 && E.jobEquipment(job).every(e => E.currentSpecial(e.id, scope).jobs.find(r => r.job.id === job.id)?.job.workStatus === 'completed'));
+  role('admin');
+  const later = E.api.createEquipment({ code: 'QC-C51-LATER', typeCode: 'QC' }).eq;
+  check('Equipment added after completion sees the shared completed record', E.currentSpecial(later.id, scope).jobs.find(r => r.job.id === job.id)?.job.workStatus === 'completed');
+  E.api.reopenJob(job.id, 'Shared follow-up');
+  check('Reopen changes the one record on every page', E.jobEquipment(job).every(e => E.currentSpecial(e.id, scope).openJobs.some(r => r.job.id === job.id)) && E.jobProgress(job).percent === null);
+  const poisoned = E.currentSpecial(active[0].id, scope);
+  check('Current-state DTO excludes shared progress and notes', !JSON.stringify(poisoned).includes('Shared progress note') && !JSON.stringify(poisoned).includes('progressPercent') && !JSON.stringify(poisoned).includes('events'));
+  poisoned.jobs.find(r => r.job.id === job.id).job.title = 'poison';
+  check('Mutating a current-state DTO cannot edit the shared record', job.title === 'Synthetic fleet programme');
+  role('eqTeam');
+  const replacement = E.api.createJob(fleet('replacement')).job;
+  const positions = active.slice(0, 2).map(e => E.positionsOf(e.id).find(p => p.state === 'active' && E.spares.isMajor(p.id)));
+  const line = (p) => ({ positionId: p.id, desc: 'Synthetic installed item', qty: 1, on: E.todayColombo(), removedKnown: 'unknown' });
+  const wrong = E.state.D.positions.find(p => p.equipmentId.startsWith('eq-rtg') && p.state === 'active');
+  const atomicBefore = fingerprint(), bad = E.api.updateJobProgress(replacement.id, progress(replacement, 100, [line(positions[0]), line(wrong)]));
+  check('Cross-type replacement is rejected atomically', bad.status === 422 && fingerprint() === atomicBefore);
+  const payload = progress(replacement, 100, positions.map(line)), replaced = E.api.updateJobProgress(replacement.id, payload);
+  check('Fleet replacement records separate equipment-owned installations', replaced.ok && replacement.lines.length === 2 && positions.every(p => E.spares.row(p.id).condition === 'replaced'));
+  check('Equipment scope shows only its own matching replacement positions', active.slice(0, 2).every(e => { const r = E.currentSpecial(e.id, scope).jobs.find(r => r.job.id === replacement.id); return r.matchingLines.length === 1 && r.matchingLines.every(l => E.pos(l.positionId).equipmentId === e.id); }));
+  const installBefore = fingerprint();
+  check('Fleet completion replay cannot duplicate installations', E.api.updateJobProgress(replacement.id, payload).replayed && fingerprint() === installBefore);
+  const optional = E.api.createJob(fleet()).job;
+  check('Project can also record optional replacement work', E.api.updateJobProgress(optional.id, progress(optional, 100, [line(positions[0])])).ok && optional.lines.length === 1);
+  const single = E.api.createJob({ equipmentId: active[0].id, equipmentTypeCode: 'QC', level: 'equipment', kind: 'project', title: 'Single project' }).job;
+  check('Individual Project stays individual', single.equipmentId === active[0].id && !E.isFleetJob(single) && !E.jobsOf(active[1].id).some(j => j.id === single.id));
+  const edit = E.api.updateJob(single.id, { ...single, equipmentTypeCode: 'QC', kind: 'repair', version: single.version });
+  check('Kind edits save and retain previous kind in history', edit.ok && single.kind === 'repair' && single.events.at(-1).note.includes('Project → Repair'));
+  const typeOnly = E.api.createJob(fleet('repair', { equipmentId: null })).job;
+  check('API null-equipment type scope creates one shared record', !!typeOnly && E.isFleetJob(typeOnly) && E.jobEquipment(typeOnly).length === active.length + 2);
+  const cancelled = E.api.cancelJob(typeOnly.id, 'Shared work withdrawn');
+  check('Cancellation removes the same job from every live member view', cancelled.ok && E.jobEquipment(typeOnly).every(e => !E.currentSpecial(e.id, scope).jobs.some(r => r.job.id === typeOnly.id)) && E.specialJobs({ includeCancelled: '1' }).some(j => j.id === typeOnly.id));
+  for (const value of ['management', 'facTeam', 'noAccess']) {
+    role(value); const deniedBefore = fingerprint(), r = E.api.createJob(fleet());
+    check(value + ' cannot create a fleet Project', r.status === 403 && fingerprint() === deniedBefore);
+    check(value + ' cannot replay a fleet progress write', E.api.updateJobProgress(job.id, partial).status === 403 && fingerprint() === deniedBefore);
+  }
+  role('eqTeam');
+  E.state.D.equipment.filter(e => e.typeCode === 'QC').forEach(e => { e.lifecycle = 'retired'; });
+  check('Type filter retains the shared Jobs record even with no live members', E.jobEquipment(job).length === 0 && E.specialJobs({ type: 'QC' }).some(j => j.id === job.id));
+} finally {
+  fs.mkdirSync(path.dirname(out), { recursive: true });
+  fs.writeFileSync(out, JSON.stringify({ passed: checks.filter(c => c.pass).length, failed: checks.filter(c => !c.pass).length, checks }, null, 2) + '\n');
+  console.log(JSON.stringify({ passed: checks.filter(c => c.pass).length, failed: checks.filter(c => !c.pass).length, last: checks.at(-1) }));
+}

@@ -43,7 +43,8 @@ erDiagram
   SubMechanismInstance ||--o{ PartPosition : has
   PartPosition ||--o{ Installation : "installed items/lots"
   PartPosition ||--o{ InstallationEvent : "ordered events"
-  Equipment ||--o{ Job : "exactly one equipment"
+  Equipment |o--o{ Job : "single equipment scope"
+  EquipmentType |o--o{ Job : "shared type scope"
   Job ||--o{ ReplacementLine : commits
   ReplacementLine ||--|| InstallationEvent : creates
   Job ||--o{ JobStatusEvent : progress
@@ -271,11 +272,11 @@ V2: these are the EQ **special jobs** (major or non-routine work entered by hand
 | Column | Notes |
 | --- | --- |
 | Id; Number (`EQJ-yyyy-nnnnnn` from a SQL sequence; UQ; immutable) | alternate key (Id, EquipmentId) (unique constraint) |
-| EquipmentId | immutable; exactly one equipment (s5) |
+| EquipmentId nullable; EquipmentTypeCode nullable | U1-C51: immutable scope; exactly one is set. One equipment, or all active equipment of one type (including later additions). Type-wide scope uses equipment-level target only. |
 | TargetLevel | `equipment` / `main` / `sub` / `part` |
 | MainInstanceId, SubInstanceId, PartPositionId | null per level; CHECK: equipment = all null; main = main only; sub = main + sub; part = main + sub + part |
 | (composite FKs) | (MainInstanceId, EquipmentId) -> MainMechanismInstance alternate key (Id, EquipmentId); (SubInstanceId, EquipmentId, MainInstanceId) -> SubMechanismInstance alternate key; (PartPositionId, EquipmentId, SubInstanceId, MainInstanceId) -> PartPosition alternate key |
-| Kind | `repair` / `replacement` |
+| Kind | `repair` / `replacement` / `project` (U1-C51) |
 | Title (required <= 200), Description (<= 4000) | |
 | Priority | null / `low` / `normal` / `high` (simple field; no workflow) |
 | PlannedOn date null; ResponsiblePerson nvarchar(200) null | optional |
@@ -286,7 +287,7 @@ V2: these are the EQ **special jobs** (major or non-routine work entered by hand
 | ShowOnDashboard bit NOT NULL DEFAULT 1; DisplayChangedUtc null; DisplayChangedByProfileId null | U1-C26 (D-158): the shared "Show on dashboard / 3D" switch of this special job; existing rows migrate to 1 (shown). Display only: it never changes the work fields, work status, history or operational status |
 | CreatedByProfileId; CreatedUtc; UpdatedUtc; ReopenCount; RowVersion | |
 
-**ReplacementLine**: Id; JobId + EquipmentId (composite FK -> Job alternate key (Id, EquipmentId)); PartPositionId + EquipmentId (composite FK -> PartPosition alternate key (Id, EquipmentId); the shared EquipmentId column makes a line whose job and position belong to different equipment impossible); Mode (`full`, `partial`; serialized always `full`); ExpectedCurrentInstallationId (what the user replaced; null = nothing tracked); RemovedQuantity (partial lots); RemovedItemKnown/RemovedItemDescription/RemovedItemSerial (untracked removed item); ItemDescription (required), Manufacturer, ModelOrPartNumber, SerialNumber (null = unknown); Quantity (> 0; serialized = 1); Uom; ReplacedOn (date); Note; State (`committed`, `voided`); InstallationEventId; CommittedUtc; RowVersion. UQ (JobId, PartPositionId) WHERE State = 'committed'.
+**ReplacementLine**: Id; JobId (FK -> Job); EquipmentId (the equipment that owns the replaced position); PartPositionId + EquipmentId (composite FK -> PartPosition alternate key (Id, EquipmentId)); U1-C51: the completion transaction verifies that EquipmentId is inside the immutable single-equipment or type scope of Job. The former JobId + EquipmentId composite FK is superseded because type-wide jobs have no single EquipmentId; Mode (`full`, `partial`; serialized always `full`); ExpectedCurrentInstallationId (what the user replaced; null = nothing tracked); RemovedQuantity (partial lots); RemovedItemKnown/RemovedItemDescription/RemovedItemSerial (untracked removed item); ItemDescription (required), Manufacturer, ModelOrPartNumber, SerialNumber (null = unknown); Quantity (> 0; serialized = 1); Uom; ReplacedOn (date); Note; State (`committed`, `voided`); InstallationEventId; CommittedUtc; RowVersion. UQ (JobId, PartPositionId) WHERE State = 'committed'.
 
 **JobStatusEvent** (progress history, append-only): Id; JobId; Kind (`created`, `started`, `returnedToPending`, `completed`, `reopened`, `cancelled`, `corrected`, `edited`, `displayShown`, `displayHidden`, `progressUpdated`; the display kinds (U1-C26) keep FromStatus = ToStatus); FromStatus; ToStatus; Reason; BusinessDate (completion date when relevant); ActorProfileId; OccurredUtc.
 
@@ -294,13 +295,13 @@ U1-C50: `progressUpdated` events additionally retain WorkDate, Percent, Previous
 
 **JobCorrection** (groups one Admin correction): Id; JobId; Number (per job); Reason (required); ActorProfileId; OccurredUtc; ItemsJson (each item: entity, id, action, before, after). Every item is also written to `AuditEntry` with before/after snapshots.
 
-**JobAttachment**: Id; JobId + EquipmentId (composite FK); DocumentId; ReplacementLineId null; Caption; UploadedByProfileId; UploadedUtc; State (`active`, `removed`); RemovedByProfileId/Utc/Reason.
+**JobAttachment**: Id; JobId (FK -> Job; U1-C51 supersedes the single-equipment composite FK); DocumentId; ReplacementLineId null; Caption; UploadedByProfileId; UploadedUtc; State (`active`, `removed`); RemovedByProfileId/Utc/Reason.
 
 Invariants:
 
-- J1 Target instances/positions belong to the job's equipment (composite FKs) and are `active` with active definitions at creation or target change.
+- J1 Target instances/positions belong to the job's single equipment (composite FKs) and are `active` with active definitions at creation or target change. U1-C51 type-wide jobs have no component target; replacement positions must belong to active equipment of the selected type.
 - J2 An equipment-level job has no component target and appears only in equipment-scope history unless it has replacement lines, which make it appear (once) in the scopes containing those lines (s9).
-- J3 Replacement lines exist only on `replacement` jobs, are created only by completion or Admin correction (D-30), resolve an `active` position of the same equipment inside the job's target subtree (D-31), and a job cannot hold two committed lines for the same position (JOB05).
+- J3 Replacement lines are required on `replacement` jobs, optional on `project` jobs and forbidden on `repair` jobs (U1-C51). They are created only by completion or Admin correction (D-30), resolve an `active` position of equipment inside the job scope and target subtree (D-31), and a job cannot hold two committed lines for the same position (JOB05).
 - J4 Operational status is never changed by any job command (JOB02, B-10). V2: the only other writer of status is a successful ZMMS sync for mapped equipment (s15.7); a job completion still never sets Ready for OPS.
 - J5 A cancelled job keeps all rows; it is excluded from the three normal work views and counts unless `includeCancelled` is requested; it is never counted Completed (JOB12).
 - J6 **Committed work on an uncompleted job.** A job that was completed and then reopened (ReopenCount > 0) is "previously completed"; it may also hold committed, non-voided replacement lines and their installation events. While uncompleted it is protected as completed work (s5, requirement s5 "a completed job cannot be cancelled"; "a completed replacement cannot be silently undone"):
@@ -315,7 +316,7 @@ Invariants:
 
 ### 3.7 Operational status history
 
-**OperationalStatusChange** (append-only): Id; EquipmentId; Sequence (UQ per equipment); Status (`readyForOps`, `breakdown`, `maintenance`); PreviousStatus (null when previously Unreported); PreviousChangeId; Reason (required, 1-500 chars, for `breakdown` and `maintenance`; optional for `readyForOps`); RelatedJobId + EquipmentId (composite FK -> Job alternate key, so a job from another equipment is impossible, JOB13); EffectiveUtc (= server time, D-33); RecordedByProfileId.
+**OperationalStatusChange** (append-only): Id; EquipmentId; Sequence (UQ per equipment); Status (`readyForOps`, `breakdown`, `maintenance`); PreviousStatus (null when previously Unreported); PreviousChangeId; Reason (required, 1-500 chars, for `breakdown` and `maintenance`; optional for `readyForOps`); RelatedJobId (FK -> Job; U1-C51: transaction verifies that this equipment is inside the job's single-equipment or shared type scope, superseding the old JobId + EquipmentId composite FK, JOB13); EffectiveUtc (= server time, D-33); RecordedByProfileId.
 
 V2 columns (S21, s15.7):
 
@@ -1302,3 +1303,13 @@ Only the real page, read by P07B through the connector with the configured accou
 | ZQ-13 | Acceptable request rate and account-lockout policy | retry policy s15.5 |
 
 Environment question for P12 (not the page): whether the IIS server has outbound HTTPS to `www.zmms.lk` (proxy, firewall, certificate chain).
+
+## U1-C51 shared type scope (24 October 2026)
+
+This user-confirmed extension supersedes earlier exactly-one-equipment assumptions for type-wide special jobs, including s3.6, s5 and the Job-owned composite FKs. A Job has either EquipmentId or EquipmentTypeCode, never both/neither. Scope and type are immutable after creation. EquipmentTypeCode references the equipment-type catalogue; its target is whole equipment (all component target IDs null). Single-equipment component ownership remains protected by the existing composite FKs. Production design must include the scope CHECK/FK constraints and validate membership under the completion transaction; no database migration is performed at U1.
+
+Type-wide applicability is derived from current active equipment of that type, not stored as duplicate child jobs. Creation needs at least one active member. Later equipment immediately sees the same ID, visibility, status, progress and completed record. Joining a completed shared job does not imply a new installation or equipment-specific completion event. Retired equipment leaves the live scope; its previously recorded position/installations and all shared Jobs history remain retained. Open shared work prevents member retirement. No membership change creates or changes work history or equipment operational status.
+
+One Job owns progress, dated notes, work state, Show, creator, cancellation, completion, corrections and version. All existing permission/retry/concurrency rules apply to that identity once. A Project may complete with zero or more replacement lines; a Replacement requires one or more committed/new lines; Repair takes none. Each line retains actual EquipmentId and a stable PartPositionId composite FK, while JobId links the shared parent. Transactional scope validation replaces the old line-to-Job equipment composite FK; it prevents positions of another type or an unrelated single equipment. All position installations/register changes remain atomic and position-owned. The existing OperationalStatusChange related-job equipment validation also uses this applicability rule rather than comparing only Job.EquipmentId.
+
+Jobs list/count/export de-duplicate by Job.Id. Equipment views and counts derive applicability; component scopes match only real lines/targets of that equipment. CurrentSpecial keeps its detached allowlist and never includes private progress/history fields. Runtime helpers and these contract amendments are synthetic prototype work, not production persistence or a claim of completed application acceptance.

@@ -5,7 +5,7 @@ window.EQ = window.EQ || {};
   const h = EQ.h, icon = EQ.icon;
   EQ.views = EQ.views || {};
   const ui = (EQ.jobsUI = { q: '', tab: 'pending' });
-  const KIND = { repair: 'Repair', replacement: 'Replacement' };
+  const KIND = EQ.JOB_KIND;
   const STAT = { pending: 'Pending', current: 'Current', completed: 'Completed' };
 
   function statusTag(j) {
@@ -61,7 +61,7 @@ window.EQ = window.EQ || {};
     const acts = actions(j, ctx);
     return h('article', { class: 'job' + (j.isCancelled ? ' cancelled' : ''), 'aria-label': j.number + ' ' + j.title },
       h('div', { class: 'job-top' }, h('h3', null, h('a', { class: 'job-name', href: '#/eq/jobs/special/' + j.id }, j.title)), h('div', { class: 'job-marks' }, h('span', { class: 'tag' }, KIND[j.kind]), ' ', statusTag(j), j.priority === 'high' ? h('span', { class: 'tag gold', style: 'margin-left:.25rem' }, 'High priority') : null, hiddenTag(j))),
-      h('div', { class: 'meta' }, h('span', null, h('a', { href: '#/eq/equipment/' + eq.id }, eq.code)), h('span', null, EQ.targetLabel(j))),
+      h('div', { class: 'meta' }, h('span', null, EQ.isFleetJob(j) ? EQ.jobEquipmentLabel(j) : h('a', { href: '#/eq/equipment/' + eq.id }, eq.code)), h('span', null, EQ.targetLabel(j))),
       h('div', { class: 'meta' },
         j.workStatus === 'completed' ? h('span', null, 'Completed ' + EQ.fmtDate(j.completedOn)) : h('span', null, j.plannedOn ? 'Planned ' + EQ.fmtDate(j.plannedOn) : 'No planned date'),
         j.responsible ? h('span', null, 'Responsible: ' + j.responsible) : null, h('span', null, 'Created by ' + (j.createdBy === EQ.user().id ? 'you' : EQ.userName(j.createdBy))),
@@ -77,16 +77,18 @@ window.EQ = window.EQ || {};
     const res = EQ.readJobs(); // simulated GET /jobs: eq.jobs.view on the live matrix (D-139)
     if (!res.ok) return res;
     let list = res.items.filter((j) => q.includeCancelled === '1' || !j.isCancelled);
-    if (q.equipment) list = list.filter((j) => j.equipmentId === q.equipment);
-    if (q.type) list = list.filter((j) => EQ.eq(j.equipmentId).typeCode === q.type);
+    if (q.equipment) list = list.filter((j) => EQ.jobApplies(j, q.equipment));
+    if (q.type) list = list.filter((j) => (j.equipmentTypeCode || EQ.eq(j.equipmentId).typeCode) === q.type);
     if (q.kind) list = list.filter((j) => j.kind === q.kind);
     if (q.main) list = list.filter((j) => { const m = j.mainId && EQ.eq(j.equipmentId).mains.find((x) => x.id === j.mainId); return m && m.code === q.main; });
     const df = q.dateField === 'completed' ? 'completedOn' : 'plannedOn';
     if (q.from && q.dateField) list = list.filter((j) => j[df] && j[df] >= q.from);
     if (q.to && q.dateField) list = list.filter((j) => j[df] && j[df] <= q.to);
-    if (ui.q) list = list.filter((j) => (j.number + ' ' + j.title + ' ' + EQ.eq(j.equipmentId).code).toLowerCase().includes(ui.q.toLowerCase()));
+    if (ui.q) list = list.filter((j) => (j.number + ' ' + j.title + ' ' + EQ.jobEquipmentLabel(j) + ' ' + EQ.jobEquipment(j).map((e) => e.code).join(' ')).toLowerCase().includes(ui.q.toLowerCase()));
     return list;
   }
+
+  EQ.specialJobs = filtered;
 
   /** Special jobs board (SOW V2 s4.3): used inside the EQ Jobs tab; the page header, the shared filters (equipment, type, date range,
    *  search) and the data-state banners are provided by the EQ Jobs wrapper (views-eqjobs.js). */
@@ -97,7 +99,7 @@ window.EQ = window.EQ || {};
     const mainsUsed = EQ.catalog.mains;
     const sel = (id, label, key, options, any) => { const s = h('select', { id, 'data-fk': id, onChange: (e) => setQ({ [key]: e.target.value }) }, h('option', { value: '' }, any), options.map(([v, l]) => h('option', { value: v, selected: q[key] === v ? true : null }, l))); return h('div', { class: 'field' }, h('label', { for: id }, label), s); };
     page.appendChild(h('form', { class: 'panel filters', role: 'search', 'aria-label': 'Special job filters', onSubmit: (e) => e.preventDefault() },
-      sel('flt-kind', 'Kind', 'kind', [['repair', 'Repair'], ['replacement', 'Replacement']], 'All kinds'),
+      sel('flt-kind', 'Kind', 'kind', Object.entries(KIND), 'All kinds'),
       sel('flt-main', 'Main mechanism', 'main', mainsUsed.map((m) => [m.code, m.code + ' ' + m.name]), 'All mechanisms'),
       sel('flt-df', 'Apply date range to', 'dateField', [['planned', 'Planned date'], ['completed', 'Completion date']], 'Not applied to special jobs'),
       h('label', { class: 'check', style: 'min-height:2.5rem' }, h('input', { type: 'checkbox', checked: q.includeCancelled === '1' ? true : null, 'data-fk': 'flt-canc', onChange: (e) => setQ({ includeCancelled: e.target.checked ? '1' : '' }) }), 'Include cancelled'),
@@ -137,17 +139,17 @@ window.EQ = window.EQ || {};
     const kv = (rows) => h('dl', { class: 'kv' }, rows.filter(Boolean).map(([k, v]) => [h('dt', null, k), h('dd', null, v)]));
     page.appendChild(h('div', { class: 'grid-2', style: 'align-items:start;margin-top:.7rem' },
       h('section', { class: 'panel panel-pad stack' }, h('h2', null, 'Details'), kv([
-        ['Equipment', h('a', { href: '#/eq/equipment/' + eq.id }, eq.code)], ['Target', EQ.targetLabel(j)], ['Kind', KIND[j.kind]], ['Priority', j.priority || 'Not set'],
+        ['Equipment', EQ.isFleetJob(j) ? h('div', { class: 'stack' }, h('strong', null, EQ.jobEquipmentLabel(j)), h('span', { class: 'small muted' }, 'Includes equipment added later. One shared progress and completion.'), EQ.jobEquipment(j).map((e) => h('a', { href: '#/eq/equipment/' + e.id }, e.code))) : h('a', { href: '#/eq/equipment/' + eq.id }, eq.code)], ['Target', EQ.targetLabel(j)], ['Kind', KIND[j.kind]], ['Priority', j.priority || 'Not set'],
         ['Planned', j.plannedOn ? EQ.fmtDate(j.plannedOn) : 'Not set'], ['Responsible', j.responsible || 'Not set'], ['Created', EQ.fmtInstant(j.createdUtc) + ' by ' + EQ.userName(j.createdBy)], ['Version', String(j.version)],
         j.workStatus === 'completed' ? ['Completed on', EQ.fmtDate(j.completedOn) + ' (business date)'] : null, j.completionNote ? ['Completion note', j.completionNote] : null, j.description ? ['Description', j.description] : null,
         j.isCancelled ? ['Cancelled', EQ.fmtInstant(j.cancelledUtc) + ' by ' + EQ.userName(j.cancelledBy) + ': ' + j.cancelReason] : null]),
-        h('div', { class: 'notice info' }, icon('info'), h('p', null, eq.code + ' operational status is ' + EQ.STATUS[EQ.statusKey(eq.status)].label + '. This job does not change it.')),
+        h('div', { class: 'notice info' }, icon('info'), h('p', null, EQ.isFleetJob(j) ? 'Equipment statuses are independent of this shared job.' : eq.code + ' operational status is ' + EQ.STATUS[EQ.statusKey(eq.status)].label + '. This job does not change it.')),
         jobSwitch(j)),
       h('section', { class: 'panel panel-pad stack' }, h('h2', null, 'Progress and corrections'), h('ul', { class: 'tl' }, [...j.events].reverse().map((e) => h('li', { class: 'status' }, h('strong', null, e.kind === 'progressUpdated' ? 'Progress updated · ' + e.percent + ' %' : e.kind), h('span', { class: 'when' }, EQ.fmtInstant(e.at) + ' by ' + EQ.userName(e.by) + (e.workDate ? ' · Work date ' + EQ.fmtDate(e.workDate) : '')), e.note ? h('span', null, e.note) : null))),
         j.corrections.length ? h('div', { class: 'stack' }, h('h3', null, 'Admin corrections (prior values retained)'), j.corrections.map((c) => h('div', { class: 'nonwork' }, h('strong', null, 'Correction ' + c.n + ': ' + c.reason), c.items.map((it) => h('div', null, it.field + ': ', h('s', null, it.before), ' → ', h('strong', null, it.after))), h('span', { class: 'small muted' }, EQ.userName(c.by) + ', ' + EQ.fmtInstant(c.at))))) : null)));
     page.appendChild(h('section', { class: 'panel panel-pad stack', style: 'margin-top:.7rem' }, h('h2', null, 'Replacement lines'),
-      j.lines.length ? h('div', { class: 'table-wrap' }, h('table', null, h('thead', null, h('tr', null, ['Position', 'Installed', 'Serial', 'Quantity', 'Replaced on', 'Removed'].map((c) => h('th', { scope: 'col' }, c)))), h('tbody', null, j.lines.map((l) => { const p = EQ.pos(l.positionId); return h('tr', null, h('th', { scope: 'row' }, h('a', { href: '#/eq/equipment/' + eq.id + '?main=' + p.mainId + '&sub=' + p.subId + '&part=' + p.id }, p.name)), h('td', null, l.item.desc), h('td', null, l.item.serial || 'Unknown'), h('td', null, l.qty + ' ' + l.uom), h('td', null, EQ.fmtDate(l.replacedOn)), h('td', null, l.removedKnown ? (l.removedDesc || '') + (l.removedSerial ? ' (serial ' + l.removedSerial + ')' : '') : 'Unknown')); }))))
-        : h('p', { class: 'muted small', style: 'margin:0' }, j.kind === 'repair' ? 'Repair jobs take no replacement lines.' : 'No replacement lines yet. Lines are entered when the job is completed.')));
+      j.lines.length ? h('div', { class: 'table-wrap' }, h('table', null, h('thead', null, h('tr', null, ['Position', 'Installed', 'Serial', 'Quantity', 'Replaced on', 'Removed'].map((c) => h('th', { scope: 'col' }, c)))), h('tbody', null, j.lines.map((l) => { const p = EQ.pos(l.positionId); return h('tr', null, h('th', { scope: 'row' }, h('a', { href: '#/eq/equipment/' + p.equipmentId + '?main=' + p.mainId + '&sub=' + p.subId + '&part=' + p.id }, (EQ.isFleetJob(j) ? EQ.eq(p.equipmentId).code + ' · ' : '') + p.name)), h('td', null, l.item.desc), h('td', null, l.item.serial || 'Unknown'), h('td', null, l.qty + ' ' + l.uom), h('td', null, EQ.fmtDate(l.replacedOn)), h('td', null, l.removedKnown ? (l.removedDesc || '') + (l.removedSerial ? ' (serial ' + l.removedSerial + ')' : '') : 'Unknown')); }))))
+        : h('p', { class: 'muted small', style: 'margin:0' }, j.kind === 'repair' ? 'Repair jobs take no replacement lines.' : j.kind === 'project' ? 'No replacement lines recorded. They are optional for projects.' : 'No replacement lines yet. Lines are entered when the job is completed.')));
     page.appendChild(h('section', { class: 'panel panel-pad stack', style: 'margin-top:.7rem' }, h('h2', null, 'Work evidence'), h('p', { class: 'muted small', style: 'margin:0' }, "JPEG, PNG and PDF evidence: all three roles can view; EQ Team and Admin can upload. Files are not available in this prototype.")));
     return page;
   };

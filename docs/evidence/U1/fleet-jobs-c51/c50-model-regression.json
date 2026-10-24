@@ -1,0 +1,352 @@
+{
+  "passed": 49,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "Existing Current job has no invented percentage",
+      "pass": true
+    },
+    {
+      "name": "Pending starts at zero; completed reads 100",
+      "pass": true
+    },
+    {
+      "name": "Partial update starts work and saves date/note/percentage",
+      "pass": true
+    },
+    {
+      "name": "Progress history records actor, previous percentage and date",
+      "pass": true
+    },
+    {
+      "name": "Audit keeps previous/new progress",
+      "pass": true
+    },
+    {
+      "name": "Progress never changes operational status",
+      "pass": true
+    },
+    {
+      "name": "Retry replays before version check without duplication",
+      "pass": true
+    },
+    {
+      "name": "Stale version is rejected without writes",
+      "pass": true,
+      "detail": {
+        "status": 409,
+        "fields": {}
+      }
+    },
+    {
+      "name": "Invalid percentage null",
+      "pass": true,
+      "detail": {
+        "status": 422,
+        "fields": {
+          "percent": "Enter a whole percentage from 0 to 100."
+        }
+      }
+    },
+    {
+      "name": "Invalid percentage ",
+      "pass": true,
+      "detail": {
+        "status": 422,
+        "fields": {
+          "percent": "Enter a whole percentage from 0 to 100."
+        }
+      }
+    },
+    {
+      "name": "Invalid percentage -1",
+      "pass": true,
+      "detail": {
+        "status": 422,
+        "fields": {
+          "percent": "Enter a whole percentage from 0 to 100."
+        }
+      }
+    },
+    {
+      "name": "Invalid percentage 101",
+      "pass": true,
+      "detail": {
+        "status": 422,
+        "fields": {
+          "percent": "Enter a whole percentage from 0 to 100."
+        }
+      }
+    },
+    {
+      "name": "Invalid percentage 1.5",
+      "pass": true,
+      "detail": {
+        "status": 422,
+        "fields": {
+          "percent": "Enter a whole percentage from 0 to 100."
+        }
+      }
+    },
+    {
+      "name": "Invalid percentage NaN",
+      "pass": true,
+      "detail": {
+        "status": 422,
+        "fields": {
+          "percent": "Enter a whole percentage from 0 to 100."
+        }
+      }
+    },
+    {
+      "name": "Invalid percentage Infinity",
+      "pass": true,
+      "detail": {
+        "status": 422,
+        "fields": {
+          "percent": "Enter a whole percentage from 0 to 100."
+        }
+      }
+    },
+    {
+      "name": "Invalid percentage 35",
+      "pass": true,
+      "detail": {
+        "status": 422,
+        "fields": {
+          "percent": "Enter a whole percentage from 0 to 100."
+        }
+      }
+    },
+    {
+      "name": "Invalid/future/older work date 2026-02-30",
+      "pass": true,
+      "detail": {
+        "status": 422,
+        "fields": {
+          "workDate": "Enter a valid work date that is not in the future."
+        }
+      }
+    },
+    {
+      "name": "Invalid/future/older work date 2026-13-01",
+      "pass": true,
+      "detail": {
+        "status": 422,
+        "fields": {
+          "workDate": "Enter a valid work date that is not in the future."
+        }
+      }
+    },
+    {
+      "name": "Invalid/future/older work date not-a-date",
+      "pass": true,
+      "detail": {
+        "status": 422,
+        "fields": {
+          "workDate": "Enter a valid work date that is not in the future."
+        }
+      }
+    },
+    {
+      "name": "Invalid/future/older work date 2026-10-25",
+      "pass": true,
+      "detail": {
+        "status": 422,
+        "fields": {
+          "workDate": "Enter a valid work date that is not in the future."
+        }
+      }
+    },
+    {
+      "name": "Invalid/future/older work date 2026-10-23",
+      "pass": true,
+      "detail": {
+        "status": 422,
+        "fields": {
+          "workDate": "Work date cannot be before the latest recorded progress or completion."
+        }
+      }
+    },
+    {
+      "name": "Missing/oversized note 0",
+      "pass": true,
+      "detail": {
+        "status": 422,
+        "fields": {
+          "note": "Enter a progress note (up to 2000 characters)."
+        }
+      }
+    },
+    {
+      "name": "Missing/oversized note 3",
+      "pass": true,
+      "detail": {
+        "status": 422,
+        "fields": {
+          "note": "Enter a progress note (up to 2000 characters)."
+        }
+      }
+    },
+    {
+      "name": "Missing/oversized note 2001",
+      "pass": true,
+      "detail": {
+        "status": 422,
+        "fields": {
+          "note": "Enter a progress note (up to 2000 characters)."
+        }
+      }
+    },
+    {
+      "name": "Missing/oversized note 4",
+      "pass": true,
+      "detail": {
+        "status": 422,
+        "fields": {
+          "note": "Enter a progress note (up to 2000 characters)."
+        }
+      }
+    },
+    {
+      "name": "Request key is required",
+      "pass": true,
+      "detail": {
+        "status": 422,
+        "fields": {}
+      }
+    },
+    {
+      "name": "Revised estimate keeps prior value in history",
+      "pass": true
+    },
+    {
+      "name": "Same key on another job is isolated",
+      "pass": true
+    },
+    {
+      "name": "management is denied even for a replay key",
+      "pass": true
+    },
+    {
+      "name": "facTeam is denied even for a replay key",
+      "pass": true
+    },
+    {
+      "name": "noAccess is denied even for a replay key",
+      "pass": true
+    },
+    {
+      "name": "Repair reaches 100 through completion",
+      "pass": true
+    },
+    {
+      "name": "Completed job rejects another update",
+      "pass": true,
+      "detail": {
+        "status": 409,
+        "fields": {}
+      }
+    },
+    {
+      "name": "Cancelled job rejects progress",
+      "pass": true,
+      "detail": {
+        "status": 409,
+        "fields": {}
+      }
+    },
+    {
+      "name": "Unknown job returns 404",
+      "pass": true
+    },
+    {
+      "name": "100% replacement cannot bypass replacement lines",
+      "pass": true,
+      "detail": {
+        "status": 422,
+        "fields": {
+          "lines": "A replacement job needs at least one replacement line."
+        }
+      }
+    },
+    {
+      "name": "Malformed replacement payload is rejected",
+      "pass": true,
+      "detail": {
+        "status": 422,
+        "fields": {
+          "lines": "Enter valid replacement details."
+        }
+      }
+    },
+    {
+      "name": "Malformed replacement payload is rejected",
+      "pass": true,
+      "detail": {
+        "status": 422,
+        "fields": {
+          "lines": "Enter valid replacement details."
+        }
+      }
+    },
+    {
+      "name": "Malformed replacement payload is rejected",
+      "pass": true,
+      "detail": {
+        "status": 422,
+        "fields": {
+          "lines": "Enter valid replacement details."
+        }
+      }
+    },
+    {
+      "name": "Invalid replacement fields are atomic",
+      "pass": true,
+      "detail": {
+        "status": 422,
+        "fields": {}
+      }
+    },
+    {
+      "name": "Replacement cannot be after completion date",
+      "pass": true,
+      "detail": {
+        "status": 422,
+        "fields": {}
+      }
+    },
+    {
+      "name": "Partial replacement progress commits no installation",
+      "pass": true
+    },
+    {
+      "name": "100% commits replacement once and preserves equipment status",
+      "pass": true
+    },
+    {
+      "name": "Spare register is updated atomically",
+      "pass": true
+    },
+    {
+      "name": "100% replay creates no duplicate completion or installation",
+      "pass": true
+    },
+    {
+      "name": "Reopening clears active percentage but preserves history/installations",
+      "pass": true
+    },
+    {
+      "name": "Completion notes remain in history after reopening",
+      "pass": true
+    },
+    {
+      "name": "Re-completion reuses committed lines without duplicating them",
+      "pass": true
+    },
+    {
+      "name": "Crane current-state projection excludes progress fields/history",
+      "pass": true
+    }
+  ]
+}

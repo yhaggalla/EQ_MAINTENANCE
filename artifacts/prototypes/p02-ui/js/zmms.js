@@ -329,7 +329,7 @@ window.EQ = window.EQ || {};
     if (!(p.reason || '').trim()) f.reason = 'A reason is required for every correction of an automatic status.';
     const today = EQ.todayColombo();
     if (p.status === eq.status && eq.overrideOn && eq.overrideOn >= today) f.status = 'Already a manual ' + EQ.STATUS[p.status].label + ' for today (409 status_unchanged).';
-    if (p.relatedJobId) { const j = EQ.job(p.relatedJobId); if (!j || j.equipmentId !== eq.id) f.relatedJobId = 'That job belongs to another equipment (422).'; }
+    if (p.relatedJobId) { const j = EQ.job(p.relatedJobId); if (!j || !EQ.jobApplies(j, eq.id)) f.relatedJobId = 'That job does not apply to this equipment (422).'; }
     if (Object.keys(f).length) return fail(422, 'validation_failed', 'Nothing was changed.', f);
     logStatus(eq, p.status, eq.status, 'manual', 'manualCorrection', p.reason.trim(), [], null);
     eq.status = p.status; eq.statusSince = new Date().toISOString(); eq.statusReason = p.reason.trim(); eq.statusSource = 'manual'; eq.overrideOn = today; eq.statusCauses = []; eq.version += 1; eq.lastActivity = eq.statusSince;

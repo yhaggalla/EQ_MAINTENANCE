@@ -148,8 +148,9 @@ type ReplacementLineView = {
 
 type JobSummary = {
   id: Id; number: string; version: Version;
-  equipment: { id: Id; code: string; type: string };
-  target: TargetRef; kind: 'repair' | 'replacement'; title: string;
+  equipment: { id: Id; code: string; type: string } | null; // null for a type-wide shared job (U1-C51)
+  equipmentTypeCode: string | null; // set only for type-wide scope; exactly one of this and equipment
+  target: TargetRef; kind: 'repair' | 'replacement' | 'project'; title: string;
   workStatus: 'pending' | 'current' | 'completed';
   isCancelled: boolean; priority: 'low' | 'normal' | 'high' | null;
   plannedOn: DateOnly | null; completedOn: DateOnly | null;
@@ -310,7 +311,7 @@ V2 (Repair-R02B, D-139): every endpoint of this section, the job attachments (s4
 
 | Method and path | Policy | Body (besides `version` where noted) | Result / errors |
 | --- | --- | --- | --- |
-| `POST /jobs` | `F:eq.work`; Idempotency-Key | `{ equipmentId, target: { level, mainInstanceId?, subInstanceId?, partPositionId? }, kind, title, description?, priority?, plannedOn?, responsiblePerson?, initialStatus: 'pending' | 'current' }` | 201 job. 422 `target_not_in_equipment`, `target_inactive`, `definition_inactive`, `reserved_definition`; 409 `equipment_retired` (JOB01, JOB03, ADM03) |
+| `POST /jobs` | `F:eq.work`; Idempotency-Key | `{ equipmentId: Id | null, equipmentTypeCode?: string | null, target: { level, mainInstanceId?, subInstanceId?, partPositionId? }, kind: 'repair' | 'replacement' | 'project', title, description?, priority?, plannedOn?, responsiblePerson?, initialStatus: 'pending' | 'current' }` | 201 one job. U1-C51: choose one equipment or a type-wide scope; type-wide requires at least one active member and equipment-level target. Includes later active members. 422 invalid kind/type/scope, `target_not_in_equipment`, `target_inactive`, `definition_inactive`, `reserved_definition`; 409 `equipment_retired` (JOB01, JOB03, ADM03) |
 | `PUT /jobs/{jobId}` | `F:eq.work` | `{ version, target, kind, title, description, priority, plannedOn, responsiblePerson }` | 200. Only pending/current; 409 `job_completed`/`job_cancelled`; 409 `version_conflict` (JOB07). Reopened job with committed, non-voided lines (DATA J6): 409 `job_has_committed_replacements` for kind -> `repair`, 409 `committed_lines_outside_target` for a target that excludes a committed line's position (JOB09) |
 | `POST /jobs/{jobId}/start` | `F:eq.work`; Idempotency-Key | `{ version }` | pending -> current |
 | `POST /jobs/{jobId}/return-to-pending` | `F:eq.work`; Idempotency-Key | `{ version }` | current -> pending |
@@ -328,7 +329,7 @@ Complete request:
   completedOn: DateOnly;          // business date; <= today in Asia/Colombo; never replaced by the entry time
   completionNote: string;         // required
   lines: Array<{                  // kind=replacement: new lines + the job's committed, non-voided lines >= 1
-                                  //   (a reopened job may send []); must be empty for kind=repair;
+                                  //   (a reopened job may send []); must be empty for kind=repair; optional for kind=project;
                                   //   a position already committed in this job -> 422 duplicate_position
     partPositionId: Id;
     mode: 'full' | 'partial';     // serialized: 'full' only
@@ -478,7 +479,8 @@ The four right-panel tabs of the crane view (DATA s18.1, D-122). All `F:eq.fleet
 // Fleet current-state projection; these are the only fields allowed, even with eq.jobs.view.
 type CurrentSpecialJob = {
   id: Id; number: string; equipment: { id: Id; code: string; type: string };
-  target: TargetRef; kind: 'repair' | 'replacement'; title: string;
+  equipmentTypeCode?: string; // U1-C51: shared type scope; equipment above is the requested page context
+  target: TargetRef; kind: 'repair' | 'replacement' | 'project'; title: string;
   workStatus: 'pending' | 'current' | 'completed'; plannedOn: DateOnly | null;
   completedOn: DateOnly | null;   // U1-C23: completion business date of a completed job; null for open and reopened jobs
   listedOn: DateOnly;             // U1-C23: sort date = completedOn, or the Asia/Colombo business date of CreatedUtc for an open job
@@ -736,3 +738,13 @@ A health response is never acceptance evidence on its own (Master control).
 The new progress command is implemented only in the synthetic prototype (`EQ.api.updateJobProgress`) at U1; the HTTP contract above guides later application phases. No production endpoint or database migration is claimed. Update progress uses the existing completion form at 100%, showing completion date/note and replacement positions/items/quantities/dates in that same dialog. Successful updates return the latest progress summary; history records who, when, work date, percentage, previous percentage and note. Audit records before/after values.
 
 The command requires the live `eq.work` policy, even for a cached replay; Management and FAC Team are refused. All detailed reads continue to require `eq.jobs.view`. Existing CurrentSpecial DTOs do not acquire progress fields, history or notes. RowVersion conflicts preserve the other user's save. A decreased estimate appends a new dated note; completion and committed installation history remain protected. Existing Complete entry points also record 100% and keep completion notes in their timeline; completion cannot precede recorded progress or a replacement line date. Reopened replacements may complete with their existing committed lines, with no duplicate installation.
+
+## U1-C51 projects and type-wide special jobs (24 October 2026)
+
+The user confirmed one shared progress/completion record and automatic inclusion of later equipment. A type-wide job stores one identity with EquipmentTypeCode and no single equipment owner. JobSummary, Jobs filters/counts/search and export each return it once, including when filtering by any current member. Single-equipment jobs keep their existing scope. EQ type filters the create form's Equipment options, including All [type] equipment. Project supports optional replacement lines; Replacement still requires at least one committed or new line and Repair forbids lines.
+
+A type-wide scope matches active equipment of that type at read/command time. Adding equipment makes existing open and completed shared records visible immediately, with the same progress/completion; it creates no job copy, progress event or installation. Retired equipment is excluded from the live type scope. Open shared work prevents member retirement. Equipment scope is immutable after creation. Shared edits, Show, cancellation, completion and Admin reopening affect the one record on every current member page; creator/role limits and version checks remain.
+
+GET /equipment/{id}/current-state/special projects the same job ID with the requested equipment context and an optional equipmentTypeCode. It remains a detached current-state allowlist: no progress notes, events, corrections, completion notes or installation detail. Type-wide work appears at equipment level, plus relevant component scopes only when actual replacement lines exist there. Matching positions are limited to the requested equipment. EQ Jobs detail can link all current members and retains the authorized full shared record.
+
+For completion, each replacement position identifies its actual equipment. Validate every line against the selected type and target, then commit all lines/installations/spare-register changes together or none. Shared completion never creates installations for other members or equipment added later, and never changes operational statuses. Related-status commands accept the shared job only for a relevant member. The prototype accepts `equipmentId: 'all'` as its form selector, or null with equipmentTypeCode; its single-equipment form also sends the chosen type as a validation filter. HTTP callers choose exactly one scope as above. This is a synthetic U1 prototype/contract extension; production endpoints, persistence, uploads and migration remain later work.

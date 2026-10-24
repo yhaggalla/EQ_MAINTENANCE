@@ -131,11 +131,13 @@ window.EQ = window.EQ || {};
 
   // ---------- job add / edit ----------
   EQ.dlg = {};
-  EQ.dlg.jobForm = function jobForm({ job, equipmentId, prefill }) {
+  EQ.dlg.jobForm = function jobForm({ job, equipmentId, equipmentTypeCode, prefill }) {
     const editing = !!job;
     const st = editing
       ? { equipmentId: job.equipmentId, level: job.level, mainId: job.mainId, subId: job.subId, positionId: job.positionId, kind: job.kind, title: job.title, description: job.description, priority: job.priority || '', plannedOn: job.plannedOn || '', responsible: job.responsible || '', initialStatus: 'pending', version: job.version }
       : { equipmentId: equipmentId || '', level: 'equipment', mainId: '', subId: '', positionId: '', kind: '', title: '', description: '', priority: '', plannedOn: '', responsible: '', initialStatus: 'pending' };
+    st.equipmentTypeCode = editing ? job.equipmentTypeCode || EQ.eq(job.equipmentId).typeCode : EQ.eq(st.equipmentId)?.typeCode || equipmentTypeCode || '';
+    if (editing && EQ.isFleetJob(job)) st.equipmentId = 'all';
     if (!editing && prefill) {
       st.level = prefill.part ? 'part' : prefill.sub ? 'sub' : prefill.main ? 'main' : 'equipment';
       st.mainId = prefill.main || ''; st.subId = prefill.sub || ''; st.positionId = prefill.part || '';
@@ -145,6 +147,9 @@ window.EQ = window.EQ || {};
     const api = openDialog({
       build(api) {
         const eq = EQ.eq(st.equipmentId);
+        const fleet = st.equipmentId === 'all';
+        const equipmentOptions = S().D.equipment.filter((e) => e.lifecycle === 'active' && (!st.equipmentTypeCode || e.typeCode === st.equipmentTypeCode)).map((e) => ({ value: e.id, label: e.code + (e.assoc === 'verified' ? '' : ' (no verified model)') }));
+        if (st.equipmentTypeCode) equipmentOptions.unshift({ value: 'all', label: 'All ' + st.equipmentTypeCode + ' equipment' });
         const mains = eq ? eq.mains.map((m) => ({ value: m.id, label: m.code + '  ' + EQ.defLabel(m.code) })) : [];
         const subsOf = eq ? eq.subs.filter((s) => !st.mainId || s.mainId === st.mainId).map((s) => ({ value: s.id, label: s.code + '  ' + EQ.defLabel(s.code) })) : [];
         const positions = eq ? EQ.positionsOf(eq.id).filter((p) => p.state === 'active' && (!st.subId || p.subId === st.subId) && (!st.mainId || p.mainId === st.mainId)).map((p) => ({ value: p.id, label: p.name })) : [];
@@ -153,13 +158,14 @@ window.EQ = window.EQ || {};
           writerGuard(),
           conflict ? conflictPanel(conflict, st, () => { conflict = null; api.render(); }) : null,
           errorSummary(summary),
-          editing ? h('div', { class: 'notice info' }, icon('info'), h('p', null, 'Editing ' + job.number + ' (version ' + st.version + '). Equipment, number and creator cannot change.')) : null,
+          editing ? h('div', { class: 'notice info' }, icon('info'), h('p', null, 'Editing ' + job.number + ' (version ' + st.version + '). Equipment scope, number and creator cannot change.')) : null,
           h('div', { class: 'grid-2', onInput: dirtyCb, onChange: dirtyCb },
-            field('jf-equipment', 'Equipment', editing ? h('select', { disabled: true }, h('option', null, eq.code)) : select(st, 'equipmentId', S().D.equipment.filter((e) => e.lifecycle === 'active').map((e) => ({ value: e.id, label: e.code + (e.assoc === 'verified' ? '' : ' (no verified model)') })), () => { st.mainId = st.subId = st.positionId = ''; st.level = 'equipment'; api.render(); }, 'Choose equipment'), { required: true, error: errors.equipmentId }),
-            radios(st, 'kind', 'jf-kind', [{ value: 'repair', label: 'Repair' }, { value: 'replacement', label: 'Replacement' }], null, 'Kind *', errors.kind)),
+            field('jf-type', 'EQ type', editing ? h('select', { disabled: true }, h('option', null, st.equipmentTypeCode)) : select(st, 'equipmentTypeCode', S().D.types.map((t) => ({ value: t.code, label: t.code })), () => { st.equipmentId = st.mainId = st.subId = st.positionId = ''; st.level = 'equipment'; errors = {}; summary = []; api.render(); }, 'Choose EQ type'), { required: true, error: errors.equipmentTypeCode }),
+            field('jf-equipment', 'Equipment', editing ? h('select', { disabled: true }, h('option', null, EQ.jobEquipmentLabel(job))) : select(st, 'equipmentId', equipmentOptions, () => { if (!st.equipmentTypeCode) st.equipmentTypeCode = EQ.eq(st.equipmentId)?.typeCode || ''; st.mainId = st.subId = st.positionId = ''; st.level = 'equipment'; errors = {}; summary = []; api.render(); }, 'Choose equipment'), { required: true, error: errors.equipmentId })),
+          h('div', { onChange: dirtyCb }, radios(st, 'kind', 'jf-kind', Object.entries(EQ.JOB_KIND).map(([value, label]) => ({ value, label })), null, 'Kind *', errors.kind)),
           field('jf-title', 'Title', input(st, 'title', { maxlength: 200, autocomplete: 'off' }, dirtyCb), { required: true, error: errors.title, hint: 'What will be done, in a few words.' }),
           field('jf-desc', 'Description', area(st, 'description', { maxlength: 4000, rows: 3 }), { hint: 'Optional. Do not enter secrets or personal data.' }),
-          h('fieldset', null,
+          fleet ? h('div', { class: 'notice info' }, icon('info'), h('p', null, 'One shared job for all active ' + st.equipmentTypeCode + ' equipment, including equipment added later. Progress and completion apply to all.')) : h('fieldset', null,
             h('legend', null, 'Scope target'),
             h('div', { class: 'stack' },
               radios(st, 'level', 'jf-level', [{ value: 'equipment', label: 'Whole equipment' }, { value: 'main', label: 'Main mechanism' }, { value: 'sub', label: 'Submechanism' }, { value: 'part', label: 'Part position' }], () => {
@@ -200,7 +206,7 @@ window.EQ = window.EQ || {};
         api.render();
       }, 350);
     }
-    const fieldId = (k) => ({ equipmentId: 'jf-equipment', kind: 'jf-kind-repair', title: 'jf-title', plannedOn: 'jf-planned', target: st.level === 'part' ? 'jf-part' : st.level === 'sub' ? 'jf-sub' : 'jf-main' }[k] || 'submit');
+    const fieldId = (k) => ({ equipmentTypeCode: 'jf-type', equipmentId: 'jf-equipment', kind: 'jf-kind-repair', title: 'jf-title', plannedOn: 'jf-planned', target: st.level === 'part' ? 'jf-part' : st.level === 'sub' ? 'jf-sub' : 'jf-main' }[k] || 'submit');
     return api;
   };
 
@@ -220,10 +226,10 @@ window.EQ = window.EQ || {};
   EQ.dlg.jobProgress = (job) => EQ.dlg.complete(job, null, { progress: true });
   EQ.dlg.complete = function complete(job, afterDone, options) {
     const progressing = !!(options && options.progress), initial = EQ.jobProgress(job);
-    const eq = EQ.eq(job.equipmentId);
+    const eq = EQ.eq(job.equipmentId), fleet = EQ.isFleetJob(job);
     const st = { completedOn: EQ.todayColombo(), note: '', percent: progressing ? initial.percent : 100, version: job.version, lines: [], key: crypto.randomUUID ? crypto.randomUUID() : 'key-' + Date.now() };
     let errors = {}, lineErrors = {}, summary = [], busy = false, result = null;
-    const eligible = () => EQ.positionsOf(eq.id).filter((p) => p.state === 'active' && EQ.inTarget(job, p));
+    const eligible = () => S().D.positions.filter((p) => EQ.jobApplies(job, p.equipmentId) && p.state === 'active' && EQ.inTarget(job, p));
     const blankLine = () => { const el = eligible(); const only = job.level === 'part' ? el[0] : null; return { positionId: only ? only.id : '', removedKnown: 'unknown', removedDesc: '', removedSerial: '', desc: '', mfr: '', partNo: '', serial: '', qty: '1', on: EQ.todayColombo(), note: '' }; };
     if (job.kind === 'replacement' && !job.lines.some((l) => l.state === 'committed')) st.lines.push(blankLine());
     const api = openDialog({
@@ -233,15 +239,16 @@ window.EQ = window.EQ || {};
         const body = [
           writerGuard(),
           errorSummary(summary),
-          h('div', { class: 'notice info' }, icon('info'), h('p', null, h('strong', null, job.number + ' - ' + job.title), h('br'), 'Target: ' + EQ.targetLabel(job) + '. Kind: ' + (job.kind === 'replacement' ? 'Replacement' : 'Repair') + '.')),
-          completing ? h('div', { class: 'notice warn' }, icon('alert'), h('p', null, 'Completing this job does not change the equipment status. ' + eq.code + ' stays ' + EQ.STATUS[EQ.statusKey(eq.status)].label + '.')) : null,
+          h('div', { class: 'notice info' }, icon('info'), h('p', null, h('strong', null, job.number + ' - ' + job.title), h('br'), 'Target: ' + EQ.targetLabel(job) + '. Kind: ' + EQ.JOB_KIND[job.kind] + '.')),
+          fleet ? h('p', { class: 'small muted' }, 'Progress and completion are shared by all ' + job.equipmentTypeCode + ' equipment, including equipment added later.') : null,
+          completing ? h('div', { class: 'notice warn' }, icon('alert'), h('p', null, fleet ? 'Completing this job does not change equipment statuses.' : 'Completing this job does not change the equipment status. ' + eq.code + ' stays ' + EQ.STATUS[EQ.statusKey(eq.status)].label + '.')) : null,
           progressing ? field('ep-percent', 'Overall progress (%)', input(st, 'percent', { type: 'number', min: 0, max: 100, step: 1, inputmode: 'numeric', placeholder: '0 to 100' }, () => { dirty(); errors = {}; lineErrors = {}; summary = []; api.render(); }), { required: true, error: errors.percent, hint: '100% completes the job after the required details are entered.' }) : null,
           h('div', { class: 'grid-2', onInput: dirty },
             field(progressing ? 'ep-date' : 'cf-date', progressing ? 'Work date' : 'Actual completion date', h('input', { type: 'date', min: '2000-01-01', max: EQ.todayColombo(), value: st.completedOn, onInput: (e) => { st.completedOn = e.target.value; } }), { required: true, error: errors.workDate || errors.completedOn, hint: progressing ? 'Today or an earlier date; not before the latest update.' : "Work date in Asia/Colombo. The audit timestamp is recorded separately in UTC." }),
             field(progressing ? 'ep-note' : 'cf-note', completing ? 'Completion note' : 'Progress note', area(st, 'note', { rows: 3, maxlength: 2000 }), { required: true, error: errors.note })),
           !completing ? null : job.kind === 'repair' ? h('p', { class: 'muted small' }, 'Repair jobs take no replacement lines.')
             : h('section', { class: 'stack', 'aria-labelledby': 'cf-lines-h' },
-              h('div', { class: 'row between' }, h('h3', { id: 'cf-lines-h' }, 'Replacement lines'), h('button', { type: 'button', class: 'btn-sm', onClick: () => { st.lines.push(blankLine()); dirty(); api.render(); } }, icon('plus'), 'Add line')),
+              h('div', { class: 'row between' }, h('h3', { id: 'cf-lines-h' }, 'Replacement lines' + (job.kind === 'project' ? ' (optional)' : '')), h('button', { type: 'button', class: 'btn-sm', onClick: () => { st.lines.push(blankLine()); dirty(); api.render(); } }, icon('plus'), 'Add line')),
               errors.lines ? h('div', { class: 'field' }, h('div', { class: 'err' }, icon('alert'), errors.lines)) : null,
               st.lines.map((l, i) => lineCard(l, i, api, dirty))),
           completing ? h('fieldset', null, h('legend', null, 'Work evidence'), h('p', { class: 'muted small', style: 'margin:0' }, "JPEG, PNG or PDF, up to 20 MiB per file. Upload is not available in this prototype.")) : null,
@@ -254,13 +261,13 @@ window.EQ = window.EQ || {};
       const le = lineErrors[i] || {};
       const pos = EQ.pos(l.positionId);
       const groups = {};
-      eligible().forEach((p) => { const s = eq.subs.find((x) => x.id === p.subId); const g = s ? s.code + ' ' + EQ.defLabel(s.code) : 'Other'; (groups[g] = groups[g] || []).push({ value: p.id, label: p.name + '  [' + p.key + ']' }); });
+      eligible().forEach((p) => { const owner = EQ.eq(p.equipmentId), s = owner.subs.find((x) => x.id === p.subId); const g = (fleet ? owner.code + ' · ' : '') + (s ? s.code + ' ' + EQ.defLabel(s.code) : 'Other'); (groups[g] = groups[g] || []).push({ value: p.id, label: (fleet ? owner.code + ' · ' : '') + p.name + '  [' + p.key + ']' }); });
       const opts = Object.entries(groups).map(([g, items]) => ({ group: g, items }));
       const cur = pos ? S().D.events.filter((e) => e.positionId === pos.id && !e.voided).slice(-1)[0] : null;
       const k = 'cl' + i;
       return h('div', { class: 'line-card', onInput: dirty, onChange: dirty },
         h('div', { class: 'row between' }, h('strong', null, 'Line ' + (i + 1)), st.lines.length > 1 || job.kind !== 'replacement' || job.lines.some((l) => l.state === 'committed') ? h('button', { type: 'button', class: 'btn-sm', onClick: () => { st.lines.splice(i, 1); lineErrors = {}; api.render(); } }, icon('x'), 'Remove') : null),
-        field(k + '-pos', 'Replaced position', select(l, 'positionId', opts, () => { const p = EQ.pos(l.positionId); if (p && p.kind === 'serialized') l.qty = '1'; api.render(); }, 'Choose position'), { required: true, error: le.positionId, hint: eligible().length ? 'Positions of ' + eq.code + ' inside the job target only. Each position can have one line per job.' : 'This job has no active positions in its target.' }),
+        field(k + '-pos', 'Replaced position', select(l, 'positionId', opts, () => { const p = EQ.pos(l.positionId); if (p && p.kind === 'serialized') l.qty = '1'; api.render(); }, 'Choose position'), { required: true, error: le.positionId, hint: eligible().length ? (fleet ? 'Equipment codes identify each position. ' : 'Positions of ' + eq.code + ' inside the job target only. ') + 'Each position can have one line per job.' : 'This job has no active positions in its target.' }),
         pos ? h('div', { class: 'notice info' }, icon('info'), h('p', null, pos.kind === 'serialized' ? 'Serialized position: quantity is fixed at 1 ea.' : 'Quantity-bearing position (' + pos.uom + '): enter the quantity installed. This is not treated as one serialized item.', h('br'),
           cur ? 'Tracked current item: ' + cur.installed.desc + (cur.installed.serial ? ' (serial ' + cur.installed.serial + ')' : ' (serial unknown)') + ' will be recorded as removed.' : 'No tracked installation at this position. The removed item may be recorded as Unknown; nothing is invented.')) : null,
         pos && EQ.spares.isMajor(pos.id) ? h('div', { class: 'notice info', 'data-fk-note': 'spare' }, icon('info'), h('p', null, h('strong', null, 'Major spare part. '), "Completing this replacement also updates the condition register with the manufacturer, model/part number, serial and replacement date.")) : null,
@@ -288,7 +295,7 @@ window.EQ = window.EQ || {};
           const completed = res.job.workStatus === 'completed';
           if (completed) EQ.lastCompletion = { id: job.id, key: st.key, payload: { key: progressing ? 'job-progress:' + job.id + ':' + st.key : st.key } };
           api.close(res);
-          EQ.toast((completed ? 'Completed ' : 'Progress saved: ') + job.number + (!completed ? ' (' + res.job.progressPercent + '%)' : '') + (res.replayed ? ' (replayed: no duplicate)' : ''), 'Equipment status unchanged: ' + EQ.STATUS[EQ.statusKey(res.statusUnchanged)].label + '. ' + PROTO_NOTE);
+          EQ.toast((completed ? 'Completed ' : 'Progress saved: ') + job.number + (!completed ? ' (' + res.job.progressPercent + '%)' : '') + (res.replayed ? ' (replayed: no duplicate)' : ''), (fleet ? 'Equipment statuses unchanged. ' : 'Equipment status unchanged: ' + EQ.STATUS[EQ.statusKey(res.statusUnchanged)].label + '. ') + PROTO_NOTE);
           if (afterDone) afterDone(res);
           return;
         }

@@ -38,8 +38,8 @@ window.EQ = window.EQ || {};
     const deny = EQ.access.srv('export.excel') || EQ.access.srv('eq.jobs.view'); if (deny) return deny;
     if (kind === 'daily') return { ok: true, columns: DAILY_COLUMNS, rows: dailyRows(q).map((j) => [j.date, j.jobNo, j.cwo, EQ.eq(j.equipmentId).code, j.equipmentText, j.eqType, j.dept, j.typeText, j.statusText, j.priority, j.created, j.desc, j.mechStaff, j.mechHours, j.elecStaff, j.elecHours, j.fault, j.corrective, j.sourceState]) };
     if (kind === 'spare') { const rows = spareRows(q); return { ok: true, columns: ['Equipment', 'Type', 'Main', 'Sub', 'Position', 'Spare-part type', 'Condition', 'Brand', 'Model/part no.', 'Serial', 'Replaced date', 'Expected life (months)', 'Next predicted replacement', 'Flag', 'Remarks'], rows: rows.map((r) => [r.eq.code, r.eq.typeCode, r.mainCode, r.subCode, r.pos.name, r.typeName, r.condition || 'Not recorded', r.brand || '', r.model || '', r.serial || '', r.replacedOn || '', r.lifeMonths == null ? '' : r.lifeMonths, r.predicted || r.why, r.flag || '', r.remarks]) }; }
-    const jobs = EQ.state.D.jobs.filter((j) => eqList(q).some((e) => e.id === j.equipmentId));
-    return { ok: true, columns: ['Number', 'Equipment', 'Kind', 'Title', 'Work status', 'Cancelled', 'Planned date', 'Completed date', 'Shown on dashboard / 3D'], rows: jobs.map((j) => [j.number, EQ.eq(j.equipmentId).code, j.kind, j.title, j.workStatus, j.isCancelled ? 'Yes' : '', j.plannedOn || '', j.completedOn || '', EQ.shownOnDashboard(j) ? 'Yes' : 'No']) }; // U1-C26: hidden jobs stay in the export
+    const jobs = EQ.specialJobs(q); if (!Array.isArray(jobs)) return jobs;
+    return { ok: true, columns: ['Number', 'Equipment', 'Kind', 'Title', 'Work status', 'Cancelled', 'Planned date', 'Completed date', 'Shown on dashboard / 3D'], rows: jobs.map((j) => [j.number, EQ.jobEquipmentLabel(j), j.kind, j.title, j.workStatus, j.isCancelled ? 'Yes' : '', j.plannedOn || '', j.completedOn || '', EQ.shownOnDashboard(j) ? 'Yes' : 'No']) }; // U1-C26: hidden jobs stay in the export
   };
   function spareRows(q) {
     const sc = scopeFromQ(q);
@@ -93,7 +93,7 @@ window.EQ = window.EQ || {};
   function special(page, q, setQ) {
     const head = h('div', { class: 'row between', style: 'margin-bottom:.5rem' }, h('h2', null, 'Special jobs'), h('div', { class: 'row' },
       EQ.access.has('export.excel') ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'export-special', onClick: () => { const r = EQ.eqExport('special', q); if (r.ok) { EQ.downloadCsv('eq-special-jobs.csv', r.columns, r.rows); EQ.toast('Exported ' + r.rows.length + ' special job(s)', 'Prototype stand-in: CSV, not the server-generated .xlsx.'); } } }, icon('download'), 'Export') : null,
-      EQ.perm.write() ? h('button', { type: 'button', class: 'primary', 'data-fk': 'add-job', onClick: () => EQ.dlg.jobForm({ equipmentId: q.equipment || '' }) }, icon('plus'), 'Add special job') : h('span', { class: 'tag gold' }, 'Read-only: you cannot create or change special jobs')));
+      EQ.perm.write() ? h('button', { type: 'button', class: 'primary', 'data-fk': 'add-job', onClick: () => EQ.dlg.jobForm({ equipmentId: q.equipment || '', equipmentTypeCode: q.type || '' }) }, icon('plus'), 'Add special job') : h('span', { class: 'tag gold' }, 'Read-only: you cannot create or change special jobs')));
     page.appendChild(head);
     page.appendChild(h('p', { class: 'small muted', style: 'margin:0 0 .5rem' }, 'Major or non-routine work entered by hand, bound to one equipment and to the whole equipment, a main mechanism, a submechanism or a part. The daily work read from ZMMS is in the Daily work (CMMS) tab.'));
     // scoped history (Open in Jobs from the crane view)

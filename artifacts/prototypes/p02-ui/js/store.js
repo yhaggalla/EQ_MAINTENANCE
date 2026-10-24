@@ -43,6 +43,7 @@ window.EQ = window.EQ || {};
   EQ.model = (code) => S.D.models.find((m) => m.code === code);
   EQ.pos = (id) => S.D.positions.find((p) => p.id === id);
   EQ.job = (id) => S.D.jobs.find((j) => j.id === id);
+  EQ.JOB_KIND = { repair: 'Repair', replacement: 'Replacement', project: 'Project' };
   EQ.mainDef = (code) => EQ.catalog.mains.find((m) => m.code === code);
   EQ.subDef = (code) => EQ.catalog.subs.find((s) => s.code === code);
   EQ.defLabel = (code) => {
@@ -50,7 +51,15 @@ window.EQ = window.EQ || {};
     return m ? m.name || 'Reserved (no name)' : code;
   };
   EQ.positionsOf = (eqId) => S.D.positions.filter((p) => p.equipmentId === eqId);
-  EQ.jobsOf = (eqId, includeCancelled) => S.D.jobs.filter((j) => j.equipmentId === eqId && (includeCancelled || !j.isCancelled));
+  // Fleet jobs have one identity and a live type scope, including equipment added later.
+  EQ.isFleetJob = (job) => !!job.equipmentTypeCode;
+  EQ.jobApplies = (job, eqId) => {
+    const eq = EQ.eq(eqId);
+    return !!eq && (EQ.isFleetJob(job) ? eq.typeCode === job.equipmentTypeCode && eq.lifecycle === 'active' : job.equipmentId === eqId);
+  };
+  EQ.jobEquipment = (job) => S.D.equipment.filter((eq) => EQ.jobApplies(job, eq.id));
+  EQ.jobEquipmentLabel = (job) => EQ.isFleetJob(job) ? 'All ' + job.equipmentTypeCode + ' equipment (' + EQ.jobEquipment(job).length + ')' : EQ.eq(job.equipmentId).code;
+  EQ.jobsOf = (eqId, includeCancelled) => S.D.jobs.filter((j) => EQ.jobApplies(j, eqId) && (includeCancelled || !j.isCancelled));
   EQ.openJobs = (eqId) => EQ.jobsOf(eqId).filter((j) => j.workStatus !== 'completed');
   EQ.verified = (eq) => eq.assoc === 'verified' && !!eq.modelCode;
   EQ.currentUserCanSeeAdmin = () => isAdmin();
@@ -63,6 +72,7 @@ window.EQ = window.EQ || {};
 
   /** Human path of a job target. */
   EQ.targetLabel = (job) => {
+    if (EQ.isFleetJob(job)) return 'Whole fleet · ' + job.equipmentTypeCode;
     const eq = EQ.eq(job.equipmentId);
     if (job.level === 'equipment') return 'Whole equipment (' + eq.code + ')';
     const parts = [];
@@ -80,6 +90,7 @@ window.EQ = window.EQ || {};
     const areaIds = scope.level === 'area' ? new Set((EQ.qc?.containerPositions(EQ.eq(eqId), scope.id) || []).map((p) => p.id)) : null;
     const inScope = (l) => {
       const p = EQ.pos(l.positionId);
+      if (!p || p.equipmentId !== eqId) return false;
       if (areaIds) return areaIds.has(p?.id);
       if (scope.level === 'equipment') return true;
       if (scope.level === 'main') return p.mainId === scope.id;
@@ -126,7 +137,7 @@ window.EQ = window.EQ || {};
     const open = H.open.filter((r) => !r.job.isCancelled && shown(r));
     const completed = H.completed.filter((r) => !r.job.isCancelled && shown(r));
     const project = ({ job: j, matchingLines }) => ({
-      job: { id: j.id, number: j.number, equipmentId: j.equipmentId, level: j.level, mainId: j.mainId, subId: j.subId,
+      job: { id: j.id, number: j.number, equipmentId: eqId, ...(EQ.isFleetJob(j) ? { equipmentTypeCode: j.equipmentTypeCode } : {}), level: j.level, mainId: j.mainId, subId: j.subId,
         positionId: j.positionId, kind: j.kind, title: j.title, workStatus: j.workStatus, plannedOn: j.plannedOn,
         completedOn: j.workStatus === 'completed' ? j.completedOn : null, listedOn: j.workStatus === 'completed' ? j.completedOn : colomboDay(j.createdUtc) },
       matchingLines: matchingLines.map((l) => ({ positionId: l.positionId })),
@@ -175,7 +186,7 @@ window.EQ = window.EQ || {};
       const key = 'job-progress:' + id + ':' + p.key;
       if (S.D.idem[key]) return { ...JSON.parse(JSON.stringify(S.D.idem[key])), replayed: true };
       if (job.isCancelled || job.workStatus === 'completed') return fail(409, 'job_not_editable', 'Completed or cancelled jobs cannot receive progress updates.');
-      if (EQ.eq(job.equipmentId).lifecycle !== 'active') return fail(409, 'equipment_retired', 'Retired equipment cannot receive progress updates.');
+      if (!EQ.jobEquipment(job).some((e) => e.lifecycle === 'active')) return fail(409, 'equipment_retired', 'No active equipment in this job scope.');
       if (p.version !== job.version) return fail(409, 'version_conflict', 'This job changed. Close the form and reopen Update progress to use the latest values.');
       const f = {};
       if (typeof p.percent !== 'number' || !Number.isInteger(p.percent) || p.percent < 0 || p.percent > 100) f.percent = 'Enter a whole percentage from 0 to 100.';
@@ -193,19 +204,24 @@ window.EQ = window.EQ || {};
       const before = EQ.jobProgress(job), fromStatus = job.workStatus, now = new Date().toISOString();
       job.progressPercent = p.percent; job.progressUpdatedOn = p.workDate; job.progressNote = p.note.trim();
       if (p.percent > 0) job.workStatus = 'current';
-      job.version += 1; job.updatedUtc = now; EQ.eq(job.equipmentId).lastActivity = now;
+      job.version += 1; job.updatedUtc = now; EQ.jobEquipment(job).forEach((e) => { e.lastActivity = now; });
       job.events.push({ kind: 'progressUpdated', at: now, by: EQ.user().id, workDate: p.workDate, percent: p.percent, previousPercent: before.percent, fromStatus, toStatus: job.workStatus, note: job.progressNote });
       audit('job.progress', job.number, job.progressNote, { before, after: EQ.jobProgress(job) });
-      const res = { ok: true, job, statusUnchanged: EQ.eq(job.equipmentId).status };
+      const res = { ok: true, job, statusUnchanged: EQ.isFleetJob(job) ? null : EQ.eq(job.equipmentId).status };
       S.D.idem[key] = JSON.parse(JSON.stringify(res)); EQ.notify(); return res;
     },
     createJob(p) {
       if (!isWriter()) return forbid();
       const f = {};
-      const eq = p.equipmentId && EQ.eq(p.equipmentId);
-      if (!eq) f.equipmentId = 'Choose an equipment item.';
-      else if (eq.lifecycle === 'retired') f.equipmentId = 'Retired equipment accepts no new jobs.';
-      if (!p.kind) f.kind = 'Choose Repair or Replacement.';
+      const fleet = p.equipmentId === 'all' || (!p.equipmentId && !!p.equipmentTypeCode), eq = !fleet && p.equipmentId && EQ.eq(p.equipmentId);
+      const members = fleet ? S.D.equipment.filter((e) => e.typeCode === p.equipmentTypeCode && e.lifecycle === 'active') : eq ? [eq] : [];
+      if (fleet && !S.D.types.some((t) => t.code === p.equipmentTypeCode)) f.equipmentTypeCode = 'Choose an EQ type.';
+      if (fleet && !members.length) f.equipmentId = 'This type has no active equipment.';
+      else if (!fleet && !eq) f.equipmentId = 'Choose an equipment item.';
+      else if (eq && eq.lifecycle === 'retired') f.equipmentId = 'Retired equipment accepts no new jobs.';
+      if (!fleet && eq && p.equipmentTypeCode && eq.typeCode !== p.equipmentTypeCode) f.equipmentId = 'Choose equipment of the selected EQ type.';
+      if (fleet && ((p.level && p.level !== 'equipment') || p.mainId || p.subId || p.positionId)) f.target = 'All equipment applies at whole-equipment level.';
+      if (!Object.hasOwn(EQ.JOB_KIND, p.kind)) f.kind = 'Choose Repair, Replacement or Project.';
       if (!p.title || !p.title.trim()) f.title = 'Enter a title.'; else if (p.title.length > 200) f.title = 'Title can have at most 200 characters.';
       if (p.plannedOn && !validDate(p.plannedOn, { allowFuture: true })) f.plannedOn = 'Enter a valid date.';
       let mainId = null, subId = null, positionId = null;
@@ -226,7 +242,7 @@ window.EQ = window.EQ || {};
       if (Object.keys(f).length) return fail(422, 'validation_failed', 'Some fields need attention.', f);
       const n = 100 + S.D.jobs.length + 50;
       const job = {
-        id: 'job-' + n + '-' + S.D.jobs.length, number: 'EQJ-2026-000' + n, equipmentId: eq.id, level: p.level || 'equipment', mainId, subId, positionId,
+        id: 'job-' + n + '-' + S.D.jobs.length, number: 'EQJ-2026-000' + n, equipmentId: fleet ? null : eq.id, equipmentTypeCode: fleet ? p.equipmentTypeCode : null, level: p.level || 'equipment', mainId, subId, positionId,
         kind: p.kind, title: p.title.trim(), description: p.description || '', priority: p.priority || null, plannedOn: p.plannedOn || null, responsible: p.responsible || null,
         workStatus: p.initialStatus === 'current' ? 'current' : 'pending', completedOn: null, completionNote: null,
         progressPercent: p.initialStatus === 'current' ? null : 0, progressUpdatedOn: null, progressNote: null,
@@ -234,8 +250,8 @@ window.EQ = window.EQ || {};
         createdBy: EQ.user().id, createdUtc: new Date().toISOString(), updatedUtc: new Date().toISOString(), reopenCount: 0, version: 1, lines: [], showOnDashboard: p.showOnDashboard !== false, // U1-C26 default shown
         events: [{ kind: 'created', at: new Date().toISOString(), by: EQ.user().id, note: null }], corrections: [],
       };
-      S.D.jobs.unshift(job); eq.lastActivity = job.createdUtc;
-      audit('job.create', job.number); EQ.notify();
+      S.D.jobs.unshift(job); members.forEach((e) => { e.lastActivity = job.createdUtc; });
+      audit('job.create', job.number, null, { scope: fleet ? { equipmentTypeCode: job.equipmentTypeCode, includesFutureEquipment: true } : { equipmentId: eq.id } }); EQ.notify();
       return { ok: true, job };
     },
     updateJob(id, p) {
@@ -254,11 +270,15 @@ window.EQ = window.EQ || {};
       if (p.version !== job.version) return fail(409, 'version_conflict', 'This job changed since you opened it.', {});
       const f = {};
       if (!p.title || !p.title.trim()) f.title = 'Enter a title.';
+      if (p.kind && !Object.hasOwn(EQ.JOB_KIND, p.kind)) f.kind = 'Choose Repair, Replacement or Project.';
+      if ((p.equipmentId != null && p.equipmentId !== (EQ.isFleetJob(job) ? 'all' : job.equipmentId)) || (p.equipmentTypeCode && p.equipmentTypeCode !== (job.equipmentTypeCode || EQ.eq(job.equipmentId).typeCode))) f.equipmentId = 'The equipment scope cannot change after creation.';
+      if (p.kind === 'repair' && job.lines.some((l) => l.state === 'committed')) f.kind = 'A job with committed replacements cannot become Repair.';
       if (p.plannedOn && !validDate(p.plannedOn, { allowFuture: true })) f.plannedOn = 'Enter a valid date.';
       if (Object.keys(f).length) return fail(422, 'validation_failed', 'Some fields need attention.', f);
-      Object.assign(job, { title: p.title.trim(), description: p.description || '', priority: p.priority || null, plannedOn: p.plannedOn || null, responsible: p.responsible || null });
+      const previousKind = job.kind;
+      Object.assign(job, { kind: p.kind || job.kind, title: p.title.trim(), description: p.description || '', priority: p.priority || null, plannedOn: p.plannedOn || null, responsible: p.responsible || null });
       job.version += 1; job.updatedUtc = new Date().toISOString();
-      job.events.push({ kind: 'edited', at: job.updatedUtc, by: EQ.user().id, note: null });
+      job.events.push({ kind: 'edited', at: job.updatedUtc, by: EQ.user().id, note: previousKind !== job.kind ? 'Kind: ' + EQ.JOB_KIND[previousKind] + ' → ' + EQ.JOB_KIND[job.kind] : null });
       audit('job.edit', job.number); EQ.notify();
       return { ok: true, job };
     },
@@ -302,7 +322,7 @@ window.EQ = window.EQ || {};
         const e = {};
         const pos = EQ.pos(l.positionId);
         if (!pos) e.positionId = 'Choose the position that was replaced.';
-        else if (pos.equipmentId !== job.equipmentId) e.positionId = 'That position belongs to another equipment (422).';
+        else if (!EQ.jobApplies(job, pos.equipmentId)) e.positionId = 'That position belongs to equipment outside this job scope (422).';
         else if (pos.state !== 'active') e.positionId = 'Position is not active.';
         else if (!inTarget(job, pos)) e.positionId = 'Position is outside this job\'s target.';
         else if (seen.has(pos.id) || job.lines.some((x) => x.state === 'committed' && x.positionId === pos.id)) e.positionId = 'Duplicate position: this job already has a line for it (422 duplicate_position).';
@@ -335,9 +355,9 @@ window.EQ = window.EQ || {};
       job.workStatus = 'completed'; job.completedOn = p.completedOn; job.completionNote = p.note.trim(); job.version += 1; job.updatedUtc = nowIso;
       job.progressPercent = 100; job.progressUpdatedOn = p.completedOn; job.progressNote = p.note.trim();
       job.events.push({ kind: 'completed', at: nowIso, by: EQ.user().id, workDate: p.completedOn, percent: 100, previousPercent: beforeProgress.percent, note: p.note.trim() });
-      EQ.eq(job.equipmentId).lastActivity = nowIso;
+      EQ.jobEquipment(job).forEach((e) => { e.lastActivity = nowIso; });
       audit('job.complete', job.number + ' (' + lines.length + ' line(s))', p.note.trim(), { before: beforeProgress, after: EQ.jobProgress(job) });
-      const res = { ok: true, job, statusUnchanged: EQ.eq(job.equipmentId).status };
+      const res = { ok: true, job, statusUnchanged: EQ.isFleetJob(job) ? null : EQ.eq(job.equipmentId).status };
       if (p.key) S.D.idem[p.key] = { ...res };
       EQ.notify();
       return res;
@@ -351,7 +371,7 @@ window.EQ = window.EQ || {};
       if (!['readyForOps', 'breakdown', 'maintenance'].includes(p.status)) f.status = 'Choose one of the three operational statuses.';
       if (p.status === eq.status) f.status = 'The equipment is already ' + EQ.STATUS[p.status].label + ' (409 status_unchanged).';
       if ((p.status === 'breakdown' || p.status === 'maintenance') && !(p.reason || '').trim()) f.reason = 'A short reason is required for Breakdown and Maintenance.';
-      if (p.relatedJobId) { const j = EQ.job(p.relatedJobId); if (!j || j.equipmentId !== eq.id) f.relatedJobId = 'That job belongs to another equipment (422).'; }
+      if (p.relatedJobId) { const j = EQ.job(p.relatedJobId); if (!j || !EQ.jobApplies(j, eq.id)) f.relatedJobId = 'That job does not apply to this equipment (422).'; }
       if (Object.keys(f).length) return fail(422, 'validation_failed', 'Nothing was changed.', f);
       const now = new Date().toISOString();
       const seq = S.D.statusChanges.filter((c) => c.equipmentId === eq.id).length + 1;
