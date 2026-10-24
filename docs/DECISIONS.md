@@ -626,3 +626,7 @@ User: "show 100% completed items in matching green color.." The marked dashboard
 ### 2026-10-24 U1 CHANGES REQUESTED (U1-C46: clear interface explanations)
 
 User requests: "this is not understandably make it simple and clear.." (EQ status guide), then "do the same for that kind of long descriptions etc.." D-190: simplify fixed interface explanations across EQ/FAC, forms and Admin. Use short labelled points for multiple rules and concise sentences for hints. Preserve original job descriptions, technical/source data, meaningful warnings, validation rules, role limits and prototype qualifications. Remove internal phase references and request identifiers from explanatory copy where they do not help the user. This changes presentation only; no permissions or workflows are widened. Evidence: `docs/evidence/U1/status-copy-c46/REPORT.md`. U1 remains IN PROGRESS, NOT COMPLETE / NOT APPROVED; P04 Not started.
+
+### 2026-10-24 U1 CHANGES REQUESTED (U1-C47: spare-register action row)
+
+User: "place the buttons in 1 row.." The marked controls are History and Update in EQ Jobs > Spare parts condition. D-191: keep those controls side by side in every register row. Size the Actions cell to fit both buttons; retain horizontal table scrolling on phones and existing read-only permissions. Evidence: `docs/evidence/U1/spare-actions-c47/REPORT.md`. U1 remains open and unapproved; P04 Not started.

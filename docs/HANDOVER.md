@@ -2,6 +2,10 @@
 
 Rolling handover for CICT EQ Maintenance. Each phase appends its record; the newest is first.
 
+## 24 October 2026 - U1-C47 spare-register buttons
+
+History and Update now stay side by side in each spare-register Actions cell. Two scoped CSS rules in P02 `css/v2.css` prevent wrapping/shrinking; the existing table keeps horizontal scrolling on phones. Checked all 22 desktop rows, History expansion, Update dialog opening, phone alignment/scroll and Management History-only permissions; no browser errors. Screenshot inspected and staged whitespace passes. Evidence: `docs/evidence/U1/spare-actions-c47/REPORT.md`; request: `docs/runs/Repair-U1-C47-20261024.md`; D-191 / UX section 41. Direct Codex U1 adjustment; no delegated phase/independent R verdict, runtime model/effort not independently recorded. Earlier uncommitted edits are preserved. Local synthetic verification only; U1 remains IN PROGRESS, NOT COMPLETE / NOT APPROVED; P04 Not started.
+
 ## 24 October 2026 - U1-C46 clear interface guidance
 
 Replaced dense fixed explanations with short sentences and labelled points across EQ/FAC pages, dialogs and Admin. The EQ status guide separates ZMMS rules, manual correction timing and unlinked equipment. Similar cleanup covers spare estimates/registration, FAC hints, cancellation/completion notices, catalogue/position/specification rules, access, imports and ZMMS settings. Original job/technical descriptions and important constraints remain; command handlers, data and permissions are unchanged. Ten runtime modules are listed in `docs/evidence/U1/status-copy-c46/copy-changes.json`.

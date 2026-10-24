@@ -44,6 +44,8 @@
 .overdue-row th, .overdue-row td { background: #fff7f7; }
 .hist-row > td { background: var(--surface-subtle); }
 .spare-table td, .spare-table th { font-size: .84rem; }
+.spare-table tr[data-pos] > td:last-child > .row { flex-wrap: nowrap; width: max-content; }
+.spare-table tr[data-pos] > td:last-child > .row > button { flex: none; white-space: nowrap; }
 .matrix-wrap { overflow-x: auto; }
 .access-matrix th, .access-matrix td { text-align: center; }
 .access-matrix th:first-child, .access-matrix th[scope="row"] { text-align: left; min-width: 18rem; }
