@@ -169,7 +169,7 @@ window.EQ = window.EQ || {};
                 api.render();
               }, 'Level'),
               !eq ? h('p', { class: 'muted small' }, 'Choose equipment first.') : null,
-              eq && st.level === 'equipment' ? h('p', { class: 'muted small' }, 'An equipment-level job has no component target. It appears at equipment level and is not repeated in every mechanism.') : null,
+              eq && st.level === 'equipment' ? h('p', { class: 'muted small' }, "Applies to the whole equipment, with no component target. It appears once at equipment level.") : null,
               eq && eq.mains.length === 0 && st.level !== 'equipment' ? h('div', { class: 'notice warn' }, icon('alert'), h('p', null, eq.code + ' has no mechanism instances: it has no verified model association or no instantiated template. Only equipment-level jobs are possible.')) : null,
               eq && st.level !== 'equipment' && eq.mains.length ? h('div', { class: 'grid-2' },
                 field('jf-main', 'Main mechanism', select(st, 'mainId', mains, () => { st.subId = st.positionId = ''; api.render(); }, 'Choose main mechanism'), { required: st.level !== 'equipment', error: errors.target && st.level === 'main' ? errors.target : null }),
@@ -231,17 +231,17 @@ window.EQ = window.EQ || {};
           writerGuard(),
           errorSummary(summary),
           h('div', { class: 'notice info' }, icon('info'), h('p', null, h('strong', null, job.number + ' - ' + job.title), h('br'), 'Target: ' + EQ.targetLabel(job) + '. Kind: ' + (job.kind === 'replacement' ? 'Replacement' : 'Repair') + '.')),
-          h('div', { class: 'notice warn' }, icon('alert'), h('p', null, 'Completing a job does not change the equipment operational status. ' + eq.code + ' stays ' + EQ.STATUS[EQ.statusKey(eq.status)].label + ' until someone sets a status explicitly.')),
+          h('div', { class: 'notice warn' }, icon('alert'), h('p', null, 'Completing this job does not change the equipment status. ' + eq.code + ' stays ' + EQ.STATUS[EQ.statusKey(eq.status)].label + '.')),
           h('div', { class: 'grid-2', onInput: dirty },
-            field('cf-date', 'Actual completion date', h('input', { type: 'date', min: '2000-01-01', max: EQ.todayColombo(), value: st.completedOn, onInput: (e) => { st.completedOn = e.target.value; } }), { required: true, error: errors.completedOn, hint: 'Business date of the work (Asia/Colombo). The audit time is recorded separately in UTC.' }),
+            field('cf-date', 'Actual completion date', h('input', { type: 'date', min: '2000-01-01', max: EQ.todayColombo(), value: st.completedOn, onInput: (e) => { st.completedOn = e.target.value; } }), { required: true, error: errors.completedOn, hint: "Work date in Asia/Colombo. The audit timestamp is recorded separately in UTC." }),
             field('cf-note', 'Completion note', area(st, 'note', { rows: 3, maxlength: 2000 }), { required: true, error: errors.note })),
           job.kind === 'repair' ? h('p', { class: 'muted small' }, 'Repair jobs take no replacement lines.')
             : h('section', { class: 'stack', 'aria-labelledby': 'cf-lines-h' },
               h('div', { class: 'row between' }, h('h3', { id: 'cf-lines-h' }, 'Replacement lines'), h('button', { type: 'button', class: 'btn-sm', onClick: () => { st.lines.push(blankLine()); dirty(); api.render(); } }, icon('plus'), 'Add line')),
               errors.lines ? h('div', { class: 'field' }, h('div', { class: 'err' }, icon('alert'), errors.lines)) : null,
               st.lines.map((l, i) => lineCard(l, i, api, dirty))),
-          h('fieldset', null, h('legend', null, 'Work evidence'), h('p', { class: 'muted small', style: 'margin:0' }, 'JPEG, PNG or PDF up to 20 MiB, attached to this job. Upload is built in P08 and is not simulated in this prototype.')),
-          h('p', { class: 'muted small' }, 'Retry-safe: this dialog sends one request key (' + st.key.slice(0, 8) + '...). A double click or a network retry records one completion. ' + PROTO_NOTE),
+          h('fieldset', null, h('legend', null, 'Work evidence'), h('p', { class: 'muted small', style: 'margin:0' }, "JPEG, PNG or PDF, up to 20 MiB per file. Upload is not available in this prototype.")),
+          h('p', { class: 'muted small' }, "Recorded once, even if you click twice or retry. " + PROTO_NOTE),
         ];
         return { title: 'Complete job ' + job.number, body, focusSummary: summary.length > 0, foot: footButtons(api, 'Complete job', submit, { busy }) };
       },
@@ -259,7 +259,7 @@ window.EQ = window.EQ || {};
         field(k + '-pos', 'Replaced position', select(l, 'positionId', opts, () => { const p = EQ.pos(l.positionId); if (p && p.kind === 'serialized') l.qty = '1'; api.render(); }, 'Choose position'), { required: true, error: le.positionId, hint: eligible().length ? 'Positions of ' + eq.code + ' inside the job target only. Each position can have one line per job.' : 'This job has no active positions in its target.' }),
         pos ? h('div', { class: 'notice info' }, icon('info'), h('p', null, pos.kind === 'serialized' ? 'Serialized position: quantity is fixed at 1 ea.' : 'Quantity-bearing position (' + pos.uom + '): enter the quantity installed. This is not treated as one serialized item.', h('br'),
           cur ? 'Tracked current item: ' + cur.installed.desc + (cur.installed.serial ? ' (serial ' + cur.installed.serial + ')' : ' (serial unknown)') + ' will be recorded as removed.' : 'No tracked installation at this position. The removed item may be recorded as Unknown; nothing is invented.')) : null,
-        pos && EQ.spares.isMajor(pos.id) ? h('div', { class: 'notice info', 'data-fk-note': 'spare' }, icon('info'), h('p', null, h('strong', null, 'Major spare part. '), 'The condition register is updated in the same transaction from this line: brand = manufacturer, model / part number, serial and replacement date below.')) : null,
+        pos && EQ.spares.isMajor(pos.id) ? h('div', { class: 'notice info', 'data-fk-note': 'spare' }, icon('info'), h('p', null, h('strong', null, 'Major spare part. '), "Completing this replacement also updates the condition register with the manufacturer, model/part number, serial and replacement date.")) : null,
         radios(l, 'removedKnown', k + '-rk', [{ value: 'unknown', label: 'Removed item Unknown' }, { value: 'yes', label: 'Removed item known' }], () => api.render(), 'Removed item'),
         l.removedKnown === 'yes' ? h('div', { class: 'grid-2' }, field(k + '-rd', 'Removed item description', input(l, 'removedDesc', {}), { required: true, error: le.removedDesc }), field(k + '-rs', 'Removed serial', input(l, 'removedSerial', {}), { hint: 'Leave empty if unknown.' })) : null,
         field(k + '-desc', 'Installed item description', input(l, 'desc', {}), { required: true, error: le.desc }),
@@ -303,7 +303,7 @@ window.EQ = window.EQ || {};
       build(api) {
         return {
           title: 'Cancel job ' + job.number,
-          body: [writerGuard(), h('div', { class: 'notice warn' }, icon('alert'), h('p', null, 'Cancelling is terminal. The job leaves the Pending/Current columns, stays findable with Include cancelled, and records who cancelled it and why. It is never deleted or counted as Completed.')),
+          body: [writerGuard(), h('div', { class: 'notice warn' }, icon('alert'), h('p', null, "Cancellation cannot be undone. The job stays in history under Include cancelled, with who cancelled it and why. It is not deleted or counted as Completed.")),
             h('p', { style: 'margin:0' }, h('strong', null, job.title)),
             field('cc-reason', 'Reason for cancelling', area(st, 'reason', { rows: 3, maxlength: 500 }), { required: true, error: err, hint: 'Required, at least 3 characters.' })],
           focusSummary: false,
@@ -327,11 +327,11 @@ window.EQ = window.EQ || {};
           title: (eq.zmmsMapped ? 'Correct operational status - ' : 'Update operational status - ') + eq.code,
           body: [writerGuard(),
             h('p', { style: 'margin:0' }, 'Current: ', EQ.statusBadge(eq.status), eq.status ? ' since ' + EQ.fmtInstantShort(eq.statusSince) : ' (never set, no duration shown)', ' · ', h('strong', null, EQ.zmms.mode(eq).long)),
-            eq.zmmsMapped ? h('div', { class: 'notice warn' }, icon('clock'), h('p', null, 'This status is automatic from the ZMMS daily jobs. A correction needs a reason, shows Manual for the rest of today (Asia/Colombo) and holds over the second sync. At the first successful sync of the next day the equipment returns to automatic. You can choose Back to automatic earlier.')) : null,
+            eq.zmmsMapped ? h('div', { class: 'notice warn' }, icon('clock'), h('div', { class: 'stack', style: 'gap:.3rem' }, h('p', null, h('strong', null, "Correction: "), "Add a reason. The status stays Manual through today's syncs."), h('p', null, h('strong', null, "Return to automatic: "), "At the next successful sync after today, or sooner with Back to automatic."))) : null,
             radios(st, 'status', 'sf-status', [{ value: 'readyForOps', label: 'Ready for OPS' }, { value: 'breakdown', label: 'Breakdown' }, { value: 'maintenance', label: 'Maintenance' }], () => api.render(), 'New status *', errors.status),
             field('sf-reason', 'Reason' + (!eq.zmmsMapped && st.status === 'readyForOps' ? ' (optional)' : ''), area(st, 'reason', { rows: 2, maxlength: 500 }), { required: eq.zmmsMapped || st.status === 'breakdown' || st.status === 'maintenance', error: errors.reason, hint: eq.zmmsMapped ? 'Mandatory for every correction of an automatic status.' : 'Mandatory for Breakdown and Maintenance.' }),
             field('sf-job', 'Related job (optional)', select(st, 'relatedJobId', jobs.map((j) => ({ value: j.id, label: j.number + ' ' + j.title })), null, 'None'), { hint: 'Only open jobs of ' + eq.code + ' are offered.' }),
-            h('div', { class: 'notice info' }, icon('clock'), h('p', null, 'Takes effect at server time; it cannot be back-dated. The duration shown in the fleet is computed only from recorded changes. ' + PROTO_NOTE))],
+            h('div', { class: 'notice info' }, icon('clock'), h('p', null, "Applies now; it cannot be backdated. Status duration uses recorded changes. " + PROTO_NOTE))],
           foot: footButtons(api, eq.zmmsMapped ? 'Correct status for today' : 'Set status', () => {
             const r = EQ.api.setStatus(eq.id, st);
             if (r.ok) { api.close(r); EQ.toast(eq.code + ' is now ' + EQ.STATUS[st.status].label, PROTO_NOTE); } else { errors = r.fields || { status: r.message }; api.render(); }
@@ -350,7 +350,7 @@ window.EQ = window.EQ || {};
         return {
           title: 'Register equipment',
           body: [writerGuard(),
-            h('div', { class: 'notice info' }, icon('info'), h('p', null, 'New equipment starts with status Unreported, no model association, and no serial or commissioning date. A verified model is assigned later by an explicit Admin action.')),
+            h('div', { class: 'notice info' }, icon('info'), h('p', null, "New equipment starts Unreported, without a model, serial or commissioning date. An Admin must verify and assign its model.")),
             field('ne-code', 'Equipment code', input(st, 'code', { autocomplete: 'off', maxlength: 32 }, () => api.markDirty()), { required: true, error: errors.code, hint: 'Unique, not case-sensitive. Try QC-DEMO-01 to see the duplicate refusal.' }),
             field('ne-name', 'Name', input(st, 'name', { maxlength: 200 }), {}),
             field('ne-type', 'Type', select(st, 'typeCode', S().D.types.map((t) => ({ value: t.code, label: t.name })), null, 'Choose type'), { required: true, error: errors.typeCode, hint: 'Immutable after creation.' })],
@@ -382,7 +382,7 @@ window.EQ = window.EQ || {};
       build(api) {
         return {
           title: 'Resolve source conflict - ' + p.label,
-          body: [h('div', { class: 'notice warn' }, icon('alert'), h('p', null, 'Source observations stay visible after a decision. The chosen value applies to the model scope only and does not rewrite old work or model history.')),
+          body: [h('div', { class: 'notice warn' }, icon('alert'), h('p', null, "Original observations stay visible. Your decision applies to this model only; past work and model history stay unchanged.")),
             h('ul', { style: 'margin:0;padding-left:1.1rem' }, p.observations.map((o) => h('li', null, o.value + ' ' + p.unit + ' - ' + o.drawing + ' p' + o.page + (o.supplementary ? ' (supplementary observation, U-02)' : '')))),
             field('rp-val', 'Chosen value (' + p.unit + ')', input(st, 'value', { inputmode: 'decimal' }), { required: true, error: verr }),
             field('rp-reason', 'Reason / technical decision reference', area(st, 'reason', { rows: 2 }), { required: true, error: err })],

@@ -1,0 +1,327 @@
+[
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-eqjobs.js",
+    "before": "'Jobs appear here once equipment is registered and the EQ Team creates work. History starts at go-live; earlier work can be entered manually with past business dates.'",
+    "after": "\"Register equipment and add jobs to start. Earlier work can be entered with its original completion date; no history is imported.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-eqjobs.js",
+    "before": "' job(s). Daily work comes from the ZMMS (CMMS.LK) daily all-job list, read twice a day; it is never entered or changed in this app and is linked to the equipment only, never to a mechanism or part. Every synced day is kept: set From and To above to see earlier days. Unmatched equipment appears only in Admin > EQ > ZMMS.'",
+    "after": "\" job(s). Read-only ZMMS jobs, synced twice daily and linked to equipment only. Use From/To for earlier days. Unmatched codes: Admin > EQ > ZMMS.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-eqjobs.js",
+    "before": "'Synthetic rows. The columns follow the real daily export profiled on 22 Oct 2026 (a file export, not the live page); the exact field list is fixed in P07B.'",
+    "after": "\"Sample data from the 22 Oct 2026 export. Live ZMMS reading is not connected; final fields will be confirmed during integration.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-eqjobs.js",
+    "before": "'Next predicted replacement = replaced date + expected life in months; an Original part counts from the commissioning date. It is a calendar estimate, not a condition assessment. With an unknown date or life no prediction is shown. Due soon = within '",
+    "after": "\"Estimated replacement: replaced date + expected life. Original parts use the commissioning date. No date or life means no estimate. This is a calendar estimate, not a condition assessment. Due soon: within \""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-eqjobs.js",
+    "before": "h('p', null, 'Adds a main-part position of one equipment to its major spare-part register and records its first condition; the entry starts its own history. EQ Team and Admin can add parts (U1-C21). Spare-part types and their default expected life are Admin settings; changing the type of an added part or removing it from the register is done by an Admin in Admin > EQ > Spare parts. Prototype: kept in memory only.')",
+    "after": "h('div', { class: 'stack', style: 'gap:.3rem' }, h('p', null, h('strong', null, \"Add a part: \"), \"Choose a position and record its first condition. Each equipment keeps its own register and history.\"), h('p', null, h('strong', null, \"Admin settings: \"), \"Part types, default life, type changes and removal are managed in Admin > EQ > Spare parts.\"), h('p', null, h('strong', null, \"Prototype: \"), \"Changes are not saved.\"))"
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-eqjobs.js",
+    "before": "'Recorded at this position now: '",
+    "after": "\"Current item:\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-eqjobs.js",
+    "before": "    page.appendChild(h('div', { class: 'notice info' }, icon('info'), h('p', null, \"After each ZMMS sync the status follows the day's plan: a breakdown job means Breakdown, a maintenance job means Maintenance, equipment not in the plan is Ready for OPS. An EQ Team correction needs a reason, shows Manual for the rest of the day, holds over the second sync and ends at the first successful sync of the next day, or earlier with Back to automatic. Equipment not linked to ZMMS keeps a manual status.\")));\n",
+    "after": "    page.appendChild(h('div', { class: 'notice info' }, icon('info'), h('div', { class: 'stack', style: 'gap:.3rem' },\n      h('p', null, h('strong', null, 'From ZMMS: '), 'Breakdown job → Breakdown · Maintenance job → Maintenance · No planned job → Ready for OPS.'),\n      h('p', null, h('strong', null, 'Manual correction: '), 'Add a reason. It lasts until the next successful sync after today. Choose ', h('strong', null, 'Back to automatic'), ' to end it sooner.'),\n      h('p', null, h('strong', null, 'No ZMMS link: '), 'Set the status manually.'))));\n"
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-facjobs.js",
+    "before": "'SYNTHETIC PROGRESS: jobs and frequencies come from the supplied sheet; progress, photos, holds made in the app and the PIC link to the synthetic FAC user are fictional. Nothing is saved.'",
+    "after": "\"Jobs and frequencies come from the supplied sheet. Progress, photos, holds and user assignments are sample data. Changes are not saved.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-facjobs.js",
+    "before": "'The full quantity is recorded but the cycle is not confirmed complete. Update progress with the remaining quantity 0 is not possible; an Admin confirms it by correction.'",
+    "after": "\"Quantity is complete, but the cycle needs confirmation. Ask an Admin to confirm it using Correction; no more quantity can be added.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-facjobs.js",
+    "before": "'Local preview. The server would re-encode the image, strip location metadata and serve it only to signed-in users allowed to view FAC.'",
+    "after": "\"Local preview only. Production photos will be processed for privacy and restricted to authorized FAC users.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-facjobs.js",
+    "before": "'On hold keeps the job in its place on the board and stops progress updates until it is released. The due date keeps counting.'",
+    "after": "\"On hold blocks progress updates until release. The job stays on the board and its due date still applies.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-facjobs.js",
+    "before": "'JPG or PNG, up to 10 MB each. On a phone this opens the camera. Prototype: the photos stay in this tab; the server would resize them, strip location data and make thumbnails.'",
+    "after": "\"JPG or PNG, up to 10 MB each. Use the phone camera or select a photo. Prototype photos stay in this tab only.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-facjobs.js",
+    "before": "'Starting point for the next due date. After the first completion it follows the recorded completions.'",
+    "after": "\"Sets the first due date. Later due dates follow recorded completions.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-facjobs.js",
+    "before": "'A correction needs a reason, keeps the previous values in the timeline and never rewrites other cycles or jobs. Next due always derives from the recorded completion dates.'",
+    "after": "\"Add a reason. Previous values stay in the timeline; other jobs and cycles are unchanged. Next due follows the recorded completion date.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/dialogs.js",
+    "before": "'An equipment-level job has no component target. It appears at equipment level and is not repeated in every mechanism.'",
+    "after": "\"Applies to the whole equipment, with no component target. It appears once at equipment level.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/dialogs.js",
+    "before": "'Business date of the work (Asia/Colombo). The audit time is recorded separately in UTC.'",
+    "after": "\"Work date in Asia/Colombo. The audit timestamp is recorded separately in UTC.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/dialogs.js",
+    "before": "'JPEG, PNG or PDF up to 20 MiB, attached to this job. Upload is built in P08 and is not simulated in this prototype.'",
+    "after": "\"JPEG, PNG or PDF, up to 20 MiB per file. Upload is not available in this prototype.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/dialogs.js",
+    "before": "'Retry-safe: this dialog sends one request key ('",
+    "after": "\"Completion request \""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/dialogs.js",
+    "before": "'...). A double click or a network retry records one completion. '",
+    "after": "\": recorded once, even if you click twice or retry.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/dialogs.js",
+    "before": "'The condition register is updated in the same transaction from this line: brand = manufacturer, model / part number, serial and replacement date below.'",
+    "after": "\"Completing this replacement also updates the condition register with the manufacturer, model/part number, serial and replacement date.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/dialogs.js",
+    "before": "'Cancelling is terminal. The job leaves the Pending/Current columns, stays findable with Include cancelled, and records who cancelled it and why. It is never deleted or counted as Completed.'",
+    "after": "\"Cancellation cannot be undone. The job stays in history under Include cancelled, with who cancelled it and why. It is not deleted or counted as Completed.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/dialogs.js",
+    "before": "h('p', null, 'This status is automatic from the ZMMS daily jobs. A correction needs a reason, shows Manual for the rest of today (Asia/Colombo) and holds over the second sync. At the first successful sync of the next day the equipment returns to automatic. You can choose Back to automatic earlier.')",
+    "after": "h('div', { class: 'stack', style: 'gap:.3rem' }, h('p', null, h('strong', null, \"Correction: \"), \"Add a reason. The status stays Manual through today's syncs.\"), h('p', null, h('strong', null, \"Return to automatic: \"), \"At the next successful sync after today, or sooner with Back to automatic.\"))"
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/dialogs.js",
+    "before": "'Takes effect at server time; it cannot be back-dated. The duration shown in the fleet is computed only from recorded changes. '",
+    "after": "\"Applies now; it cannot be backdated. Status duration uses recorded changes. \""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/dialogs.js",
+    "before": "'New equipment starts with status Unreported, no model association, and no serial or commissioning date. A verified model is assigned later by an explicit Admin action.'",
+    "after": "\"New equipment starts Unreported, without a model, serial or commissioning date. An Admin must verify and assign its model.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/dialogs.js",
+    "before": "'Source observations stay visible after a decision. The chosen value applies to the model scope only and does not rewrite old work or model history.'",
+    "after": "\"Original observations stay visible. Your decision applies to this model only; past work and model history stay unchanged.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-admin.js",
+    "before": "'The J526A template is never assigned automatically. An Admin verifies each equipment-to-model association with a note (SRC06). New equipment is Unreported with no serial or commissioning date.'",
+    "after": "\"An Admin must verify each model assignment and add a note. New equipment starts Unreported, with no model, serial or commissioning date.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-admin.js",
+    "before": "'Applicability belongs to the model. Editing it only raises the template revision; it never changes installed positions, jobs or history. Applying a newer revision to equipment is a separate, previewed Admin action.'",
+    "after": "\"Edits create a new model-template revision. Existing equipment, positions, jobs and history stay unchanged until an Admin previews and applies it.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-admin.js",
+    "before": "'Initial states are candidates from the source review (docs/SOURCE_MAP.md s6), not confirmed facts: for example 043, 044, 045 and 091-094 are tentatively not applicable to this electric rail-mounted family, and 047, 154, 155 and 064 stay Unknown.'",
+    "after": "\"Applicability is provisional: 043, 044, 045 and 091–094 may not apply to this electric rail-mounted model; 047, 154, 155 and 064 remain Unknown. Admin must verify them.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-admin.js",
+    "before": "'A new main mechanism gets a new two-digit code chosen by Admin. Approved codes are never reused or renumbered and main 10 stays absent. New definitions are not installed anywhere: an equipment gets them only through its model applicability and template.'",
+    "after": "\"Use a new two-digit code; existing codes stay fixed and main 10 is unavailable. A new definition is installed only through equipment model/template settings.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-admin.js",
+    "before": "h('p', null, 'Real reference data from the approved catalogue (16 main, 43 sub as delivered). Codes are strings with their leading zeros. 061 is Spreader and 062 is Headblock (user-confirmed names, fixed); the original labels stay visible. 015, 024 and 033 are three separate steel-rope definitions. An Admin can add main and sub mechanisms with new codes and edit names and descriptions (U1-C22): codes and parents never change, approved codes are never renumbered, main 10 stays absent, 048 and 063 stay reserved, and definitions are deactivated, never deleted. Every change is audited.')",
+    "after": "h('div', { class: 'stack', style: 'gap:.3rem' }, h('p', null, h('strong', null, \"Codes: \"), \"Keep leading zeros. Existing codes and parents stay fixed; use new codes for additions.\"), h('p', null, h('strong', null, \"Reserved: \"), \"Main 10 is unavailable; 048 and 063 remain reserved.\"), h('p', null, h('strong', null, \"Definitions: \"), \"061 = Spreader; 062 = Headblock. 015, 024 and 033 are separate steel-rope definitions. Original labels remain visible.\"), h('p', null, h('strong', null, \"Changes: \"), \"Admin can edit names/descriptions and deactivate entries. Entries are not deleted; all changes are logged.\"))"
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-admin.js",
+    "before": "h('p', null, 'These positions are a SYNTHETIC EXAMPLE of the template that P03/P06 derive from the as-built drawings (B-08). Admin reviews, edits and confirms them before any history is recorded. Structural members sit under 15/151 (frame, legs, girders, mast) and 03/031 (boom) by default. An Admin can add positions to one equipment (they start as drafts) and edit them (U1-C22): name and source always; semantic key and mechanism only while draft; kind and unit only before any history. Once confirmed, the semantic key never changes: a wrong key is fixed by deactivating the position and adding a new one.')",
+    "after": "h('div', { class: 'stack', style: 'gap:.3rem' }, h('p', null, h('strong', null, \"Before use: \"), \"These are sample positions. Admin must review and confirm them before work is recorded.\"), h('p', null, h('strong', null, \"Editing: \"), \"Name/source: anytime. Key/mechanism: draft only. Kind/unit: only before history exists.\"), h('p', null, h('strong', null, \"Confirmed keys: \"), \"Cannot change. Deactivate a wrong position and add a new one.\"), h('p', null, h('strong', null, \"Defaults: \"), \"Frame, legs, girders and mast: 15/151. Boom: 03/031. New positions belong to the selected equipment only.\"))"
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-admin.js",
+    "before": "h('p', null, 'Real drawing observations for the CICT-J526A-STS family (J526A00 general arrangement and linked sheets). They are not an approved assignment to any real crane. A decision never overwrites the observations; it records the chosen value with a reason for the model scope. An Admin can also add specification rows with value, unit and source, and record new values on any row (U1-C22): earlier values are kept, Admin-entered rows are labelled as such and drawing observations are never edited.')",
+    "after": "h('div', { class: 'stack', style: 'gap:.3rem' }, h('p', null, h('strong', null, \"Drawing values: \"), \"Original observations are preserved. A decision applies to this model only and needs a reason.\"), h('p', null, h('strong', null, \"Admin values: \"), \"Added separately and labelled Admin-entered. Earlier values remain in history.\"), h('p', null, h('strong', null, \"Model: \"), \"CICT-J526A-STS reference values do not verify an association with a real crane.\"))"
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-admin.js",
+    "before": "'Adds a specification row for the CICT-J526A-STS model scope. It is labelled Admin-entered wherever it appears (Technical tab included) and has no drawing observation. Link it to a main mechanism to show it in that mechanism\\'s Technical tab; Major rows also show for the whole equipment.'",
+    "after": "\"Adds an Admin-entered value for CICT-J526A-STS, without a drawing observation. Link a main mechanism to show it in that Technical tab. Major rows also appear for the whole equipment.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-admin.js",
+    "before": "'Prototype preview of the validation report. The scene here is the SVG placeholder keyed by the same semantic keys the P03 manifest will use; no model version is registered and nothing can be activated.'",
+    "after": "\"Preview only: this SVG placeholder uses model binding keys. No model version is registered or active.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-admin2.js",
+    "before": "'EQ settings, FAC settings and the Access matrix. Central identities and Portal role assignment belong to the ENG Portal and are not here.'",
+    "after": "\"Manage EQ, FAC and feature access here. User accounts and roles are managed in ENG Portal.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-admin2.js",
+    "before": "h('p', null, 'The Portal role sets the ceiling. \"Always\" is fixed by the role; \"Not allowed\" is above the ceiling and cannot be switched on; \"On/Off\" can be toggled per role (not per user). A hidden tab is also blocked on the API, on direct links, on exports and on photo links. A change takes effect at each user\\'s next session read (within 60 seconds) and records who changed what and when.')",
+    "after": "h('div', { class: 'stack', style: 'gap:.3rem' }, h('p', null, h('strong', null, \"Always: \"), \"Required by the Portal role; cannot be switched off.\"), h('p', null, h('strong', null, \"Not allowed: \"), \"Outside the Portal role; cannot be switched on.\"), h('p', null, h('strong', null, \"On/Off: \"), \"Applies to the entire role, not individual users.\"), h('p', null, h('strong', null, \"Changes: \"), \"Logged and applied within 60 seconds. Disabled access also blocks direct links, exports and photos.\"))"
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-admin2.js",
+    "before": "' jobs came from two-frequency rows). Jobs are deactivated, never deleted. Calculated values (next due, status, % complete) are not editable. Prototype: kept in memory only.'",
+    "after": "\" jobs came from two-frequency rows). Deactivate jobs instead of deleting them. Due dates, status and completion percentages are calculated. Prototype changes are not saved.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-admin2.js",
+    "before": "'Import refused (409 import_locked_by_progress): progress has been recorded on imported jobs, so a re-run would rewrite their opening state. Preview still works.'",
+    "after": "\"Import locked: progress already exists on imported jobs. Re-import would overwrite their starting state. Preview is still available.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-admin2.js",
+    "before": "h('p', { class: 'small muted', style: 'margin:0' }, 'Seeded from the reference list. Tri-annually = every 4 months, bi-annually = every 6 months (Q3). A changed interval affects cycles opened afterwards only. Next due = last done + interval, in calendar months for monthly and longer.')",
+    "after": "h('div', { class: 'stack small muted', style: 'gap:.3rem;margin:0' }, h('p', null, h('strong', null, \"Intervals: \"), \"Tri-annually: every 4 months. Bi-annually: every 6 months.\"), h('p', null, h('strong', null, \"Changes: \"), \"New intervals apply only to cycles opened afterwards.\"), h('p', null, h('strong', null, \"Next due: \"), \"Last completion + interval. Monthly and longer intervals use calendar months.\"))"
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-admin2.js",
+    "before": "'Prototype simulation. No connection to ZMMS exists and no account is held. These controls only play out the contract rules on synthetic rows: a failed or partial run changes nothing; a successful run stores the day, then applies the automatic status.'",
+    "after": "\"Simulation only: no ZMMS connection or account. Failed/partial syncs change nothing. Successful syncs save the day and update automatic status.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-admin2.js",
+    "before": "'ZMMS equipment codes are matched exactly (trimmed, upper-case); one code maps to at most one equipment, several codes may map to one equipment. No fuzzy matching. Equipment outside QC/RTG/ES and spreaders stay in the unmatched queue below or are ignored.'",
+    "after": "\"Match exact codes after trimming spaces and converting to uppercase. One code links to one equipment; multiple codes can link to it. Other equipment and spreaders remain unmatched or ignored.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-admin2.js",
+    "before": "'Rows are never dropped: they wait here until mapped; creating a mapping attaches the existing rows without duplicates and does not recompute any status until the next sync. Spreader codes (SQ...) and mobile equipment (SF, SK, WS, RS...) appear here because they are not QC, RTG or ES fleet items.'",
+    "after": "\"Unmatched rows stay here. Mapping links existing rows without duplicates; status updates at the next sync. SQ spreaders and SF/SK/WS/RS mobile equipment are outside the QC/RTG/ES fleet.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-admin2.js",
+    "before": "'Which ZMMS job types mean Breakdown or Maintenance is an Admin decision after the first real data (Q11). The effects below are synthetic examples. A value with no effect stops the automatic status for the equipment concerned.'",
+    "after": "\"Admin maps job types to Breakdown or Maintenance after reviewing real data. These are sample mappings. An unmapped type blocks automatic status for affected equipment.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-admin2.js",
+    "before": "'The previous data and every status stay unchanged; users see \"ZMMS data from ...\" with a stale marker. Transient failures retry at +2, +5 and +15 minutes; a rejected login is not retried automatically.'",
+    "after": "\"A failed sync keeps previous data and statuses, marked stale. Temporary failures retry after 2, 5 and 15 minutes. Rejected logins do not retry automatically.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-admin2.js",
+    "before": "h('p', null, 'EQ Team and Admin add major spare parts to the register of an equipment from EQ Jobs > Spare parts condition or the crane view (U1-C21, replaces the Admin-only marking of SOW V2 s4.6). Here an Admin also adds, renames and retires the spare-part types and their default expected life, adds parts to the register (with or without a first condition), changes the type or the per-equipment life of any position, edits register entries with the same register actions as EQ Jobs and removes parts from the register (U1-C22). A retired type is not offered for new spare parts; registered parts keep it. Each equipment keeps its own register over its own positions: two QCs from one template stay independent. Types and lives are Admin decisions, not drawing facts: the values here are synthetic examples. Removing a part from the register hides it; its history stays. Every change is audited.')",
+    "after": "h('div', { class: 'stack', style: 'gap:.3rem' }, h('p', null, h('strong', null, \"EQ Team and Admin: \"), \"Add parts and record condition in EQ Jobs > Spare parts condition or the crane view.\"), h('p', null, h('strong', null, \"Admin: \"), \"Manage types, default life, register entries, per-equipment life, type changes and removal.\"), h('p', null, h('strong', null, \"Records: \"), \"Each equipment has its own register. Retired types stay on existing parts. Removed parts keep their history; changes are logged.\"), h('p', null, h('strong', null, \"Expected life: \"), \"An Admin estimate, not a drawing fact. The values here are samples.\"))"
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-admin2.js",
+    "before": "'The code never changes afterwards. The default expected life applies to every registered part of this type unless an equipment has its own life. Prototype: in memory only.'",
+    "after": "\"Code is permanent. Default life applies unless an equipment-specific life is set. Prototype changes are not saved.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-jobs.js",
+    "before": "'Evidence attachments (JPEG, PNG, PDF) are readable by all three roles and uploadable by Admin and EQ Team only. Upload and protected download are built in P08; this prototype shows no files.'",
+    "after": "\"JPEG, PNG and PDF evidence: all three roles can view; EQ Team and Admin can upload. Files are not available in this prototype.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-equipment.js",
+    "before": "' equipment has no 3D model in stage 1. Specifications, the mechanism tree, work records, replacement history and evidence are fully available. A QC model is never shown in place of an '",
+    "after": "\" has no 3D model in stage 1. Use the mechanism tree and records for specifications, work, replacements and evidence. A QC model is not used for an \""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-equipment.js",
+    "before": "' has no verified model association, so no 3D view is offered and no model facts are assumed. The tree (if any), jobs and history stay available.'",
+    "after": "\" has no verified model. An Admin must verify the association before 3D is available. Existing trees, jobs and history remain accessible.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-equipment.js",
+    "before": "'Same panel as a QC: applicable mechanism tree (left) and the four current-state tabs (right); work history is in the Jobs tab. Only the 3D view is deferred.'",
+    "after": "\"Use the mechanism tree and current-state tabs. History is in Jobs; 3D is not available for this equipment type.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-fleet.js",
+    "before": "\"Status is set automatically from today's ZMMS daily jobs (Auto): a breakdown job means Breakdown, a maintenance job means Maintenance, equipment not in the day's plan is Ready for OPS. The EQ Team can correct it with a reason (Manual); the correction holds for the current day and the equipment returns to automatic at the first sync of the next day. Equipment not linked to ZMMS keeps a manual status. Equipment that has never been set shows Unreported, not Ready.\"",
+    "after": "\"Auto: ZMMS sets Breakdown for breakdown work, Maintenance for maintenance work, or Ready for OPS when no work is planned. Manual corrections require a reason and last until the first successful sync after today. Unlinked equipment uses manual status; an unset status is Unreported.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-fac.js",
+    "before": "'The Admin pages are for the app Admin. A hidden link is not the control: the server refuses this route and every Admin request for your role (403 forbidden_role).'",
+    "after": "\"Only the app Admin can open these pages or change Admin settings (403 forbidden_role).\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/dialogs.js",
+    "before": "\"Completion request \" + st.key.slice(0, 8) + \": recorded once, even if you click twice or retry.\" + PROTO_NOTE",
+    "after": "\"Recorded once, even if you click twice or retry. \" + PROTO_NOTE"
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/dialogs.js",
+    "before": "'Completing a job does not change the equipment operational status. ' + eq.code + ' stays ' + EQ.STATUS[EQ.statusKey(eq.status)].label + ' until someone sets a status explicitly.'",
+    "after": "'Completing this job does not change the equipment status. ' + eq.code + ' stays ' + EQ.STATUS[EQ.statusKey(eq.status)].label + '.'"
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-admin.js",
+    "before": "' only (another equipment from the same template is not changed). No job can target it and the scene cannot bind it until an Admin confirms it. Use the drawing reference as the source where one exists.'",
+    "after": "' only. It starts as a draft; confirm it before jobs or model links can use it. Add a drawing reference where available.'"
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-eqjobs.js",
+    "before": "\"Sample data from the 22 Oct 2026 export. Live ZMMS reading is not connected; final fields will be confirmed during integration.\"",
+    "after": "\"Sample data from the 22 Oct 2026 export. No live ZMMS connection.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-eqjobs.js",
+    "before": "h('p', null, \"Estimated replacement: replaced date + expected life. Original parts use the commissioning date. No date or life means no estimate. This is a calendar estimate, not a condition assessment. Due soon: within \" + EQ.state.D.spare.dueSoonDays + ' days (Admin setting).')",
+    "after": "h('div', { class: 'stack', style: 'gap:.3rem' },\n      h('p', null, h('strong', null, 'Replacement estimate: '), 'Fitted date + expected life in months. Original parts use the commissioning date.'),\n      h('p', null, h('strong', null, 'Missing date or life: '), 'No estimate is shown.'),\n      h('p', null, h('strong', null, 'Due soon: '), 'Within ' + EQ.state.D.spare.dueSoonDays + ' days (Admin setting). Calendar estimate only; not a condition assessment.'))"
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-admin2.js",
+    "before": "'Source: bundled reference file fac-job-list.json (schema 1), the supplied sheet normalised in P01B. Source sheet SHA-256 '",
+    "after": "'Source: supplied facility job sheet. File fingerprint: '"
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-admin2.js",
+    "before": "'. The import can be repeated with a corrected sheet until the first progress is recorded on any imported job.'",
+    "after": "'. Re-import is allowed only before progress is recorded on an imported job.'"
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-admin2.js",
+    "before": "h('p', { class: 'small', style: 'margin:0' }, 'Opening state: ' + P.opening.pending + ' open as Pending (' + P.opening.withDue + ' with a due date from last done + interval, the rest with no due date), ' + P.opening.inProgress + ' open In progress from the sheet quantity, ' + P.opening.onHold + ' open On hold with its remark. Sheet status, percentages and next dates are not stored as typed values.')",
+    "after": "h('div', { class: 'stack small', style: 'gap:.3rem' },\n        h('p', null, h('strong', null, 'Starting counts: '), P.opening.pending + ' Pending · ' + P.opening.inProgress + ' In progress · ' + P.opening.onHold + ' On hold.'),\n        h('p', null, h('strong', null, 'Pending due dates: '), P.opening.withDue + ' calculated from last completion + interval. Others have no due date.'),\n        h('p', null, h('strong', null, 'Source values: '), 'Progress uses the sheet quantity; held jobs keep their notes. Status, percentages and next dates are recalculated.'))"
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/views-fleet.js",
+    "before": "\"Auto: ZMMS sets Breakdown for breakdown work, Maintenance for maintenance work, or Ready for OPS when no work is planned. Manual corrections require a reason and last until the first successful sync after today. Unlinked equipment uses manual status; an unset status is Unreported.\"",
+    "after": "\"Auto (ZMMS): Breakdown job → Breakdown; maintenance job → Maintenance; no planned job → Ready for OPS.\\nManual correction: reason required; ends at the first successful sync after today.\\nUnlinked equipment: manual status. No recorded status: Unreported.\""
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/access.js",
+    "before": "EQ work: special jobs, status correction, add spare parts and update their condition (U1-C21), show or hide special jobs on the dashboard / 3D (U1-C26)",
+    "after": "EQ: special jobs, status correction, spare-part updates and dashboard/3D visibility"
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/access.js",
+    "before": "FAC work: update progress, hold, photos, show or hide FAC jobs on the dashboard (U1-C26)",
+    "after": "FAC: progress, holds, photos and dashboard visibility"
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/access.js",
+    "before": "FAC: manage the master job list (add, edit, deactivate recurring jobs)",
+    "after": "FAC: add, edit and deactivate recurring jobs"
+  },
+  {
+    "file": "artifacts/prototypes/p02-ui/js/access.js",
+    "before": "Admin pages (EQ settings incl. spare-part types and expected life, FAC settings, Access)",
+    "after": "Admin: EQ settings, FAC settings and Access"
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "boardPresent": true,
+  "lines": [
+    "From ZMMS: Breakdown job → Breakdown · Maintenance job → Maintenance · No planned job → Ready for OPS.",
+    "Manual correction: Add a reason. It lasts until the next successful sync after today. Choose Back to automatic to end it sooner.",
+    "No ZMMS link: Set the status manually."
+  ],
+  "rows": 16,
+  "phoneFits": true,
+  "errors": []
+}

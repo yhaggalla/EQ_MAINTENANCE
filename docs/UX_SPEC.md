@@ -356,3 +356,7 @@ Each discipline viewport accepts vertical wheel scrolling independently while ho
 ## 39 U1-C45: completed FAC progress colour (24 October 2026)
 
 In FAC Dashboard, completed quantity bars and their quantity/percentage text use the same green as Completed/Done status labels when done reaches a positive target. Partial progress keeps yellow; zero targets do not imply completion. Apply to discipline lanes, duplicate moving rows and the phone combined list. Keep job statuses, quantities and FAC Jobs styling unchanged. Evidence: `docs/evidence/U1/fac-completed-c45/REPORT.md`. U1 remains open and unapproved.
+
+## 40 U1-C46: short, clear interface explanations (24 October 2026)
+
+Fixed help text should explain one idea per sentence. Use short labelled points when several rules must stay visible, including automatic/manual status, replacement estimates, role limits, catalogue/position editing and import constraints. Keep action labels consistent with their buttons. Retain important warnings and prototype/source qualifications; do not shorten actual job descriptions or technical observations. Keep internal phase IDs, implementation details and request keys out of ordinary guidance. Desktop and phone copy must wrap inside its notice. Evidence: `docs/evidence/U1/status-copy-c46/REPORT.md`. U1 remains open and unapproved.

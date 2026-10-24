@@ -16,7 +16,7 @@ window.EQ = window.EQ || {};
 
   // U1-C02: the large "Fleet overview" heading block is gone; its meaning is kept in this compact note.
   // P02B (SOW V2 s4.5): the "manual status, no telemetry" note is replaced by the automatic-status meaning.
-  const STATUS_NOTE = "Status is set automatically from today's ZMMS daily jobs (Auto): a breakdown job means Breakdown, a maintenance job means Maintenance, equipment not in the day's plan is Ready for OPS. The EQ Team can correct it with a reason (Manual); the correction holds for the current day and the equipment returns to automatic at the first sync of the next day. Equipment not linked to ZMMS keeps a manual status. Equipment that has never been set shows Unreported, not Ready.";
+  const STATUS_NOTE = "Auto (ZMMS): Breakdown job → Breakdown; maintenance job → Maintenance; no planned job → Ready for OPS.\nManual correction: reason required; ends at the first successful sync after today.\nUnlinked equipment: manual status. No recorded status: Unreported.";
   function statusNote() {
     return h('span', { class: 'status-note', tabindex: '0', title: STATUS_NOTE, 'aria-describedby': 'status-note-text', 'data-fk': 'status-note' }, icon('info'), 'Automatic status from ZMMS', h('span', { id: 'status-note-text', class: 'sr-only' }, STATUS_NOTE));
   }

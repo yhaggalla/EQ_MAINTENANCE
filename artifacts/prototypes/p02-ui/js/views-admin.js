@@ -12,7 +12,7 @@ window.EQ = window.EQ || {};
     const S = EQ.state;
     return h('div', { class: 'stack' },
       h('div', { class: 'row between' }, h('h2', null, 'Equipment register'), h('button', { type: 'button', class: 'primary', onClick: () => EQ.dlg.newEquipment() }, icon('plus'), 'Register equipment')),
-      h('div', { class: 'notice info' }, icon('info'), h('p', null, 'The J526A template is never assigned automatically. An Admin verifies each equipment-to-model association with a note (SRC06). New equipment is Unreported with no serial or commissioning date.')),
+      h('div', { class: 'notice info' }, icon('info'), h('p', null, "An Admin must verify each model assignment and add a note. New equipment starts Unreported, with no model, serial or commissioning date.")),
       h('div', { class: 'panel table-wrap' }, h('table', null,
         h('caption', { class: 'sr-only' }, 'Equipment register'),
         h('thead', null, h('tr', null, ['Code', 'Type', 'Model association', 'Status', 'Lifecycle', 'Open jobs', 'Actions'].map((c) => h('th', { scope: 'col' }, c)))),
@@ -49,7 +49,7 @@ window.EQ = window.EQ || {};
     });
     return h('div', { class: 'stack' },
       h('div', { class: 'row between' }, h('h2', null, 'Models and applicability'), h('div', { class: 'field', style: 'min-width:14rem' }, h('label', { for: 'md-sel' }, 'Model template'), sel)),
-      h('div', { class: 'notice info' }, icon('info'), h('p', null, h('strong', null, m.name + ' - template revision ' + m.templateRevision + ', used by ' + using + ' equipment item(s). '), 'Applicability belongs to the model. Editing it only raises the template revision; it never changes installed positions, jobs or history. Applying a newer revision to equipment is a separate, previewed Admin action.', h('br'), m.code === 'CICT-J526A-STS' ? 'Initial states are candidates from the source review (docs/SOURCE_MAP.md s6), not confirmed facts: for example 043, 044, 045 and 091-094 are tentatively not applicable to this electric rail-mounted family, and 047, 154, 155 and 064 stay Unknown.' : 'Synthetic illustrative applicability for prototype review.')),
+      h('div', { class: 'notice info' }, icon('info'), h('p', null, h('strong', null, m.name + ' - template revision ' + m.templateRevision + ', used by ' + using + ' equipment item(s). '), "Edits create a new model-template revision. Existing equipment, positions, jobs and history stay unchanged until an Admin previews and applies it.", h('br'), m.code === 'CICT-J526A-STS' ? "Applicability is provisional: 043, 044, 045 and 091–094 may not apply to this electric rail-mounted model; 047, 154, 155 and 064 remain Unknown. Admin must verify them." : 'Synthetic illustrative applicability for prototype review.')),
       h('div', { class: 'panel table-wrap matrix' }, h('table', null, h('caption', { class: 'sr-only' }, 'Applicability matrix'), h('thead', null, h('tr', null, ['Code', 'Definition', 'Applicability', 'Note'].map((c) => h('th', { scope: 'col' }, c)))), h('tbody', null, rows))));
   }
 
@@ -101,7 +101,7 @@ window.EQ = window.EQ || {};
     const taken = (c) => c === '10' || !!EQ.mainDef(c);
     return adminForm({
       title: 'Add main mechanism',
-      intro: 'A new main mechanism gets a new two-digit code chosen by Admin. Approved codes are never reused or renumbered and main 10 stays absent. New definitions are not installed anywhere: an equipment gets them only through its model applicability and template.',
+      intro: "Use a new two-digit code; existing codes stay fixed and main 10 is unavailable. A new definition is installed only through equipment model/template settings.",
       init: { code: nextFree(18, 99, taken), name: '', description: '', reason: '' },
       fields: (st, errors) => [
         h('div', { class: 'grid-2' }, K().field('am-code', 'Code', K().input(st, 'code', { maxlength: 2, inputmode: 'numeric', style: 'max-width:7rem' }), { required: true, error: errors.code, hint: 'Two digits as text. Next free code: ' + nextFree(18, 99, taken) + '.' }),
@@ -163,7 +163,7 @@ window.EQ = window.EQ || {};
         h('button', { type: 'button', class: 'primary', 'data-fk': 'cat-add-main', onClick: () => addMainDialog() }, icon('plus'), 'Add main mechanism'),
         h('button', { type: 'button', 'data-fk': 'cat-add-sub', onClick: () => addSubDialog('') }, icon('plus'), 'Add submechanism'))),
       h('div', { class: 'row' }, h('span', { class: 'tag' }, approvedMains.length + ' main'), h('span', { class: 'tag' }, approvedSubs.length + ' sub'), h('span', { class: 'tag green' }, active + ' active'), h('span', { class: 'tag' }, approvedSubs.filter((s) => s.reserved).length + ' reserved inactive (048, 063)'), h('span', { class: 'tag dashed' }, 'Main 10 intentionally absent'), added ? h('span', { class: 'tag gold', 'data-fk': 'cat-added' }, added + ' added by Admin') : null),
-      h('div', { class: 'notice info' }, icon('info'), h('p', null, 'Real reference data from the approved catalogue (16 main, 43 sub as delivered). Codes are strings with their leading zeros. 061 is Spreader and 062 is Headblock (user-confirmed names, fixed); the original labels stay visible. 015, 024 and 033 are three separate steel-rope definitions. An Admin can add main and sub mechanisms with new codes and edit names and descriptions (U1-C22): codes and parents never change, approved codes are never renumbered, main 10 stays absent, 048 and 063 stay reserved, and definitions are deactivated, never deleted. Every change is audited.')),
+      h('div', { class: 'notice info' }, icon('info'), h('div', { class: 'stack', style: 'gap:.3rem' }, h('p', null, h('strong', null, "Codes: "), "Keep leading zeros. Existing codes and parents stay fixed; use new codes for additions."), h('p', null, h('strong', null, "Reserved: "), "Main 10 is unavailable; 048 and 063 remain reserved."), h('p', null, h('strong', null, "Definitions: "), "061 = Spreader; 062 = Headblock. 015, 024 and 033 are separate steel-rope definitions. Original labels remain visible."), h('p', null, h('strong', null, "Changes: "), "Admin can edit names/descriptions and deactivate entries. Entries are not deleted; all changes are logged."))),
       h('div', { class: 'field', style: 'max-width:28rem' }, h('label', { for: 'cq' }, 'Search the catalogue'), search),
       blocks.filter(Boolean).length ? blocks : h('div', { class: 'panel empty' }, 'No definition matches.'),
       logList('Catalogue changes', EQ.state.D.catalogLog || [], (x) => x.code + ' ' + x.action));
@@ -181,7 +181,7 @@ window.EQ = window.EQ || {};
     const box = h('div', { class: 'stack' },
       h('div', { class: 'row between' }, h('h2', null, 'Main-part positions'), h('div', { class: 'row', style: 'align-items:flex-end' }, h('div', { class: 'field', style: 'min-width:14rem' }, h('label', { for: 'ps-eq' }, 'Equipment'), sel),
         cur.lifecycle === 'active' ? h('button', { type: 'button', class: 'primary', 'data-fk': 'pos-add', onClick: () => positionDialog(cur, null) }, icon('plus'), 'Add position') : null)),
-      h('div', { class: 'notice info' }, icon('info'), h('p', null, 'These positions are a SYNTHETIC EXAMPLE of the template that P03/P06 derive from the as-built drawings (B-08). Admin reviews, edits and confirms them before any history is recorded. Structural members sit under 15/151 (frame, legs, girders, mast) and 03/031 (boom) by default. An Admin can add positions to one equipment (they start as drafts) and edit them (U1-C22): name and source always; semantic key and mechanism only while draft; kind and unit only before any history. Once confirmed, the semantic key never changes: a wrong key is fixed by deactivating the position and adding a new one.')),
+      h('div', { class: 'notice info' }, icon('info'), h('div', { class: 'stack', style: 'gap:.3rem' }, h('p', null, h('strong', null, "Before use: "), "These are sample positions. Admin must review and confirm them before work is recorded."), h('p', null, h('strong', null, "Editing: "), "Name/source: anytime. Key/mechanism: draft only. Kind/unit: only before history exists."), h('p', null, h('strong', null, "Confirmed keys: "), "Cannot change. Deactivate a wrong position and add a new one."), h('p', null, h('strong', null, "Defaults: "), "Frame, legs, girders and mast: 15/151. Boom: 03/031. New positions belong to the selected equipment only."))),
       drafts.length ? h('div', { class: 'notice warn' }, icon('alert'), h('div', null, h('p', null, h('strong', null, drafts.length + ' draft position(s) await confirmation. '), 'No job can target a draft position and the scene cannot bind it.'), h('div', { class: 'actions' },
         h('button', { type: 'button', class: 'btn-sm primary', onClick: () => { const r = EQ.api.confirmPositions(cur.id, drafts.map((d) => d.id)); EQ.toast(r.ok ? 'Confirmed all drafts' : r.message, 'Prototype: in memory only.'); } }, 'Confirm all drafts'),
         h('button', { type: 'button', class: 'btn-sm', onClick: () => { const ids = [...ui.sel].filter((id) => drafts.some((d) => d.id === id)); const r = EQ.api.confirmPositions(cur.id, ids); ui.sel.clear(); EQ.toast(ids.length ? 'Confirmed ' + ids.length : 'Tick positions first', 'Prototype: in memory only.'); } }, 'Confirm ticked')))) : null,
@@ -209,7 +209,7 @@ window.EQ = window.EQ || {};
     return adminForm({
       title: pos ? 'Edit position - ' + pos.name + ' (' + eq.code + ')' : 'Add position to ' + eq.code,
       intro: pos ? (draft ? 'Draft position: every field can still change. ' : 'Confirmed position: the semantic key and the mechanism are frozen. ') + (hist ? 'History exists here, so kind and unit are frozen too. ' : '') + 'Every edit is audited with the previous values.'
-        : 'The new position starts as a DRAFT of ' + eq.code + ' only (another equipment from the same template is not changed). No job can target it and the scene cannot bind it until an Admin confirms it. Use the drawing reference as the source where one exists.',
+        : 'The new position starts as a DRAFT of ' + eq.code + ' only. It starts as a draft; confirm it before jobs or model links can use it. Add a drawing reference where available.',
       init: pos ? { name: pos.name, key: pos.key, subId: pos.subId, kind: pos.kind, uom: pos.kind === 'serialized' ? '' : pos.uom, source: pos.src } : { name: '', key: '', subId: '', kind: 'serialized', uom: '', source: '' },
       fields: (st, errors, api) => [
         K().field('pf-name', 'Position name', K().input(st, 'name', { maxlength: 200 }), { required: true, error: errors.name }),
@@ -259,7 +259,7 @@ window.EQ = window.EQ || {};
     });
     return h('div', { class: 'stack' },
       h('div', { class: 'row between' }, h('h2', null, 'Source specifications'), h('button', { type: 'button', class: 'primary', 'data-fk': 'spec-add', onClick: () => specDialog(null) }, icon('plus'), 'Add specification')),
-      h('div', { class: 'notice info' }, icon('info'), h('p', null, 'Real drawing observations for the CICT-J526A-STS family (J526A00 general arrangement and linked sheets). They are not an approved assignment to any real crane. A decision never overwrites the observations; it records the chosen value with a reason for the model scope. An Admin can also add specification rows with value, unit and source, and record new values on any row (U1-C22): earlier values are kept, Admin-entered rows are labelled as such and drawing observations are never edited.')),
+      h('div', { class: 'notice info' }, icon('info'), h('div', { class: 'stack', style: 'gap:.3rem' }, h('p', null, h('strong', null, "Drawing values: "), "Original observations are preserved. A decision applies to this model only and needs a reason."), h('p', null, h('strong', null, "Admin values: "), "Added separately and labelled Admin-entered. Earlier values remain in history."), h('p', null, h('strong', null, "Model: "), "CICT-J526A-STS reference values do not verify an association with a real crane."))),
       h('div', { class: 'panel table-wrap' }, h('table', null, h('caption', { class: 'sr-only' }, 'Source parameters'),
         h('thead', null, h('tr', null, ['Parameter', 'Observations', 'Condition', 'Use', 'State', 'Action'].map((c) => h('th', { scope: 'col' }, c)))),
         h('tbody', null, rows))));
@@ -285,7 +285,7 @@ window.EQ = window.EQ || {};
     const mains = EQ.catalog.mains.filter((m) => m.active !== false).map((m) => ({ value: m.code, label: m.code + '  ' + m.name }));
     return adminForm({
       title: p ? 'Edit specification - ' + p.label : 'Add specification',
-      intro: p ? 'The value is changed with New value...; edits here keep the previous definition in the row history.' : 'Adds a specification row for the CICT-J526A-STS model scope. It is labelled Admin-entered wherever it appears (Technical tab included) and has no drawing observation. Link it to a main mechanism to show it in that mechanism\'s Technical tab; Major rows also show for the whole equipment.',
+      intro: p ? 'The value is changed with New value...; edits here keep the previous definition in the row history.' : "Adds an Admin-entered value for CICT-J526A-STS, without a drawing observation. Link a main mechanism to show it in that Technical tab. Major rows also appear for the whole equipment.",
       init: p ? { label: p.label, unit: p.unit || '', condition: p.condition || '', use: p.use, mainCode: p.mainCode || '' } : { label: '', value: '', unit: '', condition: '', use: 'technical', mainCode: '', source: '', reason: '' },
       fields: (st, errors) => [
         K().field('sf-label', 'Specification', K().input(st, 'label', { maxlength: 120 }), { required: true, error: errors.label }),
@@ -315,7 +315,7 @@ window.EQ = window.EQ || {};
     const b1 = EQ.verified(cur) && cur.modelCode === 'CICT-J526A-STS';
     return h('div', { class: 'stack' },
       h('div', { class: 'row between' }, h('h2', null, 'Model binding validation'), h('div', { class: 'field', style: 'min-width:14rem' }, h('label', { for: 'bd-eq' }, 'Equipment'), sel)),
-      h('div', { class: 'notice warn' }, icon('alert'), h('p', null, 'Prototype preview of the validation report. The scene here is the SVG placeholder keyed by the same semantic keys the P03 manifest will use; no model version is registered and nothing can be activated.')),
+      h('div', { class: 'notice warn' }, icon('alert'), h('p', null, "Preview only: this SVG placeholder uses model binding keys. No model version is registered or active.")),
       h('div', { class: 'panel table-wrap' }, h('table', null, h('thead', null, h('tr', null, ['Rule', 'Check', 'Result', 'Detail'].map((c) => h('th', { scope: 'col' }, c)))), h('tbody', null,
         rule('B1', 'Verified association to the scene\'s equipment model', b1, b1 ? cur.modelCode : 'RTG/ES and equipment without a verified association cannot be bound'),
         rule('B2', 'Proposals only by exact node key = position semantic key', b1 ? true : null, b1 ? exact.length + ' exact-key matches; no name, order or index matching' : ''),

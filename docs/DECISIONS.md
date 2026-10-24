@@ -622,3 +622,7 @@ Evidence: `docs/evidence/U1/fac-controls-c44/REPORT.md`; exact request: `docs/ru
 ### 2026-10-24 U1 CHANGES REQUESTED (U1-C45: green completed FAC progress)
 
 User: "show 100% completed items in matching green color.." The marked dashboard progress bar identifies the completed quantity display. D-189: when the completed quantity reaches a positive target, use the same green as the Completed/Done status for the dashboard bar and quantity/percentage text. Keep partial progress yellow, retain existing status/quantity values and scope the colour to FAC Dashboard. Evidence: `docs/evidence/U1/fac-completed-c45/REPORT.md`. U1 remains open, incomplete and unapproved; P04 is Not started.
+
+### 2026-10-24 U1 CHANGES REQUESTED (U1-C46: clear interface explanations)
+
+User requests: "this is not understandably make it simple and clear.." (EQ status guide), then "do the same for that kind of long descriptions etc.." D-190: simplify fixed interface explanations across EQ/FAC, forms and Admin. Use short labelled points for multiple rules and concise sentences for hints. Preserve original job descriptions, technical/source data, meaningful warnings, validation rules, role limits and prototype qualifications. Remove internal phase references and request identifiers from explanatory copy where they do not help the user. This changes presentation only; no permissions or workflows are widened. Evidence: `docs/evidence/U1/status-copy-c46/REPORT.md`. U1 remains IN PROGRESS, NOT COMPLETE / NOT APPROVED; P04 Not started.

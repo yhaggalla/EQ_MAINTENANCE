@@ -10,16 +10,16 @@ window.EQ = window.EQ || {};
   const FEATURES = [
     ['eq.fleet.view', 'EQ Fleet tab and equipment detail (view)', { admin: 'F', eqTeam: 'F', facTeam: 'T1', management: 'T1' }],
     ['eq.jobs.view', 'EQ Jobs tab (view)', { admin: 'F', eqTeam: 'F', facTeam: 'T1', management: 'T1' }],
-    ['eq.work', 'EQ work: special jobs, status correction, add spare parts and update their condition (U1-C21), show or hide special jobs on the dashboard / 3D (U1-C26)', { admin: 'F', eqTeam: 'F', facTeam: 'N', management: 'N' }],
+    ['eq.work', 'EQ: special jobs, status correction, spare-part updates and dashboard/3D visibility', { admin: 'F', eqTeam: 'F', facTeam: 'N', management: 'N' }],
     ['eq.work.admin', 'EQ corrections: reopen completed work, cancel any job, void register entries', { admin: 'F', eqTeam: 'N', facTeam: 'N', management: 'N' }],
     ['fac.dashboard.view', 'FAC Dashboard (view)', { admin: 'F', eqTeam: 'T1', facTeam: 'F', management: 'T1' }],
     ['fac.jobs.view', 'FAC Jobs tab (view)', { admin: 'F', eqTeam: 'T1', facTeam: 'F', management: 'T1' }],
-    ['fac.work', 'FAC work: update progress, hold, photos, show or hide FAC jobs on the dashboard (U1-C26)', { admin: 'F', eqTeam: 'N', facTeam: 'F', management: 'N' }],
+    ['fac.work', 'FAC: progress, holds, photos and dashboard visibility', { admin: 'F', eqTeam: 'N', facTeam: 'F', management: 'N' }],
     ['fac.oneTimeJobs.add', 'FAC: add one-time jobs', { admin: 'F', eqTeam: 'N', facTeam: 'T1', management: 'N' }],
-    ['fac.masterList.manage', 'FAC: manage the master job list (add, edit, deactivate recurring jobs)', { admin: 'F', eqTeam: 'N', facTeam: 'T0', management: 'N' }],
+    ['fac.masterList.manage', 'FAC: add, edit and deactivate recurring jobs', { admin: 'F', eqTeam: 'N', facTeam: 'T0', management: 'N' }],
     ['fac.work.admin', 'FAC corrections: cycles, Admin due date, remove any photo', { admin: 'F', eqTeam: 'N', facTeam: 'N', management: 'N' }],
     ['export.excel', 'Export to Excel', { admin: 'F', eqTeam: 'T1', facTeam: 'T1', management: 'T1' }],
-    ['admin.access', 'Admin pages (EQ settings incl. spare-part types and expected life, FAC settings, Access)', { admin: 'F', eqTeam: 'N', facTeam: 'N', management: 'N' }],
+    ['admin.access', 'Admin: EQ settings, FAC settings and Access', { admin: 'F', eqTeam: 'N', facTeam: 'N', management: 'N' }],
   ];
   const FEATURE_KEYS = FEATURES.map((f) => f[0]);
   const CEIL = Object.fromEntries(FEATURES.map((f) => [f[0], f[2]]));

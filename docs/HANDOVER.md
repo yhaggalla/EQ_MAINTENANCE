@@ -2,6 +2,12 @@
 
 Rolling handover for CICT EQ Maintenance. Each phase appends its record; the newest is first.
 
+## 24 October 2026 - U1-C46 clear interface guidance
+
+Replaced dense fixed explanations with short sentences and labelled points across EQ/FAC pages, dialogs and Admin. The EQ status guide separates ZMMS rules, manual correction timing and unlinked equipment. Similar cleanup covers spare estimates/registration, FAC hints, cancellation/completion notices, catalogue/position/specification rules, access, imports and ZMMS settings. Original job/technical descriptions and important constraints remain; command handlers, data and permissions are unchanged. Ten runtime modules are listed in `docs/evidence/U1/status-copy-c46/copy-changes.json`.
+
+Checks: 39/39 browser smoke checks on the working preview and 39/39 on an isolated HEAD-plus-staged-runtime copy; existing R02B regression 10/10; final Access labels 4/4 with 12 feature entries retained. Desktop/phone screenshots inspected, JavaScript syntax and staged whitespace checks pass. Evidence: `docs/evidence/U1/status-copy-c46/REPORT.md`; exact requests: `docs/runs/Repair-U1-C46-20261024.md`; D-190 / UX section 40. Earlier uncommitted U1/RTG work is preserved outside this commit. Direct Codex adjustment, no delegated phase or independent R verdict; actual runtime model/effort not independently recorded. Local synthetic verification only. U1 remains IN PROGRESS, NOT COMPLETE / NOT APPROVED; P04 Not started. Next: continue U1 review/refinements.
+
 ## 24 October 2026 - U1-C45 completed FAC progress
 
 Completed FAC Dashboard bars and quantity/percentage text now match the existing green completion pills; partial progress stays yellow. A positive target must be reached for completion styling. Scoped CSS preserves FAC Jobs appearance. Files: P02 `js/views-fac.js` and `css/fac-dashboard-controls.css`. Local synthetic browser checks: 14 complete rows match green, 7 partial rows stay yellow, zero-target guard, phone colours and no browser errors; syntax and whitespace pass. Evidence: `docs/evidence/U1/fac-completed-c45/REPORT.md`; request: `docs/runs/Repair-U1-C45-20261024.md`; D-189 / UX section 39. Direct Codex refinement, no delegated phase/independent R verdict; runtime model/effort not independently recorded. Earlier uncommitted edits are preserved. U1 remains IN PROGRESS, NOT COMPLETE / NOT APPROVED; P04 Not started.

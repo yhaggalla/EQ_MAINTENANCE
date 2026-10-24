@@ -128,11 +128,11 @@ window.EQ = window.EQ || {};
     const vp = h('section', { class: 'panel viewport', 'aria-label': 'Model area' });
     const msg = (ic, title, text, actions) => h('div', { class: 'vp-msg', role: 'status' }, h('div', null, icon(ic, 'big'), h('h2', null, title), h('p', { class: 'muted', style: 'margin:0' }, text), actions || null));
     if (eq.typeCode !== 'QC') {
-      vp.appendChild(msg(eq.typeCode.toLowerCase(), '3D view not available in stage 1', eq.typeCode + ' equipment has no 3D model in stage 1. Specifications, the mechanism tree, work records, replacement history and evidence are fully available. A QC model is never shown in place of an ' + eq.typeCode + '.', h('span', { class: 'tag dashed' }, 'Type icon only, not a model')));
+      vp.appendChild(msg(eq.typeCode.toLowerCase(), '3D view not available in stage 1', eq.typeCode + " has no 3D model in stage 1. Use the mechanism tree and records for specifications, work, replacements and evidence. A QC model is not used for an " + eq.typeCode + '.', h('span', { class: 'tag dashed' }, 'Type icon only, not a model')));
       return vp;
     }
     if (!EQ.verified(eq)) {
-      vp.appendChild(msg('cube', 'No verified model association', eq.code + ' has no verified model association, so no 3D view is offered and no model facts are assumed. The tree (if any), jobs and history stay available.', EQ.perm.admin() ? h('a', { class: 'btn', href: '#/admin/equipment' }, 'Associate a model in Admin') : h('span', { class: 'small muted' }, 'An EQ Maintenance Admin associates a verified model.')));
+      vp.appendChild(msg('cube', 'No verified model association', eq.code + " has no verified model. An Admin must verify the association before 3D is available. Existing trees, jobs and history remain accessible.", EQ.perm.admin() ? h('a', { class: 'btn', href: '#/admin/equipment' }, 'Associate a model in Admin') : h('span', { class: 'small muted' }, 'An EQ Maintenance Admin associates a verified model.')));
       return vp;
     }
     if (S.viewer === 'loading') { vp.appendChild(h('div', { class: 'vp-msg', role: 'status', 'aria-busy': 'true' }, h('div', null, h('div', { class: 'skeleton', style: 'width:100%;height:8rem' }), h('p', { class: 'muted', style: 'margin:0' }, 'Loading the model... The tree and records are already usable.')))); return vp; }
@@ -330,7 +330,7 @@ window.EQ = window.EQ || {};
   function rtgSummary(eq) {
     const cs = EQ.currentSpecial(eq.id, { level: 'equipment', id: null });
     const list = cs.ok ? cs.openJobs.slice(0, 4) : [];
-    return h('section', { class: 'panel panel-pad stack', 'aria-label': 'Records summary' }, h('h2', null, 'Records for ' + eq.code), h('p', { class: 'small muted', style: 'margin:0' }, 'Same panel as a QC: applicable mechanism tree (left) and the four current-state tabs (right); work history is in the Jobs tab. Only the 3D view is deferred.'),
+    return h('section', { class: 'panel panel-pad stack', 'aria-label': 'Records summary' }, h('h2', null, 'Records for ' + eq.code), h('p', { class: 'small muted', style: 'margin:0' }, "Use the mechanism tree and current-state tabs. History is in Jobs; 3D is not available for this equipment type."),
       list.length ? h('ul', { class: 'tl' }, list.map((r) => EQ.panelTabs.jobMini(r.job, r.matchingLines, { current: true }))) : h('p', { class: 'muted small', style: 'margin:0' }, 'No open special jobs.'));
   }
   EQ.eqv = { historyTab, jobMini, scopeLabel, resolveSel, scopeOf, ensureHistory, select, technicalTab, containerTab };

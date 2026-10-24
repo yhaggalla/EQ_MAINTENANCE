@@ -1,0 +1,164 @@
+{
+  "passed": 39,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "Page renders /eq/jobs/status",
+      "pass": true
+    },
+    {
+      "name": "Page renders /eq/jobs/daily",
+      "pass": true
+    },
+    {
+      "name": "Page renders /eq/jobs/spare-parts",
+      "pass": true
+    },
+    {
+      "name": "Page renders /admin/eq/equipment",
+      "pass": true
+    },
+    {
+      "name": "Page renders /admin/eq/models",
+      "pass": true
+    },
+    {
+      "name": "Page renders /admin/eq/catalog",
+      "pass": true
+    },
+    {
+      "name": "Page renders /admin/eq/positions",
+      "pass": true
+    },
+    {
+      "name": "Page renders /admin/eq/parameters",
+      "pass": true
+    },
+    {
+      "name": "Page renders /admin/eq/scene-bindings",
+      "pass": true
+    },
+    {
+      "name": "Page renders /admin/eq/spare-parts",
+      "pass": true
+    },
+    {
+      "name": "Page renders /admin/eq/zmms",
+      "pass": true
+    },
+    {
+      "name": "Page renders /admin/fac/master-list",
+      "pass": true
+    },
+    {
+      "name": "Page renders /admin/fac/import",
+      "pass": true
+    },
+    {
+      "name": "Page renders /admin/fac/settings",
+      "pass": true
+    },
+    {
+      "name": "Page renders /admin/access",
+      "pass": true
+    },
+    {
+      "name": "Page renders /eq/equipment/eq-rtg-demo-01",
+      "pass": true
+    },
+    {
+      "name": "Page renders /fac/jobs",
+      "pass": true
+    },
+    {
+      "name": "Page renders /fac/dashboard",
+      "pass": true
+    },
+    {
+      "name": "Page renders /eq/fleet",
+      "pass": true
+    },
+    {
+      "name": "Status guide uses three labelled points",
+      "pass": true
+    },
+    {
+      "name": "Correction form keeps reason and sync timing guidance",
+      "pass": true
+    },
+    {
+      "name": "Dialog closes without edits",
+      "pass": true
+    },
+    {
+      "name": "Completion form keeps status warning, date and evidence limit",
+      "pass": true
+    },
+    {
+      "name": "Dialog closes without edits",
+      "pass": true
+    },
+    {
+      "name": "Cancellation keeps permanence, history and reason",
+      "pass": true
+    },
+    {
+      "name": "Dialog closes without edits",
+      "pass": true
+    },
+    {
+      "name": "Spare registration keeps scope and Admin guidance",
+      "pass": true
+    },
+    {
+      "name": "Dialog closes without edits",
+      "pass": true
+    },
+    {
+      "name": "FAC progress keeps quantity, date and photo constraints",
+      "pass": true
+    },
+    {
+      "name": "Dialog closes without edits",
+      "pass": true
+    },
+    {
+      "name": "FAC hold keeps due-date warning",
+      "pass": true
+    },
+    {
+      "name": "Dialog closes without edits",
+      "pass": true
+    },
+    {
+      "name": "Access guide preserves role limits and update timing",
+      "pass": true
+    },
+    {
+      "name": "Phone explanations fit /eq/jobs/status",
+      "pass": true
+    },
+    {
+      "name": "Phone explanations fit /eq/jobs/spare-parts",
+      "pass": true
+    },
+    {
+      "name": "Phone explanations fit /admin/access",
+      "pass": true
+    },
+    {
+      "name": "Phone explanations fit /admin/eq/positions",
+      "pass": true
+    },
+    {
+      "name": "Browsing and dialog inspection do not change jobs or statuses",
+      "pass": true
+    },
+    {
+      "name": "No browser errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "errors": []
+}

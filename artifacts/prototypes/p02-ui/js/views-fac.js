@@ -406,7 +406,7 @@ window.EQ = window.EQ || {};
     const roles = EQ.access.persona().roles;
     const toggled = roles.some((r) => EQ.access.CEIL[feature][r] === 'T1' || EQ.access.CEIL[feature][r] === 'T0');
     return h('div', { class: 'page' }, h('div', { class: 'panel panel-pad stack', role: 'alert' }, h('h1', null, '403 - ' + (feature === 'admin.access' ? 'EQ Maintenance Admin only' : 'This tab is not available for your role')),
-      h('p', null, feature === 'admin.access' ? 'The Admin pages are for the app Admin. A hidden link is not the control: the server refuses this route and every Admin request for your role (403 forbidden_role).' : toggled ? 'The feature "' + (row ? row[1] : feature) + '" is switched off for your role in Admin > Access (403 feature_disabled). Ask the app Admin if you need it.' : 'No role you hold allows "' + (row ? row[1] : feature) + '" (403 forbidden_role).'),
+      h('p', null, feature === 'admin.access' ? "Only the app Admin can open these pages or change Admin settings (403 forbidden_role)." : toggled ? 'The feature "' + (row ? row[1] : feature) + '" is switched off for your role in Admin > Access (403 feature_disabled). Ask the app Admin if you need it.' : 'No role you hold allows "' + (row ? row[1] : feature) + '" (403 forbidden_role).'),
       h('p', null, h('a', { href: '#' + EQ.access.landing() }, 'Go to your landing page'))));
   };
 })(window.EQ);

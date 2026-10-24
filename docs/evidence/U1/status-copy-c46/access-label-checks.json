@@ -1,0 +1,11 @@
+{
+  "labels": [
+    "EQ: special jobs, status correction, spare-part updates and dashboard/3D visibility",
+    "FAC: progress, holds, photos and dashboard visibility",
+    "FAC: add, edit and deactivate recurring jobs",
+    "Admin: EQ settings, FAC settings and Access"
+  ],
+  "noRunReferences": true,
+  "features": 12,
+  "errors": []
+}
