@@ -368,3 +368,7 @@ Keep History and Update side by side in the spare-register Actions cell. Allow e
 ## 42 U1-C48: EQ job-card links (24 October 2026)
 
 Use each EQ job title as the job-details link, like FAC Jobs. Remove the separate card number link; retain numbers in record headings, search and accessible card identity. Omit the visible cancellation-unavailable paragraph on cards. Keep its reason available through the Cancel tooltip and screen-reader description, without changing cancellation eligibility. Apply to Board and Tabs; retain Show, status/kind badges, actions and detail-page information. Evidence: `docs/evidence/U1/job-links-c48/REPORT.md`. U1 remains open and unapproved.
+
+## 43 U1-C49: first-row EQ job titles (24 October 2026)
+
+Place the linked title first in each EQ card header, with badges and Show to its right. The title can wrap naturally, while badges wrap within a bounded group. Keep full names, clear separation, keyboard links and existing controls on desktop and phone. Board and Tabs share the same header. Evidence: `docs/evidence/U1/job-heading-c49/REPORT.md`. U1 remains open and unapproved.

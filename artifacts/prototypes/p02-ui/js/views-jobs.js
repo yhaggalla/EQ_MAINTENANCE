@@ -52,8 +52,7 @@ window.EQ = window.EQ || {};
     const ctx = {};
     const acts = actions(j, ctx);
     return h('article', { class: 'job' + (j.isCancelled ? ' cancelled' : ''), 'aria-label': j.number + ' ' + j.title },
-      h('div', { class: 'row between' }, h('span', null, h('span', { class: 'tag' }, KIND[j.kind]), ' ', statusTag(j), j.priority === 'high' ? h('span', { class: 'tag gold', style: 'margin-left:.25rem' }, 'High priority') : null, hiddenTag(j))),
-      h('h3', null, h('a', { class: 'job-name', href: '#/eq/jobs/special/' + j.id }, j.title)),
+      h('div', { class: 'job-top' }, h('h3', null, h('a', { class: 'job-name', href: '#/eq/jobs/special/' + j.id }, j.title)), h('div', { class: 'job-marks' }, h('span', { class: 'tag' }, KIND[j.kind]), ' ', statusTag(j), j.priority === 'high' ? h('span', { class: 'tag gold', style: 'margin-left:.25rem' }, 'High priority') : null, hiddenTag(j))),
       h('div', { class: 'meta' }, h('span', null, h('a', { href: '#/eq/equipment/' + eq.id }, eq.code)), h('span', null, EQ.targetLabel(j))),
       h('div', { class: 'meta' },
         j.workStatus === 'completed' ? h('span', null, 'Completed ' + EQ.fmtDate(j.completedOn)) : h('span', null, j.plannedOn ? 'Planned ' + EQ.fmtDate(j.plannedOn) : 'No planned date'),

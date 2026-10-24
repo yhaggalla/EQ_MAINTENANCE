@@ -1,0 +1,90 @@
+{
+  "cards": 19,
+  "titleInFirstRow": true,
+  "headingsAligned": true,
+  "showRetained": true,
+  "heights": [
+    {
+      "href": "#/eq/jobs/special/job-105",
+      "height": 142.953125
+    },
+    {
+      "href": "#/eq/jobs/special/job-602",
+      "height": 142.953125
+    },
+    {
+      "href": "#/eq/jobs/special/job-702",
+      "height": 142.953125
+    },
+    {
+      "href": "#/eq/jobs/special/job-106",
+      "height": 142.953125
+    },
+    {
+      "href": "#/eq/jobs/special/job-107",
+      "height": 147.046875
+    },
+    {
+      "href": "#/eq/jobs/special/job-601",
+      "height": 142.953125
+    },
+    {
+      "href": "#/eq/jobs/special/job-104",
+      "height": 166.171875
+    },
+    {
+      "href": "#/eq/jobs/special/job-801",
+      "height": 142.953125
+    },
+    {
+      "href": "#/eq/jobs/special/job-206",
+      "height": 142.953125
+    },
+    {
+      "href": "#/eq/jobs/special/job-401",
+      "height": 142.953125
+    },
+    {
+      "href": "#/eq/jobs/special/job-703",
+      "height": 142.953125
+    },
+    {
+      "href": "#/eq/jobs/special/job-202",
+      "height": 169.140625
+    },
+    {
+      "href": "#/eq/jobs/special/job-701",
+      "height": 142.953125
+    },
+    {
+      "href": "#/eq/jobs/special/job-103",
+      "height": 147.046875
+    },
+    {
+      "href": "#/eq/jobs/special/job-204",
+      "height": 142.953125
+    },
+    {
+      "href": "#/eq/jobs/special/job-101",
+      "height": 142.953125
+    },
+    {
+      "href": "#/eq/jobs/special/job-203",
+      "height": 147.046875
+    },
+    {
+      "href": "#/eq/jobs/special/job-102",
+      "height": 142.953125
+    },
+    {
+      "href": "#/eq/jobs/special/job-201",
+      "height": 142.953125
+    }
+  ],
+  "firstCardReducedBy": 22.84375,
+  "smallerCards": 18,
+  "linkWorks": true,
+  "tabsFirstRow": true,
+  "phoneFits": true,
+  "errors": []
+}

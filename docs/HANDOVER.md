@@ -2,6 +2,10 @@
 
 Rolling handover for CICT EQ Maintenance. Each phase appends its record; the newest is first.
 
+## 24 October 2026 - U1-C49 EQ card title in first row
+
+Moved the linked EQ job title into the first header row beside badges and Show, using bounded wrapping for long text and badges. Runtime: P02 `js/views-jobs.js` and scoped rules in `css/v2.css`. Checked all 19 card headers for placement/alignment, retained Show, exact link navigation, Board/Tabs and 375 px phone fit; no browser errors. The example card is 22.84 px shorter; 18 cards became shorter and one differs by less than 1 px due to wrapping. Desktop capture inspected; syntax and staged whitespace pass. Evidence: `docs/evidence/U1/job-heading-c49/REPORT.md`; request: `docs/runs/Repair-U1-C49-20261024.md`; D-193 / UX section 43. Earlier uncommitted changes are excluded. Direct Codex U1 adjustment, no delegated phase/independent R verdict; actual runtime model/effort not independently recorded. Local synthetic verification only. U1 remains IN PROGRESS, NOT COMPLETE / NOT APPROVED; P04 Not started.
+
 ## 24 October 2026 - U1-C48 EQ card title links
 
 Removed the separate EQ card number link and visible cancellation-unavailable note. Job titles now open the same job details route; numbers stay searchable and visible in the record. Cancellation remains restricted, with the reason in the button tooltip and screen-reader description. Runtime: P02 `js/views-jobs.js` only. Checked all 19 cards, keyboard Enter, exact detail identity, number search, blocked cancellation without mutation, Board/Tabs, phone fit and Management read-only links; no browser errors. Screenshot inspected; syntax and staged whitespace pass. Evidence: `docs/evidence/U1/job-links-c48/REPORT.md`; request: `docs/runs/Repair-U1-C48-20261024.md`; D-192 / UX section 42. Earlier uncommitted edits are excluded. Direct Codex U1 adjustment, no delegated phase/independent R verdict; actual runtime model/effort not independently recorded. Local synthetic verification only. U1 remains IN PROGRESS, NOT COMPLETE / NOT APPROVED; P04 Not started.

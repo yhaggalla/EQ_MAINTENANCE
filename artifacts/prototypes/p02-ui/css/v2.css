@@ -37,6 +37,9 @@
 .eq-card .meta .zc { font-weight: 700; color: var(--navy-800); }
 .fleet-page .eq-card .meta .src { font-size: .62rem; padding: 0 .3rem; }
 /* EQ jobs */
+.job .job-top { display: flex; align-items: flex-start; flex-wrap: nowrap; gap: .35rem .5rem; }
+.job .job-top h3 { flex: 1 1 0; min-width: 0; margin: 0; overflow-wrap: anywhere; }
+.job .job-top .job-marks { display: flex; flex: 0 1 auto; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: .25rem; max-width: 52%; margin-left: auto; }
 .daily-wrap { max-height: 32rem; overflow: auto; }
 .daily-table td, .daily-table th { font-size: .84rem; }
 .daily-table details summary { cursor: pointer; color: var(--navy-700); font-weight: 650; margin-top: .2rem; }

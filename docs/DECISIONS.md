@@ -634,3 +634,7 @@ User: "place the buttons in 1 row.." The marked controls are History and Update 
 ### 2026-10-24 U1 CHANGES REQUESTED (U1-C48: clickable EQ job titles)
 
 User: "remove this part.. make name clickable like FAC jobs.." The marked content is the EQ card job-number link and the visible cancellation-unavailable paragraph. D-192: remove the number link from cards and link each job title to its existing details route. Keep numbers in the record, search and accessible card identity. Remove the visible cancellation paragraph from cards; retain its reason as screen-reader help and the Cancel button tooltip, with the same disabled permissions. Board and Tabs share this presentation. Evidence: `docs/evidence/U1/job-links-c48/REPORT.md`. U1 remains open and unapproved; P04 Not started.
+
+### 2026-10-24 U1 CHANGES REQUESTED (U1-C49: first-row EQ card title)
+
+User: "move description to 1st row.. to optimize card space.." The arrow identifies the clickable job title, not the full record description. D-193: place that title first in the card header, alongside kind/status/priority and Show. Let long titles and badges wrap within their own header areas without overlap; retain complete text and the same link/action behavior. Evidence: `docs/evidence/U1/job-heading-c49/REPORT.md`. U1 remains open and unapproved; P04 Not started.
