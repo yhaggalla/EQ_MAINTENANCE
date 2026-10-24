@@ -112,3 +112,5 @@ Checks: `node tools/p02b/check_flat_isolation.mjs` (18 assertions: default, fram
 2026-10-24 U1-C44 follow-up: removed the user-marked search hint; wildcard behavior is retained and browser-checked. U1 remains open and unapproved.
 
 2026-10-24 U1-C44: FAC Dashboard filters are hidden behind an icon by default; wildcard search filters all dashboard blocks and the existing export. Electrical, Mechanical and Civil lanes support independent wheel scrolling while hovered/paused, with static/reduced-motion/phone/TV behavior retained. D-187/D-188 / UX section 38; evidence: docs/evidence/U1/fac-controls-c44/REPORT.md. Local browser checks 26/26; existing R02B regressions 10/10. U1 remains IN PROGRESS, NOT COMPLETE / NOT APPROVED; P04 Not started.
+
+2026-10-24 U1-C45: 100% completed FAC Dashboard progress bars and quantity/percentage text match the green completion labels. Verified 14 complete rows, 7 partial rows, phone colours and the zero-target guard; no browser errors. D-189; evidence: docs/evidence/U1/fac-completed-c45/REPORT.md. U1 remains IN PROGRESS, NOT COMPLETE / NOT APPROVED; P04 Not started.

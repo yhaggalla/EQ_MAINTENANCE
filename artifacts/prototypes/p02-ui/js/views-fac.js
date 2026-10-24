@@ -23,7 +23,7 @@ window.EQ = window.EQ || {};
     return h('span', { class: 'pill st-' + k }, icon(STATUS_ICON[k] || 'dashed'), label);
   };
   EQ.facBar = function facBar(done, target, pct) {
-    return h('span', { class: 'prog' }, h('span', { class: 'bar', 'aria-hidden': 'true' }, h('i', { style: 'width:' + Math.min(100, pct) + '%' })), h('span', { class: 'qty' }, done + '/' + target + ' · ' + pct + ' %'));
+    return h('span', { class: 'prog' + (target > 0 && done >= target ? ' is-complete' : '') }, h('span', { class: 'bar', 'aria-hidden': 'true' }, h('i', { style: 'width:' + Math.min(100, pct) + '%' })), h('span', { class: 'qty' }, done + '/' + target + ' · ' + pct + ' %'));
   };
   function rowLabel(r) {
     return r.name + '. ' + F().TYPE_NAME[r.type] + ', ' + r.freq + (r.pic !== 'Unassigned' ? ', PIC ' + r.pic : '') + (r.mode ? ', ' + r.mode : '') + '. ' + (r.overdue ? 'Overdue' : r.group === 'upToDate' ? 'Done, up to date' : F().STATUS_NAME[r.status]) + ', ' + r.done + ' of ' + r.target + ' done, ' + r.pct + ' percent. ' + r.dueLabel + (r.holdReason ? '. On hold: ' + r.holdReason : '') + '.';

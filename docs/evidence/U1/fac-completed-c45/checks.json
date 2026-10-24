@@ -1,0 +1,10 @@
+{
+  "completed": 14,
+  "color": "rgb(35, 104, 59)",
+  "allCompletedMatch": true,
+  "partial": 7,
+  "partialStillYellow": true,
+  "emptyNotComplete": true,
+  "phoneMatch": true,
+  "errors": []
+}

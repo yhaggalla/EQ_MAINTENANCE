@@ -2,6 +2,10 @@
 
 Rolling handover for CICT EQ Maintenance. Each phase appends its record; the newest is first.
 
+## 24 October 2026 - U1-C45 completed FAC progress
+
+Completed FAC Dashboard bars and quantity/percentage text now match the existing green completion pills; partial progress stays yellow. A positive target must be reached for completion styling. Scoped CSS preserves FAC Jobs appearance. Files: P02 `js/views-fac.js` and `css/fac-dashboard-controls.css`. Local synthetic browser checks: 14 complete rows match green, 7 partial rows stay yellow, zero-target guard, phone colours and no browser errors; syntax and whitespace pass. Evidence: `docs/evidence/U1/fac-completed-c45/REPORT.md`; request: `docs/runs/Repair-U1-C45-20261024.md`; D-189 / UX section 39. Direct Codex refinement, no delegated phase/independent R verdict; runtime model/effort not independently recorded. Earlier uncommitted edits are preserved. U1 remains IN PROGRESS, NOT COMPLETE / NOT APPROVED; P04 Not started.
+
 ## 24 October 2026 - U1-C44 FAC dashboard controls
 
 Follow-up: removed the wildcard syntax hint below Search jobs at the user's request. Browser check confirms the hint/reference are absent and `fire*pump` still returns the two matching jobs, with no browser errors.

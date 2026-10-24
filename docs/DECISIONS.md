@@ -618,3 +618,7 @@ Evidence: `docs/evidence/U1/compact-header-c36/REPORT.md`. **U1 remains incomple
 2026-10-24 U1-C44 follow-up: user requested removing the wildcard syntax hint below Search jobs. Remove the visible hint and its accessibility reference; retain wildcard behavior and the example placeholder.
 
 Evidence: `docs/evidence/U1/fac-controls-c44/REPORT.md`; exact request: `docs/runs/Repair-U1-C44-20261024.md`. **U1 remains IN PROGRESS / CHANGES REQUESTED, NOT COMPLETE and NOT APPROVED; P04 is Not started.**
+
+### 2026-10-24 U1 CHANGES REQUESTED (U1-C45: green completed FAC progress)
+
+User: "show 100% completed items in matching green color.." The marked dashboard progress bar identifies the completed quantity display. D-189: when the completed quantity reaches a positive target, use the same green as the Completed/Done status for the dashboard bar and quantity/percentage text. Keep partial progress yellow, retain existing status/quantity values and scope the colour to FAC Dashboard. Evidence: `docs/evidence/U1/fac-completed-c45/REPORT.md`. U1 remains open, incomplete and unapproved; P04 is Not started.
