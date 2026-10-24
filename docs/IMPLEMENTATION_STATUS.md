@@ -109,4 +109,6 @@ Checks: `node tools/p02b/check_flat_isolation.mjs` (18 assertions: default, fram
 
 2026-10-24 U1-C37: removed the circled automatic-status cause paragraph and similar repeated explanations from the four crane panels. Status/source/freshness, manual reasons, stale indicators, real records/actions and technical source conflicts remain. D-180 / UX section 31; panel 9/9, isolated-area 21/21, spare-update 11/11 and focused visual/data checks 10/10. Evidence: docs/evidence/U1/panel-cleanup-c37/REPORT.md. U1 remains IN PROGRESS, NOT COMPLETE / NOT APPROVED; P04 Not started.
 
+2026-10-24 U1-C44 follow-up: removed the user-marked search hint; wildcard behavior is retained and browser-checked. U1 remains open and unapproved.
+
 2026-10-24 U1-C44: FAC Dashboard filters are hidden behind an icon by default; wildcard search filters all dashboard blocks and the existing export. Electrical, Mechanical and Civil lanes support independent wheel scrolling while hovered/paused, with static/reduced-motion/phone/TV behavior retained. D-187/D-188 / UX section 38; evidence: docs/evidence/U1/fac-controls-c44/REPORT.md. Local browser checks 26/26; existing R02B regressions 10/10. U1 remains IN PROGRESS, NOT COMPLETE / NOT APPROVED; P04 Not started.

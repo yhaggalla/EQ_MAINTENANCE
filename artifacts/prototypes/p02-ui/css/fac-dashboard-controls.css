@@ -6,7 +6,6 @@
 .fac-dash .dash-search { flex: 1 1 15rem; min-width: 12rem; }
 .fac-dash .dash-search input { width: 100%; min-height: 2.75rem; border: 1px solid var(--pa-line-strong, var(--border)); border-radius: .5rem; background: #fff; color: var(--fac-black, var(--ink)); font: inherit; padding: .4rem .65rem; }
 .fac-dash .dash-search input:focus-visible { outline: 2px solid var(--fac-black, var(--ink)); outline-offset: 3px; }
-.fac-dash .dash-search .small { display: block; font-size: .72rem; }
 @media (max-width: 767px) {
   .fac-dash .dash-filters .dash-search { grid-column: 1 / -1; min-width: 0; flex-basis: 100%; }
 }

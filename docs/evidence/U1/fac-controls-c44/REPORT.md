@@ -8,6 +8,8 @@ Each lane now handles vertical wheel input while its moving track is paused on h
 
 ## Verification actually performed
 
+Follow-up requested by the user: removed the visible wildcard syntax hint below Search jobs, its now-unused `aria-describedby` reference and helper-text style. A focused local browser check confirmed both helper/reference are absent, `fire*pump` still returns two jobs, and there are no browser errors; JavaScript syntax also passes.
+
 - `node tools/p02b/check_u1_c44.mjs`: **26/26 PASS**, using a disposable headless Chrome profile against `http://127.0.0.1:5312/`. Includes default collapse and expansion, input focus, combined `*`/`?` search, literal punctuation, zero matches, nonempty and empty on-time cycles, ticker/proof scopes, changing search before export, Clear filters, Escape/focus, real wheel down/up in all three lanes, isolation while paused/hovered, wheel units, browser zoom and boundary propagation, auto-resume, native static scrolling, emulated OS reduced motion, TV footer fit, 375 px phone and landscape fit, and no browser errors. `checks.json` records the results.
 - `node tools/p02b/check_r02b_round2.mjs docs/evidence/U1/fac-controls-c44/r02b-regression.json`: **10/10 PASS**, covering existing current-state payload isolation and filtered FAC on-time calculations.
 - The same 26 browser checks also pass against a temporary copy containing HEAD plus only this request's staged runtime files, using port 5316. `commit-content-checks.json` records that separate run; it confirms the commit works without the earlier uncommitted FAC restyle. The unchanged P03 vendor files were exposed read-only to satisfy the prototype's existing module imports.

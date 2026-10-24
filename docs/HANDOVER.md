@@ -4,6 +4,8 @@ Rolling handover for CICT EQ Maintenance. Each phase appends its record; the new
 
 ## 24 October 2026 - U1-C44 FAC dashboard controls
 
+Follow-up: removed the wildcard syntax hint below Search jobs at the user's request. Browser check confirms the hint/reference are absent and `fire*pump` still returns the two matching jobs, with no browser errors.
+
 Filters collapse behind a labelled toolbar icon by default, with an active count, retained criteria and Escape/focus handling. Added case-insensitive wildcard search (`*` any text, `?` one character) across job text/number/PIC and metadata, shared by dashboard figures, on-time cycles, lanes, ticker/proof/due load and the existing export. Each discipline lane now supports independent wheel scrolling while hovered or paused; page boundaries, static native scrolling, reduced-motion pages, TV, phone and automatic resume are retained.
 
 Verification: 26/26 local browser checks, 10/10 existing R02B regression checks, syntax/whitespace checks and inspected desktop/search/TV/phone captures. Evidence: `docs/evidence/U1/fac-controls-c44/REPORT.md`. Exact request: `docs/runs/Repair-U1-C44-20261024.md`. Runtime: P02 `js/views-fac.js`, `js/fac.js`, `js/util.js`, `index.html`, new `css/fac-dashboard-controls.css`; test: `tools/p02b/check_u1_c44.mjs`. D-187/D-188, UX section 38. Only this request's changes are staged; pre-existing C38-C43 and RTG edits are preserved. Direct Codex refinement, no delegated phase or independent review verdict; actual runtime model/effort not independently recorded. Local synthetic prototype verification only. **U1 remains IN PROGRESS / CHANGES REQUESTED, NOT COMPLETE and NOT APPROVED; P04 remains Not started.** Next: continue U1 review/refinements.
