@@ -144,17 +144,61 @@ window.EQ = window.EQ || {};
   EQ.shownOpenJobs = (eqId) => EQ.openJobs(eqId).filter(EQ.shownOnDashboard);
   /** Simulated GET /jobs and GET /jobs/{id} (API s4.7): EQ Jobs tab records, eq.jobs.view only. */
   EQ.readJobs = () => readDeny('eq.jobs.view') || { ok: true, items: S.D.jobs.slice() };
+  // Percentage is recorded explicitly; never infer a made-up percentage for Current jobs.
+  EQ.jobProgress = (job) => {
+    const completed = job.workStatus === 'completed' && !job.isCancelled;
+    return { percent: completed ? 100 : Number.isInteger(job.progressPercent) ? job.progressPercent : job.workStatus === 'pending' ? 0 : null,
+      workDate: job.progressUpdatedOn || (completed ? job.completedOn : null), note: job.progressNote || (completed ? job.completionNote : '') || '' };
+  };
   EQ.readJob = (id) => readDeny('eq.jobs.view') || (EQ.job(id) ? { ok: true, job: EQ.job(id) } : { ok: false, status: 404, code: 'not_found', message: 'No job with this link exists (404).' });
   /** Open-job count for the crane-view tree badges (current state only). */
   EQ.openCount = (eqId, scope) => { const r = EQ.currentSpecial(eqId, scope); return r.ok ? r.openJobs.length : 0; };
 
   // ---- simulated server rules ----
   const fail = (status, code, message, fields) => ({ ok: false, status, code, message, fields: fields || {} });
-  const audit = (action, entity, reason) => { S.D.audit.unshift({ at: new Date().toISOString(), by: EQ.user().id, action, entity, reason: reason || null }); EQ.log('audit: ' + action + ' ' + entity); };
+  const audit = (action, entity, reason, changes) => { S.D.audit.unshift({ at: new Date().toISOString(), by: EQ.user().id, action, entity, reason: reason || null, ...changes }); EQ.log('audit: ' + action + ' ' + entity); };
   const forbid = () => fail(403, 'forbidden', 'The server refuses this request for your role (' + (EQ.PERSONAS[S.role] ? EQ.PERSONAS[S.role].label : S.role) + '). Hidden buttons are not authorization.');
-  const validDate = (v, { allowFuture } = {}) => /^\d{4}-\d{2}-\d{2}$/.test(v || '') && v >= '2000-01-01' && (allowFuture || v <= EQ.todayColombo());
+  const validDate = (v, { allowFuture } = {}) => {
+    if (typeof v !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(v) || v < '2000-01-01' || (!allowFuture && v > EQ.todayColombo())) return false;
+    const date = new Date(v + 'T00:00:00Z');
+    return !Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === v;
+  };
 
   EQ.api = {
+    /** U1-C50: versioned, retry-safe EQ percentage update. 100% uses atomic completion. */
+    updateJobProgress(id, p) {
+      if (!isWriter()) return forbid();
+      p = p || {};
+      const job = EQ.job(id);
+      if (!job) return fail(404, 'not_found', 'Job not found.');
+      if (typeof p.key !== 'string' || !p.key.trim() || p.key.length > 128) return fail(422, 'validation_failed', 'A request key is required.');
+      const key = 'job-progress:' + id + ':' + p.key;
+      if (S.D.idem[key]) return { ...JSON.parse(JSON.stringify(S.D.idem[key])), replayed: true };
+      if (job.isCancelled || job.workStatus === 'completed') return fail(409, 'job_not_editable', 'Completed or cancelled jobs cannot receive progress updates.');
+      if (EQ.eq(job.equipmentId).lifecycle !== 'active') return fail(409, 'equipment_retired', 'Retired equipment cannot receive progress updates.');
+      if (p.version !== job.version) return fail(409, 'version_conflict', 'This job changed. Close the form and reopen Update progress to use the latest values.');
+      const f = {};
+      if (typeof p.percent !== 'number' || !Number.isInteger(p.percent) || p.percent < 0 || p.percent > 100) f.percent = 'Enter a whole percentage from 0 to 100.';
+      if (!validDate(p.workDate)) f.workDate = 'Enter a valid work date that is not in the future.';
+      const lastDate = job.progressUpdatedOn || (job.reopenCount ? job.completedOn : null);
+      if (!f.workDate && lastDate && p.workDate < lastDate) f.workDate = 'Work date cannot be before the latest recorded progress or completion.';
+      if (typeof p.note !== 'string' || !p.note.trim() || p.note.length > 2000) f.note = 'Enter a progress note (up to 2000 characters).';
+      if (p.percent === 100 && p.lines != null && (!Array.isArray(p.lines) || p.lines.some((l) => !l || typeof l !== 'object' || typeof l.desc !== 'string' || typeof l.on !== 'string' || (l.removedKnown === 'yes' && typeof l.removedDesc !== 'string')))) f.lines = 'Enter valid replacement details.';
+      if (Object.keys(f).length) return fail(422, 'validation_failed', 'Check the highlighted fields.', f);
+      if (p.percent === 100) {
+        const res = EQ.api.completeJob(id, { key, version: p.version, completedOn: p.workDate, note: p.note, lines: p.lines || [] });
+        if (res.ok) S.D.idem[key] = JSON.parse(JSON.stringify(res));
+        return res;
+      }
+      const before = EQ.jobProgress(job), fromStatus = job.workStatus, now = new Date().toISOString();
+      job.progressPercent = p.percent; job.progressUpdatedOn = p.workDate; job.progressNote = p.note.trim();
+      if (p.percent > 0) job.workStatus = 'current';
+      job.version += 1; job.updatedUtc = now; EQ.eq(job.equipmentId).lastActivity = now;
+      job.events.push({ kind: 'progressUpdated', at: now, by: EQ.user().id, workDate: p.workDate, percent: p.percent, previousPercent: before.percent, fromStatus, toStatus: job.workStatus, note: job.progressNote });
+      audit('job.progress', job.number, job.progressNote, { before, after: EQ.jobProgress(job) });
+      const res = { ok: true, job, statusUnchanged: EQ.eq(job.equipmentId).status };
+      S.D.idem[key] = JSON.parse(JSON.stringify(res)); EQ.notify(); return res;
+    },
     createJob(p) {
       if (!isWriter()) return forbid();
       const f = {};
@@ -185,6 +229,7 @@ window.EQ = window.EQ || {};
         id: 'job-' + n + '-' + S.D.jobs.length, number: 'EQJ-2026-000' + n, equipmentId: eq.id, level: p.level || 'equipment', mainId, subId, positionId,
         kind: p.kind, title: p.title.trim(), description: p.description || '', priority: p.priority || null, plannedOn: p.plannedOn || null, responsible: p.responsible || null,
         workStatus: p.initialStatus === 'current' ? 'current' : 'pending', completedOn: null, completionNote: null,
+        progressPercent: p.initialStatus === 'current' ? null : 0, progressUpdatedOn: null, progressNote: null,
         isCancelled: false, cancelReason: null, cancelledBy: null, cancelledUtc: null,
         createdBy: EQ.user().id, createdUtc: new Date().toISOString(), updatedUtc: new Date().toISOString(), reopenCount: 0, version: 1, lines: [], showOnDashboard: p.showOnDashboard !== false, // U1-C26 default shown
         events: [{ kind: 'created', at: new Date().toISOString(), by: EQ.user().id, note: null }], corrections: [],
@@ -241,10 +286,13 @@ window.EQ = window.EQ || {};
       if (!isWriter()) return forbid();
       if (p.key && S.D.idem[p.key]) return { ...S.D.idem[p.key], replayed: true };
       const job = EQ.job(id);
+      if (!job) return fail(404, 'not_found', 'Job not found.');
+      if (p.version != null && p.version !== job.version) return fail(409, 'version_conflict', 'This job changed. Reopen the form to use the latest values.');
       if (job.workStatus === 'completed') return fail(409, 'job_already_completed', 'This job is already completed. A repeat of the same command is safe: nothing was duplicated.');
       if (job.isCancelled) return fail(409, 'invalid_transition', 'A cancelled job cannot be completed.');
       const f = {}, lineErrors = {};
       if (!validDate(p.completedOn)) f.completedOn = 'Enter a completion date that is not in the future (Asia/Colombo).';
+      if (job.progressUpdatedOn && p.completedOn < job.progressUpdatedOn) f.completedOn = 'Completion date cannot be before the latest progress update.';
       if (!p.note || !p.note.trim()) f.note = 'Enter a completion note.';
       const lines = p.lines || [];
       if (job.kind === 'repair' && lines.length) f.lines = 'Repair jobs take no replacement lines.';
@@ -263,6 +311,7 @@ window.EQ = window.EQ || {};
         const q = Number(l.qty);
         if (pos && pos.kind === 'serialized' ? q !== 1 : !(q > 0)) e.qty = pos && pos.kind === 'serialized' ? 'A serialized position takes exactly 1 ea.' : 'Quantity must be greater than 0.';
         if (!validDate(l.on)) e.on = 'Enter a replacement date that is not in the future.';
+        else if (l.on > p.completedOn) e.on = 'Replacement date cannot be after the completion date.';
         else if (pos) {
           const last = S.D.events.filter((x) => x.positionId === pos.id && !x.voided).slice(-1)[0];
           if (last && last.businessDate && l.on < last.businessDate) e.on = 'Earlier than the latest recorded replacement at this position (' + EQ.fmtDate(last.businessDate) + '). Enter past work oldest first (409 out_of_order_installation).';
@@ -273,6 +322,7 @@ window.EQ = window.EQ || {};
       if (Object.keys(f).length || Object.keys(lineErrors).length) return { ok: false, status: 422, code: 'validation_failed', message: 'Nothing was saved. Fix the items below and try again.', fields: f, lineErrors };
       // all-or-nothing commit
       const nowIso = new Date().toISOString();
+      const beforeProgress = EQ.jobProgress(job);
       lines.forEach((l) => {
         const pos = EQ.pos(l.positionId);
         const evs = S.D.events.filter((x) => x.positionId === pos.id && !x.voided);
@@ -283,9 +333,10 @@ window.EQ = window.EQ || {};
         if (EQ.spares.isMajor(pos.id)) EQ.spares.noteCompletion(pos, job, line, l.conditionRemarks); // register written in the same transaction (SP02)
       });
       job.workStatus = 'completed'; job.completedOn = p.completedOn; job.completionNote = p.note.trim(); job.version += 1; job.updatedUtc = nowIso;
-      job.events.push({ kind: 'completed', at: nowIso, by: EQ.user().id, note: 'Business date ' + p.completedOn });
+      job.progressPercent = 100; job.progressUpdatedOn = p.completedOn; job.progressNote = p.note.trim();
+      job.events.push({ kind: 'completed', at: nowIso, by: EQ.user().id, workDate: p.completedOn, percent: 100, previousPercent: beforeProgress.percent, note: p.note.trim() });
       EQ.eq(job.equipmentId).lastActivity = nowIso;
-      audit('job.complete', job.number + ' (' + lines.length + ' line(s))');
+      audit('job.complete', job.number + ' (' + lines.length + ' line(s))', p.note.trim(), { before: beforeProgress, after: EQ.jobProgress(job) });
       const res = { ok: true, job, statusUnchanged: EQ.eq(job.equipmentId).status };
       if (p.key) S.D.idem[p.key] = { ...res };
       EQ.notify();
@@ -526,6 +577,7 @@ window.EQ = window.EQ || {};
       if (job.workStatus !== 'completed') return fail(409, 'invalid_transition', 'Only completed work can be reopened.');
       if (!(reason || '').trim()) return fail(422, 'validation_failed', 'A reason is required.', { reason: 'Enter a reason.' });
       job.workStatus = 'current'; job.reopenCount += 1; job.version += 1;
+      job.progressPercent = null; job.progressUpdatedOn = null; job.progressNote = null;
       job.events.push({ kind: 'reopened', at: new Date().toISOString(), by: EQ.user().id, note: reason.trim() + ' (installations stay committed)' });
       audit('job.reopen', job.number, reason); EQ.notify();
       return { ok: true };

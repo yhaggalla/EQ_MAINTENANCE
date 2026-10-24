@@ -217,33 +217,37 @@ window.EQ = window.EQ || {};
   }
 
   // ---------- completion ----------
-  EQ.dlg.complete = function complete(job, afterDone) {
+  EQ.dlg.jobProgress = (job) => EQ.dlg.complete(job, null, { progress: true });
+  EQ.dlg.complete = function complete(job, afterDone, options) {
+    const progressing = !!(options && options.progress), initial = EQ.jobProgress(job);
     const eq = EQ.eq(job.equipmentId);
-    const st = { completedOn: EQ.todayColombo(), note: '', lines: [], key: crypto.randomUUID ? crypto.randomUUID() : 'key-' + Date.now() };
+    const st = { completedOn: EQ.todayColombo(), note: '', percent: progressing ? initial.percent : 100, version: job.version, lines: [], key: crypto.randomUUID ? crypto.randomUUID() : 'key-' + Date.now() };
     let errors = {}, lineErrors = {}, summary = [], busy = false, result = null;
     const eligible = () => EQ.positionsOf(eq.id).filter((p) => p.state === 'active' && EQ.inTarget(job, p));
     const blankLine = () => { const el = eligible(); const only = job.level === 'part' ? el[0] : null; return { positionId: only ? only.id : '', removedKnown: 'unknown', removedDesc: '', removedSerial: '', desc: '', mfr: '', partNo: '', serial: '', qty: '1', on: EQ.todayColombo(), note: '' }; };
-    if (job.kind === 'replacement') st.lines.push(blankLine());
+    if (job.kind === 'replacement' && !job.lines.some((l) => l.state === 'committed')) st.lines.push(blankLine());
     const api = openDialog({
       build(api) {
         const dirty = () => api.markDirty();
+        const completing = !progressing || (st.percent !== '' && st.percent != null && Number(st.percent) === 100);
         const body = [
           writerGuard(),
           errorSummary(summary),
           h('div', { class: 'notice info' }, icon('info'), h('p', null, h('strong', null, job.number + ' - ' + job.title), h('br'), 'Target: ' + EQ.targetLabel(job) + '. Kind: ' + (job.kind === 'replacement' ? 'Replacement' : 'Repair') + '.')),
-          h('div', { class: 'notice warn' }, icon('alert'), h('p', null, 'Completing this job does not change the equipment status. ' + eq.code + ' stays ' + EQ.STATUS[EQ.statusKey(eq.status)].label + '.')),
+          completing ? h('div', { class: 'notice warn' }, icon('alert'), h('p', null, 'Completing this job does not change the equipment status. ' + eq.code + ' stays ' + EQ.STATUS[EQ.statusKey(eq.status)].label + '.')) : null,
+          progressing ? field('ep-percent', 'Overall progress (%)', input(st, 'percent', { type: 'number', min: 0, max: 100, step: 1, inputmode: 'numeric', placeholder: '0 to 100' }, () => { dirty(); errors = {}; lineErrors = {}; summary = []; api.render(); }), { required: true, error: errors.percent, hint: '100% completes the job after the required details are entered.' }) : null,
           h('div', { class: 'grid-2', onInput: dirty },
-            field('cf-date', 'Actual completion date', h('input', { type: 'date', min: '2000-01-01', max: EQ.todayColombo(), value: st.completedOn, onInput: (e) => { st.completedOn = e.target.value; } }), { required: true, error: errors.completedOn, hint: "Work date in Asia/Colombo. The audit timestamp is recorded separately in UTC." }),
-            field('cf-note', 'Completion note', area(st, 'note', { rows: 3, maxlength: 2000 }), { required: true, error: errors.note })),
-          job.kind === 'repair' ? h('p', { class: 'muted small' }, 'Repair jobs take no replacement lines.')
+            field(progressing ? 'ep-date' : 'cf-date', progressing ? 'Work date' : 'Actual completion date', h('input', { type: 'date', min: '2000-01-01', max: EQ.todayColombo(), value: st.completedOn, onInput: (e) => { st.completedOn = e.target.value; } }), { required: true, error: errors.workDate || errors.completedOn, hint: progressing ? 'Today or an earlier date; not before the latest update.' : "Work date in Asia/Colombo. The audit timestamp is recorded separately in UTC." }),
+            field(progressing ? 'ep-note' : 'cf-note', completing ? 'Completion note' : 'Progress note', area(st, 'note', { rows: 3, maxlength: 2000 }), { required: true, error: errors.note })),
+          !completing ? null : job.kind === 'repair' ? h('p', { class: 'muted small' }, 'Repair jobs take no replacement lines.')
             : h('section', { class: 'stack', 'aria-labelledby': 'cf-lines-h' },
               h('div', { class: 'row between' }, h('h3', { id: 'cf-lines-h' }, 'Replacement lines'), h('button', { type: 'button', class: 'btn-sm', onClick: () => { st.lines.push(blankLine()); dirty(); api.render(); } }, icon('plus'), 'Add line')),
               errors.lines ? h('div', { class: 'field' }, h('div', { class: 'err' }, icon('alert'), errors.lines)) : null,
               st.lines.map((l, i) => lineCard(l, i, api, dirty))),
-          h('fieldset', null, h('legend', null, 'Work evidence'), h('p', { class: 'muted small', style: 'margin:0' }, "JPEG, PNG or PDF, up to 20 MiB per file. Upload is not available in this prototype.")),
+          completing ? h('fieldset', null, h('legend', null, 'Work evidence'), h('p', { class: 'muted small', style: 'margin:0' }, "JPEG, PNG or PDF, up to 20 MiB per file. Upload is not available in this prototype.")) : null,
           h('p', { class: 'muted small' }, "Recorded once, even if you click twice or retry. " + PROTO_NOTE),
         ];
-        return { title: 'Complete job ' + job.number, body, focusSummary: summary.length > 0, foot: footButtons(api, 'Complete job', submit, { busy }) };
+        return { title: (progressing ? 'Update progress - ' : 'Complete job ') + job.number, body, focusSummary: summary.length > 0, foot: footButtons(api, completing ? 'Complete job' : 'Save progress', submit, { busy }) };
       },
     });
     function lineCard(l, i, api, dirty) {
@@ -255,7 +259,7 @@ window.EQ = window.EQ || {};
       const cur = pos ? S().D.events.filter((e) => e.positionId === pos.id && !e.voided).slice(-1)[0] : null;
       const k = 'cl' + i;
       return h('div', { class: 'line-card', onInput: dirty, onChange: dirty },
-        h('div', { class: 'row between' }, h('strong', null, 'Line ' + (i + 1)), st.lines.length > 1 || job.kind !== 'replacement' ? h('button', { type: 'button', class: 'btn-sm', onClick: () => { st.lines.splice(i, 1); lineErrors = {}; api.render(); } }, icon('x'), 'Remove') : null),
+        h('div', { class: 'row between' }, h('strong', null, 'Line ' + (i + 1)), st.lines.length > 1 || job.kind !== 'replacement' || job.lines.some((l) => l.state === 'committed') ? h('button', { type: 'button', class: 'btn-sm', onClick: () => { st.lines.splice(i, 1); lineErrors = {}; api.render(); } }, icon('x'), 'Remove') : null),
         field(k + '-pos', 'Replaced position', select(l, 'positionId', opts, () => { const p = EQ.pos(l.positionId); if (p && p.kind === 'serialized') l.qty = '1'; api.render(); }, 'Choose position'), { required: true, error: le.positionId, hint: eligible().length ? 'Positions of ' + eq.code + ' inside the job target only. Each position can have one line per job.' : 'This job has no active positions in its target.' }),
         pos ? h('div', { class: 'notice info' }, icon('info'), h('p', null, pos.kind === 'serialized' ? 'Serialized position: quantity is fixed at 1 ea.' : 'Quantity-bearing position (' + pos.uom + '): enter the quantity installed. This is not treated as one serialized item.', h('br'),
           cur ? 'Tracked current item: ' + cur.installed.desc + (cur.installed.serial ? ' (serial ' + cur.installed.serial + ')' : ' (serial unknown)') + ' will be recorded as removed.' : 'No tracked installation at this position. The removed item may be recorded as Unknown; nothing is invented.')) : null,
@@ -277,17 +281,20 @@ window.EQ = window.EQ || {};
       busy = true; api.render();
       setTimeout(() => {
         busy = false;
-        const res = EQ.api.completeJob(job.id, { key: st.key, completedOn: st.completedOn, note: st.note, lines: st.lines.map((l) => ({ ...l, qty: l.qty })) });
+        const lines = st.lines.map((l) => ({ ...l, qty: l.qty }));
+        const res = progressing ? EQ.api.updateJobProgress(job.id, { key: st.key, version: st.version, percent: st.percent === '' || st.percent == null ? null : Number(st.percent), workDate: st.completedOn, note: st.note, lines })
+          : EQ.api.completeJob(job.id, { key: st.key, version: st.version, completedOn: st.completedOn, note: st.note, lines });
         if (res.ok) {
-          EQ.lastCompletion = { id: job.id, key: st.key, payload: { key: st.key } };
+          const completed = res.job.workStatus === 'completed';
+          if (completed) EQ.lastCompletion = { id: job.id, key: st.key, payload: { key: progressing ? 'job-progress:' + job.id + ':' + st.key : st.key } };
           api.close(res);
-          EQ.toast('Completed ' + job.number + (res.replayed ? ' (replayed: no duplicate)' : ''), 'Equipment status unchanged: ' + EQ.STATUS[EQ.statusKey(res.statusUnchanged)].label + '. ' + PROTO_NOTE);
+          EQ.toast((completed ? 'Completed ' : 'Progress saved: ') + job.number + (!completed ? ' (' + res.job.progressPercent + '%)' : '') + (res.replayed ? ' (replayed: no duplicate)' : ''), 'Equipment status unchanged: ' + EQ.STATUS[EQ.statusKey(res.statusUnchanged)].label + '. ' + PROTO_NOTE);
           if (afterDone) afterDone(res);
           return;
         }
         errors = res.fields || {}; lineErrors = res.lineErrors || {};
         summary = [];
-        Object.entries(errors).forEach(([k, m]) => summary.push([{ completedOn: 'cf-date', note: 'cf-note', lines: 'cf-lines-h' }[k] || 'submit', m]));
+        Object.entries(errors).forEach(([k, m]) => summary.push([{ percent: 'ep-percent', workDate: 'ep-date', completedOn: progressing ? 'ep-date' : 'cf-date', note: progressing ? 'ep-note' : 'cf-note', lines: 'cf-lines-h' }[k] || 'submit', m]));
         Object.entries(lineErrors).forEach(([i, e]) => Object.entries(e).forEach(([k, m]) => summary.push(['cl' + i + '-' + { positionId: 'pos', desc: 'desc', qty: 'qty', on: 'on', removedDesc: 'rd' }[k], 'Line ' + (Number(i) + 1) + ': ' + m])));
         if (!summary.length) summary = [['submit', res.message]];
         api.render();

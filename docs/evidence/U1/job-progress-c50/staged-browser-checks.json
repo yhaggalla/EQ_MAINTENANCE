@@ -1,0 +1,100 @@
+{
+  "passed": 23,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "Every EQ card has a progress summary and no Open control",
+      "pass": true
+    },
+    {
+      "name": "Writers can update only active jobs; unrecorded Current progress stays unknown",
+      "pass": true
+    },
+    {
+      "name": "Progress form requires percentage, work date and note",
+      "pass": true
+    },
+    {
+      "name": "Missing note is rejected without a saved update",
+      "pass": true
+    },
+    {
+      "name": "Correcting percentage after validation keeps keyboard focus",
+      "pass": true
+    },
+    {
+      "name": "Saving partial progress updates the card and moves Pending to Current",
+      "pass": true
+    },
+    {
+      "name": "Partial update keeps equipment operational status",
+      "pass": true
+    },
+    {
+      "name": "Title opens detailed progress and dated history; Edit remains available",
+      "pass": true
+    },
+    {
+      "name": "100% uses completion fields in the same progress dialog",
+      "pass": true
+    },
+    {
+      "name": "Repair completion stores 100%, note and date",
+      "pass": true
+    },
+    {
+      "name": "Completed card is green and has no progress action",
+      "pass": true
+    },
+    {
+      "name": "Replacement details are required at 100%",
+      "pass": true
+    },
+    {
+      "name": "Incomplete replacement saves nothing",
+      "pass": true
+    },
+    {
+      "name": "Valid replacement completes and updates installation/register together",
+      "pass": true
+    },
+    {
+      "name": "Reopened replacement does not force a duplicate line",
+      "pass": true
+    },
+    {
+      "name": "Re-completion retains exactly one committed installation",
+      "pass": true
+    },
+    {
+      "name": "Stale form preserves server progress and reports conflict",
+      "pass": true
+    },
+    {
+      "name": "Progress note is rendered as safe text",
+      "pass": true
+    },
+    {
+      "name": "Refresh retains progress in this prototype session",
+      "pass": true
+    },
+    {
+      "name": "Phone/Tabs fit and show progress without wrapping action buttons",
+      "pass": true
+    },
+    {
+      "name": "management sees progress but cannot update",
+      "pass": true
+    },
+    {
+      "name": "facTeam sees progress but cannot update",
+      "pass": true
+    },
+    {
+      "name": "No browser errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "errors": []
+}

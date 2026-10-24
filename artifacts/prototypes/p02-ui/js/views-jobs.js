@@ -18,12 +18,12 @@ window.EQ = window.EQ || {};
     const w = EQ.perm.write(), a = EQ.perm.admin();
     const eq = EQ.eq(j.equipmentId);
     const live = !j.isCancelled && j.workStatus !== 'completed';
-    acts.push(h('a', { class: 'btn btn-sm', href: '#/eq/jobs/special/' + j.id }, icon('eye'), 'Open'));
     if (live && w) {
       acts.push(h('button', { type: 'button', class: 'btn-sm', onClick: () => EQ.dlg.jobForm({ job: j }) }, icon('edit'), 'Edit'));
+      acts.push(h('button', { type: 'button', class: 'btn-sm primary', 'data-fk': 'job-progress-' + j.id, onClick: () => EQ.dlg.jobProgress(j) }, icon('plus'), 'Update progress'));
       if (j.workStatus === 'pending') acts.push(h('button', { type: 'button', class: 'btn-sm', onClick: () => { const r = EQ.api.moveJob(j.id, 'current'); EQ.toast(r.ok ? 'Started ' + j.number : r.message, 'Prototype: in memory only.'); } }, 'Start'));
       else acts.push(h('button', { type: 'button', class: 'btn-sm', onClick: () => { const r = EQ.api.moveJob(j.id, 'pending'); EQ.toast(r.ok ? j.number + ' returned to Pending' : r.message, 'Prototype: in memory only.'); } }, 'Return to Pending'));
-      acts.push(h('button', { type: 'button', class: 'btn-sm primary', onClick: () => EQ.dlg.complete(j) }, icon('check-circle'), 'Complete...'));
+      acts.push(h('button', { type: 'button', class: 'btn-sm', onClick: () => EQ.dlg.complete(j) }, icon('check-circle'), 'Complete...'));
       const c = EQ.perm.cancel(j);
       acts.push(h('button', { type: 'button', class: 'btn-sm danger-btn', title: c.ok ? 'Cancel job' : 'Cancel unavailable: ' + c.why, 'aria-disabled': c.ok ? null : 'true', 'aria-describedby': c.ok ? null : 'why-' + j.id, onClick: () => { if (c.ok) EQ.dlg.cancel(j); } }, icon('cancel'), 'Cancel...'));
       if (!c.ok) ctx.why = c.why;
@@ -47,6 +47,14 @@ window.EQ = window.EQ || {};
     onChange: (show) => EQ.api.setJobVisibility(j.id, { show, version: j.version }) });
   const hiddenTag = (j) => (EQ.shownOnDashboard(j) ? null : h('span', { class: 'tag dashed', 'data-fk': 'hidden-tag', style: 'margin-left:.25rem', title: 'Not shown on the crane view (flat and 3D) or the fleet cards (U1-C26)' }, 'Hidden from dashboard / 3D'));
 
+  function progressSummary(job) {
+    const p = EQ.jobProgress(job), known = p.percent != null;
+    return h('div', { class: 'eq-job-progress' + (p.percent === 100 ? ' is-complete' : ''), 'data-progress': known ? p.percent : 'unknown' },
+      h('div', { class: 'prog' }, h('span', { class: 'bar', role: 'progressbar', 'aria-label': job.title + ' progress', 'aria-valuemin': 0, 'aria-valuemax': 100, 'aria-valuenow': known ? p.percent : null, 'aria-valuetext': known ? p.percent + ' percent' : 'Not recorded' }, h('i', { style: 'width:' + (known ? p.percent : 0) + '%' })), h('span', { class: 'qty' }, known ? p.percent + ' %' : 'Not updated')),
+      p.workDate ? h('span', { class: 'small muted' }, 'Updated ' + EQ.fmtDate(p.workDate)) : null,
+      p.note ? h('p', { class: 'eq-progress-note small', title: p.note }, p.note) : null);
+  }
+
   function card(j) {
     const eq = EQ.eq(j.equipmentId);
     const ctx = {};
@@ -59,6 +67,7 @@ window.EQ = window.EQ || {};
         j.responsible ? h('span', null, 'Responsible: ' + j.responsible) : null, h('span', null, 'Created by ' + (j.createdBy === EQ.user().id ? 'you' : EQ.userName(j.createdBy))),
         j.lines.length ? h('span', null, EQ.plural(j.lines.length, 'replacement line')) : null),
       j.isCancelled ? h('div', { class: 'meta' }, h('span', null, 'Cancelled by ' + EQ.userName(j.cancelledBy) + ' at ' + EQ.fmtInstantShort(j.cancelledUtc) + '. Reason: ' + j.cancelReason)) : null,
+      progressSummary(j),
       h('div', { class: 'acts' }, acts),
       ctx.why ? h('div', { class: 'why sr-only', id: 'why-' + j.id }, 'Cancel unavailable: ' + ctx.why) : null);
   }
@@ -122,8 +131,9 @@ window.EQ = window.EQ || {};
     const eq = EQ.eq(j.equipmentId);
     const ctx = {};
     page.appendChild(h('nav', { 'aria-label': 'Breadcrumb' }, h('ol', { class: 'breadcrumb', style: 'margin-bottom:.6rem' }, h('li', null, h('a', { href: '#/eq/jobs/special' }, 'Jobs')), h('li', null, h('span', { 'aria-current': 'page' }, j.number)))));
-    page.appendChild(h('header', { class: 'panel eq-head' }, h('div', null, h('p', { class: 'eyebrow' }, KIND[j.kind] + ' job'), h('h1', null, j.number, statusTag(j), hiddenTag(j))), h('div', { class: 'facts' }, h('strong', null, j.title)), h('div', { class: 'actions' }, actions(j, ctx).filter((_, i) => i > 0))));
+    page.appendChild(h('header', { class: 'panel eq-head' }, h('div', null, h('p', { class: 'eyebrow' }, KIND[j.kind] + ' job'), h('h1', null, j.number, statusTag(j), hiddenTag(j))), h('div', { class: 'facts' }, h('strong', null, j.title)), h('div', { class: 'actions' }, actions(j, ctx))));
     if (ctx.why) page.appendChild(h('p', { class: 'small muted' }, 'Cancel unavailable: ' + ctx.why));
+    page.appendChild(h('section', { class: 'panel panel-pad', 'aria-label': 'Job progress', style: 'margin-top:.7rem' }, progressSummary(j)));
     const kv = (rows) => h('dl', { class: 'kv' }, rows.filter(Boolean).map(([k, v]) => [h('dt', null, k), h('dd', null, v)]));
     page.appendChild(h('div', { class: 'grid-2', style: 'align-items:start;margin-top:.7rem' },
       h('section', { class: 'panel panel-pad stack' }, h('h2', null, 'Details'), kv([
@@ -133,7 +143,7 @@ window.EQ = window.EQ || {};
         j.isCancelled ? ['Cancelled', EQ.fmtInstant(j.cancelledUtc) + ' by ' + EQ.userName(j.cancelledBy) + ': ' + j.cancelReason] : null]),
         h('div', { class: 'notice info' }, icon('info'), h('p', null, eq.code + ' operational status is ' + EQ.STATUS[EQ.statusKey(eq.status)].label + '. This job does not change it.')),
         jobSwitch(j)),
-      h('section', { class: 'panel panel-pad stack' }, h('h2', null, 'Progress and corrections'), h('ul', { class: 'tl' }, [...j.events].reverse().map((e) => h('li', { class: 'status' }, h('strong', null, e.kind), h('span', { class: 'when' }, EQ.fmtInstant(e.at) + ' by ' + EQ.userName(e.by)), e.note ? h('span', null, e.note) : null))),
+      h('section', { class: 'panel panel-pad stack' }, h('h2', null, 'Progress and corrections'), h('ul', { class: 'tl' }, [...j.events].reverse().map((e) => h('li', { class: 'status' }, h('strong', null, e.kind === 'progressUpdated' ? 'Progress updated · ' + e.percent + ' %' : e.kind), h('span', { class: 'when' }, EQ.fmtInstant(e.at) + ' by ' + EQ.userName(e.by) + (e.workDate ? ' · Work date ' + EQ.fmtDate(e.workDate) : '')), e.note ? h('span', null, e.note) : null))),
         j.corrections.length ? h('div', { class: 'stack' }, h('h3', null, 'Admin corrections (prior values retained)'), j.corrections.map((c) => h('div', { class: 'nonwork' }, h('strong', null, 'Correction ' + c.n + ': ' + c.reason), c.items.map((it) => h('div', null, it.field + ': ', h('s', null, it.before), ' → ', h('strong', null, it.after))), h('span', { class: 'small muted' }, EQ.userName(c.by) + ', ' + EQ.fmtInstant(c.at))))) : null)));
     page.appendChild(h('section', { class: 'panel panel-pad stack', style: 'margin-top:.7rem' }, h('h2', null, 'Replacement lines'),
       j.lines.length ? h('div', { class: 'table-wrap' }, h('table', null, h('thead', null, h('tr', null, ['Position', 'Installed', 'Serial', 'Quantity', 'Replaced on', 'Removed'].map((c) => h('th', { scope: 'col' }, c)))), h('tbody', null, j.lines.map((l) => { const p = EQ.pos(l.positionId); return h('tr', null, h('th', { scope: 'row' }, h('a', { href: '#/eq/equipment/' + eq.id + '?main=' + p.mainId + '&sub=' + p.subId + '&part=' + p.id }, p.name)), h('td', null, l.item.desc), h('td', null, l.item.serial || 'Unknown'), h('td', null, l.qty + ' ' + l.uom), h('td', null, EQ.fmtDate(l.replacedOn)), h('td', null, l.removedKnown ? (l.removedDesc || '') + (l.removedSerial ? ' (serial ' + l.removedSerial + ')' : '') : 'Unknown')); }))))

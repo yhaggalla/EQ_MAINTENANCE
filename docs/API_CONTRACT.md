@@ -155,6 +155,7 @@ type JobSummary = {
   plannedOn: DateOnly | null; completedOn: DateOnly | null;
   responsiblePerson: string | null; createdBy: Actor; createdUtc: Instant; updatedUtc: Instant;
   lineCount: number; attachmentCount: number;
+  progressPercent: number | null; progressUpdatedOn: DateOnly | null; progressNote: string | null; // U1-C50, jobs-view scope only
   showOnDashboard: boolean;   // U1-C26: the shared "Show on dashboard / 3D" switch (DATA J7)
 };
 ```
@@ -313,6 +314,7 @@ V2 (Repair-R02B, D-139): every endpoint of this section, the job attachments (s4
 | `PUT /jobs/{jobId}` | `F:eq.work` | `{ version, target, kind, title, description, priority, plannedOn, responsiblePerson }` | 200. Only pending/current; 409 `job_completed`/`job_cancelled`; 409 `version_conflict` (JOB07). Reopened job with committed, non-voided lines (DATA J6): 409 `job_has_committed_replacements` for kind -> `repair`, 409 `committed_lines_outside_target` for a target that excludes a committed line's position (JOB09) |
 | `POST /jobs/{jobId}/start` | `F:eq.work`; Idempotency-Key | `{ version }` | pending -> current |
 | `POST /jobs/{jobId}/return-to-pending` | `F:eq.work`; Idempotency-Key | `{ version }` | current -> pending |
+| `POST /jobs/{jobId}/progress` (U1-C50) | `F:eq.work`; job-scoped Idempotency-Key | `{ version, percent: integer 0..100, workDate: DateOnly, note: string (required, <=2000), lines?: CompleteRequest.lines }` | 200 job. 1..99 starts Pending work; 0 preserves current work state. 100 uses the existing atomic completion path and required replacement fields. 403 read-only; 404 missing; 409 `job_not_editable`, `equipment_retired`, `version_conflict`; 422 invalid percentage/date/note/replacement details. Replay is checked after authorization but before version/state checks; no duplicate progress, completion or installation. |
 | `POST /jobs/{jobId}/complete` | `F:eq.work`; Idempotency-Key | see below | 200 completed job (JOB01, JOB04-JOB08, JOB10, JOB11) |
 | `POST /jobs/{jobId}/cancel` | `F:eq.work`; Idempotency-Key | `{ version, reason }` | 200. 403 `not_job_creator` (EQ Team, other creator); 409 `job_completed`; 409 `job_previously_completed` (EQ Team, reopened job); 409 `job_has_committed_replacements` (Admin, reopened job still holding committed lines; void them by correction first); 422 `reason_required` (JOB12, JOB09) |
 | `POST /jobs/{jobId}/reopen` | `F:eq.work.admin`; Idempotency-Key | `{ version, reason }` | completed -> current; installations unchanged; 409 `job_not_completed` (JOB09) |
@@ -727,3 +729,10 @@ A health response is never acceptance evidence on its own (Master control).
 | (V2) FAC Dashboard | 4.25 | FDB01, FDB02, FDB03, FDB04, FDB05, FDB06 |
 | (V2) Admin FAC | 4.26 | FAC01, FAC02, FAC07 |
 | (V2) Exports | 4.27 | FAC12 |
+
+
+## U1-C50 special-job progress addendum (24 October 2026)
+
+The new progress command is implemented only in the synthetic prototype (`EQ.api.updateJobProgress`) at U1; the HTTP contract above guides later application phases. No production endpoint or database migration is claimed. Update progress uses the existing completion form at 100%, showing completion date/note and replacement positions/items/quantities/dates in that same dialog. Successful updates return the latest progress summary; history records who, when, work date, percentage, previous percentage and note. Audit records before/after values.
+
+The command requires the live `eq.work` policy, even for a cached replay; Management and FAC Team are refused. All detailed reads continue to require `eq.jobs.view`. Existing CurrentSpecial DTOs do not acquire progress fields, history or notes. RowVersion conflicts preserve the other user's save. A decreased estimate appends a new dated note; completion and committed installation history remain protected. Existing Complete entry points also record 100% and keep completion notes in their timeline; completion cannot precede recorded progress or a replacement line date. Reopened replacements may complete with their existing committed lines, with no duplicate installation.

@@ -264,7 +264,7 @@ Invariants:
 
 ### 3.6 Jobs, replacement lines, progress, corrections
 
-V2: these are the EQ **special jobs** (major or non-routine work entered by hand, SOW V2 s4.3). Table, rules, states and endpoints are unchanged; only the display name changes ("Special job"). The optional photos of SOW V2 s4.3 are the existing JobAttachment evidence. ZMMS daily jobs are a separate, read-only entity (s15.3) and are never Job rows.
+V2: these are the EQ **special jobs** (major or non-routine work entered by hand, SOW V2 s4.3). The original states remain; U1-C50 extends special jobs with explicit overall progress as described below. The optional photos of SOW V2 s4.3 are the existing JobAttachment evidence. ZMMS daily jobs are a separate, read-only entity (s15.3) and are never Job rows.
 
 **Job**
 
@@ -281,13 +281,16 @@ V2: these are the EQ **special jobs** (major or non-routine work entered by hand
 | PlannedOn date null; ResponsiblePerson nvarchar(200) null | optional |
 | WorkStatus | `pending` / `current` / `completed` |
 | CompletedOn date null; CompletionNote; CompletedUtc; CompletedByProfileId | required together when completed |
+| ProgressPercent int null; ProgressUpdatedOn date null; ProgressNote nvarchar(2000) null | U1-C50: latest explicit progress. Integer 0..100; null means no percentage recorded for active work. Completed work displays 100; Pending starts at 0. See J8. |
 | IsCancelled bit; CancelledUtc; CancelledByProfileId; CancellationReason | separate marker; WorkStatus keeps its last value (`pending`/`current`) |
 | ShowOnDashboard bit NOT NULL DEFAULT 1; DisplayChangedUtc null; DisplayChangedByProfileId null | U1-C26 (D-158): the shared "Show on dashboard / 3D" switch of this special job; existing rows migrate to 1 (shown). Display only: it never changes the work fields, work status, history or operational status |
 | CreatedByProfileId; CreatedUtc; UpdatedUtc; ReopenCount; RowVersion | |
 
 **ReplacementLine**: Id; JobId + EquipmentId (composite FK -> Job alternate key (Id, EquipmentId)); PartPositionId + EquipmentId (composite FK -> PartPosition alternate key (Id, EquipmentId); the shared EquipmentId column makes a line whose job and position belong to different equipment impossible); Mode (`full`, `partial`; serialized always `full`); ExpectedCurrentInstallationId (what the user replaced; null = nothing tracked); RemovedQuantity (partial lots); RemovedItemKnown/RemovedItemDescription/RemovedItemSerial (untracked removed item); ItemDescription (required), Manufacturer, ModelOrPartNumber, SerialNumber (null = unknown); Quantity (> 0; serialized = 1); Uom; ReplacedOn (date); Note; State (`committed`, `voided`); InstallationEventId; CommittedUtc; RowVersion. UQ (JobId, PartPositionId) WHERE State = 'committed'.
 
-**JobStatusEvent** (progress history, append-only): Id; JobId; Kind (`created`, `started`, `returnedToPending`, `completed`, `reopened`, `cancelled`, `corrected`, `edited`, `displayShown`, `displayHidden`; the last two (U1-C26) keep FromStatus = ToStatus); FromStatus; ToStatus; Reason; BusinessDate (completion date when relevant); ActorProfileId; OccurredUtc.
+**JobStatusEvent** (progress history, append-only): Id; JobId; Kind (`created`, `started`, `returnedToPending`, `completed`, `reopened`, `cancelled`, `corrected`, `edited`, `displayShown`, `displayHidden`, `progressUpdated`; the display kinds (U1-C26) keep FromStatus = ToStatus); FromStatus; ToStatus; Reason; BusinessDate (completion date when relevant); ActorProfileId; OccurredUtc.
+
+U1-C50: `progressUpdated` events additionally retain WorkDate, Percent, PreviousPercent and the required progress note, with ActorProfileId/OccurredUtc. Completion events retain the actual completion note, work date and 100%. Progress edits append events and AuditEntry before/after summaries; they do not overwrite prior notes.
 
 **JobCorrection** (groups one Admin correction): Id; JobId; Number (per job); Reason (required); ActorProfileId; OccurredUtc; ItemsJson (each item: entity, id, action, before, after). Every item is also written to `AuditEntry` with before/after snapshots.
 
@@ -306,6 +309,9 @@ Invariants:
   - its target cannot change to a target whose subtree excludes the position of any committed, non-voided line (409 `committed_lines_outside_target`, listing the lines), so J3/D-31 keep holding;
   - re-completion follows s5.1 with the reopened-job rules in s5.3.
 - J7 **Display switch (U1-C26, D-158).** `ShowOnDashboard` is one shared setting per special job (every viewer, including Management and the TV dashboard, sees the same). It is set through its own command (API s4.8 `PUT /jobs/{jobId}/display`, `eq.work`: EQ Team and Admin, for any special job whatever its creator, work state or cancellation; Management and FAC Team 403) with the job `version`, writes `JobStatusEvent` `displayShown`/`displayHidden` (optional reason) and `AuditEntry` `job.display` (before/after) in one transaction, and increments RowVersion. A hidden job is left out of the crane-view current state (s18.1: Projects/Special list and counts, tab badges, tree and 3D/flat label work badges) and of the fleet open-job counts (s18.3). It stays in the EQ Jobs tab, the scoped history (s9), the job record, the exports (s19) and the audit. Equipment-level, mechanism and part jobs follow the same rule.
+
+- J8 **Overall special-job progress (U1-C50, D-194).** EQ Team/Admin record an integer percentage (0..100), work date and nonempty note (<=2000). Work date is a real Asia/Colombo calendar date, not future and not before the latest progress (or prior completion after reopening). Positive progress moves Pending to Current; 0 does not undo an existing start. Revised estimates may decrease, with previous values retained in the append-only timeline and audit. 100 completes through the same atomic replacement/installation/register path as Complete, including replacement dates <= completion date. Invalid or stale submissions write nothing. Requests use RowVersion and an idempotency key scoped to the job. Completed, cancelled or retired-equipment jobs reject new progress; authorized retries replay without another mutation. Reopening clears the active percentage/date/note but preserves earlier progress, completion notes and committed installations. Re-completion reuses committed lines and does not force duplicate replacement rows. No job progress command changes equipment operational status.
+- J9 **Progress read boundary.** Percent/date/note summaries belong to EQ Jobs list/detail and its authorized timeline. Existing CurrentSpecial DTOs and crane-view work projections remain allowlisted and exclude progress fields, notes and events. No percentage is invented for previously Current jobs: display Not updated until an explicit update is recorded. Prototype completion/photos remain within the existing stage boundary; this change does not implement evidence uploads or production persistence.
 
 ### 3.7 Operational status history
 
