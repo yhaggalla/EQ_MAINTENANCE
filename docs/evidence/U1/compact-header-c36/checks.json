@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Correct status still opens its dialog",
+    "pass": true
+  },
+  {
+    "name": "Add special job still opens its dialog",
+    "pass": true
+  },
+  {
+    "name": "Open work link stays equipment-scoped",
+    "pass": true
+  },
+  {
+    "name": "Manual reason and automatic-reset action visible without overflow at 1366",
+    "pass": true
+  },
+  {
+    "name": "Manual reason and automatic-reset action visible without overflow at 390",
+    "pass": true
+  },
+  {
+    "name": "Read-only summary has no mutation buttons",
+    "pass": true
+  },
+  {
+    "name": "Other record header retains its original flex layout: /eq/jobs/special/job-101",
+    "pass": true
+  },
+  {
+    "name": "Other record header retains its original flex layout: /fac/jobs/fj-2",
+    "pass": true
+  },
+  {
+    "name": "No browser errors",
+    "pass": true
+  }
+]

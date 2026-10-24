@@ -1,0 +1,46 @@
+[
+  {
+    "width": 1920,
+    "headerHeight": 120.484375,
+    "text": "QC equipmentQC-DEMO-01MaintenanceIn Maintenance for 2 d 4 h (since 22 Oct 2026 02:07)Model: CICT-J526A-STS (verified)Auto (ZMMS) Automatic from the ZMMS day plan · ZMMS data from 24 Oct 2026 06:024 open special jobsCorrect statusAdd special job",
+    "blue": {
+      "height": 57.59375,
+      "color": "rgb(7, 30, 48)",
+      "padding": "7.2px 24px",
+      "font": "16px"
+    }
+  },
+  {
+    "width": 1670,
+    "headerHeight": 120.484375,
+    "text": "QC equipmentQC-DEMO-01MaintenanceIn Maintenance for 2 d 4 h (since 22 Oct 2026 02:07)Model: CICT-J526A-STS (verified)Auto (ZMMS) Automatic from the ZMMS day plan · ZMMS data from 24 Oct 2026 06:024 open special jobsCorrect statusAdd special job",
+    "blue": {
+      "height": 57.59375,
+      "color": "rgb(7, 30, 48)",
+      "padding": "7.2px 24px",
+      "font": "16px"
+    }
+  },
+  {
+    "width": 1366,
+    "headerHeight": 84.4375,
+    "text": "QC equipmentQC-DEMO-01MaintenanceIn Maintenance for 2 d 4 h (since 22 Oct 2026 02:07)Model: CICT-J526A-STS (verified)Auto (ZMMS) Automatic from the ZMMS day plan · ZMMS data from 24 Oct 2026 06:024 open special jobsCorrect statusAdd special job",
+    "blue": {
+      "height": 57.59375,
+      "color": "rgb(7, 30, 48)",
+      "padding": "7.2px 24px",
+      "font": "16px"
+    }
+  },
+  {
+    "width": 390,
+    "headerHeight": 248.140625,
+    "text": "QC equipmentQC-DEMO-01MaintenanceIn Maintenance for 2 d 4 h (since 22 Oct 2026 02:07)Model: CICT-J526A-STS (verified)Auto (ZMMS) Automatic from the ZMMS day plan · ZMMS data from 24 Oct 2026 06:024 open special jobsCorrect statusAdd special job",
+    "blue": {
+      "height": 154.46875,
+      "color": "rgb(7, 30, 48)",
+      "padding": "7.2px 12px",
+      "font": "16px"
+    }
+  }
+]

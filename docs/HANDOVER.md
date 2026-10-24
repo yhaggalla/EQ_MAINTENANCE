@@ -2,6 +2,14 @@
 
 Rolling handover for CICT EQ Maintenance. Each phase appends its record; the newest is first.
 
+## 24 October 2026 - U1-C36 compact equipment summary
+
+**U1 remains IN PROGRESS / CHANGES REQUESTED, NOT COMPLETE and NOT APPROVED; P04 is Not started.** Baseline `efd1c6d` on `main`; active Codex agent, no delegated/independent R review, runtime model/effort not independently recorded. Exact request: `docs/runs/Repair-U1-C36-20261024.md`.
+
+Compacted the equipment name/status card with equipment-only CSS (`eq-summary`) and shorter repeated source text. Metadata and existing actions remain available. Wide-desktop card height reduced from 120.5 to 69.9 px; at 1366 px from 84.4 to 69.9 px; phone from 248.1 to 172.9 px. Blue navigation metrics/styles match before and after at all four viewport sizes. EQ/FAC job headers retain their original flex layout. Checked actions, manual reason/reset-to-auto, read-only behavior, containment/no overflow and desktop/phone screenshots. No broad model/browser suites rerun for this layout change; details: `docs/evidence/U1/compact-header-c36/REPORT.md`.
+
+Files: `artifacts/prototypes/p02-ui/css/app.css`, `artifacts/prototypes/p02-ui/js/views-equipment.js`, current U1 records and evidence. Preview server on 5312 restarted for local review. Source authorities, Portal and unrelated RTG edits excluded. Next: continue the U1 walkthrough/refinements.
+
 ## 24 October 2026 - U1-C35 selected spare-part condition repair
 
 **U1 remains IN PROGRESS / CHANGES REQUESTED, NOT COMPLETE and NOT APPROVED; P04 is Not started.** Baseline `aaa84ad` on `main`. Active Codex agent; model/effort not independently recorded; no delegated or independent R review. Exact prompt: `docs/runs/Repair-U1-C35-20261024.md`.

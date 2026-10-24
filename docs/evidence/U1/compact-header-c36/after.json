@@ -1,0 +1,94 @@
+[
+  {
+    "width": 1920,
+    "headerHeight": 69.921875,
+    "overflow": false,
+    "contained": true,
+    "text": "QC equipmentQC-DEMO-01MaintenanceIn Maintenance for 2 d 4 h (since 22 Oct 2026 02:09)Model: CICT-J526A-STS (verified)Auto (ZMMS) · ZMMS data from 24 Oct 2026 06:024 open special jobsCorrect statusAdd special job",
+    "actions": [
+      {
+        "label": "Correct status",
+        "height": 32
+      },
+      {
+        "label": "Add special job",
+        "height": 32
+      }
+    ],
+    "blue": {
+      "height": 57.59375,
+      "color": "rgb(7, 30, 48)",
+      "padding": "7.2px 24px",
+      "font": "16px"
+    }
+  },
+  {
+    "width": 1670,
+    "headerHeight": 69.921875,
+    "overflow": false,
+    "contained": true,
+    "text": "QC equipmentQC-DEMO-01MaintenanceIn Maintenance for 2 d 4 h (since 22 Oct 2026 02:09)Model: CICT-J526A-STS (verified)Auto (ZMMS) · ZMMS data from 24 Oct 2026 06:024 open special jobsCorrect statusAdd special job",
+    "actions": [
+      {
+        "label": "Correct status",
+        "height": 32
+      },
+      {
+        "label": "Add special job",
+        "height": 32
+      }
+    ],
+    "blue": {
+      "height": 57.59375,
+      "color": "rgb(7, 30, 48)",
+      "padding": "7.2px 24px",
+      "font": "16px"
+    }
+  },
+  {
+    "width": 1366,
+    "headerHeight": 69.921875,
+    "overflow": false,
+    "contained": true,
+    "text": "QC equipmentQC-DEMO-01MaintenanceIn Maintenance for 2 d 4 h (since 22 Oct 2026 02:09)Model: CICT-J526A-STS (verified)Auto (ZMMS) · ZMMS data from 24 Oct 2026 06:024 open special jobsCorrect statusAdd special job",
+    "actions": [
+      {
+        "label": "Correct status",
+        "height": 32
+      },
+      {
+        "label": "Add special job",
+        "height": 32
+      }
+    ],
+    "blue": {
+      "height": 57.59375,
+      "color": "rgb(7, 30, 48)",
+      "padding": "7.2px 24px",
+      "font": "16px"
+    }
+  },
+  {
+    "width": 390,
+    "headerHeight": 172.875,
+    "overflow": false,
+    "contained": true,
+    "text": "QC equipmentQC-DEMO-01MaintenanceIn Maintenance for 2 d 4 h (since 22 Oct 2026 02:09)Model: CICT-J526A-STS (verified)Auto (ZMMS) · ZMMS data from 24 Oct 2026 06:024 open special jobsCorrect statusAdd special job",
+    "actions": [
+      {
+        "label": "Correct status",
+        "height": 44
+      },
+      {
+        "label": "Add special job",
+        "height": 44
+      }
+    ],
+    "blue": {
+      "height": 154.46875,
+      "color": "rgb(7, 30, 48)",
+      "padding": "7.2px 12px",
+      "font": "16px"
+    }
+  }
+]

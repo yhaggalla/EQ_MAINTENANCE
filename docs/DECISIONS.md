@@ -404,7 +404,7 @@ None of these blocks P01. Each is modelled as configurable data or a visible sou
 
 | Checkpoint | Date | Decision | Notes |
 | --- | --- | --- | --- |
-| U1 (after R02/R02B) | 2026-10-24 | **CHANGES REQUESTED - IN PROGRESS; NOT COMPLETE / NOT APPROVED** | User explicitly confirmed all adjustments remain U1 and U1 is not completed. Request history U1-C01..C35 follows below; C34 evidence: `docs/evidence/U1/viewer-refinements-c34/REPORT.md`. Latest committed repairs: `86018c9`, `32081d0`, C32 `4a8b270`, C33 `7d773fa`; commits and prototype checks are not checkpoint approval. C35 selected spare repair: `docs/evidence/U1/spare-panel-c35/REPORT.md`. Continue U1 review/refinements; FAC Dashboard restyle waits for the user's EQ review. P04 remains Not started until explicit U1 approval is recorded here. |
+| U1 (after R02/R02B) | 2026-10-24 | **CHANGES REQUESTED - IN PROGRESS; NOT COMPLETE / NOT APPROVED** | User explicitly confirmed all adjustments remain U1 and U1 is not completed. Request history U1-C01..C36 follows below; C34 evidence: `docs/evidence/U1/viewer-refinements-c34/REPORT.md`. Latest committed repairs: `86018c9`, `32081d0`, C32 `4a8b270`, C33 `7d773fa`; commits and prototype checks are not checkpoint approval. C35 selected spare repair: `docs/evidence/U1/spare-panel-c35/REPORT.md`. Continue U1 review/refinements; FAC Dashboard restyle waits for the user's EQ review. P04 remains Not started until explicit U1 approval is recorded here. |
 | U2 (after P11) | not yet reached | | |
 
 ### 2026-10-21 U1 CHANGES REQUESTED
@@ -579,3 +579,15 @@ Evidence and limitations: `docs/evidence/U1/viewer-refinements-c34/REPORT.md`; e
 | D-178 | Registered spare-part cards offer Update condition to active-equipment writers using the existing condition dialog and mutation rules. A registered exact-part selection no longer offers Add spare part; unregistered selections still offer Add with that position prefilled. Legacy Add calls for a registered selected position open its condition dialog. Save refreshes the current card, aggregates and Jobs from the shared state, preserving equipment/part/view/isolation, prior values and the register's single position identity. | U1-C35; no change to role ceilings, Admin-only type/life settings, registration validation or prototype persistence. Earlier work is preserved in history. |
 
 Evidence: `docs/evidence/U1/spare-panel-c35/REPORT.md`; exact request: `docs/runs/Repair-U1-C35-20261024.md`. U1 remains **NOT COMPLETE / NOT APPROVED**. P04 is Not started.
+
+### 2026-10-24 U1 CHANGES REQUESTED (U1-C36: compact equipment summary)
+
+| ID | User request |
+| --- | --- |
+| U1-C36 | "Eq view top area card with eq name is getting more space .. save the space and fix it.. not the blue colour part one up of the screen.." Compact the equipment summary card; preserve the blue app navigation. |
+
+| Decision | Implementation rule | Basis |
+| --- | --- | --- |
+| D-179 | The equipment summary uses a compact identity/status/action row and a full-width metadata row. Keep type/name/status, duration/since, model, source/freshness, reason and open-work link; remove the repeated source explanation from the inline text, retaining it on the source tag and in Maintenance. Phone actions wrap below metadata with 44 px targets. Apply the layout only to `eq-summary`; existing EQ/FAC job headers and blue app navigation retain their styles. | U1-C36; presentation only, no action/permission/data/camera change. |
+
+Evidence: `docs/evidence/U1/compact-header-c36/REPORT.md`. **U1 remains incomplete and unapproved; P04 is Not started.**
