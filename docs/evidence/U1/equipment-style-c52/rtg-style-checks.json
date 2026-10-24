@@ -1,0 +1,21 @@
+{
+  "checks": [
+    {
+      "port": 5312,
+      "pass": true,
+      "detail": {
+        "count": 2,
+        "equal": true
+      }
+    },
+    {
+      "port": 5316,
+      "pass": true,
+      "detail": {
+        "count": 2,
+        "equal": true
+      }
+    }
+  ],
+  "errors": []
+}

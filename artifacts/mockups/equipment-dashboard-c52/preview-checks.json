@@ -1,0 +1,19 @@
+{
+  "metrics": {
+    "pageWidth": 1680,
+    "viewport": 1680,
+    "height": 1010,
+    "cards": 5,
+    "details": {
+      "x": 1262,
+      "y": 199,
+      "width": 400,
+      "height": 733.46875,
+      "scale": 1
+    }
+  },
+  "filterWorks": true,
+  "searchWorks": true,
+  "labelsWork": true,
+  "errors": []
+}

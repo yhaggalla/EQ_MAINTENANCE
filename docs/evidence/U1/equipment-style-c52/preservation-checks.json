@@ -1,0 +1,74 @@
+{
+  "passed": 12,
+  "failed": 0,
+  "checks": [
+    {
+      "file": "docs/DECISIONS.md",
+      "pass": true,
+      "check": "Pre-existing shared-record content retained; only C52 staged"
+    },
+    {
+      "file": "docs/HANDOVER.md",
+      "pass": true,
+      "check": "Pre-existing shared-record content retained; only C52 staged"
+    },
+    {
+      "file": "docs/IMPLEMENTATION_STATUS.md",
+      "pass": true,
+      "check": "Pre-existing shared-record content retained; only C52 staged"
+    },
+    {
+      "file": "docs/UX_SPEC.md",
+      "pass": true,
+      "check": "Pre-existing shared-record content retained; only C52 staged"
+    },
+    {
+      "file": "artifacts/prototypes/p02-ui/README.md",
+      "pass": true,
+      "check": "Unrelated initially dirty tracked file unchanged",
+      "sha256": "51fa48d2d5dc90188c96872faeb93feb66beff619fa87194d786d0c97dcb94a8"
+    },
+    {
+      "file": "artifacts/prototypes/p02-ui/css/app.css",
+      "pass": true,
+      "check": "Unrelated initially dirty tracked file unchanged",
+      "sha256": "1c24376d434ea8953a6de146bc6dba8261aa3d12e2fc6f4586050875b61dd455"
+    },
+    {
+      "file": "artifacts/prototypes/p02-ui/js/app.js",
+      "pass": true,
+      "check": "Unrelated initially dirty tracked file unchanged",
+      "sha256": "e37e56f240025eb45f6648146a5ce00bc778a0ebe04cb4e0bf0c202205ce073d"
+    },
+    {
+      "file": "artifacts/prototypes/p02-ui/js/views-eqjobs.js",
+      "pass": true,
+      "check": "Unrelated initially dirty tracked file unchanged",
+      "sha256": "c4bac409320fc38b7cfcc785f1a281250bc98767aa4ffd68eb7881b690bcf2b8"
+    },
+    {
+      "file": "artifacts/prototypes/p02-ui/js/views-fac.js",
+      "pass": true,
+      "check": "Unrelated initially dirty tracked file unchanged",
+      "sha256": "af7d13c910802db305e9db0c78a64b14c42214ff47d466071170ea8fb8959946"
+    },
+    {
+      "file": "artifacts/prototypes/p02-ui/js/views-facjobs.js",
+      "pass": true,
+      "check": "Unrelated initially dirty tracked file unchanged",
+      "sha256": "cee74766ace9aaab7af18f77c58f3a3c9f8fd4da7e67d1d89ee47405ab373fbf"
+    },
+    {
+      "file": "artifacts/prototypes/p02-ui/js/views-jobs.js",
+      "pass": true,
+      "check": "Unrelated initially dirty tracked file unchanged",
+      "sha256": "990407ab993c359f53d90d0bde842194c4f881cbfd3f251f1a2131bf760483ad"
+    },
+    {
+      "file": "rtg-workbench/HANDOVER.md",
+      "pass": true,
+      "check": "Unrelated initially dirty tracked file unchanged",
+      "sha256": "9f8235251e29fb03d67c615dcf8ec955a3fdf993af1d19df9516362caa7f3226"
+    }
+  ]
+}

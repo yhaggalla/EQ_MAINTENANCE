@@ -1,0 +1,154 @@
+/* U1-C52: approved equipment mockup. Dashboard tokens stay local to the equipment workspace. */
+body:has(.equipment-page) { background: var(--pa-page); }
+.equipment-page {
+  --ink: var(--pa-ink); --ink-muted: var(--pa-muted); --border: var(--pa-line);
+  --border-strong: var(--pa-line-strong); --surface-subtle: #f7f8f4;
+  color: var(--pa-ink); padding: 16px 18px 20px;
+}
+.equipment-page :is(h1,h2,h3) { color: var(--pa-ink); }
+.equipment-page .panel { border-color: var(--pa-line); border-radius: var(--pa-radius); box-shadow: var(--pa-shadow); }
+.equipment-page :is(button,.btn,input,select) { border-color: var(--pa-line-strong); border-radius: 9px; color: var(--pa-ink); }
+.equipment-page :is(button,.btn):hover:not(:disabled):not([aria-disabled="true"]) { background: #f7f7f3; border-color: #acb4a7; }
+.equipment-page :is(button,.btn).primary { background: var(--pa-ink); color: #fff; border-color: var(--pa-ink); }
+.equipment-page :is(button,.btn).primary:hover { background: #34424e; }
+.equipment-page :is(button,a,input,select):focus-visible { outline: 2px solid #795800; outline-offset: 2px; box-shadow: none; }
+.equipment-page .eq-head.eq-summary { padding: 14px 17px; margin-bottom: 14px; gap: 7px 18px; }
+.equipment-page .eq-summary h1 { gap: 10px; font-size: 22px; font-weight: 750; letter-spacing: -.025em; }
+.equipment-page .eq-type-name { padding-left: 10px; border-left: 1px solid var(--pa-line-strong); font-size: 13px; font-weight: 500; color: var(--pa-muted); letter-spacing: 0; }
+.equipment-page .eq-summary .badge { border: 0; border-radius: 6px; padding: 3px 8px; font-size: 12px; }
+.equipment-page .eq-summary .facts { gap: 5px 16px; font-size: 11.5px; line-height: 1.5; }
+.equipment-page .eq-summary .facts a { color: var(--pa-ink-2); text-decoration: none; }
+.equipment-page .eq-summary .facts a:hover { text-decoration: underline; }
+.equipment-page .eq-summary .actions { gap: 8px; }
+.equipment-page .eq-summary .actions :is(button,.btn) { min-height: 36px; padding: 5px 11px; font-size: 12px; font-weight: 650; }
+.equipment-page .eq-status-source { font-weight: 600; }
+.equipment-page .detail-grid { grid-template-columns: 228px minmax(0,1fr) 400px; gap: 14px; }
+.equipment-page .tree-panel .tp-head { padding: 15px 13px 11px; border: 0; }
+.equipment-page .tp-head h2 { font-size: 15px; }
+.equipment-page .tp-head input { height: 35px; min-height: 35px; padding: 6px 10px; font-size: 12px; }
+.equipment-page [role="tree"] { padding: 0 7px 10px; }
+.equipment-page .ti { min-height: 35px; gap: 7px; padding: 6px; font-size: 12.5px; border: 0; border-radius: 7px; color: var(--pa-ink); }
+.equipment-page .ti:hover { background: #f5f6f1; }
+.equipment-page [role="treeitem"][aria-selected="true"] > .ti { background: #fff6d6; color: var(--pa-ink); border: 0; font-weight: 700; }
+.equipment-page .ti .code { min-width: 19px; font-family: inherit; font-size: 10.5px; color: #697568; }
+.equipment-page .ti .twist { width: 12px; flex-basis: 12px; color: #747f73; }
+.equipment-page .ti .jobs { font-size: 10px; border-radius: 4px; padding: 2px 5px; background: #fff0b3; color: #755300; }
+.equipment-page [role="group"] > li > .ti { padding-left: 12px; }
+.equipment-page [role="group"] [role="group"] > li > .ti { padding-left: 23px; }
+.equipment-page [role="group"] [role="group"] [role="group"] > li > .ti { padding-left: 34px; }
+
+/* Viewer: modes/area above the canvas; actual camera and display controls below it. */
+.equipment-page .unified-qc .vp-bar { padding: 10px 12px; gap: 14px; min-height: 55px; background: #fff; overflow: visible; }
+.equipment-page .unified-qc .seg { border: 1px solid var(--pa-line); border-radius: 9px; padding: 3px; gap: 0; background: var(--pa-tile); }
+.equipment-page .unified-qc .seg button { min-height: 30px; min-width: 0; padding: 4px 12px; font-size: 12px; border: 0; border-radius: 6px; background: transparent; color: var(--pa-ink); }
+.equipment-page .unified-qc .seg button[aria-pressed="true"] { background: white; color: var(--pa-ink); box-shadow: 0 1px 3px rgb(27 39 51 / 10%); }
+.equipment-page .unified-qc .camera-seg button[aria-pressed="true"] { background: var(--pa-ink); color: #fff; }
+.equipment-page .unified-qc .qc-area { margin-left: auto; min-width: 0; flex: 0 1 205px; font-size: 12px; font-weight: 500; color: var(--pa-muted); }
+.equipment-page .unified-qc .qc-area select { min-height: 34px; max-width: none; width: 145px; padding: 5px 7px; font-size: 12px; }
+.equipment-page .unified-qc .vp-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 12px; border-top: 1px solid var(--pa-line); padding: 5px 12px; min-height: 46px; }
+.equipment-page .unified-qc .vp-tools button { min-height: 32px; border: 0; padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: 500; color: var(--pa-ink-2); }
+.equipment-page .unified-qc .vp-tools button[aria-pressed="true"] { background: transparent; color: var(--pa-ink-2); }
+.equipment-page .vp-display-tools,.equipment-page .vp-camera-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.equipment-page .vp-display-tools { gap: 12px; }
+.equipment-page .vp-display-tools .check { min-height: 32px; margin: 0; font-size: 12px; font-weight: 500; gap: 6px; white-space: nowrap; }
+.equipment-page .vp-display-tools input { accent-color: #9a7417; }
+.equipment-page .unified-qc .vp-tools [data-fk^="zoom-"] { font-size: 19px; min-width: 30px; padding-inline: 4px; }
+.equipment-page .vp-bottom { border-top: 1px solid #eff0eb; display: flex; justify-content: space-between; align-items: start; gap: 8px; padding: 10px 13px; font-size: 10.5px; color: var(--pa-muted); }
+.equipment-page .vp-bottom .vp-legend { flex: 1; min-width: 0; border: 0; background: white; font-size: 11px; }
+.equipment-page .vp-bottom .vp-legend summary { min-height: 18px; padding: 0; font-weight: 500; color: var(--pa-muted); }
+.equipment-page .vp-bottom .vp-legend .panel-pad { padding: 10px 0 0; }
+.equipment-page .vp-camera-hint { padding-top: 1px; font-size: 10.5px; text-align: right; }
+.equipment-page .qc-label { border-color: #cbd2ce; border-radius: 5px; padding: 3px 6px; color: var(--pa-ink); font-size: 11px; font-weight: 550; }
+.equipment-page .qc-label.sel { border-color: var(--sel); }
+
+/* Current-state panel: one compact header, then independent neutral cards. */
+.equipment-page .side-panel { background: transparent; border: 0; box-shadow: none; border-radius: 0; }
+.equipment-page .side-panel .sp-head { background: white; padding: 0; border: 1px solid var(--pa-line); border-radius: var(--pa-radius); box-shadow: var(--pa-shadow); }
+.equipment-page .scope-context { padding: 12px 13px 8px; }
+.equipment-page .scope-context h2 { font-size: 15px; overflow-wrap: anywhere; }
+.equipment-page .scope-context .eyebrow { font-size: 10px; color: var(--pa-muted); margin-bottom: 3px; }
+.equipment-page .tabs.four { padding: 0 7px; margin: 0; border-bottom: 1px solid var(--pa-line); }
+.equipment-page .tabs.four button { min-height: 55px; padding: 8px 3px; font-size: 12px; font-weight: 550; border: 0; border-bottom: 3px solid transparent; border-radius: 0; background: white; color: var(--pa-ink); }
+.equipment-page .tabs.four button[aria-selected="true"] { color: var(--pa-ink); border-bottom-color: var(--gold-500); font-weight: 750; }
+.equipment-page .tabs .tab-n { position: static; background: #eff0eb; color: var(--pa-ink-2); font-size: 10px; border-radius: 4px; padding: 1px 4px; }
+.equipment-page .side-panel .panel-search { display: flex; gap: 6px; align-items: center; margin: 0; padding: 11px 12px 7px; min-height: 46px; }
+.equipment-page .panel-search-field { position: relative; min-width: 0; flex: 1; }
+.equipment-page .panel-search-field > .icon { position: absolute; top: 50%; left: 10px; transform: translateY(-50%); width: 14px; color: #727d70; pointer-events: none; }
+.equipment-page .side-panel .panel-search input { display: block; height: 34px; min-height: 34px; width: 100%; padding: 6px 9px 6px 31px; font-size: 12px; border-radius: 8px; }
+.equipment-page .panel-search input::-webkit-search-cancel-button { appearance: none; }
+.equipment-page .panel-search-count { flex: none; font-size: 10px; color: var(--pa-muted); }
+.equipment-page .panel-search-clear { flex: none; min-width: 30px; min-height: 32px; padding: 4px; border: 0; background: transparent; }
+.equipment-page .panel-search [hidden],.equipment-page .sp-body [hidden] { display: none !important; }
+.equipment-page .side-panel .sp-body { margin-top: 10px; padding: 0; gap: 9px; }
+.equipment-page .side-panel:not([data-tab="special"]) .sp-body { padding: 13px; background: white; border: 1px solid var(--pa-line); border-radius: var(--pa-radius); }
+.equipment-page .side-panel .tl > li { border: 1px solid var(--pa-line); border-radius: 12px; box-shadow: 0 1px 2px rgb(27 39 51 / 4%); }
+.equipment-page .current-special { gap: 10px; }
+.equipment-page .special-filters { display: flex; align-items: center; justify-content: space-between; gap: 4px; min-height: 40px; padding: 0 12px 7px; }
+.equipment-page .special-filters :is(button,a,span) { display: inline-flex; align-items: center; gap: 5px; min-height: 28px; font-size: 11.5px; font-weight: 550; line-height: 1.3; }
+.equipment-page .special-filters :is(button,a) { border: 0; padding: 3px 5px; border-radius: 5px; background: transparent; text-decoration: none; color: var(--pa-muted); }
+.equipment-page .special-filters [aria-pressed="true"] { background: var(--pa-tile); color: var(--pa-ink); font-weight: 700; }
+.equipment-page .special-filters b { font-size: 10.5px; font-weight: 750; }
+.equipment-page .special-filters a:hover { background: var(--pa-tile); text-decoration: underline; }
+.equipment-page .current-job-list { gap: 9px; }
+.equipment-page .tl > .eq-current-card { padding: 12px 13px; gap: 6px; background: #fff; border: 1px solid var(--pa-line); border-radius: 12px; box-shadow: 0 1px 2px rgb(27 39 51 / 4%); }
+.equipment-page .current-job-head { display: flex; align-items: start; justify-content: space-between; gap: 10px; }
+.equipment-page .current-job-title { font-size: 14px; font-weight: 700; line-height: 1.3; color: var(--pa-ink); text-decoration: none; letter-spacing: -.008em; overflow-wrap: anywhere; min-width: 0; }
+.equipment-page a.current-job-title:hover { text-decoration: underline; text-underline-offset: 3px; }
+.equipment-page .current-job-status { display: inline-flex; align-items: center; justify-content: center; gap: 4px; flex: none; border-radius: 5px; padding: 2px 5px; font-size: 10px; line-height: 1.4; font-weight: 650; }
+.equipment-page .current-job-status .icon { width: 12px; height: 12px; }
+.equipment-page .current-job-status.completed { background: var(--pa-ready-soft); color: #267748; }
+.equipment-page .current-job-status.open { background: #fff3cc; color: #765600; }
+.equipment-page .current-job-meta { margin: 0; color: #596756; font-size: 11.5px; line-height: 1.4; }
+.equipment-page .current-job-kind { font-weight: 600; }
+.equipment-page .current-job-date,.equipment-page .current-matching { margin: 0; color: #596756; font-size: 11px; line-height: 1.4; }
+.equipment-page .current-job-date,.equipment-page .current-matching li { display: flex; align-items: start; gap: 6px; }
+.equipment-page .current-matching { padding: 0; list-style: none; display: grid; gap: 4px; }
+.equipment-page :is(.current-job-date,.current-matching) .icon { width: 12px; height: 14px; flex: none; }
+.equipment-page .special-footer { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 2px 3px 4px; font-size: 11.5px; color: var(--pa-muted); }
+.equipment-page .special-footer a { display: inline-flex; align-items: center; gap: 5px; font-weight: 650; color: var(--pa-ink-2); text-decoration: none; }
+.equipment-page .special-footer a:hover { text-decoration: underline; }
+.equipment-page .special-footer .icon { width: 13px; height: 13px; }
+.equipment-page .panel-search-empty { padding: 12px; margin: 0; background: white; border: 1px solid var(--pa-line); border-radius: 9px; }
+@media(min-width:1280px) { .equipment-page .scope-context.whole-equipment { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; } }
+@media(min-width:1280px) and (max-width:1450px) {
+  .equipment-page .detail-grid { grid-template-columns: 205px minmax(0,1fr) 360px; }
+  .equipment-page .unified-qc .vp-bar { gap: 8px; padding: 9px; }
+  .equipment-page .unified-qc .seg button { padding-inline: 9px; }
+  .equipment-page .unified-qc .qc-area { flex-basis: 170px; }
+}
+@media(max-width:1279px) {
+  .equipment-page .detail-grid { grid-template-columns: minmax(0,1fr); }
+  .equipment-page .side-panel { width: min(410px,94vw); background: var(--pa-page); padding: 10px; }
+  .equipment-page .tree-panel { width: min(380px,94vw); border-radius: 0; }
+  .equipment-page .scope-context .drawer-btns { min-height: 44px; min-width: 44px; }
+  .equipment-page .tabs.four button { min-height: 48px; }
+  .equipment-page .side-panel .panel-search input,.equipment-page .panel-search-clear { min-height: 44px; height: 44px; }
+  .equipment-page .panel-search-clear { min-width: 44px; }
+  .equipment-page .special-filters :is(button,a,span) { min-height: 44px; }
+  .equipment-page .special-filters button { min-width: 44px; }
+  .equipment-page a.current-job-title { min-height: 44px; display: flex; align-items: center; }
+  .equipment-page .vp-bottom .vp-legend summary { min-height: 44px; padding-block: 12px; }
+  .equipment-page .ti { min-height: 44px; }
+  .equipment-page .unified-qc .seg button,.equipment-page .unified-qc .vp-tools button,.equipment-page .unified-qc .vp-tools .check { min-height: 44px; }
+  .equipment-page .unified-qc .vp-tools [data-fk^="zoom-"] { min-width: 44px; }
+  .equipment-page .special-footer a { min-height: 44px; }
+}
+@media(max-width:700px) {
+  .equipment-page { padding: 12px; }
+  .equipment-page .eq-head.eq-summary { padding: 12px; gap: 9px; }
+  .equipment-page .eq-summary h1 { font-size: 20px; gap: 8px; }
+  .equipment-page .eq-type-name { font-size: 11px; }
+  .equipment-page .eq-summary .actions { gap: 7px; }
+  .equipment-page .eq-summary .actions :is(button,.btn) { min-height: 44px; font-size: 12px; }
+  .equipment-page .unified-qc .vp-bar { flex-wrap: wrap; gap: 8px; padding: 9px; }
+  .equipment-page .unified-qc .qc-area { flex: 1 1 100%; margin: 0; }
+  .equipment-page .unified-qc .qc-area select { min-height: 44px; width: 100%; }
+  .equipment-page .unified-qc-stage { height: 360px; }
+  .equipment-page .unified-qc .vp-tools { padding: 8px; }
+  .equipment-page .vp-camera-tools { margin-left: auto; }
+  .equipment-page .vp-camera-hint { display: none; }
+  .equipment-page .special-filters { padding-inline: 7px; gap: 2px; }
+  .equipment-page .special-filters :is(button,a,span) { font-size: 11px; gap: 3px; }
+  .equipment-page .current-job-title { font-size: 14px; }
+  .equipment-page .current-job-head { gap: 7px; }
+}

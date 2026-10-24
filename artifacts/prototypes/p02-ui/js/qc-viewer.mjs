@@ -76,7 +76,8 @@ function candidates(s, nodes, work) {
       nodes.filter(n => n.classification.sub === x.code), { main: main.id, sub: x.id }, 2, x.id === sel.sub)).filter(x => x.keys.length);
     if (ls.length) return ls;
   }
-  return eq.mains.map(m => label(m.id, m.code + ' ' + EQ.defLabel(m.code), nodes.filter(n => n.classification.main === m.code),
+  // Overall starts with key external assemblies; every mechanism remains in the tree and Technical mode.
+  return eq.mains.filter(m => s.mode !== 'overall' || ['01', '02', '03', '04', '06', '14'].includes(m.code)).map(m => label(m.id, m.code + ' ' + EQ.defLabel(m.code), nodes.filter(n => n.classification.main === m.code),
     { main: m.id }, 1, m.id === sel.main)).filter(x => x.keys.length);
 }
 function side(s) {
@@ -137,26 +138,30 @@ function render(eq, sel, q, mode) {
     'aria-pressed': pressed == null ? null : String(pressed), onClick: action }, text);
   const box = h('section', { class: 'panel unified-qc', 'aria-label': 'Crane viewer' },
     h('div', { class: 'vp-bar' },
-      h('div', { class: 'seg', role: 'group', 'aria-label': 'Camera view' },
-        btn('view-3d', '3D', () => nav({ view: '3d' }), q.view === '3d'),
-        btn('view-flat', 'Flat', () => nav({ view: 'flat' }), q.view !== '3d')),
+      h('div', { class: 'seg camera-seg', role: 'group', 'aria-label': 'Camera view' },
+        btn('view-flat', 'Flat', () => nav({ view: 'flat' }), q.view !== '3d'),
+        btn('view-3d', '3D', () => nav({ view: '3d' }), q.view === '3d')),
       h('div', { class: 'seg', role: 'group', 'aria-label': 'Display mode' },
         btn('mode-overall', 'Overall', () => nav({ mode: 'overall', iso: '', area: '', container: '' }), mode === 'overall'),
         btn('mode-technical', 'Technical', () => nav({ mode: 'technical' }), mode === 'technical')),
-      h('label', { class: 'qc-area' }, h('span', null, 'Isolate area'), h('select', { 'aria-label': 'Isolate area', 'data-fk': 'isolate-area',
+      h('label', { class: 'qc-area' }, h('span', null, 'Area'), h('select', { 'aria-label': 'Isolate area', 'data-fk': 'isolate-area',
         onChange: e => nav({ area: e.target.value, container: e.target.value, main: '', sub: '', part: '', iso: '', ...(e.target.value ? { mode: 'technical' } : {}) }) },
         h('option', { value: '', selected: !q.area && q.iso !== '1' }, 'Whole crane'),
-        manifest.nodes.filter(n => n.kind === 'container').map(n => h('option', { value: n.key.slice(10), selected: (q.area || (q.iso === '1' ? 'machinery-house' : '')) === n.key.slice(10) }, n.label)))),
-      btn('fit', 'Fit', () => { if (s.ready) { const v = s.viewer; if (!v.selected.size && !v.selContainer) resetCamera(s); else v.fitKeys(v.selContainer ? [v.selContainer] : [...v.selected]); } }, null, 'Fit selection'),
-      btn('zoom-in', '+', () => zoom(s, 1.25), null, 'Zoom in'),
-      btn('zoom-out', '−', () => zoom(s, 0.8), null, 'Zoom out'),
-      btn('reset', 'Reset', () => { s.signature = null; EQ.fullReset(eq, q); }),
-      btn('labels', 'Labels', () => { EQ.eqUI.labels = !EQ.eqUI.labels; EQ.rerender(); }, EQ.eqUI.labels),
-      h('label', { class: 'check', title: 'Open-work markers' }, h('input', { type: 'checkbox', 'aria-label': 'Open-work markers', checked: EQ.eqUI.showWork || null, 'data-fk': 'work', onChange: e => { EQ.eqUI.showWork = e.target.checked; EQ.rerender(); } }), 'Open work')),
-    h('div', { class: 'vp-info' }, EQ.statusBadge(eq.status, true), h('span', { class: 'small muted' }, q.view !== '3d' ? 'Fixed side view · right-drag to pan · scroll to zoom' : '3D view · drag to rotate · right-drag to pan · scroll to zoom')),
+        manifest.nodes.filter(n => n.kind === 'container').map(n => h('option', { value: n.key.slice(10), selected: (q.area || (q.iso === '1' ? 'machinery-house' : '')) === n.key.slice(10) }, n.label))))),
     s.host,
-    h('details', { class: 'vp-legend' }, h('summary', null, 'Legend and model information'),
-      h('p', { class: 'panel-pad small' }, 'Red: crane paint, independent of status. Blue: selected part. Purple number: open work. Approx.: representative part or approximate location. Both views use the same drawing-derived model (draft revision ' + manifest.revision + '), with synthetic equipment bindings. Yard/rail level: 0 m; sea level: -5 m (user-specified display context).' )),
+    h('div', { class: 'vp-tools' },
+      h('div', { class: 'vp-display-tools' },
+        h('label', { class: 'check', title: 'Show open-work markers' }, h('input', { type: 'checkbox', 'aria-label': 'Open-work markers', checked: EQ.eqUI.showWork || null, 'data-fk': 'work', onChange: e => { EQ.eqUI.showWork = e.target.checked; EQ.rerender(); } }), 'Open work'),
+        btn('labels', EQ.eqUI.labels ? 'Labels: ' + (!sel.main && !q.container ? mode === 'overall' ? 'key parts' : 'all' : 'selection') : 'Labels: off', () => { EQ.eqUI.labels = !EQ.eqUI.labels; EQ.rerender(); }, EQ.eqUI.labels, 'Toggle labels')),
+      h('div', { class: 'vp-camera-tools', role: 'group', 'aria-label': 'Camera controls' },
+        btn('fit', 'Fit', () => { if (s.ready) { const v = s.viewer; if (!v.selected.size && !v.selContainer) resetCamera(s); else v.fitKeys(v.selContainer ? [v.selContainer] : [...v.selected]); } }, null, 'Fit selection'),
+        btn('zoom-out', '−', () => zoom(s, 0.8), null, 'Zoom out'),
+        btn('zoom-in', '+', () => zoom(s, 1.25), null, 'Zoom in'),
+        btn('reset', 'Reset', () => { s.signature = null; EQ.fullReset(eq, q); }, null, 'Reset view'))),
+    h('div', { class: 'vp-bottom' },
+      h('details', { class: 'vp-legend' }, h('summary', null, 'Legend and model information'),
+        h('p', { class: 'panel-pad small' }, 'Red: crane paint, independent of status. Blue: selected part. Purple number: open work. Approx.: representative part or approximate location. Overall shows key assemblies; choose Technical or a mechanism to see more labels. Both views use the same drawing-derived model (draft revision ' + manifest.revision + '), with synthetic equipment bindings. Yard/rail level: 0 m; sea level: -5 m (user-specified display context).' )),
+      h('span', { class: 'vp-camera-hint' }, q.view !== '3d' ? 'Fixed side · right-drag to pan · scroll to zoom' : 'Drag to rotate · right-drag to pan · scroll to zoom')),
     );
   requestAnimationFrame(() => { if (session === s && s.host.isConnected) start(s); });
   return box;

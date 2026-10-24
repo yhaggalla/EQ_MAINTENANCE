@@ -13,6 +13,39 @@ window.EQ = window.EQ || {};
   P.TABS = [['maintenance', 'Maintenance', 'Maintenance'], ['special', 'Projects/Special', 'Projects/Special'], ['technical', 'Technical', 'Technical'], ['spareParts', 'Spare parts', 'Spare parts']];
   P.KEYS = P.TABS.map((t) => t[0]);
 
+  // U1-C39: filter only the rendered, permission-scoped panel. Never query a wider job/history population.
+  P.filterPanel = function filterPanel(body, query, tab) {
+    const words = query.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
+    const matches = (text) => words.every((word) => text.toLocaleLowerCase().includes(word));
+    const items = [...body.querySelectorAll('[data-panel-search-item]')].map((el) => ({ nodes: [el], text: el.textContent + ' ' + (el.dataset.jobNumber || '') }));
+    // Technical key/value fields filter as pairs; spare-part fields stay with their parent card.
+    body.querySelectorAll('dl.kv').forEach((dl) => {
+      if (dl.closest('[data-panel-search-item]')) return;
+      [...dl.children].filter((el) => el.tagName === 'DT').forEach((dt) => {
+        const dd = dt.nextElementSibling;
+        if (dd && dd.tagName === 'DD') items.push({ nodes: [dt, dd], text: dt.textContent + ' ' + dd.textContent });
+      });
+    });
+    let shown = 0;
+    items.forEach(({ nodes, text }) => {
+      const heading = tab === 'technical' ? nodes[0].closest('.sec')?.querySelector(':scope > h3')?.textContent || '' : '';
+      const visible = nodes[0].dataset.statusMatch !== 'false' && matches(heading + ' ' + text);
+      nodes.forEach((node) => { node.hidden = !visible; });
+      if (visible) shown += 1;
+    });
+    body.querySelectorAll('.sec').forEach((section) => {
+      const members = items.filter((item) => section.contains(item.nodes[0]));
+      section.hidden = words.length > 0 && members.length > 0 && members.every((item) => item.nodes[0].hidden);
+    });
+    let empty = body.querySelector('.panel-search-empty');
+    if (!empty) { empty = h('p', { class: 'panel-search-empty small muted', hidden: true }, 'No matches in this selection.'); body.prepend(empty); }
+    empty.textContent = body.querySelector('.current-special') ? 'No jobs match these filters.' : 'No matches in this selection.';
+    empty.hidden = !items.length || shown > 0 || (!words.length && !body.querySelector('.current-special'));
+    const result = body.querySelector('.special-result');
+    if (result) result.textContent = shown === items.length ? EQ.plural(shown, 'special job') : shown + ' of ' + items.length + ' special jobs';
+    return { shown, total: items.filter(({ nodes }) => nodes[0].dataset.statusMatch !== 'false').length, loading: !!body.querySelector('[aria-busy="true"]') };
+  };
+
   const scopeParams = (eq, scope) => (scope.level === 'equipment' || scope.level === 'area' ? { equipment: eq.id } : { equipment: eq.id, scope: scope.level, target: scope.id });
   P.jobsLink = (eq, scope, tab) => {
     const qs = new URLSearchParams();
@@ -42,7 +75,7 @@ window.EQ = window.EQ || {};
   /** One ZMMS daily job as a compact card (fields follow the real export; values are synthetic). */
   P.dailyJobCard = function dailyJobCard(j) {
     const staff = (st, hr) => (st === '-' ? '-' : st + ' staff, ' + hr + ' h');
-    return h('li', { class: /completed/i.test(j.statusText) ? '' : 'open', 'data-zjob': j.jobNo },
+    return h('li', { class: /completed/i.test(j.statusText) ? '' : 'open', 'data-zjob': j.jobNo, 'data-panel-search-item': '' },
       h('div', { class: 'row between' }, h('span', { class: 'mono' }, 'Job ' + j.jobNo + (j.cwo && j.cwo !== '0' ? ' · CWO ' + j.cwo : '')), h('span', null, tag(j.typeText), ' ', tag(j.statusText, /completed/i.test(j.statusText) ? 'green' : /hold/i.test(j.statusText) ? 'red' : 'gold'), ' ', tag(j.priority, j.priority === 'High' ? 'red' : ''))),
       h('strong', null, j.desc),
       h('span', { class: 'when' }, 'Equipment ' + j.equipmentText + ' (' + j.eqType + ', ' + j.dept + ') · created ' + j.created),
@@ -70,12 +103,24 @@ window.EQ = window.EQ || {};
     return box;
   };
 
-  /** One job card. opts.current: crane-view use (current-state summary only, API s4.16): no correction history, and the job number is a
+  /** One job card. opts.current: crane-view use (current-state summary only, API s4.16): no correction history, and the job title is a
    *  link only when the session holds eq.jobs.view (D-139). The EQ Jobs tab calls it without opts and keeps the full card. */
   P.jobMini = function jobMini(j, lines, opts) {
     opts = opts || {};
+    if (opts.current) {
+      const state = j.workStatus === 'completed' ? 'Completed' : j.workStatus === 'current' ? 'Current' : 'Pending';
+      const fullTarget = EQ.targetLabel(j);
+      const target = j.level === 'part' && lines?.length ? EQ.targetLabel({ ...j, level: 'main', subId: null, positionId: null }) : fullTarget;
+      const title = P.jobsAllowed() ? h('a', { class: 'current-job-title', href: P.base + '#/eq/jobs/special/' + j.id, title: j.number + ' · Open job details', ...ext() }, j.title)
+        : h('strong', { class: 'current-job-title', title: j.number }, j.title);
+      return h('li', { class: 'eq-current-card', 'data-current-job': j.workStatus, 'data-panel-search-item': '', 'data-job-number': j.number, 'aria-label': j.number + ' ' + j.title },
+        h('div', { class: 'current-job-head' }, title, h('span', { class: 'current-job-status ' + (j.workStatus === 'completed' ? 'completed' : 'open') }, j.workStatus === 'completed' ? icon('check-circle') : null, state)),
+        h('p', { class: 'current-job-meta', title: fullTarget }, h('span', { class: 'current-job-kind' }, EQ.JOB_KIND[j.kind]), ' · ' + target),
+        h('p', { class: 'current-job-date' }, icon('clock'), j.workStatus === 'completed' ? 'Completed ' + EQ.fmtDate(j.completedOn) : j.plannedOn ? 'Planned ' + EQ.fmtDate(j.plannedOn) : 'No planned date'),
+        lines && lines.length ? h('ul', { class: 'current-matching' }, lines.map(l => h('li', null, icon('wrench'), EQ.pos(l.positionId).name))) : null);
+    }
     const num = opts.current && !P.jobsAllowed() ? h('span', { class: 'mono', 'data-fk': 'job-num-' + j.id }, j.number) : h('a', { href: P.base + '#/eq/jobs/special/' + j.id, ...ext() }, j.number);
-    return h('li', { class: j.workStatus === 'completed' ? '' : 'open' },
+    return h('li', { class: j.workStatus === 'completed' ? '' : 'open', 'data-panel-search-item': '' },
       h('div', { class: 'row between' }, num, h('span', null, h('span', { class: 'tag' }, EQ.JOB_KIND[j.kind]), ' ', h('span', { class: 'tag ' + (j.workStatus === 'completed' ? 'green' : 'gold') }, j.isCancelled ? 'Cancelled' : j.workStatus === 'completed' ? 'Completed' : j.workStatus === 'current' ? 'Current' : 'Pending'))),
       h('strong', null, j.title),
       h('span', { class: 'when' }, 'Target: ' + EQ.targetLabel(j)),
@@ -85,22 +130,35 @@ window.EQ = window.EQ || {};
       !opts.current && j.corrections.length ? h('details', null, h('summary', { class: 'small' }, 'Correction history (prior values kept)'), j.corrections.map((c) => h('div', { class: 'small', style: 'margin-top:.3rem' }, 'Correction ' + c.n + ' by ' + EQ.userName(c.by) + ', ' + EQ.fmtInstantShort(c.at) + ': ' + c.reason, c.items.map((it) => h('div', null, it.field + ': ', h('s', null, it.before), ' → ', h('strong', null, it.after)))))) : null);
   };
 
+  const specialFilters = new Map();
   P.special = function special(eq, sel, scope) {
-    const jobMini = (j, lines) => P.jobMini(j, lines, { current: true });
-    const box = h('div', { class: 'stack' });
-    // simulated GET current-state/special (eq.fleet.view): open and completed jobs as the allowlisted projection and counts (U1-C23),
-    // never the scoped history record (events, corrections, installations; D-139 / D-145)
+    const box = h('div', { class: 'stack current-special' });
+    // Filter only the existing detached current-state DTO. Cancelled details stay in Jobs.
     const cs = EQ.currentSpecial(eq.id, scope);
     if (!cs.ok) { box.appendChild(h('div', { class: 'notice error', role: 'alert' }, icon('alert'), h('p', null, cs.message))); return box; }
-    const cancelled = cs.counts.cancelled, completed = cs.counts.completed;
-    const open = cs.openJobs, list = cs.jobs;
-    box.appendChild(h('div', { class: 'row', role: 'group', 'aria-label': 'Special job counts in this scope' }, tag(open.length + ' open', open.length ? 'gold' : ''), tag(completed + ' completed', completed ? 'green' : ''), tag(cancelled + ' cancelled')));
-    box.appendChild(h('div', { class: 'sec' }, h('h3', null, 'Special jobs ', tag(String(list.length))),
-      list.length ? h('ul', { class: 'tl', 'data-fk': 'special-list' }, list.map((r) => jobMini(r.job, r.matchingLines))) : h('div', { class: 'nonwork' }, h('strong', null, 'No special jobs')),
-      cs.moreCompleted ? h('p', { class: 'small muted', 'data-fk': 'more-completed' }, 'Only the ' + EQ.CURRENT_COMPLETED_LIMIT + ' most recent completed jobs are listed here; the rest are in Jobs.') : null));
-    box.appendChild(h('div', { class: 'row' }, openInJobs(eq, scope, 'special'),
-      // U1-C21: writers add a special job from the crane view, pre-filled with the equipment and the selection (whole equipment too)
-      EQ.perm.write() && eq.lifecycle === 'active' && EQ.dlg && EQ.dlg.jobForm ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'add-for-sel', onClick: () => EQ.dlg.jobForm({ equipmentId: eq.id, prefill: sel }) }, icon('plus'), 'Add special job') : null));
+    const list = cs.jobs, key = eq.id + '|' + scope.level + '|' + (scope.id || '');
+    let selected = specialFilters.get(key) || 'all';
+    const matches = j => selected === 'all' || (selected === 'open' ? j.workStatus !== 'completed' : j.workStatus === 'completed');
+    const filters = h('div', { class: 'special-filters', role: 'group', 'aria-label': 'Special job status filters' },
+      [['all', 'All', cs.counts.pending + cs.counts.current + cs.counts.completed], ['open', 'Open', cs.openJobs.length], ['completed', 'Completed', cs.counts.completed]].map(([value, label, count]) => h('button', {
+        type: 'button', 'data-fk': 'special-filter-' + value, 'aria-pressed': String(selected === value),
+        onClick: () => {
+          selected = value; specialFilters.set(key, value);
+          filters.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.fk === 'special-filter-' + value)));
+          box.querySelectorAll('[data-current-job]').forEach(node => { node.dataset.statusMatch = String(value === 'all' || (value === 'open' ? node.dataset.currentJob !== 'completed' : node.dataset.currentJob === 'completed')); });
+          box.dispatchEvent(new Event('panel-filter-change', { bubbles: true }));
+        } }, label, h('b', null, String(count)))),
+      P.jobsAllowed() ? h('a', { href: P.jobsLink(eq, scope, 'special') + '&includeCancelled=1', title: 'View cancelled jobs in Jobs', 'data-fk': 'cancelled-in-jobs', ...ext() }, 'Cancelled ', h('b', null, String(cs.counts.cancelled)))
+        : h('span', { title: 'Cancelled job details require access to Jobs.' }, 'Cancelled ', h('b', null, String(cs.counts.cancelled))));
+    box.appendChild(filters);
+    box.appendChild(list.length ? h('ul', { class: 'tl current-job-list', 'data-fk': 'special-list' }, list.map(r => {
+      const card = P.jobMini(r.job, r.matchingLines, { current: true }); card.dataset.statusMatch = String(matches(r.job)); return card;
+    })) : h('div', { class: 'nonwork' }, h('strong', null, 'No special jobs')));
+    if (cs.moreCompleted) box.appendChild(h('p', { class: 'small muted', 'data-fk': 'more-completed' }, 'Only the ' + EQ.CURRENT_COMPLETED_LIMIT + ' most recent completed jobs are listed here; the rest are in Jobs.'));
+    box.appendChild(h('div', { class: 'special-footer' }, h('span', { class: 'special-result', role: 'status', 'aria-live': 'polite' }, EQ.plural(list.length, 'special job')),
+      P.jobsAllowed() ? h('a', { href: P.jobsLink(eq, scope, 'special'), 'data-fk': 'open-in-jobs-special', ...ext() }, 'View in Jobs', icon('ext')) : null));
+    // Keep the selected-scope add action; the header's Add action always starts at whole equipment.
+    if (scope.level !== 'equipment' && EQ.perm.write() && eq.lifecycle === 'active' && EQ.dlg?.jobForm) box.appendChild(h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'add-for-sel', onClick: () => EQ.dlg.jobForm({ equipmentId: eq.id, prefill: sel }) }, icon('plus'), 'Add special job here'));
     return box;
   };
 
@@ -108,7 +166,7 @@ window.EQ = window.EQ || {};
   P.sparePartRow = function sparePartRow(r, o) {
     o = o || {};
     const cond = r.condition === 'original' ? ['Original', ''] : r.condition === 'replaced' ? ['Replaced', 'green'] : ['Not recorded', 'dashed'];
-    return h('li', { class: r.flag === 'overdue' ? 'open overdue' : r.flag === 'dueSoon' ? 'open' : '', 'data-pos': r.posId },
+    return h('li', { class: r.flag === 'overdue' ? 'open overdue' : r.flag === 'dueSoon' ? 'open' : '', 'data-pos': r.posId, 'data-panel-search-item': '' },
       h('div', { class: 'row between' }, h('strong', null, r.pos.name), h('span', null, tag(cond[0], cond[1]), r.flag ? [' ', tag(FLAG[r.flag][0], FLAG[r.flag][1])] : null)),
       h('span', { class: 'when' }, r.typeName + (r.mainCode ? ' · ' + r.mainCode + ' / ' + r.subCode : '')),
       r.condition ? h('dl', { class: 'kv' },

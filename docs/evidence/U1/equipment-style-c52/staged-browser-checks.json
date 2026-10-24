@@ -1,0 +1,129 @@
+{
+  "passed": 30,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "Dashboard palette and neutral equal-width card borders",
+      "pass": true
+    },
+    {
+      "name": "Five title-led cards, no visible record-number or kind badge row",
+      "pass": true
+    },
+    {
+      "name": "Whole-equipment heading is visually compact; search and filters share the header",
+      "pass": true
+    },
+    {
+      "name": "Viewer modes are above the canvas and camera tools below",
+      "pass": true
+    },
+    {
+      "name": "Overall starts with six key labels and one shared renderer",
+      "pass": true
+    },
+    {
+      "name": "Technical retains the complete label set",
+      "pass": true
+    },
+    {
+      "name": "Open filter shows one current card and announced result",
+      "pass": true
+    },
+    {
+      "name": "Search combines with Open and reports no matches",
+      "pass": true
+    },
+    {
+      "name": "Completed filter shows four records",
+      "pass": true
+    },
+    {
+      "name": "Record number remains searchable without a visible number row",
+      "pass": true
+    },
+    {
+      "name": "Camera switching keeps filter/search and the same geometry",
+      "pass": true
+    },
+    {
+      "name": "Keyboard title activation opens the correct Jobs record",
+      "pass": true
+    },
+    {
+      "name": "Cancelled count opens the permitted Jobs view with cancellation included",
+      "pass": true,
+      "detail": "#/eq/jobs/special?equipment=eq-qc-demo-02&includeCancelled=1"
+    },
+    {
+      "name": "Selected mechanism keeps its visible context and scoped add action",
+      "pass": true
+    },
+    {
+      "name": "Add here retains the actual mechanism target",
+      "pass": true
+    },
+    {
+      "name": "Four-tab keyboard navigation selects Technical",
+      "pass": true
+    },
+    {
+      "name": "Technical search retains source conflicts and paired field values",
+      "pass": true
+    },
+    {
+      "name": "Spare parts retains condition actions and scoped Jobs link",
+      "pass": true
+    },
+    {
+      "name": "Maintenance retains ZMMS context and the correct daily-work route",
+      "pass": true
+    },
+    {
+      "name": "Jobs-disabled users keep current titles without record/cancelled/Jobs links or write controls",
+      "pass": true
+    },
+    {
+      "name": "Current panel never receives progress notes or installation details",
+      "pass": true
+    },
+    {
+      "name": "1366px desktop keeps three columns and control rows without page overflow",
+      "pass": true
+    },
+    {
+      "name": "375px phone workspace fits and retains both drawer entry points",
+      "pass": true
+    },
+    {
+      "name": "Phone details are opaque, closable and use 44px filter/title targets",
+      "pass": true
+    },
+    {
+      "name": "Escape clears search before closing the phone drawer",
+      "pass": true
+    },
+    {
+      "name": "Phone mechanism navigation retains the tree and selected scope",
+      "pass": true
+    },
+    {
+      "name": "Phone landscape has no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "Reduced motion keeps the drawer usable without transition",
+      "pass": true
+    },
+    {
+      "name": "Non-QC pages retain readable records and their model boundary",
+      "pass": true
+    },
+    {
+      "name": "No unexpected browser errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "errors": []
+}
