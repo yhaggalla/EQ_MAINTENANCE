@@ -25,7 +25,7 @@ window.EQ = window.EQ || {};
       else acts.push(h('button', { type: 'button', class: 'btn-sm', onClick: () => { const r = EQ.api.moveJob(j.id, 'pending'); EQ.toast(r.ok ? j.number + ' returned to Pending' : r.message, 'Prototype: in memory only.'); } }, 'Return to Pending'));
       acts.push(h('button', { type: 'button', class: 'btn-sm primary', onClick: () => EQ.dlg.complete(j) }, icon('check-circle'), 'Complete...'));
       const c = EQ.perm.cancel(j);
-      acts.push(h('button', { type: 'button', class: 'btn-sm danger-btn', 'aria-disabled': c.ok ? null : 'true', 'aria-describedby': c.ok ? null : 'why-' + j.id, onClick: () => { if (c.ok) EQ.dlg.cancel(j); } }, icon('cancel'), 'Cancel...'));
+      acts.push(h('button', { type: 'button', class: 'btn-sm danger-btn', title: c.ok ? 'Cancel job' : 'Cancel unavailable: ' + c.why, 'aria-disabled': c.ok ? null : 'true', 'aria-describedby': c.ok ? null : 'why-' + j.id, onClick: () => { if (c.ok) EQ.dlg.cancel(j); } }, icon('cancel'), 'Cancel...'));
       if (!c.ok) ctx.why = c.why;
     }
     if (j.workStatus === 'completed' && !j.isCancelled && a) acts.push(h('button', { type: 'button', class: 'btn-sm', onClick: () => EQ.dlg.reason({ title: 'Reopen ' + j.number, message: 'Reopening makes the job Current again. Committed installations stay committed and are never undone by reopening.', confirm: 'Reopen job', onSubmit: (r) => EQ.api.reopenJob(j.id, r) }) }, 'Reopen (Admin)...'));
@@ -52,8 +52,8 @@ window.EQ = window.EQ || {};
     const ctx = {};
     const acts = actions(j, ctx);
     return h('article', { class: 'job' + (j.isCancelled ? ' cancelled' : ''), 'aria-label': j.number + ' ' + j.title },
-      h('div', { class: 'row between' }, h('a', { href: '#/eq/jobs/special/' + j.id, class: 'mono' }, j.number), h('span', null, h('span', { class: 'tag' }, KIND[j.kind]), ' ', statusTag(j), j.priority === 'high' ? h('span', { class: 'tag gold', style: 'margin-left:.25rem' }, 'High priority') : null, hiddenTag(j))),
-      h('h3', null, j.title),
+      h('div', { class: 'row between' }, h('span', null, h('span', { class: 'tag' }, KIND[j.kind]), ' ', statusTag(j), j.priority === 'high' ? h('span', { class: 'tag gold', style: 'margin-left:.25rem' }, 'High priority') : null, hiddenTag(j))),
+      h('h3', null, h('a', { class: 'job-name', href: '#/eq/jobs/special/' + j.id }, j.title)),
       h('div', { class: 'meta' }, h('span', null, h('a', { href: '#/eq/equipment/' + eq.id }, eq.code)), h('span', null, EQ.targetLabel(j))),
       h('div', { class: 'meta' },
         j.workStatus === 'completed' ? h('span', null, 'Completed ' + EQ.fmtDate(j.completedOn)) : h('span', null, j.plannedOn ? 'Planned ' + EQ.fmtDate(j.plannedOn) : 'No planned date'),
@@ -61,7 +61,7 @@ window.EQ = window.EQ || {};
         j.lines.length ? h('span', null, EQ.plural(j.lines.length, 'replacement line')) : null),
       j.isCancelled ? h('div', { class: 'meta' }, h('span', null, 'Cancelled by ' + EQ.userName(j.cancelledBy) + ' at ' + EQ.fmtInstantShort(j.cancelledUtc) + '. Reason: ' + j.cancelReason)) : null,
       h('div', { class: 'acts' }, acts),
-      ctx.why ? h('div', { class: 'why', id: 'why-' + j.id }, 'Cancel unavailable: ' + ctx.why) : null);
+      ctx.why ? h('div', { class: 'why sr-only', id: 'why-' + j.id }, 'Cancel unavailable: ' + ctx.why) : null);
   }
 
   function filtered(q) {

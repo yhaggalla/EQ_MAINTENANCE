@@ -364,3 +364,7 @@ Fixed help text should explain one idea per sentence. Use short labelled points 
 ## 41 U1-C47: spare-register action row (24 October 2026)
 
 Keep History and Update side by side in the spare-register Actions cell. Allow enough intrinsic width for both buttons without shrinking or wrapping their labels. On narrow screens the existing table wrapper scrolls horizontally. Management retains History only. Evidence: `docs/evidence/U1/spare-actions-c47/REPORT.md`. U1 remains open and unapproved.
+
+## 42 U1-C48: EQ job-card links (24 October 2026)
+
+Use each EQ job title as the job-details link, like FAC Jobs. Remove the separate card number link; retain numbers in record headings, search and accessible card identity. Omit the visible cancellation-unavailable paragraph on cards. Keep its reason available through the Cancel tooltip and screen-reader description, without changing cancellation eligibility. Apply to Board and Tabs; retain Show, status/kind badges, actions and detail-page information. Evidence: `docs/evidence/U1/job-links-c48/REPORT.md`. U1 remains open and unapproved.

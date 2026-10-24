@@ -1,0 +1,7 @@
+# U1-C48 EQ card title links
+
+24 October 2026. P02 `js/views-jobs.js` removes the card job-number link and links the title to the same record route, matching FAC navigation. The visible cancellation-unavailable paragraph is screen-reader-only; the Cancel control also exposes its reason in a tooltip. Numbers remain in accessible card identity, search and record headings. Cancellation eligibility and the detail-page reason are unchanged. Existing compact actions, Show and badges are retained.
+
+Focused headless Chrome verification at localhost:5312: all 19 cards have title links and no separate card number link; cancellation notes are visually hidden with accessible tooltip/description; keyboard Enter opens the exact record and its full job number; number search still finds that record; direct cancellation of another creator's job remains denied without mutating it; Tabs use the same links; 375 px phone fit and Management read-only links pass; no browser errors. Results: `checks.json`; captures: `desktop.png`, `phone.png`. Desktop capture visually inspected. JavaScript syntax and staged whitespace checks pass. No new repository tests for this small presentation change.
+
+The staged runtime delta includes only this request; earlier uncommitted U1/RTG work is preserved. Direct Codex adjustment, no delegated phase/independent review verdict; actual runtime model/effort not independently recorded. Local synthetic prototype only. U1 remains IN PROGRESS, NOT COMPLETE and NOT APPROVED; P04 Not started.

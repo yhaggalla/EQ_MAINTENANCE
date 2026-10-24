@@ -2,6 +2,10 @@
 
 Rolling handover for CICT EQ Maintenance. Each phase appends its record; the newest is first.
 
+## 24 October 2026 - U1-C48 EQ card title links
+
+Removed the separate EQ card number link and visible cancellation-unavailable note. Job titles now open the same job details route; numbers stay searchable and visible in the record. Cancellation remains restricted, with the reason in the button tooltip and screen-reader description. Runtime: P02 `js/views-jobs.js` only. Checked all 19 cards, keyboard Enter, exact detail identity, number search, blocked cancellation without mutation, Board/Tabs, phone fit and Management read-only links; no browser errors. Screenshot inspected; syntax and staged whitespace pass. Evidence: `docs/evidence/U1/job-links-c48/REPORT.md`; request: `docs/runs/Repair-U1-C48-20261024.md`; D-192 / UX section 42. Earlier uncommitted edits are excluded. Direct Codex U1 adjustment, no delegated phase/independent R verdict; actual runtime model/effort not independently recorded. Local synthetic verification only. U1 remains IN PROGRESS, NOT COMPLETE / NOT APPROVED; P04 Not started.
+
 ## 24 October 2026 - U1-C47 spare-register buttons
 
 History and Update now stay side by side in each spare-register Actions cell. Two scoped CSS rules in P02 `css/v2.css` prevent wrapping/shrinking; the existing table keeps horizontal scrolling on phones. Checked all 22 desktop rows, History expansion, Update dialog opening, phone alignment/scroll and Management History-only permissions; no browser errors. Screenshot inspected and staged whitespace passes. Evidence: `docs/evidence/U1/spare-actions-c47/REPORT.md`; request: `docs/runs/Repair-U1-C47-20261024.md`; D-191 / UX section 41. Direct Codex U1 adjustment; no delegated phase/independent R verdict, runtime model/effort not independently recorded. Earlier uncommitted edits are preserved. Local synthetic verification only; U1 remains IN PROGRESS, NOT COMPLETE / NOT APPROVED; P04 Not started.

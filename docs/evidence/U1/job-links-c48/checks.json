@@ -1,0 +1,14 @@
+{
+  "cards": 19,
+  "titlesLinked": true,
+  "numberLinksRemoved": true,
+  "notesHidden": true,
+  "disabledReasonsAccessible": true,
+  "titleOpensCorrectJob": true,
+  "numberStillSearchable": true,
+  "cancellationStillDenied": true,
+  "tabsUseLinkedTitles": true,
+  "phoneFits": true,
+  "managementLinksReadOnly": true,
+  "errors": []
+}

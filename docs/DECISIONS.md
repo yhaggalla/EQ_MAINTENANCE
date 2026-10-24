@@ -630,3 +630,7 @@ User requests: "this is not understandably make it simple and clear.." (EQ statu
 ### 2026-10-24 U1 CHANGES REQUESTED (U1-C47: spare-register action row)
 
 User: "place the buttons in 1 row.." The marked controls are History and Update in EQ Jobs > Spare parts condition. D-191: keep those controls side by side in every register row. Size the Actions cell to fit both buttons; retain horizontal table scrolling on phones and existing read-only permissions. Evidence: `docs/evidence/U1/spare-actions-c47/REPORT.md`. U1 remains open and unapproved; P04 Not started.
+
+### 2026-10-24 U1 CHANGES REQUESTED (U1-C48: clickable EQ job titles)
+
+User: "remove this part.. make name clickable like FAC jobs.." The marked content is the EQ card job-number link and the visible cancellation-unavailable paragraph. D-192: remove the number link from cards and link each job title to its existing details route. Keep numbers in the record, search and accessible card identity. Remove the visible cancellation paragraph from cards; retain its reason as screen-reader help and the Cancel button tooltip, with the same disabled permissions. Board and Tabs share this presentation. Evidence: `docs/evidence/U1/job-links-c48/REPORT.md`. U1 remains open and unapproved; P04 Not started.
