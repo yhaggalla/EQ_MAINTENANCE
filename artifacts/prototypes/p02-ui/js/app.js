@@ -168,7 +168,7 @@ window.EQ = window.EQ || {};
       // TV mode: FAC Dashboard (P02B) and EQ Fleet (U1-C28) at ?tv=1; data-page scopes the round 8 fleet restyle (U1-C31)
       const eqFleet = r.name === 'eq' && (!r.segs[1] || r.segs[1] === 'fleet');
       document.body.classList.toggle('tv', (r.name === 'fac' && r.segs[1] !== 'jobs' && r.query.tv === '1') || (eqFleet && r.query.tv === '1' && !(feat && !EQ.access.has(feat)) && !L.noAccess));
-      document.body.dataset.page = eqFleet && !L.noAccess ? 'eq-fleet' : '';
+      document.body.dataset.page = eqFleet && !L.noAccess ? 'eq-fleet' : view.classList.contains('fac-dash') ? 'fac-dashboard' : '';
       document.body.dataset.section = currentSection();
       if (mainEl.childNodes.length !== 1 || mainEl.firstChild !== view) mainEl.replaceChildren(view);
       EQ.qc?.afterRender();

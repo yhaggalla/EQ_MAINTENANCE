@@ -649,7 +649,9 @@ Response:
                                due: { label: 'dueInDays' | 'overdueDays' | 'dueToday' | 'dueThisWeek' | 'none'; days: number | null; dueOn: DateOnly | null } }> }>;
   ticker: Array<{ utc: Instant; who: string; job: { id: Id; name: string }; kind: 'progress' | 'completed' | 'hold' | 'release'; quantity: number | null }>;
   latestProof: Array<{ photoId: Id; thumbUrl: string; job: { id: Id; name: string }; workDate: DateOnly; who: string }>;
-  dueLoad: { excludes: 'dailyAndWeeklyChecks'; weeks: Array<{ weekStart: DateOnly; byDiscipline: Record<string, number> }> } }
+  dueLoad: { excludes: 'dailyAndWeeklyChecks'; weeks: Array<{ weekStart: DateOnly; byDiscipline: Record<string, number> }> };
+  completionTrend: { excludes: 'dailyAndWeeklyChecks'; includesCurrentWeekToDate: true;
+    weeks: Array<{ weekStart: DateOnly; weekEnd: DateOnly; byDiscipline: Record<string, number> }> } } // U1-C57; DATA s18.4
 ```
 
 The `discipline`, `type`, `mode` and `pic` predicates apply to both `onTimeBasis` counts and every other block (DATA s18.4). With no eligible completed cycle, `onTimePercent30d` is null and `onTimeBasis` is `{ onTime: 0, total: 0 }`; the UI shows no percentage. Matching completed rolling cycles remain eligible if their job has since closed or deactivated. `focus` narrows lane rows only.

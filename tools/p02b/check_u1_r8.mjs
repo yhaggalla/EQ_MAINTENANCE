@@ -76,7 +76,7 @@ try {
       && /^#\/eq\/fleet/.test(afterEsc.hash) && !/tv=1/.test(afterEsc.hash) && /type=QC/.test(afterEsc.hash) && !afterEsc.tv && afterEsc.topbar !== 'none'
       && w && before.blink === null && after.blink === 'maintenance' && Number(after.maint) === Number(before.maint) + 1 && t0 !== after.upd
       && after.kpi.total === String(c.total) && after.kpi.readyForOps === String(c.readyForOps) && after.kpi.breakdown === String(c.breakdown) && after.kpi.maintenance === String(c.maintenance) && after.kpi.unreported === String(c.unreported) && after.cards === c.total
-      && !/tv=1/.test(afterExit.hash) && !afterExit.tv && afterExit.links === c.total && qcOnly.types.join() === 'QC' && qcOnly.groups === 1 && qcOnly.total === '6';
+      && !/tv=1/.test(afterExit.hash) && !afterExit.tv && afterExit.links === c.total && qcOnly.types.join() === 'QC' && qcOnly.groups === 1 && qcOnly.total === '14';
     return { ok, detail: { viaBtn, afterEsc, t0, before, after: { ...after, counts: undefined }, afterExit, qcOnly } };
   });
 

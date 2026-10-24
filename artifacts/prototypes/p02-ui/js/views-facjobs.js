@@ -10,6 +10,11 @@ window.EQ = window.EQ || {};
   const ui = (EQ.facUI = { q: '', show: {}, status: 'pending' });
   const COLS = [['pending', 'Pending'], ['inProgress', 'In progress'], ['onHold', 'On hold'], ['completed', 'Completed (this cycle)']];
   const canWork = () => EQ.access.has('fac.work');
+  const canEditJob = (job) => job.state === 'active' && (EQ.access.has('fac.masterList.manage') ||
+    (job.kind === 'oneTime' && job.createdBy === EQ.user().id && EQ.access.has('fac.oneTimeJobs.add') && !job.updates.some((u) => u.state === 'active')));
+  const jobSwitch = (job) => EQ.displaySwitch({ id: job.id, shown: F().shown(job), canSet: canWork(),
+    where: 'the FAC Dashboard (KPIs, lanes, ticker, photos, due load and TV mode)', name: job.name,
+    hiddenNote: 'it stays in FAC Jobs, its timeline and the export', onChange: (show) => F().api.setVisibility(job.id, { show }) });
 
   // ---------------------------------------------------------------- actions (one tap)
   function doneTap(job, info) {
@@ -20,12 +25,14 @@ window.EQ = window.EQ || {};
   }
   function actionsFor(job, info, o) {
     o = o || {};
-    if (!canWork() || job.state !== 'active') return [];
     const acts = [];
     const period = info.period;
+    const editDetails = o.quick && canEditJob(job);
+    if (editDetails) acts.push(h('button', { type: 'button', class: 'btn-act', 'data-fk': 'quick-edit-' + job.id, title: 'Edit job details without leaving this view', onClick: () => EQ.dlg.facJobForm({ job }) }, icon('edit'), 'Quick edit'));
+    if (!canWork() || job.state !== 'active') return acts;
     if (!job.isOnHold) {
       if (period && !info.cycle.completed) acts.push(h('button', { type: 'button', class: 'btn-act primary', 'data-fk': 'done-' + job.id, onClick: () => doneTap(job, info) }, icon('check-circle'), job.freqCode === 'daily' ? 'Done today' : 'Done this week'));
-      if (!(period && info.cycle.completed)) acts.push(h('button', { type: 'button', class: 'btn-act' + (period ? '' : ' primary'), 'data-fk': 'prog-' + job.id, onClick: () => EQ.dlg.facProgress(job) }, icon('plus'), 'Update progress'));
+      if (!(period && info.cycle.completed)) acts.push(h('button', { type: 'button', class: 'btn-act' + (period ? '' : ' primary'), 'data-fk': 'prog-' + job.id, title: 'Update progress, work date, notes and photos without leaving this view', onClick: () => EQ.dlg.facProgress(job) }, icon('plus'), 'Update progress'));
       acts.push(h('button', { type: 'button', class: 'btn-act', 'data-fk': 'hold-' + job.id, onClick: () => EQ.dlg.facHold(job) }, icon('hold'), 'Hold'));
     } else acts.push(h('button', { type: 'button', class: 'btn-act', 'data-fk': 'rel-' + job.id, onClick: () => { const r = F().api.release(job.id); EQ.toast(r.ok ? 'Released: ' + job.name : r.message, 'Prototype: in memory only.'); } }, icon('play'), 'Release hold'));
     return acts;
@@ -39,11 +46,11 @@ window.EQ = window.EQ || {};
       h('div', { class: 'fc-top' },
         h('span', { class: 'thumb' }, F().jobPic(job) ? h('img', { src: F().jobPic(job).src, alt: '', loading: 'lazy' }) : icon(job.typeCode === 'inspection' ? 'inspect' : 'service')),
         h('div', { class: 'fc-main' }, h('a', { class: 'fc-name', href: '#/fac/jobs/' + job.id }, job.name), h('div', { class: 'meta' }, h('span', { class: 'mono' }, job.number), ' · ', h('span', { class: 'disc d-' + job.discipline }, F().DISC_NAME[job.discipline]), ' · ' + F().TYPE_NAME[job.typeCode] + ' · ' + F().freqLabel(job)),
-          h('div', { class: 'meta' }, 'PIC ' + F().picDisplay(job) + (job.mode ? ' · ' + F().MODE_NAME[job.mode] : '') + (own ? ' · ' : ''), own ? h('span', { class: 'tag gold' }, 'Yours') : null, F().shown(job) ? null : h('span', { class: 'tag dashed', 'data-fk': 'hidden-tag', style: 'margin-left:.25rem', title: 'Not shown on the FAC Dashboard (U1-C26)' }, 'Hidden from dashboard')))),
+          h('div', { class: 'meta' }, 'PIC ' + F().picDisplay(job) + (job.mode ? ' · ' + F().MODE_NAME[job.mode] : '') + (own ? ' · ' : ''), own ? h('span', { class: 'tag gold' }, 'Yours') : null, F().shown(job) ? null : h('span', { class: 'tag dashed', 'data-fk': 'hidden-tag', style: 'margin-left:.25rem', title: 'Not shown on the FAC Dashboard (U1-C26)' }, 'Hidden from dashboard'))), jobSwitch(job)),
       h('div', { class: 'fc-prog' }, EQ.facBar(info.done, info.target, info.pct), h('div', { class: 'fc-flags' }, EQ.facPill(info.status, info.overdue, info.dueSoon), info.dueSoon && !info.overdue ? h('span', { class: 'pill st-dueSoon' }, icon('flag'), 'Due soon') : null, h('span', { class: 'due due-' + info.dueKind }, info.dueLabel))),
       job.isOnHold ? h('div', { class: 'hold-reason' }, 'On hold: ' + job.holdReason) : null,
       info.noDue && !job.isOnHold && info.status !== 'completed' ? h('div', { class: 'small muted' }, info.noDue) : null,
-      h('div', { class: 'fc-acts' }, actionsFor(job, info)));
+      h('div', { class: 'fc-acts' }, actionsFor(job, info, { quick: true })));
   }
 
   EQ.views.facJobs = function facJobs(q) {
@@ -51,12 +58,15 @@ window.EQ = window.EQ || {};
     const page = h('div', { class: 'page facjobs-page' });
     const setQ = (patch) => EQ.nav('/fac/jobs', { ...q, ...patch });
     const view = ['mywork', 'board', 'list'].includes(q.view) ? q.view : 'mywork';
-    page.appendChild(h('div', { class: 'page-head' }, h('div', null, h('p', { class: 'eyebrow' }, 'FAC'), h('h1', null, 'FAC Jobs'), h('p', null, 'Your work first: overdue, due soon and in-progress jobs. One tap marks a daily or weekly check done; Update progress takes a quantity, a note and photos. A FAC job is never linked to an EQ equipment record.')),
-      h('div', { class: 'row' },
+    page.appendChild(h('h1', { class: 'sr-only' }, 'FAC Jobs'));
+    const toolbarActions = h('div', { class: 'jobs-toolbar-actions' },
         EQ.access.has('export.excel') ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'fac-export', onClick: () => { const r = F().exportRows(filterQ(q)); if (r.ok) { EQ.downloadCsv('fac-jobs.csv', r.columns, r.rows); EQ.toast('Exported ' + r.rows.length + ' filtered job(s)', 'Prototype stand-in: CSV, not the server-generated .xlsx. Source columns plus the calculated ones.'); } else EQ.toast(r.message); } }, icon('download'), 'Export to Excel') : null,
         EQ.access.has('fac.oneTimeJobs.add') ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'add-onetime', onClick: () => EQ.dlg.facJobForm({ kind: 'oneTime' }) }, icon('plus'), 'Add one-time job') : null,
         EQ.access.has('fac.masterList.manage') ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'add-recurring', onClick: () => EQ.dlg.facJobForm({ kind: 'recurring' }) }, icon('plus'), 'Add recurring job') : null,
-        !canWork() ? h('span', { class: 'tag gold' }, 'Read-only: you cannot change FAC records') : null)));
+        !canWork() ? h('span', { class: 'tag gold' }, 'Read-only') : null);
+    const viewToolbar = h('div', { class: 'jobs-view-toolbar' },
+      h('div', { class: 'seg view-seg', role: 'group', 'aria-label': 'View' }, [['mywork', 'My work'], ['board', 'Board'], ['list', 'List']].map(([v, l]) => h('button', { type: 'button', 'aria-pressed': view === v ? 'true' : 'false', 'data-fk': 'view-' + v, title: v === 'mywork' ? 'Overdue, due soon and in-progress jobs; your jobs come first. Jobs on hold are on the board.' : null, onClick: () => setQ({ view: v }) }, l))), toolbarActions);
+    page.appendChild(viewToolbar);
     if (S.data === 'loading') { page.appendChild(h('div', { 'aria-busy': 'true', role: 'status', class: 'board' }, [1, 2, 3].map(() => h('div', { class: 'skeleton', style: 'height:14rem' })))); return page; }
     if (S.data === 'error') { page.appendChild(h('div', { class: 'notice error', role: 'alert' }, icon('wifi-off'), h('div', null, h('p', null, h('strong', null, 'FAC jobs could not be loaded. '), 'Nothing is shown as completed without data.'), h('div', { class: 'actions' }, h('button', { type: 'button', class: 'btn-sm', onClick: () => EQ.refresh(true) }, 'Retry'))))); return page; }
     if (S.data === 'stale') page.appendChild(h('div', { class: 'notice warn', role: 'status' }, icon('wifi-off'), h('p', null, 'Showing the last good data from ' + EQ.fmtTime(S.lastGoodAt).slice(0, 5) + '; the latest refresh failed.')));
@@ -64,7 +74,6 @@ window.EQ = window.EQ || {};
     const res = F().list(filterQ(q));
     if (!res.ok) { EQ.access.refreshSession('403 ' + res.code); setTimeout(() => EQ.rerender(), 0); return EQ.views.forbidden('fac.jobs.view', '/fac/jobs', res.code); }
 
-    page.appendChild(h('div', { class: 'seg view-seg', role: 'group', 'aria-label': 'View' }, [['mywork', 'My work'], ['board', 'Board'], ['list', 'List']].map(([v, l]) => h('button', { type: 'button', 'aria-pressed': view === v ? 'true' : 'false', 'data-fk': 'view-' + v, onClick: () => setQ({ view: v }) }, l))));
     const sel = (id, label, key, opts, any) => h('div', { class: 'field' }, h('label', { for: id }, label), h('select', { id, 'data-fk': id, onChange: (e) => setQ({ [key]: e.target.value }) }, h('option', { value: '' }, any), opts.map(([v, l]) => h('option', { value: v, selected: q[key] === v ? true : null }, l))));
     const search = h('input', { type: 'search', id: 'fq', 'data-fk': 'fq', value: q.q || '', placeholder: 'Job, number or PIC', autocomplete: 'off' });
     let t; search.addEventListener('input', () => { clearTimeout(t); t = setTimeout(() => { EQ.facUI.q = search.value; setQ({ q: search.value }); }, 250); });
@@ -77,11 +86,12 @@ window.EQ = window.EQ || {};
       h('div', { class: 'field grow' }, h('label', { for: 'fq' }, 'Search'), search), h('button', { type: 'button', class: 'btn-sm', onClick: () => EQ.nav('/fac/jobs', { view }) }, 'Clear filters'));
     page.appendChild(h('details', { class: 'filter-fold', open: window.matchMedia('(min-width: 768px)').matches ? true : null }, h('summary', null, 'Filters', Object.keys(q).filter((k) => k !== 'view' && q[k]).length ? ' (' + Object.keys(q).filter((k) => k !== 'view' && q[k]).length + ' on)' : ''), filt));
     const rows = res.rows;
-    page.appendChild(h('p', { class: 'small muted', 'aria-live': 'polite', 'data-fk': 'job-count' }, rows.length + ' job(s) match.' + (EQ.access.has('export.excel') ? ' Export uses the same filters.' : '')));
+    viewToolbar.insertBefore(h('p', { class: 'small muted', style: 'margin:0', 'aria-live': 'polite', 'data-fk': 'job-count', title: 'Export uses the same filters.' }, rows.length + ' job(s) match.'), toolbarActions);
+    page.appendChild(viewToolbar);
 
     if (view === 'mywork') {
       const mine = F().myWork(rows, res.me);
-      page.appendChild(h('section', { 'aria-labelledby': 'mw-h' }, h('h2', { id: 'mw-h' }, 'My work ', h('span', { class: 'tag' }, String(mine.length))), h('p', { class: 'small muted' }, 'Overdue, due soon and in-progress jobs; the jobs where you are the PIC come first. Jobs on hold are on the board.'),
+      page.appendChild(h('section', { 'aria-labelledby': 'mw-h' }, h('h2', { id: 'mw-h', class: 'sr-only' }, 'My work: ' + mine.length),
         mine.length ? h('div', { class: 'fcards' }, mine.map((x) => jobCard(x, res.me))) : h('div', { class: 'nonwork' }, h('strong', null, 'Nothing needs attention'), 'No overdue, due-soon or in-progress job matches these filters.')));
     } else if (view === 'board') {
       const by = (s) => rows.filter((x) => x.job.state === 'active' && x.info.status === s).sort((a, b) => (b.info.overdue - a.info.overdue) || b.info.daysOverdue - a.info.daysOverdue || EQ.cmp(a.info.dueOn || '9999', b.info.dueOn || '9999') || EQ.cmp(a.job.name, b.job.name));
@@ -93,11 +103,11 @@ window.EQ = window.EQ || {};
     } else {
       const lim = ui.show.list || 40;
       page.appendChild(h('div', { class: 'panel table-wrap' }, h('table', { class: 'fac-list' }, h('caption', { class: 'sr-only' }, 'FAC jobs'),
-        h('thead', null, h('tr', null, ['Job', 'Discipline', 'Type', 'Frequency', 'Progress', 'Due', 'Status', 'PIC', 'Actions'].map((c) => h('th', { scope: 'col' }, c)))),
+        h('thead', null, h('tr', null, ['Job', 'Discipline', 'Type', 'Frequency', 'Progress', 'Due', 'Status', 'PIC', 'Show', 'Actions'].map((c) => h('th', { scope: 'col' }, c)))),
         h('tbody', null, rows.slice(0, lim).map((x) => h('tr', { class: x.job.state !== 'active' ? 'inactive' : '' },
           h('th', { scope: 'row' }, h('a', { href: '#/fac/jobs/' + x.job.id }, x.job.name), h('div', { class: 'small muted mono' }, x.job.number + (x.job.state !== 'active' ? ' · ' + x.job.state : ''))), h('td', null, F().DISC_NAME[x.job.discipline]), h('td', null, F().TYPE_NAME[x.job.typeCode]), h('td', null, F().freqLabel(x.job)),
           h('td', null, EQ.facBar(x.info.done, x.info.target, x.info.pct)), h('td', null, h('span', { class: 'due due-' + x.info.dueKind }, x.info.dueLabel)), h('td', null, EQ.facPill(x.info.status, x.info.overdue, x.info.dueSoon)),
-          h('td', null, F().picDisplay(x.job)), h('td', null, h('div', { class: 'row' }, actionsFor(x.job, x.info))))))),
+          h('td', null, F().picDisplay(x.job)), h('td', null, jobSwitch(x.job)), h('td', null, h('div', { class: 'row' }, actionsFor(x.job, x.info, { quick: true }))))))),
         rows.length > lim ? h('div', { class: 'panel-pad' }, h('button', { type: 'button', class: 'btn-sm', onClick: () => { ui.show.list = lim + 40; EQ.rerender(); } }, 'Show 40 more (' + (rows.length - lim) + ' hidden)')) : null));
     }
     page.appendChild(h('p', { class: 'small muted overlay-note' }, "Jobs and frequencies come from the supplied sheet. Progress, photos, holds and user assignments are sample data. Changes are not saved."));
@@ -124,9 +134,9 @@ window.EQ = window.EQ || {};
     if (dashView) page.appendChild(h('p', { class: 'small muted', 'data-fk': 'dash-detail-note' }, 'Read-only job detail opened from the FAC Dashboard. ' + (EQ.access.has('fac.jobs.view') ? 'Updates are made in FAC Jobs.' : 'The FAC Jobs tab is not available for your role.')));
     page.appendChild(h('header', { class: 'panel eq-head' }, h('div', null, h('p', { class: 'eyebrow' }, F().DISC_NAME[job.discipline] + ' · ' + F().TYPE_NAME[job.typeCode]), h('h1', null, job.name, ' ', EQ.facPill(info.status, info.overdue, info.dueSoon), info.dueSoon && !info.overdue ? h('span', { class: 'pill st-dueSoon' }, icon('flag'), 'Due soon') : null, job.state !== 'active' ? h('span', { class: 'tag' }, job.state) : null)),
       h('div', { class: 'facts' }, h('span', null, h('span', { class: 'due due-' + info.dueKind }, info.dueLabel)), h('span', null, 'Frequency: ' + F().freqLabel(job)), h('span', null, 'PIC: ' + F().picDisplay(job))),
-      dashView ? null : h('div', { class: 'actions' }, actionsFor(job, info),
+      dashView ? null : h('div', { class: 'actions' }, jobSwitch(job), actionsFor(job, info),
         EQ.access.has('fac.work') ? h('button', { type: 'button', class: 'btn-act', 'data-fk': 'undo', onClick: () => { const r = F().api.undo(job.id); EQ.toast(r.ok ? 'Last update undone' : r.message, r.ok ? 'Prototype: in memory only.' : null); } }, icon('undo'), 'Undo my last update') : null,
-        EQ.access.has('fac.masterList.manage') && job.state === 'active' ? h('button', { type: 'button', class: 'btn-act', 'data-fk': 'edit-job', onClick: () => EQ.dlg.facJobForm({ job }) }, icon('edit'), 'Edit job') : null,
+        canEditJob(job) ? h('button', { type: 'button', class: 'btn-act', 'data-fk': 'edit-job', onClick: () => EQ.dlg.facJobForm({ job }) }, icon('edit'), 'Edit job') : null,
         adm ? h('button', { type: 'button', class: 'btn-act', 'data-fk': 'correct', onClick: () => EQ.dlg.facCorrect(job) }, icon('sliders'), 'Correct (Admin)...') : null)));
     if (!canWork() && !dashView) page.appendChild(h('p', { class: 'small muted' }, 'Read-only: Management and EQ Team cannot change FAC records.'));
     const kv = (rows) => h('dl', { class: 'kv' }, rows.filter(Boolean).map(([k, v]) => [h('dt', null, k), h('dd', null, v)]));
@@ -137,10 +147,7 @@ window.EQ = window.EQ || {};
         h('div', { class: 'job-pic' }, pic ? h('img', { src: pic.src, alt: 'Job picture: ' + job.name + (pic.synthetic ? ' (synthetic placeholder image)' : '') }) : h('div', { class: 'nonwork' }, 'No job picture (optional).'),
           canWork() && !dashView ? h('label', { class: 'btn btn-sm file-btn' }, icon('camera'), pic ? 'Replace job picture' : 'Add job picture', h('input', { type: 'file', accept: 'image/jpeg,image/png', capture: 'environment', class: 'sr-only', 'data-fk': 'job-pic', onChange: (e) => { const f = e.target.files[0]; if (!f) return; const err = photoError(f); if (err) { EQ.toast(err); return; } F().api.setPicture(job.id, F().newPhoto(job.name, EQ.user().id, URL.createObjectURL(f), f.name)); EQ.toast('Job picture set', 'Prototype: stays in this browser tab only.'); } })) : null),
         kv([['Job number', job.number], ['Discipline', F().DISC_NAME[job.discipline]], ['Type', F().TYPE_NAME[job.typeCode]], ['Frequency', F().freqLabel(job)], ['Quantity', String(job.quantity)], ['Kind', F().KIND_NAME[job.kind]], ['PIC', F().picDisplay(job)], ['In-house / Outsource', job.mode ? F().MODE_NAME[job.mode] : 'Not set'], ['Last done', job.lastDoneOn ? EQ.fmtDate(job.lastDoneOn) : 'Not set'], ['Remarks', job.remarks || '-'], ['State', job.state + (job.sourceRow ? ' · source row ' + job.sourceRow + (job.split != null ? ' (split ' + (job.split + 1) + ')' : '') : ' · created in the app')]]),
-        job.issues.length ? h('div', { class: 'small muted' }, 'Import notes: ' + job.issues.map((i) => i.replace(/-/g, ' ')).join('; ')) : null,
-        // U1-C26: the shared "Show on dashboard" switch (FAC Team and Admin; read-only for the others)
-        dashView ? null : EQ.displaySwitch({ id: job.id, shown: F().shown(job), canSet: EQ.access.has('fac.work'), label: 'Show on dashboard', where: 'the FAC Dashboard (KPIs, lanes, ticker, photos, due load and TV mode)', name: job.name, hiddenNote: 'it stays in FAC Jobs, its timeline and the export',
-          onChange: (show) => F().api.setVisibility(job.id, { show }) })),
+        job.issues.length ? h('div', { class: 'small muted' }, 'Import notes: ' + job.issues.map((i) => i.replace(/-/g, ' ')).join('; ')) : null),
       h('section', { class: 'panel panel-pad stack' }, h('h2', null, 'Current cycle'),
         h('div', { class: 'cycle-box' }, EQ.facBar(info.done, info.target, info.pct), h('div', { class: 'row' }, EQ.facPill(info.status, info.overdue, info.dueSoon), h('span', { class: 'due due-' + info.dueKind }, info.dueLabel))),
         kv([['Completed quantity', info.done + ' of ' + info.target], ['Pending quantity', String(info.pending)], ['Next due', info.dueOn ? EQ.fmtDate(info.dueOn) + (cy.dueBasis === 'adminEntered' ? ' (Admin-entered date)' : cy.dueBasis === 'period' ? '' : ' (last done + interval)') : info.noDue], info.overdue ? ['Days overdue', String(info.daysOverdue)] : null, info.period ? ['Period', EQ.fmtDate(cy.periodStart) + (cy.periodEnd !== cy.periodStart ? ' to ' + EQ.fmtDate(cy.periodEnd) : '')] : null, job.isOnHold ? ['On hold', job.holdReason] : null]),

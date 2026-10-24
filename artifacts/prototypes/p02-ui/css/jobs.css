@@ -1,0 +1,45 @@
+/* U1-C41: compact EQ/FAC Jobs workspaces and shared card visibility. */
+.jobs-toolbar-actions, .jobs-view-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: .45rem; }
+.jobs-toolbar-actions { margin-left: auto; }
+.jobs-view-toolbar { justify-content: space-between; margin-bottom: .65rem; }
+.jobs-view-toolbar .view-seg { margin: 0; }
+.eqjobs-page .subtabs { margin-bottom: .7rem; }
+.eqjobs-page .filters { gap: .5rem .85rem; }
+.special-board > .filters { margin-bottom: 0; }
+.job-top { display: flex; flex-wrap: wrap; align-items: center; gap: .15rem .5rem; }
+.job-top > .mono { font-size: .8rem; }
+.job-marks { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: .25rem; margin-left: auto; }
+.job > .tag { justify-self: start; }
+.facjobs-page .fcard { border: 1px solid var(--border); border-radius: .4rem; box-shadow: none; }
+.facjobs-page .fcard .thumb { color: var(--ink-muted); background: #f3f3f0; border-radius: .25rem; }
+.fc-top { grid-template-columns: 3rem minmax(0, 1fr) auto; }
+.fc-top > .vis-switch { align-self: start; }
+.vis-switch { position: relative; display: inline-flex; align-items: center; flex: 0 0 auto; gap: .35rem; min-height: 2rem; margin: 0; padding: .15rem .2rem; font-size: .78rem; line-height: 1.3; white-space: nowrap; cursor: pointer; }
+.vis-state { cursor: help; color: var(--ink-muted); }
+.vis-help { position: absolute; z-index: 50; top: calc(100% + .25rem); right: 0; display: none; width: min(19rem, calc(100vw - 3.5rem)); padding: .6rem .7rem; color: #fff; background: #102b3e; border-radius: .3rem; box-shadow: 0 3px 10px rgb(0 0 0 / 16%); font-size: .78rem; font-weight: 400; line-height: 1.5; white-space: normal; text-align: left; }
+.vis-switch:hover .vis-help, .vis-switch:focus-within .vis-help { display: block; }
+.vis-switch:focus-visible { outline: 2px solid var(--sel); outline-offset: 2px; }
+.job:focus-within, .fcard:focus-within, .job:hover, .fcard:hover { position: relative; z-index: 1; }
+.fac-list .vis-help { position: fixed; top: auto; right: 1rem; bottom: 1rem; }
+/* U1-C43: card actions stay on one line; narrow cards can pan the row. */
+.eqjobs-page .job, .facjobs-page .fcard { min-width: 0; }
+.eqjobs-page .job .acts, .facjobs-page .fcard .fc-acts { flex-wrap: nowrap; gap: .2rem; min-width: 0; max-width: 100%; overflow-x: auto; overscroll-behavior-inline: contain; scrollbar-width: thin; padding: 2px; margin-inline: -2px; }
+.eqjobs-page .job .acts :is(button, .btn), .facjobs-page .fcard .fc-acts button { flex: 0 0 auto; min-height: 32px; padding: .3rem .35rem; gap: .25rem; font-size: .75rem; white-space: nowrap; }
+.eqjobs-page .job .acts .job-act-icon { width: 32px; padding-inline: 0; }
+@media (max-width: 767px) {
+  .eqjobs-page .job .acts :is(button, .btn), .facjobs-page .fcard .fc-acts button { min-height: 44px; min-width: 44px; }
+  .eqjobs-page .job .acts .job-act-icon { width: 44px; }
+  .facjobs-page .fcard .fc-acts .icon { display: none; }
+  .eqjobs-page .filters, .facjobs-page .filters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .eqjobs-page .filters .field, .facjobs-page .filters .field { min-width: 0; }
+  .eqjobs-page .filters input, .eqjobs-page .filters select, .facjobs-page .filters input, .facjobs-page .filters select { min-width: 0; }
+  .eqjobs-page .filters .grow, .facjobs-page .filters .grow { grid-column: 1 / -1; }
+  .special-board .filters .seg button { min-width: 0; padding-inline: .55rem; }
+  .jobs-view-toolbar { align-items: stretch; }
+  .jobs-view-toolbar .jobs-toolbar-actions { width: 100%; margin-left: 0; }
+  .jobs-toolbar-actions button, .vis-switch { min-height: 2.75rem; }
+  .special-board .jobs-toolbar-actions { grid-column: 1 / -1; justify-content: flex-end; }
+  .job-marks { gap: .2rem; }
+  .fc-top { gap: .4rem; }
+  .fc-name { overflow-wrap: anywhere; }
+}

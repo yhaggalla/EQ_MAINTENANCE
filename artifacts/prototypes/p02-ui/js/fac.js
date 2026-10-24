@@ -336,7 +336,16 @@ window.EQ = window.EQ || {};
     const ws = weekStart(today);
     const weeks = Array.from({ length: 8 }, (_, w) => ({ start: addDays(ws, w * 7), electrical: 0, mechanical: 0, civil: 0 }));
     rolling.forEach((x) => { const due = x.i.dueOn; if (!due || x.i.overdue || x.i.cycle.completed) return; const idx = Math.floor(diffDays(due, ws) / 7); if (idx >= 0 && idx < 8 && weeks[idx][x.j.discipline] !== undefined) weeks[idx][x.j.discipline] += 1; });
-    return { ok: true, generatedUtc: new Date().toISOString(), businessDate: today, dataVersion: d.version, etag: 'v' + d.version + '-' + today + '-' + EQ.access.sessionAt() + '-' + JSON.stringify(q), settings: { ...set, flipSeconds: 8 }, kpi, lanes, ticker: ev.slice(0, 20), proof: proof.slice(0, 12), dueLoad: weeks, filters: q, syntheticOverlay: d.overlay };
+    // U1-C57: completed scheduled-job cycles in three full Monday-Sunday weeks plus the current week to date.
+    // Match the historical KPI population/filters, including completed work on later deactivated jobs; routine checks stay separate.
+    const trendStart = addDays(ws, -21);
+    const completionTrend = Array.from({ length: 4 }, (_, w) => ({ start: addDays(trendStart, w * 7), end: w === 3 ? today : addDays(trendStart, w * 7 + 6), electrical: 0, mechanical: 0, civil: 0 }));
+    filtered.filter((j) => !isPeriod(j)).forEach((j) => j.cycles.forEach((c) => {
+      if (c.state !== 'completed' || !c.completedOn || c.completedOn < trendStart || c.completedOn > today) return;
+      const idx = Math.floor(diffDays(c.completedOn, trendStart) / 7);
+      if (completionTrend[idx] && completionTrend[idx][j.discipline] !== undefined) completionTrend[idx][j.discipline] += 1;
+    }));
+    return { ok: true, generatedUtc: new Date().toISOString(), businessDate: today, dataVersion: d.version, etag: 'v' + d.version + '-' + today + '-' + EQ.access.sessionAt() + '-' + JSON.stringify(q), settings: { ...set, flipSeconds: 8 }, kpi, lanes, ticker: ev.slice(0, 20), proof: proof.slice(0, 12), dueLoad: weeks, completionTrend, filters: q, syntheticOverlay: d.overlay };
   };
 
   // ---------------------------------------------------------------- FAC Jobs list (DATA s18.5) and export

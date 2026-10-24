@@ -1,0 +1,119 @@
+{
+  "passed": 11,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "1920px heading removed and timestamp/actions retained",
+      "pass": true,
+      "detail": {
+        "hidden": true,
+        "badge": false,
+        "height": 44,
+        "kpiTop": 163.171875,
+        "navBottom": 99.171875,
+        "fresh": true,
+        "jobs": 114,
+        "overflow": 0,
+        "tools": true
+      }
+    },
+    {
+      "name": "Dashboard starts closer to navigation",
+      "pass": true,
+      "detail": {
+        "hidden": true,
+        "badge": false,
+        "height": 44,
+        "kpiTop": 163.171875,
+        "navBottom": 99.171875,
+        "fresh": true,
+        "jobs": 114,
+        "overflow": 0,
+        "tools": true
+      }
+    },
+    {
+      "name": "1366px heading removed and timestamp/actions retained",
+      "pass": true,
+      "detail": {
+        "hidden": true,
+        "badge": false,
+        "height": 44,
+        "kpiTop": 163.171875,
+        "navBottom": 99.171875,
+        "fresh": true,
+        "jobs": 114,
+        "overflow": 0,
+        "tools": true
+      }
+    },
+    {
+      "name": "375px heading removed and timestamp/actions retained",
+      "pass": true,
+      "detail": {
+        "hidden": true,
+        "badge": false,
+        "height": 122.078125,
+        "kpiTop": 530.171875,
+        "navBottom": 383.296875,
+        "fresh": true,
+        "jobs": 114,
+        "overflow": 0,
+        "tools": true
+      }
+    },
+    {
+      "name": "812px heading removed and timestamp/actions retained",
+      "pass": true,
+      "detail": {
+        "hidden": true,
+        "badge": false,
+        "height": 71.6875,
+        "kpiTop": 299,
+        "navBottom": 207.3125,
+        "fresh": true,
+        "jobs": 114,
+        "overflow": 0,
+        "tools": true
+      }
+    },
+    {
+      "name": "Filter toggle still opens",
+      "pass": true
+    },
+    {
+      "name": "Pause still works",
+      "pass": true
+    },
+    {
+      "name": "Refresh retains 114 dashboard jobs and timestamp",
+      "pass": true
+    },
+    {
+      "name": "1920px TV fits and keeps Exit/control/data",
+      "pass": true,
+      "detail": {
+        "scroll": 0,
+        "width": 0,
+        "exit": true,
+        "jobs": 114
+      }
+    },
+    {
+      "name": "1366px TV fits and keeps Exit/control/data",
+      "pass": true,
+      "detail": {
+        "scroll": 0,
+        "width": 0,
+        "exit": true,
+        "jobs": 114
+      }
+    },
+    {
+      "name": "No browser errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "errors": []
+}

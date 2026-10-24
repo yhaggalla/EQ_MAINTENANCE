@@ -30,6 +30,7 @@ Source: `documents/prompt-pack/APPROVED_REQUIREMENTS.md` s1 and `documents/EQ_MA
 | B-18 | Automatic status from the day's ZMMS plan (supersedes the manual-only part of B-10 for mapped equipment); job-type mapping set in Admin after the first real data; a manual correction lasts the current day only. |
 | B-19 | Spare-part condition: Admin selects major spare parts; next predicted replacement = replaced date + expected life in months; Original parts from the commissioning date. |
 | B-20 | FAC: master list seeded from `documents/Facility- Dashboard.xlsx` with blanks completed in Admin; Admin manages it and can grant FAC Team; tri-annually 4 months, bi-annually 6 months; user picks the frequency for new jobs; next due from completion for recurring jobs only; one-tap Done today/this week; Management read-only. |
+| B-21 | Fleet quantities confirmed by the user on 24 October 2026 (U1-C54): 14 QCs, 46 RTGs and 7 ES units, 67 total. Apply the same equipment register to Fleet/dashboard, Admin, work/status lists, filters and selectors. These are initial quantities, not registration limits; real identifiers, model assignments and operating condition still require verified inputs. |
 
 ## 2 Routine implementation defaults
 
@@ -368,7 +369,7 @@ None of these blocks P01. Each is modelled as configurable data or a visible sou
 | U-04 | Meaning of the 16000 below-rail dimension on the GA side view | J526A00 p1; J526A0300 gives under-rail lift 18 m (45 + 18 = 63) | Not used as model input; the 63 m total lift is explained by 45 + 18 | P03 did not identify it from the reviewed sheets; it stays unused (the model's quay slab is illustrative) |
 | U-05 | Portal height 49000 (waterside view) vs 49250 (landside view) | J526A00 p1 and J526A0100 p1 views A/B | Model each end from its own view; record both. P03: waterside portal top 54.000 m, landside 54.250 m, both in `provenance.md` | Technical confirmation optional |
 | U-06 | Apex height: 83356 marker vs 5000 + 49000 + 25640 = 79640 structural sum | J526A00 p1; J526A0100 p1 | Overall height derived in P03 from dimensioned views with the reference point stated; never 63 m. P03: 83.356 m = top of apex head (boom lowered), 79.64 m = A-frame structural top; both recorded (D-57) | Interpreted in P03; technical confirmation optional |
-| U-07 | Current fleet: actual equipment codes, counts, which QCs belong to the J526A family, RTG/ES models | Cover "12 STS cranes" (2011 drawing set); SOW mock-up labels only | Admin enters real equipment; development fixtures use QC-DEMO-01/02, RTG-DEMO-01, ES-DEMO-01 | Business/Admin input at go-live; not needed for development |
+| U-07 | Current fleet: actual equipment codes, which QCs belong to the J526A family, RTG/ES models and per-unit lifecycle/condition | Counts resolved by the user on 24 October 2026: 14 QC / 46 RTG / 7 ES (B-21); the 2011 cover's "12 STS cranes" does not establish current membership/model compatibility | U1 shows 67 active demo members (D-198); Admin verifies real identities, model associations and lifecycle before real use | Counts resolved; remaining Business/Admin inputs at go-live, not needed for development |
 | U-08 | Per-model applicability of entries such as 047, 154, 155, 064 for the J526A family; all applicability for RTG/ES models | Catalogue is shared; drawings do not settle every item | Candidate list in SOURCE_MAP s6; Admin confirms | Admin |
 | U-09 | Spreaders are interchangeable (STS45 Bromma, "(12+4) for 12 cranes") | J526A00 p2 item 35 | Default D-16 | Business confirmation optional |
 | U-10 | Drawings listed but not supplied as PDFs: J526A4100 slip-contact (trolley cable) system, J526A7200 lubrication layout, STS45 spreader, many sub-drawings | J526A00 p2; register PDF | Related positions are simplified/approximate | Supply drawings if exact geometry is ever required |
@@ -404,7 +405,7 @@ None of these blocks P01. Each is modelled as configurable data or a visible sou
 
 | Checkpoint | Date | Decision | Notes |
 | --- | --- | --- | --- |
-| U1 (after R02/R02B) | 2026-10-24 | **CHANGES REQUESTED - IN PROGRESS; NOT COMPLETE / NOT APPROVED** | User explicitly confirmed all adjustments remain U1 and U1 is not completed. Request history U1-C01..C36 follows below; C34 evidence: `docs/evidence/U1/viewer-refinements-c34/REPORT.md`. Latest committed repairs: `86018c9`, `32081d0`, C32 `4a8b270`, C33 `7d773fa`; commits and prototype checks are not checkpoint approval. C35 selected spare repair: `docs/evidence/U1/spare-panel-c35/REPORT.md`. Continue U1 review/refinements; FAC Dashboard restyle waits for the user's EQ review. P04 remains Not started until explicit U1 approval is recorded here. |
+| U1 (after R02/R02B) | 2026-10-24 | **CHANGES REQUESTED - IN PROGRESS; NOT COMPLETE / NOT APPROVED** | User explicitly confirmed all adjustments remain U1 and U1 is not completed. Request history U1-C01..C40 follows below; C34 evidence: `docs/evidence/U1/viewer-refinements-c34/REPORT.md`. Latest committed repairs: `86018c9`, `32081d0`, C32 `4a8b270`, C33 `7d773fa`; commits and prototype checks are not checkpoint approval. C35 selected spare repair: `docs/evidence/U1/spare-panel-c35/REPORT.md`. C37 panel cleanup: `docs/evidence/U1/panel-cleanup-c37/REPORT.md`. C38 implements the newly requested FAC restyle, retaining TV and motion; evidence: `docs/evidence/U1/fac-dashboard-c38/REPORT.md`. Continue U1 review/refinements. P04 remains Not started until explicit U1 approval is recorded here. |
 | U2 (after P11) | not yet reached | | |
 
 ### 2026-10-21 U1 CHANGES REQUESTED
@@ -604,6 +605,56 @@ Evidence: `docs/evidence/U1/panel-cleanup-c37/REPORT.md`; exact request: `docs/r
 
 Evidence: `docs/evidence/U1/compact-header-c36/REPORT.md`. **U1 remains incomplete and unapproved; P04 is Not started.**
 
+### 2026-10-24 U1 CHANGES REQUESTED (U1-C38: FAC Dashboard style)
+
+| ID | User request |
+| --- | --- |
+| U1-C38 | "Review the EQ dashboard style.. Then re arrange the FAC dashboard same as the EQ dashboard style.. use attached reference image for color and general design.. remove typical AI generated look.. keep tv view and moving part.." Reference: `docs/evidence/U1/fac-dashboard-c38/reference.jpg`. |
+
+| Decision | Rule | Basis / supersession |
+| --- | --- | --- |
+| D-181 | FAC Dashboard follows EQ Fleet's warm-neutral page, white cards, restrained shadows and compact hierarchy; use black typography and selective yellow progress/TV accents from the reference. Put eight KPI figures before filters, followed by three discipline lanes of separate job cards, updates ticker and proof/due-load cards. Preserve filters, quantity/status data, continuous motion and pause controls, photo rotation, refresh, TV and static/phone/reduced-motion alternatives. Normal desktop favours three readable job cards per lane; TV enlarges type and uses remaining screen height. Only FAC Dashboard receives these styles. | U1-C38 explicitly authorizes the FAC restyle previously deferred after U1-C31. Supersedes the old four-rows-per-lane density target for the larger card presentation; source jobs, counts and S27 features remain required. No change to EQ Fleet, FAC Jobs, data/permission contracts or checkpoint approval. |
+
+Evidence: `docs/evidence/U1/fac-dashboard-c38/REPORT.md`. **U1 remains incomplete and unapproved; P04 is Not started.**
+
+### 2026-10-24 U1 CHANGES REQUESTED (U1-C39: compact search below every information tab)
+
+| ID | User request |
+| --- | --- |
+| U1-C39 | "add search bar below to every section.. make it compact to save space.." The attached image identifies Maintenance, Projects/Special, Technical and Spare parts in the equipment information panel. |
+
+| Decision | Rule | Basis |
+| --- | --- | --- |
+| D-182 | Provide one search row directly beneath the four tabs, with the active tab's accessible name, match count, clear button and Escape-to-clear. Use 32 px desktop height and 44 px phone touch targets. Filter only currently rendered, permission-scoped records/technical fields, matching all words without case sensitivity; never widen the data query or search hidden history. Keep independent in-memory queries by equipment, selected scope and tab across rerenders and Flat/3D changes. Status context, scope badges and actions remain. Technical key/value fields filter as pairs; technical area groups, specification qualifications and matching-record links remain intact. | U1-C39; local prototype UI refinement, no contract/permission/persistence change. U1 remains open. |
+
+Evidence: `docs/evidence/U1/panel-search-c39/REPORT.md`. **U1 remains incomplete and unapproved; P04 is Not started.**
+
+### 2026-10-24 U1 CHANGES REQUESTED (U1-C40: compact Fleet navigation)
+
+| ID | User request |
+| --- | --- |
+| U1-C40 | "remove EQ name.. its already in the top card.. move fleet as a button to marked location.." The annotated reference crosses out the equipment name in the breadcrumb and moves Fleet into the summary card before Correct status. |
+
+| Decision | Rule | Basis |
+| --- | --- | --- |
+| D-183 | Fleet becomes a button-styled navigation link at the start of the equipment summary actions. Remove the equipment code and Fleet from the breadcrumb below it. Hide that row at whole-equipment scope on desktop; retain phone drawer controls. Selected scopes retain ancestor breadcrumbs with a Whole equipment root link, without repeating the equipment code. Share the change between Flat and 3D and keep existing action sizing and permissions. | U1-C40; affects equipment navigation only. The summary identity and right-panel selection title remain. No record, model or permission change. |
+
+Evidence: `docs/evidence/U1/header-nav-c40/REPORT.md`. **U1 remains incomplete and unapproved; P04 is Not started.**
+
+### 2026-10-24 U1 CHANGES REQUESTED (U1-C41/C42: compact Jobs and direct card edits)
+
+| ID | User request |
+| --- | --- |
+| U1-C41 | Remove the marked introductory blocks from EQ/FAC Jobs, rearrange the filters/actions, and move the visibility tick to the card with the name Show and details in a tooltip. |
+| U1-C42 | Show must be editable in the card view; remove the FAC coloured left border and add quick-edit buttons. |
+
+| Decision | Rule | Basis |
+| --- | --- | --- |
+| D-184 | Remove visible Jobs intro blocks and redundant Special jobs/My work copy; keep accessible page/region headings. Move EQ Export/Add to the secondary filters and FAC actions/count to the layout toolbar below its filters. Show uses the existing shared audited visibility setters, top-right on cards and in the FAC list, with hover/focus explanation. Direct details retain a compact header control. Keep data scopes, history, exports and permissions. | U1-C41; presentation and control placement only. |
+| D-185 | FAC cards use equal neutral borders with no coloured left stripe, modest corners and neutral icon backgrounds. Authorized writers edit Show directly on the card; read-only roles keep state text. Quick edit uses the existing progress dialog for FAC work and the job-details dialog where master/eligible own one-time editing is already allowed. Preserve held/completed-cycle rules, independent feature permissions and existing EQ card Edit. Leave the preview in FAC Team mode. | U1-C42; direct editing without record-page navigation, no implicit permission expansion. |
+
+Evidence: `docs/evidence/U1/jobs-cleanup-c41/REPORT.md` and `docs/evidence/U1/jobs-cleanup-c42/REPORT.md`. **U1 remains incomplete and unapproved; P04 is Not started.**
+
 ### 2026-10-24 U1 CHANGES REQUESTED (U1-C44: compact FAC filters and manual lane scrolling)
 
 | ID | User request |
@@ -618,6 +669,18 @@ Evidence: `docs/evidence/U1/compact-header-c36/REPORT.md`. **U1 remains incomple
 2026-10-24 U1-C44 follow-up: user requested removing the wildcard syntax hint below Search jobs. Remove the visible hint and its accessibility reference; retain wildcard behavior and the example placeholder.
 
 Evidence: `docs/evidence/U1/fac-controls-c44/REPORT.md`; exact request: `docs/runs/Repair-U1-C44-20261024.md`. **U1 remains IN PROGRESS / CHANGES REQUESTED, NOT COMPLETE and NOT APPROVED; P04 is Not started.**
+
+### 2026-10-24 U1 CHANGES REQUESTED (U1-C43: one-row card actions)
+
+| ID | User request |
+| --- | --- |
+| U1-C43 | Update progress and Show are accepted; keep the marked card action buttons on one row to optimize space, and apply the same change to EQ Jobs. |
+
+| Decision | Rule | Basis |
+| --- | --- | --- |
+| D-186 | EQ/FAC card action rows never wrap. Use compact 32 px desktop buttons and retain 44 px phone targets. FAC phone rows use text labels. EQ Open/Edit/Cancel use icons with accessible names and titles; Pending has the full Return to Pending accessible name, while detail-page labels remain full. Retain Update progress as the progress label, superseding C42's Quick edit alias for that form; Quick edit remains for permitted job-detail edits. Preserve Show, permissions, cancellation explanations and handlers. Very narrow action rows pan locally without widening the page. | U1-C43; presentation only, both Jobs sections. |
+
+Evidence: `docs/evidence/U1/job-actions-c43/REPORT.md`. **U1 remains incomplete and unapproved; P04 is Not started.**
 
 ### 2026-10-24 U1 CHANGES REQUESTED (U1-C45: green completed FAC progress)
 
@@ -654,3 +717,29 @@ User first requested a mockup to align the equipment workspace with dashboard UI
 ### 2026-10-24 U1 CHANGES REQUESTED (U1-C53: fleet toolbar cleanup)
 
 User: "remove breakdown maintenance card blink part.. move refresh button to right side.." The screenshot boxes the blink legend and points Refresh toward the right-side controls. D-197: remove that legend from normal and TV fleet views; place Refresh first in the right-aligned toolbar group before Pause blinking and TV mode, including Refresh in the error view. Keep actual status-card blinking, Pause, TV rotation, refresh/freshness and status explanations unchanged. Evidence: `docs/evidence/U1/fleet-toolbar-c53/REPORT.md`. U1 remains open and unapproved; P04 Not started.
+
+### 2026-10-24 U1 CHANGES REQUESTED (U1-C54: 14 QC / 46 RTG / 7 ES)
+
+User: "check the documents and handover of the project.. add up to 14 QCs, 46 RTGs, 7 ES to the EQ list and all the places where required including dashboard.."
+
+D-198 / B-21: the default U1 register has 14 active QC, 46 active RTG and 7 active ES members (67 total), in numeric type/code order. This supersedes D-53's small fixture population. Keep `QC-DEMO-01..14`, `RTG-DEMO-01..46`, `ES-DEMO-01..07` as explicit prototype identifiers; preserve existing equipment/position/job identities. RTG-DEMO-07 moves from the old retired example to active/Unreported. The 50 added rows and that reactivated example have no invented operational status, model association, positions, commissioning date, jobs or ZMMS mapping. Retirement remains an explicit Admin action and isolated test scenario. All list, filter, mapping, job-scope and dashboard populations derive from this single register; no UI totals are hardcoded and the quantities do not limit later Admin additions. Spare-part selectors continue to require confirmed positions rather than inventing parts. Real equipment identifiers, models and per-unit conditions remain open under U-07.
+
+Evidence: `docs/evidence/U1/fleet-size-c54/REPORT.md`; request: `docs/runs/Repair-U1-C54-20261024.md`. Local prototype only. U1 remains IN PROGRESS, NOT COMPLETE / NOT APPROVED; P04 Not started.
+
+### 2026-10-24 U1 CHANGES REQUESTED (U1-C55: remove repeated FAC dashboard heading)
+
+User: "remove attached part and optimize the space.." The red screenshot box covers the visible FAC Dashboard heading and Prototype, synthetic progress badge. D-199: remove that visible title/badge, keep an accessible h1 and the unmarked refresh timestamp, reduce normal top padding and remove timestamp margins. Retain the section/navigation, tools, data, filters and TV controls. Evidence: `docs/evidence/U1/fac-heading-c55/REPORT.md`. U1 remains open/unapproved; P04 Not started.
+
+### 2026-10-24 U1 CHANGES REQUESTED (U1-C56: compact bottom cards and taller feeds)
+
+User: "remove this part and optimize space.. 2nd image; make the buttons smaller and move to the showed location and arrange the card to optimize the space for above main data feed.." First image marks the due-load footnote; second points from the controls below the photo to the right of it. D-200: remove that footnote, move photo controls/count beside the image above its caption, use 28 px desktop controls with 44 px phone/coarse-pointer targets, and shorten the bottom row so the main feed viewports receive the saved height. Preserve chart scope/data, carousel navigation/rotation/pause, accessible names, job links and phone/TV alternatives. Evidence: `docs/evidence/U1/fac-bottom-c56/REPORT.md`. U1 remains open/unapproved; P04 Not started.
+
+### 2026-10-24 U1 CHANGES REQUESTED (U1-C57: fill due chart and add Completion trend)
+
+User: "make this chart larger to fill and optimize the view.. dont increase the card size.." Then: "and can we add another card here (3 cards)? give me your suggestions.." The user selected "Completion trend — last four weeks (recommended)" from the suggested choices.
+
+D-201: implement three desktop/TV cards in the order Latest proof, Completion trend, Due in the next 8 weeks, keeping existing row heights and main feed height. Draw charts in measured CSS pixel dimensions, fill the available width and redraw after resize/refresh, with no text stretching. Stack cards on narrower normal screens and phones. Completion trend counts completed scheduled-job cycles by discipline over the three previous calendar weeks and the current week to date, excluding recurring Daily/Weekly checks. Use actual completion dates, count cycles rather than quantities/updates, omit future completions and return zeros for empty weeks. Apply the same shown/history population and discipline/type/mode/PIC/search filters as on-time performance; focus remains lane-only. Keep historical completions after job deactivation. Preserve role access and expose only aggregate dates/counts. Evidence: `docs/evidence/U1/fac-charts-c57/REPORT.md`. U1 remains open/unapproved; P04 Not started.
+
+### 2026-10-24 U1 CHANGES REQUESTED (U1-C58: larger proof preview)
+
+User: "make this proof preview larger to fill and optimize the view.. dont increase the card size.." D-202: enlarge the desktop/TV photo using the existing figure height and a responsive left column, preserving the complete image with contain sizing. Retain card/row/main-feed heights, controls/count and full captions beside it. Use a narrower image share in short TV layouts so captions fit; phone dimensions and touch controls remain. Evidence: `docs/evidence/U1/proof-preview-c58/REPORT.md`. U1 open/unapproved; P04 Not started.

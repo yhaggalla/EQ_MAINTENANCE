@@ -1,0 +1,434 @@
+{
+  "passed": 20,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "1920px card/feed heights and controls retained",
+      "pass": true,
+      "detail": {
+        "before": {
+          "w": 1920,
+          "h": 1080,
+          "tv": false,
+          "card": 152,
+          "row": 152,
+          "lane": 392,
+          "imgW": 96,
+          "imgH": 60,
+          "paintW": 96,
+          "paintH": 60,
+          "fit": "cover",
+          "clip": false,
+          "overflow": 0,
+          "right": true,
+          "above": true,
+          "button": 28,
+          "scroll": 0
+        },
+        "after": {
+          "card": 152,
+          "row": 152,
+          "lane": 392,
+          "imgW": 184,
+          "imgH": 110.171875,
+          "paintW": 176.275,
+          "paintH": 110.171875,
+          "fit": "contain",
+          "clip": false,
+          "overflow": 0,
+          "right": true,
+          "above": true,
+          "button": 28,
+          "scroll": 0
+        }
+      }
+    },
+    {
+      "name": "1920px photo visibly larger with complete-image fit",
+      "pass": true,
+      "detail": {
+        "card": 152,
+        "row": 152,
+        "lane": 392,
+        "imgW": 184,
+        "imgH": 110.171875,
+        "paintW": 176.275,
+        "paintH": 110.171875,
+        "fit": "contain",
+        "clip": false,
+        "overflow": 0,
+        "right": true,
+        "above": true,
+        "button": 28,
+        "scroll": 0
+      }
+    },
+    {
+      "name": "1920px all captions fit without card growth",
+      "pass": true
+    },
+    {
+      "name": "1920px carousel navigation works",
+      "pass": true
+    },
+    {
+      "name": "1366px card/feed heights and controls retained",
+      "pass": true,
+      "detail": {
+        "before": {
+          "w": 1366,
+          "h": 768,
+          "tv": false,
+          "card": 152,
+          "row": 152,
+          "lane": 400,
+          "imgW": 96,
+          "imgH": 60,
+          "paintW": 96,
+          "paintH": 60,
+          "fit": "cover",
+          "clip": false,
+          "overflow": 0,
+          "right": true,
+          "above": true,
+          "button": 28,
+          "scroll": 409
+        },
+        "after": {
+          "card": 152,
+          "row": 152,
+          "lane": 400,
+          "imgW": 161.0625,
+          "imgH": 110.171875,
+          "paintW": 161.0625,
+          "paintH": 100.6640625,
+          "fit": "contain",
+          "clip": false,
+          "overflow": 0,
+          "right": true,
+          "above": true,
+          "button": 28,
+          "scroll": 409
+        }
+      }
+    },
+    {
+      "name": "1366px photo visibly larger with complete-image fit",
+      "pass": true,
+      "detail": {
+        "card": 152,
+        "row": 152,
+        "lane": 400,
+        "imgW": 161.0625,
+        "imgH": 110.171875,
+        "paintW": 161.0625,
+        "paintH": 100.6640625,
+        "fit": "contain",
+        "clip": false,
+        "overflow": 0,
+        "right": true,
+        "above": true,
+        "button": 28,
+        "scroll": 409
+      }
+    },
+    {
+      "name": "1366px all captions fit without card growth",
+      "pass": true
+    },
+    {
+      "name": "1366px carousel navigation works",
+      "pass": true
+    },
+    {
+      "name": "375px card/feed heights and controls retained",
+      "pass": true,
+      "detail": {
+        "before": {
+          "w": 375,
+          "h": 812,
+          "tv": false,
+          "card": 168.546875,
+          "row": 440.546875,
+          "lane": 0,
+          "imgW": 96,
+          "imgH": 60,
+          "paintW": 96,
+          "paintH": 60,
+          "fit": "cover",
+          "clip": false,
+          "overflow": 0,
+          "right": true,
+          "above": true,
+          "button": 44,
+          "scroll": 17235
+        },
+        "after": {
+          "card": 168.546875,
+          "row": 440.546875,
+          "lane": 0,
+          "imgW": 96,
+          "imgH": 60,
+          "paintW": 96,
+          "paintH": 60,
+          "fit": "cover",
+          "clip": false,
+          "overflow": 0,
+          "right": true,
+          "above": true,
+          "button": 44,
+          "scroll": 17235
+        }
+      }
+    },
+    {
+      "name": "375px all captions fit without card growth",
+      "pass": true
+    },
+    {
+      "name": "375px carousel navigation works",
+      "pass": true
+    },
+    {
+      "name": "1920px TV card/feed heights and controls retained",
+      "pass": true,
+      "detail": {
+        "before": {
+          "w": 1920,
+          "h": 1080,
+          "tv": true,
+          "card": 144,
+          "row": 144,
+          "lane": 578,
+          "imgW": 128,
+          "imgH": 80,
+          "paintW": 128,
+          "paintH": 80,
+          "fit": "cover",
+          "clip": false,
+          "overflow": 0,
+          "right": true,
+          "above": true,
+          "button": 28,
+          "scroll": 0
+        },
+        "after": {
+          "card": 144,
+          "row": 144,
+          "lane": 578,
+          "imgW": 184,
+          "imgH": 102.015625,
+          "paintW": 163.225,
+          "paintH": 102.015625,
+          "fit": "contain",
+          "clip": false,
+          "overflow": 0,
+          "right": true,
+          "above": true,
+          "button": 28,
+          "scroll": 0
+        }
+      }
+    },
+    {
+      "name": "1920px TV photo visibly larger with complete-image fit",
+      "pass": true,
+      "detail": {
+        "card": 144,
+        "row": 144,
+        "lane": 578,
+        "imgW": 184,
+        "imgH": 102.015625,
+        "paintW": 163.225,
+        "paintH": 102.015625,
+        "fit": "contain",
+        "clip": false,
+        "overflow": 0,
+        "right": true,
+        "above": true,
+        "button": 28,
+        "scroll": 0
+      }
+    },
+    {
+      "name": "1920px TV all captions fit without card growth",
+      "pass": true
+    },
+    {
+      "name": "1920px TV carousel navigation works",
+      "pass": true
+    },
+    {
+      "name": "1366px TV card/feed heights and controls retained",
+      "pass": true,
+      "detail": {
+        "before": {
+          "w": 1366,
+          "h": 768,
+          "tv": true,
+          "card": 128,
+          "row": 128,
+          "lane": 330,
+          "imgW": 80,
+          "imgH": 48,
+          "paintW": 76.8,
+          "paintH": 48,
+          "fit": "cover",
+          "clip": false,
+          "overflow": 0,
+          "right": true,
+          "above": true,
+          "button": 28,
+          "scroll": 0
+        },
+        "after": {
+          "card": 128,
+          "row": 128,
+          "lane": 330,
+          "imgW": 131.921875,
+          "imgH": 90.84375,
+          "paintW": 131.921875,
+          "paintH": 82.451171875,
+          "fit": "contain",
+          "clip": false,
+          "overflow": 0,
+          "right": true,
+          "above": true,
+          "button": 28,
+          "scroll": 0
+        }
+      }
+    },
+    {
+      "name": "1366px TV photo visibly larger with complete-image fit",
+      "pass": true,
+      "detail": {
+        "card": 128,
+        "row": 128,
+        "lane": 330,
+        "imgW": 131.921875,
+        "imgH": 90.84375,
+        "paintW": 131.921875,
+        "paintH": 82.451171875,
+        "fit": "contain",
+        "clip": false,
+        "overflow": 0,
+        "right": true,
+        "above": true,
+        "button": 28,
+        "scroll": 0
+      }
+    },
+    {
+      "name": "1366px TV all captions fit without card growth",
+      "pass": true
+    },
+    {
+      "name": "1366px TV carousel navigation works",
+      "pass": true
+    },
+    {
+      "name": "No browser errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "measurements": [
+    {
+      "w": 1920,
+      "h": 1080,
+      "tv": false,
+      "card": 152,
+      "row": 152,
+      "lane": 392,
+      "imgW": 184,
+      "imgH": 110.171875,
+      "paintW": 176.275,
+      "paintH": 110.171875,
+      "fit": "contain",
+      "clip": false,
+      "overflow": 0,
+      "right": true,
+      "above": true,
+      "button": 28,
+      "scroll": 0
+    },
+    {
+      "w": 1366,
+      "h": 768,
+      "tv": false,
+      "card": 152,
+      "row": 152,
+      "lane": 400,
+      "imgW": 161.0625,
+      "imgH": 110.171875,
+      "paintW": 161.0625,
+      "paintH": 100.6640625,
+      "fit": "contain",
+      "clip": false,
+      "overflow": 0,
+      "right": true,
+      "above": true,
+      "button": 28,
+      "scroll": 409
+    },
+    {
+      "w": 375,
+      "h": 812,
+      "tv": false,
+      "card": 168.546875,
+      "row": 440.546875,
+      "lane": 0,
+      "imgW": 96,
+      "imgH": 60,
+      "paintW": 96,
+      "paintH": 60,
+      "fit": "cover",
+      "clip": false,
+      "overflow": 0,
+      "right": true,
+      "above": true,
+      "button": 44,
+      "scroll": 17235
+    },
+    {
+      "w": 1920,
+      "h": 1080,
+      "tv": true,
+      "card": 144,
+      "row": 144,
+      "lane": 578,
+      "imgW": 184,
+      "imgH": 102.015625,
+      "paintW": 163.225,
+      "paintH": 102.015625,
+      "fit": "contain",
+      "clip": false,
+      "overflow": 0,
+      "right": true,
+      "above": true,
+      "button": 28,
+      "scroll": 0
+    },
+    {
+      "w": 1366,
+      "h": 768,
+      "tv": true,
+      "card": 128,
+      "row": 128,
+      "lane": 330,
+      "imgW": 131.921875,
+      "imgH": 90.84375,
+      "paintW": 131.921875,
+      "paintH": 82.451171875,
+      "fit": "contain",
+      "clip": false,
+      "overflow": 0,
+      "right": true,
+      "above": true,
+      "button": 28,
+      "scroll": 0
+    }
+  ],
+  "errors": []
+}

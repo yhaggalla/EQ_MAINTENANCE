@@ -1,0 +1,191 @@
+{
+  "passed": 18,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "1920px compact proof layout, chart/data preserved and no overflow",
+      "pass": true,
+      "detail": {
+        "lane": 392,
+        "bottom": 152,
+        "button": 28,
+        "right": true,
+        "above": true,
+        "note": false,
+        "chart": true,
+        "weeks": 8,
+        "overflow": 0,
+        "jobs": 114,
+        "clip": false,
+        "scroll": 0
+      }
+    },
+    {
+      "name": "1920px photo buttons use correct desktop/touch size",
+      "pass": true,
+      "detail": 28
+    },
+    {
+      "name": "56px transferred from footer to main feeds",
+      "pass": true,
+      "detail": {
+        "before": {
+          "lane": 336,
+          "bottom": 208
+        },
+        "after": {
+          "lane": 392,
+          "bottom": 152,
+          "button": 28,
+          "right": true,
+          "above": true,
+          "note": false,
+          "chart": true,
+          "weeks": 8,
+          "overflow": 0,
+          "jobs": 114,
+          "clip": false,
+          "scroll": 0
+        }
+      }
+    },
+    {
+      "name": "1366px compact proof layout, chart/data preserved and no overflow",
+      "pass": true,
+      "detail": {
+        "lane": 400,
+        "bottom": 195.046875,
+        "button": 28,
+        "right": true,
+        "above": true,
+        "note": false,
+        "chart": true,
+        "weeks": 8,
+        "overflow": 0,
+        "jobs": 114,
+        "clip": false,
+        "scroll": 452
+      }
+    },
+    {
+      "name": "1366px photo buttons use correct desktop/touch size",
+      "pass": true,
+      "detail": 28
+    },
+    {
+      "name": "375px compact proof layout, chart/data preserved and no overflow",
+      "pass": true,
+      "detail": {
+        "lane": 0,
+        "bottom": 307.1875,
+        "button": 44,
+        "right": true,
+        "above": true,
+        "note": false,
+        "chart": true,
+        "weeks": 8,
+        "overflow": 0,
+        "jobs": 114,
+        "clip": false,
+        "scroll": 17102
+      }
+    },
+    {
+      "name": "375px photo buttons use correct desktop/touch size",
+      "pass": true,
+      "detail": 44
+    },
+    {
+      "name": "812px compact proof layout, chart/data preserved and no overflow",
+      "pass": true,
+      "detail": {
+        "lane": 400,
+        "bottom": 343.796875,
+        "button": 28,
+        "right": true,
+        "above": true,
+        "note": false,
+        "chart": true,
+        "weeks": 8,
+        "overflow": 0,
+        "jobs": 114,
+        "clip": false,
+        "scroll": 2078
+      }
+    },
+    {
+      "name": "812px photo buttons use correct desktop/touch size",
+      "pass": true,
+      "detail": 28
+    },
+    {
+      "name": "Pause retains named accessible state",
+      "pass": true
+    },
+    {
+      "name": "Next changes photo and retains caption/image/link",
+      "pass": true
+    },
+    {
+      "name": "Previous returns to the same photo",
+      "pass": true
+    },
+    {
+      "name": "Keyboard activates compact Next",
+      "pass": true
+    },
+    {
+      "name": "Every photo caption fits compact desktop card",
+      "pass": true,
+      "detail": {
+        "photos": 12
+      }
+    },
+    {
+      "name": "Resume restores rotation state",
+      "pass": true
+    },
+    {
+      "name": "1920px TV fits compact cards without scrolling/clipping",
+      "pass": true,
+      "detail": {
+        "lane": 578,
+        "bottom": 144,
+        "button": 28,
+        "right": true,
+        "above": true,
+        "note": false,
+        "chart": true,
+        "weeks": 8,
+        "overflow": 0,
+        "jobs": 114,
+        "clip": false,
+        "scroll": 0
+      }
+    },
+    {
+      "name": "1366px TV fits compact cards without scrolling/clipping",
+      "pass": true,
+      "detail": {
+        "lane": 330,
+        "bottom": 128,
+        "button": 28,
+        "right": true,
+        "above": true,
+        "note": false,
+        "chart": true,
+        "weeks": 8,
+        "overflow": 0,
+        "jobs": 114,
+        "clip": false,
+        "scroll": 0
+      }
+    },
+    {
+      "name": "No browser errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "errors": []
+}

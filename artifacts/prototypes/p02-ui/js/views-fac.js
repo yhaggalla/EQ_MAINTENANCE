@@ -34,9 +34,9 @@ window.EQ = window.EQ || {};
       h('span', { class: 'thumb' }, r.thumb ? h('img', { src: r.thumb, alt: '', loading: 'lazy' }) : icon(r.type === 'inspection' ? 'inspect' : 'service')),
       h('span', { class: 'main' },
         h('span', { class: 'name', title: r.name }, r.name),
-        h('span', { class: 'meta' }, icon(r.type === 'inspection' ? 'inspect' : 'service'), F().TYPE_NAME[r.type] + ' · ' + r.freq + ' · ' + r.pic + (r.mode ? ' · ' + r.mode : '')),
-        r.holdReason ? h('span', { class: 'hold-reason' }, 'On hold: ' + r.holdReason) : EQ.facBar(r.done, r.target, r.pct)),
-      h('span', { class: 'side' }, EQ.facPill(r.status, r.overdue, r.dueSoon, r.group), h('span', { class: 'due due-' + r.dueKind }, r.dueLabel)));
+        h('span', { class: 'meta', title: F().TYPE_NAME[r.type] + ' · ' + r.freq + ' · ' + r.pic + (r.mode ? ' · ' + r.mode : '') }, F().TYPE_NAME[r.type] + ' · ' + r.freq + ' · ' + r.pic + (r.mode ? ' · ' + r.mode : ''))),
+      h('span', { class: 'side' }, EQ.facPill(r.status, r.overdue, r.dueSoon, r.group), h('span', { class: 'due due-' + r.dueKind }, r.dueLabel)),
+      h('span', { class: 'row-progress' }, r.holdReason ? h('span', { class: 'hold-reason', title: r.holdReason }, 'On hold: ' + r.holdReason) : EQ.facBar(r.done, r.target, r.pct)));
     const li = h('li', { class: 'frow ' + (GROUP_CLASS[r.group] || ''), 'data-key': r.key, 'data-sig': r.sig }, a);
     if (o.disc) li.querySelector('.meta').appendChild(h('span', { class: 'disc d-' + r.discipline }, F().DISC_NAME[r.discipline]));
     return li;
@@ -50,7 +50,7 @@ window.EQ = window.EQ || {};
       h('text', { x: 20, y: 24, 'text-anchor': 'middle', class: 'ring-t' }, pct + '%'));
   }
   function build() {
-    const root = h('div', { class: 'fac-dash', 'data-motion': 'scroll' });
+    const root = h('div', { class: 'fac-dash fac-restyled', 'data-motion': 'scroll' });
     const lanesEl = h('section', { class: 'lanes', 'aria-label': 'Job lanes by discipline' });
     dash.lanes = {};
     LANE_CODES.forEach(([code, name]) => {
@@ -74,20 +74,21 @@ window.EQ = window.EQ || {};
     // ticker
     const tList = h('ol', { class: 'tick-list', 'aria-label': 'Latest progress updates', role: 'list' }), tDup = h('ol', { class: 'tick-list dup', 'aria-hidden': 'true', role: 'presentation' });
     const tTrack = h('div', { class: 'tick-track' }, tList, tDup), tView = h('div', { class: 'tick-view' }, tTrack);
-    const ticker = h('section', { class: 'ticker', 'aria-label': 'Live ticker: latest progress updates' }, h('span', { class: 'live-badge' }, icon('sync'), 'LIVE'), tView);
+    const ticker = h('section', { class: 'ticker', 'aria-label': 'Live ticker: latest progress updates' }, h('span', { class: 'live-badge' }, icon('sync'), 'Latest updates'), tView);
     dash.ticker = { el: ticker, view: tView, track: tTrack, list: tList, dup: tDup, offset: 0, itemW: 380, T: 0, moving: false, items: new Map(), itemsB: new Map(), hover: false, focus: false, rovingKey: null };
     tView.addEventListener('pointerenter', () => { dash.ticker.hover = true; }); tView.addEventListener('pointerleave', () => { dash.ticker.hover = false; });
     ticker.addEventListener('focusin', () => { dash.ticker.focus = true; }); ticker.addEventListener('focusout', (e) => { if (!ticker.contains(e.relatedTarget)) dash.ticker.focus = false; });
     tList.addEventListener('keydown', (e) => tickKey(e));
-    // bottom row: proof + due load
+    // bottom row: proof + completed work + due load
     const proof = h('section', { class: 'proof', 'aria-roledescription': 'carousel', 'aria-label': 'Latest proof: newest completion photos' });
-    const load = h('section', { class: 'load', 'aria-labelledby': 'load-h' }, h('h2', { id: 'load-h' }, 'Due in the next 8 weeks'), h('div', { class: 'load-chart' }), h('p', { class: 'small muted load-note' }));
-    const bottom = h('div', { class: 'dash-bottom' }, proof, load);
-    const staticAlt = h('details', { class: 'static-alt', id: 'dash-static' }, h('summary', { 'data-fk': 'static-summary' }, 'Static list of all dashboard jobs (no motion, for screen readers and keyboard use)'), h('div', { class: 'static-body' }));
-    const head = h('header', { class: 'dash-head' }, h('div', { class: 'dash-title' }, h('h1', null, 'FAC Dashboard'), h('span', { class: 'tag gold proto-tag' }, 'Prototype, synthetic progress'), h('p', { class: 'updated', 'aria-live': 'off' })), h('div', { class: 'dash-tools' }));
+    const load = h('section', { class: 'load', 'aria-labelledby': 'load-h' }, h('h2', { id: 'load-h' }, 'Due in the next 8 weeks'), h('div', { class: 'load-chart' }));
+    const trend = h('section', { class: 'trend', 'aria-labelledby': 'trend-h' }, h('h2', { id: 'trend-h', title: 'Completed scheduled-job cycles across the last four calendar weeks, including this week to date. Daily and weekly checks are excluded.' }, 'Completion trend · 4 weeks'), h('div', { class: 'trend-chart' }));
+    const bottom = h('div', { class: 'dash-bottom' }, proof, trend, load);
+    const staticAlt = h('details', { class: 'static-alt', id: 'dash-static' }, h('summary', { 'data-fk': 'static-summary' }, 'View all jobs as a table'), h('div', { class: 'static-body' }));
+    const head = h('header', { class: 'dash-head' }, h('div', { class: 'dash-title' }, h('h1', { class: 'sr-only' }, 'FAC Dashboard'), h('p', { class: 'updated', 'aria-live': 'off' })), h('div', { class: 'dash-tools' }));
     const skip = h('a', { class: 'skip-dash', href: '#dash-static', onClick: (e) => { e.preventDefault(); staticAlt.open = true; root.querySelector('[data-fk="static-summary"]').focus(); staticAlt.scrollIntoView({ block: 'center' }); } }, 'Skip the moving lists to the static list');
-    root.append(skip, head, h('div', { class: 'dash-banner' }), h('form', { id: 'fac-dash-filters', hidden: true, class: 'dash-filters', role: 'search', 'aria-label': 'Dashboard filters', onSubmit: (e) => e.preventDefault(), onKeydown: (e) => { if (e.key === 'Escape') { e.preventDefault(); dash.filtersOpen = false; patchTools(dash.model, EQ.route.query); dash.refs.tools.querySelector('[data-fk="dash-filters-toggle"]').focus(); } } }), h('section', { class: 'kpis', 'aria-label': 'Key figures' }), lanesEl, combined, ticker, bottom, staticAlt, h('p', { class: 'overlay-note small muted' }));
-    dash.refs = { head, tools: head.querySelector('.dash-tools'), updated: head.querySelector('.updated'), banner: root.querySelector('.dash-banner'), filters: root.querySelector('.dash-filters'), kpis: root.querySelector('.kpis'), combined, proof, load, staticAlt, note: root.querySelector('.overlay-note') };
+    root.append(skip, head, h('div', { class: 'dash-banner' }), h('section', { class: 'kpis', 'aria-label': 'Key figures' }), h('form', { id: 'fac-dash-filters', hidden: true, class: 'dash-filters', role: 'search', 'aria-label': 'Dashboard filters', onSubmit: (e) => e.preventDefault(), onKeydown: (e) => { if (e.key === 'Escape') { e.preventDefault(); dash.filtersOpen = false; patchTools(dash.model, EQ.route.query); dash.refs.tools.querySelector('[data-fk="dash-filters-toggle"]').focus(); } } }), lanesEl, combined, ticker, bottom, staticAlt, h('p', { class: 'overlay-note small muted' }));
+    dash.refs = { head, tools: head.querySelector('.dash-tools'), updated: head.querySelector('.updated'), banner: root.querySelector('.dash-banner'), filters: root.querySelector('.dash-filters'), kpis: root.querySelector('.kpis'), combined, proof, trend, load, staticAlt, note: root.querySelector('.overlay-note') };
     dash.root = root; dash.proof = { i: 0, clock: 0, key: null, paused: false, sig: '' };
     return root;
   }
@@ -173,7 +174,7 @@ window.EQ = window.EQ || {};
     if (anchorKey && L.keys.includes(anchorKey)) L.offset = L.keys.indexOf(anchorKey) * L.rowH + frac * L.rowH;
     if (L.T > 0) L.offset = L.offset % L.T;
     glow.forEach((k) => { [L.rows.get(k), L.rowsB.get(k)].forEach((c) => c && c.el.classList.add('glow')); setTimeout(() => { [L.rows.get(k), L.rowsB.get(k)].forEach((c) => c && c.el.classList.remove('glow')); }, 5000); });
-    L.cnt.textContent = rows.length + ' in the list · ' + lane.total + ' active';
+    L.cnt.textContent = rows.length + ' shown · ' + lane.total + ' active jobs';
     const rs = lane.pct + '|' + lane.completed + '|' + lane.total;
     if (L.sigOfRing !== rs) { L.sigOfRing = rs; L.ringHost.replaceChildren(ring(lane.pct)); }
   }
@@ -201,16 +202,17 @@ window.EQ = window.EQ || {};
   function kpiTiles(m, q) {
     const k = m.kpi;
     const T = (id, label, value, cap, focus, cls) => ({ id, label, value, cap, focus, cls });
-    return [T('active', 'Active jobs', k.active, 'in the master list'), T('completed', 'Completed', k.completed, 'this cycle', 'completed', 'ok'), T('inProgress', 'In progress', k.inProgress, 'part of the quantity done', 'inProgress'), T('onHold', 'On hold', k.onHold, 'needs a reason', 'onHold', 'hold'),
-      T('overdue', 'Overdue', k.overdue, 'past the due date', 'overdue', 'bad'), T('dueSoon', 'Due in ' + m.settings.dueSoonDays + ' d', k.dueSoon, 'rolling jobs; daily and weekly are in checks', 'dueSoon', 'soon'),
-      T('ontime', 'On time, 30 d', k.onTimePct == null ? '-' : k.onTimePct + ' %', k.onTimePct == null ? 'no cycles completed yet' : k.onTimeOk + ' of ' + k.onTimeN + ' cycles'), T('checks', "Today's checks", k.checksDone + ' of ' + k.checksTotal, 'daily jobs done today')];
+    return [T('active', 'Active jobs', k.active, 'Master list'), T('completed', 'Completed', k.completed, 'This cycle', 'completed', 'ok'), T('inProgress', 'In progress', k.inProgress, 'Current cycle', 'inProgress'), T('onHold', 'On hold', k.onHold, 'Paused work', 'onHold', 'hold'),
+      T('overdue', 'Overdue', k.overdue, 'Past due date', 'overdue', 'bad'), T('dueSoon', 'Due in ' + m.settings.dueSoonDays + ' d', k.dueSoon, 'Excludes daily / weekly checks', 'dueSoon', 'soon'),
+      T('ontime', 'On time, 30 d', k.onTimePct == null ? '-' : k.onTimePct + ' %', k.onTimePct == null ? 'No completed cycles' : k.onTimeOk + ' of ' + k.onTimeN + ' cycles'), T('checks', "Today's checks", k.checksDone + ' of ' + k.checksTotal, 'Daily jobs completed')];
   }
   function patchKpis(m, q) {
     const host = dash.refs.kpis;
     const tiles = kpiTiles(m, q);
     if (host.children.length !== tiles.length) {
       host.replaceChildren(...tiles.map((t) => {
-        const inner = [h('span', { class: 'k-l' }, ''), h('span', { class: 'k-n' }, ''), h('span', { class: 'k-c' }, '')];
+        const marks = { active: 'board', completed: 'check-circle', inProgress: 'wrench', onHold: 'hold', overdue: 'alert', dueSoon: 'clock', ontime: 'chart', checks: 'inspect' };
+        const inner = [h('span', { class: 'k-l' }, ''), h('span', { class: 'k-n' }, ''), h('span', { class: 'k-c' }, ''), h('span', { class: 'k-mark', 'aria-hidden': 'true' }, icon(marks[t.id]))];
         return t.focus ? h('button', { type: 'button', class: 'kpi k-' + (t.cls || ''), 'data-kpi': t.id, 'data-fk': 'kpi-' + t.id, onClick: () => { const cur = EQ.route.query.focus; EQ.nav('/fac/dashboard', { ...EQ.route.query, focus: cur === t.focus ? '' : t.focus }); } }, ...inner)
           : h('div', { class: 'kpi k-' + (t.cls || '') + ' static', 'data-kpi': t.id, role: 'group' }, ...inner);
       }));
@@ -258,29 +260,51 @@ window.EQ = window.EQ || {};
     if (dash.proof.sig !== sig) {
       const curKey = dash.proof.key; dash.proof.sig = sig;
       let i = ps.findIndex((p) => p.key === curKey); if (i < 0) i = 0; dash.proof.i = i;
-      P.replaceChildren(h('h2', null, 'Latest proof'), h('figure', { class: 'proof-fig' }, h('img', { class: 'proof-img', alt: '' }), h('figcaption', { class: 'proof-cap' })),
-        h('div', { class: 'proof-ctl' }, h('button', { type: 'button', class: 'btn-sm', 'aria-label': 'Previous photo', 'data-fk': 'proof-prev', onClick: () => stepProof(-1) }, icon('arrow-r', 'flip')), h('button', { type: 'button', class: 'btn-sm', 'aria-pressed': 'false', 'data-fk': 'proof-pause', 'aria-label': 'Pause the photo rotation', onClick: () => { dash.proof.paused = !dash.proof.paused; paintProof(); } }, icon('pause')), h('button', { type: 'button', class: 'btn-sm', 'aria-label': 'Next photo', 'data-fk': 'proof-next', onClick: () => stepProof(1) }, icon('arrow-r')), h('span', { class: 'proof-n small muted', 'aria-live': 'off' })));
+      const controls = h('div', { class: 'proof-ctl' }, h('button', { type: 'button', class: 'btn-sm', 'aria-label': 'Previous photo', 'data-fk': 'proof-prev', onClick: () => stepProof(-1) }, icon('arrow-r', 'flip')), h('button', { type: 'button', class: 'btn-sm', 'aria-pressed': 'false', 'data-fk': 'proof-pause', 'aria-label': 'Pause the photo rotation', onClick: () => { dash.proof.paused = !dash.proof.paused; paintProof(); } }, icon('pause')), h('button', { type: 'button', class: 'btn-sm', 'aria-label': 'Next photo', 'data-fk': 'proof-next', onClick: () => stepProof(1) }, icon('arrow-r')), h('span', { class: 'proof-n small muted', 'aria-live': 'off' }));
+      P.replaceChildren(h('h2', null, 'Latest proof'), h('figure', { class: 'proof-fig' },
+        h('img', { class: 'proof-img', alt: '' }), controls, h('figcaption', { class: 'proof-cap' })));
       P.addEventListener('pointerenter', () => { dash.proof.hover = true; }); P.addEventListener('pointerleave', () => { dash.proof.hover = false; }); P.addEventListener('focusin', () => { dash.proof.focus = true; }); P.addEventListener('focusout', () => { dash.proof.focus = false; });
     }
     paintProof();
-    // due load
-    const W = 720, Hh = 140, pad = 26, bw = 60, gap = (W - pad * 2 - bw * 8) / 7; // Repair-R02B finding 6: flatter chart, so its labels render larger in the same box
-    const max = Math.max(4, ...m.dueLoad.map((w) => w.electrical + w.mechanical + w.civil));
-    const lsig = JSON.stringify(m.dueLoad);
-    const host = dash.refs.load.querySelector('.load-chart');
-    if (host.dataset.sig !== lsig) {
-      host.dataset.sig = lsig;
-      const bars = []; let tot = 0;
-      m.dueLoad.forEach((w, i) => {
-        const x = pad + i * (bw + gap); let y = Hh - 34; const t = w.electrical + w.mechanical + w.civil; tot += t;
-        [['electrical', 'E'], ['mechanical', 'M'], ['civil', 'C']].forEach(([d, ch]) => { const n = w[d]; if (!n) return; const ht = (n / max) * (Hh - 70); y -= ht; bars.push(h('rect', { x, y, width: bw, height: ht, class: 'lb d-' + d, 'data-d': d }), ht > 16 ? h('text', { x: x + bw / 2, y: y + ht / 2 + 5, 'text-anchor': 'middle', class: 'lb-t' }, ch + n) : null); });
-        bars.push(h('text', { x: x + bw / 2, y: Hh - 38 - (t / max) * (Hh - 70) - 4, 'text-anchor': 'middle', class: 'lb-total' }, String(t)), h('text', { x: x + bw / 2, y: Hh - 12, 'text-anchor': 'middle', class: 'lb-wk' }, EQ.fmtDate(w.start).replace(/ \d{4}$/, '')));
+    patchWeekChart(dash.refs.load.querySelector('.load-chart'), m.dueLoad, 'load', 'Jobs due per week for the next 8 weeks');
+    patchWeekChart(dash.refs.trend.querySelector('.trend-chart'), m.completionTrend, 'trend', 'Completed scheduled-job cycles per week, last four weeks including this week to date');
+  }
+  function patchWeekChart(host, weeks, kind, label) {
+    host.chartWeeks = weeks;
+    const sig = JSON.stringify(weeks);
+    if (host.dataset.sig === sig) return;
+    host.dataset.sig = sig;
+    host.replaceChildren(h('svg', { class: kind + '-svg weekly-chart', role: 'img', 'aria-label': label + ', ' + weeks.reduce((sum, w) => sum + w.electrical + w.mechanical + w.civil, 0) + ' in total, stacked by discipline' }),
+      h('div', { class: 'load-legend' }, LANE_CODES.map(([c, name]) => h('span', null, h('i', { class: 'sw-d d-' + c }), name[0] + ' ' + name))),
+      h('div', { class: 'sr-only' }, h('table', null, h('caption', null, label), h('thead', null, h('tr', null, ['Week starting', 'Electrical', 'Mechanical', 'Civil'].map((c) => h('th', { scope: 'col' }, c)))), h('tbody', null, weeks.map((w) => h('tr', null, h('th', { scope: 'row' }, w.start), h('td', null, String(w.electrical)), h('td', null, String(w.mechanical)), h('td', null, String(w.civil))))))));
+  }
+  // Render in measured CSS pixels so bars fill the card width while labels keep their readable proportions.
+  // The existing resize/refresh path calls this after layout; the SVG never dictates the card or feed height.
+  function fitWeekCharts() {
+    for (const host of [dash.refs.load.querySelector('.load-chart'), dash.refs.trend.querySelector('.trend-chart')]) {
+      const svg = host.querySelector('svg'), weeks = host.chartWeeks;
+      if (!svg || !weeks) continue;
+      const W = Math.floor(svg.clientWidth), H = Math.floor(svg.clientHeight);
+      if (W < 1 || H < 1) continue;
+      const sig = host.dataset.sig + ':' + W + ':' + H;
+      if (svg.dataset.layout === sig) continue;
+      svg.dataset.layout = sig; svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+      const slot = W / weeks.length, bw = Math.min(72, slot * .65), base = H - 18, plotH = Math.max(1, H - 36);
+      const max = Math.max(1, ...weeks.map((w) => w.electrical + w.mechanical + w.civil));
+      const bars = [];
+      weeks.forEach((w, i) => {
+        const cx = slot * (i + .5), total = w.electrical + w.mechanical + w.civil; let y = base;
+        LANE_CODES.forEach(([d, name]) => {
+          const n = w[d]; if (!n) return;
+          const ht = n / max * plotH; y -= ht;
+          bars.push(h('rect', { x: cx - bw / 2, y, width: bw, height: ht, class: 'lb d-' + d, 'data-d': d }, h('title', null, w.start + ' · ' + name + ': ' + n)));
+          if (ht >= 14) bars.push(h('text', { x: cx, y: y + ht / 2 + 3.5, 'text-anchor': 'middle', class: 'lb-t' }, name[0] + n));
+        });
+        bars.push(h('text', { x: cx, y: base - total / max * plotH - 4, class: 'lb-total' }, String(total)),
+          h('text', { x: cx, y: H - 3, 'text-anchor': 'middle', class: 'lb-wk' }, EQ.fmtDate(w.start).replace(/ \d{4}$/, '')));
       });
-      host.replaceChildren(h('svg', { viewBox: '0 0 ' + W + ' ' + Hh, class: 'load-svg', role: 'img', 'aria-label': 'Jobs due per week for the next 8 weeks, ' + tot + ' in total, stacked by discipline' }, ...bars.filter(Boolean)),
-        h('div', { class: 'load-legend' }, LANE_CODES.map(([c, n]) => h('span', null, h('i', { class: 'sw-d d-' + c }), n[0] + ' ' + n))),
-        h('div', { class: 'sr-only' }, h('table', null, h('caption', null, 'Jobs due per week, next 8 weeks'), h('thead', null, h('tr', null, ['Week starting', 'Electrical', 'Mechanical', 'Civil'].map((c) => h('th', { scope: 'col' }, c)))), h('tbody', null, m.dueLoad.map((w) => h('tr', null, h('th', { scope: 'row' }, w.start), h('td', null, String(w.electrical)), h('td', null, String(w.mechanical)), h('td', null, String(w.civil))))))));
+      svg.replaceChildren(...bars);
     }
-    dash.refs.load.querySelector('.load-note').textContent = 'Rolling jobs with a due date; overdue jobs, daily and weekly checks are not included.';
   }
   function stepProof(d) { const n = dash.model.proof.length; if (!n) return; dash.proof.i = (dash.proof.i + d + n) % n; dash.proof.clock = 0; paintProof(); }
   function paintProof() {
@@ -387,9 +411,9 @@ window.EQ = window.EQ || {};
     LANE_CODES.forEach(([c]) => { if (!m.lanes.some((l) => l.code === c)) dash.lanes[c].el.hidden = true; });
     document.getElementById('app').dataset.lanes = String(m.lanes.length);
     patchCombined(m); patchTicker(m.ticker); patchBottom(m); patchStatic(m);
-    dash.refs.note.textContent = 'SYNTHETIC PROGRESS: the ' + m.kpi.active + ' jobs and their frequencies come from the supplied sheet (reference/fac-job-list.json); every progress update, completion photo, hold made in the app, PIC-to-user link and ' + m.syntheticOverlay.dueDates + ' Admin-entered due dates are fictional prototype data. Nothing is saved.';
+    dash.refs.note.textContent = m.kpi.active + ' jobs from the supplied facility list · Synthetic progress, photos, PIC assignments and due dates · Nothing is saved.';
     // fit: pause lanes shorter than the view, measure after layout
-    requestAnimationFrame(() => { Object.values(dash.lanes).forEach((L) => { const li0 = L.list.firstElementChild; if (li0) { const rh = li0.getBoundingClientRect().height; if (rh) { L.rowH = rh; L.T = L.keys.length * rh; } } }); const T = dash.ticker; const w = T.list.firstElementChild ? T.list.firstElementChild.getBoundingClientRect().width : 0; if (w) { T.itemW = w; T.T = T.items.size * w; } dash.speedScale = Math.max(0.8, (Object.values(dash.lanes)[0].rowH || 80) / 80); applyMode(); });
+    requestAnimationFrame(() => { fitWeekCharts(); Object.values(dash.lanes).forEach((L) => { const li0 = L.list.firstElementChild; if (li0) { const rh = li0.getBoundingClientRect().height; if (rh) { L.rowH = rh; L.T = L.keys.length * rh; } } }); const T = dash.ticker; const w = T.list.firstElementChild ? T.list.firstElementChild.getBoundingClientRect().width : 0; if (w) { T.itemW = w; T.T = T.items.size * w; } dash.speedScale = Math.max(0.8, (Object.values(dash.lanes)[0].rowH || 80) / 80); applyMode(); });
     if (!dash.raf) { dash.last = 0; dash.raf = requestAnimationFrame(frame); }
     return dash.root;
   };

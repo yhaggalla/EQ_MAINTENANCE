@@ -1,0 +1,88 @@
+{
+  "passed": 20,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "Form offers Project and labelled EQ type/Equipment fields",
+      "pass": true
+    },
+    {
+      "name": "Equipment choices contain All QC and only active QC members",
+      "pass": true
+    },
+    {
+      "name": "Changing type resets equipment and component selection",
+      "pass": true
+    },
+    {
+      "name": "All equipment explains future inclusion and shared completion without component fields",
+      "pass": true
+    },
+    {
+      "name": "Jobs board shows one fleet Project card",
+      "pass": true
+    },
+    {
+      "name": "One saved progress value is shared",
+      "pass": true
+    },
+    {
+      "name": "eq-qc-demo-01 page displays the shared Project exactly once",
+      "pass": true
+    },
+    {
+      "name": "eq-qc-demo-02 page displays the shared Project exactly once",
+      "pass": true
+    },
+    {
+      "name": "Individual-equipment filter retains one fleet card",
+      "pass": true
+    },
+    {
+      "name": "Other-type filter excludes the fleet Project",
+      "pass": true
+    },
+    {
+      "name": "Title opens shared detail with links to all current members",
+      "pass": true
+    },
+    {
+      "name": "Project completion permits optional replacement lines",
+      "pass": true
+    },
+    {
+      "name": "Completing Project updates every member through one job",
+      "pass": true
+    },
+    {
+      "name": "Later-added equipment page shows the shared completed job",
+      "pass": true
+    },
+    {
+      "name": "Fleet replacement selector identifies equipment and excludes other types",
+      "pass": true
+    },
+    {
+      "name": "Phone creation form fits and retains all required options",
+      "pass": true
+    },
+    {
+      "name": "management can read fleet cards without create/progress controls",
+      "pass": true
+    },
+    {
+      "name": "facTeam can read fleet cards without create/progress controls",
+      "pass": true
+    },
+    {
+      "name": "Type-filtered Jobs retains the shared record with zero current members",
+      "pass": true
+    },
+    {
+      "name": "No browser errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "errors": []
+}

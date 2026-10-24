@@ -172,7 +172,7 @@ What P03 and P10 keep: one selection model and URL parameters; node keys as the 
 1. Is a placeholder schematic acceptable until P03 delivers the Three.js model, and is the "Assemblies" button row the right text alternative to hover labels?
 2. Should Management also see the Admin screens read-only, or is the 403 explanation enough? (Requirement s4 grants Management read of fleet, equipment, work and documents, not Admin configuration.)
 3. Is "Include cancelled" in the History panel and the Jobs filter the right place, or should cancelled work have its own view?
-4. Does the Fleet group row layout scan well at 1366 x 768 for the real fleet size (unknown to this project, see U-07)?
+4. Does the Fleet group row layout scan well at 1366 x 768 for the user-confirmed fleet quantities (14 QC, 46 RTG, 7 ES; U1-C54, section 48)? Real per-unit identities/models remain under U-07.
 
 
 ---
@@ -347,6 +347,40 @@ Projects/Special leads with scoped counts and job cards. Spare parts leads with 
 
 These presentation rules apply to the same four panels in Flat and 3D without changing their data scopes, current-state projection or permissions. Global prototype provenance remains visible. U1 remains incomplete/unapproved; P04 is Not started. Evidence: `docs/evidence/U1/panel-cleanup-c37/REPORT.md`.
 
+## 32 U1-C38: FAC Dashboard follows the EQ style (24 October 2026)
+
+Use EQ Fleet's warm grey page, separate white rounded cards, subtle borders/shadows, dark figures and compact headings. The supplied image informs the selective yellow accents: progress bars, completion rings and the TV control. Avoid coloured discipline header bands, full tinted rows, decorative gradients and oversized introductory copy. All eight existing figures remain, now above the filters, with a number-first layout. Desktop uses three discipline columns with individual job cards; each card keeps its picture/icon, two-line name, frequency/PIC/mode, status/due and quantity progress or hold reason. Full names and metadata remain in accessible labels/tooltips.
+
+Retain continuous vertical movement, the updates ticker, pause/resume, keyboard handling, photo carousel and 60-second refresh. Static view and the full table remain available. Reduced-motion mode uses discrete pages; phones show a static combined list. TV hides navigation/filters and uses larger type in a bounded grid, including proof and the eight-week due load on one 1920x1080 or 1366x768 screen. Normal wide desktop shows three cards per lane; this replaces the older four-row density target while preserving all jobs in the moving loop. Smaller normal screens scroll vertically. Colours/styles are scoped to FAC Dashboard; shared shell, EQ and FAC Jobs retain their styles. Evidence: `docs/evidence/U1/fac-dashboard-c38/REPORT.md`. U1 remains incomplete/unapproved.
+
+## 33 U1-C39: compact search below all four information tabs (24 October 2026)
+
+Maintenance, Projects/Special, Technical and Spare parts share a single-row search immediately below the tabs. It has a contextual placeholder/accessible label, a small shown/total count when searching and an accessible clear button. Desktop fields are 32 px high; phones retain 44 px targets. Filter locally on input without rebuilding the viewer. Match all words without case sensitivity against each displayed job/part record or technical field; do not retrieve additional history. Technical labels and values stay paired, and source qualifications remain with matching specifications. Hide groups with no matching items and show a concise no-match message. Status context, total scope badges and actions are retained.
+
+Each equipment/scope/tab keeps an independent in-memory query; camera changes and refreshes reuse it, while another scope starts with its own value. Clear and Escape restore the panel; Escape with text does not close the phone drawer. The same implementation serves Flat and 3D. Evidence: `docs/evidence/U1/panel-search-c39/REPORT.md`. U1 remains incomplete/unapproved.
+
+## 34 U1-C40: Fleet in the equipment summary (24 October 2026)
+
+Place the Fleet navigation link, styled as a button, immediately before Correct status in the top equipment card. Remove the repeated equipment-code breadcrumb and its empty desktop row when the whole equipment is selected. For a selected mechanism, part or physical area, keep useful ancestor breadcrumbs and a Whole equipment root link. Keep phone Mechanisms/Details controls reachable. Fleet uses the same compact desktop and 44 px phone heights as adjacent actions. Both Flat and 3D use this header. Evidence: `docs/evidence/U1/header-nav-c40/REPORT.md`. U1 remains incomplete/unapproved.
+
+## 35 U1-C41: compact EQ/FAC Jobs workspaces (24 October 2026)
+
+Remove visible page introductions and redundant section headings/descriptions; retain accessible h1/region names. EQ starts with its four tabs and shared filters, followed by special-job filters with Export/Add aligned at the right. FAC keeps collapsible filters and a layout/count/action toolbar below them; phone actions remain outside the collapsed filters. Phone fields use two columns with full-width search and no intrinsic date-field overflow.
+
+Put the shared visibility checkbox at the top right of job cards, visibly labelled Show, and in the FAC list. Explain its shared dashboard/3D effects, audit and retained history/export in a tooltip on hover or keyboard focus, associated with the control through aria-describedby. Keep compact controls in detail headers for direct links, removing the old block below Details. Read-only roles see Show: On/Off. Reuse existing audited setters and query scopes. Phone targets are 44 px. Evidence: `docs/evidence/U1/jobs-cleanup-c41/REPORT.md`. U1 remains incomplete/unapproved.
+
+## 36 U1-C42: plain FAC cards and direct quick edits (24 October 2026)
+
+FAC cards use equal thin neutral borders without status-coloured left stripes, modest corners and neutral icon backgrounds. Retain meaningful status/due labels and progress. Writers can toggle Show from the card; a read-only state must not be mistaken for writer mode. Leave review previews in FAC Team mode when demonstrating editable FAC work.
+
+Quick edit opens the existing authorized form without navigating away: progress/date/note/photos for FAC work, or job details where master-list or eligible own one-time editing is already allowed. When Quick edit edits job details, Update progress stays separate. Preserve held/finished-cycle restrictions, independent capabilities and existing EQ card Edit. Saving refreshes the card in the same board/list view. Evidence: `docs/evidence/U1/jobs-cleanup-c42/REPORT.md`. U1 remains incomplete/unapproved.
+
+## 37 U1-C43: one-row EQ/FAC card actions (24 October 2026)
+
+Keep all card actions on a single compact line. Desktop controls are 32 px high; phones retain at least 44 by 44 px targets. FAC phone buttons use clear text labels without redundant icons. EQ Open/Edit/Cancel use labelled icons with tooltips; Start/Pending/Complete remain concise text, and Pending retains its full Return to Pending accessible name. Keep full detail-page labels. Preserve disabled cancellation explanations and all dialog/command behavior. Extremely narrow rows may pan horizontally within the card instead of wrapping or widening the page.
+
+Retain the explicit Update progress label, replacing C42's progress-form Quick edit alias. Keep Quick edit for job details where authorized and leave Show unchanged. Evidence: `docs/evidence/U1/job-actions-c43/REPORT.md`. U1 remains incomplete/unapproved.
+
 ## 38 U1-C44: compact FAC filters and manual lane scrolling (24 October 2026)
 
 Keep the filter row hidden by default with no reserved height. Put a 44 px labelled filter icon in the toolbar; expose expanded state, the controlled form and active-criteria count. Collapse without clearing criteria; Escape collapses and returns focus. Retain visible labels for Discipline, Type, In-house/Outsource and PIC when expanded. Add Search jobs without a visible syntax hint (user follow-up): case-insensitive substring matching, `*` any text and `?` one character; punctuation otherwise literal. Search job description/number, PIC and discipline/type/mode/frequency/remarks; combine with existing filters and use the same population for all dashboard blocks and export.
@@ -396,3 +430,27 @@ Phone Mechanisms/Details drawers remain opaque, full height and closable with 44
 ## 47 U1-C53: fleet toolbar cleanup (24 October 2026)
 
 Omit the Breakdown/Maintenance cards-blink legend from the normal fleet toolbar and TV footer. Put Refresh first in the right-aligned action group, followed by Pause blinking and TV mode; wrapped phone actions remain right-aligned. Keep the left-side refreshed timestamp, ZMMS freshness and automatic-status explanation. Error-state Refresh uses the same placement; TV remains read-only with its existing Pause/Exit controls. Actual card blinking and pause/reduced-motion rules are unchanged. Evidence: `docs/evidence/U1/fleet-toolbar-c53/REPORT.md`. U1 remains open and unapproved.
+
+## 48 U1-C54: complete fleet quantities (24 October 2026)
+
+Use 14 QC, 46 RTG and 7 ES members (67 active in the default prototype), ordered numerically within type. Fleet cards/table, the total/type/status KPIs, search, type filters, EQ status board, all four EQ Jobs equipment filters, job creation, shared type-scoped membership, Admin equipment and ZMMS mapping choices read the same register. Normal mode can scroll; TV retains measured paging with all 67 members reachable without page scrolling at 1920x1080 and 1366x768. Phone search reaches the last member of each type with no horizontal page overflow. No layout-specific equipment totals are hardcoded.
+
+Keep explicit demo codes until real identifiers are verified. Added equipment and the former retired RTG 07 example start active/Unreported with no assumed model/part positions/history/commissioning date/ZMMS mapping. Existing demonstration records retain their identities. Equipment-level jobs are available immediately; component/spare-part work still requires verified model/confirmed positions. The 67-member population supersedes earlier measured 17-row/16-active fixture descriptions, not the retained historical evidence. The register remains configurable with later additions and retirement. Evidence: `docs/evidence/U1/fleet-size-c54/REPORT.md`. U1 remains open and unapproved.
+
+## 49 U1-C55: compact FAC dashboard header (24 October 2026)
+
+Remove the duplicate visible FAC Dashboard title and its Prototype, synthetic progress badge. Retain a screen-reader h1 and the refresh timestamp, with no extra timestamp margin. Normal top padding is 8 px; keep the existing action sizes, wrapping, dashboard sections and TV layout. The shared header remains compact in TV mode. Evidence: `docs/evidence/U1/fac-heading-c55/REPORT.md`. U1 remains open/unapproved.
+
+## 50 U1-C56: compact proof/due-load cards and taller feeds (24 October 2026)
+
+Omit the visible due-load explanatory footnote. Latest proof uses an image at left with controls/photo count above the caption at right; the controls no longer consume a separate full-width row below the image. Desktop photo controls are 28x28 px with accessible names, keyboard behavior and focus rings; phone/coarse-pointer controls stay 44x44 px and the photo count can wrap. Captions and job links remain readable. Shorten the normal desktop bottom row to 152 px and increase main feed height by 56 px at 1920x1080; TV uses 144/128 px bottom rows at 1920/1366 while its feed grid takes remaining space. Keep normal narrow-screen page scrolling, chart data/legend, all carousel actions and current filters. Evidence: `docs/evidence/U1/fac-bottom-c56/REPORT.md`. U1 remains open/unapproved.
+
+## 51 U1-C57: full-width charts and three-card row (24 October 2026)
+
+User-approved order: Latest proof / Completion trend · 4 weeks / Due in the next 8 weeks. Use three equal columns on desktop/TV with the existing 152 px normal and 144/128 px TV row heights. Main feeds retain their C56 height. Normal screens below 1200 px and phone TV stack cards; each phone chart is 120 px high. Keep proof controls beside the image and readable captions within the narrower card.
+
+Both SVG charts use actual plot width/height after layout; bars span the available horizontal space and labels keep their pixel sizes rather than shrinking/stretching in a fixed-ratio box. Resize and refresh redraw geometry without resetting the feed offsets. Preserve chart accessible names, eight due weeks, four completion weeks, discipline legend/segment titles and equivalent screen-reader tables. Empty searches render zero weeks, not fabricated bars or percentages. Trend definition and filters: DATA section 18.4 / D-201; current week is explicitly week-to-date in the heading tooltip and accessible chart name. No new footer guidance. Evidence: `docs/evidence/U1/fac-charts-c57/REPORT.md`. U1 remains open/unapproved.
+
+## 52 U1-C58: larger proof photo within fixed card (24 October 2026)
+
+Desktop/TV proof figures fill their available height with a responsive left image column, bounded between 128 and 184 px in normal/tall layouts. Short TV layouts use a smaller share to retain readable full captions. Images use contain sizing, preserving the whole photo and its proportions. Controls/count stay above the caption at right, with existing sizes and actions. Card/row/feed heights stay fixed; phones retain their earlier dimensions and touch targets. Evidence: `docs/evidence/U1/proof-preview-c58/REPORT.md`. U1 remains open/unapproved.

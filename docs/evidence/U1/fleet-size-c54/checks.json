@@ -1,0 +1,250 @@
+{
+  "passed": 37,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "QC has exactly the requested active members and consecutive demo codes",
+      "pass": true,
+      "detail": [
+        "QC-DEMO-01",
+        "QC-DEMO-02",
+        "QC-DEMO-03",
+        "QC-DEMO-04",
+        "QC-DEMO-05",
+        "QC-DEMO-06",
+        "QC-DEMO-07",
+        "QC-DEMO-08",
+        "QC-DEMO-09",
+        "QC-DEMO-10",
+        "QC-DEMO-11",
+        "QC-DEMO-12",
+        "QC-DEMO-13",
+        "QC-DEMO-14"
+      ]
+    },
+    {
+      "name": "RTG has exactly the requested active members and consecutive demo codes",
+      "pass": true,
+      "detail": [
+        "RTG-DEMO-01",
+        "RTG-DEMO-02",
+        "RTG-DEMO-03",
+        "RTG-DEMO-04",
+        "RTG-DEMO-05",
+        "RTG-DEMO-06",
+        "RTG-DEMO-07",
+        "RTG-DEMO-08",
+        "RTG-DEMO-09",
+        "RTG-DEMO-10",
+        "RTG-DEMO-11",
+        "RTG-DEMO-12",
+        "RTG-DEMO-13",
+        "RTG-DEMO-14",
+        "RTG-DEMO-15",
+        "RTG-DEMO-16",
+        "RTG-DEMO-17",
+        "RTG-DEMO-18",
+        "RTG-DEMO-19",
+        "RTG-DEMO-20",
+        "RTG-DEMO-21",
+        "RTG-DEMO-22",
+        "RTG-DEMO-23",
+        "RTG-DEMO-24",
+        "RTG-DEMO-25",
+        "RTG-DEMO-26",
+        "RTG-DEMO-27",
+        "RTG-DEMO-28",
+        "RTG-DEMO-29",
+        "RTG-DEMO-30",
+        "RTG-DEMO-31",
+        "RTG-DEMO-32",
+        "RTG-DEMO-33",
+        "RTG-DEMO-34",
+        "RTG-DEMO-35",
+        "RTG-DEMO-36",
+        "RTG-DEMO-37",
+        "RTG-DEMO-38",
+        "RTG-DEMO-39",
+        "RTG-DEMO-40",
+        "RTG-DEMO-41",
+        "RTG-DEMO-42",
+        "RTG-DEMO-43",
+        "RTG-DEMO-44",
+        "RTG-DEMO-45",
+        "RTG-DEMO-46"
+      ]
+    },
+    {
+      "name": "ES has exactly the requested active members and consecutive demo codes",
+      "pass": true,
+      "detail": [
+        "ES-DEMO-01",
+        "ES-DEMO-02",
+        "ES-DEMO-03",
+        "ES-DEMO-04",
+        "ES-DEMO-05",
+        "ES-DEMO-06",
+        "ES-DEMO-07"
+      ]
+    },
+    {
+      "name": "67 unique equipment IDs, keys and codes",
+      "pass": true
+    },
+    {
+      "name": "51 newly active members have no invented status/model/positions/history/ZMMS link",
+      "pass": true
+    },
+    {
+      "name": "Existing equipment-specific job and replacement identities survive",
+      "pass": true
+    },
+    {
+      "name": "Status populations reconcile, including unknown units",
+      "pass": true,
+      "detail": {
+        "readyForOps": 7,
+        "breakdown": 3,
+        "maintenance": 3,
+        "unreported": 54,
+        "total": 67
+      }
+    },
+    {
+      "name": "QC fleet job covers every member once and exports once",
+      "pass": true
+    },
+    {
+      "name": "RTG fleet job covers every member once and exports once",
+      "pass": true
+    },
+    {
+      "name": "ES fleet job covers every member once and exports once",
+      "pass": true
+    },
+    {
+      "name": "Reset restores the 67-member baseline and keeps FAC at 114",
+      "pass": true
+    },
+    {
+      "name": "Dashboard total and type badges show 67 / 14 / 46 / 7",
+      "pass": true
+    },
+    {
+      "name": "Dashboard status tiles reconcile with the register",
+      "pass": true
+    },
+    {
+      "name": "QC dashboard cards and group total include the last unit",
+      "pass": true
+    },
+    {
+      "name": "RTG dashboard cards and group total include the last unit",
+      "pass": true
+    },
+    {
+      "name": "ES dashboard cards and group total include the last unit",
+      "pass": true
+    },
+    {
+      "name": "Fleet table has all 67 equipment links",
+      "pass": true
+    },
+    {
+      "name": "Admin register lists all 67 equipment including each last unit",
+      "pass": true
+    },
+    {
+      "name": "special equipment filter includes all 67",
+      "pass": true
+    },
+    {
+      "name": "daily equipment filter includes all 67",
+      "pass": true
+    },
+    {
+      "name": "status equipment filter includes all 67",
+      "pass": true
+    },
+    {
+      "name": "EQ status board has all 67 equipment rows",
+      "pass": true
+    },
+    {
+      "name": "spare-parts equipment filter includes all 67",
+      "pass": true
+    },
+    {
+      "name": "QC job form offers all members plus the shared fleet target",
+      "pass": true
+    },
+    {
+      "name": "RTG job form offers all members plus the shared fleet target",
+      "pass": true
+    },
+    {
+      "name": "ES job form offers all members plus the shared fleet target",
+      "pass": true
+    },
+    {
+      "name": "A special job can be created for the last ES",
+      "pass": true
+    },
+    {
+      "name": "ZMMS mapping selector offers every active unit without assigning any",
+      "pass": true
+    },
+    {
+      "name": "eq-qc-demo-14 detail opens with Unreported and safe model fallback",
+      "pass": true
+    },
+    {
+      "name": "eq-rtg-demo-46 detail opens with Unreported and safe model fallback",
+      "pass": true
+    },
+    {
+      "name": "eq-es-demo-07 detail opens with Unreported and safe model fallback",
+      "pass": true
+    },
+    {
+      "name": "1920px TV pages cover all 67 with no scrolling or edit links",
+      "pass": true,
+      "detail": {
+        "pages": 3,
+        "seen": 67,
+        "fit": true,
+        "scroll": 0,
+        "links": 0
+      }
+    },
+    {
+      "name": "1366px TV pages cover all 67 with no scrolling or edit links",
+      "pass": true,
+      "detail": {
+        "pages": 7,
+        "seen": 67,
+        "fit": true,
+        "scroll": 0,
+        "links": 0
+      }
+    },
+    {
+      "name": "Phone fleet fits horizontally and retains all equipment",
+      "pass": true
+    },
+    {
+      "name": "Phone search reaches the last RTG",
+      "pass": true
+    },
+    {
+      "name": "Management remains read-only with the expanded fleet",
+      "pass": true
+    },
+    {
+      "name": "No browser errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "errors": []
+}

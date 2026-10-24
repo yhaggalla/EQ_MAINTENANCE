@@ -1,0 +1,256 @@
+/* U1-C38. FAC follows the EQ fleet's warm-neutral cards; yellow comes from the user's reference.
+   Scoped to the dashboard: shared FAC Jobs pills/bars and the EQ fleet retain their own styles. */
+body[data-page="fac-dashboard"] { background: var(--pa-page); }
+.fac-restyled {
+  --fac-yellow: #f4cb16;
+  --fac-yellow-soft: #fff5c6;
+  --fac-black: #202724;
+  --fac-muted: #59625c;
+  --fac-track: #e8eae4;
+  --fac-green: #267748;
+  --fac-red: #a63848;
+  /* The chart uses letters as well as colour. All three fills support white labels. */
+  --d-electrical: #806400;
+  --d-mechanical: #47574d;
+  --d-civil: #72776b;
+  color: var(--fac-black);
+  gap: .75rem;
+  padding-top: .5rem;
+}
+.fac-restyled .dash-head { align-items: center; }
+.fac-restyled .dash-head h1 { font-size: 1.5rem; font-weight: 750; letter-spacing: -.025em; color: var(--fac-black); }
+.fac-restyled .proto-tag { background: #e7e8e2; color: var(--fac-muted); border: 0; font-weight: 600; font-size: .7rem; }
+.fac-restyled .updated { color: var(--fac-muted); font-size: .78rem; margin: 0; }
+.fac-restyled .updated.stale { color: var(--fac-red); }
+.fac-restyled .btn-sm { min-height: 2.75rem; padding: .3rem .75rem; border: 1px solid var(--pa-line-strong); border-radius: var(--pa-radius-sm); background: #fff; color: var(--fac-black); font-size: .8rem; font-weight: 650; box-shadow: none; }
+.fac-restyled .btn-sm:hover { border-color: #a4aba0; background: #f8f8f4; }
+.fac-restyled .btn-sm[aria-pressed="true"] { color: #fff; background: var(--fac-black); border-color: var(--fac-black); }
+.fac-restyled [data-fk="dash-tv"] { background: var(--fac-yellow); border-color: var(--fac-yellow); }
+.fac-restyled [data-fk="dash-tv"]:hover { background: #e7bd0c; border-color: #e7bd0c; }
+.fac-restyled :is(button, select, summary):focus-visible { outline: 2px solid var(--fac-black); outline-offset: 3px; }
+
+/* The same number-first hierarchy as EQ. Keep all eight existing figures and filter actions. */
+.fac-restyled .kpis { grid-template-columns: repeat(8, minmax(0, 1fr)); gap: .65rem; }
+.fac-restyled .kpi { position: relative; min-width: 0; min-height: 5.5rem; padding: .65rem .85rem .55rem; gap: .15rem; border: 1px solid var(--pa-line); border-radius: var(--pa-radius); box-shadow: var(--pa-shadow); background: var(--pa-card); color: var(--fac-black); justify-items: start; justify-content: stretch; text-align: left; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto auto; }
+.fac-restyled .kpi :is(.k-n, .k-l, .k-c) { grid-column: 1; }
+.fac-restyled .kpi .k-n { grid-row: 1; font-size: 2rem; font-weight: 750; letter-spacing: -.04em; color: var(--fac-black); font-variant-numeric: tabular-nums; line-height: 1.1; }
+.fac-restyled .kpi .k-l { grid-row: 2; font-size: .82rem; font-weight: 600; color: var(--fac-black); }
+.fac-restyled .kpi .k-c { grid-row: 3; font-size: .71rem; line-height: 1.25; color: var(--fac-muted); }
+.fac-restyled .k-mark { position: absolute; right: .75rem; top: .85rem; color: #8a6b00; }
+.fac-restyled .k-mark .icon { width: 1.25rem; height: 1.25rem; }
+.fac-restyled :is([data-kpi="ontime"], [data-kpi="checks"]) .k-mark { display: none; }
+.fac-restyled .k-ok .k-mark { color: var(--fac-green); }
+.fac-restyled .k-bad .k-mark { color: var(--fac-red); }
+.fac-restyled .k-hold .k-mark { color: var(--fac-muted); }
+.fac-restyled button.kpi:hover { background: #fff; border-color: var(--pa-line-strong); box-shadow: var(--pa-shadow-hover); }
+.fac-restyled .kpi[aria-pressed="true"] { outline: none; border-color: var(--fac-black); background: #fffdf1; box-shadow: var(--pa-shadow), inset 0 0 0 1px var(--fac-black); }
+.fac-restyled .kpi:focus-visible { outline: 2px solid var(--fac-black); outline-offset: 3px; }
+.fac-restyled .dash-filters { gap: .55rem 1rem; padding: .65rem .8rem; border-color: var(--pa-line); border-radius: var(--pa-radius); box-shadow: var(--pa-shadow); }
+.fac-restyled .dash-filters label { font-size: .75rem; color: var(--fac-muted); font-weight: 600; }
+.fac-restyled .dash-filters select { border-color: var(--pa-line-strong); border-radius: .5rem; min-height: 2.75rem; color: var(--fac-black); background: #fff; font-size: .85rem; }
+
+/* Open discipline columns, with individual white job cards instead of a tinted table. */
+.fac-restyled .lanes { gap: 1rem; align-items: stretch; }
+.fac-restyled .lane { border: 0; border-radius: 0; background: transparent; color: var(--fac-black); overflow: hidden; font-size: .9rem; }
+.fac-restyled .lane > header { border: 0; padding: .25rem .15rem .7rem; gap: .6rem; }
+.fac-restyled .lane .lane-title h2 { color: var(--fac-black); font-size: 1.05rem; font-weight: 750; }
+.fac-restyled .lane-count { color: var(--fac-muted); font-size: .75rem; margin-top: .1rem; }
+.fac-restyled .ring { display: block; width: 2.7rem; height: 2.7rem; }
+.fac-restyled .ring-bg { stroke: #e1e3dc; }
+.fac-restyled .ring-fg { stroke: var(--fac-yellow); }
+.fac-restyled .ring-t { fill: var(--fac-black); }
+.fac-restyled .lane-view { height: clamp(25rem, 50vh, 40rem); }
+.fac-restyled .frow { height: 7rem; padding: 0 .1rem .6rem; border: 0; background: transparent; }
+.fac-restyled .row-link { grid-template-columns: 3.3rem minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto auto; gap: .3rem .65rem; padding: .7rem; border: 1px solid var(--pa-line); border-radius: 12px; background: var(--pa-card); box-shadow: 0 2px 3px rgb(27 39 51 / 5%); color: var(--fac-black); }
+.fac-restyled .row-link:hover { border-color: #b8bdb3; background: #fffef8; }
+.fac-restyled .row-link:focus-visible { outline: 2px solid var(--fac-black); outline-offset: -3px; box-shadow: inset 0 0 0 4px var(--fac-yellow-soft); }
+.fac-restyled .frow .thumb { grid-row: 1 / 4; align-self: stretch; width: 3.3rem; height: auto; min-height: 3.3rem; background: var(--pa-tile); color: #677063; border-radius: .55rem; }
+.fac-restyled .frow .thumb img { border-radius: 0; }
+.fac-restyled .frow .thumb .icon { width: 1.9rem; height: 1.9rem; stroke-width: 1.5; }
+.fac-restyled .frow .main { grid-column: 2; gap: .2rem; }
+.fac-restyled .frow .name { color: var(--fac-black); font-size: .92rem; font-weight: 700; line-height: 1.25; -webkit-line-clamp: 2; line-clamp: 2; }
+.fac-restyled .frow .meta { color: var(--fac-muted); font-size: .72rem; line-height: 1.3; display: block; }
+.fac-restyled .frow .side { grid-column: 2; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .2rem .4rem; }
+.fac-restyled .pill { border: 0; font-size: .68rem; font-weight: 650; padding: .1rem .45rem; }
+.fac-restyled .pill.st-pending { background: #eeefe9; color: #525b50; }
+.fac-restyled .pill.st-inProgress { background: var(--fac-black); color: #fff; }
+.fac-restyled .pill.st-completed { background: #e3f0e6; color: #23683b; }
+.fac-restyled .pill.st-onHold { background: #e8e9e3; color: #4c5549; }
+.fac-restyled .pill.st-overdue { background: #f9e7e9; color: #983442; }
+.fac-restyled .due { font-size: .68rem; font-weight: 600; }
+.fac-restyled .due-overdue { color: #983442; }
+.fac-restyled .due-soon { color: #806000; }
+.fac-restyled :is(.due-ok, .due-none) { color: var(--fac-muted); }
+.fac-restyled .row-progress { grid-column: 2; min-width: 0; }
+.fac-restyled .prog { display: flex; width: 100%; gap: .4rem; }
+.fac-restyled .prog .bar { flex: 1 1 0; width: auto; height: .38rem; background: var(--fac-track); border: 0; }
+.fac-restyled .prog .bar i { background: var(--fac-yellow); }
+.fac-restyled .prog .qty { font-size: .68rem; color: var(--fac-muted); font-weight: 600; }
+.fac-restyled .hold-reason { display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; color: var(--fac-muted); font-size: .68rem; font-weight: 500; }
+.fac-restyled .combined-list { background: transparent; border: 0; border-radius: 0; }
+.fac-restyled .combined .disc { margin-left: .4rem; border: 0; background: #e7e8e2; color: var(--fac-muted); }
+.fac-restyled .frow.glow { animation: none; background: transparent; }
+.fac-restyled .frow.glow .row-link { border-color: #bc9700; background: #fff9da; }
+
+/* A quiet activity strip and supporting cards. Chart colours remain distinguishable with E/M/C labels. */
+.fac-restyled .ticker { height: 3.5rem; background: #fff; color: var(--fac-black); border: 1px solid var(--pa-line); border-radius: var(--pa-radius); box-shadow: var(--pa-shadow); }
+.fac-restyled .live-badge { background: var(--fac-yellow-soft); color: #6d5500; font-size: .73rem; letter-spacing: 0; font-weight: 700; padding-inline: .85rem; }
+.fac-restyled .tick-link { height: 3.5rem; color: var(--fac-black); border-right: 1px solid var(--pa-line); font-size: .8rem; }
+.fac-restyled .tick-link:hover { background: #f8f8f2; }
+.fac-restyled .tick-link:focus-visible { outline-color: var(--fac-black); }
+.fac-restyled .tk-t { color: #705800; }
+.fac-restyled .tk-w { color: var(--fac-muted); }
+.fac-restyled .tk-q { color: var(--fac-green); }
+.fac-restyled .dash-bottom { gap: 1rem; grid-template-columns: repeat(3, minmax(0, 1fr)); height: 9.5rem; }
+.fac-restyled :is(.proof, .load, .trend) { border: 1px solid var(--pa-line); border-radius: var(--pa-radius); box-shadow: var(--pa-shadow); background: #fff; color: var(--fac-black); padding: .5rem .75rem; gap: .35rem; min-width: 0; }
+.fac-restyled :is(.proof, .load, .trend) h2 { color: var(--fac-black); font-size: .95rem; font-weight: 700; }
+.fac-restyled .proof { grid-template-rows: auto 1fr; }
+.fac-restyled .proof-fig { grid-template-columns: 6rem minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); align-items: start; gap: .35rem .65rem; }
+.fac-restyled .proof-img { grid-column: 1; grid-row: 1 / span 2; }
+.fac-restyled .proof-ctl { grid-column: 2; grid-row: 1; flex-wrap: wrap; gap: .3rem; }
+.fac-restyled .proof-cap { grid-column: 2; grid-row: 2; overflow-wrap: anywhere; }
+.fac-restyled .proof-cap { font-size: .8rem; font-weight: 500; color: var(--fac-muted); }
+.fac-restyled .proof-cap a { display: block; color: var(--fac-black); font-weight: 700; text-decoration: none; }
+.fac-restyled .proof-cap a:hover { text-decoration: underline; }
+.fac-restyled .proof-img { border-radius: .5rem; }
+.fac-restyled .proof-ctl .btn-sm { width: 1.75rem; min-width: 1.75rem; height: 1.75rem; min-height: 1.75rem; padding: 0; }
+.fac-restyled .proof-ctl .btn-sm .icon { width: 1rem; height: 1rem; }
+.fac-restyled .proof-n { font-size: .72rem; white-space: nowrap; }
+.fac-restyled .load-legend { color: var(--fac-muted); }
+.fac-restyled .static-alt > summary { color: var(--fac-muted); background: transparent; border: 0; padding-inline: .1rem; font-size: .8rem; font-weight: 600; }
+.fac-restyled .overlay-note { color: var(--fac-muted); font-size: .7rem; line-height: 1.45; }
+
+@media (min-width: 1200px) and (min-height: 900px) {
+  .fac-restyled:not(.tv) .lane-view { height: clamp(24.5rem, calc(100vh - 43.5rem), 43.5rem); }
+  .fac-restyled:not(.tv) .dash-bottom { height: 9.5rem; }
+  .fac-restyled:not(.tv) .proof-img { max-height: 6.5rem; }
+  .fac-restyled:not(.tv) .load-svg { max-height: 5rem; }
+}
+@media (max-width: 1499px) {
+  .fac-restyled .kpis { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .fac-restyled .kpi { min-height: 5.7rem; }
+  .fac-restyled .kpi .k-c { font-size: .7rem; }
+}
+@media (max-width: 767px) {
+  .fac-restyled { padding: .8rem .75rem 1.5rem; gap: .75rem; }
+  .fac-restyled .dash-head h1 { font-size: 1.4rem; }
+  .fac-restyled .proto-tag { display: inline-block; margin-top: .25rem; }
+  .fac-restyled .dash-tools { gap: .4rem; }
+  .fac-restyled .dash-tools .btn-sm { padding-inline: .65rem; }
+  .fac-restyled .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .55rem; }
+  .fac-restyled .kpi { min-height: 6rem; padding: .7rem .75rem; }
+  .fac-restyled .kpi .k-n { font-size: 1.8rem; }
+  .fac-restyled .dash-filters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem; padding: .7rem; }
+  .fac-restyled .dash-filters .field { min-width: 0; }
+  .fac-restyled .dash-filters select { width: 100%; }
+  .fac-restyled .lanes { display: none; }
+  .fac-restyled .combined { display: block; }
+  .fac-restyled .combined h2 { color: var(--fac-black); font-size: 1rem; }
+  .fac-restyled .frow { height: 9rem; }
+  .fac-restyled .row-link { grid-template-columns: 3rem minmax(0, 1fr); padding: .65rem; }
+  .fac-restyled .frow .thumb { width: 3rem; }
+  .fac-restyled .frow .name { font-size: .88rem; }
+  .fac-restyled .ticker { font-size: .8rem; }
+  .fac-restyled .live-badge { max-width: 6rem; font-size: .68rem; padding-inline: .5rem; }
+  .fac-restyled .dash-bottom { grid-template-columns: 1fr; }
+  .fac-restyled .proof-fig { grid-template-columns: 6rem minmax(0, 1fr); }
+  .fac-restyled .load-legend { gap: .5rem; }
+}
+
+/* Explicit TV grid: the lanes take the remaining height, so footer cards never push off screen. */
+.fac-restyled.tv { height: calc(100dvh - 1.6rem); padding: .8rem 1.2rem .65rem; gap: .7rem; grid-template-rows: auto auto minmax(0, 1fr) auto auto; }
+.fac-restyled.tv:has(.dash-banner:not(:empty)) { grid-template-rows: auto auto auto minmax(0, 1fr) auto auto; }
+.fac-restyled.tv .dash-head h1 { font-size: 2rem; }
+.fac-restyled.tv .dash-filters { display: none; }
+.fac-restyled.tv .kpis { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+.fac-restyled.tv .kpi { min-height: 6.2rem; padding: .65rem .9rem; }
+.fac-restyled.tv .kpi .k-n { font-size: 2.6rem; }
+.fac-restyled.tv .kpi .k-l { font-size: 1rem; }
+.fac-restyled.tv .kpi .k-c { display: none; }
+.fac-restyled.tv .k-mark { top: .7rem; right: .65rem; }
+.fac-restyled.tv .lane .lane-title h2 { font-size: 1.4rem; }
+.fac-restyled.tv .lane-count { font-size: .9rem; }
+.fac-restyled.tv .ring { width: 3.1rem; height: 3.1rem; }
+.fac-restyled.tv .lane-view { height: auto; }
+.fac-restyled.tv .frow { height: 9.6rem; }
+.fac-restyled.tv .row-link { grid-template-columns: 4.2rem minmax(0, 1fr); gap: .3rem .9rem; padding: .8rem; }
+.fac-restyled.tv .frow .thumb { width: 4.2rem; }
+.fac-restyled.tv .frow .name { font-size: 1.15rem; }
+.fac-restyled.tv .frow .meta { font-size: .88rem; }
+.fac-restyled.tv :is(.pill, .due, .prog .qty, .hold-reason) { font-size: .85rem; }
+.fac-restyled.tv .ticker, .fac-restyled.tv .tick-link { height: 3.5rem; }
+.fac-restyled.tv .tick-link { font-size: .95rem; }
+.fac-restyled.tv .dash-bottom { height: 9rem; }
+.fac-restyled.tv :is(.proof, .load) { padding: .5rem .65rem; gap: .3rem; }
+.fac-restyled.tv :is(.proof, .load) h2 { font-size: 1rem; }
+.fac-restyled.tv .proof-fig { grid-template-columns: 8rem minmax(0, 1fr); }
+.fac-restyled.tv .proof-cap { font-size: .88rem; }
+.fac-restyled.tv .proof-img { max-height: 5.1rem; }
+.fac-restyled.tv .load-svg { max-height: 5rem; }
+@media (max-height: 820px) and (min-width: 768px) {
+  .fac-restyled.tv { padding: .5rem .9rem; gap: .5rem; }
+  .fac-restyled.tv .dash-head h1 { font-size: 1.5rem; }
+  .fac-restyled.tv .kpi { min-height: 4.8rem; padding: .5rem .65rem; }
+  .fac-restyled.tv .kpi .k-n { font-size: 1.9rem; }
+  .fac-restyled.tv .kpi .k-l { font-size: .82rem; }
+  .fac-restyled.tv .k-mark { display: none; }
+  .fac-restyled.tv .lane .lane-title h2 { font-size: 1.1rem; }
+  .fac-restyled.tv .lane-count { font-size: .78rem; }
+  .fac-restyled.tv .lane > header { padding-bottom: .4rem; }
+  .fac-restyled.tv .frow { height: 8.2rem; }
+  .fac-restyled.tv .row-link { grid-template-columns: 3.1rem minmax(0, 1fr); gap: .25rem .6rem; padding: .65rem; }
+  .fac-restyled.tv .frow .thumb { width: 3.1rem; }
+  .fac-restyled.tv .frow .name { font-size: .96rem; }
+  .fac-restyled.tv .frow .meta { font-size: .75rem; }
+  .fac-restyled.tv :is(.pill, .due, .prog .qty, .hold-reason) { font-size: .72rem; }
+  .fac-restyled.tv .dash-bottom { height: 8rem; }
+  .fac-restyled.tv :is(.proof, .load) { padding: .4rem .65rem; gap: .2rem; }
+  .fac-restyled.tv .proof-img { max-height: 3rem; }
+  .fac-restyled.tv .proof-cap { font-size: .75rem; }
+  .fac-restyled.tv .proof-fig { grid-template-columns: 5rem minmax(0, 1fr); }
+  .fac-restyled.tv .load-svg { max-height: 4rem; }
+}
+@media (max-width: 767px), (pointer: coarse) {
+  .fac-restyled .proof-ctl .btn-sm { width: 2.75rem; min-width: 2.75rem; height: 2.75rem; min-height: 2.75rem; }
+  .fac-restyled .proof-n { flex-basis: 100%; }
+}
+@media (max-width: 767px) {
+  /* Phone TV keeps the static combined list; the normal phone view never auto-scrolls. */
+  .fac-restyled.tv { height: auto; min-height: calc(100dvh - 1.6rem); overflow: visible; display: grid; grid-template-rows: none; }
+  .fac-restyled.tv .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fac-restyled.tv .combined { display: block; }
+  .fac-restyled.tv .dash-bottom { height: auto; }
+}
+
+/* U1-C57: three fixed-height cards; charts use their available area, not a small centred aspect-ratio box. */
+.fac-restyled :is(.load, .trend) { display: grid; grid-template-rows: auto minmax(0, 1fr); min-height: 0; }
+.fac-restyled :is(.load-chart, .trend-chart) { display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: .2rem; min-width: 0; min-height: 0; }
+.fac-restyled .load-chart .load-svg, .fac-restyled .trend-chart .trend-svg { width: 100%; height: 100%; max-height: none; min-width: 0; min-height: 0; display: block; }
+.fac-restyled .weekly-chart .lb-t { font-size: 10px; }
+.fac-restyled .weekly-chart .lb-total { font-size: 12px; }
+.fac-restyled .weekly-chart .lb-wk { font-size: 11px; }
+.fac-restyled :is(.load, .trend) .load-legend { font-size: .66rem; gap: .5rem; line-height: 1.2; }
+.fac-restyled.tv .trend { padding: .5rem .65rem; gap: .3rem; overflow: hidden; }
+.fac-restyled.tv .trend h2 { font-size: 1rem; }
+.fac-restyled.tv .trend .load-legend { display: none; }
+@media (max-height: 820px) and (min-width: 768px) {
+  .fac-restyled.tv .trend { padding: .4rem .65rem; gap: .2rem; }
+}
+@media (max-width: 1199px) {
+  .fac-restyled:not(.tv) .dash-bottom { grid-template-columns: 1fr; height: auto; }
+  .fac-restyled:not(.tv) :is(.load, .trend) { height: 7.5rem; }
+}
+@media (max-width: 767px) {
+  .fac-restyled.tv :is(.load, .trend) { height: 7.5rem; }
+  .fac-restyled .weekly-chart .lb-wk { font-size: 10px; }
+}
+
+/* U1-C58: use the existing proof card's full image height without cropping evidence or enlarging the row. */
+@media (min-width: 768px) {
+  .fac-restyled .proof { min-height: 0; }
+  .fac-restyled .proof .proof-fig { grid-template-columns: clamp(8rem, 40%, 11.5rem) minmax(0, 1fr); height: 100%; min-height: 0; }
+  .fac-restyled .proof .proof-img { width: 100%; height: 100%; min-height: 0; max-height: none; aspect-ratio: auto; object-fit: contain; }
+}
+@media (max-height: 820px) and (min-width: 768px) {
+  .fac-restyled.tv .proof .proof-fig { grid-template-columns: clamp(7rem, 32%, 10rem) minmax(0, 1fr); }
+}

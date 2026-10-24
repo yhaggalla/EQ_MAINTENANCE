@@ -13,19 +13,19 @@ window.EQ = window.EQ || {};
     return h('span', { class: 'tag ' + (j.workStatus === 'completed' ? 'green' : j.workStatus === 'current' ? 'gold' : '') }, STAT[j.workStatus] + (j.reopenCount ? ' (reopened)' : ''));
   }
 
-  function actions(j, ctx) {
+  function actions(j, ctx, compact = false) {
     const acts = [];
     const w = EQ.perm.write(), a = EQ.perm.admin();
     const eq = EQ.eq(j.equipmentId);
     const live = !j.isCancelled && j.workStatus !== 'completed';
     if (live && w) {
-      acts.push(h('button', { type: 'button', class: 'btn-sm', onClick: () => EQ.dlg.jobForm({ job: j }) }, icon('edit'), 'Edit'));
+      acts.push(h('button', { type: 'button', class: 'btn-sm' + (compact ? ' job-act-icon' : ''), title: compact ? 'Edit job' : null, onClick: () => EQ.dlg.jobForm({ job: j }) }, icon('edit'), h('span', { class: compact ? 'sr-only' : null }, 'Edit')));
       acts.push(h('button', { type: 'button', class: 'btn-sm primary', 'data-fk': 'job-progress-' + j.id, onClick: () => EQ.dlg.jobProgress(j) }, icon('plus'), 'Update progress'));
       if (j.workStatus === 'pending') acts.push(h('button', { type: 'button', class: 'btn-sm', onClick: () => { const r = EQ.api.moveJob(j.id, 'current'); EQ.toast(r.ok ? 'Started ' + j.number : r.message, 'Prototype: in memory only.'); } }, 'Start'));
-      else acts.push(h('button', { type: 'button', class: 'btn-sm', onClick: () => { const r = EQ.api.moveJob(j.id, 'pending'); EQ.toast(r.ok ? j.number + ' returned to Pending' : r.message, 'Prototype: in memory only.'); } }, 'Return to Pending'));
-      acts.push(h('button', { type: 'button', class: 'btn-sm', onClick: () => EQ.dlg.complete(j) }, icon('check-circle'), 'Complete...'));
+      else acts.push(h('button', { type: 'button', class: 'btn-sm', title: compact ? 'Return to Pending' : null, 'aria-label': compact ? 'Return to Pending' : null, onClick: () => { const r = EQ.api.moveJob(j.id, 'pending'); EQ.toast(r.ok ? j.number + ' returned to Pending' : r.message, 'Prototype: in memory only.'); } }, compact ? 'Pending' : 'Return to Pending'));
+      acts.push(h('button', { type: 'button', class: 'btn-sm', title: compact ? 'Complete job' : null, onClick: () => EQ.dlg.complete(j) }, compact ? null : icon('check-circle'), compact ? 'Complete' : 'Complete...'));
       const c = EQ.perm.cancel(j);
-      acts.push(h('button', { type: 'button', class: 'btn-sm danger-btn', title: c.ok ? 'Cancel job' : 'Cancel unavailable: ' + c.why, 'aria-disabled': c.ok ? null : 'true', 'aria-describedby': c.ok ? null : 'why-' + j.id, onClick: () => { if (c.ok) EQ.dlg.cancel(j); } }, icon('cancel'), 'Cancel...'));
+      acts.push(h('button', { type: 'button', class: 'btn-sm danger-btn' + (compact ? ' job-act-icon' : ''), title: c.ok ? 'Cancel job' : 'Cancel unavailable: ' + c.why, 'aria-disabled': c.ok ? null : 'true', 'aria-describedby': c.ok ? null : 'why-' + j.id, onClick: () => { if (c.ok) EQ.dlg.cancel(j); } }, icon('cancel'), h('span', { class: compact ? 'sr-only' : null }, 'Cancel...')));
       if (!c.ok) ctx.why = c.why;
     }
     if (j.workStatus === 'completed' && !j.isCancelled && a) acts.push(h('button', { type: 'button', class: 'btn-sm', onClick: () => EQ.dlg.reason({ title: 'Reopen ' + j.number, message: 'Reopening makes the job Current again. Committed installations stay committed and are never undone by reopening.', confirm: 'Reopen job', onSubmit: (r) => EQ.api.reopenJob(j.id, r) }) }, 'Reopen (Admin)...'));
@@ -33,17 +33,19 @@ window.EQ = window.EQ || {};
     return acts;
   }
 
-  /** U1-C26: the shared "Show on dashboard / 3D" switch (one setting everyone sees). Writers get a real switch; read-only roles see the
-   *  state as text. Every change goes through the simulated server command (eq.work / fac.work) and is audited. */
+  /** Shared visibility (U1-C26/C41). Compact card control; explanations appear on hover/focus.
+   *  Writers use the same audited server command; read-only roles see the state as text. */
   EQ.displaySwitch = function displaySwitch(o) {
     const id = 'vis-' + o.id;
-    if (!o.canSet) return h('p', { class: 'small', 'data-fk': 'vis-state-' + o.id }, o.label + ': ', h('strong', null, o.shown ? 'Shown' : 'Hidden'), o.shown ? '' : ' (' + o.hiddenNote + ')');
-    return h('label', { class: 'check vis-switch', for: id, style: 'min-height:2.2rem' },
-      h('input', { type: 'checkbox', role: 'switch', id, 'data-fk': id, checked: o.shown ? true : null, 'aria-describedby': id + '-note',
+    const note = 'Show ' + o.name + ' on ' + o.where + ' for everyone. Turn off to hide it; ' + o.hiddenNote + '. Shared setting; changes are audited.' + (o.canSet ? '' : ' Read-only for your role.');
+    const help = h('span', { class: 'vis-help', role: 'tooltip', id: id + '-note' }, note);
+    if (!o.canSet) return h('span', { class: 'vis-switch vis-state', tabindex: '0', 'data-fk': 'vis-state-' + o.id, 'aria-describedby': id + '-note' }, 'Show: ', h('strong', null, o.shown ? 'On' : 'Off'), help);
+    return h('label', { class: 'check vis-switch', for: id },
+      h('input', { type: 'checkbox', role: 'switch', id, 'data-fk': id, checked: o.shown ? true : null, 'aria-label': 'Show ' + o.name, 'aria-describedby': id + '-note',
         onChange: (e) => { const r = o.onChange(e.target.checked); if (!r.ok) { e.target.checked = o.shown; EQ.toast(r.message); } else EQ.toast((e.target.checked ? 'Shown on ' : 'Hidden from ') + o.where + ': ' + o.name, 'Shared setting; audited. Prototype: in memory only.'); } }),
-      h('span', null, o.label, h('span', { class: 'small muted', id: id + '-note', style: 'display:block' }, o.shown ? 'Everyone sees it on ' + o.where + '.' : 'Hidden from ' + o.where + ' for everyone; ' + o.hiddenNote + '.')));
+      h('span', null, 'Show'), help);
   };
-  const jobSwitch = (j) => EQ.displaySwitch({ id: j.id, shown: EQ.shownOnDashboard(j), canSet: EQ.perm.write(), label: 'Show on dashboard / 3D', where: 'the crane view (flat and 3D), its labels and the fleet cards', name: j.number, hiddenNote: 'it stays in Jobs, history and exports',
+  const jobSwitch = (j) => EQ.displaySwitch({ id: j.id, shown: EQ.shownOnDashboard(j), canSet: EQ.perm.write(), where: 'the crane view (flat and 3D), its labels and the fleet cards', name: j.number, hiddenNote: 'it stays in Jobs, history and exports',
     onChange: (show) => EQ.api.setJobVisibility(j.id, { show, version: j.version }) });
   const hiddenTag = (j) => (EQ.shownOnDashboard(j) ? null : h('span', { class: 'tag dashed', 'data-fk': 'hidden-tag', style: 'margin-left:.25rem', title: 'Not shown on the crane view (flat and 3D) or the fleet cards (U1-C26)' }, 'Hidden from dashboard / 3D'));
 
@@ -58,9 +60,10 @@ window.EQ = window.EQ || {};
   function card(j) {
     const eq = EQ.eq(j.equipmentId);
     const ctx = {};
-    const acts = actions(j, ctx);
+    const acts = actions(j, ctx, true);
     return h('article', { class: 'job' + (j.isCancelled ? ' cancelled' : ''), 'aria-label': j.number + ' ' + j.title },
-      h('div', { class: 'job-top' }, h('h3', null, h('a', { class: 'job-name', href: '#/eq/jobs/special/' + j.id }, j.title)), h('div', { class: 'job-marks' }, h('span', { class: 'tag' }, KIND[j.kind]), ' ', statusTag(j), j.priority === 'high' ? h('span', { class: 'tag gold', style: 'margin-left:.25rem' }, 'High priority') : null, hiddenTag(j))),
+      h('div', { class: 'job-top' }, h('h3', null, h('a', { class: 'job-name', href: '#/eq/jobs/special/' + j.id }, j.title)), h('div', { class: 'job-marks' }, h('span', { class: 'tag' }, KIND[j.kind]), statusTag(j), j.priority === 'high' ? h('span', { class: 'tag gold' }, 'High priority') : null, jobSwitch(j))),
+      hiddenTag(j),
       h('div', { class: 'meta' }, h('span', null, EQ.isFleetJob(j) ? EQ.jobEquipmentLabel(j) : h('a', { href: '#/eq/equipment/' + eq.id }, eq.code)), h('span', null, EQ.targetLabel(j))),
       h('div', { class: 'meta' },
         j.workStatus === 'completed' ? h('span', null, 'Completed ' + EQ.fmtDate(j.completedOn)) : h('span', null, j.plannedOn ? 'Planned ' + EQ.fmtDate(j.plannedOn) : 'No planned date'),
@@ -92,7 +95,7 @@ window.EQ = window.EQ || {};
 
   /** Special jobs board (SOW V2 s4.3): used inside the EQ Jobs tab; the page header, the shared filters (equipment, type, date range,
    *  search) and the data-state banners are provided by the EQ Jobs wrapper (views-eqjobs.js). */
-  EQ.specialBoard = function specialBoard(q) {
+  EQ.specialBoard = function specialBoard(q, toolbarActions) {
     const S = EQ.state;
     const page = h('div', { class: 'special-board stack' });
     const setQ = (patch) => EQ.nav('/eq/jobs/special', { ...q, ...patch });
@@ -102,8 +105,8 @@ window.EQ = window.EQ || {};
       sel('flt-kind', 'Kind', 'kind', Object.entries(KIND), 'All kinds'),
       sel('flt-main', 'Main mechanism', 'main', mainsUsed.map((m) => [m.code, m.code + ' ' + m.name]), 'All mechanisms'),
       sel('flt-df', 'Apply date range to', 'dateField', [['planned', 'Planned date'], ['completed', 'Completion date']], 'Not applied to special jobs'),
-      h('label', { class: 'check', style: 'min-height:2.5rem' }, h('input', { type: 'checkbox', checked: q.includeCancelled === '1' ? true : null, 'data-fk': 'flt-canc', onChange: (e) => setQ({ includeCancelled: e.target.checked ? '1' : '' }) }), 'Include cancelled'),
-      h('div', { class: 'field' }, h('span', { class: 'label', id: 'jl' }, 'Layout'), h('div', { class: 'seg', role: 'group', 'aria-labelledby': 'jl' }, ['board', 'tabs'].map((v) => h('button', { type: 'button', 'aria-pressed': (q.layout || 'board') === v ? 'true' : 'false', 'data-fk': 'jl-' + v, onClick: () => setQ({ layout: v }) }, v === 'board' ? 'Board' : 'Tabs'))))));
+      h('label', { class: 'check', style: 'min-height:2.5rem', title: 'Cancelled jobs are hidden unless this is checked.' }, h('input', { type: 'checkbox', checked: q.includeCancelled === '1' ? true : null, 'data-fk': 'flt-canc', onChange: (e) => setQ({ includeCancelled: e.target.checked ? '1' : '' }) }), 'Include cancelled'),
+      h('div', { class: 'field' }, h('span', { class: 'label', id: 'jl' }, 'Layout'), h('div', { class: 'seg', role: 'group', 'aria-labelledby': 'jl' }, ['board', 'tabs'].map((v) => h('button', { type: 'button', 'aria-pressed': (q.layout || 'board') === v ? 'true' : 'false', 'data-fk': 'jl-' + v, onClick: () => setQ({ layout: v }) }, v === 'board' ? 'Board' : 'Tabs')))), toolbarActions));
 
     const list = filtered(q);
     if (!Array.isArray(list)) { EQ.access.refreshSession('403 ' + list.code); setTimeout(() => EQ.rerender(), 0); return EQ.views.forbidden('eq.jobs.view', '/eq/jobs/special', list.code); }
@@ -120,7 +123,6 @@ window.EQ = window.EQ || {};
     } else page.appendChild(h('div', { class: 'board' }, cols.map(column)));
     const canc = list.filter((j) => j.isCancelled);
     if (q.includeCancelled === '1') page.appendChild(h('section', { class: 'panel col', style: 'margin-top:.7rem', 'aria-labelledby': 'colh-c' }, h('header', null, h('h2', { id: 'colh-c' }, 'Cancelled'), h('span', { class: 'tag' }, String(canc.length))), h('div', { class: 'col-body' }, canc.length ? canc.map(card) : h('p', { class: 'muted small', style: 'margin:0' }, 'No cancelled jobs match.'))));
-    else page.appendChild(h('p', { class: 'small muted' }, 'Cancelled jobs are hidden from the three columns. Tick Include cancelled to see them.'));
     return page;
   };
 
@@ -133,7 +135,7 @@ window.EQ = window.EQ || {};
     const eq = EQ.eq(j.equipmentId);
     const ctx = {};
     page.appendChild(h('nav', { 'aria-label': 'Breadcrumb' }, h('ol', { class: 'breadcrumb', style: 'margin-bottom:.6rem' }, h('li', null, h('a', { href: '#/eq/jobs/special' }, 'Jobs')), h('li', null, h('span', { 'aria-current': 'page' }, j.number)))));
-    page.appendChild(h('header', { class: 'panel eq-head' }, h('div', null, h('p', { class: 'eyebrow' }, KIND[j.kind] + ' job'), h('h1', null, j.number, statusTag(j), hiddenTag(j))), h('div', { class: 'facts' }, h('strong', null, j.title)), h('div', { class: 'actions' }, actions(j, ctx))));
+    page.appendChild(h('header', { class: 'panel eq-head' }, h('div', null, h('p', { class: 'eyebrow' }, KIND[j.kind] + ' job'), h('h1', null, j.number, statusTag(j), hiddenTag(j))), h('div', { class: 'facts' }, h('strong', null, j.title)), h('div', { class: 'actions' }, jobSwitch(j), actions(j, ctx))));
     if (ctx.why) page.appendChild(h('p', { class: 'small muted' }, 'Cancel unavailable: ' + ctx.why));
     page.appendChild(h('section', { class: 'panel panel-pad', 'aria-label': 'Job progress', style: 'margin-top:.7rem' }, progressSummary(j)));
     const kv = (rows) => h('dl', { class: 'kv' }, rows.filter(Boolean).map(([k, v]) => [h('dt', null, k), h('dd', null, v)]));
@@ -143,8 +145,7 @@ window.EQ = window.EQ || {};
         ['Planned', j.plannedOn ? EQ.fmtDate(j.plannedOn) : 'Not set'], ['Responsible', j.responsible || 'Not set'], ['Created', EQ.fmtInstant(j.createdUtc) + ' by ' + EQ.userName(j.createdBy)], ['Version', String(j.version)],
         j.workStatus === 'completed' ? ['Completed on', EQ.fmtDate(j.completedOn) + ' (business date)'] : null, j.completionNote ? ['Completion note', j.completionNote] : null, j.description ? ['Description', j.description] : null,
         j.isCancelled ? ['Cancelled', EQ.fmtInstant(j.cancelledUtc) + ' by ' + EQ.userName(j.cancelledBy) + ': ' + j.cancelReason] : null]),
-        h('div', { class: 'notice info' }, icon('info'), h('p', null, EQ.isFleetJob(j) ? 'Equipment statuses are independent of this shared job.' : eq.code + ' operational status is ' + EQ.STATUS[EQ.statusKey(eq.status)].label + '. This job does not change it.')),
-        jobSwitch(j)),
+        h('div', { class: 'notice info' }, icon('info'), h('p', null, EQ.isFleetJob(j) ? 'Equipment statuses are independent of this shared job.' : eq.code + ' operational status is ' + EQ.STATUS[EQ.statusKey(eq.status)].label + '. This job does not change it.'))),
       h('section', { class: 'panel panel-pad stack' }, h('h2', null, 'Progress and corrections'), h('ul', { class: 'tl' }, [...j.events].reverse().map((e) => h('li', { class: 'status' }, h('strong', null, e.kind === 'progressUpdated' ? 'Progress updated · ' + e.percent + ' %' : e.kind), h('span', { class: 'when' }, EQ.fmtInstant(e.at) + ' by ' + EQ.userName(e.by) + (e.workDate ? ' · Work date ' + EQ.fmtDate(e.workDate) : '')), e.note ? h('span', null, e.note) : null))),
         j.corrections.length ? h('div', { class: 'stack' }, h('h3', null, 'Admin corrections (prior values retained)'), j.corrections.map((c) => h('div', { class: 'nonwork' }, h('strong', null, 'Correction ' + c.n + ': ' + c.reason), c.items.map((it) => h('div', null, it.field + ': ', h('s', null, it.before), ' → ', h('strong', null, it.after))), h('span', { class: 'small muted' }, EQ.userName(c.by) + ', ' + EQ.fmtInstant(c.at))))) : null)));
     page.appendChild(h('section', { class: 'panel panel-pad stack', style: 'margin-top:.7rem' }, h('h2', null, 'Replacement lines'),

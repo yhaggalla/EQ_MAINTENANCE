@@ -251,6 +251,7 @@ try {
   await step('C20', 'Status rules (P02B adapted: change count is relative, two accepted changes): reason required for Breakdown/Maintenance (and for every correction of a ZMMS-mapped equipment, even Ready), same status refused and Ready needs no reason on unmapped equipment, foreign job refused, job completion never sets Ready', async () => {
     await go('eqTeam', '/fleet');
     const r = await ev(`(()=>{const S=(id,p)=>EQ.api.setStatus(id,p); const N0=EQ.history('${Q2}',{level:'equipment'}).statusChanges.length;
+      EQ.state.D.equipment.find(e=>e.id==='eq-rtg-demo-07').lifecycle='retired'; // C54: retirement is an isolated scenario; default fleet has 46 active RTGs.
       return { noReason:S('${Q2}',{status:'maintenance',reason:''}).fields.reason, same:S('eq-rtg-demo-04',{status:'readyForOps'}).fields.status, foreign:S('${Q2}',{status:'maintenance',reason:'r',relatedJobId:'job-104'}).fields.relatedJobId,
         ok:S('${Q2}',{status:'maintenance',reason:'Brake work',relatedJobId:'job-206'}).ok, readyNoReasonMapped:S('${Q2}',{status:'readyForOps'}).ok, ready:S('${Q2}',{status:'readyForOps',reason:'Brake work finished'}).ok, unk:S('eq-rtg-demo-05',{status:'readyForOps'}).ok,
         changes:EQ.history('${Q2}',{level:'equipment'}).statusChanges.length - N0, retired:EQ.api.setStatus('eq-rtg-demo-07',{status:'breakdown',reason:'x'}).code }; })()`);

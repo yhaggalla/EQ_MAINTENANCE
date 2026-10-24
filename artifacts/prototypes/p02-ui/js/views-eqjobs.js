@@ -61,9 +61,8 @@ window.EQ = window.EQ || {};
     const page = h('div', { class: 'page eqjobs-page' });
     const setQ = (patch, p2) => EQ.nav('/eq/jobs/' + (p2 || part), { ...q, ...patch });
     const keepShared = Object.fromEntries(SHARED.filter((k) => q[k]).map((k) => [k, q[k]]));
-    page.appendChild(h('div', { class: 'page-head' }, h('div', null, h('p', { class: 'eyebrow' }, 'EQ'), h('h1', null, 'Jobs'),
-      h('p', null, 'Special/Projects work entered by the EQ Team, the daily work read from ZMMS (CMMS.LK), the EQ status with its manual corrections, and the condition of major spare parts. Work history is kept here; the crane view shows only the current state.'))));
-    page.appendChild(h('nav', { class: 'subtabs', 'aria-label': 'EQ Jobs parts' }, PARTS.map(([k, label]) => h('a', { href: '#/eq/jobs/' + k + (Object.keys(keepShared).length ? '?' + new URLSearchParams(keepShared).toString() : ''), 'aria-current': k === part ? 'page' : null, 'data-fk': 'jp-' + k }, label))));
+    page.appendChild(h('h1', { class: 'sr-only' }, 'EQ Jobs'));
+    page.appendChild(h('nav', { class: 'subtabs', 'aria-label': 'EQ Jobs parts' }, PARTS.map(([k, label]) => h('a', { href: '#/eq/jobs/' + k + (Object.keys(keepShared).length ? '?' + new URLSearchParams(keepShared).toString() : ''), 'aria-current': k === part ? 'page' : null, 'data-fk': 'jp-' + k, title: k === 'special' ? 'Major or non-routine work entered by hand for equipment, a mechanism or a part. Daily work from ZMMS is in Daily work (CMMS).' : null }, label))));
 
     if (S.data === 'loading') { page.appendChild(h('div', { 'aria-busy': 'true', role: 'status', class: 'board' }, [1, 2, 3].map(() => h('div', { class: 'skeleton', style: 'height:16rem' })))); return page; }
     if (S.data === 'error') { page.appendChild(h('div', { class: 'notice error', role: 'alert' }, icon('wifi-off'), h('div', null, h('p', null, h('strong', null, 'Jobs could not be loaded. '), 'Nothing is shown as completed or pending without data.'), h('div', { class: 'actions' }, h('button', { type: 'button', class: 'btn-sm', onClick: () => EQ.refresh(true) }, 'Retry'))))); return page; }
@@ -91,11 +90,9 @@ window.EQ = window.EQ || {};
 
   // ---------------------------------------------------------------- tab 1: Special/Projects (manual, SOW V2 s4.3)
   function special(page, q, setQ) {
-    const head = h('div', { class: 'row between', style: 'margin-bottom:.5rem' }, h('h2', null, 'Special jobs'), h('div', { class: 'row' },
+    const toolbarActions = h('div', { class: 'jobs-toolbar-actions' },
       EQ.access.has('export.excel') ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'export-special', onClick: () => { const r = EQ.eqExport('special', q); if (r.ok) { EQ.downloadCsv('eq-special-jobs.csv', r.columns, r.rows); EQ.toast('Exported ' + r.rows.length + ' special job(s)', 'Prototype stand-in: CSV, not the server-generated .xlsx.'); } } }, icon('download'), 'Export') : null,
-      EQ.perm.write() ? h('button', { type: 'button', class: 'primary', 'data-fk': 'add-job', onClick: () => EQ.dlg.jobForm({ equipmentId: q.equipment || '', equipmentTypeCode: q.type || '' }) }, icon('plus'), 'Add special job') : h('span', { class: 'tag gold' }, 'Read-only: you cannot create or change special jobs')));
-    page.appendChild(head);
-    page.appendChild(h('p', { class: 'small muted', style: 'margin:0 0 .5rem' }, 'Major or non-routine work entered by hand, bound to one equipment and to the whole equipment, a main mechanism, a submechanism or a part. The daily work read from ZMMS is in the Daily work (CMMS) tab.'));
+      EQ.perm.write() ? h('button', { type: 'button', class: 'primary', 'data-fk': 'add-job', onClick: () => EQ.dlg.jobForm({ equipmentId: q.equipment || '', equipmentTypeCode: q.type || '' }) }, icon('plus'), 'Add special job') : h('span', { class: 'tag gold' }, 'Read-only'));
     // scoped history (Open in Jobs from the crane view)
     if (q.equipment && EQ.eq(q.equipment)) {
       const eq = EQ.eq(q.equipment);
@@ -113,7 +110,7 @@ window.EQ = window.EQ || {};
         }
       }
     }
-    page.appendChild(EQ.specialBoard(q));
+    page.appendChild(EQ.specialBoard(q, toolbarActions));
   }
 
   // ---------------------------------------------------------------- tab 2: Daily work (CMMS), the read-only ZMMS daily jobs (SOW V2 s4.4)

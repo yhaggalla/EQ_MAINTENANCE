@@ -3,6 +3,9 @@ tmp/
 ~$*
 *.tmp
 
+# Automatic attachment cache; reviewed references are archived under docs/evidence/.
+.codex-remote-attachments/
+
 # Build outputs and dependencies
 bin/
 obj/

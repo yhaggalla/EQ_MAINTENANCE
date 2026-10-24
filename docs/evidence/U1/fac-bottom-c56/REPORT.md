@@ -1,0 +1,9 @@
+# U1-C56 - compact FAC bottom cards - 24 October 2026
+
+Removed the screenshot-marked due-load footnote. Latest proof now has photo left, controls/count above caption at right. Desktop controls are 28 px; phone/coarse-pointer controls are 44 px. At 1920x1080, normal feed viewport grows from 336 to 392 px and bottom row shrinks from 208 to 152 px. TV bottom rows are 144 px (1920) and 128 px (1366); grid feeds take remaining height. The due-load calculation, eight-week data, captions/links, image accessibility and carousel handlers retain their behavior.
+
+Runtime changes: `artifacts/prototypes/p02-ui/js/views-fac.js`, `artifacts/prototypes/p02-ui/css/fac-dashboard.css`. Existing pending changes preserved. Records: HANDOVER, DECISIONS D-200, UX section 50, IMPLEMENTATION_STATUS, exact run request.
+
+One-off browser review using existing `tools/p03/cdp.mjs`: **18/18 pass**, `checks.json`, no browser errors. Covered 1920x1080/1366x768 desktop, 375x812 phone, 812x375 landscape and both desktop TV sizes. Verified indicated placement, 28/44 px controls, footnote removal, eight chart weeks/all 114 jobs, no horizontal overflow or card clipping, desktop height transfer, Previous/Next/Pause/Resume, keyboard activation and all 12 photo captions. TV fits without page scrolling; normal narrow screens retain page scrolling. Reviewed desktop, 1366 TV and scrolled phone-proof screenshots (`dashboard-1920.png`, `tv-1366.png`, `proof-phone.png`); additional captures are in this folder. Syntax and `git diff --check` pass (existing LF/CRLF notices only).
+
+Direct Codex refinement with the previously loaded UI/UX skill; actual runtime model/effort not independently recorded. Local synthetic prototype only; no delegated phase/independent R verdict or production changes. Changes uncommitted. U1 remains open/unapproved; P04 Not started.

@@ -16,6 +16,8 @@ window.EQ = window.EQ || {};
   };
   const OTHER_EQ = { id: 'u-eq-b', name: 'Synthetic EQ Team user B' };
   EQ.USERS = USERS;
+  // U1-C54: user-confirmed fleet quantities, not a registration limit. Identifiers and business data remain synthetic.
+  EQ.FLEET_BASELINE = Object.freeze({ QC: 14, RTG: 46, ES: 7 });
   const FAC_OTHERS = [{ id: 'u-fac-b', name: 'Synthetic FAC user B' }, { id: 'u-fac-c', name: 'Synthetic FAC user C' }];
   EQ.userName = (id) => [...Object.values(USERS), OTHER_EQ, ...FAC_OTHERS].find((u) => u.id === id)?.name || (id === null || id === undefined ? 'System' : id);
 
@@ -140,12 +142,28 @@ window.EQ = window.EQ || {};
       ['r04', 'RTG-DEMO-04', 'RTG', 'Synthetic RTG 4', null, 'unassigned', 'active', 'readyForOps', 400, null, null, 400],
       ['r05', 'RTG-DEMO-05', 'RTG', 'Synthetic RTG 5', null, 'unassigned', 'active', null, 0, null, null, 600],
       ['r06', 'RTG-DEMO-06', 'RTG', 'Synthetic RTG 6', null, 'unassigned', 'active', 'maintenance', 18, 'Tyre change (synthetic)', null, 18],
-      ['r07', 'RTG-DEMO-07', 'RTG', 'Synthetic RTG 7 (retired)', null, 'unassigned', 'retired', 'readyForOps', 3000, null, null, 3000],
+      ['r07', 'RTG-DEMO-07', 'RTG', 'Synthetic RTG 7', null, 'unassigned', 'active', null, 0, null, null, 0],
       ['e01', 'ES-DEMO-01', 'ES', 'Synthetic ES 1', 'ES-MODEL-DEMO', 'verified', 'active', 'readyForOps', 70, null, 'active', 70],
       ['e02', 'ES-DEMO-02', 'ES', 'Synthetic ES 2', null, 'unassigned', 'active', 'readyForOps', 20, null, null, 20],
       ['e03', 'ES-DEMO-03', 'ES', 'Synthetic ES 3', null, 'unassigned', 'active', null, 0, null, null, 900],
       ['e04', 'ES-DEMO-04', 'ES', 'Synthetic ES 4', null, 'unassigned', 'active', 'breakdown', 30, 'Hydraulic leak found (synthetic)', null, 30],
     ];
+    // Fill missing members from the same register used by Fleet, Admin, Jobs, status and mapping selectors.
+    // Keep established IDs/positions/jobs. New members have no reported status, model, positions or invented history.
+    // RTG 07 is now active and Unreported; retirement remains an explicit Admin action/test scenario.
+    const typeOrder = Object.keys(EQ.FLEET_BASELINE);
+    const keys = { QC: 'q', RTG: 'r', ES: 'e' };
+    const names = { QC: 'quay crane', RTG: 'RTG', ES: 'ES' };
+    for (const [type, count] of Object.entries(EQ.FLEET_BASELINE)) {
+      for (let n = 1; n <= count; n++) {
+        const suffix = String(n).padStart(2, '0'), code = type + '-DEMO-' + suffix;
+        if (!E.some((row) => row[1] === code)) E.push([
+          keys[type] + suffix, code, type, 'Synthetic ' + names[type] + ' ' + n,
+          null, 'unassigned', 'active', null, 0, null, null, 0,
+        ]);
+      }
+    }
+    E.sort((a, b) => typeOrder.indexOf(a[2]) - typeOrder.indexOf(b[2]) || a[1].localeCompare(b[1]));
     E.forEach(([key, code, typeCode, name, modelCode, assoc, lifecycle, status, h, reason, pos, act]) => {
       const eq = {
         id: 'eq-' + code.toLowerCase(), key, code, typeCode, name, modelCode, assoc, lifecycle,
