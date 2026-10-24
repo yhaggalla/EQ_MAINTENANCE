@@ -1,0 +1,407 @@
+{
+  "checks": [
+    {
+      "name": "Filters default to one labelled icon with no filter-row space",
+      "pass": true
+    },
+    {
+      "name": "Toggle expands labelled filters and a 44px search input",
+      "pass": true
+    },
+    {
+      "name": "Wildcard input filters without case sensitivity and retains focus",
+      "pass": true,
+      "detail": {
+        "expected": [
+          "fj-33",
+          "fj-46"
+        ],
+        "actual": [
+          "fj-33",
+          "fj-46"
+        ],
+        "active": 2,
+        "query": "FiRe*PuMp",
+        "focused": "df-search"
+      }
+    },
+    {
+      "name": "Single-character wildcard combines with discipline and type",
+      "pass": true
+    },
+    {
+      "name": "On-time numerator/denominator, ticker and proof use searched population",
+      "pass": true,
+      "detail": {
+        "n": 0,
+        "ok": 0,
+        "expectedN": 0,
+        "expectedOk": 0,
+        "blocks": true
+      }
+    },
+    {
+      "name": "Nonempty searched completion cycles reconcile the on-time percentage",
+      "pass": true
+    },
+    {
+      "name": "Export uses the latest search after changing its value",
+      "pass": true,
+      "detail": {
+        "n": 8,
+        "expected": 8,
+        "all": true
+      }
+    },
+    {
+      "name": "Regex punctuation remains literal text",
+      "pass": true
+    },
+    {
+      "name": "No matches gives zero jobs and no on-time percentage",
+      "pass": true
+    },
+    {
+      "name": "Escape collapses filters and returns focus to the icon",
+      "pass": true
+    },
+    {
+      "name": "Clear filters restores all 114 jobs and clears search",
+      "pass": true
+    },
+    {
+      "name": "electrical real wheel scrolls only its column while paused/hovered",
+      "pass": true,
+      "detail": {
+        "before": {
+          "electrical": {
+            "offset": 28.46759999999999,
+            "T": 2016,
+            "rowH": 112,
+            "moving": true,
+            "rows": 18,
+            "page": 0,
+            "keys": [
+              "fj-12",
+              "fj-14",
+              "fj-7"
+            ],
+            "viewH": 336
+          },
+          "mechanical": {
+            "offset": 140.46760000000003,
+            "T": 6160,
+            "rowH": 112,
+            "moving": true,
+            "rows": 55,
+            "page": 0,
+            "keys": [
+              "fj-22",
+              "fj-33",
+              "fj-44"
+            ],
+            "viewH": 336
+          },
+          "civil": {
+            "offset": 1053.7351999999994,
+            "T": 4592,
+            "rowH": 112,
+            "moving": true,
+            "rows": 41,
+            "page": 0,
+            "keys": [
+              "fj-81",
+              "fj-80",
+              "fj-82"
+            ],
+            "viewH": 336
+          }
+        },
+        "after": {
+          "electrical": {
+            "offset": 208.4676,
+            "T": 2016,
+            "rowH": 112,
+            "moving": true,
+            "rows": 18,
+            "page": 0,
+            "keys": [
+              "fj-12",
+              "fj-14",
+              "fj-7"
+            ],
+            "viewH": 336
+          },
+          "mechanical": {
+            "offset": 140.46760000000003,
+            "T": 6160,
+            "rowH": 112,
+            "moving": true,
+            "rows": 55,
+            "page": 0,
+            "keys": [
+              "fj-22",
+              "fj-33",
+              "fj-44"
+            ],
+            "viewH": 336
+          },
+          "civil": {
+            "offset": 1053.7351999999994,
+            "T": 4592,
+            "rowH": 112,
+            "moving": true,
+            "rows": 41,
+            "page": 0,
+            "keys": [
+              "fj-81",
+              "fj-80",
+              "fj-82"
+            ],
+            "viewH": 336
+          }
+        }
+      }
+    },
+    {
+      "name": "electrical wheel scrolls upward",
+      "pass": true
+    },
+    {
+      "name": "mechanical real wheel scrolls only its column while paused/hovered",
+      "pass": true,
+      "detail": {
+        "before": {
+          "electrical": {
+            "offset": 128.4676,
+            "T": 2016,
+            "rowH": 112,
+            "moving": true,
+            "rows": 18,
+            "page": 0,
+            "keys": [
+              "fj-12",
+              "fj-14",
+              "fj-7"
+            ],
+            "viewH": 336
+          },
+          "mechanical": {
+            "offset": 140.46760000000003,
+            "T": 6160,
+            "rowH": 112,
+            "moving": true,
+            "rows": 55,
+            "page": 0,
+            "keys": [
+              "fj-22",
+              "fj-33",
+              "fj-44"
+            ],
+            "viewH": 336
+          },
+          "civil": {
+            "offset": 1053.7351999999994,
+            "T": 4592,
+            "rowH": 112,
+            "moving": true,
+            "rows": 41,
+            "page": 0,
+            "keys": [
+              "fj-81",
+              "fj-80",
+              "fj-82"
+            ],
+            "viewH": 336
+          }
+        },
+        "after": {
+          "electrical": {
+            "offset": 128.4676,
+            "T": 2016,
+            "rowH": 112,
+            "moving": true,
+            "rows": 18,
+            "page": 0,
+            "keys": [
+              "fj-12",
+              "fj-14",
+              "fj-7"
+            ],
+            "viewH": 336
+          },
+          "mechanical": {
+            "offset": 320.46760000000006,
+            "T": 6160,
+            "rowH": 112,
+            "moving": true,
+            "rows": 55,
+            "page": 0,
+            "keys": [
+              "fj-22",
+              "fj-33",
+              "fj-44"
+            ],
+            "viewH": 336
+          },
+          "civil": {
+            "offset": 1053.7351999999994,
+            "T": 4592,
+            "rowH": 112,
+            "moving": true,
+            "rows": 41,
+            "page": 0,
+            "keys": [
+              "fj-81",
+              "fj-80",
+              "fj-82"
+            ],
+            "viewH": 336
+          }
+        }
+      }
+    },
+    {
+      "name": "mechanical wheel scrolls upward",
+      "pass": true
+    },
+    {
+      "name": "civil real wheel scrolls only its column while paused/hovered",
+      "pass": true,
+      "detail": {
+        "before": {
+          "electrical": {
+            "offset": 128.4676,
+            "T": 2016,
+            "rowH": 112,
+            "moving": true,
+            "rows": 18,
+            "page": 0,
+            "keys": [
+              "fj-12",
+              "fj-14",
+              "fj-7"
+            ],
+            "viewH": 336
+          },
+          "mechanical": {
+            "offset": 240.46760000000006,
+            "T": 6160,
+            "rowH": 112,
+            "moving": true,
+            "rows": 55,
+            "page": 0,
+            "keys": [
+              "fj-22",
+              "fj-33",
+              "fj-44"
+            ],
+            "viewH": 336
+          },
+          "civil": {
+            "offset": 1053.7351999999994,
+            "T": 4592,
+            "rowH": 112,
+            "moving": true,
+            "rows": 41,
+            "page": 0,
+            "keys": [
+              "fj-81",
+              "fj-80",
+              "fj-82"
+            ],
+            "viewH": 336
+          }
+        },
+        "after": {
+          "electrical": {
+            "offset": 128.4676,
+            "T": 2016,
+            "rowH": 112,
+            "moving": true,
+            "rows": 18,
+            "page": 0,
+            "keys": [
+              "fj-12",
+              "fj-14",
+              "fj-7"
+            ],
+            "viewH": 336
+          },
+          "mechanical": {
+            "offset": 240.46760000000006,
+            "T": 6160,
+            "rowH": 112,
+            "moving": true,
+            "rows": 55,
+            "page": 0,
+            "keys": [
+              "fj-22",
+              "fj-33",
+              "fj-44"
+            ],
+            "viewH": 336
+          },
+          "civil": {
+            "offset": 1233.7351999999994,
+            "T": 4592,
+            "rowH": 112,
+            "moving": true,
+            "rows": 41,
+            "page": 0,
+            "keys": [
+              "fj-81",
+              "fj-80",
+              "fj-82"
+            ],
+            "viewH": 336
+          }
+        }
+      }
+    },
+    {
+      "name": "civil wheel scrolls upward",
+      "pass": true
+    },
+    {
+      "name": "Line/page wheel units are normalized and Ctrl-wheel is left to browser",
+      "pass": true
+    },
+    {
+      "name": "Wheel at the top can bubble to page scrolling",
+      "pass": true
+    },
+    {
+      "name": "Automatic motion resumes after pointer leaves",
+      "pass": true
+    },
+    {
+      "name": "Static mode retains native wheel scrolling",
+      "pass": true
+    },
+    {
+      "name": "OS reduced-motion mode supports manual page scrolling",
+      "pass": true
+    },
+    {
+      "name": "TV mode hides filters and keeps footer inside viewport",
+      "pass": true
+    },
+    {
+      "name": "Phone uses filtered combined list without horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "Landscape filters fit horizontally",
+      "pass": true
+    },
+    {
+      "name": "No browser errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "passed": 26,
+  "failed": 0,
+  "errors": []
+}

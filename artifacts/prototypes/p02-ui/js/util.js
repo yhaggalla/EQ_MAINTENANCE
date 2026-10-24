@@ -35,6 +35,7 @@ window.EQ = window.EQ || {};
     'wrench': '<path d="M14.5 6.5a4 4 0 0 0 5 5l-9.7 9.7a2.1 2.1 0 0 1-3-3z"/><path d="M14.5 6.5a4 4 0 0 1 5-3.2l-2.4 2.4.6 2 2 .6 2.4-2.4a4 4 0 0 1-3.2 5"/>',
     'dashed': '<circle cx="12" cy="12" r="9" stroke-dasharray="3 3"/><path d="M9.5 9.7a2.6 2.6 0 0 1 5 .8c0 1.7-2.5 2-2.5 3.5M12 17h.01"/>',
     'search': '<circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/>',
+    'filter': '<path d="M3 4h18l-7 8v7l-4 2v-9z"/>',
     'chevron-r': '<path d="m9 6 6 6-6 6"/>', 'chevron-d': '<path d="m6 9 6 6 6-6"/>',
     'lock': '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
     'info': '<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/>',

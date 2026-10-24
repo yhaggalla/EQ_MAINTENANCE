@@ -1,0 +1,12 @@
+/* U1-C44: compact dashboard filters. Applies with both the original and restyled FAC cards. */
+.fac-dash .dash-filters[hidden] { display: none !important; }
+.fac-dash .dash-filter-toggle { position: relative; min-width: 2.75rem; min-height: 2.75rem; justify-content: center; }
+.fac-dash .dash-filter-toggle[aria-expanded="true"] { background: var(--fac-yellow-soft, #fff5c6); border-color: currentColor; }
+.fac-dash .dash-filter-count { min-width: 1.1rem; height: 1.1rem; border-radius: 1rem; padding: 0 .2rem; background: var(--fac-black, #202724); color: #fff; font-size: .65rem; line-height: 1.1rem; }
+.fac-dash .dash-search { flex: 1 1 15rem; min-width: 12rem; }
+.fac-dash .dash-search input { width: 100%; min-height: 2.75rem; border: 1px solid var(--pa-line-strong, var(--border)); border-radius: .5rem; background: #fff; color: var(--fac-black, var(--ink)); font: inherit; padding: .4rem .65rem; }
+.fac-dash .dash-search input:focus-visible { outline: 2px solid var(--fac-black, var(--ink)); outline-offset: 3px; }
+.fac-dash .dash-search .small { display: block; font-size: .72rem; }
+@media (max-width: 767px) {
+  .fac-dash .dash-filters .dash-search { grid-column: 1 / -1; min-width: 0; flex-basis: 100%; }
+}

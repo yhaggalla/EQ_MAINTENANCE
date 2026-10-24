@@ -1,0 +1,112 @@
+{
+  "checks": [
+    {
+      "name": "Filters default to one labelled icon with no filter-row space",
+      "pass": true
+    },
+    {
+      "name": "Toggle expands labelled filters and a 44px search input",
+      "pass": true
+    },
+    {
+      "name": "Wildcard input filters without case sensitivity and retains focus",
+      "pass": true
+    },
+    {
+      "name": "Single-character wildcard combines with discipline and type",
+      "pass": true
+    },
+    {
+      "name": "On-time numerator/denominator, ticker and proof use searched population",
+      "pass": true
+    },
+    {
+      "name": "Nonempty searched completion cycles reconcile the on-time percentage",
+      "pass": true
+    },
+    {
+      "name": "Export uses the latest search after changing its value",
+      "pass": true
+    },
+    {
+      "name": "Regex punctuation remains literal text",
+      "pass": true
+    },
+    {
+      "name": "No matches gives zero jobs and no on-time percentage",
+      "pass": true
+    },
+    {
+      "name": "Escape collapses filters and returns focus to the icon",
+      "pass": true
+    },
+    {
+      "name": "Clear filters restores all 114 jobs and clears search",
+      "pass": true
+    },
+    {
+      "name": "electrical real wheel scrolls only its column while paused/hovered",
+      "pass": true
+    },
+    {
+      "name": "electrical wheel scrolls upward",
+      "pass": true
+    },
+    {
+      "name": "mechanical real wheel scrolls only its column while paused/hovered",
+      "pass": true
+    },
+    {
+      "name": "mechanical wheel scrolls upward",
+      "pass": true
+    },
+    {
+      "name": "civil real wheel scrolls only its column while paused/hovered",
+      "pass": true
+    },
+    {
+      "name": "civil wheel scrolls upward",
+      "pass": true
+    },
+    {
+      "name": "Line/page wheel units are normalized and Ctrl-wheel is left to browser",
+      "pass": true
+    },
+    {
+      "name": "Wheel at the top can bubble to page scrolling",
+      "pass": true
+    },
+    {
+      "name": "Automatic motion resumes after pointer leaves",
+      "pass": true
+    },
+    {
+      "name": "Static mode retains native wheel scrolling",
+      "pass": true
+    },
+    {
+      "name": "OS reduced-motion mode supports manual page scrolling",
+      "pass": true
+    },
+    {
+      "name": "TV mode hides filters and keeps footer inside viewport",
+      "pass": true
+    },
+    {
+      "name": "Phone uses filtered combined list without horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "Landscape filters fit horizontally",
+      "pass": true
+    },
+    {
+      "name": "No browser errors",
+      "pass": true
+    }
+  ],
+  "passed": 26,
+  "failed": 0,
+  "errors": [],
+  "context": "HEAD plus staged U1-C44 runtime files, served on localhost:5316; unchanged P03 module dependencies shared read-only"
+}

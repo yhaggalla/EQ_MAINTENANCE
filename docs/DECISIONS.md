@@ -603,3 +603,16 @@ Evidence: `docs/evidence/U1/spare-panel-c35/REPORT.md`; exact request: `docs/run
 Evidence: `docs/evidence/U1/panel-cleanup-c37/REPORT.md`; exact request: `docs/runs/Repair-U1-C37-20261024.md`. **U1 remains IN PROGRESS / CHANGES REQUESTED, NOT COMPLETE and NOT APPROVED.** P04 is Not started.
 
 Evidence: `docs/evidence/U1/compact-header-c36/REPORT.md`. **U1 remains incomplete and unapproved; P04 is Not started.**
+
+### 2026-10-24 U1 CHANGES REQUESTED (U1-C44: compact FAC filters and manual lane scrolling)
+
+| ID | User request |
+| --- | --- |
+| U1-C44 | Adjust FAC Dashboard under U1, then commit: collapse filters behind an icon by default, add wildcard search, and allow mouse-wheel scrolling in each discipline section while hovering. The two supplied annotated screenshots identify the filter bar and the Electrical, Mechanical and Civil lanes. |
+
+| Decision | Rule | Basis |
+| --- | --- | --- |
+| D-187 | Put a labelled filter icon in the dashboard toolbar. Its filter row is hidden by default and has no layout height; show an active-filter count, retain criteria when collapsed, and allow Escape to collapse with focus returned to the icon. Search is case-insensitive substring matching; `*` matches any text and `?` one character; other punctuation is literal. Search job description, number, PIC, discipline, type, mode, frequency and remarks. Apply search before dashboard KPI, on-time-cycle, lane, ticker, proof and due-load calculations and pass it to the existing permission-gated export. | U1-C44; search combines with the existing filters and stays in the route query. |
+| D-188 | Wheel scrolls each hovered discipline lane independently in either direction, including when Pause is selected. Keep automatic motion paused on hover/focus and resume it on leaving. Normalize pixel/line/page wheel units, leave Ctrl/Meta-wheel to the browser, and allow page scrolling at a lane boundary. Static view keeps native scrolling, reduced-motion view uses manual discrete pages, and phones retain the combined static list. | U1-C44; preserve TV, existing keyboard navigation, refresh and data/permission boundaries. |
+
+Evidence: `docs/evidence/U1/fac-controls-c44/REPORT.md`; exact request: `docs/runs/Repair-U1-C44-20261024.md`. **U1 remains IN PROGRESS / CHANGES REQUESTED, NOT COMPLETE and NOT APPROVED; P04 is Not started.**

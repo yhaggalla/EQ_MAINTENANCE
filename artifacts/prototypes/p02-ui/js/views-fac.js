@@ -11,6 +11,7 @@ window.EQ = window.EQ || {};
   const F = () => EQ.fac;
   const dash = (EQ.dash = { root: null, q: null, model: null, lastGood: null, paused: false, staticMode: false, raf: null, last: 0, hover: false, focus: false, lanes: {}, ticker: null, proof: { i: 0, clock: 0 }, signature: {}, mql: null, phone: false, reduced: false, speedScale: 1, stats: { frames: 0 } });
   const FLIP_S = 8, PROOF_S = 6;
+  dash.filtersOpen = false;
   const LANE_CODES = [['electrical', 'Electrical'], ['mechanical', 'Mechanical'], ['civil', 'Civil']];
   const STATUS_ICON = { overdue: 'octagon-x', onHold: 'hold', inProgress: 'clock', dueSoon: 'flag', pending: 'dashed', completed: 'check-circle', recent: 'check-circle', upToDate: 'check-circle' };
   const GROUP_CLASS = { overdue: 'g-overdue', onHold: 'g-hold', inProgress: 'g-prog', dueSoon: 'g-soon', pending: 'g-pend', recent: 'g-done', upToDate: 'g-done g-upto' };
@@ -62,6 +63,7 @@ window.EQ = window.EQ || {};
       const L = { code, name, el, view, track, list, dup, cnt, pageInd, ringHost, offset: 0, page: 0, flip: 0, rowH: 80, T: 0, moving: false, rows: new Map(), rowsB: new Map(), keys: [], rovingKey: null, hover: false, focus: false, sigOfRing: '' };
       view.addEventListener('pointerenter', () => { L.hover = true; });
       view.addEventListener('pointerleave', () => { L.hover = false; });
+      view.addEventListener('wheel', (e) => laneWheel(L, e), { passive: false });
       el.addEventListener('focusin', () => { L.focus = true; });
       el.addEventListener('focusout', (e) => { if (!el.contains(e.relatedTarget)) L.focus = false; });
       list.addEventListener('keydown', (e) => laneKey(L, e));
@@ -84,13 +86,31 @@ window.EQ = window.EQ || {};
     const staticAlt = h('details', { class: 'static-alt', id: 'dash-static' }, h('summary', { 'data-fk': 'static-summary' }, 'Static list of all dashboard jobs (no motion, for screen readers and keyboard use)'), h('div', { class: 'static-body' }));
     const head = h('header', { class: 'dash-head' }, h('div', { class: 'dash-title' }, h('h1', null, 'FAC Dashboard'), h('span', { class: 'tag gold proto-tag' }, 'Prototype, synthetic progress'), h('p', { class: 'updated', 'aria-live': 'off' })), h('div', { class: 'dash-tools' }));
     const skip = h('a', { class: 'skip-dash', href: '#dash-static', onClick: (e) => { e.preventDefault(); staticAlt.open = true; root.querySelector('[data-fk="static-summary"]').focus(); staticAlt.scrollIntoView({ block: 'center' }); } }, 'Skip the moving lists to the static list');
-    root.append(skip, head, h('div', { class: 'dash-banner' }), h('form', { class: 'dash-filters', role: 'search', 'aria-label': 'Dashboard filters', onSubmit: (e) => e.preventDefault() }), h('section', { class: 'kpis', 'aria-label': 'Key figures' }), lanesEl, combined, ticker, bottom, staticAlt, h('p', { class: 'overlay-note small muted' }));
+    root.append(skip, head, h('div', { class: 'dash-banner' }), h('form', { id: 'fac-dash-filters', hidden: true, class: 'dash-filters', role: 'search', 'aria-label': 'Dashboard filters', onSubmit: (e) => e.preventDefault(), onKeydown: (e) => { if (e.key === 'Escape') { e.preventDefault(); dash.filtersOpen = false; patchTools(dash.model, EQ.route.query); dash.refs.tools.querySelector('[data-fk="dash-filters-toggle"]').focus(); } } }), h('section', { class: 'kpis', 'aria-label': 'Key figures' }), lanesEl, combined, ticker, bottom, staticAlt, h('p', { class: 'overlay-note small muted' }));
     dash.refs = { head, tools: head.querySelector('.dash-tools'), updated: head.querySelector('.updated'), banner: root.querySelector('.dash-banner'), filters: root.querySelector('.dash-filters'), kpis: root.querySelector('.kpis'), combined, proof, load, staticAlt, note: root.querySelector('.overlay-note') };
     dash.root = root; dash.proof = { i: 0, clock: 0, key: null, paused: false, sig: '' };
     return root;
   }
 
   // ---------------------------------------------------------------- keyboard (roving tab stop: Tab leaves the lane)
+  function laneWheel(L, e) {
+    if (e.ctrlKey || e.metaKey || !e.deltaY || Math.abs(e.deltaX) > Math.abs(e.deltaY) || dash.phone || dash.staticMode) return;
+    const vh = L.view.clientHeight;
+    if (dash.reduced) {
+      const per = Math.max(1, Math.floor(vh / L.rowH));
+      const last = Math.max(0, Math.ceil(L.keys.length / per) - 1);
+      const page = Math.max(0, Math.min(last, L.page + Math.sign(e.deltaY)));
+      if (page === L.page) return;
+      L.page = page; L.flip = 0;
+    } else {
+      if (!L.moving) return;
+      const delta = e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? vh : 1);
+      const offset = Math.max(0, Math.min(Math.max(0, L.T - vh), L.offset + delta));
+      if (offset === L.offset) return;
+      L.offset = offset;
+    }
+    e.preventDefault(); paint(L);
+  }
   function laneKey(L, e) {
     const links = [...L.list.querySelectorAll('.row-link')];
     const i = links.indexOf(document.activeElement); if (i < 0) return;
@@ -204,25 +224,29 @@ window.EQ = window.EQ || {};
   }
   function patchFilters(m, q) {
     const f = dash.refs.filters;
-    const sig = JSON.stringify([q.discipline, q.type, q.mode, q.pic, q.focus]);
+    const sig = JSON.stringify([q.discipline, q.type, q.mode, q.pic, q.focus, q.search]);
     if (f.dataset.sig === sig) return; f.dataset.sig = sig;
     const set = (patch) => EQ.nav('/fac/dashboard', { ...EQ.route.query, ...patch });
     const pics = [...new Set(EQ.state.D.fac.jobs.map((x) => x.picName).filter(Boolean))];
     const sel = (id, label, key, opts, any) => h('div', { class: 'field' }, h('label', { for: id }, label), h('select', { id, 'data-fk': id, onChange: (e) => set({ [key]: e.target.value }) }, h('option', { value: '' }, any), opts.map(([v, l]) => h('option', { value: v, selected: q[key] === v ? true : null }, l))));
     f.replaceChildren(...[sel('df-d', 'Discipline', 'discipline', LANE_CODES, 'All disciplines'), sel('df-t', 'Type', 'type', [['inspection', 'Inspection'], ['service', 'Service']], 'All types'), sel('df-m', 'In-house / Outsource', 'mode', [['inHouse', 'In-house'], ['outsource', 'Outsource']], 'All'),
       sel('df-p', 'PIC', 'pic', [['me', 'Me (' + EQ.user().name + ')'], ...pics.map((p) => [p, p]), ['unassigned', 'Unassigned']], 'Everyone'),
+      h('div', { class: 'field dash-search' }, h('label', { for: 'df-search' }, 'Search jobs'), h('input', { id: 'df-search', type: 'search', 'data-fk': 'df-search', value: q.search || '', placeholder: 'e.g. fire*pump', 'aria-describedby': 'df-search-help', onInput: (e) => set({ search: e.target.value }) }), h('span', { id: 'df-search-help', class: 'small muted' }, '* any text · ? one character')),
       q.focus ? h('span', { class: 'tag gold' }, 'Showing: ' + ({ completed: 'Completed', inProgress: 'In progress', onHold: 'On hold', overdue: 'Overdue', dueSoon: 'Due soon' }[q.focus])) : null,
       h('button', { type: 'button', class: 'btn-sm', onClick: () => EQ.nav('/fac/dashboard', EQ.route.query.tv ? { tv: '1' } : {}) }, 'Clear filters')].filter(Boolean));
   }
   function patchTools(m, q) {
     const T = dash.refs.tools;
     const tv = q.tv === '1';
-    const sig = [dash.paused, dash.staticMode, tv, dash.reduced].join('|');
+    dash.refs.filters.hidden = !dash.filtersOpen || tv;
+    const activeFilters = ['discipline', 'type', 'mode', 'pic', 'focus', 'search'].filter((k) => q[k]).length;
+    const sig = JSON.stringify([dash.paused, dash.staticMode, tv, dash.reduced, dash.filtersOpen, q.discipline, q.type, q.mode, q.pic, q.focus, q.search]);
     if (T.dataset.sig === sig) return; T.dataset.sig = sig;
     T.replaceChildren(...[
+      !tv ? h('button', { type: 'button', class: 'btn-sm dash-filter-toggle', 'data-fk': 'dash-filters-toggle', 'aria-controls': 'fac-dash-filters', 'aria-expanded': dash.filtersOpen ? 'true' : 'false', 'aria-label': (dash.filtersOpen ? 'Hide' : 'Show') + ' dashboard filters' + (activeFilters ? ', ' + activeFilters + ' active' : ''), title: (dash.filtersOpen ? 'Hide' : 'Show') + ' filters' + (activeFilters ? ' (' + activeFilters + ' active)' : ''), onClick: () => { dash.filtersOpen = !dash.filtersOpen; patchTools(dash.model, EQ.route.query); dash.refs.tools.querySelector('[data-fk="dash-filters-toggle"]').focus({ preventScroll: true }); } }, icon('filter'), activeFilters ? h('span', { class: 'dash-filter-count', 'aria-hidden': 'true' }, activeFilters) : null) : null,
       h('button', { type: 'button', class: 'btn-sm', 'aria-pressed': dash.paused ? 'true' : 'false', 'data-fk': 'dash-pause', 'aria-label': dash.paused ? 'Resume the moving lists' : 'Pause the moving lists', onClick: () => { dash.paused = !dash.paused; patchTools(dash.model, EQ.route.query); } }, icon(dash.paused ? 'play' : 'pause'), dash.paused ? 'Resume' : 'Pause'),
       h('button', { type: 'button', class: 'btn-sm', 'aria-pressed': dash.staticMode ? 'true' : 'false', 'data-fk': 'dash-static', onClick: () => { dash.staticMode = !dash.staticMode; EQ.nav('/fac/dashboard', { ...EQ.route.query, motion: dash.staticMode ? 'off' : '' }); } }, icon('list'), 'Static view'),
-      EQ.access.has('export.excel') && EQ.access.has('fac.jobs.view') && !tv ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'dash-export', title: 'Exports the FAC Jobs list with the dashboard filters (needs the FAC Jobs tab, D-140)', onClick: () => { const r = F().exportRows({ discipline: q.discipline, type: q.type, mode: q.mode, pic: q.pic }); if (r.ok) { EQ.downloadCsv('fac-dashboard-jobs.csv', r.columns, r.rows); EQ.toast('Exported ' + r.rows.length + ' filtered job(s)', 'Prototype stand-in: CSV, not the server-generated .xlsx.'); } else EQ.toast(r.message); } }, icon('download'), 'Export') : null,
+      EQ.access.has('export.excel') && EQ.access.has('fac.jobs.view') && !tv ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'dash-export', title: 'Exports the FAC Jobs list with the dashboard filters (needs the FAC Jobs tab, D-140)', onClick: () => { const r = F().exportRows({ discipline: q.discipline, type: q.type, mode: q.mode, pic: q.pic, search: q.search }); if (r.ok) { EQ.downloadCsv('fac-dashboard-jobs.csv', r.columns, r.rows); EQ.toast('Exported ' + r.rows.length + ' filtered job(s)', 'Prototype stand-in: CSV, not the server-generated .xlsx.'); } else EQ.toast(r.message); } }, icon('download'), 'Export') : null,
       h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'dash-refresh', onClick: () => EQ.refresh(true) }, icon('refresh'), 'Refresh'),
       tv ? h('button', { type: 'button', class: 'btn-sm primary', 'data-fk': 'dash-tv', onClick: () => { try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) { /* ignore */ } EQ.nav('/fac/dashboard', { ...EQ.route.query, tv: '' }); } }, icon('x'), 'Exit TV mode')
         : h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'dash-tv', onClick: () => { EQ.nav('/fac/dashboard', { ...EQ.route.query, tv: '1' }); try { document.documentElement.requestFullscreen && document.documentElement.requestFullscreen().catch(() => {}); } catch (e) { /* fullscreen is optional */ } } }, icon('tv'), 'TV mode')].filter(Boolean));
@@ -338,7 +362,7 @@ window.EQ = window.EQ || {};
     if (S.data === 'stale' && dash.lastGood) m = dash.lastGood;
     else {
       if (S.data === 'error') { dash.root = null; return h('div', { class: 'page' }, h('div', { class: 'notice error', role: 'alert' }, icon('wifi-off'), h('div', null, h('p', null, h('strong', null, 'The FAC Dashboard could not be loaded. '), 'No data is shown; nothing is presented as completed without data.'), h('div', { class: 'actions' }, h('button', { type: 'button', class: 'btn-sm', onClick: () => EQ.refresh(true) }, 'Retry'), h('span', { class: 'small' }, 'Prototype: choose "Normal" in Prototype controls.'))))); }
-      const fq = { discipline: q.discipline, type: q.type, mode: q.mode, pic: q.pic, focus: q.focus };
+      const fq = { discipline: q.discipline, type: q.type, mode: q.mode, pic: q.pic, focus: q.focus, search: q.search };
       m = F().dashboard(fq);
       if (!m.ok) { EQ.access.refreshSession('403 ' + m.code); dash.root = null; setTimeout(() => EQ.rerender(), 0); return EQ.views.forbidden('fac.dashboard.view', '/fac/dashboard', m.code); }
       if (S.data !== 'stale') dash.lastGood = m;

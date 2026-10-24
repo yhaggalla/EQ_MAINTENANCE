@@ -1,0 +1,93 @@
+import fs from 'node:fs';
+import { launch } from '../p03/cdp.mjs';
+
+const base = process.argv[2] || 'http://127.0.0.1:5312/';
+const out = process.argv[3] || 'docs/evidence/U1/fac-controls-c44';
+fs.mkdirSync(out, { recursive: true });
+const b = await launch({ port: 9394, gpu: 'none' });
+const checks = [];
+const check = (name, ok, detail) => { checks.push({ name, pass: !!ok, detail }); if (!ok) throw Error(name + ': ' + JSON.stringify(detail)); };
+const nav = async (q = {}) => { await b.eval(`EQ.nav('/fac/dashboard', ${JSON.stringify(q)})`); await b.wait(160); };
+const wheel = async (code, deltaY) => {
+  const pos = await b.eval(`(()=>{const v=EQ.dash.lanes[${JSON.stringify(code)}].view;v.scrollIntoView({block:'center'});const r=v.getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+Math.min(r.height/2,160)}})()`);
+  await b.send('Input.dispatchMouseEvent', { type: 'mouseMoved', ...pos });
+  await b.send('Input.dispatchMouseEvent', { type: 'mouseWheel', ...pos, deltaX: 0, deltaY });
+  await b.wait(120);
+};
+
+try {
+  await b.viewport(1600, 1000);
+  await b.goto(base + '?role=management#/fac/dashboard');
+  check('Filters default to one labelled icon with no filter-row space', await b.eval(`(()=>{const f=document.querySelector('.dash-filters'),t=document.querySelector('[data-fk="dash-filters-toggle"]');return f.hidden&&f.getBoundingClientRect().height===0&&t.getAttribute('aria-expanded')==='false'&&t.querySelector('svg')&&t.getAttribute('aria-label')==='Show dashboard filters'})()`));
+  await b.screenshot(out + '/desktop-collapsed.png');
+  await b.click('[data-fk="dash-filters-toggle"]');
+  check('Toggle expands labelled filters and a 44px search input', await b.eval(`!document.querySelector('.dash-filters').hidden&&document.querySelector('#df-search').getBoundingClientRect().height>=44&&document.querySelector('[data-fk="dash-filters-toggle"]').getAttribute('aria-expanded')==='true'`));
+  await b.setValue('#df-search', 'FiRe*PuMp');
+  const wild = await b.eval(`(()=>{const expected=EQ.state.D.fac.jobs.filter(j=>j.state==='active'&&EQ.fac.shown(j)&&/fire.*pump/i.test([j.name,j.number,EQ.fac.picDisplay(j),EQ.fac.DISC_NAME[j.discipline],EQ.fac.TYPE_NAME[j.typeCode],EQ.fac.MODE_NAME[j.mode],EQ.fac.freqLabel(j),j.remarks].join(' '))).map(j=>j.id).sort();const actual=EQ.dash.model.lanes.flatMap(l=>l.rows.map(r=>r.id)).sort();return {expected,actual,active:EQ.dash.model.kpi.active,query:EQ.route.query.search,focused:document.activeElement.id}})()`);
+  check('Wildcard input filters without case sensitivity and retains focus', wild.expected.length > 0 && JSON.stringify(wild.expected) === JSON.stringify(wild.actual) && wild.active === wild.expected.length && wild.query === 'FiRe*PuMp' && wild.focused === 'df-search', wild);
+  await b.screenshot(out + '/desktop-expanded-search.png', { fullPage: true });
+  await nav({ search: 'f?re*pump', discipline: 'mechanical', type: 'inspection' });
+  check('Single-character wildcard combines with discipline and type', await b.eval(`EQ.dash.model.kpi.active>0&&EQ.dash.model.lanes.length===1&&EQ.dash.model.lanes[0].rows.every(r=>r.discipline==='mechanical'&&r.type==='inspection'&&/f.re.*pump/i.test(r.name))`));
+  const reconciled = await b.eval(`(()=>{const m=EQ.dash.model,ids=new Set(m.lanes.flatMap(l=>l.rows.map(r=>r.id))),today=EQ.todayColombo(),start=EQ.fac.date.addDays(today,-29);const cycles=EQ.state.D.fac.jobs.filter(j=>ids.has(j.id)&&!['daily','weekly'].includes(j.freqCode)).flatMap(j=>j.cycles.filter(c=>c.state==='completed'&&c.dueOn&&c.completedOn>=start&&c.completedOn<=today));return {n:m.kpi.onTimeN,ok:m.kpi.onTimeOk,expectedN:cycles.length,expectedOk:cycles.filter(c=>c.completedOn<=c.dueOn).length,blocks:m.ticker.every(x=>ids.has(x.jobId))&&m.proof.every(x=>ids.has(x.jobId))}})()`);
+  check('On-time numerator/denominator, ticker and proof use searched population', reconciled.n === reconciled.expectedN && reconciled.ok === reconciled.expectedOk && reconciled.blocks, reconciled);
+  await nav({ search: 'inspection' });
+  check('Nonempty searched completion cycles reconcile the on-time percentage', await b.eval(`(()=>{const m=EQ.dash.model,ids=new Set(m.lanes.flatMap(l=>l.rows.map(r=>r.id))),today=EQ.todayColombo(),start=EQ.fac.date.addDays(today,-29);const cs=EQ.state.D.fac.jobs.filter(j=>ids.has(j.id)&&!['daily','weekly'].includes(j.freqCode)).flatMap(j=>j.cycles.filter(c=>c.state==='completed'&&c.dueOn&&c.completedOn>=start&&c.completedOn<=today));const ok=cs.filter(c=>c.completedOn<=c.dueOn).length;return cs.length>0&&m.kpi.onTimeN===cs.length&&m.kpi.onTimeOk===ok&&m.kpi.onTimePct===Math.round(ok/cs.length*100)})()`));
+  await nav({ search: 'wall' });
+  await b.eval(`EQ.downloadCsv=(file,columns,rows)=>{window.c44Export={file,rows}}`);
+  await b.click('[data-fk="dash-export"]');
+  const exported = await b.eval(`({n:window.c44Export.rows.length,expected:EQ.fac.exportRows({search:'wall'}).rows.length,all:window.c44Export.rows.every(r=>r.join(' ').toLowerCase().includes('wall'))})`);
+  check('Export uses the latest search after changing its value', exported.n > 0 && exported.n === exported.expected && exported.all, exported);
+  const literal = await b.eval(`(()=>{const j={...EQ.state.D.fac.jobs[0],name:'Literal [A]+ (unit).',remarks:'',number:'TEST'};return EQ.fac.filterJobs([j],{search:'[a]+'}).length===1&&EQ.fac.filterJobs([j],{search:'[z]+'}).length===0&&EQ.fac.filterJobs([j],{search:'(unit).'}).length===1})()`);
+  check('Regex punctuation remains literal text', literal);
+  await nav({ search: 'no-fac-job-matches-93847' });
+  check('No matches gives zero jobs and no on-time percentage', await b.eval(`EQ.dash.model.kpi.active===0&&EQ.dash.model.kpi.onTimePct===null&&EQ.dash.model.lanes.every(l=>l.rows.length===0)&&EQ.dash.model.ticker.length===0&&EQ.dash.model.proof.length===0`));
+  await b.setValue('#df-search', 'wall');
+  await b.key('Escape');
+  check('Escape collapses filters and returns focus to the icon', await b.eval(`document.querySelector('.dash-filters').hidden&&document.activeElement.dataset.fk==='dash-filters-toggle'`));
+  await b.click('[data-fk="dash-filters-toggle"]');
+  await b.clickText('.dash-filters button', 'Clear filters');
+  check('Clear filters restores all 114 jobs and clears search', await b.eval(`EQ.dash.model.kpi.active===114&&!EQ.route.query.search&&document.querySelector('#df-search').value===''`));
+  await b.click('[data-fk="dash-filters-toggle"]');
+  await b.eval(`EQ.dash.paused=true;EQ.rerender()`);
+  for (const code of ['electrical', 'mechanical', 'civil']) {
+    const before = await b.eval('EQ.dashState().lanes');
+    await wheel(code, 180);
+    const after = await b.eval('EQ.dashState().lanes');
+    check(code + ' real wheel scrolls only its column while paused/hovered', after[code].offset > before[code].offset && Object.keys(before).filter(k => k !== code).every(k => before[k].offset === after[k].offset), { before, after });
+    await wheel(code, -80);
+    check(code + ' wheel scrolls upward', (await b.eval(`EQ.dashState().lanes.${code}.offset`)) < after[code].offset);
+  }
+  check('Line/page wheel units are normalized and Ctrl-wheel is left to browser', await b.eval(`(()=>{const L=EQ.dash.lanes.mechanical;const evt=(dy,mode,ctrl=false)=>{const e=new WheelEvent('wheel',{deltaY:dy,deltaMode:mode,ctrlKey:ctrl,cancelable:true});L.view.dispatchEvent(e);return e.defaultPrevented};L.offset=0;const line=evt(2,1)&&L.offset===32;const page=evt(1,2)&&L.offset===32+L.view.clientHeight;const o=L.offset;return line&&page&&!evt(100,0,true)&&L.offset===o})()`));
+  check('Wheel at the top can bubble to page scrolling', await b.eval(`(()=>{const L=EQ.dash.lanes.mechanical;L.offset=0;const e=new WheelEvent('wheel',{deltaY:-100,cancelable:true});L.view.dispatchEvent(e);return !e.defaultPrevented&&L.offset===0})()`));
+  await b.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: 10, y: 10 });
+  await b.eval(`EQ.dash.paused=false;document.activeElement.blur();EQ.rerender()`);
+  const autoBefore = await b.eval('EQ.dashState().lanes.civil.offset');
+  await b.wait(220);
+  check('Automatic motion resumes after pointer leaves', (await b.eval('EQ.dashState().lanes.civil.offset')) > autoBefore);
+  await nav({ motion: 'off' });
+  await wheel('mechanical', 200);
+  check('Static mode retains native wheel scrolling', await b.eval(`EQ.dash.root.dataset.motion==='static'&&EQ.dash.lanes.mechanical.view.scrollTop>0&&EQ.dash.lanes.mechanical.track.style.transform===''`));
+  await b.send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] });
+  await nav();
+  await b.eval(`EQ.dash.paused=true;EQ.rerender()`);
+  await wheel('mechanical', 200);
+  check('OS reduced-motion mode supports manual page scrolling', await b.eval(`EQ.dash.root.dataset.motion==='flip'&&EQ.dash.lanes.mechanical.page===1&&EQ.dash.lanes.mechanical.pageInd.textContent.startsWith('Page 2')`));
+  await b.send('Emulation.setEmulatedMedia', { features: [] });
+  await nav({ tv: '1' });
+  check('TV mode hides filters and keeps footer inside viewport', await b.eval(`document.querySelector('.dash-filters').hidden&&!document.querySelector('[data-fk="dash-filters-toggle"]')&&document.querySelector('.dash-bottom').getBoundingClientRect().bottom<=innerHeight+1`));
+  await b.screenshot(out + '/tv.png');
+  await b.viewport(375, 812, true);
+  await b.goto(base + '?role=management#/fac/dashboard');
+  await b.click('[data-fk="dash-filters-toggle"]');
+  await b.setValue('#df-search', 'fire*pump');
+  check('Phone uses filtered combined list without horizontal overflow', await b.eval(`EQ.dash.phone&&EQ.dash.root.dataset.motion==='combined'&&document.documentElement.scrollWidth<=innerWidth+1&&document.querySelectorAll('.combined-list .frow').length===EQ.dash.model.kpi.active&&document.querySelector('[data-fk="dash-filters-toggle"]').getBoundingClientRect().width>=44`));
+  await b.eval('document.activeElement.blur();window.scrollTo(0,0)');
+  await b.screenshot(out + '/phone.png', { fullPage: true });
+  await b.viewport(812, 375, true);
+  check('Landscape filters fit horizontally', await b.eval('document.documentElement.scrollWidth<=innerWidth+1'));
+  check('No browser errors', b.errors().length === 0, b.errors());
+} finally {
+  fs.writeFileSync(out + '/checks.json', JSON.stringify({ checks, passed: checks.filter(x => x.pass).length, failed: checks.filter(x => !x.pass).length, errors: b.errors() }, null, 2) + '\n');
+  console.log(JSON.stringify({ passed: checks.filter(x => x.pass).length, failed: checks.filter(x => !x.pass).length, checks: checks.map(x => ({ name: x.name, pass: x.pass })) }, null, 2));
+  await b.close();
+}

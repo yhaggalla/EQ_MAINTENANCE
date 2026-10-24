@@ -272,8 +272,25 @@ window.EQ = window.EQ || {};
   // ---------------------------------------------------------------- dashboard read model (DATA s18.4)
   F.filterJobs = function filterJobs(jobs, q) {
     const me = EQ.user().id;
+    // U1-C44: substring search with literal punctuation, * any text and ? one character.
+    // Greedy glob matching avoids treating user text as a regular expression.
+    const term = String(q.search || '').trim().toLowerCase();
+    const pattern = ('*' + term + '*').replace(/\*+/g, '*');
+    const matches = (j) => {
+      if (!term) return true;
+      const text = [j.name, j.number, F.picDisplay(j), F.DISC_NAME[j.discipline], F.TYPE_NAME[j.typeCode], F.MODE_NAME[j.mode], F.freqLabel(j), j.remarks].filter(Boolean).join(' ').toLowerCase();
+      let t = 0, p = 0, star = -1, retry = 0;
+      while (t < text.length) {
+        if (p < pattern.length && (pattern[p] === '?' || pattern[p] === text[t])) { p++; t++; }
+        else if (pattern[p] === '*') { star = p++; retry = t; }
+        else if (star >= 0) { p = star + 1; t = ++retry; }
+        else return false;
+      }
+      while (pattern[p] === '*') p++;
+      return p === pattern.length;
+    };
     return jobs.filter((j) => (!q.discipline || j.discipline === q.discipline) && (!q.type || j.typeCode === q.type) && (!q.mode || (q.mode === 'none' ? !j.mode : j.mode === q.mode))
-      && (!q.pic || (q.pic === 'me' ? j.picProfileId === me : q.pic === 'unassigned' ? !j.picProfileId && !j.picName : (j.picName === q.pic || j.picProfileId === q.pic))));
+      && (!q.pic || (q.pic === 'me' ? j.picProfileId === me : q.pic === 'unassigned' ? !j.picProfileId && !j.picName : (j.picName === q.pic || j.picProfileId === q.pic))) && matches(j));
   };
   F.rowOf = function rowOf(job, info) {
     info = info || F.info(job);
