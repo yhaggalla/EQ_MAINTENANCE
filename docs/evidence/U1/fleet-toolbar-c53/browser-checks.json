@@ -1,0 +1,43 @@
+{
+  "passed": 9,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "No blink legend; freshness and status explanation retained",
+      "pass": true
+    },
+    {
+      "name": "Refresh is first in right-aligned action group",
+      "pass": true
+    },
+    {
+      "name": "Refresh advances the timestamp",
+      "pass": true
+    },
+    {
+      "name": "Pause still stops card animation",
+      "pass": true
+    },
+    {
+      "name": "Phone actions fit without overlap or page overflow",
+      "pass": true
+    },
+    {
+      "name": "Stale refresh retains last-good timestamp and right-side placement",
+      "pass": true
+    },
+    {
+      "name": "Error view keeps right-side Refresh and retry",
+      "pass": true
+    },
+    {
+      "name": "TV retains Pause and Exit without legend or new Refresh action",
+      "pass": true
+    },
+    {
+      "name": "No browser errors",
+      "pass": true,
+      "detail": []
+    }
+  ]
+}

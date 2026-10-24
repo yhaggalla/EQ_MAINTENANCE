@@ -27,20 +27,16 @@ body[data-page="eq-fleet"] { background: var(--pa-page); }
 .pa.fleet-page:not(.tv-fleet) { padding-bottom: 1rem; }
 .pa .eq-card[hidden], .pa .fleet-group[hidden] { display: none !important; } /* TV paging */
 
-/* ---------------------------------------------------------------- page bar (freshness, blink legend, Pause, TV) */
+/* ---------------------------------------------------------------- page bar (freshness, Refresh, Pause, TV) */
 .pa .fleet-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .35rem 1rem; margin-bottom: .5rem; }
 .pa .fleet-bar .freshness { margin: 0; font-size: .78rem; color: var(--pa-muted); gap: .3rem .8rem; }
 .pa .fleet-bar .freshness strong { color: var(--pa-ink-2); }
-.pa .fb-tools { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; }
+.pa .fb-tools { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; margin-left: auto; }
 .pa .pa-btn, .pa .filters .btn-sm { min-height: 2rem; padding: .2rem .7rem; border: 1px solid var(--pa-line-strong); border-radius: var(--pa-radius-sm); background: var(--pa-card); color: var(--pa-ink); font-weight: 650; font-size: .8rem; box-shadow: none; }
 .pa .pa-btn:hover:not(:disabled), .pa .filters .btn-sm:hover:not(:disabled) { background: #f6f6f3; border-color: #b9beb6; }
 .pa .pa-btn[aria-pressed="true"] { background: var(--pa-ink); border-color: var(--pa-ink); color: #fff; }
 .pa .pa-btn.primary { background: var(--pa-ink); border-color: var(--pa-ink); color: #fff; }
 .pa .status-note { color: var(--pa-muted); }
-.blink-legend { display: inline-flex; align-items: center; gap: .3rem; font-size: .74rem; color: var(--pa-muted); font-weight: 600; }
-.blink-legend .sw { display: inline-block; width: .7rem; height: .7rem; border-radius: 3px; margin-left: .25rem; }
-.blink-legend .sw-breakdown { background: var(--blink-b-bg); box-shadow: inset 0 0 0 2px var(--blink-b-ring); }
-.blink-legend .sw-maintenance { background: var(--blink-m-bg); box-shadow: inset 0 0 0 2px var(--blink-m-ring); }
 
 /* ---------------------------------------------------------------- KPI tile row */
 .pa .fleet-top { display: block; margin-bottom: .6rem; }
@@ -165,8 +161,6 @@ body[data-page="eq-fleet"] { background: var(--pa-page); }
 .tv-fleet .eq-card.blink-breakdown::before { top: .7rem; bottom: .7rem; width: 6px; }
 .tv-fleet .eq-card.blink-maintenance::before { top: .7rem; bottom: .7rem; border-left-width: 6px; }
 .tv-fleet .tvf-foot { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem 1.4rem; font-size: .95rem; color: var(--pa-muted); }
-.tv-fleet .tvf-foot .blink-legend { font-size: .95rem; }
-.tv-fleet .tvf-foot .blink-legend .sw { width: .95rem; height: .95rem; }
 .tv-fleet .tvf-pager { margin-left: auto; font-weight: 700; color: var(--pa-ink-2); }
 .tv-fleet .notice { font-size: 1.05rem; }
 @media (max-height: 820px) {
@@ -190,5 +184,4 @@ body[data-page="eq-fleet"] { background: var(--pa-page); }
   .pa .kpi-total, .pa .kpi-share { grid-column: 1 / -1; }
   .pa .card-grid { grid-template-columns: minmax(0, 1fr); }
   .pa .fleet-bar { align-items: flex-start; }
-  .pa .blink-legend { display: none; }
 }

@@ -41,17 +41,16 @@ window.EQ = window.EQ || {};
     const stale = S.data === 'stale' || S.data === 'error';
     return h('div', { class: 'freshness' },
       h('span', { title: 'Auto-refresh every 60 s and after every change' }, icon('clock'), ' Refreshed ', h('strong', null, EQ.fmtTime(stale ? S.lastGoodAt : S.refreshedAt)), ' Asia/Colombo'),
-      h('button', { type: 'button', class: 'btn-sm pa-btn', 'data-fk': 'refresh', onClick: () => EQ.refresh(true) }, icon('refresh'), 'Refresh'),
       zmmsFresh(),
       statusNote());
+  }
+  function refreshBtn() {
+    return h('button', { type: 'button', class: 'btn-sm pa-btn', 'data-fk': 'refresh', onClick: () => EQ.refresh(true) }, icon('refresh'), 'Refresh');
   }
   function zmmsFresh() {
     const f = EQ.zmms.freshness();
     return h('span', { class: 'zmms-fresh' + (f.stale ? ' stale' : ''), 'data-fk': 'zmms-fresh', title: f.stale ? 'The latest ZMMS sync failed or is overdue. Previous data and statuses are kept; nothing was changed.' : 'Read-only ZMMS daily-job list, two syncs a day' },
       icon(f.stale ? 'alert' : 'sync'), EQ.zmms.freshLabel(), f.stale ? h('strong', null, ' · stale: latest sync ' + (f.latestOutcome === 'failed' ? 'failed (' + f.failureCode + ')' : 'overdue')) : null);
-  }
-  function blinkLegend() {
-    return h('span', { class: 'blink-legend', 'aria-hidden': 'true' }, h('i', { class: 'sw sw-breakdown' }), 'Breakdown', h('i', { class: 'sw sw-maintenance' }), 'Maintenance', h('span', { class: 'bl-note' }, 'cards blink'));
   }
   function staleBanner() {
     const S = EQ.state;
@@ -139,7 +138,7 @@ window.EQ = window.EQ || {};
       h('span', { class: 'tvf-tools' }, pauseBtn(q, true), h('button', { type: 'button', class: 'btn-sm pa-btn primary', 'data-fk': 'fleet-tv-exit', onClick: () => exitTv(q) }, icon('x'), 'Exit TV mode')));
   }
   function tvFoot() {
-    return h('footer', { class: 'tvf-foot' }, h('span', null, icon('info'), "Status is automatic from today's ZMMS daily jobs; an EQ Team correction holds for today. Unreported means never set, not Ready."), blinkLegend(), h('span', { class: 'tvf-pager', 'data-fk': 'tv-pager', 'aria-live': 'off' }));
+    return h('footer', { class: 'tvf-foot' }, h('span', null, icon('info'), "Status is automatic from today's ZMMS daily jobs; an EQ Team correction holds for today. Unreported means never set, not Ready."), h('span', { class: 'tvf-pager', 'data-fk': 'tv-pager', 'aria-live': 'off' }));
   }
   function applyTvPage(root) {
     const body = root && root.querySelector('.tvf-body'); if (!body) return;
@@ -201,7 +200,7 @@ window.EQ = window.EQ || {};
       return page;
     }
     if (S.data === 'error') {
-      if (!tv) page.appendChild(h('div', { class: 'fleet-bar' }, freshness()));
+      if (!tv) page.appendChild(h('div', { class: 'fleet-bar' }, freshness(), h('span', { class: 'fb-tools' }, refreshBtn())));
       page.appendChild(h('div', { class: 'panel panel-pad' }, h('div', { class: 'notice error', role: 'alert' }, icon('wifi-off'), h('div', null, h('p', null, h('strong', null, 'The fleet could not be loaded. '), 'No data is available to show. Nothing is displayed as Ready for OPS when the status is unknown.'), h('div', { class: 'actions' }, h('button', { type: 'button', class: 'btn-sm', onClick: () => EQ.refresh(true) }, 'Retry'), h('span', { class: 'small' }, 'Prototype: choose "Normal" in Prototype controls.'))))));
       return page;
     }
@@ -216,7 +215,7 @@ window.EQ = window.EQ || {};
 
     const typed = all.filter((e) => type === 'all' || e.typeCode === type);
     const counts = EQ.fleetCounts(typed);
-    if (!tv) page.appendChild(h('div', { class: 'fleet-bar' }, freshness(), h('span', { class: 'fb-tools' }, blinkLegend(), pauseBtn(q, false), tvBtn(q))));
+    if (!tv) page.appendChild(h('div', { class: 'fleet-bar' }, freshness(), h('span', { class: 'fb-tools' }, refreshBtn(), pauseBtn(q, false), tvBtn(q))));
     page.appendChild(h('div', { class: 'fleet-top' }, kpiRow(typed, counts, stat, setQ, tv)));
 
     if (!tv) {

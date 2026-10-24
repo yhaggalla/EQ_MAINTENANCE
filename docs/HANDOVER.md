@@ -2,6 +2,10 @@
 
 Rolling handover for CICT EQ Maintenance. Each phase appends its record; the newest is first.
 
+## 24 October 2026 - U1-C53 fleet toolbar cleanup
+
+Removed the Breakdown/Maintenance cards-blink legend and moved Refresh to the right action group before Pause blinking/TV mode. Error-state Refresh is also right-aligned; existing animation/Pause, freshness, retry and TV behavior remain. Desktop and phone screenshots reviewed; 9/9 focused browser checks, syntax and staged whitespace pass. Runtime: P02 `js/views-fleet.js`, `css/eq-fleet.css`. D-197 / UX section 47; evidence: `docs/evidence/U1/fleet-toolbar-c53/REPORT.md`. Unrelated edits preserved. Local synthetic prototype only, no deployment or independent R verdict. U1 remains open/unapproved; P04 Not started.
+
 ## 24 October 2026 - U1-C52 approved equipment workspace styling
 
 Implemented the reviewed dashboard-style mockup: warm-neutral cards/tree, one compact equipment summary, modes/area above the crane and camera/display tools below, six key Overall labels with complete Technical labels retained. Consolidated information tabs/search/status filters and neutral title-first cards replace repeated headings, job-number rows and coloured borders. Kind/target, status/dates, matching positions, number search/accessibility and scoped actions remain. Cancelled links to the existing authorized Jobs list, preserving the current-state DTO boundary. Phone drawers and RTG summary cards receive matching treatment. The related earlier panel-search and Fleet/breadcrumb changes are included; unrelated existing FAC/Jobs/RTG edits remain outside this commit.
