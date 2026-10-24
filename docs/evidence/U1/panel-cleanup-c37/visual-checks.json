@@ -1,0 +1,62 @@
+{
+  "browser": "Chrome/155.0.8059.85",
+  "results": [
+    {
+      "name": "Maintenance removes circled narration and keeps status/source/freshness and actual jobs",
+      "pass": true,
+      "detail": {
+        "ids": [
+          "900101",
+          "900102"
+        ]
+      }
+    },
+    {
+      "name": "Prototype provenance notice remains available",
+      "pass": true
+    },
+    {
+      "name": "Special retains actual cards/counts and Add/Open actions without tutorial",
+      "pass": true,
+      "detail": {
+        "cards": 7
+      }
+    },
+    {
+      "name": "Spare retains registered count and update actions without introduction",
+      "pass": true
+    },
+    {
+      "name": "Technical retains 63 m lift qualification, sources and Gantry speed conflict in their proper scopes",
+      "pass": true,
+      "detail": {
+        "totalLift": true,
+        "gantryConflict": true
+      }
+    },
+    {
+      "name": "Part retains its position/semantic identity without implementation narrative",
+      "pass": true
+    },
+    {
+      "name": "Manual correction reason remains visible",
+      "pass": true,
+      "detail": {
+        "reason": "Hoist overload trip, cause not yet found; the ZMMS plan lists only a routine check (synthetic)"
+      }
+    },
+    {
+      "name": "Stale indicator and last-success time remain visible",
+      "pass": true
+    },
+    {
+      "name": "Phone details remain contained with current jobs and no status narration",
+      "pass": true
+    },
+    {
+      "name": "No browser errors",
+      "pass": true,
+      "detail": []
+    }
+  ]
+}

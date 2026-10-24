@@ -1,0 +1,54 @@
+{
+  "browser": "Chrome/155.0.8059.85",
+  "results": [
+    {
+      "name": "Automatic panel removes the circled narrative while retaining status, source, freshness and both actual jobs",
+      "pass": true,
+      "detail": {
+        "ids": [
+          "900101",
+          "900102"
+        ]
+      }
+    },
+    {
+      "name": "Prototype provenance notice remains available",
+      "pass": true
+    },
+    {
+      "name": "Special jobs retain counts/cards and Add/Open actions without the scope tutorial",
+      "pass": false,
+      "detail": "4 open3 completed0 cancelledSpecial jobs 7EQJ-2026-000105Repair PendingInspect trolley wheel wearTarget: Trolley (02) / trolley (021)Planned 28 Oct 2026EQJ-2026"
+    },
+    {
+      "name": "Spare panel retains counts and updates without the repeated introduction",
+      "pass": true,
+      "detail": "10 registered2 overdue1 due soonMain hoist gearbox AOriginalHoist gearbox · 01 / 011BrandSynthetic GearsModel / part no.SYN-GB-12SerialSYN-G-0007ReplacedNot rep"
+    },
+    {
+      "name": "Technical retains dimensions, source refs and unresolved conflict with concise qualification",
+      "pass": false,
+      "detail": "QC-DEMO-01TypeQCModelCICT-J526A-STS (verified association)Serial numberUnknownCommissioned15 Mar 2018 (synthetic)LifecycleactiveRecord originSynthetic developme"
+    },
+    {
+      "name": "Meaningful manual correction reason stays visible",
+      "pass": true,
+      "detail": {
+        "reason": "Hoist overload trip, cause not yet found; the ZMMS plan lists only a routine check (synthetic)"
+      }
+    },
+    {
+      "name": "Stale sync retains a visible warning and last-success time",
+      "pass": true
+    },
+    {
+      "name": "Phone details remain contained and show the cleaned Maintenance panel",
+      "pass": true
+    },
+    {
+      "name": "No browser errors",
+      "pass": true,
+      "detail": []
+    }
+  ]
+}

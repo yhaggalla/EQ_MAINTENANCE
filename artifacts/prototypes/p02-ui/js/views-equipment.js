@@ -201,14 +201,14 @@ window.EQ = window.EQ || {};
       h('div', { class: 'row between' }, h('strong', null, p.label), h('span', { class: 'tag gold' }, 'Admin-entered')),
       p.condition ? h('span', { class: 'small muted' }, 'Condition: ' + p.condition) : null,
       h('span', null, resolved ? fmt(resolved.value) : 'Not set'),
-      h('span', { class: 'small muted' }, 'Entered by an Admin' + (resolved && resolved.source ? ' from ' + resolved.source : '') + '; not a drawing observation.'));
+      resolved && resolved.source ? h('span', { class: 'small muted' }, 'Source: ' + resolved.source) : null);
     return h('div', { class: 'stack', style: 'gap:.2rem;padding:.4rem 0;border-bottom:1px solid var(--border)' },
       h('div', { class: 'row between' }, h('strong', null, p.label + (p.motorCount ? ' (x' + p.motorCount + ')' : '')), conflict && !resolved ? h('span', { class: 'tag red' }, 'Unresolved source conflict') : h('span', { class: 'tag' }, resolved ? (resolved.basis === 'adminEntered' && !conflict ? 'Admin value' : 'Resolved by Admin') : 'Read from drawing')),
       p.condition ? h('span', { class: 'small muted' }, 'Condition: ' + p.condition) : null,
       conflict ? h('ul', { class: 'lines', style: 'margin:0' }, p.observations.map((o) => h('li', null, fmt(o.value) + ' — ' + o.drawing + ' p' + o.page + (o.supplementary ? ' (supplementary observation)' : '')))) : h('span', null, fmt(p.observations[0].value)),
-      resolved ? h('span', { class: 'small' }, (resolved.basis === 'adminEntered' && !conflict ? 'Admin value: ' : 'Chosen: ') + resolved.value + ' ' + p.unit + ' (' + resolved.reason + (resolved.source ? '; source ' + resolved.source : '') + '). Source observations are kept.') : null,
-      !conflict ? h('span', { class: 'small muted' }, h('span', { class: 'tag' }, h('span', null, p.observations[0].drawing + ' p' + p.observations[0].page)), ' visually read from the drawing, not independently verified') : null,
-      p.code === 'total-lift-height' ? h('span', { class: 'small' }, 'This is total lift height. It is not the overall height of the crane; an overall height is not established in the reference data.') : null,
+      resolved ? h('span', { class: 'small' }, (resolved.basis === 'adminEntered' && !conflict ? 'Admin value: ' : 'Chosen: ') + resolved.value + ' ' + p.unit + ' (' + resolved.reason + (resolved.source ? '; source ' + resolved.source : '') + ').') : null,
+      !conflict ? h('span', { class: 'tag', title: 'Visually read from the drawing; not independently verified.' }, p.observations[0].drawing + ' p' + p.observations[0].page) : null,
+      p.code === 'total-lift-height' ? h('span', { class: 'small' }, 'Total lift height, not overall crane height.') : null,
       conflict && !resolved && EQ.perm.admin() ? h('div', null, h('button', { type: 'button', class: 'btn-sm', onClick: () => EQ.dlg.resolveParam(p) }, 'Resolve with a reason')) : null);
   }
   function technicalTab(eq, sel, q) {
@@ -221,7 +221,6 @@ window.EQ = window.EQ || {};
         ['Equipment', eq.code], ['Main / sub', m.code + ' ' + m.name + ' / ' + s.code + ' ' + (s.name || '')], ['Position ID', h('span', { class: 'mono' }, p.id)],
         ['Semantic key', h('span', { class: 'mono' }, p.key)], ['Kind', p.kind === 'serialized' ? 'Serialized (1 ea)' : 'Quantity-bearing (' + p.uom + ')'], ['State', p.state === 'active' ? 'Active (confirmed by Admin)' : p.state],
         ['Installed now', (function () { const ev = EQ.state.D.events.filter((x) => x.positionId === p.id && !x.voided).slice(-1)[0]; return ev ? ev.installed.desc + (ev.installed.serial ? ' (serial ' + ev.installed.serial + ')' : ' (serial unknown)') : 'Unknown: nothing recorded (not evidence the item is original)'; })()], ['Geometry provenance', p.prov === 'approximate-location' ? h('span', null, h('span', { class: 'tag' }, 'Location approximate'), ' simplified representation') : p.prov], ['Source references', p.src]])));
-      box.appendChild(h('div', { class: 'notice info' }, icon('info'), h('p', null, 'Binding: scene node key ', h('span', { class: 'mono' }, p.key), ' resolves for ' + eq.code + ' to position ', h('span', { class: 'mono' }, p.id), '. Another QC using the same template has its own position ID and its own history. A mesh name or index is never the identity.')));
     } else if (sel.sub) {
       const s = EQ.subDef(eq.subs.find((x) => x.id === sel.sub).code);
       box.appendChild(h('div', { class: 'sec' }, h('h3', null, s.code + ' ' + (s.name || 'Reserved')), kv([['Main', EQ.mainDef(s.main).code + ' ' + EQ.mainDef(s.main).name], ['Original label', s.sourceName || '(blank in the source)'], ['Description', s.description || 'No description in the source']])));
@@ -235,10 +234,10 @@ window.EQ = window.EQ || {};
     const fam = EQ.verified(eq) && eq.modelCode === 'CICT-J526A-STS';
     const pm = sel.main ? EQ.mainDef(eq.mains.find((x) => x.id === sel.main).code).code : null;
     const params = EQ.allParams().filter((p) => (!p.modelCode || p.modelCode === eq.modelCode) && (pm ? (PARAM_MAIN[pm] || []).includes(p.code) || p.mainCode === pm : p.use === 'major'));
-    box.appendChild(h('div', { class: 'sec' }, h('h3', null, pm ? 'Family parameters for main ' + pm : 'Major parameters'),
-      fam ? h('div', null, h('p', { class: 'small muted', style: 'margin:0 0 .3rem' }, 'Drawing observations for the CICT-J526A-STS family (J526A00 general arrangement). They apply to this equipment only because an Admin verified its model association; they are not measurements of this item.'), params.length ? params.map((p) => paramRow(p, eq)) : h('p', { class: 'small muted' }, 'No source parameters are recorded for this mechanism.'))
+    box.appendChild(h('div', { class: 'sec' }, h('h3', { title: 'Model-family drawing values, not measurements of this equipment.' }, pm ? 'Family parameters for main ' + pm : 'Major parameters'),
+      fam ? h('div', null, params.length ? params.map((p) => paramRow(p, eq)) : h('p', { class: 'small muted' }, 'No source parameters are recorded for this mechanism.'))
         : h('div', { class: 'nonwork' }, h('strong', null, 'No family parameters'), eq.typeCode === 'QC' ? 'This equipment has no verified model association, so no drawing values are shown for it.' : 'No source parameters exist for ' + eq.typeCode + ' in the reference data.')));
-    box.appendChild(h('div', { class: 'sec' }, h('h3', null, 'Drawings and photos'), h('p', { class: 'small muted', style: 'margin:0' }, 'Source drawings open only through the authenticated drawing handler. The prototype lists references and does not open files.'), h('ul', { class: 'lines', style: 'margin:0' }, (sel.part ? [EQ.pos(sel.part).src] : ['J526A00 p1 general arrangement', 'J526A0300 p1 main hoist drive']).map((t) => h('li', null, icon('file'), ' ' + t + ' ', h('span', { class: 'tag dashed' }, 'protected, requires sign-in'))))));
+    box.appendChild(h('div', { class: 'sec' }, h('h3', null, 'Drawings and photos'), h('ul', { class: 'lines', style: 'margin:0' }, (sel.part ? [EQ.pos(sel.part).src] : ['J526A00 p1 general arrangement', 'J526A0300 p1 main hoist drive']).map((t) => h('li', null, icon('file'), ' ' + t + ' ', h('span', { class: 'tag dashed', title: 'Reference only in this prototype; opening drawings requires sign-in.' }, 'Reference'))))));
     return box;
   }
   function containerTab(eq) {
@@ -246,7 +245,7 @@ window.EQ = window.EQ || {};
     const ps = EQ.qc?.containerPositions(eq, EQ.route.query.container) || EQ.positionsOf(eq.id).filter((p) => p.state === 'active' && HOUSE_KEYS.includes(p.key));
     const groups = {};
     ps.forEach((p) => { const s = eq.subs.find((x) => x.id === p.subId); const m = EQ.mainDef(eq.mains.find((x) => x.id === p.mainId).code); (groups[m.code + ' ' + m.name] = groups[m.code + ' ' + m.name] || []).push([p, s]); });
-    box.appendChild(h('div', { class: 'notice info' }, icon('info'), h('p', null, h('strong', null, (EQ.qc?.containerName(EQ.route.query.container) || 'Physical area') + '. '), ps.length + ' included part positions. Select a part to see its specifications and records.')));
+    box.appendChild(h('p', { class: 'small muted', style: 'margin:0' }, EQ.plural(ps.length, 'included part position')));
     Object.entries(groups).forEach(([g, items]) => box.appendChild(h('div', { class: 'sec' }, h('h3', null, g), h('ul', { class: 'tl' }, items.map(([p]) => h('li', null, h('a', { href: '#', onClick: (e) => { e.preventDefault(); select(eq, { main: p.mainId, sub: p.subId, part: p.id }, { mode: 'technical' }); } }, p.name), h('span', { class: 'when' }, p.prov === 'approximate-location' ? 'Location approximate / simplified representation' : p.prov)))))));
     return box;
   }

@@ -590,4 +590,16 @@ Evidence: `docs/evidence/U1/spare-panel-c35/REPORT.md`; exact request: `docs/run
 | --- | --- | --- |
 | D-179 | The equipment summary uses a compact identity/status/action row and a full-width metadata row. Keep type/name/status, duration/since, model, source/freshness, reason and open-work link; remove the repeated source explanation from the inline text, retaining it on the source tag and in Maintenance. Phone actions wrap below metadata with 44 px targets. Apply the layout only to `eq-summary`; existing EQ/FAC job headers and blue app navigation retain their styles. | U1-C36; presentation only, no action/permission/data/camera change. |
 
+### 2026-10-24 U1 CHANGES REQUESTED (U1-C37: remove unnecessary panel explanations)
+
+| ID | User request |
+| --- | --- |
+| U1-C37 | "Remove this kind of unwanted data and clean the interface.." clarified by "This type of text areas.." and the supplied annotated screenshot circling the automatic-status source/cause paragraph in Maintenance. Remove similar repeated explanatory text from the crane information panels. |
+
+| Decision | Rule | Basis / supersession |
+| --- | --- | --- |
+| D-180 | Crane panels lead with current records, compact status/source/freshness, counts and actions. Remove the automatic-status source/cause paragraph, repeated scope/history tutorials, spare-panel introductions and per-card estimate footnotes, implementation-binding notice and prototype drawing-handler paragraph. Keep manual reasons, visible stale indicators, empty-state labels, actual job/part data, prediction values/reasons, source references and unresolved conflicts. Keep the concise total-lift versus overall-height qualification. Supplementary source/estimate/reference explanations use existing native tooltips. Status causes and history remain in EQ Jobs; no data is deleted or respecified. | U1-C37 supersedes earlier requirements for these explanatory paragraphs to render inline, including the Maintenance explanation in C34 and C36. Current-state projection, scopes, permissions, model identity and synthetic provenance remain in force. |
+
+Evidence: `docs/evidence/U1/panel-cleanup-c37/REPORT.md`; exact request: `docs/runs/Repair-U1-C37-20261024.md`. **U1 remains IN PROGRESS / CHANGES REQUESTED, NOT COMPLETE and NOT APPROVED.** P04 is Not started.
+
 Evidence: `docs/evidence/U1/compact-header-c36/REPORT.md`. **U1 remains incomplete and unapproved; P04 is Not started.**

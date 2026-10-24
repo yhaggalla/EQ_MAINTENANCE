@@ -2,6 +2,16 @@
 
 Rolling handover for CICT EQ Maintenance. Each phase appends its record; the newest is first.
 
+## 24 October 2026 - U1-C37 crane-panel text cleanup
+
+**U1 remains IN PROGRESS / CHANGES REQUESTED, NOT COMPLETE and NOT APPROVED; P04 is Not started.** Baseline `8799b6b` on `main`; active Codex desktop agent, actual model/effort not independently recorded. No delegation or independent R review. Exact request and annotated reference: `docs/runs/Repair-U1-C37-20261024.md`, `docs/evidence/U1/panel-cleanup-c37/reference.jpg`.
+
+Removed the screenshot's automatic-status source/cause paragraph and repeated tutorials/introductions across Maintenance, Projects/Special, Spare parts and Technical. Panels retain real job/part/specification data, actions, scope counts, source/freshness, manual reasons, stale indicators and unresolved source conflicts. Supplemental qualifications use compact labels/tooltips; 63 m remains explicitly total lift height, not overall crane height. Underlying status causes/history remain available in EQ Jobs. No store, API, permission, model, camera or persistence change.
+
+Runtime files: `artifacts/prototypes/p02-ui/js/panel-tabs.js`, `artifacts/prototypes/p02-ui/js/views-equipment.js`. Existing checks updated only for superseded prose, preserving actual list/field comparisons: `tools/p02b/check_p02b.mjs`, `tools/p02b/check_u1_c34.mjs`. Fresh local Chrome 155 evidence: panel 9/9, areas 21/21, spare-update 11/11, focused visual/data checks 10/10; desktop and phone captures inspected. Report, commands and initial smoke-assertion corrections: `docs/evidence/U1/panel-cleanup-c37/REPORT.md`. This is synthetic prototype verification; formal application acceptance remains NOT RUN.
+
+Current U1 records, UX section 31 and prototype README updated. Source authorities and Portal are untouched. Pre-existing FAC edits (`index.html`, `js/app.js`, `js/views-fac.js`, `css/fac-dashboard.css`), the RTG handover and remote-attachment folder are excluded from this commit. Next: continue U1 walkthrough/refinements; explicit user approval is still required before P04.
+
 ## 24 October 2026 - U1-C36 compact equipment summary
 
 **U1 remains IN PROGRESS / CHANGES REQUESTED, NOT COMPLETE and NOT APPROVED; P04 is Not started.** Baseline `efd1c6d` on `main`; active Codex agent, no delegated/independent R review, runtime model/effort not independently recorded. Exact request: `docs/runs/Repair-U1-C36-20261024.md`.

@@ -36,7 +36,7 @@ window.EQ = window.EQ || {};
     return { maintenance: eq.zmmsMapped ? EQ.zmms.todayJobs(eq.id).length : null, special: open, spare: c };
   };
 
-  const tag = (t, cls) => h('span', { class: 'tag' + (cls ? ' ' + cls : '') }, t);
+  const tag = (t, cls, title) => h('span', { class: 'tag' + (cls ? ' ' + cls : ''), title }, t);
 
 
   /** One ZMMS daily job as a compact card (fields follow the real export; values are synthetic). */
@@ -56,18 +56,16 @@ window.EQ = window.EQ || {};
     const mode = EQ.zmms.mode(eq);
     const fresh = EQ.zmms.freshness();
     box.appendChild(h('div', { class: 'sec' }, h('h3', null, 'Equipment status'),
-      h('div', { class: 'row' }, EQ.statusBadge(eq.status), tag(mode.label === 'Auto' ? 'Auto (ZMMS)' : 'Manual', mode.label === 'Auto' ? '' : 'gold')),
-      h('span', { class: 'small muted', 'data-fk': 'status-cause' }, mode.long + (EQ.zmms.causeText(eq) ? '. ' + EQ.zmms.causeText(eq) : '')),
+      h('div', { class: 'row' }, EQ.statusBadge(eq.status), tag(mode.label === 'Auto' ? 'Auto (ZMMS)' : 'Manual', mode.label === 'Auto' ? '' : 'gold', mode.long)),
       eq.statusReason && mode.label !== 'Auto' ? h('span', { class: 'small' }, 'Reason: ' + eq.statusReason) : null));
     if (!eq.zmmsMapped) {
-      box.appendChild(h('div', { class: 'nonwork' }, h('strong', null, 'Not linked to ZMMS'), eq.code + ' has no ZMMS equipment mapping, so no daily jobs are listed and its status keeps the manual rule. An Admin links it in Admin > EQ > ZMMS.'));
+      box.appendChild(h('div', { class: 'nonwork' }, h('strong', null, 'Not linked to ZMMS')));
     } else {
       const jobs = EQ.zmms.todayJobs(eq.id);
       box.appendChild(h('div', { class: 'sec' }, h('h3', null, "Today's ZMMS daily jobs ", tag(String(jobs.length))),
-        h('span', { class: 'small muted' }, EQ.zmms.freshLabel() + (fresh.stale ? ' (stale: the latest sync failed or is overdue)' : '') + '. Read-only; no earlier days here.'),
-        jobs.length ? h('ul', { class: 'tl' }, jobs.map((j) => P.dailyJobCard(j))) : h('div', { class: 'nonwork' }, h('strong', null, 'No ZMMS job today'), "Not in today's plan" + (eq.status === 'readyForOps' ? ', so the automatic status is Ready for OPS.' : '.'))));
+        h('div', { class: 'row small muted' }, EQ.zmms.freshLabel(), fresh.stale ? tag('Stale', 'gold', 'The latest sync failed or is overdue.') : null),
+        jobs.length ? h('ul', { class: 'tl' }, jobs.map((j) => P.dailyJobCard(j))) : h('div', { class: 'nonwork' }, h('strong', null, 'No ZMMS job today'))));
     }
-    box.appendChild(h('p', { class: 'small muted', style: 'margin:0' }, 'ZMMS jobs belong to the whole equipment, not to a mechanism or part, so the same list shows for any selection. Earlier days are in Jobs.'));
     box.appendChild(openInJobs(eq, scope, 'maintenance'));
     return box;
   };
@@ -96,10 +94,9 @@ window.EQ = window.EQ || {};
     if (!cs.ok) { box.appendChild(h('div', { class: 'notice error', role: 'alert' }, icon('alert'), h('p', null, cs.message))); return box; }
     const cancelled = cs.counts.cancelled, completed = cs.counts.completed;
     const open = cs.openJobs, list = cs.jobs;
-    box.appendChild(h('p', { class: 'small muted', style: 'margin:0' }, (scope.level === 'area' ? 'Open and completed special jobs targeted at included positions or with replacement lines at those positions; each job appears once' : scope.level === 'equipment' ? 'Open and completed special jobs of ' + eq.code + ' (an equipment-level job appears once)' : scope.level === 'part' ? 'Open and completed special jobs at this exact position' : 'Open and completed special jobs targeted here and at everything below it; a job with several lines appears once') + ', newest first. Cancelled jobs are counted only.'));
     box.appendChild(h('div', { class: 'row', role: 'group', 'aria-label': 'Special job counts in this scope' }, tag(open.length + ' open', open.length ? 'gold' : ''), tag(completed + ' completed', completed ? 'green' : ''), tag(cancelled + ' cancelled')));
     box.appendChild(h('div', { class: 'sec' }, h('h3', null, 'Special jobs ', tag(String(list.length))),
-      list.length ? h('ul', { class: 'tl', 'data-fk': 'special-list' }, list.map((r) => jobMini(r.job, r.matchingLines))) : h('div', { class: 'nonwork' }, h('strong', null, 'No special jobs'), 'Nothing is Pending, Current or Completed in this scope.'),
+      list.length ? h('ul', { class: 'tl', 'data-fk': 'special-list' }, list.map((r) => jobMini(r.job, r.matchingLines))) : h('div', { class: 'nonwork' }, h('strong', null, 'No special jobs')),
       cs.moreCompleted ? h('p', { class: 'small muted', 'data-fk': 'more-completed' }, 'Only the ' + EQ.CURRENT_COMPLETED_LIMIT + ' most recent completed jobs are listed here; the rest are in Jobs.') : null));
     box.appendChild(h('div', { class: 'row' }, openInJobs(eq, scope, 'special'),
       // U1-C21: writers add a special job from the crane view, pre-filled with the equipment and the selection (whole equipment too)
@@ -118,19 +115,17 @@ window.EQ = window.EQ || {};
         h('dt', null, 'Brand'), h('dd', null, r.brand || 'Unknown'), h('dt', null, 'Model / part no.'), h('dd', null, r.model || 'Unknown'), h('dt', null, 'Serial'), h('dd', null, r.serial || 'Unknown'),
         h('dt', null, 'Replaced'), h('dd', null, r.replacedOn ? EQ.fmtDate(r.replacedOn) : r.condition === 'original' ? 'Not replaced (Original)' : 'Unknown'),
         h('dt', null, 'Expected life'), h('dd', null, r.lifeMonths != null ? r.lifeMonths + ' months (' + (r.lifeSource === 'override' ? 'set for this equipment' : 'part type default') + ')' : 'Not set'),
-        h('dt', null, 'Next predicted replacement'), h('dd', null, r.predicted ? EQ.fmtDate(r.predicted) + (r.daysTo != null ? (r.daysTo < 0 ? ' (' + Math.abs(r.daysTo) + ' d ago)' : ' (in ' + r.daysTo + ' d)') : '') : r.why))
-        : h('span', null, 'Condition not recorded. This does not show that the part is original, healthy or never replaced. ', r.why),
-      r.remarks ? h('span', { class: 'small' }, 'Remarks: ' + r.remarks) : null,
-      r.predicted ? h('span', { class: 'when' }, 'Calendar estimate from expected life, not a condition assessment.') : null);
+        h('dt', { title: 'Calendar estimate from expected life, not a condition assessment.' }, 'Next predicted replacement'), h('dd', null, r.predicted ? EQ.fmtDate(r.predicted) + (r.daysTo != null ? (r.daysTo < 0 ? ' (' + Math.abs(r.daysTo) + ' d ago)' : ' (in ' + r.daysTo + ' d)') : '') : r.why))
+        : h('span', { class: 'small muted' }, r.why),
+      r.remarks ? h('span', { class: 'small' }, 'Remarks: ' + r.remarks) : null);
   };
   P.spare = function spare(eq, sel, scope) {
     const box = h('div', { class: 'stack' });
     const rows = EQ.spares.rows(eq.id, scope.level === 'equipment' ? null : scope);
     const c = EQ.spares.counts(rows);
     const canUpdate = EQ.perm.write() && eq.lifecycle === 'active' && EQ.dlg?.spare;
-    box.appendChild(h('p', { class: 'small muted', style: 'margin:0' }, 'Current condition of the major spare parts registered for ' + eq.code + (scope.level === 'equipment' ? '.' : ' in this selection.') + ' Earlier changes are kept in Jobs > Spare parts condition.'));
-    if (scope.level === 'part' && !rows.length) box.appendChild(h('div', { class: 'nonwork' }, h('strong', null, 'Not a major spare part'), 'This position is not in the spare-part register of ' + eq.code + '. The EQ Team or an Admin can add it.'));
-    else if (!rows.length) box.appendChild(h('div', { class: 'nonwork' }, h('strong', null, 'No major spare parts in this selection'), 'Nothing here is in the register of ' + eq.code + '.'));
+    if (scope.level === 'part' && !rows.length) box.appendChild(h('div', { class: 'nonwork' }, h('strong', null, 'Not a major spare part')));
+    else if (!rows.length) box.appendChild(h('div', { class: 'nonwork' }, h('strong', null, 'No major spare parts in this selection')));
     else {
       box.appendChild(h('div', { class: 'row', role: 'group', 'aria-label': 'Spare part flags in this scope' }, tag(rows.length + ' registered'), tag(c.overdue + ' overdue', c.overdue ? 'red' : ''), tag(c.dueSoon + ' due soon', c.dueSoon ? 'gold' : '')));
       box.appendChild(h('ul', { class: 'tl' }, rows.map((r) => {

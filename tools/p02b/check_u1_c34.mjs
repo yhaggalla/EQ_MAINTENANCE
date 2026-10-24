@@ -28,8 +28,8 @@ try {
       await click('tab-' + tab);
       assert(await ev(`document.querySelector('#tabpanel').getAttribute('aria-labelledby')==='tab-${tab}'&&document.querySelector('[data-fk="tab-${tab}"]').getAttribute('aria-selected')==='true'&&EQ.qc.session.viewer.isolate===${JSON.stringify('container.' + area)}`), 'tab selection/isolation');
       const text = await ev('document.querySelector("#tabpanel").textContent');
-      assert(tab === 'maintenance' ? text.includes("Today's ZMMS daily jobs") : tab === 'special' ? text.includes('Special jobs') : tab === 'spareParts' ? text.includes('Current condition') : text.includes(ids.length + ' included part positions'), 'wrong tab body ' + tab);
-      if (tab === 'spareParts') assert(await ev(`Array.from(document.querySelectorAll('#tabpanel [data-pos]')).every(e=>${JSON.stringify(ids)}.includes(e.dataset.pos))`), 'spare outside area');
+      assert(tab === 'maintenance' ? text.includes("Today's ZMMS daily jobs") : tab === 'special' ? text.includes('Special jobs') : tab === 'spareParts' ? /registered|No major spare parts/.test(text) : text.includes(ids.length + ' included part positions'), 'wrong tab body ' + tab);
+      if (tab === 'spareParts') assert(await ev(`(()=>{const got=Array.from(document.querySelectorAll('#tabpanel [data-pos]')).map(e=>e.dataset.pos).sort(),want=EQ.spares.rows(EQ.qc.session.eq.id,{level:'area',id:EQ.route.query.container}).map(r=>r.posId).sort();return got.every(id=>${JSON.stringify(ids)}.includes(id))&&JSON.stringify(got)===JSON.stringify(want)})()`), 'spare area membership/count');
     }
   });
   await step('Area scope excludes unrelated targets and deduplicates multiple replacement lines', async () => {
