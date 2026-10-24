@@ -4,6 +4,12 @@ Prepared in P01 on 21 October 2026 from a **read-only** inspection of `F:\CODEX\
 
 **P01B update (22 October 2026, SOW V2 revision 4).** Only two things change, because P05 has not started: the **fourth role** `eq-maintenance:fac-team` (FAC Team) and the **display name** "EQ & FAC Maintenance" (B-14, B-15). Application code, path, audience, binding claim, icon key, sort order, disabled-registry rollout and every other item stay as reviewed in R01. The Portal working tree was re-checked read-only on 22 October 2026: still branch `feature/option-b-provisioning-and-login-redesign`, commit `47f7bd9`, clean, so the s1 facts stand. Changed sections: s2, s3.1 (A-1, A-4), s3.2 (I-1, I-5, I-10), s3.3 (W-2, W-4), s4, s5.2 (RC-4, RC-8, RC-15, new RC-18, RC-19), s7, s8. The in-app Access matrix is entirely EQ-side (DATA_CONTRACT s14): the Portal only assigns the four roles; nothing in the Portal stores tab visibility or optional rights.
 
+## Temporary local presentation before U1
+
+24 October 2026, B-22 / D-203: SOW V2 revision 6 section 2A adds only the local management presentation in `documents/prompt-pack/TEMP_MANAGEMENT_WALKTHROUGH.md`. The EQ prototype may copy Portal appearance assets to show login (no credential checks), a launcher with three inert app cards and EQ & FAC Maintenance, and entry to the current app default. Portal source is read-only; no identity/session/registry/provisioning endpoints or working apps are contacted, and no Portal administration is built. This neither implements nor changes the P05 plan below.
+
+Before U1 approval remove all temporary screens/assets/hooks/state (TD07-TD08). The initial reference is `8303f8b8a55f41983bdcc77363ddbf13d2892383`; retain all accepted EQ/FAC U1 refinements and remove only temporary wrapper edits. Verify the cleaned app against that initial commit plus accepted changes, then record its exact commit/tree for U1. Login/Portal feedback is deferred to P05 actual integration. This documentation revision has not implemented the temporary flow. The Portal appearance reference was rechecked read-only at clean commit `47f7bd9d8296fda56114d8239e10ae9ad7850460` on 24 October 2026; this does not revalidate its authentication contracts or deployed state.
+
 ## 1 Current contract (as read)
 
 | Fact | Evidence (Portal repo unless noted) |

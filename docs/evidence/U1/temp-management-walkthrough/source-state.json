@@ -1,0 +1,59 @@
+{
+  "initialBaseline": "8303f8b8a55f41983bdcc77363ddbf13d2892383",
+  "unchangedRuntimeFiles": 49,
+  "unexpectedRuntimeDifferences": [],
+  "lineEndingOnlyDifferences": [
+    "artifacts/prototypes/p02-ui/css/app.css",
+    "artifacts/prototypes/p02-ui/css/qc-viewer.css",
+    "artifacts/prototypes/p02-ui/index.html",
+    "artifacts/prototypes/p02-ui/js/app.js",
+    "artifacts/prototypes/p02-ui/js/catalog.js",
+    "artifacts/prototypes/p02-ui/js/fac.js",
+    "artifacts/prototypes/p02-ui/js/fixtures.js",
+    "artifacts/prototypes/p02-ui/js/fleet-art.js",
+    "artifacts/prototypes/p02-ui/js/panel-tabs.js",
+    "artifacts/prototypes/p02-ui/js/params.js",
+    "artifacts/prototypes/p02-ui/js/preview.js",
+    "artifacts/prototypes/p02-ui/js/qc-viewer.mjs",
+    "artifacts/prototypes/p02-ui/js/spares.js",
+    "artifacts/prototypes/p02-ui/js/store.js",
+    "artifacts/prototypes/p02-ui/js/util.js",
+    "artifacts/prototypes/p02-ui/js/views-eqjobs.js",
+    "artifacts/prototypes/p02-ui/js/views-equipment.js",
+    "artifacts/prototypes/p02-ui/js/views-jobs.js",
+    "artifacts/prototypes/p03-qc-model/css/p03-panel.css",
+    "artifacts/prototypes/p03-qc-model/css/p03.css",
+    "artifacts/prototypes/p03-qc-model/index.html",
+    "artifacts/prototypes/p03-qc-model/js/data.mjs",
+    "artifacts/prototypes/p03-qc-model/js/viewer.mjs",
+    "artifacts/prototypes/p03-qc-model/serve.mjs"
+  ],
+  "comparison": "Git-normalized text content; line-ending-only differences separately recorded. Binary files compared exactly.",
+  "portalReference": {
+    "commit": "47f7bd9d8296fda56114d8239e10ae9ad7850460",
+    "status": "",
+    "files": [
+      {
+        "path": "src/portal-web/src/App.tsx",
+        "sha256": "3001620f9c6071a7d3cea6e8ca70e20487c0bb1ff2fb9280fbd95ccc61138405"
+      },
+      {
+        "path": "src/portal-web/src/styles.css",
+        "sha256": "734d50427e12b4169a0354530153cbac8f3c36169443807858b7692a9a14049b"
+      },
+      {
+        "path": "src/portal-web/src/assets/cict-logo.png",
+        "sha256": "d7af90fbb0a7f2bff38d199f9ebf5c812d14493d3953f33580b968661eeb9965"
+      },
+      {
+        "path": "src/portal-web/src/assets/cict-umms-background.jpg",
+        "sha256": "7d4f2c5528ebde681a23fe17833dc2aeea3a43cd79e07aa078e3df60a2227da0"
+      },
+      {
+        "path": "src/CictEng.Identity/Persistence/IdentityCatalogSeeder.cs",
+        "sha256": "24681f48e1ee215e756d58b98702aa24ec6b53a49898d7d22613bcc3c89c171e"
+      }
+    ]
+  },
+  "assetsCopiedUnchanged": true
+}

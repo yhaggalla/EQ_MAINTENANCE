@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "packVersion": "2.0",
+  "packVersion": "2.2",
   "verifiedOn": "2026-10-21",
   "purpose": "Per-phase model/effort recommendations, not applied client settings or application benchmarks.",
   "profileCount": 27,

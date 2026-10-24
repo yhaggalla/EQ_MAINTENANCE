@@ -1,10 +1,12 @@
 # Models and effort by phase
 
-Version 2.0 | Verified 21 October 2026, phases added 22 October 2026 | Codex and Claude Code alternatives
+Version 2.2 | Profiles verified 21 October 2026, phases added 22 October 2026; unchanged for the 24 October temporary walkthrough | Codex and Claude Code alternatives
 
 Use one platform for each phase. The Codex and Claude columns are alternatives; running both is not required. The table is a quality-oriented starting recommendation based on the phase's work and failure consequences, not a benchmark result for this application. Preserve the same scope, sources and acceptance criteria regardless of provider.
 
 These recommendations are also included inside every copy-and-paste prompt. Select the model and effort in your client before running it. Writing a model name inside a prompt does not switch the actual model or change its runtime reasoning effort.
+
+The temporary U1-T01 build/removal tasks in `TEMP_MANAGEMENT_WALKTHROUGH.md` use the existing Repair profile for P02/P02B. They add no phase or profile and do not bypass U1.
 
 ## Phase recommendations
 

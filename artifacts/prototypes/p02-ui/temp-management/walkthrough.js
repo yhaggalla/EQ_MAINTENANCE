@@ -1,0 +1,57 @@
+/* U1-T01 presentation only. No credential reads, requests, cookies or storage. */
+(() => {
+  'use strict';
+  // Existing explicit app/bookmark routes keep their direct prototype entry.
+  // The unqualified root visit still starts the temporary login presentation.
+  if (/^#\/(?:eq|fac|fleet|equipment|jobs|admin)(?:\/|\?|$)/.test(location.hash)) {
+    location.replace('/index.html' + location.search + location.hash);
+    return;
+  }
+  const root = document.getElementById('walkthrough');
+  let dark = matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+  function show(screen) {
+    root.replaceChildren(document.getElementById(screen + '-screen').content.cloneNode(true));
+    window.scrollTo(0, 0);
+    if (screen === 'login') {
+      const form = root.querySelector('form');
+      form.addEventListener('submit', event => {
+        event.preventDefault();
+        form.reset(); // Discard values without reading them; never create a session.
+        show('launcher');
+      });
+      const theme = root.querySelector('.login-theme-toggle');
+      theme.setAttribute('aria-pressed', String(dark));
+      theme.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
+      theme.innerHTML = dark ? icons.moon : icons.sun;
+      theme.addEventListener('click', () => {
+        dark = !dark;
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+        theme.setAttribute('aria-pressed', String(dark));
+        theme.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
+        theme.innerHTML = dark ? icons.moon : icons.sun;
+      });
+      const reveal = root.querySelector('.login-reveal');
+      reveal.addEventListener('click', () => {
+        const input = root.querySelector('#password');
+        const visible = input.type === 'password';
+        input.type = visible ? 'text' : 'password';
+        reveal.setAttribute('aria-pressed', String(visible));
+        reveal.setAttribute('aria-label', visible ? 'Hide password' : 'Show password');
+        reveal.innerHTML = visible ? icons['eye-off'] : icons.eye;
+      });
+      root.querySelector('#userName').focus({ preventScroll: true });
+    } else {
+      const main = root.querySelector('main');
+      main.tabIndex = -1;
+      main.focus({ preventScroll: true });
+      root.querySelectorAll('[data-placeholder]').forEach(card => card.addEventListener('click', () => {
+        root.querySelector('#placeholder-status').textContent = 'Presentation placeholder. This application is not connected.';
+      }));
+      // Preserve existing prototype query/persona and deep-link controls when supplied.
+      root.querySelector('[data-enter-eq]').href = '/index.html' + location.search + location.hash;
+    }
+  }
+  const icons = {"sun":"<svg class=\"portal-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"4\"></circle><path d=\"M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6\"></path></svg>","moon":"<svg class=\"portal-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M20 14.4A8 8 0 0 1 9.6 4 7.5 7.5 0 1 0 20 14.4Z\"></path></svg>","eye":"<svg class=\"portal-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z\"></path><circle cx=\"12\" cy=\"12\" r=\"2.8\"></circle></svg>","eye-off":"<svg class=\"portal-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 4l16 16\"></path><path d=\"M9.6 5.9A9.4 9.4 0 0 1 12 5.5c6 0 9.5 6.5 9.5 6.5a16 16 0 0 1-3 3.6M6.2 7.7A16 16 0 0 0 2.5 12S6 18.5 12 18.5a9 9 0 0 0 3-.5\"></path></svg>","apps":"<svg class=\"portal-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"3\" width=\"7\" height=\"7\" rx=\"1\"></rect><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\" rx=\"1\"></rect><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\" rx=\"1\"></rect><rect x=\"14\" y=\"14\" width=\"7\" height=\"7\" rx=\"1\"></rect></svg>","arrow":"<svg class=\"portal-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 12h14\"></path><path d=\"m13 6 6 6-6 6\"></path></svg>","wrench":"<svg class=\"portal-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M14.7 6.3a4 4 0 0 0-5-5L12 3.6 9.6 6 7.3 3.7a4 4 0 0 0 5 5l7.4 7.4a2.1 2.1 0 0 1-3 3l-7.4-7.4\"></path></svg>","shield":"<svg class=\"portal-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 3 5 6v5c0 4.8 2.9 8.2 7 10 4.1-1.8 7-5.2 7-10V6l-7-3Z\"></path></svg>","payments":"<svg class=\"portal-icon\" viewBox=\"0 0 24 24\" aria-hidden=\"true\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M5 3h14v18l-3-2-4 2-4-2-3 2V3Z\"></path><path d=\"M9 8h6M9 12h6M9 16h3\"></path></svg>"};
+  show('login');
+})();

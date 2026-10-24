@@ -1,0 +1,692 @@
+{
+  "phase": "U1-T01 BUILD",
+  "dateUtc": "2026-10-24T18:04:20.782Z",
+  "method": "Fresh throwaway headless Chrome profile, CDP, software WebGL; reference exact source JSX SSR with safe fixtures and copied original CSS/assets.",
+  "results": [
+    {
+      "id": "TD01",
+      "name": "1920px source login geometry/styles match",
+      "pass": true,
+      "detail": {
+        "reference": {
+          "frame": {
+            "x": 370,
+            "y": 184,
+            "width": 1180,
+            "height": 712,
+            "color": "rgb(29, 43, 54)",
+            "background": "rgb(255, 255, 255)",
+            "radius": "20px",
+            "font": "Inter, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif"
+          },
+          "panel": {
+            "x": 1058.15625,
+            "y": 185,
+            "width": 490.828125,
+            "height": 710,
+            "color": "rgb(29, 43, 54)",
+            "background": "rgb(255, 255, 255)",
+            "radius": "0px",
+            "font": "Inter, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif"
+          },
+          "input": {
+            "x": 1096.0625,
+            "y": 491.625,
+            "width": 416,
+            "height": 50,
+            "color": "rgb(29, 43, 54)",
+            "background": "rgb(255, 255, 255)",
+            "radius": "11px",
+            "font": "Inter, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif"
+          },
+          "password": {
+            "x": 1096.0625,
+            "y": 584.625,
+            "width": 416,
+            "height": 50,
+            "color": "rgb(29, 43, 54)",
+            "background": "rgb(255, 255, 255)",
+            "radius": "11px",
+            "font": "Inter, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif"
+          },
+          "submit": {
+            "x": 1096.0625,
+            "y": 657.625,
+            "width": 416,
+            "height": 50,
+            "color": "rgb(255, 255, 255)",
+            "background": "rgb(12, 66, 104)",
+            "radius": "11px",
+            "font": "Inter, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif"
+          }
+        },
+        "actual": {
+          "frame": {
+            "x": 370,
+            "y": 184,
+            "width": 1180,
+            "height": 712,
+            "color": "rgb(29, 43, 54)",
+            "background": "rgb(255, 255, 255)",
+            "radius": "20px",
+            "font": "Inter, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif"
+          },
+          "panel": {
+            "x": 1058.15625,
+            "y": 185,
+            "width": 490.828125,
+            "height": 710,
+            "color": "rgb(29, 43, 54)",
+            "background": "rgb(255, 255, 255)",
+            "radius": "0px",
+            "font": "Inter, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif"
+          },
+          "input": {
+            "x": 1096.0625,
+            "y": 491.625,
+            "width": 416,
+            "height": 50,
+            "color": "rgb(29, 43, 54)",
+            "background": "rgb(255, 255, 255)",
+            "radius": "11px",
+            "font": "Inter, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif"
+          },
+          "password": {
+            "x": 1096.0625,
+            "y": 584.625,
+            "width": 416,
+            "height": 50,
+            "color": "rgb(29, 43, 54)",
+            "background": "rgb(255, 255, 255)",
+            "radius": "11px",
+            "font": "Inter, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif"
+          },
+          "submit": {
+            "x": 1096.0625,
+            "y": 657.625,
+            "width": 416,
+            "height": 50,
+            "color": "rgb(255, 255, 255)",
+            "background": "rgb(12, 66, 104)",
+            "radius": "11px",
+            "font": "Inter, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif"
+          }
+        }
+      }
+    },
+    {
+      "id": "TD01",
+      "name": "1920px usable fields, branding and no page overflow",
+      "pass": true
+    },
+    {
+      "id": "TD01",
+      "name": "1920px fresh root has login and no EQ app/session",
+      "pass": true
+    },
+    {
+      "id": "TD03",
+      "name": "1920px exactly four correctly branded cards",
+      "pass": true
+    },
+    {
+      "id": "TD03",
+      "name": "1920px launcher fits horizontally",
+      "pass": true
+    },
+    {
+      "id": "TD03",
+      "name": "1920px source card styles match",
+      "pass": true,
+      "detail": {
+        "reference": {
+          "radius": "12px",
+          "color": "rgb(15, 33, 51)",
+          "background": "rgb(255, 255, 255)",
+          "padding": "22.4px",
+          "columns": "402.656px 402.672px 402.656px 0px"
+        },
+        "actual": {
+          "radius": "12px",
+          "color": "rgb(15, 33, 51)",
+          "background": "rgb(255, 255, 255)",
+          "padding": "22.4px",
+          "columns": "298px 298px 298px 298px"
+        }
+      }
+    },
+    {
+      "id": "TD01",
+      "name": "1366px source login geometry/styles match",
+      "pass": true,
+      "detail": {
+        "reference": {
+          "frame": {
+            "x": 93,
+            "y": 30,
+            "width": 1180,
+            "height": 712,
+            "color": "rgb(29, 43, 54)",
+            "background": "rgb(255, 255, 255)",
+            "radius": "20px",
+            "font": "Inter, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif"
+          },
+          "panel": {
+            "x": 781.15625,
+            "y": 31,
+            "width": 490.828125,
+            "height": 710,
+            "color": "rgb(29, 43, 54)",
+            "background": "rgb(255, 255, 255)",
+            "radius": "0px",
+            "font": "Inter, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif"
+          },
+          "input": {
+            "x": 819.0625,
+            "y": 337.625,
+            "width": 416,
+            "height": 50,
+            "color": "rgb(29, 43, 54)",
+            "background": "rgb(255, 255, 255)",
+            "radius": "11px",
+            "font": "Inter, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif"
+          },
+          "password": {
+            "x": 819.0625,
+            "y": 430.625,
+            "width": 416,
+            "height": 50,
+            "color": "rgb(29, 43, 54)",
+            "background": "rgb(255, 255, 255)",
+            "radius": "11px",
+            "font": "Inter, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif"
+          },
+          "submit": {
+            "x": 819.0625,
+            "y": 503.625,
+            "width": 416,
+            "height": 50,
+            "color": "rgb(255, 255, 255)",
+            "background": "rgb(12, 66, 104)",
+            "radius": "11px",
+            "font": "Inter, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif"
+          }
+        },
+        "actual": {
+          "frame": {
+            "x": 93,
+            "y": 30,
+            "width": 1180,
+            "height": 712,
+            "color": "rgb(29, 43, 54)",
+            "background": "rgb(255, 255, 255)",
+            "radius": "20px",
+            "font": "Inter, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif"
+          },
+          "panel": {
+            "x": 781.15625,
+            "y": 31,
+            "width": 490.828125,
+            "height": 710,
+            "color": "rgb(29, 43, 54)",
+            "background": "rgb(255, 255, 255)",
+            "radius": "0px",
+            "font": "Inter, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif"
+          },
+          "input": {
+            "x": 819.0625,
+            "y": 337.625,
+            "width": 416,
+            "height": 50,
+            "color": "rgb(29, 43, 54)",
+            "background": "rgb(255, 255, 255)",
+            "radius": "11px",
+            "font": "Inter, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif"
+          },
+          "password": {
+            "x": 819.0625,
+            "y": 430.625,
+            "width": 416,
+            "height": 50,
+            "color": "rgb(29, 43, 54)",
+            "background": "rgb(255, 255, 255)",
+            "radius": "11px",
+            "font": "Inter, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif"
+          },
+          "submit": {
+            "x": 819.0625,
+            "y": 503.625,
+            "width": 416,
+            "height": 50,
+            "color": "rgb(255, 255, 255)",
+            "background": "rgb(12, 66, 104)",
+            "radius": "11px",
+            "font": "Inter, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif"
+          }
+        }
+      }
+    },
+    {
+      "id": "TD01",
+      "name": "1366px usable fields, branding and no page overflow",
+      "pass": true
+    },
+    {
+      "id": "TD01",
+      "name": "1366px fresh root has login and no EQ app/session",
+      "pass": true
+    },
+    {
+      "id": "TD03",
+      "name": "1366px exactly four correctly branded cards",
+      "pass": true
+    },
+    {
+      "id": "TD03",
+      "name": "1366px launcher fits horizontally",
+      "pass": true
+    },
+    {
+      "id": "TD03",
+      "name": "1366px source card styles match",
+      "pass": true,
+      "detail": {
+        "reference": {
+          "radius": "12px",
+          "color": "rgb(15, 33, 51)",
+          "background": "rgb(255, 255, 255)",
+          "padding": "22.4px",
+          "columns": "402.656px 402.672px 402.656px 0px"
+        },
+        "actual": {
+          "radius": "12px",
+          "color": "rgb(15, 33, 51)",
+          "background": "rgb(255, 255, 255)",
+          "padding": "22.4px",
+          "columns": "298px 298px 298px 298px"
+        }
+      }
+    },
+    {
+      "id": "TD01",
+      "name": "375px source login geometry/styles match",
+      "pass": true,
+      "detail": {
+        "reference": {
+          "frame": {
+            "x": 14,
+            "y": 82.75,
+            "width": 347,
+            "height": 646.484375,
+            "color": "rgb(29, 43, 54)",
+            "background": "rgb(255, 255, 255)",
+            "radius": "16px",
+            "font": "Inter, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif"
+          },
+          "panel": {
+            "x": 15,
+            "y": 83.75,
+            "width": 345,
+            "height": 644.484375,
+            "color": "rgb(29, 43, 54)",
+            "background": "rgb(255, 255, 255)",
+            "radius": "0px",
+            "font": "Inter, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif"
+          },
+          "input": {
+            "x": 37,
+            "y": 392.34375,
+            "width": 301,
+            "height": 50,
+            "color": "rgb(29, 43, 54)",
+            "background": "rgb(255, 255, 255)",
+            "radius": "11px",
+            "font": "Inter, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif"
+          },
+          "password": {
+            "x": 37,
+            "y": 485.34375,
+            "width": 301,
+            "height": 50,
+            "color": "rgb(29, 43, 54)",
+            "background": "rgb(255, 255, 255)",
+            "radius": "11px",
+            "font": "Inter, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif"
+          },
+          "submit": {
+            "x": 37,
+            "y": 558.34375,
+            "width": 301,
+            "height": 50,
+            "color": "rgb(255, 255, 255)",
+            "background": "rgb(12, 66, 104)",
+            "radius": "11px",
+            "font": "Inter, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif"
+          }
+        },
+        "actual": {
+          "frame": {
+            "x": 14,
+            "y": 82.75,
+            "width": 347,
+            "height": 646.484375,
+            "color": "rgb(29, 43, 54)",
+            "background": "rgb(255, 255, 255)",
+            "radius": "16px",
+            "font": "Inter, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif"
+          },
+          "panel": {
+            "x": 15,
+            "y": 83.75,
+            "width": 345,
+            "height": 644.484375,
+            "color": "rgb(29, 43, 54)",
+            "background": "rgb(255, 255, 255)",
+            "radius": "0px",
+            "font": "Inter, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif"
+          },
+          "input": {
+            "x": 37,
+            "y": 392.34375,
+            "width": 301,
+            "height": 50,
+            "color": "rgb(29, 43, 54)",
+            "background": "rgb(255, 255, 255)",
+            "radius": "11px",
+            "font": "Inter, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif"
+          },
+          "password": {
+            "x": 37,
+            "y": 485.34375,
+            "width": 301,
+            "height": 50,
+            "color": "rgb(29, 43, 54)",
+            "background": "rgb(255, 255, 255)",
+            "radius": "11px",
+            "font": "Inter, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif"
+          },
+          "submit": {
+            "x": 37,
+            "y": 558.34375,
+            "width": 301,
+            "height": 50,
+            "color": "rgb(255, 255, 255)",
+            "background": "rgb(12, 66, 104)",
+            "radius": "11px",
+            "font": "Inter, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif"
+          }
+        }
+      }
+    },
+    {
+      "id": "TD01",
+      "name": "375px usable fields, branding and no page overflow",
+      "pass": true
+    },
+    {
+      "id": "TD01",
+      "name": "375px fresh root has login and no EQ app/session",
+      "pass": true
+    },
+    {
+      "id": "TD03",
+      "name": "375px exactly four correctly branded cards",
+      "pass": true
+    },
+    {
+      "id": "TD03",
+      "name": "375px launcher fits horizontally",
+      "pass": true
+    },
+    {
+      "id": "TD03",
+      "name": "375px source card styles match",
+      "pass": true,
+      "detail": {
+        "reference": {
+          "radius": "12px",
+          "color": "rgb(15, 33, 51)",
+          "background": "rgb(255, 255, 255)",
+          "padding": "16px",
+          "columns": "359px"
+        },
+        "actual": {
+          "radius": "12px",
+          "color": "rgb(15, 33, 51)",
+          "background": "rgb(255, 255, 255)",
+          "padding": "16px",
+          "columns": "359px"
+        }
+      }
+    },
+    {
+      "id": "TD02",
+      "name": "both blank has no browser validation constraints",
+      "pass": true
+    },
+    {
+      "id": "TD02",
+      "name": "both blank proceeds and discards all fields",
+      "pass": true
+    },
+    {
+      "id": "TD02",
+      "name": "both blank sends no request or console output",
+      "pass": true
+    },
+    {
+      "id": "TD02",
+      "name": "username only has no browser validation constraints",
+      "pass": true
+    },
+    {
+      "id": "TD02",
+      "name": "username only proceeds and discards all fields",
+      "pass": true
+    },
+    {
+      "id": "TD02",
+      "name": "username only sends no request or console output",
+      "pass": true
+    },
+    {
+      "id": "TD02",
+      "name": "password only has no browser validation constraints",
+      "pass": true
+    },
+    {
+      "id": "TD02",
+      "name": "password only proceeds and discards all fields",
+      "pass": true
+    },
+    {
+      "id": "TD02",
+      "name": "password only sends no request or console output",
+      "pass": true
+    },
+    {
+      "id": "TD02",
+      "name": "arbitrary outside real length limits has no browser validation constraints",
+      "pass": true
+    },
+    {
+      "id": "TD02",
+      "name": "arbitrary outside real length limits proceeds and discards all fields",
+      "pass": true
+    },
+    {
+      "id": "TD02",
+      "name": "arbitrary outside real length limits sends no request or console output",
+      "pass": true
+    },
+    {
+      "id": "TD04",
+      "name": "umms click is inert with accessible explanation",
+      "pass": true
+    },
+    {
+      "id": "TD04",
+      "name": "payprep click is inert with accessible explanation",
+      "pass": true
+    },
+    {
+      "id": "TD04",
+      "name": "safety click is inert with accessible explanation",
+      "pass": true
+    },
+    {
+      "id": "TD04",
+      "name": "Portal administration, accounts, roles, password and provisioning absent",
+      "pass": true
+    },
+    {
+      "id": "TD05",
+      "name": "fresh-default EQ Fleet and unchanged EQ Team persona",
+      "pass": true
+    },
+    {
+      "id": "TD05",
+      "name": "temporary CSS/scripts/state do not enter app document",
+      "pass": true
+    },
+    {
+      "id": "TD05",
+      "name": "EQ Jobs retains writer actions",
+      "pass": true
+    },
+    {
+      "id": "TD05",
+      "name": "EQ create-job form opens via existing control",
+      "pass": true
+    },
+    {
+      "id": "TD05",
+      "name": "equipment loads shared checked model in default Flat",
+      "pass": true
+    },
+    {
+      "id": "TD05",
+      "name": "3D switch works with same equipment identity",
+      "pass": true
+    },
+    {
+      "id": "TD05",
+      "name": "FAC Dashboard retains 114-job register and TV control",
+      "pass": true
+    },
+    {
+      "id": "TD05",
+      "name": "FAC TV opens and Escape returns",
+      "pass": true
+    },
+    {
+      "id": "TD05",
+      "name": "FAC TV exits",
+      "pass": true
+    },
+    {
+      "id": "TD05",
+      "name": "existing persona selector remains available",
+      "pass": true
+    },
+    {
+      "id": "TD05",
+      "name": "FAC Jobs and team write permission remain",
+      "pass": true
+    },
+    {
+      "id": "TD05",
+      "name": "existing explicit root EQ bookmark preserves direct entry",
+      "pass": true
+    },
+    {
+      "id": "TD05",
+      "name": "existing FAC bookmark preserves query persona and route",
+      "pass": true
+    },
+    {
+      "id": "TD06",
+      "name": "repeat fresh root always returns to blank login",
+      "pass": true
+    },
+    {
+      "id": "TD06",
+      "name": "username initially focused",
+      "pass": true
+    },
+    {
+      "id": "TD06",
+      "name": "Tab reaches password with visible focus",
+      "pass": true
+    },
+    {
+      "id": "TD06",
+      "name": "Tab reaches labelled password reveal",
+      "pass": true
+    },
+    {
+      "id": "TD06",
+      "name": "Tab reaches Sign in",
+      "pass": true
+    },
+    {
+      "id": "TD06",
+      "name": "keyboard Sign in moves focus into launcher",
+      "pass": true
+    },
+    {
+      "id": "TD06",
+      "name": "launcher keyboard starts with UMMS placeholder",
+      "pass": true
+    },
+    {
+      "id": "TD06",
+      "name": "keyboard placeholder remains on launcher",
+      "pass": true
+    },
+    {
+      "id": "TD06",
+      "name": "Tab reaches EQ/FAC card with visible focus",
+      "pass": true
+    },
+    {
+      "id": "TD06",
+      "name": "keyboard path opens fresh EQ Fleet",
+      "pass": true
+    },
+    {
+      "id": "TD06",
+      "name": "theme toggle local only",
+      "pass": true
+    },
+    {
+      "id": "TD06",
+      "name": "password reveal does not read/store/send values",
+      "pass": true
+    },
+    {
+      "id": "TD06",
+      "name": "all page traffic is local GET asset/document traffic",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "id": "TD06",
+      "name": "no browser console/runtime errors",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "id": "TD06",
+      "name": "Portal source still clean at reference commit",
+      "pass": true
+    }
+  ],
+  "total": 62,
+  "passed": 62,
+  "failed": 0,
+  "removal": {
+    "TD07": "NOT RUN - future REMOVE task",
+    "TD08": "NOT RUN - future REMOVE task"
+  }
+}

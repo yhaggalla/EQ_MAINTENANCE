@@ -1,10 +1,14 @@
 # Stage 1 acceptance checklist
 
-Version 2.0 | 22 October 2026 | Adds the SOW V2 cases (sections and access, ZMMS, spare parts, FAC jobs, FAC Dashboard): 94 cases
+Version 2.2 | 24 October 2026 | 94 permanent stage 1 cases retained; eight temporary management-walkthrough checks are separate
 
 These are checks for the future implementation, not results from this prompt-pack authoring task. **Every implementation case starts as NOT RUN.** Do not mark a case passed from a design document, a fixture-only screenshot or a supplied test prompt.
 
 During implementation create an evidence table with `case ID`, `status`, `test/manual method`, `environment/database`, `artifact or test name`, `actual result`, `date` and `remaining issue`. Allowed statuses are NOT RUN, PASS, FAIL, BLOCKED and N/A with a concrete reason. A required stage 1 case cannot become N/A merely because it was not implemented.
+
+## Temporary pre-U1 presentation checks
+
+See `TEMP_MANAGEMENT_WALKTHROUGH.md` for TD01-TD08, all initially NOT RUN. TD01-TD06 cover the local login/launcher presentation and unchanged EQ/FAC entry; TD07-TD08 require complete temporary-layer removal, retention of accepted EQ/FAC refinements since `8303f8b8a55f41983bdcc77363ddbf13d2892383` and direct app entry before U1 approval. These eight checks are not additions to the 94 permanent cases, do not prove real authentication/Portal integration, and do not waive AUTH cases or P05. The minimum demonstration below remains the later working-app/U2 script.
 
 ## Source and classification
 

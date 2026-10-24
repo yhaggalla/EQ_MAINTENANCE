@@ -2,6 +2,12 @@
 
 Prepared in P00 on 21 October 2026 for CICT EQ Maintenance stage 1. Authorities: the prompt pack in `documents/prompt-pack/` (README, APPROVED_REQUIREMENTS, Master control). Decisions referenced as B-xx, D-xx and U-xx are in `docs/DECISIONS.md`; source references are in `docs/SOURCE_MAP.md`.
 
+## Temporary pre-U1 management presentation added 24 October 2026
+
+SOW V2 revision 6 section 2A and prompt pack 2.2 add U1-T01 only: local Portal-style login/launcher at port 5312, accepting blank/arbitrary input, with three inert existing-app cards and an EQ & FAC Maintenance card opening the unchanged app default. Detailed build/removal tasks and TD01-TD08 are in `documents/prompt-pack/TEMP_MANAGEMENT_WALKTHROUGH.md`. BUILD is Not started; temporary checks are NOT RUN. This is a bounded task within the open U1 checkpoint, not a new permanent phase or P05 integration.
+
+Before recording U1 approval, remove the temporary layer (TD07-TD08). The initial reference is `8303f8b8a55f41983bdcc77363ddbf13d2892383`; retain all accepted EQ/FAC U1 refinements and remove only temporary wrapper edits. Verify the cleaned app against that initial commit plus accepted changes, then record its exact commit/tree for U1. Login/Portal feedback is deferred to P05 actual integration. Preserve documentation/evidence and unrelated work. U1 remains unapproved; P04/P05 remain Not started. The starting-state sections below are historical P00 planning records; current phase status is in `docs/IMPLEMENTATION_STATUS.md`.
+
 ## 1 Starting state
 
 - `F:\CODEX\EQ_MAINTENANCE` is a **documents-only workspace**: no application source, no `package.json`, no `.sln`, no model asset and no Git repository. It contains the source authorities (`documents/`, `As-bulit drawing/`), the Claude Code runner (`.claude/`, `tools/run-phase.ps1`, `tools/extract-phase.ps1`, `CLAUDE.md`), the run log `docs/runs/`, and pack-authoring scratch in `tmp/` (preserved, not an authority).

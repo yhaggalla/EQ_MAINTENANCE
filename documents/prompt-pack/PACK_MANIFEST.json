@@ -1,8 +1,8 @@
 {
-  "packVersion": "2.0",
-  "preparedOn": "2026-10-22",
+  "packVersion": "2.2",
+  "preparedOn": "2026-10-24",
   "timezone": "Asia/Colombo",
-  "purpose": "Implementation prompt pack only; application implementation not performed",
+  "purpose": "Instruction pack revision 2.2: temporary management presentation and accepted EQ/FAC feedback preservation; no runtime implementation or U1 approval",
   "buildPrompts": [
     "P00",
     "P01",
@@ -37,33 +37,33 @@
   "files": [
     {
       "file": "ACCEPTANCE_CHECKLIST.md",
-      "bytes": 26269,
-      "sha256": "ae2b17628f163ab5224970e9e092446bafe9071f1257b17ba811e4da3e88e744"
+      "bytes": 27068,
+      "sha256": "e04eb3752c33b21f0dcf4ee0dfa6f1bdafc210e12fb8522a8f25d1e9f6ff5dd7"
     },
     {
       "file": "APPROVED_REQUIREMENTS.md",
-      "bytes": 40156,
-      "sha256": "0f63c399c593a4055fac32ad16e72d3f80b42c505c7ad615612e38bcaa22b344"
+      "bytes": 41762,
+      "sha256": "bfbe0850d97692f8f41b07e0c969f397b8efdc68e7febb77fe1a17e122815753"
     },
     {
       "file": "CHANGELOG.md",
-      "bytes": 4236,
-      "sha256": "3b86b49706ec566093e821c2dead95beaca412791244de66f8f1f37fe7c3163a"
+      "bytes": 6337,
+      "sha256": "331dabeab32b49198d6a4b0a4b3ccff79b048119cb3ddd2d431f24d208b11e62"
     },
     {
       "file": "EQ_MAINTENANCE_IMPLEMENTATION_PROMPT_PACK.md",
-      "bytes": 83268,
-      "sha256": "9d8e1a8a3442c1d5d3edab34ccaae1e2f97b4e2180970cfe8583c986fa42fffd"
+      "bytes": 86746,
+      "sha256": "480a0736b3c3749c3d1bda348f83dcdf12e4ea6da2097ef1843aa6e8241412ca"
     },
     {
       "file": "MODEL_AND_EFFORT_GUIDE.md",
-      "bytes": 10302,
-      "sha256": "e366799b34cb549caf6b75a0bbf7a81ad1f8c04f24e777f9238249e74192592c"
+      "bytes": 10630,
+      "sha256": "40e642b7c98d10c19846034b6637c38f7d57e7c5fa3af5978a1aff8f6c98c841"
     },
     {
       "file": "PACK_VALIDATION.md",
-      "bytes": 5027,
-      "sha256": "85b978c99602cc7f79012ec34c20dd70c9e133d406fb74e9f584cc81e9ece976"
+      "bytes": 10389,
+      "sha256": "687067370d017df54cfbfc3f8ad5053ce1dc975accc579fe5f13833a83dd34fd"
     },
     {
       "file": "QC_3D_MODELLING_BRIEF.md",
@@ -72,8 +72,8 @@
     },
     {
       "file": "README.md",
-      "bytes": 7787,
-      "sha256": "7c2661f352dea94db0586e93062e0c378b23a7679ff19ab527754731c481e488"
+      "bytes": 9285,
+      "sha256": "3934284c0a7d0c0b75990a28ea9a282cfd523c3475e4edf110b40da5269ee89b"
     },
     {
       "file": "reference/drawing-register.json",
@@ -103,7 +103,12 @@
     {
       "file": "reference/phase-model-settings.json",
       "bytes": 10826,
-      "sha256": "37fa54d0a8427eeef635b84ec8c889ea19d68fe63b1619d0b83f7eba1a19a67d"
+      "sha256": "a8f84fa13382565c4c24dd71c3fc12352b2ae0688a14a249106b2fcc0d4db333"
+    },
+    {
+      "file": "TEMP_MANAGEMENT_WALKTHROUGH.md",
+      "bytes": 13961,
+      "sha256": "81cae4ccc0c4b451cb9f2690ac06a3bd8059f6f90f9112fa94f3234f83402953"
     }
   ],
   "externalOriginalSources": [
@@ -121,16 +126,29 @@
     },
     {
       "projectRelativePath": "documents/SOW_V2.docx",
-      "sha256": "8073659698c2c396b302b881afefbfc1f80b067c326bff9efbf1fa176c9f65d2"
+      "sha256": "4eadb2ebb8fd5a5542eef4d93cf1ab340d0b371f89851e222bb0d948fc3ccca0"
     },
     {
       "projectRelativePath": "documents/SOW_V2.md",
-      "sha256": "c9fb33d4db94a1e4659acfc2f348bf9432f721b3655fd551f77eed786aab54b8"
+      "sha256": "2439a4b6f36d77158ac772f611c4f2853142ca6b145e0ceffa8ceb523a7cb15d"
     },
     {
       "projectRelativePath": "documents/Facility- Dashboard.xlsx",
       "sha256": "a7ee8c710cd4ed379d594b659b096f0aefe07c8e6fafcafed63c3b06bea5e6d0"
     }
   ],
-  "drawingChecksums": "reference/drawing-register.json"
+  "drawingChecksums": "reference/drawing-register.json",
+  "temporaryPresentation": {
+    "task": "U1-T01",
+    "specification": "TEMP_MANAGEMENT_WALKTHROUGH.md",
+    "requirementCount": 6,
+    "temporaryAcceptanceCases": 8,
+    "status": "DOCUMENTED; BUILD NOT STARTED; TD01-TD08 NOT RUN",
+    "removalRequiredBefore": "U1 approval",
+    "initialBaselineCommit": "8303f8b8a55f41983bdcc77363ddbf13d2892383",
+    "retainsAcceptedEqFacRefinements": true,
+    "feedbackRegister": "docs/MANAGEMENT_FEEDBACK.md",
+    "portalFeedbackTarget": "P05 actual Portal integration and relevant later phases",
+    "u1Target": "Initial app plus accepted EQ/FAC refinements, with the temporary wrapper removed; exact cleaned commit/tree recorded"
+  }
 }

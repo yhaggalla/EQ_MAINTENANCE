@@ -1,0 +1,108 @@
+{
+  "phase": "U1-T01 BUILD",
+  "createdUtc": "2026-10-24T17:55:20.482031+00:00",
+  "initialBaselineCommit": "8303f8b8a55f41983bdcc77363ddbf13d2892383",
+  "currentHead": "8303f8b8a55f41983bdcc77363ddbf13d2892383",
+  "branch": "main",
+  "worktreeBefore": "M artifacts/prototypes/p02-ui/README.md\n M docs/ARCHITECTURE.md\n M docs/DECISIONS.md\n M docs/HANDOVER.md\n M docs/IMPLEMENTATION_PLAN.md\n M docs/IMPLEMENTATION_STATUS.md\n M docs/PORTAL_INTEGRATION_PLAN.md\n M docs/SOW_V2.docx\n M docs/SOW_V2.md\n M docs/UX_SPEC.md\n M documents/SOW_V2.docx\n M documents/SOW_V2.md\n M documents/prompt-pack/ACCEPTANCE_CHECKLIST.md\n M documents/prompt-pack/APPROVED_REQUIREMENTS.md\n M documents/prompt-pack/CHANGELOG.md\n M documents/prompt-pack/EQ_MAINTENANCE_IMPLEMENTATION_PROMPT_PACK.md\n M documents/prompt-pack/MODEL_AND_EFFORT_GUIDE.md\n M documents/prompt-pack/PACK_MANIFEST.json\n M documents/prompt-pack/PACK_VALIDATION.md\n M documents/prompt-pack/README.md\n M documents/prompt-pack/reference/phase-model-settings.json\n?? docs/MANAGEMENT_FEEDBACK.md\n?? docs/evidence/U1/management-feedback-scope-20261024/\n?? docs/evidence/U1/temp-management-scope-20261024/\n?? docs/runs/U1-management-feedback-20261024.md\n?? docs/runs/U1-temp-management-scope-20261024.md\n?? documents/EQ_MAINTENANCE_PROMPT_PACK_v2_1.zip\n?? documents/EQ_MAINTENANCE_PROMPT_PACK_v2_2.zip\n?? documents/prompt-pack/TEMP_MANAGEMENT_WALKTHROUGH.md",
+  "runtimeDiffBefore": "diff --git a/artifacts/prototypes/p02-ui/README.md b/artifacts/prototypes/p02-ui/README.md\nindex cf0f760..2759a80 100644\n--- a/artifacts/prototypes/p02-ui/README.md\n+++ b/artifacts/prototypes/p02-ui/README.md\n@@ -1,5 +1,7 @@\n # CICT EQ & FAC Maintenance - P02 / P02B interface prototype\n \n+**Temporary management walkthrough (U1-T01), requirements only:** `documents/prompt-pack/TEMP_MANAGEMENT_WALKTHROUGH.md` specifies a Portal-style login/launcher at this server root, accepting blank/arbitrary input and opening this unchanged app from a fourth card. BUILD is Not started; current runtime still opens EQ/FAC directly. Remove the temporary layer before U1 approval. The initial reference is `8303f8b8a55f41983bdcc77363ddbf13d2892383`; retain all accepted EQ/FAC U1 refinements and remove only temporary wrapper edits. Verify the cleaned app against that initial commit plus accepted changes, then record its exact commit/tree for U1. Login/Portal feedback is deferred to P05 actual integration. U1 remains unapproved; this does not implement real Portal authentication.\n+\n **FAC charts (U1-C57):** `#/fac/dashboard` now has three bottom cards: Latest proof, Completion trend \u00b7 4 weeks and Due in the next 8 weeks. Existing desktop/TV row heights are retained; charts fill the measured plot width with readable labels. The trend counts completed scheduled-job cycles across three prior calendar weeks plus this week to date, by discipline, following dashboard filters/search/Show; Daily/Weekly checks are excluded. Narrow screens stack the cards. Checks: `node tools/p02b/check_u1_c57.mjs`; evidence: `docs/evidence/U1/fac-charts-c57/REPORT.md`. Local synthetic prototype; U1 remains incomplete/unapproved.\n \n **Fleet quantities (U1-C54, 24 October 2026):** 14 QCs, 46 RTGs and 7 ES units (67 active demo members). `js/fixtures.js` holds the single baseline used by Fleet/dashboard totals, cards/table/TV paging, Admin, EQ status, Jobs filters/forms/shared type scopes and ZMMS mapping choices. Codes remain `QC-DEMO-01..14`, `RTG-DEMO-01..46`, `ES-DEMO-01..07`; new members start Unreported without model/positions/history/mappings. RTG-DEMO-07 is now active/Unreported; retirement is tested explicitly. Existing demo identities/history remain. Quantities do not cap Admin registration. Check: `node tools/p02b/check_u1_c54.mjs`; evidence: `docs/evidence/U1/fleet-size-c54/REPORT.md`. Earlier small-fleet descriptions below are historical. U1 remains incomplete/unapproved.",
+  "portalReference": {
+    "path": "F:/CODEX/CICT-ENG_MAIN_PAGE",
+    "commit": "47f7bd9d8296fda56114d8239e10ae9ad7850460",
+    "status": ""
+  },
+  "runtimeFiles": [
+    {
+      "path": "artifacts/prototypes/p02-ui/serve.mjs",
+      "action": "modify",
+      "baselineGitBlob": "03f2ba90886cf3f4954fc3371ae5a007539cd35c",
+      "baselineSha256": "9d4faf21a964e29f3c232ce44bfca42b959b5943bd4deceee2e398ca6ac496d1",
+      "preBuildSha256": "9d4faf21a964e29f3c232ce44bfca42b959b5943bd4deceee2e398ca6ac496d1",
+      "matchesInitialBaseline": true,
+      "temporaryPatch": "patches/serve.mjs.patch",
+      "postBuildSha256": "002e6bbbfe398a6f403421d3b14e9bb075759704c1131a4dbf7b5a2e3c007f54"
+    },
+    {
+      "path": "artifacts/prototypes/p02-ui/temp-management/index.html",
+      "action": "add",
+      "temporary": true,
+      "ownership": "U1-T01 wrapper only",
+      "temporaryPatch": "patches/index.html.patch",
+      "postBuildSha256": "85f09bc2d7af7b97cd55a1aa10bed0e547489015b3c946af1dee2f75ba205a12"
+    },
+    {
+      "path": "artifacts/prototypes/p02-ui/temp-management/walkthrough.js",
+      "action": "add",
+      "temporary": true,
+      "ownership": "U1-T01 wrapper only",
+      "temporaryPatch": "patches/walkthrough.js.patch",
+      "postBuildSha256": "37b9f4a40b6dcd28ea2a563f958982cfbf4a332219882bf11970db7b1b0be31c"
+    },
+    {
+      "path": "artifacts/prototypes/p02-ui/temp-management/portal-source.css",
+      "action": "add",
+      "temporary": true,
+      "ownership": "U1-T01 wrapper only",
+      "temporaryPatch": "patches/portal-source.css.patch",
+      "postBuildSha256": "734d50427e12b4169a0354530153cbac8f3c36169443807858b7692a9a14049b"
+    },
+    {
+      "path": "artifacts/prototypes/p02-ui/temp-management/walkthrough.css",
+      "action": "add",
+      "temporary": true,
+      "ownership": "U1-T01 wrapper only",
+      "temporaryPatch": "patches/walkthrough.css.patch",
+      "postBuildSha256": "ef75fd35f4bfc3e4ff8e1b4b0b57404713e40fb6b3a1f937f1f47341641cf5df"
+    },
+    {
+      "path": "artifacts/prototypes/p02-ui/temp-management/assets/cict-logo.png",
+      "action": "add",
+      "temporary": true,
+      "ownership": "U1-T01 wrapper only",
+      "temporaryPatch": "patches/assets/cict-logo.png.patch",
+      "postBuildSha256": "d7af90fbb0a7f2bff38d199f9ebf5c812d14493d3953f33580b968661eeb9965"
+    },
+    {
+      "path": "artifacts/prototypes/p02-ui/temp-management/assets/cict-umms-background.jpg",
+      "action": "add",
+      "temporary": true,
+      "ownership": "U1-T01 wrapper only",
+      "temporaryPatch": "patches/assets/cict-umms-background.jpg.patch",
+      "postBuildSha256": "7d4f2c5528ebde681a23fe17833dc2aeea3a43cd79e07aa078e3df60a2227da0"
+    }
+  ],
+  "launchConfiguration": "Only serve.mjs root mapping changes. Binding remains 127.0.0.1. No launch configuration changes.",
+  "state": {
+    "storageKeys": [],
+    "cookies": [],
+    "bypassFlags": [],
+    "inMemoryOnly": [
+      "current DOM screen",
+      "login theme toggle",
+      "password visibility"
+    ]
+  },
+  "acceptedEqFacChangesSinceInitialBaseline": [],
+  "removal": "Undo only patches/serve.mjs.patch hunks; delete wrapper-owned additions. Retain later accepted EQ/FAC changes, docs and evidence. Run TD07-TD08 before U1 approval.",
+  "postBuildRecordedUtc": "2026-10-24T18:05:32.969531+00:00",
+  "buildStatus": "BUILD COMPLETE; TD01-TD06 passed; TD07-TD08 NOT RUN",
+  "temporaryToolsToRemoveBeforeU1": [
+    "tools/u1/check_temp_management.mjs"
+  ],
+  "historicalEvidenceToRetain": "Everything under docs/evidence/U1/temp-management-walkthrough and docs/runs/U1-T01-BUILD-20261024.md, including reference source snapshots and temporary patch history.",
+  "comparisonNotes": "Initial runtimeDiffBefore contains only the already-pending README document edit. Initial Git runtime content matches 8303f8b. SHA-256 stores literal bytes; matchesInitialBaseline may be false only because the worktree uses CRLF while the Git blob uses LF. Source-state records normalized comparisons explicitly.",
+  "navigationHooks": [
+    "serve.mjs: root pathname maps to temp-management/index.html",
+    "walkthrough.js: known explicit existing EQ/FAC/legacy hashes forward to unchanged /index.html; plain root shows login",
+    "launcher EQ card: /index.html plus any existing query/hash; no credential transfer"
+  ],
+  "supportingTemporaryFiles": [
+    {
+      "path": "tools/u1/check_temp_management.mjs",
+      "action": "add",
+      "purpose": "BUILD browser verification helper; remove with wrapper or retain only as historical evidence",
+      "sha256": "d60a340587bb4e30bdf49b3f78f51aabe24ac12e3221a6f0973e1dccd5b1c8bf",
+      "temporaryPatch": "patches/check_temp_management.mjs.patch"
+    }
+  ]
+}

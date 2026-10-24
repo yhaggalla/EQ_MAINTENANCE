@@ -1,0 +1,4 @@
+/* Only presentation-control normalization; the Portal source stylesheet is unchanged. */
+button.app-tile { width: 100%; text-align: left; font-weight: 700; }
+button.app-tile:active { transform: translateY(0); }
+.user-menu:not(details) { display: flex; align-items: center; gap: .65rem; }

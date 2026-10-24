@@ -1,6 +1,6 @@
 # CICT EQ & FAC Maintenance implementation prompt pack
 
-Version 2.0 | 22 October 2026 | SOW V2 revision 4: EQ and FAC sections, feature permissions, ZMMS daily jobs, automatic status, spare-part condition; approved stage 1 scope, review decisions, user checkpoints and per-phase model settings
+Version 2.2 | 24 October 2026 | SOW V2 revision 6 temporary pre-U1 management walkthrough; revision 4 permanent scope: EQ and FAC sections, feature permissions, ZMMS daily jobs, automatic status, spare-part condition; approved stage 1 scope, review decisions, user checkpoints and per-phase model settings
 
 Build an independently deployable ENG Portal app, displayed as "EQ & FAC Maintenance", with two sections. EQ: fleet readiness, special maintenance jobs, ZMMS daily jobs, automatic status, spare-part condition and component replacement history, with QC interactive 3D and QC/RTG/ES register/dashboard/workflows. FAC: facility inspection/service jobs with a moving management dashboard. The user's answers to the scope, review and SOW V2 questions are recorded in `APPROVED_REQUIREMENTS.md`.
 
@@ -30,7 +30,7 @@ For a fresh coding chat, paste Bootstrap again before the selected phase. Each p
 | 7 | P01B | V2 contracts addendum: sections, Access matrix, FAC, ZMMS, automatic status, spare parts |
 | 8 | P02B | V2 prototype: section switch, FAC Dashboard and FAC Jobs, EQ Jobs in three parts, crane view without history |
 | 9 | R02B | V2 contracts and prototype review |
-| 10 | U1 | User checkpoint: inspect the UI prototype (EQ and FAC) and QC model; approve or request changes |
+| 10 | U1 | User checkpoint: complete temporary management walkthrough and remove its full layer; retain accepted EQ/FAC refinements and verify cleaned app, then inspect EQ/FAC prototype and QC model; explicit approval or changes |
 | 11 | P04 | Runnable application foundation |
 | 12 | P05 | Portal authentication and provisioning integration |
 | 13 | R03 | Identity and existing-app compatibility review |
@@ -49,6 +49,10 @@ For a fresh coding chat, paste Bootstrap again before the selected phase. Each p
 | 26 | P13 | Resolve accepted findings and deliver final handover |
 
 The 18 build prompts are P00-P13 plus the V2 additions P01B, P02B, P07B and P08B. The six R prompts (R01-R05 and R02B) are review-only. U1 and U2 are user checkpoints with no agent prompt. Repair and Resume are reusable helper prompts. P00-P03, R01 and R02 were completed under pack 1.2; their results stay valid and P01B/P02B extend them.
+
+### Temporary work inside the open U1 checkpoint
+
+Follow `TEMP_MANAGEMENT_WALKTHROUGH.md` for U1-T01 BUILD and REMOVE. These are bounded tasks under the existing affected-prototype Repair workflow, not additional permanent phases or a substitute for P05. The temporary build is not started by this documentation revision. Before U1 approval, TD07-TD08 must prove that every temporary entry screen/asset/hook/state was removed while accepted EQ/FAC refinements since `8303f8b8a55f41983bdcc77363ddbf13d2892383` were retained. Record the cleaned app commit/tree and request evidence; defer login/Portal feedback to P05. Preserve these historical instructions after removal. No phase/profile count changes.
 
 ## Models and effort by phase
 
@@ -109,7 +113,7 @@ F:\CODEX\EQ_MAINTENANCE\documents\prompt-pack\EQ_MAINTENANCE_IMPLEMENTATION_PROM
 
 Use these authorities:
 - Original SOW (V1): F:\CODEX\EQ_MAINTENANCE\documents\SOW.docx
-- SOW V2 revision 4 (wins over V1 where they differ): F:\CODEX\EQ_MAINTENANCE\documents\SOW_V2.docx (same text: SOW_V2.md)
+- SOW V2 revision 6 (section 2A temporary walkthrough; permanent revision 4 scope retained; wins over V1 where they differ): F:\CODEX\EQ_MAINTENANCE\documents\SOW_V2.docx (same text: SOW_V2.md)
 - Facility job list: F:\CODEX\EQ_MAINTENANCE\documents\Facility- Dashboard.xlsx, normalised in documents\prompt-pack\reference\fac-job-list.json
 - Engineering references: F:\CODEX\EQ_MAINTENANCE\As-bulit drawing
 - Approved taxonomy and original pasted list: documents\prompt-pack\reference
@@ -133,6 +137,12 @@ Apply the Master control below to every build/review prompt. Execute only the ph
 - Keep all credentials, connection strings, keys and runtime tokens outside source and outputs. Never print them. Central authentication owns credentials; the EQ app does not create another production password flow.
 - ZMMS (https://www.zmms.lk) is the only external system the app reads. Only P07B and later checks of it contact ZMMS, only through the connector with the account from runtime configuration, only the login and the daily all-job list, and never write. Every other phase and every automated test uses sanitised fixtures. The ZMMS account is never requested in chat, committed, printed or stored in evidence.
 - Use existing source patterns where compatible, but recheck current contracts and dependency/runtime support. Do not treat old handover claims as live proof. Do not upgrade neighbouring apps incidentally.
+
+### Temporary presentation exception and U1 removal gate
+
+SOW V2 revision 6 section 2A and `TEMP_MANAGEMENT_WALKTHROUGH.md` authorize only a local presentation shell at port 5312. Show the existing Portal login design, accept blank/arbitrary input without validation or credential requests, show three inert existing-app cards plus EQ & FAC Maintenance, then enter the unchanged prototype default. No Portal administration/users/roles/password features or real authentication/integration; the Portal source remains read-only. Preserve existing EQ/FAC behaviour and use the manifest-based isolation/removal procedure.
+
+Before recording U1 approval, remove all temporary screens, copied assets, wiring, bypass state/flags and hooks; verify direct EQ/FAC entry and reconcile the cleaned app with initial baseline `8303f8b8a55f41983bdcc77363ddbf13d2892383` plus accepted EQ/FAC U1 refinements (TD07-TD08). Preserve accepted changes even in mixed files; record the exact cleaned commit/tree. Login/Portal feedback is deferred to P05; see `docs/MANAGEMENT_FEEDBACK.md` in the EQ workspace. Retain docs/evidence and unrelated work. This narrow prototype exception does not relax permanent authentication/file-access rules or complete P05. A management demonstration, passing temporary checks or this document revision is not U1 approval.
 
 ### Persistence and evidence
 
@@ -771,7 +781,7 @@ docs\IMPLEMENTATION_STATUS.md
 docs\DECISIONS.md
 docs\HANDOVER.md
 
-Inspect current files/Git state and the latest evidence before acting. Preserve user changes. Identify the last phase with demonstrated completion and the next incomplete selected phase; do not infer completion from file existence or stale summaries. Do not repeat the answered scope and review questions. Check docs\DECISIONS.md for recorded U1/U2 user approvals before advancing past them.
+Inspect current files/Git state and the latest evidence before acting. Preserve user changes. Identify the last phase with demonstrated completion and the next incomplete selected phase; do not infer completion from file existence or stale summaries. Do not repeat the answered scope and review questions. Check docs\DECISIONS.md for recorded U1/U2 user approvals before advancing past them. For U1-T01, read TEMP_MANAGEMENT_WALKTHROUGH.md and require TD07-TD08 evidence that the temporary layer is fully removed and the cleaned app reflects initial reference 8303f8b8a55f41983bdcc77363ddbf13d2892383 plus accepted EQ/FAC changes before recording or relying on U1 approval. Preserve accepted edits; defer login/Portal feedback to P05 and record the exact cleaned app commit/tree.
 
 Briefly state current scope, completed evidence, remaining blockers and the next phase. Continue only the user's selected phase; if no phase is named, continue the next incomplete phase under the pack's normal repository/production boundaries. Keep development, authenticated local, target and production verification claims separate.
 ```

@@ -1,6 +1,6 @@
 # CICT EQ & FAC Maintenance prompt pack
 
-Prepared 21 October 2026 from the user's SOW, QC drawing set, mechanism table and confirmed clarification answers. Updated to version 2.0 on 22 October 2026 from SOW V2 revision 4 and the facility job list.
+Prepared 21 October 2026 from the user's SOW, QC drawing set, mechanism table and confirmed clarification answers. Updated to version 2.0 on 22 October 2026 from SOW V2 revision 4 and the facility job list; version 2.2 on 24 October adds the temporary management walkthrough in SOW V2 revision 6.
 
 Revision 1.1 adds explicit Codex and Claude model/effort recommendations for every build phase, review and helper prompt.
 
@@ -9,6 +9,10 @@ Revision 1.2 records four pre-implementation review decisions, adds user checkpo
 Version 2.0 adds the SOW V2 scope: EQ and FAC sections, the FAC Team role and the in-app Access matrix, the FAC master list, FAC Dashboard and FAC Jobs, the EQ Jobs tab in three parts, ZMMS daily jobs with automatic status, and the spare-part condition register. It adds phases P01B, P02B, R02B (before U1), P07B and P08B, keeps the completed P00-P03, R01 and R02 work valid, and grows the acceptance checklist to 94 cases. See [the changelog](CHANGELOG.md).
 
 The pack is ready to guide implementation. It contains no implemented application, generated crane model or executed application acceptance results.
+
+## Temporary management walkthrough at the open U1 checkpoint
+
+The 24 October request is documented in [the temporary walkthrough specification](TEMP_MANAGEMENT_WALKTHROUGH.md): port 5312 -> Portal-style login accepting blank/arbitrary input -> Portal launcher with UMMS, PayPrep and Safety placeholders plus EQ & FAC Maintenance -> unchanged EQ/FAC default. No other Portal feature or real integration is included. Build is Not started; TD01-TD08 are NOT RUN. Remove only the temporary layer before U1 approval; retain accepted EQ/FAC refinements and verify the cleaned app. The initial reference is `8303f8b8a55f41983bdcc77363ddbf13d2892383`; retain all accepted EQ/FAC U1 refinements and remove only temporary wrapper edits. Verify the cleaned app against that initial commit plus accepted changes, then record its exact commit/tree for U1. Login/Portal feedback is deferred to P05 actual integration. The 18 build phases, six reviews, 27 model profiles and 94 permanent acceptance cases are unchanged; eight temporary checks are separate. The build/removal tasks use the existing affected-prototype Repair workflow and do not advance `/eq-phase next` beyond U1.
 
 ## Start here
 
@@ -40,6 +44,7 @@ The pack provides 18 build phases (P00-P13 plus P01B, P02B, P07B, P08B), six rea
 | [Approved requirements](APPROVED_REQUIREMENTS.md) | Scope S01-S29, roles and Access matrix, work/status rules, ZMMS, spare parts, FAC, history identity, technical defaults and completion criteria |
 | [Facility job list](reference/fac-job-list.json) | Normalised seed of the 111-row facility sheet (114 jobs), frequency list and known source issues |
 | [QC modelling brief](QC_3D_MODELLING_BRIEF.md) | Drawing sources, geometry/fidelity, scene bindings, interaction, performance budgets and deliverables |
+| [Temporary management walkthrough](TEMP_MANAGEMENT_WALKTHROUGH.md) | TEMP01-TEMP06, TD01-TD08, pinned U1 app baseline, isolated build and mandatory removal prompts |
 | [Acceptance checklist](ACCEPTANCE_CHECKLIST.md) | Specific future verification cases and minimum end-to-end demonstration |
 | [Approved mechanism data](reference/mechanisms-approved.json) | Seed/reference definitions, source labels, descriptions, parents and active/reserved states |
 | [Original mechanism text](reference/mechanisms-original.txt) | Exact copy of the user's two-column-group pasted source |

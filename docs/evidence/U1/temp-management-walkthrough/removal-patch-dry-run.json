@@ -1,0 +1,45 @@
+{
+  "method": "git apply --reverse --check only; no files changed or removed",
+  "results": [
+    {
+      "path": "artifacts/prototypes/p02-ui/serve.mjs",
+      "reverseCheckExit": 0,
+      "output": ""
+    },
+    {
+      "path": "artifacts/prototypes/p02-ui/temp-management/index.html",
+      "reverseCheckExit": 0,
+      "output": ""
+    },
+    {
+      "path": "artifacts/prototypes/p02-ui/temp-management/walkthrough.js",
+      "reverseCheckExit": 0,
+      "output": ""
+    },
+    {
+      "path": "artifacts/prototypes/p02-ui/temp-management/portal-source.css",
+      "reverseCheckExit": 0,
+      "output": ""
+    },
+    {
+      "path": "artifacts/prototypes/p02-ui/temp-management/walkthrough.css",
+      "reverseCheckExit": 0,
+      "output": ""
+    },
+    {
+      "path": "artifacts/prototypes/p02-ui/temp-management/assets/cict-logo.png",
+      "reverseCheckExit": 0,
+      "output": ""
+    },
+    {
+      "path": "artifacts/prototypes/p02-ui/temp-management/assets/cict-umms-background.jpg",
+      "reverseCheckExit": 0,
+      "output": ""
+    },
+    {
+      "path": "tools/u1/check_temp_management.mjs",
+      "reverseCheckExit": 0,
+      "output": ""
+    }
+  ]
+}

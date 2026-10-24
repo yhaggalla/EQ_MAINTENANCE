@@ -1,0 +1,44 @@
+[
+  {
+    "path": "artifacts/prototypes/p02-ui/serve.mjs",
+    "bytes": 2021,
+    "sha256": "002e6bbbfe398a6f403421d3b14e9bb075759704c1131a4dbf7b5a2e3c007f54",
+    "patch": "patches/serve.mjs.patch"
+  },
+  {
+    "path": "artifacts/prototypes/p02-ui/temp-management/index.html",
+    "bytes": 12217,
+    "sha256": "85f09bc2d7af7b97cd55a1aa10bed0e547489015b3c946af1dee2f75ba205a12",
+    "patch": "patches/index.html.patch"
+  },
+  {
+    "path": "artifacts/prototypes/p02-ui/temp-management/walkthrough.js",
+    "bytes": 5788,
+    "sha256": "37b9f4a40b6dcd28ea2a563f958982cfbf4a332219882bf11970db7b1b0be31c",
+    "patch": "patches/walkthrough.js.patch"
+  },
+  {
+    "path": "artifacts/prototypes/p02-ui/temp-management/portal-source.css",
+    "bytes": 42126,
+    "sha256": "734d50427e12b4169a0354530153cbac8f3c36169443807858b7692a9a14049b",
+    "patch": "patches/portal-source.css.patch"
+  },
+  {
+    "path": "artifacts/prototypes/p02-ui/temp-management/walkthrough.css",
+    "bytes": 290,
+    "sha256": "ef75fd35f4bfc3e4ff8e1b4b0b57404713e40fb6b3a1f937f1f47341641cf5df",
+    "patch": "patches/walkthrough.css.patch"
+  },
+  {
+    "path": "artifacts/prototypes/p02-ui/temp-management/assets/cict-logo.png",
+    "bytes": 23398,
+    "sha256": "d7af90fbb0a7f2bff38d199f9ebf5c812d14493d3953f33580b968661eeb9965",
+    "patch": "patches/assets/cict-logo.png.patch"
+  },
+  {
+    "path": "artifacts/prototypes/p02-ui/temp-management/assets/cict-umms-background.jpg",
+    "bytes": 299456,
+    "sha256": "7d4f2c5528ebde681a23fe17833dc2aeea3a43cd79e07aa078e3df60a2227da0",
+    "patch": "patches/assets/cict-umms-background.jpg.patch"
+  }
+]

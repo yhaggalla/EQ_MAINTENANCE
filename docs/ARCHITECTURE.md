@@ -1,5 +1,7 @@
 # Architecture
 
+24 October 2026 temporary presentation addendum: SOW V2 revision 6 section 2A and `documents/prompt-pack/TEMP_MANAGEMENT_WALKTHROUGH.md` specify an isolated local Portal-style login/launcher before the existing prototype. It creates no identity, authenticated session, API, database or production architecture change. Portal appearance is read-only reference material. Remove the temporary layer before U1 approval (TD07-TD08). The initial reference is `8303f8b8a55f41983bdcc77363ddbf13d2892383`; retain all accepted EQ/FAC U1 refinements and remove only temporary wrapper edits. Verify the cleaned app against that initial commit plus accepted changes, then record its exact commit/tree for U1. Login/Portal feedback is deferred to P05 actual integration. BUILD is Not started; permanent architecture and P05 contracts below still apply.
+
 Prepared in P01 on 21 October 2026. Status: **design contract for R01 review**. No application code exists yet. The P01 documents work as one set:
 
 | Document | Contents |

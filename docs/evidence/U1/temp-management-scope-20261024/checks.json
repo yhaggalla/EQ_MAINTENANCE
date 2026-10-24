@@ -1,0 +1,143 @@
+{
+  "date": "2026-10-24",
+  "scope": "Documentation only; no temporary runtime implementation",
+  "baseline": "8303f8b8a55f41983bdcc77363ddbf13d2892383",
+  "results": [
+    {
+      "check": "App baseline is the current committed checkpoint",
+      "result": "PASS"
+    },
+    {
+      "check": "Prototype/model/runtime/tool sources unchanged (README documentation excluded)",
+      "result": "PASS"
+    },
+    {
+      "check": "Portal source remains clean at its inspected reference commit",
+      "result": "PASS"
+    },
+    {
+      "check": "SOW revision 5 Markdown copies identical",
+      "result": "PASS"
+    },
+    {
+      "check": "SOW revision 5 DOCX copies identical",
+      "result": "PASS"
+    },
+    {
+      "check": "SOW identifies confirmed permanent scope and the new temporary request",
+      "result": "PASS"
+    },
+    {
+      "check": "Temporary requirement IDs exactly TEMP01-TEMP06",
+      "result": "PASS"
+    },
+    {
+      "check": "Temporary cases exactly TD01-TD08; all NOT RUN",
+      "result": "PASS"
+    },
+    {
+      "check": "Blank/single-field/arbitrary login and credential handling specified",
+      "result": "PASS"
+    },
+    {
+      "check": "All four required cards and existing-app placeholder boundary specified",
+      "result": "PASS"
+    },
+    {
+      "check": "Existing default persona and landing preserved",
+      "result": "PASS"
+    },
+    {
+      "check": "Removal, baseline, no dormant flags, unrelated work and history preservation specified",
+      "result": "PASS"
+    },
+    {
+      "check": "Bounded build and removal prompts present",
+      "result": "PASS"
+    },
+    {
+      "check": "Requirements and Master control carry the temporary U1 removal gate",
+      "result": "PASS"
+    },
+    {
+      "check": "Run order retains all 18 builds and six reviews",
+      "result": "PASS"
+    },
+    {
+      "check": "94 unique permanent acceptance cases retained",
+      "result": "PASS"
+    },
+    {
+      "check": "Permanent requirements S01-S29 retained",
+      "result": "PASS"
+    },
+    {
+      "check": "All 27 model profiles preserved; only pack version changed",
+      "result": "PASS"
+    },
+    {
+      "check": "All 26 build/review/helper extractions include the removal gate",
+      "result": "PASS"
+    },
+    {
+      "check": "All pack Markdown fences balanced",
+      "result": "PASS"
+    },
+    {
+      "check": "Every pack Markdown local link resolves",
+      "result": "PASS"
+    },
+    {
+      "check": "Decision IDs B-22 and D-203 recorded without closing U1",
+      "result": "PASS"
+    },
+    {
+      "check": "Status and handover record documented-only work and the removal prerequisite",
+      "result": "PASS"
+    },
+    {
+      "check": "All 11 existing Word tables and FAC list dimensions preserved",
+      "result": "PASS"
+    },
+    {
+      "check": "All new scope-section prose and bullets present in Word",
+      "result": "PASS"
+    },
+    {
+      "check": "Word title/heading style is black and title has no rule",
+      "result": "PASS"
+    },
+    {
+      "check": "Word PDF export and all 17 page PNGs available; visually reviewed",
+      "result": "PASS"
+    },
+    {
+      "check": "V1 SOW, appearance photos and facility workbook original hashes unchanged",
+      "result": "PASS"
+    },
+    {
+      "check": "All 38 source drawing checksums unchanged",
+      "result": "PASS"
+    },
+    {
+      "check": "Source reference data unchanged (Git line-ending normalization applied)",
+      "result": "PASS"
+    },
+    {
+      "check": "Whitespace check passes",
+      "result": "PASS"
+    },
+    {
+      "check": "All 15 pack-file and six external-source manifest hashes match",
+      "result": "PASS"
+    },
+    {
+      "check": "New versioned archive matches all 16 current pack files",
+      "result": "PASS"
+    },
+    {
+      "check": "All older ZIP packages preserved",
+      "result": "PASS"
+    }
+  ]
+}

@@ -9,14 +9,14 @@ const root = path.dirname(fileURLToPath(import.meta.url));
 const modelRoot = path.resolve(root, '../../models');
 const viewerRoot = path.resolve(root, '../p03-qc-model');
 const port = Number(process.argv[2]) || 5312;
-const types = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8', '.glb': 'model/gltf-binary', '.css': 'text/css; charset=utf-8', '.json': 'application/json', '.svg': 'image/svg+xml', '.png': 'image/png' };
+const types = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8', '.glb': 'model/gltf-binary', '.css': 'text/css; charset=utf-8', '.json': 'application/json', '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg' };
 
 http.createServer((req, res) => {
   if (!['GET', 'HEAD'].includes(req.method)) { res.writeHead(405).end(); return; }
   const url = new URL(req.url, 'http://localhost');
   let rel;
   try { rel = decodeURIComponent(url.pathname); } catch { res.writeHead(400).end(); return; }
-  if (rel === '/') rel = '/index.html';
+  if (rel === '/') rel = '/temp-management/index.html'; // U1-T01 temporary presentation; remove before U1 approval.
   const base = rel.startsWith('/models/') ? modelRoot : rel.startsWith('/qc/') ? viewerRoot : root;
   const local = rel.startsWith('/models/') ? rel.slice(8) : rel.startsWith('/qc/') ? rel.slice(4) : rel.slice(1);
   const file = path.resolve(base, local || 'index.html');

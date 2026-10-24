@@ -1,8 +1,8 @@
 # CICT EQ & FAC Maintenance - Scope of Work V2
 
-Version 2.0 DRAFT, revision 4 | 22 October 2026 | For user confirmation
+Version 2.0, revision 6 | 24 October 2026 | Temporary walkthrough and management feedback handling
 
-Supersedes SOW V1 (`documents/SOW.docx`) only on the points below. Everything in V1, in the approved requirements v1.1 and in the confirmed U1 changes (U1-C01 to U1-C16) stays valid for the EQ section unless this document says otherwise. The prompt pack is not changed until you confirm this SOW.
+Supersedes SOW V1 (`documents/SOW.docx`) only on the points below. Revision 4 was confirmed on 22 October 2026 and translated into prompt pack 2.0. The committed U1 refinements through U1-C58 remain the app baseline. Revision 5 adds the temporary management walkthrough in section 2A. Revision 6 clarifies that accepted EQ/FAC management feedback remains in the U1 app while login/Portal feedback is deferred to P05; prompt pack 2.2 reflects this. U1 remains unapproved.
 
 Revision 2 records your answers to Q1-Q8 (section 9) and adds the EQ Jobs tab changes: special jobs, daily jobs read from ZMMS, automatic EQ status and the spare-part condition register (section 4). Revision 3 records your answers to Q9-Q14: two ZMMS syncs a day, and a manual status correction that lasts for the current day only. Revision 4 records that ZMMS is a CICT-owned app, you as its owner allow the app to read it with the login, and ZMMS has no API.
 
@@ -32,6 +32,25 @@ Revision 2 records your answers to Q1-Q8 (section 9) and adds the EQ Jobs tab ch
 - Landing page: the section and tab the user used last. First visit: EQ Fleet for EQ Team, FAC Dashboard for FAC Team, EQ Fleet for Management and Admin.
 - Proposed display name "EQ & FAC Maintenance". The technical identifiers stay as in V1 (`eq-maintenance`, `/eq-maintenance`), so the planned Portal integration does not have to be redesigned (question Q1).
 - The two sections keep separate records and statuses. A FAC job is not linked to an EQ equipment record, even when the work is on a crane (for example QC HVAC or RTG air conditioning).
+
+## 2A Temporary management walkthrough before U1 approval
+
+Revision 5 adds a temporary local presentation flow so management can see the journey from the ENG Portal into the existing EQ & FAC Maintenance prototype. This is a pre-U1 demonstration step, not approval of U1 or delivery of real Portal integration.
+
+- Opening `http://127.0.0.1:5312/` shows the same login-screen design as the existing ENG Portal in `F:\CODEX\CICT-ENG_MAIN_PAGE`: branding, layout, fields and sign-in control. No username/password configuration is needed. Pressing the login/sign-in control proceeds with both fields blank, with only one field filled, or with any text. Neither browser form validation nor application logic may check the credentials. Values are not sent, stored or logged.
+- The next screen matches the existing ENG Portal launcher and shows its three existing application cards: UMMS (Urgent Materials Monitor), PayPrep Assistant, and Safety Inspection & Rectification Tracker. These are presentation-only cards and do not open or contact their working apps.
+- Add one card, **EQ & FAC Maintenance**, in the same card style. Clicking it opens the existing app's default screen, EQ Fleet on a fresh visit, using the prototype's existing default persona and landing rules. The temporary wrapper itself does not change EQ/FAC screens, workflows, permissions, fixtures or model behaviour; accepted management feedback is handled as separate U1 app changes below.
+- Do not implement Portal administration, user creation, role assignment, password/reset/change flows, account provisioning, real authentication, or other Portal features. The Portal source is a read-only visual reference; all temporary files belong in the EQ workspace. Existing EQ/FAC prototype functions remain available as committed.
+- The initial app baseline is `8303f8b8a55f41983bdcc77363ddbf13d2892383` (24 October 2026, through U1-C58). Keep separate records of temporary wrapper edits and accepted EQ/FAC changes, including patches and verification, so cleanup removes only the temporary layer. The app submitted to U1 includes any subsequently accepted EQ/FAC refinements.
+- After the management demonstration and **before recording U1 approval**, remove the temporary login, Portal launcher, fourth-card wiring, copied assets and related state, flags or server hooks. Preserve every accepted EQ/FAC refinement, including changes in files also touched by the wrapper. Verify direct EQ/FAC entry at `http://127.0.0.1:5312/` and review each remaining difference from the initial baseline against an accepted U1 change. Submit that cleaned app for U1 approval. Never restore whole files or reset the repository in a way that loses accepted app changes or unrelated work; keep documentation/evidence history.
+
+The detailed build/removal instructions and temporary checks TD01-TD08 are in `documents/prompt-pack/TEMP_MANAGEMENT_WALKTHROUGH.md`. All eight checks start NOT RUN. The permanent roles, server authorization, P05 integration and later acceptance requirements still apply to the working application.
+
+### Management feedback during the walkthrough
+
+- Record each EQ/FAC request with an ID, affected screen/workflow, the requested outcome and acceptance criteria in `docs/MANAGEMENT_FEEDBACK.md`. You decide whether to accept it for U1, defer it to a later phase, or reject it. Management feedback does not itself approve U1.
+- Implement accepted prototype changes through the existing U1 refinement/Repair process. Update the SOW, prompt pack and affected UX/data/API records when the requirement changes; check the affected EQ/FAC flows and Flat/3D parity as relevant, then demonstrate the result again. Keep accepted refinements after temporary-wrapper cleanup. Production functionality still follows its gated build/review phases; a larger scope addition must be recorded and accepted before implementation.
+- Record login-screen, Portal layout/cards, account, role and authentication feedback separately for actual Portal integration in P05 and the relevant review/later phases. Do not implement that feedback in this temporary wrapper. A functional/safety defect that prevents the already-specified demo path may be corrected without expanding its scope.
 
 ## 3 Roles and permissions
 
@@ -256,7 +275,7 @@ Purpose: a manager in front of the screen sees, without clicking, what work is m
 
 ## 6 Shared rules (both sections)
 
-- Sign-in only through the ENG Portal; permission checks on the server for every page, API call and photo.
+- Working application: sign-in only through the ENG Portal; permission checks on the server for every page, API call and photo. Section 2A is a temporary local presentation exception and must be removed before U1 approval.
 - Audit: create, update, progress, hold, correction and permission changes keep who, when and old -> new values. Records are never hard-deleted.
 - Times shown in Asia/Colombo; work dates are kept as business dates.
 - Screens: desktop 1920 x 1080 and 1366 x 768, tablet, phone. FAC Jobs is fully usable on a phone; the EQ 3D view stays optional on phones.
@@ -268,9 +287,9 @@ Purpose: a manager in front of the screen sees, without clicking, what work is m
 - FAC: email/SMS/WhatsApp reminders (possible later), automatic running-hour readings, contractor management, costs and budgets, spare parts and stock, detailed per-item inspection checklists, maps/GIS, links from FAC jobs to EQ equipment, offline mode.
 - EQ: writing anything back to ZMMS; reading ZMMS jobs other than the daily job list; linking ZMMS daily jobs to mechanisms or parts; predictions from running hours, sensors or AI; spare-part stock and purchasing. Other V1 exclusions unchanged.
 
-## 8 Effect on the implementation plan (information only - the prompt pack is not changed yet)
+## 8 Effect on the implementation plan
 
-After you confirm this SOW, the pack is updated as follows. Completed work (P00-P03 and the U1 repairs) stays valid.
+The permanent V2 changes below were translated into prompt pack 2.0 after revision 4 was confirmed. Pack 2.2 includes the temporary walkthrough, removal gate and management feedback rules. Completed work and the committed U1 refinements stay valid; the temporary presentation is excluded from U1 acceptance, while accepted EQ/FAC refinements are included.
 
 | Area | Planned change |
 | --- | --- |
@@ -284,7 +303,7 @@ After you confirm this SOW, the pack is updated as follows. Completed work (P00-
 | New FAC build phase | FAC jobs, cycles, progress updates, photos |
 | P09 / P10 | FAC Dashboard beside the EQ Fleet tab; right panel shows the current state only |
 | Reviews and acceptance | FAC and ZMMS acceptance cases; reviews cover both |
-| Checkpoints | Planned when the prompt pack is updated |
+| Checkpoints | U1 follows R02B; U2 follows P11. Remove the temporary wrapper, retain accepted EQ/FAC refinements and verify the cleaned app before U1 approval |
 
 ## 9 Decisions
 
@@ -299,7 +318,7 @@ After you confirm this SOW, the pack is updated as follows. Completed work (P00-
 | Q5 | Gaps in the sheet | Import with blanks and complete them in Admin |
 | Q6 | Daily and weekly checks | One-tap "Done today" / "Done this week" |
 | Q7 | Management access to FAC | Both FAC tabs, read-only; tab visibility adjustable in Admin |
-| Q8 | U1 checkpoint | Not decided now; this revision only updates the SOW |
+| Q8 | U1 checkpoint | Originally deferred; pack 2.0 places U1 after R02B. Revision 5 requires removal of the temporary management walkthrough before approval |
 
 ### 9.2 Confirmed by you (22 October 2026, revision 3)
 
@@ -316,6 +335,14 @@ After you confirm this SOW, the pack is updated as follows. Completed work (P00-
 
 - ZMMS is a CICT-owned app; you are its owner and have agreed to this app reading it with the login.
 - ZMMS has no API or export, so the app signs in and reads the daily job page (4.4).
+
+### 9.4 Temporary walkthrough requested by you (24 October 2026, revision 5)
+
+Show the existing Portal login design at port 5312, accept blank or arbitrary credentials, show the three existing app cards plus EQ & FAC Maintenance, and open the current EQ/FAC default screen from the new card. Portal features and connections to the other apps are outside this temporary task. Remove the full temporary layer before approving U1. Revision 6 clarifies that accepted EQ/FAC refinements remain in the U1 app; login/Portal feedback is deferred to actual integration (section 2A).
+
+### 9.5 Management feedback clarified by you (24 October 2026, revision 6)
+
+EQ/FAC feedback is handled as U1 change requests and retained when accepted. Login-screen and Portal feedback is handled separately during actual Portal integration in future phases. Removing the temporary wrapper must not undo accepted EQ/FAC changes.
 
 ## Appendix A - supplied FAC list (`documents/Facility- Dashboard.xlsx`)
 

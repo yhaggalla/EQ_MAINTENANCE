@@ -1,0 +1,10 @@
+diff --git a/artifacts/prototypes/p02-ui/temp-management/walkthrough.css b/artifacts/prototypes/p02-ui/temp-management/walkthrough.css
+new file mode 100644
+index 0000000..77d5b34
+--- /dev/null
++++ b/artifacts/prototypes/p02-ui/temp-management/walkthrough.css
+@@ -0,0 +1,4 @@
++/* Only presentation-control normalization; the Portal source stylesheet is unchanged. */
++button.app-tile { width: 100%; text-align: left; font-weight: 700; }
++button.app-tile:active { transform: translateY(0); }
++.user-menu:not(details) { display: flex; align-items: center; gap: .65rem; }

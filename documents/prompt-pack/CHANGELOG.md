@@ -1,5 +1,17 @@
 # Prompt pack changelog
 
+## 2.2 | 24 October 2026 | SOW V2 revision 6 management feedback handling
+
+Accepted EQ/FAC management feedback is normal U1 refinement work and is retained after the temporary presentation is removed. Login/Portal feedback is deferred to actual integration in P05/relevant later phases. Add an initially empty management feedback register, trace each accepted request to its requirements, checks and cleaned checkpoint, and record the user's decision on new scope. TD07-TD08 now verify selective removal plus retained refinements; exact equality to the initial commit applies only if no accepted app changes exist. Never restore an old whole file over accepted app changes. B-23 / D-204 supersede the earlier strict restoration interpretation. No runtime implementation or U1 approval is introduced.
+
+## 2.1 | 24 October 2026 | SOW V2 revision 5 temporary management walkthrough
+
+- Add U1-T01, a temporary local Portal login/launcher presentation at port 5312: blank/arbitrary credentials always proceed; UMMS, PayPrep and Safety are inert cards; the new EQ & FAC Maintenance card enters the unchanged prototype default.
+- Add TEMP01-TEMP06 and eight separate TD01-TD08 checks with build/removal prompts in `TEMP_MANAGEMENT_WALKTHROUGH.md`. Runtime implementation is not part of this documentation update.
+- Pin the app baseline to `8303f8b8a55f41983bdcc77363ddbf13d2892383` through U1-C58. Before U1 approval, remove every temporary screen/asset/hook/flag/state and prove baseline runtime restoration/direct app entry. Keep documentation/evidence history.
+- Preserve all permanent V2 roles, real authentication/Portal integration and EQ/FAC workflows. No Portal source edits, live-app links, user administration or production work. Keep the 18 build phases, six reviews, 27 profiles, S01-S29 and 94 permanent acceptance cases.
+- Update SOW copies, requirements, Master control, run-order guidance, acceptance notes, UX/Portal plans, decisions, status and handover. Refresh manifest and package as a new version; older ZIPs stay historical.
+
 ## 2.0 | 22 October 2026 | SOW V2 revision 4
 
 The user confirmed SOW V2 revision 4 (`documents/SOW_V2.docx`, same text in `documents/SOW_V2.md`) and the facility job list `documents/Facility- Dashboard.xlsx`. Their decisions are recorded in `APPROVED_REQUIREMENTS.md` section 1.

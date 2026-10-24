@@ -1,6 +1,6 @@
 # CICT EQ & FAC Maintenance approved requirements
 
-Version 2.0 | 22 October 2026 | Planning and implementation contract: stage 1 EQ scope, pre-implementation review decisions and the SOW V2 additions (FAC section, feature permissions, ZMMS daily jobs, automatic status, spare-part condition)
+Version 2.2 | 24 October 2026 | Planning and implementation contract: stage 1 EQ scope, pre-implementation review decisions and the SOW V2 additions (FAC section, feature permissions, ZMMS daily jobs, automatic status, spare-part condition)
 
 ## 1 Purpose and authority
 
@@ -46,6 +46,12 @@ SOW V2 decisions, confirmed on 22 October 2026 (SOW V2 section 9). Where they di
 | ZMMS | Read the ZMMS daily all-job list (`https://www.zmms.lk/?r=job/daily-alljob`) twice a day (Admin-set times, plus Sync now). ZMMS is CICT-owned; the user, as its owner, agrees to login-based reading; ZMMS has no API. Read-only; account kept out of source and documents |
 | Automatic status | Status set from the day's ZMMS plan (breakdown job -> Breakdown, maintenance job -> Maintenance, not in the plan -> Ready for OPS); the job-type mapping is set in Admin after the first real data. A manual correction lasts for the current day only |
 | Spare parts | Admin selects which part positions are major spare parts; next predicted replacement = replaced date + expected life in months; Original parts count from the equipment commissioning date |
+
+## 1A Temporary pre-U1 management presentation
+
+The user's 24 October 2026 request adds SOW V2 revision 6 section 2A only: Portal-style login at `http://127.0.0.1:5312/`, blank/arbitrary credentials accepted without validation, Portal-style launcher with the three existing cards as placeholders and a new EQ & FAC Maintenance card opening the unchanged prototype default. Portal administration, users, roles, passwords and real app/auth connections are outside this temporary work; the Portal repository stays read-only.
+
+`TEMP_MANAGEMENT_WALKTHROUGH.md` defines TEMP01-TEMP06, TD01-TD08 and the build/removal prompts. Use `8303f8b8a55f41983bdcc77363ddbf13d2892383` through U1-C58 as the initial reference. Remove only temporary entry screens/assets/hooks/state **before recording U1 approval**, preserving all accepted EQ/FAC refinements. TD07-TD08 must prove full removal and direct app entry. U1 reviews the cleaned initial app plus accepted EQ/FAC refinements; login/Portal feedback is deferred to P05. See `docs/MANAGEMENT_FEEDBACK.md` in the EQ workspace. These temporary IDs are separate from S01-S29 and the 94 permanent acceptance cases. The permanent authentication, Admin and P05 requirements below still apply. Current status is documentation only; temporary build and removal checks are NOT RUN.
 
 ## 2 Scope and acceptance identifiers
 

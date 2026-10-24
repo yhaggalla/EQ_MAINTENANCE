@@ -31,6 +31,8 @@ Source: `documents/prompt-pack/APPROVED_REQUIREMENTS.md` s1 and `documents/EQ_MA
 | B-19 | Spare-part condition: Admin selects major spare parts; next predicted replacement = replaced date + expected life in months; Original parts from the commissioning date. |
 | B-20 | FAC: master list seeded from `documents/Facility- Dashboard.xlsx` with blanks completed in Admin; Admin manages it and can grant FAC Team; tri-annually 4 months, bi-annually 6 months; user picks the frequency for new jobs; next due from completion for recurring jobs only; one-tap Done today/this week; Management read-only. |
 | B-21 | Fleet quantities confirmed by the user on 24 October 2026 (U1-C54): 14 QCs, 46 RTGs and 7 ES units, 67 total. Apply the same equipment register to Fleet/dashboard, Admin, work/status lists, filters and selectors. These are initial quantities, not registration limits; real identifiers, model assignments and operating condition still require verified inputs. |
+| B-22 | User request, 24 October 2026: temporary pre-U1 management flow at port 5312 using the existing Portal login/launcher appearance, blank/arbitrary credentials accepted, UMMS/PayPrep/Safety cards as placeholders and a new EQ & FAC Maintenance card entering the unchanged app default. No other Portal functionality. Remove all temporary runtime additions/edits before U1 approval; only the current committed app baseline through U1-C58 (`8303f8b8a55f41983bdcc77363ddbf13d2892383`) passes through U1. Permanent V2 scope stays in force. Baseline handling is clarified by B-23 below. |
+| B-23 | User clarification, 24 October 2026: management EQ/FAC feedback is handled as U1 change requests; accepted app refinements stay in the app when the temporary wrapper is removed. Login-screen/Portal feedback is deferred to actual Portal integration (P05 and relevant later phases). Supersedes the strict original-commit restoration interpretation of B-22/D-203: U1 reviews the initial app plus accepted refinements, without temporary login/Portal code. User U1 approval remains required. |
 
 ## 2 Routine implementation defaults
 
@@ -743,3 +745,27 @@ D-201: implement three desktop/TV cards in the order Latest proof, Completion tr
 ### 2026-10-24 U1 CHANGES REQUESTED (U1-C58: larger proof preview)
 
 User: "make this proof preview larger to fill and optimize the view.. dont increase the card size.." D-202: enlarge the desktop/TV photo using the existing figure height and a responsive left column, preserving the complete image with contain sizing. Retain card/row/main-feed heights, controls/count and full captions beside it. Use a narrower image share in short TV layouts so captions fit; phone dimensions and touch controls remain. Evidence: `docs/evidence/U1/proof-preview-c58/REPORT.md`. U1 open/unapproved; P04 Not started.
+
+
+### 2026-10-24 U1-T01 temporary management walkthrough requested
+
+The user requested changes to V2 scope, the prompt pack and related documents for a temporary management presentation, then removal before U1 approval (B-22). This authorizes the targeted SOW V2/prompt-pack document revisions despite their ordinary source-protection rule; V1 SOW, drawings and other source material stay protected.
+
+D-203: pin the app baseline to `8303f8b8a55f41983bdcc77363ddbf13d2892383`; keep temporary runtime changes isolated and manifest-listed; restore only those edits and remove additions before U1 approval, preserving unrelated work and historical documentation. Detailed requirements TEMP01-TEMP06, checks TD01-TD08 and build/removal prompts: `documents/prompt-pack/TEMP_MANAGEMENT_WALKTHROUGH.md`. Fresh-default app entry remains EQ Fleet / EQ Team as committed. This presentation does not implement P05 or alter permanent roles/authentication requirements.
+
+Status: requirements documented only; temporary BUILD not started; TD01-TD08 NOT RUN. No runtime or Portal source edit was made by this scope revision. U1 remains IN PROGRESS / NOT COMPLETE / NOT APPROVED. P04/P05 remain Not started. Explicit user U1 approval can be recorded only after TD07-TD08 prove full temporary-layer removal and baseline app restoration.
+
+
+### 2026-10-24 Management feedback handling clarified
+
+B-23 / D-204 supersede any strict original-commit equality wording in the earlier U1-T01 document revision. Record requests in `docs/MANAGEMENT_FEEDBACK.md`. Implement accepted EQ/FAC prototype changes through normal U1 refinements/Repair, update affected requirements/contracts and evidence, and retain them during temporary-layer removal. Login/Portal requests are deferred to P05 actual integration and relevant later phases. A demo-path defect can be fixed without adding Portal scope.
+
+D-204: keep temporary wrapper patches and accepted app changes separately traceable. Cleanup removes only temporary hunks/files/state, including when a file contains both kinds of edit; never overwrite accepted app changes with a whole-file checkout from the initial commit. Compare the cleaned app with initial reference `8303f8b8a55f41983bdcc77363ddbf13d2892383` plus all accepted U1 changes; record the exact cleaned commit/tree and repeat their relevant checks before explicit U1 approval. Every remaining app difference requires an accepted change ID/evidence; unexplained edits are preserved and reconciled. No specific management changes have been requested or implemented yet. U1 remains unapproved; runtime unchanged.
+
+### 2026-10-24 U1-T01 BUILD completed - temporary presentation only
+
+D-205: implement the requested BUILD under affected P02/P02B Repair. Isolate presentation HTML/CSS/script/copied assets in `artifacts/prototypes/p02-ui/temp-management/`; only root mapping/JPEG MIME support changes in `serve.mjs`. Preserve the original `/index.html` app and EQ/FAC runtime. Existing explicit EQ/FAC/legacy hashes forward to that document for saved-link/P03 compatibility; plain root starts login. Login discards fields without reading/checking values, requests, storage or a session. Three existing-app cards are inert placeholders; no Portal administration/account/role/provisioning feature added.
+
+The pre-runtime manifest pins `8303f8b8a55f41983bdcc77363ddbf13d2892383`, preserves unrelated dirty documents, records precise temporary patches/hashes and an empty accepted-EQ/FAC-change register for BUILD. Portal stays clean at `47f7bd9d8296fda56114d8239e10ae9ad7850460`. TD01-TD06 pass: 62/62 browser assertions; shared viewer 11/11, FAC charts/proof 34/34, R02B 10/10, fleet-job rules 41/41. Reverse-patch dry-run 8/8. Evidence/earlier harness limitations: `docs/evidence/U1/temp-management-walkthrough/REPORT.md`.
+
+TD07/TD08 remain NOT RUN. Perform U1-T01 REMOVE and verify the cleaned initial app plus accepted EQ/FAC refinements before explicit U1 approval; retain mixed-file changes/shared assets and docs/evidence. No U1 approval or independent R verdict recorded. U1 IN PROGRESS / NOT COMPLETE / NOT APPROVED; P04/P05 Not started. Feedback handling remains B-23/D-204.

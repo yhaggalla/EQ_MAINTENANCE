@@ -2,6 +2,34 @@
 
 Rolling handover for CICT EQ Maintenance. Each phase appends its record; the newest is first.
 
+## 24 October 2026 - U1-T01 BUILD complete
+
+**BUILD complete only:** fresh `http://127.0.0.1:5312/` -> existing Portal login design -> four-card launcher -> unchanged EQ/FAC app. Blank/any input proceeds without reading/checking/sending/storing values. UMMS/PayPrep/Safety are inert placeholders. Existing EQ Team / EQ Fleet fresh default, permitted last-route behaviour, persona controls and explicit EQ/FAC/P03 links remain. No Portal administration/account/integration feature added.
+
+Runtime record: recommended P02/P02B Repair profile Codex gpt-6.1-sol/high or Claude Code claude-opus-5-5/high; client **Codex subagent eq-build-opus-high**; model **Codex-opus-5-5**; effort **high (per agent definition)**, not independently inspected; no fallback/escalation. IDs: TEMP01-TEMP06, TD01-TD08, B-22/B-23, D-203/D-204/D-205. Exact prompt: `docs/runs/U1-T01-BUILD-20261024.md`.
+
+Actual checks: TD01-TD06 62/62; shared viewer 11/11; FAC charts/proof/TV 34/34; R02B boundary/KPI 10/10; fleet-job rules 41/41; JavaScript syntax/whitespace pass. No browser errors or nonlocal page traffic. Inspected 1920/1366/375 login/source/launcher captures, dark login and entered EQ/FAC captures. The Portal reference renders exact source JSX using safe fixed local fixtures and original CSS/assets, without AuthProvider/effects/API/backend execution. This is local synthetic browser/software-WebGL and source-appearance evidence; real authentication/database/live ZMMS/target environment/IIS/deployment/production acceptance and independent R review are NOT RUN.
+
+Changed files: P02 `serve.mjs` (root mapping/JPEG MIME only); six additions under `temp-management/` (`index.html`, `walkthrough.js`, `walkthrough.css`, `portal-source.css`, `assets/cict-logo.png`, `assets/cict-umms-background.jpg`); `tools/u1/check_temp_management.mjs`; current status/decision/handover, prototype README, exact run record and `docs/evidence/U1/temp-management-walkthrough/`. Full commands, acceptance matrix, file/hash/patch accounting and earlier harness limitations: `REPORT.md`, `BASELINE.json`, `TOUCHED_FILES.json`, `source-state.json`, `patches/`. All 49 other non-document P02/P03 runtime files match initial Git content, with CRLF-only differences classified separately. No accepted EQ/FAC runtime change added by BUILD. Source documents/drawings/Portal unchanged.
+
+Git: `main`, builder starting/current HEAD `8303f8b8a55f41983bdcc77363ddbf13d2892383`; uncommitted for orchestrator. Pending authorized SOW/prompt-pack/project-record revisions preserved. Portal clean at `47f7bd9d8296fda56114d8239e10ae9ad7850460`. Workspace prototype listener restarted to load routing and left on 127.0.0.1:5312; temporary reference listener closed.
+
+No business question blocks BUILD. **U1 remains IN PROGRESS / NOT COMPLETE / NOT APPROVED; P04/P05 Not started; TD07-TD08 NOT RUN.** Next: management walkthrough/accepted EQ/FAC refinements, then **U1-T01 REMOVE** and cleaned-app verification before explicit U1 approval. Keep accepted mixed-file changes/shared assets and all docs/evidence; record the cleaned commit/tree. Current reverse-patch dry-run passes 8/8 but is not removal or approval. Log feedback in `docs/MANAGEMENT_FEEDBACK.md`; Portal feedback stays deferred to P05.
+
+## 24 October 2026 - management feedback and selective demo cleanup
+
+SOW V2 revision 6 / prompt pack 2.2 clarify the user's follow-up. Record EQ/FAC management feedback in `docs/MANAGEMENT_FEEDBACK.md`; implement accepted requests as normal U1 refinements, update affected requirements/contracts and retain them after cleanup. Record login/Portal feedback for P05 actual integration/relevant later phases. D-204 / B-23 supersede the strict initial-commit restoration interpretation in the historical entry below.
+
+Before U1 approval, remove only temporary wrapper edits and preserve accepted EQ/FAC refinements, including changes in shared files. Compare against the initial app plus accepted U1 changes, record the exact cleaned app commit/tree and verify direct entry plus request acceptance criteria. Documentation-only clarification: no specific management request implemented, temporary BUILD not started, TD01-TD08 NOT RUN, U1 unapproved. Evidence: `docs/evidence/U1/management-feedback-scope-20261024/REPORT.md`.
+
+## 24 October 2026 - U1-T01 temporary management walkthrough scope revision (historical; baseline interpretation clarified above)
+
+The user requested a documentation change for a temporary management journey: root port 5312 -> the existing ENG Portal login appearance (blank/arbitrary input always accepted) -> matching launcher with three existing app placeholders plus EQ & FAC Maintenance -> unchanged app default. No Portal administration/users/password/role features or real external app/auth links. Portal source remains read-only.
+
+SOW V2 revision 5 and prompt pack 2.1 record this in section 2A and `TEMP_MANAGEMENT_WALKTHROUGH.md`, including TEMP01-TEMP06, eight separate TD01-TD08 checks, a manifest-based build/removal procedure and bounded task prompts. Current app baseline is `8303f8b8a55f41983bdcc77363ddbf13d2892383` through U1-C58. Before U1 approval, remove the entire temporary runtime layer and prove restored baseline/direct entry with TD07-TD08; keep docs/evidence history and unrelated work. Permanent V2 scope and P05 integration remain required.
+
+Current outcome: requirements documented; BUILD not started; TD01-TD08 NOT RUN. Runtime source is unchanged. Documentation consistency/package and Word verification evidence: `docs/evidence/U1/temp-management-scope-20261024/REPORT.md`. The next implementation task, when requested, is U1-T01 BUILD from the specification; removal remains mandatory before any U1 approval. U1 IN PROGRESS / NOT APPROVED; P04/P05 Not started. Direct Codex document work; no phase execution or independent R verdict.
+
 ## 24 October 2026 - user-requested Git checkpoint through U1-C58
 
 The user requested: "commit all the the changes up to now...." The accompanying checkpoint commit captures all pending project changes: EQ/FAC UI refinements and evidence, the 67-unit fleet, three-card FAC dashboard/completion trend, enlarged proof preview, updated contracts/project records, verification scripts and the RTG handover correction. Earlier entries describing these changes as uncommitted are historical pre-checkpoint snapshots. The two automatic attachment-cache images exactly duplicate archived evidence references; `.codex-remote-attachments/` is now ignored, and the originals remain on disk. Existing evidence server logs are retained because the C43 report references them.

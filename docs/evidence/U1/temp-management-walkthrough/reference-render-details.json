@@ -1,0 +1,30 @@
+{
+  "portalSource": "src/portal-web/src/App.tsx",
+  "method": "Exact component return JSX rendered with ReactDOMServer using fixed safe local fixtures; no AuthProvider, effects, API imports or server requests. Original CSS and assets copied unchanged.",
+  "fixtures": [
+    {
+      "code": "umms",
+      "displayName": "Urgent Materials Monitor",
+      "pathBase": "/umms",
+      "iconKey": "materials"
+    },
+    {
+      "code": "payprep",
+      "displayName": "PayPrep Assistant",
+      "pathBase": "/payprep",
+      "iconKey": "payments"
+    },
+    {
+      "code": "safety",
+      "displayName": "Safety Inspection and Rectification Tracker",
+      "pathBase": "/safety",
+      "iconKey": "safety"
+    }
+  ],
+  "referenceTheme": "light",
+  "referenceUser": {
+    "displayName": "Management walkthrough",
+    "userName": "Presentation only",
+    "roles": []
+  }
+}
