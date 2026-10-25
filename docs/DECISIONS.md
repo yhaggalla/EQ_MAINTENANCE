@@ -793,3 +793,11 @@ B-25 / D-207: the shared 67-member equipment register uses QC01-QC14, RTG01-RTG4
 Update editable current documents and docs/SOW_V2.md/.docx. Source authorities under documents/ and As-bulit drawing/, dated evidence/screenshots and exact previous prompts retain their wording and paths; AGENTS.md records the current naming override. Keep the global prototype notice and DevelopmentFixture origin explicit even though codes now follow the approved business format.
 
 The user authorized a local commit. Include the preceding C60 CMMS rename and C61 equipment naming; preserve separate pre-existing C59 KPI and demo-startup changes outside the commit. Verify the exact staged app independently from those pending changes. Evidence: docs/evidence/U1/equipment-codes-c61/REPORT.md. U1 remains IN PROGRESS / NOT COMPLETE / NOT APPROVED; P04/P05 Not started. Retain accepted naming changes during temporary-wrapper cleanup under D-204.
+
+### 2026-10-25 U1-C59 Fleet KPI summaries and icons completed
+
+Original user request: add equipment summaries to Ready for OPS, Breakdown and Maintenance, remove icons for space, shrink percentage/Unreported if needed, record before U1 and commit pending work. Later steering: "add KPI icons" and "continue.. then commit..".
+
+D-208: show QC/RTG/ES text counts on the total and three status cards, calculated from the same active type-scoped population as headline counts. Keep zero status counts explicit, existing status filters and read-only TV behavior. Give percentage/Unreported smaller desktop columns. The later icon instruction supersedes removing every icon: use six compact 14 px decorative label icons while removing large bubbles, equipment artwork and the percentage donut from the strip. Retain current CMMS/business-code naming and temporary-wrapper/startup work.
+
+27/27 focused browser checks and 37/37 fleet regressions pass; evidence `docs/evidence/U1/fleet-summary-c59/REPORT.md`. Record MF-01 and preserve C59 during U1-T01 REMOVE. This user-authorized local checkpoint commits remaining C59 work after separate naming/startup commits. No U1 approval, phase advancement, live-system change or independent R verdict; U1 remains open/unapproved and P04/P05 Not started.

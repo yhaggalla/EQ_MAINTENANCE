@@ -2,6 +2,14 @@
 
 Rolling handover for CICT EQ Maintenance. Each phase appends its record; the newest is first.
 
+## 25 October 2026 - U1-C59 Fleet KPI summaries and compact icons
+
+Ready for OPS, Breakdown and Maintenance now show QC/RTG/ES counts alongside each headline; Active equipment uses the same text summary. Percentage and Unreported cards are narrower on desktop. The later user instruction "add KPI icons" supersedes removing all icons: six 14 px icons sit beside labels, replacing large bubbles/artwork/donut. Type scope, keyboard/status filtering, active-only counts and read-only TV pagination remain. Current CMMS naming, equipment business codes and temporary management/startup changes are preserved.
+
+Verification: 27/27 focused browser checks plus 37/37 shared-fleet regressions, no browser errors; desktop, phone and TV captures inspected. Evidence: `docs/evidence/U1/fleet-summary-c59/REPORT.md`; exact request: `docs/runs/Repair-U1-C59-20261025.md`; D-208 / UX section 54 / feedback MF-01. Direct Codex U1 refinement using the previously loaded UI/UX skill; model/effort not independently recorded; no delegated phase or independent R verdict. Local synthetic evidence only.
+
+The user authorized committing pending work. This accompanying checkpoint captures C59 runtime/tests/docs/evidence; earlier pending-C59 notes below are historical. HEAD before checkpoint is `8682da0`, including C60/C61 and local startup choices. Preserve C59 through U1-T01 REMOVE and verify the cleaned app plus accepted changes; TD07-TD08/cleaned checkpoint remain pending. **U1 remains IN PROGRESS / NOT COMPLETE / NOT APPROVED; P04/P05 Not started.**
+
 ## 25 October 2026 - U1-C61 equipment codes
 
 Use QC01-QC14, RTG01-RTG46 and ES01-ES07 throughout the current app/docs. IDs remain unchanged, including equipment IDs embedded in existing URLs; 170 positions, 20 special jobs and CMMS mappings/daily rows retain their associations. Fixture lookup now resolves a business code through the equipment record instead of deriving an ID from its text. Synthetic provenance and unknown operating/model data remain explicit.

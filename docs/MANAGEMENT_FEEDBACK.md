@@ -2,7 +2,7 @@
 
 24 October 2026 | SOW V2 revision 6 | Prompt pack 2.2 | B-23 / D-204
 
-No specific management change requests have been recorded yet. This register defines how to record them; it does not invent approvals or requirements.
+Accepted EQ/FAC requests are recorded below. Completion of a refinement does not approve the U1 checkpoint.
 
 For each request record: ID/date, original comment, EQ/FAC screen or Portal area, requested outcome, acceptance criteria, user decision, affected SOW/UX/data/API/pack records, U1-C ID or future phase, implementation/evidence, and the cleaned app checkpoint containing it. Decisions are Pending decision, Accepted for U1, Deferred (with target phase/reason), or Rejected (with reason). Accepted changes become Implemented/verified only when evidence exists; user U1 approval remains separate.
 
@@ -12,3 +12,4 @@ Before U1 approval, remove only the temporary login/Portal layer. Verify the ini
 
 | ID/date | Request and area | Required outcome / acceptance criteria | User decision | U1-C ID / future phase | Requirements / evidence / cleaned checkpoint |
 | --- | --- | --- | --- | --- | --- |
+| MF-01 / 2026-10-25 | EQ Fleet: add type summaries to status cards and compact the strip; later "add KPI icons"; "continue.. then commit.." | QC/RTG/ES counts reconcile to active type-scoped headlines; six small label icons; compact percentage/Unreported; desktop/phone/TV fit and filtering retained | Accepted for U1; implemented/verified | U1-C59 / D-208 | UX section 54; exact request in `docs/runs/Repair-U1-C59-20261025.md`; `docs/evidence/U1/fleet-summary-c59/REPORT.md`, 27/27 + 37/37. Retain Fleet JS/CSS refinements on REMOVE. Accompanying checkpoint contains implementation; cleaned app checkpoint / TD07-TD08 pending. |

@@ -1,0 +1,356 @@
+{
+  "passed": 27,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "1920px all type summaries reconcile",
+      "pass": true,
+      "detail": [
+        {
+          "k": "total",
+          "valid": true
+        },
+        {
+          "k": "readyForOps",
+          "valid": true
+        },
+        {
+          "k": "breakdown",
+          "valid": true
+        },
+        {
+          "k": "maintenance",
+          "valid": true
+        }
+      ]
+    },
+    {
+      "name": "1920px compact icons and accessible layout",
+      "pass": true,
+      "detail": {
+        "icons": 6,
+        "compactIcons": true,
+        "oldArt": 0,
+        "overflow": 0,
+        "clip": false,
+        "row": 1,
+        "share": 150.875,
+        "unknown": 150.890625,
+        "status": 348.171875,
+        "buttons": 4,
+        "scroll": 342
+      }
+    },
+    {
+      "name": "1366px all type summaries reconcile",
+      "pass": true,
+      "detail": [
+        {
+          "k": "total",
+          "valid": true
+        },
+        {
+          "k": "readyForOps",
+          "valid": true
+        },
+        {
+          "k": "breakdown",
+          "valid": true
+        },
+        {
+          "k": "maintenance",
+          "valid": true
+        }
+      ]
+    },
+    {
+      "name": "1366px compact icons and accessible layout",
+      "pass": true,
+      "detail": {
+        "icons": 6,
+        "compactIcons": true,
+        "oldArt": 0,
+        "overflow": 0,
+        "clip": false,
+        "row": 1,
+        "share": 116.265625,
+        "unknown": 116.28125,
+        "status": 268.3125,
+        "buttons": 4,
+        "scroll": 857
+      }
+    },
+    {
+      "name": "375px all type summaries reconcile",
+      "pass": true,
+      "detail": [
+        {
+          "k": "total",
+          "valid": true
+        },
+        {
+          "k": "readyForOps",
+          "valid": true
+        },
+        {
+          "k": "breakdown",
+          "valid": true
+        },
+        {
+          "k": "maintenance",
+          "valid": true
+        }
+      ]
+    },
+    {
+      "name": "375px compact icons and accessible layout",
+      "pass": true,
+      "detail": {
+        "icons": 6,
+        "compactIcons": true,
+        "oldArt": 0,
+        "overflow": 0,
+        "clip": false,
+        "row": 4,
+        "share": 170.703125,
+        "unknown": 170.703125,
+        "status": 170.703125,
+        "buttons": 4,
+        "scroll": 4946
+      }
+    },
+    {
+      "name": "320px all type summaries reconcile",
+      "pass": true,
+      "detail": [
+        {
+          "k": "total",
+          "valid": true
+        },
+        {
+          "k": "readyForOps",
+          "valid": true
+        },
+        {
+          "k": "breakdown",
+          "valid": true
+        },
+        {
+          "k": "maintenance",
+          "valid": true
+        }
+      ]
+    },
+    {
+      "name": "320px compact icons and accessible layout",
+      "pass": true,
+      "detail": {
+        "icons": 6,
+        "compactIcons": true,
+        "oldArt": 0,
+        "overflow": 0,
+        "clip": false,
+        "row": 4,
+        "share": 143.203125,
+        "unknown": 143.203125,
+        "status": 143.203125,
+        "buttons": 4,
+        "scroll": 5085
+      }
+    },
+    {
+      "name": "1920px TV all type summaries reconcile",
+      "pass": true,
+      "detail": [
+        {
+          "k": "total",
+          "valid": true
+        },
+        {
+          "k": "readyForOps",
+          "valid": true
+        },
+        {
+          "k": "breakdown",
+          "valid": true
+        },
+        {
+          "k": "maintenance",
+          "valid": true
+        }
+      ]
+    },
+    {
+      "name": "1920px TV compact icons and accessible layout",
+      "pass": true,
+      "detail": {
+        "icons": 6,
+        "compactIcons": true,
+        "oldArt": 0,
+        "overflow": 0,
+        "clip": false,
+        "row": 1,
+        "share": 166.40625,
+        "unknown": 166.40625,
+        "status": 384.015625,
+        "buttons": 0,
+        "scroll": 0
+      }
+    },
+    {
+      "name": "1366px TV all type summaries reconcile",
+      "pass": true,
+      "detail": [
+        {
+          "k": "total",
+          "valid": true
+        },
+        {
+          "k": "readyForOps",
+          "valid": true
+        },
+        {
+          "k": "breakdown",
+          "valid": true
+        },
+        {
+          "k": "maintenance",
+          "valid": true
+        }
+      ]
+    },
+    {
+      "name": "1366px TV compact icons and accessible layout",
+      "pass": true,
+      "detail": {
+        "icons": 6,
+        "compactIcons": true,
+        "oldArt": 0,
+        "overflow": 0,
+        "clip": false,
+        "row": 1,
+        "share": 115.6875,
+        "unknown": 115.6875,
+        "status": 266.96875,
+        "buttons": 0,
+        "scroll": 0
+      }
+    },
+    {
+      "name": "QC filter scopes headline and summary together",
+      "pass": true,
+      "detail": [
+        {
+          "k": "total",
+          "valid": true
+        },
+        {
+          "k": "readyForOps",
+          "valid": true
+        },
+        {
+          "k": "breakdown",
+          "valid": true
+        },
+        {
+          "k": "maintenance",
+          "valid": true
+        }
+      ]
+    },
+    {
+      "name": "RTG filter scopes headline and summary together",
+      "pass": true,
+      "detail": [
+        {
+          "k": "total",
+          "valid": true
+        },
+        {
+          "k": "readyForOps",
+          "valid": true
+        },
+        {
+          "k": "breakdown",
+          "valid": true
+        },
+        {
+          "k": "maintenance",
+          "valid": true
+        }
+      ]
+    },
+    {
+      "name": "ES filter scopes headline and summary together",
+      "pass": true,
+      "detail": [
+        {
+          "k": "total",
+          "valid": true
+        },
+        {
+          "k": "readyForOps",
+          "valid": true
+        },
+        {
+          "k": "breakdown",
+          "valid": true
+        },
+        {
+          "k": "maintenance",
+          "valid": true
+        }
+      ]
+    },
+    {
+      "name": "readyForOps card still filters equipment and keeps full type-based KPIs",
+      "pass": true
+    },
+    {
+      "name": "breakdown card still filters equipment and keeps full type-based KPIs",
+      "pass": true
+    },
+    {
+      "name": "maintenance card still filters equipment and keeps full type-based KPIs",
+      "pass": true
+    },
+    {
+      "name": "unreported card still filters equipment and keeps full type-based KPIs",
+      "pass": true
+    },
+    {
+      "name": "New unreported equipment updates totals without inventing a ready count",
+      "pass": true
+    },
+    {
+      "name": "New Ready status updates QC and ready percentage",
+      "pass": true
+    },
+    {
+      "name": "Rejected status change leaves summaries unchanged",
+      "pass": true
+    },
+    {
+      "name": "Accepted Breakdown moves the same QC into its correct summary",
+      "pass": true
+    },
+    {
+      "name": "Including retired equipment never adds it to active KPIs",
+      "pass": true
+    },
+    {
+      "name": "Management status-card filters stay read-only",
+      "pass": true
+    },
+    {
+      "name": "Keyboard toggles the selected filter off",
+      "pass": true
+    },
+    {
+      "name": "No browser errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "errors": []
+}

@@ -36,7 +36,7 @@ try {
   const ev = expr => b.eval(expr);
   const nav = async (route, q = {}) => { await ev(`EQ.nav(${JSON.stringify(route)},${JSON.stringify(q)});window.scrollTo(0,0)`); await b.wait(220); };
   await b.viewport(1920, 1080); await b.goto(base + '?role=admin#/eq/fleet');
-  check('Dashboard total and type badges show 67 / 14 / 46 / 7', await ev(`document.querySelector('[data-kpi="total"] .n').textContent==='67'&&[...document.querySelectorAll('.k-type b')].map(e=>e.textContent).join(',')==='14,46,7'&&document.querySelectorAll('.eq-card').length===67`));
+  check('Dashboard total and type badges show 67 / 14 / 46 / 7', await ev(`document.querySelector('[data-kpi="total"] .n').textContent==='67'&&[...document.querySelectorAll('[data-kpi="total"] .k-type b')].map(e=>e.textContent).join(',')==='14,46,7'&&document.querySelectorAll('.eq-card').length===67`));
   check('Dashboard status tiles reconcile with the register', await ev(`(()=>{const c=EQ.fleetCounts(EQ.state.D.equipment);return ['readyForOps','breakdown','maintenance','unreported'].every(k=>Number(document.querySelector('[data-kpi="'+k+'"] .n').textContent)===c[k])})()`));
   await b.screenshot(out + '/fleet-1920.png', { fullPage: true });
   for (const [type, count] of Object.entries(expected)) {

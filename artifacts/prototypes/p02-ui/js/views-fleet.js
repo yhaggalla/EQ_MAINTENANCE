@@ -9,7 +9,6 @@ window.EQ = window.EQ || {};
   // paused: Pause control (stops the blink and the TV page rotation; data refresh continues). tvPage/tvPages: TV paging.
   const ui = (EQ.fleetUI = { q: '', paused: false, tvPage: 0, tvPages: 1, lastFlip: Date.now() });
   const TYPE_LABEL = { QC: 'Quay cranes (QC)', RTG: 'Rail/rubber-tyred gantry cranes (RTG)', ES: 'ES equipment' };
-  const TYPE_SHORT = { QC: 'QC', RTG: 'RTG', ES: 'ES' };
   const BLINK = { breakdown: 'breakdown', maintenance: 'maintenance' }; // only these two statuses blink (U1-C30)
   const TV_FLIP_S = 10; // TV page rotation when the fleet does not fit one screen
   EQ.FLEET_BLINK = { breakdown: { periodS: 1.2 }, maintenance: { periodS: 2.4 } }; // < 3 flashes per second (WCAG 2.3.1)
@@ -101,24 +100,26 @@ window.EQ = window.EQ || {};
   }
 
   // ------------------------------------------------------------------ KPI tile row (U1-C31)
-  const ST_ICON = { readyForOps: 'check-circle', breakdown: 'octagon-x', maintenance: 'wrench', unreported: 'dashed' };
   function kpiRow(typed, counts, stat, setQ, tv) {
-    const byType = ['QC', 'RTG', 'ES'].map((t) => [t, typed.filter((e) => e.typeCode === t && e.lifecycle === 'active').length]).filter(([, n]) => n > 0);
+    const marks = { total: 'list', share: 'chart', readyForOps: 'check-circle', breakdown: 'octagon-x', maintenance: 'wrench', unreported: 'dashed' };
+    const label = (k, text) => h('span', { class: 'lbl' }, icon(marks[k], 'k-label-icon'), h('span', null, text));
+    const active = typed.filter((e) => e.lifecycle === 'active');
+    const types = ['QC', 'RTG', 'ES'].filter((t) => active.some((e) => e.typeCode === t));
+    const byType = (status) => types.map((t) => [t, active.filter((e) => e.typeCode === t && (!status || EQ.statusKey(e.status) === status)).length]);
+    const summaryText = (status) => byType(status).map(([t, n]) => t + ': ' + n).join(', ');
+    const summary = (status) => h('span', { class: 'k-types', 'aria-label': 'Equipment type counts' }, byType(status).map(([t, n]) => h('span', { class: 'k-type', 'data-eq-type': t, 'aria-label': t + ': ' + n }, h('span', { class: 'k-code' }, t), h('b', null, String(n)))));
     const pct = counts.total ? Math.round((counts.readyForOps / counts.total) * 100) : 0;
-    const R = 15.915; // circumference 100
-    const donut = h('svg', { class: 'donut', viewBox: '0 0 40 40', role: 'img', 'aria-label': 'Ready for OPS: ' + counts.readyForOps + ' of ' + counts.total + ' active, ' + pct + ' percent' },
-      h('circle', { cx: '20', cy: '20', r: String(R), fill: 'none', class: 'd-track', 'stroke-width': '5' }),
-      h('circle', { cx: '20', cy: '20', r: String(R), fill: 'none', class: 'd-val', 'stroke-width': '5', 'stroke-dasharray': pct + ' ' + (100 - pct), 'stroke-dashoffset': '25' }));
     const tile = (k, n) => {
-      const kids = [h('span', { class: 'k-top' }, h('span', { class: 'n' }, String(n)), h('span', { class: 'k-ic ic-' + k, 'aria-hidden': 'true' }, icon(ST_ICON[k]))), h('span', { class: 'lbl' }, EQ.STATUS[k].label)];
+      const breakdown = k !== 'unreported';
+      const kids = [h('span', { class: 'k-top' }, h('span', { class: 'n' }, String(n)), breakdown ? summary(k) : null), label(k, EQ.STATUS[k].label)];
       if (tv) return h('div', { class: 'count-card kpi kpi-' + k, 'data-kpi': k }, ...kids);
-      return h('button', { type: 'button', class: 'count-card kpi kpi-' + k, 'data-kpi': k, 'aria-pressed': stat === k ? 'true' : 'false', 'data-fk': 'cc-' + k, 'aria-label': EQ.STATUS[k].label + ': ' + n + (stat === k ? ', filter on' : ''), title: 'Show only ' + EQ.STATUS[k].label, onClick: () => setQ({ status: stat === k ? '' : k }) }, ...kids);
+      return h('button', { type: 'button', class: 'count-card kpi kpi-' + k, 'data-kpi': k, 'aria-pressed': stat === k ? 'true' : 'false', 'data-fk': 'cc-' + k, 'aria-label': EQ.STATUS[k].label + ': ' + n + (breakdown ? ', ' + summaryText(k) : '') + (stat === k ? ', filter on' : ''), title: 'Show only ' + EQ.STATUS[k].label + (breakdown ? ' · ' + summaryText(k) : ''), onClick: () => setQ({ status: stat === k ? '' : k }) }, ...kids);
     };
     return h('div', { class: 'count-strip kpi-row', role: 'group', 'aria-label': tv ? 'Status counts (active equipment)' : 'Status counts (active equipment; select to filter)' },
       h('div', { class: 'count-card total kpi kpi-total', 'data-kpi': 'total', title: 'Active equipment; retired items are excluded' },
-        h('span', { class: 'k-top' }, h('span', { class: 'n' }, String(counts.total)), h('span', { class: 'k-types' }, byType.map(([t, n]) => h('span', { class: 'k-type', title: EQ.fleetArtName(t) + ': ' + n }, EQ.fleetArt(t), h('b', null, String(n)), h('span', { class: 'sr-only' }, ' ' + TYPE_SHORT[t]))))),
-        h('span', { class: 'lbl' }, 'Active equipment')),
-      h('div', { class: 'count-card kpi kpi-share', 'data-kpi': 'share', title: 'Ready for OPS as a share of the active equipment shown, now' }, h('span', { class: 'k-top' }, donut, h('span', { class: 'n' }, pct + ' %')), h('span', { class: 'lbl' }, 'Ready for OPS now')),
+        h('span', { class: 'k-top' }, h('span', { class: 'n' }, String(counts.total)), summary()),
+        label('total', 'Active equipment')),
+      h('div', { class: 'count-card kpi kpi-share', 'data-kpi': 'share', title: 'Ready for OPS: ' + counts.readyForOps + ' of ' + counts.total + ' active equipment, ' + pct + ' percent' }, h('span', { class: 'k-top' }, h('span', { class: 'n' }, pct + ' %')), label('share', 'Ready for OPS')),
       tile('readyForOps', counts.readyForOps), tile('breakdown', counts.breakdown), tile('maintenance', counts.maintenance), tile('unreported', counts.unreported));
   }
   function groupHead(t, c, tv, n) {
