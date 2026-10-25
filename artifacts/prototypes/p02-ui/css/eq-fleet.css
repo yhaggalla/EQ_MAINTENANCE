@@ -53,11 +53,14 @@ body[data-page="eq-fleet"] { background: var(--pa-page); }
 .pa .kpi-readyForOps .k-label-icon { color: #32624e; }
 .pa .kpi-breakdown .k-label-icon { color: #9c344d; }
 .pa .kpi-maintenance .k-label-icon { color: #805d0e; }
-.pa .kpi .k-types { display: flex; flex-wrap: nowrap; gap: .45rem; align-items: baseline; color: var(--pa-ink-2); }
-.pa .kpi .k-type { display: inline-flex; align-items: baseline; gap: .2rem; white-space: nowrap; font-size: .85rem; }
+.pa .kpi .k-types { display: flex; flex-wrap: nowrap; gap: .35rem; align-items: center; color: var(--pa-ink-2); }
+.pa .kpi .k-type { display: grid; justify-items: center; gap: 0; white-space: nowrap; font-size: .85rem; line-height: 1.1; }
+.pa .kpi .k-type .eq-art { width: 30px; height: 19px; }
+.pa .kpi .k-type-count { display: inline-flex; align-items: baseline; gap: .2rem; }
 .pa .kpi .k-code { font-size: .72rem; font-weight: 600; }
 .pa .kpi .k-type b { font-weight: 750; line-height: 1.1; }
 .pa :is(.kpi-share, .kpi-unreported) { padding-inline: .65rem; }
+.pa .count-card.kpi-share { padding-inline: .4rem; }
 .pa .kpi-share .k-top { justify-content: flex-start; }
 .pa .kpi-share .lbl { font-size: .72rem; }
 
@@ -181,6 +184,7 @@ body[data-page="eq-fleet"] { background: var(--pa-page); }
   .pa .kpi-total { grid-column: 1 / -1; }
   .pa .kpi .k-type { font-size: .78rem; }
   .pa .kpi .k-code { font-size: .68rem; }
+  .pa .kpi .k-type .eq-art { width: 26px; height: 17px; }
   .pa .card-grid { grid-template-columns: minmax(0, 1fr); }
   .pa .fleet-bar { align-items: flex-start; }
 }

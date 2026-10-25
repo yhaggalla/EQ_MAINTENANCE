@@ -107,7 +107,7 @@ window.EQ = window.EQ || {};
     const types = ['QC', 'RTG', 'ES'].filter((t) => active.some((e) => e.typeCode === t));
     const byType = (status) => types.map((t) => [t, active.filter((e) => e.typeCode === t && (!status || EQ.statusKey(e.status) === status)).length]);
     const summaryText = (status) => byType(status).map(([t, n]) => t + ': ' + n).join(', ');
-    const summary = (status) => h('span', { class: 'k-types', 'aria-label': 'Equipment type counts' }, byType(status).map(([t, n]) => h('span', { class: 'k-type', 'data-eq-type': t, 'aria-label': t + ': ' + n }, h('span', { class: 'k-code' }, t), h('b', null, String(n)))));
+    const summary = (status) => h('span', { class: 'k-types', 'aria-label': 'Equipment type counts' }, byType(status).map(([t, n]) => h('span', { class: 'k-type', 'data-eq-type': t, 'aria-label': t + ': ' + n, title: EQ.fleetArtName(t) + ': ' + n }, EQ.fleetArt(t), h('span', { class: 'k-type-count' }, h('span', { class: 'k-code' }, t), h('b', null, String(n))))));
     const pct = counts.total ? Math.round((counts.readyForOps / counts.total) * 100) : 0;
     const tile = (k, n) => {
       const breakdown = k !== 'unreported';

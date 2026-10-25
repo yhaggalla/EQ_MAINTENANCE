@@ -1,5 +1,7 @@
 # Implementation status
 
+25 October 2026, U1-C59 correction: user feedback clarified that QC/RTG/ES equipment illustrations were expected. The total and three status cards now include them above their code/count pairs; small label icons remain. D-209 supersedes the earlier artwork-removal choice. Focused checks 27/27; evidence `docs/evidence/U1/fleet-equipment-icons-c59/REPORT.md`. U1 remains open/unapproved; retain through temporary-layer cleanup.
+
 25 October 2026, U1-C59 completed and included in the accompanying pending-work checkpoint: Fleet status KPIs show QC/RTG/ES summaries, with six compact label icons per the latest steering and narrower percentage/Unreported cards. Focused checks 27/27, fleet regression 37/37; evidence `docs/evidence/U1/fleet-summary-c59/REPORT.md`. D-208 / UX section 54 / MF-01. Earlier pending-C59 statements below are historical. Preserve this accepted refinement through temporary-wrapper removal; U1 remains open/unapproved.
 
 25 October 2026, U1-C61: equipment business codes are **QC01-QC14**, **RTG01-RTG46**, **ES01-ES07** throughout editable app screens, selectors, exports, fixtures and current docs/SOW copies. Stable IDs and equipment-specific job/part/history associations are preserved. B-25 / D-207; evidence `docs/evidence/U1/equipment-codes-c61/REPORT.md`. Commit includes C60/C61 naming updates; separate pending C59 KPI/startup-helper work remains outside it. U1 remains open/unapproved; P04/P05 Not started.
