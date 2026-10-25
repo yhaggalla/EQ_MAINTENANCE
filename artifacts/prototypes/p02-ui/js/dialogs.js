@@ -338,15 +338,15 @@ window.EQ = window.EQ || {};
       build(api) {
         const jobs = EQ.jobsOf(eq.id).filter((j) => j.workStatus !== 'completed');
         return {
-          title: (eq.zmmsMapped ? 'Correct operational status - ' : 'Update operational status - ') + eq.code,
+          title: (eq.cmmsMapped ? 'Correct operational status - ' : 'Update operational status - ') + eq.code,
           body: [writerGuard(),
-            h('p', { style: 'margin:0' }, 'Current: ', EQ.statusBadge(eq.status), eq.status ? ' since ' + EQ.fmtInstantShort(eq.statusSince) : ' (never set, no duration shown)', ' · ', h('strong', null, EQ.zmms.mode(eq).long)),
-            eq.zmmsMapped ? h('div', { class: 'notice warn' }, icon('clock'), h('div', { class: 'stack', style: 'gap:.3rem' }, h('p', null, h('strong', null, "Correction: "), "Add a reason. The status stays Manual through today's syncs."), h('p', null, h('strong', null, "Return to automatic: "), "At the next successful sync after today, or sooner with Back to automatic."))) : null,
+            h('p', { style: 'margin:0' }, 'Current: ', EQ.statusBadge(eq.status), eq.status ? ' since ' + EQ.fmtInstantShort(eq.statusSince) : ' (never set, no duration shown)', ' · ', h('strong', null, EQ.cmms.mode(eq).long)),
+            eq.cmmsMapped ? h('div', { class: 'notice warn' }, icon('clock'), h('div', { class: 'stack', style: 'gap:.3rem' }, h('p', null, h('strong', null, "Correction: "), "Add a reason. The status stays Manual through today's syncs."), h('p', null, h('strong', null, "Return to automatic: "), "At the next successful sync after today, or sooner with Back to automatic."))) : null,
             radios(st, 'status', 'sf-status', [{ value: 'readyForOps', label: 'Ready for OPS' }, { value: 'breakdown', label: 'Breakdown' }, { value: 'maintenance', label: 'Maintenance' }], () => api.render(), 'New status *', errors.status),
-            field('sf-reason', 'Reason' + (!eq.zmmsMapped && st.status === 'readyForOps' ? ' (optional)' : ''), area(st, 'reason', { rows: 2, maxlength: 500 }), { required: eq.zmmsMapped || st.status === 'breakdown' || st.status === 'maintenance', error: errors.reason, hint: eq.zmmsMapped ? 'Mandatory for every correction of an automatic status.' : 'Mandatory for Breakdown and Maintenance.' }),
+            field('sf-reason', 'Reason' + (!eq.cmmsMapped && st.status === 'readyForOps' ? ' (optional)' : ''), area(st, 'reason', { rows: 2, maxlength: 500 }), { required: eq.cmmsMapped || st.status === 'breakdown' || st.status === 'maintenance', error: errors.reason, hint: eq.cmmsMapped ? 'Mandatory for every correction of an automatic status.' : 'Mandatory for Breakdown and Maintenance.' }),
             field('sf-job', 'Related job (optional)', select(st, 'relatedJobId', jobs.map((j) => ({ value: j.id, label: j.number + ' ' + j.title })), null, 'None'), { hint: 'Only open jobs of ' + eq.code + ' are offered.' }),
             h('div', { class: 'notice info' }, icon('clock'), h('p', null, "Applies now; it cannot be backdated. Status duration uses recorded changes. " + PROTO_NOTE))],
-          foot: footButtons(api, eq.zmmsMapped ? 'Correct status for today' : 'Set status', () => {
+          foot: footButtons(api, eq.cmmsMapped ? 'Correct status for today' : 'Set status', () => {
             const r = EQ.api.setStatus(eq.id, st);
             if (r.ok) { api.close(r); EQ.toast(eq.code + ' is now ' + EQ.STATUS[st.status].label, PROTO_NOTE); } else { errors = r.fields || { status: r.message }; api.render(); }
           }),
@@ -365,7 +365,7 @@ window.EQ = window.EQ || {};
           title: 'Register equipment',
           body: [writerGuard(),
             h('div', { class: 'notice info' }, icon('info'), h('p', null, "New equipment starts Unreported, without a model, serial or commissioning date. An Admin must verify and assign its model.")),
-            field('ne-code', 'Equipment code', input(st, 'code', { autocomplete: 'off', maxlength: 32 }, () => api.markDirty()), { required: true, error: errors.code, hint: 'Unique, not case-sensitive. Try QC-DEMO-01 to see the duplicate refusal.' }),
+            field('ne-code', 'Equipment code', input(st, 'code', { autocomplete: 'off', maxlength: 32 }, () => api.markDirty()), { required: true, error: errors.code, hint: 'Unique, not case-sensitive. Try QC01 to see the duplicate refusal.' }),
             field('ne-name', 'Name', input(st, 'name', { maxlength: 200 }), {}),
             field('ne-type', 'Type', select(st, 'typeCode', S().D.types.map((t) => ({ value: t.code, label: t.name })), null, 'Choose type'), { required: true, error: errors.typeCode, hint: 'Immutable after creation.' })],
           foot: footButtons(api, 'Register', () => {

@@ -18,8 +18,8 @@ pairs=[
  # U1 round 8 (css/eq-fleet.css): EQ Fleet flat pastel restyle, blink states and TV mode. Text 4.5:1, non-text (rings, stripes, icons, donut) 3:1.
  ('R8 KPI number / card code (ink) on white','#1b2733',W,4.5),('R8 KPI label / card meta (muted) on white','#56626c',W,4.5),
  ('R8 freshness / TV footer (muted) on page','#56626c','#f2f2ee',4.5),('R8 TV updated (ink-2) on page','#34424e','#f2f2ee',4.5),
- ('R8 card meta on Breakdown blink peak','#56626c','#fbd9e3',4.5),('R8 card code on Breakdown blink peak','#1b2733','#fbd9e3',4.5),('R8 ZMMS count / TV duration on Breakdown peak','#34424e','#fbd9e3',4.5),
- ('R8 card meta on Maintenance blink peak','#56626c','#fae2a0',4.5),('R8 card code on Maintenance blink peak','#1b2733','#fae2a0',4.5),('R8 ZMMS count / TV duration on Maintenance peak','#34424e','#fae2a0',4.5),
+ ('R8 card meta on Breakdown blink peak','#56626c','#fbd9e3',4.5),('R8 card code on Breakdown blink peak','#1b2733','#fbd9e3',4.5),('R8 CMMS count / TV duration on Breakdown peak','#34424e','#fbd9e3',4.5),
+ ('R8 card meta on Maintenance blink peak','#56626c','#fae2a0',4.5),('R8 card code on Maintenance blink peak','#1b2733','#fae2a0',4.5),('R8 CMMS count / TV duration on Maintenance peak','#34424e','#fae2a0',4.5),
  ('R8 card meta on Breakdown steady (reduced motion / paused)','#56626c','#fde8ee',4.5),('R8 card meta on Maintenance steady','#56626c','#fef5dc',4.5),
  ('R8 src tag Auto inside a card','#0c4268','#eef6fa',4.5),('R8 src tag Manual inside a card','#5d4100','#fff4c7',4.5),
  ('R8 badge Breakdown text','#8f1d2a','#fde8ea',4.5),('R8 badge Maintenance text','#6a4600','#fff1cf',4.5),('R8 badge Ready text','#0f5f40','#e3f4ec',4.5),('R8 badge Unreported text','#46596a','#eef1f4',4.5),

@@ -129,7 +129,7 @@ body[data-page="eq-fleet"] { background: var(--pa-page); }
 .tv-fleet .tvf-head .tag.syn { background: #e7e8e3; color: var(--pa-ink-2); font-size: .8rem; }
 .tv-fleet .tvf-updated { display: inline-flex; align-items: center; gap: .35rem; font-size: 1.05rem; color: var(--pa-ink-2); font-weight: 600; }
 .tv-fleet .tvf-updated.stale { color: var(--danger); }
-.tv-fleet .tvf-head .zmms-fresh { font-size: .95rem; }
+.tv-fleet .tvf-head .cmms-fresh { font-size: .95rem; }
 .tv-fleet .tvf-tools { margin-left: auto; display: flex; gap: .5rem; }
 .tv-fleet .tvf-tools .pa-btn { min-height: 2.7rem; font-size: 1rem; padding: .3rem 1rem; }
 .tv-fleet .kpi-row { gap: .8rem; }

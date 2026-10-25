@@ -1,0 +1,167 @@
+{
+  "checks": [
+    {
+      "name": "All 67 approved business codes appear exactly once in the shared register",
+      "pass": true,
+      "detail": [
+        "QC01",
+        "QC02",
+        "QC03",
+        "QC04",
+        "QC05",
+        "QC06",
+        "QC07",
+        "QC08",
+        "QC09",
+        "QC10",
+        "QC11",
+        "QC12",
+        "QC13",
+        "QC14",
+        "RTG01",
+        "RTG02",
+        "RTG03",
+        "RTG04",
+        "RTG05",
+        "RTG06",
+        "RTG07",
+        "RTG08",
+        "RTG09",
+        "RTG10",
+        "RTG11",
+        "RTG12",
+        "RTG13",
+        "RTG14",
+        "RTG15",
+        "RTG16",
+        "RTG17",
+        "RTG18",
+        "RTG19",
+        "RTG20",
+        "RTG21",
+        "RTG22",
+        "RTG23",
+        "RTG24",
+        "RTG25",
+        "RTG26",
+        "RTG27",
+        "RTG28",
+        "RTG29",
+        "RTG30",
+        "RTG31",
+        "RTG32",
+        "RTG33",
+        "RTG34",
+        "RTG35",
+        "RTG36",
+        "RTG37",
+        "RTG38",
+        "RTG39",
+        "RTG40",
+        "RTG41",
+        "RTG42",
+        "RTG43",
+        "RTG44",
+        "RTG45",
+        "RTG46",
+        "ES01",
+        "ES02",
+        "ES03",
+        "ES04",
+        "ES05",
+        "ES06",
+        "ES07"
+      ]
+    },
+    {
+      "name": "Synthetic provenance stays explicit",
+      "pass": true
+    },
+    {
+      "name": "/eq/fleet contains no former equipment label",
+      "pass": true
+    },
+    {
+      "name": "/eq/jobs/special contains no former equipment label",
+      "pass": true
+    },
+    {
+      "name": "/eq/jobs/special filter exposes all approved codes",
+      "pass": true
+    },
+    {
+      "name": "/eq/jobs/daily contains no former equipment label",
+      "pass": true
+    },
+    {
+      "name": "/eq/jobs/daily filter exposes all approved codes",
+      "pass": true
+    },
+    {
+      "name": "Daily-work export uses canonical app codes",
+      "pass": true,
+      "detail": [
+        "ES01",
+        "QC06",
+        "QC01",
+        "QC01",
+        "QC04",
+        "RTG01",
+        "RTG03",
+        "RTG06"
+      ]
+    },
+    {
+      "name": "/eq/jobs/status contains no former equipment label",
+      "pass": true
+    },
+    {
+      "name": "/eq/jobs/status filter exposes all approved codes",
+      "pass": true
+    },
+    {
+      "name": "/eq/jobs/spare-parts contains no former equipment label",
+      "pass": true
+    },
+    {
+      "name": "/eq/jobs/spare-parts filter exposes all approved codes",
+      "pass": true
+    },
+    {
+      "name": "/admin/eq/equipment contains no former equipment label",
+      "pass": true
+    },
+    {
+      "name": "/admin/eq/cmms contains no former equipment label",
+      "pass": true
+    },
+    {
+      "name": "flat viewer shows QC01 with stable equipment identity",
+      "pass": true
+    },
+    {
+      "name": "3d viewer shows QC01 with stable equipment identity",
+      "pass": true
+    },
+    {
+      "name": "Phone search finds QC14",
+      "pass": true
+    },
+    {
+      "name": "Phone search finds RTG46",
+      "pass": true
+    },
+    {
+      "name": "Phone search finds ES07",
+      "pass": true
+    },
+    {
+      "name": "No browser runtime errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "errors": [],
+  "passed": 20,
+  "failed": 0
+}

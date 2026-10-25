@@ -3,7 +3,7 @@ import vm from 'node:vm';
 
 const out=process.argv[2]||'docs/evidence/U1/job-progress-c50/model-checks.json';
 const box=vm.createContext({console,Intl,Date,URLSearchParams,setTimeout,clearTimeout});box.window=box;
-for(const file of ['util','catalog','params','fac-ref','fixtures','access','store','zmms','spares','fac'])vm.runInContext(fs.readFileSync(`artifacts/prototypes/p02-ui/js/${file}.js`,'utf8'),box,{filename:file+'.js'});
+for(const file of ['util','catalog','params','fac-ref','fixtures','access','store','cmms','spares','fac'])vm.runInContext(fs.readFileSync(`artifacts/prototypes/p02-ui/js/${file}.js`,'utf8'),box,{filename:file+'.js'});
 const E=box.EQ,checks=[];let n=0;
 const check=(name,ok,detail)=>{checks.push({name,pass:!!ok,detail});if(!ok)throw Error(name+': '+JSON.stringify(detail));};
 const fresh=()=>{E.reset();E.state.role='eqTeam';E.access.refreshSession('C50 test');};

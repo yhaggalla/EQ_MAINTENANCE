@@ -2,9 +2,13 @@
 
 Version 2.0, revision 6 | 24 October 2026 | Temporary walkthrough and management feedback handling
 
+Naming correction, 25 October 2026 (U1-C60): the external app is **CMMS**; its site remains **zmms.lk**. This editable copy applies the new name throughout. The protected source copy retains its original wording; scope and integration behaviour are unchanged.
+
+Equipment codes, 25 October 2026 (U1-C61): **QC01-QC14**, **RTG01-RTG46**, **ES01-ES07** throughout the app. The approved names do not change stable record IDs or verify the prototype's synthetic condition, model and work data.
+
 Supersedes SOW V1 (`documents/SOW.docx`) only on the points below. Revision 4 was confirmed on 22 October 2026 and translated into prompt pack 2.0. The committed U1 refinements through U1-C58 remain the app baseline. Revision 5 adds the temporary management walkthrough in section 2A. Revision 6 clarifies that accepted EQ/FAC management feedback remains in the U1 app while login/Portal feedback is deferred to P05; prompt pack 2.2 reflects this. U1 remains unapproved.
 
-Revision 2 records your answers to Q1-Q8 (section 9) and adds the EQ Jobs tab changes: special jobs, daily jobs read from ZMMS, automatic EQ status and the spare-part condition register (section 4). Revision 3 records your answers to Q9-Q14: two ZMMS syncs a day, and a manual status correction that lasts for the current day only. Revision 4 records that ZMMS is a CICT-owned app, you as its owner allow the app to read it with the login, and ZMMS has no API.
+Revision 2 records your answers to Q1-Q8 (section 9) and adds the EQ Jobs tab changes: special jobs, daily jobs read from CMMS, automatic EQ status and the spare-part condition register (section 4). Revision 3 records your answers to Q9-Q14: two CMMS syncs a day, and a manual status correction that lasts for the current day only. Revision 4 records that CMMS is a CICT-owned app, you as its owner allow the app to read it with the login, and CMMS has no API.
 
 ## 1 What changes in V2
 
@@ -14,7 +18,7 @@ Revision 2 records your answers to Q1-Q8 (section 9) and adds the EQ Jobs tab ch
 - FAC work starts from the supplied master list (`Facility- Dashboard.xlsx`, 111 jobs). Each job can have a job picture and completion pictures; neither is mandatory.
 - FAC data entry is kept short: a job has a handful of fields and the daily action is one "update progress" form.
 - The FAC Dashboard is built for management: a constantly moving live board where the progress of every job is visible without clicking.
-- EQ section: the Jobs tab has three parts - special jobs (manual, bound to a mechanism or part) with the daily maintenance jobs read from ZMMS listed below them, EQ status (automatic from ZMMS, with manual correction) and the condition of major spare parts. The crane view shows the current state only; work history is kept in the Jobs tab.
+- EQ section: the Jobs tab has three parts - special jobs (manual, bound to a mechanism or part) with the daily maintenance jobs read from CMMS listed below them, EQ status (automatic from CMMS, with manual correction) and the condition of major spare parts. The crane view shows the current state only; work history is kept in the Jobs tab.
 
 ## 2 Application structure
 
@@ -101,7 +105,7 @@ The Fleet tab, the equipment (crane) view with the QC 3D and flat views, the tie
 
 - Selecting a mechanism or part shows its current state in the right panel: open special jobs, current spare-part condition (Original/Replaced, brand, replaced date, next predicted replacement) and specifications.
 - No work history is shown in the crane view. An "Open in Jobs" link opens the Jobs tab filtered to that equipment and selection, where the full history is kept.
-- Fleet cards show whether the status is automatic (ZMMS) or a manual correction, and the number of today's ZMMS daily jobs.
+- Fleet cards show whether the status is automatic (CMMS) or a manual correction, and the number of today's CMMS daily jobs.
 
 ### 4.2 EQ Jobs tab - three parts
 
@@ -109,7 +113,7 @@ The Fleet tab, the equipment (crane) view with the QC 3D and flat views, the tie
 EQ Jobs:  [ Special & daily jobs ]   [ EQ status ]   [ Spare parts condition ]
           +-- Special jobs (manual, per mechanism / sub-mechanism / part) ----+
           |  ...                                                              |
-          +-- Daily maintenance jobs (from ZMMS, read-only) -----------------+
+          +-- Daily maintenance jobs (from CMMS, read-only) -----------------+
           |  ...                                                              |
           +-------------------------------------------------------------------+
 ```
@@ -123,23 +127,23 @@ All three parts share the filters equipment, type (QC/RTG/ES), date range and se
 - Completing a Replacement special job opens the spare-part condition form for the selected part, pre-filled (4.6).
 - The list shows open jobs first; completed and cancelled jobs remain as history in this tab.
 
-### 4.4 Daily maintenance jobs (from ZMMS)
+### 4.4 Daily maintenance jobs (from CMMS)
 
-- Source: the ZMMS (CMMS.LK) daily all-job list, `https://www.zmms.lk/?r=job/daily-alljob`. The page needs a login (checked 22 October 2026). You have provided an account for this; its details are not written into this document or the project files.
-- The app server reads the list automatically twice a day (defaults 06:00 and 14:00 Asia/Colombo; Admin can change both times and press "Sync now"). Reading only - the app never writes to ZMMS.
-- Each record keeps what ZMMS gives, at least: ZMMS job number, date, equipment, job description or type and job status. The exact field list is fixed once the account is available.
-- ZMMS equipment names or codes are matched to app equipment through a mapping table in Admin. Rows that do not match are listed in Admin for mapping and are not lost.
+- Source: the CMMS (zmms.lk) daily all-job list, `https://www.zmms.lk/?r=job/daily-alljob`. The page needs a login (checked 22 October 2026). You have provided an account for this; its details are not written into this document or the project files.
+- The app server reads the list automatically twice a day (defaults 06:00 and 14:00 Asia/Colombo; Admin can change both times and press "Sync now"). Reading only - the app never writes to CMMS.
+- Each record keeps what CMMS gives, at least: CMMS job number, date, equipment, job description or type and job status. The exact field list is fixed once the account is available.
+- CMMS equipment names or codes are matched to app equipment through a mapping table in Admin. Rows that do not match are listed in Admin for mapping and are not lost.
 - The daily jobs are listed in the Jobs tab below the special jobs, read-only, with the same filters. Every synced day is kept, so the Jobs tab holds the daily-job history. They are linked to the equipment only, not to a mechanism or part.
-- Sync health: Admin sees the last sync time, rows read and any failure; users see "ZMMS data from dd Mon hh:mm". A failed sync keeps the previous data, retries, and warns Admin.
-- The ZMMS account is kept in the server configuration, never in code, logs or the browser.
-- Method: ZMMS is a CICT-owned app with no API. As its owner you have agreed that this app signs in with the account and reads the daily job page. If the ZMMS page layout changes, the sync reports a failure to Admin instead of saving wrong data.
+- Sync health: Admin sees the last sync time, rows read and any failure; users see "CMMS data from dd Mon hh:mm". A failed sync keeps the previous data, retries, and warns Admin.
+- The CMMS account is kept in the server configuration, never in code, logs or the browser.
+- Method: CMMS is a CICT-owned app with no API. As its owner you have agreed that this app signs in with the account and reads the daily job page. If the CMMS page layout changes, the sync reports a failure to Admin instead of saving wrong data.
 
 ### 4.5 EQ status - automatic, with manual correction
 
-- After each sync the app sets each mapped equipment's status from the day's ZMMS plan: a breakdown job -> Breakdown; a maintenance job -> Maintenance; equipment not in the day's plan -> Ready for OPS (in operations). Which ZMMS job types and statuses mean Breakdown or Maintenance is set in Admin after the first real ZMMS data (Q11).
+- After each sync the app sets each mapped equipment's status from the day's CMMS plan: a breakdown job -> Breakdown; a maintenance job -> Maintenance; equipment not in the day's plan -> Ready for OPS (in operations). Which CMMS job types and statuses mean Breakdown or Maintenance is set in Admin after the first real CMMS data (Q11).
 - If the automatic status is wrong, an EQ Team user changes it with a reason. The status then shows "Manual" for the rest of that day, including over that day's second sync. At the first sync of the next day the equipment returns to automatic status (Q12). A user can also select "Back to automatic" earlier.
-- Equipment with no ZMMS mapping keeps the V1 manual status.
-- The EQ status part of the Jobs tab lists every status change with its source (ZMMS sync or user), time and reason.
+- Equipment with no CMMS mapping keeps the V1 manual status.
+- The EQ status part of the Jobs tab lists every status change with its source (CMMS sync or user), time and reason.
 - This replaces the V1 rule that the status is only set by hand and the "no telemetry" note on the Fleet tab.
 
 ### 4.6 Condition of major spare parts
@@ -154,10 +158,10 @@ All three parts share the filters equipment, type (QC/RTG/ES), date range and se
 
 | V1 / approved requirements v1.1 | V2 |
 | --- | --- |
-| Operational status is set only manually; no telemetry | Automatic from ZMMS daily jobs, with manual correction |
-| No external system link (Maximo/EAM) | Still no Maximo/EAM link; ZMMS daily jobs are read (read-only) |
+| Operational status is set only manually; no telemetry | Automatic from CMMS daily jobs, with manual correction |
+| No external system link (Maximo/EAM) | Still no Maximo/EAM link; CMMS daily jobs are read (read-only) |
 | Right panel in the equipment view shows scoped history (S07) | Right panel shows the current state; history in the Jobs tab |
-| Jobs workspace: Pending / Current / Completed for all work (S08) | Special jobs keep those statuses; daily jobs come from ZMMS |
+| Jobs workspace: Pending / Current / Completed for all work (S08) | Special jobs keep those statuses; daily jobs come from CMMS |
 | Remaining or predicted life not in stage 1 | Simple predicted replacement date from the expected life in months |
 
 ## 5 FAC section
@@ -280,12 +284,12 @@ Purpose: a manager in front of the screen sees, without clicking, what work is m
 - Times shown in Asia/Colombo; work dates are kept as business dates.
 - Screens: desktop 1920 x 1080 and 1366 x 768, tablet, phone. FAC Jobs is fully usable on a phone; the EQ 3D view stays optional on phones.
 - Intranet only: fonts, icons and libraries are bundled, no external internet services.
-- Own SQL Server database; no Maximo/EAM link. The only external system the app reads is ZMMS (4.4).
+- Own SQL Server database; no Maximo/EAM link. The only external system the app reads is CMMS (4.4).
 
 ## 7 Not in V2
 
 - FAC: email/SMS/WhatsApp reminders (possible later), automatic running-hour readings, contractor management, costs and budgets, spare parts and stock, detailed per-item inspection checklists, maps/GIS, links from FAC jobs to EQ equipment, offline mode.
-- EQ: writing anything back to ZMMS; reading ZMMS jobs other than the daily job list; linking ZMMS daily jobs to mechanisms or parts; predictions from running hours, sensors or AI; spare-part stock and purchasing. Other V1 exclusions unchanged.
+- EQ: writing anything back to CMMS; reading CMMS jobs other than the daily job list; linking CMMS daily jobs to mechanisms or parts; predictions from running hours, sensors or AI; spare-part stock and purchasing. Other V1 exclusions unchanged.
 
 ## 8 Effect on the implementation plan
 
@@ -293,16 +297,16 @@ The permanent V2 changes below were translated into prompt pack 2.0 after revisi
 
 | Area | Planned change |
 | --- | --- |
-| Approved requirements | Version 2.0: FAC scope items, FAC Team role, feature-permission matrix, EQ changes of section 4A, ZMMS read-only import, FAC exclusions |
-| P01 contracts | Addendum: FAC tables (jobs, cycles, updates, photos), FAC API, permission matrix, ZMMS daily jobs, status source, spare-part register |
+| Approved requirements | Version 2.0: FAC scope items, FAC Team role, feature-permission matrix, EQ changes of section 4A, CMMS read-only import, FAC exclusions |
+| P01 contracts | Addendum: FAC tables (jobs, cycles, updates, photos), FAC API, permission matrix, CMMS daily jobs, status source, spare-part register |
 | P02 prototype | Section switch, FAC Dashboard and FAC Jobs prototype with the imported list; EQ Jobs tab in three parts; crane view without history |
 | P05 Portal integration | Fourth role code `eq-maintenance:fac-team` and the display name; P05 has not started, so nothing is redone |
-| P06 Admin | Access matrix, FAC master list and Excel import, ZMMS equipment mapping and status rules, major spare-part selection and expected life |
+| P06 Admin | Access matrix, FAC master list and Excel import, CMMS equipment mapping and status rules, major spare-part selection and expected life |
 | P07 | Special jobs, automatic/manual status, spare-part register |
-| New ZMMS phase | Daily sync with the separate account, mapping, sync health, automatic status |
+| New CMMS phase | Daily sync with the separate account, mapping, sync health, automatic status |
 | New FAC build phase | FAC jobs, cycles, progress updates, photos |
 | P09 / P10 | FAC Dashboard beside the EQ Fleet tab; right panel shows the current state only |
-| Reviews and acceptance | FAC and ZMMS acceptance cases; reviews cover both |
+| Reviews and acceptance | FAC and CMMS acceptance cases; reviews cover both |
 | Checkpoints | U1 follows R02B; U2 follows P11. Remove the temporary wrapper, retain accepted EQ/FAC refinements and verify the cleaned app before U1 approval |
 
 ## 9 Decisions
@@ -324,17 +328,17 @@ The permanent V2 changes below were translated into prompt pack 2.0 after revisi
 
 | No. | Question | Your answer |
 | --- | --- | --- |
-| Q9 | ZMMS access | Account provided (details kept out of the documents; entered only in the server configuration at implementation) |
-| Q10 | ZMMS sync timing | Twice a day; Admin can change the times |
-| Q11 | Which ZMMS jobs mean Breakdown or Maintenance | Set in Admin after the first real ZMMS data |
-| Q12 | How long a manual status correction lasts | The current day only; next day the ZMMS plan decides, and equipment not in the plan is Ready for OPS |
+| Q9 | CMMS access | Account provided (details kept out of the documents; entered only in the server configuration at implementation) |
+| Q10 | CMMS sync timing | Twice a day; Admin can change the times |
+| Q11 | Which CMMS jobs mean Breakdown or Maintenance | Set in Admin after the first real CMMS data |
+| Q12 | How long a manual status correction lasts | The current day only; next day the CMMS plan decides, and equipment not in the plan is Ready for OPS |
 | Q13 | Basis for the next predicted replacement | Replaced date + expected life in months; Original parts count from the commissioning date |
 | Q14 | Which parts are "major spare parts" | Admin selects them from the mechanism-tree part positions |
 
-### 9.3 ZMMS ownership and access (revision 4)
+### 9.3 CMMS ownership and access (revision 4)
 
-- ZMMS is a CICT-owned app; you are its owner and have agreed to this app reading it with the login.
-- ZMMS has no API or export, so the app signs in and reads the daily job page (4.4).
+- CMMS is a CICT-owned app; you are its owner and have agreed to this app reading it with the login.
+- CMMS has no API or export, so the app signs in and reads the daily job page (4.4).
 
 ### 9.4 Temporary walkthrough requested by you (24 October 2026, revision 5)
 

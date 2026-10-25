@@ -18,15 +18,15 @@ The page needs HTTP (ES modules and an import map), so `file://` does not work. 
 | `/?eq=eq-qc-demo-01` | Overall mode, full-crane view |
 | `/?eq=eq-qc-demo-01&main=mi-q01-01&mode=technical` | Main 01 Hoist: union of bound positions |
 | `/?eq=eq-qc-demo-01&sub=si-q01-011&mode=technical` | Sub 011 |
-| `/?eq=eq-qc-demo-01&part=pp-q01-041&mode=technical` | Main hoist motor A on QC-DEMO-01 |
-| `/?eq=eq-qc-demo-02&part=pp-q02-041&mode=technical` | Same model node on QC-DEMO-02: different position ID and history |
+| `/?eq=eq-qc-demo-01&part=pp-q01-041&mode=technical` | Main hoist motor A on QC01 |
+| `/?eq=eq-qc-demo-02&part=pp-q02-041&mode=technical` | Same model node on QC02: different position ID and history |
 | `/?eq=eq-qc-demo-01&mode=technical&iso=1` | Machinery house isolated |
 | `/?eq=eq-qc-demo-01&container=machinery-house` | Spatial group selection (not a mechanism) |
 | `&view=side` / `end-ws` / `end-ls` / `top` | Aligned orthographic views |
 | `&viewer=nowebgl` / `loadfail` / `contextlost` | Fallback simulations |
 | `capture.html?view=side&cx=..&cy=..&w=..&h=..` | Bare render used for the drawing comparisons |
 
-From the P02 prototype (`node artifacts/prototypes/p02-ui/serve.mjs`), the QC-DEMO-01/02 detail page has an **Open 3D model (P03)** link that opens this page with the same equipment, main/sub selection and part (passed as its semantic key; a P02 placeholder key that is not in the drawing-derived template is reported, never guessed).
+From the P02 prototype (`node artifacts/prototypes/p02-ui/serve.mjs`), the QC01/02 detail page has an **Open 3D model (P03)** link that opens this page with the same equipment, main/sub selection and part (passed as its semantic key; a P02 placeholder key that is not in the drawing-derived template is reported, never guessed).
 
 ## Files
 
@@ -57,4 +57,4 @@ Checks: `node tools/p03/check_model_prototype.mjs --gpu hardware|swiftshader`, `
 
 ## P02B (22 October 2026): four-tab right panel (U1-C19)
 
-The right panel is now four current-state tabs - Maintenance (today's ZMMS daily jobs), Projects/Special, Technical, Spare parts - with no work history, the same tabs and data as the flat P02 view (`?panel=maintenance|special|technical|spareParts`). The data layer and the renderer are the P02 scripts (`../p02-ui/js`, served read-only under `/p02/js/` by `serve.mjs`); the page behaves as a read-only Management view, and Open in Jobs opens the P02 prototype (port 5312) in a new tab, so start both servers. The page's own synthetic jobs were removed. Checks: `node tools/p02b/check_p03_panel.mjs`; the P03 browser checks were adapted where they asserted history in the panel and wait for the next rendered frame instead of a fixed 200 ms.
+The right panel is now four current-state tabs - Maintenance (today's CMMS daily jobs), Projects/Special, Technical, Spare parts - with no work history, the same tabs and data as the flat P02 view (`?panel=maintenance|special|technical|spareParts`). The data layer and the renderer are the P02 scripts (`../p02-ui/js`, served read-only under `/p02/js/` by `serve.mjs`); the page behaves as a read-only Management view, and Open in Jobs opens the P02 prototype (port 5312) in a new tab, so start both servers. The page's own synthetic jobs were removed. Checks: `node tools/p02b/check_p03_panel.mjs`; the P03 browser checks were adapted where they asserted history in the panel and wait for the next rendered frame instead of a fixed 200 ms.

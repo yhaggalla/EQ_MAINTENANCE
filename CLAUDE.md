@@ -14,6 +14,6 @@ Implementation is driven by the prompt pack in `documents/prompt-pack/`. Its REA
 
 ## Hard boundaries
 - `documents/` and `As-bulit drawing/` are source authorities: never edit, move or delete them. Exception: `documents/prompt-pack/` (and the SOW V2 copy) changes only on the user's explicit instruction; pack 2.0 was applied on 22 October 2026 on that instruction.
-- ZMMS (zmms.lk) is contacted only by the P07B connector with the account from runtime configuration. Never request, commit or print that account.
+- CMMS (zmms.lk) is contacted only by the P07B connector with the account from runtime configuration. Never request, commit or print that account.
 - Existing Portal source F:\CODEX\CICT-ENG_MAIN_PAGE is read-only except in P05.
 - No deployment, live IIS changes, shared/production SQL, package publishing or printed secrets.

@@ -1,0 +1,22 @@
+{
+  "tool": "tools/p02b/check_p02b.mjs",
+  "browser": "Chrome/155.0.8059.85",
+  "date": "2026-10-25T16:45:20.763Z",
+  "note": "Prototype-level checks against the synthetic P02B prototype; not acceptance execution.",
+  "passed": 0,
+  "failed": 1,
+  "results": [
+    {
+      "id": "E01",
+      "covers": [
+        "S08",
+        "ZM07",
+        "HIS06",
+        "U1-C20"
+      ],
+      "name": "EQ Jobs Special/Projects and Daily work (CMMS) tabs (U1-C20 split of part 1): special jobs on their own tab, the read-only CMMS daily jobs on the Daily work tab with \"CMMS data from\"; unmatched equipment never listed here; filters (equipment, type, date range, search) apply to both lists and stay in the URL; earlier days are kept",
+      "status": "FAIL",
+      "detail": "{\"nav\":\"Special/Projects*|Daily work (CMMS)|EQ status|Spare parts condition\",\"specialOnly\":true,\"dailyOnly\":true,\"ro\":0,\"today\":8,\"wantToday\":8,\"unmatchedHidden\":9,\"rtg\":3,\"rtgJobs\":3,\"allDays\":7,\"absent\":true,\"q2Only\":true,\"urlKeeps\":true}"
+    }
+  ]
+}

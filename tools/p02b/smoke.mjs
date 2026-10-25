@@ -3,7 +3,7 @@ import { launch } from '../p02/cdp.mjs';
 const base = process.argv[2] || 'http://127.0.0.1:5312/';
 const b = await launch({ port: 9352 });
 await b.viewport(1920, 1080);
-const routes = ['/eq/fleet', '/eq/equipment/eq-qc-demo-01', '/eq/equipment/eq-qc-demo-01?main=mi-q01-01&sub=si-q01-011&part=pp-q01-007&panel=spareParts', '/eq/jobs/special', '/eq/jobs/status', '/eq/jobs/spare-parts', '/fac/dashboard', '/fac/jobs', '/fac/jobs/fj-2', '/admin/access', '/admin/fac/master-list', '/admin/fac/import', '/admin/fac/settings', '/admin/eq/spare-parts', '/admin/eq/zmms', '/admin/eq/equipment'];
+const routes = ['/eq/fleet', '/eq/equipment/eq-qc-demo-01', '/eq/equipment/eq-qc-demo-01?main=mi-q01-01&sub=si-q01-011&part=pp-q01-007&panel=spareParts', '/eq/jobs/special', '/eq/jobs/status', '/eq/jobs/spare-parts', '/fac/dashboard', '/fac/jobs', '/fac/jobs/fj-2', '/admin/access', '/admin/fac/master-list', '/admin/fac/import', '/admin/fac/settings', '/admin/eq/spare-parts', '/admin/eq/cmms', '/admin/eq/equipment'];
 for (const role of ['admin', 'eqTeam', 'facTeam', 'management', 'eqfac', 'noAccess']) {
   for (const r of routes) {
     b.clearEvents();

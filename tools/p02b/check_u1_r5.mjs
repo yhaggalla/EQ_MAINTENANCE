@@ -1,7 +1,7 @@
 // U1 round 5 repair checks (U1-C20, U1-C21) against the synthetic P02B prototype (headless Chrome through the DevTools protocol).
 // Needs the prototype server on http://127.0.0.1:5312/ (artifacts/prototypes/p02-ui/serve.mjs).
 // Usage: node tools/p02b/check_u1_r5.mjs [baseUrl] [outJson] [--only=R5-01,R5-04]
-// PROTOTYPE-LEVEL evidence only: synthetic in-memory data, persona switch instead of sign-in, no persistence, no ZMMS contact.
+// PROTOTYPE-LEVEL evidence only: synthetic in-memory data, persona switch instead of sign-in, no persistence, no CMMS contact.
 import fs from 'node:fs';
 import path from 'node:path';
 import { launch } from '../p02/cdp.mjs';
@@ -30,22 +30,22 @@ try {
   await b.viewport(1920, 1080);
 
   // ------------------------------------------------------------- U1-C20: four EQ Jobs tabs
-  await step('R5-01', ['U1-C20', 'S08', 'ZM07', 'HIS06'], 'EQ Jobs has four tabs - Special/Projects, Daily work (CMMS), EQ status, Spare parts condition; Special/Projects holds the special jobs only, Daily work (CMMS) holds the read-only ZMMS daily jobs only with "ZMMS data from", default today, earlier days by From/To; shared filters carry across the tabs', async () => {
+  await step('R5-01', ['U1-C20', 'S08', 'ZM07', 'HIS06'], 'EQ Jobs has four tabs - Special/Projects, Daily work (CMMS), EQ status, Spare parts condition; Special/Projects holds the special jobs only, Daily work (CMMS) holds the read-only CMMS daily jobs only with "CMMS data from", default today, earlier days by From/To; shared filters carry across the tabs', async () => {
     await go('eqTeam', '/eq/jobs/special', 800);
     const navS = await subtabs();
     const sp = { board: await exists('.job'), daily: await exists('#daily'), dailyTable: await exists('.daily-table'), heading: await ev(`[...document.querySelectorAll('h2')].map(h=>h.textContent).join('|')`) };
     await go('eqTeam', '/eq/jobs/daily', 800);
     const navD = await subtabs();
     const d = { board: await exists('.job'), daily: await exists('#daily'), fresh: await text('#daily'), ro: await ev(`document.querySelectorAll('#daily .daily-table input, #daily .daily-table select, #daily .daily-table textarea, #daily .daily-table button').length`), rows: await ev(`[...document.querySelectorAll('.daily-table tbody tr')].map(r=>r.dataset.zjob)`), addJob: await exists('[data-fk="add-job"]') };
-    const wantToday = await ev(`EQ.state.D.zmms.jobs.filter(j=>j.match==='matched' && j.date===EQ.todayColombo()).length`);
+    const wantToday = await ev(`EQ.state.D.cmms.jobs.filter(j=>j.match==='matched' && j.date===EQ.todayColombo()).length`);
     await go('eqTeam', `/eq/jobs/daily?equipment=${Q1}&from=2000-01-01&to=2999-01-01`, 700);
     const days = await ev(`new Set([...document.querySelectorAll('.daily-table tbody tr td:first-child')].map(t=>t.textContent)).size`);
     const carry = await ev(`[...document.querySelectorAll('.subtabs a')].every(a=>a.getAttribute('href').includes('equipment=${Q1}'))`);
-    const unmatched = await ev(`EQ.state.D.zmms.jobs.filter(j=>j.match!=='matched').map(j=>j.jobNo)`); const listed = await ev(`EQ.dailyRows({from:'2000-01-01',to:'2999-01-01'}).map(j=>j.jobNo)`);
+    const unmatched = await ev(`EQ.state.D.cmms.jobs.filter(j=>j.match!=='matched').map(j=>j.jobNo)`); const listed = await ev(`EQ.dailyRows({from:'2000-01-01',to:'2999-01-01'}).map(j=>j.jobNo)`);
     await go('management', '/eq/jobs/daily', 700); const mgmt = { rows: await ev(`document.querySelectorAll('.daily-table tbody tr').length`), buttons: await ev(`document.querySelectorAll('#daily button:not([data-fk^="export"])').length`) };
     const ok = navS === 'Special/Projects*|Daily work (CMMS)|EQ status|Spare parts condition' && navD === 'Special/Projects|Daily work (CMMS)*|EQ status|Spare parts condition'
       && sp.board && !sp.daily && !sp.dailyTable && /Special jobs/.test(sp.heading)
-      && !d.board && d.daily && /ZMMS data from \d/.test(d.fresh) && d.ro === 0 && d.rows.length === wantToday && !d.addJob
+      && !d.board && d.daily && /CMMS data from \d/.test(d.fresh) && d.ro === 0 && d.rows.length === wantToday && !d.addJob
       && days >= 3 && carry && !unmatched.some((n) => listed.includes(n)) && mgmt.rows === wantToday && mgmt.buttons === 0;
     return { ok, detail: { navS, navD, special: sp, daily: { ...d, fresh: d.fresh.slice(0, 60), rows: d.rows.length }, wantToday, days, carry, mgmt } };
   });

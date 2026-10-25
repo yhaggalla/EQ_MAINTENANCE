@@ -4,7 +4,7 @@
 //   node artifacts/prototypes/p03-qc-model/serve.mjs   (http://127.0.0.1:5313/)
 // Usage: node tools/p02b/check_u1_r6.mjs [p02Url] [p03Url] [outJson] [--only=R6-01,R6-05] [--manifest=path]
 // The before-reproduction ran the same script against a `git archive HEAD` copy served on other ports.
-// PROTOTYPE-LEVEL evidence only: synthetic in-memory data, persona switch instead of sign-in, no persistence, no ZMMS contact.
+// PROTOTYPE-LEVEL evidence only: synthetic in-memory data, persona switch instead of sign-in, no persistence, no CMMS contact.
 import fs from 'node:fs';
 import path from 'node:path';
 import { launch } from '../p03/cdp.mjs';

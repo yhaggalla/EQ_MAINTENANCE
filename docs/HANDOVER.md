@@ -2,13 +2,25 @@
 
 Rolling handover for CICT EQ Maintenance. Each phase appends its record; the newest is first.
 
+## 25 October 2026 - U1-C61 equipment codes
+
+Use QC01-QC14, RTG01-RTG46 and ES01-ES07 throughout the current app/docs. IDs remain unchanged, including equipment IDs embedded in existing URLs; 170 positions, 20 special jobs and CMMS mappings/daily rows retain their associations. Fixture lookup now resolves a business code through the equipment record instead of deriving an ID from its text. Synthetic provenance and unknown operating/model data remain explicit.
+
+Evidence, checks and commit scope: `docs/evidence/U1/equipment-codes-c61/REPORT.md`. C60/C61 naming changes are committed together. The pre-existing C59 KPI changes in the shared Fleet files and its separate evidence/tool remain pending, as do the demo-startup helpers. Source authorities and dated evidence/exact past prompts stay intact; AGENTS.md records the naming override. U1 remains open/unapproved; no phase advancement or live-system work. Retain C61 through temporary-wrapper cleanup under D-204.
+
+## 25 October 2026 - U1-C60 CMMS naming correction
+
+The external app is **CMMS**; the host remains **zmms.lk**. Updated editable runtime labels, accessibility text, exports, CSS/data selectors, fixture keys, API/data/configuration contracts, local Admin route (`/admin/eq/cmms`), module (`js/cmms.js`), current documentation, mockups, tools and `docs/SOW_V2.md` / `.docx`. AGENTS.md and B-24/D-206 establish the naming override for older protected sources. Source documents/drawings and dated evidence/exact past prompts are retained. Existing C59 fleet changes remain in place.
+
+Evidence and actual checks: `docs/evidence/U1/cmms-name-c60/REPORT.md`. Direct user-requested naming refinement by the Codex primary agent, without a phase run or independent review verdict. Local synthetic verification only; no live CMMS access, real authentication, database, Portal source edit or deployment. Changes remain uncommitted. U1 is open/unapproved, P04/P05 Not started. Retain C60 through temporary-wrapper cleanup; review the initial app plus accepted U1 changes per D-204.
+
 ## 24 October 2026 - U1-T01 BUILD complete
 
 **BUILD complete only:** fresh `http://127.0.0.1:5312/` -> existing Portal login design -> four-card launcher -> unchanged EQ/FAC app. Blank/any input proceeds without reading/checking/sending/storing values. UMMS/PayPrep/Safety are inert placeholders. Existing EQ Team / EQ Fleet fresh default, permitted last-route behaviour, persona controls and explicit EQ/FAC/P03 links remain. No Portal administration/account/integration feature added.
 
 Runtime record: recommended P02/P02B Repair profile Codex gpt-6.1-sol/high or Claude Code claude-opus-5-5/high; client **Codex subagent eq-build-opus-high**; model **Codex-opus-5-5**; effort **high (per agent definition)**, not independently inspected; no fallback/escalation. IDs: TEMP01-TEMP06, TD01-TD08, B-22/B-23, D-203/D-204/D-205. Exact prompt: `docs/runs/U1-T01-BUILD-20261024.md`.
 
-Actual checks: TD01-TD06 62/62; shared viewer 11/11; FAC charts/proof/TV 34/34; R02B boundary/KPI 10/10; fleet-job rules 41/41; JavaScript syntax/whitespace pass. No browser errors or nonlocal page traffic. Inspected 1920/1366/375 login/source/launcher captures, dark login and entered EQ/FAC captures. The Portal reference renders exact source JSX using safe fixed local fixtures and original CSS/assets, without AuthProvider/effects/API/backend execution. This is local synthetic browser/software-WebGL and source-appearance evidence; real authentication/database/live ZMMS/target environment/IIS/deployment/production acceptance and independent R review are NOT RUN.
+Actual checks: TD01-TD06 62/62; shared viewer 11/11; FAC charts/proof/TV 34/34; R02B boundary/KPI 10/10; fleet-job rules 41/41; JavaScript syntax/whitespace pass. No browser errors or nonlocal page traffic. Inspected 1920/1366/375 login/source/launcher captures, dark login and entered EQ/FAC captures. The Portal reference renders exact source JSX using safe fixed local fixtures and original CSS/assets, without AuthProvider/effects/API/backend execution. This is local synthetic browser/software-WebGL and source-appearance evidence; real authentication/database/live CMMS/target environment/IIS/deployment/production acceptance and independent R review are NOT RUN.
 
 Changed files: P02 `serve.mjs` (root mapping/JPEG MIME only); six additions under `temp-management/` (`index.html`, `walkthrough.js`, `walkthrough.css`, `portal-source.css`, `assets/cict-logo.png`, `assets/cict-umms-background.jpg`); `tools/u1/check_temp_management.mjs`; current status/decision/handover, prototype README, exact run record and `docs/evidence/U1/temp-management-walkthrough/`. Full commands, acceptance matrix, file/hash/patch accounting and earlier harness limitations: `REPORT.md`, `BASELINE.json`, `TOUCHED_FILES.json`, `source-state.json`, `patches/`. All 49 other non-document P02/P03 runtime files match initial Git content, with CRLF-only differences classified separately. No accepted EQ/FAC runtime change added by BUILD. Source documents/drawings/Portal unchanged.
 
@@ -62,11 +74,11 @@ Removed the screenshot-marked visible FAC Dashboard title and Prototype, synthet
 
 ## 24 October 2026 - U1-C54 complete EQ fleet quantities
 
-Reviewed the prompt-pack README/approved requirements/Master control and current project records. The user confirmed 14 QCs, 46 RTGs and 7 ES units (67 total). The prototype now builds this full active population in one register, feeding the Fleet dashboard/cards/table/TV, Admin equipment, EQ status, all EQ Jobs equipment filters, job creation/shared type scopes/exports and ZMMS mapping choices. Codes remain explicitly synthetic. Added members start Unreported/unassigned with no invented models, positions, commissioning dates, history or mappings. Existing equipment/position/job identities remain. The former retired RTG-DEMO-07 example is active/Unreported, with retirement retained as an isolated test scenario. Spare-part registration still requires confirmed positions; quantities do not cap later additions.
+Reviewed the prompt-pack README/approved requirements/Master control and current project records. The user confirmed 14 QCs, 46 RTGs and 7 ES units (67 total). The prototype now builds this full active population in one register, feeding the Fleet dashboard/cards/table/TV, Admin equipment, EQ status, all EQ Jobs equipment filters, job creation/shared type scopes/exports and CMMS mapping choices. Codes remain explicitly synthetic. Added members start Unreported/unassigned with no invented models, positions, commissioning dates, history or mappings. Existing equipment/position/job identities remain. The former retired RTG07 example is active/Unreported, with retirement retained as an isolated test scenario. Spare-part registration still requires confirmed positions; quantities do not cap later additions.
 
 Verification: 37/37 focused model/browser checks; existing shared-fleet-job rules 41/41 and browser regression 20/20; R02B regression 10/10; no browser errors. Reviewed full desktop Fleet, 1366/1920 TV and phone screenshots. TV pages cover every member without page scrolling. JavaScript syntax and whitespace checks pass. Runtime change: `artifacts/prototypes/p02-ui/js/fixtures.js`; focused check: `tools/p02b/check_u1_c54.mjs`; existing tests adjusted for the 14-QC total and explicit retired scenario. Updated README, DATA_CONTRACT section 12, UX section 48, decisions B-21/D-198 and partially resolved U-07 (counts confirmed; real codes/models/conditions remain unknown). Exact request: `docs/runs/Repair-U1-C54-20261024.md`; detailed evidence and file list: `docs/evidence/U1/fleet-size-c54/REPORT.md`.
 
-Direct Codex U1 refinement; no delegated phase or independent R verdict, runtime model/effort not independently recorded. Branch `main`, starting HEAD `7f7b40e`; this request's changes are uncommitted. Existing pending EQ/FAC/RTG edits are preserved. Local synthetic in-memory/browser verification only; production authentication/database/live ZMMS/deployment acceptance NOT RUN. U1 remains IN PROGRESS, NOT COMPLETE / NOT APPROVED; P04 Not started. Next: continue U1 walkthrough/refinements and use B-21 as the fleet quantity baseline in later phases.
+Direct Codex U1 refinement; no delegated phase or independent R verdict, runtime model/effort not independently recorded. Branch `main`, starting HEAD `7f7b40e`; this request's changes are uncommitted. Existing pending EQ/FAC/RTG edits are preserved. Local synthetic in-memory/browser verification only; production authentication/database/live CMMS/deployment acceptance NOT RUN. U1 remains IN PROGRESS, NOT COMPLETE / NOT APPROVED; P04 Not started. Next: continue U1 walkthrough/refinements and use B-21 as the fleet quantity baseline in later phases.
 
 ## 24 October 2026 - U1-C53 fleet toolbar cleanup
 
@@ -80,9 +92,9 @@ Verified 30/30 focused browser checks on both working and isolated staged previe
 
 ## 24 October 2026 - U1-C51 Project and fleet-wide special jobs
 
-Added Project Kind, EQ type -> filtered Equipment/All equipment, and a single shared type-scoped job. User confirmed shared progress/completion and automatic inclusion of later equipment. Jobs/search/filter/export show one entry; every current active member page displays the same special job, including when equipment is added after completion. Scope is immutable. Project allows optional replacement lines; fleet replacement positions retain real equipment identity and atomic installation/register writes. Current-state DTOs stay detached and exclude progress/history notes; creator/role rules and operational status independence remain. API/data contracts record the changed scope and future FK requirements. Runtime: P02 `store.js`, `dialogs.js`, `views-jobs.js`, `views-eqjobs.js`, `panel-tabs.js`, `zmms.js`.
+Added Project Kind, EQ type -> filtered Equipment/All equipment, and a single shared type-scoped job. User confirmed shared progress/completion and automatic inclusion of later equipment. Jobs/search/filter/export show one entry; every current active member page displays the same special job, including when equipment is added after completion. Scope is immutable. Project allows optional replacement lines; fleet replacement positions retain real equipment identity and atomic installation/register writes. Current-state DTOs stay detached and exclude progress/history notes; creator/role rules and operational status independence remain. API/data contracts record the changed scope and future FK requirements. Runtime: P02 `store.js`, `dialogs.js`, `views-jobs.js`, `views-eqjobs.js`, `panel-tabs.js`, `cmms.js`.
 
-Verification: 41/41 new model checks; 20/20 browser checks on both working and isolated HEAD-plus-staged previews; prior progress 49/49 model + 23/23 browser; R02B 10/10; contracts 9/9 + 15/15; final runs have no browser errors. Inspected desktop/phone form, shared card and equipment panel screenshots; syntax and staged whitespace pass. Evidence: `docs/evidence/U1/fleet-jobs-c51/REPORT.md`; request/answers: `docs/runs/Repair-U1-C51-20261024.md`; D-195 / UX section 45. Isolated preview's initial missing model-resource 404 was resolved by supplying unchanged model assets. Earlier uncommitted UI/RTG edits remain excluded. Direct Codex adjustment, no delegated phase/independent R verdict; actual runtime model/effort not independently recorded. Local synthetic in-memory prototype only; no production persistence, authentication, uploads, live ZMMS, deployment, IIS or SQL changes. U1 remains IN PROGRESS, NOT COMPLETE / NOT APPROVED; P04 Not started.
+Verification: 41/41 new model checks; 20/20 browser checks on both working and isolated HEAD-plus-staged previews; prior progress 49/49 model + 23/23 browser; R02B 10/10; contracts 9/9 + 15/15; final runs have no browser errors. Inspected desktop/phone form, shared card and equipment panel screenshots; syntax and staged whitespace pass. Evidence: `docs/evidence/U1/fleet-jobs-c51/REPORT.md`; request/answers: `docs/runs/Repair-U1-C51-20261024.md`; D-195 / UX section 45. Isolated preview's initial missing model-resource 404 was resolved by supplying unchanged model assets. Earlier uncommitted UI/RTG edits remain excluded. Direct Codex adjustment, no delegated phase/independent R verdict; actual runtime model/effort not independently recorded. Local synthetic in-memory prototype only; no production persistence, authentication, uploads, live CMMS, deployment, IIS or SQL changes. U1 remains IN PROGRESS, NOT COMPLETE / NOT APPROVED; P04 Not started.
 
 ## 24 October 2026 - U1-C50 EQ special-job progress
 
@@ -104,7 +116,7 @@ History and Update now stay side by side in each spare-register Actions cell. Tw
 
 ## 24 October 2026 - U1-C46 clear interface guidance
 
-Replaced dense fixed explanations with short sentences and labelled points across EQ/FAC pages, dialogs and Admin. The EQ status guide separates ZMMS rules, manual correction timing and unlinked equipment. Similar cleanup covers spare estimates/registration, FAC hints, cancellation/completion notices, catalogue/position/specification rules, access, imports and ZMMS settings. Original job/technical descriptions and important constraints remain; command handlers, data and permissions are unchanged. Ten runtime modules are listed in `docs/evidence/U1/status-copy-c46/copy-changes.json`.
+Replaced dense fixed explanations with short sentences and labelled points across EQ/FAC pages, dialogs and Admin. The EQ status guide separates CMMS rules, manual correction timing and unlinked equipment. Similar cleanup covers spare estimates/registration, FAC hints, cancellation/completion notices, catalogue/position/specification rules, access, imports and CMMS settings. Original job/technical descriptions and important constraints remain; command handlers, data and permissions are unchanged. Ten runtime modules are listed in `docs/evidence/U1/status-copy-c46/copy-changes.json`.
 
 Checks: 39/39 browser smoke checks on the working preview and 39/39 on an isolated HEAD-plus-staged-runtime copy; existing R02B regression 10/10; final Access labels 4/4 with 12 feature entries retained. Desktop/phone screenshots inspected, JavaScript syntax and staged whitespace checks pass. Evidence: `docs/evidence/U1/status-copy-c46/REPORT.md`; exact requests: `docs/runs/Repair-U1-C46-20261024.md`; D-190 / UX section 40. Earlier uncommitted U1/RTG work is preserved outside this commit. Direct Codex adjustment, no delegated phase or independent R verdict; actual runtime model/effort not independently recorded. Local synthetic verification only. U1 remains IN PROGRESS, NOT COMPLETE / NOT APPROVED; P04 Not started. Next: continue U1 review/refinements.
 
@@ -186,7 +198,7 @@ Source: `artifacts/prototypes/p02-ui/js/{panel-tabs,views-eqjobs}.js`; checks: `
 
 **U1 is IN PROGRESS / CHANGES REQUESTED, NOT COMPLETE and NOT APPROVED.** These adjustments extend the same checkpoint; P04 is Not started. Baseline `37ff115` on `main`; this record and the C34 implementation are committed together. Active Codex agent; no delegated phase or independent R verdict, model/effort not independently recorded. Exact request: `docs/runs/Repair-U1-C34-20261024.md`.
 
-Fixed physical-area tabs: the old container branch always rendered the Technical parts list. All four tabs now render independently. Projects/Special and its badge use the area's included position targets/replacement lines, deduplicated and passed through the existing current-state projection; hidden work stays excluded. Spare parts and its badge use registered included positions. Maintenance remains equipment-level ZMMS daily work. Technical lists the area's parts; selecting one retains isolation. Areas are filters, not new maintenance/history owners. The heading now says Physical area.
+Fixed physical-area tabs: the old container branch always rendered the Technical parts list. All four tabs now render independently. Projects/Special and its badge use the area's included position targets/replacement lines, deduplicated and passed through the existing current-state projection; hidden work stays excluded. Spare parts and its badge use registered included positions. Maintenance remains equipment-level CMMS daily work. Technical lists the area's parts; selecting one retains isolation. Areas are filters, not new maintenance/history owners. The heading now says Physical area.
 
 The desktop toolbar is one compact row with an inline area selector, accessible zoom controls and unchanged touch-target sizes. It wraps on phones. Sea has static world-space wave detail and a quay coping strip, keeping the 5 m drop. Initial view remains Flat. Per the latest 3D reference, Reset now preserves the current camera mode: 3D restores the reference three-quarter angle/framing, Flat restores the full side elevation. Isolated areas/parts refit when dimensions change; tab rerenders at the same dimensions do not refit the camera. These Reset semantics supersede C33's forced-Flat rule (D-177).
 
@@ -264,7 +276,7 @@ Prototype: `artifacts/prototypes/p02-ui/{index.html,README.md}`, `artifacts/prot
 | `smoke.mjs`, `node --check` | clean |
 | Screenshots `tools/u1/capture_u1r8.mjs` (inspected) | `r8-01..r8-12` in `docs/evidence/U1/repair-r8/` |
 
-Prototype evidence only: synthetic in-memory data, simulated persona, no authentication, database, live ZMMS, target environment or production. Formal acceptance remains NOT RUN.
+Prototype evidence only: synthetic in-memory data, simulated persona, no authentication, database, live CMMS, target environment or production. Formal acceptance remains NOT RUN.
 
 ### Open issues and impact
 
@@ -274,7 +286,7 @@ Prototype evidence only: synthetic in-memory data, simulated persona, no authent
 
 ### Git and boundaries
 
-Branch `main`, HEAD `fa90fd7`; repair uncommitted for the orchestrator. `rtg-workbench/` and `RTG drawings/` were not edited; the pre-existing `rtg-workbench/HANDOVER.md` modification was left alone. No `documents/`, Portal, deployment, SQL or ZMMS contact. Every tool output was written to `docs/evidence/U1/repair-r8/` with explicit output paths; no other committed evidence file was overwritten. Servers on 5312/5313 were running from disk for every run; a scratchpad HEAD copy on 5322 was used only for the before-run and the FAC comparison.
+Branch `main`, HEAD `fa90fd7`; repair uncommitted for the orchestrator. `rtg-workbench/` and `RTG drawings/` were not edited; the pre-existing `rtg-workbench/HANDOVER.md` modification was left alone. No `documents/`, Portal, deployment, SQL or CMMS contact. Every tool output was written to `docs/evidence/U1/repair-r8/` with explicit output paths; no other committed evidence file was overwritten. Servers on 5312/5313 were running from disk for every run; a scratchpad HEAD copy on 5322 was used only for the before-run and the FAC comparison.
 
 ### Next prompt
 
@@ -317,7 +329,7 @@ Repair complete for U1-C27 (closes U-36). U1 was not repeated or approved by thi
 | `node --check`, `git diff --check` (excluding `rtg-workbench/`) | clean |
 | Close-ups `tools/u1/capture_u1r7.mjs` (inspected) | 3D boom-tip end (3), 3D page with 013 selected, flat view close-up and overview; one favicon 404 on the first capture page load |
 
-Prototype and model evidence only: synthetic in-memory data, simulated persona, no authentication, database, live ZMMS, target environment or production. Formal acceptance remains NOT RUN.
+Prototype and model evidence only: synthetic in-memory data, simulated persona, no authentication, database, live CMMS, target environment or production. Formal acceptance remains NOT RUN.
 
 ### Open issues and impact
 
@@ -327,7 +339,7 @@ Prototype and model evidence only: synthetic in-memory data, simulated persona, 
 
 ### Git and boundaries
 
-Branch `main`, HEAD `5580b10`; repair uncommitted for the orchestrator. `rtg-workbench/` and `RTG drawings/` were not edited or included; the pre-existing `rtg-workbench/HANDOVER.md` modification was left alone. No `documents/`, Portal, deployment, SQL or ZMMS contact. All tool outputs went to `docs/evidence/U1/repair-r7/`; no other committed evidence file was overwritten. Prototype servers on 5312/5313 were running (from disk) for every browser check and capture.
+Branch `main`, HEAD `5580b10`; repair uncommitted for the orchestrator. `rtg-workbench/` and `RTG drawings/` were not edited or included; the pre-existing `rtg-workbench/HANDOVER.md` modification was left alone. No `documents/`, Portal, deployment, SQL or CMMS contact. All tool outputs went to `docs/evidence/U1/repair-r7/`; no other committed evidence file was overwritten. Prototype servers on 5312/5313 were running (from disk) for every browser check and capture.
 
 ### Next prompt
 
@@ -374,7 +386,7 @@ Prototype: `artifacts/prototypes/p02-ui/js/{access,fac,fixtures,panel-tabs,previ
 | Contract coverage V1 / V2 | 9/9, 15/15 PASS |
 | `smoke.mjs`, `node --check`, `git diff --check` (excluding `rtg-workbench/`) | clean |
 
-Prototype and contract evidence only: synthetic in-memory data, simulated persona, no authentication, database, live ZMMS, target environment or production. Formal acceptance remains NOT RUN.
+Prototype and contract evidence only: synthetic in-memory data, simulated persona, no authentication, database, live CMMS, target environment or production. Formal acceptance remains NOT RUN.
 
 ### Open issues and impact
 
@@ -385,7 +397,7 @@ Prototype and contract evidence only: synthetic in-memory data, simulated person
 
 ### Git and boundaries
 
-Branch `main`, HEAD `6d4b64d`; repair uncommitted for the orchestrator. `rtg-workbench/` and `RTG drawings/` were not read, edited or included; the pre-existing `rtg-workbench/HANDOVER.md` modification was left alone. No `documents/`, Portal, deployment, SQL or ZMMS contact. `check_bindings.mjs` overwrote `docs/evidence/P03/binding-validation.json` by default; the file was restored from git and the result kept in `repair-r6/`. Servers on 5312/5313 were started from disk (twice, after the usage-limit stop); a HEAD copy served on 5322/5323 from the scratchpad was used only for the before-run.
+Branch `main`, HEAD `6d4b64d`; repair uncommitted for the orchestrator. `rtg-workbench/` and `RTG drawings/` were not read, edited or included; the pre-existing `rtg-workbench/HANDOVER.md` modification was left alone. No `documents/`, Portal, deployment, SQL or CMMS contact. `check_bindings.mjs` overwrote `docs/evidence/P03/binding-validation.json` by default; the file was restored from git and the result kept in `repair-r6/`. Servers on 5312/5313 were started from disk (twice, after the usage-limit stop); a HEAD copy served on 5322/5323 from the scratchpad was used only for the before-run.
 
 ### Next prompt
 
@@ -411,7 +423,7 @@ Repair complete for U1-C20, U1-C21 and U1-C22. U1 was not repeated or approved b
 - U1-C20: EQ Jobs has four tabs: Special/Projects, Daily work (CMMS), EQ status, Spare parts condition (D-147). Crane-view Maintenance "Open in Jobs" opens Daily work (CMMS).
 - U1-C21: "Add special job" everywhere, including the crane view for the whole equipment (D-148). EQ Team and Admin add spare parts with their first condition from Spare parts condition and the crane-view Spare parts tab (`eq.work`, D-149). This changes SOW V2 s4.6 / APPROVED_REQUIREMENTS, recorded as a supersession in DECISIONS; DATA s16, API s4.18 (`POST /equipment/{equipmentId}/spare-parts`) and the Access matrix wording follow. `documents/` was not edited.
 - U1-C22: Admin add/adjust in Mechanism catalogue, Main-part positions, Specifications and Spare parts, audited with previous values kept (D-150..D-153). Codes never change. `10` is never created, `061` Spreader / `062` Headblock names are fixed and `048`/`063` stay reserved. Positions are added as drafts, and their key and parent freeze on confirmation. Drawing observations are never edited. A retired spare-part type is not offered for new parts.
-- The R02B repairs (hidden-tab gating, current-state DTO, ZMMS sample consistency, FAC KPI) and U1-C01..C19 are unchanged; regression checks below.
+- The R02B repairs (hidden-tab gating, current-state DTO, CMMS sample consistency, FAC KPI) and U1-C01..C19 are unchanged; regression checks below.
 
 ### Files changed
 
@@ -429,7 +441,7 @@ Prototype: `artifacts/prototypes/p02-ui/js/{access,dialogs,panel-tabs,spares,sto
 | Contract coverage V1 / V2 | 9/9, 15/15 PASS |
 | `node --check` (changed JS), `git diff --check` (excluding `rtg-workbench/`) | clean |
 
-All of this is prototype and contract evidence only: synthetic in-memory data, a simulated persona and no authentication, database, live ZMMS, target environment or production. Formal acceptance remains NOT RUN. Not rerun: the old P02 suite (pre-P02B routes), contrast (no CSS change) and the P03 model checks (model unchanged).
+All of this is prototype and contract evidence only: synthetic in-memory data, a simulated persona and no authentication, database, live CMMS, target environment or production. Formal acceptance remains NOT RUN. Not rerun: the old P02 suite (pre-P02B routes), contrast (no CSS change) and the P03 model checks (model unchanged).
 
 ### Open issues and impact
 
@@ -439,7 +451,7 @@ All of this is prototype and contract evidence only: synthetic in-memory data, a
 
 ### Git and boundaries
 
-Branch `main`, HEAD `faf40d0`; repair uncommitted for the orchestrator. `rtg-workbench/` and `RTG drawings/` were not read, edited or included; the pre-existing `rtg-workbench/HANDOVER.md` modification is someone else's work and was left alone. No `documents/`, Portal, deployment, SQL or ZMMS contact. The prototype servers on 5312/5313 were down at the start and were started from disk with `serve.mjs`.
+Branch `main`, HEAD `faf40d0`; repair uncommitted for the orchestrator. `rtg-workbench/` and `RTG drawings/` were not read, edited or included; the pre-existing `rtg-workbench/HANDOVER.md` modification is someone else's work and was left alone. No `documents/`, Portal, deployment, SQL or CMMS contact. The prototype servers on 5312/5313 were down at the start and were started from disk with `serve.mjs`.
 
 ### Next prompt
 
@@ -459,13 +471,13 @@ Recommended profile: Codex gpt-6-astra/high or Claude Code claude-opus-5-5/high.
 
 Fresh V1/V2 contract coverage 9/9 + 15/15; round-2 VM probes 10/10; affected browser B05/H01/H12 3/3; boundary browser checks B02/B04/F01-F05/G01/G03/H06/H08/H09 12/12; shared-panel checks 8/8 including 21 flat/3D comparisons. Independent browser checks and two visually inspected filtered dashboard screenshots also pass. Existing `tools/p01/check_contract_coverage.py`, `tools/p01b/check_contract_coverage_v2.py`, `tools/p02b/check_r02b_round2.mjs`, `tools/p02b/check_p02b.mjs --only=<affected or boundary IDs>` and `tools/p02b/check_p03_panel.mjs` were used; JSON outputs record the selected checks. The initial independent arithmetic probe had incorrect expected Civil counts; its recorded correction and reference-derived 35/6 counts are preserved together with the initial artifact.
 
-Full P02/P02B/P03 model-browser suites were not rerun. Unchanged model/generator/viewer-core and U1 drill-down/reset/folding evidence remain prior evidence; fresh panel checks cover the affected surfaces. This is local synthetic prototype/contract evidence, not real authentication, database, live ZMMS, hardware, target-environment or production acceptance. Formal application acceptance remains NOT RUN. Acceptance IDs evaluated are listed in full in the report (access, ZMMS, spare parts, FAC/dashboard, history/jobs, viewer/layout and U1 changes).
+Full P02/P02B/P03 model-browser suites were not rerun. Unchanged model/generator/viewer-core and U1 drill-down/reset/folding evidence remain prior evidence; fresh panel checks cover the affected surfaces. This is local synthetic prototype/contract evidence, not real authentication, database, live CMMS, hardware, target-environment or production acceptance. Formal application acceptance remains NOT RUN. Acceptance IDs evaluated are listed in full in the report (access, CMMS, spare parts, FAC/dashboard, history/jobs, viewer/layout and U1 changes).
 
 ### Records, boundaries and next step
 
 Orchestrator changes only: this handover, status ledger, exact prompt, full review report, evidence README and ten allowlisted reviewer artifacts. No implementation, source-authority, Portal, RTG/model or production edits. Pre-existing RTG handover edit remains unstaged with its baseline SHA-256 unchanged. Review records are committed separately after recording; reviewed baseline remains `0da3bd5`. Existing localhost fixture listeners on 5312/5313 were reused.
 
-**Next: U1 user checkpoint** for the combined EQ/FAC prototype and QC model. No U1 approval was given, `docs/DECISIONS.md` is unchanged, and P04 was not started. U-31 (open-only Projects/Special with completed/cancelled counts), U-33 (ZMMS spreader-code mapping) and P07B live discovery questions retain their documented impact; no new decision blocks U1.
+**Next: U1 user checkpoint** for the combined EQ/FAC prototype and QC model. No U1 approval was given, `docs/DECISIONS.md` is unchanged, and P04 was not started. U-31 (open-only Projects/Special with completed/cancelled counts), U-33 (CMMS spreader-code mapping) and P07B live discovery questions retain their documented impact; no new decision blocks U1.
 
 ---
 
@@ -506,7 +518,7 @@ Prototype: `artifacts/prototypes/p02-ui/js/{store,panel-tabs,fac}.js`. Contracts
 | `git diff --check` | Exit 0; no whitespace errors, LF/CRLF notices only |
 | Pre-existing RTG handover SHA-256 | Unchanged: `9F8235251E29FB03D67C615DCF8EC955A3FDF993AF1D19DF9516362CAA7F3226` |
 
-Exact commands and outputs are in the repair report. Evidence is contract/source and synthetic prototype only. No real authentication, database, live ZMMS, target-environment or production verification. Full P02/P02B/P03 model-browser suites and model/binding checks were not rerun; their previous results remain prior evidence. Geometry, model assets, generator and viewer core are unchanged by this repair.
+Exact commands and outputs are in the repair report. Evidence is contract/source and synthetic prototype only. No real authentication, database, live CMMS, target-environment or production verification. Full P02/P02B/P03 model-browser suites and model/binding checks were not rerun; their previous results remain prior evidence. Geometry, model assets, generator and viewer core are unchanged by this repair.
 
 ### Git, boundaries and open issues
 
@@ -538,7 +550,7 @@ Previous findings 2-7 are resolved within the reviewed scope. All formal real-ap
 
 ### Checks and evidence boundary
 
-Fresh independent checks: V2 coverage 15/15, V1 9/9, model validator 26/26, bindings 11/11, contrast 22/22, P02B 63 unique passing checks across valid runs, stable P02 59/59, P03 four-tab panel 8/8. The initial listeners disappeared during testing: four affected P02B checks were rerun successfully after restart; P02 received a complete stable rerun. Interrupted-run failures are retained and labelled as environmental failures. The full 41-check P03 model browser suite was **not rerun**; earlier results are prior evidence. Model/generator/viewer-core diff from `e5a4eec` is empty, and the live QC overview rendered. No live ZMMS, authentication, database, deployment or production acceptance was performed.
+Fresh independent checks: V2 coverage 15/15, V1 9/9, model validator 26/26, bindings 11/11, contrast 22/22, P02B 63 unique passing checks across valid runs, stable P02 59/59, P03 four-tab panel 8/8. The initial listeners disappeared during testing: four affected P02B checks were rerun successfully after restart; P02 received a complete stable rerun. Interrupted-run failures are retained and labelled as environmental failures. The full 41-check P03 model browser suite was **not rerun**; earlier results are prior evidence. Model/generator/viewer-core diff from `e5a4eec` is empty, and the live QC overview rendered. No live CMMS, authentication, database, deployment or production acceptance was performed.
 
 Commands: phase prompt extracted with `powershell -NoProfile -ExecutionPolicy Bypass -File tools/extract-phase.ps1 -Phase R02B`; reviewer ran existing `tools/p01[b]/check_contract_coverage[_v2].py`, `tools/model-generator/validate.mjs`, `tools/p03/check_bindings.mjs`, `tools/p02b/check_contrast_v2.py`, `tools/p02b/check_p02b.mjs`, `tools/p02/check_prototype.mjs`, `tools/p02b/check_p03_panel.mjs`, with sanitised outputs in the evidence directory. Two independent unchanged-script probes reproduce the findings. Full evaluated requirement/acceptance IDs are in the report; U1-C01..C19 checks performed found no regressions.
 
@@ -548,7 +560,7 @@ Changed by the orchestrator: this handover, `docs/IMPLEMENTATION_STATUS.md`, exa
 
 Reviewer's owned localhost fixture servers: P02 port 5312 (PID 3364, session 14498); P03 port 5313 (PID 10448, session 39276). These are time-specific process references, not deployment state; recheck availability before reuse.
 
-Open business questions U-31/U-33 and P07B ZMMS discovery remain documented and do not block the repair. No new business information is needed for either finding.
+Open business questions U-31/U-33 and P07B CMMS discovery remain documented and do not block the repair. No new business information is needed for either finding.
 
 ---
 
@@ -565,13 +577,13 @@ Open business questions U-31/U-33 and P07B ZMMS discovery remain documented and 
 
 ### Outcome
 
-Repair complete for findings 1-7 of `docs/evidence/R02B/review-20261023-0157.md` (blocking 1 plus 2-7, user instruction). Contracts and prototype only; synthetic data; no database, ZMMS, Portal or deployment action. R02B was not repeated by this run. Details, reproduction and proof: `docs/evidence/R02B/repair-20261023.md`.
+Repair complete for findings 1-7 of `docs/evidence/R02B/review-20261023-0157.md` (blocking 1 plus 2-7, user instruction). Contracts and prototype only; synthetic data; no database, CMMS, Portal or deployment action. R02B was not repeated by this run. Details, reproduction and proof: `docs/evidence/R02B/repair-20261023.md`.
 
 ### Finding IDs and changes
 
 1. EQ Jobs data (`/jobs`, board counts, job record, attachments, EQ work evidence, position technical sheet) need `eq.jobs.view`; the crane view reads only `current-state/*` (open summaries + counts, `openInJobs` null without Jobs). FAC Jobs list and full cycles need `fac.jobs.view`; the job detail stays readable with the dashboard feature for active jobs only (dashboard row click, route `/fac/dashboard/jobs/{id}`). Prototype gates the same reads on the live matrix; checks B05, B06 (D-139, D-140).
-2. Synthetic ZMMS fixtures rebuilt on a scheduled-run time model; automatic rows replayed per run with no reason and with causes; RTG-DEMO-06 keeps yesterday's cause; created times in the past; check L04 (D-142).
-3. DATA s15.7 step 6: only an evaluation with a computed value is applied, else "awaiting today's ZMMS sync"; check F06 (D-141).
+2. Synthetic CMMS fixtures rebuilt on a scheduled-run time model; automatic rows replayed per run with no reason and with causes; RTG06 keeps yesterday's cause; created times in the past; check L04 (D-142).
+3. DATA s15.7 step 6: only an evaluation with a computed value is applied, else "awaiting today's CMMS sync"; check F06 (D-141).
 4. P02B evidence count corrected (10 adapted assertions); P02 C18 marked and strengthened; C27 asserts the selected part's record (D-144).
 5. Stale "not committed / main-fpkbjt" records corrected to `e5a4eec` on `main`.
 6. Dashboard: two-line ticker with full names, larger due-load labels, ticker/proof/due load on the first 1920 x 1080 screen (D-143, UX_SPEC s21).
@@ -582,7 +594,7 @@ Requirement/acceptance IDs touched (all still NOT RUN; prototype evidence only):
 ### Files changed
 
 Contracts/docs: `docs/API_CONTRACT.md`, `docs/DATA_CONTRACT.md`, `docs/ARCHITECTURE.md` (route table, D-96), `docs/DECISIONS.md` (D-96 text, D-139..D-144), `docs/UX_SPEC.md` (s21), `docs/evidence/P02B/P02B_EVIDENCE.md` (findings 4, 5), `docs/IMPLEMENTATION_STATUS.md`, `docs/HANDOVER.md` (this entry; P02B entry corrected).
-Prototype P02: `artifacts/prototypes/p02-ui/js/store.js`, `panel-tabs.js`, `views-equipment.js`, `views-jobs.js`, `views-eqjobs.js`, `zmms.js`, `fac.js`, `views-fac.js`, `views-facjobs.js`, `app.js`, `css/v2.css`. Prototype P03: `artifacts/prototypes/p03-qc-model/js/app.mjs`.
+Prototype P02: `artifacts/prototypes/p02-ui/js/store.js`, `panel-tabs.js`, `views-equipment.js`, `views-jobs.js`, `views-eqjobs.js`, `cmms.js`, `fac.js`, `views-fac.js`, `views-facjobs.js`, `app.js`, `css/v2.css`. Prototype P03: `artifacts/prototypes/p03-qc-model/js/app.mjs`.
 Checks: `tools/p02b/check_p02b.mjs` (+B05, B06, F06, L04), `tools/p02b/check_p03_panel.mjs` (P3-06), `tools/p02/check_prototype.mjs` (C18, C27).
 New evidence: `docs/evidence/R02B/repair-20261023.md`, `docs/evidence/R02B/repair-20261023/` (check JSON, reproduction before/after, contrast, coverage, 6 screenshots).
 Untouched: `documents/`, `As-bulit drawing/`, `RTG drawings/` and `rtg-workbench/` (another session's work, not read; its `HANDOVER.md` modification predates this run), the model and its generator, `F:\CODEX\CICT-ENG_MAIN_PAGE` (clean at `47f7bd9`).
@@ -606,7 +618,7 @@ Evidence type: contract review and headless-browser checks of the synthetic prot
 | ID | Issue | Impact |
 | --- | --- | --- |
 | U-31, U-33, U-34, UX-4..UX-7 | Unchanged confirmation items | U1 repeat / P07B |
-| ZMMS export file | R02B unresolved question (download within the read-only boundary; whether the committed export stays tracked) | Owner decision; not blocking |
+| CMMS export file | R02B unresolved question (download within the read-only boundary; whether the committed export stays tracked) | Owner decision; not blocking |
 | U1R2-C10-C11 | Floating-point viewBox comparison can flake | Add a tolerance in P10 |
 | D-02 | .NET 10 SDK not installed | Blocks P04 only |
 
@@ -635,7 +647,7 @@ Branch `main`, HEAD `ce7fc4d`; all Repair-R02B changes are uncommitted (the orch
 
 ### Outcome
 
-P02B complete at prototype level: the P02 prototype and the P03 viewer page now cover SOW V2 and the P01B contracts with **synthetic in-memory data only** (no persistence, no sign-in, no ZMMS contact). U1-C19 is built: the crane-view right panel has exactly four tabs (Maintenance, Projects/Special, Technical, Spare parts), no work history, in the flat view and in the 3D viewer, with the same data and text (21 views compared). Evidence level: headless-browser checks on the prototype and screenshots; no acceptance case was executed.
+P02B complete at prototype level: the P02 prototype and the P03 viewer page now cover SOW V2 and the P01B contracts with **synthetic in-memory data only** (no persistence, no sign-in, no CMMS contact). U1-C19 is built: the crane-view right panel has exactly four tabs (Maintenance, Projects/Special, Technical, Spare parts), no work history, in the flat view and in the 3D viewer, with the same data and text (21 views compared). Evidence level: headless-browser checks on the prototype and screenshots; no acceptance case was executed.
 
 ### Requirement IDs addressed (prototype support only)
 
@@ -643,10 +655,10 @@ S02, S03, S07, S08, S16, S18-S29 as UI/behaviour prototypes; supporting evidence
 
 ### Files changed (this run; committed afterwards by the orchestrator as `e5a4eec` on `main`)
 
-Prototype P02: `artifacts/prototypes/p02-ui/css/v2.css`, `js/panel-tabs.js` (jobMini moved here, link base), `js/views-equipment.js`, `js/views-fleet.js`, `js/views-fac.js`, `js/views-admin2.js` (import row-by-row table, matrix checkbox fix), `js/zmms.js` (fixture consistency, header), `README.md`.
+Prototype P02: `artifacts/prototypes/p02-ui/css/v2.css`, `js/panel-tabs.js` (jobMini moved here, link base), `js/views-equipment.js`, `js/views-fleet.js`, `js/views-fac.js`, `js/views-admin2.js` (import row-by-row table, matrix checkbox fix), `js/cmms.js` (fixture consistency, header), `README.md`.
 Prototype P03: `artifacts/prototypes/p03-qc-model/index.html`, `js/app.mjs` (four tabs, shared data layer), `js/data.mjs` (own jobs removed), `serve.mjs` (read-only `/p02/js/` whitelist), `css/p03.css`, new `css/p03-panel.css`, `README.md`.
 Tools: `tools/p02/check_prototype.mjs` and `tools/p03/check_model_prototype.mjs` (adapted assertions, hardened waits); new `tools/p02b/check_p02b.mjs`, `check_p03_panel.mjs`, `capture.mjs`, `check_contrast_v2.py`.
-Docs: `docs/UX_SPEC.md` (s13-s20), `docs/DECISIONS.md` (D-129..D-138, U-33, U-34), `docs/IMPLEMENTATION_STATUS.md`, `docs/HANDOVER.md`, `docs/evidence/P02B/` (report, JSON results, 48 screenshots). Kept from the first run (commit 5895126): `access.js`, `fac.js`, `fac-ref.js`, `spares.js`, `zmms.js`, `views-eqjobs.js`, `views-facjobs.js`, `app.js` routing and `tools/p02b/{build_fac_ref,dbg,shot,smoke}.mjs`.
+Docs: `docs/UX_SPEC.md` (s13-s20), `docs/DECISIONS.md` (D-129..D-138, U-33, U-34), `docs/IMPLEMENTATION_STATUS.md`, `docs/HANDOVER.md`, `docs/evidence/P02B/` (report, JSON results, 48 screenshots). Kept from the first run (commit 5895126): `access.js`, `fac.js`, `fac-ref.js`, `spares.js`, `cmms.js`, `views-eqjobs.js`, `views-facjobs.js`, `app.js` routing and `tools/p02b/{build_fac_ref,dbg,shot,smoke}.mjs`.
 Untouched: `documents/`, `As-bulit drawing/`, `RTG drawings/`, `rtg-workbench/` (another session's work, not read), the Portal repository (not available here).
 
 ### Checks run and results
@@ -660,13 +672,13 @@ Untouched: `documents/`, `As-bulit drawing/`, `RTG drawings/`, `rtg-workbench/` 
 | Contrast: P02 37 pairs; V2 22 token pairs | all at or above threshold |
 | Screenshots | 48, no console errors |
 
-Not run or not possible here: real GPU WebGL, a screen reader, a phone camera, .xlsx export (CSV stand-in), 30-minute TV-mode memory run, anything against the real Portal, database or ZMMS.
+Not run or not possible here: real GPU WebGL, a screen reader, a phone camera, .xlsx export (CSV stand-in), 30-minute TV-mode memory run, anything against the real Portal, database or CMMS.
 
 ### What is synthetic
 
-Everything except the mechanism catalogue, the source parameters and the FAC job list (114 jobs and issues from the reference JSON). Synthetic: all equipment and codes, positions, special jobs, users, ZMMS daily jobs, runs and mappings (shaped like the real export, values invented), spare-part register, commissioning dates, FAC progress, holds, photos, updates, PIC links, Admin-entered due dates and the Access-matrix changes.
+Everything except the mechanism catalogue, the source parameters and the FAC job list (114 jobs and issues from the reference JSON). Synthetic: all equipment and codes, positions, special jobs, users, CMMS daily jobs, runs and mappings (shaped like the real export, values invented), spare-part register, commissioning dates, FAC progress, holds, photos, updates, PIC links, Admin-entered due dates and the Access-matrix changes.
 
-### The user's ZMMS export (D-134, U-34)
+### The user's CMMS export (D-134, U-34)
 
 `documents/Daily All Running Jobs_CMMS-LK-2026-10-22.xls` (read only, structure only): 24 named columns plus a blank action column, 48 rows, one job date; job types CM, PM, Defect, BreakDown, WireRope; statuses Initialized, Added To Daily, Re-Added to Daily, Hold, Completed; priorities Low, Medium, High; equipment codes of two letters and three digits (QC, RT, ES, SQ spreaders, SF, SK, WS, RS). The synthetic fixtures use that layout with invented codes, descriptions and numbers. This is file-level evidence; P07B confirms against the live page. The job-type to Breakdown/Maintenance mapping stays an Admin choice (Q11); the mapping shown in Admin is an illustration.
 
@@ -675,7 +687,7 @@ Everything except the mechanism catalogue, the source parameters and the FAC job
 | ID | Issue | Impact |
 | --- | --- | --- |
 | U-31 | Projects/Special lists open jobs only (counts for the rest) | Confirm at the U1 repeat |
-| U-33 | Spreaders (SQ codes) are separate equipment in ZMMS but part 061 of a crane here | Left in the unmatched queue in the prototype; Admin or user decides |
+| U-33 | Spreaders (SQ codes) are separate equipment in CMMS but part 061 of a crane here | Left in the unmatched queue in the prototype; Admin or user decides |
 | U-34 | The export answers only part of U-29; login, paging, date selection, empty-day marker, rate limits stay for P07B | Parser stays provisional |
 | UX-4..UX-7 | Maintenance list is equipment-level; completed jobs not listed; spreader codes; dashboard lists exclude jobs completed and not yet due | For R02B and the U1 repeat |
 | P03 flaky waits | Software WebGL frame time varies 100-350 ms | Harden or use a GPU run in P10 |
@@ -706,7 +718,7 @@ Repository `/home/user/EQ_MAINTENANCE` (F:\CODEX\EQ_MAINTENANCE). The run worked
 
 ### Outcome
 
-P01B complete: the P01 contracts are extended for SOW V2 revision 4 (requirements v2.0, S01-S29). Contract documents only; no application, prototype or Portal implementation was edited, no database or external system (ZMMS included) was contacted. Every P01/R01 rule not listed in `docs/DECISIONS.md` "P01B supersessions" still holds. The orchestrator note U1-C19 is built into the crane-view current-state contract (exactly four tabs: Maintenance, Projects/Special, Technical, Spare parts; DATA s18.1, API s4.16, D-122). Details: `docs/evidence/P01B/P01B_EVIDENCE.md`.
+P01B complete: the P01 contracts are extended for SOW V2 revision 4 (requirements v2.0, S01-S29). Contract documents only; no application, prototype or Portal implementation was edited, no database or external system (CMMS included) was contacted. Every P01/R01 rule not listed in `docs/DECISIONS.md` "P01B supersessions" still holds. The orchestrator note U1-C19 is built into the crane-view current-state contract (exactly four tabs: Maintenance, Projects/Special, Technical, Spare parts; DATA s18.1, API s4.16, D-122). Details: `docs/evidence/P01B/P01B_EVIDENCE.md`.
 
 ### Requirement IDs addressed
 
@@ -715,7 +727,7 @@ S18-S29 specified; S02, S03, S07, S08, S09, S11, S15 updated for V2; all mapped 
 ### Files changed
 
 Modified:
-- `docs/ARCHITECTURE.md` (s1-s7, s9-s16; new s17 ZMMS connector runtime)
+- `docs/ARCHITECTURE.md` (s1-s7, s9-s16; new s17 CMMS connector runtime)
 - `docs/DATA_CONTRACT.md` (s1-s9, s11-s13; new s14-s20)
 - `docs/API_CONTRACT.md` (s1-s4.15, s5, s7; new s4.16-s4.27)
 - `docs/PORTAL_INTEGRATION_PLAN.md` (fourth role and display name only: s2, s3.1-s3.3, s4, s5.2, s7, s8)
@@ -742,7 +754,7 @@ Evidence type: source review and scripted document checks only. No application t
 
 1. Access matrix (DATA s6, s14): twelve features; only the 13 toggleable cells can be stored; the evaluator ignores anything else, so no ceiling can be widened; enforced on API, exports, files and page routes (the SPA shell returns 403, D-93); propagation within 60 s (D-92); audited.
 2. Automatic status (DATA s4.2, s15.7): nothing changes until Admin enables it with every seen value mapped (D-97); a correction holds for its Asia/Colombo day, also against a run that started before midnight, and ends at the first successful sync of a later day (D-95); a failed or partial run changes nothing (one transaction per run, D-99); Back to automatic never invents a value (D-96).
-3. ZMMS connector (DATA s15, ARCHITECTURE s17): login + daily all-job list only, host allow-list, configuration key names only, no raw page storage, single-run app lock, retry/backoff without lockout-risking login retries; fields provisional until P07B (DATA s20).
+3. CMMS connector (DATA s15, ARCHITECTURE s17): login + daily all-job list only, host allow-list, configuration key names only, no raw page storage, single-run app lock, retry/backoff without lockout-risking login retries; fields provisional until P07B (DATA s20).
 4. Spare parts (DATA s16): register is the current view of the one installation history; Replacement completion writes it in the same transaction from the line's fields (D-106); direct entries create `baselineRecorded`/`conditionReplacement` events (D-105); predictions computed, never stored; "Not recorded" until recorded.
 5. FAC (DATA s17): rolling and lazily created period cycles; due dates in Asia/Colombo calendar months/days from recorded completion dates; completion confirmation; same-day undo of the author's latest update; job-level hold; staged, re-encoded photos; stateless import preview with a hash, locked by the first progress.
 6. Read models (DATA s18): crane four tabs with no history; EQ Jobs tab three parts; FAC Dashboard one ETag-revalidated summary for the 60 s poll.
@@ -751,10 +763,10 @@ Evidence type: source review and scripted document checks only. No application t
 
 | ID | Issue | Impact |
 | --- | --- | --- |
-| U-29 | ZMMS page structure unknown (ZQ-01..ZQ-13, DATA s20) | Parser, fields and value vocabularies provisional until P07B; not blocking P02B (synthetic data) |
+| U-29 | CMMS page structure unknown (ZQ-01..ZQ-13, DATA s20) | Parser, fields and value vocabularies provisional until P07B; not blocking P02B (synthetic data) |
 | U-30 | Facility sheet gaps (rows 21, 55, 57 frequency; 80/82; 12; 14; duplicates) | Imported per DATA s17.9 and shown in the preview; Admin completes after import (Q5); not blocking |
 | U-31 | U1-C19 "all the projects" read as all **open** special jobs in scope (history stays in Jobs, S07) | Confirm at the U1 repeat; listing completed jobs in the panel would be a scope change |
-| U-32 | Outbound HTTPS from the IIS server to ZMMS; always-running app pool (D-103) | P12 prerequisites |
+| U-32 | Outbound HTTPS from the IIS server to CMMS; always-running app pool (D-103) | P12 prerequisites |
 | D-02 | .NET 10 SDK still not installed | Blocks P04 only |
 | U-13, U-16..U-18, PI-5 | Unchanged P05 rollout items | As before |
 
@@ -955,7 +967,7 @@ Repair complete for U1-C01..U1-C08 in both the P02 flat view and the P03 3D mode
 - U1-C04: reeving paths per the J526A00 diagrams, stair tower re-oriented and aligned to J526A5000 / end views, back-reach equipment, machinery-house layout re-read from J526A3000 (boom-hoist motor side, offsets, A/C units, railings, doors, hatch), recognisable equipment shapes. Overlays `repair/comparison/side-overlay.png`, `end-ls-overlay.png`.
 - U1-C05: Isolate (was disabled in Overall), Fit (no-op without selection and in aligned views), aligned views (no pan/zoom, no framing, reset left them) fixed. Check P03 `u1-toolbar-controls-work`.
 - U1-C06: cab remodelled from J526A3100 with seat and consoles as new positions. Screenshot `repair/screenshots/p03-05-qc02-cabin-parts.png`, close-up in `repair/comparison/site-photo-closeups.png`.
-- U1-C07: tier 1 > 2 > 3 clickable drill-down labels in 3D and flat, QC-DEMO-01 and -02. Checks P03 `u1-label-drilldown-q01/q02`, `u1-label-drag-orbits`; P02 `U1-C07`.
+- U1-C07: tier 1 > 2 > 3 clickable drill-down labels in 3D and flat, QC01 and -02. Checks P03 `u1-label-drilldown-q01/q02`, `u1-label-drag-orbits`; P02 `U1-C07`.
 - U1-C08: flat gained Isolate machinery house and Labels; same drill-down, sync and content as 3D. Check P02 `U1-C05-C08`.
 
 Requirement IDs touched (prototype evidence only; acceptance cases remain NOT RUN): S02, S04, S05, S06, S07, S12 (IDs preserved), S16; supports VIS01-VIS06, VIS08-VIS10.
@@ -1047,7 +1059,7 @@ New:
 - Raw renders: `artifacts/p03-captures/` (9 PNG)
 - Evidence: `docs/evidence/P03/P03_EVIDENCE.md`, `registration-validation.json`, `binding-validation.json`, `browser-checks-hardware.json`, `browser-checks-swiftshader.json`, `no-webgl-check.json`, `p02-regression-checks.json`, `capture-log.json`, `comparison/` (12 PNG), `screenshots/` (19 PNG)
 
-Modified: `artifacts/prototypes/p02-ui/js/views-equipment.js` ("Open 3D model (P03)" link on QC-DEMO-01/02 detail), `docs/DECISIONS.md` (D-55 to D-64, U-19, notes on U-04/U-05/U-06/U-11), `docs/IMPLEMENTATION_STATUS.md`, `docs/HANDOVER.md`.
+Modified: `artifacts/prototypes/p02-ui/js/views-equipment.js` ("Open 3D model (P03)" link on QC01/02 detail), `docs/DECISIONS.md` (D-55 to D-64, U-19, notes on U-04/U-05/U-06/U-11), `docs/IMPLEMENTATION_STATUS.md`, `docs/HANDOVER.md`.
 
 Untouched: `documents/` (including the ten new site photos, read only), `As-bulit drawing/`, `mockups/` (not P03 output; not used), `.claude/`, `F:\CODEX\CICT-ENG_MAIN_PAGE`.
 

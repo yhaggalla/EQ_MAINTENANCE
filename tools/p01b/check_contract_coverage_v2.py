@@ -8,7 +8,7 @@ Extends tools/p01/check_contract_coverage.py to requirements v2.0. Checks, witho
   4. Cross-document section references (DATA s.., API s.., PORTAL plan s.., ARCHITECTURE s..) resolve to real headings.
   5. Taxonomy facts used by the contracts still hold in mechanisms-approved.json.
   6. Approved identifiers (four role codes, audience, binding claim, API base, display name) appear in the contracts.
-  7. No secret material, and no value assigned to a ZMMS account key, in the contracts, DECISIONS or P01B evidence.
+  7. No secret material, and no value assigned to a CMMS account key, in the contracts, DECISIONS or P01B evidence.
   8. Each V2 requirement S18-S29 and each V2 acceptance ID is referenced in DATA_CONTRACT or API_CONTRACT text.
   9. The DATA s6 matrix matches SOW V2 s3.2: 13 toggleable cells with the stated defaults, Admin fixed everywhere,
      no write feature in the Management column, no EQ write for FAC Team, no FAC write for EQ Team,
@@ -183,10 +183,10 @@ def main() -> int:
     absent["API"] = [i for i in identifiers[:4] + ["EQ & FAC Maintenance"] if i not in docs["API"]]
     record("approved identifiers (four roles, display name) present", not any(absent.values()), absent)
 
-    # 7 secrets and ZMMS account values
+    # 7 secrets and CMMS account values
     secret_patterns = [r"Password\s*=", r"pwd\s*=", r"User ID\s*=", r"ServiceCredential\"?\s*[:=]\s*\"[^\"<]{8,}",
                        r"-----BEGIN", r"eyJ[A-Za-z0-9_-]{20,}\.",
-                       r"Zmms(?:__|:)Account(?:__|:)(?:UserName|Password)\s*[=:]\s*[\"']?[^\s\"'<|`]{3,}",
+                       r"Cmms(?:__|:)Account(?:__|:)(?:UserName|Password)\s*[=:]\s*[\"']?[^\s\"'<|`]{3,}",
                        r"\"(?:UserName|Password)\"\s*:\s*\"[^\"<]{3,}\""]
     hits = []
     scanned = dict(docs)
@@ -196,7 +196,7 @@ def main() -> int:
         for p in secret_patterns:
             if re.search(p, text, re.I):
                 hits.append(f"{name}: {p}")
-    record("no secret material or ZMMS account value in contracts/decisions/evidence", not hits, hits)
+    record("no secret material or CMMS account value in contracts/decisions/evidence", not hits, hits)
 
     # 8 V2 requirement and acceptance references in DATA or API
     contract_text = docs["DATA"] + "\n" + docs["API"]

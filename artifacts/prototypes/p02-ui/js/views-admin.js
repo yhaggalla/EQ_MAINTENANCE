@@ -229,7 +229,7 @@ window.EQ = window.EQ || {};
     const keys = ['hoist.drive.motor.a', 'trolley.wheel.position.a', 'hoist.rope.set.main'];
     const S = EQ.state;
     return h('section', { class: 'panel panel-pad stack', 'aria-labelledby': 'idc' }, h('h3', { id: 'idc' }, 'Identity check: one template, separate positions'),
-      h('p', { class: 'small muted', style: 'margin:0' }, 'QC-DEMO-01 and QC-DEMO-02 share the J526A template, but each semantic key resolves to a different position ID with independent history.'),
+      h('p', { class: 'small muted', style: 'margin:0' }, 'QC01 and QC02 share the J526A template, but each semantic key resolves to a different position ID with independent history.'),
       h('div', { class: 'table-wrap' }, h('table', null, h('thead', null, h('tr', null, ['Semantic key', a.code + ' position ID', 'Events', b.code + ' position ID', 'Events'].map((c) => h('th', { scope: 'col' }, c)))),
         h('tbody', null, keys.map((k) => { const pa = EQ.positionsOf(a.id).find((p) => p.key === k), pb = EQ.positionsOf(b.id).find((p) => p.key === k); const n = (p) => S.D.events.filter((e) => e.positionId === p.id).length; return h('tr', null, h('th', { scope: 'row', class: 'mono' }, k), h('td', { class: 'mono' }, pa.id), h('td', null, String(n(pa))), h('td', { class: 'mono' }, pb.id), h('td', null, String(n(pb)))); })))));
   }

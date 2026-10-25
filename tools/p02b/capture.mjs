@@ -87,7 +87,7 @@ try {
   await shot('admin-fac-master-list', { url: hash('admin', '/admin/fac/master-list'), full: true });
   await shot('admin-fac-import-preview', { url: hash('admin', '/admin/fac/import'), full: true, pre: async () => { await E(`document.getElementById('imp-rows').open = true`); await sleep(300); } });
   await shot('admin-fac-settings', { url: hash('admin', '/admin/fac/settings'), full: true });
-  await shot('admin-eq-zmms-health-failed-run', { url: hash('admin', '/admin/eq/zmms'), full: true });
+  await shot('admin-eq-cmms-health-failed-run', { url: hash('admin', '/admin/eq/cmms'), full: true });
   await shot('admin-eq-spare-parts-selection', { url: hash('admin', '/admin/eq/spare-parts'), full: true });
 } finally {
   fs.writeFileSync(path.join(out, 'capture-log.json'), JSON.stringify({ tool: 'tools/p02b/capture.mjs', date: new Date().toISOString(), note: 'All screenshots show the synthetic P02B prototype (labelled); not a production view.', shots: log }, null, 2));

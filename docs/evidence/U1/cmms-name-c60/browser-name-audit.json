@@ -1,0 +1,205 @@
+{
+  "checks": [
+    {
+      "name": "fleet uses CMMS in visible and accessible text",
+      "pass": true,
+      "detail": {
+        "hash": "#/eq/fleet"
+      }
+    },
+    {
+      "name": "daily-jobs uses CMMS in visible and accessible text",
+      "pass": true,
+      "detail": {
+        "hash": "#/eq/jobs/daily"
+      }
+    },
+    {
+      "name": "daily export and automatic-status data use CMMS",
+      "pass": true,
+      "detail": {
+        "columns": [
+          "Job date",
+          "Job ID",
+          "CWO No",
+          "Equipment (app code)",
+          "CMMS equipment",
+          "Equipment type",
+          "Department",
+          "Job type",
+          "Job status",
+          "Priority",
+          "Created",
+          "Description",
+          "Staff of Mech Tech",
+          "Hours of Mech Tech",
+          "Staff of Elec Tech",
+          "Hours of Elec Tech",
+          "Reported fault",
+          "Corrective action",
+          "Source state"
+        ],
+        "rows": 8,
+        "source": 9
+      }
+    },
+    {
+      "name": "status uses CMMS in visible and accessible text",
+      "pass": true,
+      "detail": {
+        "hash": "#/eq/jobs/status"
+      }
+    },
+    {
+      "name": "admin-cmms uses CMMS in visible and accessible text",
+      "pass": true,
+      "detail": {
+        "hash": "#/admin/eq/cmms"
+      }
+    },
+    {
+      "name": "Admin navigation resolves the renamed route",
+      "pass": true,
+      "detail": [
+        "#/admin/eq/cmms"
+      ]
+    },
+    {
+      "name": "crane-flat uses CMMS in visible and accessible text",
+      "pass": true,
+      "detail": {
+        "hash": "#/eq/equipment/eq-qc-demo-01?panel=maintenance&view=flat"
+      }
+    },
+    {
+      "name": "Flat viewer remains ready with CMMS work",
+      "pass": true
+    },
+    {
+      "name": "crane-3d uses CMMS in visible and accessible text",
+      "pass": true,
+      "detail": {
+        "hash": "#/eq/equipment/eq-qc-demo-01?panel=maintenance&view=3d"
+      }
+    },
+    {
+      "name": "3D viewer keeps the same CMMS maintenance panel as Flat",
+      "pass": true
+    },
+    {
+      "name": "daily-phone uses CMMS in visible and accessible text",
+      "pass": true,
+      "detail": {
+        "hash": "#/eq/jobs/daily"
+      }
+    },
+    {
+      "name": "phone daily-work page stays within viewport",
+      "pass": true,
+      "detail": 0
+    },
+    {
+      "name": "fac-dashboard uses CMMS in visible and accessible text",
+      "pass": true,
+      "detail": {
+        "hash": "#/fac/dashboard"
+      }
+    },
+    {
+      "name": "fac-jobs uses CMMS in visible and accessible text",
+      "pass": true,
+      "detail": {
+        "hash": "#/fac/jobs"
+      }
+    },
+    {
+      "name": "no browser runtime errors",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "no external service contacted",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "pages": [
+    {
+      "name": "fleet",
+      "hash": "#/eq/fleet",
+      "oldName": false,
+      "hasCmms": true,
+      "ready": false,
+      "overflow": 0
+    },
+    {
+      "name": "daily-jobs",
+      "hash": "#/eq/jobs/daily",
+      "oldName": false,
+      "hasCmms": true,
+      "ready": false,
+      "overflow": 0
+    },
+    {
+      "name": "status",
+      "hash": "#/eq/jobs/status",
+      "oldName": false,
+      "hasCmms": true,
+      "ready": false,
+      "overflow": 0
+    },
+    {
+      "name": "admin-cmms",
+      "hash": "#/admin/eq/cmms",
+      "oldName": false,
+      "hasCmms": true,
+      "ready": false,
+      "overflow": 0
+    },
+    {
+      "name": "crane-flat",
+      "hash": "#/eq/equipment/eq-qc-demo-01?panel=maintenance&view=flat",
+      "oldName": false,
+      "hasCmms": true,
+      "panel": "Equipment status\nMaintenance\nAuto (CMMS)\nToday's CMMS daily jobs\n2\nCMMS data from 25 Oct 2026 14:02\nJob 900101\nCM Initialized Low\nHoist motor B replacement support: isolation and lifting plan (synthetic)\nEquipment QC901 (Quay Crane, QC) · created 2026-10-24 20:21:11\nMech: - · Elec: -\nJob 900102\nPM Completed Low\nPre-shift walk-down checklist (synthetic)\nEquipment QC901 (Quay Crane, QC) · created 2026-10-22 06:51:31\nMech: 1 staff, 8.00 h · Elec: -\nOpen in Jobs",
+      "ready": true,
+      "isFlat": true,
+      "overflow": 0
+    },
+    {
+      "name": "crane-3d",
+      "hash": "#/eq/equipment/eq-qc-demo-01?panel=maintenance&view=3d",
+      "oldName": false,
+      "hasCmms": true,
+      "panel": "Equipment status\nMaintenance\nAuto (CMMS)\nToday's CMMS daily jobs\n2\nCMMS data from 25 Oct 2026 14:02\nJob 900101\nCM Initialized Low\nHoist motor B replacement support: isolation and lifting plan (synthetic)\nEquipment QC901 (Quay Crane, QC) · created 2026-10-24 20:21:11\nMech: - · Elec: -\nJob 900102\nPM Completed Low\nPre-shift walk-down checklist (synthetic)\nEquipment QC901 (Quay Crane, QC) · created 2026-10-22 06:51:31\nMech: 1 staff, 8.00 h · Elec: -\nOpen in Jobs",
+      "ready": true,
+      "overflow": 0
+    },
+    {
+      "name": "daily-phone",
+      "hash": "#/eq/jobs/daily",
+      "oldName": false,
+      "hasCmms": true,
+      "ready": false,
+      "overflow": 0
+    },
+    {
+      "name": "fac-dashboard",
+      "hash": "#/fac/dashboard",
+      "oldName": false,
+      "hasCmms": true,
+      "ready": false,
+      "overflow": 0
+    },
+    {
+      "name": "fac-jobs",
+      "hash": "#/fac/jobs",
+      "oldName": false,
+      "hasCmms": true,
+      "ready": false,
+      "overflow": 0
+    }
+  ],
+  "errors": [],
+  "external": []
+}

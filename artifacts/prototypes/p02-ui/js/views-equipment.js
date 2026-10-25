@@ -280,7 +280,7 @@ window.EQ = window.EQ || {};
     const panelTab = EQ.panelTabs.KEYS.includes(pq) ? pq : 'maintenance';
     const scope = q.container ? { level: 'area', id: q.container } : scopeOf(sel);
     const dur = EQ.inStatusFor(eq);
-    const mode2 = EQ.zmms.mode(eq);
+    const mode2 = EQ.cmms.mode(eq);
 
     if (S.data === 'stale') page.appendChild(h('div', { class: 'notice warn', role: 'status', style: 'margin-bottom:.6rem' }, icon('wifi-off'), h('p', null, h('strong', null, 'Showing last good data from ' + EQ.fmtTime(S.lastGoodAt) + '. '), 'The latest refresh failed; status and work lists may be out of date.')));
 
@@ -290,11 +290,11 @@ window.EQ = window.EQ || {};
         h('span', { title: dur != null ? 'In ' + EQ.STATUS[eq.status].label + ' for ' + EQ.duration(dur) : '' }, dur != null ? 'Since ' + EQ.fmtInstantShort(eq.statusSince) : 'No status reported yet'),
         eq.statusReason ? h('span', null, 'Reason: ' + eq.statusReason) : null,
         h('span', null, EQ.verified(eq) ? eq.modelCode + ' · verified model' : 'No verified model association'),
-        h('span', null, h('span', { class: 'eq-status-source', title: mode2.long }, mode2.label === 'Auto' ? 'Auto (ZMMS)' : 'Manual'), eq.zmmsMapped ? ' · ' + EQ.zmms.freshLabel() : ''),
+        h('span', null, h('span', { class: 'eq-status-source', title: mode2.long }, mode2.label === 'Auto' ? 'Auto (CMMS)' : 'Manual'), eq.cmmsMapped ? ' · ' + EQ.cmms.freshLabel() : ''),
         EQ.panelTabs.jobsAllowed() ? h('a', { href: '#/eq/jobs/special?equipment=' + eq.id }, EQ.plural(EQ.openCount(eq.id, { level: 'equipment', id: null }), 'open special job')) : h('span', null, EQ.plural(EQ.openCount(eq.id, { level: 'equipment', id: null }), 'open special job'))),
       h('div', { class: 'actions' },
         h('a', { class: 'btn', href: '#/eq/fleet', 'data-fk': 'back-to-fleet' }, icon('home'), 'Fleet'),
-        EQ.perm.write() && eq.lifecycle === 'active' ? [h('button', { type: 'button', 'data-fk': 'set-status', onClick: () => EQ.dlg.status(eq) }, icon('refresh'), eq.zmmsMapped ? 'Correct status' : 'Update status'), eq.zmmsMapped && eq.overrideOn ? h('button', { type: 'button', 'data-fk': 'back-auto', onClick: () => { const r = EQ.zmms.backToAutomatic(eq.id); EQ.toast(r.ok ? eq.code + ' is back to automatic' + (r.awaiting ? " (awaiting today's ZMMS sync)" : '') : r.message, 'Prototype: in memory only.'); } }, icon('undo'), 'Back to automatic') : null, h('button', { type: 'button', class: 'primary', 'data-fk': 'add-job', onClick: () => EQ.dlg.jobForm({ equipmentId: eq.id }) }, icon('plus'), 'Add special job')]
+        EQ.perm.write() && eq.lifecycle === 'active' ? [h('button', { type: 'button', 'data-fk': 'set-status', onClick: () => EQ.dlg.status(eq) }, icon('refresh'), eq.cmmsMapped ? 'Correct status' : 'Update status'), eq.cmmsMapped && eq.overrideOn ? h('button', { type: 'button', 'data-fk': 'back-auto', onClick: () => { const r = EQ.cmms.backToAutomatic(eq.id); EQ.toast(r.ok ? eq.code + ' is back to automatic' + (r.awaiting ? " (awaiting today's CMMS sync)" : '') : r.message, 'Prototype: in memory only.'); } }, icon('undo'), 'Back to automatic') : null, h('button', { type: 'button', class: 'primary', 'data-fk': 'add-job', onClick: () => EQ.dlg.jobForm({ equipmentId: eq.id }) }, icon('plus'), 'Add special job')]
           : h('span', { class: 'tag gold' }, EQ.perm.write() ? 'Retired: no new jobs or status changes' : 'Read-only'))));
 
     const breadcrumb = crumbs(eq, sel, q);

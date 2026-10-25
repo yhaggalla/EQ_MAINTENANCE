@@ -9,7 +9,7 @@ fs.mkdirSync(out, { recursive: true });
 const checks = [], expected = { QC: 14, RTG: 46, ES: 7 };
 const check = (name, ok, detail) => { checks.push({ name, pass: !!ok, detail }); if (!ok) throw Error(name + ': ' + JSON.stringify(detail)); };
 const box = vm.createContext({ console, Intl, Date, URLSearchParams, setTimeout, clearTimeout }); box.window = box;
-for (const file of ['util', 'catalog', 'params', 'fac-ref', 'fixtures', 'access', 'store', 'zmms', 'spares', 'fac', 'dialogs', 'views-jobs', 'views-eqjobs']) {
+for (const file of ['util', 'catalog', 'params', 'fac-ref', 'fixtures', 'access', 'store', 'cmms', 'spares', 'fac', 'dialogs', 'views-jobs', 'views-eqjobs']) {
   vm.runInContext(fs.readFileSync(`artifacts/prototypes/p02-ui/js/${file}.js`, 'utf8'), box, { filename: file + '.js' });
 }
 let b;
@@ -17,11 +17,11 @@ try {
   const E = box.EQ; E.reset(); E.state.role = 'eqTeam'; E.access.refreshSession('C54');
   for (const [type, count] of Object.entries(expected)) {
     const rows = E.state.D.equipment.filter(e => e.typeCode === type);
-    check(type + ' has exactly the requested active members and consecutive demo codes', rows.length === count && rows.every((e, i) => e.lifecycle === 'active' && e.code === `${type}-DEMO-${String(i + 1).padStart(2, '0')}`), rows.map(e => e.code));
+    check(type + ' has exactly the requested active members and consecutive demo codes', rows.length === count && rows.every((e, i) => e.lifecycle === 'active' && e.code === `${type}${String(i + 1).padStart(2, '0')}`), rows.map(e => e.code));
   }
   check('67 unique equipment IDs, keys and codes', E.state.D.equipment.length === 67 && ['id', 'key', 'code'].every(k => new Set(E.state.D.equipment.map(e => e[k])).size === 67));
   const added = E.state.D.equipment.filter(e => e.typeCode === 'QC' ? Number(e.key.slice(1)) > 6 : e.typeCode === 'RTG' ? Number(e.key.slice(1)) >= 7 : Number(e.key.slice(1)) > 4);
-  check('51 newly active members have no invented status/model/positions/history/ZMMS link', added.length === 51 && added.every(e => e.status === null && e.statusSince === null && e.modelCode === null && e.assoc === 'unassigned' && e.positionState === null && E.positionsOf(e.id).length === 0 && E.jobsOf(e.id, true).length === 0 && !e.zmmsMapped && !e.commissionedOn && !E.state.D.statusChanges.some(s => s.equipmentId === e.id)));
+  check('51 newly active members have no invented status/model/positions/history/CMMS link', added.length === 51 && added.every(e => e.status === null && e.statusSince === null && e.modelCode === null && e.assoc === 'unassigned' && e.positionState === null && E.positionsOf(e.id).length === 0 && E.jobsOf(e.id, true).length === 0 && !e.cmmsMapped && !e.commissionedOn && !E.state.D.statusChanges.some(s => s.equipmentId === e.id)));
   check('Existing equipment-specific job and replacement identities survive', E.job('job-101').equipmentId === 'eq-qc-demo-01' && E.pos('pp-q01-007').key === 'hoist.drive.motor.a' && E.pos('pp-q02-007').equipmentId === 'eq-qc-demo-02' && E.state.D.jobs.length === 20);
   const c = E.fleetCounts(E.state.D.equipment);
   check('Status populations reconcile, including unknown units', c.total === 67 && c.unreported >= 51 && c.readyForOps + c.breakdown + c.maintenance + c.unreported === c.total, c);
@@ -59,8 +59,8 @@ try {
   }
   await b.setValue('#jf-equipment', 'eq-es-demo-07'); await b.click('#jf-kind-repair'); await b.setValue('#jf-title', 'C54 final ES inspection'); await b.click('dialog[open] [data-fk="submit"]'); await b.wait(450);
   check('A special job can be created for the last ES', await ev(`EQ.state.D.jobs.some(j=>j.equipmentId==='eq-es-demo-07'&&j.title==='C54 final ES inspection')`));
-  await nav('/admin/eq/zmms'); await b.click('[data-fk="zm-add"]');
-  check('ZMMS mapping selector offers every active unit without assigning any', await ev(`document.querySelector('#zm-eq').options.length===68&&[...document.querySelector('#zm-eq').options].some(o=>o.value==='eq-rtg-demo-46')&&!EQ.eq('eq-rtg-demo-46').zmmsMapped`));
+  await nav('/admin/eq/cmms'); await b.click('[data-fk="zm-add"]');
+  check('CMMS mapping selector offers every active unit without assigning any', await ev(`document.querySelector('#zm-eq').options.length===68&&[...document.querySelector('#zm-eq').options].some(o=>o.value==='eq-rtg-demo-46')&&!EQ.eq('eq-rtg-demo-46').cmmsMapped`));
   await b.key('Escape');
   for (const id of ['eq-qc-demo-14', 'eq-rtg-demo-46', 'eq-es-demo-07']) {
     await nav('/eq/equipment/' + id);
@@ -76,7 +76,7 @@ try {
   await b.viewport(375, 812, true); await nav('/eq/fleet');
   check('Phone fleet fits horizontally and retains all equipment', await ev(`document.documentElement.scrollWidth<=innerWidth+1&&document.querySelectorAll('.eq-card').length===67`));
   await b.screenshot(out + '/fleet-phone.png');
-  await b.setValue('#fq', 'RTG-DEMO-46');
+  await b.setValue('#fq', 'RTG46');
   check('Phone search reaches the last RTG', await ev(`document.querySelectorAll('.eq-card').length===1&&document.querySelector('.eq-card').dataset.eq==='eq-rtg-demo-46'`));
   check('Management remains read-only with the expanded fleet', await ev(`!document.querySelector('[data-fk="add-job"]')&&EQ.api.createJob({equipmentId:'eq-es-demo-07',kind:'repair',level:'equipment',title:'Denied C54 write'}).status===403`));
   check('No browser errors', b.errors().length === 0, b.errors());

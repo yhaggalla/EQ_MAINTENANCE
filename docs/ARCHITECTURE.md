@@ -6,14 +6,14 @@ Prepared in P01 on 21 October 2026. Status: **design contract for R01 review**. 
 
 | Document | Contents |
 | --- | --- |
-| `docs/ARCHITECTURE.md` (this file) | Deployment unit, modules, runtime/package set, request pipeline, frontend and viewer structure, storage, local development plan, technical defaults, tradeoffs, the S01-S29 ownership map (P01B) and the ZMMS connector runtime |
-| `docs/DATA_CONTRACT.md` | Entities, invariants, lifecycles, role matrix, profile contract, completion/correction rules, history semantics, the 3D model contract, stable keys and deletion rules; V2 Access matrix, ZMMS, spare parts, FAC, read models, exports (s14-s20) |
+| `docs/ARCHITECTURE.md` (this file) | Deployment unit, modules, runtime/package set, request pipeline, frontend and viewer structure, storage, local development plan, technical defaults, tradeoffs, the S01-S29 ownership map (P01B) and the CMMS connector runtime |
+| `docs/DATA_CONTRACT.md` | Entities, invariants, lifecycles, role matrix, profile contract, completion/correction rules, history semantics, the 3D model contract, stable keys and deletion rules; V2 Access matrix, CMMS, spare parts, FAC, read models, exports (s14-s20) |
 | `docs/API_CONTRACT.md` | Endpoints, authorization, shapes, pagination, errors, concurrency and idempotency |
 | `docs/PORTAL_INTEGRATION_PLAN.md` | Portal touchpoints, token-compatibility analysis, regression cases and rollout/rollback order |
 
-Authorities: `documents/prompt-pack/APPROVED_REQUIREMENTS.md` (version 2.0: S01-S29, roles and Access matrix, lifecycle, ZMMS, spare parts, FAC, s8 technical defaults), `QC_3D_MODELLING_BRIEF.md`, `ACCEPTANCE_CHECKLIST.md`, the Master control, and `docs/DECISIONS.md` (B-xx confirmed choices, D-xx defaults, U-xx open source facts). New P01 defaults are D-19 to D-41 in section 13 and in `docs/DECISIONS.md`.
+Authorities: `documents/prompt-pack/APPROVED_REQUIREMENTS.md` (version 2.0: S01-S29, roles and Access matrix, lifecycle, CMMS, spare parts, FAC, s8 technical defaults), `QC_3D_MODELLING_BRIEF.md`, `ACCEPTANCE_CHECKLIST.md`, the Master control, and `docs/DECISIONS.md` (B-xx confirmed choices, D-xx defaults, U-xx open source facts). New P01 defaults are D-19 to D-41 in section 13 and in `docs/DECISIONS.md`.
 
-**P01B addendum (22 October 2026).** Extended for SOW V2 revision 4 and requirements v2.0 (S01-S29): display name "EQ & FAC Maintenance", EQ and FAC sections, four roles with the in-app Access matrix, the read-only ZMMS connector with automatic status, the spare-part condition register, the FAC section and Excel exports. Changed sections: s1, s2, s3, s4, s5, s6, s7, s9, s10, s11, s12, s13 (D-89 to D-128), s14, s15 (S01-S29), s16; new s17 (ZMMS connector runtime). Contract details: `docs/DATA_CONTRACT.md` s14-s20 and `docs/API_CONTRACT.md` s4.16-s4.27. Superseded P01 rules are listed in `docs/DECISIONS.md` "P01B supersessions".
+**P01B addendum (22 October 2026).** Extended for SOW V2 revision 4 and requirements v2.0 (S01-S29): display name "EQ & FAC Maintenance", EQ and FAC sections, four roles with the in-app Access matrix, the read-only CMMS connector with automatic status, the spare-part condition register, the FAC section and Excel exports. Changed sections: s1, s2, s3, s4, s5, s6, s7, s9, s10, s11, s12, s13 (D-89 to D-128), s14, s15 (S01-S29), s16; new s17 (CMMS connector runtime). Contract details: `docs/DATA_CONTRACT.md` s14-s20 and `docs/API_CONTRACT.md` s4.16-s4.27. Superseded P01 rules are listed in `docs/DECISIONS.md` "P01B supersessions".
 
 ## 1 Shape of the system
 
@@ -32,7 +32,7 @@ flowchart LR
   end
   EQDB[("SQL Server: EQ database (schema eq, EQ and FAC tables)")]
   Store[("Protected file store (outside web roots)")]
-  ZMMS["ZMMS www.zmms.lk (CICT-owned, external HTTPS, read-only: login + daily all-job list)"]
+  CMMS["CMMS www.zmms.lk (CICT-owned, external HTTPS, read-only: login + daily all-job list)"]
   SPA -- "cookie CictEng.Access(.Dev) + X-CICT-CSRF" --> EQHost
   SPA -- "csrf, refresh, logout, access-status" --> Identity
   PortalUI -- "launcher tile /eq-maintenance" --> SPA
@@ -40,10 +40,10 @@ flowchart LR
   Identity -- "PUT internal/provisioning/users/{subjectId} + service credential" --> EQHost
   EQHost --> EQDB
   EQHost --> Store
-  EQHost -- "ZMMS connector (hosted service, twice a day + Sync now)" --> ZMMS
+  EQHost -- "CMMS connector (hosted service, twice a day + Sync now)" --> CMMS
 ```
 
-What the EQ host does not do: issue tokens, store passwords, show a login form, call UMMS/PayPrep/Safety, call EAM/Maximo, read PLC/SCADA data, or push updates (polling only). V2: its only outbound call is the read-only ZMMS connector (s17), which signs in with an account from runtime configuration and reads only the daily all-job list; it never writes to ZMMS (B-17).
+What the EQ host does not do: issue tokens, store passwords, show a login form, call UMMS/PayPrep/Safety, call EAM/Maximo, read PLC/SCADA data, or push updates (polling only). V2: its only outbound call is the read-only CMMS connector (s17), which signs in with an account from runtime configuration and reads only the daily all-job list; it never writes to CMMS (B-17).
 
 ## 2 Deployment unit and paths
 
@@ -59,7 +59,7 @@ What the EQ host does not do: issue tokens, store passwords, show a login form, 
 | Display name | **EQ & FAC Maintenance** (V2, B-14); technical identifiers in this table unchanged | SOW V2 s2, Q1 |
 | Roles | `eq-maintenance:admin`, `eq-maintenance:management`, `eq-maintenance:eq-team`, `eq-maintenance:fac-team` (V2 adds FAC Team, B-15) | s8 |
 | Sections (V2) | EQ (`/eq-maintenance/eq/...`), FAC (`/eq-maintenance/fac/...`), shared Admin (`/eq-maintenance/admin/...`) (s6, D-89) | SOW V2 s2 |
-| Outbound (V2) | HTTPS to `www.zmms.lk` only, from the ZMMS hosted service (s17); no other outbound call | APPROVED s5A |
+| Outbound (V2) | HTTPS to `www.zmms.lk` only, from the CMMS hosted service (s17); no other outbound call | APPROVED s5A |
 | Binding claim | `cict:binding:eq-maintenance:local_user_id` | s8; required because the Portal pattern for role-backed apps uses a ledger binding |
 | IIS (proposal for P12) | Child application `/eq-maintenance` in site `CictEngPortal`, folder `C:\inetpub\CictEngPortal\eq-maintenance`, pool `CictEngPortal_EqMaintenance`, no managed code (ASP.NET Core Module v2, in-process) | Matches existing child apps in the Portal deploy scripts; target facts unverified (U-14) |
 | Production database (proposal for P12) | `CictEqMaintenance` | Distinct from every existing database name |
@@ -87,7 +87,7 @@ flowchart TB
   Web -. "HTTP /eq-maintenance/api/v1" .-> Api
 ```
 
-V2 feature areas live inside these same projects as folders, not new services: `Access` (matrix, evaluator, feature policies), `Zmms` (connector, parser, sync service, mapping, automatic status - Infrastructure for HTTP/parsing, Application for the run and status rules), `SpareParts`, `Fac` (jobs, cycles, progress, photos, import, dashboard read model) and `Exports` (xlsx writers). The FAC module has no reference to EQ equipment/position/job types; an architecture test enforces it (EQ and FAC records stay separate, SOW V2 s2).
+V2 feature areas live inside these same projects as folders, not new services: `Access` (matrix, evaluator, feature policies), `Cmms` (connector, parser, sync service, mapping, automatic status - Infrastructure for HTTP/parsing, Application for the run and status rules), `SpareParts`, `Fac` (jobs, cycles, progress, photos, import, dashboard read model) and `Exports` (xlsx writers). The FAC module has no reference to EQ equipment/position/job types; an architecture test enforces it (EQ and FAC records stay separate, SOW V2 s2).
 
 Dependency rule: Domain has no framework dependencies; Application depends on Domain and defines repository/storage/clock interfaces; Infrastructure implements them; Api wires everything. An architecture test (pattern from the Portal's `CictEng.Architecture.Tests`) enforces the direction.
 
@@ -102,7 +102,7 @@ F:\CODEX\EQ_MAINTENANCE
   src/
     Cict.EqMaintenance.Domain/
     Cict.EqMaintenance.Application/
-    Cict.EqMaintenance.Infrastructure/   Persistence/Migrations, Storage, Imports, Zmms/ (HTTP connector, parser), Exports/, Images/
+    Cict.EqMaintenance.Infrastructure/   Persistence/Migrations, Storage, Imports, Cmms/ (HTTP connector, parser), Exports/, Images/
     Cict.EqMaintenance.Api/              Program.cs, Endpoints/, Security/, wwwroot/ (built SPA only)
     Cict.EqMaintenance.AdminCli/
     eq-web/                              Vite app (src/app, src/features/*, src/viewer, src/api)
@@ -113,7 +113,7 @@ F:\CODEX\EQ_MAINTENANCE
   artifacts/models/<model>/<version>/    generated GLB, manifest, checksums (not served from wwwroot)
   artifacts/prototypes/                  P02 prototype build
   tests/
-    fixtures/zmms/                       sanitised recorded ZMMS pages (P07B; no account, cookies or real names)
+    fixtures/cmms/                       sanitised recorded CMMS pages (P07B; no account, cookies or real names)
     Cict.EqMaintenance.Domain.Tests/
     Cict.EqMaintenance.Application.Tests/
     Cict.EqMaintenance.Api.IntegrationTests/   WebApplicationFactory + disposable SQL Server
@@ -137,7 +137,7 @@ Facts were gathered in P00 (DECISIONS D-01 to D-05, evidence `docs/evidence/P00/
 | 3D | three 0.186.1; @types/three 0.186.0; @react-three/fiber 9.8.1 (peers react >=19 <19.4, three >=0.156); @react-three/drei 10.7.9 (peers react ^19, fiber ^9) | Fiber and React majors match, as the R3F installation guide requires | to pin in P03/P04 |
 | Build / quality | vite 8.3.3; @vitejs/plugin-react 6.1.2; eslint 10.12.0; typescript-eslint 8.71.1; vitest 5.0.3; @playwright/test 1.63.0 | | to pin in P04 |
 | Model generator | Node + three 0.186.1 `GLTFExporter` (same three version as the viewer) | Blender/CAD not installed (D-10) | P03 |
-| (V2) HTML parser for ZMMS | candidate AngleSharp (MIT); .NET `HttpClient` with a per-run `CookieContainer`; no headless browser unless P07B proves the page needs script (APPROVED s8, D-102) | selected and pinned in P07B after reading the real page | P07B |
+| (V2) HTML parser for CMMS | candidate AngleSharp (MIT); .NET `HttpClient` with a per-run `CookieContainer`; no headless browser unless P07B proves the page needs script (APPROVED s8, D-102) | selected and pinned in P07B after reading the real page | P07B |
 | (V2) Excel writer | candidate DocumentFormat.OpenXml SDK 3.x (MIT, Microsoft) with inline-string cells | selected and pinned in the first phase that exports (P07/P08B) (D-121) | P07/P08B |
 | (V2) Image re-encoding | candidate SkiaSharp (MIT) with its Windows native assets; ImageSharp is avoided because its split licence needs a commercial-use review | selected and pinned in P08B (D-116) | P08B |
 
@@ -156,7 +156,7 @@ Order of middleware and endpoint groups in `Cict.EqMaintenance.Api`:
 7. Browser request verification for every authenticated unsafe method (POST/PUT/PATCH/DELETE): canonical `Origin` (or `Referer`) and `X-CICT-CSRF` checked against the token's `cict:csrf_digest` via `SharedBrowserRequestSecurity`; failure is 403 with `X-CICT-CSRF-Invalid: true`. Only `/eq-maintenance/internal/provisioning` is exempt, because it is guarded by its own service-credential filter and never accepts a browser session. Path tests are case-insensitive (lesson recorded in the Safety middleware).
 8. Authorization (V2): feature policies evaluated against the Access matrix (`EqSession`, `F:<feature>`, API_CONTRACT s2; DATA_CONTRACT s6, s14) plus resource rules in the Application layer. Every endpoint, export and file handler declares its feature(s); the fallback policy denies. The P01 role policies `EqRead`/`EqWrite`/`EqAdmin` are superseded.
 9. Endpoint groups: `/api/v1/*` (JSON), `/internal/provisioning/*`, `/health/*`, and the SPA fallback for any other GET under `/eq-maintenance` that accepts `text/html` (returns `index.html`). Unknown `/api/*` routes return JSON 404, never `index.html`. V2 (D-93): the fallback maps the route prefix to its view feature (DATA_CONTRACT s14.4); a signed-in user without that feature receives the shell with HTTP 403 (the SPA shows the tab-not-available state); requests without a valid session receive 200 and the session client handles sign-in.
-10. Hosted services (V2): the ZMMS sync service (s17) runs in the same process; it uses its own DI scope per run and never handles browser requests.
+10. Hosted services (V2): the CMMS sync service (s17) runs in the same process; it uses its own DI scope per run and never handles browser requests.
 
 ## 6 Frontend architecture (`src/eq-web`)
 
@@ -166,10 +166,10 @@ Order of middleware and endpoint groups in `Cict.EqMaintenance.Api`:
 | Route | View | Feature (DATA s14.4) |
 | --- | --- | --- |
 | `/eq-maintenance/` | Landing: last used permitted tab (browser storage) or the role default; No-access page when nothing is permitted (D-90) | `EqSession` |
-| `/eq-maintenance/eq/fleet?type=&status=&lifecycle=&source=` | EQ Fleet (S02/S03): cards with status source Auto/Manual and today's ZMMS job count | `eq.fleet.view` |
+| `/eq-maintenance/eq/fleet?type=&status=&lifecycle=&source=` | EQ Fleet (S02/S03): cards with status source Auto/Manual and today's CMMS job count | `eq.fleet.view` |
 | `/eq-maintenance/eq/equipment/{equipmentId}?main=&sub=&part=&container=&mode=overall|technical&panel=maintenance|special|technical|spareParts` | Equipment detail (crane view): tree, viewer or fallback, right panel with the four current-state tabs of U1-C19 (S04-S07, S14; D-122) | `eq.fleet.view` |
 | `/eq-maintenance/eq/jobs/special?status=&equipment=&type=&kind=&main=&dateField=&from=&to=&includeCancelled=&scope=&target=` | EQ Jobs, Special/Projects tab (manual special jobs; scoped history when `equipment`+`scope`+`target`) (S08/S09; U1-C20) | `eq.jobs.view` |
-| `/eq-maintenance/eq/jobs/daily?equipment=&type=&from=&to=` | EQ Jobs, Daily work (CMMS) tab: read-only ZMMS daily jobs, default today (S08/S20; U1-C20) | `eq.jobs.view` |
+| `/eq-maintenance/eq/jobs/daily?equipment=&type=&from=&to=` | EQ Jobs, Daily work (CMMS) tab: read-only CMMS daily jobs, default today (S08/S20; U1-C20) | `eq.jobs.view` |
 | `/eq-maintenance/eq/jobs/special/{jobId}` | Special job record, completion (with the pre-filled condition form), evidence (S09/S13/S22) | `eq.jobs.view` |
 | `/eq-maintenance/eq/jobs/status?equipment=&type=&source=&from=&to=` | EQ Jobs, EQ status part: board, correction, Back to automatic, history (S21) | `eq.jobs.view` |
 | `/eq-maintenance/eq/jobs/spare-parts?equipment=&type=&main=&sub=&part=&flag=` | EQ Jobs, spare parts condition part: register, flags, per-part history; Add spare part for `eq.work` (S22; U1-C21) | `eq.jobs.view` |
@@ -177,7 +177,7 @@ Order of middleware and endpoint groups in `Cict.EqMaintenance.Api`:
 | `/eq-maintenance/fac/jobs?view=mywork|board|list&status=&flag=&discipline=&type=&mode=&pic=&frequency=&kind=&q=` | FAC Jobs (S28) | `fac.jobs.view` |
 | `/eq-maintenance/fac/dashboard/jobs/{jobId}` | Read-only FAC job detail opened from a dashboard row (SOW V2 5.5.7): the same detail as below for an active job, without the FAC Jobs actions; the back link returns to the dashboard with its filters (Repair-R02B, D-140) | `fac.dashboard.view` |
 | `/eq-maintenance/fac/jobs/{jobId}` | FAC job detail, timeline, previous cycles (read-only for Management) | `fac.jobs.view` (a dashboard row links here when the user holds `fac.jobs.view`, otherwise to the dashboard detail route above) |
-| `/eq-maintenance/admin/eq/...` (`equipment`, `models`, `catalog`, `positions`, `parameters`, `scene-bindings`, `spare-parts`, `zmms`) | EQ settings (S10, S20-S22) | `admin.access` |
+| `/eq-maintenance/admin/eq/...` (`equipment`, `models`, `catalog`, `positions`, `parameters`, `scene-bindings`, `spare-parts`, `cmms`) | EQ settings (S10, S20-S22) | `admin.access` |
 | `/eq-maintenance/admin/fac/...` (`master-list`, `import`, `lists`, `settings`, `corrections`) | FAC settings (S23-S25) | `admin.access` |
 | `/eq-maintenance/admin/access` | Access matrix (S19) | `admin.access` |
 
@@ -188,7 +188,7 @@ Order of middleware and endpoint groups in `Cict.EqMaintenance.Api`:
 - **Server state:** TanStack Query with `AbortSignal` on every request. Query keys always include `equipmentId` and the selection scope, and every history response echoes `equipmentId`, `scope` and `targetId`; the panel renders a response only when the echo matches the current selection (HIS05).
 - **Selection state:** the URL is the single source of truth for equipment and `main`/`sub`/`part`. The tree, the breadcrumb and the 3D scene all dispatch the same `select(...)` navigation; the viewer only reads it. Back/forward reproduce the selection.
 - **Session client (pattern copied from the Safety web client):** CSRF token kept in memory only (never `localStorage`/`sessionStorage`); fetched from `/auth/csrf`; on 401 a single shared refresh (`/auth/session/csrf` then `POST /auth/session/refresh`) and one retry; if recovery fails, call `/auth/applications/eq-maintenance/access-status` and show the actionable state (signed out, password change required, no EQ access, provisioning pending) with a link to `/login?returnUrl=<current path>`. No credential or token is ever readable by the SPA (HttpOnly cookies).
-- **Polling and freshness:** fleet data polls every 60 s by default (configurable, D-15), refetches after successful writes, uses `If-None-Match`/ETag for cheap 304s, and on failure keeps the last good data with a visible "stale since hh:mm" indicator. Nothing is ever defaulted to Ready. V2: the FAC Dashboard polls `GET /fac/dashboard` at the Admin interval (default 60 s) with ETag revalidation and patches rows in place (no scroll reset); `GET /session` is re-read every 60 s and after any 403 `feature_disabled` so Access-matrix changes reach the UI within 60 s; "ZMMS data from <date time>" comes from the fleet/Jobs responses.
+- **Polling and freshness:** fleet data polls every 60 s by default (configurable, D-15), refetches after successful writes, uses `If-None-Match`/ETag for cheap 304s, and on failure keeps the last good data with a visible "stale since hh:mm" indicator. Nothing is ever defaulted to Ready. V2: the FAC Dashboard polls `GET /fac/dashboard` at the Admin interval (default 60 s) with ETag revalidation and patches rows in place (no scroll reset); `GET /session` is re-read every 60 s and after any 403 `feature_disabled` so Access-matrix changes reach the UI within 60 s; "CMMS data from <date time>" comes from the fleet/Jobs responses.
 - **Moving dashboard (V2, S27):** lanes scroll with CSS transforms driven by `requestAnimationFrame` at the Admin speed, pausing on hover, focus-within and the Pause button; `prefers-reduced-motion: reduce` switches to an 8 s page flip; the moving lists are `aria-hidden` duplicates of a static, focusable list that screen readers and keyboard users use (no focus trap); TV mode is a full-screen layout of the same signed-in page (no anonymous URL). P02B fixes the visual details; P09 implements them.
 - **Role-aware UI:** writer actions render only for the capabilities returned by `GET /session` (V2: per feature, so EQ actions for `eq.work`, FAC actions for `fac.work` etc.); Management sees a persistent "Read-only access" indicator without losing navigation. Tabs follow `access.sections`. The API enforces permissions independently.
 - **Phone-first FAC (V2, S28):** the FAC update form and photo upload (`capture="environment"`) fit a 390 px viewport; photos are staged individually (retry-safe on weak networks) before the update is submitted.
@@ -229,17 +229,17 @@ Generated outputs go to `artifacts/models/<modelCode>/<version>/`; the registere
 
 - `IFileStore` abstraction with a filesystem implementation rooted at `EqStorage:RootPath` (absolute; validated to be outside the content root, `wwwroot`, and any IIS virtual directory the app exposes). The IIS app-pool identity needs modify rights on that folder only.
 - Layout: `sources/<sha256[0..2]>/<sha256>` for imported drawings/photos (content-addressed, de-duplicated), `evidence/<yyyy>/<documentId>` for job evidence, `models/<sceneModelVersionId>/scene.glb|manifest.json` for registered model versions. V2: `fac-photos/<yyyy>/<photoId>/full.jpg|thumb.jpg` for re-encoded FAC photos, `staging/<uploadId>` for staged uploads (FAC photos, FAC import JSON; purged 24 h after creation when not consumed). Storage keys are generated by the server; client-supplied names are display metadata only.
-- V2: no ZMMS page content is ever written to storage (DATA_CONTRACT s15.6).
+- V2: no CMMS page content is ever written to storage (DATA_CONTRACT s15.6).
 - Streaming: authenticated `GET` endpoints with `Content-Disposition` (inline for PDF/images, attachment otherwise), sanitized filenames, `X-Content-Type-Options: nosniff`, range processing for PDFs, and `Cache-Control: private, no-cache` plus a strong ETag (sha256) for model assets so every load revalidates through authentication (cheap 304) but never bypasses it.
 - Missing or unreadable files return 404/503 problem `file_unavailable` without revealing paths (FILE05).
 
 ## 10 Persistence
 
 - SQL Server, EF Core 10 code-first migrations in `Cict.EqMaintenance.Infrastructure`, schema `eq`, `READ_COMMITTED_SNAPSHOT ON` (readers do not block writers). Commands that must serialize use explicit `UPDLOCK, HOLDLOCK` reads inside a transaction (DATA_CONTRACT s5, s8). EF Core execution strategy with retry wraps every explicit transaction (Safety lesson).
-- V2 tables (DATA_CONTRACT s14-s17) live in the same database and schema. Single-row settings/version tables (`AccessPolicyVersion`, `ZmmsSettings`, `EqSettings`, `FacSettings`, `FacDataVersion`) are created by migrations with their default row (configuration defaults, not fleet or status data). The ZMMS single-run lock uses `sp_getapplock` (resource `eq-zmms-sync`, exclusive, session owner) on a dedicated connection held for the run (s17).
+- V2 tables (DATA_CONTRACT s14-s17) live in the same database and schema. Single-row settings/version tables (`AccessPolicyVersion`, `CmmsSettings`, `EqSettings`, `FacSettings`, `FacDataVersion`) are created by migrations with their default row (configuration defaults, not fleet or status data). The CMMS single-run lock uses `sp_getapplock` (resource `eq-cmms-sync`, exclusive, session owner) on a dedicated connection held for the run (s17).
 - Migrations are applied only by explicit commands: `AdminCli migrate` for disposable databases and reviewed idempotent SQL scripts (`dotnet ef migrations script --idempotent`) for any later authorized environment (P12).
 - **Disposable database guard (D-08, refined D-23):** `AdminCli` refuses `migrate`, `import-*`, `seed-fixtures` and `drop` unless the target database name matches `^EqMaintenanceDisposable_[A-Za-z0-9_]+$` **and** (for an existing database) the table `eq.__DisposableMarker` exists with the matching database name and a creation stamp written by `AdminCli create-disposable`. Production-style imports (`import-mechanisms`, `import-parameters`, `import-drawings`) are allowed against a non-disposable target only with an explicit `--target-confirmation <database name>` argument that must match, and they never run fixtures. `seed-fixtures` never runs against a non-disposable target under any flag.
-- Reference imports vs fixtures: reference data (catalogue, parameter observations, drawing registrations, scene model versions) comes from versioned files under `documents/prompt-pack/reference` or `artifacts/models`; synthetic fixtures (`QC-DEMO-01`, `QC-DEMO-02`, `RTG-DEMO-01`, `ES-DEMO-01`, demo jobs/status) live in a separate fixture set marked `DataOrigin = DevelopmentFixture` and are excluded from release migrations and packages.
+- Reference imports vs fixtures: reference data (catalogue, parameter observations, drawing registrations, scene model versions) comes from versioned files under `documents/prompt-pack/reference` or `artifacts/models`; synthetic fixtures (`QC01`, `QC02`, `RTG01`, `ES01`, demo jobs/status) live in a separate fixture set marked `DataOrigin = DevelopmentFixture` and are excluded from release migrations and packages.
 
 ## 11 Local development plan (same origin)
 
@@ -251,7 +251,7 @@ Ports (D-09): EQ host **5310**, EQ Vite dev server **5311**. Portal runner ports
 | B. Foundation | P04 | EQ host on `http://127.0.0.1:5310/eq-maintenance` against a disposable database; Vite on 5311 proxies `/eq-maintenance/api` to 5310 | Until P05 the host has no working shared-auth scheme (CictEng.Auth 0.3.0 does not exist yet) and returns 401 to all API calls: fail closed. Automated tests use a test authentication handler registered only by `WebApplicationFactory` in the test project |
 | C. Integrated same origin | P05 onward | Portal Vite proxy on `http://127.0.0.1:5174` adds `/eq-maintenance/api` -> 5310 and `/eq-maintenance` -> 5311 (HMR) or -> 5310 (built SPA). Identity (5180) provisions EQ directly at `http://127.0.0.1:5310/eq-maintenance` with a generated local-only credential. Browser opens `http://127.0.0.1:5174/eq-maintenance` | Real local Identity with an **isolated** Identity database and synthetic users (PORTAL_INTEGRATION_PLAN s7). Cookie `CictEng.Access.Dev` on one host |
 
-V2: ZMMS is off in every mode unless `Zmms:Enabled = true` and the account keys are present in local runtime configuration (user secrets or environment), which only the P07B live check uses. Automated tests use a fake `HttpMessageHandler` serving the sanitised fixtures in `tests/fixtures/zmms/` and a fake clock (Asia/Colombo midnight and two-syncs-a-day cases). The FAC import in development reads the bundled reference JSON into a disposable database only.
+V2: CMMS is off in every mode unless `Cmms:Enabled = true` and the account keys are present in local runtime configuration (user secrets or environment), which only the P07B live check uses. Automated tests use a fake `HttpMessageHandler` serving the sanitised fixtures in `tests/fixtures/cmms/` and a fake clock (Asia/Colombo midnight and two-syncs-a-day cases). The FAC import in development reads the bundled reference JSON into a disposable database only.
 
 The Portal proxy does not route `/eq-maintenance/internal`; the provisioning endpoint is called server to server. EQ provides `tools/eq-local.ps1` (P04) to start/stop only its own processes and to create/drop disposable databases; it never starts or seeds other apps.
 
@@ -260,7 +260,7 @@ The Portal proxy does not route `/eq-maintenance/internal`; the provisioning end
 | Concern | Design |
 | --- | --- |
 | Credentials | Central Identity only; EQ has no password store, login screen or local accounts. No credential, connection string, provisioning secret or token in source, logs, evidence or packages; placeholders only in `appsettings.Example.json` |
-| ZMMS account (V2) | Runtime configuration only (`Zmms:Account:UserName`, `Zmms:Account:Password` via environment, user secrets or the host's protected store); redacting options type; never in source, tests, fixtures, documents, logs, problem responses, stored rows, the browser or evidence; startup and health report only missing key **names** (ZM04, DATA_CONTRACT s15.2) |
+| CMMS account (V2) | Runtime configuration only (`Cmms:Account:UserName`, `Cmms:Account:Password` via environment, user secrets or the host's protected store); redacting options type; never in source, tests, fixtures, documents, logs, problem responses, stored rows, the browser or evidence; startup and health report only missing key **names** (ZM04, DATA_CONTRACT s15.2) |
 | Outbound HTTP (V2) | Compiled host allow-list (`www.zmms.lk`, HTTPS); no redirect outside the allowed routes; response size and time limits; no URL from users or data is ever fetched (FILE03 still holds) |
 | Exports (V2) | Generated per request from the same authorized query as the list; formula-safe cells; not stored; audited |
 | Token handling | HttpOnly shared cookie validated by `CictEng.Auth`; tokens never logged; `SaveToken=false`; the SPA never sees tokens |
@@ -313,13 +313,13 @@ P01B additions (22 October 2026; also in `docs/DECISIONS.md` s2 with the same te
 | D-91 | Access matrix: twelve feature keys; only the thirteen toggleable cells are stored; fixed and not-allowed cells are compiled; the evaluator ignores stored rows outside the toggleable set; effective features = union over held roles | A stored row can never widen a ceiling (ACC03); DATA_CONTRACT s6, s14 |
 | D-92 | Matrix propagation: in-process cache keyed by AccessPolicyVersion, re-validated at most every 15 s; SPA re-reads `/session` every 60 s and after any 403 `feature_disabled` | "Within 60 seconds" (S19, ACC02); DATA_CONTRACT s14.5 |
 | D-93 | Page-route enforcement: the SPA fallback maps route prefixes to view features and returns the shell with 403 for a signed-in user without the feature; 200 without a session (sign-in flow) | "Routes return 403" (ACC02) without putting data in the shell; ARCHITECTURE s5 |
-| D-94 | On ZMMS-mapped equipment every user status change is a current-day correction with a mandatory reason; choosing the same value as the automatic one is allowed (holds it manually for the day); the same value when already manual for today is refused (`status_unchanged`). Refines D-33 | S21, B-18; DATA_CONTRACT s4.2 |
-| D-95 | A correction ends at the first **successful** sync whose business date is later than the correction day; after midnight with no successful sync yet the status shows "Manual (from <date>), awaiting ZMMS sync" | Q12 answer; a failed sync changes nothing (Master control); DATA_CONTRACT s15.7 |
-| D-96 | Back to automatic applies the evaluation of today's latest successful run when that evaluation has a computed value; with no successful run yet today, or when today's evaluation stopped without a value (`automaticDisabled`, `unmappedValues`; Repair-R02B finding 3), it records a mode change keeping the value (source `manual`, "awaiting today's ZMMS sync") and the next successful run applies the automatic value | Never invents an automatic value; DATA_CONTRACT s15.7 step 6 |
+| D-94 | On CMMS-mapped equipment every user status change is a current-day correction with a mandatory reason; choosing the same value as the automatic one is allowed (holds it manually for the day); the same value when already manual for today is refused (`status_unchanged`). Refines D-33 | S21, B-18; DATA_CONTRACT s4.2 |
+| D-95 | A correction ends at the first **successful** sync whose business date is later than the correction day; after midnight with no successful sync yet the status shows "Manual (from <date>), awaiting CMMS sync" | Q12 answer; a failed sync changes nothing (Master control); DATA_CONTRACT s15.7 |
+| D-96 | Back to automatic applies the evaluation of today's latest successful run when that evaluation has a computed value; with no successful run yet today, or when today's evaluation stopped without a value (`automaticDisabled`, `unmappedValues`; Repair-R02B finding 3), it records a mode change keeping the value (source `manual`, "awaiting today's CMMS sync") and the next successful run applies the automatic value | Never invents an automatic value; DATA_CONTRACT s15.7 step 6 |
 | D-97 | Automatic status needs an explicit Admin switch `AutomaticStatusEnabled`, allowed only when every value seen in the latest successful run is mapped; equipment with a row carrying an unmapped type/status value is skipped in that run | "Until it is set, the sync changes no status" (S21, ZM05); fail-safe for new values; DATA_CONTRACT s15.8 |
 | D-98 | Day plan = rows of the latest successful run for that business date; a row missing from a later complete run is kept as `absentFromSource` and no longer counts | Every synced day kept (S20) without letting a removed job hold a Breakdown; DATA_CONTRACT s15.3 |
 | D-99 | One database transaction per sync run (upsert, absent marks, evaluations, status changes, counters); failure rolls back and is recorded in a separate transaction; no raw page stored | "A failed or partial run changes nothing" (Master control, ZM02); the page may show the account name; DATA_CONTRACT s15.6 |
-| D-100 | Single run via `sp_getapplock` (`eq-zmms-sync`) plus a `running` run row with a lease; a concurrent Sync now returns 202 with the running run | ZM01; survives app-pool overlap during recycle; DATA_CONTRACT s15.5 |
+| D-100 | Single run via `sp_getapplock` (`eq-cmms-sync`) plus a `running` run row with a lease; a concurrent Sync now returns 202 with the running run | ZM01; survives app-pool overlap during recycle; DATA_CONTRACT s15.5 |
 | D-101 | Retry +2/+5/+15 min for transient failures; no automatic retry after a rejected login (lockout avoidance); one retry after 5 min for parse failures; one catch-up run at startup for a missed time today | S20 "retries with backoff"; DATA_CONTRACT s15.5 |
 | D-102 | Connector: .NET `HttpClient`, per-run cookie container, compiled host allow-list (HTTPS `www.zmms.lk`), 30 s request / 300 s run timeouts, 5 MiB response cap, 50-page cap; HTML parser candidate AngleSharp (MIT) pinned in P07B; no headless browser unless P07B proves script is required | APPROVED s8; ARCHITECTURE s17 |
 | D-103 | IIS prerequisites for the hosted service (P12, listed not executed): app pool `startMode=AlwaysRunning`, `idleTimeout=0`, application `preloadEnabled=true` (Application Initialization), so scheduled syncs run without user traffic; the catch-up rule covers recycles | In-process IIS stops idle workers; ARCHITECTURE s17 |
@@ -341,12 +341,12 @@ P01B additions (22 October 2026; also in `docs/DECISIONS.md` s2 with the same te
 | D-119 | Dashboard: each job in the first matching group (Overdue, On hold, In progress, Due soon, Pending, Completed in the last 7 days); jobs completed earlier and not yet due are not in the moving lists (superseded by D-156, U1 round 6: they are listed last as "Up to date"; and by D-158: jobs whose display switch is off are outside the dashboard); lane ring = share of active jobs completed for their current cycle; on-time % over rolling cycles completed in the last 30 days; due load counts rolling jobs only (Daily/Weekly excluded and stated) | Readable at a glance; daily checks would swamp the % and the load chart; revisable at U1; DATA_CONTRACT s18.4 |
 | D-120 | Dashboard ETag from FacDataVersion (incremented by every FAC write), business date, filters and AccessPolicyVersion; 304 after two single-row reads; ticker 20 items / 7 days, proof 12 photos | 60-second poll by TV screens (S27); DATA_CONTRACT s18.4 |
 | D-121 | Excel: server-side .xlsx (candidate DocumentFormat.OpenXml, MIT), inline strings/typed cells only, max 10 000 rows, same query and permission as the list, audited, never stored | S29, FAC12; formula injection safe; DATA_CONTRACT s19 |
-| D-122 | Crane right panel = four tabs (U1-C19): Maintenance (today's ZMMS jobs; equipment-level), Projects/Special (open special jobs in the selected scope with counts and Open in Jobs; completed jobs counted, not listed; superseded by D-155, U1 round 6: open and completed jobs listed, newest first, hidden jobs excluded), Technical (specification summary of the selected area), Spare parts (current register rows in scope). Supersedes D-54 | U1-C19; S07 "no history in the crane view"; DATA_CONTRACT s18.1 |
+| D-122 | Crane right panel = four tabs (U1-C19): Maintenance (today's CMMS jobs; equipment-level), Projects/Special (open special jobs in the selected scope with counts and Open in Jobs; completed jobs counted, not listed; superseded by D-155, U1 round 6: open and completed jobs listed, newest first, hidden jobs excluded), Technical (specification summary of the selected area), Spare parts (current register rows in scope). Supersedes D-54 | U1-C19; S07 "no history in the crane view"; DATA_CONTRACT s18.1 |
 | D-123 | ParameterMechanismLink (Admin-maintained, P06 proposes) filters the Technical tab's parameters by main/sub mechanism | The technical sheet needed a mechanism filter that P01 did not define; DATA_CONTRACT s18.1 |
-| D-124 | "ZMMS data from" = end of the latest successful run; stale when the latest run failed or no success within 26 h (Admin setting) | S20 sync health; DATA_CONTRACT s18.3 |
-| D-125 | ZMMS equipment key normalisation: trim, collapse internal whitespace, upper-case (invariant); one key -> one equipment, several keys -> one equipment allowed; `ignore` mappings for non-app equipment; no fuzzy matching | ZM03 "never guessed"; DATA_CONTRACT s15.4 |
+| D-124 | "CMMS data from" = end of the latest successful run; stale when the latest run failed or no success within 26 h (Admin setting) | S20 sync health; DATA_CONTRACT s18.3 |
+| D-125 | CMMS equipment key normalisation: trim, collapse internal whitespace, upper-case (invariant); one key -> one equipment, several keys -> one equipment allowed; `ignore` mappings for non-app equipment; no fuzzy matching | ZM03 "never guessed"; DATA_CONTRACT s15.4 |
 | D-126 | Daily-job rows store no person-name fields unless the user asks for them in P07B | Data minimisation; personal data not needed for status; DATA_CONTRACT s15.3 |
-| D-127 | Fleet ETag also covers the latest successful ZMMS run and the business date | Automatic status and "today's jobs" change without user writes; API_CONTRACT s1.7 |
+| D-127 | Fleet ETag also covers the latest successful CMMS run and the business date | Automatic status and "today's jobs" change without user writes; API_CONTRACT s1.7 |
 | D-128 | Week = Monday-Sunday Asia/Colombo for weekly cycles, Done this week and the due-load chart | ISO week; DATA_CONTRACT s1 |
 
 ## 14 Tradeoffs considered
@@ -364,7 +364,7 @@ P01B additions (22 October 2026; also in `docs/DECISIONS.md` s2 with the same te
 | Sectioned history | One mixed timeline | Mixed date-only business dates and UTC instants sort ambiguously; sections keep each ordering truthful |
 | Lines entered at completion | Draft/planned lines | Fewer states and edit paths; nothing in stage 1 requires planned lines |
 | (V2) Feature policies over a compiled ceiling table plus stored toggles | Role checks with UI-only hiding; or a fully data-driven permission table | Server-enforced (S19) and a stored row can never exceed a ceiling, which a fully data-driven table could |
-| (V2) ZMMS connector as a hosted service in the EQ host | Windows scheduled task or a separate worker service | APPROVED s8 (one host); one deployment unit; the single-run lock and catch-up rule cover IIS recycles |
+| (V2) CMMS connector as a hosted service in the EQ host | Windows scheduled task or a separate worker service | APPROVED s8 (one host); one deployment unit; the single-run lock and catch-up rule cover IIS recycles |
 | (V2) One transaction per sync run | Row-by-row upsert | A failed or partial run must change nothing (ZM02); a day's list is small |
 | (V2) Register as a view of installation events | Separate free-standing condition table | Keeps one replacement history and identity (APPROVED s5B, HIS03) |
 | (V2) Period cycles created lazily | Nightly job creating daily/weekly cycles | No background job or midnight race; a missed day is derived, not written |
@@ -373,12 +373,12 @@ P01B additions (22 October 2026; also in `docs/DECISIONS.md` s2 with the same te
 
 ## 15 Requirement ownership map (S01-S29)
 
-Components: **Api** (host endpoints/security), **App** (Application services), **Dom** (Domain), **Inf** (persistence/storage/imports), **Cli** (AdminCli), **Web** (SPA), **Viewer** (QC viewer), **Gen** (model generator), **Portal** (Portal-repo changes in P05), **Tests**; V2 areas **Access**, **Zmms**, **Spare**, **Fac**, **Export** (folders in the layers above, s3).
+Components: **Api** (host endpoints/security), **App** (Application services), **Dom** (Domain), **Inf** (persistence/storage/imports), **Cli** (AdminCli), **Web** (SPA), **Viewer** (QC viewer), **Gen** (model generator), **Portal** (Portal-repo changes in P05), **Tests**; V2 areas **Access**, **Cmms**, **Spare**, **Fac**, **Export** (folders in the layers above, s3).
 
 | ID | Owning components (contract section) | Build phases | Acceptance cases |
 | --- | --- | --- | --- |
 | S01 | Dom/Inf equipment types, equipment models, equipment, lifecycle (DATA s3.2-s3.3); Cli reference import; Web admin register; App admin services | P06, P09 | ADM01, ADM04, SRC04, SRC06, VIS07 |
-| S02 | App fleet query (API s4.2) with V2 status source and today's ZMMS count (DATA s18.3); Web fleet view with polling/stale state; static thumbnails | P02, P02B, P09 | OPS01, OPS02, VIS10, JOB13 |
+| S02 | App fleet query (API s4.2) with V2 status source and today's CMMS count (DATA s18.3); Web fleet view with polling/stale state; static thumbnails | P02, P02B, P09 | OPS01, OPS02, VIS10, JOB13 |
 | S03 | Dom operational status rules (DATA s3.7, s4.2) with source/mode; App status commands (API s4.3); Web badges/legend with Auto/Manual | P07, P07B, P09 | JOB02, JOB13, OPS01, ZM05, ZM06 |
 | S04 | Gen QC model; Viewer; Api protected model assets (API s4.11); Web fallback | P03, P10 | VIS01, VIS02, VIS04, VIS05, VIS06, VIS08, VIS09, VIS10, OPS03 |
 | S05 | Dom catalogue/instances/positions (DATA s3.1, s3.4); App hierarchy query (API s4.4); Web tree; Viewer selection | P06, P10 | SRC01, SRC02, SRC03, ADM02, ADM03, VIS03, VIS05 |
@@ -391,13 +391,13 @@ Components: **Api** (host endpoints/security), **App** (Application services), *
 | S12 | Dom positions/installations/events (DATA s3.4-s3.5, s5) incl. `conditionReplacement`; App completion/correction | P06, P07, P10 | ADM02, JOB04, JOB05, JOB06, JOB09, JOB10, HIS01, HIS03, VIS05, SP02 |
 | S13 | Dom audit/idempotency/concurrency (DATA s3.12, s8); Inf transactions/locks; Api CSRF | P07, P08B | JOB05, JOB06, JOB07, JOB08, JOB09, JOB11, JOB12, JOB13, AUTH06, ADM05, SP02, FAC07 |
 | S14 | Dom parameters/documents (DATA s3.8-s3.9); Cli drawing/parameter import; Api file streaming; Web technical sheet and Technical tab | P06, P08 | SRC05, ADM06, FILE01, FILE02, FILE03, FILE04, FILE05 |
-| S15 | Portal touchpoints (four roles, display name); Api shared auth + provisioning endpoint + profile authorization (DATA s7, PORTAL plan); Web session client; Zmms account kept in runtime configuration | P05, P07B | AUTH01-AUTH07, OPS04, ZM04 |
+| S15 | Portal touchpoints (four roles, display name); Api shared auth + provisioning endpoint + profile authorization (DATA s7, PORTAL plan); Web session client; Cmms account kept in runtime configuration | P05, P07B | AUTH01-AUTH07, OPS04, ZM04 |
 | S16 | Web responsive/accessible layouts; Viewer fallback; tree alternative; dashboard static alternative and reduced motion | P02, P02B, P09, P10, P11 | OPS02, OPS04, VIS07, VIS08, FDB03, FDB06 |
 | S17 | Tests; Gen reproducibility; performance measurement; release packaging; Cli explicit migrations | P03, P11, P12 | VIS09, VIS10, OPS03, OPS05, OPS06, AUTH07 |
 | S18 | Access sections/tabs/landing (DATA s14.1); Web top bar, section switch, landing, No-access page; API `GET /session` (API s4.1) | P02B, P04, P06, P09 | ACC01 |
 | S19 | Access matrix entities/evaluator/enforcement (DATA s6, s14); Api feature policies and SPA fallback route check (s5); Admin Access (API s4.21) | P02B, P06, P11 | ACC02, ACC03, ACC04, ACC05, FAC11 |
-| S20 | Zmms connector, parser, run record, daily jobs, mapping, unmatched queue, health (DATA s15, API s4.17, s4.20; s17 here) | P02B, P07B | ZM01, ZM02, ZM03, ZM04, ZM07, ZM08 |
-| S21 | Zmms automatic status algorithm, value mapping, current-day correction, Back to automatic (DATA s4.2, s15.7, s15.8; API s4.3) | P02B, P07, P07B | ZM05, ZM06 |
+| S20 | Cmms connector, parser, run record, daily jobs, mapping, unmatched queue, health (DATA s15, API s4.17, s4.20; s17 here) | P02B, P07B | ZM01, ZM02, ZM03, ZM04, ZM07, ZM08 |
+| S21 | Cmms automatic status algorithm, value mapping, current-day correction, Back to automatic (DATA s4.2, s15.7, s15.8; API s4.3) | P02B, P07, P07B | ZM05, ZM06 |
 | S22 | Spare designation/types/life, register, prediction, history; completion write (DATA s5.1 6a, s16; API s4.17-s4.19) | P02B, P06, P07 | SP01, SP02, SP03, SP04 |
 | S23 | Fac master list and import (DATA s17.2, s17.9; API s4.23, s4.26) | P02B, P06, P08B | FAC01, FAC02, ACC04 |
 | S24 | Fac frequencies, cycles, due computation, Done today/this week (DATA s17.1, s17.3, s17.4) | P02B, P08B | FAC03, FAC04, FAC05 |
@@ -418,17 +418,17 @@ Every acceptance case in `ACCEPTANCE_CHECKLIST.md` (94, version 2.0) appears at 
 | U-14 | ASP.NET Core 10 Hosting Bundle on target | P12 prerequisite | Listed, not assumed |
 | P-01 | Identity registry rows for a new app have no production delivery path today (the catalog seeder runs only in tests, local seeding and the one-time production bootstrap) | P05 must add a reviewed Identity migration (PORTAL plan s3, item I-5) | Planned |
 | P-02 | Portal root deploy scripts mirror-delete unknown child folders | A later Portal root release would delete `/eq-maintenance` unless `eq-maintenance` is added to the child-application exclusions | P05 adds it (PORTAL plan s3.4, items R-1, R-2, R-6 and the R-3 inventory of every root-clearing script) |
-| U-29 (V2) | ZMMS page structure unknown until P07B (ZQ-01 to ZQ-13, DATA s20) | Parser landmarks, columns, paging, date selection and value vocabularies are provisional | P07B reads the page through the connector and fixes DATA s15/s20; no other phase contacts ZMMS |
+| U-29 (V2) | CMMS page structure unknown until P07B (ZQ-01 to ZQ-13, DATA s20) | Parser landmarks, columns, paging, date selection and value vocabularies are provisional | P07B reads the page through the connector and fixes DATA s15/s20; no other phase contacts CMMS |
 | U-32 (V2) | Outbound HTTPS from the target IIS server to `www.zmms.lk` (proxy, firewall, certificate chain) unverified | Live sync in the target environment | P12 prerequisite list; the connector reports `http_error`/`timeout` without changing data |
 | D-103 (V2) | IIS app pool must stay running for scheduled syncs | Missed schedules without user traffic | P12 prerequisite (AlwaysRunning, idleTimeout 0, preload); catch-up rule as fallback |
 
-## 17 ZMMS connector runtime (V2: S20, S21)
+## 17 CMMS connector runtime (V2: S20, S21)
 
 ```mermaid
 sequenceDiagram
   participant T as Scheduler (hosted service)
-  participant L as SQL app lock eq-zmms-sync
-  participant C as ZMMS connector (HttpClient, allow-list)
+  participant L as SQL app lock eq-cmms-sync
+  participant C as CMMS connector (HttpClient, allow-list)
   participant Z as www.zmms.lk
   participant P as Parser (fail closed)
   participant D as EQ database (one transaction)
@@ -453,8 +453,8 @@ sequenceDiagram
   end
 ```
 
-- Lifetime: a `BackgroundService` registered only when `Zmms:Enabled = true` and the configuration validates; it computes the next of SyncTime1/SyncTime2 (Asia/Colombo) from ZmmsSettings (re-read before each wait, so Admin time changes apply without a restart), the next retry, and handles Sync now through an in-process channel. It uses `TimeProvider` so tests drive the clock (midnight, two syncs, next day).
+- Lifetime: a `BackgroundService` registered only when `Cmms:Enabled = true` and the configuration validates; it computes the next of SyncTime1/SyncTime2 (Asia/Colombo) from CmmsSettings (re-read before each wait, so Admin time changes apply without a restart), the next retry, and handles Sync now through an in-process channel. It uses `TimeProvider` so tests drive the clock (midnight, two syncs, next day).
 - HTTP: a named `HttpClient` with `AllowAutoRedirect = false` (the connector follows a redirect itself only inside the allow-list), a fresh `CookieContainer` per run, TLS validation on, the timeouts and size caps of DATA s15.2, a fixed `User-Agent` naming the app. Session cookies are discarded at the end of the run and never logged.
 - Logging: run ID, trigger, business date, outcome, failure code, counters and durations only; no URLs with query values beyond the configured path, no headers, bodies, cookies or account values. A log-redaction test asserts the account values never appear (ZM04).
-- Health: `/eq-maintenance/health/ready` is unaffected by ZMMS (an outage must not mark the app unhealthy); ZMMS health is the Admin endpoint (API s4.20).
+- Health: `/eq-maintenance/health/ready` is unaffected by CMMS (an outage must not mark the app unhealthy); CMMS health is the Admin endpoint (API s4.20).
 - Tests: the connector is exercised with a fake handler over the fixtures (normal day, empty day, paging, login failure, timeout, changed layout, partial page, duplicate rows, date mismatch) and with concurrent triggers against a disposable SQL Server (ZM01-ZM07). Only P07B, with the account configured locally, runs the single live read-only sync (ZM08).

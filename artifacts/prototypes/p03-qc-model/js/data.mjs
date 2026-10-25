@@ -1,11 +1,11 @@
 // SYNTHETIC equipment and bindings for the P03 model prototype. Nothing here is a fleet fact.
 // Each synthetic QC gets its own mechanism instances and part positions instantiated from the manifest's position
 // nodes; the binding maps node key -> position ID by EXACT key equality (DATA_CONTRACT s10.5 B2). History is keyed by
-// position ID only, so QC-DEMO-01 and QC-DEMO-02 share geometry but never history.
+// position ID only, so QC01 and QC02 share geometry but never history.
 
 export const EQUIPMENT = [
-  { id: 'eq-qc-demo-01', key: 'q01', code: 'QC-DEMO-01', name: 'Synthetic quay crane 1' },
-  { id: 'eq-qc-demo-02', key: 'q02', code: 'QC-DEMO-02', name: 'Synthetic quay crane 2' },
+  { id: 'eq-qc-demo-01', key: 'q01', code: 'QC01', name: 'Synthetic quay crane 1' },
+  { id: 'eq-qc-demo-02', key: 'q02', code: 'QC02', name: 'Synthetic quay crane 2' },
 ];
 
 /** Instantiate synthetic mechanism instances, positions and the exact-key binding for one equipment item. */
@@ -27,5 +27,5 @@ export function instantiate(eq, manifest, catalog) {
   return { mains, subs, positions, binding };
 }
 
-// P02B: synthetic jobs, ZMMS daily jobs, status and the spare-part register now come from the shared V2 data layer of the P02 prototype
+// P02B: synthetic jobs, CMMS daily jobs, status and the spare-part register now come from the shared V2 data layer of the P02 prototype
 // (artifacts/prototypes/p02-ui/js, loaded by index.html), so the flat view and this 3D view show the same current state.

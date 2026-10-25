@@ -58,7 +58,7 @@ try {
     await go('eqTeam', '/equipment/eq-qc-demo-03');
     const head = await text('.eq-head');
     await go('eqTeam', '/fleet');
-    const card = await ev(`[...document.querySelectorAll('.eq-card')].find(c=>c.textContent.includes('QC-DEMO-03')).textContent`);
+    const card = await ev(`[...document.querySelectorAll('.eq-card')].find(c=>c.textContent.includes('QC03')).textContent`);
     return head.includes('Unreported') && head.includes('No status reported yet') && !/In (Ready|Maintenance|Breakdown)/.test(card) && card.includes('No status reported yet');
   });
   await step('C04', 'Status is never colour-only: every status badge has an icon and text', async () => {
@@ -248,7 +248,7 @@ try {
     const ok = r.afterBad.ok === false && r.afterBad.status !== 'completed' && r.afterBad.n === 0 && /out_of_order/.test(r.old) && /exactly 1/.test(r.ser2) && /another equipment/.test(r.other) && r.good === true && r.goodN === 2 && r.lotQty === '2 rope' && /future/.test(r.fut);
     return { ok, detail: JSON.stringify(r) };
   });
-  await step('C20', 'Status rules (P02B adapted: change count is relative, two accepted changes): reason required for Breakdown/Maintenance (and for every correction of a ZMMS-mapped equipment, even Ready), same status refused and Ready needs no reason on unmapped equipment, foreign job refused, job completion never sets Ready', async () => {
+  await step('C20', 'Status rules (P02B adapted: change count is relative, two accepted changes): reason required for Breakdown/Maintenance (and for every correction of a CMMS-mapped equipment, even Ready), same status refused and Ready needs no reason on unmapped equipment, foreign job refused, job completion never sets Ready', async () => {
     await go('eqTeam', '/fleet');
     const r = await ev(`(()=>{const S=(id,p)=>EQ.api.setStatus(id,p); const N0=EQ.history('${Q2}',{level:'equipment'}).statusChanges.length;
       EQ.state.D.equipment.find(e=>e.id==='eq-rtg-demo-07').lifecycle='retired'; // C54: retirement is an isolated scenario; default fleet has 46 active RTGs.
@@ -365,7 +365,7 @@ try {
     }
     await go('eqTeam', '/equipment/eq-rtg-demo-01');
     const records = await text('main');
-    return { ok: !out.length && records.includes('Records for RTG-DEMO-01') && records.includes('Quarterly structural walk-down'), detail: out.join(',') + ' (P02B adapted: open work only in the crane view)' };
+    return { ok: !out.length && records.includes('Records for RTG01') && records.includes('Quarterly structural walk-down'), detail: out.join(',') + ' (P02B adapted: open work only in the crane view)' };
   });
   await step('C29', 'Machinery house is a spatial container: selects nothing, lists contained positions grouped by mechanism', async () => {
     await go('eqTeam', `/equipment/${Q1}?mode=technical`);
@@ -494,16 +494,16 @@ try {
     const n2 = await ev('EQ.state.D.jobs.length');
     return banner.includes('Synthetic data only') && /no sign-in/.test(banner) && stor === 0 && n2 === n1 - 1;
   });
-  await step('C42', 'Only synthetic equipment: every equipment code contains -DEMO- (or the single Admin-registered test code) and records are marked DevelopmentFixture', async () => {
+  await step('C42', 'Only development fixtures: equipment uses the approved QC/RTG/ES code format and records remain marked DevelopmentFixture', async () => {
     await go('eqTeam', '/fleet');
-    return ev(`EQ.state.D.equipment.every(e=>/-DEMO-/.test(e.code) && e.origin==='DevelopmentFixture')`);
+    return ev(`EQ.state.D.equipment.every(e=>/^(QC|RTG|ES)\\d{2}$/.test(e.code) && e.origin==='DevelopmentFixture')`);
   });
 
   // ---------------- U1 repair (U1-C01..C03, C05, C07, C08) ----------------
   // U1-C29 (round 8, D-166): the stroke outline became the in-house flat STS illustration (js/fleet-art.js); the same parts are required.
   await step('U1-C01', 'QC type icon is the ship-to-shore crane (legs, girder and boom, A-frame with stays, trolley rope and spreader) on QC cards [U1-C29: flat illustration]', async () => {
     await go('eqTeam', '/fleet');
-    const r = await ev(`(()=>{const c=[...document.querySelectorAll('.eq-card')].find(x=>x.textContent.includes('QC-DEMO-01')); const svg=c&&c.querySelector('.thumb svg'); return svg?{art:svg.dataset.art, parts:[...svg.querySelectorAll('g[data-part]')].map(g=>g.dataset.part)}:{parts:[]}})()`);
+    const r = await ev(`(()=>{const c=[...document.querySelectorAll('.eq-card')].find(x=>x.textContent.includes('QC01')); const svg=c&&c.querySelector('.thumb svg'); return svg?{art:svg.dataset.art, parts:[...svg.querySelectorAll('g[data-part]')].map(g=>g.dataset.part)}:{parts:[]}})()`);
     const need = ['legs', 'portal', 'boom-and-girder', 'a-frame', 'forestays', 'backstay', 'trolley', 'hoist-ropes', 'spreader'];
     return { ok: r.art === 'QC' && need.every((p) => r.parts.includes(p)), detail: JSON.stringify(r) };
   });
@@ -515,7 +515,7 @@ try {
         note: note && (note.title + ' | ' + note.textContent), cards: cards.length, maxBottom: Math.max(...cards.map(c=>c.getBoundingClientRect().bottom)), maxH: Math.max(...cards.map(c=>c.getBoundingClientRect().height))};})()`);
     const c = await ev('EQ.fleetCounts(EQ.state.D.equipment)');
     await b.viewport(1920, 1080);
-    return { ok: !r.pageHead && !r.eyebrow && /sr-only/.test(r.h1) && r.h1h <= 1 && /automatically from today's ZMMS/.test(r.note) && /Unreported/.test(r.note) && r.cards === c.total && r.maxBottom <= 768 && r.maxH <= 60, detail: JSON.stringify(r) };
+    return { ok: !r.pageHead && !r.eyebrow && /sr-only/.test(r.h1) && r.h1h <= 1 && /automatically from today's CMMS/.test(r.note) && /Unreported/.test(r.note) && r.cards === c.total && r.maxBottom <= 768 && r.maxH <= 60, detail: JSON.stringify(r) };
   });
   await step('U1-C03', 'Flat schematic: back-reach area, CICT logo (Overall only) and stairs are drawn and selectable', async () => {
     await go('eqTeam', `/equipment/${Q1}`);

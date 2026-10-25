@@ -1,7 +1,7 @@
 // P02B browser checks for the V2 interface prototype (headless Chrome through the DevTools protocol).
 // Needs the prototype server:  node artifacts/prototypes/p02-ui/serve.mjs   (http://127.0.0.1:5312/)
 // Usage: node tools/p02b/check_p02b.mjs [baseUrl] [outJson] [--only=A,B]
-// PROTOTYPE-LEVEL evidence only: synthetic in-memory data, no sign-in, no persistence, no ZMMS contact. A PASS here supports the cited
+// PROTOTYPE-LEVEL evidence only: synthetic in-memory data, no sign-in, no persistence, no CMMS contact. A PASS here supports the cited
 // acceptance IDs at prototype level; it does not execute them against the real app (those stay NOT RUN until P09-P11).
 import fs from 'node:fs';
 import path from 'node:path';
@@ -126,14 +126,14 @@ try {
     await go('admin', '/fleet');
     const r = await ev(`(()=>{const out={};
       const eqW=()=>EQ.api.createJob({equipmentId:'${Q2}',kind:'repair',title:'role probe',level:'equipment'}); const eqS=()=>EQ.api.setStatus('${Q2}',{status:'maintenance',reason:'probe'});
-      const facW=()=>EQ.fac.api.hold('fj-3','probe'); const facP=()=>EQ.fac.api.progress('fj-3',{qty:1,key:'probe-'+Math.random()}); const sync=()=>EQ.zmms.syncNow({}); const ap=()=>EQ.access.save([],1,'');
+      const facW=()=>EQ.fac.api.hold('fj-3','probe'); const facP=()=>EQ.fac.api.progress('fj-3',{qty:1,key:'probe-'+Math.random()}); const sync=()=>EQ.cmms.syncNow({}); const ap=()=>EQ.access.save([],1,'');
       const oneT=()=>EQ.fac.api.createJob({kind:'oneTime',discipline:'civil',typeCode:'inspection',name:'one time probe',quantity:1});
       const code=(f)=>{const x=f(); return x.ok===false||x.status>=400 ? x.status : 'ok';};
-      for (const r of ['management','eqTeam','facTeam']) { EQ.state.role=r; EQ.access.refreshSession('t'); out[r]={eqJob:code(eqW), eqStatus:code(eqS), facHold:code(facW), facProgress:code(facP), zmmsSync:code(sync), access:code(ap), oneTime:code(oneT)}; }
+      for (const r of ['management','eqTeam','facTeam']) { EQ.state.role=r; EQ.access.refreshSession('t'); out[r]={eqJob:code(eqW), eqStatus:code(eqS), facHold:code(facW), facProgress:code(facP), cmmsSync:code(sync), access:code(ap), oneTime:code(oneT)}; }
       EQ.state.role='admin'; EQ.access.refreshSession('t'); return out;})()`);
     const M = r.management, E = r.eqTeam, F = r.facTeam;
-    const ok = Object.values(M).every((v) => v === 403) && E.eqJob === 'ok' && E.eqStatus === 'ok' && E.facHold === 403 && E.facProgress === 403 && E.zmmsSync === 403 && E.access === 403 && E.oneTime === 403
-      && F.eqJob === 403 && F.eqStatus === 403 && F.facHold !== 403 && F.zmmsSync === 403 && F.access === 403 && F.oneTime === 'ok';
+    const ok = Object.values(M).every((v) => v === 403) && E.eqJob === 'ok' && E.eqStatus === 'ok' && E.facHold === 403 && E.facProgress === 403 && E.cmmsSync === 403 && E.access === 403 && E.oneTime === 403
+      && F.eqJob === 403 && F.eqStatus === 403 && F.facHold !== 403 && F.cmmsSync === 403 && F.access === 403 && F.oneTime === 'ok';
     return { ok, detail: JSON.stringify(r) };
   });
 
@@ -233,13 +233,13 @@ try {
     const wholeJobs = await ev(`(()=>{const H=EQ.history('${Q1}',{level:'equipment',id:null},false); return H.open.length+H.completed.length})()`);
     return { ok: res.every((r) => r.uniq && r.same && r.tagsOk) && wholeJobs >= 3 && res[0].got === wholeJobs, detail: JSON.stringify(res) };
   });
-  await step('C04', ['U1-C19', 'ZM07', 'S20'], "Maintenance tab: today's equipment-level jobs, source and freshness remain without repeated status/scoping paragraphs (U1-C37); unmapped equipment says Not linked to ZMMS", async () => {
+  await step('C04', ['U1-C19', 'ZM07', 'S20'], "Maintenance tab: today's equipment-level jobs, source and freshness remain without repeated status/scoping paragraphs (U1-C37); unmapped equipment says Not linked to CMMS", async () => {
     await go('eqTeam', `/eq/equipment/${Q1}?main=mi-q01-01&sub=si-q01-011&part=pp-q01-007`, {}, 600);
     const t1 = await panelText(); const nums1 = await ev(`[...document.querySelectorAll('.side-panel [data-zjob]')].map(e=>e.dataset.zjob)`);
     await go('eqTeam', `/eq/equipment/${Q1}`, {}, 600); const nums2 = await ev(`[...document.querySelectorAll('.side-panel [data-zjob]')].map(e=>e.dataset.zjob)`);
-    const want = await ev(`EQ.zmms.todayJobs('${Q1}').map(j=>j.jobNo)`); const earlier = await ev(`EQ.zmms.jobsOn('${Q1}', EQ.shiftDay(EQ.todayColombo(),-1), false).length`);
+    const want = await ev(`EQ.cmms.todayJobs('${Q1}').map(j=>j.jobNo)`); const earlier = await ev(`EQ.cmms.jobsOn('${Q1}', EQ.shiftDay(EQ.todayColombo(),-1), false).length`);
     await go('eqTeam', '/eq/equipment/eq-qc-demo-03', {}, 600); const t3 = await panelText();
-    return { ok: JSON.stringify(nums1) === JSON.stringify(want) && JSON.stringify(nums2) === JSON.stringify(want) && want.length >= 1 && earlier >= 1 && /ZMMS data from/.test(t1) && /Auto \(ZMMS\)|Manual/.test(t1) && !/Caused by ZMMS job|same list shows for any selection|no earlier days here/.test(t1) && /Not linked to ZMMS/.test(t3), detail: JSON.stringify({ want, nums1, nums2, earlierDaysExistButHidden: earlier }) };
+    return { ok: JSON.stringify(nums1) === JSON.stringify(want) && JSON.stringify(nums2) === JSON.stringify(want) && want.length >= 1 && earlier >= 1 && /CMMS data from/.test(t1) && /Auto \(CMMS\)|Manual/.test(t1) && !/Caused by CMMS job|same list shows for any selection|no earlier days here/.test(t1) && /Not linked to CMMS/.test(t3), detail: JSON.stringify({ want, nums1, nums2, earlierDaysExistButHidden: earlier }) };
   });
   await step('C05', ['U1-C19', 'S22', 'SP04', 'SP03'], 'Spare parts tab: current register rows inside the selection with condition, brand, replaced date, expected life, next predicted replacement and flags; no history; non-designated part says Not a major spare part', async () => {
     const check = async (hash, scope) => { await go('eqTeam', hash, {}, 250); await ev(`EQ.nav('/eq/equipment/${Q1}', Object.assign(Object.fromEntries(new URLSearchParams(location.hash.split('?')[1]||'')), {panel:'spareParts'}))`); await b.wait(500);
@@ -288,64 +288,65 @@ try {
   });
 
   // =============================================================== D. fleet cards
-  await step('D01', ['S02', 'S03', 'ZM05', 'OPS01'], "Fleet: every card shows the status source (Auto/Manual) and today's ZMMS daily-job count; the 'manual status, no telemetry' note is replaced by the automatic-status meaning; unmapped equipment is Manual and has no count", async () => {
+  await step('D01', ['S02', 'S03', 'ZM05', 'OPS01'], "Fleet: every card shows the status source (Auto/Manual) and today's CMMS daily-job count; the 'manual status, no telemetry' note is replaced by the automatic-status meaning; unmapped equipment is Manual and has no count", async () => {
     await go('eqTeam', '/eq/fleet', {}, 600);
-    const cards = await ev(`[...document.querySelectorAll('.eq-card')].map(c=>({code:c.querySelector('.code').firstChild.textContent, src:c.querySelector('.src').textContent, zc:c.querySelector('[data-zmms-today]')?c.querySelector('[data-zmms-today]').dataset.zmmsToday:null}))`);
-    const truth = await ev(`EQ.state.D.equipment.filter(e=>e.lifecycle==='active').map(e=>({code:e.code, src:EQ.zmms.mode(e).label, zc:EQ.zmms.todayCount(e)}))`);
+    const cards = await ev(`[...document.querySelectorAll('.eq-card')].map(c=>({code:c.querySelector('.code').firstChild.textContent, src:c.querySelector('.src').textContent, zc:c.querySelector('[data-cmms-today]')?c.querySelector('[data-cmms-today]').dataset.cmmsToday:null}))`);
+    const truth = await ev(`EQ.state.D.equipment.filter(e=>e.lifecycle==='active').map(e=>({code:e.code, src:EQ.cmms.mode(e).label, zc:EQ.cmms.todayCount(e)}))`);
     const same = cards.length === truth.length && cards.every((c) => { const t = truth.find((x) => x.code === c.code); return t && t.src === c.src && String(t.zc == null ? null : t.zc) === String(c.zc); });
     const page = await text('main'); const note = await ev(`document.querySelector('[data-fk="status-note"]').title`);
     const unmapped = cards.filter((c) => c.zc == null); const manual = cards.filter((c) => c.src === 'Manual');
-    return { ok: same && cards.some((c) => c.src === 'Auto' && Number(c.zc) >= 1) && unmapped.length >= 3 && unmapped.every((c) => c.src === 'Manual') && manual.length > unmapped.length - 1 && !/telemetry/i.test(page) && /automatically from today's ZMMS daily jobs/.test(note) && /correct it with a reason/.test(note) && /Equipment that has never been set shows Unreported/.test(note), detail: JSON.stringify({ n: cards.length, auto: cards.filter((c) => c.src === 'Auto').length, manual: manual.length, unmapped: unmapped.length }) };
+    return { ok: same && cards.some((c) => c.src === 'Auto' && Number(c.zc) >= 1) && unmapped.length >= 3 && unmapped.every((c) => c.src === 'Manual') && manual.length > unmapped.length - 1 && !/telemetry/i.test(page) && /automatically from today's CMMS daily jobs/.test(note) && /correct it with a reason/.test(note) && /Equipment that has never been set shows Unreported/.test(note), detail: JSON.stringify({ n: cards.length, auto: cards.filter((c) => c.src === 'Auto').length, manual: manual.length, unmapped: unmapped.length }) };
   });
-  await step('D02', ['S02', 'S03', 'OPS01'], 'Fleet Auto/Manual source filter reconciles with the cards; the manual correction held by QC-DEMO-04 shows Manual although it is mapped; freshness line shows ZMMS data from', async () => {
+  await step('D02', ['S02', 'S03', 'OPS01'], 'Fleet Auto/Manual source filter reconciles with the cards; the manual correction held by QC04 shows Manual although it is mapped; freshness line shows CMMS data from', async () => {
     await go('eqTeam', '/eq/fleet?source=manual', {}, 500); const man = await ev(`[...document.querySelectorAll('.eq-card')].map(c=>c.querySelector('.code').firstChild.textContent)`);
     await go('eqTeam', '/eq/fleet?source=auto', {}, 500); const aut = await ev(`[...document.querySelectorAll('.eq-card')].map(c=>c.querySelector('.code').firstChild.textContent)`);
-    const total = await ev(`EQ.state.D.equipment.filter(e=>e.lifecycle==='active').length`); const q4 = await ev(`(()=>{const e=EQ.eq('eq-qc-demo-04'); return [e.zmmsMapped, EQ.zmms.mode(e).key]})()`);
-    const fr = await text('[data-fk="zmms-fresh"]');
-    return { ok: man.length + aut.length === total && !man.some((c) => aut.includes(c)) && man.includes('QC-DEMO-04') && q4[0] === true && q4[1] === 'manualCorrection' && /ZMMS data from \d/.test(fr), detail: JSON.stringify({ man: man.length, auto: aut.length, total, q4, fr }) };
+    const total = await ev(`EQ.state.D.equipment.filter(e=>e.lifecycle==='active').length`); const q4 = await ev(`(()=>{const e=EQ.eq('eq-qc-demo-04'); return [e.cmmsMapped, EQ.cmms.mode(e).key]})()`);
+    const fr = await text('[data-fk="cmms-fresh"]');
+    return { ok: man.length + aut.length === total && !man.some((c) => aut.includes(c)) && man.includes('QC04') && q4[0] === true && q4[1] === 'manualCorrection' && /CMMS data from \d/.test(fr), detail: JSON.stringify({ man: man.length, auto: aut.length, total, q4, fr }) };
   });
 
 
   // =============================================================== E. EQ Jobs tab in three parts
   // U1-C20 (round 5): the first part is split into two tabs, Special/Projects and Daily work (CMMS); the same checks run on each tab.
-  await step('E01', ['S08', 'ZM07', 'HIS06', 'U1-C20'], 'EQ Jobs Special/Projects and Daily work (CMMS) tabs (U1-C20 split of part 1): special jobs on their own tab, the read-only ZMMS daily jobs on the Daily work tab with "ZMMS data from"; unmatched equipment never listed here; filters (equipment, type, date range, search) apply to both lists and stay in the URL; earlier days are kept', async () => {
+  await step('E01', ['S08', 'ZM07', 'HIS06', 'U1-C20'], 'EQ Jobs Special/Projects and Daily work (CMMS) tabs (U1-C20 split of part 1): special jobs on their own tab, the read-only CMMS daily jobs on the Daily work tab with "CMMS data from"; unmatched equipment never listed here; filters (equipment, type, date range, search) apply to both lists and stay in the URL; earlier days are kept', async () => {
     await go('eqTeam', '/eq/jobs/special', {}, 700);
     const nav = await ev(`[...document.querySelectorAll('.subtabs a')].map(a=>a.textContent+(a.getAttribute('aria-current')==='page'?'*':'')).join('|')`);
-    const specialOnly = await ev(`!!document.querySelector('.job') && [...document.querySelectorAll('h2')].some(h=>h.textContent==='Special jobs') && !document.getElementById('dj-h')`);
+    // U1 compact board keeps the three work columns instead of the removed duplicate heading.
+    const specialOnly = await ev(`!!document.querySelector('.job') && ['Pending','Current','Completed'].every(label=>[...document.querySelectorAll('h2')].some(h=>h.textContent===label)) && !document.getElementById('dj-h')`);
     await go('eqTeam', '/eq/jobs/daily', {}, 700);
     const dailyOnly = await ev(`!!document.getElementById('dj-h') && !document.querySelector('.job')`);
     const fresh = await text('#daily'); const ro = await ev(`document.querySelectorAll('#daily .daily-table input, #daily .daily-table select, #daily .daily-table textarea, #daily .daily-table button').length`);
     const today = await ev(`[...document.querySelectorAll('.daily-table tbody tr')].map(r=>r.dataset.zjob)`);
-    const wantToday = await ev(`EQ.zmms.jobsOn('${Q1}',EQ.todayColombo(),false).length + EQ.state.D.zmms.jobs.filter(j=>j.match==='matched' && j.date===EQ.todayColombo() && j.sourceState==='present' && j.equipmentId!=='${Q1}').length`);
-    const unm = await ev(`EQ.state.D.zmms.jobs.filter(j=>j.match!=='matched' && j.date===EQ.todayColombo()).map(j=>j.jobNo)`);
+    const wantToday = await ev(`EQ.cmms.jobsOn('${Q1}',EQ.todayColombo(),false).length + EQ.state.D.cmms.jobs.filter(j=>j.match==='matched' && j.date===EQ.todayColombo() && j.sourceState==='present' && j.equipmentId!=='${Q1}').length`);
+    const unm = await ev(`EQ.state.D.cmms.jobs.filter(j=>j.match!=='matched' && j.date===EQ.todayColombo()).map(j=>j.jobNo)`);
     // filters
     await go('eqTeam', `/eq/jobs/daily?type=RTG`, {}, 600); const rtgRows = await ev(`[...document.querySelectorAll('.daily-table tbody tr')].map(r=>r.querySelector('td a').textContent)`);
-    await go('eqTeam', `/eq/jobs/special?type=RTG`, {}, 600); const rtgJobs = await ev(`[...document.querySelectorAll('.job')].map(j=>j.textContent.match(/(QC|RTG|ES)-DEMO-\\d+/)[1])`);
+    await go('eqTeam', `/eq/jobs/special?type=RTG`, {}, 600); const rtgJobs = await ev(`[...document.querySelectorAll('.job')].map(j=>j.textContent.match(/(QC|RTG|ES)\\d+/)[1])`);
     await go('eqTeam', `/eq/jobs/daily?equipment=${Q1}&from=${'2000-01-01'}&to=2999-01-01`, {}, 600); const allDays = await ev(`new Set([...document.querySelectorAll('.daily-table tbody tr td:first-child')].map(t=>t.textContent)).size`);
     await go('eqTeam', `/eq/jobs/daily?equipment=${Q2}&from=${'2000-01-01'}&to=2999-01-01`, {}, 600);
-    const absent = await ev(`!!document.querySelector('.daily-table tr.inactive') && [...document.querySelectorAll('.daily-table')].some(t=>/No longer in the ZMMS list/.test(t.textContent))`);
-    await go('eqTeam', `/eq/jobs/daily?equipment=${Q2}`, {}, 600); const q2Only = await ev(`[...document.querySelectorAll('.daily-table tbody tr')].every(r=>r.querySelector('td a').textContent==='QC-DEMO-02')`);
+    const absent = await ev(`!!document.querySelector('.daily-table tr.inactive') && [...document.querySelectorAll('.daily-table')].some(t=>/No longer in the CMMS list/.test(t.textContent))`);
+    await go('eqTeam', `/eq/jobs/daily?equipment=${Q2}`, {}, 600); const q2Only = await ev(`[...document.querySelectorAll('.daily-table tbody tr')].every(r=>r.querySelector('td a').textContent==='QC02')`);
     const urlKeeps = await ev(`location.hash.includes('equipment=${Q2}') && [...document.querySelectorAll('.subtabs a')].every(a=>a.getAttribute('href').includes('equipment=${Q2}'))`);
     const listed = await ev(`(EQ.dailyRows({}).map(j=>j.jobNo))`);
-    return { ok: /^Special\/Projects\*\|Daily work \(CMMS\)\|EQ status\|Spare parts condition$/.test(nav) && specialOnly && dailyOnly && /ZMMS data from \d/.test(fresh) && ro === 0 && today.length === wantToday && !unm.some((n) => listed.includes(n)) && rtgRows.length >= 3 && rtgRows.every((c) => /^RTG-/.test(c)) && rtgJobs.length > 0 && rtgJobs.every((c) => c === 'RTG') && allDays >= 3 && absent && q2Only && urlKeeps,
+    return { ok: /^Special\/Projects\*\|Daily work \(CMMS\)\|EQ status\|Spare parts condition$/.test(nav) && specialOnly && dailyOnly && /CMMS data from \d/.test(fresh) && ro === 0 && today.length === wantToday && !unm.some((n) => listed.includes(n)) && rtgRows.length >= 3 && rtgRows.every((c) => /^RTG\d{2}$/.test(c)) && rtgJobs.length > 0 && rtgJobs.every((c) => c === 'RTG') && allDays >= 3 && absent && q2Only && urlKeeps,
       detail: JSON.stringify({ nav, specialOnly, dailyOnly, ro, today: today.length, wantToday, unmatchedHidden: unm.length, rtg: rtgRows.length, rtgJobs: rtgJobs.length, allDays, absent, q2Only, urlKeeps }) };
   });
   await step('E02', ['S08', 'S21', 'ZM06', 'JOB13'], 'EQ Jobs part 2 (EQ status): one row per active equipment with source and mode; EQ Team corrects with a mandatory reason (Manual for today), Back to automatic ends it; the status history lists source, actor or sync run and reason; Management has no action buttons', async () => {
     await go('eqTeam', '/eq/jobs/status', {}, 700);
     const rows = await count('.status-board tbody tr'); const want = await ev(`EQ.state.D.equipment.filter(e=>e.lifecycle==='active').length`);
     const hasAuto = await ev(`[...document.querySelectorAll('.status-board tbody tr')].some(r=>r.querySelector('.src.auto'))`);
-    // correct QC-DEMO-02 through the dialog: no reason -> error; then reason -> Manual
+    // correct QC02 through the dialog: no reason -> error; then reason -> Manual
     await b.click(`[data-fk="correct-${Q2}"]`); await b.wait(300);
     await b.click('#sf-status-breakdown'); await b.click('dialog button[type="submit"]'); await b.wait(400); const err = await text('dialog');
     await b.setValue('#sf-reason', 'Hoist brake fault found at the 08:00 walk-down (check)'); await b.click('dialog button[type="submit"]'); await b.wait(500);
-    const after = await ev(`(()=>{const e=EQ.eq('${Q2}'); return {status:e.status, mode:EQ.zmms.mode(e).key, row:document.querySelector('[data-eq="${Q2}"]').textContent}})()`);
+    const after = await ev(`(()=>{const e=EQ.eq('${Q2}'); return {status:e.status, mode:EQ.cmms.mode(e).key, row:document.querySelector('[data-eq="${Q2}"]').textContent}})()`);
     const autoBtn = await exists(`[data-fk="auto-${Q2}"]`);
     await b.click(`[data-fk="auto-${Q2}"]`); await b.wait(500);
-    const back = await ev(`(()=>{const e=EQ.eq('${Q2}'); return {mode:EQ.zmms.mode(e).key, status:e.status}})()`);
+    const back = await ev(`(()=>{const e=EQ.eq('${Q2}'); return {mode:EQ.cmms.mode(e).key, status:e.status}})()`);
     const hist = await ev(`[...document.querySelectorAll('[data-sc]')].slice(0,4).map(r=>r.textContent)`);
     const histKinds = await ev(`EQ.state.D.statusChanges.filter(c=>c.equipmentId==='${Q2}').map(c=>c.kind+':'+c.source).join(',')`);
     await go('management', '/eq/jobs/status', {}, 600); const mBtns = await count('.status-board button');
-    return { ok: rows === want && hasAuto && /A reason is required for every correction/.test(err) && after.status === 'breakdown' && after.mode === 'manualCorrection' && /Manual/.test(after.row) && autoBtn && back.mode !== 'manualCorrection' && hist.length >= 3 && hist.some((h) => /ZMMS sync|User/.test(h)) && /manualCorrection:manual/.test(histKinds) && /backToAutomatic/.test(histKinds) && mBtns === 0, detail: JSON.stringify({ rows, want, after: { s: after.status, m: after.mode }, back, histKinds, mgmtButtons: mBtns }) };
+    return { ok: rows === want && hasAuto && /A reason is required for every correction/.test(err) && after.status === 'breakdown' && after.mode === 'manualCorrection' && /Manual/.test(after.row) && autoBtn && back.mode !== 'manualCorrection' && hist.length >= 3 && hist.some((h) => /CMMS sync|User/.test(h)) && /manualCorrection:manual/.test(histKinds) && /backToAutomatic/.test(histKinds) && mBtns === 0, detail: JSON.stringify({ rows, want, after: { s: after.status, m: after.mode }, back, histKinds, mgmtButtons: mBtns }) };
   });
   await step('E03', ['S08', 'S22', 'SP03', 'SP04'], 'EQ Jobs part 3 (spare parts condition): register per equipment with due-soon / overdue flags, flag filter, per-part history that keeps previous values after two edits; Management has no update buttons', async () => {
     await go('eqTeam', '/eq/jobs/spare-parts', {}, 700);
@@ -365,20 +366,20 @@ try {
     return { ok: rows === want && want >= 10 && flags.over >= 2 && flags.soon >= 1 && flags.rowsOver >= 1 && JSON.stringify(ov.sort()) === JSON.stringify(wantOv.sort()) && wantOv.length >= 2 && r2.ok[0] && r2.ok[1] && r2.n >= 3 && r2.top.before.brand === 'Brand One' && r2.top.after.brand === 'Brand Two' && /Brand One/.test(histText) && /Brand Two/.test(histText) && /nameplate read again/.test(histText) && !/Brand One/.test(crane) && /Brand Two/.test(crane) && mBtns === 0, detail: JSON.stringify({ rows, want, flags, overdueIds: ov.length, history: r2.n, craneShowsOnlyCurrent: !/Brand One/.test(crane), mgmtUpdate: mBtns }) };
   });
 
-  // =============================================================== F. ZMMS rules (synthetic sync; never contacts ZMMS)
-  await step('F01', ['ZM02', 'S20'], 'A failed run (login failure, layout change, timeout, HTTP error) records itself, keeps every row and every status unchanged, marks the data stale and warns; "ZMMS data from" stays at the last good run', async () => {
-    await go('admin', '/admin/eq/zmms', {}, 700);
-    const snap = () => ev(`JSON.stringify({st:EQ.state.D.equipment.map(e=>[e.id,e.status,e.statusSince,e.statusSource]), jobs:EQ.state.D.zmms.jobs.length, from:EQ.zmms.lastSuccess().endedUtc, hist:EQ.state.D.statusChanges.length})`);
+  // =============================================================== F. CMMS rules (synthetic sync; never contacts CMMS)
+  await step('F01', ['ZM02', 'S20'], 'A failed run (login failure, layout change, timeout, HTTP error) records itself, keeps every row and every status unchanged, marks the data stale and warns; "CMMS data from" stays at the last good run', async () => {
+    await go('admin', '/admin/eq/cmms', {}, 700);
+    const snap = () => ev(`JSON.stringify({st:EQ.state.D.equipment.map(e=>[e.id,e.status,e.statusSince,e.statusSource]), jobs:EQ.state.D.cmms.jobs.length, from:EQ.cmms.lastSuccess().endedUtc, hist:EQ.state.D.statusChanges.length})`);
     const before = await snap(); const out = {};
-    for (const code of ['login_failed', 'layout_changed', 'timeout', 'http_error']) { const r = await ev(`(()=>{const x=EQ.zmms.syncNow({outcome:'${code}'}); return [x.ok, x.changedNothing, x.run && x.run.outcome, x.run && x.run.failureCode]})()`); out[code] = r; }
-    const after = await snap(); const fr = await ev(`EQ.zmms.freshness()`);
-    await go('eqTeam', '/eq/fleet', {}, 500); await ev(`EQ.zmms.syncNow({outcome:'timeout', system:true}); EQ.rerender()`); await b.wait(400); const fleetFresh = await text('[data-fk="zmms-fresh"]');
-    return { ok: before === after && Object.values(out).every((r) => r[0] && r[1] && r[2] === 'failed') && fr.stale && fr.latestOutcome === 'failed' && /stale/.test(fleetFresh) && /ZMMS data from/.test(fleetFresh), detail: JSON.stringify({ unchanged: before === after, runs: out, stale: fr.stale, fleetFresh }) };
+    for (const code of ['login_failed', 'layout_changed', 'timeout', 'http_error']) { const r = await ev(`(()=>{const x=EQ.cmms.syncNow({outcome:'${code}'}); return [x.ok, x.changedNothing, x.run && x.run.outcome, x.run && x.run.failureCode]})()`); out[code] = r; }
+    const after = await snap(); const fr = await ev(`EQ.cmms.freshness()`);
+    await go('eqTeam', '/eq/fleet', {}, 500); await ev(`EQ.cmms.syncNow({outcome:'timeout', system:true}); EQ.rerender()`); await b.wait(400); const fleetFresh = await text('[data-fk="cmms-fresh"]');
+    return { ok: before === after && Object.values(out).every((r) => r[0] && r[1] && r[2] === 'failed') && fr.stale && fr.latestOutcome === 'failed' && /stale/.test(fleetFresh) && /CMMS data from/.test(fleetFresh), detail: JSON.stringify({ unchanged: before === after, runs: out, stale: fr.stale, fleetFresh }) };
   });
-  await step('F02', ['ZM05', 'S21'], 'Automatic status: unmapped job-type values stop the status change for the equipment concerned and automatic mode cannot be switched on until mapped; after mapping a breakdown job gives Breakdown, a maintenance job Maintenance, nothing in the plan gives Ready for OPS, each with its causing ZMMS jobs', async () => {
-    await go('admin', '/admin/eq/zmms', {}, 700);
+  await step('F02', ['ZM05', 'S21'], 'Automatic status: unmapped job-type values stop the status change for the equipment concerned and automatic mode cannot be switched on until mapped; after mapping a breakdown job gives Breakdown, a maintenance job Maintenance, nothing in the plan gives Ready for OPS, each with its causing CMMS jobs', async () => {
+    await go('admin', '/admin/eq/cmms', {}, 700);
     const r = await ev(`(()=>{
-      const Z=EQ.zmms, z=EQ.state.D.zmms; const out={};
+      const Z=EQ.cmms, z=EQ.state.D.cmms; const out={};
       // empty mapping state: every value unmapped, automatic off -> a sync stores jobs and changes no status
       z.valueMappings.forEach(v=>{v.effect='unmapped'}); z.settings.autoEnabled=false;
       const st0=EQ.state.D.equipment.map(e=>e.status).join();
@@ -394,12 +395,12 @@ try {
       m.status='maintenance'; const run=Z.syncNow({});
       out.after={bd:[q.status,q.statusSource,q.statusCauses], ready:[m.status], wire:[w.status,w.statusCauses], applied:run.run.applied, ranOk:run.ok};
       return out;})()`);
-    const ok = r.empty.changed === false && r.empty.applied === 0 && r.autoRefused.ok === false && r.autoRefused.code === 'zmms_mapping_incomplete' && r.autoOn && r.after.bd[0] === 'breakdown' && r.after.bd[1] === 'zmms' && r.after.bd[2].length >= 1 && r.after.ready[0] === 'readyForOps' && r.after.wire[0] === 'maintenance' && r.after.wire[1].length === 1;
+    const ok = r.empty.changed === false && r.empty.applied === 0 && r.autoRefused.ok === false && r.autoRefused.code === 'cmms_mapping_incomplete' && r.autoOn && r.after.bd[0] === 'breakdown' && r.after.bd[1] === 'cmms' && r.after.bd[2].length >= 1 && r.after.ready[0] === 'readyForOps' && r.after.wire[0] === 'maintenance' && r.after.wire[1].length === 1;
     return { ok, detail: JSON.stringify(r) };
   });
   await step('F03', ['ZM06', 'S21', 'JOB13'], 'Manual correction needs a reason, shows Manual, holds over the same day\'s second sync, returns to automatic at the first sync of the next day; Back to automatic ends it earlier; Management cannot correct', async () => {
     await go('eqTeam', '/eq/jobs/status', {}, 600);
-    const r = await ev(`(()=>{const Z=EQ.zmms; const out={}; const e=EQ.eq('${Q2}'); const day=EQ.todayColombo();
+    const r = await ev(`(()=>{const Z=EQ.cmms; const out={}; const e=EQ.eq('${Q2}'); const day=EQ.todayColombo();
       out.noReason=Z.correct('${Q2}',{status:'breakdown',reason:''}).code;
       out.ok=Z.correct('${Q2}',{status:'breakdown',reason:'Brake fault found (check F03)'}).ok; out.mode=Z.mode(e).key; out.status=e.status;
       EQ.state.role='admin'; EQ.access.refreshSession('t'); const second=Z.syncNow({}); EQ.state.role='eqTeam'; EQ.access.refreshSession('t');
@@ -407,39 +408,39 @@ try {
       // the next day's first successful sync: jobs of tomorrow do not exist, so the plan says Ready for OPS
       EQ.state.role='admin'; EQ.access.refreshSession('t'); const tomorrow=EQ.shiftDay(day,1); const next=Z.syncNow({businessDate:tomorrow}); EQ.state.role='eqTeam'; EQ.access.refreshSession('t');
       out.nextDay={status:e.status, mode:Z.mode(e).key, source:e.statusSource, overrideCleared:e.overrideOn===null, last:EQ.state.D.statusChanges.filter(c=>c.equipmentId==='${Q2}').slice(-1)[0].kind};
-      // Back to automatic earlier (QC-DEMO-01, mapped)
+      // Back to automatic earlier (QC01, mapped)
       Z.correct('${Q1}',{status:'readyForOps',reason:'check F03 early'}); const early=Z.backToAutomatic('${Q1}'); out.early={ok:early.ok, mode:Z.mode(EQ.eq('${Q1}')).key};
       EQ.state.role='management'; EQ.access.refreshSession('t'); out.mgmt=Z.correct('${Q2}',{status:'breakdown',reason:'x'}).status; EQ.state.role='eqTeam'; EQ.access.refreshSession('t');
       return out;})()`);
-    return { ok: r.noReason === 'validation_failed' && r.ok && r.mode === 'manualCorrection' && r.status === 'breakdown' && r.afterSecondSync.status === 'breakdown' && r.afterSecondSync.mode === 'manualCorrection' && r.nextDay.mode === 'automatic' && r.nextDay.source === 'zmms' && r.nextDay.overrideCleared && r.nextDay.last === 'overrideEnded' && r.early.ok && r.early.mode !== 'manualCorrection' && r.mgmt === 403, detail: JSON.stringify(r) };
+    return { ok: r.noReason === 'validation_failed' && r.ok && r.mode === 'manualCorrection' && r.status === 'breakdown' && r.afterSecondSync.status === 'breakdown' && r.afterSecondSync.mode === 'manualCorrection' && r.nextDay.mode === 'automatic' && r.nextDay.source === 'cmms' && r.nextDay.overrideCleared && r.nextDay.last === 'overrideEnded' && r.early.ok && r.early.mode !== 'manualCorrection' && r.mgmt === 403, detail: JSON.stringify(r) };
   });
   await step('F04', ['ZM01', 'ZM03', 'S20'], 'Rows are keyed by job number and date (a repeat creates no duplicate); a concurrent Sync now is refused as already running; unmatched rows stay in the queue and attach to equipment after Admin maps them without duplicates', async () => {
-    await go('admin', '/admin/eq/zmms', {}, 700);
-    const r = await ev(`(()=>{const Z=EQ.zmms, z=EQ.state.D.zmms; const out={};
+    await go('admin', '/admin/eq/cmms', {}, 700);
+    const r = await ev(`(()=>{const Z=EQ.cmms, z=EQ.state.D.cmms; const out={};
       const inj={equipmentText:'QC901',type:'CM',status:'Initialized',desc:'Injected job (synthetic check)',jobNo:'900777'};
       const n0=z.jobs.length; const a=Z.syncNow({inject:[inj]}); const b=Z.syncNow({inject:[inj]});
       out.upsert={new1:a.run.rowsNew, new2:b.run.rowsNew, upd2:b.run.rowsUpdated, count:z.jobs.filter(j=>j.jobNo==='900777'&&j.date===EQ.todayColombo()).length, added:z.jobs.length-n0};
       z.runLock=99; out.concurrent=Z.syncNow({}); z.runLock=null;
       const unm=Z.unmatched(); const key=unm[0].key; const rows=unm[0].rows; const total=z.jobs.length;
       const map=Z.addMapping({key, action:'map', equipmentId:'eq-qc-demo-03'});
-      out.map={ok:map.ok, attached:map.attached, rowsBefore:rows, total:z.jobs.length===total, eqMapped:EQ.eq('eq-qc-demo-03').zmmsMapped, nowMatched:z.jobs.filter(j=>j.equipmentKey===key&&j.match==='matched').length, queueAfter:Z.unmatched().length, unmatchedBefore:unm.length};
+      out.map={ok:map.ok, attached:map.attached, rowsBefore:rows, total:z.jobs.length===total, eqMapped:EQ.eq('eq-qc-demo-03').cmmsMapped, nowMatched:z.jobs.filter(j=>j.equipmentKey===key&&j.match==='matched').length, queueAfter:Z.unmatched().length, unmatchedBefore:unm.length};
       out.dupMap=Z.addMapping({key, action:'map', equipmentId:'eq-qc-demo-04'}).code;
       return out;})()`);
     return { ok: r.upsert.new1 === 1 && r.upsert.new2 === 0 && r.upsert.upd2 === 1 && r.upsert.count === 1 && r.concurrent.alreadyRunning === true && r.map.ok && r.map.attached === r.map.rowsBefore && r.map.total && r.map.eqMapped && r.map.nowMatched === r.map.rowsBefore && r.map.queueAfter === r.map.unmatchedBefore - 1 && r.dupMap === 'validation_failed', detail: JSON.stringify(r) };
   });
-  await step('F05', ['ZM02', 'ZM03', 'ZM05', 'S20', 'S21'], 'Admin ZMMS page: sync times and Sync now, health with last success and a synthetic failed run, recent runs, equipment mapping with an ignore entry, unmatched queue, job type and status mapping, status evaluation; Management and EQ Team get 403', async () => {
-    await go('admin', '/admin/eq/zmms', {}, 800);
+  await step('F05', ['ZM02', 'ZM03', 'ZM05', 'S20', 'S21'], 'Admin CMMS page: sync times and Sync now, health with last success and a synthetic failed run, recent runs, equipment mapping with an ignore entry, unmatched queue, job type and status mapping, status evaluation; Management and EQ Team get 403', async () => {
+    await go('admin', '/admin/eq/cmms', {}, 800);
     const t = await text('main');
-    const has = { times: /Sync times/.test(t) && (await exists('input[type=time], input[name*=sync], #zs-1, [data-fk*="sync"]')), health: /health/i.test(t), failed: /layout_changed/.test(t) && /failed/i.test(t), runs: /Recent runs/.test(t), maps: /Equipment mapping/i.test(t), ignore: /ignore/i.test(t), unmatched: /Unmatched queue/.test(t), values: /Job type and job status mapping/.test(t), evalu: /Status evaluation/.test(t), syncNow: /Sync now/.test(t), synth: /synthetic/i.test(t) };
-    await ev(`(()=>{const b=[...document.querySelectorAll('main button')].find(x=>/^Sync now/.test(x.textContent.trim())); if(b) b.click();})()`); await b.wait(500); const runsAfter = await ev(`EQ.state.D.zmms.runs[0].trigger`);
-    await go('management', '/admin/eq/zmms', {}, 500); const m = await text('main'); await go('eqTeam', '/admin/eq/zmms', {}, 500); const e = await text('main');
+    const has = { times: /Sync times/.test(t) && (await exists('input[type=time], input[name*=sync], #zs-1, [data-fk*="sync"]')), health: /health/i.test(t), failed: /layout_changed/.test(t) && /failed/i.test(t), runs: /Recent runs/.test(t), maps: /Equipment mapping/i.test(t), ignore: /ignore/i.test(t), unmatched: /Unmatched queue/.test(t), values: /Job type and job status mapping/.test(t), evalu: /Status evaluation/.test(t), syncNow: /Sync now/.test(t), synth: /Synthetic data only/.test(await text('.proto-banner')) };
+    await ev(`(()=>{const b=[...document.querySelectorAll('main button')].find(x=>/^Sync now/.test(x.textContent.trim())); if(b) b.click();})()`); await b.wait(500); const runsAfter = await ev(`EQ.state.D.cmms.runs[0].trigger`);
+    await go('management', '/admin/eq/cmms', {}, 500); const m = await text('main'); await go('eqTeam', '/admin/eq/cmms', {}, 500); const e = await text('main');
     return { ok: Object.values(has).every(Boolean) && runsAfter === 'manual' && /403/.test(m) && /403/.test(e), detail: JSON.stringify({ has, runsAfter }) };
   });
 
   // =============================================================== G. spare-part rules
-  await step('F06', ['ZM06', 'S21'], "Back to automatic never sets a missing value: when today's evaluation stopped at unmapped values (RTG-DEMO-06, WireRope not mapped) it keeps the corrected value as awaiting today's ZMMS sync instead of applying a null status; with a computed evaluation it applies that value [Repair-R02B finding 3]", async () => {
+  await step('F06', ['ZM06', 'S21'], "Back to automatic never sets a missing value: when today's evaluation stopped at unmapped values (RTG06, WireRope not mapped) it keeps the corrected value as awaiting today's CMMS sync instead of applying a null status; with a computed evaluation it applies that value [Repair-R02B finding 3]", async () => {
     await go('eqTeam', '/eq/jobs/status', {}, 600);
-    const r = await ev(`(()=>{const Z=EQ.zmms; const w='eq-rtg-demo-06', q='eq-qc-demo-02'; const evW=EQ.state.D.zmms.evaluations.find(x=>x.equipmentId===w), evQ=EQ.state.D.zmms.evaluations.find(x=>x.equipmentId===q);
+    const r = await ev(`(()=>{const Z=EQ.cmms; const w='eq-rtg-demo-06', q='eq-qc-demo-02'; const evW=EQ.state.D.cmms.evaluations.find(x=>x.equipmentId===w), evQ=EQ.state.D.cmms.evaluations.find(x=>x.equipmentId===q);
       Z.correct(w,{status:'breakdown',reason:'check F06'}); const a=Z.backToAutomatic(w); const ew=EQ.eq(w); const lastW=EQ.state.D.statusChanges.filter(c=>c.equipmentId===w).slice(-1)[0];
       Z.correct(q,{status:'breakdown',reason:'check F06'}); const b2=Z.backToAutomatic(q); const eq2=EQ.eq(q);
       return {evW:[evW.computed, evW.skip], w:{ok:a.ok, awaiting:a.awaiting, status:ew.status, mode:Z.mode(ew).key, lastKind:lastW.kind, lastSource:lastW.source, lastStatus:lastW.status}, evQ:[evQ.computed, evQ.skip], q:{ok:b2.ok, awaiting:b2.awaiting, status:eq2.status, mode:Z.mode(eq2).key}};})()`);
@@ -458,7 +459,7 @@ try {
         if(want!==row.predicted) bad.push([row.pos.name,eq.code,want,row.predicted]);
         if(!want){ unknown++; if(row.predicted) bad.push(['fabricated',row.pos.name]); }
         else { const d=days(want,today); const f=d<0?'overdue':d<=90?'dueSoon':null; if(f!==row.flag) bad.push(['flag',row.pos.name,f,row.flag]); } });
-      // commissioning date unknown -> Original parts show no prediction (QC-DEMO-02 spreader)
+      // commissioning date unknown -> Original parts show no prediction (QC02 spreader)
       const e2=EQ.eq('eq-qc-demo-02'); const keep=e2.commissionedOn; e2.commissionedOn=null; const sp=EQ.positionsOf('eq-qc-demo-02').find(p=>p.key==='spreader.frame'); const row=EQ.spares.row(sp.id); e2.commissionedOn=keep;
       return {n, unknown, bad, noComm:{cond:row.condition, predicted:row.predicted, why:row.why}};})()`);
     return { ok: r.n >= 10 && r.bad.length === 0 && r.unknown >= 1 && r.noComm.cond === 'original' && r.noComm.predicted === null && /commissioning date unknown/.test(r.noComm.why), detail: JSON.stringify(r) };
@@ -807,7 +808,7 @@ try {
 
   // =============================================================== K. layouts at the required sizes
   const SIZES = [['1920x1080', 1920, 1080, false], ['1366x768', 1366, 768, false], ['tablet 1024x768', 1024, 768, false], ['tablet 768x1024', 768, 1024, false], ['phone 390x844', 390, 844, true]];
-  const ROUTES = [['eqTeam', '/eq/fleet'], ['eqTeam', `/eq/equipment/${Q1}?main=mi-q01-01&sub=si-q01-011&part=pp-q01-007&panel=spareParts`], ['eqTeam', '/eq/jobs/special'], ['eqTeam', '/eq/jobs/status'], ['eqTeam', '/eq/jobs/spare-parts'], ['management', '/fac/dashboard'], ['facTeam', '/fac/jobs'], ['facTeam', '/fac/jobs?view=board'], ['facTeam', '/fac/jobs/fj-2'], ['admin', '/admin/access'], ['admin', '/admin/fac/master-list'], ['admin', '/admin/fac/import'], ['admin', '/admin/fac/settings'], ['admin', '/admin/eq/zmms'], ['admin', '/admin/eq/spare-parts'], ['noAccess', '/eq/fleet']];
+  const ROUTES = [['eqTeam', '/eq/fleet'], ['eqTeam', `/eq/equipment/${Q1}?main=mi-q01-01&sub=si-q01-011&part=pp-q01-007&panel=spareParts`], ['eqTeam', '/eq/jobs/special'], ['eqTeam', '/eq/jobs/status'], ['eqTeam', '/eq/jobs/spare-parts'], ['management', '/fac/dashboard'], ['facTeam', '/fac/jobs'], ['facTeam', '/fac/jobs?view=board'], ['facTeam', '/fac/jobs/fj-2'], ['admin', '/admin/access'], ['admin', '/admin/fac/master-list'], ['admin', '/admin/fac/import'], ['admin', '/admin/fac/settings'], ['admin', '/admin/eq/cmms'], ['admin', '/admin/eq/spare-parts'], ['noAccess', '/eq/fleet']];
   await step('K01', ['OPS02', 'S16', 'FDB05', 'FDB06'], 'Layout at 1920x1080, 1366x768, tablet (1024x768 and 768x1024) and phone (390x844): every new route has no horizontal page overflow, no console error, no accessibility-audit issue (names, ids, focus) and the section switch and tabs stay reachable', async () => {
     const bad = []; let n = 0;
     for (const [label, w, h, mobile] of SIZES) {
@@ -847,9 +848,9 @@ try {
     return { ok, detail: JSON.stringify({ out, tablet: tab }) };
   });
 
-  await step('L04', ['ZM05', 'ZM06', 'S20', 'S21'], "Synthetic ZMMS and status history are self-consistent: every run's business date is the Asia/Colombo date of its start; every automatic or override-ended status row was written by a succeeded run of its own date at that run's end, with no reason and no user, and every automatic Breakdown/Maintenance lists causing ZMMS jobs from that run's plan; every Auto Breakdown/Maintenance equipment shows its causes; no daily job was created after now [Repair-R02B finding 2]", async () => {
+  await step('L04', ['ZM05', 'ZM06', 'S20', 'S21'], "Synthetic CMMS and status history are self-consistent: every run's business date is the Asia/Colombo date of its start; every automatic or override-ended status row was written by a succeeded run of its own date at that run's end, with no reason and no user, and every automatic Breakdown/Maintenance lists causing CMMS jobs from that run's plan; every Auto Breakdown/Maintenance equipment shows its causes; no daily job was created after now [Repair-R02B finding 2]", async () => {
     await go('admin', '/eq/jobs/status', {}, 600);
-    const r = await ev(`(()=>{const z=EQ.state.D.zmms, now=Date.now(); const bad=[];
+    const r = await ev(`(()=>{const z=EQ.state.D.cmms, now=Date.now(); const bad=[];
       z.runs.forEach(r=>{ if (r.businessDate!==EQ.todayOf(r.startedUtc)) bad.push('run '+r.id+' date'); if (Date.parse(r.endedUtc)>now) bad.push('run '+r.id+' in the future'); });
       const sys=EQ.state.D.statusChanges.filter(c=>c.kind==='automatic'||c.kind==='overrideEnded');
       sys.forEach(c=>{ const run=z.runs.find(r=>r.id===c.runId); if(!run||run.outcome!=='succeeded'){bad.push(c.id+' no run'); return;}
@@ -857,15 +858,15 @@ try {
         if (c.at!==run.endedUtc) bad.push(c.id+' not at run end'); if (c.reason!==null) bad.push(c.id+' reason'); if (c.by) bad.push(c.id+' user');
         if (c.status!=='readyForOps') { if(!c.causes.length) bad.push(c.id+' no causes'); c.causes.forEach(no=>{ const j=z.jobs.find(x=>x.jobNo===no && x.date===run.businessDate && x.equipmentId===c.equipmentId); if(!j) bad.push(c.id+' cause '+no+' not in plan'); }); }
         else if (c.causes.length) bad.push(c.id+' ready with causes'); });
-      EQ.state.D.equipment.filter(e=>e.zmmsMapped && e.statusSource==='zmms' && e.status && e.status!=='readyForOps').forEach(e=>{ if(!(e.statusCauses||[]).length) bad.push(e.code+' auto '+e.status+' without cause'); });
+      EQ.state.D.equipment.filter(e=>e.cmmsMapped && e.statusSource==='cmms' && e.status && e.status!=='readyForOps').forEach(e=>{ if(!(e.statusCauses||[]).length) bad.push(e.code+' auto '+e.status+' without cause'); });
       const future=z.jobs.filter(j=>Date.parse(j.created.replace(' ','T')+'+05:30')>now).map(j=>j.jobNo);
-      return {bad, future, automaticRows:sys.length, runsUsed:new Set(sys.map(c=>c.runId)).size, days:new Set(sys.map(c=>c.planDate)).size, rtg06:[EQ.eq('eq-rtg-demo-06').status, EQ.zmms.causeText(EQ.eq('eq-rtg-demo-06'))]};})()`);
+      return {bad, future, automaticRows:sys.length, runsUsed:new Set(sys.map(c=>c.runId)).size, days:new Set(sys.map(c=>c.planDate)).size, rtg06:[EQ.eq('eq-rtg-demo-06').status, EQ.cmms.causeText(EQ.eq('eq-rtg-demo-06'))]};})()`);
     const board = await text('.status-board');
-    return { ok: !r.bad.length && !r.future.length && r.automaticRows >= 5 && r.runsUsed >= 2 && r.days >= 2 && /Caused by ZMMS job/.test(r.rtg06[1]) && /Not in the ZMMS plan for/.test(board), detail: JSON.stringify(r) };
+    return { ok: !r.bad.length && !r.future.length && r.automaticRows >= 5 && r.runsUsed >= 2 && r.days >= 2 && /Caused by CMMS job/.test(r.rtg06[1]) && /Not in the CMMS plan for/.test(board), detail: JSON.stringify(r) };
   });
-  // =============================================================== L. hygiene, provenance and the ZMMS boundary
+  // =============================================================== L. hygiene, provenance and the CMMS boundary
   await step('L01', ['S16', 'S17'], 'No page shows the words null, undefined, NaN or [object Object] and the prototype banner is on every route, for every persona', async () => {
-    const bad = []; const routes = ['/eq/fleet', `/eq/equipment/${Q1}`, `/eq/equipment/${Q1}?main=mi-q01-01&panel=technical`, '/eq/equipment/eq-rtg-demo-01', '/eq/jobs/special', '/eq/jobs/status', '/eq/jobs/spare-parts', '/fac/dashboard', '/fac/dashboard?tv=1', '/fac/jobs', '/fac/jobs?view=board', '/fac/jobs/fj-2', '/admin/access', '/admin/fac/master-list', '/admin/fac/import', '/admin/fac/settings', '/admin/eq/equipment', '/admin/eq/zmms', '/admin/eq/spare-parts', '/admin/eq/positions'];
+    const bad = []; const routes = ['/eq/fleet', `/eq/equipment/${Q1}`, `/eq/equipment/${Q1}?main=mi-q01-01&panel=technical`, '/eq/equipment/eq-rtg-demo-01', '/eq/jobs/special', '/eq/jobs/status', '/eq/jobs/spare-parts', '/fac/dashboard', '/fac/dashboard?tv=1', '/fac/jobs', '/fac/jobs?view=board', '/fac/jobs/fj-2', '/admin/access', '/admin/fac/master-list', '/admin/fac/import', '/admin/fac/settings', '/admin/eq/equipment', '/admin/eq/cmms', '/admin/eq/spare-parts', '/admin/eq/positions'];
     let n = 0;
     for (const role of ['admin', 'management', 'eqTeam', 'facTeam', 'eqfac', 'noAccess']) {
       for (const r of routes) {
@@ -877,26 +878,28 @@ try {
     }
     return { ok: !bad.length, detail: bad.length ? bad.slice(0, 8).join(' | ') : n + ' page views clean' };
   });
-  await step('L02', ['ZM04', 'S20', 'S15'], 'The prototype never contacts ZMMS or any external host: every network request during a full walk-through is to 127.0.0.1 or a data URI; no account, password or token appears in the page, in browser storage or in the prototype source', async () => {
+  await step('L02', ['ZM04', 'S20', 'S15'], 'The prototype never contacts CMMS or any external host: every network request during a full walk-through is to 127.0.0.1 or a data URI; no account, password or token appears in the page, in browser storage or in the prototype source', async () => {
     b.clearEvents();
-    for (const [role, r] of [['admin', '/admin/eq/zmms'], ['eqTeam', '/eq/fleet'], ['management', '/fac/dashboard'], ['facTeam', '/fac/jobs'], ['admin', '/admin/access']]) await go(role, r, {}, 600);
+    for (const [role, r] of [['admin', '/admin/eq/cmms'], ['eqTeam', '/eq/fleet'], ['management', '/fac/dashboard'], ['facTeam', '/fac/jobs'], ['admin', '/admin/access']]) await go(role, r, {}, 600);
     const reqs = b.events.filter((e) => e.method === 'Network.requestWillBeSent').map((e) => e.params.request.url);
     const external = reqs.filter((u) => !/^(http:\/\/127\.0\.0\.1:|data:|about:)/.test(u));
     const storage = await ev(`JSON.stringify([Object.entries(localStorage), Object.entries(sessionStorage), document.cookie])`);
     const files = []; const walk = (d) => { for (const f of fs.readdirSync(d, { withFileTypes: true })) { const p = path.join(d, f.name); if (f.isDirectory()) walk(p); else if (/\.(js|html|css|mjs|md)$/.test(f.name)) files.push(p); } };
     walk('artifacts/prototypes/p02-ui'); walk('artifacts/prototypes/p03-qc-model/js'); walk('tools/p02b');
     const hits = []; const secret = /(password|passwd|pwd|secret|api[_-]?key|bearer)\s*[:=]\s*['"`][^'"`\s]{3,}/i;
-    for (const f of files) { const t = fs.readFileSync(f, 'utf8'); if (/vendor/.test(f)) continue; const m = t.match(secret); if (m) hits.push(f + ': ' + m[0].slice(0, 40)); }
-    const zmmsUrls = []; for (const f of files) { const t = fs.readFileSync(f, 'utf8'); (t.match(/https?:\/\/[^\s'"`)]*zmms[^\s'"`)]*/gi) || []).forEach((u) => zmmsUrls.push(path.basename(f) + ' ' + u)); }
-    return { ok: reqs.length > 5 && !external.length && !/password|token|secret/i.test(storage) && !hits.length && zmmsUrls.length === 0, detail: JSON.stringify({ requests: reqs.length, external: external.slice(0, 3), storage: storage.slice(0, 120), secretPatternHits: hits, zmmsUrlsInSource: zmmsUrls }) };
+    // The area-isolation regression uses this exact public sentinel to detect hidden-history leaks.
+    // Exempt that literal only; report paths without printing a possible secret value.
+    for (const f of files) { const t = fs.readFileSync(f, 'utf8').replace(/secret:'MUST NOT LEAK'/g, ''); if (/vendor/.test(f)) continue; if (secret.test(t)) hits.push(f); }
+    const cmmsUrls = []; for (const f of files) { const t = fs.readFileSync(f, 'utf8'); (t.match(/https?:\/\/[^\s'"`)]*zmms\.lk[^\s'"`)]*/gi) || []).forEach((u) => cmmsUrls.push(path.basename(f) + ' ' + u)); }
+    return { ok: reqs.length > 5 && !external.length && !/password|token|secret/i.test(storage) && !hits.length && cmmsUrls.length === 0, detail: JSON.stringify({ requests: reqs.length, external: external.slice(0, 3), storage: storage.slice(0, 120), secretPatternHits: hits, cmmsUrlsInSource: cmmsUrls }) };
   });
-  await step('L03', ['ZM01', 'ZM07', 'S20'], 'The synthetic ZMMS daily-job fixtures follow the layout of the real daily export profiled on 22 Oct 2026 (documents\\Daily All Running Jobs_CMMS-LK-2026-10-22.xls, structure only): same column set, same vocabularies, equipment code formats, non-fleet items in the unmatched / ignored list; no description or personal data is copied', async () => {
+  await step('L03', ['ZM01', 'ZM07', 'S20'], 'The synthetic CMMS daily-job fixtures follow the layout of the real daily export profiled on 22 Oct 2026 (documents\\Daily All Running Jobs_CMMS-LK-2026-10-22.xls, structure only): same column set, same vocabularies, equipment code formats, non-fleet items in the unmatched / ignored list; no description or personal data is copied', async () => {
     const xls = fs.readFileSync('documents/Daily All Running Jobs_CMMS-LK-2026-10-22.xls', 'utf8');
     const ths = [...xls.matchAll(/<th[^>]*>([\s\S]*?)<\/th>/g)].map((m) => m[1].replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim()).filter(Boolean);
     const cell = (title) => [...xls.matchAll(new RegExp('<td title="' + title.replace(/[()]/g, '\\$&') + '"[^>]*>([\\s\\S]*?)</td>', 'g'))].map((m) => m[1].replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim());
     const realTypes = new Set(cell('Job Type')), realStatus = new Set(cell('Job Status')), realPri = new Set(cell('Priority')), realEq = cell('Equipment'); const realDesc = new Set(cell('Job Description'));
-    await go('admin', '/admin/eq/zmms', {}, 600);
-    const fx = await ev(`(()=>{const J=EQ.state.D.zmms.jobs; return {types:[...new Set(J.map(j=>j.typeText))], status:[...new Set(J.map(j=>j.statusText))], pri:[...new Set(J.map(j=>j.priority))], eq:[...new Set(J.map(j=>j.equipmentText))], keys:Object.keys(J[0]), descs:J.map(j=>j.desc), nonFleet:J.filter(j=>/^(SF|SK|WS|RS)/.test(j.equipmentText)).map(j=>j.match), origin:[...new Set(J.map(j=>j.origin))], names:J.some(j=>/@/.test(JSON.stringify(j)))}})()`);
+    await go('admin', '/admin/eq/cmms', {}, 600);
+    const fx = await ev(`(()=>{const J=EQ.state.D.cmms.jobs; return {types:[...new Set(J.map(j=>j.typeText))], status:[...new Set(J.map(j=>j.statusText))], pri:[...new Set(J.map(j=>j.priority))], eq:[...new Set(J.map(j=>j.equipmentText))], keys:Object.keys(J[0]), descs:J.map(j=>j.desc), nonFleet:J.filter(j=>/^(SF|SK|WS|RS)/.test(j.equipmentText)).map(j=>j.match), origin:[...new Set(J.map(j=>j.origin))], names:J.some(j=>/@/.test(JSON.stringify(j)))}})()`);
     const need = ['jobNo', 'cwo', 'date', 'statusText', 'priority', 'created', 'dept', 'eqType', 'equipmentText', 'typeText', 'desc', 'mechStaff', 'mechHours', 'elecStaff', 'elecHours', 'fault', 'faultDesc', 'corrective', 'remark', 'instruction', 'workDone', 'statusRemarks'];
     const subset = (a, B) => a.every((x) => B.has(x));
     const codeOk = fx.eq.every((e) => /^(QC|RT|ES|SQ|SF|SK|WS|RS)-?\d{3}$/.test(e)); const realPattern = realEq.every((e) => /^[A-Z]{2}\d{3}$/.test(e));

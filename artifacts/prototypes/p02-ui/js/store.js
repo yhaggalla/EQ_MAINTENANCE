@@ -365,7 +365,7 @@ window.EQ = window.EQ || {};
     setStatus(eqId, p) {
       if (!isWriter()) return forbid();
       const eq = EQ.eq(eqId);
-      if (eq.zmmsMapped) return EQ.zmms.correct(eqId, p); // V2 (D-94): a change on ZMMS-linked equipment is a current-day correction
+      if (eq.cmmsMapped) return EQ.cmms.correct(eqId, p); // V2 (D-94): a change on CMMS-linked equipment is a current-day correction
       const f = {};
       if (eq.lifecycle === 'retired') return fail(409, 'equipment_retired', 'Retired equipment accepts no status changes.');
       if (!['readyForOps', 'breakdown', 'maintenance'].includes(p.status)) f.status = 'Choose one of the three operational statuses.';
@@ -388,7 +388,7 @@ window.EQ = window.EQ || {};
       if (!p.typeCode) f.typeCode = 'Choose a type.';
       if (Object.keys(f).length) return fail(422, 'validation_failed', 'Nothing was saved.', f);
       const key = 'n' + (S.D.equipment.length + 1);
-      const eq = { id: 'eq-' + p.code.trim().toLowerCase(), key, code: p.code.trim(), typeCode: p.typeCode, name: p.name || '', modelCode: null, assoc: 'unassigned', lifecycle: 'active', status: null, statusSince: null, statusReason: null, lastActivity: new Date().toISOString(), mains: [], subs: [], positionState: null, origin: 'DevelopmentFixture', version: 1, zmmsMapped: false, overrideOn: null, statusSource: 'manual', statusCauses: [], commissionedOn: null };
+      const eq = { id: 'eq-' + p.code.trim().toLowerCase(), key, code: p.code.trim(), typeCode: p.typeCode, name: p.name || '', modelCode: null, assoc: 'unassigned', lifecycle: 'active', status: null, statusSince: null, statusReason: null, lastActivity: new Date().toISOString(), mains: [], subs: [], positionState: null, origin: 'DevelopmentFixture', version: 1, cmmsMapped: false, overrideOn: null, statusSource: 'manual', statusCauses: [], commissionedOn: null };
       S.D.equipment.push(eq); audit('equipment.create', eq.code); EQ.notify();
       return { ok: true, eq };
     },

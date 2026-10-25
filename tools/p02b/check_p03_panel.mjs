@@ -18,7 +18,7 @@ await b.send('Emulation.setFocusEmulationEnabled', { enabled: true });
 const E = (x) => b.eval(x);
 const step = async (id, covers, name, fn) => { try { const r = await fn(); rec(id, covers, name, r === true || (r && r.ok), r && r.detail); } catch (e) { rec(id, covers, name, false, 'EXCEPTION ' + e.message); } };
 async function openP03(q = '', w = 1920, h = 1080) { await b.viewport(w, h); b.clearEvents(); await b.goto(P03 + q); for (let i = 0; i < 80; i++) { if (await E('!!(window.__qcTiming || window.__qcFallback)')) break; await sleep(250); } await sleep(400); }
-const norm = (t) => t.replace(/ZMMS data from \d{2} \w{3} \d{4} \d{2}:\d{2}/g, 'ZMMS data from <t>').replace(/created \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/g, 'created <t>').replace(/\s+/g, ' ').trim();
+const norm = (t) => t.replace(/CMMS data from \d{2} \w{3} \d{4} \d{2}:\d{2}/g, 'CMMS data from <t>').replace(/created \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/g, 'created <t>').replace(/\s+/g, ' ').trim();
 const p3text = () => E(`document.querySelector('#info').innerText`);
 const p2text = () => E(`document.querySelector('.side-panel .sp-body').innerText`);
 const tabs3 = () => E(`[...document.querySelectorAll('#info-tabs [role=tab]')].map(t=>({k:t.dataset.tab, label:t.textContent.replace(/\\d+$/,'').trim(), sel:t.getAttribute('aria-selected'), tab:t.getAttribute('tabindex'), clipped:t.scrollWidth>t.clientWidth+1}))`);
@@ -45,7 +45,7 @@ try {
     ['part motor B', null, null, 'hoist.drive.motor.b'],
     ['part boom rope', null, null, 'boom.rope.set.main'],
   ];
-  await step('P3-02', ['U1-C19', 'U1-C08', 'S07', 'HIS06'], 'Flat/3D parity: for 7 selections x the three data tabs the 3D panel shows exactly the same current state as the flat view (ZMMS jobs today, open special jobs, spare-part register rows); counts and flags equal; Technical is the model-derived specification summary', async () => {
+  await step('P3-02', ['U1-C19', 'U1-C08', 'S07', 'HIS06'], 'Flat/3D parity: for 7 selections x the three data tabs the 3D panel shows exactly the same current state as the flat view (CMMS jobs today, open special jobs, spare-part register rows); counts and flags equal; Technical is the model-derived specification summary', async () => {
     const diffs = [], seen = [];
     for (const [label, q3, p2q, key] of scopes) {
       // P03 selection

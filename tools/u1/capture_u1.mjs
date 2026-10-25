@@ -37,13 +37,13 @@ await b.eval(`document.querySelector('[data-fk="lbl-si-q01-012"]').click()`); aw
 await p02('/equipment/eq-qc-demo-01?main=mi-q01-11&sub=si-q01-111'); await shot('p02-08-flat-backreach', 'U1-C03: back-reach area (anti-snag/TLS device, tail sheaves, service crane, festoon and cab service platform, tail platform) and the CICT logo');
 await p02('/equipment/eq-qc-demo-01?main=mi-q01-15&sub=si-q01-151'); await shot('p02-09-flat-stairs', 'U1-C03: stair tower on the landside leg and the A-frame stair among the 151 parts');
 await p02('/equipment/eq-qc-demo-01?mode=technical&iso=1'); await shot('p02-10-flat-isolate', 'U1-C05/C08: Isolate machinery house in the flat view (same control as 3D)');
-await p02('/equipment/eq-qc-demo-02'); await shot('p02-11-flat-qc02', 'U1-C07: QC-DEMO-02 has the same drill-down labels');
+await p02('/equipment/eq-qc-demo-02'); await shot('p02-11-flat-qc02', 'U1-C07: QC02 has the same drill-down labels');
 // P03 3D view
 await p03('?eq=eq-qc-demo-01'); await shot('p03-01-tier1', 'U1-C07: 3D whole equipment: every main mechanism with a representation is labelled; dashed = inside, opens in Technical');
 await clickLabel3d('/^01 Hoist/'); await shot('p03-02-tier2', 'U1-C07: clicked "01 Hoist": its submechanisms labelled');
 await clickLabel3d('/^012 /'); await shot('p03-03-tier3', 'U1-C07: clicked "012": Technical mode, both drum brakes labelled');
 await clickLabel3d('/brake A/'); await shot('p03-04-part', 'U1-C07/C08: part selected from its label; tree, breadcrumb, URL and history follow');
-await p03('?eq=eq-qc-demo-02'); await clickLabel3d('/^14 Cabin/'); await clickLabel3d('/^141 /'); await shot('p03-05-qc02-cabin-parts', 'U1-C06/C07: QC-DEMO-02, 14 Cabin > 141: cab, seat and consoles labelled');
+await p03('?eq=eq-qc-demo-02'); await clickLabel3d('/^14 Cabin/'); await clickLabel3d('/^141 /'); await shot('p03-05-qc02-cabin-parts', 'U1-C06/C07: QC02, 14 Cabin > 141: cab, seat and consoles labelled');
 await p03('?eq=eq-qc-demo-01'); await b.eval(`document.querySelector('#btn-iso').click()`); await sleep(1300); await shot('p03-06-isolate-from-overall', 'U1-C05: Isolate machinery house from Overall switches to Technical and fits the house');
 await p03('?eq=eq-qc-demo-01&main=mi-q01-11&view=side'); await shot('p03-07-aligned-side-fit', 'U1-C05: aligned side view with the selection (11 Skew system at the girder tail) fitted; pan and wheel zoom work');
 await p03('?eq=eq-qc-demo-01&view=top'); await shot('p03-08-aligned-top', 'U1-C05: plan view');

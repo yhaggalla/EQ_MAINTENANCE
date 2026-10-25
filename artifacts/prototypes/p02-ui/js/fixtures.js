@@ -1,5 +1,5 @@
 /* SYNTHETIC FIXTURES for the P02 prototype.
-   Every equipment code contains "-DEMO-". Names, serials, part numbers, dates, jobs and history below are invented for
+   Equipment uses the user-approved QC01-QC14, RTG01-RTG46 and ES01-ES07 codes. Names, serials, part numbers, dates, jobs and history are invented for
    interface review only. They are NOT fleet facts, NOT an assignment of the J526A drawing family to any real crane, and
    are never to be reused as production seed data (D-21). The mechanism catalogue (catalog.js) and drawing observations
    (params.js) are the only real reference data. */
@@ -130,23 +130,23 @@ window.EQ = window.EQ || {};
     // ---- equipment ----
     // [key, code, type, name, model, assoc, lifecycle, status, statusHoursAgo, reason, positions('active'|'draft'|null), lastActivityHoursAgo]
     const E = [
-      ['q01', 'QC-DEMO-01', 'QC', 'Synthetic quay crane 1', 'CICT-J526A-STS', 'verified', 'active', 'maintenance', 52, 'Hoist motor B replacement in progress (synthetic)', 'active', 3],
-      ['q02', 'QC-DEMO-02', 'QC', 'Synthetic quay crane 2', 'CICT-J526A-STS', 'verified', 'active', 'readyForOps', 264, null, 'active', 20],
-      ['q03', 'QC-DEMO-03', 'QC', 'Synthetic quay crane 3 (new, template not yet confirmed)', 'CICT-J526A-STS', 'verified', 'active', null, 0, null, 'draft', 400],
-      ['q04', 'QC-DEMO-04', 'QC', 'Synthetic quay crane 4 (no verified model)', null, 'unassigned', 'active', 'breakdown', 5, 'Hoist overload trip, cause not yet found (synthetic)', null, 5],
-      ['q05', 'QC-DEMO-05', 'QC', 'Synthetic quay crane 5', null, 'unassigned', 'active', 'readyForOps', 50, null, null, 50],
-      ['q06', 'QC-DEMO-06', 'QC', 'Synthetic quay crane 6', null, 'unassigned', 'active', 'maintenance', 220, 'Scheduled overhaul (synthetic)', null, 24],
-      ['r01', 'RTG-DEMO-01', 'RTG', 'Synthetic RTG 1', 'RTG-MODEL-DEMO', 'verified', 'active', 'readyForOps', 100, null, 'active', 100],
-      ['r02', 'RTG-DEMO-02', 'RTG', 'Synthetic RTG 2', 'RTG-MODEL-DEMO', 'verified', 'active', 'readyForOps', 30, null, 'active', 30],
-      ['r03', 'RTG-DEMO-03', 'RTG', 'Synthetic RTG 3', 'RTG-MODEL-DEMO', 'verified', 'active', 'breakdown', 8, 'Engine fault, diagnosis in progress (synthetic)', 'active', 2],
-      ['r04', 'RTG-DEMO-04', 'RTG', 'Synthetic RTG 4', null, 'unassigned', 'active', 'readyForOps', 400, null, null, 400],
-      ['r05', 'RTG-DEMO-05', 'RTG', 'Synthetic RTG 5', null, 'unassigned', 'active', null, 0, null, null, 600],
-      ['r06', 'RTG-DEMO-06', 'RTG', 'Synthetic RTG 6', null, 'unassigned', 'active', 'maintenance', 18, 'Tyre change (synthetic)', null, 18],
-      ['r07', 'RTG-DEMO-07', 'RTG', 'Synthetic RTG 7', null, 'unassigned', 'active', null, 0, null, null, 0],
-      ['e01', 'ES-DEMO-01', 'ES', 'Synthetic ES 1', 'ES-MODEL-DEMO', 'verified', 'active', 'readyForOps', 70, null, 'active', 70],
-      ['e02', 'ES-DEMO-02', 'ES', 'Synthetic ES 2', null, 'unassigned', 'active', 'readyForOps', 20, null, null, 20],
-      ['e03', 'ES-DEMO-03', 'ES', 'Synthetic ES 3', null, 'unassigned', 'active', null, 0, null, null, 900],
-      ['e04', 'ES-DEMO-04', 'ES', 'Synthetic ES 4', null, 'unassigned', 'active', 'breakdown', 30, 'Hydraulic leak found (synthetic)', null, 30],
+      ['q01', 'QC01', 'QC', 'Synthetic quay crane 1', 'CICT-J526A-STS', 'verified', 'active', 'maintenance', 52, 'Hoist motor B replacement in progress (synthetic)', 'active', 3],
+      ['q02', 'QC02', 'QC', 'Synthetic quay crane 2', 'CICT-J526A-STS', 'verified', 'active', 'readyForOps', 264, null, 'active', 20],
+      ['q03', 'QC03', 'QC', 'Synthetic quay crane 3 (new, template not yet confirmed)', 'CICT-J526A-STS', 'verified', 'active', null, 0, null, 'draft', 400],
+      ['q04', 'QC04', 'QC', 'Synthetic quay crane 4 (no verified model)', null, 'unassigned', 'active', 'breakdown', 5, 'Hoist overload trip, cause not yet found (synthetic)', null, 5],
+      ['q05', 'QC05', 'QC', 'Synthetic quay crane 5', null, 'unassigned', 'active', 'readyForOps', 50, null, null, 50],
+      ['q06', 'QC06', 'QC', 'Synthetic quay crane 6', null, 'unassigned', 'active', 'maintenance', 220, 'Scheduled overhaul (synthetic)', null, 24],
+      ['r01', 'RTG01', 'RTG', 'Synthetic RTG 1', 'RTG-MODEL-DEMO', 'verified', 'active', 'readyForOps', 100, null, 'active', 100],
+      ['r02', 'RTG02', 'RTG', 'Synthetic RTG 2', 'RTG-MODEL-DEMO', 'verified', 'active', 'readyForOps', 30, null, 'active', 30],
+      ['r03', 'RTG03', 'RTG', 'Synthetic RTG 3', 'RTG-MODEL-DEMO', 'verified', 'active', 'breakdown', 8, 'Engine fault, diagnosis in progress (synthetic)', 'active', 2],
+      ['r04', 'RTG04', 'RTG', 'Synthetic RTG 4', null, 'unassigned', 'active', 'readyForOps', 400, null, null, 400],
+      ['r05', 'RTG05', 'RTG', 'Synthetic RTG 5', null, 'unassigned', 'active', null, 0, null, null, 600],
+      ['r06', 'RTG06', 'RTG', 'Synthetic RTG 6', null, 'unassigned', 'active', 'maintenance', 18, 'Tyre change (synthetic)', null, 18],
+      ['r07', 'RTG07', 'RTG', 'Synthetic RTG 7', null, 'unassigned', 'active', null, 0, null, null, 0],
+      ['e01', 'ES01', 'ES', 'Synthetic ES 1', 'ES-MODEL-DEMO', 'verified', 'active', 'readyForOps', 70, null, 'active', 70],
+      ['e02', 'ES02', 'ES', 'Synthetic ES 2', null, 'unassigned', 'active', 'readyForOps', 20, null, null, 20],
+      ['e03', 'ES03', 'ES', 'Synthetic ES 3', null, 'unassigned', 'active', null, 0, null, null, 900],
+      ['e04', 'ES04', 'ES', 'Synthetic ES 4', null, 'unassigned', 'active', 'breakdown', 30, 'Hydraulic leak found (synthetic)', null, 30],
     ];
     // Fill missing members from the same register used by Fleet, Admin, Jobs, status and mapping selectors.
     // Keep established IDs/positions/jobs. New members have no reported status, model, positions or invented history.
@@ -156,7 +156,7 @@ window.EQ = window.EQ || {};
     const names = { QC: 'quay crane', RTG: 'RTG', ES: 'ES' };
     for (const [type, count] of Object.entries(EQ.FLEET_BASELINE)) {
       for (let n = 1; n <= count; n++) {
-        const suffix = String(n).padStart(2, '0'), code = type + '-DEMO-' + suffix;
+        const suffix = String(n).padStart(2, '0'), code = type + suffix;
         if (!E.some((row) => row[1] === code)) E.push([
           keys[type] + suffix, code, type, 'Synthetic ' + names[type] + ' ' + n,
           null, 'unassigned', 'active', null, 0, null, null, 0,
@@ -166,7 +166,8 @@ window.EQ = window.EQ || {};
     E.sort((a, b) => typeOrder.indexOf(a[2]) - typeOrder.indexOf(b[2]) || a[1].localeCompare(b[1]));
     E.forEach(([key, code, typeCode, name, modelCode, assoc, lifecycle, status, h, reason, pos, act]) => {
       const eq = {
-        id: 'eq-' + code.toLowerCase(), key, code, typeCode, name, modelCode, assoc, lifecycle,
+        // Stable record identity is independent of the editable business code (U1-C61).
+        id: 'eq-' + typeCode.toLowerCase() + '-demo-' + key.slice(1), key, code, typeCode, name, modelCode, assoc, lifecycle,
         status, statusSince: status ? ago(h) : null, statusReason: reason,
         lastActivity: ago(act), mains: [], subs: [], positionState: pos,
         origin: 'DevelopmentFixture', version: 1,
@@ -227,7 +228,7 @@ window.EQ = window.EQ || {};
       return ev;
     }
 
-    // QC-DEMO-01
+    // QC01
     const j101 = addJob('101', 'q01', ['part', 'hoist.drive.motor.a'], { kind: 'replacement', title: 'Replace main hoist motor A', description: 'Synthetic example job.', status: 'completed', planned: '2026-08-10', completedOn: '2026-08-12', note: 'Motor replaced and alignment checked (synthetic).', completedHoursAgo: 24 * 70 });
     addLine(j101, 'hoist.drive.motor.a', { desc: 'Main hoist motor, 450 kW class (synthetic item)', mfr: 'Synthetic Motors Ltd', partNo: 'SYN-HM-450', serial: 'SYN-0001' }, { on: '2026-08-12', removedDesc: null, recordedUtc: ago(24 * 70) });
     const j102 = addJob('102', 'q01', ['part', 'hoist.rope.set.main'], { kind: 'replacement', title: 'Replace main hoist rope set', status: 'completed', planned: '2026-05-01', completedOn: '2026-05-03', note: 'Full set renewed (synthetic).', completedHoursAgo: 24 * 170 });
@@ -237,7 +238,7 @@ window.EQ = window.EQ || {};
     addJob('105', 'q01', ['sub', '021'], { kind: 'repair', title: 'Inspect trolley wheel wear', status: 'pending', planned: '2026-10-28', by: 'u-eq-b', createdHoursAgo: 24 * 2 });
     addJob('106', 'q01', ['equipment'], { kind: 'repair', title: 'Annual rail alignment survey', status: 'pending', planned: '2026-11-15', createdHoursAgo: 24 * 6 });
     addJob('107', 'q01', ['part', 'boom.rope.set.main'], { kind: 'replacement', title: 'Boom rope set replacement (planned)', status: 'pending', planned: '2026-12-02', by: 'u-admin', createdHoursAgo: 24 * 8 });
-    // QC-DEMO-02 (same template, different history)
+    // QC02 (same template, different history)
     const j201 = addJob('201', 'q02', ['part', 'hoist.drive.motor.a'], { kind: 'replacement', title: 'Replace main hoist motor A', status: 'completed', planned: '2026-02-03', completedOn: '2026-02-04', note: 'Replaced (synthetic).', completedHoursAgo: 24 * 260 });
     addLine(j201, 'hoist.drive.motor.a', { desc: 'Main hoist motor, 450 kW class (synthetic item)', mfr: 'Synthetic Motors Ltd', partNo: 'SYN-HM-450', serial: 'SYN-0009' }, { on: '2026-02-04', recordedUtc: ago(24 * 260) });
     const j202 = addJob('202', 'q02', ['part', 'hoist.drive.motor.a'], { kind: 'replacement', title: 'Replace main hoist motor A (second time)', status: 'completed', planned: '2026-09-28', completedOn: '2026-09-30', note: 'Replaced after winding fault (synthetic).', completedHoursAgo: 24 * 21, by: 'u-eq-b' });
@@ -280,12 +281,12 @@ window.EQ = window.EQ || {};
   }
   EQ._instantiate = instantiate;
 
-  /** P02B: attach the V2 layers (access matrix, ZMMS, spare parts, FAC) to a freshly built fixture set. Order matters:
-   *  spare parts add baseline events, ZMMS annotates equipment, FAC is independent of EQ records (SOW V2 s2). */
+  /** P02B: attach the V2 layers (access matrix, CMMS, spare parts, FAC) to a freshly built fixture set. Order matters:
+   *  spare parts add baseline events, CMMS annotates equipment, FAC is independent of EQ records (SOW V2 s2). */
   EQ.buildV2 = function buildV2(D) {
     D.access = EQ.access.fresh();
     EQ.spares.build(D);
-    EQ.zmms.build(D);
+    EQ.cmms.build(D);
     EQ.fac.build(D);
   };
 })(window.EQ);

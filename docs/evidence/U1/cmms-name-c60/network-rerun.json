@@ -1,0 +1,21 @@
+{
+  "tool": "tools/p02b/check_p02b.mjs",
+  "browser": "Chrome/155.0.8059.85",
+  "date": "2026-10-25T16:25:49.128Z",
+  "note": "Prototype-level checks against the synthetic P02B prototype; not acceptance execution.",
+  "passed": 1,
+  "failed": 0,
+  "results": [
+    {
+      "id": "L02",
+      "covers": [
+        "ZM04",
+        "S20",
+        "S15"
+      ],
+      "name": "The prototype never contacts CMMS or any external host: every network request during a full walk-through is to 127.0.0.1 or a data URI; no account, password or token appears in the page, in browser storage or in the prototype source",
+      "status": "PASS",
+      "detail": "{\"requests\":40,\"external\":[],\"storage\":\"[[[\\\"eq-maintenance:last-route:u-mgmt\\\",\\\"/fac/dashboard\\\"],[\\\"eq-maintenance:last-route:u-fac-a:fac\\\",\\\"/fac/jobs\\\"],[\\\"eq-maint\",\"secretPatternHits\":[],\"cmmsUrlsInSource\":[]}"
+    }
+  ]
+}

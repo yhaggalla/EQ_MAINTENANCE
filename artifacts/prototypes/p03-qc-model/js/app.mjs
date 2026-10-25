@@ -171,7 +171,7 @@ function onLabel(c) {
 }
 
 // ---------- shared P02 data layer: scope translation and open-job counts ----------
-const E2 = () => EQ.eq(state.eq); // the synthetic V2 equipment record (status, ZMMS jobs, special jobs, spare-part register)
+const E2 = () => EQ.eq(state.eq); // the synthetic V2 equipment record (status, CMMS jobs, special jobs, spare-part register)
 /** P03 selection -> P02 data-layer scope. Main/sub ids share the code-based pattern; a part is matched by its exact semantic key
  *  (never by name or index). Returns null when the data layer has nothing under that identity. */
 function dataScopeFor(level, idOrKey) {
@@ -196,9 +196,9 @@ function currentDataScope() {
 
 // ---------- equipment header, breadcrumb ----------
 function renderEquipment() {
-  // status and its source come from the shared synthetic V2 data layer (Auto from the ZMMS day plan, or a Manual correction for today)
-  const e = eqObj(); const q = E2(); const mode = EQ.zmms.mode(q); const key = EQ.statusKey(q.status);
-  $('#status-badge').replaceChildren(el('span', null, e.code + ' '), el('span', { class: 'st ' + key }, (key === 'readyForOps' ? '✔ ' : '⚠ ') + EQ.STATUS[key].label), el('span', { class: 'src-tag', title: mode.long }, mode.label === 'Auto' ? 'Auto (ZMMS)' : 'Manual'), el('span', { class: 'synthetic', style: 'margin-left:6px' }, 'synthetic'));
+  // status and its source come from the shared synthetic V2 data layer (Auto from the CMMS day plan, or a Manual correction for today)
+  const e = eqObj(); const q = E2(); const mode = EQ.cmms.mode(q); const key = EQ.statusKey(q.status);
+  $('#status-badge').replaceChildren(el('span', null, e.code + ' '), el('span', { class: 'st ' + key }, (key === 'readyForOps' ? '✔ ' : '⚠ ') + EQ.STATUS[key].label), el('span', { class: 'src-tag', title: mode.long }, mode.label === 'Auto' ? 'Auto (CMMS)' : 'Manual'), el('span', { class: 'synthetic', style: 'margin-left:6px' }, 'synthetic'));
 }
 function renderCrumbs() {
   const ii = I(); const e = eqObj(); const items = [];
@@ -274,7 +274,7 @@ function renderToolbar() {
 }
 
 // ---------- right panel: four current-state tabs (U1-C19, S07, D-122) ----------
-// Maintenance (today's ZMMS daily jobs), Projects/Special (open special jobs in the selection), Technical (specification summary of the
+// Maintenance (today's CMMS daily jobs), Projects/Special (open special jobs in the selection), Technical (specification summary of the
 // selected area) and Spare parts (register condition within the selection). No work history is shown here; the scoped history is in the
 // EQ Jobs tab of the P02 prototype ("Open in Jobs"). Same tabs and same data as the flat view (U1-C08 parity).
 const TAB_ARIA = { maintenance: 'jobs today', special: 'open', spareParts: 'overdue or due soon' };

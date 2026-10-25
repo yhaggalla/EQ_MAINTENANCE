@@ -26,7 +26,7 @@ await p02('/equipment/eq-qc-demo-01?main=mi-q01-01&sub=si-q01-014'); await shot(
 // P03 3D view
 await p03('?eq=eq-qc-demo-01&container=trolley&mode=technical'); await shot('p03-r3-01-trolley-container', 'U1-C17 3D: trolley spatial group fitted (technical, the 14.png state): labelled wheels LS-A/LS-B/WS-A/WS-B, sheave sides A/B, equalizer sheaves, frame, cable reel');
 await p03('?eq=eq-qc-demo-01&sub=si-q01-021&mode=technical'); await shot('p03-r3-01b-trolley-021', 'U1-C17 3D: 021 trolley sub-mechanism selected: tier-3 labels for every 021 position (house drive, tail sheaves, trolley parts)');
-await p03('?eq=eq-qc-demo-02&sub=si-q02-061'); await shot('p03-r3-02-spreader-061-qc02', 'U1-C18 3D: 061 Spreader on QC-DEMO-02: spreader frame and the four twistlock / flipper corners');
+await p03('?eq=eq-qc-demo-02&sub=si-q02-061'); await shot('p03-r3-02-spreader-061-qc02', 'U1-C18 3D: 061 Spreader on QC02: spreader frame and the four twistlock / flipper corners');
 await p03('?eq=eq-qc-demo-01&sub=si-q01-062'); await shot('p03-r3-03-headblock-062', 'U1-C18 3D: 062 Headblock: frame, sheave boxes A/B with twistlocks');
 await p03('?eq=eq-qc-demo-01&sub=si-q01-014&mode=technical'); await shot('p03-r3-04-cable-reel-014', 'U1-C17 3D: 014 spreader cable reel (new position) inside the trolley body');
 await b.close();

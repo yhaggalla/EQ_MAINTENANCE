@@ -16,9 +16,9 @@ window.EQ = window.EQ || {};
 
   // U1-C02: the large "Fleet overview" heading block is gone; its meaning is kept in this compact note.
   // P02B (SOW V2 s4.5): the "manual status, no telemetry" note is replaced by the automatic-status meaning.
-  const STATUS_NOTE = "Auto (ZMMS): Breakdown job → Breakdown; maintenance job → Maintenance; no planned job → Ready for OPS.\nManual correction: reason required; ends at the first successful sync after today.\nUnlinked equipment: manual status. No recorded status: Unreported.";
+  const STATUS_NOTE = "Auto (CMMS): Breakdown job → Breakdown; maintenance job → Maintenance; no planned job → Ready for OPS.\nManual correction: reason required; ends at the first successful sync after today.\nUnlinked equipment: manual status. No recorded status: Unreported.";
   function statusNote() {
-    return h('span', { class: 'status-note', tabindex: '0', title: STATUS_NOTE, 'aria-describedby': 'status-note-text', 'data-fk': 'status-note' }, icon('info'), 'Automatic status from ZMMS', h('span', { id: 'status-note-text', class: 'sr-only' }, STATUS_NOTE));
+    return h('span', { class: 'status-note', tabindex: '0', title: STATUS_NOTE, 'aria-describedby': 'status-note-text', 'data-fk': 'status-note' }, icon('info'), 'Automatic status from CMMS', h('span', { id: 'status-note-text', class: 'sr-only' }, STATUS_NOTE));
   }
   const motionOff = (q) => q.motion === 'off';
   const paused = (q) => ui.paused || motionOff(q);
@@ -41,16 +41,16 @@ window.EQ = window.EQ || {};
     const stale = S.data === 'stale' || S.data === 'error';
     return h('div', { class: 'freshness' },
       h('span', { title: 'Auto-refresh every 60 s and after every change' }, icon('clock'), ' Refreshed ', h('strong', null, EQ.fmtTime(stale ? S.lastGoodAt : S.refreshedAt)), ' Asia/Colombo'),
-      zmmsFresh(),
+      cmmsFresh(),
       statusNote());
   }
   function refreshBtn() {
     return h('button', { type: 'button', class: 'btn-sm pa-btn', 'data-fk': 'refresh', onClick: () => EQ.refresh(true) }, icon('refresh'), 'Refresh');
   }
-  function zmmsFresh() {
-    const f = EQ.zmms.freshness();
-    return h('span', { class: 'zmms-fresh' + (f.stale ? ' stale' : ''), 'data-fk': 'zmms-fresh', title: f.stale ? 'The latest ZMMS sync failed or is overdue. Previous data and statuses are kept; nothing was changed.' : 'Read-only ZMMS daily-job list, two syncs a day' },
-      icon(f.stale ? 'alert' : 'sync'), EQ.zmms.freshLabel(), f.stale ? h('strong', null, ' · stale: latest sync ' + (f.latestOutcome === 'failed' ? 'failed (' + f.failureCode + ')' : 'overdue')) : null);
+  function cmmsFresh() {
+    const f = EQ.cmms.freshness();
+    return h('span', { class: 'cmms-fresh' + (f.stale ? ' stale' : ''), 'data-fk': 'cmms-fresh', title: f.stale ? 'The latest CMMS sync failed or is overdue. Previous data and statuses are kept; nothing was changed.' : 'Read-only CMMS daily-job list, two syncs a day' },
+      icon(f.stale ? 'alert' : 'sync'), EQ.cmms.freshLabel(), f.stale ? h('strong', null, ' · stale: latest sync ' + (f.latestOutcome === 'failed' ? 'failed (' + f.failureCode + ')' : 'overdue')) : null);
   }
   function staleBanner() {
     const S = EQ.state;
@@ -64,39 +64,39 @@ window.EQ = window.EQ || {};
   // U1-C02: compact card (at most 60 px high) so the fleet fits one screen; the update time and model stay in the card
   // title and in the table layout. U1-C30: Breakdown / Maintenance cards blink (class blink-*, data-blink).
   function srcTag(e) {
-    const m = EQ.zmms.mode(e);
+    const m = EQ.cmms.mode(e);
     return h('span', { class: 'src ' + (m.label === 'Auto' ? 'auto' : 'manual'), title: m.long }, m.label);
   }
   function eqCard(e, tv) {
     const dur = EQ.inStatusFor(e);
     const open = EQ.shownOpenJobs(e.id).length; // U1-C26: jobs switched off for the dashboard / 3D are not counted on the fleet card
-    const m = EQ.zmms.mode(e);
-    const zc = EQ.zmms.todayCount(e);
+    const m = EQ.cmms.mode(e);
+    const zc = EQ.cmms.todayCount(e);
     const k = EQ.statusKey(e.status);
     const blink = e.lifecycle === 'active' ? BLINK[k] : null;
     const model = EQ.verified(e) ? e.modelCode : (e.typeCode === 'QC' ? 'No verified model' : 'No 3D in stage 1');
-    const label = e.code + ', ' + EQ.STATUS[k].label + ', status source ' + m.label + (zc != null ? ', ' + zc + ' ZMMS daily jobs today' : ', not linked to ZMMS');
-    const attrs = { class: 'eq-card st-card-' + k + (blink ? ' blink blink-' + blink : '') + (e.lifecycle === 'retired' ? ' retired' : ''), 'data-blink': blink || null, 'data-eq': e.id, title: e.name + ' · ' + m.long + (zc != null ? ' · ' + zc + ' ZMMS job(s) today' : '') + ' · Updated ' + EQ.fmtInstantShort(e.lastActivity) + ' · ' + model };
+    const label = e.code + ', ' + EQ.STATUS[k].label + ', status source ' + m.label + (zc != null ? ', ' + zc + ' CMMS daily jobs today' : ', not linked to CMMS');
+    const attrs = { class: 'eq-card st-card-' + k + (blink ? ' blink blink-' + blink : '') + (e.lifecycle === 'retired' ? ' retired' : ''), 'data-blink': blink || null, 'data-eq': e.id, title: e.name + ' · ' + m.long + (zc != null ? ' · ' + zc + ' CMMS job(s) today' : '') + ' · Updated ' + EQ.fmtInstantShort(e.lastActivity) + ' · ' + model };
     const durTxt = dur != null ? 'For ' + EQ.duration(dur) : 'No status reported yet';
     const kids = tv ? [
       thumb(e.typeCode),
       h('span', { class: 'code' }, e.code),
       h('span', { class: 'st-line' }, EQ.statusBadge(e.status, true), h('span', { class: 'dur' }, dur != null ? durTxt : 'Never set')),
-      h('span', { class: 'meta' }, open + ' open · ', srcTag(e), zc != null ? h('span', { class: 'zc', 'data-zmms-today': String(zc) }, ' · ZMMS ' + zc + ' today') : h('span', { class: 'zc-none' }, ' · not in ZMMS'))]
+      h('span', { class: 'meta' }, open + ' open · ', srcTag(e), zc != null ? h('span', { class: 'zc', 'data-cmms-today': String(zc) }, ' · CMMS ' + zc + ' today') : h('span', { class: 'zc-none' }, ' · not in CMMS'))]
       : [
         thumb(e.typeCode),
         h('span', { class: 'code' }, e.code, e.lifecycle === 'retired' ? h('span', { class: 'tag' }, 'Retired') : null, EQ.statusBadge(e.status)),
-        h('span', { class: 'meta' }, durTxt, ' · ' + open + ' open · ', srcTag(e), zc != null ? h('span', { class: 'zc', 'data-zmms-today': String(zc) }, ' · ZMMS ' + zc) : null)];
+        h('span', { class: 'meta' }, durTxt, ' · ' + open + ' open · ', srcTag(e), zc != null ? h('span', { class: 'zc', 'data-cmms-today': String(zc) }, ' · CMMS ' + zc) : null)];
     // TV mode is a display: no links into the editing screens (U1-C28)
     return tv ? h('div', { ...attrs, role: 'listitem', 'aria-label': label }, ...kids) : h('a', { ...attrs, href: '#/eq/equipment/' + e.id, 'aria-label': label }, ...kids);
   }
   function table(list) {
     return h('div', { class: 'panel table-wrap' }, h('table', null,
       h('caption', { class: 'sr-only' }, 'Equipment, status and last update'),
-      h('thead', null, h('tr', null, ['Equipment', 'Type', 'Status', 'Source', 'ZMMS jobs today', 'Time in status', 'Open special jobs', 'Last updated', 'Model'].map((c) => h('th', { scope: 'col' }, c)))),
+      h('thead', null, h('tr', null, ['Equipment', 'Type', 'Status', 'Source', 'CMMS jobs today', 'Time in status', 'Open special jobs', 'Last updated', 'Model'].map((c) => h('th', { scope: 'col' }, c)))),
       h('tbody', null, list.map((e) => { const d = EQ.inStatusFor(e); return h('tr', { class: e.lifecycle === 'retired' ? 'inactive' : '' },
         h('th', { scope: 'row' }, h('a', { href: '#/eq/equipment/' + e.id }, e.code), e.lifecycle === 'retired' ? ' (retired)' : ''),
-        h('td', null, e.typeCode), h('td', null, EQ.statusBadge(e.status)), h('td', null, srcTag(e), ' ', EQ.zmms.mode(e).key === 'manualUnmapped' ? h('span', { class: 'small muted' }, 'not linked to ZMMS') : null), h('td', null, EQ.zmms.todayCount(e) == null ? '-' : String(EQ.zmms.todayCount(e))), h('td', null, d != null ? EQ.duration(d) : 'Not reported'),
+        h('td', null, e.typeCode), h('td', null, EQ.statusBadge(e.status)), h('td', null, srcTag(e), ' ', EQ.cmms.mode(e).key === 'manualUnmapped' ? h('span', { class: 'small muted' }, 'not linked to CMMS') : null), h('td', null, EQ.cmms.todayCount(e) == null ? '-' : String(EQ.cmms.todayCount(e))), h('td', null, d != null ? EQ.duration(d) : 'Not reported'),
         h('td', null, String(EQ.shownOpenJobs(e.id).length)), h('td', null, EQ.fmtInstantShort(e.lastActivity)), h('td', null, EQ.verified(e) ? e.modelCode : 'None verified')); }))));
   }
 
@@ -134,11 +134,11 @@ window.EQ = window.EQ || {};
     return h('header', { class: 'tvf-head' },
       h('h1', null, 'EQ Fleet'), h('span', { class: 'tag syn' }, 'Synthetic data'),
       h('span', { class: 'tvf-updated' + (stale ? ' stale' : ''), 'data-fk': 'tv-updated' }, icon('clock'), 'Updated ' + EQ.fmtTime(stale || S.data === 'error' ? S.lastGoodAt : S.refreshedAt).slice(0, 5) + ' Asia/Colombo · refreshes every 60 s' + (stale ? ' · STALE' : '')),
-      S.data === 'normal' || stale ? zmmsFresh() : null,
+      S.data === 'normal' || stale ? cmmsFresh() : null,
       h('span', { class: 'tvf-tools' }, pauseBtn(q, true), h('button', { type: 'button', class: 'btn-sm pa-btn primary', 'data-fk': 'fleet-tv-exit', onClick: () => exitTv(q) }, icon('x'), 'Exit TV mode')));
   }
   function tvFoot() {
-    return h('footer', { class: 'tvf-foot' }, h('span', null, icon('info'), "Status is automatic from today's ZMMS daily jobs; an EQ Team correction holds for today. Unreported means never set, not Ready."), h('span', { class: 'tvf-pager', 'data-fk': 'tv-pager', 'aria-live': 'off' }));
+    return h('footer', { class: 'tvf-foot' }, h('span', null, icon('info'), "Status is automatic from today's CMMS daily jobs; an EQ Team correction holds for today. Unreported means never set, not Ready."), h('span', { class: 'tvf-pager', 'data-fk': 'tv-pager', 'aria-live': 'off' }));
   }
   function applyTvPage(root) {
     const body = root && root.querySelector('.tvf-body'); if (!body) return;
@@ -233,7 +233,7 @@ window.EQ = window.EQ || {};
 
     const match = (e) => (retired || e.lifecycle === 'active')
       && (!stat || EQ.statusKey(e.status) === stat)
-      && (!src || (src === 'auto' ? EQ.zmms.mode(e).label === 'Auto' : EQ.zmms.mode(e).label === 'Manual'))
+      && (!src || (src === 'auto' ? EQ.cmms.mode(e).label === 'Auto' : EQ.cmms.mode(e).label === 'Manual'))
       && (tv || !ui.q || (e.code + ' ' + e.name + ' ' + (e.modelCode || '')).toLowerCase().includes(ui.q.toLowerCase()));
     const types = type === 'all' ? ['QC', 'RTG', 'ES'] : [type];
     const host = tv ? h('div', { class: 'tvf-body' }) : page;

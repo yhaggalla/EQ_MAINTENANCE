@@ -1,0 +1,250 @@
+{
+  "passed": 37,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "QC has exactly the requested active members and consecutive demo codes",
+      "pass": true,
+      "detail": [
+        "QC01",
+        "QC02",
+        "QC03",
+        "QC04",
+        "QC05",
+        "QC06",
+        "QC07",
+        "QC08",
+        "QC09",
+        "QC10",
+        "QC11",
+        "QC12",
+        "QC13",
+        "QC14"
+      ]
+    },
+    {
+      "name": "RTG has exactly the requested active members and consecutive demo codes",
+      "pass": true,
+      "detail": [
+        "RTG01",
+        "RTG02",
+        "RTG03",
+        "RTG04",
+        "RTG05",
+        "RTG06",
+        "RTG07",
+        "RTG08",
+        "RTG09",
+        "RTG10",
+        "RTG11",
+        "RTG12",
+        "RTG13",
+        "RTG14",
+        "RTG15",
+        "RTG16",
+        "RTG17",
+        "RTG18",
+        "RTG19",
+        "RTG20",
+        "RTG21",
+        "RTG22",
+        "RTG23",
+        "RTG24",
+        "RTG25",
+        "RTG26",
+        "RTG27",
+        "RTG28",
+        "RTG29",
+        "RTG30",
+        "RTG31",
+        "RTG32",
+        "RTG33",
+        "RTG34",
+        "RTG35",
+        "RTG36",
+        "RTG37",
+        "RTG38",
+        "RTG39",
+        "RTG40",
+        "RTG41",
+        "RTG42",
+        "RTG43",
+        "RTG44",
+        "RTG45",
+        "RTG46"
+      ]
+    },
+    {
+      "name": "ES has exactly the requested active members and consecutive demo codes",
+      "pass": true,
+      "detail": [
+        "ES01",
+        "ES02",
+        "ES03",
+        "ES04",
+        "ES05",
+        "ES06",
+        "ES07"
+      ]
+    },
+    {
+      "name": "67 unique equipment IDs, keys and codes",
+      "pass": true
+    },
+    {
+      "name": "51 newly active members have no invented status/model/positions/history/CMMS link",
+      "pass": true
+    },
+    {
+      "name": "Existing equipment-specific job and replacement identities survive",
+      "pass": true
+    },
+    {
+      "name": "Status populations reconcile, including unknown units",
+      "pass": true,
+      "detail": {
+        "readyForOps": 7,
+        "breakdown": 3,
+        "maintenance": 3,
+        "unreported": 54,
+        "total": 67
+      }
+    },
+    {
+      "name": "QC fleet job covers every member once and exports once",
+      "pass": true
+    },
+    {
+      "name": "RTG fleet job covers every member once and exports once",
+      "pass": true
+    },
+    {
+      "name": "ES fleet job covers every member once and exports once",
+      "pass": true
+    },
+    {
+      "name": "Reset restores the 67-member baseline and keeps FAC at 114",
+      "pass": true
+    },
+    {
+      "name": "Dashboard total and type badges show 67 / 14 / 46 / 7",
+      "pass": true
+    },
+    {
+      "name": "Dashboard status tiles reconcile with the register",
+      "pass": true
+    },
+    {
+      "name": "QC dashboard cards and group total include the last unit",
+      "pass": true
+    },
+    {
+      "name": "RTG dashboard cards and group total include the last unit",
+      "pass": true
+    },
+    {
+      "name": "ES dashboard cards and group total include the last unit",
+      "pass": true
+    },
+    {
+      "name": "Fleet table has all 67 equipment links",
+      "pass": true
+    },
+    {
+      "name": "Admin register lists all 67 equipment including each last unit",
+      "pass": true
+    },
+    {
+      "name": "special equipment filter includes all 67",
+      "pass": true
+    },
+    {
+      "name": "daily equipment filter includes all 67",
+      "pass": true
+    },
+    {
+      "name": "status equipment filter includes all 67",
+      "pass": true
+    },
+    {
+      "name": "EQ status board has all 67 equipment rows",
+      "pass": true
+    },
+    {
+      "name": "spare-parts equipment filter includes all 67",
+      "pass": true
+    },
+    {
+      "name": "QC job form offers all members plus the shared fleet target",
+      "pass": true
+    },
+    {
+      "name": "RTG job form offers all members plus the shared fleet target",
+      "pass": true
+    },
+    {
+      "name": "ES job form offers all members plus the shared fleet target",
+      "pass": true
+    },
+    {
+      "name": "A special job can be created for the last ES",
+      "pass": true
+    },
+    {
+      "name": "CMMS mapping selector offers every active unit without assigning any",
+      "pass": true
+    },
+    {
+      "name": "eq-qc-demo-14 detail opens with Unreported and safe model fallback",
+      "pass": true
+    },
+    {
+      "name": "eq-rtg-demo-46 detail opens with Unreported and safe model fallback",
+      "pass": true
+    },
+    {
+      "name": "eq-es-demo-07 detail opens with Unreported and safe model fallback",
+      "pass": true
+    },
+    {
+      "name": "1920px TV pages cover all 67 with no scrolling or edit links",
+      "pass": true,
+      "detail": {
+        "pages": 3,
+        "seen": 67,
+        "fit": true,
+        "scroll": 0,
+        "links": 0
+      }
+    },
+    {
+      "name": "1366px TV pages cover all 67 with no scrolling or edit links",
+      "pass": true,
+      "detail": {
+        "pages": 7,
+        "seen": 67,
+        "fit": true,
+        "scroll": 0,
+        "links": 0
+      }
+    },
+    {
+      "name": "Phone fleet fits horizontally and retains all equipment",
+      "pass": true
+    },
+    {
+      "name": "Phone search reaches the last RTG",
+      "pass": true
+    },
+    {
+      "name": "Management remains read-only with the expanded fleet",
+      "pass": true
+    },
+    {
+      "name": "No browser errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "errors": []
+}

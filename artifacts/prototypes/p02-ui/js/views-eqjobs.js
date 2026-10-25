@@ -25,7 +25,7 @@ window.EQ = window.EQ || {};
     return EQ.state.D.equipment.filter((e) => (!q.type || e.typeCode === q.type) && (!q.equipment || e.id === q.equipment));
   }
   function dailyRows(q) {
-    const z = EQ.state.D.zmms, today = EQ.todayColombo();
+    const z = EQ.state.D.cmms, today = EQ.todayColombo();
     const from = q.from || (q.to ? '0000-01-01' : today), to = q.to || (q.from ? '9999-12-31' : today);
     const ids = new Set(eqList(q).map((e) => e.id));
     const needle = (EQ.jobsUI.q || '').toLowerCase();
@@ -33,7 +33,7 @@ window.EQ = window.EQ || {};
       .sort((a, b) => EQ.cmp(b.date, a.date) || EQ.cmp(a.equipmentText, b.equipmentText) || EQ.cmp(a.jobNo, b.jobNo));
   }
   EQ.dailyRows = dailyRows;
-  const DAILY_COLUMNS = ['Job date', 'Job ID', 'CWO No', 'Equipment (app code)', 'ZMMS equipment', 'Equipment type', 'Department', 'Job type', 'Job status', 'Priority', 'Created', 'Description', 'Staff of Mech Tech', 'Hours of Mech Tech', 'Staff of Elec Tech', 'Hours of Elec Tech', 'Reported fault', 'Corrective action', 'Source state'];
+  const DAILY_COLUMNS = ['Job date', 'Job ID', 'CWO No', 'Equipment (app code)', 'CMMS equipment', 'Equipment type', 'Department', 'Job type', 'Job status', 'Priority', 'Created', 'Description', 'Staff of Mech Tech', 'Hours of Mech Tech', 'Staff of Elec Tech', 'Hours of Elec Tech', 'Reported fault', 'Corrective action', 'Source state'];
   EQ.eqExport = function eqExport(kind, q) {
     const deny = EQ.access.srv('export.excel') || EQ.access.srv('eq.jobs.view'); if (deny) return deny;
     if (kind === 'daily') return { ok: true, columns: DAILY_COLUMNS, rows: dailyRows(q).map((j) => [j.date, j.jobNo, j.cwo, EQ.eq(j.equipmentId).code, j.equipmentText, j.eqType, j.dept, j.typeText, j.statusText, j.priority, j.created, j.desc, j.mechStaff, j.mechHours, j.elecStaff, j.elecHours, j.fault, j.corrective, j.sourceState]) };
@@ -62,7 +62,7 @@ window.EQ = window.EQ || {};
     const setQ = (patch, p2) => EQ.nav('/eq/jobs/' + (p2 || part), { ...q, ...patch });
     const keepShared = Object.fromEntries(SHARED.filter((k) => q[k]).map((k) => [k, q[k]]));
     page.appendChild(h('h1', { class: 'sr-only' }, 'EQ Jobs'));
-    page.appendChild(h('nav', { class: 'subtabs', 'aria-label': 'EQ Jobs parts' }, PARTS.map(([k, label]) => h('a', { href: '#/eq/jobs/' + k + (Object.keys(keepShared).length ? '?' + new URLSearchParams(keepShared).toString() : ''), 'aria-current': k === part ? 'page' : null, 'data-fk': 'jp-' + k, title: k === 'special' ? 'Major or non-routine work entered by hand for equipment, a mechanism or a part. Daily work from ZMMS is in Daily work (CMMS).' : null }, label))));
+    page.appendChild(h('nav', { class: 'subtabs', 'aria-label': 'EQ Jobs parts' }, PARTS.map(([k, label]) => h('a', { href: '#/eq/jobs/' + k + (Object.keys(keepShared).length ? '?' + new URLSearchParams(keepShared).toString() : ''), 'aria-current': k === part ? 'page' : null, 'data-fk': 'jp-' + k, title: k === 'special' ? 'Major or non-routine work entered by hand for equipment, a mechanism or a part. Daily work from CMMS is in Daily work (CMMS).' : null }, label))));
 
     if (S.data === 'loading') { page.appendChild(h('div', { 'aria-busy': 'true', role: 'status', class: 'board' }, [1, 2, 3].map(() => h('div', { class: 'skeleton', style: 'height:16rem' })))); return page; }
     if (S.data === 'error') { page.appendChild(h('div', { class: 'notice error', role: 'alert' }, icon('wifi-off'), h('div', null, h('p', null, h('strong', null, 'Jobs could not be loaded. '), 'Nothing is shown as completed or pending without data.'), h('div', { class: 'actions' }, h('button', { type: 'button', class: 'btn-sm', onClick: () => EQ.refresh(true) }, 'Retry'))))); return page; }
@@ -113,32 +113,32 @@ window.EQ = window.EQ || {};
     page.appendChild(EQ.specialBoard(q, toolbarActions));
   }
 
-  // ---------------------------------------------------------------- tab 2: Daily work (CMMS), the read-only ZMMS daily jobs (SOW V2 s4.4)
+  // ---------------------------------------------------------------- tab 2: Daily work (CMMS), the read-only CMMS daily jobs (SOW V2 s4.4)
   function daily(page, q) {
     const rows = dailyRows(q);
     const today = EQ.todayColombo();
     const range = q.from || q.to ? (q.from ? fmtD(q.from) : 'start') + ' to ' + (q.to ? fmtD(q.to) : 'today') : 'today only (' + fmtD(today) + ')';
-    const fresh = EQ.zmms.freshness();
+    const fresh = EQ.cmms.freshness();
     page.appendChild(h('section', { class: 'panel panel-pad stack', id: 'daily', 'aria-labelledby': 'dj-h' },
-      h('div', { class: 'row between' }, h('h2', { id: 'dj-h' }, 'Daily work from CMMS (ZMMS daily jobs, read-only)'),
-        h('div', { class: 'row' }, h('span', { class: 'zmms-fresh' + (fresh.stale ? ' stale' : ''), 'data-fk': 'zmms-fresh' }, icon(fresh.stale ? 'alert' : 'sync'), EQ.zmms.freshLabel(), fresh.stale ? h('strong', null, ' · stale') : null),
-          EQ.access.has('export.excel') ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'export-daily', onClick: () => { const r = EQ.eqExport('daily', q); if (r.ok) { EQ.downloadCsv('zmms-daily-jobs.csv', r.columns, r.rows); EQ.toast('Exported ' + r.rows.length + ' daily job(s)', 'Prototype stand-in: CSV, not the server-generated .xlsx.'); } } }, icon('download'), 'Export') : null)),
-      h('p', { class: 'small muted', style: 'margin:0' }, 'Showing ' + range + '. ' + rows.length + " job(s). Read-only ZMMS jobs, synced twice daily and linked to equipment only. Use From/To for earlier days. Unmatched codes: Admin > EQ > ZMMS."),
-      h('div', { class: 'notice info' }, icon('info'), h('p', null, "Sample data from the 22 Oct 2026 export. No live ZMMS connection.")),
-      fresh.stale ? h('div', { class: 'notice warn', role: 'status' }, icon('alert'), h('p', null, 'The latest ZMMS sync failed or is overdue. The previous data is kept unchanged and no status was changed.')) : null,
-      rows.length ? dailyTable(rows) : h('div', { class: 'nonwork' }, h('strong', null, 'No ZMMS daily jobs for this selection'), 'Nothing matches the equipment, type, date range and search above. This is not evidence that no work was done.')));
+      h('div', { class: 'row between' }, h('h2', { id: 'dj-h' }, 'CMMS daily jobs (read-only)'),
+        h('div', { class: 'row' }, h('span', { class: 'cmms-fresh' + (fresh.stale ? ' stale' : ''), 'data-fk': 'cmms-fresh' }, icon(fresh.stale ? 'alert' : 'sync'), EQ.cmms.freshLabel(), fresh.stale ? h('strong', null, ' · stale') : null),
+          EQ.access.has('export.excel') ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'export-daily', onClick: () => { const r = EQ.eqExport('daily', q); if (r.ok) { EQ.downloadCsv('cmms-daily-jobs.csv', r.columns, r.rows); EQ.toast('Exported ' + r.rows.length + ' daily job(s)', 'Prototype stand-in: CSV, not the server-generated .xlsx.'); } } }, icon('download'), 'Export') : null)),
+      h('p', { class: 'small muted', style: 'margin:0' }, 'Showing ' + range + '. ' + rows.length + " job(s). Read-only CMMS jobs, synced twice daily and linked to equipment only. Use From/To for earlier days. Unmatched codes: Admin > EQ > CMMS."),
+      h('div', { class: 'notice info' }, icon('info'), h('p', null, "Sample data from the 22 Oct 2026 export. No live CMMS connection.")),
+      fresh.stale ? h('div', { class: 'notice warn', role: 'status' }, icon('alert'), h('p', null, 'The latest CMMS sync failed or is overdue. The previous data is kept unchanged and no status was changed.')) : null,
+      rows.length ? dailyTable(rows) : h('div', { class: 'nonwork' }, h('strong', null, 'No CMMS daily jobs for this selection'), 'Nothing matches the equipment, type, date range and search above. This is not evidence that no work was done.')));
   }
   function dailyTable(rows) {
     const staff = (a, b) => (a === '-' ? '-' : a + ' / ' + b + ' h');
     return h('div', { class: 'table-wrap daily-wrap' }, h('table', { class: 'daily-table' },
-      h('caption', { class: 'sr-only' }, 'ZMMS daily jobs, read-only'),
+      h('caption', { class: 'sr-only' }, 'CMMS daily jobs, read-only'),
       h('thead', null, h('tr', null, ['Date', 'Job ID', 'Equipment', 'Job type', 'Status', 'Priority', 'Description', 'Mech / Elec staff and hours'].map((c) => h('th', { scope: 'col' }, c)))),
       h('tbody', null, rows.slice(0, 150).map((j) => {
         const eq = EQ.eq(j.equipmentId);
         return h('tr', { class: j.sourceState === 'absentFromSource' ? 'inactive' : '', 'data-zjob': j.jobNo },
           h('td', null, fmtD(j.date)), h('th', { scope: 'row' }, h('span', { class: 'mono' }, j.jobNo), j.cwo && j.cwo !== '0' ? h('div', { class: 'small muted' }, 'CWO ' + j.cwo) : null),
           h('td', null, h('a', { href: '#/eq/equipment/' + eq.id }, eq.code), h('div', { class: 'small muted' }, j.equipmentText + ' · ' + j.eqType)),
-          h('td', null, h('span', { class: 'tag' }, j.typeText)), h('td', null, h('span', { class: 'tag ' + (/completed/i.test(j.statusText) ? 'green' : /hold/i.test(j.statusText) ? 'red' : 'gold') }, j.statusText), j.sourceState === 'absentFromSource' ? h('div', { class: 'small' }, h('span', { class: 'tag dashed' }, 'No longer in the ZMMS list')) : null),
+          h('td', null, h('span', { class: 'tag' }, j.typeText)), h('td', null, h('span', { class: 'tag ' + (/completed/i.test(j.statusText) ? 'green' : /hold/i.test(j.statusText) ? 'red' : 'gold') }, j.statusText), j.sourceState === 'absentFromSource' ? h('div', { class: 'small' }, h('span', { class: 'tag dashed' }, 'No longer in the CMMS list')) : null),
           h('td', null, j.priority),
           h('td', null, j.desc, h('details', { class: 'small' }, h('summary', null, 'More fields'), h('dl', { class: 'kv' }, [['Created', j.created], ['Department', j.dept], ['Reported fault', j.fault || '-'], ['Fault description', j.faultDesc || '-'], ['Corrective action', j.corrective || '-'], ['Work done summary', j.workDone || '-'], ['Job instruction', j.instruction || '-'], ['Status remarks', j.statusRemarks || '-']].map(([k, v]) => [h('dt', null, k), h('dd', null, v)])))),
           h('td', null, 'Mech ' + staff(j.mechStaff, j.mechHours), h('div', null, 'Elec ' + staff(j.elecStaff, j.elecHours))));
@@ -146,27 +146,27 @@ window.EQ = window.EQ || {};
   }
 
   // ---------------------------------------------------------------- tab 3: EQ status
-  const SOURCE_LABEL = { automatic: 'Automatic (ZMMS sync)', overrideEnded: 'Correction ended (ZMMS sync)', backToAutomatic: 'Back to automatic', manualCorrection: 'Manual correction', manualStatus: 'Manual status' };
+  const SOURCE_LABEL = { automatic: 'Automatic (CMMS sync)', overrideEnded: 'Correction ended (CMMS sync)', backToAutomatic: 'Back to automatic', manualCorrection: 'Manual correction', manualStatus: 'Manual status' };
   function statusPart(page, q) {
     const list = eqList(q).filter((e) => e.lifecycle === 'active');
-    const fresh = EQ.zmms.freshness();
-    page.appendChild(h('div', { class: 'row between', style: 'margin:.2rem 0 .5rem' }, h('h2', null, 'EQ status board'), h('span', { class: 'zmms-fresh' + (fresh.stale ? ' stale' : '') }, icon(fresh.stale ? 'alert' : 'sync'), EQ.zmms.freshLabel(), fresh.stale ? h('strong', null, ' · stale') : null)));
+    const fresh = EQ.cmms.freshness();
+    page.appendChild(h('div', { class: 'row between', style: 'margin:.2rem 0 .5rem' }, h('h2', null, 'EQ status board'), h('span', { class: 'cmms-fresh' + (fresh.stale ? ' stale' : '') }, icon(fresh.stale ? 'alert' : 'sync'), EQ.cmms.freshLabel(), fresh.stale ? h('strong', null, ' · stale') : null)));
     page.appendChild(h('div', { class: 'notice info' }, icon('info'), h('div', { class: 'stack', style: 'gap:.3rem' },
-      h('p', null, h('strong', null, 'From ZMMS: '), 'Breakdown job → Breakdown · Maintenance job → Maintenance · No planned job → Ready for OPS.'),
+      h('p', null, h('strong', null, 'From CMMS: '), 'Breakdown job → Breakdown · Maintenance job → Maintenance · No planned job → Ready for OPS.'),
       h('p', null, h('strong', null, 'Manual correction: '), 'Add a reason. It lasts until the next successful sync after today. Choose ', h('strong', null, 'Back to automatic'), ' to end it sooner.'),
-      h('p', null, h('strong', null, 'No ZMMS link: '), 'Set the status manually.'))));
+      h('p', null, h('strong', null, 'No CMMS link: '), 'Set the status manually.'))));
     page.appendChild(h('div', { class: 'panel table-wrap' }, h('table', { class: 'status-board' },
       h('caption', { class: 'sr-only' }, 'EQ status board, one row per active equipment'),
-      h('thead', null, h('tr', null, ['Equipment', 'Status', 'Source', 'Since', 'Reason', 'Manual until', 'Causing ZMMS jobs', 'Actions'].map((c) => h('th', { scope: 'col' }, c)))),
+      h('thead', null, h('tr', null, ['Equipment', 'Status', 'Source', 'Since', 'Reason', 'Manual until', 'Causing CMMS jobs', 'Actions'].map((c) => h('th', { scope: 'col' }, c)))),
       h('tbody', null, list.map((e) => {
-        const m = EQ.zmms.mode(e);
+        const m = EQ.cmms.mode(e);
         return h('tr', { 'data-eq': e.id },
           h('th', { scope: 'row' }, h('a', { href: '#/eq/equipment/' + e.id }, e.code)), h('td', null, EQ.statusBadge(e.status)),
           h('td', null, h('span', { class: 'src ' + (m.label === 'Auto' ? 'auto' : 'manual') }, m.label), h('div', { class: 'small muted' }, m.long)),
           h('td', null, e.statusSince ? EQ.fmtInstantShort(e.statusSince) : 'Never set'), h('td', null, e.statusReason || '-'),
           h('td', null, e.overrideOn ? fmtD(e.overrideOn) + (e.overrideOn >= EQ.todayColombo() ? ' (today)' : ' (expired)') : '-'),
-          h('td', null, e.statusCauses && e.statusCauses.length && e.statusSource === 'zmms' ? [e.statusCauses.map((c) => h('span', { class: 'tag mono', style: 'margin-right:.2rem' }, c)), h('div', { class: 'small muted' }, 'Plan of ' + fmtD(e.statusPlanDate))] : EQ.zmms.causeText(e) || '-'),
-          h('td', null, EQ.perm.write() ? h('div', { class: 'row' }, h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'correct-' + e.id, onClick: () => EQ.dlg.status(e) }, e.zmmsMapped ? 'Correct...' : 'Update...'), e.zmmsMapped && e.overrideOn ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'auto-' + e.id, onClick: () => { const r = EQ.zmms.backToAutomatic(e.id); EQ.toast(r.ok ? e.code + ' is back to automatic' + (r.awaiting ? " (awaiting today's ZMMS sync)" : '') : r.message, 'Prototype: in memory only.'); } }, 'Back to automatic') : null) : h('span', { class: 'small muted' }, 'Read-only')));
+          h('td', null, e.statusCauses && e.statusCauses.length && e.statusSource === 'cmms' ? [e.statusCauses.map((c) => h('span', { class: 'tag mono', style: 'margin-right:.2rem' }, c)), h('div', { class: 'small muted' }, 'Plan of ' + fmtD(e.statusPlanDate))] : EQ.cmms.causeText(e) || '-'),
+          h('td', null, EQ.perm.write() ? h('div', { class: 'row' }, h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'correct-' + e.id, onClick: () => EQ.dlg.status(e) }, e.cmmsMapped ? 'Correct...' : 'Update...'), e.cmmsMapped && e.overrideOn ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'auto-' + e.id, onClick: () => { const r = EQ.cmms.backToAutomatic(e.id); EQ.toast(r.ok ? e.code + ' is back to automatic' + (r.awaiting ? " (awaiting today's CMMS sync)" : '') : r.message, 'Prototype: in memory only.'); } }, 'Back to automatic') : null) : h('span', { class: 'small muted' }, 'Read-only')));
       })))));
     // history across equipment
     const ids = new Set(eqList(q).map((e) => e.id));
@@ -174,11 +174,11 @@ window.EQ = window.EQ || {};
     const hist = EQ.state.D.statusChanges.filter((c) => ids.has(c.equipmentId) && EQ.todayOf(c.at) >= from && EQ.todayOf(c.at) <= to).sort((a, b) => EQ.cmp(b.at, a.at));
     page.appendChild(h('section', { class: 'panel panel-pad stack', style: 'margin-top:1rem', 'aria-labelledby': 'sth-h' },
       h('h2', { id: 'sth-h' }, 'Status history ', h('span', { class: 'tag' }, String(hist.length))),
-      hist.length ? h('div', { class: 'table-wrap' }, h('table', null, h('caption', { class: 'sr-only' }, 'Status changes with source'), h('thead', null, h('tr', null, ['When', 'Equipment', 'Change', 'Source', 'By', 'Reason', 'Causing ZMMS jobs'].map((c) => h('th', { scope: 'col' }, c)))),
+      hist.length ? h('div', { class: 'table-wrap' }, h('table', null, h('caption', { class: 'sr-only' }, 'Status changes with source'), h('thead', null, h('tr', null, ['When', 'Equipment', 'Change', 'Source', 'By', 'Reason', 'Causing CMMS jobs'].map((c) => h('th', { scope: 'col' }, c)))),
         h('tbody', null, hist.map((c) => h('tr', { 'data-sc': c.id }, h('td', null, EQ.fmtInstantShort(c.at)), h('th', { scope: 'row' }, EQ.eq(c.equipmentId).code),
           h('td', null, c.prev ? EQ.STATUS[c.prev].label + ' → ' : 'First: ', EQ.statusBadge(c.status)),
-          h('td', null, h('span', { class: 'src ' + (c.source === 'zmms' ? 'auto' : 'manual') }, c.source === 'zmms' ? 'ZMMS sync' + (c.runId ? ' #' + c.runId : '') : 'User'), h('div', { class: 'small muted' }, (SOURCE_LABEL[c.kind] || c.kind) + (c.planDate ? ' · plan of ' + fmtD(c.planDate) : ''))),
-          h('td', null, c.source === 'zmms' ? 'System' : EQ.userName(c.by)), h('td', null, c.reason || '-'), h('td', null, c.causes && c.causes.length ? c.causes.join(', ') : c.source === 'zmms' && c.status === 'readyForOps' && c.planDate ? 'Not in the ZMMS plan for ' + fmtD(c.planDate) : '-')))))) : h('div', { class: 'nonwork' }, h('strong', null, 'No status changes in this selection'), 'Nothing is inferred from before tracking began.')));
+          h('td', null, h('span', { class: 'src ' + (c.source === 'cmms' ? 'auto' : 'manual') }, c.source === 'cmms' ? 'CMMS sync' + (c.runId ? ' #' + c.runId : '') : 'User'), h('div', { class: 'small muted' }, (SOURCE_LABEL[c.kind] || c.kind) + (c.planDate ? ' · plan of ' + fmtD(c.planDate) : ''))),
+          h('td', null, c.source === 'cmms' ? 'System' : EQ.userName(c.by)), h('td', null, c.reason || '-'), h('td', null, c.causes && c.causes.length ? c.causes.join(', ') : c.source === 'cmms' && c.status === 'readyForOps' && c.planDate ? 'Not in the CMMS plan for ' + fmtD(c.planDate) : '-')))))) : h('div', { class: 'nonwork' }, h('strong', null, 'No status changes in this selection'), 'Nothing is inferred from before tracking began.')));
   }
   EQ.todayOf = (iso) => new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Colombo' }).format(new Date(iso));
 

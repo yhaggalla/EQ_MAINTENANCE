@@ -1,7 +1,7 @@
 /* P02B / U1-C19: the crane-view right panel is current state only, in exactly four tabs (DATA_CONTRACT s18.1, API s4.16):
-   Maintenance (today's ZMMS daily jobs), Projects/Special (open and completed special jobs in the selected scope; U1-C23 makes this
+   Maintenance (today's CMMS daily jobs), Projects/Special (open and completed special jobs in the selected scope; U1-C23 makes this
    tab the one exception to "no history in the crane view"), Technical (specification summary of the selected area) and Spare parts
-   (current register rows in scope). Other work history (events, corrections, installations, status changes, earlier ZMMS days) lives
+   (current register rows in scope). Other work history (events, corrections, installations, status changes, earlier CMMS days) lives
    in the EQ Jobs tab ("Open in Jobs"). Jobs switched off with "Show on dashboard / 3D" are not shown here (U1-C26). Used by both shared-viewer cameras; physical areas filter to their included positions (U1-C34). */
 window.EQ = window.EQ || {};
 (function (EQ) {
@@ -60,19 +60,19 @@ window.EQ = window.EQ || {};
   const openInJobs = (eq, scope, tab) => (P.jobsAllowed() ? h('a', { class: 'btn btn-sm', href: P.jobsLink(eq, scope, tab), 'data-fk': 'open-in-jobs-' + tab, ...ext() }, icon('ext'), scope.level === 'area' ? 'Open equipment in Jobs' : 'Open in Jobs')
     : h('p', { class: 'small muted', style: 'margin:0', 'data-fk': 'jobs-tab-off-' + tab }, 'The EQ Jobs tab is not available for your role, so earlier work and job records are not shown.'));
 
-  /** Tab badges (summary query): today's ZMMS job count, open special jobs, spare parts overdue / due soon. */
+  /** Tab badges (summary query): today's CMMS job count, open special jobs, spare parts overdue / due soon. */
   P.summary = function summary(eq, scope) {
     const cs = EQ.currentSpecial(eq.id, scope);
     const open = cs.ok ? cs.openJobs.length : 0;
     const rows = EQ.spares.rows(eq.id, scope.level === 'equipment' ? null : scope);
     const c = EQ.spares.counts(rows);
-    return { maintenance: eq.zmmsMapped ? EQ.zmms.todayJobs(eq.id).length : null, special: open, spare: c };
+    return { maintenance: eq.cmmsMapped ? EQ.cmms.todayJobs(eq.id).length : null, special: open, spare: c };
   };
 
   const tag = (t, cls, title) => h('span', { class: 'tag' + (cls ? ' ' + cls : ''), title }, t);
 
 
-  /** One ZMMS daily job as a compact card (fields follow the real export; values are synthetic). */
+  /** One CMMS daily job as a compact card (fields follow the real export; values are synthetic). */
   P.dailyJobCard = function dailyJobCard(j) {
     const staff = (st, hr) => (st === '-' ? '-' : st + ' staff, ' + hr + ' h');
     return h('li', { class: /completed/i.test(j.statusText) ? '' : 'open', 'data-zjob': j.jobNo, 'data-panel-search-item': '' },
@@ -86,18 +86,18 @@ window.EQ = window.EQ || {};
 
   P.maintenance = function maintenance(eq, scope) {
     const box = h('div', { class: 'stack' });
-    const mode = EQ.zmms.mode(eq);
-    const fresh = EQ.zmms.freshness();
+    const mode = EQ.cmms.mode(eq);
+    const fresh = EQ.cmms.freshness();
     box.appendChild(h('div', { class: 'sec' }, h('h3', null, 'Equipment status'),
-      h('div', { class: 'row' }, EQ.statusBadge(eq.status), tag(mode.label === 'Auto' ? 'Auto (ZMMS)' : 'Manual', mode.label === 'Auto' ? '' : 'gold', mode.long)),
+      h('div', { class: 'row' }, EQ.statusBadge(eq.status), tag(mode.label === 'Auto' ? 'Auto (CMMS)' : 'Manual', mode.label === 'Auto' ? '' : 'gold', mode.long)),
       eq.statusReason && mode.label !== 'Auto' ? h('span', { class: 'small' }, 'Reason: ' + eq.statusReason) : null));
-    if (!eq.zmmsMapped) {
-      box.appendChild(h('div', { class: 'nonwork' }, h('strong', null, 'Not linked to ZMMS')));
+    if (!eq.cmmsMapped) {
+      box.appendChild(h('div', { class: 'nonwork' }, h('strong', null, 'Not linked to CMMS')));
     } else {
-      const jobs = EQ.zmms.todayJobs(eq.id);
-      box.appendChild(h('div', { class: 'sec' }, h('h3', null, "Today's ZMMS daily jobs ", tag(String(jobs.length))),
-        h('div', { class: 'row small muted' }, EQ.zmms.freshLabel(), fresh.stale ? tag('Stale', 'gold', 'The latest sync failed or is overdue.') : null),
-        jobs.length ? h('ul', { class: 'tl' }, jobs.map((j) => P.dailyJobCard(j))) : h('div', { class: 'nonwork' }, h('strong', null, 'No ZMMS job today'))));
+      const jobs = EQ.cmms.todayJobs(eq.id);
+      box.appendChild(h('div', { class: 'sec' }, h('h3', null, "Today's CMMS daily jobs ", tag(String(jobs.length))),
+        h('div', { class: 'row small muted' }, EQ.cmms.freshLabel(), fresh.stale ? tag('Stale', 'gold', 'The latest sync failed or is overdue.') : null),
+        jobs.length ? h('ul', { class: 'tl' }, jobs.map((j) => P.dailyJobCard(j))) : h('div', { class: 'nonwork' }, h('strong', null, 'No CMMS job today'))));
     }
     box.appendChild(openInJobs(eq, scope, 'maintenance'));
     return box;

@@ -15,7 +15,7 @@ const repo = path.resolve(root, '..', '..', '..');
 const models = path.join(repo, 'artifacts', 'models');
 const refs = { 'mechanisms-approved.json': path.join(repo, 'documents', 'prompt-pack', 'reference', 'mechanisms-approved.json'), 'major-parameters.json': path.join(repo, 'documents', 'prompt-pack', 'reference', 'major-parameters.json') };
 const p02js = path.join(repo, 'artifacts', 'prototypes', 'p02-ui', 'js');
-const p02files = new Set(['util.js', 'catalog.js', 'params.js', 'fixtures.js', 'access.js', 'store.js', 'zmms.js', 'spares.js', 'panel-tabs.js']);
+const p02files = new Set(['util.js', 'catalog.js', 'params.js', 'fixtures.js', 'access.js', 'store.js', 'cmms.js', 'spares.js', 'panel-tabs.js']);
 const port = Number(process.argv[2]) || 5313;
 const types = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json', '.glb': 'model/gltf-binary', '.png': 'image/png', '.svg': 'image/svg+xml' };
 

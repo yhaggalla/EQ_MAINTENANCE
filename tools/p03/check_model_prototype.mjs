@@ -148,10 +148,10 @@ try {
   await open(`?eq=eq-qc-demo-02`); await settle();
   const motorA2 = await idOfKey('hoist.drive.motor.a');
   await E(`window.__qc.select({ part: ${JSON.stringify(motorA2)} })`); await settle();
-  // P02B: separate identity is shown through the current state (Spare parts tab): QC-DEMO-02 motor A carries its own serial and replaced date
+  // P02B: separate identity is shown through the current state (Spare parts tab): QC02 motor A carries its own serial and replaced date
   await E(`document.querySelector('#info-tabs [data-tab="spareParts"]').click()`); await sleep(200);
   const info2 = await E(`document.querySelector('#info').textContent`);
-  rec('equipment-specific-identity', 'S12, HIS01, S22 (synthetic)', motorA2 !== motorA && info2.includes('SYN-0017') && info2.includes('30 Sept 2026') && !info2.includes('SYN-0001'), { 'QC-DEMO-01': motorA, 'QC-DEMO-02': motorA2 });
+  rec('equipment-specific-identity', 'S12, HIS01, S22 (synthetic)', motorA2 !== motorA && info2.includes('SYN-0017') && info2.includes('30 Sept 2026') && !info2.includes('SYN-0001'), { 'QC01': motorA, 'QC02': motorA2 });
 
   // 12 deep link reload and back/forward
   await open(`?eq=eq-qc-demo-01&part=${motorA}&mode=technical`); await settle();

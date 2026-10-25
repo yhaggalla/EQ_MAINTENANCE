@@ -83,7 +83,7 @@ window.EQ = window.EQ || {};
     const sec = currentSection();
     const persona = EQ.access.persona();
     bannerEl.replaceChildren(
-      h('strong', null, 'PROTOTYPE'), h('span', null, 'Synthetic data only. Nothing is saved, no sign-in is implemented, no live ZMMS connection exists, and the persona below is a simulation of the Portal role assignment, not authentication.'),
+      h('strong', null, 'PROTOTYPE'), h('span', null, 'Synthetic data only. Nothing is saved, no sign-in is implemented, no live CMMS connection exists, and the persona below is a simulation of the Portal role assignment, not authentication.'),
       h('button', { type: 'button', 'aria-expanded': controlsOpen ? 'true' : 'false', 'aria-controls': 'pc', 'data-fk': 'pc-toggle', onClick: () => { controlsOpen = !controlsOpen; render(); } }, 'Prototype controls'));
     const path = EQ.route.path;
     const tabs = sec === 'fac' ? L.fac : L.eq;

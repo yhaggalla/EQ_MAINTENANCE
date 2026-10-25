@@ -38,7 +38,7 @@ await click('#tree [data-id="mi-q01-01"] .tw', 500); await shot('p03-r2-03-fold-
 await click('#btn-labels', 400); await click('#btn-reset', 1500); await shot('p03-r2-04-after-reset', 'U1-C10/C11: Reset: whole equipment, labels on, tree folded, full view');
 await p03('?eq=eq-qc-demo-01&sub=si-q01-013&mode=technical'); await shot('p03-r2-05-loadcell', 'U1-C12: 013 load cell system: load pins in the rope-end anchors at the boom tip');
 await p03('?eq=eq-qc-demo-01&sub=si-q01-153'); await shot('p03-r2-06-elevator', 'U1-C16: 153 Elevator: mast and landings, car at the first landing outboard of leg B');
-await p03('?eq=eq-qc-demo-02&sub=si-q02-061'); await shot('p03-r2-07-spreader-qc02', 'U1-C16: 061 Spreader on QC-DEMO-02: corner castings, twistlocks and flippers instead of balls');
+await p03('?eq=eq-qc-demo-02&sub=si-q02-061'); await shot('p03-r2-07-spreader-qc02', 'U1-C16: 061 Spreader on QC02: corner castings, twistlocks and flippers instead of balls');
 await b.close();
 fs.writeFileSync(path.join(out, '..', 'capture-log-ui.json'), JSON.stringify({ browser: b.browser, items: log }, null, 2) + '\n');
 console.log(log.length + ' screenshots; with errors: ' + log.filter((l) => l.errors.length).map((l) => l.name).join(', '));

@@ -1,5 +1,5 @@
 /* =====================================================================================================================
-   P02B (SOW V2): section switch, four-tab crane panel, EQ Jobs parts, FAC Dashboard, FAC Jobs, Access matrix, ZMMS admin.
+   P02B (SOW V2): section switch, four-tab crane panel, EQ Jobs parts, FAC Dashboard, FAC Jobs, Access matrix, CMMS admin.
    Tokens: discipline hues (text and fill AA on white), FAC pill states. Status is always icon + text + colour.
    ===================================================================================================================== */
 :root {
@@ -28,12 +28,12 @@
 .tabs.four .tab-n { position: absolute; top: .1rem; right: .1rem; }
 .tabs .tab-n { background: var(--gold-100); color: #5d4100; border-radius: 99px; font-size: .68rem; font-weight: 800; padding: 0 .38rem; min-width: 1.2rem; text-align: center; }
 .tl > li.overdue { border-left-color: var(--danger); }
-/* status source, ZMMS freshness */
+/* status source, CMMS freshness */
 .src { display: inline-block; padding: 0 .4rem; border-radius: .25rem; font-size: .68rem; font-weight: 800; letter-spacing: .03em; border: 1px solid; vertical-align: 1px; }
 .src.auto { color: var(--navy-800); background: var(--blue-50); border-color: #7eb0cf; }
 .src.manual { color: #5d4100; background: var(--gold-100); border-color: var(--gold-600); }
-.zmms-fresh { display: inline-flex; align-items: center; gap: .3rem; font-size: .78rem; color: var(--ink-muted); }
-.zmms-fresh.stale { color: var(--danger); font-weight: 700; }
+.cmms-fresh { display: inline-flex; align-items: center; gap: .3rem; font-size: .78rem; color: var(--ink-muted); }
+.cmms-fresh.stale { color: var(--danger); font-weight: 700; }
 .eq-card .meta .zc { font-weight: 700; color: var(--navy-800); }
 .fleet-page .eq-card .meta .src { font-size: .62rem; padding: 0 .3rem; }
 /* EQ jobs */
@@ -65,7 +65,7 @@
 .mx-no .tag { opacity: .85; }
 .unmapped-row td, .unmapped-row th { background: #fff7f7; }
 .failed-run th, .failed-run td { background: #fff7f7; }
-.zmms-health.failing { border-color: var(--danger); }
+.cmms-health.failing { border-color: var(--danger); }
 /* pills, bars, discipline marks (dashboard and FAC jobs) */
 .pill { display: inline-flex; align-items: center; gap: .3em; padding: .08em .6em .08em .45em; border-radius: 99px; border: 1px solid; font-size: .8em; font-weight: 750; white-space: nowrap; }
 .pill.st-overdue { color: var(--st-break-fg); background: var(--st-break-bg); border-color: var(--st-break-bd); }

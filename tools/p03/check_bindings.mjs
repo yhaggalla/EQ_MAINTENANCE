@@ -55,7 +55,7 @@ const [a, b] = inst;
 const sameKey = 'hoist.drive.motor.a';
 const pa = a.i.positions.find((p) => p.semanticKey === sameKey), pb = b.i.positions.find((p) => p.semanticKey === sameKey);
 const overlap = a.i.positions.filter((p) => b.i.positions.some((q) => q.id === p.id));
-check('two-equipment-independent', 'B8 / HIS01', pa.id !== pb.id && overlap.length === 0, { nodeKey: sameKey, 'QC-DEMO-01': pa.id, 'QC-DEMO-02': pb.id, sharedPositionIds: overlap.length });
+check('two-equipment-independent', 'B8 / HIS01', pa.id !== pb.id && overlap.length === 0, { nodeKey: sameKey, 'QC01': pa.id, 'QC02': pb.id, sharedPositionIds: overlap.length });
 
 // --- Reordered scene: identity follows extras.nodeKey, not node order or index
 const original = gltf.nodes.map((n, idx) => ({ idx, key: n.extras?.nodeKey || null, name: n.name }));
@@ -66,7 +66,7 @@ const sameResolution = [...r1].every(([k, v]) => r2.get(k) === v) && r1.size ===
 const indexHazard = original.filter((x, i) => x.key && shuffled[i].key && shuffled[i].key !== x.key).length;
 check('reordered-scene-same-identities', 'VIS05', sameResolution, { keyedNodes: r1.size, identicalResolutions: sameResolution, wouldBreakIfIndexBased: indexHazard + ' of ' + r1.size + ' nodes change index after reordering' });
 const im = manifest.instanceMaps.find((m) => m.gltfNodeName === 'gantry.wheels.instanced');
-check('instanced-identity-via-map', 'DATA s10.3 instanceMaps', im.instanceKeys[2] === 'gantry.wheel.ws-a.3' && a.i.binding.get(im.instanceKeys[2]).positionId !== b.i.binding.get(im.instanceKeys[2]).positionId, { carrier: im.gltfNodeName, instanceId: 2, key: im.instanceKeys[2], 'QC-DEMO-01': a.i.binding.get(im.instanceKeys[2]).positionId, 'QC-DEMO-02': b.i.binding.get(im.instanceKeys[2]).positionId });
+check('instanced-identity-via-map', 'DATA s10.3 instanceMaps', im.instanceKeys[2] === 'gantry.wheel.ws-a.3' && a.i.binding.get(im.instanceKeys[2]).positionId !== b.i.binding.get(im.instanceKeys[2]).positionId, { carrier: im.gltfNodeName, instanceId: 2, key: im.instanceKeys[2], 'QC01': a.i.binding.get(im.instanceKeys[2]).positionId, 'QC02': b.i.binding.get(im.instanceKeys[2]).positionId });
 
 // --- Simulated model version 2: one key renamed, one node removed, one node added
 const v2 = JSON.parse(JSON.stringify(manifest)); v2.version = 2;

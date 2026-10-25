@@ -1,0 +1,46 @@
+{
+  "tool": "tools/p02b/check_p02b.mjs",
+  "browser": "Chrome/155.0.8059.85",
+  "date": "2026-10-25T16:24:36.126Z",
+  "note": "Prototype-level checks against the synthetic P02B prototype; not acceptance execution.",
+  "passed": 2,
+  "failed": 1,
+  "results": [
+    {
+      "id": "E01",
+      "covers": [
+        "S08",
+        "ZM07",
+        "HIS06",
+        "U1-C20"
+      ],
+      "name": "EQ Jobs Special/Projects and Daily work (CMMS) tabs (U1-C20 split of part 1): special jobs on their own tab, the read-only CMMS daily jobs on the Daily work tab with \"CMMS data from\"; unmatched equipment never listed here; filters (equipment, type, date range, search) apply to both lists and stay in the URL; earlier days are kept",
+      "status": "PASS",
+      "detail": "{\"nav\":\"Special/Projects*|Daily work (CMMS)|EQ status|Spare parts condition\",\"specialOnly\":true,\"dailyOnly\":true,\"ro\":0,\"today\":8,\"wantToday\":8,\"unmatchedHidden\":9,\"rtg\":3,\"rtgJobs\":3,\"allDays\":7,\"absent\":true,\"q2Only\":true,\"urlKeeps\":true}"
+    },
+    {
+      "id": "F05",
+      "covers": [
+        "ZM02",
+        "ZM03",
+        "ZM05",
+        "S20",
+        "S21"
+      ],
+      "name": "Admin CMMS page: sync times and Sync now, health with last success and a synthetic failed run, recent runs, equipment mapping with an ignore entry, unmatched queue, job type and status mapping, status evaluation; Management and EQ Team get 403",
+      "status": "PASS",
+      "detail": "{\"has\":{\"times\":true,\"health\":true,\"failed\":true,\"runs\":true,\"maps\":true,\"ignore\":true,\"unmatched\":true,\"values\":true,\"evalu\":true,\"syncNow\":true,\"synth\":true},\"runsAfter\":\"manual\"}"
+    },
+    {
+      "id": "L02",
+      "covers": [
+        "ZM04",
+        "S20",
+        "S15"
+      ],
+      "name": "The prototype never contacts CMMS or any external host: every network request during a full walk-through is to 127.0.0.1 or a data URI; no account, password or token appears in the page, in browser storage or in the prototype source",
+      "status": "FAIL",
+      "detail": "{\"requests\":40,\"external\":[],\"storage\":\"[[[\\\"eq-maintenance:last-route:u-mgmt\\\",\\\"/fac/dashboard\\\"],[\\\"eq-maintenance:last-route:u-fac-a:fac\\\",\\\"/fac/jobs\\\"],[\\\"eq-maint\",\"secretPatternHits\":[\"tools\\\\p02b\\\\check_p02b.mjs\"],\"cmmsUrlsInSource\":[]}"
+    }
+  ]
+}

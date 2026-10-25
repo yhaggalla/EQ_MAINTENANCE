@@ -23,34 +23,35 @@ window.EQ = window.EQ || {};
       ropeMain: type('wire-rope-main-hoist', 'Wire rope set, main hoist', 36), ropeBoom: type('wire-rope-boom', 'Wire rope set, boom hoist', 48), ropeTrolley: type('wire-rope-trolley', 'Wire rope set, trolley', 36),
       wheel: type('trolley-wheel', 'Trolley wheel', 60), spreader: type('spreader', 'Spreader', 240), tyre: type('tyre-set', 'Tyre set', 36), engine: type('engine', 'Engine', null),
     };
-    // commissioning dates (synthetic; a real date is Admin-entered). QC-DEMO-03 stays unknown: no prediction for Original parts there.
+    // commissioning dates (synthetic; a real date is Admin-entered). QC03 stays unknown: no prediction for Original parts there.
     const comm = { 'eq-qc-demo-01': '2018-03-15', 'eq-qc-demo-02': '2019-06-20', 'eq-rtg-demo-01': '2016-01-10' };
     D.equipment.forEach((e) => { e.commissionedOn = comm[e.id] || null; });
-    const designate = (eqCode, key, t, over) => { const p = D.positions.find((x) => x.equipmentId === 'eq-' + eqCode.toLowerCase() && x.key === key); if (p) sp.designated[p.id] = { typeId: t.id, lifeOverride: over == null ? null : over }; return p; };
+    const eqId = (code) => D.equipment.find((e) => e.code === code)?.id;
+    const designate = (eqCode, key, t, over) => { const p = D.positions.find((x) => x.equipmentId === eqId(eqCode) && x.key === key); if (p) sp.designated[p.id] = { typeId: t.id, lifeOverride: over == null ? null : over }; return p; };
     const KEYS = [['hoist.drive.motor.a', T.motor], ['hoist.drive.motor.b', T.motor], ['hoist.drive.gearbox.a', T.gearbox], ['hoist.emergency.brake.a', T.brake], ['hoist.rope.set.main', T.ropeMain], ['boom.rope.set.main', T.ropeBoom], ['trolley.rope.set.main', T.ropeTrolley], ['trolley.wheel.position.a', T.wheel], ['trolley.wheel.position.b', T.wheel], ['spreader.frame', T.spreader]];
-    ['QC-DEMO-01', 'QC-DEMO-02'].forEach((c) => KEYS.forEach(([k, t]) => designate(c, k, t)));
-    designate('RTG-DEMO-01', 'gantry.tyre.set.a', T.tyre); designate('RTG-DEMO-01', 'engine.main', T.engine, 144);
-    // a per-equipment life override that puts the QC-DEMO-01 boom rope set inside the due-soon window (computed from today)
-    const boomRope = designate('QC-DEMO-01', 'boom.rope.set.main', T.ropeBoom, monthsDiff(comm['eq-qc-demo-01'], EQ.shiftDay(today, 50)));
+    ['QC01', 'QC02'].forEach((c) => KEYS.forEach(([k, t]) => designate(c, k, t)));
+    designate('RTG01', 'gantry.tyre.set.a', T.tyre); designate('RTG01', 'engine.main', T.engine, 144);
+    // a per-equipment life override that puts the QC01 boom rope set inside the due-soon window (computed from today)
+    const boomRope = designate('QC01', 'boom.rope.set.main', T.ropeBoom, monthsDiff(comm['eq-qc-demo-01'], EQ.shiftDay(today, 50)));
     // baseline events for Original parts (Record Original) and a few notes; replaced parts come from the real events of the job fixtures
     const base = (eqCode, key, item, by) => {
-      const p = D.positions.find((x) => x.equipmentId === 'eq-' + eqCode.toLowerCase() && x.key === key); if (!p) return;
+      const p = D.positions.find((x) => x.equipmentId === eqId(eqCode) && x.key === key); if (!p) return;
       if (D.events.some((e) => e.positionId === p.id && !e.voided)) return;
       D.events.push({ id: 'ev-base-' + p.id, positionId: p.id, seq: D.events.filter((e) => e.positionId === p.id).length + 1, kind: 'baselineRecorded', businessDate: null, jobId: null, lineId: null, removedFromEventId: null, removedKnown: false, removedDesc: null, removedSerial: null, installed: { ...item, qty: 1, uom: p.uom }, recordedUtc: ago(60), recordedBy: by || 'u-admin', voided: false });
     };
-    base('QC-DEMO-01', 'hoist.drive.motor.b', { desc: 'Main hoist motor (as supplied, synthetic)', mfr: 'Synthetic Motors Ltd', partNo: 'SYN-HM-450', serial: null });
-    base('QC-DEMO-01', 'hoist.drive.gearbox.a', { desc: 'Main hoist gearbox (as supplied, synthetic)', mfr: 'Synthetic Gears', partNo: 'SYN-GB-12', serial: 'SYN-G-0007' });
-    base('QC-DEMO-01', 'hoist.emergency.brake.a', { desc: 'Emergency disc brake (as supplied, synthetic)', mfr: 'Synthetic Brakes', partNo: 'SYN-BR-3', serial: null });
-    base('QC-DEMO-01', 'boom.rope.set.main', { desc: 'Boom hoist rope set (as supplied, synthetic)', mfr: 'Synthetic Ropes', partNo: 'SYN-RP-40', serial: null });
-    base('QC-DEMO-01', 'trolley.wheel.position.a', { desc: 'Trolley wheel (as supplied, synthetic)', mfr: 'Synthetic Wheels', partNo: 'SYN-TW-310', serial: null });
-    base('QC-DEMO-02', 'hoist.drive.gearbox.a', { desc: 'Main hoist gearbox (as supplied, synthetic)', mfr: 'Synthetic Gears', partNo: 'SYN-GB-12', serial: 'SYN-G-0102' });
-    base('QC-DEMO-02', 'hoist.emergency.brake.a', { desc: 'Emergency disc brake (as supplied, synthetic)', mfr: 'Synthetic Brakes', partNo: 'SYN-BR-3', serial: null });
-    base('QC-DEMO-02', 'spreader.frame', { desc: 'Spreader (as supplied, synthetic)', mfr: 'Synthetic Spreaders', partNo: 'SYN-SP-40', serial: 'SYN-S-0044' });
-    // QC-DEMO-01 trolley wheel B, QC-DEMO-02 motor B stay "not recorded": no event, no prediction, no claim of Original.
+    base('QC01', 'hoist.drive.motor.b', { desc: 'Main hoist motor (as supplied, synthetic)', mfr: 'Synthetic Motors Ltd', partNo: 'SYN-HM-450', serial: null });
+    base('QC01', 'hoist.drive.gearbox.a', { desc: 'Main hoist gearbox (as supplied, synthetic)', mfr: 'Synthetic Gears', partNo: 'SYN-GB-12', serial: 'SYN-G-0007' });
+    base('QC01', 'hoist.emergency.brake.a', { desc: 'Emergency disc brake (as supplied, synthetic)', mfr: 'Synthetic Brakes', partNo: 'SYN-BR-3', serial: null });
+    base('QC01', 'boom.rope.set.main', { desc: 'Boom hoist rope set (as supplied, synthetic)', mfr: 'Synthetic Ropes', partNo: 'SYN-RP-40', serial: null });
+    base('QC01', 'trolley.wheel.position.a', { desc: 'Trolley wheel (as supplied, synthetic)', mfr: 'Synthetic Wheels', partNo: 'SYN-TW-310', serial: null });
+    base('QC02', 'hoist.drive.gearbox.a', { desc: 'Main hoist gearbox (as supplied, synthetic)', mfr: 'Synthetic Gears', partNo: 'SYN-GB-12', serial: 'SYN-G-0102' });
+    base('QC02', 'hoist.emergency.brake.a', { desc: 'Emergency disc brake (as supplied, synthetic)', mfr: 'Synthetic Brakes', partNo: 'SYN-BR-3', serial: null });
+    base('QC02', 'spreader.frame', { desc: 'Spreader (as supplied, synthetic)', mfr: 'Synthetic Spreaders', partNo: 'SYN-SP-40', serial: 'SYN-S-0044' });
+    // QC01 trolley wheel B, QC02 motor B stay "not recorded": no event, no prediction, no claim of Original.
     // remarks and history
-    const pm = (eqCode, key) => D.positions.find((x) => x.equipmentId === 'eq-' + eqCode.toLowerCase() && x.key === key);
+    const pm = (eqCode, key) => D.positions.find((x) => x.equipmentId === eqId(eqCode) && x.key === key);
     const note = (p, text) => { if (p) sp.remarks[p.id] = text; };
-    note(pm('QC-DEMO-01', 'hoist.emergency.brake.a'), 'Pads measured at 60 % (synthetic remark). Replacement not yet planned.');
+    note(pm('QC01', 'hoist.emergency.brake.a'), 'Pads measured at 60 % (synthetic remark). Replacement not yet planned.');
     note(boomRope, 'Planned replacement EQJ-2026-000107 (pending).');
     // history: one row per non-voided event at a designated position, then register-only entries
     let rev = {};
@@ -64,7 +65,7 @@ window.EQ = window.EQ || {};
         prev = after;
       });
     });
-    const amendP = pm('QC-DEMO-01', 'hoist.drive.motor.a');
+    const amendP = pm('QC01', 'hoist.drive.motor.a');
     if (amendP) {
       const last = sp.history.filter((h) => h.posId === amendP.id).slice(-1)[0];
       hist(amendP, 'registerAmend', last.after, { ...last.after, model: 'SYN-HM-450-R2' }, { reason: 'Part number corrected from the nameplate photo (synthetic)', by: 'u-admin', at: ago(2) });

@@ -6,7 +6,7 @@ Prepared in P01 on 21 October 2026. Status: **design contract for R01 review**, 
 
 **U1 round 5 addendum (23 October 2026, U1-C20..U1-C22, user instructions in chat; DECISIONS "2026-10-23 U1 CHANGES REQUESTED (round 5)").** Changed sections: s3.1 (Admin-added definitions, fixed 061/062 names), s3.4 (draft re-parenting, Admin-added positions), s3.8 (Admin-entered specification rows, value source), s6 (`eq.work` adds spare parts; `admin.access` wording), s11, s14.1, s16.1, s16.3 (Add spare part), s16.6 (`registerAdd`), s18.1 (Maintenance "Open in Jobs" target) and s18.2 (four EQ Jobs tabs). These supersede SOW V2 s4.2 (one "Special & daily jobs" part) and s4.6 / APPROVED_REQUIREMENTS (only Admin marks major spare parts) where they differ.
 
-**P01B addendum (22 October 2026, SOW V2 revision 4, requirements v2.0).** Extended for R02B review; P06, P07, P07B, P08, P08B, P09 and P10 implement it. Changed sections: s1, s2, s3.2, s3.3, s3.4, s3.5, s3.6, s3.7, s3.9, s3.11, s3.12, s4.2, s5.1, s6, s7, s8, s9, s11, s12, s13. New sections: s14 sections, navigation and the Access matrix; s15 ZMMS daily jobs and automatic status; s16 spare-part condition register; s17 FAC; s18 read models (crane current state, EQ Jobs tab, FAC Dashboard); s19 Excel exports; s20 ZMMS fields provisional until P07B. Every P01/R01 rule not named as superseded in `docs/DECISIONS.md` ("P01B supersessions") still holds. In V2 the P01 "jobs" are the EQ **special jobs**; their rules are unchanged.
+**P01B addendum (22 October 2026, SOW V2 revision 4, requirements v2.0).** Extended for R02B review; P06, P07, P07B, P08, P08B, P09 and P10 implement it. Changed sections: s1, s2, s3.2, s3.3, s3.4, s3.5, s3.6, s3.7, s3.9, s3.11, s3.12, s4.2, s5.1, s6, s7, s8, s9, s11, s12, s13. New sections: s14 sections, navigation and the Access matrix; s15 CMMS daily jobs and automatic status; s16 spare-part condition register; s17 FAC; s18 read models (crane current state, EQ Jobs tab, FAC Dashboard); s19 Excel exports; s20 CMMS fields provisional until P07B. Every P01/R01 rule not named as superseded in `docs/DECISIONS.md` ("P01B supersessions") still holds. In V2 the P01 "jobs" are the EQ **special jobs**; their rules are unchanged.
 
 ## 1 Conventions
 
@@ -20,9 +20,9 @@ Prepared in P01 on 21 October 2026. Status: **design contract for R01 review**, 
 | Concurrency | Every mutable aggregate root has `RowVersion rowversion`; exposed in the API as `version` (base64) |
 | Text limits | Code <= 32, name/title <= 200, reason <= 500, description/note <= 4000 characters unless stated; trimmed; control characters other than newline/tab rejected |
 | Actor references | `...ByProfileId` columns reference `UserProfile.ProfileId`. Deactivated profiles keep their rows, so history stays readable |
-| Data origin | Tables that can hold fleet/business records carry `DataOrigin` (`admin`, `referenceImport`, `developmentFixture`; V2 adds `zmmsSync` for rows written by a ZMMS sync, `facImport` for FAC jobs created by the master-list import and `user` for FAC jobs added in the app). Release checks refuse a target containing `developmentFixture` rows outside disposable databases |
+| Data origin | Tables that can hold fleet/business records carry `DataOrigin` (`admin`, `referenceImport`, `developmentFixture`; V2 adds `cmmsSync` for rows written by a CMMS sync, `facImport` for FAC jobs created by the master-list import and `user` for FAC jobs added in the app). Release checks refuse a target containing `developmentFixture` rows outside disposable databases |
 | Deletion | Business and history rows are never hard-deleted. Where removal is allowed it is a state change (`deactivated`, `retired`, `removed`, `voided`, `cancelled`) with actor, time and reason. Exceptions are listed in s11 |
-| Business day (V2) | `BusinessDay(instantUtc)` = the calendar date in Asia/Colombo (UTC+05:30, no daylight saving; IANA `Asia/Colombo`, Windows `Sri Lanka Standard Time`). "Today", "same day", "current day", "next day", FAC periods, the ZMMS run date and the manual-status correction day all use it. Midnight Asia/Colombo = 18:30 UTC of the previous UTC date |
+| Business day (V2) | `BusinessDay(instantUtc)` = the calendar date in Asia/Colombo (UTC+05:30, no daylight saving; IANA `Asia/Colombo`, Windows `Sri Lanka Standard Time`). "Today", "same day", "current day", "next day", FAC periods, the CMMS run date and the manual-status correction day all use it. Midnight Asia/Colombo = 18:30 UTC of the previous UTC date |
 | Week (V2) | Monday 00:00 to Sunday 24:00 Asia/Colombo (ISO week), used for weekly FAC cycles, "Done this week" and the FAC due-load chart (D-128) |
 | Calendar months (V2) | Adding n months to a date uses `DateOnly.AddMonths(n)`: same day number, clamped to the last day of a shorter month (31 Jan + 1 month = 28 Feb, or 29 Feb in a leap year; 29 Feb 2028 + 12 months = 28 Feb 2029). Used by FAC due dates and spare-part predictions (D-108) |
 | Feature check (V2) | Every read or write of a record is also gated by the Access matrix (s14): a request passes only if the caller's effective feature set contains the feature the endpoint, export or file requires |
@@ -69,15 +69,15 @@ V2 entities (s14-s17). The EQ and FAC sections keep separate records: no FAC tab
 erDiagram
   AccessPolicyEntry }o--|| AccessPolicyVersion : "versioned by"
   AccessPolicyChange }o--|| AccessPolicyVersion : "audit"
-  ZmmsSyncRun ||--o{ ZmmsDailyJob : "first/last seen"
-  ZmmsSyncRun ||--o{ ZmmsStatusEvaluation : "per equipment"
-  ZmmsEquipmentMapping }o--o| Equipment : "key -> equipment"
-  ZmmsDailyJob }o--o| Equipment : "matched (equipment level only)"
-  ZmmsDailyJob ||--o{ ZmmsDailyJobRevision : "previous values"
-  ZmmsValueMapping ||--o{ ZmmsDailyJob : "type/status effect"
+  CmmsSyncRun ||--o{ CmmsDailyJob : "first/last seen"
+  CmmsSyncRun ||--o{ CmmsStatusEvaluation : "per equipment"
+  CmmsEquipmentMapping }o--o| Equipment : "key -> equipment"
+  CmmsDailyJob }o--o| Equipment : "matched (equipment level only)"
+  CmmsDailyJob ||--o{ CmmsDailyJobRevision : "previous values"
+  CmmsValueMapping ||--o{ CmmsDailyJob : "type/status effect"
   OperationalStatusChange ||--o{ OperationalStatusChangeCause : "caused by"
-  OperationalStatusChangeCause }o--|| ZmmsDailyJob : "ZMMS job"
-  OperationalStatusChange }o--o| ZmmsSyncRun : "automatic source"
+  OperationalStatusChangeCause }o--|| CmmsDailyJob : "CMMS job"
+  OperationalStatusChange }o--o| CmmsSyncRun : "automatic source"
   SparePartType ||--o{ PartPosition : "major spare part"
   SparePartType ||--o{ PositionTemplate : "template designation"
   PartPosition ||--o| SparePartCondition : "current register row"
@@ -157,7 +157,7 @@ Invariants:
 | Column | Type / constraint | Notes |
 | --- | --- | --- |
 | Id | PK | used in all URLs |
-| Code | nvarchar(32), UQ (case-insensitive, trimmed) | business code such as `QC-DEMO-01`; Admin may edit with audit; duplicates refused (ADM01) |
+| Code | nvarchar(32), UQ (case-insensitive, trimmed) | business code such as `QC01`; Admin may edit with audit; duplicates refused (ADM01) |
 | Name | nvarchar(200) null | |
 | EquipmentTypeId | FK, immutable after creation | |
 | EquipmentModelId | FK null | null = no model association |
@@ -169,8 +169,8 @@ Invariants:
 | CurrentStatus | `readyForOps` / `breakdown` / `maintenance` / **null** | null = Unreported (not a fourth status) |
 | CurrentStatusChangeId | FK -> OperationalStatusChange null | |
 | CurrentStatusSinceUtc | datetime2 null | effective instant of the current status |
-| CurrentStatusSource (V2) | `zmms` / `manual` / null | copied from the latest OperationalStatusChange (null while Unreported) |
-| ManualOverrideOn (V2) | date null | business day of an active manual correction on ZMMS-mapped equipment; null when none (s15.7) |
+| CurrentStatusSource (V2) | `cmms` / `manual` / null | copied from the latest OperationalStatusChange (null while Unreported) |
+| ManualOverrideOn (V2) | date null | business day of an active manual correction on CMMS-mapped equipment; null when none (s15.7) |
 | LastActivityUtc | datetime2 | max of status/job/installation changes; fleet "last updated" |
 | DataOrigin, CreatedByProfileId, CreatedUtc, RowVersion | | |
 
@@ -180,7 +180,7 @@ Invariants:
 - E2 CurrentStatus, CurrentStatusChangeId and CurrentStatusSinceUtc change only inside the status-change transaction (s4.2) and always equal the latest OperationalStatusChange row.
 - E3 Retiring is refused while uncompleted, uncancelled jobs exist (D-35). Retired equipment accepts no new jobs or status changes; it can be reactivated by Admin with a reason.
 - E4 Changing the model association after history exists does not move, rename or delete positions; it changes only which template is offered for future instantiation and which parameters apply.
-- E5 (V2) CurrentStatusSource and ManualOverrideOn change only inside a status-change transaction (manual command, Back to automatic or a ZMMS sync, s15.7) together with CurrentStatus; the one exception is the retirement of the equipment's last ZMMS mapping, which clears ManualOverrideOn under the same equipment lock (s4.2). "ZMMS-mapped" is derived: the equipment has at least one active ZmmsEquipmentMapping (s15.4). The status **mode** shown to users is derived, never stored: `manualOnly` (not mapped), `automatic` (mapped, ManualOverrideOn null), `manualOverride` (mapped, ManualOverrideOn = today), `manualOverrideExpired` (mapped, ManualOverrideOn < today, no successful sync since midnight).
+- E5 (V2) CurrentStatusSource and ManualOverrideOn change only inside a status-change transaction (manual command, Back to automatic or a CMMS sync, s15.7) together with CurrentStatus; the one exception is the retirement of the equipment's last CMMS mapping, which clears ManualOverrideOn under the same equipment lock (s4.2). "CMMS-mapped" is derived: the equipment has at least one active CmmsEquipmentMapping (s15.4). The status **mode** shown to users is derived, never stored: `manualOnly` (not mapped), `automatic` (mapped, ManualOverrideOn null), `manualOverride` (mapped, ManualOverrideOn = today), `manualOverrideExpired` (mapped, ManualOverrideOn < today, no successful sync since midnight).
 
 ### 3.4 Equipment-specific instances and part positions
 
@@ -215,7 +215,7 @@ Every composite FK in this contract references a key declared as a primary key o
 
 Invariants:
 
-- P1 Positions are per equipment. `QC-DEMO-01 / 011 / hoist.drive.motor.a` and `QC-DEMO-02 / 011 / hoist.drive.motor.a` are different rows with different IDs and independent history (ADM02, HIS01).
+- P1 Positions are per equipment. `QC01 / 011 / hoist.drive.motor.a` and `QC02 / 011 / hoist.drive.motor.a` are different rows with different IDs and independent history (ADM02, HIS01).
 - P2 Instantiating a template copies applicable sub instances and confirmed position templates into `draft` rows for that equipment; Admin confirms (all or selected) to make them `active`. While a position is `draft` Admin may also edit its SemanticKey. Before any history exists Admin may add, rename, change kind/UOM or deactivate; positions in `draft` with no references may be deleted (s11). (U1-C22) Admin may add a position to one equipment (`POST /admin/equipment/{id}/positions`): it starts as `draft` under an active, non-reserved sub instance of that equipment, with a key that satisfies s10.2, is unique for the equipment (409 `duplicate_semantic_key`) and never starts with `container.`; other equipment from the same template are unchanged (P1). While a position is `draft` and has no references Admin may also move it to another sub instance of the same equipment (ancestor chain rewritten in one statement; 409 `ancestors_frozen` once confirmed or referenced). Once confirmed, the SemanticKey never changes (409 `position_key_frozen`); a wrong key on an active position is handled by deactivating it and adding a new position, so bindings and history never follow a re-keyed row.
 - P3 After history exists: DisplayName may be renamed (audited); SemanticKey, ancestor chain and PositionKind are frozen; deactivation is allowed (no new work) and keeps all history readable.
 - P4 Re-applying a newer template revision previews additions only (new sub instances/positions); it never deletes, renames or re-parents existing rows. Removing something requires an explicit Admin deactivation.
@@ -259,13 +259,13 @@ Invariants:
 
 - I1 A position's current state is derived from its non-voided events in Sequence order; the stored `Installation.State`/`RemainingQuantity` values are maintained in the same transaction and tests prove they equal the derivation (HIS03).
 - I2 Business dates are non-decreasing in Sequence order among non-voided events (D-32). Consequence for manual back-entry of past work (B-07): an event can only be appended after the latest non-voided event at that position, so an older replacement cannot be inserted below a newer one. The supported back-entry procedure is in s5.4.
-- I3 No event is created by template changes, model changes, mesh changes, imports or a ZMMS sync.
+- I3 No event is created by template changes, model changes, mesh changes, imports or a CMMS sync.
 - I5 (V2) A `conditionReplacement` event follows every rule of a `replacement` event (D-32 date order, `expectedCurrentInstallationId`, UPDLOCK on the position, latest-event void rule) except that it has no job; it is the only way the register records a new installed item without a special job (s16.3).
 - I4 A position with no events shows "No work recorded" and "Installed item unknown"; this is never presented as original, healthy or never replaced (HIS04).
 
 ### 3.6 Jobs, replacement lines, progress, corrections
 
-V2: these are the EQ **special jobs** (major or non-routine work entered by hand, SOW V2 s4.3). The original states remain; U1-C50 extends special jobs with explicit overall progress as described below. The optional photos of SOW V2 s4.3 are the existing JobAttachment evidence. ZMMS daily jobs are a separate, read-only entity (s15.3) and are never Job rows.
+V2: these are the EQ **special jobs** (major or non-routine work entered by hand, SOW V2 s4.3). The original states remain; U1-C50 extends special jobs with explicit overall progress as described below. The optional photos of SOW V2 s4.3 are the existing JobAttachment evidence. CMMS daily jobs are a separate, read-only entity (s15.3) and are never Job rows.
 
 **Job**
 
@@ -302,7 +302,7 @@ Invariants:
 - J1 Target instances/positions belong to the job's single equipment (composite FKs) and are `active` with active definitions at creation or target change. U1-C51 type-wide jobs have no component target; replacement positions must belong to active equipment of the selected type.
 - J2 An equipment-level job has no component target and appears only in equipment-scope history unless it has replacement lines, which make it appear (once) in the scopes containing those lines (s9).
 - J3 Replacement lines are required on `replacement` jobs, optional on `project` jobs and forbidden on `repair` jobs (U1-C51). They are created only by completion or Admin correction (D-30), resolve an `active` position of equipment inside the job scope and target subtree (D-31), and a job cannot hold two committed lines for the same position (JOB05).
-- J4 Operational status is never changed by any job command (JOB02, B-10). V2: the only other writer of status is a successful ZMMS sync for mapped equipment (s15.7); a job completion still never sets Ready for OPS.
+- J4 Operational status is never changed by any job command (JOB02, B-10). V2: the only other writer of status is a successful CMMS sync for mapped equipment (s15.7); a job completion still never sets Ready for OPS.
 - J5 A cancelled job keeps all rows; it is excluded from the three normal work views and counts unless `includeCancelled` is requested; it is never counted Completed (JOB12).
 - J6 **Committed work on an uncompleted job.** A job that was completed and then reopened (ReopenCount > 0) is "previously completed"; it may also hold committed, non-voided replacement lines and their installation events. While uncompleted it is protected as completed work (s5, requirement s5 "a completed job cannot be cancelled"; "a completed replacement cannot be silently undone"):
   - it cannot be cancelled by EQ Team (409 `job_previously_completed`); Admin may cancel it only when it holds no committed, non-voided line (else 409 `job_has_committed_replacements`, listing the lines; Admin voids them first through a correction, s5.3, which enforces the latest-event rule);
@@ -322,18 +322,18 @@ V2 columns (S21, s15.7):
 
 | Column | Notes |
 | --- | --- |
-| Source | where the **value** comes from: `manual` (a user's choice) / `zmms` (a sync evaluation). Mandatory. `backToAutomatic` is `zmms` when it applies today's evaluation and `manual` (value kept, "awaiting today's ZMMS sync") when no evaluation of today has a computed value yet (D-96, s15.7 step 6) |
-| Kind | `manualSet` (equipment without a ZMMS mapping: the V1 rule), `manualCorrection` (mapped equipment: current-day correction), `automatic` (applied by a sync), `backToAutomatic` (a user ended the correction), `overrideEnded` (a sync of a later business day ended an expired correction) |
-| SyncRunId | FK -> ZmmsSyncRun; required for `automatic` and `overrideEnded`; for `backToAutomatic`, the run whose evaluation was applied (null when none exists yet today); null otherwise |
+| Source | where the **value** comes from: `manual` (a user's choice) / `cmms` (a sync evaluation). Mandatory. `backToAutomatic` is `cmms` when it applies today's evaluation and `manual` (value kept, "awaiting today's CMMS sync") when no evaluation of today has a computed value yet (D-96, s15.7 step 6) |
+| Kind | `manualSet` (equipment without a CMMS mapping: the V1 rule), `manualCorrection` (mapped equipment: current-day correction), `automatic` (applied by a sync), `backToAutomatic` (a user ended the correction), `overrideEnded` (a sync of a later business day ended an expired correction) |
+| SyncRunId | FK -> CmmsSyncRun; required for `automatic` and `overrideEnded`; for `backToAutomatic`, the run whose evaluation was applied (null when none exists yet today); null otherwise |
 | OverrideOn | date; required for `manualCorrection` (= BusinessDay(EffectiveUtc)), null otherwise |
 | RecordedByProfileId | required for user actions (`manualSet`, `manualCorrection`, `backToAutomatic`); null for `automatic` and `overrideEnded` |
 | Reason | rules above for `manualSet`; **always required** for `manualCorrection` (including Ready for OPS, s5); optional for `backToAutomatic`; null for `automatic` and `overrideEnded` (the causes explain them) |
 
-**OperationalStatusChangeCause** (append-only, V2): (StatusChangeId, ZmmsDailyJobId) PK; Effect (`breakdown`, `maintenance`); the ZMMS daily jobs whose mapped type/status produced an `automatic` or `overrideEnded` Breakdown/Maintenance result (all of them, not only the first). A Ready for OPS result has no cause rows; the change displays "Not in the ZMMS plan for <date>". `backToAutomatic` rows copy the causes of the evaluation they apply (s15.7).
+**OperationalStatusChangeCause** (append-only, V2): (StatusChangeId, CmmsDailyJobId) PK; Effect (`breakdown`, `maintenance`); the CMMS daily jobs whose mapped type/status produced an `automatic` or `overrideEnded` Breakdown/Maintenance result (all of them, not only the first). A Ready for OPS result has no cause rows; the change displays "Not in the CMMS plan for <date>". `backToAutomatic` rows copy the causes of the evaluation they apply (s15.7).
 
 Invariants:
 
-- O1 A row is appended only when the resulting status, the source or the mode changes; the single allowed exception to "value must change" is a `backToAutomatic` or `manualCorrection` row that keeps the same value but changes source/mode (D-94, D-96). A sync that computes the current value for an `automatic` equipment appends nothing (its evaluation is recorded in ZmmsStatusEvaluation only).
+- O1 A row is appended only when the resulting status, the source or the mode changes; the single allowed exception to "value must change" is a `backToAutomatic` or `manualCorrection` row that keeps the same value but changes source/mode (D-94, D-96). A sync that computes the current value for an `automatic` equipment appends nothing (its evaluation is recorded in CmmsStatusEvaluation only).
 - O2 E2 still holds: Equipment.CurrentStatus/CurrentStatusChangeId/CurrentStatusSinceUtc/CurrentStatusSource equal the latest row. CurrentStatusSinceUtc moves only when the **value** changes (a source-only row keeps the previous instant), so "time in current status" is the time in that value.
 - O3 Rows are never edited or deleted; a wrong status is followed by a new row.
 
@@ -385,7 +385,7 @@ Contract rules: s7.
 
 **AuditEntry** (append-only; the application never updates or deletes it; the runtime database login is granted INSERT/SELECT only on this table in P12): Id (bigint identity); OccurredUtc; ActorProfileId null (null for provisioning/import); ActorSubjectId null; Action (dotted code, e.g. `job.complete`, `status.change`, `installation.void`, `catalog.sub.deactivate`, `parameter.resolve`, `scene.binding.activate`, `provisioning.converge`); EntityType; EntityId; EquipmentId null; CorrelationId; IdempotencyKey null; Reason null; BeforeJson null; AfterJson null (bounded; no secrets, tokens or file contents).
 
-Material changes that must write AuditEntry rows in the same transaction: every status change; job create/edit/start/return/complete/cancel/reopen/correct; replacement line commit/amend/void; installation create/close/void/baseline; attachment add/remove; catalogue, type, model, applicability, template, equipment, instance and position changes; model association; parameter resolution/override; scene version registration/validation and binding activation; provisioning convergence; every import batch. V2 adds: Access matrix changes (`access.change`); ZMMS settings, equipment mappings, value mappings and every sync run outcome (`zmms.*`); automatic status changes (actor null, `SyncRunId` in AfterJson); spare-part designation, expected life, due-soon window and every register action (`sparepart.*`); FAC master-list create/edit/deactivate/reactivate, import confirm, progress update, Done today/this week, undo, hold/release, photo add/remove, cycle correction, Admin due date and FAC settings/list changes (`fac.*`); and every Excel export (`export.generate` with the filter, row count and feature, no file content). U1 round 6 adds the display switch of a special job (`job.display`) and of a FAC job (`fac.job.display`), each with before/after `showOnDashboard` and the optional reason.
+Material changes that must write AuditEntry rows in the same transaction: every status change; job create/edit/start/return/complete/cancel/reopen/correct; replacement line commit/amend/void; installation create/close/void/baseline; attachment add/remove; catalogue, type, model, applicability, template, equipment, instance and position changes; model association; parameter resolution/override; scene version registration/validation and binding activation; provisioning convergence; every import batch. V2 adds: Access matrix changes (`access.change`); CMMS settings, equipment mappings, value mappings and every sync run outcome (`cmms.*`); automatic status changes (actor null, `SyncRunId` in AfterJson); spare-part designation, expected life, due-soon window and every register action (`sparepart.*`); FAC master-list create/edit/deactivate/reactivate, import confirm, progress update, Done today/this week, undo, hold/release, photo add/remove, cycle correction, Admin due date and FAC settings/list changes (`fac.*`); and every Excel export (`export.generate` with the filter, row count and feature, no file content). U1 round 6 adds the display switch of a special job (`job.display`) and of a FAC job (`fac.job.display`), each with before/after `showOnDashboard` and the optional reason.
 
 **IdempotencyRecord**: (ActorProfileId, Key) PK (Key = client UUID); Operation (e.g. `job.complete`); TargetId; RequestHash (sha256 of the canonical request body + route); ResponseStatus; ResponseBodyJson; CreatedUtc; ExpiresUtc (default +30 days, D-27). Inserted in the **same** transaction as the change it records (s8).
 
@@ -436,7 +436,7 @@ Moving a card on the jobs board calls exactly these commands; there is no separa
 - Retired equipment: refused (409 `equipment_retired`).
 - Completing, cancelling or reopening jobs never changes status (J4).
 
-V2 (S21, B-18): the rules above are the `manualSet` rules for equipment **without** a ZMMS mapping. For ZMMS-mapped equipment the status is automatic and a user command is a current-day correction:
+V2 (S21, B-18): the rules above are the `manualSet` rules for equipment **without** a CMMS mapping. For CMMS-mapped equipment the status is automatic and a user command is a current-day correction:
 
 ```mermaid
 stateDiagram-v2
@@ -455,8 +455,8 @@ stateDiagram-v2
 
 | Command / event | Applies to | Rule |
 | --- | --- | --- |
-| User sets status | mapped, active | Kind `manualCorrection`; reason **always** required (422 `reason_required`); OverrideOn = today; a value equal to the current value is accepted only when the current source is `zmms` or the override has expired (it converts the automatic value into a held manual one, D-94); equal value while a correction for today is already active: 422 `status_unchanged`; `expectedCurrentStatusChangeId` as above |
-| Back to automatic | mapped, ManualOverrideOn not null | s15.7 step 6; 409 `not_in_manual_override` otherwise; 422 `equipment_not_zmms_mapped` for unmapped equipment |
+| User sets status | mapped, active | Kind `manualCorrection`; reason **always** required (422 `reason_required`); OverrideOn = today; a value equal to the current value is accepted only when the current source is `cmms` or the override has expired (it converts the automatic value into a held manual one, D-94); equal value while a correction for today is already active: 422 `status_unchanged`; `expectedCurrentStatusChangeId` as above |
+| Back to automatic | mapped, ManualOverrideOn not null | s15.7 step 6; 409 `not_in_manual_override` otherwise; 422 `equipment_not_cmms_mapped` for unmapped equipment |
 | Successful sync, override day | mapped, ManualOverrideOn >= run business day | evaluation stored with `Applied = false`, SkipReason `manualOverride`; status unchanged |
 | Successful sync of a later day | mapped, ManualOverrideOn < run business day | override ends; kind `overrideEnded` with the computed value (row appended even if the value is unchanged, because source/mode change) |
 | Failed or partial sync | any | nothing changes (s15.6) |
@@ -493,7 +493,7 @@ All steps run in one database transaction inside the EF execution strategy (D-28
 7. Update the job (WorkStatus `completed`, completion fields), add JobStatusEvent, write AuditEntry rows (for a re-completion the before snapshot carries the previous completion fields), update Equipment.LastActivityUtc, insert the IdempotencyRecord with the response body.
 8. Commit. The step-3 re-check covers same-key races on the same job. A unique-key violation on the IdempotencyRecord primary key at commit can still occur when the same caller sends the same key concurrently for a **different** job (the job lock does not serialize those); it is caught: the transaction is rolled back, the winner's record is read and replayed if its RequestHash matches, else 422 `idempotency_key_reused`. A parallel request with a different key loses on the job `version`/state check in step 3.
 
-Every other command that takes an `Idempotency-Key` and locks an aggregate (start, return to pending, cancel, reopen, correction, status change, attachment add/remove) uses the same order: fast-path lookup, lock, re-check under the lock, then version/state checks. V2 applies the same order to Back to automatic, every spare-part register action (lock: the position), every FAC command (lock: the FAC job row, then its cycle), Access matrix changes (lock: AccessPolicyVersion) and ZMMS Admin commands (lock: ZmmsSettings or the mapping row).
+Every other command that takes an `Idempotency-Key` and locks an aggregate (start, return to pending, cancel, reopen, correction, status change, attachment add/remove) uses the same order: fast-path lookup, lock, re-check under the lock, then version/state checks. V2 applies the same order to Back to automatic, every spare-part register action (lock: the position), every FAC command (lock: the FAC job row, then its cycle), Access matrix changes (lock: AccessPolicyVersion) and CMMS Admin commands (lock: CmmsSettings or the mapping row).
 
 Admin corrections at a major-spare-part position (s5.3) that void a committed line, amend its ReplacedOn, or amend the manufacturer, part number or serial of the line that installed the current item recompute the register from the position's non-voided events in the same transaction and append a SparePartConditionHistory row with source `correction` (s16.5).
 
@@ -570,7 +570,7 @@ Each permission below is an **Access-matrix feature** (s14). The Portal role set
 | Feature key | Permission (requirement s4.1 row) | Admin | EQ Team | FAC Team | Management |
 | --- | --- | --- | --- | --- | --- |
 | `eq.fleet.view` | Read EQ Fleet tab and equipment detail (crane view), hierarchy, parameters, drawings, model assets | Fixed | Fixed | Toggle (on) | Toggle (on) |
-| `eq.jobs.view` | Read EQ Jobs tab: special jobs and their scoped history, ZMMS daily jobs, EQ status board/history, spare-part register/history, EQ work evidence | Fixed | Fixed | Toggle (on) | Toggle (on) |
+| `eq.jobs.view` | Read EQ Jobs tab: special jobs and their scoped history, CMMS daily jobs, EQ status board/history, spare-part register/history, EQ work evidence | Fixed | Fixed | Toggle (on) | Toggle (on) |
 | `eq.work` | Create special jobs, edit/start/return Pending/Current work, complete jobs and replacement lines, cancel own uncompleted jobs, correct the operational status (manual, current day) and Back to automatic, add spare parts to an equipment's register and update spare-part condition (U1-C21, s16.3), attach EQ work evidence, remove own evidence while the job is uncompleted, set the "Show on dashboard / 3D" switch of any special job (U1-C26, J7) | Fixed | Fixed | No | No |
 | `eq.work.admin` | Correct or reopen completed EQ work, cancel any uncompleted job, void register entries, record a baseline as Admin (D-36), remove any evidence with reason | Fixed | No | No | No |
 | `fac.dashboard.view` | Read FAC Dashboard (including TV mode), the FAC photo thumbnails it shows and the read-only detail of an active job opened from a dashboard row (SOW V2 5.5.7, D-140); not the FAC Jobs list, the full cycle list or the FAC export | Fixed | Toggle (on) | Fixed | Toggle (on) |
@@ -580,7 +580,7 @@ Each permission below is an **Access-matrix feature** (s14). The Portal role set
 | `fac.masterList.manage` | Add, edit, deactivate and reactivate FAC master-list jobs (all kinds) | Fixed | No | Toggle (off) | No |
 | `fac.work.admin` | Correct FAC cycles and updates, set an Admin due date, remove any FAC photo, with reason | Fixed | No | No | No |
 | `export.excel` | Export filtered lists to .xlsx (only lists of tabs the user can view) | Fixed | Toggle (on) | Toggle (on) | Toggle (on) |
-| `admin.access` | Admin pages: EQ settings (equipment, models, catalogue add/edit, positions add/edit, applicability, specifications add/edit and values, bindings, spare-part types, expected life and register adjustments (U1-C22), ZMMS mapping, job-type mapping, sync times and health), FAC settings (master list, import, lists, settings), Access matrix, raw audit, user profiles | Fixed | No | No | No |
+| `admin.access` | Admin pages: EQ settings (equipment, models, catalogue add/edit, positions add/edit, applicability, specifications add/edit and values, bindings, spare-part types, expected life and register adjustments (U1-C22), CMMS mapping, job-type mapping, sync times and health), FAC settings (master list, import, lists, settings), Access matrix, raw audit, user profiles | Fixed | No | No | No |
 | central identity / Portal role administration | Alter central identities or grant arbitrary Portal roles | No endpoint exists | No | No | No |
 
 Rules:
@@ -624,7 +624,7 @@ Convergence runs in a SERIALIZABLE transaction; a unique-key race on first creat
 | Key reused with a different body | RequestHash | 422 `idempotency_key_reused` |
 | Retry after the idempotency record expired | job state | 409 `job_already_completed` (never a duplicate) |
 | Transient SQL failure / deadlock | EF execution strategy retries the whole unit | Safe, because the idempotency record and the change commit together |
-| (V2) User status correction racing a ZMMS sync for the same equipment | the sync takes UPDLOCK on each equipment row it changes (ascending Id) and re-reads ManualOverrideOn under the lock; the user command carries `expectedCurrentStatusChangeId` | Whichever commits first wins; the other sees the new row: the user gets 409 `status_changed`, the sync treats a correction committed before its lock as an override (s15.7) |
+| (V2) User status correction racing a CMMS sync for the same equipment | the sync takes UPDLOCK on each equipment row it changes (ascending Id) and re-reads ManualOverrideOn under the lock; the user command carries `expectedCurrentStatusChangeId` | Whichever commits first wins; the other sees the new row: the user gets 409 `status_changed`, the sync treats a correction committed before its lock as an override (s15.7) |
 | (V2) Two Sync now requests, or Sync now during a scheduled run | single-run lock (s15.5) | One run; the second request returns 202 with `alreadyRunning: true` and the running run's ID (ZM01) |
 | (V2) Two spare-part register actions on one position | UPDLOCK on PartPosition + `version` of SparePartCondition (+ `expectedCurrentInstallationId` for Record replacement) | 409 `version_conflict` / `installation_changed` |
 | (V2) Two FAC updates of one cycle (double submit, two users) | Idempotency-Key per tap/submit; UPDLOCK on the FAC job then the cycle; `cycleVersion` | Same key: replay. Different key, stale version: 409 `version_conflict` with the current cycle. Quantity beyond the remainder: 422 `quantity_exceeds_remaining`. Cycle already completed: 409 `cycle_already_completed` (FAC05, FAC07) |
@@ -632,7 +632,7 @@ Convergence runs in a SERIALIZABLE transaction; a unique-key race on first creat
 
 ## 9 History semantics (S07, HIS01-HIS05)
 
-V2 (S07, S08, B-16): these scoped, de-duplicated history queries are served to the **EQ Jobs tab** (special-jobs part, opened directly or through "Open in Jobs" from the crane view, s18.1). Their rules below are unchanged. The crane view no longer shows history: its right panel uses the current-state read model of s18.1, which never returns installation events, status changes, corrections or job progress; since U1 round 6 (U1-C23, D-155) its Projects/Special tab also lists the completed special jobs of the scope as the allowlisted current-state projection (completion date only). Spare-part condition history (s16.6) and ZMMS daily-job history (s15.3) are separate Jobs-tab parts with their own queries.
+V2 (S07, S08, B-16): these scoped, de-duplicated history queries are served to the **EQ Jobs tab** (special-jobs part, opened directly or through "Open in Jobs" from the crane view, s18.1). Their rules below are unchanged. The crane view no longer shows history: its right panel uses the current-state read model of s18.1, which never returns installation events, status changes, corrections or job progress; since U1 round 6 (U1-C23, D-155) its Projects/Special tab also lists the completed special jobs of the scope as the allowlisted current-state projection (completion date only). Spare-part condition history (s16.6) and CMMS daily-job history (s15.3) are separate Jobs-tab parts with their own queries.
 
 All history queries take `equipmentId` and a scope; the target must belong to that equipment (else 422 `target_not_in_equipment`). Cancelled jobs are excluded unless `includeCancelled=true`. Each job appears **once** per query result, with `matchingLines` listing only its committed lines that fall inside the selected scope.
 
@@ -770,10 +770,10 @@ A container (for example `container.machinery-house`, which contains hoist, trol
 | UserProfile | ProfileId, PortalSubjectId | Names, email, roles, active (by convergence only) | ProfileId, subject | Deactivate only |
 | AuditEntry, JobStatusEvent, JobCorrection, ProvisioningEvent, IdempotencyRecord | Id | Nothing (IdempotencyRecord expires) | Everything | Never (expiry purge for IdempotencyRecord only) |
 | (V2) AccessPolicyEntry | (RoleCode, FeatureKey) | IsOn (toggleable cells only) | Keys | Never deleted; switched off |
-| (V2) AccessPolicyChange, OperationalStatusChangeCause, ZmmsStatusEvaluation, ZmmsDailyJobRevision, SparePartConditionHistory, FacProgressUpdate, FacHoldEvent, FacCorrection | Id | Nothing (FacProgressUpdate: State to `undone`/`voidedByCorrection` only) | Everything else | Never |
-| (V2) ZmmsSyncRun | Id | Outcome/counters until the run ends | Everything after the run ends | Never |
-| (V2) ZmmsDailyJob | Id; (ZmmsJobNumber, JobDate) | Fields from a later successful run (previous values in ZmmsDailyJobRevision); EquipmentId/MatchState by mapping | Key | Never; a row missing from a later complete run is marked `absentFromSource` |
-| (V2) ZmmsEquipmentMapping, ZmmsValueMapping | Id; normalised source key | Target / effect (audited) | Source key | Retire (mapping), effect set to `unmapped` (value) |
+| (V2) AccessPolicyChange, OperationalStatusChangeCause, CmmsStatusEvaluation, CmmsDailyJobRevision, SparePartConditionHistory, FacProgressUpdate, FacHoldEvent, FacCorrection | Id | Nothing (FacProgressUpdate: State to `undone`/`voidedByCorrection` only) | Everything else | Never |
+| (V2) CmmsSyncRun | Id | Outcome/counters until the run ends | Everything after the run ends | Never |
+| (V2) CmmsDailyJob | Id; (CmmsJobNumber, JobDate) | Fields from a later successful run (previous values in CmmsDailyJobRevision); EquipmentId/MatchState by mapping | Key | Never; a row missing from a later complete run is marked `absentFromSource` |
+| (V2) CmmsEquipmentMapping, CmmsValueMapping | Id; normalised source key | Target / effect (audited) | Source key | Retire (mapping), effect set to `unmapped` (value) |
 | (V2) SparePartType | Code | Name, default life, active flag (audited, prior kept, U1-C22) | Code | Deactivate (retired: not offered for new designations or additions; designated positions keep it) |
 | (V2) SparePartCondition | PartPositionId | Through register actions, job completion and corrections only | Position | Never; undesignating hides it from the register, history kept |
 | (V2) FacDiscipline, FacJobType, FacFrequency | Code | Name/label, sort, active, interval (frequency: affects cycles opened afterwards only) | Code | Deactivate (no new jobs) |
@@ -789,14 +789,14 @@ A container (for example `container.machinery-house`, which contains hoist, trol
 | `import-parameters` | `major-parameters.json` plus a P06-authored supplementary observations file for U-02/U-03 and the additional observations in SOURCE_MAP s5.3 | Creates the `CICT-J526A-STS` EquipmentModel as `draft` if absent (no equipment association). Observations only; no ParameterValue for conflicts; repeat import is a no-op by the unique key |
 | `import-drawings` | operator-supplied folder path (the as-built set) + `drawing-register.json` | Checksums against the register, skips `Thumbs.db`, `~$*` and unregistered files unless explicitly listed, de-duplicates by sha256, copies into protected storage, creates reference DocumentLinks to the model family |
 | `register-scene-version` | `artifacts/models/<model>/<version>/` | s10.4 |
-| `seed-fixtures` | `tests/fixtures` synthetic set | **Disposable databases only** (ARCHITECTURE s10). U1-C54 baseline: `QC-DEMO-01..14`, `RTG-DEMO-01..46`, `ES-DEMO-01..07` (67 active members). Preserve existing demo jobs/status/history and distinct equipment-specific positions, including QC 01/02 sharing a template. New members start Unreported/unassigned with no invented positions/history, `DataOrigin = developmentFixture` |
+| `seed-fixtures` | `tests/fixtures` synthetic set | **Disposable databases only** (ARCHITECTURE s10). U1-C54 baseline: `QC01..14`, `RTG01..46`, `ES01..07` (67 active members). Preserve existing demo jobs/status/history and distinct equipment-specific positions, including QC 01/02 sharing a template. New members start Unreported/unassigned with no invented positions/history, `DataOrigin = developmentFixture` |
 
 | (V2) FAC master-list import | `documents/prompt-pack/reference/fac-job-list.json` bundled with the release as a read-only resource (checksum recorded), or an Admin-uploaded file in the same schema version 1 | In the app, Admin only, preview then confirm (s17.9); not an AdminCli command and never run at startup. Creates FAC lists (disciplines, types, frequencies) when absent and FacJob rows with `DataOrigin = facImport` |
-| (V2) ZMMS daily jobs | ZMMS daily all-job page through the connector only (s15) | Not an import: scheduled/Sync now runs; no seed. Tests use sanitised recorded fixtures only |
+| (V2) CMMS daily jobs | CMMS daily all-job page through the connector only (s15) | Not an import: scheduled/Sync now runs; no seed. Tests use sanitised recorded fixtures only |
 
 No import or seed runs at host startup. Reference imports never create equipment, statuses, installations or jobs, and never assign the J526A family to any equipment item (SRC06).
 
-**Fleet quantity baseline (24 October 2026, B-21 / D-198, U1-C54):** the user confirmed 14 QC, 46 RTG and 7 ES units. These quantities inform the review population and future real-data registration/reconciliation; they are not a maximum or permission to invent real equipment codes, model associations, condition or ZMMS mappings. Current implementation is the in-memory prototype's `EQ.FLEET_BASELINE` in `artifacts/prototypes/p02-ui/js/fixtures.js`; the production `tests/fixtures` seed command above is a future contract. Fleet totals/type/status counts, TV pages, Admin, EQ Jobs/status, equipment filters, shared type-scoped jobs, exports and mapping selectors must derive from the same Equipment records. Confirmed part positions remain a prerequisite for spare-part registration. Historical evidence of the earlier 17-row/16-active prototype stays historical.
+**Fleet quantity baseline (24 October 2026, B-21 / D-198, U1-C54):** the user confirmed 14 QC, 46 RTG and 7 ES units. These quantities inform the review population and future real-data registration/reconciliation; they are not a maximum or permission to invent real equipment codes, model associations, condition or CMMS mappings. Current implementation is the in-memory prototype's `EQ.FLEET_BASELINE` in `artifacts/prototypes/p02-ui/js/fixtures.js`; the production `tests/fixtures` seed command above is a future contract. Fleet totals/type/status counts, TV pages, Admin, EQ Jobs/status, equipment filters, shared type-scoped jobs, exports and mapping selectors must derive from the same Equipment records. Confirmed part positions remain a prerequisite for spare-part registration. Historical evidence of the earlier 17-row/16-active prototype stays historical.
 
 ## 13 Invariant enforcement map
 
@@ -816,8 +816,8 @@ No import or seed runs at host startup. Reference imports never create equipment
 | Audit for material changes | AuditEntry insert-only grants | same-transaction writes | JOB02, ADM06, HIS03 (P07/P11) |
 | Fixtures excluded from release | DataOrigin column | AdminCli guards; package check | OPS05 (P12) |
 | (V2) Access matrix never widens a ceiling; enforced on routes, API, exports and files | only toggleable cells stored; CHECK (RoleCode, FeatureKey) in the toggleable set | compiled ceiling table; evaluator ignores non-toggleable rows; every endpoint/export/file declares its feature; SPA fallback route check (s14.4) | ACC01-ACC05, FAC11, AUTH03 (P06, P11) |
-| (V2) ZMMS account outside source, logs, browser, evidence | no column holds it | runtime configuration only; redacting options type; log filter; no raw page storage (s15.2) | ZM04 (P07B) |
-| (V2) Daily jobs upserted once per (job number, date) | UQ (ZmmsJobNumber, JobDate) | single-run lock; run transaction | ZM01, ZM03 (P07B) |
+| (V2) CMMS account outside source, logs, browser, evidence | no column holds it | runtime configuration only; redacting options type; log filter; no raw page storage (s15.2) | ZM04 (P07B) |
+| (V2) Daily jobs upserted once per (job number, date) | UQ (CmmsJobNumber, JobDate) | single-run lock; run transaction | ZM01, ZM03 (P07B) |
 | (V2) Failed/partial sync changes nothing | one transaction per run | fail-closed parser; failure recorded separately (s15.6) | ZM02 (P07B) |
 | (V2) No status change before the job-type mapping is set; manual correction lasts the current day | ManualOverrideOn date; Source/Kind CHECKs | AutomaticStatusEnabled switch; s15.7 algorithm | ZM05, ZM06 (P07, P07B) |
 | (V2) Replacement completion and register atomic | same transaction; UQ (PartPositionId, Revision) on register history | s5.1 step 6a | SP02, JOB08 (P07) |
@@ -878,44 +878,44 @@ Ceiling and Default are the compiled table of s6. A cell with Ceiling "No" contr
 - Each saved change set increments AccessPolicyVersion, writes AccessPolicyEntry rows, AccessPolicyChange rows (actor, time, old -> new) and AuditEntry rows in one transaction (ACC02).
 - Propagation within 60 seconds (ACC02): server side within 15 seconds (s14.3); the SPA re-reads `GET /session` every 60 seconds (Admin-independent constant) and immediately after any 403 `feature_disabled`, then hides tabs that disappeared and navigates away from a tab that is no longer permitted.
 
-## 15 ZMMS daily jobs and automatic status (V2: S20, S21)
+## 15 CMMS daily jobs and automatic status (V2: S20, S21)
 
 ### 15.1 Connector boundary
 
-- ZMMS (`https://www.zmms.lk`, CICT-owned, no API, owner's agreement recorded in B-17) is the only external system the app contacts. The connector runs inside the EQ host as a hosted background service (ARCHITECTURE s17). It is started only by the schedule, the catch-up rule, a retry or Admin "Sync now".
-- Allowed requests, all HTTPS to the configured host only: (1) GET of the login page when the login form needs a server-issued token; (2) POST of the login form with the account from runtime configuration; (3) GET of the daily all-job list `?r=job/daily-alljob` for the run's business date, including its own paging/date parameters if the page requires them (P07B fixes them, s20). Nothing else: no other ZMMS route, no link following, no form other than the login, no logout side effects beyond discarding the session cookie, never a write.
+- CMMS (`https://www.zmms.lk`, CICT-owned, no API, owner's agreement recorded in B-17) is the only external system the app contacts. The connector runs inside the EQ host as a hosted background service (ARCHITECTURE s17). It is started only by the schedule, the catch-up rule, a retry or Admin "Sync now".
+- Allowed requests, all HTTPS to the configured host only: (1) GET of the login page when the login form needs a server-issued token; (2) POST of the login form with the account from runtime configuration; (3) GET of the daily all-job list `?r=job/daily-alljob` for the run's business date, including its own paging/date parameters if the page requires them (P07B fixes them, s20). Nothing else: no other CMMS route, no link following, no form other than the login, no logout side effects beyond discarding the session cookie, never a write.
 - A redirect to any host or path outside these three is not followed; the run fails with `host_not_allowed` or `unexpected_redirect`.
-- Every other phase and every automated test uses sanitised recorded fixtures through a fake HTTP handler registered only in test hosts. Development hosts run with `Zmms:Enabled = false` unless the developer configured the account locally for P07B.
+- Every other phase and every automated test uses sanitised recorded fixtures through a fake HTTP handler registered only in test hosts. Development hosts run with `Cmms:Enabled = false` unless the developer configured the account locally for P07B.
 
 ### 15.2 Configuration (key names only; no values in source, fixtures, documents or evidence)
 
 | Key | Meaning | Default |
 | --- | --- | --- |
-| `Zmms:Enabled` | Connector on/off | `false` |
-| `Zmms:BaseUrl` | Must be `https://www.zmms.lk/` (validated against the compiled allow-list; any other host stops startup of the connector) | none |
-| `Zmms:LoginPath` | Login route (provisional, P07B) | none |
-| `Zmms:DailyJobListPath` | `?r=job/daily-alljob` (provisional parameters, P07B) | none |
-| `Zmms:Account:UserName` | ZMMS account name - **secret runtime configuration** (environment variable `Zmms__Account__UserName`, user secrets or the host's protected configuration store) | none |
-| `Zmms:Account:Password` | ZMMS account password - **secret** (`Zmms__Account__Password`) | none |
-| `Zmms:RequestTimeoutSeconds` | Per HTTP request | 30 |
-| `Zmms:RunTimeoutSeconds` | Whole run (login + all pages + parse) | 300 |
-| `Zmms:MaxPages` | Paging guard | 50 |
-| `Zmms:MaxResponseBytes` | Per response | 5 242 880 |
-| `Zmms:RetryDelaysMinutes` | Backoff for transient failures | `2,5,15` |
+| `Cmms:Enabled` | Connector on/off | `false` |
+| `Cmms:BaseUrl` | Must be `https://www.zmms.lk/` (validated against the compiled allow-list; any other host stops startup of the connector) | none |
+| `Cmms:LoginPath` | Login route (provisional, P07B) | none |
+| `Cmms:DailyJobListPath` | `?r=job/daily-alljob` (provisional parameters, P07B) | none |
+| `Cmms:Account:UserName` | CMMS account name - **secret runtime configuration** (environment variable `Cmms__Account__UserName`, user secrets or the host's protected configuration store) | none |
+| `Cmms:Account:Password` | CMMS account password - **secret** (`Cmms__Account__Password`) | none |
+| `Cmms:RequestTimeoutSeconds` | Per HTTP request | 30 |
+| `Cmms:RunTimeoutSeconds` | Whole run (login + all pages + parse) | 300 |
+| `Cmms:MaxPages` | Paging guard | 50 |
+| `Cmms:MaxResponseBytes` | Per response | 5 242 880 |
+| `Cmms:RetryDelaysMinutes` | Backoff for transient failures | `2,5,15` |
 
 Rules: the options type redacts both account values in `ToString`, logging and validation messages; startup validation reports only the **names** of missing keys (`missingConfigurationKeys`); the account is sent only in the login POST body to the allowed host; it never appears in a URL, header log, exception message, problem response, stored row, fixture, test, screenshot or evidence (ZM04). Sync times and the automatic-status switch are Admin settings in the database (s15.8), not configuration.
 
 ### 15.3 Daily-job record
 
-**ZmmsDailyJob**
+**CmmsDailyJob**
 
 | Column | Notes |
 | --- | --- |
 | Id | PK |
-| ZmmsJobNumber | nvarchar(64), trimmed as shown by ZMMS; never parsed as a number |
+| CmmsJobNumber | nvarchar(64), trimmed as shown by CMMS; never parsed as a number |
 | JobDate | date (the business date the row belongs to on the page) |
-| (key) | **UQ (ZmmsJobNumber, JobDate)**: repeated syncs update, never duplicate (ZM01) |
-| EquipmentText | nvarchar(200), raw ZMMS equipment text/code as displayed |
+| (key) | **UQ (CmmsJobNumber, JobDate)**: repeated syncs update, never duplicate (ZM01) |
+| EquipmentText | nvarchar(200), raw CMMS equipment text/code as displayed |
 | EquipmentKey | nvarchar(200), normalised EquipmentText (D-125) |
 | EquipmentId | FK -> Equipment null; set only through an active mapping (s15.4) |
 | MatchState | `matched` / `unmatched` / `ignored` |
@@ -924,18 +924,18 @@ Rules: the options type redacts both account values in `ToString`, logging and v
 | JobStatusText, JobStatusKey | raw and normalised job status (provisional field, s20) |
 | ExtraFieldsJson | further columns P07B decides to keep (provisional, s20); never person names unless the user asks for them (D-126) |
 | SourceState | `present` (in the latest successful run for JobDate) / `absentFromSource` (missing from a later complete run for the same date; kept, not counted in the plan) |
-| FirstSeenRunId, LastSeenRunId, LastChangedRunId | FK -> ZmmsSyncRun |
+| FirstSeenRunId, LastSeenRunId, LastChangedRunId | FK -> CmmsSyncRun |
 | RowHash | sha256 of the normalised field values (change detection) |
-| DataOrigin | `zmmsSync` (`developmentFixture` in tests) |
+| DataOrigin | `cmmsSync` (`developmentFixture` in tests) |
 | CreatedUtc, UpdatedUtc, RowVersion | |
 
-**ZmmsDailyJobRevision** (append-only): Id; ZmmsDailyJobId; RunId; ChangedFieldsJson (before values of the fields that changed, including SourceState and EquipmentId/MatchState changes caused by a mapping). Every synced day is kept (S20); nothing is deleted or archived in stage 1.
+**CmmsDailyJobRevision** (append-only): Id; CmmsDailyJobId; RunId; ChangedFieldsJson (before values of the fields that changed, including SourceState and EquipmentId/MatchState changes caused by a mapping). Every synced day is kept (S20); nothing is deleted or archived in stage 1.
 
 Invariants: Z1 a daily job is linked to an equipment only, never to a mechanism, sub mechanism, part position or special job (SOW V2 s4.4, s7); Z2 rows are read-only to every role (no endpoint edits them; only the mapping changes EquipmentId/MatchState); Z3 a run writes rows only for the business date(s) it read.
 
 ### 15.4 Equipment mapping and unmatched queue
 
-**ZmmsEquipmentMapping**: Id; EquipmentKey (normalised); Action (`map`, `ignore`); EquipmentId (required for `map`, null for `ignore`); State (`active`, `retired`); CreatedByProfileId/Utc; RetiredByProfileId/Utc/Reason; RowVersion. UQ (EquipmentKey) WHERE State = 'active'. Several keys may map to one equipment (aliases); one key maps to at most one equipment. Only active, non-retired equipment can be a target.
+**CmmsEquipmentMapping**: Id; EquipmentKey (normalised); Action (`map`, `ignore`); EquipmentId (required for `map`, null for `ignore`); State (`active`, `retired`); CreatedByProfileId/Utc; RetiredByProfileId/Utc/Reason; RowVersion. UQ (EquipmentKey) WHERE State = 'active'. Several keys may map to one equipment (aliases); one key maps to at most one equipment. Only active, non-retired equipment can be a target.
 
 - Matching during a run: `EquipmentKey` -> active mapping -> `matched` (EquipmentId set) or `ignored`; no active mapping -> `unmatched`. No fuzzy, prefix, code-guessing or name matching (ZM03).
 - Unmatched queue (Admin): distinct unmatched EquipmentKey values with row counts and first/last JobDate; nothing is dropped.
@@ -944,9 +944,9 @@ Invariants: Z1 a daily job is linked to an equipment only, never to a mechanism,
 
 ### 15.5 Schedule, single run, timeouts, retry
 
-**ZmmsSettings** (single row, Id = 1): SyncTime1 (time, default 06:00 Asia/Colombo); SyncTime2 (time, default 14:00); AutomaticStatusEnabled (bit, default 0, s15.8); StaleAfterHours (int, default 26); RowVersion. Admin edits it (audited).
+**CmmsSettings** (single row, Id = 1): SyncTime1 (time, default 06:00 Asia/Colombo); SyncTime2 (time, default 14:00); AutomaticStatusEnabled (bit, default 0, s15.8); StaleAfterHours (int, default 26); RowVersion. Admin edits it (audited).
 
-**ZmmsSyncRun**
+**CmmsSyncRun**
 
 | Column | Notes |
 | --- | --- |
@@ -964,15 +964,15 @@ Invariants: Z1 a daily job is linked to an equipment only, never to a mechanism,
 | EquipmentEvaluated, StatusChangesApplied, EvaluationsSuppressed | automatic-status counters |
 | NextRetryUtc | set when a retry is scheduled |
 
-**ZmmsStatusEvaluation** (succeeded runs only): (RunId, EquipmentId) PK; ComputedStatus; Applied (bit); SkipReason (`manualOverride`, `unmappedValues`, `automaticDisabled`, `unchanged`, `retired`, null when applied); StatusChangeId (when applied); CausingJobIdsJson.
+**CmmsStatusEvaluation** (succeeded runs only): (RunId, EquipmentId) PK; ComputedStatus; Applied (bit); SkipReason (`manualOverride`, `unmappedValues`, `automaticDisabled`, `unchanged`, `retired`, null when applied); StatusChangeId (when applied); CausingJobIdsJson.
 
 Rules:
 
 1. Schedule: at SyncTime1 and SyncTime2 each business day. Catch-up: when the host starts (or the service resumes) and a scheduled time of today has passed without any run started for it, one `catchUp` run starts; missed times are never replayed one by one.
-2. Single run (ZM01): a run first takes the SQL Server application lock `eq-zmms-sync` (exclusive, session owner, no wait) and then inserts its `running` row. A second trigger while a run holds the lock does not start: Sync now returns 202 with `alreadyRunning: true` and the running run's ID; a schedule tick is skipped. A `running` row whose lease expired is marked `abandoned` by the next run.
+2. Single run (ZM01): a run first takes the SQL Server application lock `eq-cmms-sync` (exclusive, session owner, no wait) and then inserts its `running` row. A second trigger while a run holds the lock does not start: Sync now returns 202 with `alreadyRunning: true` and the running run's ID; a schedule tick is skipped. A `running` row whose lease expired is marked `abandoned` by the next run.
 3. Timeouts: per request and per run (s15.2); a timeout cancels the run (`timeout`).
 4. Retry with backoff: transient failures (`timeout`, `http_error` 5xx/network, `abandoned`) are retried at +2, +5 and +15 minutes (`retry` runs), then stop until the next scheduled time. `login_failed` (credentials rejected) is **not** retried automatically, to avoid locking the account; the next scheduled time tries once more. Parse failures (`layout_changed`, `date_mismatch`, `count_mismatch`, `row_invalid`, `duplicate_key_in_page`) are retried once after 5 minutes (the page may have been mid-update), then stop.
-5. Warning to Admin: the Admin pages show a banner and the health endpoint reports `failing` when the latest run failed or no run succeeded within StaleAfterHours; users see "ZMMS data from <date time>" with a stale marker (s18.3). There is no email/SMS (out of scope).
+5. Warning to Admin: the Admin pages show a banner and the health endpoint reports `failing` when the latest run failed or no run succeeded within StaleAfterHours; users see "CMMS data from <date time>" with a stale marker (s18.3). There is no email/SMS (out of scope).
 
 ### 15.6 Fail-closed parsing; failed or partial run changes nothing
 
@@ -985,22 +985,22 @@ Rules:
 
 Let D = run business date. For each active equipment E with at least one active `map` mapping (ascending Id, UPDLOCK on E):
 
-1. Plan(E, D) = ZmmsDailyJob rows with EquipmentId = E, JobDate = D and SourceState = `present` after this run's upsert (D-98).
+1. Plan(E, D) = CmmsDailyJob rows with EquipmentId = E, JobDate = D and SourceState = `present` after this run's upsert (D-98).
 2. If AutomaticStatusEnabled = 0: record evaluation SkipReason `automaticDisabled`; stop (ZM05: daily jobs stored, no status change).
-3. If any row in Plan(E, D) has a JobTypeKey or JobStatusKey with no ZmmsValueMapping effect (`unmapped`): SkipReason `unmappedValues`; stop (fail-safe; the value appears in Admin for mapping).
+3. If any row in Plan(E, D) has a JobTypeKey or JobStatusKey with no CmmsValueMapping effect (`unmapped`): SkipReason `unmappedValues`; stop (fail-safe; the value appears in Admin for mapping).
 4. Computed = `breakdown` if any row's type effect is `breakdown` and status effect is `open`; else `maintenance` if any row's type effect is `maintenance` and status effect is `open`; else `readyForOps` (not in the day's plan, or only closed/ignored rows). Causes = every row that satisfied the winning condition.
 5. Apply:
    - E.ManualOverrideOn >= D (a correction made on the run's day, or after midnight while a run that started before midnight was still running): SkipReason `manualOverride`, no change (the correction holds over the same day's second sync, ZM06).
-   - E.ManualOverrideOn < D (expired correction): append kind `overrideEnded`, source `zmms`, value Computed, causes; clear ManualOverrideOn (first successful sync of the next day returns E to automatic, ZM06).
-   - E.ManualOverrideOn null and Computed differs from CurrentStatus (or CurrentStatus null, or CurrentStatusSource = `manual`): append kind `automatic`, source `zmms`, causes. Otherwise SkipReason `unchanged`.
-6. Back to automatic (user command, outside a run): clears ManualOverrideOn; if a succeeded run with BusinessDate = today evaluated E **and that evaluation has a Computed value** (it reached step 4; an evaluation stopped at step 2 `automaticDisabled` or step 3 `unmappedValues` has none), append kind `backToAutomatic`, source `zmms`, value = that evaluation's Computed, causes copied, SyncRunId = that run; otherwise (no such run, or its evaluation has no Computed value) append kind `backToAutomatic` with the current value, source `manual` and SyncRunId null (shown "Automatic - awaiting today's ZMMS sync", D-96), and the next successful run applies step 5 (ManualOverrideOn is null, so the computed value is applied when it differs or the current source is `manual`).
+   - E.ManualOverrideOn < D (expired correction): append kind `overrideEnded`, source `cmms`, value Computed, causes; clear ManualOverrideOn (first successful sync of the next day returns E to automatic, ZM06).
+   - E.ManualOverrideOn null and Computed differs from CurrentStatus (or CurrentStatus null, or CurrentStatusSource = `manual`): append kind `automatic`, source `cmms`, causes. Otherwise SkipReason `unchanged`.
+6. Back to automatic (user command, outside a run): clears ManualOverrideOn; if a succeeded run with BusinessDate = today evaluated E **and that evaluation has a Computed value** (it reached step 4; an evaluation stopped at step 2 `automaticDisabled` or step 3 `unmappedValues` has none), append kind `backToAutomatic`, source `cmms`, value = that evaluation's Computed, causes copied, SyncRunId = that run; otherwise (no such run, or its evaluation has no Computed value) append kind `backToAutomatic` with the current value, source `manual` and SyncRunId null (shown "Automatic - awaiting today's CMMS sync", D-96), and the next successful run applies step 5 (ManualOverrideOn is null, so the computed value is applied when it differs or the current source is `manual`).
 7. A user correction (s4.2) on mapped equipment sets ManualOverrideOn = today in the same transaction as its `manualCorrection` row.
 
 ### 15.8 Job-type and status mapping
 
-**ZmmsValueMapping**: Id; Field (`jobType`, `jobStatus`); SourceKey (normalised value); SourceText (latest raw text seen); Effect (for `jobType`: `breakdown`, `maintenance`, `none`, `unmapped`; for `jobStatus`: `open`, `closed`, `unmapped`); FirstSeenRunId; LastSeenUtc; UpdatedByProfileId/Utc; RowVersion. UQ (Field, SourceKey). A succeeded run inserts newly seen values as `unmapped` (in the same transaction) so Admin sees them. Admin sets effects after the first real data (B-18, Q11).
+**CmmsValueMapping**: Id; Field (`jobType`, `jobStatus`); SourceKey (normalised value); SourceText (latest raw text seen); Effect (for `jobType`: `breakdown`, `maintenance`, `none`, `unmapped`; for `jobStatus`: `open`, `closed`, `unmapped`); FirstSeenRunId; LastSeenUtc; UpdatedByProfileId/Utc; RowVersion. UQ (Field, SourceKey). A succeeded run inserts newly seen values as `unmapped` (in the same transaction) so Admin sees them. Admin sets effects after the first real data (B-18, Q11).
 
-AutomaticStatusEnabled can be switched on only when the latest succeeded run exists and every value seen in it has an effect other than `unmapped` (else 422 `zmms_mapping_incomplete`). Switching it off stops automatic changes from the next run; current statuses stay as they are.
+AutomaticStatusEnabled can be switched on only when the latest succeeded run exists and every value seen in it has an effect other than `unmapped` (else 422 `cmms_mapping_incomplete`). Switching it off stops automatic changes from the next run; current statuses stay as they are.
 
 ## 16 Spare-part condition register (V2: S22)
 
@@ -1222,16 +1222,16 @@ Closed jobs show Completed. Flags Overdue and Due soon (s17.4) are shown on top 
 
 ### 18.1 Crane view current state (S07, U1-C19, HIS06)
 
-The crane-view right panel has exactly four tabs (U1-C19, D-122). Each is a separate query keyed by (equipmentId, scope, targetId) with scope `equipment | main | sub | part` and the target validated as in s9 (422 `target_not_in_equipment`); every response echoes equipmentId, scope, targetId and tab for the client race guard (HIS05). None returns installation events, status changes, corrections, job progress or earlier ZMMS days; the one listed history is the completed special jobs of Projects/Special (U1-C23, D-155), as the allowlisted projection below. Special jobs whose display switch is off (J7) are in no tab, count or badge (U1-C26).
+The crane-view right panel has exactly four tabs (U1-C19, D-122). Each is a separate query keyed by (equipmentId, scope, targetId) with scope `equipment | main | sub | part` and the target validated as in s9 (422 `target_not_in_equipment`); every response echoes equipmentId, scope, targetId and tab for the client race guard (HIS05). None returns installation events, status changes, corrections, job progress or earlier CMMS days; the one listed history is the completed special jobs of Projects/Special (U1-C23, D-155), as the allowlisted projection below. Special jobs whose display switch is off (J7) are in no tab, count or badge (U1-C26).
 
 | Tab | Content | Scope rule |
 | --- | --- | --- |
-| Maintenance | Today's ZMMS daily jobs of the equipment: rows with JobDate = today and SourceState = `present` (job number, type, description, status, provisional fields), the equipment's status with its source/mode, and "ZMMS data from <latest succeeded run end>". Not mapped: "Not linked to ZMMS". No earlier days | ZMMS jobs are equipment-level (Z1), so the same list shows for any selection; the tab says so |
+| Maintenance | Today's CMMS daily jobs of the equipment: rows with JobDate = today and SourceState = `present` (job number, type, description, status, provisional fields), the equipment's status with its source/mode, and "CMMS data from <latest succeeded run end>". Not mapped: "Not linked to CMMS". No earlier days | CMMS jobs are equipment-level (Z1), so the same list shows for any selection; the tab says so |
 | Projects/Special | Open (Pending, Current) **and completed** special jobs (U1-C23, D-155; cancelled excluded from the list) whose display switch is on (J7), as the explicit `CurrentSpecialJob` projection (API s4.16): id/number, equipment identity, target, kind, title, work status, planned date, completion business date (completed jobs only; null for open and reopened jobs), `listedOn` and matching position identities/names only; newest first by `listedOn` (CompletedOn of a completed job; the Asia/Colombo business date of CreatedUtc of an open job; ties by number desc); all open jobs and the 50 most recent completed jobs, with `moreCompleted` when more exist (the rest are in the Jobs tab); counts of open, completed and cancelled jobs (shown jobs only); "Open in Jobs" link parameters. Never return `JobSummary`, full jobs or replacement lines: no description, completion note, completer, events, corrections, actors/audit timestamps, attachments/evidence or installation/removal details, for completed and reopened jobs too. Job-record links and "Open in Jobs" appear only when the user also holds `eq.jobs.view` (otherwise the job number is plain text, D-139/D-145) | s9 scope rule: equipment = all jobs of the equipment; main/sub = direct and descendant work, de-duplicated; part = exact position. A reopened job is listed once, as open. Supersedes "completed jobs are counted, not listed" (U-31 reading, D-122) |
 | Technical | Specification summary of the selected area: equipment (identity, type, model association, commissioning date, serial/manufacturer when known, effective major parameters, `sceneUnavailableReason`); main/sub (definition code/name/description, applicability note, position count by kind, effective parameters linked to that mechanism, D-123, and source drawings); part (identity, kind, UOM, nominal quantity, current installation(s) without past events, source references, visual provenance, parameters of its sub mechanism) | Parameters keep the observation/conflict rules of s3.8 (63 m is total lift, gantry speed conflict visible) |
 | Spare parts | Current register rows (s16) of designated positions inside the scope: condition, brand, model/part no., serial, replaced date, expected life, next predicted replacement, flags; no history | equipment = all designated positions; main/sub = designated positions below it; part = that position if designated, else "Not a major spare part" |
 
-A summary query returns the four tab badges for the scope (today's ZMMS job count, open special jobs shown on the dashboard / 3D, spare parts overdue/due soon) so the panel can label tabs without loading all four. The mechanism-tree and the flat/3D label work badges use the same open, shown count (U1-C26).
+A summary query returns the four tab badges for the scope (today's CMMS job count, open special jobs shown on the dashboard / 3D, spare parts overdue/due soon) so the panel can label tabs without loading all four. The mechanism-tree and the flat/3D label work badges use the same open, shown count (U1-C26).
 
 "Open in Jobs" parameters: Projects/Special -> EQ Jobs special part with `equipment`, `scope`, `target` (scoped history of s9); Spare parts -> Spare parts part with `equipment`, `main`/`sub`/`part`; Maintenance -> Daily work (CMMS) tab with `equipment` and today's date range (U1-C20).
 
@@ -1244,13 +1244,13 @@ Four tabs (U1-C20, supersedes the SOW V2 s4.2 layout where the daily jobs sit be
 | Tab | Queries | Notes |
 | --- | --- | --- |
 | Special/Projects | Special jobs list/board (Pending, Current, Completed, Include cancelled) and job record (existing P01 queries); scoped history s9 when opened with equipment/scope/target; "Add special job" for `eq.work` (also from the crane view, pre-filled with the selection, U1-C21) | Manual entry only (SOW V2 s4.3) |
-| Daily work (CMMS) | The ZMMS daily jobs list (matched rows only; JobDate in the date range; `absentFromSource` rows shown with "No longer in the ZMMS list"), with "ZMMS data from" | Daily jobs are read-only and linked to equipment only (ZM07). Unmatched rows appear only in Admin |
-| EQ status | Status board: one row per active equipment with current status, source (Auto/Manual), mode (s3.3 E5), since, reason, override day and the causing ZMMS jobs; actions Correct and Back to automatic for `eq.work`. Status history across equipment (source, kind, actor or sync run, reason, causes) | S21 |
+| Daily work (CMMS) | The CMMS daily jobs list (matched rows only; JobDate in the date range; `absentFromSource` rows shown with "No longer in the CMMS list"), with "CMMS data from" | Daily jobs are read-only and linked to equipment only (ZM07). Unmatched rows appear only in Admin |
+| EQ status | Status board: one row per active equipment with current status, source (Auto/Manual), mode (s3.3 E5), since, reason, override day and the causing CMMS jobs; actions Correct and Back to automatic for `eq.work`. Status history across equipment (source, kind, actor or sync run, reason, causes) | S21 |
 | Spare parts condition | Register rows per equipment with flags; per-position history (s16.6) | S22, SP04 |
 
 ### 18.3 Fleet additions (S02, S03)
 
-Each fleet item's open special-job counts (`openJobs`) exclude jobs whose display switch is off (U1-C26, J7). Each fleet item adds: status source (`zmms`/`manual`) and mode; `zmmsToday` = count of today's present daily jobs for mapped equipment (null when not mapped); the response adds `zmms` freshness: latest succeeded run end, latest run outcome, `stale` (latest run failed or no success within StaleAfterHours, D-124). The fleet's operational-status note describes automatic status from ZMMS with manual correction (replaces the "manual, no telemetry" note of D-70).
+Each fleet item's open special-job counts (`openJobs`) exclude jobs whose display switch is off (U1-C26, J7). Each fleet item adds: status source (`cmms`/`manual`) and mode; `cmmsToday` = count of today's present daily jobs for mapped equipment (null when not mapped); the response adds `cmms` freshness: latest succeeded run end, latest run outcome, `stale` (latest run failed or no success within StaleAfterHours, D-124). The fleet's operational-status note describes automatic status from CMMS with manual correction (replaces the "manual, no telemetry" note of D-70).
 
 ### 18.4 FAC Dashboard summary (S27)
 
@@ -1282,19 +1282,19 @@ Server-generated `.xlsx` of exactly the rows of the filtered list (same filter p
 | --- | --- | --- |
 | FAC jobs | `fac.jobs.view` (the export is part of the FAC Jobs tab, SOW V2 5.6; the dashboard has no export, so `fac.dashboard.view` alone does not allow it, D-140) | Source sheet columns: Section ("Facility"), Internal Section (discipline), Inspection/ Service (type), Description (job name), Frequency, Quantity, Last Date, Next Date (calculated due date), PIC, In-house/ Outsource, Completion Progress (Recurring/ One time/ Continous) (kind), Status (Completed, Pending) (calculated status s17.11), Completed qty, Pending qty, Completed percentage, Remarks; then calculated/app columns: Job number, Due soon, Overdue, Days overdue, On hold reason, State, Source row, Shown on dashboard (Yes/No, U1-C26) |
 | EQ special jobs | `eq.jobs.view` | Number, Equipment, Type, Target path (codes and names), Kind, Title, Work status, Cancelled, Priority, Planned date, Responsible, Created by, Created (Colombo), Completed date, Completion note, Replacement line count, Positions replaced, Shown on dashboard / 3D (Yes/No, U1-C26) |
-| ZMMS daily jobs | `eq.jobs.view` | Job date, ZMMS job number, Equipment (app code), ZMMS equipment text, Type, Status, Description, provisional fields kept in P07B, Source state, Synced (Colombo) |
+| CMMS daily jobs | `eq.jobs.view` | Job date, CMMS job number, Equipment (app code), CMMS equipment text, Type, Status, Description, provisional fields kept in P07B, Source state, Synced (Colombo) |
 | Spare-part register | `eq.jobs.view` | Equipment, Type, Main, Sub, Position, Spare-part type, Condition, Brand, Model/part no., Serial, Replaced date, Expected life (months), Next predicted replacement, Flag, Remarks, Last change (Colombo) |
 
-## 20 ZMMS fields provisional until P07B
+## 20 CMMS fields provisional until P07B
 
 Only the real page, read by P07B through the connector with the configured account, can fix these. Until then the parser contract (s15.6), the record (s15.3) and the mapping (s15.4, s15.8) are designed around placeholders; P07B replaces each placeholder in this section and in s15 with the observed structure and stores a sanitised fixture (names replaced, no cookies, no account).
 
 | ID | Question only the real page can answer | Affects |
 | --- | --- | --- |
-| ZQ-01 | Login mechanics: login route, form field names, server-issued anti-forgery token, session cookie name and lifetime; whether a captcha or second factor exists (if so, automated login is blocked and the user must decide; it is never bypassed) | `Zmms:LoginPath`, connector |
+| ZQ-01 | Login mechanics: login route, form field names, server-issued anti-forgery token, session cookie name and lifetime; whether a captcha or second factor exists (if so, automated login is blocked and the user must decide; it is never bypassed) | `Cmms:LoginPath`, connector |
 | ZQ-02 | Whether the daily all-job list is server-rendered HTML or filled by script/AJAX; if script, which same-page data request it uses (P07B must prove script execution is needed before any headless browser) | parser, D-102 |
 | ZQ-03 | Which date the page shows (today only, or a date parameter; the default at 06:00 and 14:00) and how a date is selected | run business date, `date_mismatch` |
-| ZQ-04 | Paging and totals: page size, page parameter, displayed total count, sort order | `count_mismatch`, `Zmms:MaxPages` |
+| ZQ-04 | Paging and totals: page size, page parameter, displayed total count, sort order | `count_mismatch`, `Cmms:MaxPages` |
 | ZQ-05 | Exact columns and formats: job number format and uniqueness, date/time formats, equipment text, job type, status, description, shift/time, department, assigned persons | s15.3 columns, ExtraFieldsJson, exports |
 | ZQ-06 | Equipment text format (for example `QC01`, `QC-01`, `STS 01`), one or several equipment per row, rows for non-crane equipment | normalisation D-125, mapping |
 | ZQ-07 | Job type and status vocabularies (which values mean breakdown, preventive/corrective maintenance, open, closed) | value mapping s15.8 (Admin sets effects after the first data) |

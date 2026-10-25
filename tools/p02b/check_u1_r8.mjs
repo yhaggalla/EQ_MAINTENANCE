@@ -3,7 +3,7 @@
 // R8-09 also needs the committed prototype (git HEAD copy) served on another port for the "FAC unchanged" comparison:
 //   git archive HEAD artifacts/prototypes/p02-ui | tar -x -C <dir>;  node <dir>/artifacts/prototypes/p02-ui/serve.mjs 5322
 // Usage: node tools/p02b/check_u1_r8.mjs [p02Url] [outJson] [--head=http://127.0.0.1:5322/] [--only=R8-01,R8-05]
-// PROTOTYPE-LEVEL evidence only: synthetic in-memory data, persona switch instead of sign-in, no persistence, no ZMMS contact.
+// PROTOTYPE-LEVEL evidence only: synthetic in-memory data, persona switch instead of sign-in, no persistence, no CMMS contact.
 import fs from 'node:fs';
 import path from 'node:path';
 import { launch } from '../p03/cdp.mjs';
@@ -58,7 +58,7 @@ try {
   await step('R8-02', ['U1-C28', 'S02', 'S03', 'OPS01'], 'TV mode behaviour: URL-addressable (TV button opens ?tv=1 with the current type/status/source filters; ?tv=1&type=QC shows only QC); refresh on the same poll (EQ.refresh, as the 60 s timer calls it, updates the time; a status change by an EQ Team writer reaches the TV view and its counts); Esc and Exit TV mode return to the normal fleet with the filters kept; counts reconcile with the cards', async () => {
     await go('eqTeam', '/eq/fleet?type=QC&source=auto', 600);
     await ev(`document.querySelector('[data-fk="fleet-tv"]').click()`); await b.wait(700);
-    const viaBtn = await ev(`({hash:location.hash, tv:document.body.classList.contains('tv'), types:[...new Set([...document.querySelectorAll('.eq-card')].map(c=>EQ.eq(c.dataset.eq).typeCode))], n:document.querySelectorAll('.eq-card').length, want:EQ.state.D.equipment.filter(e=>e.lifecycle==='active'&&e.typeCode==='QC'&&EQ.zmms.mode(e).label==='Auto').length})`);
+    const viaBtn = await ev(`({hash:location.hash, tv:document.body.classList.contains('tv'), types:[...new Set([...document.querySelectorAll('.eq-card')].map(c=>EQ.eq(c.dataset.eq).typeCode))], n:document.querySelectorAll('.eq-card').length, want:EQ.state.D.equipment.filter(e=>e.lifecycle==='active'&&e.typeCode==='QC'&&EQ.cmms.mode(e).label==='Auto').length})`);
     await b.key('Escape'); await b.wait(500);
     const afterEsc = await ev(`({hash:location.hash, tv:document.body.classList.contains('tv'), topbar:getComputedStyle(document.querySelector('.topbar')).display})`);
     await go('management', '/eq/fleet?tv=1', 800);
@@ -95,7 +95,7 @@ try {
       document.querySelector('[data-fk="blink-pause"]').click(); await new Promise(r=>setTimeout(r,200)); return {turned:a, pausedPage:b.page, paused:b.paused, txt}})()`);
     await b.viewport(1920, 1080);
     await go('management', '/eq/fleet?tv=1', 600);
-    await ev(`(()=>{const src=EQ.eq('eq-rtg-demo-02'); for(let i=0;i<40;i++){ EQ.state.D.equipment.push({...src, id:'eq-rtg-x'+i, key:'rx'+i, code:'RTG-X-'+String(i+1).padStart(2,'0'), name:'Synthetic RTG for the paging check '+(i+1), status:['readyForOps','breakdown','maintenance',null][i%4], statusSince:new Date(Date.now()-3600e3*(i+1)).toISOString(), zmmsMapped:false}); } EQ.rerender();})()`); await b.wait(900);
+    await ev(`(()=>{const src=EQ.eq('eq-rtg-demo-02'); for(let i=0;i<40;i++){ EQ.state.D.equipment.push({...src, id:'eq-rtg-x'+i, key:'rx'+i, code:'RTG-X-'+String(i+1).padStart(2,'0'), name:'Synthetic RTG for the paging check '+(i+1), status:['readyForOps','breakdown','maintenance',null][i%4], statusSince:new Date(Date.now()-3600e3*(i+1)).toISOString(), cmmsMapped:false}); } EQ.rerender();})()`); await b.wait(900);
     out.s1920big = await probe();
     const ok = out.s1366.pages >= 2 && out.s1366.fits && out.s1366.all && out.s1366.extra === 0 && out.s1366.scroll <= 0 && /Page \d of \d/.test(out.s1366.pager)
       && rot.turned === 1 && rot.paused && rot.pausedPage === 1 && /paused/.test(rot.txt)
@@ -249,6 +249,6 @@ try {
   await b.close();
   fs.mkdirSync(path.dirname(outFile), { recursive: true });
   const pass = results.filter((r) => r.status === 'PASS').length;
-  fs.writeFileSync(outFile, JSON.stringify({ ranAt: new Date().toISOString(), p02: P02, head: HEAD, note: 'Prototype-level checks only (synthetic data, simulated personas, no persistence, no ZMMS contact).', pass, total: results.length, results }, null, 2));
+  fs.writeFileSync(outFile, JSON.stringify({ ranAt: new Date().toISOString(), p02: P02, head: HEAD, note: 'Prototype-level checks only (synthetic data, simulated personas, no persistence, no CMMS contact).', pass, total: results.length, results }, null, 2));
   console.log(pass + '/' + results.length + ' PASS -> ' + outFile);
 }

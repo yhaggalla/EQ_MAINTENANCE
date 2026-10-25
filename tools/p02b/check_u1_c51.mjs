@@ -4,7 +4,7 @@ import vm from 'node:vm';
 
 const out = process.argv[2] || 'docs/evidence/U1/fleet-jobs-c51/model-checks.json';
 const box = vm.createContext({ console, Intl, Date, URLSearchParams, setTimeout, clearTimeout }); box.window = box;
-for (const file of ['util', 'catalog', 'params', 'fac-ref', 'fixtures', 'access', 'store', 'zmms', 'spares', 'fac', 'dialogs', 'views-jobs', 'views-eqjobs']) {
+for (const file of ['util', 'catalog', 'params', 'fac-ref', 'fixtures', 'access', 'store', 'cmms', 'spares', 'fac', 'dialogs', 'views-jobs', 'views-eqjobs']) {
   vm.runInContext(fs.readFileSync(`artifacts/prototypes/p02-ui/js/${file}.js`, 'utf8'), box, { filename: file + '.js' });
 }
 const E = box.EQ, checks = [];

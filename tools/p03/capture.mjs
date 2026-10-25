@@ -64,8 +64,8 @@ await page('?eq=eq-qc-demo-01'); await shot('01-overall-equipment', 'Overall mod
 await page('?eq=eq-qc-demo-01&main=mi-q01-01&mode=technical'); await shot('02-main-01-hoist-technical', 'Main 01 Hoist selected: union of bound positions highlighted and fitted; tree, breadcrumb and descendant history synchronised');
 await page('?eq=eq-qc-demo-01&sub=si-q01-011&mode=technical'); await shot('03-sub-011-hoist-technical', 'Sub 011 selected: narrower set (motors, reducer, drums, high-speed brakes, boom-tip sheaves)');
 const mA = await id('hoist.drive.motor.a');
-await page(`?eq=eq-qc-demo-01&part=${mA}&mode=technical`); await shot('04-part-motor-a-qc01', 'Part: main hoist motor A on QC-DEMO-01, exact-position synthetic history (EQJ-SYN-0101)');
-await page(`?eq=eq-qc-demo-02&part=${mA.replace('q01', 'q02')}&mode=technical`); await shot('05-part-motor-a-qc02', 'Same semantic key on QC-DEMO-02 resolves to a different position ID and different history');
+await page(`?eq=eq-qc-demo-01&part=${mA}&mode=technical`); await shot('04-part-motor-a-qc01', 'Part: main hoist motor A on QC01, exact-position synthetic history (EQJ-SYN-0101)');
+await page(`?eq=eq-qc-demo-02&part=${mA.replace('q01', 'q02')}&mode=technical`); await shot('05-part-motor-a-qc02', 'Same semantic key on QC02 resolves to a different position ID and different history');
 await page('?eq=eq-qc-demo-01&container=machinery-house'); await shot('06-container-machinery-house-overall', 'Machinery house selected in Overall mode: spatial group only, contents grouped by mechanism, no maintenance identity');
 await page('?eq=eq-qc-demo-01&mode=technical&iso=1'); await shot('07-technical-isolated-house', 'Technical mode, machinery house isolated: simplified internals with Approx. qualifiers and location markers');
 await page('?eq=eq-qc-demo-01&mode=technical'); await shot('08-technical-transparent-house', 'Technical mode: enclosure transparent and not pickable, internals and location markers visible');
