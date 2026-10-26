@@ -2,6 +2,10 @@
 
 Rolling handover for CICT EQ Maintenance. Each phase appends its record; the newest is first.
 
+## 26 October 2026 - U1-C62 compact demo banner
+
+Removed the user-quoted long synthetic-data/persistence/sign-in/CMMS/persona sentence from the shared EQ/FAC banner. PROTOTYPE and Prototype controls remain; documentation and prototype behavior remain. Updated two existing regression assertions to accept the compact notice. Local browser 13/13 across EQ/FAC desktop/phone, controls open/close and no overflow/errors; syntax/whitespace checks pass. Evidence: `docs/evidence/U1/compact-demo-banner-c62/REPORT.md`; request `docs/runs/Repair-U1-C62-20261026.md`; D-210 / UX section 55 / MF-02. Restarted the stopped localhost 5312 server hidden for verification and left it running. Included in the accompanying local checkpoint on the user's "commit it.." instruction; no delegated phase or independent R verdict. Preserve during temporary-wrapper cleanup; U1 remains open/unapproved, P04/P05 Not started.
+
 ## 25 October 2026 - U1-C59 equipment-icon correction
 
 The user clarified "?? no icons?" after `3aa11f3`: the expected QC/RTG/ES illustrations were missing despite the tiny label icons. Added existing equipment illustrations above type/count pairs on the total and three status cards, retaining accessible text, counts, zero values and compact layout. D-209 supersedes the C59 artwork-removal choice. Focused checks 27/27 with explicit equipment SVG assertions, desktop/phone/TV capture review and syntax/whitespace checks. Evidence: `docs/evidence/U1/fleet-equipment-icons-c59/REPORT.md`; MF-01 follow-up / UX section 54. Accompanying local correction commit; preserve through U1-T01 REMOVE. U1 remains open/unapproved; no phase advancement or live-system change.

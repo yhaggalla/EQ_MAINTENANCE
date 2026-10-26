@@ -1,0 +1,95 @@
+{
+  "passed": 13,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "1920 /eq/fleet compact banner",
+      "pass": true,
+      "detail": {
+        "banner": "PROTOTYPE\nPrototype controls",
+        "removed": true,
+        "label": true,
+        "controls": true,
+        "overflow": 0,
+        "height": 41.578125,
+        "main": true
+      }
+    },
+    {
+      "name": "1920 /eq/fleet controls open",
+      "pass": true
+    },
+    {
+      "name": "1920 /eq/fleet controls close",
+      "pass": true
+    },
+    {
+      "name": "375 /eq/fleet compact banner",
+      "pass": true,
+      "detail": {
+        "banner": "PROTOTYPE\nPrototype controls",
+        "removed": true,
+        "label": true,
+        "controls": true,
+        "overflow": 0,
+        "height": 41.578125,
+        "main": true
+      }
+    },
+    {
+      "name": "375 /eq/fleet controls open",
+      "pass": true
+    },
+    {
+      "name": "375 /eq/fleet controls close",
+      "pass": true
+    },
+    {
+      "name": "1920 /fac/dashboard compact banner",
+      "pass": true,
+      "detail": {
+        "banner": "PROTOTYPE\nPrototype controls",
+        "removed": true,
+        "label": true,
+        "controls": true,
+        "overflow": 0,
+        "height": 41.578125,
+        "main": true
+      }
+    },
+    {
+      "name": "1920 /fac/dashboard controls open",
+      "pass": true
+    },
+    {
+      "name": "1920 /fac/dashboard controls close",
+      "pass": true
+    },
+    {
+      "name": "375 /fac/dashboard compact banner",
+      "pass": true,
+      "detail": {
+        "banner": "PROTOTYPE\nPrototype controls",
+        "removed": true,
+        "label": true,
+        "controls": true,
+        "overflow": 0,
+        "height": 41.578125,
+        "main": true
+      }
+    },
+    {
+      "name": "375 /fac/dashboard controls open",
+      "pass": true
+    },
+    {
+      "name": "375 /fac/dashboard controls close",
+      "pass": true
+    },
+    {
+      "name": "No browser errors",
+      "pass": true,
+      "detail": []
+    }
+  ]
+}

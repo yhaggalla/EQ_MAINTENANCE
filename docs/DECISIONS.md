@@ -805,3 +805,7 @@ D-208: show QC/RTG/ES text counts on the total and three status cards, calculate
 ### 2026-10-25 U1-C59 correction - equipment icons
 
 User feedback after `3aa11f3`: "?? no icons?". D-209 corrects the interpretation of "add KPI icons": include the existing QC/RTG/ES equipment illustrations above their code/count pairs on Active equipment, Ready for OPS, Breakdown and Maintenance. Retain small status-label icons, summaries and compact percentage/Unreported widths. This supersedes D-208 only where it removed equipment artwork. No calculation or scope change. Focused checks 27/27, including matching visible equipment SVG assertions; evidence `docs/evidence/U1/fleet-equipment-icons-c59/REPORT.md`. Preserve through wrapper cleanup; U1 remains open/unapproved.
+
+### 2026-10-26 U1-C62 compact demo banner
+
+D-210: on the user's instruction, remove the full "Synthetic data only. Nothing is saved..." sentence from the shared EQ/FAC demo banner. Keep the PROTOTYPE label and Prototype controls; underlying fixtures, in-memory behavior, persona simulation and documented limitations remain. This supersedes older visible-sentence requirements only. Existing regression assertions check the retained compact notice instead of requiring the removed wording. Exact request: `docs/runs/Repair-U1-C62-20261026.md`; evidence `docs/evidence/U1/compact-demo-banner-c62/REPORT.md`. Preserve this accepted app refinement during temporary-wrapper cleanup. U1 remains open/unapproved; P04/P05 Not started.

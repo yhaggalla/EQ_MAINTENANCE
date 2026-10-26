@@ -1,5 +1,7 @@
 # Implementation status
 
+26 October 2026, U1-C62: removed the long sentence from the shared demo banner, retaining PROTOTYPE and controls. Local browser checks 13/13, JS syntax and whitespace pass; `docs/evidence/U1/compact-demo-banner-c62/REPORT.md`. D-210 / UX section 55 / MF-02. Included in the accompanying local checkpoint on the user's commit instruction. Preserve through wrapper cleanup; U1 remains open/unapproved and P04/P05 Not started.
+
 25 October 2026, U1-C59 correction: user feedback clarified that QC/RTG/ES equipment illustrations were expected. The total and three status cards now include them above their code/count pairs; small label icons remain. D-209 supersedes the earlier artwork-removal choice. Focused checks 27/27; evidence `docs/evidence/U1/fleet-equipment-icons-c59/REPORT.md`. U1 remains open/unapproved; retain through temporary-layer cleanup.
 
 25 October 2026, U1-C59 completed and included in the accompanying pending-work checkpoint: Fleet status KPIs show QC/RTG/ES summaries, with six compact label icons per the latest steering and narrower percentage/Unreported cards. Focused checks 27/27, fleet regression 37/37; evidence `docs/evidence/U1/fleet-summary-c59/REPORT.md`. D-208 / UX section 54 / MF-01. Earlier pending-C59 statements below are historical. Preserve this accepted refinement through temporary-wrapper removal; U1 remains open/unapproved.

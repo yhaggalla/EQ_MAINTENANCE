@@ -492,7 +492,7 @@ try {
     const stor = await ev("Object.keys(localStorage).filter(k=>!/^eq-maintenance:last-route:[a-z0-9-]+(:eq|:fac)?$/.test(k)).length + sessionStorage.length + document.cookie.length");
     await ev('location.reload()'); await b.wait(900);
     const n2 = await ev('EQ.state.D.jobs.length');
-    return banner.includes('Synthetic data only') && /no sign-in/.test(banner) && stor === 0 && n2 === n1 - 1;
+    return banner.includes('PROTOTYPE') && banner.includes('Prototype controls') && stor === 0 && n2 === n1 - 1;
   });
   await step('C42', 'Only development fixtures: equipment uses the approved QC/RTG/ES code format and records remain marked DevelopmentFixture', async () => {
     await go('eqTeam', '/fleet');
