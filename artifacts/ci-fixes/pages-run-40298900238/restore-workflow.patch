@@ -1,0 +1,88 @@
+diff --git a/.github/workflows/deploy-demo.yml b/.github/workflows/deploy-demo.yml
+new file mode 100644
+--- /dev/null
++++ b/.github/workflows/deploy-demo.yml
+@@ -0,0 +1,83 @@
++name: Publish EQ Maintenance demo
++
++on:
++  workflow_dispatch:
++
++permissions:
++  contents: read
++  pages: write
++  id-token: write
++
++concurrency:
++  group: github-pages
++  cancel-in-progress: false
++
++jobs:
++  deploy:
++    if: github.ref == 'refs/heads/main'
++    runs-on: ubuntu-latest
++    environment:
++      name: github-pages
++      url: ${{ steps.deployment.outputs.page_url }}
++    steps:
++      - name: Check out repository
++        uses: actions/checkout@v6
++
++      - name: Configure GitHub Pages
++        uses: actions/configure-pages@v5
++
++      - name: Package walkthrough and 3D viewer
++        shell: bash
++        run: |
++          python3 - <<'PY'
++          from pathlib import Path
++          import os
++          import shutil
++
++          app = Path('artifacts/prototypes/p02-ui')
++          viewer = Path('artifacts/prototypes/p03-qc-model')
++          model = Path('artifacts/models/cict-j526a-sts-scene/1')
++          out = Path(os.environ.get('PAGES_OUTPUT', '_site'))
++          out.mkdir(parents=True, exist_ok=False)
++
++          # Keep the application assets at one level so relative URLs work.
++          for folder in ('css', 'js', 'img'):
++              shutil.copytree(app / folder, out / folder)
++          shutil.copyfile(app / 'index.html', out / 'app.html')
++
++          # Reproduce the local server's Portal entry using static files.
++          temporary = app / 'temp-management'
++          shutil.copytree(temporary, out / 'temp-management',
++                          ignore=shutil.ignore_patterns('index.html'))
++          portal = (temporary / 'index.html').read_text(encoding='utf-8')
++          portal = portal.replace('/temp-management/', './temp-management/')
++          portal = portal.replace('/index.html', './app.html')
++          portal = portal.replace('href="/"', 'href="./"')
++          (out / 'index.html').write_text(portal, encoding='utf-8')
++          script = out / 'temp-management/walkthrough.js'
++          script.write_text(script.read_text(encoding='utf-8').replace(
++              '/index.html', './app.html'), encoding='utf-8')
++
++          # Publish the shared renderer, its licensed library and active model.
++          (out / 'qc/js').mkdir(parents=True)
++          shutil.copyfile(viewer / 'js/viewer.mjs', out / 'qc/js/viewer.mjs')
++          shutil.copytree(viewer / 'vendor', out / 'qc/vendor')
++          target = out / 'models/cict-j526a-sts-scene/1'
++          target.mkdir(parents=True)
++          for name in ('scene.glb', 'manifest.json'):
++              shutil.copyfile(model / name, target / name)
++          (out / '.nojekyll').write_text('', encoding='utf-8')
++          print('Packaged', len(list(out.rglob('*'))), 'demo entries')
++          PY
++
++      - name: Upload demo website
++        uses: actions/upload-pages-artifact@v4
++        with:
++          name: github-pages-${{ github.run_id }}-${{ github.run_attempt }}
++          path: _site
++
++      - name: Publish demo website
++        id: deployment
++        uses: actions/deploy-pages@v4
++        with:
++          artifact_name: github-pages-${{ github.run_id }}-${{ github.run_attempt }}

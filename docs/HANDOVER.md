@@ -2,6 +2,10 @@
 
 Rolling handover for CICT EQ Maintenance. Each phase appends its record; the newest is first.
 
+## 26 October 2026 - Pages artifact retry fix
+
+After the user supplied the failed Pages run and approved "commit and push it", restored `.github/workflows/deploy-demo.yml` from the failed-run source with attempt-specific artifact names shared by upload and deployment. Run 40298900238 attempt 2 had two github-pages artifacts; packaging/upload passed and deployment selection failed. The workflow was absent from main at e62ce78. Manual-only/main-branch trigger and existing permissions/packaging remain. Proposal/local packaging verification: 13/13, 51 packaged files; applied workflow matches the reviewed proposal and whitespace check passes. Source, patch, checks and exact run/job/artifact IDs: `artifacts/ci-fixes/pages-run-40298900238/README.md`. Accompanying user-authorized commit/push; no new workflow run, publication, artifact deletion or app behavior change. U1 remains open/unapproved; no phase advancement or production acceptance implied.
+
 ## 26 October 2026 - U1-C62 compact demo banner
 
 Removed the user-quoted long synthetic-data/persistence/sign-in/CMMS/persona sentence from the shared EQ/FAC banner. PROTOTYPE and Prototype controls remain; documentation and prototype behavior remain. Updated two existing regression assertions to accept the compact notice. Local browser 13/13 across EQ/FAC desktop/phone, controls open/close and no overflow/errors; syntax/whitespace checks pass. Evidence: `docs/evidence/U1/compact-demo-banner-c62/REPORT.md`; request `docs/runs/Repair-U1-C62-20261026.md`; D-210 / UX section 55 / MF-02. Restarted the stopped localhost 5312 server hidden for verification and left it running. Included in the accompanying local checkpoint on the user's "commit it.." instruction; no delegated phase or independent R verdict. Preserve during temporary-wrapper cleanup; U1 remains open/unapproved, P04/P05 Not started.

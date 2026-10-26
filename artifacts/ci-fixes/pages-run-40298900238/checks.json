@@ -1,0 +1,65 @@
+{
+  "passed": 13,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "Upload/deploy names match and include attempt",
+      "pass": true
+    },
+    {
+      "name": "Manual-only main-branch workflow retained",
+      "pass": true
+    },
+    {
+      "name": "Packaging Python parses",
+      "pass": true
+    },
+    {
+      "name": "Package contains index.html",
+      "pass": true
+    },
+    {
+      "name": "Package contains app.html",
+      "pass": true
+    },
+    {
+      "name": "Package contains temp-management/walkthrough.js",
+      "pass": true
+    },
+    {
+      "name": "Package contains js/app.js",
+      "pass": true
+    },
+    {
+      "name": "Package contains qc/js/viewer.mjs",
+      "pass": true
+    },
+    {
+      "name": "Package contains qc/vendor/three/three.module.js",
+      "pass": true
+    },
+    {
+      "name": "Package contains qc/vendor/three/LICENSE",
+      "pass": true
+    },
+    {
+      "name": "Package contains models/cict-j526a-sts-scene/1/scene.glb",
+      "pass": true
+    },
+    {
+      "name": "Package contains models/cict-j526a-sts-scene/1/manifest.json",
+      "pass": true
+    },
+    {
+      "name": "C62 banner cleanup included",
+      "pass": true
+    }
+  ],
+  "packageFiles": 51,
+  "notRun": [
+    "GitHub execution",
+    "deployment",
+    "full YAML schema validation"
+  ],
+  "patchApplied": false
+}
