@@ -1,73 +1,30 @@
-# CICT EQ & FAC Maintenance prompt pack
+# CICT EQ & FAC Asset Management prompt pack
 
-Prepared 21 October 2026 from the user's SOW, QC drawing set, mechanism table and confirmed clarification answers. Updated to version 2.0 on 22 October 2026 from SOW V2 revision 4 and the facility job list; version 2.2 on 24 October adds the temporary management walkthrough in SOW V2 revision 6.
+Version 2.3 | 28 October 2026 | SOW V2 revision 7 | U1-C63
 
-Revision 1.1 adds explicit Codex and Claude model/effort recommendations for every build phase, review and helper prompt.
+Management's eight changes are documented only. Implementation requires the user's later confirmation. U1 remains IN PROGRESS / CHANGES REQUESTED / NOT COMPLETE / NOT APPROVED; P04/P05 Not started. Existing review PASS results apply to earlier snapshots.
 
-Revision 1.2 records four pre-implementation review decisions, adds user checkpoints U1 and U2, makes job cancellation a required behaviour and aligns the pack with the Claude Code runner in this workspace.
+## Current scope
 
-Version 2.0 adds the SOW V2 scope: EQ and FAC sections, the FAC Team role and the in-app Access matrix, the FAC master list, FAC Dashboard and FAC Jobs, the EQ Jobs tab in three parts, ZMMS daily jobs with automatic status, and the spare-part condition register. It adds phases P01B, P02B, R02B (before U1), P07B and P08B, keeps the completed P00-P03, R01 and R02 work valid, and grows the acceptance checklist to 94 cases. See [the changelog](CHANGELOG.md).
+- Display EQ & FAC Asset Management; retain eq-maintenance technical paths/roles and stable equipment/part/work/history identities.
+- Remove all CMMS/daily EQ maintenance integration, sync messages/settings/controls, automatic status and equipment-card blinking. No phase contacts CMMS or needs its account.
+- Exactly Ready for OPS and Isolated, initialized explicitly and manually updated with persistent audit/history. Long term isolated EQ replaces Breakdown category; no timer threshold, Maintenance or Unreported current status.
+- Crane tabs: Spare part status first/default, Projects/Special, Technical. EQ Jobs: Projects/Special, EQ status, Spare parts condition; no Daily work.
+- Four Fleet KPIs: Active equipment, Ready for OPS percentage, Ready for OPS count, Long term isolated EQ count; rearrange responsively with retained type summaries/filters.
+- Retain EQ/FAC roles/Access, manual EQ work/progress/replacements/spares/technical/history, FAC inspection/service cycles/progress/photos/moving dashboard/reduced motion/TV, QC-first staging and synthetic-data boundaries.
 
-The pack is ready to guide implementation. It contains no implemented application, generated crane model or executed application acceptance results.
+Complete change matrix and confirmation/initialization/legacy-history rules: [management scope revision](MANAGEMENT_SCOPE_REVISION_20261028.md).
 
-## Temporary management walkthrough at the open U1 checkpoint
+## Run controls
 
-The 24 October request is documented in [the temporary walkthrough specification](TEMP_MANAGEMENT_WALKTHROUGH.md): port 5312 -> Portal-style login accepting blank/arbitrary input -> Portal launcher with UMMS, PayPrep and Safety placeholders plus EQ & FAC Maintenance -> unchanged EQ/FAC default. No other Portal feature or real integration is included. Build is Not started; TD01-TD08 are NOT RUN. Remove only the temporary layer before U1 approval; retain accepted EQ/FAC refinements and verify the cleaned app. The initial reference is `8303f8b8a55f41983bdcc77363ddbf13d2892383`; retain all accepted EQ/FAC U1 refinements and remove only temporary wrapper edits. Verify the cleaned app against that initial commit plus accepted changes, then record its exact commit/tree for U1. Login/Portal feedback is deferred to P05 actual integration. The 18 build phases, six reviews, 27 model profiles and 94 permanent acceptance cases are unchanged; eight temporary checks are separate. The build/removal tasks use the existing affected-prototype Repair workflow and do not advance `/eq-phase next` beyond U1.
+Read [requirements](APPROVED_REQUIREMENTS.md), [implementation prompts](EQ_MAINTENANCE_IMPLEMENTATION_PROMPT_PACK.md), [acceptance](ACCEPTANCE_CHECKLIST.md), [model guide](MODEL_AND_EFFORT_GUIDE.md) and current project records. One phase per run, after its gates. Bootstrap/Master apply to extracted phases; Resume repeats the confirmation gate.
 
-## Start here
+Retain 18 build prompts, six independent reviews and 27 model profiles. Repurpose P07B to CMMS removal/manual-status verification; S20/S21 retain IDs with revised scope. Retire ZM01-ZM08 and add AM01-AM11: 97 active permanent acceptance cases (94 - 8 + 11), all specified for future working-app acceptance. Eight temporary TD cases stay separate.
 
-Open [the model and effort guide](MODEL_AND_EFFORT_GUIDE.md), then [the implementation prompt pack](EQ_MAINTENANCE_IMPLEMENTATION_PROMPT_PACK.md). In a coding assistant working in `F:\CODEX\EQ_MAINTENANCE`, select the phase's recommended model/effort in the client, paste its **Bootstrap prompt**, then **P00**. Continue in the printed run order, one phase at a time. Each prompt contains its own settings recommendation; prompt text does not change actual runtime settings.
+## Open U1 checkpoint
 
-The pack provides 18 build phases (P00-P13 plus P01B, P02B, P07B, P08B), six read-only review checkpoints (R01-R05 plus R02B), and reusable Repair and Resume prompts. The full scope and invariants are held in the accompanying documents rather than left to memory between chats. A new chat should receive Bootstrap before its selected phase.
+After user confirmation, perform the affected prototype Repair, verify requested outcomes and retained flows, obtain fresh independent review, then resubmit U1. No P04 until explicit U1 approval in DECISIONS.md. Remove temporary login/launcher and verify TD07-TD08 first; retain accepted app refinements. [Temporary walkthrough](TEMP_MANAGEMENT_WALKTHROUGH.md) BUILD is historically complete; removal pending. Old hashes/labels remain historical. Portal feedback stays deferred to actual P05 integration.
 
-## Your confirmed scope
+## Package records
 
-- QC interactive 3D first; QC, RTG and ES in the fleet register/dashboard and work records.
-- A separate app integrated with ENG Portal authentication, central roles, SQL Server technology and IIS hosting patterns.
-- EQ Team creates and completes jobs; Admin manages and corrects them with recorded history. No additional completion-approval workflow.
-- Preserve supplied codes; main 10 remains unassigned; 048/063 inactive; 061 Spreader; 062 Headblock; applicability configurable by equipment type/model.
-- Build simplified models from the drawings with accurate overall proportions, major assemblies and useful simplified internal drill-down.
-- No EAM/Maximo work-order reference or sync, and no historical bulk import; history starts at go-live.
-- QC main parts are derived from the drawings and confirmed by Admin before use.
-- EQ Team can cancel uncompleted jobs they created; Admin cancels any and corrects completed work.
-- V2: two sections, EQ and FAC, displayed as "EQ & FAC Maintenance"; Portal roles Admin, Management, EQ Team, FAC Team; tab visibility and optional rights in Admin > Access.
-- V2 EQ: special jobs bound to main/sub/part, ZMMS daily jobs read by login twice a day, automatic status with a current-day manual correction, spare-part condition with predicted replacement, no history in the crane view.
-- V2 FAC: master list seeded from the facility sheet, frequencies and cycles, quantity progress with optional photos, a moving management dashboard and a phone-first FAC Jobs tab.
-
-## Files
-
-| File | Use |
-| --- | --- |
-| [Implementation prompt pack](EQ_MAINTENANCE_IMPLEMENTATION_PROMPT_PACK.md) | Bootstrap, run order, master rules, copy-and-paste build/review prompts |
-| [Models and effort by phase](MODEL_AND_EFFORT_GUIDE.md) | Separate Codex/Claude recommendations, exact controls, rationale, fallback and escalation |
-| [Machine-readable model profiles](reference/phase-model-settings.json) | 27 profiles covering Bootstrap, 18 build phases, six reviews, Repair and Resume |
-| [Approved requirements](APPROVED_REQUIREMENTS.md) | Scope S01-S29, roles and Access matrix, work/status rules, ZMMS, spare parts, FAC, history identity, technical defaults and completion criteria |
-| [Facility job list](reference/fac-job-list.json) | Normalised seed of the 111-row facility sheet (114 jobs), frequency list and known source issues |
-| [QC modelling brief](QC_3D_MODELLING_BRIEF.md) | Drawing sources, geometry/fidelity, scene bindings, interaction, performance budgets and deliverables |
-| [Temporary management walkthrough](TEMP_MANAGEMENT_WALKTHROUGH.md) | TEMP01-TEMP06, TD01-TD08, pinned U1 app baseline, isolated build and mandatory removal prompts |
-| [Acceptance checklist](ACCEPTANCE_CHECKLIST.md) | Specific future verification cases and minimum end-to-end demonstration |
-| [Approved mechanism data](reference/mechanisms-approved.json) | Seed/reference definitions, source labels, descriptions, parents and active/reserved states |
-| [Original mechanism text](reference/mechanisms-original.txt) | Exact copy of the user's two-column-group pasted source |
-| [Drawing register](reference/drawing-register.json) | 38 source PDF files, 162 PDF pages, checksums and candidate mechanism mappings |
-| [Major parameter observations](reference/major-parameters.json) | Source-linked J526A values, units/conditions and unresolved gantry-speed discrepancy |
-| PACK_VALIDATION.md and PACK_MANIFEST.json | Pack consistency results and packaged-file/source checksums |
-
-Keep these files together. The original SOW, SOW V2, facility sheet, drawings and photos remain in this workspace and are referenced by the prompts; the ZIP does not duplicate the large drawing corpus. Reference JSON is planning/seed input, not a command to migrate or populate an unknown database.
-
-## Source limits that matter during implementation
-
-The cover refers to the original 12 STS cranes. It does not establish today's fleet register or compatibility with every QC. The initial model family remains unassigned to real equipment until the appropriate Admin/technical association is established.
-
-The general arrangement gives total lift height as 63 m; that is not overall crane height. Gantry speed is 46 m/min in the overview and 45.5 m/min in the gantry-drive sheet; both observations are preserved. Simplified internals must not be presented as exact vendor geometry.
-
-The current local Portal contract has explicit registered audiences and roles. App onboarding needs a compatibility-tested shared-auth/issuer/provisioning/launcher change, not just an extra navigation tile. P05 handles the local integration; its review explicitly checks existing consumer compatibility.
-
-The technical stack recommendation is React/TypeScript/Vite/Three.js with ASP.NET Core/EF Core and SQL Server. P00 selects current compatible versions and evaluates a supported LTS runtime for the new app without incidentally upgrading neighbouring applications.
-
-## Review and operational boundary
-
-The R prompts inspect evidence without editing. A failing review leads to a concrete repair and a repeat review, not a silent scope change. Run each review in a fresh, independent context; the Claude Code runner in this workspace (see `CLAUDE.md` at the workspace root) does this automatically. U1 and U2 are user checkpoints, not agent prompts.
-
-Build prompts cover local implementation, disposable test data, authenticated browser verification and release preparation. Live IIS changes, production migrations, actual account grants, package publishing and model purchases are not executed by this prompt-pack authoring task. A later operational instruction must identify the intended action/environment.
-
-The earlier source review is [EQ Maintenance requirements review](../EQ_MAINTENANCE_REQUIREMENTS_REVIEW.md). The standalone ZIP retains this note as context; the earlier review itself is outside the prompt-pack folder.
+[Changelog](CHANGELOG.md), [validation](PACK_VALIDATION.md), PACK_MANIFEST.json, [QC brief](QC_3D_MODELLING_BRIEF.md) and unchanged source reference data accompany the pack. SOW V2 Markdown/Word copies are synchronized. Original SOW/workbook/drawings, historical ZIPs/evidence/exact prompts remain protected; historical zmms.lk URLs unchanged. No external service is accessed.

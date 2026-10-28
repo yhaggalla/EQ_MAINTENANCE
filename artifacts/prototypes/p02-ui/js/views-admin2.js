@@ -1,14 +1,14 @@
-/* Admin shell for both sections (DATA_CONTRACT s6, s14-s17; SOW V2 s3.2, s4.4-s4.6, s5.7): EQ settings (the P02 sections plus spare-part
-   selection and CMMS mapping/health), FAC settings (master list, import preview, settings) and the Access matrix.
-   SYNTHETIC: nothing is saved; no CMMS connection exists; the import is previewed from the supplied reference JSON and cannot be confirmed here. */
+/* Admin shell: retained EQ/spare-part settings, FAC master-list/import-preview/settings and Access matrix.
+   Synthetic prototype: manual EQ state is browser-local; FAC/config work is in memory.
+   No external maintenance integration; the FAC source import is preview-only. */
 window.EQ = window.EQ || {};
 (function (EQ) {
   const h = EQ.h, icon = EQ.icon;
   const K = () => EQ._dlg;
   const F = () => EQ.fac;
-  const ui = (EQ.admin2UI = { draft: {}, reason: '', mlQ: '', mlDisc: '', mlShow: 30, impIssue: '', spareEq: 'eq-qc-demo-01', cmmsOut: 'succeeded', cmmsInject: false, accErr: null, accOk: null });
+  const ui = (EQ.admin2UI = { draft: {}, reason: '', mlQ: '', mlDisc: '', mlShow: 30, impIssue: '', spareEq: 'eq-qc-demo-01', accErr: null, accOk: null });
   const NAV = [
-    ['eq', 'EQ settings', [['equipment', 'Equipment', 'list'], ['models', 'Models and applicability', 'cube'], ['catalog', 'Mechanism catalogue', 'tree'], ['positions', 'Main-part positions', 'wrench'], ['parameters', 'Specifications', 'file'], ['scene-bindings', 'Model bindings', 'gear'], ['spare-parts', 'Spare parts', 'cube'], ['cmms', 'CMMS', 'sync']]],
+    ['eq', 'EQ settings', [['equipment', 'Equipment', 'list'], ['models', 'Models and applicability', 'cube'], ['catalog', 'Mechanism catalogue', 'tree'], ['positions', 'Main-part positions', 'wrench'], ['parameters', 'Specifications', 'file'], ['scene-bindings', 'Model bindings', 'gear'], ['spare-parts', 'Spare parts', 'cube']]],
     ['fac', 'FAC settings', [['master-list', 'Master job list', 'list'], ['import', 'Import preview', 'download'], ['settings', 'Lists and settings', 'sliders']]],
     ['access', 'Access', [['', 'Access matrix', 'lock']]],
   ];
@@ -16,17 +16,15 @@ window.EQ = window.EQ || {};
   EQ.views.admin = function admin(area, section, q) {
     if (!['eq', 'fac', 'access'].includes(area)) area = 'eq';
     const page = h('div', { class: 'page' });
-    page.appendChild(h('div', { class: 'page-head' }, h('div', null, h('p', { class: 'eyebrow' }, 'EQ & FAC Maintenance Admin'), h('h1', null, 'Administration'), h('p', null, "Manage EQ, FAC and feature access here. User accounts and roles are managed in ENG Portal."))));
+    page.appendChild(h('div', { class: 'page-head' }, h('div', null, h('p', { class: 'eyebrow' }, 'EQ & FAC Asset Management Admin'), h('h1', null, 'Administration'), h('p', null, "Manage EQ, FAC and feature access here. User accounts and roles are managed in ENG Portal."))));
     const groups = NAV;
     const defaults = { eq: 'equipment', fac: 'master-list', access: '' };
     const items = (groups.find((g) => g[0] === area)[2]);
     const sec = items.some((x) => x[0] === section) ? section : defaults[area];
     let content;
-    if (area === 'eq') content = ['spare-parts', 'cmms'].includes(sec) ? (sec === 'cmms' ? cmmsSection(q) : spareSection(q)) : EQ.adminEq.build(sec, q);
+    if (area === 'eq') content = sec === 'spare-parts' ? spareSection(q) : EQ.adminEq.build(sec, q);
     else if (area === 'fac') content = sec === 'import' ? importSection() : sec === 'settings' ? facSettings() : masterList();
     else content = accessSection();
-    const z = EQ.cmms.freshness();
-    if (z.stale && area === 'eq') page.appendChild(h('div', { class: 'notice warn', role: 'status', 'data-fk': 'cmms-banner' }, icon('alert'), h('p', null, h('strong', null, 'CMMS sync warning. '), 'The latest sync ' + (z.latestOutcome === 'failed' ? 'failed (' + z.failureCode + ')' : 'is overdue') + '. The previous daily jobs and every status are unchanged. See EQ settings > CMMS.')));
     page.appendChild(h('div', { class: 'admin-layout' },
       h('nav', { class: 'panel subnav', 'aria-label': 'Admin sections' }, groups.flatMap(([a, label, list]) => [h('h2', { class: 'subnav-h' }, label), ...list.map(([k, l, ic]) => h('a', { href: '#/admin/' + a + (k ? '/' + k : ''), 'aria-current': a === area && k === sec ? 'page' : null, 'data-fk': 'an-' + a + (k ? '-' + k : '') }, icon(ic), l))])),
       h('div', { class: 'stack', style: 'min-width:0' }, content)));
@@ -168,64 +166,6 @@ window.EQ = window.EQ || {};
       h('section', { class: 'panel panel-pad stack' }, h('h3', null, 'Disciplines and types'), h('div', { class: 'row' }, Object.values(F().DISC_NAME).map((n) => h('span', { class: 'tag' }, n)), Object.values(F().TYPE_NAME).map((n) => h('span', { class: 'tag gold' }, n))), h('p', { class: 'small muted', style: 'margin:0' }, 'Admin can add disciplines (a new lane appears on the dashboard). Adding is not simulated in this prototype.')));
   }
 
-  // ---------------------------------------------------------------- CMMS (EQ settings)
-  function cmmsSection(q) {
-    const z = EQ.state.D.cmms; const f = EQ.cmms.freshness();
-    const set = { sync1: z.settings.sync1, sync2: z.settings.sync2, staleAfterHours: z.settings.staleAfterHours };
-    let err = {};
-    const timeForm = h('form', { class: 'panel panel-pad stack', onSubmit: (e) => { e.preventDefault(); const r = EQ.cmms.saveSettings(set); EQ.toast(r.ok ? 'Sync times saved' : r.message, r.ok ? 'Prototype: in memory only.' : null); EQ.rerender(); } },
-      h('h3', null, 'Sync times (Asia/Colombo)'), h('div', { class: 'grid-2' },
-        h('div', { class: 'field' }, h('label', { for: 'zs-1' }, 'First sync'), h('input', { id: 'zs-1', 'data-fk': 'zs-1', type: 'time', value: set.sync1, onInput: (e) => { set.sync1 = e.target.value; } })), h('div', { class: 'field' }, h('label', { for: 'zs-2' }, 'Second sync'), h('input', { id: 'zs-2', 'data-fk': 'zs-2', type: 'time', value: set.sync2, onInput: (e) => { set.sync2 = e.target.value; } })),
-        h('div', { class: 'field' }, h('label', { for: 'zs-3' }, 'Mark data stale after (hours)'), h('input', { id: 'zs-3', 'data-fk': 'zs-3', type: 'number', min: 1, max: 168, value: set.staleAfterHours, onInput: (e) => { set.staleAfterHours = Number(e.target.value); } }))),
-      h('div', { class: 'row' }, h('button', { type: 'submit', class: 'primary', 'data-fk': 'zs-save' }, 'Save times')));
-    const sim = { outcome: ui.cmmsOut, inject: ui.cmmsInject };
-    const syncBox = h('section', { class: 'panel panel-pad stack' }, h('h3', null, 'Sync now (read-only; the app never writes to CMMS)'),
-      h('div', { class: 'notice warn' }, icon('alert'), h('p', null, "Simulation only: no CMMS connection or account. Failed/partial syncs change nothing. Successful syncs save the day and update automatic status.")),
-      h('div', { class: 'grid-2' },
-        h('div', { class: 'field' }, h('label', { for: 'zs-out' }, 'Simulated outcome'), h('select', { id: 'zs-out', 'data-fk': 'zs-out', onChange: (e) => { ui.cmmsOut = e.target.value; } }, [['succeeded', 'Run succeeds'], ['login_failed', 'Fails: login rejected'], ['layout_changed', 'Fails: page layout changed'], ['timeout', 'Fails: timeout'], ['http_error', 'Fails: HTTP 503']].map(([v, l]) => h('option', { value: v, selected: ui.cmmsOut === v ? true : null }, l)))),
-        h('label', { class: 'check', style: 'align-self:end;min-height:2.5rem' }, h('input', { type: 'checkbox', checked: ui.cmmsInject ? true : null, 'data-fk': 'zs-inject', onChange: (e) => { ui.cmmsInject = e.target.checked; } }), 'The page now also lists a BreakDown job for QC901 (QC02)')),
-      h('div', { class: 'row' }, h('button', { type: 'button', class: 'primary', 'data-fk': 'zs-sync', onClick: () => { const r = EQ.cmms.syncNow({ outcome: ui.cmmsOut, inject: ui.cmmsInject ? [{ equipmentText: 'QC902', type: 'BreakDown', status: 'Initialized', desc: 'Injected breakdown job (synthetic simulation)' }] : [] }); EQ.toast(r.ok ? (r.changedNothing ? 'Run failed: ' + ui.cmmsOut + '. Previous data and every status kept.' : 'Run #' + r.run.id + ' succeeded: ' + r.run.applied + ' status change(s)') : r.message); } }, icon('sync'), 'Sync now')));
-    const runs = h('section', { class: 'panel panel-pad stack', 'aria-labelledby': 'zr-h' }, h('h3', { id: 'zr-h' }, 'Recent runs'),
-      h('div', { class: 'table-wrap' }, h('table', { class: 'zruns' }, h('caption', { class: 'sr-only' }, 'CMMS sync runs'), h('thead', null, h('tr', null, ['Run', 'Trigger', 'Ended', 'Outcome', 'Pages / rows', 'New / upd / absent', 'Evaluated / applied / not applied'].map((c) => h('th', { scope: 'col' }, c)))),
-        h('tbody', null, z.runs.slice(0, 10).map((r) => h('tr', { class: r.outcome === 'failed' ? 'failed-run' : '', 'data-run': r.id }, h('th', { scope: 'row' }, '#' + r.id + (r.retryOf ? ' (retry of #' + r.retryOf + ')' : '')), h('td', null, r.trigger), h('td', null, EQ.fmtInstantShort(r.endedUtc)),
-          h('td', null, r.outcome === 'succeeded' ? h('span', { class: 'tag green' }, 'Succeeded') : h('span', { class: 'tag red' }, 'Failed'), r.failureDetail ? h('div', { class: 'small' }, r.failureDetail) : null), h('td', null, r.pagesRead + ' / ' + r.rowsRead), h('td', null, r.outcome === 'succeeded' ? r.rowsNew + ' / ' + r.rowsUpdated + ' / ' + r.rowsAbsent : 'unchanged'), h('td', null, r.outcome === 'succeeded' ? r.evaluated + ' / ' + r.applied + ' / ' + r.suppressed : 'no status changed')))))));
-    const maps = h('section', { class: 'panel panel-pad stack', 'aria-labelledby': 'zm-h' }, h('div', { class: 'row between' }, h('h3', { id: 'zm-h' }, 'Equipment mapping'), h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'zm-add', onClick: () => mapDialog('') }, icon('plus'), 'Add mapping...')),
-      h('p', { class: 'small muted', style: 'margin:0' }, "Match exact codes after trimming spaces and converting to uppercase. One code links to one equipment; multiple codes can link to it. Other equipment and spreaders remain unmatched or ignored."),
-      h('div', { class: 'table-wrap' }, h('table', null, h('caption', { class: 'sr-only' }, 'Equipment mapping'), h('thead', null, h('tr', null, ['CMMS code', 'Action', 'App equipment', 'State', ''].map((c, i) => h('th', { scope: 'col' }, c || h('span', { class: 'sr-only' }, 'Actions')))))
-        , h('tbody', null, z.mappings.map((m) => h('tr', { class: m.state === 'retired' ? 'inactive' : '' }, h('th', { scope: 'row', class: 'mono' }, m.key), h('td', null, m.action === 'map' ? 'Map' : 'Ignore'), h('td', null, m.equipmentId ? EQ.eq(m.equipmentId).code : '-'), h('td', null, m.state + (m.retiredReason ? ' (' + m.retiredReason + ')' : '')),
-          h('td', null, m.state === 'active' ? h('button', { type: 'button', class: 'btn-sm', onClick: () => EQ.dlg.reason({ title: 'Retire mapping ' + m.key, message: 'Rows already attached stay attached; later runs treat this code as unmatched.', confirm: 'Retire', danger: true, onSubmit: (r) => EQ.cmms.retireMapping(m.id, r) }) }, 'Retire') : null)))))));
-    const um = EQ.cmms.unmatched();
-    const queue = h('section', { class: 'panel panel-pad stack', 'aria-labelledby': 'zu-h' }, h('h3', { id: 'zu-h' }, 'Unmatched queue ', h('span', { class: 'tag ' + (um.length ? 'gold' : '') }, String(um.length))),
-      um.length ? h('div', { class: 'table-wrap' }, h('table', { class: 'zunmatched' }, h('caption', { class: 'sr-only' }, 'Unmatched CMMS equipment codes'), h('thead', null, h('tr', null, ['CMMS code', 'Rows', 'First', 'Last', ''].map((c) => h('th', { scope: 'col' }, c || h('span', { class: 'sr-only' }, 'Actions'))))), h('tbody', null, um.map((u) => h('tr', { 'data-key': u.key }, h('th', { scope: 'row', class: 'mono' }, u.key), h('td', null, String(u.rows)), h('td', null, EQ.fmtDate(u.first)), h('td', null, EQ.fmtDate(u.last)), h('td', null, h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'map-' + u.key, onClick: () => mapDialog(u.key) }, 'Map or ignore...')))))))
-        : h('p', { class: 'small muted', style: 'margin:0' }, 'Nothing is waiting for a mapping.'), h('p', { class: 'small muted', style: 'margin:0' }, "Unmatched rows stay here. Mapping links existing rows without duplicates; status updates at the next sync. SQ spreaders and SF/SK/WS/RS mobile equipment are outside the QC/RTG/ES fleet."));
-    const vmap = h('section', { class: 'panel panel-pad stack', 'aria-labelledby': 'zv-h' }, h('h3', { id: 'zv-h' }, 'Job type and job status mapping'),
-      h('p', { class: 'small muted', style: 'margin:0' }, "Admin maps job types to Breakdown or Maintenance after reviewing real data. These are sample mappings. An unmapped type blocks automatic status for affected equipment."),
-      h('div', { class: 'table-wrap' }, h('table', null, h('caption', { class: 'sr-only' }, 'Value mapping'), h('thead', null, h('tr', null, ['Field', 'CMMS value', 'Effect'].map((c) => h('th', { scope: 'col' }, c)))), h('tbody', null, z.valueMappings.map((v) => h('tr', { class: v.effect === 'unmapped' ? 'unmapped-row' : '' }, h('td', null, v.field === 'jobType' ? 'Job type' : 'Job status'), h('th', { scope: 'row' }, v.text), h('td', null,
-        h('select', { 'aria-label': 'Effect of ' + v.field + ' ' + v.text, 'data-fk': 'vm-' + v.id, onChange: (e) => { const r = EQ.cmms.setEffect(v.id, e.target.value); EQ.toast(r.ok ? 'Effect saved' : r.message); } }, (v.field === 'jobType' ? [['breakdown', 'Breakdown'], ['maintenance', 'Maintenance'], ['none', 'No effect'], ['unmapped', 'Unmapped (needs a decision)']] : [['open', 'Open (counts)'], ['closed', 'Closed (ignored)'], ['unmapped', 'Unmapped (needs a decision)']]).map(([val, l]) => h('option', { value: val, selected: v.effect === val ? true : null }, l))), v.effect === 'unmapped' ? h('span', { class: 'tag red', style: 'margin-left:.4rem' }, 'unmapped') : null)))))),
-      h('label', { class: 'check', style: 'min-height:2.5rem' }, h('input', { type: 'checkbox', role: 'switch', checked: z.settings.autoEnabled ? true : null, 'data-fk': 'zm-auto', onChange: (e) => { const r = EQ.cmms.setAuto(e.target.checked); if (!r.ok) { EQ.toast(r.message); } EQ.rerender(); } }), 'Automatic status from CMMS is ' + (z.settings.autoEnabled ? 'on' : 'off')),
-      !EQ.cmms.canEnableAuto().ok ? h('div', { class: 'notice warn' }, icon('alert'), h('p', null, 'Switching it on again is blocked: ' + EQ.cmms.canEnableAuto().why)) : null);
-    const evs = h('section', { class: 'panel panel-pad stack', 'aria-labelledby': 'ze-h' }, h('h3', { id: 'ze-h' }, 'Status evaluation of the latest successful run'),
-      h('div', { class: 'table-wrap' }, h('table', null, h('caption', { class: 'sr-only' }, 'Evaluation per equipment'), h('thead', null, h('tr', null, ['Equipment', 'Computed', 'Result', 'Causing CMMS jobs'].map((c) => h('th', { scope: 'col' }, c)))),
-        h('tbody', null, z.evaluations.map((e) => h('tr', { 'data-eval': e.equipmentId }, h('th', { scope: 'row' }, EQ.eq(e.equipmentId).code), h('td', null, e.computed ? EQ.statusBadge(e.computed) : '-'), h('td', null, e.applied ? h('span', { class: 'tag green' }, 'Applied') : h('span', { class: 'tag' }, 'Not applied: ' + ({ manualOverride: 'manual correction holds today', unmappedValues: 'a job type or status has no effect yet', automaticDisabled: 'automatic status is off', unchanged: 'unchanged' }[e.skip] || e.skip || 'no change needed'))), h('td', null, e.causes.length ? e.causes.join(', ') : '-')))))));
-    return h('div', { class: 'stack' }, h('h2', null, 'CMMS daily jobs: mapping, mapping of values, sync times and health'),
-      h('section', { class: 'panel panel-pad stack cmms-health' + (f.stale ? ' failing' : ''), 'aria-labelledby': 'zh-h', 'data-fk': 'cmms-health' }, h('h3', { id: 'zh-h' }, 'Health ', f.stale ? h('span', { class: 'tag red' }, 'failing') : h('span', { class: 'tag green' }, 'healthy')),
-        h('dl', { class: 'kv' }, h('dt', null, 'Last successful sync'), h('dd', null, f.from ? EQ.fmtInstant(f.from) : 'None'), h('dt', null, 'Latest run'), h('dd', null, '#' + z.runs[0].id + ' · ' + z.runs[0].outcome + (z.runs[0].failureCode ? ' (' + z.runs[0].failureCode + ')' : '')), h('dt', null, 'Next scheduled'), h('dd', null, z.settings.sync1 + ' and ' + z.settings.sync2 + ' Asia/Colombo'), h('dt', null, 'Failed runs in the list'), h('dd', null, String(z.runs.filter((r) => r.outcome === 'failed').length))),
-        f.stale ? h('div', { class: 'notice warn' }, icon('alert'), h('p', null, "A failed sync keeps previous data and statuses, marked stale. Temporary failures retry after 2, 5 and 15 minutes. Rejected logins do not retry automatically.")) : null),
-      timeForm, syncBox, runs, maps, queue, vmap, evs);
-  }
-  function mapDialog(key) {
-    const k = K(); const st = { key, action: 'map', equipmentId: '' }; let errors = {};
-    k.openDialog({ build(api) { return { title: key ? 'Map or ignore ' + key : 'Add equipment mapping',
-      body: [k.writerGuard(), key ? null : k.field('zm-key', 'CMMS equipment code', k.input(st, 'key', { maxlength: 100 }), { required: true, error: errors.key }),
-        k.radios(st, 'action', 'zm-act', [{ value: 'map', label: 'Map to an app equipment item' }, { value: 'ignore', label: 'Ignore (not an app equipment item)' }], () => api.render(), 'Action *', null),
-        st.action === 'map' ? k.field('zm-eq', 'App equipment', k.select(st, 'equipmentId', EQ.state.D.equipment.filter((e) => e.lifecycle === 'active').map((e) => ({ value: e.id, label: e.code })), null, 'Choose'), { required: true, error: errors.equipmentId }) : null],
-      foot: k.footButtons(api, 'Save mapping', () => { const r = EQ.cmms.addMapping(st); if (r.ok) { api.close(r); EQ.toast('Mapping saved: ' + r.attached + ' existing row(s) attached, none duplicated', 'No status is recomputed until the next sync.'); } else { errors = r.fields || {}; api.render(); } }) }; } });
-  }
-
-  // ---------------------------------------------------------------- major spare parts (EQ settings)
-  // U1-C21: EQ Team and Admin add spare parts to a register (EQ Jobs / crane view). U1-C22: here an Admin adds, edits and retires the
-  // spare-part types and their expected life, adds parts to the register, changes type/life per equipment, edits register entries
-  // (the same register actions as EQ Jobs) and removes parts from the register. Every change is audited; history is kept.
   function spareSection(q) {
     const sp = EQ.state.D.spare;
     const eqs = EQ.state.D.equipment.filter((e) => e.lifecycle === 'active' && EQ.positionsOf(e.id).some((p) => p.state === 'active'));

@@ -1,12 +1,20 @@
 # Portal integration plan
 
+## Current management scope 28 October 2026
+
+**U1-C63 / SOW V2 revision 7 / prompt pack 2.3: documentation only; implementation awaits the user's confirmation. U1 remains IN PROGRESS / NOT COMPLETE / NOT APPROVED; P04/P05 Not started.** Read `docs/MANAGEMENT_SCOPE_REVISION_20261028.md` for all eight outcomes. This section and the revision-7 contracts supersede conflicting earlier descriptions throughout this file. Earlier dated reviews/addenda/evidence describe their snapshots and do not validate the new scope.
+
+Display EQ & FAC Asset Management with unchanged eq-maintenance technical paths/roles. Exactly Ready for OPS and Isolated are explicitly initialized and manually updated; values persist until another authorized manual action. Long term isolated EQ is the Isolated category, with no timer threshold. Remove Maintenance/Unreported current states, all CMMS/daily EQ work/sync/account/mapping/automatic/override dependencies, source selectors and equipment-card blinking. Crane tabs: Spare part status first/default, Projects/Special, Technical. Jobs: Projects/Special, EQ status, Spare parts condition. Fleet: Active, Ready percentage, Ready count, Long term isolated EQ count with one filtered active population; dash for zero denominator.
+
+Preserve existing IDs and truthful legacy history; old/blank status values require explicit human review at implementation, never automatic conversion or guessed Ready/duration. Retain accepted EQ work/progress/shared-scope/replacement/spare/technical/Flat/3D behavior, roles/Access and all FAC cycles/progress/photos/moving/reduced-motion/TV rules. FAC and spare-part computed flags do not change EQ status. No external access, live database change or implementation is authorized by this revision.
+
 Prepared in P01 on 21 October 2026 from a **read-only** inspection of `F:\CODEX\CICT-ENG_MAIN_PAGE` (branch `feature/option-b-provisioning-and-login-redesign`, commit `47f7bd9`, clean) and of the consumer projects in the UMMS, PayPrep and Safety repositories. Nothing outside `F:\CODEX\EQ_MAINTENANCE\docs` was changed. Revised by Repair-R01 on 21 October 2026 (R01 finding F4: R-3 reworded, R-6 added). P05 implements this plan; P12 sequences the real rollout; R03 reviews it. Local source is not evidence of what is deployed (U-13).
 
-**P01B update (22 October 2026, SOW V2 revision 4).** Only two things change, because P05 has not started: the **fourth role** `eq-maintenance:fac-team` (FAC Team) and the **display name** "EQ & FAC Maintenance" (B-14, B-15). Application code, path, audience, binding claim, icon key, sort order, disabled-registry rollout and every other item stay as reviewed in R01. The Portal working tree was re-checked read-only on 22 October 2026: still branch `feature/option-b-provisioning-and-login-redesign`, commit `47f7bd9`, clean, so the s1 facts stand. Changed sections: s2, s3.1 (A-1, A-4), s3.2 (I-1, I-5, I-10), s3.3 (W-2, W-4), s4, s5.2 (RC-4, RC-8, RC-15, new RC-18, RC-19), s7, s8. The in-app Access matrix is entirely EQ-side (DATA_CONTRACT s14): the Portal only assigns the four roles; nothing in the Portal stores tab visibility or optional rights.
+**P01B update (22 October 2026, SOW V2 revision 4).** Only two things change, because P05 has not started: the **fourth role** `eq-maintenance:fac-team` (FAC Team) and the **display name** "EQ & FAC Asset Management" (B-14, B-15). Application code, path, audience, binding claim, icon key, sort order, disabled-registry rollout and every other item stay as reviewed in R01. The Portal working tree was re-checked read-only on 22 October 2026: still branch `feature/option-b-provisioning-and-login-redesign`, commit `47f7bd9`, clean, so the s1 facts stand. Changed sections: s2, s3.1 (A-1, A-4), s3.2 (I-1, I-5, I-10), s3.3 (W-2, W-4), s4, s5.2 (RC-4, RC-8, RC-15, new RC-18, RC-19), s7, s8. The in-app Access matrix is entirely EQ-side (DATA_CONTRACT s14): the Portal only assigns the four roles; nothing in the Portal stores tab visibility or optional rights.
 
 ## Temporary local presentation before U1
 
-24 October 2026, B-22 / D-203: SOW V2 revision 6 section 2A adds only the local management presentation in `documents/prompt-pack/TEMP_MANAGEMENT_WALKTHROUGH.md`. The EQ prototype may copy Portal appearance assets to show login (no credential checks), a launcher with three inert app cards and EQ & FAC Maintenance, and entry to the current app default. Portal source is read-only; no identity/session/registry/provisioning endpoints or working apps are contacted, and no Portal administration is built. This neither implements nor changes the P05 plan below.
+24 October 2026, B-22 / D-203: SOW V2 revision 6 section 2A adds only the local management presentation in `documents/prompt-pack/TEMP_MANAGEMENT_WALKTHROUGH.md`. The EQ prototype may copy Portal appearance assets to show login (no credential checks), a launcher with three inert app cards and EQ & FAC Asset Management, and entry to the current app default. Portal source is read-only; no identity/session/registry/provisioning endpoints or working apps are contacted, and no Portal administration is built. This neither implements nor changes the P05 plan below.
 
 Before U1 approval remove all temporary screens/assets/hooks/state (TD07-TD08). The initial reference is `8303f8b8a55f41983bdcc77363ddbf13d2892383`; retain all accepted EQ/FAC U1 refinements and remove only temporary wrapper edits. Verify the cleaned app against that initial commit plus accepted changes, then record its exact commit/tree for U1. Login/Portal feedback is deferred to P05 actual integration. This documentation revision has not implemented the temporary flow. The Portal appearance reference was rechecked read-only at clean commit `47f7bd9d8296fda56114d8239e10ae9ad7850460` on 24 October 2026; this does not revalidate its authentication contracts or deployed state.
 
@@ -37,9 +45,9 @@ Before U1 approval remove all temporary screens/assets/hooks/state (TD07-TD08). 
 | Item | Value |
 | --- | --- |
 | Application code / path | `eq-maintenance` / `/eq-maintenance` (no collision in the registry seed, return-path list, proxy table or deploy scripts) |
-| Display name / icon key | **`EQ & FAC Maintenance`** (V2, B-14; was `EQ Maintenance`) / `maintenance` (D-38). The registry `DisplayName` column and the login-page list carry the ampersand as text; every Portal surface renders it HTML-escaped (P05 adds a test that the tile and access-status messages show "EQ & FAC Maintenance") |
+| Display name / icon key | **`EQ & FAC Asset Management`** (V2, B-14; was `EQ Maintenance`) / `maintenance` (D-38). The registry `DisplayName` column and the login-page list carry the ampersand as text; every Portal surface renders it HTML-escaped (P05 adds a test that the tile and access-status messages show "EQ & FAC Asset Management") |
 | Audience | `urn:cict-eng:eq-maintenance` |
-| Roles | Four (V2, B-15): `eq-maintenance:admin` (EQ & FAC Maintenance Admin), `eq-maintenance:management` (Management, read-only), `eq-maintenance:eq-team` (EQ Team), `eq-maintenance:fac-team` (FAC Team, new) - none delegable (D-37). A user may hold several; the Portal grants roles only, the EQ app's Access matrix narrows tabs and optional rights within each role's ceiling |
+| Roles | Four (V2, B-15): `eq-maintenance:admin` (EQ & FAC Asset Management Admin), `eq-maintenance:management` (Management, read-only), `eq-maintenance:eq-team` (EQ Team), `eq-maintenance:fac-team` (FAC Team, new) - none delegable (D-37). A user may hold several; the Portal grants roles only, the EQ app's Access matrix narrows tabs and optional rights within each role's ceiling |
 | Binding claim | `cict:binding:eq-maintenance:local_user_id` |
 | Sort order | 50 (after Safety's 40) |
 | Committed registry state | application **disabled** (`IsEnabled = false`) until the rollout gate in s6 (D-41) |
@@ -64,11 +72,11 @@ Every item below is a P05 change unless marked. "Portal" = `F:\CODEX\CICT-ENG_MA
 
 | ID | File | Change |
 | --- | --- | --- |
-| I-1 | `src/CictEng.Identity/Persistence/IdentityCatalogSeeder.cs` | Application row (new fixed GUID chosen in P05, display name "EQ & FAC Maintenance") with `IsEnabled = false`; **four** roles (fixed GUIDs, `delegated: false`; display names "EQ & FAC Maintenance Admin", "Management", "EQ Team", "FAC Team") |
+| I-1 | `src/CictEng.Identity/Persistence/IdentityCatalogSeeder.cs` | Application row (new fixed GUID chosen in P05, display name "EQ & FAC Asset Management") with `IsEnabled = false`; **four** roles (fixed GUIDs, `delegated: false`; display names "EQ & FAC Asset Management Admin", "Management", "EQ Team", "FAC Team") |
 | I-2 | new `Provisioning/EqMaintenanceProvisioningConnector.cs`, `EqMaintenanceProvisioningOptions.cs` | Copy of the Safety connector/options pattern: section `EqMaintenanceProvisioning`, `Enabled` default false, base address `.../eq-maintenance/`, runtime credential >= 32 chars, header `X-CICT-Provisioning-Credential`; `ProvisionAttributes = []` |
 | I-3 | `Authentication/IdentityRuntimeExtensions.cs` | Register the EQ connector when enabled, else `DisabledProvisioningConnector("eq-maintenance")` |
 | I-4 | `Security/IdentityReturnUrlValidator.cs` | Add `/eq-maintenance` to `RegisteredApplicationPaths` |
-| I-5 | new Identity migration `AddEqMaintenanceApplicationRegistry` | Idempotent `IF NOT EXISTS` inserts of the application (disabled, display name "EQ & FAC Maintenance") and **four** roles, so an **existing** Identity database (production included, later and only when authorized) receives the registry rows through the normal reviewed migration script. Down migration removes the rows only if no grant/projection references them |
+| I-5 | new Identity migration `AddEqMaintenanceApplicationRegistry` | Idempotent `IF NOT EXISTS` inserts of the application (disabled, display name "EQ & FAC Asset Management") and **four** roles, so an **existing** Identity database (production included, later and only when authorized) receives the registry rows through the normal reviewed migration script. Down migration removes the rows only if no grant/projection references them |
 | I-6 | `Persistence/AuditEventWriter.cs` | Add `eq-maintenance` to `AllowedApplicationCodes` |
 | I-7 | `Endpoints/IdentityAdministrationEndpoints.cs` | **No change** to `DelegatedAdministratorRoles` (D-37); add a test that `umms:admin`/`payprep:admin` cannot grant EQ roles |
 | I-8 | `appsettings.json` | `EqMaintenanceProvisioning: { "Enabled": false }` with no credential or address values |
@@ -80,9 +88,9 @@ Every item below is a P05 change unless marked. "Portal" = `F:\CODEX\CICT-ENG_MA
 | ID | File | Change |
 | --- | --- | --- |
 | W-1 | `src/portal-web/src/portalApi.ts` | `bindableApplicationCodes` add `eq-maintenance`; `applicationHealthPaths` add `'eq-maintenance': '/eq-maintenance/health/live'`. `isSafePortalReturn` needs no change (it already accepts any non-reserved first segment) |
-| W-2 | `src/portal-web/src/App.tsx` | `applicationIcon` maps `maintenance` to a dedicated icon (D-38). The tile label comes from the registry display name ("EQ & FAC Maintenance"). The static `LOGIN_APPLICATIONS` list is **not** changed in P05; it is updated in the release that enables EQ (s6 step 5) with the same display name |
+| W-2 | `src/portal-web/src/App.tsx` | `applicationIcon` maps `maintenance` to a dedicated icon (D-38). The tile label comes from the registry display name ("EQ & FAC Asset Management"). The static `LOGIN_APPLICATIONS` list is **not** changed in P05; it is updated in the release that enables EQ (s6 step 5) with the same display name |
 | W-3 | `src/portal-web/vite.config.ts` | Proxy `/eq-maintenance/api` -> `VITE_EQ_API_PROXY_TARGET` (default `http://127.0.0.1:5310`) before `/eq-maintenance` -> `VITE_EQ_PROXY_TARGET` (default `http://127.0.0.1:5311`, `isAppRoot: true`). `/eq-maintenance/internal` is not proxied |
-| W-4 | `src/portal-web/src/App.test.tsx` | Tests for the tile icon and label "EQ & FAC Maintenance" (escaped ampersand), the `/eq-maintenance/...` return path (V2 route form `/eq-maintenance/eq/...` and `/eq-maintenance/fac/...`) and the health path |
+| W-4 | `src/portal-web/src/App.test.tsx` | Tests for the tile icon and label "EQ & FAC Asset Management" (escaped ampersand), the `/eq-maintenance/...` return path (V2 route form `/eq-maintenance/eq/...` and `/eq-maintenance/fac/...`) and the health path |
 | H-1 | `src/Portal.Host` | No change (it only reports the audience count); update any test that asserts 4 |
 
 ### 3.4 Runner and deployment scripts (Portal)
@@ -131,7 +139,7 @@ sequenceDiagram
 
 V2: the provisioning body's `appRoleCodes` may hold any subset of the four codes; EQ rejects any other code (400 `invalid_provisioning_request`, DATA_CONTRACT s7). After sign-in the EQ app evaluates its own Access matrix (DATA_CONTRACT s14) on every request; the Portal is not involved and no matrix value travels in the token.
 
-Failure states shown by the SPA (via `access-status` values or EQ 403 codes): `signed-out` -> Portal login with return URL; `password-change-required` -> Portal; `denied` -> "You do not have EQ & FAC Maintenance access"; `pending` -> "Access is being prepared"; `failed`/`conflict` -> "Access could not be prepared; contact the Portal administrator" with the correlation ID; `access_not_ready` from EQ -> same as `pending` with a correlation ID.
+Failure states shown by the SPA (via `access-status` values or EQ 403 codes): `signed-out` -> Portal login with return URL; `password-change-required` -> Portal; `denied` -> "You do not have EQ & FAC Asset Management access"; `pending` -> "Access is being prepared"; `failed`/`conflict` -> "Access could not be prepared; contact the Portal administrator" with the correlation ID; `access_not_ready` from EQ -> same as `pending` with a correlation ID.
 
 ## 5 Token compatibility analysis and regression cases
 
@@ -205,7 +213,7 @@ flowchart TD
 | EQ database | `EqMaintenanceDisposable_P05_<runid>` with the EQ marker (D-23) |
 | Signing key / secrets | Generated local-only signing material and provisioning credential under the ignored `tmp/p05-runtime/` folder; never printed, logged or committed |
 | Synthetic users | Created through Identity's own admin endpoints: `eq-admin-demo`, `eq-team-demo`, `eq-team-demo-2`, `eq-mgmt-demo`, `fac-team-demo` (V2), `eq-fac-team-demo` (V2: EQ Team + FAC Team), `no-eq-demo` (no real names or credentials) |
-| Walkthrough | Portal sign-in -> tile ("EQ & FAC Maintenance") -> EQ session; direct deep link reload; return navigation; Management write denial; FAC Team lands on FAC Dashboard and is denied EQ writes; EQ Team + FAC Team sees both sections; no-EQ user denial; wrong-audience token; logout; password-change-required user |
+| Walkthrough | Portal sign-in -> tile ("EQ & FAC Asset Management") -> EQ session; direct deep link reload; return navigation; Management write denial; FAC Team lands on FAC Dashboard and is denied EQ writes; EQ Team + FAC Team sees both sections; no-EQ user denial; wrong-audience token; logout; password-change-required user |
 | Evidence | `docs/evidence/P05/` (commands, test results, screenshots with no secrets), exact changed files per repository, package checksum |
 
 ## 8 Delegated administration (D-37)

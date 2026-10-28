@@ -22,10 +22,10 @@
 .noaccess { padding: 3rem 1rem; }
 .noaccess .strong { font-weight: 800; color: var(--navy-900); font-size: 1.1rem; }
 /* crane panel: four tabs (U1-C19). A four-column grid so all four names fit the narrow side panel at every width; names wrap, never scroll away. */
-.tabs.four { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; overflow: visible; }
-.tabs.four button { position: relative; white-space: normal; padding: .3rem .2rem; font-size: .8rem; line-height: 1.15; gap: .2rem .25rem; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; text-align: center; min-height: 2.9rem; }
+.tabs.three { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; overflow: visible; }
+.tabs.three button { position: relative; white-space: normal; padding: .3rem .2rem; font-size: .8rem; line-height: 1.15; gap: .2rem .25rem; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; text-align: center; min-height: 2.9rem; }
 .tabs .lbl-short { display: none; }
-.tabs.four .tab-n { position: absolute; top: .1rem; right: .1rem; }
+.tabs.three .tab-n { position: absolute; top: .1rem; right: .1rem; }
 .tabs .tab-n { background: var(--gold-100); color: #5d4100; border-radius: 99px; font-size: .68rem; font-weight: 800; padding: 0 .38rem; min-width: 1.2rem; text-align: center; }
 .tl > li.overdue { border-left-color: var(--danger); }
 /* status source, CMMS freshness */
@@ -284,3 +284,5 @@ body.tv .proto-banner span { display: none; }
   .btn-act { flex: 1 1 8rem; }
   .access-matrix th:first-child, .access-matrix th[scope="row"] { min-width: 12rem; }
 }
+
+@media (max-width:600px) { .tabs.three [role=tab] { min-height:44px; } .eqjobs-page .subtabs a { min-height:44px; } }

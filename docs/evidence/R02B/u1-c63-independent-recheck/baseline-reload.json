@@ -1,0 +1,56 @@
+[
+  {
+    "name": "first",
+    "v": {
+      "since": "2026-10-28T05:24:09.000Z",
+      "event": {
+        "id": "manual-initial-eq-qc-demo-02",
+        "equipmentId": "eq-qc-demo-02",
+        "seq": 3,
+        "status": "readyForOps",
+        "prev": "readyForOps",
+        "reason": "Synthetic manual registration choice",
+        "relatedJobId": null,
+        "at": "2026-10-28T05:24:09.000Z",
+        "by": "u-admin",
+        "source": "manual",
+        "kind": "manualInitial",
+        "legacy": false
+      },
+      "snapshot": {
+        "version": 2,
+        "revision": 1,
+        "generation": "783f196b-5ab5-4c61-8181-a6a28fc1d305",
+        "equipment": [],
+        "changes": []
+      }
+    }
+  },
+  {
+    "name": "reload-no-change",
+    "v": {
+      "since": "2026-10-28T05:24:09.000Z",
+      "event": {
+        "id": "manual-initial-eq-qc-demo-02",
+        "equipmentId": "eq-qc-demo-02",
+        "seq": 3,
+        "status": "readyForOps",
+        "prev": "readyForOps",
+        "reason": "Synthetic manual registration choice",
+        "relatedJobId": null,
+        "at": "2026-10-28T05:24:09.000Z",
+        "by": "u-admin",
+        "source": "manual",
+        "kind": "manualInitial",
+        "legacy": false
+      },
+      "snapshot": {
+        "version": 2,
+        "revision": 1,
+        "generation": "783f196b-5ab5-4c61-8181-a6a28fc1d305",
+        "equipment": [],
+        "changes": []
+      }
+    }
+  }
+]

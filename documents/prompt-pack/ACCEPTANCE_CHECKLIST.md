@@ -1,6 +1,8 @@
 # Stage 1 acceptance checklist
 
-Version 2.2 | 24 October 2026 | 94 permanent stage 1 cases retained; eight temporary management-walkthrough checks are separate
+Current scope: revision 7 / pack 2.3 / U1-C63. 97 active permanent cases are specified, NOT RUN against the working app. Implementation awaits confirmation; U1 NOT APPROVED. Prior prototype evidence does not pass new cases.
+
+Version 2.3 | 28 October 2026 | 97 active permanent cases; eight temporary walkthrough cases separate
 
 These are checks for the future implementation, not results from this prompt-pack authoring task. **Every implementation case starts as NOT RUN.** Do not mark a case passed from a design document, a fixture-only screenshot or a supplied test prompt.
 
@@ -8,7 +10,7 @@ During implementation create an evidence table with `case ID`, `status`, `test/m
 
 ## Temporary pre-U1 presentation checks
 
-See `TEMP_MANAGEMENT_WALKTHROUGH.md` for TD01-TD08, all initially NOT RUN. TD01-TD06 cover the local login/launcher presentation and unchanged EQ/FAC entry; TD07-TD08 require complete temporary-layer removal, retention of accepted EQ/FAC refinements since `8303f8b8a55f41983bdcc77363ddbf13d2892383` and direct app entry before U1 approval. These eight checks are not additions to the 94 permanent cases, do not prove real authentication/Portal integration, and do not waive AUTH cases or P05. The minimum demonstration below remains the later working-app/U2 script.
+See `TEMP_MANAGEMENT_WALKTHROUGH.md` for TD01-TD08. TD01-TD06 passed against the earlier temporary BUILD; TD07-TD08 cleanup remain NOT RUN. TD01-TD06 cover the local login/launcher presentation and unchanged EQ/FAC entry; TD07-TD08 require complete temporary-layer removal, retention of accepted EQ/FAC refinements since `8303f8b8a55f41983bdcc77363ddbf13d2892383` and direct app entry before U1 approval. These eight checks are not additions to the 97 active permanent cases, do not prove real authentication/Portal integration, and do not waive AUTH cases or P05. The minimum demonstration below remains the later working-app/U2 script.
 
 ## Source and classification
 
@@ -37,7 +39,7 @@ See `TEMP_MANAGEMENT_WALKTHROUGH.md` for TD01-TD08, all initially NOT RUN. TD01-
 
 | ID | Requirement | Action and expected result |
 | --- | --- | --- |
-| ADM01 | S01/S10 | Admin creates/edits QC, RTG and ES equipment with distinct codes/model assignments. Duplicate codes are refused; data persists after reload/restart. New operational status remains visibly Unreported until explicitly set. |
+| ADM01 | S01/S03/S10 | Admin creates/edits QC/RTG/ES with distinct codes/model assignments and explicit initial Ready for OPS or Isolated. Reject duplicate codes, omitted/invalid/old status without partial writes. Current value/first audit event persist after reload/restart; no inferred Ready or Unreported. |
 | ADM02 | S05/S10/S12 | Instantiate two QCs from one template. Their motors/ropes/wheels have distinct equipment-specific position IDs. Changing a template or a mesh label does not recreate positions or transfer existing history. |
 | ADM03 | S05/S10 | Submit another equipment's main/sub/part ID or an invalid ancestor combination directly to the API. Reject it; no orphaned or cross-equipment relationship is saved. |
 | ADM04 | S10/S12 | Deactivate a used definition or retire an equipment item. New selection is restricted appropriately, normal fleet totals exclude retired items, and existing jobs/part history remain accessible. |
@@ -49,7 +51,7 @@ See `TEMP_MANAGEMENT_WALKTHROUGH.md` for TD01-TD08, all initially NOT RUN. TD01-
 | ID | Requirement | Action and expected result |
 | --- | --- | --- |
 | JOB01 | S08/S09 | EQ Team creates Pending work, moves it to Current and completes it with valid notes/date. It persists and appears in the correct tab after reload. Direct Pending -> Completed supports already-performed work with valid completion data. |
-| JOB02 | S03/S09/S13 | On equipment without a ZMMS mapping, set Maintenance, complete a job, then inspect fleet status. It remains Maintenance until an explicit authorized status change to Ready for OPS. Each status change records actor/time/reason and is visible to Management. |
+| JOB02 | S03/S09/S13 | Manually set Isolated with reason, complete/cancel/reopen work, cross midnight and reload/restart. It stays Isolated until explicit authorized Ready for OPS; actor/time/history persist; no job event changes status. |
 | JOB03 | S08/S09 | Create an equipment-level job. It appears in equipment history and does not appear as a copy under every main mechanism. A targeted job uses the correct equipment/ancestor chain. |
 | JOB04 | S09/S12 | Complete a replacement at one motor position with a known new item and unknown old serial. Current installation and history reflect exactly that position; an unknown removed serial/date remains unknown. |
 | JOB05 | S12/S13 | Complete one job with several replacement lines on the same equipment. Every valid line commits once. Duplicate position lines and a line from another equipment are rejected without partial changes. |
@@ -60,7 +62,7 @@ See `TEMP_MANAGEMENT_WALKTHROUGH.md` for TD01-TD08, all initially NOT RUN. TD01-
 | JOB10 | S12 | Exercise a quantity-bearing rope/set position and a single serialized motor position. Their quantities/UOM and installation semantics remain consistent; no assumption converts every set into one serialized item. |
 | JOB11 | S09/S13 | Record a known historical work date without exact time. Display its business date correctly in Asia/Colombo and keep the UTC entry/audit timestamp distinct. Invalid completion data is rejected without claiming the work occurred at entry time. |
 | JOB12 | S08/S09/S13 | EQ Team cancels an uncompleted job they created, with a reason. It leaves the normal three work columns, remains findable with Include cancelled, records actor/time/reason and is never hard-deleted or counted Completed. EQ Team cannot cancel another user's job or any completed job; Admin can cancel any uncompleted job; completed work uses the Admin correction path. |
-| JOB13 | S02/S03/S13 | Set Breakdown or Maintenance without a reason: the server rejects it. Set it with a reason and an optional related job on the same equipment; a job from another equipment is rejected. Fleet and equipment views show time in current status from recorded history; equipment never set shows Unreported with no duration. |
+| JOB13 | S02/S03/S13 | Reject Isolated without reason, wrong-scope related job and old/unknown status values. Valid manual choice records actor/time/history/duration. Registration/activation requires explicit Ready for OPS or Isolated and atomic first event; no Unreported or invented duration. |
 
 ## History and installed identity
 
@@ -82,7 +84,7 @@ See `TEMP_MANAGEMENT_WALKTHROUGH.md` for TD01-TD08, all initially NOT RUN. TD01-
 | VIS03 | S05/S06/S07 | Select main -> sub -> part via scene and tree. Both routes select the same persisted identities, update breadcrumbs, focus useful bounds, show the same current state and open the same scoped history through Open in Jobs. Technical mode exposes useful simplified internals/source details. |
 | VIS04 | S04/S06/S16 | Exercise reset/fit, orbit during camera transition, transparent enclosure picking, thin ropes and hidden/empty groups. No unbounded camera jumps, fighting controls or unreachable selected parts occur. Reduced motion is respected. |
 | VIS05 | S04/S05/S12 | Reorder scene nodes/change a model version. Existing part histories remain bound by semantic position. Orphaned mappings are reported and cannot silently become another component through index/name guessing. |
-| VIS06 | S02/S04/S16 | Inspect normal CICT paint and job/status overlays. Red structural paint is distinct from Breakdown indication; status uses text/icons and a legend. There is no fabricated live movement/control or structural health score. |
+| VIS06 | S02/S04/S16 | Inspect normal CICT paint and job/status overlays. Red structural paint is distinct from Isolated indication; status uses text/icons and a legend. There is no fabricated live movement/control or structural health score. |
 | VIS07 | S01/S16 | Open RTG/ES and a QC without a verified model. Register, jobs, sources and component history remain usable. A QC mesh is never falsely displayed as RTG/ES. |
 | VIS08 | S04/S16 | Disable WebGL, lose context or fail a model request. Users can still use tree/list navigation, read history and perform permitted work. Loading/error states do not trap the whole app. |
 | VIS09 | S04/S17 | Build/export the model again from the delivered source/generator. Validate units, bounds, semantic mapping and version/checksum manifest; document deterministic vs tool-dependent output differences. |
@@ -102,7 +104,7 @@ See `TEMP_MANAGEMENT_WALKTHROUGH.md` for TD01-TD08, all initially NOT RUN. TD01-
 
 | ID | Requirement | Action and expected result |
 | --- | --- | --- |
-| OPS01 | S02/S03 | Use a mixed active/retired/unreported synthetic fleet and jobs with multiple lines. Each active equipment counts once; all counts/filter combinations reconcile. A failed refresh visibly preserves stale last-good data rather than fabricating Ready statuses. |
+| OPS01 | S02/S03 | Use a mixed active/retired synthetic fleet with both explicit manual statuses and jobs with multiple lines. Each active equipment counts once; all counts/filter combinations reconcile. A failed refresh visibly preserves stale last-good data rather than fabricating Ready statuses. |
 | OPS02 | S02/S08/S16 | Use keyboard and screen-reader-friendly controls, visible focus and form errors at 1920x1080, 1366x768, tablet and phone sizes. Text/tree workflows remain useful without mouse picking or hover-only labels. |
 | OPS03 | S04/S17 | On a recorded office desktop/browser, measure triangles, draw calls, overview asset size, initial usable load, ten-second orbit FPS and idle rendering. Compare with the provisional brief budgets and record actual values/limitations rather than invented passes. |
 | OPS04 | S15/S16/S17 | Reload nested /eq-maintenance routes, use back/forward, sign out/in and run with external internet unavailable. Required assets/decoders/fonts come from approved same-origin resources; normal local routing and protected API access work. |
@@ -113,24 +115,29 @@ See `TEMP_MANAGEMENT_WALKTHROUGH.md` for TD01-TD08, all initially NOT RUN. TD01-
 
 | ID | Requirement | Action and expected result |
 | --- | --- | --- |
-| ACC01 | S18 | Sign in as each role and as a user holding EQ Team and FAC Team. Each sees only permitted sections and tabs; the switch is hidden when one section is permitted; first-visit and last-used landing work; the app reads "EQ & FAC Maintenance". |
+| ACC01 | S18 | Sign in as each role and as a user holding EQ Team and FAC Team. Each sees only permitted sections and tabs; the switch is hidden when one section is permitted; first-visit and last-used landing work; the app reads "EQ & FAC Asset Management". |
 | ACC02 | S19 | Admin switches a view tab off for Management. It disappears at the next refresh (within 60 seconds) and its routes, API, exports and photo links return 403 for Management; switching it on restores access. Each change records actor, time and old -> new values. |
 | ACC03 | S19 | Through the UI and the API, try to give Management a write right, FAC Team an EQ write, EQ Team a FAC write, or any role Admin pages. All are refused; Admin rights cannot be switched off. |
 | ACC04 | S19/S23 | Grant FAC Team "manage master job list": a FAC Team user can add/edit recurring jobs. Revoke it: the same requests fail on the server. |
 | ACC05 | S19 | A user whose tabs are all switched off sees the No access page, not an error or an empty shell. |
 
-## ZMMS daily jobs and automatic status (V2)
+## Asset management revision 7
+
+ZM01-ZM08 are RETIRED, excluded from active totals; CMMS import/automatic requirements are withdrawn. Historical evidence is retained. AM01-AM11 replace them: 97 active permanent cases (94 - 8 + 11). All new cases NOT RUN; eight temporary TD cases stay separate.
 
 | ID | Requirement | Action and expected result |
 | --- | --- | --- |
-| ZM01 | S20 | Sync a sanitised fixture of a normal day. Rows are stored once, keyed by ZMMS job number and date; a repeated run and a concurrent Sync now create no duplicates; the run record shows its counts. |
-| ZM02 | S20 | Use fixtures for a login failure, timeout, changed layout and partial page. Each run records a failure, keeps the previous data, changes no status, retries per policy and warns Admin. |
-| ZM03 | S20 | Rows with unknown equipment text stay in the unmatched queue. After Admin maps them they attach to that equipment without duplicates. |
-| ZM04 | S15/S20 | Search source, configuration examples, logs, API responses, stored rows, fixtures, evidence and the release package for the ZMMS account. It appears nowhere, and the browser never receives it. |
-| ZM05 | S21 | With an empty job-type mapping, a sync stores daily jobs and changes no status. After mapping: a breakdown job sets Breakdown, a maintenance job sets Maintenance and equipment not in the day's plan becomes Ready for OPS, each with its source and causing ZMMS jobs. |
-| ZM06 | S21 | EQ Team corrects an automatic status with a reason. It shows Manual and holds over the same day's second sync; the next day's first successful sync returns it to automatic; Back to automatic ends it earlier. A correction without a reason is rejected; Management cannot correct. |
-| ZM07 | S08/S20 | The EQ Jobs tab lists daily jobs below the special jobs, read-only and filterable by equipment and date, with "ZMMS data from". Earlier days remain available. Daily jobs are not attached to any mechanism or part. |
-| ZM08 | S20 | If the account is configured, run one live read-only sync: only the login and the daily job list are requested, and the stored rows match the parsed page totals. Otherwise BLOCKED with the configuration key names. |
+| AM01 | S18 | Verify EQ & FAC Asset Management across app/title/launcher; technical routes/roles, IDs and equipment codes remain stable. |
+| AM02 | S20 | Inspect host registration/config/dependencies/APIs/routes/Admin and network across EQ/FAC. No CMMS connector/account/scheduler/mappings/sync controls/health/messages/external request remains. Historical URLs/evidence stay intact. |
+| AM03 | S02/S20 | No equipment/status-card blink/timer/pause-blinking control in normal/TV/reduced-motion views. FAC moving lists/pause/refresh/reduced motion remain functional. |
+| AM04 | S02/S03/S21 | Current Breakdown categories/filters/exports become Long term isolated EQ, meaning manual Isolated. Only Ready for OPS/Isolated selectable; no threshold/Maintenance/Unreported. Preserve truthful labelled legacy history. |
+| AM05 | S03/S09/S13/S21 | Create/activate with explicit status; reject omitted/invalid/legacy values atomically. Authorized changes record actor/time/reason/duration/history; Isolated reason required. Management/FAC Team denied. Existing old/blank prototype statuses require manual review. |
+| AM06 | S03/S13/S21 | Both statuses persist across refresh/reload/restart/midnight/former sync times/job complete/cancel/reopen/FAC and part due events. No expiry/automatic mode/Back to automatic. Verify concurrent/retried commands and equipment independence. |
+| AM07 | S08/S20 | Jobs has Projects/Special, EQ status, Spare parts condition only; no Daily work/imported rows/badges/filter/export or obsolete Admin routes. Old links resolve safely to permitted retained views; retained EQ/FAC history/actions work. |
+| AM08 | S07/S22 | Flat/3D tabs: Spare part status first/default, Projects/Special, Technical. Fresh/equipment/selection/saved removed-tab states never reopen Maintenance; keyboard, scoped search/Add/Update/Open in Jobs remain usable. |
+| AM09 | S07/S12/S22 | Compare all three Flat/3D payloads/content for equipment/main/sub/part/empty selections. Preserve accepted eligible work/current part/technical content, hidden-history allowlists and scoped Jobs links. No removed daily maintenance leaks. |
+| AM10 | S02/S03 | Exactly four Fleet KPIs: Active, Ready percentage, Ready count, Long term isolated EQ count. Same documented type/search-scoped active population, correct type summaries; Ready + Isolated = active; empty ratio is dash; retired excluded. No Maintenance/Unreported cards/source selector. |
+| AM11 | S02/S16/S27 | Review Fleet rearrangement at 1920x1080/1366x768/tablet/phone/TV: no removed-card gaps/clipping/overflow; keep equipment icons, filters, Cards/Table, accessibility and permissions. Retained FAC motion/TV works. |
 
 ## Spare-part condition (V2)
 
@@ -171,17 +178,17 @@ See `TEMP_MANAGEMENT_WALKTHROUGH.md` for TD01-TD08, all initially NOT RUN. TD01-
 
 ## Minimum demonstration script
 
-Use clearly synthetic `QC-DEMO-01`, `QC-DEMO-02`, `RTG-DEMO-01` and `ES-DEMO-01`, not assumed real fleet records, sanitised ZMMS fixtures, and the FAC list from `reference/fac-job-list.json` with synthetic progress.
+Use clearly synthetic `QC01`, `QC02`, `RTG01` and `ES01`, not assumed real fleet records, and the FAC list from `reference/fac-job-list.json` with synthetic progress.
 
 1. Admin registers/assigns the correct model and distinct positions to the two QCs.
-2. EQ Team marks QC-DEMO-01 Maintenance with a reason, creates a replacement special job at its selected hoist motor and completes it with evidence and the pre-filled spare-part condition.
-3. Verify QC-DEMO-01 stays Maintenance, the installed item/history persists, and a retried completion creates no duplicate.
+2. EQ Team marks QC01 Isolated with a reason, creates a replacement special job at its selected hoist motor and completes it with evidence and the pre-filled spare-part condition.
+3. Verify QC01 stays Isolated, the installed item/history persists, and a retried completion creates no duplicate.
 4. Management opens the fleet, then QC -> Hoist -> Hoist -> motor through the 3D view and sees the motor's current condition; Open in Jobs shows exactly that replacement. The tree opens the same record.
-5. Open QC-DEMO-02 at the same visual motor; QC-DEMO-01 history is absent.
+5. Open QC02 at the same visual motor; QC01 history is absent.
 6. Attempt the same writes as Management; verify server denials.
 7. EQ Team explicitly sets Ready for OPS; fleet refresh and status history agree.
 8. Open RTG/ES, then simulate unavailable WebGL; their permitted record/work interfaces and QC tree fallback remain useful.
-9. Map QC-DEMO-01 to ZMMS and set the job-type mapping. Run two fixture syncs: QC-DEMO-01 becomes Maintenance from its daily job; EQ Team corrects it to Ready for OPS with a reason; the correction holds over the second sync and ends at the next day's first sync. The daily jobs appear below the special jobs.
+9. Demonstrate persistent manual Ready for OPS/Isolated, audit/permissions and absent CMMS/daily-work/blinking; no external access/account.
 10. Admin previews and confirms the FAC import. FAC Team, on a phone viewport, logs partial progress with a photo, then completes a recurring job; its next due date rolls forward.
 11. Management watches the FAC Dashboard in TV mode: the job moves to its new place, and the ticker and latest proof show the update.
 12. Admin switches the FAC Jobs tab off for Management: the tab disappears and its API returns 403; switching it on restores it.

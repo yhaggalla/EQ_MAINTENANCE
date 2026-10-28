@@ -27,7 +27,7 @@ window.EQ = window.EQ || {};
   }
 
   function select(eq, sel, extra) {
-    EQ.nav('/eq/equipment/' + eq.id, { ...EQ.route.query, area: EQ.qc?.selectionArea(eq, sel) || '', main: sel.main || '', sub: sel.sub || '', part: sel.part || '', container: '', ...(extra || {}) });
+    EQ.nav('/eq/equipment/' + eq.id, { ...EQ.route.query, panel: 'spareParts', area: EQ.qc?.selectionArea(eq, sel) || '', main: sel.main || '', sub: sel.sub || '', part: sel.part || '', container: '', ...(extra || {}) });
   }
 
   // ---------------------------------------------------------------- tree
@@ -133,7 +133,7 @@ window.EQ = window.EQ || {};
       return vp;
     }
     if (!EQ.verified(eq)) {
-      vp.appendChild(msg('cube', 'No verified model association', eq.code + " has no verified model. An Admin must verify the association before 3D is available. Existing trees, jobs and history remain accessible.", EQ.perm.admin() ? h('a', { class: 'btn', href: '#/admin/equipment' }, 'Associate a model in Admin') : h('span', { class: 'small muted' }, 'An EQ Maintenance Admin associates a verified model.')));
+      vp.appendChild(msg('cube', 'No verified model association', eq.code + " has no verified model. An Admin must verify the association before 3D is available. Existing trees, jobs and history remain accessible.", EQ.perm.admin() ? h('a', { class: 'btn', href: '#/admin/equipment' }, 'Associate a model in Admin') : h('span', { class: 'small muted' }, 'An Asset Management Admin associates a verified model.')));
       return vp;
     }
     if (S.viewer === 'loading') { vp.appendChild(h('div', { class: 'vp-msg', role: 'status', 'aria-busy': 'true' }, h('div', null, h('div', { class: 'skeleton', style: 'width:100%;height:8rem' }), h('p', { class: 'muted', style: 'margin:0' }, 'Loading the model... The tree and records are already usable.')))); return vp; }
@@ -182,7 +182,7 @@ window.EQ = window.EQ || {};
     }
     if (H.empty) box.appendChild(h('div', { class: 'nonwork' }, h('strong', null, 'No work recorded'), 'Nothing has been recorded for this selection. History starts when the app is used; this is not evidence that anything is original, healthy or never replaced.'));
     if (scope.level === 'equipment') {
-      box.appendChild(h('div', { class: 'sec' }, h('h3', null, 'Operational status changes'), H.statusChanges.length ? h('ul', { class: 'tl' }, H.statusChanges.map((c) => h('li', { class: 'status' }, h('div', { class: 'row between' }, EQ.statusBadge(c.status), h('span', { class: 'when' }, EQ.fmtInstant(c.at))), h('span', null, c.prev ? 'From ' + EQ.STATUS[c.prev].label : 'First recorded status'), c.reason ? h('span', null, 'Reason: ' + c.reason) : null, c.relatedJobId ? h('span', { class: 'when' }, 'Related job: ', h('a', { href: '#/eq/jobs/special/' + c.relatedJobId }, EQ.job(c.relatedJobId).number)) : null, h('span', { class: 'when' }, 'By ' + EQ.userName(c.by))))) : h('div', { class: 'nonwork' }, h('strong', null, 'Unreported'), 'No status has ever been recorded, so no duration is shown and nothing is inferred from before tracking began.')));
+      box.appendChild(h('div', { class: 'sec' }, h('h3', null, 'Operational status changes'), H.statusChanges.length ? h('ul', { class: 'tl' }, H.statusChanges.map((c) => h('li', { class: 'status' }, h('div', { class: 'row between' }, EQ.statusBadge(c.status), h('span', { class: 'when' }, EQ.fmtInstant(c.at))), h('span', null, c.prev ? 'From ' + EQ.statusLabel(c.prev) : 'First recorded status'), c.reason ? h('span', null, 'Reason: ' + c.reason) : null, c.relatedJobId ? h('span', { class: 'when' }, 'Related job: ', h('a', { href: '#/eq/jobs/special/' + c.relatedJobId }, EQ.job(c.relatedJobId).number)) : null, h('span', { class: 'when' }, 'By ' + EQ.userName(c.by))))) : h('div', { class: 'nonwork' }, h('strong', null, 'No earlier status events'), 'Nothing is inferred from before tracking began.')));
     }
     return box;
   }
@@ -260,7 +260,7 @@ window.EQ = window.EQ || {};
     const loaded = ensureHistory(key, label);
     const box = h('div', { class: 'stack', 'aria-live': 'polite', 'aria-busy': loaded ? 'false' : 'true', 'data-echo': key });
     if (!loaded) { box.appendChild(h('div', { class: 'stack' }, h('p', { class: 'muted small', style: 'margin:0' }, 'Loading ' + (EQ.panelTabs.TABS.find((t) => t[0] === tab)[1]) + ' for ' + scopeLabel(eq, sel) + '...'), h('div', { class: 'skeleton', style: 'height:4rem' }), h('div', { class: 'skeleton', style: 'height:4rem' }))); return box; }
-    box.appendChild(tab === 'maintenance' ? EQ.panelTabs.maintenance(eq, scope) : tab === 'special' ? EQ.panelTabs.special(eq, sel, scope) : tab === 'spareParts' ? EQ.panelTabs.spare(eq, sel, scope) : technicalTab(eq, sel, q));
+    box.appendChild(tab === 'special' ? EQ.panelTabs.special(eq, sel, scope) : tab === 'spareParts' ? EQ.panelTabs.spare(eq, sel, scope) : technicalTab(eq, sel, q));
     return box;
   }
 
@@ -277,10 +277,9 @@ window.EQ = window.EQ || {};
     const sel = resolveSel(eq, q);
     const mode = q.mode === 'technical' ? 'technical' : 'overall';
     const pq = q.panel === 'history' ? 'special' : q.panel;
-    const panelTab = EQ.panelTabs.KEYS.includes(pq) ? pq : 'maintenance';
+    const panelTab = EQ.panelTabs.KEYS.includes(pq) ? pq : 'spareParts';
     const scope = q.container ? { level: 'area', id: q.container } : scopeOf(sel);
     const dur = EQ.inStatusFor(eq);
-    const mode2 = EQ.cmms.mode(eq);
 
     if (S.data === 'stale') page.appendChild(h('div', { class: 'notice warn', role: 'status', style: 'margin-bottom:.6rem' }, icon('wifi-off'), h('p', null, h('strong', null, 'Showing last good data from ' + EQ.fmtTime(S.lastGoodAt) + '. '), 'The latest refresh failed; status and work lists may be out of date.')));
 
@@ -290,11 +289,10 @@ window.EQ = window.EQ || {};
         h('span', { title: dur != null ? 'In ' + EQ.STATUS[eq.status].label + ' for ' + EQ.duration(dur) : '' }, dur != null ? 'Since ' + EQ.fmtInstantShort(eq.statusSince) : 'No status reported yet'),
         eq.statusReason ? h('span', null, 'Reason: ' + eq.statusReason) : null,
         h('span', null, EQ.verified(eq) ? eq.modelCode + ' · verified model' : 'No verified model association'),
-        h('span', null, h('span', { class: 'eq-status-source', title: mode2.long }, mode2.label === 'Auto' ? 'Auto (CMMS)' : 'Manual'), eq.cmmsMapped ? ' · ' + EQ.cmms.freshLabel() : ''),
         EQ.panelTabs.jobsAllowed() ? h('a', { href: '#/eq/jobs/special?equipment=' + eq.id }, EQ.plural(EQ.openCount(eq.id, { level: 'equipment', id: null }), 'open special job')) : h('span', null, EQ.plural(EQ.openCount(eq.id, { level: 'equipment', id: null }), 'open special job'))),
       h('div', { class: 'actions' },
         h('a', { class: 'btn', href: '#/eq/fleet', 'data-fk': 'back-to-fleet' }, icon('home'), 'Fleet'),
-        EQ.perm.write() && eq.lifecycle === 'active' ? [h('button', { type: 'button', 'data-fk': 'set-status', onClick: () => EQ.dlg.status(eq) }, icon('refresh'), eq.cmmsMapped ? 'Correct status' : 'Update status'), eq.cmmsMapped && eq.overrideOn ? h('button', { type: 'button', 'data-fk': 'back-auto', onClick: () => { const r = EQ.cmms.backToAutomatic(eq.id); EQ.toast(r.ok ? eq.code + ' is back to automatic' + (r.awaiting ? " (awaiting today's CMMS sync)" : '') : r.message, 'Prototype: in memory only.'); } }, icon('undo'), 'Back to automatic') : null, h('button', { type: 'button', class: 'primary', 'data-fk': 'add-job', onClick: () => EQ.dlg.jobForm({ equipmentId: eq.id }) }, icon('plus'), 'Add special job')]
+        EQ.perm.write() && eq.lifecycle === 'active' ? [h('button', { type: 'button', 'data-fk': 'set-status', onClick: () => EQ.dlg.status(eq) }, icon('refresh'), 'Update status'), h('button', { type: 'button', class: 'primary', 'data-fk': 'add-job', onClick: () => EQ.dlg.jobForm({ equipmentId: eq.id }) }, icon('plus'), 'Add special job')]
           : h('span', { class: 'tag gold' }, EQ.perm.write() ? 'Retired: no new jobs or status changes' : 'Read-only'))));
 
     const breadcrumb = crumbs(eq, sel, q);
@@ -311,14 +309,14 @@ window.EQ = window.EQ || {};
       eq.mains.length ? treeView(eq, sel) : h('div', { class: 'panel-pad small muted' }, eq.assoc === 'verified' ? 'No applicable mechanisms are configured for this model.' : 'No mechanism instances: this equipment has no verified model association or instantiated template.'));
 
     const sum = EQ.panelTabs.summary(eq, scope);
-    const nOf = { maintenance: sum.maintenance, special: sum.special, spareParts: sum.spare.overdue + sum.spare.dueSoon };
-    const nLabel = { maintenance: 'jobs today', special: 'open', spareParts: 'overdue or due soon' };
+    const nOf = { special: sum.special, spareParts: sum.spare.overdue + sum.spare.dueSoon };
+    const nLabel = { special: 'open', spareParts: 'overdue or due soon' };
     const sideHead = h('div', { class: 'sp-head' },
       h('div', { class: 'scope-context row between' + (scope.level === 'equipment' ? ' whole-equipment' : '') }, h('div', null, h('p', { class: 'eyebrow' }, sel.part ? 'Part position' : sel.sub ? 'Submechanism' : sel.main ? 'Main mechanism' : q.container ? 'Physical area' : 'Equipment'), h('h2', { 'data-fk': 'scope-title' }, q.container ? (EQ.qc?.containerName(q.container) || 'Physical area') : scopeLabel(eq, sel))), h('button', { type: 'button', class: 'btn-sm drawer-btns', 'aria-label': 'Close details', onClick: () => closeDrawer() }, icon('x'))),
-      h('div', { class: 'tabs four', role: 'tablist', 'aria-label': 'Current state of the selection' }, EQ.panelTabs.TABS.map(([k, long, short]) => {
+      h('div', { class: 'tabs three', role: 'tablist', 'aria-label': 'Current state of the selection' }, EQ.panelTabs.TABS.map(([k, long, short]) => {
         const n = nOf[k];
         return h('button', { type: 'button', role: 'tab', id: 'tab-' + k, 'aria-controls': 'tabpanel', 'aria-selected': panelTab === k ? 'true' : 'false', tabindex: panelTab === k ? '0' : '-1', 'aria-label': long + (n ? ', ' + n + ' ' + nLabel[k] : ''), 'data-fk': 'tab-' + k,
-          onKeydown: (e) => { const keys = EQ.panelTabs.KEYS; const i = keys.indexOf(k); const j = e.key === 'ArrowRight' ? (i + 1) % 4 : e.key === 'ArrowLeft' ? (i + 3) % 4 : e.key === 'Home' ? 0 : e.key === 'End' ? 3 : -1; if (j >= 0) { e.preventDefault(); EQ.nav('/eq/equipment/' + eq.id, { ...q, panel: keys[j] }); setTimeout(() => document.querySelector('[data-fk="tab-' + keys[j] + '"]')?.focus(), 0); } },
+          onKeydown: (e) => { const keys = EQ.panelTabs.KEYS; const i = keys.indexOf(k); const j = e.key === 'ArrowRight' ? (i + 1) % keys.length : e.key === 'ArrowLeft' ? (i + keys.length - 1) % keys.length : e.key === 'Home' ? 0 : e.key === 'End' ? keys.length - 1 : -1; if (j >= 0) { e.preventDefault(); EQ.nav('/eq/equipment/' + eq.id, { ...q, panel: keys[j] }); setTimeout(() => document.querySelector('[data-fk="tab-' + keys[j] + '"]')?.focus(), 0); } },
           onClick: () => EQ.nav('/eq/equipment/' + eq.id, { ...q, panel: k }) }, h('span', { class: 'lbl-long' }, long === 'Projects/Special' ? ['Projects/', h('wbr'), 'Special'] : long), n && panelTab !== 'special' ? h('span', { class: 'tab-n', 'aria-hidden': 'true' }, String(n)) : null);
       })));
     const sideBody = h('div', { class: 'sp-body', role: 'tabpanel', id: 'tabpanel', 'aria-labelledby': 'tab-' + panelTab }, tabBody(eq, sel, scope, q, panelTab));

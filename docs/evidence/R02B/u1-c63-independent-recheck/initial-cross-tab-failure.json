@@ -1,0 +1,54 @@
+{
+  "ra": {
+    "ok": true,
+    "equipmentId": "eq-qc-demo-02",
+    "change": {
+      "id": "sc-q02-manual-4",
+      "equipmentId": "eq-qc-demo-02",
+      "seq": 4,
+      "status": "isolated",
+      "prev": "readyForOps",
+      "reason": "Independent concurrency probe",
+      "relatedJobId": null,
+      "at": "2026-10-28T04:58:03.844Z",
+      "by": "u-admin",
+      "source": "manual",
+      "kind": "manualStatus",
+      "legacy": false
+    },
+    "storedLocally": true
+  },
+  "rb": {
+    "ok": true,
+    "equipmentId": "eq-qc-demo-03",
+    "change": {
+      "id": "sc-q03-manual-2",
+      "equipmentId": "eq-qc-demo-03",
+      "seq": 2,
+      "status": "isolated",
+      "prev": "readyForOps",
+      "reason": "Independent concurrency probe",
+      "relatedJobId": null,
+      "at": "2026-10-28T04:58:03.849Z",
+      "by": "u-admin",
+      "source": "manual",
+      "kind": "manualStatus",
+      "legacy": false
+    },
+    "storedLocally": true
+  },
+  "reloaded": [
+    {
+      "id": "eq-qc-demo-02",
+      "status": "readyForOps",
+      "event": "manual-initial-eq-qc-demo-02"
+    },
+    {
+      "id": "eq-qc-demo-03",
+      "status": "isolated",
+      "event": "sc-q03-manual-2"
+    }
+  ],
+  "qc02ChangePreserved": false,
+  "warning": ""
+}

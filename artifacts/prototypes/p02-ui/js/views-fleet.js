@@ -1,7 +1,4 @@
-/* Fleet dashboard: QC / RTG / ES groups, status counts, search/filter, freshness, links. No WebGL canvases, ever.
-   U1 round 8: flat pastel restyle with a KPI tile row (U1-C31), in-house equipment illustrations (U1-C29, js/fleet-art.js),
-   Breakdown and Maintenance cards that blink in two colours with a Pause control and a steady reduced-motion state (U1-C30),
-   and a read-only TV mode at #/eq/fleet?tv=1 (U1-C28). */
+/* EQ Fleet: four reconciled KPIs, two manual statuses, static cards/table and read-only TV paging. */
 window.EQ = window.EQ || {};
 (function (EQ) {
   const h = EQ.h, icon = EQ.icon;
@@ -9,27 +6,18 @@ window.EQ = window.EQ || {};
   // paused: Pause control (stops the blink and the TV page rotation; data refresh continues). tvPage/tvPages: TV paging.
   const ui = (EQ.fleetUI = { q: '', paused: false, tvPage: 0, tvPages: 1, lastFlip: Date.now() });
   const TYPE_LABEL = { QC: 'Quay cranes (QC)', RTG: 'Rail/rubber-tyred gantry cranes (RTG)', ES: 'ES equipment' };
-  const BLINK = { breakdown: 'breakdown', maintenance: 'maintenance' }; // only these two statuses blink (U1-C30)
   const TV_FLIP_S = 10; // TV page rotation when the fleet does not fit one screen
-  EQ.FLEET_BLINK = { breakdown: { periodS: 1.2 }, maintenance: { periodS: 2.4 } }; // < 3 flashes per second (WCAG 2.3.1)
 
-  // U1-C02: the large "Fleet overview" heading block is gone; its meaning is kept in this compact note.
-  // P02B (SOW V2 s4.5): the "manual status, no telemetry" note is replaced by the automatic-status meaning.
-  const STATUS_NOTE = "Auto (CMMS): Breakdown job → Breakdown; maintenance job → Maintenance; no planned job → Ready for OPS.\nManual correction: reason required; ends at the first successful sync after today.\nUnlinked equipment: manual status. No recorded status: Unreported.";
-  function statusNote() {
-    return h('span', { class: 'status-note', tabindex: '0', title: STATUS_NOTE, 'aria-describedby': 'status-note-text', 'data-fk': 'status-note' }, icon('info'), 'Automatic status from CMMS', h('span', { id: 'status-note-text', class: 'sr-only' }, STATUS_NOTE));
-  }
-  const motionOff = (q) => q.motion === 'off';
-  const paused = (q) => ui.paused || motionOff(q);
-  function pauseBtn(q, tv) {
+  const motionOff = q => q.motion === 'off' || window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+  const paused = q => ui.paused || motionOff(q);
+  function pauseBtn(q) {
     const p = paused(q);
-    return h('button', { type: 'button', class: 'btn-sm pa-btn', 'data-fk': 'blink-pause', 'aria-pressed': p ? 'true' : 'false', disabled: motionOff(q) ? true : null,
-      title: motionOff(q) ? 'Motion is off for this screen (motion=off in the address)' : 'Breakdown cards blink rose and Maintenance cards blink amber. Pause shows them as a steady highlight' + (tv ? ' and stops the page rotation; the data keeps refreshing.' : '.'),
-      'aria-label': p ? (tv ? 'Resume the blinking and the page rotation' : 'Resume blinking') : (tv ? 'Pause the blinking and the page rotation' : 'Pause blinking'),
-      onClick: () => { ui.paused = !ui.paused; ui.lastFlip = Date.now(); EQ.rerender(); } }, icon(p ? 'play' : 'pause'), tv ? (p ? 'Resume' : 'Pause') : (p ? 'Resume blinking' : 'Pause blinking'));
+    return h('button', { type: 'button', class: 'btn-sm pa-btn', 'data-fk': 'tv-page-pause', 'aria-pressed': String(p), disabled: motionOff(q) || null,
+      title: 'Pause or resume TV page rotation; status cards remain static.',
+      onClick: () => { ui.paused = !ui.paused; ui.lastFlip = Date.now(); EQ.rerender(); } }, icon(p ? 'play' : 'pause'), p ? 'Resume pages' : 'Pause pages');
   }
   function tvBtn(q) {
-    return h('button', { type: 'button', class: 'btn-sm pa-btn', 'data-fk': 'fleet-tv', title: 'Full-screen, read-only wall display of this fleet view', onClick: () => { ui.tvPage = 0; ui.lastFlip = Date.now(); EQ.nav('/eq/fleet', { type: q.type, status: q.status, source: q.source, motion: q.motion, tv: '1' }); try { document.documentElement.requestFullscreen && document.documentElement.requestFullscreen().catch(() => {}); } catch (e) { /* fullscreen is optional */ } } }, icon('tv'), 'TV mode');
+    return h('button', { type: 'button', class: 'btn-sm pa-btn', 'data-fk': 'fleet-tv', title: 'Full-screen, read-only wall display of this fleet view', onClick: () => { ui.tvPage = 0; ui.lastFlip = Date.now(); EQ.nav('/eq/fleet', { type: q.type, status: q.status, q: ui.q || q.q, motion: q.motion, tv: '1' }); try { document.documentElement.requestFullscreen && document.documentElement.requestFullscreen().catch(() => {}); } catch (e) { /* fullscreen is optional */ } } }, icon('tv'), 'TV mode');
   }
   function exitTv(q) {
     try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) { /* ignore */ }
@@ -40,16 +28,10 @@ window.EQ = window.EQ || {};
     const stale = S.data === 'stale' || S.data === 'error';
     return h('div', { class: 'freshness' },
       h('span', { title: 'Auto-refresh every 60 s and after every change' }, icon('clock'), ' Refreshed ', h('strong', null, EQ.fmtTime(stale ? S.lastGoodAt : S.refreshedAt)), ' Asia/Colombo'),
-      cmmsFresh(),
-      statusNote());
+      EQ.manual.warning ? h('span', { class: 'stale', role: 'status' }, EQ.manual.warning) : null);
   }
   function refreshBtn() {
     return h('button', { type: 'button', class: 'btn-sm pa-btn', 'data-fk': 'refresh', onClick: () => EQ.refresh(true) }, icon('refresh'), 'Refresh');
-  }
-  function cmmsFresh() {
-    const f = EQ.cmms.freshness();
-    return h('span', { class: 'cmms-fresh' + (f.stale ? ' stale' : ''), 'data-fk': 'cmms-fresh', title: f.stale ? 'The latest CMMS sync failed or is overdue. Previous data and statuses are kept; nothing was changed.' : 'Read-only CMMS daily-job list, two syncs a day' },
-      icon(f.stale ? 'alert' : 'sync'), EQ.cmms.freshLabel(), f.stale ? h('strong', null, ' · stale: latest sync ' + (f.latestOutcome === 'failed' ? 'failed (' + f.failureCode + ')' : 'overdue')) : null);
   }
   function staleBanner() {
     const S = EQ.state;
@@ -60,58 +42,39 @@ window.EQ = window.EQ || {};
   }
   function thumb(type) { return h('span', { class: 'thumb', 'aria-hidden': 'true', title: EQ.fleetArtName(type) + ' (illustration, not a model)' }, EQ.fleetArt(type)); }
 
-  // U1-C02: compact card (at most 60 px high) so the fleet fits one screen; the update time and model stay in the card
-  // title and in the table layout. U1-C30: Breakdown / Maintenance cards blink (class blink-*, data-blink).
-  function srcTag(e) {
-    const m = EQ.cmms.mode(e);
-    return h('span', { class: 'src ' + (m.label === 'Auto' ? 'auto' : 'manual'), title: m.long }, m.label);
-  }
   function eqCard(e, tv) {
-    const dur = EQ.inStatusFor(e);
-    const open = EQ.shownOpenJobs(e.id).length; // U1-C26: jobs switched off for the dashboard / 3D are not counted on the fleet card
-    const m = EQ.cmms.mode(e);
-    const zc = EQ.cmms.todayCount(e);
-    const k = EQ.statusKey(e.status);
-    const blink = e.lifecycle === 'active' ? BLINK[k] : null;
+    const dur = EQ.inStatusFor(e), open = EQ.shownOpenJobs(e.id).length, k = EQ.statusKey(e.status);
     const model = EQ.verified(e) ? e.modelCode : (e.typeCode === 'QC' ? 'No verified model' : 'No 3D in stage 1');
-    const label = e.code + ', ' + EQ.STATUS[k].label + ', status source ' + m.label + (zc != null ? ', ' + zc + ' CMMS daily jobs today' : ', not linked to CMMS');
-    const attrs = { class: 'eq-card st-card-' + k + (blink ? ' blink blink-' + blink : '') + (e.lifecycle === 'retired' ? ' retired' : ''), 'data-blink': blink || null, 'data-eq': e.id, title: e.name + ' · ' + m.long + (zc != null ? ' · ' + zc + ' CMMS job(s) today' : '') + ' · Updated ' + EQ.fmtInstantShort(e.lastActivity) + ' · ' + model };
-    const durTxt = dur != null ? 'For ' + EQ.duration(dur) : 'No status reported yet';
-    const kids = tv ? [
-      thumb(e.typeCode),
-      h('span', { class: 'code' }, e.code),
-      h('span', { class: 'st-line' }, EQ.statusBadge(e.status, true), h('span', { class: 'dur' }, dur != null ? durTxt : 'Never set')),
-      h('span', { class: 'meta' }, open + ' open · ', srcTag(e), zc != null ? h('span', { class: 'zc', 'data-cmms-today': String(zc) }, ' · CMMS ' + zc + ' today') : h('span', { class: 'zc-none' }, ' · not in CMMS'))]
-      : [
-        thumb(e.typeCode),
-        h('span', { class: 'code' }, e.code, e.lifecycle === 'retired' ? h('span', { class: 'tag' }, 'Retired') : null, EQ.statusBadge(e.status)),
-        h('span', { class: 'meta' }, durTxt, ' · ' + open + ' open · ', srcTag(e), zc != null ? h('span', { class: 'zc', 'data-cmms-today': String(zc) }, ' · CMMS ' + zc) : null)];
-    // TV mode is a display: no links into the editing screens (U1-C28)
+    const label = e.code + ', ' + EQ.statusLabel(e.status);
+    const attrs = { class: 'eq-card st-card-' + k + (e.lifecycle === 'retired' ? ' retired' : ''), 'data-eq': e.id, title: e.name + ' · Updated ' + EQ.fmtInstantShort(e.lastActivity) + ' · ' + model };
+    const durTxt = dur != null ? 'For ' + EQ.duration(dur) : 'Recorded duration unavailable';
+    const kids = tv ? [thumb(e.typeCode), h('span', { class: 'code' }, e.code), h('span', { class: 'st-line' }, EQ.statusBadge(e.status, true), h('span', { class: 'dur' }, durTxt)), h('span', { class: 'meta' }, open + ' open')]
+      : [thumb(e.typeCode), h('span', { class: 'code' }, e.code, e.lifecycle === 'retired' ? h('span', { class: 'tag' }, 'Retired') : null, EQ.statusBadge(e.status)), h('span', { class: 'meta' }, durTxt + ' · ' + open + ' open')];
     return tv ? h('div', { ...attrs, role: 'listitem', 'aria-label': label }, ...kids) : h('a', { ...attrs, href: '#/eq/equipment/' + e.id, 'aria-label': label }, ...kids);
   }
   function table(list) {
     return h('div', { class: 'panel table-wrap' }, h('table', null,
-      h('caption', { class: 'sr-only' }, 'Equipment, status and last update'),
-      h('thead', null, h('tr', null, ['Equipment', 'Type', 'Status', 'Source', 'CMMS jobs today', 'Time in status', 'Open special jobs', 'Last updated', 'Model'].map((c) => h('th', { scope: 'col' }, c)))),
-      h('tbody', null, list.map((e) => { const d = EQ.inStatusFor(e); return h('tr', { class: e.lifecycle === 'retired' ? 'inactive' : '' },
+      h('caption', { class: 'sr-only' }, 'Equipment, manual status and recorded update'),
+      h('thead', null, h('tr', null, ['Equipment','Type','Status','Time in status','Open special jobs','Last updated','Model'].map(c => h('th', { scope: 'col' }, c)))),
+      h('tbody', null, list.map(e => h('tr', { class: e.lifecycle === 'retired' ? 'inactive' : '' },
         h('th', { scope: 'row' }, h('a', { href: '#/eq/equipment/' + e.id }, e.code), e.lifecycle === 'retired' ? ' (retired)' : ''),
-        h('td', null, e.typeCode), h('td', null, EQ.statusBadge(e.status)), h('td', null, srcTag(e), ' ', EQ.cmms.mode(e).key === 'manualUnmapped' ? h('span', { class: 'small muted' }, 'not linked to CMMS') : null), h('td', null, EQ.cmms.todayCount(e) == null ? '-' : String(EQ.cmms.todayCount(e))), h('td', null, d != null ? EQ.duration(d) : 'Not reported'),
-        h('td', null, String(EQ.shownOpenJobs(e.id).length)), h('td', null, EQ.fmtInstantShort(e.lastActivity)), h('td', null, EQ.verified(e) ? e.modelCode : 'None verified')); }))));
+        h('td', null, e.typeCode), h('td', null, EQ.statusBadge(e.status)), h('td', null, EQ.duration(EQ.inStatusFor(e) || 0)),
+        h('td', null, String(EQ.shownOpenJobs(e.id).length)), h('td', null, EQ.fmtInstantShort(e.lastActivity)), h('td', null, EQ.verified(e) ? e.modelCode : 'No verified model'))))));
   }
 
   // ------------------------------------------------------------------ KPI tile row (U1-C31)
   function kpiRow(typed, counts, stat, setQ, tv) {
-    const marks = { total: 'list', share: 'chart', readyForOps: 'check-circle', breakdown: 'octagon-x', maintenance: 'wrench', unreported: 'dashed' };
+    const marks = { total: 'list', share: 'chart', readyForOps: 'check-circle', isolated: 'octagon-x' };
     const label = (k, text) => h('span', { class: 'lbl' }, icon(marks[k], 'k-label-icon'), h('span', null, text));
     const active = typed.filter((e) => e.lifecycle === 'active');
     const types = ['QC', 'RTG', 'ES'].filter((t) => active.some((e) => e.typeCode === t));
     const byType = (status) => types.map((t) => [t, active.filter((e) => e.typeCode === t && (!status || EQ.statusKey(e.status) === status)).length]);
     const summaryText = (status) => byType(status).map(([t, n]) => t + ': ' + n).join(', ');
     const summary = (status) => h('span', { class: 'k-types', 'aria-label': 'Equipment type counts' }, byType(status).map(([t, n]) => h('span', { class: 'k-type', 'data-eq-type': t, 'aria-label': t + ': ' + n, title: EQ.fleetArtName(t) + ': ' + n }, EQ.fleetArt(t), h('span', { class: 'k-type-count' }, h('span', { class: 'k-code' }, t), h('b', null, String(n))))));
-    const pct = counts.total ? Math.round((counts.readyForOps / counts.total) * 100) : 0;
+    const pct = counts.total ? Math.round((counts.readyForOps / counts.total) * 100) + ' %' : '—';
     const tile = (k, n) => {
-      const breakdown = k !== 'unreported';
-      const kids = [h('span', { class: 'k-top' }, h('span', { class: 'n' }, String(n)), breakdown ? summary(k) : null), label(k, EQ.STATUS[k].label)];
+      const breakdown = true;
+      const kids = [h('span', { class: 'k-top' }, h('span', { class: 'n' }, String(n)), breakdown ? summary(k) : null), label(k, EQ.STATUS[k].category || EQ.STATUS[k].label)];
       if (tv) return h('div', { class: 'count-card kpi kpi-' + k, 'data-kpi': k }, ...kids);
       return h('button', { type: 'button', class: 'count-card kpi kpi-' + k, 'data-kpi': k, 'aria-pressed': stat === k ? 'true' : 'false', 'data-fk': 'cc-' + k, 'aria-label': EQ.STATUS[k].label + ': ' + n + (breakdown ? ', ' + summaryText(k) : '') + (stat === k ? ', filter on' : ''), title: 'Show only ' + EQ.STATUS[k].label + (breakdown ? ' · ' + summaryText(k) : ''), onClick: () => setQ({ status: stat === k ? '' : k }) }, ...kids);
     };
@@ -119,13 +82,13 @@ window.EQ = window.EQ || {};
       h('div', { class: 'count-card total kpi kpi-total', 'data-kpi': 'total', title: 'Active equipment; retired items are excluded' },
         h('span', { class: 'k-top' }, h('span', { class: 'n' }, String(counts.total)), summary()),
         label('total', 'Active equipment')),
-      h('div', { class: 'count-card kpi kpi-share', 'data-kpi': 'share', title: 'Ready for OPS: ' + counts.readyForOps + ' of ' + counts.total + ' active equipment, ' + pct + ' percent' }, h('span', { class: 'k-top' }, h('span', { class: 'n' }, pct + ' %')), label('share', 'Ready for OPS')),
-      tile('readyForOps', counts.readyForOps), tile('breakdown', counts.breakdown), tile('maintenance', counts.maintenance), tile('unreported', counts.unreported));
+      h('div', { class: 'count-card kpi kpi-share', 'data-kpi': 'share', title: 'Ready for OPS: ' + counts.readyForOps + ' of ' + counts.total + ' active equipment, ' + pct + ' percent' }, h('span', { class: 'k-top' }, h('span', { class: 'n' }, pct)), label('share', 'Ready for OPS')),
+      tile('readyForOps', counts.readyForOps), tile('isolated', counts.isolated));
   }
   function groupHead(t, c, tv, n) {
     return h('header', null, h('span', { class: 'g-art', 'aria-hidden': 'true' }, EQ.fleetArt(t)), h('h2', { id: 'fg-' + t }, TYPE_LABEL[t]), h('span', { class: 'g-n' }, String(n)),
       h('span', { class: 'mini-counts', 'aria-label': 'Counts for ' + t },
-        [['readyForOps', 'check-circle'], ['breakdown', 'octagon-x'], ['maintenance', 'wrench'], ['unreported', 'dashed']].map(([k, ic]) => h('span', { class: 'badge st-' + k, title: EQ.STATUS[k].label + ': ' + c[k], 'aria-label': EQ.STATUS[k].label + ': ' + c[k] }, icon(ic), String(c[k])))),
+        [['readyForOps', 'check-circle'], ['isolated', 'octagon-x']].map(([k, ic]) => h('span', { class: 'badge st-' + k, title: EQ.STATUS[k].label + ': ' + c[k], 'aria-label': EQ.STATUS[k].label + ': ' + c[k] }, icon(ic), String(c[k])))),
       t !== 'QC' && !tv ? h('span', { class: 'tag dashed' }, '3D not available in stage 1') : null);
   }
 
@@ -135,11 +98,10 @@ window.EQ = window.EQ || {};
     return h('header', { class: 'tvf-head' },
       h('h1', null, 'EQ Fleet'), h('span', { class: 'tag syn' }, 'Synthetic data'),
       h('span', { class: 'tvf-updated' + (stale ? ' stale' : ''), 'data-fk': 'tv-updated' }, icon('clock'), 'Updated ' + EQ.fmtTime(stale || S.data === 'error' ? S.lastGoodAt : S.refreshedAt).slice(0, 5) + ' Asia/Colombo · refreshes every 60 s' + (stale ? ' · STALE' : '')),
-      S.data === 'normal' || stale ? cmmsFresh() : null,
       h('span', { class: 'tvf-tools' }, pauseBtn(q, true), h('button', { type: 'button', class: 'btn-sm pa-btn primary', 'data-fk': 'fleet-tv-exit', onClick: () => exitTv(q) }, icon('x'), 'Exit TV mode')));
   }
   function tvFoot() {
-    return h('footer', { class: 'tvf-foot' }, h('span', null, icon('info'), "Status is automatic from today's CMMS daily jobs; an EQ Team correction holds for today. Unreported means never set, not Ready."), h('span', { class: 'tvf-pager', 'data-fk': 'tv-pager', 'aria-live': 'off' }));
+    return h('footer', { class: 'tvf-foot' }, h('span', null, icon('info'), "Equipment status is updated manually. Long term isolated EQ counts equipment marked Isolated."), h('span', { class: 'tvf-pager', 'data-fk': 'tv-pager', 'aria-live': 'off' }));
   }
   function applyTvPage(root) {
     const body = root && root.querySelector('.tvf-body'); if (!body) return;
@@ -190,14 +152,15 @@ window.EQ = window.EQ || {};
   EQ.views.fleet = function fleet(q) {
     const S = EQ.state;
     const tv = q.tv === '1';
-    const type = q.type || 'all', stat = q.status || '', retired = !tv && q.lifecycle === 'all', src = q.source || '';
-    const setQ = (patch) => EQ.nav('/eq/fleet', { type: 'all', status: '', lifecycle: '', source: '', ...q, ...patch });
-    const page = h('div', { class: 'page fleet-page pa' + (tv ? ' tv-fleet' : '') + (paused(q) ? ' blink-paused' : ''), 'data-blink-state': paused(q) ? 'paused' : 'on' });
+    const type = ['QC','RTG','ES'].includes(q.type) ? q.type : 'all', stat = ['readyForOps','isolated'].includes(q.status) ? q.status : '', retired = !tv && q.lifecycle === 'all';
+    if (q.q != null) ui.q = q.q;
+    const setQ = (patch) => EQ.nav('/eq/fleet', { type: 'all', status: '', lifecycle: '', ...q, ...patch });
+    const page = h('div', { class: 'page fleet-page pa' + (tv ? ' tv-fleet' : '') });
     if (!tv) page.appendChild(h('h1', { class: 'sr-only' }, 'Fleet')); // the visible heading block was removed in U1-C02
     else page.appendChild(tvHead(q));
 
     if (S.data === 'loading') {
-      page.appendChild(h('div', { 'aria-busy': 'true', role: 'status' }, h('span', { class: 'sr-only' }, 'Loading fleet'), h('div', { class: 'count-strip kpi-row' }, [1, 2, 3, 4, 5, 6].map(() => h('div', { class: 'skeleton', style: 'height:4.4rem' }))), h('div', { class: 'card-grid' }, Array.from({ length: 8 }, () => h('div', { class: 'skeleton', style: 'height:3.6rem' })))));
+      page.appendChild(h('div', { 'aria-busy': 'true', role: 'status' }, h('span', { class: 'sr-only' }, 'Loading fleet'), h('div', { class: 'count-strip kpi-row' }, [1, 2, 3, 4].map(() => h('div', { class: 'skeleton', style: 'height:4.4rem' }))), h('div', { class: 'card-grid' }, Array.from({ length: 8 }, () => h('div', { class: 'skeleton', style: 'height:3.6rem' })))));
       return page;
     }
     if (S.data === 'error') {
@@ -208,15 +171,15 @@ window.EQ = window.EQ || {};
     const all = S.data === 'empty' ? [] : S.D.equipment;
     if (!all.length) {
       page.appendChild(h('div', { class: 'panel empty' }, icon('list'), h('h2', null, 'No equipment is registered yet'),
-        h('p', null, EQ.perm.admin() ? 'Register the first QC, RTG or ES item. It will start as Unreported.' : 'An EQ Maintenance Admin registers the equipment. Until then there is nothing to show here.'),
+        h('p', null, EQ.perm.admin() ? 'Register the first QC, RTG or ES item and explicitly choose its initial status.' : 'An Asset Management Admin registers the equipment. Until then there is nothing to show here.'),
         EQ.perm.admin() && !tv ? h('button', { type: 'button', class: 'primary', onClick: () => EQ.dlg.newEquipment() }, 'Register equipment') : null));
       return page;
     }
     const sb = staleBanner(); if (sb) page.appendChild(sb);
 
-    const typed = all.filter((e) => type === 'all' || e.typeCode === type);
+    const typed = all.filter(e => (type === 'all' || e.typeCode === type) && (!ui.q || (e.code + ' ' + e.name + ' ' + (e.modelCode || '')).toLowerCase().includes(ui.q.toLowerCase())));
     const counts = EQ.fleetCounts(typed);
-    if (!tv) page.appendChild(h('div', { class: 'fleet-bar' }, freshness(), h('span', { class: 'fb-tools' }, refreshBtn(), pauseBtn(q, false), tvBtn(q))));
+    if (!tv) page.appendChild(h('div', { class: 'fleet-bar' }, freshness(), h('span', { class: 'fb-tools' }, refreshBtn(), tvBtn(q))));
     page.appendChild(h('div', { class: 'fleet-top' }, kpiRow(typed, counts, stat, setQ, tv)));
 
     if (!tv) {
@@ -224,7 +187,6 @@ window.EQ = window.EQ || {};
       search.addEventListener('input', () => { ui.q = search.value; EQ.rerender(); });
       page.appendChild(h('div', { class: 'panel filters' },
         h('div', { class: 'field' }, h('span', { class: 'label', id: 'tl' }, 'Equipment type'), h('div', { class: 'seg', role: 'group', 'aria-labelledby': 'tl' }, ['all', 'QC', 'RTG', 'ES'].map((t) => h('button', { type: 'button', 'aria-pressed': type === t ? 'true' : 'false', 'data-fk': 'type-' + t, onClick: () => setQ({ type: t }) }, t === 'all' ? 'All types' : t)))),
-        h('div', { class: 'field' }, h('span', { class: 'label', id: 'sl' }, 'Status source'), h('div', { class: 'seg', role: 'group', 'aria-labelledby': 'sl' }, [['', 'All'], ['auto', 'Auto'], ['manual', 'Manual']].map(([v, l]) => h('button', { type: 'button', 'aria-pressed': src === v ? 'true' : 'false', 'data-fk': 'src-' + (v || 'all'), onClick: () => setQ({ source: v }) }, l)))),
         h('div', { class: 'field grow' }, h('label', { for: 'fq' }, 'Search equipment'), search),
         h('label', { class: 'check', style: 'min-height:2.5rem' }, h('input', { type: 'checkbox', checked: retired ? true : null, 'data-fk': 'ret', onChange: (e) => setQ({ lifecycle: e.target.checked ? 'all' : '' }) }), 'Include retired'),
         h('div', { class: 'field' }, h('span', { class: 'label', id: 'vl' }, 'Layout'), h('div', { class: 'seg', role: 'group', 'aria-labelledby': 'vl' }, ['cards', 'table'].map((v) => h('button', { type: 'button', 'aria-pressed': (q.layout || 'cards') === v ? 'true' : 'false', 'data-fk': 'lay-' + v, onClick: () => setQ({ layout: v }) }, v === 'cards' ? 'Cards' : 'Table')))),
@@ -234,7 +196,6 @@ window.EQ = window.EQ || {};
 
     const match = (e) => (retired || e.lifecycle === 'active')
       && (!stat || EQ.statusKey(e.status) === stat)
-      && (!src || (src === 'auto' ? EQ.cmms.mode(e).label === 'Auto' : EQ.cmms.mode(e).label === 'Manual'))
       && (tv || !ui.q || (e.code + ' ' + e.name + ' ' + (e.modelCode || '')).toLowerCase().includes(ui.q.toLowerCase()));
     const types = type === 'all' ? ['QC', 'RTG', 'ES'] : [type];
     const host = tv ? h('div', { class: 'tvf-body' }) : page;

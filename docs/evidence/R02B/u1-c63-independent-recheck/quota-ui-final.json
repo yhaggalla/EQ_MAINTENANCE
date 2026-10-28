@@ -1,0 +1,39 @@
+{
+  "checks": [
+    {
+      "name": "Rejected save retains truthful current badge/time and unchanged history",
+      "pass": true,
+      "detail": {
+        "current": "readyForOps",
+        "text": "Update operational status - QC02Current: Ready for OPS since 28 Oct 2026 10:54New status *Ready for OPSIsolatedBrowser-local status could not be saved. Nothing was changed; your form can be retried when storage is available.ReasonUI storage failure probeRequired for Isolated. The manual value stays until another authorized update.Related job (optional)NoneEQJ-2026-000206 Hoist brake adjustmentOnly open jobs of QC02 are offered.Applies now; it cannot be backdated. Status duration uses recorded changes. Manual status is saved in this browser only; all records are synthetic.CancelSet status",
+        "currentText": "Current: Ready for OPS since 28 Oct 2026 10:54",
+        "reason": "UI storage failure probe",
+        "selected": "isolated",
+        "unchangedTime": true,
+        "unchangedHistory": true
+      }
+    },
+    {
+      "name": "Rejected save preserves typed choice/reason and shows actionable error",
+      "pass": true,
+      "detail": {
+        "current": "readyForOps",
+        "text": "Update operational status - QC02Current: Ready for OPS since 28 Oct 2026 10:54New status *Ready for OPSIsolatedBrowser-local status could not be saved. Nothing was changed; your form can be retried when storage is available.ReasonUI storage failure probeRequired for Isolated. The manual value stays until another authorized update.Related job (optional)NoneEQJ-2026-000206 Hoist brake adjustmentOnly open jobs of QC02 are offered.Applies now; it cannot be backdated. Status duration uses recorded changes. Manual status is saved in this browser only; all records are synthetic.CancelSet status",
+        "currentText": "Current: Ready for OPS since 28 Oct 2026 10:54",
+        "reason": "UI storage failure probe",
+        "selected": "isolated",
+        "unchangedTime": true,
+        "unchangedHistory": true
+      }
+    },
+    {
+      "name": "Recovery retry closes dialog and records exactly one real event",
+      "pass": true
+    },
+    {
+      "name": "No browser errors",
+      "pass": true,
+      "detail": []
+    }
+  ]
+}

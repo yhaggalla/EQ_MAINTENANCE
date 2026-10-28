@@ -19,9 +19,9 @@ try {
     assert(await ev(`EQ.qc.manifest.nodes.filter(n=>n.kind==='position').every(n=>EQ.positionsOf('eq-qc-demo-01').some(p=>p.key===n.key))`), 'model position omitted from shared tree');
     await b.screenshot(out + '/3d-desktop.png', { fullPage: true });
   });
-  await step('02 tree selection and all four panels survive switches', async () => {
+  await step('02 tree selection and all three panels survive switches', async () => {
     await click('ti-mi-q01-01'); await click('ti-si-q01-011'); await click('ti-pp-q01-007'); await b.wait(900);
-    for (const tab of ['maintenance', 'special', 'technical', 'spareParts']) {
+    for (const tab of ['spareParts', 'special', 'technical']) {
       await click('tab-' + tab); await b.wait(500);
       const before = await ev(`({part:EQ.route.query.part,text:document.querySelector('#tabpanel').textContent})`);
       await click('view-flat'); await b.wait(500);
@@ -88,7 +88,7 @@ try {
     assert(await ev(`document.querySelector('main').textContent.includes('does not belong')&&!EQ.qc.session.viewer.selected.size`), 'cross-equipment part accepted');
   });
   await step('07 legacy P03 route resolves exact semantic key into shared page', async () => {
-    await b.goto(base + 'qc/?eq=eq-qc-demo-02&part=pp-q02-049&view=side&panel=technical'); await waitReady(); await b.wait(500);
+    await b.goto(new URL('qc/?eq=eq-qc-demo-02&part=pp-q02-049&view=side&panel=technical', base).href); await waitReady(); await b.wait(500);
     assert(await ev(`location.hash.includes('/eq/equipment/eq-qc-demo-02')&&EQ.route.query.view==='flat'&&EQ.pos(EQ.route.query.part).equipmentId==='eq-qc-demo-02'&&!EQ.route.query.pkey`), 'legacy route');
     await click('ti-mi-q02-02');
     assert(await ev(`EQ.route.query.main==='mi-q02-02'&&!EQ.route.query.part`), 'legacy part stuck');

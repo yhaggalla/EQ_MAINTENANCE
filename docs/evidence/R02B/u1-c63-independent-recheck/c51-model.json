@@ -1,0 +1,217 @@
+{
+  "passed": 41,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "Invalid fleet type ",
+      "pass": true,
+      "detail": {
+        "ok": false,
+        "status": 422,
+        "code": "validation_failed",
+        "message": "Some fields need attention.",
+        "fields": {
+          "equipmentTypeCode": "Choose an EQ type.",
+          "equipmentId": "This type has no active equipment."
+        }
+      }
+    },
+    {
+      "name": "Invalid fleet type BAD",
+      "pass": true,
+      "detail": {
+        "ok": false,
+        "status": 422,
+        "code": "validation_failed",
+        "message": "Some fields need attention.",
+        "fields": {
+          "equipmentTypeCode": "Choose an EQ type.",
+          "equipmentId": "This type has no active equipment."
+        }
+      }
+    },
+    {
+      "name": "Fleet target cannot be a component",
+      "pass": true,
+      "detail": {
+        "ok": false,
+        "status": 422,
+        "code": "validation_failed",
+        "message": "Some fields need attention.",
+        "fields": {
+          "target": "All equipment applies at whole-equipment level."
+        }
+      }
+    },
+    {
+      "name": "Selected single equipment must match selected type",
+      "pass": true,
+      "detail": {
+        "ok": false,
+        "status": 422,
+        "code": "validation_failed",
+        "message": "Some fields need attention.",
+        "fields": {
+          "equipmentId": "Choose equipment of the selected EQ type."
+        }
+      }
+    },
+    {
+      "name": "Unknown kind is rejected",
+      "pass": true,
+      "detail": {
+        "ok": false,
+        "status": 422,
+        "code": "validation_failed",
+        "message": "Some fields need attention.",
+        "fields": {
+          "kind": "Choose Repair, Replacement or Project."
+        }
+      }
+    },
+    {
+      "name": "One Project record covers the live type scope",
+      "pass": true
+    },
+    {
+      "name": "Each active QC finds the same job once",
+      "pass": true
+    },
+    {
+      "name": "Other types and retired equipment are excluded",
+      "pass": true
+    },
+    {
+      "name": "Equipment pages receive one detached current-state identity",
+      "pass": true
+    },
+    {
+      "name": "Whole-fleet work is not attached to an arbitrary component",
+      "pass": true
+    },
+    {
+      "name": "Shared progress starts the same job for every QC",
+      "pass": true
+    },
+    {
+      "name": "Shared progress retry creates no duplicate",
+      "pass": true
+    },
+    {
+      "name": "Stale shared update preserves current progress",
+      "pass": true
+    },
+    {
+      "name": "Equipment and type filters each return one group entry",
+      "pass": true
+    },
+    {
+      "name": "Member-code search and export include the group once",
+      "pass": true
+    },
+    {
+      "name": "Kind filter and export use Project",
+      "pass": true
+    },
+    {
+      "name": "Shared visibility hides every equipment page but keeps Jobs",
+      "pass": true
+    },
+    {
+      "name": "Editing cannot move a group to a different scope",
+      "pass": true
+    },
+    {
+      "name": "Open shared work blocks retirement of a member",
+      "pass": true
+    },
+    {
+      "name": "New QC automatically joins existing shared progress",
+      "pass": true
+    },
+    {
+      "name": "Project completion needs no replacement line and applies to all members",
+      "pass": true
+    },
+    {
+      "name": "Equipment added after completion sees the shared completed record",
+      "pass": true
+    },
+    {
+      "name": "Reopen changes the one record on every page",
+      "pass": true
+    },
+    {
+      "name": "Current-state DTO excludes shared progress and notes",
+      "pass": true
+    },
+    {
+      "name": "Mutating a current-state DTO cannot edit the shared record",
+      "pass": true
+    },
+    {
+      "name": "Cross-type replacement is rejected atomically",
+      "pass": true
+    },
+    {
+      "name": "Fleet replacement records separate equipment-owned installations",
+      "pass": true
+    },
+    {
+      "name": "Equipment scope shows only its own matching replacement positions",
+      "pass": true
+    },
+    {
+      "name": "Fleet completion replay cannot duplicate installations",
+      "pass": true
+    },
+    {
+      "name": "Project can also record optional replacement work",
+      "pass": true
+    },
+    {
+      "name": "Individual Project stays individual",
+      "pass": true
+    },
+    {
+      "name": "Kind edits save and retain previous kind in history",
+      "pass": true
+    },
+    {
+      "name": "API null-equipment type scope creates one shared record",
+      "pass": true
+    },
+    {
+      "name": "Cancellation removes the same job from every live member view",
+      "pass": true
+    },
+    {
+      "name": "management cannot create a fleet Project",
+      "pass": true
+    },
+    {
+      "name": "management cannot replay a fleet progress write",
+      "pass": true
+    },
+    {
+      "name": "facTeam cannot create a fleet Project",
+      "pass": true
+    },
+    {
+      "name": "facTeam cannot replay a fleet progress write",
+      "pass": true
+    },
+    {
+      "name": "noAccess cannot create a fleet Project",
+      "pass": true
+    },
+    {
+      "name": "noAccess cannot replay a fleet progress write",
+      "pass": true
+    },
+    {
+      "name": "Type filter retains the shared Jobs record even with no live members",
+      "pass": true
+    }
+  ]
+}

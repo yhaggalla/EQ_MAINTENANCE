@@ -1,8 +1,8 @@
 {
-  "packVersion": "2.2",
-  "preparedOn": "2026-10-24",
+  "packVersion": "2.3",
+  "preparedOn": "2026-10-28",
   "timezone": "Asia/Colombo",
-  "purpose": "Instruction pack revision 2.2: temporary management presentation and accepted EQ/FAC feedback preservation; no runtime implementation or U1 approval",
+  "purpose": "Documentation-only management revision U1-C63; implementation awaiting confirmation; U1 NOT APPROVED",
   "buildPrompts": [
     "P00",
     "P01",
@@ -31,49 +31,54 @@
     "R04",
     "R05"
   ],
-  "futureAcceptanceCases": 94,
+  "futureAcceptanceCases": 97,
   "executionProfileCount": 27,
   "executionProfiles": "reference/phase-model-settings.json",
   "files": [
     {
       "file": "ACCEPTANCE_CHECKLIST.md",
-      "bytes": 27068,
-      "sha256": "e04eb3752c33b21f0dcf4ee0dfa6f1bdafc210e12fb8522a8f25d1e9f6ff5dd7"
+      "bytes": 28206,
+      "sha256": "e3b1d28316193b38f057612d0b3861d48fde937b9c627b7bf37b5a9d0ac72137"
     },
     {
       "file": "APPROVED_REQUIREMENTS.md",
-      "bytes": 41762,
-      "sha256": "bfbe0850d97692f8f41b07e0c969f397b8efdc68e7febb77fe1a17e122815753"
+      "bytes": 36006,
+      "sha256": "182f5ed6f593c3a867cd4c31f14fd6125af0946a0e4313dfe00acdba45b7b0a7"
     },
     {
       "file": "CHANGELOG.md",
-      "bytes": 6337,
-      "sha256": "331dabeab32b49198d6a4b0a4b3ccff79b048119cb3ddd2d431f24d208b11e62"
+      "bytes": 7117,
+      "sha256": "b38b896df3f3f10380d9d9fbf4b0d7a7f0f399bbd7912fe8d61c69469970a261"
     },
     {
       "file": "EQ_MAINTENANCE_IMPLEMENTATION_PROMPT_PACK.md",
-      "bytes": 86746,
-      "sha256": "480a0736b3c3749c3d1bda348f83dcdf12e4ea6da2097ef1843aa6e8241412ca"
+      "bytes": 80346,
+      "sha256": "858fd81d1516aa471d7d4c5d65cfc2c75934473d659edf724e387e3d135c0c6c"
+    },
+    {
+      "file": "MANAGEMENT_SCOPE_REVISION_20261028.md",
+      "bytes": 7568,
+      "sha256": "0d0f05ef3af9026e156244709468eebdc2dd3e4f3c64e36e953fb97b7c854136"
     },
     {
       "file": "MODEL_AND_EFFORT_GUIDE.md",
-      "bytes": 10630,
-      "sha256": "40e642b7c98d10c19846034b6637c38f7d57e7c5fa3af5978a1aff8f6c98c841"
+      "bytes": 10871,
+      "sha256": "7470dec724d2ded0a26da938e96c2b2f8896602d2d4af87ebe45187f5e80bdb4"
     },
     {
       "file": "PACK_VALIDATION.md",
-      "bytes": 10389,
-      "sha256": "687067370d017df54cfbfc3f8ad5053ce1dc975accc579fe5f13833a83dd34fd"
+      "bytes": 5356,
+      "sha256": "090e77dcd42196c045421a7161a0b494fc9aacdb05e3eaa37f6ae221d1a6e34f"
     },
     {
       "file": "QC_3D_MODELLING_BRIEF.md",
-      "bytes": 14857,
-      "sha256": "92d8fb44485d956edc30378712b5134a3e34e212cd1ce469284c608ff290685c"
+      "bytes": 15093,
+      "sha256": "21de7f246ef8bb0fe603f7266d1e48d972454ec462279ca14d0107bdf8d1baaf"
     },
     {
       "file": "README.md",
-      "bytes": 9285,
-      "sha256": "3934284c0a7d0c0b75990a28ea9a282cfd523c3475e4edf110b40da5269ee89b"
+      "bytes": 3278,
+      "sha256": "f9f208a6bd2df3f00f3a83bf5261aaeed1d60d3dfc78bfc80a4025e8b47bc7ef"
     },
     {
       "file": "reference/drawing-register.json",
@@ -102,13 +107,13 @@
     },
     {
       "file": "reference/phase-model-settings.json",
-      "bytes": 10826,
-      "sha256": "a8f84fa13382565c4c24dd71c3fc12352b2ae0688a14a249106b2fcc0d4db333"
+      "bytes": 10933,
+      "sha256": "280316adeb416db35d606aa19dbd2837877dba4e5f09a6c89907989beb5cf9f0"
     },
     {
       "file": "TEMP_MANAGEMENT_WALKTHROUGH.md",
-      "bytes": 13961,
-      "sha256": "81cae4ccc0c4b451cb9f2690ac06a3bd8059f6f90f9112fa94f3234f83402953"
+      "bytes": 14376,
+      "sha256": "7d3ee5cafa74c217be15419f28254cd55105599e1bb96c512537d412753f811c"
     }
   ],
   "externalOriginalSources": [
@@ -126,11 +131,11 @@
     },
     {
       "projectRelativePath": "documents/SOW_V2.docx",
-      "sha256": "4eadb2ebb8fd5a5542eef4d93cf1ab340d0b371f89851e222bb0d948fc3ccca0"
+      "sha256": "36a2f81553e201f706e9b608c82f1aef75c16141a7fe52beb40cd1f9630fc7be"
     },
     {
       "projectRelativePath": "documents/SOW_V2.md",
-      "sha256": "2439a4b6f36d77158ac772f611c4f2853142ca6b145e0ceffa8ceb523a7cb15d"
+      "sha256": "dd02aa5a08eff8c828b440c2351c33298d430106f154f6fff0ad99626271b70b"
     },
     {
       "projectRelativePath": "documents/Facility- Dashboard.xlsx",
@@ -143,12 +148,57 @@
     "specification": "TEMP_MANAGEMENT_WALKTHROUGH.md",
     "requirementCount": 6,
     "temporaryAcceptanceCases": 8,
-    "status": "DOCUMENTED; BUILD NOT STARTED; TD01-TD08 NOT RUN",
+    "status": "BUILD historically complete; TD01-TD06 passed; REMOVE/TD07-TD08 pending; new display implementation awaiting confirmation",
     "removalRequiredBefore": "U1 approval",
     "initialBaselineCommit": "8303f8b8a55f41983bdcc77363ddbf13d2892383",
     "retainsAcceptedEqFacRefinements": true,
     "feedbackRegister": "docs/MANAGEMENT_FEEDBACK.md",
     "portalFeedbackTarget": "P05 actual Portal integration and relevant later phases",
     "u1Target": "Initial app plus accepted EQ/FAC refinements, with the temporary wrapper removed; exact cleaned commit/tree recorded"
-  }
+  },
+  "retiredAcceptanceCases": [
+    "ZM01",
+    "ZM02",
+    "ZM03",
+    "ZM04",
+    "ZM05",
+    "ZM06",
+    "ZM07",
+    "ZM08"
+  ],
+  "newAcceptanceCases": [
+    "AM01",
+    "AM02",
+    "AM03",
+    "AM04",
+    "AM05",
+    "AM06",
+    "AM07",
+    "AM08",
+    "AM09",
+    "AM10",
+    "AM11"
+  ],
+  "scopeRevision": {
+    "sowRevision": 7,
+    "changeId": "U1-C63",
+    "specification": "MANAGEMENT_SCOPE_REVISION_20261028.md",
+    "implementation": "AWAITING USER CONFIRMATION",
+    "u1": "NOT APPROVED",
+    "p07b": "CMMS removal and persistent manual status verification"
+  },
+  "currentScopeSources": [
+    {
+      "projectRelativePath": "docs/SOW_V2.md",
+      "sha256": "dd02aa5a08eff8c828b440c2351c33298d430106f154f6fff0ad99626271b70b"
+    },
+    {
+      "projectRelativePath": "docs/SOW_V2.docx",
+      "sha256": "36a2f81553e201f706e9b608c82f1aef75c16141a7fe52beb40cd1f9630fc7be"
+    },
+    {
+      "projectRelativePath": "docs/MANAGEMENT_SCOPE_REVISION_20261028.md",
+      "sha256": "0d0f05ef3af9026e156244709468eebdc2dd3e4f3c64e36e953fb97b7c854136"
+    }
+  ]
 }

@@ -1,0 +1,156 @@
+{
+  "boundary": "Actual independent browser tabs, shared localStorage/Web Locks; synthetic prototype only",
+  "checks": [
+    {
+      "name": "Actual browser supports a cross-tab exclusive lock",
+      "pass": true
+    },
+    {
+      "name": "Two simultaneously writing tabs both save different equipment",
+      "pass": true,
+      "detail": [
+        {
+          "ok": true,
+          "equipmentId": "eq-qc-demo-02",
+          "change": {
+            "id": "sc-q02-manual-4",
+            "equipmentId": "eq-qc-demo-02",
+            "seq": 4,
+            "status": "isolated",
+            "prev": "readyForOps",
+            "reason": "Independent actual-tab isolation",
+            "relatedJobId": null,
+            "at": "2026-10-28T05:26:56.203Z",
+            "by": "u-admin",
+            "source": "manual",
+            "kind": "manualStatus",
+            "legacy": false
+          },
+          "storedLocally": true
+        },
+        {
+          "ok": true,
+          "equipmentId": "eq-qc-demo-03",
+          "change": {
+            "id": "sc-q03-manual-2",
+            "equipmentId": "eq-qc-demo-03",
+            "seq": 2,
+            "status": "isolated",
+            "prev": "readyForOps",
+            "reason": "Independent actual-tab isolation",
+            "relatedJobId": null,
+            "at": "2026-10-28T05:26:56.236Z",
+            "by": "u-admin",
+            "source": "manual",
+            "kind": "manualStatus",
+            "legacy": false
+          },
+          "storedLocally": true
+        }
+      ]
+    },
+    {
+      "name": "Reload source retains both independent status values and events",
+      "pass": true
+    },
+    {
+      "name": "Same-equipment simultaneous tabs yield one success and one conflict",
+      "pass": true,
+      "detail": [
+        {
+          "ok": true,
+          "equipmentId": "eq-qc-demo-05",
+          "change": {
+            "id": "sc-q05-manual-3",
+            "equipmentId": "eq-qc-demo-05",
+            "seq": 3,
+            "status": "isolated",
+            "prev": "readyForOps",
+            "reason": "Independent actual-tab isolation",
+            "relatedJobId": null,
+            "at": "2026-10-28T05:26:56.294Z",
+            "by": "u-admin",
+            "source": "manual",
+            "kind": "manualStatus",
+            "legacy": false
+          },
+          "storedLocally": true
+        },
+        {
+          "ok": false,
+          "status": 409,
+          "code": "status_changed",
+          "message": "The status changed after this form opened. Close it and review the latest value.",
+          "fields": {}
+        }
+      ]
+    },
+    {
+      "name": "Same-equipment conflict retains exactly one new manual event",
+      "pass": true
+    },
+    {
+      "name": "Concurrent registrations have distinct stable identities",
+      "pass": true,
+      "detail": [
+        {
+          "ok": true,
+          "id": "eq-manual-1002"
+        },
+        {
+          "ok": true,
+          "id": "eq-manual-1001"
+        }
+      ]
+    },
+    {
+      "name": "Cross-tab duplicate registration yields one success and one validation failure",
+      "pass": true
+    },
+    {
+      "name": "Concurrent retirement and another status update both survive",
+      "pass": true
+    },
+    {
+      "name": "Fresh page restores all merged edits, history and registrations",
+      "pass": true
+    },
+    {
+      "name": "Stale tab after explicit reset cannot resurrect deleted data",
+      "pass": true,
+      "detail": {
+        "ok": false,
+        "status": 409,
+        "code": "local_status_changed",
+        "message": "Demo status was reset in another tab. Reload before editing."
+      }
+    },
+    {
+      "name": "Reset reload uses only the deliberately authored 67-unit baseline",
+      "pass": true
+    },
+    {
+      "name": "Browser without Web Locks keeps edit session-only and never overwrites shared storage",
+      "pass": true
+    },
+    {
+      "name": "Invalid shared storage refuses mutation until explicit reset",
+      "pass": true,
+      "detail": {
+        "ok": false,
+        "status": 409,
+        "code": "local_status_changed",
+        "message": "The saved demo status is invalid. Use Reset fixtures before editing."
+      }
+    },
+    {
+      "name": "Explicit reset recovers invalid shared storage safely",
+      "pass": true
+    },
+    {
+      "name": "No top-level browser errors during concurrency probes",
+      "pass": true,
+      "detail": []
+    }
+  ]
+}

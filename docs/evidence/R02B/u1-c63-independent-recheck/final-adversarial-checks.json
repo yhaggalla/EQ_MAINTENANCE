@@ -1,0 +1,98 @@
+{
+  "checks": [
+    {
+      "name": "Untouched initialization event time stable across actual reload",
+      "pass": true
+    },
+    {
+      "name": "Seed persists",
+      "pass": true
+    },
+    {
+      "name": "Status write failure rejects503 and rolls back all data",
+      "pass": true,
+      "detail": {
+        "ok": false,
+        "status": 503,
+        "code": "local_status_storage_failed",
+        "message": "Browser-local status could not be saved. Nothing was changed; your form can be retried when storage is available."
+      }
+    },
+    {
+      "name": "Registration write failure rejects503 and rolls back all data",
+      "pass": true,
+      "detail": {
+        "ok": false,
+        "status": 503,
+        "code": "local_status_storage_failed",
+        "message": "Browser-local status could not be saved. Nothing was changed; your form can be retried when storage is available."
+      }
+    },
+    {
+      "name": "Retirement write failure rejects503 and rolls back all data",
+      "pass": true,
+      "detail": {
+        "ok": false,
+        "status": 503,
+        "code": "local_status_storage_failed",
+        "message": "Browser-local status could not be saved. Nothing was changed; your form can be retried when storage is available."
+      }
+    },
+    {
+      "name": "Reset write failure rejects503 and rolls back all data",
+      "pass": true,
+      "detail": {
+        "ok": false,
+        "status": 503,
+        "code": "local_status_storage_failed",
+        "message": "Browser-local status could not be reset. The existing records were kept."
+      }
+    },
+    {
+      "name": "Retry after storage recovery commits status and audit once",
+      "pass": true,
+      "detail": {
+        "ok": true,
+        "equipmentId": "eq-qc-demo-02",
+        "change": {
+          "id": "sc-q02-manual-4",
+          "equipmentId": "eq-qc-demo-02",
+          "seq": 4,
+          "status": "isolated",
+          "prev": "readyForOps",
+          "reason": "Independent persistence failure review",
+          "relatedJobId": null,
+          "at": "2026-10-28T05:26:51.297Z",
+          "by": "u-admin",
+          "source": "manual",
+          "kind": "manualStatus",
+          "legacy": false
+        },
+        "storedLocally": true
+      }
+    },
+    {
+      "name": "Read failure rejects before mutation",
+      "pass": true,
+      "detail": {
+        "ok": false,
+        "status": 503,
+        "code": "local_status_storage_failed",
+        "message": "Browser-local status could not be read. Nothing was changed."
+      }
+    },
+    {
+      "name": "Shared status refresh preserves unrelated local model/positions and newest activity",
+      "pass": true
+    },
+    {
+      "name": "No-Web-Locks fallback retains two session edits without touching shared data",
+      "pass": true
+    },
+    {
+      "name": "No browser errors",
+      "pass": true,
+      "detail": []
+    }
+  ]
+}

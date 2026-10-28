@@ -1,5 +1,5 @@
 /* In-memory prototype store and a simulated "server rule" layer.
-   NOTHING here is persisted: a page reload restores the synthetic fixtures. The rule functions exist so the forms and
+   Manual operational status is saved in browser-local demo storage; other work reloads the synthetic fixtures. The rule functions exist so the forms and
    the (non-draggable) job actions go through one path, as the production API contract (docs/API_CONTRACT.md) requires. */
 window.EQ = window.EQ || {};
 (function (EQ) {
@@ -15,7 +15,7 @@ window.EQ = window.EQ || {};
   // U1-C22: the approved catalogue as loaded; a fixtures reset restores it in place (Admin additions and edits are in memory only).
   const CAT0 = JSON.stringify(EQ.catalog || { mains: [], subs: [] });
   const restoreCatalog = () => { const c = JSON.parse(CAT0); EQ.catalog.mains.splice(0, EQ.catalog.mains.length, ...c.mains); EQ.catalog.subs.splice(0, EQ.catalog.subs.length, ...c.subs); };
-  EQ.reset = () => { restoreCatalog(); S.D = EQ.buildFixtures(); EQ.buildV2(S.D); EQ.access.refreshSession('fixtures reset'); S.expanded = new Set(); S.refreshedAt = Date.now(); S.lastGoodAt = Date.now(); EQ.log('Fixtures reset (synthetic data restored)'); };
+  EQ.reset = (options) => { if (options?.clearStatus) return EQ.manual.reset(() => EQ.reset()); restoreCatalog(); S.D = EQ.buildFixtures(); EQ.buildV2(S.D); EQ.manual.restore(S.D); EQ.access.refreshSession('fixtures reset'); S.expanded = new Set(); S.refreshedAt = Date.now(); S.lastGoodAt = Date.now(); EQ.log('Fixtures reset (synthetic data restored)'); };
 
   EQ.user = () => EQ.USERS[S.role];
   // Server-side checks use the live Access matrix (EQ.access.srv); EQ.perm.* is what the UI shows from its session snapshot.
@@ -64,8 +64,8 @@ window.EQ = window.EQ || {};
   EQ.verified = (eq) => eq.assoc === 'verified' && !!eq.modelCode;
   EQ.currentUserCanSeeAdmin = () => isAdmin();
   EQ.fleetCounts = (list) => {
-    const c = { readyForOps: 0, breakdown: 0, maintenance: 0, unreported: 0, total: 0 };
-    list.filter((e) => e.lifecycle === 'active').forEach((e) => { c[EQ.statusKey(e.status)] += 1; c.total += 1; });
+    const c = { readyForOps: 0, isolated: 0, total: 0 };
+    list.filter((e) => e.lifecycle === 'active').forEach((e) => { if (EQ.manual.valid(e.status)) { c[e.status] += 1; c.total += 1; } });
     return c;
   };
   EQ.inStatusFor = (eq) => (eq.status && eq.statusSince ? Date.now() - new Date(eq.statusSince).getTime() : null);
@@ -365,32 +365,45 @@ window.EQ = window.EQ || {};
     setStatus(eqId, p) {
       if (!isWriter()) return forbid();
       const eq = EQ.eq(eqId);
-      if (eq.cmmsMapped) return EQ.cmms.correct(eqId, p); // V2 (D-94): a change on CMMS-linked equipment is a current-day correction
-      const f = {};
-      if (eq.lifecycle === 'retired') return fail(409, 'equipment_retired', 'Retired equipment accepts no status changes.');
-      if (!['readyForOps', 'breakdown', 'maintenance'].includes(p.status)) f.status = 'Choose one of the three operational statuses.';
-      if (p.status === eq.status) f.status = 'The equipment is already ' + EQ.STATUS[p.status].label + ' (409 status_unchanged).';
-      if ((p.status === 'breakdown' || p.status === 'maintenance') && !(p.reason || '').trim()) f.reason = 'A short reason is required for Breakdown and Maintenance.';
-      if (p.relatedJobId) { const j = EQ.job(p.relatedJobId); if (!j || !EQ.jobApplies(j, eq.id)) f.relatedJobId = 'That job does not apply to this equipment (422).'; }
+      if (!eq) return fail(404, 'equipment_not_found', 'Equipment was not found.');
+      if (eq.lifecycle !== 'active') return fail(409, 'equipment_retired', 'Retired equipment accepts no status changes.');
+      const f = {}, reason = (p.reason || '').trim();
+      if (!EQ.manual.valid(p.status)) f.status = 'Choose Ready for OPS or Isolated.';
+      if (p.status === 'isolated' && !reason) f.reason = 'A short reason is required for Isolated.';
+      if (reason.length > 500) f.reason = 'Use at most 500 characters.';
+      if (p.relatedJobId) { const job = EQ.job(p.relatedJobId); if (!job || !EQ.jobApplies(job, eq.id) || job.isCancelled) f.relatedJobId = 'Choose an uncancelled job whose scope contains this equipment.'; }
       if (Object.keys(f).length) return fail(422, 'validation_failed', 'Nothing was changed.', f);
-      const now = new Date().toISOString();
-      const seq = S.D.statusChanges.filter((c) => c.equipmentId === eq.id).length + 1;
-      S.D.statusChanges.push({ id: 'sc-' + eq.key + '-n' + seq, equipmentId: eq.id, seq, status: p.status, prev: eq.status, reason: (p.reason || '').trim() || null, relatedJobId: p.relatedJobId || null, at: now, by: EQ.user().id, source: 'manual', kind: 'manualStatus', causes: [], runId: null });
-      eq.status = p.status; eq.statusSince = now; eq.statusReason = (p.reason || '').trim() || null; eq.statusSource = 'manual'; eq.lastActivity = now; eq.version += 1;
-      audit('status.change', eq.code + ' -> ' + p.status, p.reason); EQ.notify();
-      return { ok: true };
+      const fingerprint = JSON.stringify([eq.id,p.status,reason,p.relatedJobId || null,p.expectedCurrentStatusChangeId]);
+      const key = p.key && 'manual-status:' + p.key, prior = key && S.D.idem[key];
+      if (prior) return prior.fingerprint === fingerprint ? { ...prior.result, replayed: true } : fail(409, 'idempotency_conflict', 'This request key was already used for a different status update.');
+      if (p.expectedCurrentStatusChangeId !== eq.currentStatusChangeId) return fail(409, 'status_changed', 'The status changed after this form opened. Close it and review the latest value.');
+      if (p.status === eq.status) return fail(422, 'status_unchanged', 'The equipment is already ' + EQ.statusLabel(p.status) + '.', { status: 'Choose a different status.' });
+      const now = new Date().toISOString(), seq = Math.max(0, ...S.D.statusChanges.filter(c => c.equipmentId === eq.id).map(c => c.seq)) + 1;
+      const change = { id: 'sc-' + eq.key + '-manual-' + seq, equipmentId: eq.id, seq, status: p.status, prev: eq.status, reason: reason || null, relatedJobId: p.relatedJobId || null, at: now, by: EQ.user().id, source: 'manual', kind: 'manualStatus', legacy: false };
+      S.D.statusChanges.push(change);
+      Object.assign(eq, { status: p.status, statusSince: now, statusReason: change.reason, statusBy: change.by, currentStatusChangeId: change.id, statusSource: 'manual', lastActivity: now, version: eq.version + 1 });
+      audit('status.change', eq.code + ' -> ' + p.status, reason);
+      const result = { ok: true, equipmentId: eq.id, change: { ...change }, storedLocally: EQ.manual.save() };
+      if (key) S.D.idem[key] = { fingerprint, result };
+      EQ.notify(); return result;
     },
     createEquipment(p) {
       if (!isAdmin()) return forbid();
-      const f = {};
-      if (!(p.code || '').trim()) f.code = 'Enter an equipment code.';
-      else if (S.D.equipment.some((e) => e.code.toLowerCase() === p.code.trim().toLowerCase())) f.code = 'Code "' + p.code.trim() + '" already exists (duplicates are refused).';
-      if (!p.typeCode) f.typeCode = 'Choose a type.';
+      const f = {}, code = (p.code || '').trim(), reason = (p.reason || '').trim();
+      if (!code || code.length > 32) f.code = 'Enter an equipment code of 1 to 32 characters.';
+      else if (S.D.equipment.some(e => e.code.toLowerCase() === code.toLowerCase())) f.code = 'That equipment code already exists.';
+      if (!S.D.types.some(t => t.code === p.typeCode)) f.typeCode = 'Choose a valid type.';
+      if (!EQ.manual.valid(p.status)) f.status = 'Explicitly choose Ready for OPS or Isolated.';
+      if (p.status === 'isolated' && !reason) f.reason = 'A reason is required for Isolated.';
+      if (reason.length > 500) f.reason = 'Use at most 500 characters.';
       if (Object.keys(f).length) return fail(422, 'validation_failed', 'Nothing was saved.', f);
-      const key = 'n' + (S.D.equipment.length + 1);
-      const eq = { id: 'eq-' + p.code.trim().toLowerCase(), key, code: p.code.trim(), typeCode: p.typeCode, name: p.name || '', modelCode: null, assoc: 'unassigned', lifecycle: 'active', status: null, statusSince: null, statusReason: null, lastActivity: new Date().toISOString(), mains: [], subs: [], positionState: null, origin: 'DevelopmentFixture', version: 1, cmmsMapped: false, overrideOn: null, statusSource: 'manual', statusCauses: [], commissionedOn: null };
-      S.D.equipment.push(eq); audit('equipment.create', eq.code); EQ.notify();
-      return { ok: true, eq };
+      const key = 'n' + (S.D.equipment.length + 1), now = new Date().toISOString();
+      let id; do { id = EQ.uid('eq-manual'); } while (S.D.equipment.some(e => e.id === id));
+      const eq = { id, key, code, typeCode: p.typeCode, name: p.name || '', modelCode: null, assoc: 'unassigned', lifecycle: 'active', status: p.status, statusSince: now, statusReason: reason || null, statusBy: EQ.user().id, lastActivity: now, mains: [], subs: [], positionState: null, origin: 'DevelopmentFixture', version: 1, statusSource: 'manual', commissionedOn: null, manualRegistered: true };
+      const change = { id: 'status-initial-' + eq.id, equipmentId: eq.id, seq: 1, status: p.status, prev: null, reason: reason || null, relatedJobId: null, at: now, by: EQ.user().id, source: 'manual', kind: 'manualInitial', legacy: false };
+      eq.currentStatusChangeId = change.id;
+      S.D.equipment.push(eq); S.D.statusChanges.push(change); audit('equipment.create', eq.code);
+      const storedLocally = EQ.manual.save(); EQ.notify(); return { ok: true, eq, storedLocally };
     },
     associateModel(eqId, modelCode, note) {
       if (!isAdmin()) return forbid();
@@ -411,8 +424,8 @@ window.EQ = window.EQ || {};
       const eq = EQ.eq(id);
       const open = EQ.openJobs(id);
       if (open.length) return fail(409, 'equipment_has_open_jobs', 'Retire is refused while uncompleted, uncancelled jobs exist (' + open.map((j) => j.number).join(', ') + ').');
-      eq.lifecycle = 'retired'; audit('equipment.retire', eq.code); EQ.notify();
-      return { ok: true };
+      eq.lifecycle = 'retired'; audit('equipment.retire', eq.code); const storedLocally = EQ.manual.save(); EQ.notify();
+      return { ok: true, storedLocally };
     },
     setApplicability(modelCode, sub, state) {
       if (!isAdmin()) return forbid();

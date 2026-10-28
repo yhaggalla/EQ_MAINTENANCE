@@ -1,10 +1,18 @@
 # Implementation plan
 
+## Current management scope 28 October 2026
+
+**U1-C63 / SOW V2 revision 7 / prompt pack 2.3: documentation only; implementation awaits the user's confirmation. U1 remains IN PROGRESS / NOT COMPLETE / NOT APPROVED; P04/P05 Not started.** Read `docs/MANAGEMENT_SCOPE_REVISION_20261028.md` for all eight outcomes. This section and the revision-7 contracts supersede conflicting earlier descriptions throughout this file. Earlier dated reviews/addenda/evidence describe their snapshots and do not validate the new scope.
+
+Display EQ & FAC Asset Management with unchanged eq-maintenance technical paths/roles. Exactly Ready for OPS and Isolated are explicitly initialized and manually updated; values persist until another authorized manual action. Long term isolated EQ is the Isolated category, with no timer threshold. Remove Maintenance/Unreported current states, all CMMS/daily EQ work/sync/account/mapping/automatic/override dependencies, source selectors and equipment-card blinking. Crane tabs: Spare part status first/default, Projects/Special, Technical. Jobs: Projects/Special, EQ status, Spare parts condition. Fleet: Active, Ready percentage, Ready count, Long term isolated EQ count with one filtered active population; dash for zero denominator.
+
+Preserve existing IDs and truthful legacy history; old/blank status values require explicit human review at implementation, never automatic conversion or guessed Ready/duration. Retain accepted EQ work/progress/shared-scope/replacement/spare/technical/Flat/3D behavior, roles/Access and all FAC cycles/progress/photos/moving/reduced-motion/TV rules. FAC and spare-part computed flags do not change EQ status. No external access, live database change or implementation is authorized by this revision.
+
 Prepared in P00 on 21 October 2026 for CICT EQ Maintenance stage 1. Authorities: the prompt pack in `documents/prompt-pack/` (README, APPROVED_REQUIREMENTS, Master control). Decisions referenced as B-xx, D-xx and U-xx are in `docs/DECISIONS.md`; source references are in `docs/SOURCE_MAP.md`.
 
 ## Temporary pre-U1 management presentation added 24 October 2026
 
-SOW V2 revision 6 section 2A and prompt pack 2.2 add U1-T01 only: local Portal-style login/launcher at port 5312, accepting blank/arbitrary input, with three inert existing-app cards and an EQ & FAC Maintenance card opening the unchanged app default. Detailed build/removal tasks and TD01-TD08 are in `documents/prompt-pack/TEMP_MANAGEMENT_WALKTHROUGH.md`. BUILD is Not started; temporary checks are NOT RUN. This is a bounded task within the open U1 checkpoint, not a new permanent phase or P05 integration.
+SOW V2 revision 6 section 2A and prompt pack 2.2 add U1-T01 only: local Portal-style login/launcher at port 5312, accepting blank/arbitrary input, with three inert existing-app cards and an EQ & FAC Asset Management card opening the unchanged app default. Detailed build/removal tasks and TD01-TD08 are in `documents/prompt-pack/TEMP_MANAGEMENT_WALKTHROUGH.md`. BUILD is Not started; temporary checks are NOT RUN. This is a bounded task within the open U1 checkpoint, not a new permanent phase or P05 integration.
 
 Before recording U1 approval, remove the temporary layer (TD07-TD08). The initial reference is `8303f8b8a55f41983bdcc77363ddbf13d2892383`; retain all accepted EQ/FAC U1 refinements and remove only temporary wrapper edits. Verify the cleaned app against that initial commit plus accepted changes, then record its exact commit/tree for U1. Login/Portal feedback is deferred to P05 actual integration. Preserve documentation/evidence and unrelated work. U1 remains unapproved; P04/P05 remain Not started. The starting-state sections below are historical P00 planning records; current phase status is in `docs/IMPLEMENTATION_STATUS.md`.
 

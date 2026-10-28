@@ -1,5 +1,7 @@
 # Temporary management walkthrough before U1 approval
 
+Revision 7 / 28 October 2026: new launcher/app display EQ & FAC Asset Management awaits implementation confirmation. U1-T01 BUILD historically complete (TD01-TD06 passed); TD07-TD08 removal pending. Old labels/hashes/status below are historical snapshots. Apply docs/MANAGEMENT_SCOPE_REVISION_20261028.md; preserve accepted refinements at cleanup. No new implementation authorized while confirmation is pending.
+
 Pack 2.2 | 24 October 2026 | U1-T01 | SOW V2 revision 6 section 2A | B-22/B-23, D-203/D-204
 
 Status: **REQUIREMENTS DOCUMENTED; BUILD NOT STARTED; TD01-TD08 NOT RUN.** U1 remains IN PROGRESS / NOT APPROVED; P04 and P05 remain Not started. This document supplies two bounded tasks: build the temporary presentation, then remove it before U1 approval. It adds no permanent phase or production authentication exception.

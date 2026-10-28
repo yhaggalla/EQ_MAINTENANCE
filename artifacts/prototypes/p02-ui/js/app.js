@@ -4,7 +4,7 @@ window.EQ = window.EQ || {};
 (function (EQ) {
   const h = EQ.h, icon = EQ.icon;
   const S = EQ.state;
-  const APP_NAME = 'EQ & FAC Maintenance';
+  const APP_NAME = 'EQ & FAC Asset Management';
   let mainEl, controlsEl, bannerEl, navEl, switchEl, roleChipEl, liveEl, topbarEl;
   let controlsOpen = false, lastPath = null;
   S.section = S.section || 'eq';
@@ -24,6 +24,10 @@ window.EQ = window.EQ || {};
     const q = new URLSearchParams(r.query);
     const out = (path) => '#' + path + (q.toString() ? '?' + q.toString() : '');
     const [a, b] = r.segs;
+    if (a === 'eq' && b === 'jobs' && r.segs[2] === 'daily') { q.set('removed', 'daily'); return out('/eq/jobs/special'); }
+    if (a === 'admin' && b === 'eq' && r.segs[2] === 'cmms') { q.set('removed', 'integration'); return out('/admin/eq/equipment'); }
+    if (a === 'eq' && b === 'equipment' && q.get('panel') === 'maintenance') { q.set('panel', 'spareParts'); return out('/eq/equipment/' + r.segs[2]); }
+    if (a === 'eq' && b === 'fleet' && (q.has('source') || (q.has('status') && !['readyForOps','isolated'].includes(q.get('status'))))) { q.delete('source'); if (!['readyForOps','isolated'].includes(q.get('status'))) q.delete('status'); return out('/eq/fleet'); }
     if (a === 'fleet') return out('/eq/fleet');
     if (a === 'equipment' && b) { if (q.get('panel') === 'history') q.set('panel', 'special'); return out('/eq/equipment/' + b); }
     if (a === 'jobs') return out(b ? '/eq/jobs/special/' + b : '/eq/jobs/special');
@@ -118,7 +122,7 @@ window.EQ = window.EQ || {};
         h('label', { class: 'check' }, h('input', { type: 'checkbox', checked: S.conflictNext ? true : null, 'data-fk': 'pc-conflict', onChange: (e) => { S.conflictNext = e.target.checked; } }), 'Next job edit save hits a version conflict'),
         h('label', { class: 'check' }, h('input', { type: 'checkbox', checked: S.slowHistory ? true : null, 'data-fk': 'pc-slow', onChange: (e) => { S.slowHistory = e.target.checked; } }), 'Slow, out-of-order history responses'),
         h('div', { class: 'row' },
-          h('button', { type: 'button', class: 'btn-sm', onClick: () => { EQ.reset(); EQ.nav(EQ.access.landing(), {}); render(); } }, 'Reset fixtures'),
+            h('button', { type: 'button', class: 'btn-sm', onClick: async () => { const result = await EQ.reset({ clearStatus: true }); if (result?.ok === false) { EQ.toast(result.message); return; } EQ.nav(EQ.access.landing(), {}); render(); } }, 'Reset fixtures'),
           h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'pc-arrival', onClick: () => { const r = EQ.fac.simulateArrival({ photo: true }); EQ.toast(r ? 'Simulated: another FAC user recorded progress on ' + r.job.number : 'No job available', 'The dashboard patches the row in place and glows it.'); } }, 'Simulate a FAC update arriving'),
           h('button', { type: 'button', class: 'btn-sm', onClick: () => { const r = EQ.api.createJob({ equipmentId: 'eq-qc-demo-02', kind: 'repair', title: 'Direct API write attempt (prototype)', level: 'equipment' }); EQ.toast(r.ok ? 'Server accepted the write for ' + EQ.PERSONAS[S.role].label + ': ' + r.job.number : 'Server refused (' + r.status + '): ' + r.message); } }, 'Try a direct EQ write as this role'),
           h('button', { type: 'button', class: 'btn-sm', onClick: () => { const r = EQ.fac.api.hold('fj-3', 'Direct API write attempt (prototype)'); EQ.toast(r.ok ? 'Server accepted the FAC write for ' + EQ.PERSONAS[S.role].label : 'Server refused (' + r.status + ' ' + r.code + '): ' + r.message); } }, 'Try a direct FAC write as this role'),

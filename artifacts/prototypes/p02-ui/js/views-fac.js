@@ -422,14 +422,14 @@ window.EQ = window.EQ || {};
   try { window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', () => { if (dash.root && dash.root.isConnected) EQ.rerender(); }); } catch (e) { /* older engines */ }
 
   EQ.views.noAccess = function noAccess() {
-    return h('div', { class: 'page' }, h('div', { class: 'panel empty noaccess' }, icon('lock'), h('h1', null, 'No access'), h('p', null, 'Your Portal role is recognised, but no tab of EQ & FAC Maintenance is switched on for it.'),
-      h('p', { class: 'strong' }, 'No access - contact the EQ & FAC Maintenance Admin.'), h('p', { class: 'small muted' }, 'This is not an error. The Admin can switch tabs on in Admin > Access; the change reaches you within 60 seconds.')));
+    return h('div', { class: 'page' }, h('div', { class: 'panel empty noaccess' }, icon('lock'), h('h1', null, 'No access'), h('p', null, 'Your Portal role is recognised, but no tab of EQ & FAC Asset Management is switched on for it.'),
+      h('p', { class: 'strong' }, 'No access - contact the EQ & FAC Asset Management Admin.'), h('p', { class: 'small muted' }, 'This is not an error. The Admin can switch tabs on in Admin > Access; the change reaches you within 60 seconds.')));
   };
   EQ.views.forbidden = function forbidden(feature, path, code) {
     const row = EQ.access.FEATURES.find((f) => f[0] === feature);
     const roles = EQ.access.persona().roles;
     const toggled = roles.some((r) => EQ.access.CEIL[feature][r] === 'T1' || EQ.access.CEIL[feature][r] === 'T0');
-    return h('div', { class: 'page' }, h('div', { class: 'panel panel-pad stack', role: 'alert' }, h('h1', null, '403 - ' + (feature === 'admin.access' ? 'EQ Maintenance Admin only' : 'This tab is not available for your role')),
+    return h('div', { class: 'page' }, h('div', { class: 'panel panel-pad stack', role: 'alert' }, h('h1', null, '403 - ' + (feature === 'admin.access' ? 'Asset Management Admin only' : 'This tab is not available for your role')),
       h('p', null, feature === 'admin.access' ? "Only the app Admin can open these pages or change Admin settings (403 forbidden_role)." : toggled ? 'The feature "' + (row ? row[1] : feature) + '" is switched off for your role in Admin > Access (403 feature_disabled). Ask the app Admin if you need it.' : 'No role you hold allows "' + (row ? row[1] : feature) + '" (403 forbidden_role).'),
       h('p', null, h('a', { href: '#' + EQ.access.landing() }, 'Go to your landing page'))));
   };

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "packVersion": "2.2",
+  "packVersion": "2.3",
   "verifiedOn": "2026-10-21",
   "purpose": "Per-phase model/effort recommendations, not applied client settings or application benchmarks.",
   "profileCount": 27,
@@ -370,5 +370,6 @@
       "selection": "Choose one provider; select actual model/effort in client controls.",
       "inheritanceRule": "Use this only for context recovery; then switch to the next selected phase profile."
     }
-  ]
+  ],
+  "scopeRevision": "SOW V2 revision 7 / U1-C63; P07B verifies removal/manual status; settings unchanged"
 }

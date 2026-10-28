@@ -40,8 +40,8 @@ try {
   await b.click('[data-fk^="job-progress-"]'); await b.setValue('#ep-percent', '100'); await b.setValue('#ep-note', 'Fleet upgrade complete.');
   check('Project completion permits optional replacement lines', await b.eval(`document.querySelector('#cf-lines-h').textContent==='Replacement lines (optional)'&&!document.querySelector('#cl0-desc')`)); await submit();
   check('Completing Project updates every member through one job', await b.eval(`EQ.job(window.c51Id).workStatus==='completed'&&window.c51Members.every(id=>EQ.currentSpecial(id,{level:'equipment',id:null}).jobs.find(r=>r.job.id===window.c51Id)?.job.workStatus==='completed')`));
-  await b.eval(`EQ.setPersona('admin');EQ.api.createEquipment({code:'QC-C51-LATER',typeCode:'QC',name:'Later QC'})`);
-  await nav('/eq/equipment/eq-qc-c51-later', { panel: 'special' }); await b.wait(650);
+  await b.eval(`(async()=>{EQ.setPersona('admin');const r=await EQ.api.createEquipment({code:'QC-C51-LATER',typeCode:'QC',name:'Later QC',status:'readyForOps'});if(!r.ok)throw Error('Registration failed: '+JSON.stringify(r));window.c51Later=r.eq.id;})()`);
+  await nav('/eq/equipment/'+await b.eval('window.c51Later'), { panel: 'special' }); await b.wait(650);
   check('Later-added equipment page shows the shared completed job', await b.eval(`document.querySelector('[data-fk="special-list"]').textContent.includes('Fleet safety upgrade')&&document.querySelector('[data-fk="special-list"]').textContent.includes('Completed')`));
   await nav('/eq/jobs/special');
   await b.eval(`window.c51Replacement=EQ.api.createJob({equipmentId:'all',equipmentTypeCode:'QC',level:'equipment',kind:'replacement',title:'Fleet component upgrade'}).job.id;document.querySelector('[data-fk="job-progress-'+window.c51Replacement+'"]').click()`);

@@ -148,9 +148,9 @@ window.EQ = window.EQ || {};
       ['e03', 'ES03', 'ES', 'Synthetic ES 3', null, 'unassigned', 'active', null, 0, null, null, 900],
       ['e04', 'ES04', 'ES', 'Synthetic ES 4', null, 'unassigned', 'active', 'breakdown', 30, 'Hydraulic leak found (synthetic)', null, 30],
     ];
-    // Fill missing members from the same register used by Fleet, Admin, Jobs, status and mapping selectors.
-    // Keep established IDs/positions/jobs. New members have no reported status, model, positions or invented history.
-    // RTG 07 is now active and Unreported; retirement remains an explicit Admin action/test scenario.
+    // Preserve the historical register/legacy status inputs and established IDs, positions and jobs.
+    // manual-status.js explicitly initializes every current status before any view is rendered.
+    // Model/positions stay unknown for added units; retirement is an explicit Admin action.
     const typeOrder = Object.keys(EQ.FLEET_BASELINE);
     const keys = { QC: 'q', RTG: 'r', ES: 'e' };
     const names = { QC: 'quay crane', RTG: 'RTG', ES: 'ES' };
@@ -281,12 +281,12 @@ window.EQ = window.EQ || {};
   }
   EQ._instantiate = instantiate;
 
-  /** P02B: attach the V2 layers (access matrix, CMMS, spare parts, FAC) to a freshly built fixture set. Order matters:
-   *  spare parts add baseline events, CMMS annotates equipment, FAC is independent of EQ records (SOW V2 s2). */
+  /** P02B: attach the V2 layers (access matrix, manual status, spare parts, FAC) to a freshly built fixture set. Order matters:
+   *  spare parts add baseline events, manual choices are listed individually, FAC is independent of EQ records (SOW V2 s2). */
   EQ.buildV2 = function buildV2(D) {
     D.access = EQ.access.fresh();
     EQ.spares.build(D);
-    EQ.cmms.build(D);
+    EQ.manual.build(D);
     EQ.fac.build(D);
   };
 })(window.EQ);

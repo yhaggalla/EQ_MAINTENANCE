@@ -1,0 +1,145 @@
+{
+  "checks": [
+    {
+      "name": "FAC TV lists/ticker actually move",
+      "pass": true,
+      "detail": {
+        "first": {
+          "mode": "scroll",
+          "paused": false,
+          "speed": 38.3984375,
+          "lanes": {
+            "electrical": {
+              "offset": 0,
+              "T": 2764.6875,
+              "rowH": 153.59375,
+              "moving": true,
+              "rows": 18,
+              "page": 0,
+              "keys": [
+                "fj-12",
+                "fj-7",
+                "fj-14"
+              ],
+              "viewH": 578
+            },
+            "mechanical": {
+              "offset": 0,
+              "T": 8447.65625,
+              "rowH": 153.59375,
+              "moving": true,
+              "rows": 55,
+              "page": 0,
+              "keys": [
+                "fj-22",
+                "fj-33",
+                "fj-44"
+              ],
+              "viewH": 578
+            },
+            "civil": {
+              "offset": 0,
+              "T": 6297.34375,
+              "rowH": 153.59375,
+              "moving": true,
+              "rows": 41,
+              "page": 0,
+              "keys": [
+                "fj-81",
+                "fj-80",
+                "fj-82"
+              ],
+              "viewH": 578
+            }
+          },
+          "ticker": {
+            "offset": 0,
+            "T": 8160,
+            "moving": true,
+            "items": 17
+          },
+          "frames": 1,
+          "proofIndex": 0,
+          "phone": false,
+          "reduced": false
+        },
+        "moved": {
+          "mode": "scroll",
+          "paused": false,
+          "speed": 38.3984375,
+          "lanes": {
+            "electrical": {
+              "offset": 46.715539062499985,
+              "T": 2764.6875,
+              "rowH": 153.59375,
+              "moving": true,
+              "rows": 18,
+              "page": 0,
+              "keys": [
+                "fj-12",
+                "fj-7",
+                "fj-14"
+              ],
+              "viewH": 578
+            },
+            "mechanical": {
+              "offset": 46.715539062499985,
+              "T": 8447.65625,
+              "rowH": 153.59375,
+              "moving": true,
+              "rows": 55,
+              "page": 0,
+              "keys": [
+                "fj-22",
+                "fj-33",
+                "fj-44"
+              ],
+              "viewH": 578
+            },
+            "civil": {
+              "offset": 46.715539062499985,
+              "T": 6297.34375,
+              "rowH": 153.59375,
+              "moving": true,
+              "rows": 41,
+              "page": 0,
+              "keys": [
+                "fj-81",
+                "fj-80",
+                "fj-82"
+              ],
+              "viewH": 578
+            }
+          },
+          "ticker": {
+            "offset": 116.78884765624991,
+            "T": 8160,
+            "moving": true,
+            "items": 17
+          },
+          "frames": 67,
+          "proofIndex": 0,
+          "phone": false,
+          "reduced": false
+        }
+      }
+    },
+    {
+      "name": "FAC Pause stops all moving lanes/ticker",
+      "pass": true
+    },
+    {
+      "name": "FAC reduced-motion uses stationary paged lanes/ticker",
+      "pass": true
+    },
+    {
+      "name": "FAC phone uses combined list without auto-scroll",
+      "pass": true
+    },
+    {
+      "name": "No errors",
+      "pass": true,
+      "detail": []
+    }
+  ]
+}

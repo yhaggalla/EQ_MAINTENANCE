@@ -1,8 +1,4 @@
-/* P02B / U1-C19: the crane-view right panel is current state only, in exactly four tabs (DATA_CONTRACT s18.1, API s4.16):
-   Maintenance (today's CMMS daily jobs), Projects/Special (open and completed special jobs in the selected scope; U1-C23 makes this
-   tab the one exception to "no history in the crane view"), Technical (specification summary of the selected area) and Spare parts
-   (current register rows in scope). Other work history (events, corrections, installations, status changes, earlier CMMS days) lives
-   in the EQ Jobs tab ("Open in Jobs"). Jobs switched off with "Show on dashboard / 3D" are not shown here (U1-C26). Used by both shared-viewer cameras; physical areas filter to their included positions (U1-C34). */
+/* U1-C63: three scoped current-state tabs; full work/history remains in Jobs. */
 window.EQ = window.EQ || {};
 (function (EQ) {
   const h = EQ.h, icon = EQ.icon;
@@ -10,7 +6,7 @@ window.EQ = window.EQ || {};
   /** Link prefix: empty in the P02 flat view; the P03 viewer page sets it to the P02 prototype URL so Open in Jobs and job numbers open there. */
   P.base = '';
   const ext = () => (P.base ? { target: '_blank', rel: 'noopener' } : {});
-  P.TABS = [['maintenance', 'Maintenance', 'Maintenance'], ['special', 'Projects/Special', 'Projects/Special'], ['technical', 'Technical', 'Technical'], ['spareParts', 'Spare parts', 'Spare parts']];
+  P.TABS = [['spareParts', 'Spare part status', 'Spare part status'], ['special', 'Projects/Special', 'Projects/Special'], ['technical', 'Technical', 'Technical']];
   P.KEYS = P.TABS.map((t) => t[0]);
 
   // U1-C39: filter only the rendered, permission-scoped panel. Never query a wider job/history population.
@@ -50,7 +46,6 @@ window.EQ = window.EQ || {};
   P.jobsLink = (eq, scope, tab) => {
     const qs = new URLSearchParams();
     if (tab === 'spareParts') { const p = scopeParams(eq, scope); qs.set('equipment', eq.id); if (scope.level === 'main') qs.set('main', scope.id); if (scope.level === 'sub') qs.set('sub', scope.id); if (scope.level === 'part') qs.set('part', scope.id); return P.base + '#/eq/jobs/spare-parts?' + qs.toString(); }
-    if (tab === 'maintenance') { const t = EQ.todayColombo(); qs.set('equipment', eq.id); qs.set('from', t); qs.set('to', t); return P.base + '#/eq/jobs/daily?' + qs.toString(); } // U1-C20: Daily work (CMMS) tab
     Object.entries(scopeParams(eq, scope)).forEach(([k, v]) => qs.set(k, v));
     return P.base + '#/eq/jobs/special?' + qs.toString();
   };
@@ -60,48 +55,17 @@ window.EQ = window.EQ || {};
   const openInJobs = (eq, scope, tab) => (P.jobsAllowed() ? h('a', { class: 'btn btn-sm', href: P.jobsLink(eq, scope, tab), 'data-fk': 'open-in-jobs-' + tab, ...ext() }, icon('ext'), scope.level === 'area' ? 'Open equipment in Jobs' : 'Open in Jobs')
     : h('p', { class: 'small muted', style: 'margin:0', 'data-fk': 'jobs-tab-off-' + tab }, 'The EQ Jobs tab is not available for your role, so earlier work and job records are not shown.'));
 
-  /** Tab badges (summary query): today's CMMS job count, open special jobs, spare parts overdue / due soon. */
+  /** Current-state tab badges: eligible open special jobs and spare-part overdue / due-soon counts. */
   P.summary = function summary(eq, scope) {
     const cs = EQ.currentSpecial(eq.id, scope);
     const open = cs.ok ? cs.openJobs.length : 0;
     const rows = EQ.spares.rows(eq.id, scope.level === 'equipment' ? null : scope);
     const c = EQ.spares.counts(rows);
-    return { maintenance: eq.cmmsMapped ? EQ.cmms.todayJobs(eq.id).length : null, special: open, spare: c };
+    return { special: open, spare: c };
   };
 
   const tag = (t, cls, title) => h('span', { class: 'tag' + (cls ? ' ' + cls : ''), title }, t);
 
-
-  /** One CMMS daily job as a compact card (fields follow the real export; values are synthetic). */
-  P.dailyJobCard = function dailyJobCard(j) {
-    const staff = (st, hr) => (st === '-' ? '-' : st + ' staff, ' + hr + ' h');
-    return h('li', { class: /completed/i.test(j.statusText) ? '' : 'open', 'data-zjob': j.jobNo, 'data-panel-search-item': '' },
-      h('div', { class: 'row between' }, h('span', { class: 'mono' }, 'Job ' + j.jobNo + (j.cwo && j.cwo !== '0' ? ' · CWO ' + j.cwo : '')), h('span', null, tag(j.typeText), ' ', tag(j.statusText, /completed/i.test(j.statusText) ? 'green' : /hold/i.test(j.statusText) ? 'red' : 'gold'), ' ', tag(j.priority, j.priority === 'High' ? 'red' : ''))),
-      h('strong', null, j.desc),
-      h('span', { class: 'when' }, 'Equipment ' + j.equipmentText + ' (' + j.eqType + ', ' + j.dept + ') · created ' + j.created),
-      h('span', { class: 'when' }, 'Mech: ' + staff(j.mechStaff, j.mechHours) + ' · Elec: ' + staff(j.elecStaff, j.elecHours)),
-      j.fault ? h('span', { class: 'when' }, 'Fault: ' + j.fault + (j.corrective ? ' · Corrective: ' + j.corrective : '')) : null,
-      j.statusRemarks ? h('span', { class: 'when' }, 'Status remark: ' + j.statusRemarks) : null);
-  };
-
-  P.maintenance = function maintenance(eq, scope) {
-    const box = h('div', { class: 'stack' });
-    const mode = EQ.cmms.mode(eq);
-    const fresh = EQ.cmms.freshness();
-    box.appendChild(h('div', { class: 'sec' }, h('h3', null, 'Equipment status'),
-      h('div', { class: 'row' }, EQ.statusBadge(eq.status), tag(mode.label === 'Auto' ? 'Auto (CMMS)' : 'Manual', mode.label === 'Auto' ? '' : 'gold', mode.long)),
-      eq.statusReason && mode.label !== 'Auto' ? h('span', { class: 'small' }, 'Reason: ' + eq.statusReason) : null));
-    if (!eq.cmmsMapped) {
-      box.appendChild(h('div', { class: 'nonwork' }, h('strong', null, 'Not linked to CMMS')));
-    } else {
-      const jobs = EQ.cmms.todayJobs(eq.id);
-      box.appendChild(h('div', { class: 'sec' }, h('h3', null, "Today's CMMS daily jobs ", tag(String(jobs.length))),
-        h('div', { class: 'row small muted' }, EQ.cmms.freshLabel(), fresh.stale ? tag('Stale', 'gold', 'The latest sync failed or is overdue.') : null),
-        jobs.length ? h('ul', { class: 'tl' }, jobs.map((j) => P.dailyJobCard(j))) : h('div', { class: 'nonwork' }, h('strong', null, 'No CMMS job today'))));
-    }
-    box.appendChild(openInJobs(eq, scope, 'maintenance'));
-    return box;
-  };
 
   /** One job card. opts.current: crane-view use (current-state summary only, API s4.16): no correction history, and the job title is a
    *  link only when the session holds eq.jobs.view (D-139). The EQ Jobs tab calls it without opts and keeps the full card. */

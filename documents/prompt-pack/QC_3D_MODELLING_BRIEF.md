@@ -118,7 +118,7 @@ Do not seed an electrical hotspot into an arbitrary exact location if the suppli
 - Reset returns to a useful full-crane view. Fit selection handles thin ropes, empty bounds and hidden groups without clipping or jumping to infinity.
 - Prevent label overlap through priority/decluttering; hover-only labels are insufficient. Selection and labels must also be accessible through the tree.
 
-Normal red paint must not imply Breakdown. Use a separate status legend and overlays such as an outline, icon and adjacent text. Show open-work counts and the selected history period without inventing component health ratings. Completed replacement markers, if used, must make their date/filter explicit.
+Normal red paint must not imply Isolated; Long term isolated EQ names that manual category. No equipment/status-card blinking. Use a separate status legend and overlays such as an outline, icon and adjacent text. Show open-work counts and the selected history period without inventing component health ratings. Completed replacement markers, if used, must make their date/filter explicit.
 
 ## 6 Performance and deployment targets
 

@@ -1,0 +1,81 @@
+[
+  {
+    "name": "seed",
+    "result": {
+      "ok": true,
+      "equipmentId": "eq-qc-demo-01",
+      "change": {
+        "id": "sc-q01-manual-4",
+        "equipmentId": "eq-qc-demo-01",
+        "seq": 4,
+        "status": "readyForOps",
+        "prev": "isolated",
+        "reason": null,
+        "relatedJobId": null,
+        "at": "2026-10-28T05:26:06.997Z",
+        "by": "u-admin",
+        "source": "manual",
+        "kind": "manualStatus",
+        "legacy": false
+      },
+      "storedLocally": true
+    }
+  },
+  {
+    "name": "quota-first",
+    "result": {
+      "r": {
+        "ok": false,
+        "status": 503,
+        "code": "local_status_storage_failed",
+        "message": "Browser-local status could not be saved. Nothing was changed; your form can be retried when storage is available."
+      },
+      "status": "readyForOps",
+      "warning": "Browser-local status could not be saved. Nothing was changed; your form can be retried when storage is available."
+    }
+  },
+  {
+    "name": "quota-next",
+    "result": {
+      "r": {
+        "ok": false,
+        "status": 503,
+        "code": "local_status_storage_failed",
+        "message": "Browser-local status could not be saved. Nothing was changed; your form can be retried when storage is available."
+      },
+      "qc02": "readyForOps",
+      "qc03": "readyForOps",
+      "history": [
+        {
+          "id": "sc-q02-0",
+          "reason": "Gantry bogie alignment check (synthetic)"
+        },
+        {
+          "id": "sc-q02-0b",
+          "reason": null
+        },
+        {
+          "id": "manual-initial-eq-qc-demo-02",
+          "reason": "Synthetic manual registration choice"
+        }
+      ],
+      "warning": "Browser-local status could not be saved. Nothing was changed; your form can be retried when storage is available."
+    }
+  },
+  {
+    "name": "role-change-while-waiting",
+    "result": {
+      "result": {
+        "ok": false,
+        "status": 409,
+        "code": "persona_changed",
+        "message": "The demo persona changed while this action was waiting. Review and try again."
+      },
+      "status": "readyForOps"
+    }
+  },
+  {
+    "name": "errors",
+    "result": []
+  }
+]

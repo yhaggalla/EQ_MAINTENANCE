@@ -1,0 +1,75 @@
+{
+  "suites": [
+    {
+      "suite": "manual-model",
+      "passed": 55,
+      "total": 55,
+      "evidence": "model-checks.json"
+    },
+    {
+      "suite": "browser-UI",
+      "passed": 68,
+      "total": 68,
+      "evidence": "browser-checks.json"
+    },
+    {
+      "suite": "actual-tabs",
+      "passed": 20,
+      "total": 20,
+      "evidence": "cross-tab-checks.json"
+    },
+    {
+      "suite": "special-model",
+      "passed": 49,
+      "total": 49,
+      "evidence": "c50-model-regression.json"
+    },
+    {
+      "suite": "shared-model",
+      "passed": 41,
+      "total": 41,
+      "evidence": "c51-model-regression.json"
+    },
+    {
+      "suite": "history-boundaries",
+      "passed": 10,
+      "total": 10,
+      "evidence": "r02b-boundary-regression.json"
+    },
+    {
+      "suite": "FAC-charts",
+      "passed": 34,
+      "total": 34,
+      "evidence": "fac-charts-regression/checks.json"
+    },
+    {
+      "suite": "spares",
+      "passed": 11,
+      "total": 11,
+      "evidence": "spare-regression/checks.json"
+    },
+    {
+      "suite": "shared-viewer",
+      "passed": 11,
+      "total": 11,
+      "evidence": "viewer-regression/viewer-checks.json"
+    },
+    {
+      "suite": "progress-UI",
+      "passed": 23,
+      "total": 23,
+      "evidence": "progress-browser-regression/browser-checks.json"
+    },
+    {
+      "suite": "shared-jobs-UI",
+      "passed": 20,
+      "total": 20,
+      "evidence": "shared-jobs-browser-regression/browser-checks.json"
+    }
+  ],
+  "passed": 342,
+  "total": 342,
+  "independentReview": "PASS",
+  "formalAcceptanceCasesReviewed": 97,
+  "formalWorkingAppCasesPassed": 0
+}

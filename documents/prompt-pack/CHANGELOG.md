@@ -1,5 +1,11 @@
 # Prompt pack changelog
 
+## Version 2.3 28 October 2026
+
+Documentation-only U1-C63, SOW V2 revision 7: EQ & FAC Asset Management; remove CMMS/daily EQ work/sync/source/automatic/card blinking; exactly persistent manual Ready for OPS/Isolated and Long term isolated EQ category; Spare part status first/default among three crane tabs; three EQ Jobs tabs without Daily work; four rearranged Fleet KPIs. Retain FAC cycles/motion/TV, manual EQ work/spares/history, IDs/routes/permissions.
+
+Reconcile active prompts/contracts/SOW copies and records. Repurpose S20/S21/P07B with stable profiles. ZM01-ZM08 retired; AM01-AM11 added, 97 active cases. Refresh manifest and new 2.3 ZIP; old entries/packages remain historical. Implementation awaits user confirmation; U1 unapproved, no phase/runtime change.
+
 ## 2.2 | 24 October 2026 | SOW V2 revision 6 management feedback handling
 
 Accepted EQ/FAC management feedback is normal U1 refinement work and is retained after the temporary presentation is removed. Login/Portal feedback is deferred to actual integration in P05/relevant later phases. Add an initially empty management feedback register, trace each accepted request to its requirements, checks and cleaned checkpoint, and record the user's decision on new scope. TD07-TD08 now verify selective removal plus retained refinements; exact equality to the initial commit applies only if no accepted app changes exist. Never restore an old whole file over accepted app changes. B-23 / D-204 supersede the earlier strict restoration interpretation. No runtime implementation or U1 approval is introduced.

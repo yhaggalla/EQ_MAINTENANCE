@@ -1,5 +1,13 @@
 # UX specification
 
+## Current management scope 28 October 2026
+
+**U1-C63 / SOW V2 revision 7 / prompt pack 2.3: documentation only; implementation awaits the user's confirmation. U1 remains IN PROGRESS / NOT COMPLETE / NOT APPROVED; P04/P05 Not started.** Read `docs/MANAGEMENT_SCOPE_REVISION_20261028.md` for all eight outcomes. This section and the revision-7 contracts supersede conflicting earlier descriptions throughout this file. Earlier dated reviews/addenda/evidence describe their snapshots and do not validate the new scope.
+
+Display EQ & FAC Asset Management with unchanged eq-maintenance technical paths/roles. Exactly Ready for OPS and Isolated are explicitly initialized and manually updated; values persist until another authorized manual action. Long term isolated EQ is the Isolated category, with no timer threshold. Remove Maintenance/Unreported current states, all CMMS/daily EQ work/sync/account/mapping/automatic/override dependencies, source selectors and equipment-card blinking. Crane tabs: Spare part status first/default, Projects/Special, Technical. Jobs: Projects/Special, EQ status, Spare parts condition. Fleet: Active, Ready percentage, Ready count, Long term isolated EQ count with one filtered active population; dash for zero denominator.
+
+Preserve existing IDs and truthful legacy history; old/blank status values require explicit human review at implementation, never automatic conversion or guessed Ready/duration. Retain accepted EQ work/progress/shared-scope/replacement/spare/technical/Flat/3D behavior, roles/Access and all FAC cycles/progress/photos/moving/reduced-motion/TV rules. FAC and spare-part computed flags do not change EQ status. No external access, live database change or implementation is authorized by this revision.
+
 Current status (24 October 2026): **U1 IN PROGRESS; NOT COMPLETE / NOT APPROVED.** Sections 26-28 define the current shared viewer and supersede earlier separate-page/SVG, camera Reset and physical-area control descriptions. All refinements remain U1 work; P04 is Not started.
 
 Prepared in P02 on 21 October 2026; extended in P02B on 22 October 2026 to SOW V2 and the P01B contracts (sections 13-19 below; where they differ from sections 1-12, **sections 13-19 win**). Status: **design contract for R02B and the U1 repeat checkpoint**, backed by a runnable prototype (`artifacts/prototypes/p02-ui`, run instructions in its README) with the shared equipment-page viewer for both camera modes (sections 26-28). Authorities: `documents/prompt-pack/APPROVED_REQUIREMENTS.md` s4, s5, s7, `QC_3D_MODELLING_BRIEF.md` s5, `docs/DATA_CONTRACT.md`, `docs/API_CONTRACT.md`, `docs/ARCHITECTURE.md` s6-s7. Decisions made here are D-45 to D-54 (P02) and D-129 to D-138 (P02B) in `docs/DECISIONS.md`.
@@ -43,18 +51,11 @@ Rules: every query value uses only `[A-Za-z0-9_-]` (D-20: the Portal return-URL 
 
 ### 3.1 Fleet dashboard (S02, S03, S16)
 
-- (P02B) The "manual status, no telemetry" note is replaced by the automatic-status meaning (section 15): status follows today's CMMS plan (Auto), an EQ Team correction holds for the day (Manual), unmapped equipment keeps a manual status, never-set equipment shows **Unreported**, not Ready. Each card shows the source and today's CMMS job count.
-- Freshness line: "Data refreshed hh:mm:ss Asia/Colombo", "Auto-refresh every 60 s and after every change", **Refresh now**.
-- Status count strip: Ready for OPS, Breakdown, Maintenance, Unreported (each a toggle button with `aria-pressed` that filters) plus "Active equipment" with "Retired items are excluded". Counts follow the type filter but not the status filter or search, so they reconcile with the groups (API s4.2). Each equipment is counted once.
-- Filters: equipment type (All, QC, RTG, ES), search (code, name, model), include retired, layout Cards or Table.
-- Groups: QC, RTG, ES sections with their own mini counts (icon, number and an `aria-label` such as "Maintenance: 2"). RTG and ES groups carry "3D not available in stage 1".
-- Card: type icon (not a model, no canvas), code, status badge (icon + text + colour), "In Maintenance for 2 d 4 h" computed only from recorded status history or "No status reported yet", open job count, last update (Asia/Colombo), model code or "No verified model" / "No 3D in stage 1", link to the equipment. Retired cards are dashed and tagged.
-- Table layout carries the same fields for scanning and screen readers.
-- No WebGL canvas anywhere on the fleet (checked: zero canvases on every route).
+Revision 7: four cards Active equipment, Ready for OPS percentage, Ready for OPS count, Long term isolated EQ count. Use active type/search-scoped population for totals/type summaries/percentage; status filters detail rows; retired excluded; empty ratio is dash. Retain type/search/Include retired/Cards/Table/Refresh/TV and static cards/table with manual status, recorded duration and permitted work/model summaries. No CMMS/source/automatic/blink/pause-blinking controls or Maintenance/Unreported card. No Fleet WebGL canvas. Reflow desktop/phone/TV without empty removed-card slots or overflow; details in section 56.
 
 ### 3.2 Equipment detail (S04-S07, S14)
 
-Header: eyebrow "QC equipment", code, status badge, time in status and since-time, the reason for Breakdown/Maintenance, model association, link "N open jobs"; writers get **Update status** and **Add job**. Below it: breadcrumb (Fleet / code / main / sub / part), on tablet and phone the **Mechanisms** and **Details** drawer buttons.
+Header: eyebrow "QC equipment", code, status badge, time in status and since-time, the recorded reason for Isolated, model association, link "N open jobs"; writers get **Update status** and **Add job**. Below it: breadcrumb (Fleet / code / main / sub / part), on tablet and phone the **Mechanisms** and **Details** drawer buttons.
 
 Three regions at desktop width:
 
@@ -100,7 +101,7 @@ Out-of-order protection (HIS05): each history request is keyed by equipment, sco
 
 ## 5 Visual language
 
-- Operational status always appears as **icon + text + colour** in a badge: Ready for OPS (check circle, green), Breakdown (octagon X, red), Maintenance (wrench, amber), Unreported (dashed circle, grey, dashed border). Only these four exist; Unreported is a display state, not a fourth status.
+- Operational status appears as icon + text + color: Ready for OPS (green/check), Isolated (red/isolation icon). Long term isolated EQ names the Isolated category. No Maintenance/Unreported current choice or blinking. Model red paint is distinct from status.
 - Crane appearance is separate: red structural paint and a light machinery house exist only inside the model area. Selection is a dashed navy outline with a glow; open work is a gold circle with the job count (tooltip and tab-reachable list in the tree); location-approximate items are dashed circles. The legend has three groups (Appearance, Selection and work, Operational status) and states that red paint is never a Breakdown indication. The status badge sits outside the geometry.
 - Labels are always visible (never hover-only): fixed-position assembly labels at constant pixel size at every zoom, plus the Assemblies buttons and the tree. Technical mode adds internal labels and the note "Internals: layout approximate / simplified".
 - Provenance wording is exact: "Location approximate / simplified representation" for hotspot-type positions; parameters say "visually read from the drawing, not independently verified"; 63 m is shown as total lift height with "not the overall height of the crane"; the gantry speed shows both observations until an Admin decision.
@@ -115,7 +116,7 @@ Out-of-order protection (HIS05): each history request is keyed by equipment, sco
 | Conflict (409) | job edit | current values beside the user's edit; keep my edits on the current version, or reload current values |
 | Stale | fleet, jobs, equipment | last good data stays, banner "Showing the last good data from hh:mm", retry; nothing is reset to Ready |
 | Error | fleet, jobs, equipment | no data shown, explicit "could not be loaded", retry |
-| Unreported | fleet, equipment | badge "Unreported", "No status reported yet", no duration |
+| Required initial status | equipment creation/activation | explicit Ready for OPS or Isolated; missing selection rejected atomically |
 | Non-WebGL, context lost, model request failed | model area | message and Retry/Restore where meaningful; tree, history and permitted work stay fully usable |
 | No verified model | QC | message; no model facts assumed |
 | RTG / ES | detail | "3D view not available in stage 1", type icon only |
@@ -129,7 +130,7 @@ All forms are native modal dialogs with a header, scrolling body and footer; Esc
 - **Add / edit job**: equipment, kind (radio), title, description, scope target (Whole equipment / Main / Sub / Part with cascading selects limited to the equipment's active positions), planned date, priority, responsible, initial status. Editing locks equipment. No EAM/Maximo field exists (B-06).
 - **Complete job**: completion date (business date, not in the future, Asia/Colombo), completion note, replacement lines for Replacement jobs (position chosen from the active positions inside the job target, grouped by submechanism; removed item Unknown or known; installed item description, manufacturer, part number, serial that may stay unknown, quantity fixed at 1 ea for serialized positions and free for lot positions, replacement date, note), Add/Remove line, evidence statement, a warning that completing never changes status, and the retry-safe request key. Duplicate positions, positions of another equipment, lines older than the latest event at that position and an invalid line together with a valid one all fail without saving anything. The submit button shows a busy state to prevent a double submit.
 - **Cancel**: reason required.
-- **Update status**: three statuses, reason required for Breakdown and Maintenance, optional related open job of the same equipment, "takes effect at server time, cannot be back-dated", the same status is refused.
+- **Update status**: exactly Ready for OPS and Isolated; Isolated reason mandatory; optional related job whose scope contains the equipment; actor/time/history at server time, no backdating or expiry. Management/FAC Team cannot write EQ status.
 
 ## 8 Responsive behaviour
 
@@ -183,7 +184,7 @@ Prototype-level design contract. Everything below is synthetic and in memory: no
 
 ## 13 Sections, tabs, personas and Access states (S18, S19; DATA s14)
 
-Top bar: CICT mark and **EQ & FAC Maintenance**, the **EQ | FAC** section switch, the tabs of the current section, **Admin** (only with `admin.access`), the persona chip and the persistent **Read-only access** chip for read-only users. EQ tabs: **Fleet**, **Jobs**. FAC tabs: **FAC Dashboard**, **FAC Jobs**. Routes: `/eq/fleet`, `/eq/equipment/{id}`, `/eq/jobs/{special|status|spare-parts}`, `/fac/dashboard`, `/fac/jobs`, `/fac/jobs/{id}`, `/admin/{eq|fac|access}/...`.
+Top bar: CICT mark and **EQ & FAC Asset Management**, the **EQ | FAC** section switch, the tabs of the current section, **Admin** (only with `admin.access`), the persona chip and the persistent **Read-only access** chip for read-only users. EQ tabs: **Fleet**, **Jobs**. FAC tabs: **FAC Dashboard**, **FAC Jobs**. Routes: `/eq/fleet`, `/eq/equipment/{id}`, `/eq/jobs/{special|status|spare-parts}`, `/fac/dashboard`, `/fac/jobs`, `/fac/jobs/{id}`, `/admin/{eq|fac|access}/...`.
 
 | Persona (simulated Portal roles) | Switch | Tabs | Landing on first visit | Notes |
 | --- | --- | --- | --- | --- |
@@ -192,37 +193,25 @@ Top bar: CICT mark and **EQ & FAC Maintenance**, the **EQ | FAC** section switch
 | EQ Team | EQ, FAC | the four view tabs | EQ Fleet | works in EQ, reads FAC |
 | FAC Team | EQ, FAC | the four view tabs | **FAC Dashboard** | works in FAC, reads EQ |
 | EQ Team + FAC Team | EQ, FAC | the four view tabs | EQ Fleet | union of rights |
-| All tabs switched off (Management with the four view tabs off) | hidden | none | **No access** page | "No access - contact the EQ & FAC Maintenance Admin", explicitly "not an error"; no 403 shell |
+| All tabs switched off (Management with the four view tabs off) | hidden | none | **No access** page | "No access - contact the EQ & FAC Asset Management Admin", explicitly "not an error"; no 403 shell |
 
 Rules: the switch is hidden when only one section is permitted; a switch link opens the last used tab of that section; the last used tab route (path only, no query or record data) is kept in `localStorage` under `eq-maintenance:last-route:<profile>` and used when still permitted, otherwise the role default, otherwise the first permitted tab; blocked or failing storage falls back to the role default (checked). A switched-off tab that is opened by link answers **403 feature_disabled** with an explanation; Admin pages for a non-Admin answer **403 forbidden_role**. The UI re-reads its session at most every 60 seconds, on a persona switch and after a 403 `feature_disabled`; the simulated server reads the live matrix on every call, so a switched-off tab is blocked before the UI has caught up (ACC02).
 
 **Access matrix (Admin > Access)**: 12 features by four roles. Cell states: **Always** (fixed by the Portal role, green lock tag), **Not allowed** (above the role ceiling, dashed tag, no control), **On/Off** (checkbox with a visible On/Off word; 13 toggleable cells). Save is atomic with the matrix version (409 on a stale version) and an optional reason; a request containing a non-toggleable cell is refused as a whole (422 `access_cell_not_toggleable`); the change log lists version, time, actor, role, feature and old -> new. A "check the ceiling" panel sends refused changes on purpose.
 
-## 14 Crane view right panel: current state only (S07, U1-C19, HIS06; D-122)
+## 14 Crane view right panel current state revision 7
 
-Exactly four tabs in a `tablist` (arrow keys, Home/End, roving tab stop; the active tab is the `panel` URL parameter; default Maintenance), in the flat view and in the 3D viewer page, with the same data and the same wording (parity is checked by comparing the rendered text of 7 selections x 3 tabs). The tab names are always shown in full in a four-column grid (a count badge sits at the corner); they never scroll away.
+Exactly three full-name tabs in order: **Spare part status** (first/default), **Projects/Special**, **Technical**, in Flat/3D. Preserve keyboard tablist/roving focus, selection-echo and late-response protection. Fresh equipment entry and equipment/selection changes use Spare part status as the default; stale saved Maintenance selection cannot reopen removed content. Scoped search stays below retained tabs with correct placeholder/actions. Remove Maintenance search/panel, CMMS daily jobs, sync messages/source badges and card blinking.
 
-| Tab | Shows | Scope |
-| --- | --- | --- |
-| **Maintenance** | the equipment's status with its source (Auto (CMMS) or Manual) and causing CMMS jobs; **today's** CMMS daily jobs of the equipment as read-only cards (job number, CWO, type, status, priority, description, created, department and equipment type, mechanical and electrical staff and hours, fault and corrective text when present); "CMMS data from <time>" with a stale marker; for unmapped equipment "Not linked to CMMS" | equipment-level (CMMS jobs are not linked to mechanisms or parts): the same list for any selection, and the tab says so; no earlier days; **Open in Jobs** opens the Jobs tab filtered to the equipment and today |
-| **Projects/Special** | the **open and completed** special jobs (Pending, Current, Completed) of the selection with matching positions, newest first (U1-C23; completed cards show only "Completed on <date>"); counts "N open / N completed / N cancelled"; cancelled jobs are counted, not listed; jobs switched off with "Show on dashboard / 3D" are not shown or counted (U1-C26); **Add special job** for writers, pre-filled with the equipment and the selection (whole equipment included, U1-C21) | whole equipment: all; mechanism or submechanism: direct and descendant work, de-duplicated; part: exact position; **Open in Jobs** opens the scoped history |
-| **Technical** | specification summary of the selected area: equipment (type, model association, commissioning date, major parameters), mechanism or submechanism (definition, original label, source-linked parameters), part (identity, semantic key, kind, installed item now without past events, provenance, sources) with the 63 m total-lift and the 46 / 45.5 m/min conflict notes | selection |
-| **Spare parts** | current register rows of designated positions inside the selection: condition (Original / Replaced / Not recorded), brand, model/part no., serial, replaced date, expected life and its source, next predicted replacement with "calendar estimate, not a condition assessment", Overdue / Due soon flags; a non-designated part says "Not a major spare part"; **Add spare part** for writers (EQ Team and Admin, U1-C21), pre-filled with the equipment and selection (a non-designated part is pre-selected) | selection; **Open in Jobs** opens the register scoped to it, where the history is kept |
+Spare part status retains Original/Replaced/current installation, designation, life/prediction/flags, selected-position Add versus Update and Open in Jobs. Projects/Special retains accepted eligible current/completed summaries, Show rules, Add actions/shared scopes and scoped history links. Technical retains parameters/references/conflicts. Keep exact stable target identity and compact equipment status/header. Full installation/status/progress/correction history stays in permitted Jobs payloads. Phone/tablet keep Details drawer and accessible touch targets.
 
-No tab shows installation events, status changes, completion notes, job progress or correction history; completed special jobs appear only in Projects/Special (U1-C23, the one exception to "no history in the crane view"). Late responses for a previous selection are discarded (HIS05): each tab body carries `data-echo` = equipment | tab | scope | target. The machinery-house container keeps its own explanation instead of tab content. In the 3D page **Open in Jobs** and job numbers open the P02 prototype in a new tab (the production app links within itself). Phone and tablet: the panel is the **Details** drawer.
+## 15 Fleet and equipment manual status revision 7
 
-## 15 Fleet and equipment header additions (S02, S03, S21)
+Show one manual Ready for OPS or Isolated badge, duration since the recorded event and authorized Update status. Isolated requires reason; history records actor/time. No Auto/Manual selector, correction expiry, Back to automatic, CMMS job count/freshness, Maintenance/Unreported state or blink/pause-blinking. Retain meaningful app refresh/last-record timestamps and errors unrelated to removed sync.
 
-Fleet card: type icon, code, status badge, "For 2 d 4 h" or "No status reported yet", open special jobs, **source tag Auto or Manual** and **CMMS n** (today's count; nothing for unmapped equipment). Filters add **Status source** (All, Auto, Manual); the freshness line adds "CMMS data from <time>" with a stale marker when the latest run failed or no success within the stale window. The status-meaning note is a compact info chip ("Automatic status from CMMS") whose full text is the tooltip and a screen-reader text. Equipment header: Auto (CMMS) / Manual tag with its meaning, **Correct status** (mapped equipment) or **Update status** (unmapped), and **Back to automatic** while a manual correction holds. The correction dialog needs a reason for every correction of an automatic status and says it holds for the rest of today.
+## 16 EQ Jobs three tabs revision 7
 
-## 16 EQ Jobs tab in four tabs (S08; DATA s18.2; U1-C20)
-
-Sub-navigation: **Special/Projects**, **Daily work (CMMS)**, **EQ status**, **Spare parts condition** (U1-C20 splits the former "Special & daily jobs" part; it supersedes the SOW V2 s4.2 layout). Shared filters (equipment, type QC/RTG/ES, From, To, search) are kept in the URL across the tabs (search text is not). The legacy route `#/eq/jobs` opens Special/Projects.
-
-1. **Special/Projects**: manual special jobs only (SOW V2 s4.3): the board (Pending / Current / Completed, Include cancelled, scoped history opened by Open in Jobs), **Add special job** for writers (also **Add special job here** inside a scoped history, pre-filled with that scope), edit / start / complete / cancel as before. A one-line note points to the Daily work (CMMS) tab.
-2. **Daily work (CMMS)**: the read-only CMMS (zmms.lk) daily jobs (SOW V2 s4.4) with "CMMS data from", a synthetic-rows notice, default range today, From/To for earlier days (every synced day is kept), rows marked "No longer in the CMMS list" when absent from a later complete run, no controls inside the table, unmatched equipment never listed here (Admin only), Export. The crane-view Maintenance tab's **Open in Jobs** opens this tab for the equipment and today.
-3. **EQ status**: one row per active equipment with status, source and mode text, since, reason, "Manual until", causing CMMS jobs and **Correct...** / **Update...** and **Back to automatic** for writers; below it the status history across equipment (when, equipment, change, source CMMS sync #n or User, actor or System, reason, causing jobs). Management has no buttons.
-4. **Spare parts condition**: register rows (equipment/part, condition, brand/model/serial, replaced, expected life, next predicted replacement, flag, remarks), flag filter, **History** per part (every revision with before -> after, source, reason, job link) and **Update...** for writers (Record Original, Record replacement, Amend current, Edit remarks). **Add spare part** (EQ Team and Admin, U1-C21): equipment, main / sub filter, main-part position (active and not yet in the register), spare-part type, expected life (blank = type default), condition (Original / Replaced, or Keep the recorded installation), fitted/replaced date, item description, brand, model/part no., serial, remarks; the entry starts its history ("Added to the register"). A Replacement special job completion shows the condition notice and writes the register in the same commit.
+Projects/Special, EQ status, Spare parts condition. Remove Daily work, its rows/filter/badges/export/navigation; stale links safely fall back. Retain shared filters, Projects/Special progress/work/cancellation/shared scopes and spare register/history/actions under role permissions. EQ status rows show current value, recorded since/duration, reason and actor; Admin/EQ Team manually update, Management/FAC Team read only. No CMMS-source/automatic/override fields or controls. All history remains truthful/scoped; no job action changes operational status.
 
 ## 17 FAC screens (S23-S28; SOW V2 5.5, 5.6)
 
@@ -244,18 +233,20 @@ Sub-navigation: **Special/Projects**, **Daily work (CMMS)**, **EQ status**, **Sp
 
 ## 19 Admin additions (S10, S19-S23; ARCHITECTURE s6)
 
-Sub-navigation groups **EQ settings** (Equipment, Models and applicability, Mechanism catalogue, Main-part positions, Specifications, Model bindings, **Spare parts**, **CMMS**), **FAC settings** (**Master list**, **Import preview**, **Lists and settings**) and **Access** (Access matrix, section 13).
+Sub-navigation groups **EQ settings** (Equipment, Models and applicability, Mechanism catalogue, Main-part positions, Specifications, Model bindings, **Spare parts**), **FAC settings** (**Master list**, **Import preview**, **Lists and settings**) and **Access** (Access matrix, section 13).
 
 - **Mechanism catalogue** (U1-C22): **Add main mechanism** (new two-digit code, name, description), **Add submechanism** / **Add sub** per main (main code plus one digit, name, description), **Edit** on every main and sub (name and description; `061` Spreader and `062` Headblock show a lock and keep their names), Activate/Deactivate on mains and subs, "Added by Admin" / "Renamed by Admin" tags and a **Catalogue changes** list with before -> after. Counts stay "16 main / 43 sub" for the delivered catalogue plus "n added by Admin".
 - **Main-part positions** (U1-C22): **Add position** (draft, this equipment only: name, submechanism, binding key, kind serialized / quantity lot with unit, source reference) and **Edit** per row (name and source always; key and mechanism disabled once confirmed; kind and unit disabled once history exists), plus a **Position changes** list.
 - **Specifications** (U1-C22): **Add specification** (name, value, unit, condition, use Major / Technical, optional main mechanism, source, reason) labelled "Admin-entered"; **Set value... / Change value... / New value...** on every non-conflict row and **Resolve...** on conflicts (value, source, reason); **Edit** on Admin-entered rows; "Earlier values and edits" under a row. Drawing observations are never edited.
 - **Spare parts**: spare-part types with default expected life (months, blank = none), **Add type**, rename in place and **Retire / Reactivate** (U1-C22); **Add spare part** and per-position **Add with condition** / **Edit entry** (the register actions of EQ Jobs); a position list per equipment with designation, type and per-equipment life override (1-600 months), reason, and the resulting prediction. EQ Team and Admin can also add spare parts from EQ Jobs and the crane view (U1-C21).
-- **CMMS**: health (last successful sync, latest run, next scheduled, failed runs), sync times and stale window with validation, **Sync now** with a simulated outcome selector (success, login failure, layout change, timeout, HTTP error; a failed run changes nothing), recent runs (including a synthetic failed run), equipment mapping with an ignore entry and Retire, the unmatched queue with Map or ignore, **job type and job status mapping** (effects Breakdown / Maintenance / No effect / Unmapped and Open / Closed; automatic status cannot be switched on while a seen value is unmapped), and the status evaluation of the latest successful run (computed status, why not applied, causing jobs). The mapping effects shown are illustrative; the real choice is the Admin's after the first real data (Q11).
+- **CMMS**: removed completely; no Admin page/configuration/sync health or account dependency.
 - **Master list**: all FAC jobs, filter and search, add, edit, deactivate (reason) and reactivate; never deleted.
 - **Import preview**: counts (111 sheet rows, 114 jobs), the opening-state summary, issues by type with sheet rows and the way each is saved, the known source issues (U-30), the frequencies in the sheet, and a collapsible table of **every job as it would be saved** (blank quantity 1, blank PIC/mode/date stay blank, calculated first due date, opening state, issues); Confirm is simulated and a re-run is refused once progress exists.
 - **Lists and settings**: due-soon window, refresh seconds, dashboard scroll speed (validated), frequencies with intervals (tri-annually 4 months, bi-annually 6 months), disciplines and types.
 
 ## 20 Contract observations from P02B
+
+Historical P02B observations. CMMS discovery/mapping observations are withdrawn by revision 7; retained unrelated issues still apply.
 
 | ID | Observation | Proposed handling |
 | --- | --- | --- |
@@ -265,6 +256,8 @@ Sub-navigation groups **EQ settings** (Equipment, Models and applicability, Mech
 | UX-7 | FAC dashboard lanes show 18 / 55 / 36 listed jobs; jobs completed earlier and not yet due are counted in the ring and KPIs but not listed (D-119) | closed 23 Oct: "dont hide"; they are listed last as "Done, up to date" (U1-C24, section 23) |
 
 ## 21 Repair-R02B changes (23 October 2026)
+
+Sections 21-55 are historical accepted refinements; revision 7 supersedes CMMS/automatic/old statuses/blinking/four-tab/six-card details. Preserve unrelated accepted behavior. See section 56 for current proposed scope and confirmation gate.
 
 - **Crane view with the EQ Jobs tab switched off** (D-139): the four tabs keep their current-state content; Projects/Special still lists the open special jobs and the open/completed/cancelled counts, but job numbers are plain text, no tab shows "Open in Jobs" (a short note says the EQ Jobs tab is not available for the role), the header's open-job count is not a link and no job card shows correction history. With the tab on, nothing changes.
 - **FAC dashboard row, ticker item and proof caption** (D-140): they open the FAC Jobs record when the user holds FAC Jobs; otherwise the read-only dashboard detail `#/fac/dashboard/jobs/{id}` (same fields, current cycle, previous cycles and timeline; no actions, no picture upload, no photo removal; breadcrumb back to FAC Dashboard). The dashboard **Export** button appears only when the user holds both Export and FAC Jobs, because the export is the FAC Jobs list's export.
@@ -458,7 +451,7 @@ Desktop/TV proof figures fill their available height with a responsive left imag
 
 ## 53 Temporary management walkthrough before U1 approval
 
-24 October 2026, U1-T01 / B-22 / D-203; requirements only, BUILD not started. Follow `documents/prompt-pack/TEMP_MANAGEMENT_WALKTHROUGH.md` and SOW V2 section 2A. At root port 5312 show the existing Portal login design; blank, single-field and arbitrary inputs all proceed without validation, configuration, credential requests or storage. Show the same Portal launcher with UMMS, PayPrep and Safety as inert cards plus EQ & FAC Maintenance. The fourth card opens the unchanged default EQ Fleet using the existing EQ Team persona and landing rules; subsequent EQ/FAC workflows remain as committed.
+24 October 2026, U1-T01 / B-22 / D-203; requirements only, BUILD not started. Follow `documents/prompt-pack/TEMP_MANAGEMENT_WALKTHROUGH.md` and SOW V2 section 2A. At root port 5312 show the existing Portal login design; blank, single-field and arbitrary inputs all proceed without validation, configuration, credential requests or storage. Show the same Portal launcher with UMMS, PayPrep and Safety as inert cards plus EQ & FAC Asset Management. The fourth card opens the unchanged default EQ Fleet using the existing EQ Team persona and landing rules; subsequent EQ/FAC workflows remain as committed.
 
 Use the Portal's existing branding/layout/styles as the visual reference; do not implement Portal administration, users, roles, password features or real app/auth integration. Preserve existing prototype state/permissions, Flat/3D parity, FAC TV/motion and responsive behaviour. Temporary files/wiring must be isolated and manifest-listed. Before U1 approval remove the temporary layer and verify direct EQ/FAC entry. The initial reference is `8303f8b8a55f41983bdcc77363ddbf13d2892383`; retain all accepted EQ/FAC U1 refinements and remove only temporary wrapper edits. Verify the cleaned app against that initial commit plus accepted changes, then record its exact commit/tree for U1. Login/Portal feedback is deferred to P05 actual integration. TD01-TD08 are separate temporary checks and remain NOT RUN. Earlier statements that no sign-in exists describe the committed app; the proposed presentation screen establishes no authenticated session and is removed before U1 acceptance.
 
@@ -473,3 +466,12 @@ C59 correction / D-209: the user's "?? no icons?" feedback supersedes removing e
 ## 55 U1-C62: compact demo banner (26 October 2026)
 
 Display only the PROTOTYPE label and Prototype controls button in the shared EQ/FAC banner. Remove the long synthetic-data/persistence/sign-in/CMMS/persona sentence per the user's instruction. This replaces earlier visible-banner wording; the underlying prototype behavior and documented limitations remain. Controls retain accessible expanded state, keyboard operation and close action. D-210; evidence `docs/evidence/U1/compact-demo-banner-c62/REPORT.md`. U1 remains open/unapproved.
+
+
+## 56 U1-C63 management revision 7 documented 28 October 2026
+
+This is the proposed UX, not an implemented refinement. Apply the eight-request scope matrix only after user confirmation. Replace former Breakdown category with Long term isolated EQ (= manual Isolated, no duration threshold). The only operational statuses are Ready for OPS/Isolated, explicitly initialized with no guessed Ready or Unreported. Preserve legacy events while requiring manual review of old current values.
+
+Fleet has four cards across the available width: Active equipment, Ready for OPS percentage, Ready for OPS count, Long term isolated EQ count. Remove Maintenance/Unreported cards and obsolete source controls, sync text and all card blinking. Retain the approved small status/equipment icons, QC/RTG/ES summaries, type/search/status filters, Include retired, Cards/Table and TV. All four KPIs use active type/search population; retired excluded; status filters affect detail rows, not the KPI denominator. Empty percentage is a dash. Count cards reconcile: Ready + Isolated = active. Reflow desktop/tablet/phone/TV without blank removed-card slots or page overflow. AM01-AM11 and affected regressions remain NOT RUN.
+
+Earlier dated UX sections describing six KPIs, four crane/Jobs tabs, CMMS or status blinking are historical and superseded where they conflict. Keep accepted unrelated EQ work/part/geometry/history/permissions and FAC cycles/photos/moving/reduced-motion/TV. Fresh independent review and cleaned-app TD07-TD08 are needed before explicit U1 approval; P04/P05 remain Not started.

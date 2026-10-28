@@ -1,5 +1,14 @@
 # Decisions
 
+28 October 2026 final U1-C63 result: all eight management changes implemented; 342/342 authored checks across 11 suites passed; fresh independent fallback R02B review PASS with all findings closed. All 97 formal cases reviewed; working-app acceptance NOT RUN. Evidence: `docs/evidence/U1/asset-management-c63/REPORT.md`; independent report: `docs/evidence/R02B/review-20261028-U1-C63.md`. U1 NOT APPROVED; P04/P05 Not started; TD07-TD08 cleanup pending.
+
+
+
+
+28 October 2026 current state: the direct human instruction confirms U1-C63 implementation and review. The prototype repair is implemented; final independent verification is recorded separately. The earlier documentation-only waiting note below is historical and superseded by the latest implementation authorization. U1 remains IN PROGRESS / NOT COMPLETE / NOT APPROVED; P04/P05 Not started. All-97-case review and evidence: `docs/evidence/U1/asset-management-c63/`.
+
+28 October 2026 current scope: U1-C63 / B-26 / D-211, SOW V2 revision 7 and pack 2.3. Documentation-only changes are authorized now; implementation awaits the user's later confirmation. U1 remains IN PROGRESS / NOT COMPLETE / NOT APPROVED. Historical business rows below are superseded where they conflict with B-26. Full matrix: `docs/MANAGEMENT_SCOPE_REVISION_20261028.md`.
+
 Created in P00, extended in P01, Repair-R01, P02 and P03 on 21 October 2026, in the U1 repairs and P01B on 22 October 2026. Three separate lists: confirmed business choices (only the user changes these), routine implementation defaults (made by the implementing agent, revisable with a recorded reason), and unresolved source facts (need an authorized technical or business answer; none blocks P01).
 
 User checkpoint approvals (U1 after R02, U2 after P11) are recorded in section 4 when the user gives them.
@@ -12,6 +21,7 @@ Source: `documents/prompt-pack/APPROVED_REQUIREMENTS.md` s1 and `documents/EQ_MA
 
 | ID | Decision |
 | --- | --- |
+| B-26 | User management revision U1-C63: EQ & FAC Asset Management display; remove CMMS/daily EQ maintenance/sync/automatic/card blinking; exactly persistent manual Ready for OPS/Isolated with Long term isolated EQ category; Spare part status first/default among three crane tabs; Jobs without Daily work; four rearranged Fleet KPIs. Retain FAC/parts/history/access/IDs/routes. Documents only now; implementation needs confirmation; U1 unapproved. Supersedes conflicting B-10/B-18/B-19 and later affected UI rules. |
 | B-25 | User instruction, 25 October 2026, U1-C61: use QC01-QC14, RTG01-RTG46 and ES01-ES07 as equipment business codes everywhere in the editable app and current documentation. Preserve stable equipment/part/job/history identities. Only the names and format are confirmed; model associations, status and work fixtures remain synthetic. |
 | B-24 | User instruction, 25 October 2026: rename the external maintenance app to CMMS in every editable project surface. Its domain remains zmms.lk; preserve the existing URLs. This is a naming correction; source access, schedule, permissions, status calculation and phase gates retain their agreed behaviour. |
 | B-01 | Stage 1: QC interactive 3D first; QC, RTG and ES in the equipment register, fleet dashboard and work records. RTG/ES 3D is deferred and never substituted with a QC model. |
@@ -148,7 +158,7 @@ Evidence: `docs/evidence/P03/P03_EVIDENCE.md`, `artifacts/models/cict-j526a-sts-
 | D-67 | Drill-down labels in both views: equipment level shows tier 1 (main mechanisms with a bound representation), a selected main shows its submechanisms (tier 2), a selected submechanism or part shows its parts and location markers (tier 3). A label click performs the same selection as the tree. A label whose items are hidden in Overall is dashed with a "Technical" badge and switches to Technical when clicked; tree selection keeps the P03 behaviour (camera unchanged, hint). Labels are a pointer convenience; the tree and the selection panel remain the accessible path (3D label layer `aria-hidden`) | U1-C07, U1-C08; brief s5 |
 | D-68 | 3D labels take no pointer events; a click without a drag is hit-tested against the placed labels, so an orbit drag that starts on a label still orbits. Overlapping labels are stacked with a leader line rather than dropped (cap 30 in 3D) | U1-C07; P03 check `drag-cancels-transition` |
 | D-69 | Toolbar semantics: Isolate machinery house is always enabled and switches to Technical; Fit selection without a selection fits the whole crane (or the isolated house); Reset view resets the current view and keeps an aligned view aligned; aligned views allow pan and zoom with rotation locked and frame the selection | U1-C05 |
-| D-70 | Fleet page: no heading block; the operational-status meaning (manual, no telemetry, Unreported) is kept in a compact note with tooltip and accessible description; cards show code, status and "For <duration> · <n> open", with name, update time and model in the card title (all fields remain in the Table layout) | U1-C02 |
+| D-70 | Fleet page: no heading block; the operational-status meaning (manual, no telemetry, Unreported) is kept in a compact note with tooltip and accessible description; cards show code, status and "For <duration> Â· <n> open", with name, update time and model in the card title (all fields remain in the Table layout) | U1-C02 |
 | D-71 | Flat schematic horizontal layout follows the drawing more closely: machinery house 10.5 m wide, back-reach elements at their drawing stations; vertical proportions stay illustrative. New flat template positions are appended so existing synthetic position IDs do not change | U1-C03, U1-C08 |
 | D-72 | Appearance photos supplied for U1 (`documents/ChatGPT Image Oct 21, 2026, *.png`, AI-processed) are used for appearance and placement cues only (logo face, A/C row, cab look, stair tower); dimensions come from the drawings. The P03 photos `documents/Image_20261021*.jpg` are no longer present; P03 evidence that cites them is historical | U-21 |
 
@@ -742,7 +752,7 @@ User: "remove this part and optimize space.. 2nd image; make the buttons smaller
 
 ### 2026-10-24 U1 CHANGES REQUESTED (U1-C57: fill due chart and add Completion trend)
 
-User: "make this chart larger to fill and optimize the view.. dont increase the card size.." Then: "and can we add another card here (3 cards)? give me your suggestions.." The user selected "Completion trend — last four weeks (recommended)" from the suggested choices.
+User: "make this chart larger to fill and optimize the view.. dont increase the card size.." Then: "and can we add another card here (3 cards)? give me your suggestions.." The user selected "Completion trend â€” last four weeks (recommended)" from the suggested choices.
 
 D-201: implement three desktop/TV cards in the order Latest proof, Completion trend, Due in the next 8 weeks, keeping existing row heights and main feed height. Draw charts in measured CSS pixel dimensions, fill the available width and redraw after resize/refresh, with no text stretching. Stack cards on narrower normal screens and phones. Completion trend counts completed scheduled-job cycles by discipline over the three previous calendar weeks and the current week to date, excluding recurring Daily/Weekly checks. Use actual completion dates, count cycles rather than quantities/updates, omit future completions and return zeros for empty weeks. Apply the same shown/history population and discipline/type/mode/PIC/search filters as on-time performance; focus remains lane-only. Keep historical completions after job deactivation. Preserve role access and expose only aggregate dates/counts. Evidence: `docs/evidence/U1/fac-charts-c57/REPORT.md`. U1 remains open/unapproved; P04 Not started.
 
@@ -809,3 +819,22 @@ User feedback after `3aa11f3`: "?? no icons?". D-209 corrects the interpretation
 ### 2026-10-26 U1-C62 compact demo banner
 
 D-210: on the user's instruction, remove the full "Synthetic data only. Nothing is saved..." sentence from the shared EQ/FAC demo banner. Keep the PROTOTYPE label and Prototype controls; underlying fixtures, in-memory behavior, persona simulation and documented limitations remain. This supersedes older visible-sentence requirements only. Existing regression assertions check the retained compact notice instead of requiring the removed wording. Exact request: `docs/runs/Repair-U1-C62-20261026.md`; evidence `docs/evidence/U1/compact-demo-banner-c62/REPORT.md`. Preserve this accepted app refinement during temporary-wrapper cleanup. U1 remains open/unapproved; P04/P05 Not started.
+
+
+### 2026-10-28 U1 CHANGES REQUESTED U1-C63 management scope documentation
+
+The human user requested the eight changes in `docs/MANAGEMENT_SCOPE_REVISION_20261028.md`, explicitly limited to SOW V2, prompt pack and necessary documentation. This authorizes the targeted documents/ exception; no implementation, commit, publication, deployment or live/external access is included. Original SOW/workbook/drawings and historical evidence/exact prompts/packages remain protected.
+
+D-211: SOW V2 revision 7 / pack 2.3 record the proposed target. Long term isolated EQ means the manually selected Isolated population, not a third status or time rule. Registration needs explicit initial manual status; old/blank prototype values require explicit human selection, with truthful legacy history retained. No automatic migration/default Ready. Keep stable S20/S21/P07B IDs with removal/manual-status scope. Retire ZM01-ZM08; add AM01-AM11, 97 active cases. No new runtime acceptance or independent PASS is claimed.
+
+Status: DOCUMENTATION UPDATED / IMPLEMENTATION AWAITING USER CONFIRMATION. U1 IN PROGRESS / NOT COMPLETE / NOT APPROVED; P04/P05 Not started. After confirmation, affected U1 repair -> checks -> fresh independent review -> cleaned wrapper removal/TD07-TD08 -> user checkpoint. Implementation confirmation does not approve U1.
+
+### 2026-10-28 U1-C63 implementation confirmed by user
+
+Direct user instruction: "do the implementation.. carefully review all the test cases, UI and code after completion.."
+
+This confirms implementation of SOW V2 revision 7 / prompt pack 2.3 and the eight U1-C63 changes. Perform the affected P02/P02B/P03 U1 prototype Repair, retained-flow regression and fresh independent code/test/UI review. Earlier documentation-only waiting statements are superseded for this repair. U1 remains IN PROGRESS / NOT COMPLETE / NOT APPROVED; do not start P04/P05 or any later phase. Temporary-wrapper cleanup/TD07-TD08 remains a separate pre-approval gate; do not claim it passed without execution. Preserve existing documentation revisions, unrelated drawing deletions/untracked folder and all protected original sources. No external CMMS access, deployment, live data changes or phase advancement.
+
+### 2026-10-28 U1-C63 repair and independent review complete
+
+The confirmed eight-request prototype repair is implemented and 342/342 authored checks pass. Fresh fallback independent review PASS closes cross-tab lost writes, storage-failure rollback, initial-time stability and truthful failed-save UI. Review/profile limits, the all-97-case applicability ledger and exact evidence are recorded in the U1 report and R02B review. U1 NOT APPROVED; temporary-wrapper removal/TD07-TD08 pending; P04/P05 Not started. A local scoped checkpoint follows the repository workflow; no push/deployment/production access.

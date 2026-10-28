@@ -1,5 +1,4 @@
-/* U1 round 8: EQ Fleet dashboard restyle (U1-C31), equipment illustrations (U1-C29), blinking Breakdown / Maintenance
-   cards (U1-C30) and TV mode (U1-C28).
+/* EQ Fleet dashboard styling, equipment illustrations and TV mode; U1-C63 uses static two-status cards.
    Scope: every rule below is limited to the EQ Fleet page (.fleet-page.pa) or to body[data-page="eq-fleet"]. The --pa-*
    tokens are new shared tokens; no existing token is changed, so the FAC screens and the rest of the app look unchanged
    (checked by tools/p02b/check_u1_r8.mjs R8-09 against the committed prototype).
@@ -19,15 +18,12 @@
   --pa-radius-sm: 10px;
   --pa-ready: #2e8a5e; --pa-ready-soft: #e2f2e9;
   --pa-break-soft: #fbe2e9; --pa-maint-soft: #fdf0cf; --pa-unrep-soft: #eceff1;
-  /* blink (U1-C30): Breakdown raspberry-rose, Maintenance amber; both distinct from the CICT paint red #c7261c */
-  --blink-b-bg: #fbd9e3; --blink-b-ring: #c2416b; --blink-b-steady: #fde8ee;
-  --blink-m-bg: #fae2a0; --blink-m-ring: #9a7417; --blink-m-steady: #fef5dc;
 }
 body[data-page="eq-fleet"] { background: var(--pa-page); }
 .pa.fleet-page:not(.tv-fleet) { padding-bottom: 1rem; }
 .pa .eq-card[hidden], .pa .fleet-group[hidden] { display: none !important; } /* TV paging */
 
-/* ---------------------------------------------------------------- page bar (freshness, Refresh, Pause, TV) */
+/* ---------------------------------------------------------------- page bar (app refresh and TV) */
 .pa .fleet-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .35rem 1rem; margin-bottom: .5rem; }
 .pa .fleet-bar .freshness { margin: 0; font-size: .78rem; color: var(--pa-muted); gap: .3rem .8rem; }
 .pa .fleet-bar .freshness strong { color: var(--pa-ink-2); }
@@ -40,7 +36,7 @@ body[data-page="eq-fleet"] { background: var(--pa-page); }
 
 /* ---------------------------------------------------------------- KPI tile row */
 .pa .fleet-top { display: block; margin-bottom: .6rem; }
-.pa .kpi-row { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, .65fr) repeat(3, minmax(0, 1.5fr)) minmax(0, .65fr); gap: .6rem; margin: 0; }
+.pa .kpi-row { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .7fr) minmax(0, 1.45fr) minmax(0, 1.6fr); gap: .6rem; margin: 0; }
 .pa .count-card.kpi { display: grid; grid-template-rows: auto auto; align-content: center; gap: .15rem; min-height: 4.4rem; padding: .55rem .85rem; border: 1px solid var(--pa-line); border-radius: var(--pa-radius); background: var(--pa-card); box-shadow: var(--pa-shadow); text-align: left; color: var(--pa-ink); font-weight: 500; justify-items: stretch; justify-content: stretch; outline: none; }
 .pa button.count-card.kpi { cursor: pointer; }
 .pa button.count-card.kpi:hover { box-shadow: var(--pa-shadow-hover); border-color: var(--pa-line-strong); background: var(--pa-card); }
@@ -51,15 +47,14 @@ body[data-page="eq-fleet"] { background: var(--pa-page); }
 .pa .kpi .lbl { display: flex; align-items: center; gap: .3rem; font-size: .8rem; font-weight: 600; color: var(--pa-muted); }
 .pa .kpi .k-label-icon { width: 14px; height: 14px; flex: 0 0 14px; }
 .pa .kpi-readyForOps .k-label-icon { color: #32624e; }
-.pa .kpi-breakdown .k-label-icon { color: #9c344d; }
-.pa .kpi-maintenance .k-label-icon { color: #805d0e; }
+.pa .kpi-isolated .k-label-icon { color: #9c344d; }
 .pa .kpi .k-types { display: flex; flex-wrap: nowrap; gap: .35rem; align-items: center; color: var(--pa-ink-2); }
 .pa .kpi .k-type { display: grid; justify-items: center; gap: 0; white-space: nowrap; font-size: .85rem; line-height: 1.1; }
 .pa .kpi .k-type .eq-art { width: 30px; height: 19px; }
 .pa .kpi .k-type-count { display: inline-flex; align-items: baseline; gap: .2rem; }
 .pa .kpi .k-code { font-size: .72rem; font-weight: 600; }
 .pa .kpi .k-type b { font-weight: 750; line-height: 1.1; }
-.pa :is(.kpi-share, .kpi-unreported) { padding-inline: .65rem; }
+.pa .kpi-share { padding-inline: .65rem; }
 .pa .count-card.kpi-share { padding-inline: .4rem; }
 .pa .kpi-share .k-top { justify-content: flex-start; }
 .pa .kpi-share .lbl { font-size: .72rem; }
@@ -99,29 +94,6 @@ body[data-page="eq-fleet"] { background: var(--pa-page); }
 .pa .eq-card .meta .src { font-size: .62rem; padding: 0 .3rem; }
 .pa .eq-card.retired { background: #f7f7f4; border-style: dashed; box-shadow: none; }
 
-/* ---------------------------------------------------------------- blink (U1-C30): colour, pattern, rhythm; never layout */
-.pa .eq-card.blink::before { content: ""; position: absolute; left: 0; top: .45rem; bottom: .45rem; width: 4px; border-radius: 0 3px 3px 0; pointer-events: none; }
-.pa .eq-card.blink-breakdown::before { background: var(--blink-b-ring); }                                                    /* solid stripe */
-.pa .eq-card.blink-maintenance::before { width: 0; border-left: 4px dashed var(--blink-m-ring); border-radius: 0; }                      /* dashed stripe */
-@keyframes pa-blink-breakdown {
-  0%, 100% { background-color: var(--pa-card); border-color: var(--pa-line); box-shadow: var(--pa-shadow); }
-  50% { background-color: var(--blink-b-bg); border-color: var(--blink-b-ring); box-shadow: var(--pa-shadow), inset 0 0 0 1px var(--blink-b-ring); }
-}
-@keyframes pa-blink-maintenance {
-  0%, 100% { background-color: var(--pa-card); border-color: var(--pa-line); box-shadow: var(--pa-shadow); }
-  50% { background-color: var(--blink-m-bg); border-color: var(--blink-m-ring); box-shadow: var(--pa-shadow), inset 0 0 0 1px var(--blink-m-ring); }
-}
-/* Breakdown 2.5 s (0.4 flashes/s), Maintenance 3.5 s (0.29 flashes/s); user request 2026-10-23: different colour and rhythm, both below 3 per second */
-.pa .eq-card.blink-breakdown { animation: pa-blink-breakdown 2.5s ease-in-out infinite; }
-.pa .eq-card.blink-maintenance { animation: pa-blink-maintenance 3.5s ease-in-out infinite; }
-/* Pause control or motion=off: steady highlight */
-.pa.blink-paused .eq-card.blink-breakdown { animation: none; background-color: var(--blink-b-steady); border-color: var(--blink-b-ring); box-shadow: var(--pa-shadow), inset 0 0 0 1px var(--blink-b-ring); }
-.pa.blink-paused .eq-card.blink-maintenance { animation: none; background-color: var(--blink-m-steady); border-color: var(--blink-m-ring); box-shadow: var(--pa-shadow), inset 0 0 0 1px var(--blink-m-ring); }
-@media (prefers-reduced-motion: reduce) {
-  .pa .eq-card.blink-breakdown { animation: none; background-color: var(--blink-b-steady); border-color: var(--blink-b-ring); box-shadow: var(--pa-shadow), inset 0 0 0 1px var(--blink-b-ring); }
-  .pa .eq-card.blink-maintenance { animation: none; background-color: var(--blink-m-steady); border-color: var(--blink-m-ring); box-shadow: var(--pa-shadow), inset 0 0 0 1px var(--blink-m-ring); }
-}
-
 /* ---------------------------------------------------------------- TV mode (U1-C28): one screen at 1920 x 1080, read-only */
 .pa.tv-fleet { width: 100%; max-width: none; height: calc(100vh - 1.6rem); padding: .7rem 1.2rem .45rem; display: flex; flex-direction: column; gap: .65rem; overflow: hidden; }
 .tv-fleet .tvf-head { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem 1.1rem; }
@@ -156,8 +128,6 @@ body[data-page="eq-fleet"] { background: var(--pa-page); }
 .tv-fleet .eq-card .st-line .dur { font-size: 1.05rem; color: var(--pa-ink-2); font-weight: 600; overflow: hidden; text-overflow: ellipsis; }
 .tv-fleet .eq-card .meta { font-size: 1rem; color: var(--pa-muted); }
 .tv-fleet .eq-card .meta .src { font-size: .85rem; padding: 0 .4rem; }
-.tv-fleet .eq-card.blink-breakdown::before { top: .7rem; bottom: .7rem; width: 6px; }
-.tv-fleet .eq-card.blink-maintenance::before { top: .7rem; bottom: .7rem; border-left-width: 6px; }
 .tv-fleet .tvf-foot { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem 1.4rem; font-size: .95rem; color: var(--pa-muted); }
 .tv-fleet .tvf-pager { margin-left: auto; font-weight: 700; color: var(--pa-ink-2); }
 .tv-fleet .notice { font-size: 1.05rem; }
@@ -177,14 +147,26 @@ body[data-page="eq-fleet"] { background: var(--pa-page); }
 
 /* ---------------------------------------------------------------- responsive */
 @media (max-width: 1279px) {
-  .pa .kpi-row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .pa .kpi-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 767px) {
   .pa .kpi-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .pa .kpi-total { grid-column: 1 / -1; }
+  .pa .kpi-total { grid-column: auto; }
   .pa .kpi .k-type { font-size: .78rem; }
   .pa .kpi .k-code { font-size: .68rem; }
   .pa .kpi .k-type .eq-art { width: 26px; height: 17px; }
   .pa .card-grid { grid-template-columns: minmax(0, 1fr); }
   .pa .fleet-bar { align-items: flex-start; }
+}
+
+/* U1-C63: static isolation cue, four balanced responsive KPIs. */
+.pa .eq-card.st-card-isolated { border-left: 3px solid #a14454; background: #fff5f6; }
+.pa .kpi-isolated .lbl { overflow-wrap: anywhere; }
+@media (max-width: 600px) {
+  .pa .count-card.kpi { min-height: 5.25rem; padding: .5rem; }
+  .pa .kpi .k-top { gap: .3rem; }
+  .pa .kpi .k-types { gap: .15rem; }
+  .pa .kpi .n { font-size: 1.45rem; }
+  .pa .kpi .lbl { font-size: .75rem; }
+  .pa .filters button, .pa .filters input[type=checkbox], .pa .fb-tools button { min-height: 44px; }
 }

@@ -1,5 +1,28 @@
 # Handover
 
+28 October 2026 final U1-C63 result: all eight management changes implemented; 342/342 authored checks across 11 suites passed; fresh independent fallback R02B review PASS with all findings closed. All 97 formal cases reviewed; working-app acceptance NOT RUN. Evidence: `docs/evidence/U1/asset-management-c63/REPORT.md`; independent report: `docs/evidence/R02B/review-20261028-U1-C63.md`. U1 NOT APPROVED; P04/P05 Not started; TD07-TD08 cleanup pending.
+
+
+
+
+## 28 October 2026 U1-C63 implementation and final review
+
+The user confirmed implementation ("do the implementation.. carefully review all the test cases, UI and code after completion..", then "continue.."). The eight SOW V2 revision 7 changes are implemented in the local synthetic prototype. Earlier documentation-only/awaiting-confirmation entries below describe the previous snapshot and are superseded for this repair. Runtime: Asset Management display, no CMMS/daily EQ work/automatic status/card blinking, two manual statuses with browser-local persistence, three ordered crane tabs, three Jobs sections, and four Fleet KPIs; retained EQ/FAC/part/history/viewer/permissions verified in the evidence below.
+
+All 97 formal cases are reviewed in `docs/evidence/U1/asset-management-c63/ACCEPTANCE_REVIEW.md` and its JSON. Real working-app acceptance remains NOT RUN; no P04/P05, real sign-in, SQL, IIS, deployment or external service is claimed. 671 protected source/model hashes and unrelated drawing changes are preserved. Detailed final checks/review are in `docs/evidence/U1/asset-management-c63/REPORT.md` and the current R02B review report.
+
+Fresh independent review found a cross-tab lost-update bug and then storage-failure/baseline-time edge cases; these are repaired with shared write locks, revision/reset guards, rollback and a stable authored fixture instant. Direct regression tests were added. The designated agents reached a usage limit; the parent completed the repairs and a fresh independent fallback reviewer rechecks the final state. Actual final verdict is recorded separately; do not infer PASS from this implementation note.
+
+**U1 remains IN PROGRESS / NOT COMPLETE / NOT APPROVED. P04/P05 remain Not started.** Temporary management wrapper is retained for this walkthrough; TD07-TD08 cleaned-app removal remains pending before explicit U1 approval. Next is the U1 walkthrough and required cleanup, followed by an explicit user checkpoint. No phase advancement or live-system change.
+
+## 28 October 2026 U1-C63 documentation revision awaiting confirmation
+
+SOW V2 revision 7 and prompt pack 2.3 document all eight management changes in `docs/MANAGEMENT_SCOPE_REVISION_20261028.md`: Asset Management display name; complete CMMS/daily EQ work/sync/automatic/card-blinking removal; two persistent manual statuses; Long term isolated EQ category; Spare part status first/default; Jobs without Daily work/manual status; four Fleet KPIs. Current contracts, acceptance and records are aligned. S20/S21/P07B IDs retained with revised purpose; 97 active permanent cases, new AM01-AM11 NOT RUN. Historical reviews/results do not cover revision 7.
+
+**Documents only: prototype/application/tools/Portal unchanged by this revision. Implementation awaits the user's explicit confirmation; U1 remains IN PROGRESS / NOT COMPLETE / NOT APPROVED. P04/P05 Not started.** Then perform affected U1 Repair, manual review of old status values, relevant EQ/FAC/Flat/3D/permission checks and fresh independent review; remove temporary wrapper and verify TD07-TD08 before explicit U1 approval. Preserve unrelated user changes, original protected sources, stable identities and historical evidence.
+
+Validation/report: `docs/evidence/U1/asset-scope-20261028/REPORT.md`. No commit/push/deployment/external access or live data change. Earlier dated entries remain historical.
+
 Rolling handover for CICT EQ Maintenance. Each phase appends its record; the newest is first.
 
 ## 26 October 2026 - Pages artifact retry fix

@@ -1,5 +1,7 @@
 # Models and effort by phase
 
+Pack 2.3 / 28 October 2026: P07B retains its ID/profile and verifies CMMS removal plus manual status. Model settings retained, not newly researched. Implementation awaits confirmation; U1 unapproved.
+
 Version 2.2 | Profiles verified 21 October 2026, phases added 22 October 2026; unchanged for the 24 October temporary walkthrough | Codex and Claude Code alternatives
 
 Use one platform for each phase. The Codex and Claude columns are alternatives; running both is not required. The table is a quality-oriented starting recommendation based on the phase's work and failure consequences, not a benchmark result for this application. Preserve the same scope, sources and acceptance criteria regardless of provider.
@@ -21,15 +23,15 @@ In the Codex column, Sol means **GPT-6.1 Sol** (`gpt-6.1-sol`), and Astra means 
 | P02 | UI prototype | Sol | High | Sonnet | High | Concrete screen and interaction work with established scope and visual review. |
 | P03 | QC model prototype | Astra | Extra high (`xhigh`) | Opus | High | Spatial source interpretation, semantic model mapping and a reproducible geometry pipeline. |
 | R02 | UX and model fidelity review | Astra | High | Opus | High | Compare actual views with drawings and inspect interaction/identity behaviour. |
-| P01B | V2 contracts addendum | Astra | High | Opus | High | Same contract work as P01 for the access, ZMMS, spare-part and FAC rules. |
+| P01B | V2 contracts addendum | Astra | High | Opus | High | Same contract work as P01 for the access, manual EQ status, spare-part and FAC rules. |
 | P02B | V2 prototype | Sol | High | Sonnet | High | Concrete screens on settled contracts, like P02, including the moving dashboard. |
-| R02B | V2 contracts and prototype review | Astra | High | Opus | High | Check access ceilings, ZMMS safety and FAC rules before code locks them in. |
+| R02B | V2 contracts and prototype review | Astra | High | Opus | High | Check access ceilings, CMMS removal, manual status and FAC rules before code locks them in. |
 | P04 | Runnable app foundation | Sol | High | Sonnet | Medium | Bounded scaffolding and subpath setup after the architecture is defined. |
 | P05 | Portal identity integration | Astra | High | Opus | High | Trusted profiles, shared-token compatibility and cross-application regressions. |
 | R03 | Identity and compatibility review | Astra | Extra high (`xhigh`) | Opus | Extra high (`xhigh`) | Examine authorization and rollout failure paths before other workflows depend on them. |
 | P06 | Database, catalogue and Admin | Sol | High | Opus | High | Implement explicit schemas and seed rules while preserving installed identities. |
 | P07 | Jobs, status and replacements | Astra | High | Opus | High | Transactions, retries, concurrency and later-installation corrections interact. |
-| P07B | ZMMS daily jobs and automatic status | Astra | High | Opus | High | Fail-closed parsing of an unknown page, credentials handling and time-boundary status rules. |
+| P07B | CMMS removal and manual-status verification | Astra | High | Opus | High | Verify removed integration and persistent audited two-status rules; no external access/account. |
 | P08 | Protected evidence and history | Sol | High | Opus | High | File authorization, source provenance and exact/descendant query scope. |
 | P08B | FAC jobs, cycles and photos | Sol | High | Opus | High | Calendar due rules, idempotent progress, corrections and protected photos. |
 | P09 | Fleet and detail UI | Sol | High | Sonnet | Medium | Connect well-specified views to established APIs and test freshness/counts. |

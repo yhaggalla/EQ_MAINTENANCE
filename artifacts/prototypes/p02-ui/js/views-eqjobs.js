@@ -1,5 +1,5 @@
-/* EQ Jobs tab in four tabs (U1-C20, supersedes the SOW V2 s4.2 three-part layout; DATA_CONTRACT s18.2): Special/Projects |
-   Daily work (CMMS) | EQ status | Spare parts condition. Shared filters (equipment, type, date range, search) are kept in the URL across
+/* U1-C63 EQ Jobs: Special/Projects | EQ status | Spare parts condition. No daily external work or automatic status.
+   Shared filters (equipment, type, date range, search) are kept in the URL across
    the tabs. Work history lives here, not in the crane view: the scoped history (DATA s9) opens with equipment + scope + target ("Open in
    Jobs"). EQ Team and Admin add special jobs and spare parts here (U1-C21). Synthetic data only. */
 window.EQ = window.EQ || {};
@@ -8,7 +8,7 @@ window.EQ = window.EQ || {};
   EQ.views = EQ.views || {};
   const kit = () => EQ._dlg;
 
-  const PARTS = [['special', 'Special/Projects'], ['daily', 'Daily work (CMMS)'], ['status', 'EQ status'], ['spare-parts', 'Spare parts condition']];
+  const PARTS = [['special', 'Special/Projects'], ['status', 'EQ status'], ['spare-parts', 'Spare parts condition']];
   const SHARED = ['equipment', 'type', 'from', 'to'];
   const fmtD = (iso) => EQ.fmtDate(iso);
 
@@ -24,20 +24,10 @@ window.EQ = window.EQ || {};
   function eqList(q) {
     return EQ.state.D.equipment.filter((e) => (!q.type || e.typeCode === q.type) && (!q.equipment || e.id === q.equipment));
   }
-  function dailyRows(q) {
-    const z = EQ.state.D.cmms, today = EQ.todayColombo();
-    const from = q.from || (q.to ? '0000-01-01' : today), to = q.to || (q.from ? '9999-12-31' : today);
-    const ids = new Set(eqList(q).map((e) => e.id));
-    const needle = (EQ.jobsUI.q || '').toLowerCase();
-    return z.jobs.filter((j) => j.match === 'matched' && ids.has(j.equipmentId) && j.date >= from && j.date <= to && (!needle || (j.jobNo + ' ' + j.desc + ' ' + j.equipmentText + ' ' + EQ.eq(j.equipmentId).code).toLowerCase().includes(needle)))
-      .sort((a, b) => EQ.cmp(b.date, a.date) || EQ.cmp(a.equipmentText, b.equipmentText) || EQ.cmp(a.jobNo, b.jobNo));
-  }
-  EQ.dailyRows = dailyRows;
-  const DAILY_COLUMNS = ['Job date', 'Job ID', 'CWO No', 'Equipment (app code)', 'CMMS equipment', 'Equipment type', 'Department', 'Job type', 'Job status', 'Priority', 'Created', 'Description', 'Staff of Mech Tech', 'Hours of Mech Tech', 'Staff of Elec Tech', 'Hours of Elec Tech', 'Reported fault', 'Corrective action', 'Source state'];
   EQ.eqExport = function eqExport(kind, q) {
     const deny = EQ.access.srv('export.excel') || EQ.access.srv('eq.jobs.view'); if (deny) return deny;
-    if (kind === 'daily') return { ok: true, columns: DAILY_COLUMNS, rows: dailyRows(q).map((j) => [j.date, j.jobNo, j.cwo, EQ.eq(j.equipmentId).code, j.equipmentText, j.eqType, j.dept, j.typeText, j.statusText, j.priority, j.created, j.desc, j.mechStaff, j.mechHours, j.elecStaff, j.elecHours, j.fault, j.corrective, j.sourceState]) };
     if (kind === 'spare') { const rows = spareRows(q); return { ok: true, columns: ['Equipment', 'Type', 'Main', 'Sub', 'Position', 'Spare-part type', 'Condition', 'Brand', 'Model/part no.', 'Serial', 'Replaced date', 'Expected life (months)', 'Next predicted replacement', 'Flag', 'Remarks'], rows: rows.map((r) => [r.eq.code, r.eq.typeCode, r.mainCode, r.subCode, r.pos.name, r.typeName, r.condition || 'Not recorded', r.brand || '', r.model || '', r.serial || '', r.replacedOn || '', r.lifeMonths == null ? '' : r.lifeMonths, r.predicted || r.why, r.flag || '', r.remarks]) }; }
+    if (!['special','spare'].includes(kind)) return { ok: false, status: 404, code: 'export_not_found', message: 'This export is not available.' };
     const jobs = EQ.specialJobs(q); if (!Array.isArray(jobs)) return jobs;
     return { ok: true, columns: ['Number', 'Equipment', 'Kind', 'Title', 'Work status', 'Cancelled', 'Planned date', 'Completed date', 'Shown on dashboard / 3D'], rows: jobs.map((j) => [j.number, EQ.jobEquipmentLabel(j), j.kind, j.title, j.workStatus, j.isCancelled ? 'Yes' : '', j.plannedOn || '', j.completedOn || '', EQ.shownOnDashboard(j) ? 'Yes' : 'No']) }; // U1-C26: hidden jobs stay in the export
   };
@@ -59,10 +49,11 @@ window.EQ = window.EQ || {};
     if (part === 'special' && id) return EQ.views.job(id);
     if (!PARTS.some((p) => p[0] === part)) part = 'special';
     const page = h('div', { class: 'page eqjobs-page' });
+    if (q.removed) page.appendChild(h('p', { class: 'notice info', role: 'status' }, 'That view has been removed. Projects and special work remain available here.'));
     const setQ = (patch, p2) => EQ.nav('/eq/jobs/' + (p2 || part), { ...q, ...patch });
     const keepShared = Object.fromEntries(SHARED.filter((k) => q[k]).map((k) => [k, q[k]]));
     page.appendChild(h('h1', { class: 'sr-only' }, 'EQ Jobs'));
-    page.appendChild(h('nav', { class: 'subtabs', 'aria-label': 'EQ Jobs parts' }, PARTS.map(([k, label]) => h('a', { href: '#/eq/jobs/' + k + (Object.keys(keepShared).length ? '?' + new URLSearchParams(keepShared).toString() : ''), 'aria-current': k === part ? 'page' : null, 'data-fk': 'jp-' + k, title: k === 'special' ? 'Major or non-routine work entered by hand for equipment, a mechanism or a part. Daily work from CMMS is in Daily work (CMMS).' : null }, label))));
+    page.appendChild(h('nav', { class: 'subtabs', 'aria-label': 'EQ Jobs parts' }, PARTS.map(([k, label]) => h('a', { href: '#/eq/jobs/' + k + (Object.keys(keepShared).length ? '?' + new URLSearchParams(keepShared).toString() : ''), 'aria-current': k === part ? 'page' : null, 'data-fk': 'jp-' + k, title: k === 'special' ? 'Projects and special work entered manually for equipment, a mechanism or a part.' : null }, label))));
 
     if (S.data === 'loading') { page.appendChild(h('div', { 'aria-busy': 'true', role: 'status', class: 'board' }, [1, 2, 3].map(() => h('div', { class: 'skeleton', style: 'height:16rem' })))); return page; }
     if (S.data === 'error') { page.appendChild(h('div', { class: 'notice error', role: 'alert' }, icon('wifi-off'), h('div', null, h('p', null, h('strong', null, 'Jobs could not be loaded. '), 'Nothing is shown as completed or pending without data.'), h('div', { class: 'actions' }, h('button', { type: 'button', class: 'btn-sm', onClick: () => EQ.refresh(true) }, 'Retry'))))); return page; }
@@ -82,7 +73,6 @@ window.EQ = window.EQ || {};
       h('button', { type: 'button', class: 'btn-sm', onClick: () => { EQ.jobsUI.q = ''; EQ.nav('/eq/jobs/' + part, {}); } }, 'Clear filters')));
 
     if (part === 'special') special(page, q, setQ);
-    else if (part === 'daily') daily(page, q);
     else if (part === 'status') statusPart(page, q);
     else sparePart(page, q, setQ);
     return page;
@@ -113,72 +103,27 @@ window.EQ = window.EQ || {};
     page.appendChild(EQ.specialBoard(q, toolbarActions));
   }
 
-  // ---------------------------------------------------------------- tab 2: Daily work (CMMS), the read-only CMMS daily jobs (SOW V2 s4.4)
-  function daily(page, q) {
-    const rows = dailyRows(q);
-    const today = EQ.todayColombo();
-    const range = q.from || q.to ? (q.from ? fmtD(q.from) : 'start') + ' to ' + (q.to ? fmtD(q.to) : 'today') : 'today only (' + fmtD(today) + ')';
-    const fresh = EQ.cmms.freshness();
-    page.appendChild(h('section', { class: 'panel panel-pad stack', id: 'daily', 'aria-labelledby': 'dj-h' },
-      h('div', { class: 'row between' }, h('h2', { id: 'dj-h' }, 'CMMS daily jobs (read-only)'),
-        h('div', { class: 'row' }, h('span', { class: 'cmms-fresh' + (fresh.stale ? ' stale' : ''), 'data-fk': 'cmms-fresh' }, icon(fresh.stale ? 'alert' : 'sync'), EQ.cmms.freshLabel(), fresh.stale ? h('strong', null, ' · stale') : null),
-          EQ.access.has('export.excel') ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'export-daily', onClick: () => { const r = EQ.eqExport('daily', q); if (r.ok) { EQ.downloadCsv('cmms-daily-jobs.csv', r.columns, r.rows); EQ.toast('Exported ' + r.rows.length + ' daily job(s)', 'Prototype stand-in: CSV, not the server-generated .xlsx.'); } } }, icon('download'), 'Export') : null)),
-      h('p', { class: 'small muted', style: 'margin:0' }, 'Showing ' + range + '. ' + rows.length + " job(s). Read-only CMMS jobs, synced twice daily and linked to equipment only. Use From/To for earlier days. Unmatched codes: Admin > EQ > CMMS."),
-      h('div', { class: 'notice info' }, icon('info'), h('p', null, "Sample data from the 22 Oct 2026 export. No live CMMS connection.")),
-      fresh.stale ? h('div', { class: 'notice warn', role: 'status' }, icon('alert'), h('p', null, 'The latest CMMS sync failed or is overdue. The previous data is kept unchanged and no status was changed.')) : null,
-      rows.length ? dailyTable(rows) : h('div', { class: 'nonwork' }, h('strong', null, 'No CMMS daily jobs for this selection'), 'Nothing matches the equipment, type, date range and search above. This is not evidence that no work was done.')));
-  }
-  function dailyTable(rows) {
-    const staff = (a, b) => (a === '-' ? '-' : a + ' / ' + b + ' h');
-    return h('div', { class: 'table-wrap daily-wrap' }, h('table', { class: 'daily-table' },
-      h('caption', { class: 'sr-only' }, 'CMMS daily jobs, read-only'),
-      h('thead', null, h('tr', null, ['Date', 'Job ID', 'Equipment', 'Job type', 'Status', 'Priority', 'Description', 'Mech / Elec staff and hours'].map((c) => h('th', { scope: 'col' }, c)))),
-      h('tbody', null, rows.slice(0, 150).map((j) => {
-        const eq = EQ.eq(j.equipmentId);
-        return h('tr', { class: j.sourceState === 'absentFromSource' ? 'inactive' : '', 'data-zjob': j.jobNo },
-          h('td', null, fmtD(j.date)), h('th', { scope: 'row' }, h('span', { class: 'mono' }, j.jobNo), j.cwo && j.cwo !== '0' ? h('div', { class: 'small muted' }, 'CWO ' + j.cwo) : null),
-          h('td', null, h('a', { href: '#/eq/equipment/' + eq.id }, eq.code), h('div', { class: 'small muted' }, j.equipmentText + ' · ' + j.eqType)),
-          h('td', null, h('span', { class: 'tag' }, j.typeText)), h('td', null, h('span', { class: 'tag ' + (/completed/i.test(j.statusText) ? 'green' : /hold/i.test(j.statusText) ? 'red' : 'gold') }, j.statusText), j.sourceState === 'absentFromSource' ? h('div', { class: 'small' }, h('span', { class: 'tag dashed' }, 'No longer in the CMMS list')) : null),
-          h('td', null, j.priority),
-          h('td', null, j.desc, h('details', { class: 'small' }, h('summary', null, 'More fields'), h('dl', { class: 'kv' }, [['Created', j.created], ['Department', j.dept], ['Reported fault', j.fault || '-'], ['Fault description', j.faultDesc || '-'], ['Corrective action', j.corrective || '-'], ['Work done summary', j.workDone || '-'], ['Job instruction', j.instruction || '-'], ['Status remarks', j.statusRemarks || '-']].map(([k, v]) => [h('dt', null, k), h('dd', null, v)])))),
-          h('td', null, 'Mech ' + staff(j.mechStaff, j.mechHours), h('div', null, 'Elec ' + staff(j.elecStaff, j.elecHours))));
-      }))));
-  }
-
-  // ---------------------------------------------------------------- tab 3: EQ status
-  const SOURCE_LABEL = { automatic: 'Automatic (CMMS sync)', overrideEnded: 'Correction ended (CMMS sync)', backToAutomatic: 'Back to automatic', manualCorrection: 'Manual correction', manualStatus: 'Manual status' };
+  // ---------------------------------------------------------------- manual EQ status
   function statusPart(page, q) {
-    const list = eqList(q).filter((e) => e.lifecycle === 'active');
-    const fresh = EQ.cmms.freshness();
-    page.appendChild(h('div', { class: 'row between', style: 'margin:.2rem 0 .5rem' }, h('h2', null, 'EQ status board'), h('span', { class: 'cmms-fresh' + (fresh.stale ? ' stale' : '') }, icon(fresh.stale ? 'alert' : 'sync'), EQ.cmms.freshLabel(), fresh.stale ? h('strong', null, ' · stale') : null)));
-    page.appendChild(h('div', { class: 'notice info' }, icon('info'), h('div', { class: 'stack', style: 'gap:.3rem' },
-      h('p', null, h('strong', null, 'From CMMS: '), 'Breakdown job → Breakdown · Maintenance job → Maintenance · No planned job → Ready for OPS.'),
-      h('p', null, h('strong', null, 'Manual correction: '), 'Add a reason. It lasts until the next successful sync after today. Choose ', h('strong', null, 'Back to automatic'), ' to end it sooner.'),
-      h('p', null, h('strong', null, 'No CMMS link: '), 'Set the status manually.'))));
+    const needle = (EQ.jobsUI.q || '').toLowerCase();
+    const list = eqList(q).filter(e => e.lifecycle === 'active' && (!needle || (e.code + ' ' + e.name + ' ' + EQ.statusLabel(e.status) + ' ' + (e.statusReason || '')).toLowerCase().includes(needle)));
+    page.appendChild(h('div', { class: 'row between', style: 'margin:.2rem 0 .5rem' }, h('h2', null, 'EQ status')));
+    if (EQ.manual.warning) page.appendChild(h('div', { class: 'notice warn', role: 'status' }, EQ.manual.warning));
     page.appendChild(h('div', { class: 'panel table-wrap' }, h('table', { class: 'status-board' },
-      h('caption', { class: 'sr-only' }, 'EQ status board, one row per active equipment'),
-      h('thead', null, h('tr', null, ['Equipment', 'Status', 'Source', 'Since', 'Reason', 'Manual until', 'Causing CMMS jobs', 'Actions'].map((c) => h('th', { scope: 'col' }, c)))),
-      h('tbody', null, list.map((e) => {
-        const m = EQ.cmms.mode(e);
-        return h('tr', { 'data-eq': e.id },
-          h('th', { scope: 'row' }, h('a', { href: '#/eq/equipment/' + e.id }, e.code)), h('td', null, EQ.statusBadge(e.status)),
-          h('td', null, h('span', { class: 'src ' + (m.label === 'Auto' ? 'auto' : 'manual') }, m.label), h('div', { class: 'small muted' }, m.long)),
-          h('td', null, e.statusSince ? EQ.fmtInstantShort(e.statusSince) : 'Never set'), h('td', null, e.statusReason || '-'),
-          h('td', null, e.overrideOn ? fmtD(e.overrideOn) + (e.overrideOn >= EQ.todayColombo() ? ' (today)' : ' (expired)') : '-'),
-          h('td', null, e.statusCauses && e.statusCauses.length && e.statusSource === 'cmms' ? [e.statusCauses.map((c) => h('span', { class: 'tag mono', style: 'margin-right:.2rem' }, c)), h('div', { class: 'small muted' }, 'Plan of ' + fmtD(e.statusPlanDate))] : EQ.cmms.causeText(e) || '-'),
-          h('td', null, EQ.perm.write() ? h('div', { class: 'row' }, h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'correct-' + e.id, onClick: () => EQ.dlg.status(e) }, e.cmmsMapped ? 'Correct...' : 'Update...'), e.cmmsMapped && e.overrideOn ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'auto-' + e.id, onClick: () => { const r = EQ.cmms.backToAutomatic(e.id); EQ.toast(r.ok ? e.code + ' is back to automatic' + (r.awaiting ? " (awaiting today's CMMS sync)" : '') : r.message, 'Prototype: in memory only.'); } }, 'Back to automatic') : null) : h('span', { class: 'small muted' }, 'Read-only')));
-      })))));
-    // history across equipment
-    const ids = new Set(eqList(q).map((e) => e.id));
-    const from = q.from || '0000-01-01', to = q.to || '9999-12-31';
-    const hist = EQ.state.D.statusChanges.filter((c) => ids.has(c.equipmentId) && EQ.todayOf(c.at) >= from && EQ.todayOf(c.at) <= to).sort((a, b) => EQ.cmp(b.at, a.at));
-    page.appendChild(h('section', { class: 'panel panel-pad stack', style: 'margin-top:1rem', 'aria-labelledby': 'sth-h' },
-      h('h2', { id: 'sth-h' }, 'Status history ', h('span', { class: 'tag' }, String(hist.length))),
-      hist.length ? h('div', { class: 'table-wrap' }, h('table', null, h('caption', { class: 'sr-only' }, 'Status changes with source'), h('thead', null, h('tr', null, ['When', 'Equipment', 'Change', 'Source', 'By', 'Reason', 'Causing CMMS jobs'].map((c) => h('th', { scope: 'col' }, c)))),
-        h('tbody', null, hist.map((c) => h('tr', { 'data-sc': c.id }, h('td', null, EQ.fmtInstantShort(c.at)), h('th', { scope: 'row' }, EQ.eq(c.equipmentId).code),
-          h('td', null, c.prev ? EQ.STATUS[c.prev].label + ' → ' : 'First: ', EQ.statusBadge(c.status)),
-          h('td', null, h('span', { class: 'src ' + (c.source === 'cmms' ? 'auto' : 'manual') }, c.source === 'cmms' ? 'CMMS sync' + (c.runId ? ' #' + c.runId : '') : 'User'), h('div', { class: 'small muted' }, (SOURCE_LABEL[c.kind] || c.kind) + (c.planDate ? ' · plan of ' + fmtD(c.planDate) : ''))),
-          h('td', null, c.source === 'cmms' ? 'System' : EQ.userName(c.by)), h('td', null, c.reason || '-'), h('td', null, c.causes && c.causes.length ? c.causes.join(', ') : c.source === 'cmms' && c.status === 'readyForOps' && c.planDate ? 'Not in the CMMS plan for ' + fmtD(c.planDate) : '-')))))) : h('div', { class: 'nonwork' }, h('strong', null, 'No status changes in this selection'), 'Nothing is inferred from before tracking began.')));
+      h('caption', { class: 'sr-only' }, 'Manual EQ status, one row per active equipment'),
+      h('thead', null, h('tr', null, ['Equipment','Status','Since','Duration','Reason','Updated by','Actions'].map(c => h('th', { scope: 'col' }, c)))),
+      h('tbody', null, list.map(e => h('tr', { 'data-eq': e.id },
+        h('th', { scope: 'row' }, h('a', { href: '#/eq/equipment/' + e.id }, e.code)), h('td', null, EQ.statusBadge(e.status)),
+        h('td', null, EQ.fmtInstantShort(e.statusSince)), h('td', null, EQ.duration(EQ.inStatusFor(e) || 0)), h('td', null, e.statusReason || '—'), h('td', null, EQ.userName(e.statusBy)),
+        h('td', null, EQ.perm.write() ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'correct-' + e.id, onClick: () => EQ.dlg.status(e) }, 'Update status') : h('span', { class: 'small muted' }, 'Read-only'))))))));
+    const ids = new Set(list.map(e => e.id)), from = q.from || '0000-01-01', to = q.to || '9999-12-31';
+    const hist = EQ.state.D.statusChanges.filter(c => ids.has(c.equipmentId) && EQ.todayOf(c.at) >= from && EQ.todayOf(c.at) <= to).sort((a,b) => EQ.cmp(b.at,a.at));
+    page.appendChild(h('section', { class: 'panel panel-pad stack', style: 'margin-top:1rem', 'aria-labelledby': 'sth-h' }, h('h2', { id: 'sth-h' }, 'Status history ', h('span', { class: 'tag' }, String(hist.length))),
+      hist.length ? h('div', { class: 'table-wrap' }, h('table', null, h('caption', { class: 'sr-only' }, 'Recorded manual status and labelled legacy events'), h('thead', null, h('tr', null, ['When','Equipment','Change','By','Reason','Related job'].map(c => h('th', { scope: 'col' }, c)))),
+        h('tbody', null, hist.map(c => h('tr', { 'data-sc': c.id }, h('td', null, EQ.fmtInstantShort(c.at)), h('th', { scope: 'row' }, EQ.eq(c.equipmentId).code),
+          h('td', null, c.prev ? EQ.statusLabel(c.prev) + ' → ' : 'First: ', EQ.statusBadge(c.status), c.legacy ? h('span', { class: 'tag', style: 'margin-left:.3rem' }, 'Legacy event') : null),
+          h('td', null, c.by ? EQ.userName(c.by) : 'Recorded legacy source'), h('td', null, c.reason || '—'), h('td', null, c.relatedJobId && EQ.job(c.relatedJobId) ? h('a', { href: '#/eq/jobs/special/' + c.relatedJobId }, EQ.job(c.relatedJobId).number) : '—'))))))
+        : h('div', { class: 'nonwork' }, 'No status changes in this selection.')));
   }
   EQ.todayOf = (iso) => new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Colombo' }).format(new Date(iso));
 

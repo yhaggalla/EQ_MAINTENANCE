@@ -1,0 +1,212 @@
+{
+  "boundary": "Synthetic VM rules and browser-local persistence only; no production/server/SQL acceptance",
+  "checks": [
+    {
+      "name": "AM04 exactly two current status definitions",
+      "pass": true
+    },
+    {
+      "name": "AM05 all 67 explicitly authored choices and events",
+      "pass": true
+    },
+    {
+      "name": "AM10 baseline reconciles without a conversion algorithm",
+      "pass": true,
+      "detail": {
+        "readyForOps": 61,
+        "isolated": 6,
+        "total": 67
+      }
+    },
+    {
+      "name": "AM02 integration data and executable API absent",
+      "pass": true
+    },
+    {
+      "name": "AM04 truthful old status events retained",
+      "pass": true
+    },
+    {
+      "name": "AM05 management status API denied",
+      "pass": true
+    },
+    {
+      "name": "ADM01 management registration denied",
+      "pass": true
+    },
+    {
+      "name": "AM05 facTeam status API denied",
+      "pass": true
+    },
+    {
+      "name": "ADM01 facTeam registration denied",
+      "pass": true
+    },
+    {
+      "name": "AM05 invalid current value rejected null",
+      "pass": true,
+      "detail": "validation_failed"
+    },
+    {
+      "name": "AM05 invalid current value rejected breakdown",
+      "pass": true,
+      "detail": "validation_failed"
+    },
+    {
+      "name": "AM05 invalid current value rejected maintenance",
+      "pass": true,
+      "detail": "validation_failed"
+    },
+    {
+      "name": "AM05 invalid current value rejected unreported",
+      "pass": true,
+      "detail": "validation_failed"
+    },
+    {
+      "name": "AM05 invalid current value rejected automatic",
+      "pass": true,
+      "detail": "validation_failed"
+    },
+    {
+      "name": "AM05 invalid current value rejected ",
+      "pass": true,
+      "detail": "validation_failed"
+    },
+    {
+      "name": "AM05 isolated reason required",
+      "pass": true
+    },
+    {
+      "name": "AM05 overlong reason rejected",
+      "pass": true
+    },
+    {
+      "name": "AM05 cross-equipment related job rejected",
+      "pass": true
+    },
+    {
+      "name": "AM05 cancelled related job rejected",
+      "pass": true
+    },
+    {
+      "name": "AM06 missing concurrency token rejected",
+      "pass": true
+    },
+    {
+      "name": "AM05 valid explicit change records actor/time/reason",
+      "pass": true
+    },
+    {
+      "name": "AM06 identical retry does not duplicate event",
+      "pass": true
+    },
+    {
+      "name": "AM06 reused key with changed payload refused",
+      "pass": true
+    },
+    {
+      "name": "AM06 stale editor loses without corrupting state",
+      "pass": true
+    },
+    {
+      "name": "AM04 existing legacy event values unchanged",
+      "pass": true
+    },
+    {
+      "name": "AM06 browser-local store restores status/history across reload",
+      "pass": true
+    },
+    {
+      "name": "AM06 another equipment remains independent",
+      "pass": true
+    },
+    {
+      "name": "AM06 FAC cycle and spare-date evaluation do not change EQ status",
+      "pass": true
+    },
+    {
+      "name": "ADM01 incomplete registration atomic {\"code\":\"C63X\",\"typeCode\":\"QC\"}",
+      "pass": true
+    },
+    {
+      "name": "ADM01 incomplete registration atomic {\"code\":\"C63X\",\"typeCode\":\"QC\",\"status\":\"maintenance\"}",
+      "pass": true
+    },
+    {
+      "name": "ADM01 incomplete registration atomic {\"code\":\"C63X\",\"typeCode\":\"QC\",\"status\":\"isolated\",\"reason\":\"\"}",
+      "pass": true
+    },
+    {
+      "name": "ADM01 explicit registration and first event atomic",
+      "pass": true
+    },
+    {
+      "name": "AM06 newly registered demo status survives browser-local reload",
+      "pass": true
+    },
+    {
+      "name": "S12 stable registered identities remain unique after reload",
+      "pass": true
+    },
+    {
+      "name": "S11 export denied when optional export policy disabled",
+      "pass": true
+    },
+    {
+      "name": "AM07 removed daily export refuses rather than changing meaning",
+      "pass": true
+    },
+    {
+      "name": "S29 retained special export works",
+      "pass": true
+    },
+    {
+      "name": "S22 retained spare register and prediction work",
+      "pass": true
+    },
+    {
+      "name": "AM06 independent tabs save unrelated equipment without lost history",
+      "pass": true
+    },
+    {
+      "name": "AM06 reload retains both independent-tab status events",
+      "pass": true
+    },
+    {
+      "name": "AM06 stale same-equipment tab conflicts without persisted mutation",
+      "pass": true
+    },
+    {
+      "name": "ADM01 independent-tab registrations have distinct stable IDs",
+      "pass": true
+    },
+    {
+      "name": "ADM01 both independent-tab registrations survive reload",
+      "pass": true
+    },
+    {
+      "name": "ADM01 cross-tab duplicate code rejected before mutation",
+      "pass": true
+    },
+    {
+      "name": "AM06 independent-tab retirement commits",
+      "pass": true
+    },
+    {
+      "name": "AM06 another tab status save does not resurrect retired equipment",
+      "pass": true
+    },
+    {
+      "name": "AM05 latest cross-tab retirement blocks status write",
+      "pass": true
+    },
+    {
+      "name": "AM06 reset in another tab cannot resurrect an old snapshot",
+      "pass": true
+    },
+    {
+      "name": "AM06 corrupt local snapshot is rejected visibly and atomically",
+      "pass": true
+    }
+  ]
+}

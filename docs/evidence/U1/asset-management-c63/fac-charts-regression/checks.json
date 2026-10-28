@@ -1,0 +1,861 @@
+{
+  "passed": 34,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "Completed-cycle trend reconciles {}",
+      "pass": true,
+      "detail": {
+        "actual": [
+          {
+            "start": "2026-10-05",
+            "end": "2026-10-11",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 1
+          },
+          {
+            "start": "2026-10-12",
+            "end": "2026-10-18",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 2
+          },
+          {
+            "start": "2026-10-19",
+            "end": "2026-10-25",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 3
+          },
+          {
+            "start": "2026-10-26",
+            "end": "2026-10-28",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 1
+          }
+        ],
+        "want": [
+          {
+            "start": "2026-10-05",
+            "end": "2026-10-11",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 1
+          },
+          {
+            "start": "2026-10-12",
+            "end": "2026-10-18",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 2
+          },
+          {
+            "start": "2026-10-19",
+            "end": "2026-10-25",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 3
+          },
+          {
+            "start": "2026-10-26",
+            "end": "2026-10-28",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 1
+          }
+        ]
+      }
+    },
+    {
+      "name": "Completed-cycle trend reconciles {\"discipline\":\"civil\"}",
+      "pass": true,
+      "detail": {
+        "actual": [
+          {
+            "start": "2026-10-05",
+            "end": "2026-10-11",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 1
+          },
+          {
+            "start": "2026-10-12",
+            "end": "2026-10-18",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 2
+          },
+          {
+            "start": "2026-10-19",
+            "end": "2026-10-25",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 3
+          },
+          {
+            "start": "2026-10-26",
+            "end": "2026-10-28",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 1
+          }
+        ],
+        "want": [
+          {
+            "start": "2026-10-05",
+            "end": "2026-10-11",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 1
+          },
+          {
+            "start": "2026-10-12",
+            "end": "2026-10-18",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 2
+          },
+          {
+            "start": "2026-10-19",
+            "end": "2026-10-25",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 3
+          },
+          {
+            "start": "2026-10-26",
+            "end": "2026-10-28",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 1
+          }
+        ]
+      }
+    },
+    {
+      "name": "Completed-cycle trend reconciles {\"discipline\":\"electrical\"}",
+      "pass": true,
+      "detail": {
+        "actual": [
+          {
+            "start": "2026-10-05",
+            "end": "2026-10-11",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 0
+          },
+          {
+            "start": "2026-10-12",
+            "end": "2026-10-18",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 0
+          },
+          {
+            "start": "2026-10-19",
+            "end": "2026-10-25",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 0
+          },
+          {
+            "start": "2026-10-26",
+            "end": "2026-10-28",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 0
+          }
+        ],
+        "want": [
+          {
+            "start": "2026-10-05",
+            "end": "2026-10-11",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 0
+          },
+          {
+            "start": "2026-10-12",
+            "end": "2026-10-18",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 0
+          },
+          {
+            "start": "2026-10-19",
+            "end": "2026-10-25",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 0
+          },
+          {
+            "start": "2026-10-26",
+            "end": "2026-10-28",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "Completed-cycle trend reconciles {\"type\":\"inspection\"}",
+      "pass": true,
+      "detail": {
+        "actual": [
+          {
+            "start": "2026-10-05",
+            "end": "2026-10-11",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 1
+          },
+          {
+            "start": "2026-10-12",
+            "end": "2026-10-18",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 2
+          },
+          {
+            "start": "2026-10-19",
+            "end": "2026-10-25",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 2
+          },
+          {
+            "start": "2026-10-26",
+            "end": "2026-10-28",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 1
+          }
+        ],
+        "want": [
+          {
+            "start": "2026-10-05",
+            "end": "2026-10-11",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 1
+          },
+          {
+            "start": "2026-10-12",
+            "end": "2026-10-18",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 2
+          },
+          {
+            "start": "2026-10-19",
+            "end": "2026-10-25",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 2
+          },
+          {
+            "start": "2026-10-26",
+            "end": "2026-10-28",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 1
+          }
+        ]
+      }
+    },
+    {
+      "name": "Completed-cycle trend reconciles {\"type\":\"service\"}",
+      "pass": true,
+      "detail": {
+        "actual": [
+          {
+            "start": "2026-10-05",
+            "end": "2026-10-11",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 0
+          },
+          {
+            "start": "2026-10-12",
+            "end": "2026-10-18",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 0
+          },
+          {
+            "start": "2026-10-19",
+            "end": "2026-10-25",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 1
+          },
+          {
+            "start": "2026-10-26",
+            "end": "2026-10-28",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 0
+          }
+        ],
+        "want": [
+          {
+            "start": "2026-10-05",
+            "end": "2026-10-11",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 0
+          },
+          {
+            "start": "2026-10-12",
+            "end": "2026-10-18",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 0
+          },
+          {
+            "start": "2026-10-19",
+            "end": "2026-10-25",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 1
+          },
+          {
+            "start": "2026-10-26",
+            "end": "2026-10-28",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "Completed-cycle trend reconciles {\"mode\":\"none\"}",
+      "pass": true,
+      "detail": {
+        "actual": [
+          {
+            "start": "2026-10-05",
+            "end": "2026-10-11",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 1
+          },
+          {
+            "start": "2026-10-12",
+            "end": "2026-10-18",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 2
+          },
+          {
+            "start": "2026-10-19",
+            "end": "2026-10-25",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 3
+          },
+          {
+            "start": "2026-10-26",
+            "end": "2026-10-28",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 1
+          }
+        ],
+        "want": [
+          {
+            "start": "2026-10-05",
+            "end": "2026-10-11",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 1
+          },
+          {
+            "start": "2026-10-12",
+            "end": "2026-10-18",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 2
+          },
+          {
+            "start": "2026-10-19",
+            "end": "2026-10-25",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 3
+          },
+          {
+            "start": "2026-10-26",
+            "end": "2026-10-28",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 1
+          }
+        ]
+      }
+    },
+    {
+      "name": "Completed-cycle trend reconciles {\"pic\":\"unassigned\"}",
+      "pass": true,
+      "detail": {
+        "actual": [
+          {
+            "start": "2026-10-05",
+            "end": "2026-10-11",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 1
+          },
+          {
+            "start": "2026-10-12",
+            "end": "2026-10-18",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 2
+          },
+          {
+            "start": "2026-10-19",
+            "end": "2026-10-25",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 3
+          },
+          {
+            "start": "2026-10-26",
+            "end": "2026-10-28",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 1
+          }
+        ],
+        "want": [
+          {
+            "start": "2026-10-05",
+            "end": "2026-10-11",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 1
+          },
+          {
+            "start": "2026-10-12",
+            "end": "2026-10-18",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 2
+          },
+          {
+            "start": "2026-10-19",
+            "end": "2026-10-25",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 3
+          },
+          {
+            "start": "2026-10-26",
+            "end": "2026-10-28",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 1
+          }
+        ]
+      }
+    },
+    {
+      "name": "Completed-cycle trend reconciles {\"focus\":\"overdue\"}",
+      "pass": true,
+      "detail": {
+        "actual": [
+          {
+            "start": "2026-10-05",
+            "end": "2026-10-11",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 1
+          },
+          {
+            "start": "2026-10-12",
+            "end": "2026-10-18",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 2
+          },
+          {
+            "start": "2026-10-19",
+            "end": "2026-10-25",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 3
+          },
+          {
+            "start": "2026-10-26",
+            "end": "2026-10-28",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 1
+          }
+        ],
+        "want": [
+          {
+            "start": "2026-10-05",
+            "end": "2026-10-11",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 1
+          },
+          {
+            "start": "2026-10-12",
+            "end": "2026-10-18",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 2
+          },
+          {
+            "start": "2026-10-19",
+            "end": "2026-10-25",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 3
+          },
+          {
+            "start": "2026-10-26",
+            "end": "2026-10-28",
+            "electrical": 0,
+            "mechanical": 0,
+            "civil": 1
+          }
+        ]
+      }
+    },
+    {
+      "name": "Boundary days, future cycles and routine checks reconcile independently",
+      "pass": true
+    },
+    {
+      "name": "Historical completions remain after job deactivation",
+      "pass": true
+    },
+    {
+      "name": "Hidden jobs leave completion trend",
+      "pass": true
+    },
+    {
+      "name": "Populated mode/PIC filters {\"mode\":\"inHouse\"}",
+      "pass": true
+    },
+    {
+      "name": "Populated mode/PIC filters {\"pic\":\"Named test PIC\"}",
+      "pass": true
+    },
+    {
+      "name": "Populated mode/PIC filters {\"discipline\":\"civil\",\"type\":\"inspection\",\"mode\":\"outsource\",\"pic\":\"Named test PIC\"}",
+      "pass": true
+    },
+    {
+      "name": "Wildcard search narrows trend to the matching job",
+      "pass": true
+    },
+    {
+      "name": "No matches return four explicit zero weeks",
+      "pass": true
+    },
+    {
+      "name": "Dashboard feature denial still protects trend",
+      "pass": true
+    },
+    {
+      "name": "1920px three cards retain chart/data and do not grow",
+      "pass": true,
+      "detail": {
+        "before": {
+          "w": 986.65625,
+          "h": 152
+        },
+        "after": {
+          "cards": 3,
+          "order": "proof,trend,load",
+          "sameRow": true,
+          "height": 152,
+          "lane": 392,
+          "svgWidth": 560.671875,
+          "svgHeight": 92.515625,
+          "vw": 561,
+          "vh": 93,
+          "coverage": 0.9562500105397161,
+          "clip": false,
+          "overflow": 0,
+          "scroll": 0,
+          "dueWeeks": 8,
+          "trendWeeks": 4,
+          "labelsFit": true,
+          "jobs": 114
+        }
+      }
+    },
+    {
+      "name": "1920px measured chart fills available width without text distortion",
+      "pass": true,
+      "detail": {
+        "cards": 3,
+        "order": "proof,trend,load",
+        "sameRow": true,
+        "height": 152,
+        "lane": 392,
+        "svgWidth": 560.671875,
+        "svgHeight": 92.515625,
+        "vw": 561,
+        "vh": 93,
+        "coverage": 0.9562500105397161,
+        "clip": false,
+        "overflow": 0,
+        "scroll": 0,
+        "dueWeeks": 8,
+        "trendWeeks": 4,
+        "labelsFit": true,
+        "jobs": 114
+      }
+    },
+    {
+      "name": "Main feeds keep the C56 height",
+      "pass": true,
+      "detail": 392
+    },
+    {
+      "name": "1366px three cards retain chart/data and do not grow",
+      "pass": true,
+      "detail": {
+        "before": {
+          "w": 723.34375,
+          "h": 195.046875
+        },
+        "after": {
+          "cards": 3,
+          "order": "proof,trend,load",
+          "sameRow": true,
+          "height": 152,
+          "lane": 400,
+          "svgWidth": 402.65625,
+          "svgHeight": 92.515625,
+          "vw": 403,
+          "vh": 93,
+          "coverage": 0.9562499730226124,
+          "clip": false,
+          "overflow": 0,
+          "scroll": 409,
+          "dueWeeks": 8,
+          "trendWeeks": 4,
+          "labelsFit": true,
+          "jobs": 114
+        }
+      }
+    },
+    {
+      "name": "1366px measured chart fills available width without text distortion",
+      "pass": true,
+      "detail": {
+        "cards": 3,
+        "order": "proof,trend,load",
+        "sameRow": true,
+        "height": 152,
+        "lane": 400,
+        "svgWidth": 402.65625,
+        "svgHeight": 92.515625,
+        "vw": 403,
+        "vh": 93,
+        "coverage": 0.9562499730226124,
+        "clip": false,
+        "overflow": 0,
+        "scroll": 409,
+        "dueWeeks": 8,
+        "trendWeeks": 4,
+        "labelsFit": true,
+        "jobs": 114
+      }
+    },
+    {
+      "name": "375px three cards retain chart/data and do not grow",
+      "pass": true,
+      "detail": {
+        "before": {
+          "w": 351,
+          "h": 122.640625
+        },
+        "after": {
+          "cards": 3,
+          "order": "proof,trend,load",
+          "sameRow": false,
+          "height": 120,
+          "lane": 0,
+          "svgWidth": 325,
+          "svgHeight": 60.515625,
+          "vw": 325,
+          "vh": 61,
+          "coverage": 0.95625,
+          "clip": false,
+          "overflow": 0,
+          "scroll": 17116,
+          "dueWeeks": 8,
+          "trendWeeks": 4,
+          "labelsFit": true,
+          "jobs": 114
+        }
+      }
+    },
+    {
+      "name": "375px measured chart fills available width without text distortion",
+      "pass": true,
+      "detail": {
+        "cards": 3,
+        "order": "proof,trend,load",
+        "sameRow": false,
+        "height": 120,
+        "lane": 0,
+        "svgWidth": 325,
+        "svgHeight": 60.515625,
+        "vw": 325,
+        "vh": 61,
+        "coverage": 0.95625,
+        "clip": false,
+        "overflow": 0,
+        "scroll": 17116,
+        "dueWeeks": 8,
+        "trendWeeks": 4,
+        "labelsFit": true,
+        "jobs": 114
+      }
+    },
+    {
+      "name": "1920px TV three cards retain chart/data and do not grow",
+      "pass": true,
+      "detail": {
+        "before": {
+          "w": 1036.46875,
+          "h": 144
+        },
+        "after": {
+          "cards": 3,
+          "order": "proof,trend,load",
+          "sameRow": true,
+          "height": 144,
+          "lane": 578,
+          "svgWidth": 593.765625,
+          "svgHeight": 98.828125,
+          "vw": 594,
+          "vh": 99,
+          "coverage": 0.9562500430277301,
+          "clip": false,
+          "overflow": 0,
+          "scroll": 0,
+          "dueWeeks": 8,
+          "trendWeeks": 4,
+          "labelsFit": true,
+          "jobs": 114
+        }
+      }
+    },
+    {
+      "name": "1920px measured chart fills available width without text distortion",
+      "pass": true,
+      "detail": {
+        "cards": 3,
+        "order": "proof,trend,load",
+        "sameRow": true,
+        "height": 144,
+        "lane": 578,
+        "svgWidth": 593.765625,
+        "svgHeight": 98.828125,
+        "vw": 594,
+        "vh": 99,
+        "coverage": 0.9562500430277301,
+        "clip": false,
+        "overflow": 0,
+        "scroll": 0,
+        "dueWeeks": 8,
+        "trendWeeks": 4,
+        "labelsFit": true,
+        "jobs": 114
+      }
+    },
+    {
+      "name": "1920px TV keeps every photo caption inside the original card height",
+      "pass": true
+    },
+    {
+      "name": "1366px TV three cards retain chart/data and do not grow",
+      "pass": true,
+      "detail": {
+        "before": {
+          "w": 734,
+          "h": 128
+        },
+        "after": {
+          "cards": 3,
+          "order": "proof,trend,load",
+          "sameRow": true,
+          "height": 128,
+          "lane": 330,
+          "svgWidth": 412.28125,
+          "svgHeight": 87.65625,
+          "vw": 412,
+          "vh": 88,
+          "coverage": 0.9562500263880758,
+          "clip": false,
+          "overflow": 0,
+          "scroll": 0,
+          "dueWeeks": 8,
+          "trendWeeks": 4,
+          "labelsFit": true,
+          "jobs": 114
+        }
+      }
+    },
+    {
+      "name": "1366px measured chart fills available width without text distortion",
+      "pass": true,
+      "detail": {
+        "cards": 3,
+        "order": "proof,trend,load",
+        "sameRow": true,
+        "height": 128,
+        "lane": 330,
+        "svgWidth": 412.28125,
+        "svgHeight": 87.65625,
+        "vw": 412,
+        "vh": 88,
+        "coverage": 0.9562500263880758,
+        "clip": false,
+        "overflow": 0,
+        "scroll": 0,
+        "dueWeeks": 8,
+        "trendWeeks": 4,
+        "labelsFit": true,
+        "jobs": 114
+      }
+    },
+    {
+      "name": "1366px TV keeps every photo caption inside the original card height",
+      "pass": true
+    },
+    {
+      "name": "Resize redraws the same data to the new measured width",
+      "pass": true
+    },
+    {
+      "name": "Live search updates both charts to explicit zero counts",
+      "pass": true
+    },
+    {
+      "name": "Proof navigation survives third card",
+      "pass": true
+    },
+    {
+      "name": "No browser errors",
+      "pass": true,
+      "detail": []
+    }
+  ],
+  "errors": []
+}

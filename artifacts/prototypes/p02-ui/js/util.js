@@ -101,6 +101,9 @@ window.EQ = window.EQ || {};
     return new Date(Date.UTC(y, m - 1, dd)).toLocaleDateString('en-GB', { timeZone: 'UTC', day: '2-digit', month: 'short', year: 'numeric' });
   };
   EQ.todayColombo = () => new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Colombo' }).format(new Date());
+  // Shared calendar helpers for FAC cycles and spare-part dates; independent of operational status.
+  EQ.shiftDay = (iso, n) => { const [y,m,d] = iso.split('-').map(Number); return new Date(Date.UTC(y,m-1,d+n)).toISOString().slice(0,10); };
+  EQ.colomboDayStartMs = () => { const [y,m,d] = EQ.todayColombo().split('-').map(Number); return Date.UTC(y,m-1,d) - 5.5 * 3600e3; };
   EQ.duration = (ms) => {
     const m = Math.max(0, Math.floor(ms / 60000));
     const d = Math.floor(m / 1440), hh = Math.floor((m % 1440) / 60), mm = m % 60;
@@ -109,17 +112,16 @@ window.EQ = window.EQ || {};
     return mm + ' min';
   };
 
-  /* ---- Operational status model: exactly three statuses plus a neutral Unreported display ---- */
+  /* ---- Exactly two current manual statuses; legacy values are history-only ---- */
   EQ.STATUS = {
     readyForOps: { label: 'Ready for OPS', icon: 'check-circle' },
-    breakdown: { label: 'Breakdown', icon: 'octagon-x' },
-    maintenance: { label: 'Maintenance', icon: 'wrench' },
-    unreported: { label: 'Unreported', icon: 'dashed' },
+    isolated: { label: 'Isolated', category: 'Long term isolated EQ', icon: 'octagon-x' },
   };
-  EQ.statusKey = (s) => s || 'unreported';
+  EQ.statusKey = (s) => Object.prototype.hasOwnProperty.call(EQ.STATUS, s) ? s : 'legacy';
+  EQ.statusLabel = (s) => EQ.STATUS[s]?.label || ('Legacy: ' + ({ breakdown: 'Breakdown', maintenance: 'Maintenance' }[s] || (s == null ? 'not recorded' : String(s))));
   EQ.statusBadge = (s, big) => {
-    const k = EQ.statusKey(s), def = EQ.STATUS[k];
-    return h('span', { class: 'badge st-' + k + (big ? ' lg' : '') }, EQ.icon(def.icon), def.label);
+    const k = EQ.statusKey(s), def = EQ.STATUS[s];
+    return h('span', { class: 'badge st-' + k + (big ? ' lg' : '') }, EQ.icon(def?.icon || 'history'), EQ.statusLabel(s));
   };
 
   EQ.uid = (() => { let n = 1000; return (p) => (p || 'x') + '-' + (++n); })();

@@ -4,7 +4,7 @@ import vm from 'node:vm';
 
 const out = process.argv[2] || 'docs/evidence/U1/fleet-jobs-c51/model-checks.json';
 const box = vm.createContext({ console, Intl, Date, URLSearchParams, setTimeout, clearTimeout }); box.window = box;
-for (const file of ['util', 'catalog', 'params', 'fac-ref', 'fixtures', 'access', 'store', 'cmms', 'spares', 'fac', 'dialogs', 'views-jobs', 'views-eqjobs']) {
+for (const file of ['util', 'catalog', 'params', 'fac-ref', 'fixtures', 'access', 'store', 'manual-status', 'spares', 'fac', 'dialogs', 'views-jobs', 'views-eqjobs']) {
   vm.runInContext(fs.readFileSync(`artifacts/prototypes/p02-ui/js/${file}.js`, 'utf8'), box, { filename: file + '.js' });
 }
 const E = box.EQ, checks = [];
@@ -49,13 +49,13 @@ try {
   check('Editing cannot move a group to a different scope', retarget.status === 422 && fingerprint() === scopeBefore);
   role('admin');
   check('Open shared work blocks retirement of a member', E.api.retireEquipment(active[0].id).status === 409);
-  const extra = E.api.createEquipment({ code: 'QC-C51-NEW', typeCode: 'QC', name: 'Synthetic later equipment' }).eq;
+  const extra = E.api.createEquipment({ code: 'QC-C51-NEW', typeCode: 'QC', name: 'Synthetic later equipment', status: 'readyForOps' }).eq;
   check('New QC automatically joins existing shared progress', E.jobsOf(extra.id).find(j => j.id === job.id)?.progressPercent === 40 && E.currentSpecial(extra.id, scope).jobs.some(r => r.job.id === job.id));
   role('eqTeam');
   const done = E.api.updateJobProgress(job.id, progress(job, 100));
   check('Project completion needs no replacement line and applies to all members', done.ok && job.lines.length === 0 && E.jobEquipment(job).every(e => E.currentSpecial(e.id, scope).jobs.find(r => r.job.id === job.id)?.job.workStatus === 'completed'));
   role('admin');
-  const later = E.api.createEquipment({ code: 'QC-C51-LATER', typeCode: 'QC' }).eq;
+  const later = E.api.createEquipment({ code: 'QC-C51-LATER', typeCode: 'QC', status: 'readyForOps' }).eq;
   check('Equipment added after completion sees the shared completed record', E.currentSpecial(later.id, scope).jobs.find(r => r.job.id === job.id)?.job.workStatus === 'completed');
   E.api.reopenJob(job.id, 'Shared follow-up');
   check('Reopen changes the one record on every page', E.jobEquipment(job).every(e => E.currentSpecial(e.id, scope).openJobs.some(r => r.job.id === job.id)) && E.jobProgress(job).percent === null);

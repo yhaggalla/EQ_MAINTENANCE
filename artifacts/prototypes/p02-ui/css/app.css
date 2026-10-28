@@ -122,9 +122,8 @@ legend { font-size: .84rem; font-weight: 700; padding: 0 .3rem; color: #20394e; 
 .badge { display: inline-flex; align-items: center; gap: .35rem; padding: .18rem .6rem .18rem .5rem; border-radius: 99px; border: 1px solid; font-size: .8rem; font-weight: 750; white-space: nowrap; }
 .badge.lg { font-size: .95rem; padding: .3rem .8rem .3rem .65rem; }
 .st-readyForOps { color: var(--st-ready-fg); background: var(--st-ready-bg); border-color: var(--st-ready-bd); }
-.st-breakdown { color: var(--st-break-fg); background: var(--st-break-bg); border-color: var(--st-break-bd); }
-.st-maintenance { color: var(--st-maint-fg); background: var(--st-maint-bg); border-color: var(--st-maint-bd); }
-.st-unreported { color: var(--st-unrep-fg); background: var(--st-unrep-bg); border-color: var(--st-unrep-bd); border-style: dashed; }
+.st-isolated { color: var(--st-break-fg); background: var(--st-break-bg); border-color: var(--st-break-bd); }
+.st-legacy { color: var(--st-unrep-fg); background: var(--st-unrep-bg); border-color: var(--st-unrep-bd); border-style: dashed; }
 .tag { display: inline-block; padding: .08rem .45rem; border-radius: .3rem; background: #e8eef3; color: #2c4458; font-size: .72rem; font-weight: 750; letter-spacing: .02em; }
 .tag.gold { background: var(--gold-100); color: #5d4100; }
 .tag.red { background: var(--danger-bg); color: var(--danger); }

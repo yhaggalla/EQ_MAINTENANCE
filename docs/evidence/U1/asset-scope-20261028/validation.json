@@ -1,0 +1,242 @@
+{
+  "results": [
+    {
+      "check": "Eight requests traced in scope matrix",
+      "result": "PASS"
+    },
+    {
+      "check": "SOW Markdown copies identical",
+      "result": "PASS"
+    },
+    {
+      "check": "SOW Word copies identical",
+      "result": "PASS"
+    },
+    {
+      "check": "Pack scope mirror identical",
+      "result": "PASS"
+    },
+    {
+      "check": "Supplied FAC appendices preserved verbatim",
+      "result": "PASS"
+    },
+    {
+      "check": "Word includes revised name, two statuses, isolation category and default tab",
+      "result": "PASS"
+    },
+    {
+      "check": "Word includes 114 normalized source jobs",
+      "result": "PASS"
+    },
+    {
+      "check": "Final rendered page count is 17",
+      "result": "PASS"
+    },
+    {
+      "check": "Stable requirement IDs S01-S29 retained",
+      "result": "PASS"
+    },
+    {
+      "check": "97 unique active acceptance cases",
+      "result": "PASS"
+    },
+    {
+      "check": "AM01-AM11 present and obsolete ZM cases retired",
+      "result": "PASS"
+    },
+    {
+      "check": "No active acceptance case requires obsolete status",
+      "result": "PASS"
+    },
+    {
+      "check": "27 unchanged model profiles retained",
+      "result": "PASS"
+    },
+    {
+      "check": "P07B explicitly repurposed",
+      "result": "PASS"
+    },
+    {
+      "check": "No runnable old sync/override/unset directives",
+      "result": "PASS"
+    },
+    {
+      "check": "Master and Resume enforce confirmation gate",
+      "result": "PASS"
+    },
+    {
+      "check": "New statuses/default/tab/card rules in SOW",
+      "result": "PASS"
+    },
+    {
+      "check": "Current scope/confirmation notice in ARCHITECTURE",
+      "result": "PASS"
+    },
+    {
+      "check": "Current scope/confirmation notice in DATA_CONTRACT",
+      "result": "PASS"
+    },
+    {
+      "check": "Current scope/confirmation notice in API_CONTRACT",
+      "result": "PASS"
+    },
+    {
+      "check": "Current scope/confirmation notice in UX_SPEC",
+      "result": "PASS"
+    },
+    {
+      "check": "Current scope/confirmation notice in PORTAL_INTEGRATION_PLAN",
+      "result": "PASS"
+    },
+    {
+      "check": "Current scope/confirmation notice in IMPLEMENTATION_PLAN",
+      "result": "PASS"
+    },
+    {
+      "check": "Current scope pending state in DECISIONS",
+      "result": "PASS"
+    },
+    {
+      "check": "Current scope pending state in IMPLEMENTATION_STATUS",
+      "result": "PASS"
+    },
+    {
+      "check": "Current scope pending state in HANDOVER",
+      "result": "PASS"
+    },
+    {
+      "check": "Current scope pending state in MANAGEMENT_FEEDBACK",
+      "result": "PASS"
+    },
+    {
+      "check": "API current enum excludes removed values",
+      "result": "PASS"
+    },
+    {
+      "check": "777 tracked runtime/tool/model files unchanged",
+      "result": "PASS"
+    },
+    {
+      "check": "Pre-existing drawing deletions/untracked folder untouched",
+      "result": "PASS"
+    },
+    {
+      "check": "Only authorized documents changed beyond initial worktree",
+      "result": "PASS"
+    },
+    {
+      "check": "Protected source unchanged documents/SOW.docx",
+      "result": "PASS"
+    },
+    {
+      "check": "Protected source unchanged documents/Facility- Dashboard.xlsx",
+      "result": "PASS"
+    },
+    {
+      "check": "Protected source unchanged documents/prompt-pack/reference/fac-job-list.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Protected source unchanged documents/prompt-pack/reference/mechanisms-approved.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Protected source unchanged documents/prompt-pack/reference/drawing-register.json",
+      "result": "PASS"
+    },
+    {
+      "check": "Balanced Markdown fences ACCEPTANCE_CHECKLIST.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Balanced Markdown fences APPROVED_REQUIREMENTS.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Balanced Markdown fences CHANGELOG.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Balanced Markdown fences EQ_MAINTENANCE_IMPLEMENTATION_PROMPT_PACK.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Local link EQ_MAINTENANCE_IMPLEMENTATION_PROMPT_PACK.md -> MODEL_AND_EFFORT_GUIDE.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Balanced Markdown fences MANAGEMENT_SCOPE_REVISION_20261028.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Balanced Markdown fences MODEL_AND_EFFORT_GUIDE.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Balanced Markdown fences PACK_VALIDATION.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Balanced Markdown fences QC_3D_MODELLING_BRIEF.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Balanced Markdown fences README.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Local link README.md -> MANAGEMENT_SCOPE_REVISION_20261028.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Local link README.md -> APPROVED_REQUIREMENTS.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Local link README.md -> EQ_MAINTENANCE_IMPLEMENTATION_PROMPT_PACK.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Local link README.md -> ACCEPTANCE_CHECKLIST.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Local link README.md -> MODEL_AND_EFFORT_GUIDE.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Local link README.md -> TEMP_MANAGEMENT_WALKTHROUGH.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Local link README.md -> CHANGELOG.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Local link README.md -> PACK_VALIDATION.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Local link README.md -> QC_3D_MODELLING_BRIEF.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Balanced Markdown fences TEMP_MANAGEMENT_WALKTHROUGH.md",
+      "result": "PASS"
+    },
+    {
+      "check": "Git whitespace clean",
+      "result": "PASS"
+    },
+    {
+      "check": "26 build/review/helper prompts extract with confirmation gate",
+      "result": "PASS"
+    }
+  ],
+  "count": 58,
+  "runtimeFilesUnchanged": 777,
+  "activeAcceptanceCases": 97,
+  "wordPages": 17,
+  "implementation": "Awaiting user confirmation",
+  "u1": "NOT APPROVED"
+}

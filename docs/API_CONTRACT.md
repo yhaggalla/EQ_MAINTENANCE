@@ -1,5 +1,13 @@
 # API contract
 
+## Current management scope 28 October 2026
+
+**U1-C63 / SOW V2 revision 7 / prompt pack 2.3: documentation only; implementation awaits the user's confirmation. U1 remains IN PROGRESS / NOT COMPLETE / NOT APPROVED; P04/P05 Not started.** Read `docs/MANAGEMENT_SCOPE_REVISION_20261028.md` for all eight outcomes. This section and the revision-7 contracts supersede conflicting earlier descriptions throughout this file. Earlier dated reviews/addenda/evidence describe their snapshots and do not validate the new scope.
+
+Display EQ & FAC Asset Management with unchanged eq-maintenance technical paths/roles. Exactly Ready for OPS and Isolated are explicitly initialized and manually updated; values persist until another authorized manual action. Long term isolated EQ is the Isolated category, with no timer threshold. Remove Maintenance/Unreported current states, all CMMS/daily EQ work/sync/account/mapping/automatic/override dependencies, source selectors and equipment-card blinking. Crane tabs: Spare part status first/default, Projects/Special, Technical. Jobs: Projects/Special, EQ status, Spare parts condition. Fleet: Active, Ready percentage, Ready count, Long term isolated EQ count with one filtered active population; dash for zero denominator.
+
+Preserve existing IDs and truthful legacy history; old/blank status values require explicit human review at implementation, never automatic conversion or guessed Ready/duration. Retain accepted EQ work/progress/shared-scope/replacement/spare/technical/Flat/3D behavior, roles/Access and all FAC cycles/progress/photos/moving/reduced-motion/TV rules. FAC and spare-part computed flags do not change EQ status. No external access, live database change or implementation is authorized by this revision.
+
 Prepared in P01 on 21 October 2026. Status: **design contract for R01 review**, revised by Repair-R01 on 21 October 2026 (findings F1, F2, F5 of `docs/evidence/R01/review-20261021-1357.md`); implemented in P04-P10. Entity rules referenced as "DATA s<n>" are in `docs/DATA_CONTRACT.md`.
 
 **U1 round 6 addendum (23 October 2026, U1-C23..U1-C26).** Changed sections: s4.2 (fleet `openJobs` exclude hidden jobs), s4.7 (`display` filter, `showOnDashboard` in `JobSummary`), s4.8 (new `PUT /jobs/{jobId}/display`, `F:eq.work`), s4.16 (Projects/Special returns open **and completed** jobs as `jobs`, `CurrentSpecialJob` adds `completedOn` and `listedOn`; hidden jobs excluded from every tab, count and badge), s4.22 (`showOnDashboard` in `FacJobSummary`, `display` filter; dashboard-only detail excludes hidden jobs), s4.23 (new `PUT /fac/jobs/{jobId}/display`, `F:fac.work`), s4.24 (dashboard-only photo reads: active and shown jobs), s4.25 (population excludes hidden jobs; new lane group `upToDate`). DATA_CONTRACT round 6 addendum gives the rules (J7, F7, s18.1, s18.4).
@@ -15,8 +23,8 @@ Prepared in P01 on 21 October 2026. Status: **design contract for R01 review**, 
 - Base: `/eq-maintenance/api/v1` (D-19). Every path below is relative to it unless it starts with `/eq-maintenance/`.
 - JSON (`application/json; charset=utf-8`), camelCase properties, `null` for unknown values (never empty strings or placeholders), no extra properties accepted in request bodies (400 `unknown_property`).
 - IDs: lowercase canonical UUID strings. Codes: strings (`"01"`, `"011"`). Business dates: `"YYYY-MM-DD"`. Instants: ISO 8601 UTC with `Z`. Decimal quantities: JSON numbers with up to 3 decimals.
-- Enum values: `operationalStatus` `readyForOps | breakdown | maintenance` (null = Unreported); `workStatus` `pending | current | completed`; `jobKind` `repair | replacement`; `targetLevel` `equipment | main | sub | part`; `positionKind` `serialized | quantityLot`; `positionState` `draft | active | deactivated`; `lifecycle` `active | retired`; `applicability` `applicable | notApplicable | unknown`; `modelAssociation` `unassigned | verified`.
-- V2 enums: `statusSource` `cmms | manual`; `statusMode` `manualOnly | automatic | manualOverride | manualOverrideExpired`; `statusChangeKind` `manualSet | manualCorrection | automatic | backToAutomatic | overrideEnded`; `roleCode` `eq-maintenance:admin | eq-maintenance:management | eq-maintenance:eq-team | eq-maintenance:fac-team`; `feature` (DATA s6) `eq.fleet.view | eq.jobs.view | eq.work | eq.work.admin | fac.dashboard.view | fac.jobs.view | fac.work | fac.oneTimeJobs.add | fac.masterList.manage | fac.work.admin | export.excel | admin.access`; `sparePartCondition` `original | replaced` (null = not recorded); `sparePartFlag` `overdue | dueSoon`; `cmmsMatchState` `matched | unmatched | ignored`; `cmmsRunOutcome` `running | succeeded | failed | abandoned`; `facKind` `recurring | oneTime | continuous`; `facStatus` `pending | inProgress | onHold | completed`; `facFlag` `overdue | dueSoon`; `facJobState` `active | closed | deactivated`; `facMode` `inHouse | outsource`.
+- Enum values: `operationalStatus` `readyForOps | isolated` (explicit, required); `workStatus` `pending | current | completed`; `jobKind` `repair | replacement`; `targetLevel` `equipment | main | sub | part`; `positionKind` `serialized | quantityLot`; `positionState` `draft | active | deactivated`; `lifecycle` `active | retired`; `applicability` `applicable | notApplicable | unknown`; `modelAssociation` `unassigned | verified`.
+- Current status has no source-mode/override-kind enum; optional source is constant manual. Retain FAC and spare-part enums from their respective sections. Legacy sources/values exist only on labelled archived events.
 - Actor objects: `{ "profileId": "...", "displayName": "..." }`.
 
 ### 1.2 Authentication, CSRF and session recovery
@@ -73,13 +81,13 @@ Problems never contain stack traces, SQL, storage paths, connection strings, tok
 | 413 | `file_too_large` (EQ evidence 20 MiB; FAC photos 10 MiB) |
 | 415 | `unsupported_media_type` |
 | 422 | `validation_failed` (field `errors`), `status_unchanged`, `reason_required`, `target_not_in_equipment`, `target_inactive`, `definition_inactive`, `reserved_definition`, `position_not_active`, `position_outside_job_target`, `duplicate_position`, `replacement_after_completion`, `date_in_future`, `quantity_invalid`, `lines_not_allowed_for_repair`, `lines_required`, `idempotency_key_reused`, `code_unassigned_reserved`; V2: `access_cell_not_toggleable`, `equipment_not_cmms_mapped`, `cmms_mapping_incomplete`, `not_major_spare_part`, `kind_frequency_mismatch`, `date_outside_cycle`, `date_before_previous_completion`, `quantity_exceeds_remaining`, `next_due_required`, `too_many_photos`, `upload_invalid`, `export_too_large` |
-| 503 | `storage_unavailable`, `database_unavailable`; V2: `cmms_not_configured` (Sync now when keys are missing; the body lists the missing **key names** only) |
+| 503 | `storage_unavailable`, `database_unavailable` |
 
 ### 1.7 Caching
 
 JSON responses: `Cache-Control: no-store`, except `GET /fleet`, which returns an `ETag` and answers `If-None-Match` with 304 (still `private, no-cache`). Files: section 4.9. Model assets: `private, no-cache` + sha256 ETag (D-39).
 
-V2: `GET /fac/dashboard` uses the same pattern with the ETag of DATA s18.4 (FacDataVersion, business date, filters, AccessPolicyVersion); a 304 costs two single-row reads. The fleet ETag now also includes the latest succeeded CMMS run ID and the business date (D-127). FAC photos: `private, no-cache` + sha256 ETag, revalidated through authorization on every request. Exports: `Cache-Control: no-store`, `Content-Disposition: attachment`.
+V2: `GET /fac/dashboard` uses the same pattern with the ETag of DATA s18.4 (FacDataVersion, business date, filters, AccessPolicyVersion); a 304 costs two single-row reads. The fleet ETag now also reflects retained manual status/work changes (D-127). FAC photos: `private, no-cache` + sha256 ETag, revalidated through authorization on every request. Exports: `Cache-Control: no-store`, `Content-Disposition: attachment`.
 
 ## 2 Authorization policies
 
@@ -104,22 +112,16 @@ Resource rules applied after the policy (Application layer): EQ Team may cancel 
 ```ts
 type Id = string; type DateOnly = string; type Instant = string; type Version = string;
 type Actor = { profileId: Id; displayName: string };
-type OperationalStatus = 'readyForOps' | 'breakdown' | 'maintenance';
+type OperationalStatus = 'readyForOps' | 'isolated';
 
 type StatusSummary = {
-  current: OperationalStatus | null;          // null = Unreported
-  sinceUtc: Instant | null;                   // null when Unreported
-  currentChangeId: Id | null;
+  current: OperationalStatus;
+  sinceUtc: Instant;
+  currentChangeId: Id;
   reason: string | null;
   relatedJob: { id: Id; number: string; title: string } | null;
-  changedBy: Actor | null;                    // null for CMMS-applied changes
-  // V2 (S03, S21)
-  source: 'cmms' | 'manual' | null;           // null when Unreported
-  mode: 'manualOnly' | 'automatic' | 'manualOverride' | 'manualOverrideExpired';
-  cmmsMapped: boolean;
-  overrideOn: DateOnly | null;                // business day of an active/expired correction
-  syncRun: { id: Id; endedUtc: Instant } | null;          // the run that produced an automatic value
-  causes: Array<{ cmmsJobNumber: string; jobDate: DateOnly; effect: 'breakdown' | 'maintenance'; jobType: string | null; description: string | null }>;
+  changedBy: Actor;
+  source?: 'manual'; // optional constant; no source selector or alternate mode
 };
 
 type TargetRef = {
@@ -174,7 +176,7 @@ Column "Policy" uses the names from section 2. Acceptance IDs refer to `ACCEPTAN
 Response:
 
 ```ts
-{ application: { code: 'eq-maintenance'; pathBase: '/eq-maintenance'; displayName: 'EQ & FAC Maintenance'; apiVersion: 'v1' };
+{ application: { code: 'eq-maintenance'; pathBase: '/eq-maintenance'; displayName: 'EQ & FAC Asset Management'; apiVersion: 'v1' };
   profile: { profileId: Id; userName: string; displayName: string; email: string | null };
   roles: Array<'eq-maintenance:admin' | 'eq-maintenance:management' | 'eq-maintenance:eq-team' | 'eq-maintenance:fac-team'>;
   // V2 (S18, S19): effective Access-matrix result for this user (presentation hint only)
@@ -200,48 +202,26 @@ Capabilities and `access` are presentation hints only; the server rechecks every
 
 ### 4.2 Fleet
 
-| Method and path | Policy | Purpose / acceptance |
-| --- | --- | --- |
-| `GET /fleet?type=&status=&lifecycle=active|retired|all&q=` | `F:eq.fleet.view` | Summary counts plus compact rows in one lightweight polled call (S02/S03, OPS01, JOB13) |
-
-`status` accepts `readyForOps,breakdown,maintenance,unreported`. `lifecycle` defaults to `active`. `q` matches code/name (case-insensitive contains). Response:
+`GET /fleet?type=&status=&lifecycle=active|retired|all&q=` requires `F:eq.fleet.view`. Status accepts only `readyForOps,isolated`; invalid/legacy/unknown values return 422. Lifecycle defaults active. Return generatedUtc, filtered detail rows and:
 
 ```ts
-{ generatedUtc: Instant;
-  totals: { all: number; readyForOps: number; breakdown: number; maintenance: number; unreported: number };
-  groups: Array<{ type: { id: Id; code: string; name: string };
-                  counts: { all: number; readyForOps: number; breakdown: number; maintenance: number; unreported: number };
-                  items: Array<{ id: Id; code: string; name: string | null; lifecycle: 'active' | 'retired';
-                                 model: { code: string; association: 'unassigned' | 'verified' } | null;
-                                 status: StatusSummary; lastActivityUtc: Instant;
-                                 openJobs: { pending: number; current: number };   // distinct non-cancelled jobs shown on the dashboard / 3D (U1-C26)
-                                 thumbnail: 'qc' | 'rtg' | 'es' | 'generic'; has3dView: boolean;
-                                 cmmsToday: { count: number } | null }> }>;      // V2: today's present daily jobs; null when not CMMS-mapped
-  // V2 (S20): CMMS freshness for "CMMS data from <date time>"
-  cmms: { enabled: boolean; lastSucceededRunEndUtc: Instant | null; lastRunOutcome: 'succeeded' | 'failed' | 'abandoned' | 'running' | null; stale: boolean } }
+totals: { all: number; readyForOps: number; isolated: number; readyPercent: number | null };
+groups: Array<{ type: { id: Id; code: string; name: string };
+  counts: { all: number; readyForOps: number; isolated: number };
+  items: Array<{ id: Id; code: string; lifecycle: 'active' | 'retired';
+    status: StatusSummary; lastActivityUtc: Instant;
+    openJobs: { pending: number; current: number }; has3dView: boolean }> }>;
 ```
 
-V2: each item's `status` carries `source` and `mode` (s3) so cards show Auto/Manual; the counts are unchanged.
-
-Rules: each equipment counted once in exactly one status bucket; counts reflect the filters' type/lifecycle but **not** the `status`/`q` filters (so the badges reconcile with the full group); open-job counts use COUNT(DISTINCT job) so multi-line jobs never multiply; retired items are excluded unless `lifecycle` asks for them; a failed request never produces a client-side Ready default.
+Four cards are active total, Ready percentage, Ready count, Long term isolated EQ (= isolated). Totals/type counts and percentage share one active type/search-scoped population; retired excluded even when separately included in rows. Status filters detail rows without changing that KPI base. Ready + Isolated = all; readyPercent = null for zero denominator, shown as dash. Keep current permitted work counts/Show rules, thumbnails/model qualifications and stale app-refresh behavior. Remove CMMS counts/freshness/source modes and all blinking controls. See AM03/AM10/AM11.
 
 ### 4.3 Equipment and operational status
 
-| Method and path | Policy | Purpose / acceptance |
-| --- | --- | --- |
-| `GET /equipment?type=&lifecycle=&q=&limit=&cursor=&sort=code` | `F:eq.fleet.view|eq.jobs.view|admin.access` | Register list (admin screens, pickers) |
-| `GET /equipment/{equipmentId}` | `F:eq.fleet.view|eq.jobs.view` | Detail header: code, name, type, lifecycle, model association, `status: StatusSummary`, known attributes (null = unknown), counts, `has3dView`, `sceneUnavailableReason` (`notAvailableStage1` for RTG/ES, `noVerifiedModel`, `noActiveBinding`, null) (VIS07, SRC06) |
-| `GET /equipment/{equipmentId}/status-history?limit=&cursor=` | `F:eq.jobs.view` | Status changes newest first: `{ id, sequence, status, previousStatus, reason, relatedJob, effectiveUtc, changedBy }` plus V2 `source`, `kind`, `syncRun { id, businessDate, endedUtc } | null`, `overrideOn`, `causes[]` (JOB02, JOB13, ZM05, ZM06). Served to the EQ Jobs tab (EQ status part); the crane view shows only the current `StatusSummary` |
-| `POST /equipment/{equipmentId}/status` | `F:eq.work`; Idempotency-Key | Set operational status (S03/S09); V2: a current-day correction on CMMS-mapped equipment (DATA s4.2) |
-| `POST /equipment/{equipmentId}/status/back-to-automatic` | `F:eq.work`; Idempotency-Key | V2 (S21): end the current-day correction; body `{ expectedCurrentStatusChangeId: Id; reason: string | null }`; 201 `{ status: StatusSummary; change }`; 409 `not_in_manual_override`, 409 `status_changed`, 422 `equipment_not_cmms_mapped` (DATA s15.7 step 6, ZM06) |
+Keep equipment list/detail routes with existing feature permissions; detail returns current `StatusSummary` above. `GET /equipment/{equipmentId}/status-history` requires `F:eq.jobs.view` and returns immutable events/actor/time/reason; legacy old values are labelled historical and never current choices. Crane payload remains current-only.
 
-Status request and rules (DATA s4.2):
+`POST /equipment/{equipmentId}/status` requires `F:eq.work`, Idempotency-Key and `{ status: 'readyForOps' | 'isolated', reason, relatedJobId, expectedCurrentStatusChangeId }`. Return 201 status/event; 422 invalid_status for omitted/null/old values, reason_required for isolated without reason, invalid related-job scope/cancellation, status_unchanged; 409 status_changed/equipment_retired; 403 Management/FAC Team. Apply current fields/audit atomically with no expiry. Related shared-job scope follows U1-C51. Registration/activation requires explicit initial status and atomic first event.
 
-```ts
-{ status: OperationalStatus; reason: string | null; relatedJobId: Id | null; expectedCurrentStatusChangeId: Id | null }
-```
-
-201 with `{ status: StatusSummary; change: {...} }`. Errors: 422 `reason_required` (breakdown/maintenance without reason; V2: **any** status on CMMS-mapped equipment without reason), 422 `target_not_in_equipment` (related job of another equipment) or `job_cancelled`, 422 `status_unchanged` (V2: only when the same value is already a manual value for today, DATA s4.2), 409 `status_changed`, 409 `equipment_retired`, 403 for Management and FAC Team.
+Remove status/back-to-automatic entirely. No sync/source/mode/override/cause input or dependency; values persist until the next authorized manual command.
 
 ### 4.4 Hierarchy, positions and technical sheet
 
@@ -300,7 +280,7 @@ Each job appears once per response even when several of its lines match; `matchi
 | Method and path | Policy | Purpose / acceptance |
 | --- | --- | --- |
 | `GET /jobs?status=pending,current,completed&includeCancelled=false&equipmentId=&type=&kind=&mainCode=&subCode=&targetLevel=&dateField=created|planned|completed&from=&to=&q=&mine=false&display=all|shown|hidden&limit=&cursor=&sort=updated_desc` | `F:eq.jobs.view` | Jobs workspace lists and board columns (S08, JOB01, JOB12) |
-| `GET /jobs/board-counts?…same filters…` | `F:eq.jobs.view` | `{ pending, current, completed, cancelled }` counts for the tabs |
+| `GET /jobs/board-counts?â€¦same filtersâ€¦` | `F:eq.jobs.view` | `{ pending, current, completed, cancelled }` counts for the tabs |
 | `GET /jobs/{jobId}` | `F:eq.jobs.view` | Full job: `JobSummary` + description, completion fields, `lines: ReplacementLineView[]`, `attachments`, `progress`, `corrections`, `cancellation` `{ reason, by, utc } | null` |
 
 `mainCode`/`subCode` match jobs targeting that definition **or** having lines below it (same rule as DATA s9), each job listed once. V2: these are the special jobs of the EQ Jobs tab; the list adds `reopenCount` and `committedLineCount` to `JobSummary` (UX-1, so the UI can explain cancel refusals before a request). Cancelled jobs appear only with `includeCancelled=true` and carry `isCancelled: true`; they are never counted in `completed`.
@@ -465,12 +445,12 @@ Scene versions are registered only by `AdminCli register-scene-version` (no brow
 
 ### 4.16 Crane view current state (V2: S07, U1-C19, HIS06)
 
-The four right-panel tabs of the crane view (DATA s18.1, D-122). All `F:eq.fleet.view`. Common query: `scope=equipment|main|sub|part&targetId=` (targetId required unless `scope=equipment`; 422 `target_not_in_equipment`). Every response starts with the echo `{ equipmentId, scope, targetId, tab }` for the race guard (HIS05). No endpoint here returns installation events, status changes, corrections, job progress, register history or earlier CMMS days; `special` lists completed special jobs as the allowlisted projection only (U1-C23, D-155). Special jobs whose display switch is off (DATA J7) are in no response, count or badge here (U1-C26).
+The three ordered right-panel tabs (Spare part status first/default, Projects/Special, Technical) of the crane view (DATA s18.1, D-122). All `F:eq.fleet.view`. Common query: `scope=equipment|main|sub|part&targetId=` (targetId required unless `scope=equipment`; 422 `target_not_in_equipment`). Every response starts with the echo `{ equipmentId, scope, targetId, tab }` for the race guard (HIS05). No endpoint here returns installation events, status changes, corrections, job progress, register history or removed daily EQ work; `special` lists completed special jobs as the allowlisted projection only (U1-C23, D-155). Special jobs whose display switch is off (DATA J7) are in no response, count or badge here (U1-C26).
 
 | Method and path | Response (after the echo) |
 | --- | --- |
-| `GET /equipment/{equipmentId}/current-state/summary?scope=&targetId=` | `{ status: StatusSummary; badges: { maintenanceToday: number | null; specialOpen: number; sparePartsOverdue: number; sparePartsDueSoon: number } }` (`specialOpen` = open, shown jobs; the same count feeds the tree and flat/3D label work badges) |
-| `GET /equipment/{equipmentId}/current-state/maintenance?scope=&targetId=` | `{ cmmsMapped: boolean; businessDate: DateOnly; dataFrom: Instant | null; stale: boolean; equipmentLevelNote: true; jobs: CmmsDailyJobView[] }` - today's present rows only; `jobs: []` with `cmmsMapped: false` for unmapped equipment |
+| `GET /equipment/{equipmentId}/current-state/summary?scope=&targetId=` | `{ status: StatusSummary; badges: { specialOpen: number; sparePartsOverdue: number; sparePartsDueSoon: number } }` (`specialOpen` = open, shown jobs; the same count feeds the tree and flat/3D label work badges) |
+
 | `GET /equipment/{equipmentId}/current-state/special?scope=&targetId=` | `{ jobs: CurrentSpecialJob[]; moreCompleted: boolean; counts: { pending: number; current: number; completed: number; cancelled: number }; openInJobs: { equipment: Id; scope: string; target: Id | null } | null }` - DATA s9 scope rule, de-duplicated; U1-C23: `jobs` holds every open job and the 50 most recent completed jobs of the scope (cancelled jobs counted only), newest first by `listedOn` then number desc; `moreCompleted` when older completed jobs exist (they are in the Jobs tab); hidden jobs (U1-C26) are in neither `jobs` nor `counts`. Uses the separate allowlisted DTO below, never `JobSummary` or `ReplacementLineView`, including for reopened jobs. `openInJobs` is null when the caller lacks `eq.jobs.view` (the panel then shows no Open in Jobs link and no job-record links, D-139) |
 | `GET /equipment/{equipmentId}/current-state/technical?scope=&targetId=` | `{ identity: {...}; model: {...} | null; attributes: { commissionedOn: DateOnly | null; serialNumber: string | null; manufacturer: string | null } | null; definition: { code: string; name: string; description: string | null } | null; positionCounts: { serialized: number; quantityLot: number } | null; currentInstallations: InstallationView[] | null; sourceReferences: [...]; provenance: {...} | null; parameters: ParameterItem[]; sceneUnavailableReason: string | null }` - fields per scope as DATA s18.1; `ParameterItem` = s4.10 item |
 | `GET /equipment/{equipmentId}/current-state/spare-parts?scope=&targetId=` | `{ rows: SparePartRow[]; notMajorSparePart: boolean }` (`notMajorSparePart` true for a part scope whose position is not designated) |
@@ -491,11 +471,6 @@ type CurrentSpecialJob = {
 // Matching positions identify scope membership only; they are not replacement events.
 // The prototype represents target/equipment as scalar IDs and matchingPositions as
 // matchingLines: [{ positionId }], with the same allowlist and detached value semantics.
-type CmmsDailyJobView = { id: Id; cmmsJobNumber: string; jobDate: DateOnly; equipment: { id: Id; code: string } | null;
-  equipmentText: string; jobType: string | null; jobStatus: string | null; description: string | null;
-  typeEffect: 'breakdown' | 'maintenance' | 'none' | 'unmapped'; statusEffect: 'open' | 'closed' | 'unmapped';
-  sourceState: 'present' | 'absentFromSource'; extra: Record<string, string>;      // provisional fields (DATA s20)
-  lastSeenUtc: Instant };
 type SparePartRow = { equipment: { id: Id; code: string; type: string }; position: { id: Id; semanticKey: string; displayName: string;
   mainCode: string; subCode: string; kind: 'serialized' | 'quantityLot' };
   sparePartType: { code: string; name: string };
@@ -508,18 +483,14 @@ type SparePartRow = { equipment: { id: Id; code: string; type: string }; positio
   flag: 'overdue' | 'dueSoon' | null; remarks: string | null; version: Version; updatedUtc: Instant | null };
 ```
 
-### 4.17 EQ Jobs tab (V2: S08, S20, S21, S22)
+### 4.17 EQ Jobs tab (S08, S20, S21, S22; revision 7)
 
-Shared filters on every list here: `equipmentId=`, `type=QC|RTG|ES` (equipment type code), `from=`, `to=` (business dates), `q=`. Special jobs use s4.6-s4.8 unchanged.
+Projects/Special, EQ status, Spare parts condition only. Keep special-work/spare routes and equipment/type/date/search filters under `F:eq.jobs.view`.
 
-| Method and path | Policy | Purpose / acceptance |
-| --- | --- | --- |
-| `GET /cmms/daily-jobs?equipmentId=&type=&from=&to=&q=&sourceState=present,absentFromSource&limit=&cursor=&sort=date_desc` | `F:eq.jobs.view` | Read-only daily jobs shown in the Daily work (CMMS) tab (U1-C20); matched rows only; every synced day; `{ items: CmmsDailyJobView[]; nextCursor; dataFrom: Instant | null; stale: boolean }` (ZM07). Default range: today |
-| `GET /cmms/freshness` | `F:eq.fleet.view|eq.jobs.view` | `{ enabled, lastSucceededRunEndUtc, businessDate, stale }` for "CMMS data from" |
-| `GET /status-board?type=&q=&source=cmms,manual&mode=` | `F:eq.jobs.view` | EQ status part: one row per active equipment `{ equipment, status: StatusSummary }` with Correct / Back to automatic offered by capabilities (S21) |
-| `GET /status-changes?equipmentId=&type=&from=&to=&source=&kind=&limit=&cursor=` | `F:eq.jobs.view` | Status history across equipment, newest first, same item shape as s4.3 status history (ZM05, ZM06, JOB02) |
-| `GET /spare-parts?equipmentId=&type=&mainCode=&subCode=&flag=overdue,dueSoon,notRecorded&q=&limit=&cursor=&sort=predicted_asc` | `F:eq.jobs.view` | Spare-part register rows (`SparePartRow`) (SP01, SP03) |
-| `GET /equipment/{equipmentId}/positions/{positionId}/spare-part` | `F:eq.jobs.view` | `{ current: SparePartRow; history: Array<{ revision, source, before, after, job: {id, number} | null, reason, by: Actor | null, utc }> }` - per-part history, newest first (SP04) |
+- `GET /status-board?type=&q=` returns one current StatusSummary per active equipment; authorized Update action only, no source/mode filters or automatic controls.
+- `GET /status-changes?equipmentId=&type=&from=&to=&limit=&cursor=` returns truthful actor/time/status history, retaining labelled legacy events if present.
+- Keep `GET /spare-parts` and per-position spare-part/history routes with existing scope/permissions.
+- Remove `/cmms/daily-jobs`, `/cmms/freshness`, imported-job exports and CMMS Admin endpoints. Obsolete browser links resolve to a retained permitted view; obsolete API routes are absent (404), not hidden functional handlers.
 
 ### 4.18 Spare-part register commands (V2: S22)
 
@@ -548,28 +519,9 @@ All `F:admin.access`; Idempotency-Key on POST; audited.
 | `GET /admin/settings/eq`; `PUT /admin/settings/eq` | `{ version, sparePartDueSoonDays, fleetRefreshSeconds }` | SP03 |
 | `PUT /admin/equipment/{id}` (s4.13) | `commissionedOn` is the commissioning date used for Original parts | SP03 |
 
-### 4.20 Admin: CMMS (V2: S20, S21)
+### 4.20 CMMS endpoints removed (S20)
 
-All `F:admin.access`; Idempotency-Key on POST; audited. No endpoint accepts, returns or echoes the CMMS account.
-
-| Method and path | Body / purpose | Acceptance |
-| --- | --- | --- |
-| `GET /admin/cmms/health` | `{ configured: boolean; missingConfigurationKeys: string[] /* names only */; enabled: boolean; lastRun: RunSummary | null; lastSucceeded: RunSummary | null; stale: boolean; state: 'ok' | 'failing' | 'notConfigured' | 'disabled'; nextScheduledUtc: Instant | null; nextRetryUtc: Instant | null }` | ZM02, ZM04, ZM08 |
-| `GET /admin/cmms/settings`; `PUT /admin/cmms/settings` | `{ version, syncTime1: 'HH:mm', syncTime2: 'HH:mm', automaticStatusEnabled: boolean, staleAfterHours }`; 422 `cmms_mapping_incomplete` when enabling with unmapped values (DATA s15.8) | ZM05 |
-| `POST /admin/cmms/sync-now` | `{}` -> 202 `{ runId, alreadyRunning: boolean }` (a concurrent request returns the running run, never a second run, ZM01); 409 `cmms_disabled`; 503 `cmms_not_configured` with key names | ZM01, ZM08 |
-| `GET /admin/cmms/runs?outcome=&from=&to=&limit=&cursor=`; `GET /admin/cmms/runs/{runId}` | run records (DATA s15.5) with counters, failure code/detail and, for succeeded runs, per-equipment evaluations | ZM01, ZM02 |
-| `GET /admin/cmms/equipment-keys?state=unmatched|mapped|ignored&q=` | unmatched queue and mapped keys with row counts and first/last date | ZM03 |
-| `POST /admin/cmms/equipment-mappings` | `{ equipmentKey, action: 'map' | 'ignore', equipmentId: Id | null }` -> attaches existing rows in the same transaction; 409 `duplicate_code` for an active key | ZM03 |
-| `POST /admin/cmms/equipment-mappings/{id}/retire` | `{ version, reason }` | ZM03 |
-| `GET /admin/cmms/values?field=jobType|jobStatus` | distinct values with raw text, effect, counts, first/last seen | ZM05 |
-| `PUT /admin/cmms/value-mappings` | `{ version, field, entries: [{ sourceKey, effect }] }` full replacement for that field | ZM05 |
-| `GET /admin/cmms/daily-jobs?matchState=unmatched&...` | all rows including unmatched, for mapping work | ZM03 |
-
-```ts
-type RunSummary = { id: Id; trigger: string; businessDate: DateOnly; startedUtc: Instant; endedUtc: Instant | null;
-  outcome: 'running' | 'succeeded' | 'failed' | 'abandoned'; failureCode: string | null; failureDetail: string | null;
-  rowsRead: number; rowsNew: number; rowsUpdated: number; rowsUnmatched: number; statusChangesApplied: number };
-```
+No CMMS Admin/query/command/export/freshness routes, account configuration, scheduling, sync health, equipment/job mapping, unmatched queues or automatic correction controls are registered. S20 is verified by AM02/AM07 with no external requests. Keep original feature enforcement on retained routes; no authorization bypass via old links.
 
 ### 4.21 Admin: Access matrix (V2: S19)
 
@@ -681,7 +633,7 @@ All need `F:export.excel` **plus** the list's view feature (DATA s14.4, s19). Ea
 | --- | --- | --- |
 | `GET /exports/fac-jobs.xlsx?<s4.22 filters>` | `fac.jobs.view` | DATA s19 FAC jobs. The export belongs to the FAC Jobs tab (SOW V2 5.6); the dashboard has no export (SOW V2 5.5), so `fac.dashboard.view` alone does not allow it (D-140) |
 | `GET /exports/eq-special-jobs.xlsx?<s4.7 filters>` | `eq.jobs.view` | DATA s19 EQ special jobs |
-| `GET /exports/cmms-daily-jobs.xlsx?<s4.17 daily-job filters>` | `eq.jobs.view` | DATA s19 CMMS daily jobs |
+
 | `GET /exports/spare-parts.xlsx?<s4.17 spare-part filters>` | `eq.jobs.view` | DATA s19 spare-part register |
 
 A user whose matrix hides a tab gets 403 `feature_disabled` on that tab's export, so an export never contains rows from a tab the user cannot view (FAC12, ACC02).
@@ -728,7 +680,7 @@ A health response is never acceptance evidence on its own (Master control).
 | (U1 round 6) Display switch | 4.8 `PUT /jobs/{jobId}/display`, 4.23 `PUT /fac/jobs/{jobId}/display` | ACC03, AUTH03, FDB01, HIS06 (U1-C26) |
 | (V2) EQ Jobs tab: daily jobs, status, spare parts | 4.3, 4.17, 4.18 | ZM05, ZM06, ZM07, SP01, SP02, SP03, SP04, JOB02 |
 | (V2) Admin spare parts | 4.19 | SP01, SP03 |
-| (V2) Admin CMMS | 4.20 | ZM01, ZM02, ZM03, ZM04, ZM05, ZM08 |
+| Revision 7 removal/manual status | 4.2, 4.3, 4.16, 4.17, 4.20 | AM02-AM10, JOB02, JOB13 |
 | (V2) FAC jobs, commands, photos | 4.22, 4.23, 4.24 | FAC03, FAC04, FAC05, FAC06, FAC07, FAC08, FAC09, FAC10, FAC11, ACC04 |
 | (V2) FAC Dashboard | 4.25 | FDB01, FDB02, FDB03, FDB04, FDB05, FDB06 |
 | (V2) Admin FAC | 4.26 | FAC01, FAC02, FAC07 |

@@ -1,5 +1,5 @@
 /* Dialog forms: job add/edit, completion with replacement lines, cancel, status change, conflict, Admin dialogs.
-   Every submit goes through EQ.api (the simulated server rules). Nothing is persisted beyond the page view. */
+   Every submit goes through EQ.api (simulated rules). Manual EQ state is browser-local; other work is in memory. */
 window.EQ = window.EQ || {};
 (function (EQ) {
   const h = EQ.h, icon = EQ.icon;
@@ -333,22 +333,22 @@ window.EQ = window.EQ || {};
 
   // ---------- operational status ----------
   EQ.dlg.status = function status(eq) {
-    const st = { status: '', reason: '', relatedJobId: '' }; let errors = {};
+    const st = { status: '', reason: '', relatedJobId: '', expectedCurrentStatusChangeId: eq.currentStatusChangeId, key: 'manual-' + Date.now() + '-' + EQ.uid() }; let errors = {};
     const api = openDialog({
       build(api) {
+        const current = EQ.eq(eq.id);
         const jobs = EQ.jobsOf(eq.id).filter((j) => j.workStatus !== 'completed');
         return {
-          title: (eq.cmmsMapped ? 'Correct operational status - ' : 'Update operational status - ') + eq.code,
+          title: 'Update operational status - ' + eq.code,
           body: [writerGuard(),
-            h('p', { style: 'margin:0' }, 'Current: ', EQ.statusBadge(eq.status), eq.status ? ' since ' + EQ.fmtInstantShort(eq.statusSince) : ' (never set, no duration shown)', ' · ', h('strong', null, EQ.cmms.mode(eq).long)),
-            eq.cmmsMapped ? h('div', { class: 'notice warn' }, icon('clock'), h('div', { class: 'stack', style: 'gap:.3rem' }, h('p', null, h('strong', null, "Correction: "), "Add a reason. The status stays Manual through today's syncs."), h('p', null, h('strong', null, "Return to automatic: "), "At the next successful sync after today, or sooner with Back to automatic."))) : null,
-            radios(st, 'status', 'sf-status', [{ value: 'readyForOps', label: 'Ready for OPS' }, { value: 'breakdown', label: 'Breakdown' }, { value: 'maintenance', label: 'Maintenance' }], () => api.render(), 'New status *', errors.status),
-            field('sf-reason', 'Reason' + (!eq.cmmsMapped && st.status === 'readyForOps' ? ' (optional)' : ''), area(st, 'reason', { rows: 2, maxlength: 500 }), { required: eq.cmmsMapped || st.status === 'breakdown' || st.status === 'maintenance', error: errors.reason, hint: eq.cmmsMapped ? 'Mandatory for every correction of an automatic status.' : 'Mandatory for Breakdown and Maintenance.' }),
+            h('p', { style: 'margin:0' }, 'Current: ', current ? EQ.statusBadge(current.status) : 'Equipment unavailable', current ? ' since ' + EQ.fmtInstantShort(current.statusSince) : ''),
+            radios(st, 'status', 'sf-status', [{ value: 'readyForOps', label: 'Ready for OPS' }, { value: 'isolated', label: 'Isolated' }], () => api.render(), 'New status *', errors.status),
+            field('sf-reason', 'Reason' + (st.status === 'readyForOps' ? ' (optional)' : ''), area(st, 'reason', { rows: 2, maxlength: 500 }), { required: st.status === 'isolated', error: errors.reason, hint: 'Required for Isolated. The manual value stays until another authorized update.' }),
             field('sf-job', 'Related job (optional)', select(st, 'relatedJobId', jobs.map((j) => ({ value: j.id, label: j.number + ' ' + j.title })), null, 'None'), { hint: 'Only open jobs of ' + eq.code + ' are offered.' }),
-            h('div', { class: 'notice info' }, icon('clock'), h('p', null, "Applies now; it cannot be backdated. Status duration uses recorded changes. " + PROTO_NOTE))],
-          foot: footButtons(api, eq.cmmsMapped ? 'Correct status for today' : 'Set status', () => {
-            const r = EQ.api.setStatus(eq.id, st);
-            if (r.ok) { api.close(r); EQ.toast(eq.code + ' is now ' + EQ.STATUS[st.status].label, PROTO_NOTE); } else { errors = r.fields || { status: r.message }; api.render(); }
+            h('div', { class: 'notice info' }, icon('clock'), h('p', null, 'Applies now; it cannot be backdated. Status duration uses recorded changes. Manual status is saved in this browser only; all records are synthetic.'))],
+          foot: footButtons(api, 'Set status', async () => {
+            const r = await EQ.api.setStatus(eq.id, st);
+            if (r.ok) { api.close(r); EQ.toast(eq.code + ' is now ' + EQ.STATUS[st.status].label, r.storedLocally ? 'Synthetic manual status saved in this browser only.' : EQ.manual.warning); } else { errors = r.fields || { status: r.message }; api.render(); }
           }),
         };
       },
@@ -358,19 +358,21 @@ window.EQ = window.EQ || {};
 
   // ---------- Admin dialogs ----------
   EQ.dlg.newEquipment = function newEquipment() {
-    const st = { code: '', name: '', typeCode: '' }; let errors = {};
+    const st = { code: '', name: '', typeCode: '', status: '', reason: '' }; let errors = {};
     return openDialog({
       build(api) {
         return {
           title: 'Register equipment',
           body: [writerGuard(),
-            h('div', { class: 'notice info' }, icon('info'), h('p', null, "New equipment starts Unreported, without a model, serial or commissioning date. An Admin must verify and assign its model.")),
+            h('div', { class: 'notice info' }, icon('info'), h('p', null, "Choose the initial manual status explicitly. Model, serial and commissioning date remain unknown until verified by Admin.")),
             field('ne-code', 'Equipment code', input(st, 'code', { autocomplete: 'off', maxlength: 32 }, () => api.markDirty()), { required: true, error: errors.code, hint: 'Unique, not case-sensitive. Try QC01 to see the duplicate refusal.' }),
             field('ne-name', 'Name', input(st, 'name', { maxlength: 200 }), {}),
-            field('ne-type', 'Type', select(st, 'typeCode', S().D.types.map((t) => ({ value: t.code, label: t.name })), null, 'Choose type'), { required: true, error: errors.typeCode, hint: 'Immutable after creation.' })],
-          foot: footButtons(api, 'Register', () => {
-            const r = EQ.api.createEquipment(st);
-            if (r.ok) { api.close(r); EQ.toast('Registered ' + r.eq.code + ' (Unreported)', PROTO_NOTE); } else { errors = r.fields || {}; api.render(); }
+            field('ne-type', 'Type', select(st, 'typeCode', S().D.types.map((t) => ({ value: t.code, label: t.name })), null, 'Choose type'), { required: true, error: errors.typeCode, hint: 'Immutable after creation.' }),
+            radios(st, 'status', 'ne-status', [{ value: 'readyForOps', label: 'Ready for OPS' }, { value: 'isolated', label: 'Isolated' }], () => api.render(), 'Initial status *', errors.status),
+            field('ne-reason', 'Reason', area(st, 'reason', { rows: 2, maxlength: 500 }), { required: st.status === 'isolated', error: errors.reason, hint: 'Required for Isolated; recorded with the initial status.' })],
+          foot: footButtons(api, 'Register', async () => {
+            const r = await EQ.api.createEquipment(st);
+            if (r.ok) { api.close(r); EQ.toast('Registered ' + r.eq.code + ' · ' + EQ.statusLabel(r.eq.status), r.storedLocally ? 'Synthetic registration and manual status saved in this browser only.' : EQ.manual.warning); } else { errors = r.fields || { status: r.message }; api.render(); }
           }),
         };
       },

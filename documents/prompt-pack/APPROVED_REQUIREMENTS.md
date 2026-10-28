@@ -1,15 +1,17 @@
-# CICT EQ & FAC Maintenance approved requirements
+# CICT EQ & FAC Asset Management approved requirements
 
-Version 2.2 | 24 October 2026 | Planning and implementation contract: stage 1 EQ scope, pre-implementation review decisions and the SOW V2 additions (FAC section, feature permissions, ZMMS daily jobs, automatic status, spare-part condition)
+**Current scope:** SOW V2 revision 7 and U1-C63 supersede every conflicting earlier CMMS, three-status, Unreported, blinking and crane Maintenance-tab rule. This file specifies the proposed implementation; it does not authorize it before the user confirms. U1 remains NOT APPROVED.
+
+Version 2.3 | 28 October 2026 | SOW V2 revision 7 | Documentation only; implementation awaiting user confirmation; U1 NOT APPROVED
 
 ## 1 Purpose and authority
 
-Build a separate Engineering Portal application, displayed as **EQ & FAC Maintenance**, with two main sections:
+Build a separate Engineering Portal application, displayed as **EQ & FAC Asset Management**, with two main sections:
 
-- **EQ**: management sees fleet readiness; the EQ Team records special (major) repair and replacement work against equipment and its components, corrects the operational status and keeps the condition of major spare parts. Daily maintenance jobs and the automatic operational status come from ZMMS. A selectable QC model connects the visual equipment to the same records used in the mechanism tree.
+- **EQ**: management sees fleet readiness; the EQ Team records special (major) repair and replacement work against equipment and its components, corrects the operational status and keeps the condition of major spare parts. CMMS/daily maintenance integration is removed; exactly Ready for OPS and Isolated are manually maintained and persist until another authorized manual change. A selectable QC model connects the visual equipment to the same records used in the mechanism tree.
 - **FAC**: facility maintenance (electrical, mechanical and civil inspections and services across the terminal). The FAC Team updates progress on a master job list; management follows it on a constantly moving dashboard.
 
-This contract combines the supplied SOW (V1), SOW V2 revision 4 (confirmed by the user on 22 October 2026), the user's mechanism table, the facility job list, the engineering references, and the user's answers. It is not a request to reproduce every fabrication parameter or operate physical equipment.
+This contract combines the supplied SOW (V1), SOW V2 revision 7 (management changes documented; implementation awaits confirmation), the user's mechanism table, the facility job list, the engineering references, and the user's answers. It is not a request to reproduce every fabrication parameter or operate physical equipment.
 
 Authority order: later explicit user instructions; the confirmed decisions below; SOW V2 (`documents/SOW_V2.docx`, same text in `documents/SOW_V2.md`) over SOW V1 where they differ; supplied mechanism source and facility job list; drawing observations; documented technical defaults in this pack. Where the SOW's broad all-equipment illustration differs from the confirmed staging, the confirmed staging wins. Never reinterpret legacy notes in the Portal repository as current deployment evidence.
 
@@ -36,20 +38,20 @@ SOW V2 decisions, confirmed on 22 October 2026 (SOW V2 section 9). Where they di
 
 | Decision | Confirmed choice |
 | --- | --- |
-| Sections | Two main sections, EQ and FAC, with a section switch; display name "EQ & FAC Maintenance"; technical identifiers stay `eq-maintenance` |
+| Sections | Two main sections, EQ and FAC, with a section switch; display name "EQ & FAC Asset Management"; technical identifiers stay `eq-maintenance` |
 | Roles | Main roles assigned in the Portal: Admin, Management, EQ Team and the new FAC Team. Feature access (tab visibility and optional rights) is adjusted in app Admin under the role ceilings |
 | FAC master list | Admin manages it; Admin can grant that right to FAC Team. Seeded once from `documents/Facility- Dashboard.xlsx` with a reviewable preview; blanks are imported and completed in Admin |
 | FAC frequencies | Tri-annually = every 4 months; bi-annually = every 6 months; the user picks the frequency from an Admin-maintained list when adding a job; next due counted from the actual completion date, for recurring jobs only |
 | FAC daily checks | One-tap "Done today" / "Done this week" for daily and weekly jobs |
 | Management | Read-only in both sections; tab visibility adjustable in Admin |
-| EQ Jobs tab | Three parts: special jobs (manual, bound to main/sub/part) with ZMMS daily jobs listed below them; EQ status; condition of major spare parts. History lives in the Jobs tab, not in the crane view |
-| ZMMS | Read the ZMMS daily all-job list (`https://www.zmms.lk/?r=job/daily-alljob`) twice a day (Admin-set times, plus Sync now). ZMMS is CICT-owned; the user, as its owner, agrees to login-based reading; ZMMS has no API. Read-only; account kept out of source and documents |
-| Automatic status | Status set from the day's ZMMS plan (breakdown job -> Breakdown, maintenance job -> Maintenance, not in the plan -> Ready for OPS); the job-type mapping is set in Admin after the first real data. A manual correction lasts for the current day only |
+| EQ Jobs tab | Projects/Special jobs, EQ status, Spare parts condition; no Daily work. Crane tabs: Spare part status first/default, Projects/Special, Technical; history stays in Jobs |
+| CMMS removal | No connector, external account, sync, mappings, daily EQ jobs, automatic status or equipment-card blinking remains; historical URLs stay unchanged |
+| Manual EQ status | Exactly Ready for OPS and Isolated; explicit initial/user changes, actor/time/reason/history, no expiry or automatic update |
 | Spare parts | Admin selects which part positions are major spare parts; next predicted replacement = replaced date + expected life in months; Original parts count from the equipment commissioning date |
 
 ## 1A Temporary pre-U1 management presentation
 
-The user's 24 October 2026 request adds SOW V2 revision 6 section 2A only: Portal-style login at `http://127.0.0.1:5312/`, blank/arbitrary credentials accepted without validation, Portal-style launcher with the three existing cards as placeholders and a new EQ & FAC Maintenance card opening the unchanged prototype default. Portal administration, users, roles, passwords and real app/auth connections are outside this temporary work; the Portal repository stays read-only.
+The user's 24 October 2026 request adds SOW V2 revision 6 section 2A only: Portal-style login at `http://127.0.0.1:5312/`, blank/arbitrary credentials accepted without validation, Portal-style launcher with the three existing cards as placeholders and a new EQ & FAC Asset Management card opening the unchanged prototype default. Portal administration, users, roles, passwords and real app/auth connections are outside this temporary work; the Portal repository stays read-only.
 
 `TEMP_MANAGEMENT_WALKTHROUGH.md` defines TEMP01-TEMP06, TD01-TD08 and the build/removal prompts. Use `8303f8b8a55f41983bdcc77363ddbf13d2892383` through U1-C58 as the initial reference. Remove only temporary entry screens/assets/hooks/state **before recording U1 approval**, preserving all accepted EQ/FAC refinements. TD07-TD08 must prove full removal and direct app entry. U1 reviews the cleaned initial app plus accepted EQ/FAC refinements; login/Portal feedback is deferred to P05. See `docs/MANAGEMENT_FEEDBACK.md` in the EQ workspace. These temporary IDs are separate from S01-S29 and the 94 permanent acceptance cases. The permanent authentication, Admin and P05 requirements below still apply. Current status is documentation only; temporary build and removal checks are NOT RUN.
 
@@ -58,14 +60,14 @@ The user's 24 October 2026 request adds SOW V2 revision 6 section 2A only: Porta
 | ID | Required result |
 | --- | --- |
 | S01 | Configurable QC/RTG/ES equipment register, model families and active/retired state |
-| S02 | Fleet overview with equipment-type groups, searchable equipment, current status, status counts and last-update information |
-| S03 | Exactly three operational statuses: Ready for OPS, Breakdown and Maintenance; unreported initial status stays visibly unset; every status shows its source (automatic from ZMMS or manual) |
+| S02 | Fleet overview with type/search filters, current manual status, recorded duration and four KPIs: Active equipment, Ready for OPS percentage, Ready for OPS count, Long term isolated EQ count; no sync/source controls or blinking |
+| S03 | Exactly two operational statuses: Ready for OPS and Isolated; all initial/subsequent selections manual and persistent; no Maintenance or Unreported current state; Long term isolated EQ names the Isolated category |
 | S04 | Authenticated, selectable QC overview model with named major assemblies, orbit/pan/zoom and reset/fit controls |
 | S05 | Equipment -> main mechanism -> submechanism -> main part navigation, with the same selection accessible through a tree |
 | S06 | Overall and Technical modes; Technical mode reveals useful simplified internals and verified specifications |
-| S07 | Selecting a mechanism, submechanism or part focuses it and shows its current state in the right panel (open special jobs, current spare-part condition, specifications) with an "Open in Jobs" link to its scoped history; no work history in the crane view |
-| S08 | EQ Jobs tab in three parts: special jobs (Pending, Current, Completed) with the ZMMS daily jobs listed below them, EQ status, and spare-part condition; equipment, type, classification and date filters; the full scoped history is kept here |
-| S09 | EQ Team can create, edit active work, progress and complete special repair/replacement jobs, correct the operational status and update spare-part condition |
+| S07 | Crane current-state tabs: Spare part status first/default, Projects/Special, Technical; remove Maintenance/daily-job panel; Flat/3D parity and scoped Open in Jobs; no work history in crane view |
+| S08 | EQ Jobs: Projects/Special jobs, EQ status and Spare parts condition with scoped history; remove Daily work/daily imported jobs and their filters, badges, links and export |
+| S09 | Admin/EQ Team create/progress/complete permitted Projects/Special repair/replacement work, explicitly update either operational status and maintain spare-part condition; no job event changes equipment status |
 | S10 | Admin manages equipment, applicability, mechanisms, parts, model bindings and specifications, and makes audited corrections |
 | S11 | Management is read-only across fleet, equipment details and permitted work evidence |
 | S12 | Separate equipment-specific part positions and replacement events; retain previous installations/history |
@@ -74,10 +76,10 @@ The user's 24 October 2026 request adds SOW V2 revision 6 section 2A only: Porta
 | S15 | Central Portal sign-in, explicit app/role registration, appropriate local profile provisioning and same-origin routing |
 | S16 | Responsive, keyboard-accessible normal workflows with a useful non-3D fallback |
 | S17 | Testable local implementation, reproducible model assets, measured performance and a reviewable release package |
-| S18 | Two main sections, EQ and FAC, with a section switch, per-section tabs, a shared Admin, display name "EQ & FAC Maintenance" and last-used landing page |
+| S18 | Two main sections EQ and FAC, shared Admin, permitted per-section tabs and last-used landing; display EQ & FAC Asset Management; preserve technical routes and role identifiers |
 | S19 | Feature-permission matrix in Admin > Access: per-role tab visibility and optional rights within the Portal role ceilings, enforced on the server, audited |
-| S20 | ZMMS daily-job import: login-based, read-only, twice a day at Admin-set times plus Sync now; equipment mapping; every synced day kept; sync health shown; account outside source, logs and browser |
-| S21 | Automatic EQ status from the day's ZMMS plan with an Admin job-type mapping; manual correction with a reason lasting the current day; status history with its source |
+| S20 | CMMS and daily EQ maintenance integration withdrawn: remove connector, account/configuration, schedules, mappings, sync controls/messages, imported daily jobs and exports, automatic status and equipment-card blinking throughout the app |
+| S21 | Persistent manual two-status workflow with explicit initialization, authorized change, reason/actor/time/history, recorded duration, concurrency and no expiry/automatic source; legacy values require explicit review with history retained |
 | S22 | Major spare-part condition register per equipment: Original/Replaced, brand, model/part no., serial, replaced date, expected life, next predicted replacement, due-soon/overdue flags, change history |
 | S23 | FAC master job list with the short field set, deactivate-not-delete, and a one-time reviewable import of the supplied facility job list |
 | S24 | FAC frequencies and cycles: Admin-maintained frequency list, next due from completion for recurring jobs, due-soon/overdue flags, one-time and continuous kinds, Done today/this week |
@@ -91,7 +93,7 @@ RTG and ES detail pages still provide specifications, the applicable mechanism t
 
 Stage 1 excludes live PLC/SCADA/IoT feeds, remote equipment control, structural stress calculations, load/safety certification, predictive maintenance beyond the simple expected-life date of S22, Maximo/EAM work-order references or synchronisation, bulk import of historical work records, procurement/stock control, full preventive-maintenance scheduling for EQ, costs/budgets, public user registration, and full RTG/ES 3D authoring. These are not implied by a graphical maintenance dashboard.
 
-SOW V2 further excludes: writing anything to ZMMS; reading ZMMS pages other than the daily job list; linking ZMMS daily jobs to mechanisms or parts; predictions from running hours, sensors or AI; spare-part stock and purchasing; FAC email/SMS/WhatsApp reminders; automatic running-hour readings; contractor management; detailed per-item inspection checklists; maps/GIS; links from FAC jobs to EQ equipment; offline mode.
+SOW V2 revision 7 excludes all CMMS/daily EQ integration, automatic status, card blinking, running-hour/sensor/AI predictions, stock/purchasing, FAC notifications/budgets/GIS/offline and EQ links.
 
 ## 3 Classification and installed positions
 
@@ -133,7 +135,7 @@ PortalAdmin assigns one or more of four roles in the ENG Portal. A user holding 
 | Read fleet, equipment, work and allowed documents (subject to tab visibility) | Yes | Yes | Yes | Yes |
 | Create special jobs and update Pending/Current EQ work | Yes | Yes | No | No |
 | Complete a valid special job and its replacement lines | Yes | Yes | No | No |
-| Correct the equipment operational status (manual, current day) | Yes | Yes | No | No |
+| Set the equipment operational status (manual, persists until changed) | Yes | Yes | No | No |
 | Update spare-part condition | Yes | Yes | No | No |
 | Correct or reopen completed EQ work, with reason/history | Yes | No | No | No |
 | Cancel an uncompleted special job, with reason | Yes, any job | Yes, jobs they created | No | No |
@@ -143,12 +145,12 @@ PortalAdmin assigns one or more of four roles in the ENG Portal. A user holding 
 | Correct FAC cycles, remove any photo, with reason | Yes | No | No | No |
 | Export to Excel | Yes | Optional (default on) | Optional (default on) | Optional (default on) |
 | Add/update equipment, templates, classifications, main parts, spare-part selection and expected life | Yes | No | No | No |
-| Set applicability, specifications, model bindings, ZMMS mapping and sync settings | Yes | No | No | No |
+| Set applicability, specifications, model bindings and verified technical settings | Yes | No | No | No |
 | Attach EQ work evidence | Yes | Yes, to accessible work | No | No |
 | Change the Access matrix | Yes | No | No | No |
 | Alter central identities or grant arbitrary Portal roles | No implicit right | No | No | No |
 
-Admin here means EQ & FAC Maintenance Admin. It does not automatically mean PortalAdmin. Central account/role provisioning continues to follow the Portal's current administrative contract; the four roles are not delegable in stage 1.
+Admin here means EQ & FAC Asset Management Admin. It does not automatically mean PortalAdmin. Central account/role provisioning continues to follow the Portal's current administrative contract; the four roles are not delegable in stage 1.
 
 ### 4.2 Feature permissions (Admin > Access)
 
@@ -157,49 +159,25 @@ App Admin adjusts a per-role on/off matrix (SOW V2 3.2). Defaults: every view ta
 - A toggle applies to a role, never to an individual user, and can only narrow a role or switch on an optional right listed above. It can never give Management write access, give any right above the Portal role's ceiling, or make anyone an app Admin. Admin rights are fixed on.
 - The server enforces the matrix on every page route, API endpoint, export and file/photo link. A hidden tab or button is not authorization.
 - Every matrix change records actor, time and old -> new values and takes effect at the user's next refresh (within 60 seconds).
-- A user whose tabs are all off sees a "No access - contact the EQ & FAC Maintenance Admin" page, not an error.
+- A user whose tabs are all off sees a "No access - contact the EQ & FAC Asset Management Admin" page, not an error.
 
 There is no invented departmental approval chain or per-equipment/per-discipline restriction. No second production login or local password database is required.
 
 ## 5 Operational status and work lifecycle
 
-Operational state and work state are independent:
+Operational status is exactly Ready for OPS or Isolated, initialized explicitly by Admin and changed only by an authorized Admin/EQ Team user. Long term isolated EQ is the Isolated business category, with no automatic time threshold. Initial selection and audit are atomic; do not default to Ready or show Unreported. Existing blank/old status values require explicit manual review; preserve prior events as labelled legacy history.
 
-- Operational status is Ready for OPS, Breakdown or Maintenance. New equipment has no reported operational status until the first ZMMS sync that covers it (if mapped) or an authorized user sets one; a neutral Unreported display is not a fourth operational status.
-- For ZMMS-mapped equipment the status is automatic (section 5A). A manual correction overrides it for the current Asia/Colombo day only. Equipment with no ZMMS mapping keeps manual status as below.
-- Every operational-status change records its source (ZMMS sync or user), actor where there is one, and time. A short reason is mandatory for a manual Breakdown or Maintenance and for every manual correction of an automatic status; optional for a manual Ready for OPS. The change may reference a related job on the same equipment. Fleet and equipment views show how long the equipment has been in its current status, computed only from recorded status history; equipment never set shows no duration, and nothing is inferred from before tracking began.
-- Work status is Pending, Current or Completed. Pending work can move to Current or be recorded directly as Completed for work already performed, if required completion information is supplied.
-- Completing a job never automatically marks the equipment Ready for OPS. Status changes come only from a successful ZMMS sync (mapped equipment) or an explicit user action.
-- Admin may reopen/correct completed work with a mandatory reason and an immutable record of the prior values. Do not destroy replacement history when a job is reopened.
-- A completed replacement cannot be silently undone by reopening its job. Use an explicit audited correction that recomputes the installed position consistently and refuses to overwrite a later replacement.
-- An uncompleted job can be cancelled with a mandatory reason: by EQ Team for jobs they created and by Admin for any job. Record who cancelled it and when. Keep it out of the three normal work columns and available through an Include cancelled filter; never turn it into completed work or delete its history. A completed job cannot be cancelled; use the Admin correction path.
+Every change records old/new values, actor, UTC instant, reason (required for Isolated; optional for Ready for OPS) and an optional related job whose scope includes the equipment. Preserve request idempotency, concurrency and retired-equipment rules. Current duration derives only from the recorded event. No job event, refresh, midnight, scheduler, external source, FAC due date or spare-part date changes EQ operational status. No automatic mode, one-day correction, expiry or Back to automatic.
 
-Job defaults: equipment; scope target (equipment/main/sub/part); title; Repair or Replacement kind; description; planned date if known; optional responsible person; work status; actual completion date and completion note when completed. Priority may be a simple optional field, not a new approval workflow.
+Projects/Special work remains independent: Repair, Replacement and accepted Project kinds; Pending, Current, Completed; explicit valid completion, quantity-bearing and serialized replacement semantics, atomic installation/register/audit writes, cancellation with reason and Admin correction/reopen without destroying prior/later installation history. Preserve U1-C50 progress and U1-C51 shared type-wide scope. Scope/ancestor checks must keep every replacement tied to a real equipment-specific part position. Unknown serial and work dates stay unknown; no bulk historical import or invented downtime.
 
-Each job belongs to exactly one equipment item. Ancestors must belong to that equipment. An equipment-level job has no invented component target and appears at equipment level; it is not repeated in every mechanism. A replacement line must resolve an actual main-part position under that equipment. A job can have multiple replacement lines on the same equipment; reject duplicate lines for the same position in one completion operation.
+Record audit instants in UTC and show Asia/Colombo. Work dates without an event time remain business dates. Ready for OPS percentage is the current active-count ratio, not a promise of historical availability or reliability analytics.
 
-Replacement details: part position, removed item where known, installed item description, model/part number and serial if known, quantity/UOM appropriate to the position, replacement date, linked job and optional evidence. Use a quantity-bearing installation/lot representation for rope sets and similar multi-item positions where necessary; do not assume every position is a single serialized motor. Original/removed item may be explicitly Unknown. Do not invent a serial number, initial service date or opening installation.
+## 5A CMMS removal and persistent manual status
 
-Use a database transaction for job completion, installation changes and audit records. Use request identifiers or equivalent idempotency protection for retried completion commands, plus concurrency tokens for updates. Repeating a successful command must not duplicate an installation or a replacement event.
+S20 withdraws every CMMS integration feature and routine daily EQ maintenance feed, including connector, login/account configuration, hosted scheduling, mappings, unmatched queue, Sync now, sync records/health UI/messages, imported daily jobs/export and automatic source/override logic. S21 requires the persistent manual two-status workflow in section 5. Remove all equipment/status-card blinking, pause-blinking controls and Auto/Manual source selectors. Do not request credentials or contact CMMS in any phase or test.
 
-Record audit instants in UTC and show them in Asia/Colombo. Preserve actual work dates as business dates when no exact event time is supplied. An audit timestamp is not proof of the physical replacement time. Do not fabricate downtime history before tracking began.
-
-Current fleet counts are valid stage 1 indicators. MTBF, MTTR, availability percentages, structural health scores and economic remaining life require additional definitions/data and are not stage 1 promises. The S22 predicted replacement date is a simple calendar rule, not a remaining-life assessment, and is labelled as such.
-
-In V2 the jobs above are the EQ **special jobs**: major or non-routine work entered by hand and bound to one equipment and to its equipment level, main mechanism, submechanism or main part. Completing a Replacement special job opens the spare-part condition form for the selected part, pre-filled (section 5B); saving it is part of the same atomic completion.
-
-## 5A ZMMS daily jobs and automatic status
-
-- Source: the ZMMS (CMMS.LK) daily all-job list, `https://www.zmms.lk/?r=job/daily-alljob`. ZMMS is a CICT-owned app without an API or export; its owner (the user) has agreed that this app signs in with a dedicated account and reads that page. The page requires a login (checked 22 October 2026).
-- A server-side connector signs in and reads the list twice a day at Admin-set times (defaults 06:00 and 14:00 Asia/Colombo) and on Admin "Sync now". It only reads; it submits no ZMMS form other than the login, follows no link outside the daily job list and never writes to ZMMS.
-- The account is runtime configuration (environment, user secrets or the protected configuration store of the host). It never appears in source, tests, fixtures, documents, logs, error messages, the browser or evidence. Automated tests use sanitised recorded page fixtures, never the live site.
-- Each record keeps at least the ZMMS job number, job date, ZMMS equipment text, description or type and job status; the exact field list is fixed from the real page in the ZMMS phase. Records are upserted by ZMMS job number and date, so repeated syncs do not duplicate them. Every synced day is kept.
-- Equipment is matched through an Admin mapping table (ZMMS equipment text or code -> app equipment). Unmatched rows are kept and listed in Admin for mapping, never dropped or guessed.
-- Daily jobs are read-only, linked to the equipment only (not to a mechanism or part), and listed in the EQ Jobs tab below the special jobs with the same filters.
-- Sync health: each run records start/end, rows read, rows new/updated, unmatched rows and failure reason. Admin sees the history; users see "ZMMS data from <date time>". A failed sync, a login failure or a page layout that no longer matches the parser keeps the previous data, records a failure, retries with backoff and warns Admin. It never saves partial or wrongly parsed rows and never changes statuses from a failed run.
-- Automatic status after a successful sync, for each mapped active equipment, from that Asia/Colombo day's plan: an open job whose type/status maps to Breakdown -> Breakdown; else one that maps to Maintenance -> Maintenance; else Ready for OPS. The ZMMS job-type/status mapping is Admin configuration set after the first real data; until it is set, the sync stores daily jobs but changes no status.
-- A manual correction (reason mandatory) shows "Manual" and holds for the rest of that day, including over that day's second sync. The first successful sync of the next day returns the equipment to automatic status. "Back to automatic" ends it earlier.
-- Each status change records its source, the sync run or user, and the ZMMS jobs that caused it.
+Retain historical source/evidence URLs under zmms.lk without rewriting the external domain. Legacy imported/history records must not be hard-deleted or silently repurposed by the removal; any future data disposition needs a reviewable plan. FAC daily/weekly inspection/service cycles, moving lists/TV, manual EQ special work, spare-part status/history and technical records remain in scope. Full eight-request matrix and explicit implementation gate: `docs/MANAGEMENT_SCOPE_REVISION_20261028.md`.
 
 ## 5B Condition of major spare parts
 
@@ -233,16 +211,16 @@ The FAC section is specified in SOW V2 section 5, which is part of this contract
 - **Progress (S25)**: statuses Pending, In progress, Completed, On hold (reason mandatory); flags Due soon and Overdue computed on top. The normal action is one update form: quantity done now or All done, date (default today, not in the future), optional note, optional photos. Completed quantity never exceeds the job quantity. Reaching it completes the cycle after a confirmation. Every update is an append-only timeline entry (who, when, +quantity, note, photos). A user may undo their own last update on the same day; Admin corrects any cycle with a reason and the previous values are kept. Updates are idempotent per request and use concurrency tokens.
 - **Pictures (S26)**: job picture optional, one per job, replaceable; completion pictures optional, up to 5 per update. JPG/PNG up to 10 MB each, validated by signature, resized (long edge 1920 px) with thumbnails, stored in the protected storage, shown only to users allowed to view FAC. The uploader can remove their own photo the same day; Admin any photo with a reason; removals recorded.
 - **Dashboard (S27)** and **FAC Jobs (S28)**: as SOW V2 5.5 and 5.6, including the order of the moving lists (Overdue, On hold, In progress, Due soon, Pending, completed in the last 7 days), pause on hover/focus/Pause button, page-flip every 8 s under reduced motion, TV mode signed in as a normal Management user (no anonymous view), 60-second refresh with "Updated hh:mm" and a stale-data warning, filters kept in the URL, phone layout without auto-scroll, and the phone-first update form with camera capture.
-- **Export (S29)**: filtered FAC lists export to .xlsx with the source sheet's columns plus the calculated ones; filtered EQ special-job, daily-job and spare-part lists export likewise.
+- **Export (S29)**: filtered FAC lists export to .xlsx with the source sheet's columns plus the calculated ones; filtered EQ Projects/Special, manual status and spare-part lists export likewise.
 
 ## 7 Screens and interaction
 
 0. Top bar: section switch (EQ | FAC), the tabs of the current section, Admin for Admin; only permitted sections/tabs are shown; the switch is hidden when only one section is permitted. Landing: last used section/tab; first visit EQ Fleet for EQ Team, Management and Admin, FAC Dashboard for FAC Team.
-1. Fleet: type tabs/groups, Ready/Breakdown/Maintenance/Unreported counts, search, status filters, compact equipment cards or rows showing status source (Auto/Manual) and today's ZMMS daily-job count, last updated, and links to details. At desktop sizes the whole fleet should be easy to survey; scrolling/filtering is acceptable for larger registers. Do not render one interactive canvas per card.
-2. Equipment: header with code/type/status (with source) and status-correction action for writers; mechanism tree; centre viewport; right current-state panel (open special jobs, spare-part condition, specifications, "Open in Jobs"); breadcrumb; Overall/Technical toggle. No work history in this view.
-3. EQ Jobs: three parts. (a) Special jobs: Pending/Current/Completed tabs or board, add/edit form, completion dialog, replacement position selection, work evidence, cancelled filter, scoped history by equipment/main/sub/part; below them the read-only ZMMS daily jobs with "ZMMS data from" freshness. (b) EQ status: current status per equipment with source, correction and Back to automatic, status history. (c) Spare parts condition: register per equipment with flags and per-part history. Shared filters: equipment, type, date range, search. Moving a card must still enforce the same server rules as the form.
+1. Fleet: four reconciled Active/Ready percentage/Ready count/Long term isolated EQ KPIs, type/search/status filters, static status cards, recorded duration and last app refresh. No CMMS/source controls/blinking/Maintenance/Unreported cards.
+2. Equipment: retained Flat/QC 3D/tree/header; three tabs Spare part status first/default, Projects/Special, Technical; scoped current data/actions/search/Open in Jobs. No Maintenance/daily-job panel.
+3. EQ Jobs: Projects/Special, EQ status, Spare parts condition. Retain accepted work/progress/history/cancellation/part predictions. Two manual statuses with authorized reason/actor/time/history. No Daily work/sync/automatic/source filter/imported export.
 4. FAC Dashboard and FAC Jobs: section 6A.
-5. Admin: EQ settings (equipment/model templates, applicability, the coded mechanism list, installed positions, major spare-part selection and expected life, source specifications, model-binding validation, ZMMS mapping, job-type mapping, sync times and health), FAC settings (master list, import preview, disciplines, types, frequencies, due-soon window, refresh interval, dashboard scroll speed, cycle corrections) and Access (section 4.2). Reserve central identity administration for the Portal.
+5. Admin: retained equipment/models/applicability/mechanisms/positions, explicit initial manual status, part designation/life/specifications/bindings, FAC settings/import/corrections and Access. No CMMS configuration/account dependency.
 
 Use existing Portal visual tokens and recognizable navigation where available. Use restrained colours, clear typography, visible focus, labelled controls, and status text/icons as well as colour. Keep the actual red crane paint in normal mode; selection or work overlays have a separate legend. Management's read-only state must be clear without disabling navigation.
 
@@ -258,7 +236,7 @@ These are recommended choices to verify in Prompt P00, not user requests to upgr
 - Separate EQ-owned database and migrations on SQL Server. Use external runtime configuration, no embedded credentials and no automatic shared/live migrations.
 - Protected files outside public static roots; authenticated handlers for source drawings, work photos and technical models. Bundle needed fonts, icons, decoders and dependencies for intranet use.
 - Prefer reproducible procedural Three.js geometry or an authored/exported GLB pipeline, selected after checking tools. Both must produce stable semantic mappings and the same visual result; a PNG is not an interactive model.
-- Run the ZMMS connector as a hosted background service inside the single EQ host (no separate scheduler or service), with one run at a time, a timeout, and a parser that fails closed on an unexpected page. Use only the .NET HTTP client and an HTML parser library selected in the ZMMS phase; no headless browser unless the page cannot be read without script execution, which the ZMMS phase must prove first.
+- No CMMS connector/scheduler/account/parser/external dependency is registered; no background/work/date event changes EQ operational status.
 - Poll lightweight fleet data at a configurable interval, with a 60-second default plus refresh after writes. No push infrastructure is required in stage 1. Show freshness and preserve last good data with a stale/error indicator on failures.
 
 Proposed technical identifiers, to use unless an actual collision is found:
@@ -269,7 +247,7 @@ Proposed technical identifiers, to use unless an actual collision is found:
 | Browser base path | /eq-maintenance |
 | Public API base | /eq-maintenance/api |
 | Token audience | urn:cict-eng:eq-maintenance |
-| Display name | EQ & FAC Maintenance |
+| Display name | EQ & FAC Asset Management |
 | Roles | eq-maintenance:admin; eq-maintenance:management; eq-maintenance:eq-team; eq-maintenance:fac-team |
 | Local binding claim if required by the current Portal contract | cict:binding:eq-maintenance:local_user_id |
 

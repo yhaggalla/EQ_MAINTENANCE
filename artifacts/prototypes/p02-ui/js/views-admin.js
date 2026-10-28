@@ -1,4 +1,4 @@
-/* Admin workspace (EQ Maintenance Admin only): equipment, models and applicability, catalogue, main-part positions,
+/* Admin workspace (Asset Management Admin only): equipment, models and applicability, catalogue, main-part positions,
    source specifications and scene-binding validation. Central identity administration belongs to the Portal and is absent. */
 window.EQ = window.EQ || {};
 (function (EQ) {
@@ -12,7 +12,7 @@ window.EQ = window.EQ || {};
     const S = EQ.state;
     return h('div', { class: 'stack' },
       h('div', { class: 'row between' }, h('h2', null, 'Equipment register'), h('button', { type: 'button', class: 'primary', onClick: () => EQ.dlg.newEquipment() }, icon('plus'), 'Register equipment')),
-      h('div', { class: 'notice info' }, icon('info'), h('p', null, "An Admin must verify each model assignment and add a note. New equipment starts Unreported, with no model, serial or commissioning date.")),
+      h('div', { class: 'notice info' }, icon('info'), h('p', null, "An Admin must verify each model assignment and add a note. Explicitly select Ready for OPS or Isolated at registration. Model, serial and commissioning date stay unknown until verified.")),
       h('div', { class: 'panel table-wrap' }, h('table', null,
         h('caption', { class: 'sr-only' }, 'Equipment register'),
         h('thead', null, h('tr', null, ['Code', 'Type', 'Model association', 'Status', 'Lifecycle', 'Open jobs', 'Actions'].map((c) => h('th', { scope: 'col' }, c)))),
@@ -22,7 +22,7 @@ window.EQ = window.EQ || {};
           h('td', null, EQ.statusBadge(e.status)), h('td', null, e.lifecycle), h('td', null, String(EQ.openJobs(e.id).length)),
           h('td', null, h('div', { class: 'row' },
             !EQ.verified(e) && e.lifecycle === 'active' ? h('button', { type: 'button', class: 'btn-sm', onClick: () => assoc(e) }, 'Associate model...') : null,
-            e.lifecycle === 'active' ? h('button', { type: 'button', class: 'btn-sm danger-btn', onClick: () => { const r = EQ.api.retireEquipment(e.id); EQ.toast(r.ok ? e.code + ' retired' : 'Refused: ' + r.message, 'Prototype: in memory only.'); } }, 'Retire') : null)))))))
+            e.lifecycle === 'active' ? h('button', { type: 'button', class: 'btn-sm danger-btn', onClick: async () => { const r = await EQ.api.retireEquipment(e.id); EQ.toast(r.ok ? e.code + ' retired' : 'Refused: ' + r.message, r.ok && r.storedLocally ? 'Synthetic retirement saved in this browser only.' : EQ.manual.warning); } }, 'Retire') : null)))))))
     );
   }
   function assoc(e) {

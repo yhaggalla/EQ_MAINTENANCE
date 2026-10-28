@@ -1,0 +1,49 @@
+{
+  "base": "http://127.0.0.1:5312/index.html",
+  "results": [
+    {
+      "id": "01 shared model and single viewport",
+      "pass": true
+    },
+    {
+      "id": "02 tree selection and all three panels survive switches",
+      "pass": true
+    },
+    {
+      "id": "03 fixed side drag, pan, zoom and aspect ratio",
+      "pass": true
+    },
+    {
+      "id": "04 scene label clicks drill down through tree and panel in both views",
+      "pass": true
+    },
+    {
+      "id": "05 technical isolation, labels, markers and reset retain Flat",
+      "pass": true
+    },
+    {
+      "id": "06 equipment-specific identity, direct URL and refresh",
+      "pass": true
+    },
+    {
+      "id": "07 legacy P03 route resolves exact semantic key into shared page",
+      "pass": true
+    },
+    {
+      "id": "08 phone, landscape and keyboard switch",
+      "pass": true
+    },
+    {
+      "id": "09 context loss recovery and lifecycle disposal",
+      "pass": true
+    },
+    {
+      "id": "10 actual model load failure preserves records and retry succeeds",
+      "pass": true
+    },
+    {
+      "id": "11 actual WebGL unavailable keeps tree and information panels",
+      "pass": true
+    }
+  ]
+}

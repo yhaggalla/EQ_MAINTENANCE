@@ -7,7 +7,7 @@ import vm from 'node:vm';
 const out = process.argv[2] || 'docs/evidence/R02B/repair-round2-20261023/probes-after.json';
 const box = vm.createContext({ console, Intl, Date, URLSearchParams, setTimeout, clearTimeout });
 box.window = box;
-for (const name of ['util', 'catalog', 'params', 'fac-ref', 'fixtures', 'access', 'store', 'cmms', 'spares', 'fac']) {
+for (const name of ['util', 'catalog', 'params', 'fac-ref', 'fixtures', 'access', 'store', 'manual-status', 'spares', 'fac']) {
   vm.runInContext(fs.readFileSync(`artifacts/prototypes/p02-ui/js/${name}.js`, 'utf8'), box, { filename: name + '.js' });
 }
 const E = box.EQ;

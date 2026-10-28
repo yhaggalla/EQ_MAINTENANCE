@@ -6,7 +6,7 @@ const base = process.argv[2] || 'http://127.0.0.1:5312/';
 const out = process.argv[3] || 'docs/evidence/U1/fac-charts-c57'; fs.mkdirSync(out, { recursive: true });
 const checks = [], check = (name, pass, detail) => { checks.push({ name, pass: !!pass, detail }); if (!pass) throw Error(name + ': ' + JSON.stringify(detail)); };
 const box = vm.createContext({ console, Intl, Date, URLSearchParams, setTimeout, clearTimeout }); box.window = box;
-for (const file of ['util', 'catalog', 'params', 'fac-ref', 'fixtures', 'access', 'store', 'cmms', 'spares', 'fac']) vm.runInContext(fs.readFileSync(`artifacts/prototypes/p02-ui/js/${file}.js`, 'utf8'), box);
+for (const file of ['util', 'catalog', 'params', 'fac-ref', 'fixtures', 'access', 'store', 'manual-status', 'spares', 'fac']) vm.runInContext(fs.readFileSync(`artifacts/prototypes/p02-ui/js/${file}.js`, 'utf8'), box);
 const E = box.EQ; E.reset(); E.state.role = 'management'; E.access.refreshSession('C57');
 const today = E.todayColombo(), day = date => new Date(date + 'T00:00:00Z'), add = (date, n) => new Date(+day(date) + n * 864e5).toISOString().slice(0, 10);
 const monday = add(today, -((day(today).getUTCDay() + 6) % 7)), start = add(monday, -21);

@@ -24,7 +24,7 @@ const el = (tag, attrs, ...kids) => {
 const Q = new URLSearchParams(location.search);
 const SIM = Q.get('viewer'); // nowebgl | contextlost | loadfail (prototype fallback simulation)
 
-const state = { eq: 'eq-qc-demo-01', main: null, sub: null, part: null, container: null, mode: 'overall', iso: false, view: '', panel: 'maintenance' };
+const state = { eq: 'eq-qc-demo-01', main: null, sub: null, part: null, container: null, mode: 'overall', iso: false, view: '', panel: 'spareParts' };
 let manifest, catalog, params, viewer = null, viewerState = 'loading', inst = new Map(), expanded = new Set(), loadMs = null;
 let lastFocusKey = null;
 const PARAMS_BY_MAIN = {
@@ -43,7 +43,7 @@ function readURL() {
   state.mode = q.get('mode') === 'technical' ? 'technical' : 'overall';
   state.iso = q.get('iso') === '1' && state.mode === 'technical';
   state.view = ['side', 'end-ws', 'end-ls', 'top'].includes(q.get('view')) ? q.get('view') : '';
-  state.panel = EQ.panelTabs.KEYS.includes(q.get('panel')) ? q.get('panel') : 'maintenance';
+  state.panel = EQ.panelTabs.KEYS.includes(q.get('panel')) ? q.get('panel') : 'spareParts';
 }
 function writeURL(push = true) {
   const q = new URLSearchParams();
@@ -53,7 +53,7 @@ function writeURL(push = true) {
   if (state.mode !== 'overall') q.set('mode', state.mode);
   if (state.iso) q.set('iso', '1');
   if (state.view) q.set('view', state.view);
-  if (state.panel !== 'maintenance') q.set('panel', state.panel);
+  if (state.panel !== 'spareParts') q.set('panel', state.panel);
   const url = location.pathname + '?' + q.toString();
   if (url !== location.pathname + location.search) (push ? history.pushState : history.replaceState).call(history, null, '', url);
 }
@@ -197,8 +197,8 @@ function currentDataScope() {
 // ---------- equipment header, breadcrumb ----------
 function renderEquipment() {
   // status and its source come from the shared synthetic V2 data layer (Auto from the CMMS day plan, or a Manual correction for today)
-  const e = eqObj(); const q = E2(); const mode = EQ.cmms.mode(q); const key = EQ.statusKey(q.status);
-  $('#status-badge').replaceChildren(el('span', null, e.code + ' '), el('span', { class: 'st ' + key }, (key === 'readyForOps' ? '✔ ' : '⚠ ') + EQ.STATUS[key].label), el('span', { class: 'src-tag', title: mode.long }, mode.label === 'Auto' ? 'Auto (CMMS)' : 'Manual'), el('span', { class: 'synthetic', style: 'margin-left:6px' }, 'synthetic'));
+  const e = eqObj(); const q = E2(); const key = EQ.statusKey(q.status);
+  $('#status-badge').replaceChildren(el('span', null, e.code + ' '), el('span', { class: 'st ' + key }, (key === 'readyForOps' ? '✔ ' : '⚠ ') + EQ.STATUS[key].label), el('span', { class: 'synthetic', style: 'margin-left:6px' }, 'synthetic'));
 }
 function renderCrumbs() {
   const ii = I(); const e = eqObj(); const items = [];
@@ -277,7 +277,7 @@ function renderToolbar() {
 // Maintenance (today's CMMS daily jobs), Projects/Special (open special jobs in the selection), Technical (specification summary of the
 // selected area) and Spare parts (register condition within the selection). No work history is shown here; the scoped history is in the
 // EQ Jobs tab of the P02 prototype ("Open in Jobs"). Same tabs and same data as the flat view (U1-C08 parity).
-const TAB_ARIA = { maintenance: 'jobs today', special: 'open', spareParts: 'overdue or due soon' };
+const TAB_ARIA = { special: 'open', spareParts: 'overdue or due soon' };
 function scopeTitle() {
   const ii = I(); const e = eqObj();
   if (state.container) return ['Spatial group', nodeOf('container.' + state.container)?.label || 'Container'];
@@ -293,13 +293,13 @@ function renderInfo() {
   const ds = currentDataScope(); const eq2 = E2();
   const scope = ds.scope || { level: 'equipment', id: null };
   const sum = EQ.panelTabs.summary(eq2, scope);
-  const nOf = { maintenance: sum.maintenance, special: ds.scope ? sum.special : 0, spareParts: ds.scope ? sum.spare.overdue + sum.spare.dueSoon : 0 };
+  const nOf = { special: ds.scope ? sum.special : 0, spareParts: ds.scope ? sum.spare.overdue + sum.spare.dueSoon : 0 };
   const tabs = $('#info-tabs');
   tabs.replaceChildren(...EQ.panelTabs.TABS.map(([k, long]) => {
     const n = nOf[k];
     return el('button', { type: 'button', role: 'tab', id: 'ptab-' + k, 'aria-controls': 'info', 'aria-selected': state.panel === k ? 'true' : 'false', tabindex: state.panel === k ? '0' : '-1', 'data-tab': k, 'aria-label': long + (n ? ', ' + n + ' ' + TAB_ARIA[k] : ''),
       onclick: () => setPanel(k),
-      onkeydown: (ev) => { const keys = EQ.panelTabs.KEYS; const i = keys.indexOf(k); const j = ev.key === 'ArrowRight' ? (i + 1) % 4 : ev.key === 'ArrowLeft' ? (i + 3) % 4 : ev.key === 'Home' ? 0 : ev.key === 'End' ? 3 : -1; if (j >= 0) { ev.preventDefault(); setPanel(keys[j], true); } } },
+      onkeydown: (ev) => { const keys = EQ.panelTabs.KEYS; const i = keys.indexOf(k); const j = ev.key === 'ArrowRight' ? (i + 1) % keys.length : ev.key === 'ArrowLeft' ? (i + keys.length - 1) % keys.length : ev.key === 'Home' ? 0 : ev.key === 'End' ? keys.length - 1 : -1; if (j >= 0) { ev.preventDefault(); setPanel(keys[j], true); } } },
       long === 'Projects/Special' ? ['Projects/', document.createElement('wbr'), 'Special'] : long, n ? el('span', { class: 'tab-n', 'aria-hidden': 'true' }, String(n)) : null);
   }));
   box.setAttribute('aria-labelledby', 'ptab-' + state.panel);
@@ -307,8 +307,7 @@ function renderInfo() {
   if (state.container) { box.replaceChildren(...containerPanel(ii)); return; }
   const missing = (what) => el('div', { class: 'nonwork' }, el('strong', null, 'No data under this identity'), `${ds.name} has no matching ${what} in the shared prototype fixtures of ${e.code}. Nothing is inferred from a name or an index; this is not evidence that there is no work or no spare part.`);
   let body;
-  if (state.panel === 'maintenance') body = EQ.panelTabs.maintenance(eq2, scope);
-  else if (state.panel === 'special') body = ds.scope ? EQ.panelTabs.special(eq2, {}, scope) : missing('position');
+  if (state.panel === 'special') body = ds.scope ? EQ.panelTabs.special(eq2, {}, scope) : missing('position');
   else if (state.panel === 'spareParts') body = ds.scope ? EQ.panelTabs.spare(eq2, {}, scope) : missing('position');
   else body = el('div', { class: 'stack' }, ...technicalParts(ii, e));
   box.replaceChildren(body);
@@ -389,7 +388,7 @@ function hint(text) { const h = $('#hint'); h.textContent = text; h.classList.ad
 function showFallback(reason) {
   viewerState = 'fallback'; window.__qcFallback = reason;
   const f = $('#fallback'); f.hidden = false;
-  f.replaceChildren(el('h3', null, '3D view unavailable'), el('p', null, reason), el('p', null, 'The mechanism tree, breadcrumb and the four current-state tabs (Maintenance, Projects/Special, Technical, Spare parts) remain fully usable. Use the tree on the left, or the list below.'),
+  f.replaceChildren(el('h3', null, '3D view unavailable'), el('p', null, reason), el('p', null, 'The mechanism tree, breadcrumb and the three current-state tabs (Spare part status, Projects/Special, Technical) remain fully usable. Use the tree on the left, or the list below.'),
     el('ul', { class: 'poslist' }, ...I().positions.slice(0, 60).map((p) => el('li', null, el('a', { href: '#', onclick: (ev) => { ev.preventDefault(); select({ part: p.id }); } }, p.name)))));
   document.querySelectorAll('.toolbar button, .toolbar select').forEach((b) => { if (!b.dataset.mode) b.disabled = true; });
 }
