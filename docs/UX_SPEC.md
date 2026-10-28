@@ -1,5 +1,7 @@
 # UX specification
 
+**Current U1-C64 override (28 October 2026):** D-212 explicitly authorizes the Isolated card pulse described in section 57. It supersedes only earlier blanket no-blinking language. C63 implementation is confirmed and complete in the local prototype; its dated documentation-only notes below are historical. U1 remains NOT APPROVED; fresh independent C64 review and TD07-TD08 are pending.
+
 ## Current management scope 28 October 2026
 
 **U1-C63 / SOW V2 revision 7 / prompt pack 2.3: documentation only; implementation awaits the user's confirmation. U1 remains IN PROGRESS / NOT COMPLETE / NOT APPROVED; P04/P05 Not started.** Read `docs/MANAGEMENT_SCOPE_REVISION_20261028.md` for all eight outcomes. This section and the revision-7 contracts supersede conflicting earlier descriptions throughout this file. Earlier dated reviews/addenda/evidence describe their snapshots and do not validate the new scope.
@@ -475,3 +477,11 @@ This is the proposed UX, not an implemented refinement. Apply the eight-request 
 Fleet has four cards across the available width: Active equipment, Ready for OPS percentage, Ready for OPS count, Long term isolated EQ count. Remove Maintenance/Unreported cards and obsolete source controls, sync text and all card blinking. Retain the approved small status/equipment icons, QC/RTG/ES summaries, type/search/status filters, Include retired, Cards/Table and TV. All four KPIs use active type/search population; retired excluded; status filters affect detail rows, not the KPI denominator. Empty percentage is a dash. Count cards reconcile: Ready + Isolated = active. Reflow desktop/tablet/phone/TV without blank removed-card slots or page overflow. AM01-AM11 and affected regressions remain NOT RUN.
 
 Earlier dated UX sections describing six KPIs, four crane/Jobs tabs, CMMS or status blinking are historical and superseded where they conflict. Keep accepted unrelated EQ work/part/geometry/history/permissions and FAC cycles/photos/moving/reduced-motion/TV. Fresh independent review and cleaned-app TD07-TD08 are needed before explicit U1 approval; P04/P05 remain Not started.
+
+## 57 U1-C64: uniform Fleet cards and Isolated pulse (28 October 2026)
+
+Remove the annotated thick red left strip from the Isolated equipment card. Every card retains a normal uniform 1 px boundary, its equipment illustration, status badge and readable information. Active Isolated cards pulse their whole background from pale rose (#fff5f6) to a restrained rose tint (#f6dce1) and back once every 2.5 seconds, using smooth easing. Opacity, text, border width, transform and layout do not animate. Ready for OPS and retired cards remain static; the Table remains static.
+
+Keep one compact Pause / Resume control beside Refresh and TV mode in normal layouts and beside Exit in TV. Keyboard/touch operation and aria-pressed describe the effective pause. TV Pause stops both card pulses and the existing 10-second page rotation. User pause survives filtering, search, rerender, refresh and entering/exiting TV in the current session. motion=off and prefers-reduced-motion suppress motion and show disabled Motion off; preference changes take effect live without reload, preserving the user's pause choice. No blink legend or explanatory panel is added.
+
+Status remains explicitly manual and persistent; pulse timing cannot alter equipment state, jobs or history. CMMS/sync/daily EQ work/automatic status stay removed. D-212 is a narrow exception to C63's blanket no-motion requirement, with current acceptance mapping in `docs/evidence/U1/fleet-isolated-c64/REPORT.md`. Local prototype checks and screenshots are separate from formal working-app acceptance. Retain this refinement through temporary-wrapper cleanup; fresh independent review pending, U1 NOT APPROVED, P04/P05 Not started.

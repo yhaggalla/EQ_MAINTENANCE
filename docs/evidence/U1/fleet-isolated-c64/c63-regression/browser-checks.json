@@ -1,0 +1,589 @@
+{
+  "boundary": "Local synthetic prototype browser checks; persona simulation, browser-local manual status, software WebGL",
+  "browser": "Chrome/156.0.8078.48",
+  "checks": [
+    {
+      "name": "AM10 1920 four KPIs reconcile",
+      "pass": true,
+      "detail": {
+        "counts": {
+          "total": 67,
+          "readyForOps": 61,
+          "isolated": 6
+        },
+        "actual": true,
+        "types": true,
+        "share": "91 %",
+        "wantedShare": "91 %"
+      }
+    },
+    {
+      "name": "AM11 1920 unclipped layout",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "kpis": [
+          {
+            "key": "total",
+            "clip": false
+          },
+          {
+            "key": "share",
+            "clip": false
+          },
+          {
+            "key": "readyForOps",
+            "clip": false
+          },
+          {
+            "key": "isolated",
+            "clip": false
+          }
+        ],
+        "pageScroll": 347
+      }
+    },
+    {
+      "name": "AM02/AM03 1920 removed integration; C64 permits only active Isolated motion",
+      "pass": true
+    },
+    {
+      "name": "AM10 1366 four KPIs reconcile",
+      "pass": true,
+      "detail": {
+        "counts": {
+          "total": 67,
+          "readyForOps": 61,
+          "isolated": 6
+        },
+        "actual": true,
+        "types": true,
+        "share": "91 %",
+        "wantedShare": "91 %"
+      }
+    },
+    {
+      "name": "AM11 1366 unclipped layout",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "kpis": [
+          {
+            "key": "total",
+            "clip": false
+          },
+          {
+            "key": "share",
+            "clip": false
+          },
+          {
+            "key": "readyForOps",
+            "clip": false
+          },
+          {
+            "key": "isolated",
+            "clip": false
+          }
+        ],
+        "pageScroll": 849
+      }
+    },
+    {
+      "name": "AM02/AM03 1366 removed integration; C64 permits only active Isolated motion",
+      "pass": true
+    },
+    {
+      "name": "AM10 820 four KPIs reconcile",
+      "pass": true,
+      "detail": {
+        "counts": {
+          "total": 67,
+          "readyForOps": 61,
+          "isolated": 6
+        },
+        "actual": true,
+        "types": true,
+        "share": "91 %",
+        "wantedShare": "91 %"
+      }
+    },
+    {
+      "name": "AM11 820 unclipped layout",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "kpis": [
+          {
+            "key": "total",
+            "clip": false
+          },
+          {
+            "key": "share",
+            "clip": false
+          },
+          {
+            "key": "readyForOps",
+            "clip": false
+          },
+          {
+            "key": "isolated",
+            "clip": false
+          }
+        ],
+        "pageScroll": 1640
+      }
+    },
+    {
+      "name": "AM02/AM03 820 removed integration; C64 permits only active Isolated motion",
+      "pass": true
+    },
+    {
+      "name": "AM10 375 four KPIs reconcile",
+      "pass": true,
+      "detail": {
+        "counts": {
+          "total": 67,
+          "readyForOps": 61,
+          "isolated": 6
+        },
+        "actual": true,
+        "types": true,
+        "share": "91 %",
+        "wantedShare": "91 %"
+      }
+    },
+    {
+      "name": "AM11 375 unclipped layout",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "kpis": [
+          {
+            "key": "total",
+            "clip": false
+          },
+          {
+            "key": "share",
+            "clip": false
+          },
+          {
+            "key": "readyForOps",
+            "clip": false
+          },
+          {
+            "key": "isolated",
+            "clip": false
+          }
+        ],
+        "pageScroll": 4527
+      }
+    },
+    {
+      "name": "AM02/AM03 375 removed integration; C64 permits only active Isolated motion",
+      "pass": true
+    },
+    {
+      "name": "AM10 320 four KPIs reconcile",
+      "pass": true,
+      "detail": {
+        "counts": {
+          "total": 67,
+          "readyForOps": 61,
+          "isolated": 6
+        },
+        "actual": true,
+        "types": true,
+        "share": "91 %",
+        "wantedShare": "91 %"
+      }
+    },
+    {
+      "name": "AM11 320 unclipped layout",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "kpis": [
+          {
+            "key": "total",
+            "clip": false
+          },
+          {
+            "key": "share",
+            "clip": false
+          },
+          {
+            "key": "readyForOps",
+            "clip": false
+          },
+          {
+            "key": "isolated",
+            "clip": false
+          }
+        ],
+        "pageScroll": 4682
+      }
+    },
+    {
+      "name": "AM02/AM03 320 removed integration; C64 permits only active Isolated motion",
+      "pass": true
+    },
+    {
+      "name": "AM10 1920 TV four KPIs reconcile",
+      "pass": true,
+      "detail": {
+        "counts": {
+          "total": 67,
+          "readyForOps": 61,
+          "isolated": 6
+        },
+        "actual": true,
+        "types": true,
+        "share": "91 %",
+        "wantedShare": "91 %"
+      }
+    },
+    {
+      "name": "AM11 1920 TV unclipped layout",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "kpis": [
+          {
+            "key": "total",
+            "clip": false
+          },
+          {
+            "key": "share",
+            "clip": false
+          },
+          {
+            "key": "readyForOps",
+            "clip": false
+          },
+          {
+            "key": "isolated",
+            "clip": false
+          }
+        ],
+        "pageScroll": 0
+      }
+    },
+    {
+      "name": "AM02/AM03 1920 removed integration; C64 permits only active Isolated motion",
+      "pass": true
+    },
+    {
+      "name": "AM10 1366 TV four KPIs reconcile",
+      "pass": true,
+      "detail": {
+        "counts": {
+          "total": 67,
+          "readyForOps": 61,
+          "isolated": 6
+        },
+        "actual": true,
+        "types": true,
+        "share": "91 %",
+        "wantedShare": "91 %"
+      }
+    },
+    {
+      "name": "AM11 1366 TV unclipped layout",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "kpis": [
+          {
+            "key": "total",
+            "clip": false
+          },
+          {
+            "key": "share",
+            "clip": false
+          },
+          {
+            "key": "readyForOps",
+            "clip": false
+          },
+          {
+            "key": "isolated",
+            "clip": false
+          }
+        ],
+        "pageScroll": 0
+      }
+    },
+    {
+      "name": "AM02/AM03 1366 removed integration; C64 permits only active Isolated motion",
+      "pass": true
+    },
+    {
+      "name": "AM01 updated display/title",
+      "pass": true
+    },
+    {
+      "name": "AM10 search scopes numerator and denominator",
+      "pass": true,
+      "detail": {
+        "counts": {
+          "total": 1,
+          "readyForOps": 0,
+          "isolated": 1
+        },
+        "actual": true,
+        "types": true,
+        "share": "0 %",
+        "wantedShare": "0 %"
+      }
+    },
+    {
+      "name": "AM10 zero population shows dash",
+      "pass": true,
+      "detail": {
+        "counts": {
+          "total": 0,
+          "readyForOps": 0,
+          "isolated": 0
+        },
+        "actual": true,
+        "types": true,
+        "share": "—",
+        "wantedShare": "—"
+      }
+    },
+    {
+      "name": "AM10 status filter leaves the active KPI base intact",
+      "pass": true
+    },
+    {
+      "name": "AM10 Include retired leaves active denominator unchanged",
+      "pass": true,
+      "detail": {
+        "counts": {
+          "total": 66,
+          "readyForOps": 60,
+          "isolated": 6
+        },
+        "actual": true,
+        "types": true,
+        "share": "91 %",
+        "wantedShare": "91 %"
+      }
+    },
+    {
+      "name": "AM07 retained Fleet Table has no source/daily-work columns",
+      "pass": true
+    },
+    {
+      "name": "AM07 obsolete Daily work link resolves safely",
+      "pass": true
+    },
+    {
+      "name": "AM02 obsolete Admin link has no retained integration handler",
+      "pass": true
+    },
+    {
+      "name": "AM08 saved Maintenance tab cannot reopen",
+      "pass": true
+    },
+    {
+      "name": "AM08 ordered three-tab navigation",
+      "pass": true
+    },
+    {
+      "name": "AM08 keyboard Right follows visible order",
+      "pass": true
+    },
+    {
+      "name": "AM08 keyboard End selects Technical",
+      "pass": true
+    },
+    {
+      "name": "AM08 keyboard wraps to first",
+      "pass": true
+    },
+    {
+      "name": "AM08 selection defaults to Spare part status",
+      "pass": true
+    },
+    {
+      "name": "AM09 Flat/3D parity {} spareParts",
+      "pass": true,
+      "detail": {
+        "echo": "eq-qc-demo-01|spareParts|equipment|"
+      }
+    },
+    {
+      "name": "AM09 Flat/3D parity {} special",
+      "pass": true,
+      "detail": {
+        "echo": "eq-qc-demo-01|special|equipment|"
+      }
+    },
+    {
+      "name": "AM09 Flat/3D parity {} technical",
+      "pass": true,
+      "detail": {
+        "echo": "eq-qc-demo-01|technical|equipment|"
+      }
+    },
+    {
+      "name": "AM09 Flat/3D parity {\"main\":\"mi-q01-01\"} spareParts",
+      "pass": true,
+      "detail": {
+        "echo": "eq-qc-demo-01|spareParts|main|mi-q01-01"
+      }
+    },
+    {
+      "name": "AM09 Flat/3D parity {\"main\":\"mi-q01-01\"} special",
+      "pass": true,
+      "detail": {
+        "echo": "eq-qc-demo-01|special|main|mi-q01-01"
+      }
+    },
+    {
+      "name": "AM09 Flat/3D parity {\"main\":\"mi-q01-01\"} technical",
+      "pass": true,
+      "detail": {
+        "echo": "eq-qc-demo-01|technical|main|mi-q01-01"
+      }
+    },
+    {
+      "name": "AM09 Flat/3D parity {\"sub\":\"si-q01-011\"} spareParts",
+      "pass": true,
+      "detail": {
+        "echo": "eq-qc-demo-01|spareParts|sub|si-q01-011"
+      }
+    },
+    {
+      "name": "AM09 Flat/3D parity {\"sub\":\"si-q01-011\"} special",
+      "pass": true,
+      "detail": {
+        "echo": "eq-qc-demo-01|special|sub|si-q01-011"
+      }
+    },
+    {
+      "name": "AM09 Flat/3D parity {\"sub\":\"si-q01-011\"} technical",
+      "pass": true,
+      "detail": {
+        "echo": "eq-qc-demo-01|technical|sub|si-q01-011"
+      }
+    },
+    {
+      "name": "AM09 Flat/3D parity {\"part\":\"pp-q01-007\"} spareParts",
+      "pass": true,
+      "detail": {
+        "echo": "eq-qc-demo-01|spareParts|part|pp-q01-007"
+      }
+    },
+    {
+      "name": "AM09 Flat/3D parity {\"part\":\"pp-q01-007\"} special",
+      "pass": true,
+      "detail": {
+        "echo": "eq-qc-demo-01|special|part|pp-q01-007"
+      }
+    },
+    {
+      "name": "AM09 Flat/3D parity {\"part\":\"pp-q01-007\"} technical",
+      "pass": true,
+      "detail": {
+        "echo": "eq-qc-demo-01|technical|part|pp-q01-007"
+      }
+    },
+    {
+      "name": "AM09 Flat/3D parity {\"container\":\"machinery-house\"} spareParts",
+      "pass": true,
+      "detail": {
+        "echo": "eq-qc-demo-01|spareParts|area|machinery-house"
+      }
+    },
+    {
+      "name": "AM09 Flat/3D parity {\"container\":\"machinery-house\"} special",
+      "pass": true,
+      "detail": {
+        "echo": "eq-qc-demo-01|special|area|machinery-house"
+      }
+    },
+    {
+      "name": "AM09 Flat/3D parity {\"container\":\"machinery-house\"} technical",
+      "pass": true,
+      "detail": {
+        "echo": "eq-qc-demo-01|technical|area|machinery-house"
+      }
+    },
+    {
+      "name": "AM08 phone panel tabs meet touch size and no page overflow",
+      "pass": true
+    },
+    {
+      "name": "AM05 Jobs manual current status without source/expiry columns",
+      "pass": true
+    },
+    {
+      "name": "AM05 status form exactly two choices and no preselected value",
+      "pass": true
+    },
+    {
+      "name": "AM05 UI manual save changes one value and records actor",
+      "pass": true
+    },
+    {
+      "name": "AM06 manual value/history survive actual page reload",
+      "pass": true
+    },
+    {
+      "name": "AM06 refresh and simulated day boundary do not overwrite status",
+      "pass": true
+    },
+    {
+      "name": "AM05 Management read-only in UI and rule layer",
+      "pass": true
+    },
+    {
+      "name": "AM05 FAC Team cannot change EQ status",
+      "pass": true
+    },
+    {
+      "name": "ADM01 registration no default operational value",
+      "pass": true
+    },
+    {
+      "name": "ADM01 incomplete UI registration does not create equipment",
+      "pass": true
+    },
+    {
+      "name": "ADM01 initial UI selection and audit commit together",
+      "pass": true
+    },
+    {
+      "name": "Retained route loads /eq/jobs/special",
+      "pass": true
+    },
+    {
+      "name": "Retained route loads /eq/jobs/spare-parts",
+      "pass": true
+    },
+    {
+      "name": "Retained route loads /fac/dashboard",
+      "pass": true
+    },
+    {
+      "name": "Retained route loads /fac/jobs",
+      "pass": true
+    },
+    {
+      "name": "AM03 retained FAC reduced-motion screen renders",
+      "pass": true
+    },
+    {
+      "name": "AM02 zero external CMMS/runtime traffic",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "No browser console errors",
+      "pass": true,
+      "detail": []
+    }
+  ]
+}

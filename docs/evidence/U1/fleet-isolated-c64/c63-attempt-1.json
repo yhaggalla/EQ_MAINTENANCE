@@ -1,0 +1,96 @@
+{
+  "boundary": "Local synthetic prototype browser checks; persona simulation, browser-local manual status, software WebGL",
+  "browser": "Chrome/156.0.8078.48",
+  "checks": [
+    {
+      "name": "AM10 1920 four KPIs reconcile",
+      "pass": true,
+      "detail": {
+        "counts": {
+          "total": 67,
+          "readyForOps": 61,
+          "isolated": 6
+        },
+        "actual": true,
+        "types": true,
+        "share": "91 %",
+        "wantedShare": "91 %"
+      }
+    },
+    {
+      "name": "AM11 1920 unclipped layout",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "kpis": [
+          {
+            "key": "total",
+            "clip": false
+          },
+          {
+            "key": "share",
+            "clip": false
+          },
+          {
+            "key": "readyForOps",
+            "clip": false
+          },
+          {
+            "key": "isolated",
+            "clip": false
+          }
+        ],
+        "pageScroll": 347
+      }
+    },
+    {
+      "name": "AM02/AM03 1920 removed integration; C64 permits only active Isolated motion",
+      "pass": true
+    },
+    {
+      "name": "AM10 1366 four KPIs reconcile",
+      "pass": true,
+      "detail": {
+        "counts": {
+          "total": 67,
+          "readyForOps": 61,
+          "isolated": 6
+        },
+        "actual": true,
+        "types": true,
+        "share": "91 %",
+        "wantedShare": "91 %"
+      }
+    },
+    {
+      "name": "AM11 1366 unclipped layout",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "kpis": [
+          {
+            "key": "total",
+            "clip": false
+          },
+          {
+            "key": "share",
+            "clip": false
+          },
+          {
+            "key": "readyForOps",
+            "clip": false
+          },
+          {
+            "key": "isolated",
+            "clip": false
+          }
+        ],
+        "pageScroll": 849
+      }
+    },
+    {
+      "name": "AM02/AM03 1366 removed integration; C64 permits only active Isolated motion",
+      "pass": true
+    }
+  ]
+}

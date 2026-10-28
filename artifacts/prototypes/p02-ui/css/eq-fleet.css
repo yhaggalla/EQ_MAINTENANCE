@@ -1,4 +1,4 @@
-/* EQ Fleet dashboard styling, equipment illustrations and TV mode; U1-C63 uses static two-status cards.
+/* EQ Fleet dashboard styling, equipment illustrations and TV mode; U1-C64 pulses active Isolated cards.
    Scope: every rule below is limited to the EQ Fleet page (.fleet-page.pa) or to body[data-page="eq-fleet"]. The --pa-*
    tokens are new shared tokens; no existing token is changed, so the FAC screens and the rest of the app look unchanged
    (checked by tools/p02b/check_u1_r8.mjs R8-09 against the committed prototype).
@@ -159,8 +159,17 @@ body[data-page="eq-fleet"] { background: var(--pa-page); }
   .pa .fleet-bar { align-items: flex-start; }
 }
 
-/* U1-C63: static isolation cue, four balanced responsive KPIs. */
-.pa .eq-card.st-card-isolated { border-left: 3px solid #a14454; background: #fff5f6; }
+/* U1-C64: background only; uniform boundary, stable text and geometry throughout the 2.5 s cycle. */
+.pa .eq-card.st-card-isolated:not(.retired) { background: #fff5f6; animation: fleet-isolated-pulse 2.5s ease-in-out infinite; }
+.pa.fleet-motion-paused .eq-card.st-card-isolated:not(.retired) { animation-play-state: paused; }
+@keyframes fleet-isolated-pulse {
+  0%, 100% { background-color: #fff5f6; }
+  50% { background-color: #f6dce1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pa .eq-card.st-card-isolated:not(.retired) { animation: none; }
+}
+/* U1-C63: four balanced responsive KPIs. */
 .pa .kpi-isolated .lbl { overflow-wrap: anywhere; }
 @media (max-width: 600px) {
   .pa .count-card.kpi { min-height: 5.25rem; padding: .5rem; }

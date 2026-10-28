@@ -1,5 +1,7 @@
 # Implementation status
 
+28 October 2026 U1-C64 / D-212: narrow Fleet Repair implements the user's later request for an active-Isolated-only 2.5-second whole-card background pulse and removes the thick red left strip. Ready/retired static; uniform boundary, compact normal/TV Pause, live reduced motion and motion=off; TV Pause controls cards and rotation. Final checks **63/63 focused + 68/68 affected C63 browser PASS (131/131)**, three JS syntax checks and git diff --check PASS; screenshots inspected. Delayed media-event control state fixed and regression-tested using the existing one-second timer. Current evidence: `docs/evidence/U1/fleet-isolated-c64/REPORT.md`. Independent review pending; C63 dated results below remain historical. U1 IN PROGRESS / NOT COMPLETE / NOT APPROVED; P04/P05 Not started; TD07-TD08 cleanup pending. No commit/push/deployment by builder.
+
 28 October 2026 final U1-C63 result: all eight management changes implemented; 342/342 authored checks across 11 suites passed; fresh independent fallback R02B review PASS with all findings closed. All 97 formal cases reviewed; working-app acceptance NOT RUN. Evidence: `docs/evidence/U1/asset-management-c63/REPORT.md`; independent report: `docs/evidence/R02B/review-20261028-U1-C63.md`. U1 NOT APPROVED; P04/P05 Not started; TD07-TD08 cleanup pending.
 
 

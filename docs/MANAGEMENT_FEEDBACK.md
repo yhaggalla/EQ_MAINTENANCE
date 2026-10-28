@@ -5,6 +5,8 @@
 
 
 
+28 October 2026 MF-04 / U1-C64 / D-212: user requests removal of the annotated thick left red strip and Isolated card blinking every 2.5 seconds. Implemented in the local Fleet with uniform boundaries, background-only pulse for active Isolated equipment, static Ready/retired cards, compact normal/TV Pause and live reduced motion / motion=off. Manual status and CMMS removal retained. Final browser checks 63/63 focused + 68/68 affected C63 PASS; syntax/whitespace and screenshot inspection PASS. Evidence: `docs/evidence/U1/fleet-isolated-c64/REPORT.md`; UX section 57. Fresh independent review pending; U1 NOT APPROVED. Preserve on temporary-wrapper removal; cleaned checkpoint/TD07-TD08 pending.
+
 28 October 2026 MF-03 / U1-C63: implementation confirmed and completed in the synthetic prototype; independent final review recorded separately. All eight outcomes have direct prototype coverage. Prior awaiting-confirmation notes are historical. U1 remains NOT APPROVED; temporary-wrapper cleanup and cleaned-app TD07-TD08 remain pending. See `docs/evidence/U1/asset-management-c63/` for the 97-case applicability ledger, current checks and review findings/repairs.
 
 28 October 2026: MF-03 / U1-C63 documents the eight management changes; implementation awaits user confirmation and U1 is NOT APPROVED. Earlier completed rows remain historical; supersede their Maintenance/Unreported/sync/blink requirements where revision 7 conflicts.

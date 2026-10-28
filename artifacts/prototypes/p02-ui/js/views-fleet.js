@@ -1,4 +1,4 @@
-/* EQ Fleet: four reconciled KPIs, two manual statuses, static cards/table and read-only TV paging. */
+/* EQ Fleet: four reconciled KPIs, manual statuses, Isolated card pulse and read-only TV paging. */
 window.EQ = window.EQ || {};
 (function (EQ) {
   const h = EQ.h, icon = EQ.icon;
@@ -8,13 +8,15 @@ window.EQ = window.EQ || {};
   const TYPE_LABEL = { QC: 'Quay cranes (QC)', RTG: 'Rail/rubber-tyred gantry cranes (RTG)', ES: 'ES equipment' };
   const TV_FLIP_S = 10; // TV page rotation when the fleet does not fit one screen
 
-  const motionOff = q => q.motion === 'off' || window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+  const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+  const motionOff = q => q.motion === 'off' || reducedMotion?.matches;
   const paused = q => ui.paused || motionOff(q);
   function pauseBtn(q) {
     const p = paused(q);
     return h('button', { type: 'button', class: 'btn-sm pa-btn', 'data-fk': 'tv-page-pause', 'aria-pressed': String(p), disabled: motionOff(q) || null,
-      title: 'Pause or resume TV page rotation; status cards remain static.',
-      onClick: () => { ui.paused = !ui.paused; ui.lastFlip = Date.now(); EQ.rerender(); } }, icon(p ? 'play' : 'pause'), p ? 'Resume pages' : 'Pause pages');
+      title: motionOff(q) ? 'Motion is off' : 'Pause or resume Isolated card pulses and TV page rotation',
+      'aria-label': motionOff(q) ? 'Motion is off' : (p ? 'Resume' : 'Pause') + ' Isolated card pulses and TV page rotation',
+      onClick: () => { ui.paused = !ui.paused; ui.lastFlip = Date.now(); EQ.rerender(); } }, icon(p ? 'play' : 'pause'), motionOff(q) ? 'Motion off' : (p ? 'Resume' : 'Pause'));
   }
   function tvBtn(q) {
     return h('button', { type: 'button', class: 'btn-sm pa-btn', 'data-fk': 'fleet-tv', title: 'Full-screen, read-only wall display of this fleet view', onClick: () => { ui.tvPage = 0; ui.lastFlip = Date.now(); EQ.nav('/eq/fleet', { type: q.type, status: q.status, q: ui.q || q.q, motion: q.motion, tv: '1' }); try { document.documentElement.requestFullscreen && document.documentElement.requestFullscreen().catch(() => {}); } catch (e) { /* fullscreen is optional */ } } }, icon('tv'), 'TV mode');
@@ -139,14 +141,23 @@ window.EQ = window.EQ || {};
     ui.tvPage = Math.min(ui.tvPageWanted || 0, ui.tvPages - 1);
     applyTvPage(root);
   }
-  // one timer for the TV page rotation (no timer per render)
+  // One timer: reconcile live motion preference (change events can be delayed), then TV paging.
   setInterval(() => {
-    const root = document.querySelector('.fleet-page.tv-fleet');
-    if (!root || ui.tvPages < 2) return;
+    const root = document.querySelector('.fleet-page');
+    const control = root?.querySelector('[data-fk="tv-page-pause"]');
+    if (root && (root.classList.contains('fleet-motion-paused') !== !!paused(EQ.route.query)
+      || (control && control.disabled !== !!motionOff(EQ.route.query)))) {
+      ui.lastFlip = Date.now(); EQ.rerender(); return;
+    }
+    if (!root?.classList.contains('tv-fleet') || ui.tvPages < 2) return;
     if (!paused(EQ.route.query) && Date.now() - ui.lastFlip >= TV_FLIP_S * 1000) { ui.tvPage = (ui.tvPage + 1) % ui.tvPages; ui.tvPageWanted = ui.tvPage; ui.lastFlip = Date.now(); }
     applyTvPage(root);
   }, 1000);
   window.addEventListener('resize', () => { if (document.querySelector('.fleet-page.tv-fleet')) EQ.rerender(); });
+  reducedMotion?.addEventListener('change', () => {
+    ui.lastFlip = Date.now();
+    if (document.querySelector('.fleet-page')) EQ.rerender();
+  });
   EQ.fleetTvState = () => ({ page: ui.tvPage, pages: ui.tvPages, paused: paused(EQ.route.query) });
 
   EQ.views.fleet = function fleet(q) {
@@ -155,7 +166,7 @@ window.EQ = window.EQ || {};
     const type = ['QC','RTG','ES'].includes(q.type) ? q.type : 'all', stat = ['readyForOps','isolated'].includes(q.status) ? q.status : '', retired = !tv && q.lifecycle === 'all';
     if (q.q != null) ui.q = q.q;
     const setQ = (patch) => EQ.nav('/eq/fleet', { type: 'all', status: '', lifecycle: '', ...q, ...patch });
-    const page = h('div', { class: 'page fleet-page pa' + (tv ? ' tv-fleet' : '') });
+    const page = h('div', { class: 'page fleet-page pa' + (tv ? ' tv-fleet' : '') + (paused(q) ? ' fleet-motion-paused' : '') });
     if (!tv) page.appendChild(h('h1', { class: 'sr-only' }, 'Fleet')); // the visible heading block was removed in U1-C02
     else page.appendChild(tvHead(q));
 
@@ -179,7 +190,7 @@ window.EQ = window.EQ || {};
 
     const typed = all.filter(e => (type === 'all' || e.typeCode === type) && (!ui.q || (e.code + ' ' + e.name + ' ' + (e.modelCode || '')).toLowerCase().includes(ui.q.toLowerCase())));
     const counts = EQ.fleetCounts(typed);
-    if (!tv) page.appendChild(h('div', { class: 'fleet-bar' }, freshness(), h('span', { class: 'fb-tools' }, refreshBtn(), tvBtn(q))));
+    if (!tv) page.appendChild(h('div', { class: 'fleet-bar' }, freshness(), h('span', { class: 'fb-tools' }, refreshBtn(), pauseBtn(q), tvBtn(q))));
     page.appendChild(h('div', { class: 'fleet-top' }, kpiRow(typed, counts, stat, setQ, tv)));
 
     if (!tv) {

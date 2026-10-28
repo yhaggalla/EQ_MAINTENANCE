@@ -1,0 +1,302 @@
+[
+  {
+    "tv": false,
+    "value": "reduce",
+    "delay": 0,
+    "matches": true,
+    "disabled": false,
+    "paused": true,
+    "page": "page fleet-page pa",
+    "an": [
+      "none"
+    ]
+  },
+  {
+    "tv": false,
+    "value": "reduce",
+    "delay": 150,
+    "matches": true,
+    "disabled": false,
+    "paused": true,
+    "page": "page fleet-page pa",
+    "an": [
+      "none"
+    ]
+  },
+  {
+    "tv": false,
+    "value": "reduce",
+    "delay": 350,
+    "matches": true,
+    "disabled": false,
+    "paused": true,
+    "page": "page fleet-page pa",
+    "an": [
+      "none"
+    ]
+  },
+  {
+    "tv": false,
+    "value": "no-preference",
+    "delay": 0,
+    "matches": false,
+    "disabled": false,
+    "paused": false,
+    "page": "page fleet-page pa",
+    "an": [
+      "fleet-isolated-pulse",
+      "none"
+    ]
+  },
+  {
+    "tv": false,
+    "value": "no-preference",
+    "delay": 150,
+    "matches": false,
+    "disabled": false,
+    "paused": false,
+    "page": "page fleet-page pa",
+    "an": [
+      "fleet-isolated-pulse",
+      "none"
+    ]
+  },
+  {
+    "tv": false,
+    "value": "no-preference",
+    "delay": 350,
+    "matches": false,
+    "disabled": false,
+    "paused": false,
+    "page": "page fleet-page pa",
+    "an": [
+      "fleet-isolated-pulse",
+      "none"
+    ]
+  },
+  {
+    "tv": true,
+    "value": "reduce",
+    "delay": 0,
+    "matches": true,
+    "disabled": false,
+    "paused": true,
+    "page": "page fleet-page pa tv-fleet",
+    "an": [
+      "none"
+    ]
+  },
+  {
+    "tv": true,
+    "value": "reduce",
+    "delay": 150,
+    "matches": true,
+    "disabled": false,
+    "paused": true,
+    "page": "page fleet-page pa tv-fleet",
+    "an": [
+      "none"
+    ]
+  },
+  {
+    "tv": true,
+    "value": "reduce",
+    "delay": 350,
+    "matches": true,
+    "disabled": false,
+    "paused": true,
+    "page": "page fleet-page pa tv-fleet",
+    "an": [
+      "none"
+    ]
+  },
+  {
+    "tv": true,
+    "value": "no-preference",
+    "delay": 0,
+    "matches": false,
+    "disabled": false,
+    "paused": false,
+    "page": "page fleet-page pa tv-fleet",
+    "an": [
+      "fleet-isolated-pulse",
+      "none"
+    ]
+  },
+  {
+    "tv": true,
+    "value": "no-preference",
+    "delay": 150,
+    "matches": false,
+    "disabled": false,
+    "paused": false,
+    "page": "page fleet-page pa tv-fleet",
+    "an": [
+      "fleet-isolated-pulse",
+      "none"
+    ]
+  },
+  {
+    "tv": true,
+    "value": "no-preference",
+    "delay": 350,
+    "matches": false,
+    "disabled": false,
+    "paused": false,
+    "page": "page fleet-page pa tv-fleet",
+    "an": [
+      "fleet-isolated-pulse",
+      "none"
+    ]
+  },
+  {
+    "tv": false,
+    "value": "reduce",
+    "delay": 0,
+    "matches": true,
+    "disabled": false,
+    "paused": true,
+    "page": "page fleet-page pa",
+    "an": [
+      "none"
+    ]
+  },
+  {
+    "tv": false,
+    "value": "reduce",
+    "delay": 150,
+    "matches": true,
+    "disabled": true,
+    "paused": true,
+    "page": "page fleet-page pa fleet-motion-paused",
+    "an": [
+      "none"
+    ]
+  },
+  {
+    "tv": false,
+    "value": "reduce",
+    "delay": 350,
+    "matches": true,
+    "disabled": true,
+    "paused": true,
+    "page": "page fleet-page pa fleet-motion-paused",
+    "an": [
+      "none"
+    ]
+  },
+  {
+    "tv": false,
+    "value": "no-preference",
+    "delay": 0,
+    "matches": false,
+    "disabled": true,
+    "paused": false,
+    "page": "page fleet-page pa fleet-motion-paused",
+    "an": [
+      "fleet-isolated-pulse",
+      "none"
+    ]
+  },
+  {
+    "tv": false,
+    "value": "no-preference",
+    "delay": 150,
+    "matches": false,
+    "disabled": false,
+    "paused": false,
+    "page": "page fleet-page pa",
+    "an": [
+      "fleet-isolated-pulse",
+      "none"
+    ]
+  },
+  {
+    "tv": false,
+    "value": "no-preference",
+    "delay": 350,
+    "matches": false,
+    "disabled": false,
+    "paused": false,
+    "page": "page fleet-page pa",
+    "an": [
+      "fleet-isolated-pulse",
+      "none"
+    ]
+  },
+  {
+    "tv": true,
+    "value": "reduce",
+    "delay": 0,
+    "matches": true,
+    "disabled": false,
+    "paused": true,
+    "page": "page fleet-page pa tv-fleet",
+    "an": [
+      "none"
+    ]
+  },
+  {
+    "tv": true,
+    "value": "reduce",
+    "delay": 150,
+    "matches": true,
+    "disabled": false,
+    "paused": true,
+    "page": "page fleet-page pa tv-fleet",
+    "an": [
+      "none"
+    ]
+  },
+  {
+    "tv": true,
+    "value": "reduce",
+    "delay": 350,
+    "matches": true,
+    "disabled": true,
+    "paused": true,
+    "page": "page fleet-page pa tv-fleet fleet-motion-paused",
+    "an": [
+      "none"
+    ]
+  },
+  {
+    "tv": true,
+    "value": "no-preference",
+    "delay": 0,
+    "matches": false,
+    "disabled": true,
+    "paused": false,
+    "page": "page fleet-page pa tv-fleet fleet-motion-paused",
+    "an": [
+      "fleet-isolated-pulse",
+      "none"
+    ]
+  },
+  {
+    "tv": true,
+    "value": "no-preference",
+    "delay": 150,
+    "matches": false,
+    "disabled": true,
+    "paused": false,
+    "page": "page fleet-page pa tv-fleet fleet-motion-paused",
+    "an": [
+      "fleet-isolated-pulse",
+      "none"
+    ]
+  },
+  {
+    "tv": true,
+    "value": "no-preference",
+    "delay": 350,
+    "matches": false,
+    "disabled": true,
+    "paused": false,
+    "page": "page fleet-page pa tv-fleet fleet-motion-paused",
+    "an": [
+      "fleet-isolated-pulse",
+      "none"
+    ]
+  }
+]

@@ -1,0 +1,22 @@
+{
+  "request": "U1-C64",
+  "date": "2026-10-28",
+  "scope": "Local synthetic prototype; formal working-app acceptance not run",
+  "browser": "Chrome/156.0.8078.48",
+  "suites": [
+    {
+      "script": "check_u1_c64_browser.mjs",
+      "passed": 63,
+      "failed": 0
+    },
+    {
+      "script": "check_u1_c63_browser.mjs",
+      "passed": 68,
+      "failed": 0
+    }
+  ],
+  "passed": 131,
+  "failed": 0,
+  "independentReview": "pending",
+  "u1": "NOT APPROVED"
+}

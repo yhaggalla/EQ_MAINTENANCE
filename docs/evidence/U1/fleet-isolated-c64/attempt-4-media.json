@@ -1,0 +1,559 @@
+{
+  "boundary": "Local synthetic browser checks, temporary profile, persona simulation; formal backend/production acceptance not run",
+  "browser": "Chrome/156.0.8078.48",
+  "checks": [
+    {
+      "name": "C64 live animation completes a full 2.5 s cycle without a render restart",
+      "pass": true,
+      "detail": {
+        "elapsed": 2.5,
+        "connected": true,
+        "start": 200.02300000012661,
+        "end": 2516.239000000127,
+        "stable": true,
+        "opacity": "1",
+        "transform": "none"
+      }
+    },
+    {
+      "name": "C64 register-derived card population 1920",
+      "pass": true,
+      "detail": {
+        "shown": 67,
+        "expected": 67
+      }
+    },
+    {
+      "name": "C64 only active Isolated pulses at 2.5 s 1920",
+      "pass": true,
+      "detail": [
+        {
+          "id": "eq-qc-demo-01",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-qc-demo-04",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-qc-demo-06",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-rtg-demo-03",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-rtg-demo-06",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-es-demo-04",
+          "duration": "2.5s"
+        }
+      ]
+    },
+    {
+      "name": "C64 uniform boundary, artwork, badge and stable geometry 1920",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "C64 unclipped layout and compact pause 1920",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "pageOverflow": 347,
+        "kpiClip": false,
+        "pause": true,
+        "touch": 32
+      }
+    },
+    {
+      "name": "C64 TV read-only cards / normal links 1920",
+      "pass": true
+    },
+    {
+      "name": "C64 register-derived card population 1366",
+      "pass": true,
+      "detail": {
+        "shown": 67,
+        "expected": 67
+      }
+    },
+    {
+      "name": "C64 only active Isolated pulses at 2.5 s 1366",
+      "pass": true,
+      "detail": [
+        {
+          "id": "eq-qc-demo-01",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-qc-demo-04",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-qc-demo-06",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-rtg-demo-03",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-rtg-demo-06",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-es-demo-04",
+          "duration": "2.5s"
+        }
+      ]
+    },
+    {
+      "name": "C64 uniform boundary, artwork, badge and stable geometry 1366",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "C64 unclipped layout and compact pause 1366",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "pageOverflow": 849,
+        "kpiClip": false,
+        "pause": true,
+        "touch": 32
+      }
+    },
+    {
+      "name": "C64 TV read-only cards / normal links 1366",
+      "pass": true
+    },
+    {
+      "name": "C64 register-derived card population 820",
+      "pass": true,
+      "detail": {
+        "shown": 67,
+        "expected": 67
+      }
+    },
+    {
+      "name": "C64 only active Isolated pulses at 2.5 s 820",
+      "pass": true,
+      "detail": [
+        {
+          "id": "eq-qc-demo-01",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-qc-demo-04",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-qc-demo-06",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-rtg-demo-03",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-rtg-demo-06",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-es-demo-04",
+          "duration": "2.5s"
+        }
+      ]
+    },
+    {
+      "name": "C64 uniform boundary, artwork, badge and stable geometry 820",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "C64 unclipped layout and compact pause 820",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "pageOverflow": 1640,
+        "kpiClip": false,
+        "pause": true,
+        "touch": 32
+      }
+    },
+    {
+      "name": "C64 TV read-only cards / normal links 820",
+      "pass": true
+    },
+    {
+      "name": "C64 register-derived card population 375",
+      "pass": true,
+      "detail": {
+        "shown": 67,
+        "expected": 67
+      }
+    },
+    {
+      "name": "C64 only active Isolated pulses at 2.5 s 375",
+      "pass": true,
+      "detail": [
+        {
+          "id": "eq-qc-demo-01",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-qc-demo-04",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-qc-demo-06",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-rtg-demo-03",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-rtg-demo-06",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-es-demo-04",
+          "duration": "2.5s"
+        }
+      ]
+    },
+    {
+      "name": "C64 uniform boundary, artwork, badge and stable geometry 375",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "C64 unclipped layout and compact pause 375",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "pageOverflow": 4527,
+        "kpiClip": false,
+        "pause": true,
+        "touch": 44
+      }
+    },
+    {
+      "name": "C64 TV read-only cards / normal links 375",
+      "pass": true
+    },
+    {
+      "name": "C64 register-derived card population 320",
+      "pass": true,
+      "detail": {
+        "shown": 67,
+        "expected": 67
+      }
+    },
+    {
+      "name": "C64 only active Isolated pulses at 2.5 s 320",
+      "pass": true,
+      "detail": [
+        {
+          "id": "eq-qc-demo-01",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-qc-demo-04",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-qc-demo-06",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-rtg-demo-03",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-rtg-demo-06",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-es-demo-04",
+          "duration": "2.5s"
+        }
+      ]
+    },
+    {
+      "name": "C64 uniform boundary, artwork, badge and stable geometry 320",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "C64 unclipped layout and compact pause 320",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "pageOverflow": 4682,
+        "kpiClip": false,
+        "pause": true,
+        "touch": 44
+      }
+    },
+    {
+      "name": "C64 TV read-only cards / normal links 320",
+      "pass": true
+    },
+    {
+      "name": "C64 register-derived card population 1920 TV",
+      "pass": true,
+      "detail": {
+        "shown": 67,
+        "expected": 67
+      }
+    },
+    {
+      "name": "C64 only active Isolated pulses at 2.5 s 1920 TV",
+      "pass": true,
+      "detail": [
+        {
+          "id": "eq-qc-demo-01",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-qc-demo-04",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-qc-demo-06",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-rtg-demo-03",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-rtg-demo-06",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-es-demo-04",
+          "duration": "2.5s"
+        }
+      ]
+    },
+    {
+      "name": "C64 uniform boundary, artwork, badge and stable geometry 1920 TV",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "C64 unclipped layout and compact pause 1920 TV",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "pageOverflow": 0,
+        "kpiClip": false,
+        "pause": true,
+        "touch": 43.1875
+      }
+    },
+    {
+      "name": "C64 TV read-only cards / normal links 1920 TV",
+      "pass": true
+    },
+    {
+      "name": "C64 register-derived card population 1366 TV",
+      "pass": true,
+      "detail": {
+        "shown": 67,
+        "expected": 67
+      }
+    },
+    {
+      "name": "C64 only active Isolated pulses at 2.5 s 1366 TV",
+      "pass": true,
+      "detail": [
+        {
+          "id": "eq-qc-demo-01",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-qc-demo-04",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-qc-demo-06",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-rtg-demo-03",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-rtg-demo-06",
+          "duration": "2.5s"
+        },
+        {
+          "id": "eq-es-demo-04",
+          "duration": "2.5s"
+        }
+      ]
+    },
+    {
+      "name": "C64 uniform boundary, artwork, badge and stable geometry 1366 TV",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "name": "C64 unclipped layout and compact pause 1366 TV",
+      "pass": true,
+      "detail": {
+        "overflow": 0,
+        "pageOverflow": 0,
+        "kpiClip": false,
+        "pause": true,
+        "touch": 43.1875
+      }
+    },
+    {
+      "name": "C64 TV read-only cards / normal links 1366 TV",
+      "pass": true
+    },
+    {
+      "name": "C64 full cycle returns to light tint; only background is animated",
+      "pass": true,
+      "detail": [
+        {
+          "time": 0,
+          "background": "rgb(255, 245, 246)",
+          "opacity": "1",
+          "transform": "none",
+          "keyframes": [
+            [
+              "backgroundColor",
+              "composite",
+              "computedOffset",
+              "easing",
+              "offset"
+            ],
+            [
+              "backgroundColor",
+              "composite",
+              "computedOffset",
+              "easing",
+              "offset"
+            ],
+            [
+              "backgroundColor",
+              "composite",
+              "computedOffset",
+              "easing",
+              "offset"
+            ]
+          ]
+        },
+        {
+          "time": 1250,
+          "background": "rgb(246, 220, 225)",
+          "opacity": "1",
+          "transform": "none",
+          "keyframes": [
+            [
+              "backgroundColor",
+              "composite",
+              "computedOffset",
+              "easing",
+              "offset"
+            ],
+            [
+              "backgroundColor",
+              "composite",
+              "computedOffset",
+              "easing",
+              "offset"
+            ],
+            [
+              "backgroundColor",
+              "composite",
+              "computedOffset",
+              "easing",
+              "offset"
+            ]
+          ]
+        },
+        {
+          "time": 2500,
+          "background": "rgb(255, 245, 246)",
+          "opacity": "1",
+          "transform": "none",
+          "keyframes": [
+            [
+              "backgroundColor",
+              "composite",
+              "computedOffset",
+              "easing",
+              "offset"
+            ],
+            [
+              "backgroundColor",
+              "composite",
+              "computedOffset",
+              "easing",
+              "offset"
+            ],
+            [
+              "backgroundColor",
+              "composite",
+              "computedOffset",
+              "easing",
+              "offset"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "C64 keyboard Pause stops cards and exposes pressed state",
+      "pass": true
+    },
+    {
+      "name": "C64 pause retained through search, type filter, refresh and rerender",
+      "pass": true
+    },
+    {
+      "name": "C64 TV pause stops cards and due page rotation",
+      "pass": true,
+      "detail": {
+        "page": 1,
+        "pages": 7,
+        "paused": true
+      }
+    },
+    {
+      "name": "C64 TV Resume restarts cards and page rotation",
+      "pass": true
+    },
+    {
+      "name": "C64 motion=off stops cards and disables motion control",
+      "pass": true
+    },
+    {
+      "name": "C64 motion=off stops TV page rotation",
+      "pass": true
+    },
+    {
+      "name": "C64 live reduced motion suppresses animation and updates control normal",
+      "pass": true
+    },
+    {
+      "name": "C64 live motion preference resumes when user has not paused normal",
+      "pass": true
+    },
+    {
+      "name": "C64 live reduced motion suppresses animation and updates control TV",
+      "pass": false
+    }
+  ]
+}

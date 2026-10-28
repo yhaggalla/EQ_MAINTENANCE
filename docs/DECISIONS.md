@@ -838,3 +838,11 @@ This confirms implementation of SOW V2 revision 7 / prompt pack 2.3 and the eigh
 ### 2026-10-28 U1-C63 repair and independent review complete
 
 The confirmed eight-request prototype repair is implemented and 342/342 authored checks pass. Fresh fallback independent review PASS closes cross-tab lost writes, storage-failure rollback, initial-time stability and truthful failed-save UI. Review/profile limits, the all-97-case applicability ledger and exact evidence are recorded in the U1 report and R02B review. U1 NOT APPROVED; temporary-wrapper removal/TD07-TD08 pending; P04/P05 Not started. A local scoped checkpoint follows the repository workflow; no push/deployment/production access.
+
+### 2026-10-28 U1 CHANGES REQUESTED (U1-C64 isolated equipment cards)
+
+User: "remove this typical AI generated like part in the card.. make it unique if adding.. add card blinking for isolated EQs.. blink time 2.5 S". The attachment marks the isolated Fleet card's red left-edge strip.
+
+D-212: remove the asymmetric thick red left border. Retain the equipment illustration, normal card boundary, readable information and Isolated badge. Add a restrained whole-card background pulse with a 2.5-second complete cycle for active Isolated equipment. Ready for OPS and retired cards remain static. Respect reduced motion, explicit motion=off and Pause; TV Pause governs both cards and page rotation. This later explicit instruction supersedes only U1-C63's blanket ban on card blinking. CMMS, sync, daily EQ maintenance and automatic status changes remain removed; operational statuses are still manual. Preserve current EQ/FAC, IDs/history and the refinement through temporary-wrapper cleanup.
+
+Authorized as a narrow local U1 Repair. Exact extracted prompt and current request: docs/runs/Repair-U1-C64-20261028.md. Implementation and fresh independent verification pending. U1 remains IN PROGRESS / NOT COMPLETE / NOT APPROVED; P04/P05 Not started. No deployment, external service or live data access.
