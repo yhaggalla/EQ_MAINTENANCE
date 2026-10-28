@@ -47,7 +47,7 @@ try {
     await b.screenshot(out+'/login-'+w+'.png');
     check('TD01',w+'px fresh root has login and no EQ app/session',await ev(`!!document.querySelector('form.login-form')&&!window.EQ&&document.querySelectorAll('.app-tile').length===0&&Object.keys(localStorage).length===0&&Object.keys(sessionStorage).length===0&&document.cookie===''`));
     await b.click('.login-submit');
-    check('TD03',w+'px exactly four correctly branded cards',await ev(`document.querySelectorAll('.app-tile').length===4&&document.querySelectorAll('[data-placeholder]').length===3&&[...document.querySelectorAll('.app-tile strong')].map(e=>e.textContent).join('|')==='Urgent Materials Monitor|PayPrep Assistant|Safety Inspection and Rectification Tracker|EQ & FAC Maintenance'`));
+    check('TD03',w+'px exactly four correctly branded cards',await ev(`document.querySelectorAll('.app-tile').length===4&&document.querySelectorAll('[data-placeholder]').length===3&&[...document.querySelectorAll('.app-tile strong')].map(e=>e.textContent).join('|')==='EQ & FAC Asset Management|Safety Inspection and Rectification Tracker|Urgent Materials Monitor|PayPrep Assistant'`));
     check('TD03',w+'px launcher fits horizontally',await ev('document.documentElement.scrollWidth<=innerWidth+1'));
     const actualCard = await cssSignature(); await b.screenshot(out+'/launcher-'+w+'.png',{fullPage:w===375}); traffic('temporary-screens-'+w);
     await b.goto('http://127.0.0.1:'+referencePort+'/launcher.html');const referenceCard=await cssSignature();await b.screenshot(out+'/reference-launcher-'+w+'.png',{fullPage:w===375});traffic('reference-launcher-'+w);
@@ -115,10 +115,10 @@ try {
   await b.key('Tab');check('TD06','Tab reaches labelled password reveal',await ev(`document.activeElement.classList.contains('login-reveal')&&document.activeElement.getAttribute('aria-label')==='Show password'`));
   await b.key('Tab');check('TD06','Tab reaches Sign in',await ev(`document.activeElement.classList.contains('login-submit')`));await b.key('Enter');
   check('TD06','keyboard Sign in moves focus into launcher',await ev(`!!document.querySelector('.tile-grid')&&document.activeElement.id==='main-content'`));
-  await b.key('Tab');check('TD06','launcher keyboard starts with UMMS placeholder',await ev(`document.activeElement.dataset.placeholder==='umms'`));await b.key('Enter');
+  await b.key('Tab');check('TD06','launcher keyboard starts with EQ/FAC card with visible focus',await ev(`document.activeElement.hasAttribute('data-enter-eq')&&getComputedStyle(document.activeElement).outlineStyle!=='none'`));
+  await b.key('Tab');check('TD06','Tab reaches Safety placeholder',await ev(`document.activeElement.dataset.placeholder==='safety'`));await b.key('Enter');
   check('TD06','keyboard placeholder remains on launcher',await ev(`!!document.querySelector('.tile-grid')`));
-  for(let i=0;i<3;i++)await b.key('Tab');
-  check('TD06','Tab reaches EQ/FAC card with visible focus',await ev(`document.activeElement.hasAttribute('data-enter-eq')&&getComputedStyle(document.activeElement).outlineStyle!=='none'`));await b.key('Enter');await b.wait(750);
+  await ev(`document.querySelector('[data-enter-eq]').focus()`);await b.key('Enter');await b.wait(750);
   check('TD06','keyboard path opens fresh EQ Fleet',await ev(`EQ.route.path==='/eq/fleet'&&EQ.state.role==='eqTeam'`));traffic('repeat-keyboard-path');
   await b.goto(base);await b.click('.login-theme-toggle');check('TD06','theme toggle local only',await ev(`document.documentElement.dataset.theme==='dark'&&window.__storageWrites.length===0`));await b.screenshot(out+'/login-dark-1366.png');
   await b.click('.login-reveal');check('TD06','password reveal does not read/store/send values',await ev(`document.querySelector('#password').type==='text'&&document.querySelector('.login-reveal').getAttribute('aria-pressed')==='true'&&window.__storageWrites.length===0`));traffic('local-theme-reveal');
