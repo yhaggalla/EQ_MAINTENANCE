@@ -514,7 +514,7 @@ try {
     await b.click('[data-fk="kpi-overdue"]'); await b.wait(500);
     const hash = await ev('location.hash'); const rows = await lanesRows(); const onlyOver = await ev(`[...document.querySelectorAll('.lane .lane-list:not(.dup) .frow')].every(r=>r.classList.contains('g-overdue'))`); const nOver = Object.values(rows).reduce((a, x) => a + x.length, 0);
     await b.click('[data-fk="kpi-overdue"]'); await b.wait(400); const cleared = !/focus=overdue/.test(await ev('location.hash'));
-    return { ok: ref.ref === 114 && ref.same && JSON.stringify(ref.byDisc) === JSON.stringify(ref.refDisc) && ref.qtyBlankToOne && /SYNTHETIC PROGRESS/.test(note) && /synthetic/i.test(proto) && kpis.length === 8 && recon && /focus=overdue/.test(hash) && onlyOver && nOver === rec1.ov && cleared, detail: JSON.stringify({ ref, kpis: shown, recon, nOver, overdue: rec1.ov }) };
+    return { ok: ref.ref === 114 && ref.same && JSON.stringify(ref.byDisc) === JSON.stringify(ref.refDisc) && ref.qtyBlankToOne && /SYNTHETIC PROGRESS/.test(note) && /synthetic/i.test(proto) && kpis.length === 7 && recon && /focus=overdue/.test(hash) && onlyOver && nOver === rec1.ov && cleared, detail: JSON.stringify({ ref, kpis: shown, recon, nOver, overdue: rec1.ov }) };
   });
   await step('H02', ['S27', 'FDB02'], 'Three discipline lanes (Electrical, Mechanical, Civil) in the order Overdue, On hold, In progress, Due soon, Pending, then completed in the last 7 days; each lane header carries a completion ring; rows show type icon, name, frequency, progress with quantity and %, due countdown, PIC, mode, picture or icon; status uses colour plus icon plus text', async () => {
     await go('management', '/fac/dashboard', {}, 900);
@@ -660,7 +660,7 @@ try {
     const r = await ev(`({mode:document.querySelector('.fac-dash').dataset.motion, comb:getComputedStyle(document.querySelector('.combined')).display, lanes:getComputedStyle(document.querySelector('.lanes')).display, kpis:document.querySelectorAll('.kpi').length, kpiVisible:document.querySelector('.kpis').getBoundingClientRect().height>40, rows:document.querySelectorAll('.combined .frow').length, sw:document.scrollingElement.scrollWidth, iw:innerWidth, proofImg:!!document.querySelector('.proof img'), ticker:getComputedStyle(document.querySelector('.ticker')).display})`);
     const o0 = await ev(`window.scrollY`); await b.wait(1500); const o1 = await ev(`window.scrollY`); const tr = await ev(`[...document.querySelectorAll('.combined, .combined-list')].map(e=>e.style.transform).join('')`);
     await b.viewport(1920, 1080);
-    return { ok: r.mode === 'combined' && r.comb !== 'none' && r.lanes === 'none' && r.kpis === 8 && r.kpiVisible && r.rows >= 50 && r.sw <= r.iw && r.proofImg && o0 === o1 && tr === '', detail: JSON.stringify(r) };
+    return { ok: r.mode === 'combined' && r.comb !== 'none' && r.lanes === 'none' && r.kpis === 7 && r.kpiVisible && r.rows >= 50 && r.sw <= r.iw && r.proofImg && o0 === o1 && tr === '', detail: JSON.stringify(r) };
   });
 
 

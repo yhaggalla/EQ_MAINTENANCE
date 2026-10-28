@@ -202,7 +202,7 @@ window.EQ = window.EQ || {};
   function kpiTiles(m, q) {
     const k = m.kpi;
     const T = (id, label, value, cap, focus, cls) => ({ id, label, value, cap, focus, cls });
-    return [T('active', 'Active jobs', k.active, 'Master list'), T('completed', 'Completed', k.completed, 'This cycle', 'completed', 'ok'), T('inProgress', 'In progress', k.inProgress, 'Current cycle', 'inProgress'), T('onHold', 'On hold', k.onHold, 'Paused work', 'onHold', 'hold'),
+    return [T('active', 'Active jobs', k.active, 'Master list'), T('inProgress', 'In progress', k.inProgress, 'Current cycle', 'inProgress'), T('onHold', 'On hold', k.onHold, 'Paused work', 'onHold', 'hold'),
       T('overdue', 'Overdue', k.overdue, 'Past due date', 'overdue', 'bad'), T('dueSoon', 'Due in ' + m.settings.dueSoonDays + ' d', k.dueSoon, 'Excludes daily / weekly checks', 'dueSoon', 'soon'),
       T('ontime', 'On time, 30 d', k.onTimePct == null ? '-' : k.onTimePct + ' %', k.onTimePct == null ? 'No completed cycles' : k.onTimeOk + ' of ' + k.onTimeN + ' cycles'), T('checks', "Today's checks", k.checksDone + ' of ' + k.checksTotal, 'Daily jobs completed')];
   }
