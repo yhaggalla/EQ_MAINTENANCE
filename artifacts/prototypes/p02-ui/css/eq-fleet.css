@@ -36,7 +36,7 @@ body[data-page="eq-fleet"] { background: var(--pa-page); }
 
 /* ---------------------------------------------------------------- KPI tile row */
 .pa .fleet-top { display: block; margin-bottom: .6rem; }
-.pa .kpi-row { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .7fr) minmax(0, 1.45fr) minmax(0, 1.6fr); gap: .6rem; margin: 0; }
+.pa .kpi-row { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .7fr) minmax(0, 1.45fr) minmax(0, 1.6fr) minmax(0, 1.45fr); gap: .6rem; margin: 0; }
 .pa .count-card.kpi { display: grid; grid-template-rows: auto auto; align-content: center; gap: .15rem; min-height: 4.4rem; padding: .55rem .85rem; border: 1px solid var(--pa-line); border-radius: var(--pa-radius); background: var(--pa-card); box-shadow: var(--pa-shadow); text-align: left; color: var(--pa-ink); font-weight: 500; justify-items: stretch; justify-content: stretch; outline: none; }
 .pa button.count-card.kpi { cursor: pointer; }
 .pa button.count-card.kpi:hover { box-shadow: var(--pa-shadow-hover); border-color: var(--pa-line-strong); background: var(--pa-card); }
@@ -48,6 +48,7 @@ body[data-page="eq-fleet"] { background: var(--pa-page); }
 .pa .kpi .k-label-icon { width: 14px; height: 14px; flex: 0 0 14px; }
 .pa .kpi-readyForOps .k-label-icon { color: #32624e; }
 .pa .kpi-isolated .k-label-icon { color: #9c344d; }
+.pa .kpi-spareOverdue .k-label-icon { color: var(--danger, #b42318); }
 .pa .kpi .k-types { display: flex; flex-wrap: nowrap; gap: .35rem; align-items: center; color: var(--pa-ink-2); }
 .pa .kpi .k-type { display: grid; justify-items: center; gap: 0; white-space: nowrap; font-size: .85rem; line-height: 1.1; }
 .pa .kpi .k-type .eq-art { width: 30px; height: 19px; }
@@ -153,6 +154,7 @@ body[data-page="eq-fleet"] { background: var(--pa-page); }
 /* ---------------------------------------------------------------- responsive */
 @media (max-width: 1279px) {
   .pa .kpi-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pa .kpi-spareOverdue { grid-column: 1 / -1; }
 }
 @media (max-width: 767px) {
   .pa .kpi-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }

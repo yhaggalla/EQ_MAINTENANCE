@@ -15,7 +15,7 @@ try {
   for(const [w,h,tv] of [[1920,1080,false],[1366,768,false],[820,1180,false],[375,812,false],[320,812,false],[1920,1080,true],[1366,768,true]]) {
     await b.viewport(w,h,w<600);await go('/eq/fleet'+(tv?'?tv=1&motion=off':''));
     const state=await reconcile(),l=await layout();
-    check('AM10 '+w+(tv?' TV':'')+' four KPIs reconcile',state.actual&&state.types&&state.share===state.wantedShare&&l.kpis.length===4,state);
+    check('AM10 '+w+(tv?' TV':'')+' KPIs reconcile (four status + spare overdue)',state.actual&&state.types&&state.share===state.wantedShare&&l.kpis.length===5,state);
     check('AM11 '+w+(tv?' TV':'')+' unclipped layout',l.overflow<=1&&l.kpis.every(k=>!k.clip)&&(!tv||l.pageScroll<=1),l);
     check('AM02/AM03 '+w+' removed integration; C64 permits only active Isolated motion',await ev(`!EQ.cmms&&!EQ.state.D.cmms&&!document.querySelector('[data-blink],.blink,[data-fk=blink-pause],.cmms-fresh,[data-fk^=src-]')&&[...document.querySelectorAll('.eq-card')].every(e=>{const s=getComputedStyle(e),isolated=EQ.eq(e.dataset.eq)?.status==='isolated'&&!e.classList.contains('retired');return isolated?s.animationName==='fleet-isolated-pulse'&&s.animationDuration==='2.5s'&&(!EQ.fleetTvState().paused||s.animationPlayState==='paused'):s.animationName==='none'})&&!/CMMS|Unreported|Automatic status/.test(document.querySelector('main')?.textContent||document.body.textContent)`));
     await shot('fleet-'+w+(tv?'-tv':''));

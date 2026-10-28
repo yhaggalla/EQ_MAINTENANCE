@@ -5,7 +5,7 @@ window.EQ = window.EQ || {};
   EQ.views = EQ.views || {};
   // paused: Pause control (stops the blink and the TV page rotation; data refresh continues). tvPage/tvPages: TV paging.
   const ui = (EQ.fleetUI = { q: '', paused: false, tvPage: 0, tvPages: 1, lastFlip: Date.now() });
-  const TYPE_LABEL = { QC: 'Quay cranes (QC)', RTG: 'Rail/rubber-tyred gantry cranes (RTG)', ES: 'ES equipment' };
+  const TYPE_LABEL = { QC: 'Quay cranes (QC)', RTG: 'Rubber-tyred gantry cranes (RTG)', ES: 'ES equipment' };
   const TV_FLIP_S = 10; // TV page rotation when the fleet does not fit one screen
 
   const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)');
@@ -42,15 +42,17 @@ window.EQ = window.EQ || {};
       h('div', { class: 'actions' }, h('button', { type: 'button', class: 'btn-sm', onClick: () => EQ.refresh(true) }, 'Try again'), h('span', { class: 'small' }, 'Prototype: choose "Normal" in Prototype controls to simulate recovery.'))));
     return null;
   }
+  // Spare parts past their predicted replacement date (same rule as the equipment Spare part status tab).
+  const spareOverdue = (e) => (e.lifecycle === 'active' && EQ.spares ? EQ.spares.counts(EQ.spares.rows(e.id)).overdue : 0);
+  const partsTxt = (n) => n + ' spare part' + (n === 1 ? '' : 's');
   function thumb(type) { return h('span', { class: 'thumb', 'aria-hidden': 'true', title: EQ.fleetArtName(type) + ' (illustration, not a model)' }, EQ.fleetArt(type)); }
 
   function eqCard(e, tv) {
     const dur = EQ.inStatusFor(e), open = EQ.shownOpenJobs(e.id).length, k = EQ.statusKey(e.status);
     const model = EQ.verified(e) ? e.modelCode : (e.typeCode === 'QC' ? 'No verified model' : 'No 3D in stage 1');
-    // Spare parts past their predicted replacement date (same rule as the equipment Spare part status tab).
-    const spareOver = e.lifecycle === 'active' && EQ.spares ? EQ.spares.counts(EQ.spares.rows(e.id)).overdue : 0;
-    const over = spareOver ? h('span', { class: 'tag red spare-over', 'data-spare-overdue': String(spareOver), title: spareOver + ' spare part' + (spareOver === 1 ? '' : 's') + ' overdue for replacement' }, icon('alert'), ' Overdue ' + spareOver) : null;
-    const label = e.code + ', ' + EQ.statusLabel(e.status) + (spareOver ? ', ' + spareOver + ' spare part' + (spareOver === 1 ? '' : 's') + ' overdue' : '');
+    const spareOver = spareOverdue(e);
+    const over = spareOver ? h('span', { class: 'tag red spare-over', 'data-spare-overdue': String(spareOver), title: partsTxt(spareOver) + ' overdue for replacement' }, icon('alert'), ' Overdue ' + spareOver) : null;
+    const label = e.code + ', ' + EQ.statusLabel(e.status) + (spareOver ? ', ' + partsTxt(spareOver) + ' overdue' : '');
     const attrs = { class: 'eq-card st-card-' + k + (e.lifecycle === 'retired' ? ' retired' : ''), 'data-eq': e.id, title: e.name + ' · Updated ' + EQ.fmtInstantShort(e.lastActivity) + ' · ' + model };
     const durTxt = dur != null ? 'For ' + EQ.duration(dur) : 'Recorded duration unavailable';
     const kids = tv ? [thumb(e.typeCode), h('span', { class: 'code' }, e.code), h('span', { class: 'st-line' }, EQ.statusBadge(e.status, true), h('span', { class: 'dur' }, durTxt)), h('span', { class: 'meta' }, open + ' open'), over]
@@ -68,8 +70,8 @@ window.EQ = window.EQ || {};
   }
 
   // ------------------------------------------------------------------ KPI tile row (U1-C31)
-  function kpiRow(typed, counts, stat, setQ, tv) {
-    const marks = { total: 'list', share: 'chart', readyForOps: 'check-circle', isolated: 'octagon-x' };
+  function kpiRow(typed, counts, stat, spareF, setQ, tv) {
+    const marks = { total: 'list', share: 'chart', readyForOps: 'check-circle', isolated: 'octagon-x', spareOverdue: 'alert' };
     const label = (k, text) => h('span', { class: 'lbl' }, icon(marks[k], 'k-label-icon'), h('span', null, text));
     const active = typed.filter((e) => e.lifecycle === 'active');
     const types = ['QC', 'RTG', 'ES'].filter((t) => active.some((e) => e.typeCode === t));
@@ -88,7 +90,20 @@ window.EQ = window.EQ || {};
         h('span', { class: 'k-top' }, h('span', { class: 'n' }, String(counts.total)), summary()),
         label('total', 'Active equipment')),
       h('div', { class: 'count-card kpi kpi-share', 'data-kpi': 'share', title: 'Ready for OPS: ' + counts.readyForOps + ' of ' + counts.total + ' active equipment, ' + pct + ' percent' }, h('span', { class: 'k-top' }, h('span', { class: 'n' }, pct)), label('share', 'Ready for OPS')),
-      tile('readyForOps', counts.readyForOps), tile('isolated', counts.isolated));
+      tile('readyForOps', counts.readyForOps), tile('isolated', counts.isolated), spareTile());
+
+    // Overall spare-part overdue count: parts past predicted replacement across active equipment; selecting it shows only equipment with overdue parts.
+    function spareTile() {
+      const perType = types.map((t) => [t, active.filter((e) => e.typeCode === t).reduce((a, e) => a + spareOverdue(e), 0)]);
+      const n = perType.reduce((a, [, c]) => a + c, 0), eqN = active.filter((e) => spareOverdue(e) > 0).length;
+      const typeTxt = perType.map(([t, c]) => t + ': ' + c).join(', ');
+      const kids = [h('span', { class: 'k-top' }, h('span', { class: 'n' }, String(n)),
+        h('span', { class: 'k-types', 'aria-label': 'Overdue spare parts by equipment type' }, perType.map(([t, c]) => h('span', { class: 'k-type', 'data-eq-type': t, 'aria-label': t + ': ' + c, title: EQ.fleetArtName(t) + ': ' + partsTxt(c) + ' overdue' }, EQ.fleetArt(t), h('span', { class: 'k-type-count' }, h('span', { class: 'k-code' }, t), h('b', null, String(c))))))),
+        label('spareOverdue', 'Spare parts overdue')];
+      const title = partsTxt(n) + ' overdue for replacement on ' + eqN + ' equipment · ' + typeTxt;
+      if (tv) return h('div', { class: 'count-card kpi kpi-spareOverdue', 'data-kpi': 'spareOverdue', title }, ...kids);
+      return h('button', { type: 'button', class: 'count-card kpi kpi-spareOverdue', 'data-kpi': 'spareOverdue', 'data-fk': 'cc-spareOverdue', 'aria-pressed': spareF ? 'true' : 'false', 'aria-label': 'Spare parts overdue: ' + n + ' on ' + eqN + ' equipment, ' + typeTxt + (spareF ? ', filter on' : ''), title: 'Show only equipment with overdue spare parts · ' + title, onClick: () => setQ({ spare: spareF ? '' : 'overdue' }) }, ...kids);
+    }
   }
   function groupHead(t, c, tv, n) {
     return h('header', null, h('span', { class: 'g-art', 'aria-hidden': 'true' }, EQ.fleetArt(t)), h('h2', { id: 'fg-' + t }, TYPE_LABEL[t]), h('span', { class: 'g-n' }, String(n)),
@@ -166,7 +181,7 @@ window.EQ = window.EQ || {};
   EQ.views.fleet = function fleet(q) {
     const S = EQ.state;
     const tv = q.tv === '1';
-    const type = ['QC','RTG','ES'].includes(q.type) ? q.type : 'all', stat = ['readyForOps','isolated'].includes(q.status) ? q.status : '', retired = !tv && q.lifecycle === 'all';
+    const type = ['QC','RTG','ES'].includes(q.type) ? q.type : 'all', stat = ['readyForOps','isolated'].includes(q.status) ? q.status : '', spareF = !tv && q.spare === 'overdue', retired = !tv && q.lifecycle === 'all';
     if (q.q != null) ui.q = q.q;
     const setQ = (patch) => EQ.nav('/eq/fleet', { type: 'all', status: '', lifecycle: '', ...q, ...patch });
     const page = h('div', { class: 'page fleet-page pa' + (tv ? ' tv-fleet' : '') + (paused(q) ? ' fleet-motion-paused' : '') });
@@ -194,7 +209,7 @@ window.EQ = window.EQ || {};
     const typed = all.filter(e => (type === 'all' || e.typeCode === type) && (!ui.q || (e.code + ' ' + e.name + ' ' + (e.modelCode || '')).toLowerCase().includes(ui.q.toLowerCase())));
     const counts = EQ.fleetCounts(typed);
     if (!tv) page.appendChild(h('div', { class: 'fleet-bar' }, freshness(), h('span', { class: 'fb-tools' }, refreshBtn(), pauseBtn(q), tvBtn(q))));
-    page.appendChild(h('div', { class: 'fleet-top' }, kpiRow(typed, counts, stat, setQ, tv)));
+    page.appendChild(h('div', { class: 'fleet-top' }, kpiRow(typed, counts, stat, spareF, setQ, tv)));
 
     if (!tv) {
       const search = h('input', { type: 'search', id: 'fq', 'data-fk': 'fq', value: ui.q, autocomplete: 'off', placeholder: 'Code, name or model' });
@@ -205,11 +220,13 @@ window.EQ = window.EQ || {};
         h('label', { class: 'check', style: 'min-height:2.5rem' }, h('input', { type: 'checkbox', checked: retired ? true : null, 'data-fk': 'ret', onChange: (e) => setQ({ lifecycle: e.target.checked ? 'all' : '' }) }), 'Include retired'),
         h('div', { class: 'field' }, h('span', { class: 'label', id: 'vl' }, 'Layout'), h('div', { class: 'seg', role: 'group', 'aria-labelledby': 'vl' }, ['cards', 'table'].map((v) => h('button', { type: 'button', 'aria-pressed': (q.layout || 'cards') === v ? 'true' : 'false', 'data-fk': 'lay-' + v, onClick: () => setQ({ layout: v }) }, v === 'cards' ? 'Cards' : 'Table')))),
         stat ? h('button', { type: 'button', class: 'btn-sm', onClick: () => setQ({ status: '' }) }, icon('x'), 'Clear status filter') : null,
+        spareF ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'clear-spare', onClick: () => setQ({ spare: '' }) }, icon('x'), 'Clear spare-part filter') : null,
         EQ.perm.admin() ? h('button', { type: 'button', class: 'btn-sm', onClick: () => EQ.dlg.newEquipment() }, icon('plus'), 'Register equipment') : null));
     }
 
     const match = (e) => (retired || e.lifecycle === 'active')
       && (!stat || EQ.statusKey(e.status) === stat)
+      && (!spareF || spareOverdue(e) > 0)
       && (tv || !ui.q || (e.code + ' ' + e.name + ' ' + (e.modelCode || '')).toLowerCase().includes(ui.q.toLowerCase()));
     const types = type === 'all' ? ['QC', 'RTG', 'ES'] : [type];
     const host = tv ? h('div', { class: 'tvf-body' }) : page;
