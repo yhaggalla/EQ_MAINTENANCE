@@ -47,11 +47,14 @@ window.EQ = window.EQ || {};
   function eqCard(e, tv) {
     const dur = EQ.inStatusFor(e), open = EQ.shownOpenJobs(e.id).length, k = EQ.statusKey(e.status);
     const model = EQ.verified(e) ? e.modelCode : (e.typeCode === 'QC' ? 'No verified model' : 'No 3D in stage 1');
-    const label = e.code + ', ' + EQ.statusLabel(e.status);
+    // Spare parts past their predicted replacement date (same rule as the equipment Spare part status tab).
+    const spareOver = e.lifecycle === 'active' && EQ.spares ? EQ.spares.counts(EQ.spares.rows(e.id)).overdue : 0;
+    const over = spareOver ? h('span', { class: 'tag red spare-over', 'data-spare-overdue': String(spareOver), title: spareOver + ' spare part' + (spareOver === 1 ? '' : 's') + ' overdue for replacement' }, icon('alert'), ' Overdue ' + spareOver) : null;
+    const label = e.code + ', ' + EQ.statusLabel(e.status) + (spareOver ? ', ' + spareOver + ' spare part' + (spareOver === 1 ? '' : 's') + ' overdue' : '');
     const attrs = { class: 'eq-card st-card-' + k + (e.lifecycle === 'retired' ? ' retired' : ''), 'data-eq': e.id, title: e.name + ' · Updated ' + EQ.fmtInstantShort(e.lastActivity) + ' · ' + model };
     const durTxt = dur != null ? 'For ' + EQ.duration(dur) : 'Recorded duration unavailable';
-    const kids = tv ? [thumb(e.typeCode), h('span', { class: 'code' }, e.code), h('span', { class: 'st-line' }, EQ.statusBadge(e.status, true), h('span', { class: 'dur' }, durTxt)), h('span', { class: 'meta' }, open + ' open')]
-      : [thumb(e.typeCode), h('span', { class: 'code' }, e.code, e.lifecycle === 'retired' ? h('span', { class: 'tag' }, 'Retired') : null, EQ.statusBadge(e.status)), h('span', { class: 'meta' }, durTxt + ' · ' + open + ' open')];
+    const kids = tv ? [thumb(e.typeCode), h('span', { class: 'code' }, e.code), h('span', { class: 'st-line' }, EQ.statusBadge(e.status, true), h('span', { class: 'dur' }, durTxt)), h('span', { class: 'meta' }, open + ' open'), over]
+      : [thumb(e.typeCode), h('span', { class: 'code' }, e.code, e.lifecycle === 'retired' ? h('span', { class: 'tag' }, 'Retired') : null, EQ.statusBadge(e.status)), h('span', { class: 'meta' }, durTxt + ' · ' + open + ' open'), over];
     return tv ? h('div', { ...attrs, role: 'listitem', 'aria-label': label }, ...kids) : h('a', { ...attrs, href: '#/eq/equipment/' + e.id, 'aria-label': label }, ...kids);
   }
   function table(list) {

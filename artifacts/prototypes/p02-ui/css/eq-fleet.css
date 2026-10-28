@@ -92,6 +92,9 @@ body[data-page="eq-fleet"] { background: var(--pa-page); }
 .pa .eq-card .meta { font-size: .72rem; color: var(--pa-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; align-self: start; }
 .pa .eq-card .meta .zc { color: var(--pa-ink-2); }
 .pa .eq-card .meta .src { font-size: .62rem; padding: 0 .3rem; }
+.pa .eq-card .spare-over { grid-column: 2; justify-self: start; display: inline-flex; align-items: center; gap: .2rem; font-size: .66rem; padding: .02rem .4rem; line-height: 1.35; }
+.pa .eq-card .spare-over .icon, .pa .eq-card .spare-over svg { width: .8rem; height: .8rem; }
+.pa .eq-card:has(.spare-over) .thumb { grid-row: 1 / 4; }
 .pa .eq-card.retired { background: #f7f7f4; border-style: dashed; box-shadow: none; }
 
 /* ---------------------------------------------------------------- TV mode (U1-C28): one screen at 1920 x 1080, read-only */
@@ -127,6 +130,8 @@ body[data-page="eq-fleet"] { background: var(--pa-page); }
 .tv-fleet .eq-card .st-line .badge.st-unreported { border-color: var(--st-unrep-bd); }
 .tv-fleet .eq-card .st-line .dur { font-size: 1.05rem; color: var(--pa-ink-2); font-weight: 600; overflow: hidden; text-overflow: ellipsis; }
 .tv-fleet .eq-card .meta { font-size: 1rem; color: var(--pa-muted); }
+.tv-fleet .eq-card .spare-over { font-size: .9rem; }
+.pa.tv-fleet .eq-card:has(.spare-over) .thumb, .tv-fleet .eq-card:has(.spare-over) .thumb { grid-row: 1 / 5; }
 .tv-fleet .eq-card .meta .src { font-size: .85rem; padding: 0 .4rem; }
 .tv-fleet .tvf-foot { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem 1.4rem; font-size: .95rem; color: var(--pa-muted); }
 .tv-fleet .tvf-pager { margin-left: auto; font-weight: 700; color: var(--pa-ink-2); }
