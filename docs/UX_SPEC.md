@@ -485,3 +485,17 @@ Remove the annotated thick red left strip from the Isolated equipment card. Ever
 Keep one compact Pause / Resume control beside Refresh and TV mode in normal layouts and beside Exit in TV. Keyboard/touch operation and aria-pressed describe the effective pause. TV Pause stops both card pulses and the existing 10-second page rotation. User pause survives filtering, search, rerender, refresh and entering/exiting TV in the current session. motion=off and prefers-reduced-motion suppress motion and show disabled Motion off; preference changes take effect live without reload, preserving the user's pause choice. No blink legend or explanatory panel is added.
 
 Status remains explicitly manual and persistent; pulse timing cannot alter equipment state, jobs or history. CMMS/sync/daily EQ work/automatic status stay removed. D-212 is a narrow exception to C63's blanket no-motion requirement, with current acceptance mapping in `docs/evidence/U1/fleet-isolated-c64/REPORT.md`. Local prototype checks and screenshots are separate from formal working-app acceptance. Retain this refinement through temporary-wrapper cleanup; fresh independent review pending, U1 NOT APPROVED, P04/P05 Not started.
+
+## 58 U1-C65: QC technical areas and component data (29 October 2026)
+
+The Area selector gains "Trolley rails and catenary trolleys": girder and boom A75 rails with rubber pads, clip pairs, the boom-hinge joint and end stops, and the landside and seaside catenary trolleys with their rope rollers, idlers and sheaves. The back reach adds the catenary rope tensioners; the machinery house adds the rope re-reeving device. All are selectable parts in Flat and 3D, Technical mode, with the existing labels, isolation and Reset behaviour.
+
+In the Technical tab, an isolated area lists its component data groups (title, label / value rows, row or group source) above the included parts; a selected part shows the groups that describe it after its position data. A one-line note states that values are drawing-family data, not measurements of this crane. Rows filter with the existing technical-data search. Where sources differ, both values are shown in the row.
+
+## 59 U1-C66: selected-part label and rope paths (29 October 2026)
+
+The selected part's label in Flat and 3D is a filled chip in the selection colour with white 13 px bold text and a white / yellow ring, drawn above all other labels, with its leader line in the selection colour; other labels keep their pale style. The highlight is static. Ropes in the model run tangent to the sheaves they wrap, rest on their rollers and idlers, and do not pass through structure.
+
+## 60 U1-C66 follow-up: label modes and Technical on part selection (29 October 2026)
+
+Below the viewer, a Labels group offers Key parts, Selection and Selected only (the pressed one is the current mode). Key parts is the default and returns with Reset, whole equipment and area isolation; selecting a mechanism switches to Selection; selecting a part switches to Selected only and, from Overall, to Technical so the part is always visible and fitted. The user may change the mode at any time; it persists across Flat / 3D.

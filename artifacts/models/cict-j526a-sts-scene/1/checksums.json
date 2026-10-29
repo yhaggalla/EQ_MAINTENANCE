@@ -1,13 +1,13 @@
 {
-  "assets/models/source/cict-j526a-sts/params.json": "799b89107262d4a49d17d679617c73d67174cafed7ac2820b0b3bf27a7f41389",
-  "assets/models/source/cict-j526a-sts/build.mjs": "9e7beedcc4e3cf0a6b232841364c67831d19eaf1535ccd68eacf57fdd2180591",
+  "assets/models/source/cict-j526a-sts/params.json": "7bced51ca08adb660e8110c9cfde4127cdc917519986a41f312ad1f15eaaf2b9",
+  "assets/models/source/cict-j526a-sts/build.mjs": "2914e81fa89d587f52a4df9ddfbd1815e562bfeeb32a18a62c58cf9f606f4fef",
   "assets/models/source/cict-j526a-sts/textures/cict-logo.png": "d7af90fbb0a7f2bff38d199f9ebf5c812d14493d3953f33580b968661eeb9965",
-  "tools/model-generator/generate.mjs": "c2bfbbdb3151978a9893e30ff1bdecc4ffe6218b6c0befb7e60a452e2c64e482",
+  "tools/model-generator/generate.mjs": "6d31c4e7da5cdde4791a23cd9247c961049a16c586140d1aae73c021f2be65ff",
   "tools/model-generator/lib/kit.mjs": "e8fa3960c9f0cefc3ad4b9691d6617ae24192336e43f5382e4b7b7c2fe688025",
   "tools/model-generator/lib/scene-builder.mjs": "815f8dc731facaa71810f492e570e6d105b1db482cac0da11d1ba6846d68f7f3",
   "tools/model-generator/package-lock.json": "13c35ee69b0c30a86d2f99086f4fb50b84b4a11a67f51f3cbd6e7aa9ba840849",
-  "artifacts/models/cict-j526a-sts-scene/1/scene.glb": "01fb0ae0a2c66029928bb6b8be9f31229e68ae9ed27f03aeddc6801993531b9a",
-  "artifacts/models/cict-j526a-sts-scene/1/manifest.json": "6f030d735578cd9d0564a7184068aea8b2c87f356cad7211e9d698d85637b489",
-  "artifacts/models/cict-j526a-sts-scene/1/provenance.md": "002853e3fea902cfa5574de98a72c3ea1b1a22cc5f4459a09df144d0b35c276e",
+  "artifacts/models/cict-j526a-sts-scene/1/scene.glb": "403d9f1cc2b590e6d229d32857f62e42add9a83b0583257392596036c03d700b",
+  "artifacts/models/cict-j526a-sts-scene/1/manifest.json": "a1f61f841f2f7d2c6cdb4872993eeed105dc2be3c1d7452e40dba349c174d9ba",
+  "artifacts/models/cict-j526a-sts-scene/1/provenance.md": "1ff32c63fa2f02845a727d3a94c83e7bd0a9fba3f9c39c105264f1fd10d49665",
   "artifacts/models/cict-j526a-sts-scene/1/landmarks.json": "538ea13943cc118c582bc51c238f1e450d2793aa3d844ce91f34f57cda74d6a6"
 }

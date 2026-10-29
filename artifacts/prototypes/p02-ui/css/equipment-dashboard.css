@@ -59,7 +59,11 @@ body:has(.equipment-page) { background: var(--pa-page); }
 .equipment-page .vp-bottom .vp-legend .panel-pad { padding: 10px 0 0; }
 .equipment-page .vp-camera-hint { padding-top: 1px; font-size: 10.5px; text-align: right; }
 .equipment-page .qc-label { border-color: #cbd2ce; border-radius: 5px; padding: 3px 6px; color: var(--pa-ink); font-size: 11px; font-weight: 550; }
-.equipment-page .qc-label.sel { border-color: var(--sel); }
+/* U1-C66: the selected part's label is a filled, larger chip drawn above the others so it is easy to find */
+.equipment-page .qc-label.sel { z-index: 3; background: var(--sel); border-color: var(--sel); color: #fff; font-size: 13px; font-weight: 700; padding: 4px 9px; box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--sel-glow), 0 3px 10px rgba(0,0,0,.35); }
+.equipment-page .qc-label.sel .qc-badge { background: rgba(255,255,255,.22); color: #fff; }
+.equipment-page .qc-label.sel .qc-arrow { color: var(--sel-glow); }
+.equipment-page .qc-leaders line.sel { stroke: var(--sel); stroke-width: 2.5; }
 
 /* Current-state panel: one compact header, then independent neutral cards. */
 .equipment-page .side-panel { background: transparent; border: 0; box-shadow: none; border-radius: 0; }
@@ -152,3 +156,15 @@ body:has(.equipment-page) { background: var(--pa-page); }
   .equipment-page .current-job-title { font-size: 14px; }
   .equipment-page .current-job-head { gap: 7px; }
 }
+
+/* U1-C65: drawing / manual component data in the Technical tab */
+.spec-group .kv { grid-template-columns: minmax(6.5rem, 36%) 1fr; }
+.spec-group .kv dt { overflow-wrap: anywhere; }
+.spec-src { display: block; font-size: .74rem; color: var(--ink-muted); }
+.spec-group .kv dd .spec-src { margin-top: .1rem; }
+
+/* U1-C66: three label modes in the viewer tool bar */
+.equipment-page .label-seg { align-items: center; }
+.equipment-page .label-seg .label-seg-title { padding: 0 8px; font-size: 12px; font-weight: 600; color: var(--ink-muted); border-right: 1px solid var(--border-strong); align-self: stretch; display: flex; align-items: center; }
+.equipment-page .label-seg > button { min-height: 32px; padding: 2px 9px; font-size: 12px; white-space: nowrap; }
+@media (max-width: 760px) { .equipment-page .label-seg > button { min-height: 44px; } }

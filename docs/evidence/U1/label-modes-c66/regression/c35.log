@@ -1,0 +1,13 @@
+PASS Unscoped Add still opens an empty equipment chooser
+PASS Registered selected part offers Update condition instead of empty Add
+PASS Invalid condition leaves the record unchanged and shows validation
+PASS Saving Original refreshes the selected 3D card immediately without navigation
+PASS Saving replacement refreshes brand, date, prediction and history on the same part
+PASS Cancel and legacy Add entry preserve or update the exact registered target
+PASS Flat mode and Admin update the existing record without duplicate registration
+PASS New selected part can still be added and appears immediately inside its isolated area
+PASS Area summaries and Jobs show the same newly saved spare record
+PASS Management has no Add/Update action and direct mutation remains refused
+PASS No browser errors
+11/11 PASS
+exit 0

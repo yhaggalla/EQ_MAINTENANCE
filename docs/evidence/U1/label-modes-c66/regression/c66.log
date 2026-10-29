@@ -1,0 +1,16 @@
+PASS 01 default: Key parts pressed, overview labels, no selected label
+PASS 02 sub-mechanism from the tree: Selection mode, mode unchanged (Overall)
+PASS 03 part from the tree in Overall switches to Technical and shows it
+PASS 04 part selection: Selected only, exactly one label and it is the selected part
+PASS 05 Selection: selected label plus related part labels
+PASS 06 Key parts with a selection: overview labels plus the selected label
+PASS 07 back to Selected only: one label
+PASS 08 camera switch keeps the label mode and the part
+PASS 09 any part selection in Overall opens Technical with Selected only
+PASS 10 Reset returns to Key parts with no selected label
+PASS 11 area isolation shows the area part labels (Key parts)
+PASS 12 Selected only with nothing selected shows no labels
+PASS 13 phone: label group fits, 44 px targets, no page overflow
+PASS 14 no browser errors
+14/14 PASS
+exit 0

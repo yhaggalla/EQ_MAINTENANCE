@@ -1,0 +1,221 @@
+{
+  "base": "HEAD",
+  "baseAsset": {
+    "sha256": "01fb0ae0a2c66029928bb6b8be9f31229e68ae9ed27f03aeddc6801993531b9a",
+    "bytes": 2570288,
+    "nodes": 178
+  },
+  "revised": {
+    "revision": 7,
+    "sha256": "403d9f1cc2b590e6d229d32857f62e42add9a83b0583257392596036c03d700b",
+    "bytes": 3708020,
+    "nodes": 188
+  },
+  "summary": {
+    "added": 10,
+    "removed": 0,
+    "changed": 24,
+    "identityChanges": 0
+  },
+  "note": "Draft v1 revised in place (no binding active). Keys, kinds, classification and instancing of existing nodes are unchanged unless listed; bounds changes are geometry corrections.",
+  "added": [
+    {
+      "key": "container.trolley-runway",
+      "kind": "container",
+      "sub": null,
+      "label": "Trolley rails and catenary trolleys"
+    },
+    {
+      "key": "trolley.rail.girder",
+      "kind": "position",
+      "sub": "021",
+      "label": "Trolley rails on the girder (A and B, A75, 60.2 m)"
+    },
+    {
+      "key": "trolley.rail.boom",
+      "kind": "position",
+      "sub": "021",
+      "label": "Trolley rails on the boom (A and B, A75, 74.6 m)"
+    },
+    {
+      "key": "trolley.rail.hinge-joint",
+      "kind": "position",
+      "sub": "021",
+      "label": "Trolley rail joint at the boom hinge (short rails, gap 6 +/- 2)"
+    },
+    {
+      "key": "trolley.catenary.landside",
+      "kind": "position",
+      "sub": "021",
+      "label": "Landside catenary trolley (on the girder / boom rails)"
+    },
+    {
+      "key": "trolley.catenary.waterside",
+      "kind": "position",
+      "sub": "021",
+      "label": "Seaside catenary trolley (on the boom rails)"
+    },
+    {
+      "key": "reeving.sheave.catenary-boom-tip",
+      "kind": "position",
+      "sub": "021",
+      "label": "Boom-tip catenary rope sheaves (2 sets, dia 500)"
+    },
+    {
+      "key": "trolley.catenary.tensioner",
+      "kind": "position",
+      "sub": "022",
+      "label": "Catenary rope tensioners (2 sets, cylinder stroke 600)"
+    },
+    {
+      "key": "auxiliary.rope-reeving.machinery-house",
+      "kind": "position",
+      "sub": "151",
+      "label": "Wire rope re-reeving device (2 driving reels, 5.5 kW)"
+    },
+    {
+      "key": "trolley.catenary-rope.set.main",
+      "kind": "position",
+      "sub": "024",
+      "label": "Catenary trolley rope set (2 lanes; path simplified)"
+    }
+  ],
+  "removed": [],
+  "changed": [
+    {
+      "key": "container.girder",
+      "boundsChanged": true
+    },
+    {
+      "key": "structure.girder.rear.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "reeving.anti-snag-tls.device",
+      "boundsChanged": true
+    },
+    {
+      "key": "reeving.sheave.girder-tail",
+      "boundsChanged": true,
+      "label": [
+        "Main hoist rope tail sheaves (girder tail)",
+        "Main hoist rope tail sheaves (girder tail, one per rope)"
+      ]
+    },
+    {
+      "key": "reeving.sheave.trolley-tail",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom.main.girder",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom.forestay.inner.a",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom.forestay.outer.a",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom.forestay.inner.b",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom.forestay.outer.b",
+      "boundsChanged": true
+    },
+    {
+      "key": "reeving.sheave.boom-tip",
+      "boundsChanged": true
+    },
+    {
+      "key": "machinery-house.service-crane",
+      "label": [
+        "Machinery-house service crane",
+        "Machinery-house service crane (10 t)"
+      ]
+    },
+    {
+      "key": "container.trolley",
+      "boundsChanged": true
+    },
+    {
+      "key": "trolley.frame",
+      "boundsChanged": true
+    },
+    {
+      "key": "trolley.spreader-cable-reel",
+      "boundsChanged": true,
+      "label": [
+        "Spreader cable reel and drive (size approximate)",
+        "Spreader cable reel (Cavotec T5.1, monospiral dia 2200) and drive"
+      ]
+    },
+    {
+      "key": "trolley.skew-system.main",
+      "boundsChanged": true,
+      "hotspot": [
+        [
+          -57.5,
+          52.9,
+          -1.3
+        ],
+        [
+          -57.5,
+          52.9,
+          -0.45
+        ],
+        "simplified-part",
+        "simplified-part"
+      ]
+    },
+    {
+      "key": "trolley.tension.main",
+      "boundsChanged": true,
+      "hotspot": [
+        [
+          -60.1,
+          52.86999999999999,
+          0
+        ],
+        [
+          -60.1,
+          53.144999999999996,
+          0
+        ],
+        "simplified-part",
+        "simplified-part"
+      ]
+    },
+    {
+      "key": "hoist.rope.set.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "trolley.rope.set.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom.rope.set.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom.sheave.boom-block",
+      "boundsChanged": true
+    },
+    {
+      "key": "container.access",
+      "boundsChanged": true
+    },
+    {
+      "key": "access.stair.landside-leg-b",
+      "boundsChanged": true
+    },
+    {
+      "key": "access.elevator.mast",
+      "boundsChanged": true
+    }
+  ]
+}

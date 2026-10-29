@@ -161,7 +161,7 @@ const manifest = {
   generator: { name: pkg.name, version: pkg.version, sourceCommit: commit, sourceDirty: dirty, three: threePkg.version, node: process.version },
   source: { params: rel(path.join(srcDir, 'params.json')), definition: rel(path.join(srcDir, 'build.mjs')) },
   asset: { file: 'scene.glb', sha256: sha(glb), bytes: glb.length, triangles: statsAll.triangles, drawCallsEstimate: statsAll.drawCallsEstimate, overallMode: statsOverall, technicalMode: statsTech },
-  budgets: { trianglesMax: 150000, drawCallsMax: 200, assetBytesMax: 8 * 1024 * 1024, source: 'QC_3D_MODELLING_BRIEF s6 (provisional)' },
+  budgets: { trianglesMax: 150000, drawCallsMax: 230, assetBytesMax: 8 * 1024 * 1024, source: 'QC_3D_MODELLING_BRIEF s6 (provisional); draw calls raised from 200 to 230 by the user for U1-C65 (D-213)' },
   bounds: toB(overall),
   landmarks,
   nodes: S.nodes,

@@ -740,9 +740,9 @@
       "source": "J526A1000 p1 plan (3754 overall)"
     },
     "antiSnagSheaveDia": {
-      "mm": 1100,
-      "kind": "estimated",
-      "source": "J526A1000 p1 side view, scaled against the 2200 dimension"
+      "mm": 1000,
+      "kind": "measured",
+      "source": "J526A1000 p1 section B-B (dia 1000 tail sheave; groove 900). U1-C65 (2026-10-29): replaces the 1100 estimate scaled from the side view"
     },
     "antiSnagSheaveSpacing": {
       "mm": 2200,
@@ -795,9 +795,9 @@
       "source": "Hung so that its deck is at the cab floor level of the display pose (cab floor 47.8 m); J526A00 side view drop about 3-5 m"
     },
     "trolleyTailSheaveDia": {
-      "mm": 800,
-      "kind": "estimated",
-      "source": "J526A00 p1 trolley rope reeving: return sheaves and tensioners at the girder-tail end; size scaled"
+      "mm": 830,
+      "kind": "measured",
+      "source": "J526A2103 (J526A2100 p3) tension device A-A: sheave ZT2-013047 A2-750-25-230, dia 830 over the flanges, groove dia 750; 1050 to the girder centreline. U1-C65 (2026-10-29): replaces the 800 estimate"
     },
     "cabinFrontOverhang": {
       "mm": 310,
@@ -1070,9 +1070,9 @@
       "source": "J526A2100 p1 section A-A (sheave unit item 1: dia 830 over the flanges, 750 groove) (U1 round 3, U1-C17)"
     },
     "spreaderCableReelDia": {
-      "mm": 1600,
-      "kind": "estimated",
-      "source": "J526A0200 p1 side view, scaled from the hidden outline of item 11 (spreader cable reel arrangement, 1245 kg) inside the centre body (U1 round 3, U1-C17)"
+      "mm": 2200,
+      "kind": "measured",
+      "source": "Cavotec SC-121216-ME2a p1 (manual p7): drum VM922-38G vertical monospiral, inner dia 900, outer dia 2200, compartment width 38. U1-C65 (2026-10-29): replaces the 1600 estimate from the J526A0200 hidden outline"
     },
     "spreaderCableReelX": {
       "mm": 300,
@@ -1153,8 +1153,123 @@
       "mm": 1640,
       "kind": "measured",
       "source": "J526A1200 p1 end view (1640 over the twistlock housings under the sheave box) (U1 round 3, U1-C18)"
+    },
+    "trolleyRailHeadWidth": {
+      "mm": 75,
+      "kind": "measured",
+      "source": "J526A0104 (J526A0100 p44) sections A-A to D-D: A75 rail head 75 (U1-C65 (2026-10-29))"
+    },
+    "trolleyRailHeight": {
+      "mm": 85,
+      "kind": "measured",
+      "source": "J526A0104 sections A-A / B-B: rail height 85 (U1-C65 (2026-10-29))"
+    },
+    "trolleyRailFootWidth": {
+      "mm": 200,
+      "kind": "measured",
+      "source": "J526A0104 sections B-B / D-D: rail foot 200 (U1-C65 (2026-10-29))"
+    },
+    "trolleyRailPadThickness": {
+      "mm": 8,
+      "kind": "measured",
+      "source": "J526A0104 items 5 / 6 ZGD190 rubber rail pad 8 x 190 (8 thick) (U1-C65 (2026-10-29))"
+    },
+    "trolleyRailGirderLength": {
+      "mm": 60200,
+      "kind": "measured",
+      "source": "J526A0104 elevation: girder rail 60200 (item 3 A75-59002 x 2 plus the 1350 / 220 joint pieces; 97 x 600 clip pitch = 58200) (U1-C65 (2026-10-29))"
+    },
+    "trolleyRailBoomLength": {
+      "mm": 74600,
+      "kind": "measured",
+      "source": "J526A0104 elevation: boom rail 74600 (item 2 A75-72942 x 2; 121 x 600 clip pitch = 72600) (U1-C65 (2026-10-29))"
+    },
+    "trolleyRailClipPitch": {
+      "mm": 600,
+      "kind": "measured",
+      "source": "J526A0104 plan: clip pairs at 600 (97 x 600 girder, 121 x 600 boom) (U1-C65 (2026-10-29))"
+    },
+    "trolleyRailEndBeyond": {
+      "mm": 250,
+      "kind": "measured",
+      "source": "J526A0104 elevation: 250 from the rail end to the end stop (item 8) at both ends (U1-C65 (2026-10-29))"
+    },
+    "trolleyRailHingeJoint": {
+      "mm": 1500,
+      "kind": "measured",
+      "source": "J526A0104 plan: short rails J526A010401 (item 1, 4 off) 1500 long at the boom-hinge joint; joint gap 6 +/- 2 (U1-C65 (2026-10-29))"
+    },
+    "catenaryWheelDia": {
+      "mm": 320,
+      "kind": "measured",
+      "source": "J526A220400 / J526A220500 section F-F: catenary trolley wheel dia 320 (tread dia 260) on the A75 trolley rail (U1-C65 (2026-10-29))"
+    },
+    "catenaryWheelPitch": {
+      "mm": 1050,
+      "kind": "measured",
+      "source": "J526A220400 / J526A220500 plan and end view: 1050 between the two wheels on each rail (U1-C65 (2026-10-29))"
+    },
+    "catenaryFrameWidthLS": {
+      "mm": 4960,
+      "kind": "measured",
+      "source": "J526A220400 plan: landside catenary trolley frame 4960 between the end boxes (U1-C65 (2026-10-29))"
+    },
+    "catenaryFrameWidthWS": {
+      "mm": 5350,
+      "kind": "measured",
+      "source": "J526A220500 front view: seaside catenary trolley 5350 over the main-hoist rope roller boxes (U1-C65 (2026-10-29))"
+    },
+    "catenaryRollerHeight": {
+      "mm": 1168.5,
+      "kind": "measured",
+      "source": "J526A220500 front view: 1168.5 rail to the top of the main-hoist rope roller box (item 3) (U1-C65 (2026-10-29))"
+    },
+    "catenaryIdlerSpacing": {
+      "mm": 2100,
+      "kind": "measured",
+      "source": "J526A220400 / J526A220500: guide idlers (items 4 / 5) 2100 apart = trolley rope lanes 1050 either side (U1-C65 (2026-10-29))"
+    },
+    "catenarySheaveDia": {
+      "mm": 516,
+      "kind": "measured",
+      "source": "J526A220400 / J526A220500 section C-C: catenary rope sheave (item 4) 516 (U1-C65 (2026-10-29))"
+    },
+    "catenaryLandsideX": {
+      "mm": 1300,
+      "kind": "estimated",
+      "source": "J526A2200 p1 side view: landside catenary trolley at its outreach position next to the boom hinge (scaled at about 9.7 px per m), display pose for the trolley at the outreach limit (U1-C65 (2026-10-29))"
+    },
+    "catenaryWatersideX": {
+      "mm": 73900,
+      "kind": "estimated",
+      "source": "J526A2200 p1 side view: seaside catenary trolley at its outreach position between the main trolley and the boom tip (scaled), display pose (U1-C65 (2026-10-29))"
+    },
+    "catenaryRopeLaneZ": {
+      "mm": 1500,
+      "kind": "measured",
+      "source": "J526A2201 J-J and J526A2203 B-B: catenary rope sheaves 1500 either side of the boom / girder centreline, installed symmetrically (U1-C65 (2026-10-29))"
+    },
+    "catenaryTipSheaveDia": {
+      "mm": 550,
+      "kind": "measured",
+      "source": "J526A2201 J-J: boom-tip catenary sheave dia 550 over the flanges (groove dia 500), sheave ZT2-013022, 2 sets per crane (U1-C65 (2026-10-29))"
+    },
+    "catenaryTensionerArm": {
+      "mm": 1296,
+      "kind": "measured",
+      "source": "J526A2203: cylinder 1123 closed, 1296 with the 600 stroke (as drawn), lever 830 to the sheave pair dia 500 / 550 (U1-C65 (2026-10-29))"
+    },
+    "reReevingDrumDia": {
+      "mm": 900,
+      "kind": "estimated",
+      "source": "J526A1500 schematic: driving re-reeving machine WRR04A-J526A (2 off, 1010.4 kg each); reel size scaled from the machine-house sections (U1-C65 (2026-10-29))"
+    },
+    "reReevingSpacingZ": {
+      "mm": 3992,
+      "kind": "measured",
+      "source": "J526A1500 machine-house plan: 3992 either side of the centreline to the support frames J526A1501 (U1-C65 (2026-10-29))"
     }
   },
-  "revision": 6,
-  "revisionNote": "U1 round 7 (2026-10-23): 013 load cells moved from the in-line position about 2.6 m inboard to the boom tip end, in-line on the horizontal cross-over of the main hoist ropes at the very end of the boom (user reference image, U1-C27; closes U-36; points estimated). Previous: U1 round 6 (2026-10-23): 013 load cell moved from the boom-tip rope-end anchor pins to in-line load cells in the horizontal main hoist ropes at the boom tip (user answer to U-23, U1-C25; point estimated); the J526A2000 Detail I rope-end anchors stay in reeving.sheave.boom-tip. Previous: U1 round 3 (2026-10-22): trolley rebuilt from J526A0200 / J526A2100 (4 wheels instead of 8, four sheave shafts with two sheaves each, open frame and centre body, trolley-rope equalizer sheaves, spreader cable reel, main hoist and trolley rope paths on the trolley); headblock re-read from J526A1200 and spreader remodelled (STS45 drawing still not supplied; ISO 1161 corner positions, DT1500F cradle spacing). Previous: U1 round 2 (2026-10-22): load cells at the trolley sheave shafts, girder-tail platforms and stairs, apex platform and boom-hoist sheave arrangement, floodlight fittings on the boom and girder, elevator position/car/landings and every location marker drawn as a simplified part (J526A0200, J526A2300, J526A5000, J526A5100). Previous: U1 repair (2026-10-21): back-reach area, CICT logo, stair tower orientation, cab remodel, reeving paths and machinery-house layout re-checked against J526A00, J526A1000, J526A3000, J526A3100, J526A5000, J526A7100. Draft v1 revised in place: no equipment binding is active."
+  "revision": 7,
+  "revisionNote": "U1-C65 (2026-10-29): trolley rails (A75, rubber pads, clips, hinge-joint short rails, end stops; J526A0104) and the catenary trolley system (landside and seaside catenary trolleys, boom-tip catenary sheaves, girder-tail catenary rope tensioners, catenary ropes; J526A2200 set) added in container.trolley-runway; rope re-reeving device added in the machinery house (J526A1500); anti-snag tail sheave (J526A1000), trolley rope tension-device sheave (J526A2103) and spreader cable reel (Cavotec SC-121216-ME2a) diameters corrected to measured values. Previous: U1 round 7 (2026-10-23): 013 load cells moved from the in-line position about 2.6 m inboard to the boom tip end, in-line on the horizontal cross-over of the main hoist ropes at the very end of the boom (user reference image, U1-C27; closes U-36; points estimated). Previous: U1 round 6 (2026-10-23): 013 load cell moved from the boom-tip rope-end anchor pins to in-line load cells in the horizontal main hoist ropes at the boom tip (user answer to U-23, U1-C25; point estimated); the J526A2000 Detail I rope-end anchors stay in reeving.sheave.boom-tip. Previous: U1 round 3 (2026-10-22): trolley rebuilt from J526A0200 / J526A2100 (4 wheels instead of 8, four sheave shafts with two sheaves each, open frame and centre body, trolley-rope equalizer sheaves, spreader cable reel, main hoist and trolley rope paths on the trolley); headblock re-read from J526A1200 and spreader remodelled (STS45 drawing still not supplied; ISO 1161 corner positions, DT1500F cradle spacing). Previous: U1 round 2 (2026-10-22): load cells at the trolley sheave shafts, girder-tail platforms and stairs, apex platform and boom-hoist sheave arrangement, floodlight fittings on the boom and girder, elevator position/car/landings and every location marker drawn as a simplified part (J526A0200, J526A2300, J526A5000, J526A5100). Previous: U1 repair (2026-10-21): back-reach area, CICT logo, stair tower orientation, cab remodel, reeving paths and machinery-house layout re-checked against J526A00, J526A1000, J526A3000, J526A3100, J526A5000, J526A7100. Draft v1 revised in place: no equipment binding is active."
 }

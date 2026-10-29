@@ -8,6 +8,13 @@ export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
   const { box, boxMinMax, tube, cyl, beam, taper, gableRoof, sheave, texturedQuad, stairFlight, railing } = kit;
   const src = (drawing, pdfPage, note) => ({ drawing, pdfPage, note });
   const N = (id) => { const v = P(id); return Array.isArray(v) ? v.map((x) => Math.round(x * 1000)) : Math.round(v * 1000); }; // count parameters (unit 'count')
+  // U1-C66 rope geometry in the X-Y plane of a sheave (axis z): wraps are arcs, free runs are tangent lines.
+  const ARC = (cx, cy, r, a0, a1, z, n = 10) => { const o = []; for (let k = 0; k <= n; k++) { const a = a0 + (a1 - a0) * (k / n); o.push([cx + r * Math.cos(a), cy + r * Math.sin(a), z]); } return o; };
+  const tanFrom = (px, py, cx, cy, r, sign) => { // tangent point on circle (c, r) for a line from p; sign picks the side
+    const b = Math.atan2(py - cy, px - cx), a = Math.acos(Math.min(1, r / Math.hypot(px - cx, py - cy))); return b + sign * a; };
+  const tanOuter = (x1, y1, r1, x2, y2, r2, sign) => { // external tangent normal angle between two circles
+    const u = Math.atan2(y2 - y1, x2 - x1), t = Math.acos(Math.max(-1, Math.min(1, (r1 - r2) / Math.hypot(x2 - x1, y2 - y1)))); return u + sign * t; };
+  const onC = (cx, cy, r, a, z) => [cx + r * Math.cos(a), cy + r * Math.sin(a), z];
   // Site appearance references used in the U1 repair (appearance only, never dimensions). The user-supplied photos in
   // documents/ named "ChatGPT Image Oct 21, 2026, *.png" are AI-processed versions of CICT site photos.
   const PHOTO = (name, note) => src('site photo ' + name, null, note + ' (AI-processed appearance reference, not a dimension source)');
@@ -131,12 +138,10 @@ export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
   S.container('container.girder', { label: 'Fixed rear girder', prov: 'drawing-derived', sources: [s0100('girder J526A0102; 11000 + 20000 behind the landside rail')] });
   S.position('structure.girder.rear.main', { parentKey: 'container.girder', sub: '151', category: 'structural', label: 'Fixed rear girder (twin box girders)', prov: 'drawing-derived', sources: [s0100('31000 landside of the landside rail; boxes 1090 wide x 1800 deep at 6300 rail centres (Z1-Z1)'), s00('31000')] },
     (g) => {
-      for (const s of [1, -1]) {
-        g.add('paint', boxMinMax([XTAIL, G_BOT, s * ZG - GW / 2], [XHINGE - 0.3, G_TOP, s * ZG + GW / 2]));
-        g.add('steel', boxMinMax([XTAIL + 0.3, G_TOP, s * ZG - 0.06], [XHINGE - 0.3, RAIL_T, s * ZG + 0.06]));
-      }
+      // U1-C65: the trolley rails are their own positions (trolley.rail.*, container.trolley-runway)
+      for (const s of [1, -1]) g.add('paint', boxMinMax([XTAIL, G_BOT, s * ZG - GW / 2], [XHINGE - 0.3, G_TOP, s * ZG + GW / 2]));
       for (const x of [XTAIL + 0.3, XBS, -42.1, XLS, XMAST - 15, XMAST]) g.add('paint', boxMinMax([x - 0.3, G_BOT, -ZG], [x + 0.3, G_BOT + 0.9, ZG]));
-      g.add('paint', boxMinMax([XTAIL, G_BOT, -ZG - GW / 2], [XTAIL + 0.4, G_TOP + 0.5, ZG + GW / 2])); // end stop
+      g.add('paint', boxMinMax([XTAIL, G_BOT, -ZG - GW / 2], [XTAIL + 0.4, G_TOP, ZG + GW / 2])); // end diaphragm; U1-C67: flush with the girder top (it stood 0.5 m proud across the tail stairs; the trolley end stops are in trolley.rail.girder)
     });
   // U1 round 2 (U1-C16): drawn as festoon cable carriages on a short rail under the -Z girder box instead of a ball.
   // Representative only: the slip-contact / cable system drawing (J526A4100) is not supplied, so rail side, length
@@ -166,6 +171,7 @@ export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
   const XAS0 = XTAIL + P('antiSnagFromTail'); const XAS1 = XAS0 + P('antiSnagDeviceLength');
   const rTS = P('antiSnagSheaveDia') / 2; const yTS = G_TOP + 0.35 + rTS;
   const xTS = [XAS0 + 0.6 + rTS, XAS0 + 0.6 + rTS + P('antiSnagSheaveSpacing')];
+  const TS_DZ = [0.15, -0.15]; // U1-C66: one tail sheave per hoist rope (4 in total, manual 1.3.1.4): the outer rope lane turns at xTS[0], the inner at xTS[1]
   // U1 round 2 (U1-C13): the P03/U1 inclined ladder ended in mid-air below the girder. Re-read from J526A5000 p1 (side
   // view and plan at the tail, item 5 "Platform of girder"): an upper tail platform on top of the girders and a lower end
   // platform beyond the girder end at about girder-underside level, joined by a stair; the outer girder walkways
@@ -198,7 +204,7 @@ export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
     (g) => {
       for (const s of [1, -1]) {
         const z = s * ZR;
-        g.add('paint', boxMinMax([XAS0, G_TOP, z - 0.8], [XAS1, G_TOP + 0.35, z + 0.8])); // base frame on the girder
+        g.add('paint', boxMinMax([XAS0, G_TOP, z - 0.8], [XAS1, G_TOP + 0.25, z + 0.8])); // base frame on the girder (U1-C66: kept below the rope runs)
         for (const dz of [-0.55, 0.55]) {
           g.add('paint', beam([xTS[0], yTS, z + dz], [XAS0 + 0.3, G_TOP + 2.55, z + dz], 0.18, 0.3)); // lever arm to the cylinder pivot
           g.add('steel', tube([XAS0 + 0.3, G_TOP + 2.55, z + dz], [xTS[1] + 0.6, G_TOP + 0.6, z + dz], 0.1, 12)); // cylinder barrel (dia 200)
@@ -207,9 +213,9 @@ export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
         }
       }
     });
-  S.position('reeving.sheave.girder-tail', { parentKey: BR, sub: '011', classificationNote: 'Hoist-rope tail sheaves on the anti-snag levers: 011 (hoist, "roller") proposed as for the boom-tip sheaves; Admin to confirm', category: 'component', label: 'Main hoist rope tail sheaves (girder tail)', prov: 'estimated', sources: [src('J526A1000', 1, 'two sheaves per lever, 2200 apart; diameter scaled'), s00('main hoist rope reeving diagram: ropes turn at the tail sheaves and return to the trolley')] },
-    (g) => { for (const s of [1, -1]) for (const x of xTS) for (const dz of [-0.2, 0.2]) g.add('steel', sheave([x, yTS, s * ZR + dz], 'z', P('antiSnagSheaveDia'), 0.16)); });
-  const rTT = P('trolleyTailSheaveDia') / 2; const xTT = XTAIL + 0.9; const yTT = RAIL_T + 0.05 + rTT;
+  S.position('reeving.sheave.girder-tail', { parentKey: BR, sub: '011', classificationNote: 'Hoist-rope tail sheaves on the anti-snag levers: 011 (hoist, "roller") proposed as for the boom-tip sheaves; Admin to confirm', category: 'component', label: 'Main hoist rope tail sheaves (girder tail, one per rope)', prov: 'drawing-derived', sources: [src('J526A1000', 1, 'sheaves dia 1000 (B-B) on the levers, 2200 apart; U1-C66: one sheave per hoist rope, 4 in total (ZPMC mechanical manual 1.3.1.4: four cylinders attached to the four hoist ropes by turning sheaves)'), s00('main hoist rope reeving diagram: ropes turn at the tail sheaves and return to the trolley')] },
+    (g) => { for (const s of [1, -1]) xTS.forEach((x, i) => g.add('steel', ...sheave([x, yTS, s * (ZR + TS_DZ[i])], 'z', P('antiSnagSheaveDia'), 0.16, 26), cyl([x, yTS, s * ZR], 'z', 0.07, 1.2, 10))); });
+  const rTT = P('trolleyTailSheaveDia') / 2; const xTT = XTAIL + 0.9; const yTT = RAIL_T + P('trolleyRopeAboveRail') + rTT; // U1-C66: sheave bottom at the trolley-rope return height
   S.position('reeving.sheave.trolley-tail', { parentKey: BR, sub: '021', classificationNote: 'Trolley-rope return sheaves: 021 proposed (trolley); Admin to confirm', category: 'component', label: 'Trolley rope tail sheaves and tensioner frame', prov: 'estimated', sources: [s00('trolley rope reeving diagram: return sheaves with tensioners at the tail end'), src('J526A2100', 1, 'Detail III tension device and C-C: 1050 to the boom centreline, symmetrically; sheave size scaled')] },
     (g) => {
       // U1 round 3: tension-device sheaves on the trolley rope lanes 1050 either side of the centreline (J526A2100 C-C, Detail III)
@@ -256,14 +262,14 @@ export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
   S.container('container.boom', { label: 'Boom and forestays', prov: 'drawing-derived', sources: [s0100('boom J526A0105; 75900; Z2 28000; Z3 +34500')] });
   const B_ = 'container.boom';
   const XZ2 = XHINGE + P('forestayInnerBoomX'); const XZ3 = XZ2 + P('forestayOuterBoomSpacing');
+  const ZFS = ZG + 0.42; // U1-C66: forestay brackets and boom-block posts on the outer part of the girder top, clear of the trolley rail
   S.position('boom.main.girder', { parentKey: B_, sub: '031', category: 'structural', label: 'Boom main girder (twin boxes and lacing)', prov: 'drawing-derived', sources: [s0100('75900 from the hinge line; outreach 70000; plan lacing nodes scaled'), s00('70000 outreach')] },
     (g) => {
       for (const s of [1, -1]) {
         g.add('paint', boxMinMax([XHINGE + 0.3, G_BOT, s * ZG - GW / 2], [XTIP - 4, G_TOP, s * ZG + GW / 2]));
         g.add('paint', boxMinMax([XTIP - 4, G_BOT + 0.7, s * ZG - GW / 2], [XTIP, G_TOP, s * ZG + GW / 2]));
-        g.add('steel', boxMinMax([XHINGE + 0.3, G_TOP, s * ZG - 0.06], [XTIP - 0.6, RAIL_T, s * ZG + 0.06]));
-        g.add('paint', boxMinMax([XZ2 - 0.4, G_TOP, s * ZG - 0.35], [XZ2 + 0.4, G_TOP + P('forestayInnerBracket'), s * ZG + 0.35]));
-        g.add('paint', boxMinMax([XZ3 - 0.4, G_TOP, s * ZG - 0.35], [XZ3 + 0.4, G_TOP + P('forestayOuterBracket'), s * ZG + 0.35]));
+        g.add('paint', boxMinMax([XZ2 - 0.4, G_TOP, s * ZFS - 0.18], [XZ2 + 0.4, G_TOP + P('forestayInnerBracket'), s * ZFS + 0.18])); // U1-C66: outboard of the trolley rail
+        g.add('paint', boxMinMax([XZ3 - 0.4, G_TOP, s * ZFS - 0.18], [XZ3 + 0.4, G_TOP + P('forestayOuterBracket'), s * ZFS + 0.18]));
       }
       const nodes = [0.6, 10.4, 19.7, XZ2, 38.4, 46.3, 54.2, XZ3]; // plan lacing panel points, scaled from J526A0100 plan
       for (let i = 0; i < nodes.length - 1; i++) {
@@ -276,13 +282,24 @@ export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
     S.position(`boom.hinge.${side}`, { parentKey: B_, sub: '031', category: 'component', label: `Boom hinge ${side.toUpperCase()}`, prov: 'estimated', sources: [s0100('detail III hinge assembly (item 8); pin placed on the waterside-rail line')] },
       (g) => g.add('machinery', cyl([XHINGE, G_BOT + 0.9, s * ZG], 'z', 0.55, 1.5, 18), boxMinMax([XHINGE - 0.8, G_BOT, s * ZG - 0.4], [XHINGE + 0.8, G_BOT + 1.5, s * ZG + 0.4])));
     S.position(`boom.forestay.inner.${side}`, { parentKey: B_, sub: '031', category: 'structural', label: `Inner forestay ${side.toUpperCase()}`, prov: 'drawing-derived', sources: [s0100('Z2 at 28000; segments 18000 + 19617; slope 27540 / 30000; bar section S1-S1')] },
-      (g) => g.add('paint', beam([XMAST + P('forestayApexPinOffsetWaterside'), PIN_Y, s * ZA], [XZ2, G_TOP + P('forestayInnerBracket'), s * ZG], 0.3, 0.3)));
+      (g) => g.add('paint', beam([XMAST + P('forestayApexPinOffsetWaterside'), PIN_Y, s * ZA], [XZ2, G_TOP + P('forestayInnerBracket'), s * ZFS], 0.3, 0.3)));
     S.position(`boom.forestay.outer.${side}`, { parentKey: B_, sub: '031', category: 'structural', label: `Outer forestay ${side.toUpperCase()}`, prov: 'drawing-derived', sources: [s0100('Z3 = Z2 + 34500; segments 15800 + 21300 + 30116; slope 27480 / 64500; bar section S2-S2')] },
-      (g) => g.add('paint', beam([XMAST + P('forestayApexPinOffsetWaterside'), PIN_Y + 0.3, s * ZA], [XZ3, G_TOP + P('forestayOuterBracket'), s * ZG], 0.35, 0.42)));
+      (g) => g.add('paint', beam([XMAST + P('forestayApexPinOffsetWaterside'), PIN_Y + 0.3, s * ZA], [XZ3, G_TOP + P('forestayOuterBracket'), s * ZFS], 0.35, 0.42)));
   }
   S.position('reeving.sheave.boom-tip', { parentKey: B_, sub: '011', classificationNote: 'Sheaves carrying hoist rope: 011 (hoist mechanism, "roller") proposed; Admin to confirm', category: 'component', label: 'Boom-tip hoist rope sheaves and rope-end anchors', prov: 'estimated', sources: [s00('main hoist reeving diagram'), src('J526A2000', null, 'reeving sheet not detailed in P03'), src('J526A2000', 1, 'Detail I (1:20): rope clamp device (2, 2 off) on an anchor pin 480 above the boom top; anchors kept here since U1 round 6 (the 013 load cell moved to the horizontal rope, U1-C25)')] },
     // U1 round 3: trolley-rope sheave units at 1050 either side of the boom centreline, dia 830 (J526A2100 Detail I, A-A)
-    (g) => { for (const z of [-2.6, 2.6, -P('trolleyRopeLaneZ'), P('trolleyRopeLaneZ')]) g.add('steel', sheave([XTIP - 0.9, G_TOP + 0.6, z], 'z', Math.abs(z) > 2 ? 1.2 : P('trolleyTipSheaveDia'), 0.18)); g.add('paint', boxMinMax([XTIP - 1.8, G_TOP, -3.0], [XTIP - 0.1, G_TOP + 0.3, 3.0]));
+    // U1-C66: one main hoist sheave per rope (the two rope lanes 150 either side of 2600), and the trolley-rope sheaves raised on
+    // pedestals so that their bottoms are at the trolley-rope return height (level run to the trolley equalizer sheaves).
+    (g) => {
+      for (const s of [1, -1]) for (const dz of [-0.15, 0.15]) g.add('steel', ...sheave([XTIP - 0.9, G_TOP + 0.6, s * (2.6 + dz)], 'z', 1.2, 0.12, 28));
+      for (const s of [1, -1]) g.add('steel', cyl([XTIP - 0.9, G_TOP + 0.6, s * 2.6], 'z', 0.08, 0.6, 10)); // hoist sheave shafts
+      const rTp = P('trolleyTipSheaveDia') / 2, yTp = RAIL_T + P('trolleyRopeAboveRail') + rTp - 0.04 + 0.032;
+      for (const s of [1, -1]) {
+        const z = s * P('trolleyRopeLaneZ');
+        g.add('steel', ...sheave([XTIP - 0.9, yTp, z], 'z', 2 * rTp, 0.14, 28), cyl([XTIP - 0.9, yTp, z], 'z', 0.05, 0.4, 10));
+        for (const dz of [-0.13, 0.13]) g.add('paint', boxMinMax([XTIP - 1.2, G_TOP + 0.3, z + dz - 0.02], [XTIP - 0.6, yTp, z + dz + 0.02])); // pedestal cheeks
+      }
+      g.add('paint', boxMinMax([XTIP - 1.8, G_TOP, -3.0], [XTIP - 0.1, G_TOP + 0.3, 3.0]));
       // U1 round 6 (U1-C25): the J526A2000 Detail I rope-end anchors (cheek plates, plain anchor pin, rope clamp body; one per rope side)
       // drawn in round 2 as part of the load-cell hotspot stay here as reeving hardware, without the load-cell sensor heads.
       const xA = XTIP - P('ropeAnchorPinFromTip'), yA = G_TOP + P('ropeAnchorPinAboveBoomTop');
@@ -308,6 +325,100 @@ export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
         g.add('lamp', beam(p(-0.12), p(0.22), 0.55, 0.42, [1, 0, 0]));
         g.add('lens', beam(p(0.22), p(0.25), 0.48, 0.36, [1, 0, 0]));
         g.add('lamp', beam(p(-0.2), p(-0.12), 0.3, 0.2, [1, 0, 0])); // ballast/driver box at the back
+      }
+    });
+
+  // ---------- trolley runway (U1-C65): trolley rails and the catenary trolley system ----------
+  // J526A0104 (J526A0100 p44, trolley rail 1:30): A75 rails at 6300 +/-3 gauge on 8 mm ZGD190 rubber pads, YB33c clip pairs
+  // at 600, girder rail 60200 and boom rail 74600 joined at the boom hinge by short rails J526A010401 (gap 6 +/- 2), end
+  // stops (item 8) 250 beyond the rail ends. The rails were steel strips inside the girder and boom nodes until U1-C65.
+  // J526A2200 set (catenary trolley rope reeving, J526A2201 boom-tip sheave, J526A2203 tensioner, J526A220400 landside and
+  // J526A220500 seaside catenary trolleys): two catenary trolleys run on the same rails and carry the main hoist ropes on
+  // roller boxes and the trolley ropes on guide idlers; display positions are their outreach positions on p1 (scaled).
+  S.container('container.trolley-runway', { label: 'Trolley rails and catenary trolleys', prov: 'drawing-derived', sources: [src('J526A0100', 44, 'J526A0104 trolley rail'), src('J526A2200', 1, 'catenary trolley rope reeving system')] });
+  const TR_ = 'container.trolley-runway';
+  const RH = P('trolleyRailHeight'), RHW = P('trolleyRailHeadWidth') / 2, RFW = P('trolleyRailFootWidth') / 2, PAD = P('trolleyRailPadThickness');
+  const RB = RAIL_T - RH; // rail foot underside; bedding (support plate, steel pad, rubber pad) fills G_TOP..RB
+  const XJ0 = XHINGE - P('trolleyRailHingeJoint'), XJ1 = XHINGE + P('trolleyRailHingeJoint'); // short rails either side of the hinge
+  const XRG0 = XHINGE - P('trolleyRailGirderLength'), XRB1 = XHINGE + P('trolleyRailBoomLength');
+  const railRun = (g, x0, x1, clips = true) => { // A75 profile, rubber pad, bedding plate and clip pairs on both rails
+    for (const s of [1, -1]) {
+      const z = s * ZG;
+      g.add('steel', boxMinMax([x0, G_TOP, z - 0.13], [x1, RB - PAD, z + 0.13])); // rail support plate / steel pad
+      g.add('rope', boxMinMax([x0, RB - PAD, z - 0.095], [x1, RB, z + 0.095])); // ZGD190 rubber pad (190 wide)
+      g.add('steel', boxMinMax([x0, RB, z - RFW], [x1, RB + 0.02, z + RFW]), boxMinMax([x0, RB + 0.02, z - 0.02], [x1, RAIL_T - 0.03, z + 0.02]), boxMinMax([x0, RAIL_T - 0.03, z - RHW], [x1, RAIL_T, z + RHW]));
+      if (clips) for (let x = x0 + 0.3; x < x1 - 0.2; x += P('trolleyRailClipPitch')) for (const d of [-1, 1]) g.add('steel', box([x, RB + 0.03, z + d * (RFW + 0.035)], [0.09, 0.05, 0.08]));
+    }
+  };
+  const endStop = (g, x) => { for (const s of [1, -1]) g.add('steel', box([x, G_TOP + 0.14, s * ZG], [0.03, 0.275, 0.25])); }; // item 8, -30 x 250 x 275
+  const railSrc = (note) => [src('J526A0100', 44, 'J526A0104 trolley rail: ' + note)];
+  S.position('trolley.rail.girder', { parentKey: TR_, sub: '021', classificationNote: 'Trolley rails: 021 trolley mechanism ("roller") proposed; Admin to confirm', category: 'component', label: 'Trolley rails on the girder (A and B, A75, 60.2 m)', prov: 'measured', sources: railSrc('item 3 A75 rail 2 off, 60200 from the hinge joint to the tail end, 6300 +/-3 gauge; ZGD190 rubber pad (item 5) 8 x 190; YB33c clip pairs (item 9) at 600; end stop (item 8) 250 beyond the rail end; clip and pad shapes simplified') },
+    (g) => { railRun(g, XRG0, XJ0); endStop(g, XRG0 - P('trolleyRailEndBeyond')); });
+  S.position('trolley.rail.boom', { parentKey: TR_, sub: '021', classificationNote: 'Trolley rails: 021 trolley mechanism ("roller") proposed; Admin to confirm', category: 'component', label: 'Trolley rails on the boom (A and B, A75, 74.6 m)', prov: 'measured', sources: railSrc('item 2 A75 rail 2 off, 74600 from the hinge joint toward the boom tip, 6300 +/-3 gauge; ZGD190 rubber pad (item 6) 8 x 190; YB33c clip pairs at 600; end stop (item 8) 250 beyond the rail end; clip and pad shapes simplified') },
+    (g) => { railRun(g, XJ1, XRB1); endStop(g, XRB1 + P('trolleyRailEndBeyond')); });
+  S.position('trolley.rail.hinge-joint', { parentKey: TR_, sub: '021', classificationNote: 'Rail joint at the boom hinge: 021 proposed; Admin to confirm', category: 'component', label: 'Trolley rail joint at the boom hinge (short rails, gap 6 +/- 2)', prov: 'measured', sources: railSrc('short rails J526A010401 (item 1, 4 off, 1500) either side of the boom hinge centreline; joint gap 6 +/- 2 (Detail IV); fix blocks J526A010402 (item 12) and YB55c / YB1313a clips (items 10 / 11) at the joint; steel pads -7.5 x 190 x 800 (item 4)') },
+    (g) => {
+      railRun(g, XJ0, XHINGE - 0.003, false); railRun(g, XHINGE + 0.003, XJ1, false); // 6 mm joint gap at the hinge
+      for (const s of [1, -1]) for (const x of [XJ0 + 0.3, XJ0 + 0.75, XHINGE - 0.4, XHINGE + 0.4, XJ1 - 0.75, XJ1 - 0.3]) for (const d of [-1, 1]) g.add('steel', box([x, RB + 0.035, s * ZG + d * (RFW + 0.045)], [0.15, 0.06, 0.1])); // heavier joint clips and fix blocks
+    });
+  // Catenary trolleys (J526A220400 / J526A220500): a low cross frame over the rail gauge, two wheels dia 320 at 1050 on each
+  // rail, a main-hoist rope roller box over each rope side (1168.5 high), guide idlers on the trolley-rope lanes (2100 apart)
+  // and the catenary rope sheave (dia 516) on each catenary rope lane. Frame sections and roller sizes are simplified.
+  // U1-C66: every support sits exactly under the rope it carries: the hoist-rope rollers under the straight hoist-rope runs of
+  // the display pose, the idlers under the trolley-rope return run (trolleyRopeAboveRail) and the catenary sheaves at the
+  // catenary rope heights; the cross frame stays below all rope runs.
+  const ZHR = P('hoistRopeLaneZ'), ZTRL = P('trolleyRopeLaneZ'), ZCAT = P('catenaryRopeLaneZ'); const rCW = P('catenaryWheelDia') / 2;
+  const RH_R = 0.05, RC_R = 0.035; // display radii of the hoist and catenary ropes (as in the reeving section)
+  const yTRR = RAIL_T + P('trolleyRopeAboveRail'); // trolley-rope return run height (equalizer sheaves on the trolley)
+  const rCS = P('catenarySheaveDia') / 2, yCSC = RAIL_T + 0.3 + rCS; // catenary trolley sheave centre
+  const yCatTop = yCSC + rCS + RC_R, yCatBot = yCSC - rCS - RC_R; // catenary rope top and bottom runs
+  // hoist-rope heights of the display pose at a catenary trolley (straight runs: tail sheave bottom -> trolley shaft top -> tip sheave top)
+  const XTd = P('trolleyPositionX'), SOd = P('trolleyMainSheaveOffset');
+  const yHTop = RAIL_T + P('trolleyMainSheaveCentreAboveRail') + P('trolleyMainSheaveGrooveDia') / 2 + 0.032;
+  const lerpY = (x, x0, y0, x1, y1) => y0 + (y1 - y0) * (x - x0) / (x1 - x0);
+  const hoistRopeY = (x) => x < XTd ? lerpY(x, xTS[1], yTS - rTS, XTd - SOd, yHTop) : lerpY(x, XTd + SOd, yHTop, XTIP - 0.9, G_TOP + 1.2);
+  const catTrolley = (g, xc, ropeClamp = false) => {
+    const pw = P('catenaryWheelPitch') / 2; const yRT = hoistRopeY(xc) - RH_R; // top of the hoist-rope roller
+    const yIdl = yTRR - RC_R - 0.08; // idler centre, rope resting on top
+    for (const s of [1, -1]) {
+      for (const dx of [-pw, pw]) { g.add('steel', cyl([xc + dx, RAIL_T + rCW, s * ZG], 'z', rCW, 0.09, 18), cyl([xc + dx, RAIL_T + rCW, s * ZG], 'z', 0.05, 0.3, 8)); } // wheels on the rail
+      g.add('paint', boxMinMax([xc - pw - 0.25, RAIL_T + 0.22, s * ZG - 0.17], [xc + pw + 0.25, RAIL_T + 0.42, s * ZG + 0.17])); // wheel box over the rail
+      const zr = s * ZHR;
+      for (const dz of [-0.25, 0.25]) g.add('paint', boxMinMax([xc - 0.33, RAIL_T, zr + dz - 0.02], [xc + 0.33, RAIL_T + P('catenaryRollerHeight'), zr + dz + 0.02])); // roller box side plates
+      g.add('paint', boxMinMax([xc - 0.33, RAIL_T + P('catenaryRollerHeight') - 0.06, zr - 0.27], [xc + 0.33, RAIL_T + P('catenaryRollerHeight'), zr + 0.27])); // roller box top
+      g.add('steel', cyl([xc, yRT - 0.13, zr], 'z', 0.13, 0.46, 14), cyl([xc, yRT - 0.13, zr], 'z', 0.04, 0.5, 8)); // hoist-rope support roller under both ropes of the side
+      g.add('steel', cyl([xc, yIdl, s * ZTRL], 'z', 0.08, 0.24, 12)); // trolley-rope guide idler
+      for (const dz of [-0.14, 0.14]) g.add('paint', boxMinMax([xc - 0.1, RAIL_T + 0.1, s * ZTRL + dz - 0.015], [xc + 0.1, yIdl, s * ZTRL + dz + 0.015])); // idler cheeks
+      g.add('steel', ...sheave([xc, yCSC, s * ZCAT], 'z', 2 * rCS, 0.08, 20)); // catenary rope sheave
+      for (const dz of [-0.07, 0.07]) g.add('paint', boxMinMax([xc - 0.12, RAIL_T + 0.1, s * ZCAT + dz - 0.015], [xc + 0.12, yCSC, s * ZCAT + dz + 0.015])); // sheave cheeks
+    }
+    g.add('paint', boxMinMax([xc - 0.33, RAIL_T, -ZG + 0.15], [xc + 0.33, RAIL_T + 0.1, ZG - 0.15])); // low cross frame, below every rope run
+    if (ropeClamp) for (const s of [1, -1]) g.add('paint', boxMinMax([xc + 0.3, RAIL_T, s * ZCAT - 0.07], [xc + 0.57, yCatBot - 0.055, s * ZCAT + 0.07])); // bracket for the catenary rope end clamp
+  };
+  const catSrc = (dwg, note) => [src('J526A2200', 4, dwg + ': ' + note), src('J526A2200', 1, 'catenary trolley rope reeving system; display position = outreach position, scaled')];
+  S.position('trolley.catenary.landside', { parentKey: TR_, sub: '021', classificationNote: 'Catenary trolley: 021 trolley mechanism proposed (the 022 description names the "cate trolley" rope tension); Admin to confirm', category: 'component', label: 'Landside catenary trolley (on the girder / boom rails)', prov: 'drawing-derived', sources: catSrc('J526A220400', 'landside catenary trolley 1781.3 kg: wheel assemblies J526A220401 x 4 (dia 320, 1050 pitch), rollers AJR01b x 4, guide idlers (items 3, 5, 6), sheave assemblies J526A220403 x 2, slap blocks UHMWPE; frame 4960, gauge 6300 +/-3; roller and idler heights follow the rope runs (U1-C66)') },
+    (g) => catTrolley(g, P('catenaryLandsideX')));
+  S.position('trolley.catenary.waterside', { parentKey: TR_, sub: '021', classificationNote: 'Catenary trolley: 021 trolley mechanism proposed; Admin to confirm', category: 'component', label: 'Seaside catenary trolley (on the boom rails)', prov: 'drawing-derived', sources: [src('J526A2200', 5, 'J526A220500: seaside catenary trolley 1680.2 kg: wheel assemblies J526A220401 x 4, rollers AJR01b x 4, guide idlers J526A220501 / 220404 / 220405, sheave assemblies J526A220403 x 2; 5350 over the roller boxes, 1168.5 high, gauge 6300 +/-3; roller and idler heights follow the rope runs (U1-C66)'), src('J526A2200', 1, 'display position = outreach position between the main trolley and the boom tip, scaled')] },
+    (g) => catTrolley(g, P('catenaryWatersideX'), true));
+  // Boom-tip catenary sheave at the catenary trolley sheave height so the rope runs stay level (U1-C66).
+  const rCT = P('catenaryTipSheaveDia') / 2; const xCT = XTIP - 1.35, yCT = yCSC;
+  S.position('reeving.sheave.catenary-boom-tip', { parentKey: TR_, sub: '021', classificationNote: 'Catenary rope sheaves: 021 proposed; Admin to confirm', category: 'component', label: 'Boom-tip catenary rope sheaves (2 sets, dia 500)', prov: 'drawing-derived', sources: [src('J526A2200', 2, 'J526A2201 sheave assembly, 2 per crane, 137.5 kg: sheave ZT2-013022 dia 500 / 550, bearings NJ2214EC x 2, shaft dia 70, support J526A220101, sheave cover; 1500 either side of the boom centreline, installed symmetrically; position along the tip scaled')] },
+    (g) => { for (const s of [1, -1]) { g.add('steel', ...sheave([xCT, yCT, s * ZCAT], 'z', 2 * rCT, 0.15, 22)); g.add('paint', boxMinMax([xCT - 0.25, G_TOP + 0.3, s * ZCAT - 0.14], [xCT + 0.25, yCT, s * ZCAT - 0.1]), boxMinMax([xCT - 0.25, G_TOP + 0.3, s * ZCAT + 0.1], [xCT + 0.25, yCT, s * ZCAT + 0.14])); } });
+  // Catenary rope tensioner (J526A2203, 2 per crane, 395 kg) at the girder tail (J526A2200 Detail A): support post on the girder
+  // at the tail end, lever carrying two sheaves dia 500 and a tension cylinder (1123 closed, stroke 600). U1-C66: the rope from
+  // the landside catenary trolley runs under both sheaves, turns over the landside one and ends at a rope clamp on a bracket.
+  const rTN = 0.25, xTN = XTAIL + 1.6, yTN = yCatBot + RC_R + rTN, xTNL = xTN - 0.56; // waterside sheave, landside sheave
+  const xTP = XTAIL + 0.5, yTP = G_TOP + 1.15; const xTA = xTN + 0.65; // support post, rope clamp bracket
+  S.position('trolley.catenary.tensioner', { parentKey: BR, sub: '022', category: 'component', label: 'Catenary rope tensioners (2 sets, cylinder stroke 600)', prov: 'drawing-derived', sources: [src('J526A2200', 3, 'J526A2203 catenary trolley rope tensioner device, 2 per crane, 395 kg: support J526A220301, tension cylinder (item 2, stroke 600), sheave assembly ZT2-013022 dia 500, adjustable limit switch supports, limit switches B4 x 2; 1500 either side of the girder centreline'), src('J526A2200', 1, 'Detail A at the girder tail: 1294 (stroke 600), 1723, 749, initial position; position along the tail and rope end clamp simplified')] },
+    (g) => {
+      for (const s of [1, -1]) {
+        const z = s * ZCAT;
+        g.add('paint', boxMinMax([xTP - 0.12, G_TOP, z - 0.1], [xTP + 0.12, yTP + 0.1, z + 0.1])); // support post (J526A220301)
+        for (const dz of [-0.1, 0.1]) g.add('paint', beam([xTP, yTP, z + dz], [xTN, yTN, z + dz], 0.1, 0.14)); // lever plates either side of the sheaves
+        for (const x of [xTNL, xTN]) g.add('steel', ...sheave([x, yTN, z], 'z', 2 * rTN, 0.08, 18), cyl([x, yTN, z], 'z', 0.035, 0.22, 8)); // sheave pair
+        g.add('steel', tube([xTP + 0.1, G_TOP + 0.35, z + 0.14], [xTP + 0.75, yTP - 0.05, z + 0.14], 0.065, 10)); // cylinder barrel
+        g.add('hydraulic', tube([xTP + 0.75, yTP - 0.05, z + 0.14], [(xTP + xTN) / 2 + 0.2, (yTP + yTN) / 2 + 0.05, z + 0.14], 0.03, 8)); // rod to the lever
+        g.add('paint', boxMinMax([xTA - 0.08, G_TOP, z - 0.08], [xTA + 0.08, yTN + rTN + RC_R + 0.06, z + 0.08])); // rope clamp bracket
       }
     });
 
@@ -422,16 +533,22 @@ export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
   S.position('structure.machinery-frame', { parentKey: MH, sub: '151', category: 'structural', label: 'Machinery frame, floor and house walkways', prov: 'drawing-derived', sources: [s0100('machinery frame J526A0107 (item 7) in plan'), src('J526A3000', 1, '1000 seaside / 1200 landside walkways; end platform for the A/C units (B1-B7); service-crane floor hatch 3575 x 2000')] },
     (g) => {
       g.add('paint', boxMinMax([HX0 - 1.2, G_TOP, HZ0 - 0.3], [HX1 + 1.0, FL - 0.15, HZ0 + 0.3]), boxMinMax([HX0 - 1.2, G_TOP, HZ1 - 0.3], [HX1 + 1.0, FL - 0.15, HZ1 + 0.3]));
-      for (const x of [HX0, (HX0 + HX1) / 2, HX1]) g.add('paint', boxMinMax([x - 0.3, G_TOP, HZ0], [x + 0.3, FL - 0.15, HZ1]));
+      // U1-C66: frame cross-members only outboard of the trolley rails, so the rails and the rope runs under the house stay clear
+      for (const x of [HX0, (HX0 + HX1) / 2, HX1]) g.add('paint', boxMinMax([x - 0.3, G_TOP, HZ0], [x + 0.3, FL - 0.15, -ZG - 0.15]), boxMinMax([x - 0.3, G_TOP, ZG + 0.15], [x + 0.3, FL - 0.15, HZ1]));
       g.add('grating', boxMinMax([HX0 - 1.2, FL - 0.15, HZ0 - 1.3], [HX1 + 1.0, FL, HZ1 + 0.3]));
-      for (const x of [HX0 - 1.15, HX1 + 0.95]) g.add('paint', ...railing([x, FL, HZ0 - 1.3], [x, FL, HZ1 + 0.3], { step: 2.0 }));
+      // U1-C66: rope openings in the end-walkway handrails where the hoist and trolley ropes leave the house
+      const ropeGaps = { [HX0 - 1.15]: [[-3.0, -2.2], [-1.25, -0.65], [0.65, 1.25], [2.2, 3.0]], [HX1 + 0.95]: [[-1.25, -0.65], [0.65, 1.25]] };
+      for (const x of [HX0 - 1.15, HX1 + 0.95]) {
+        let z0 = HZ0 - 1.3;
+        for (const [a, b] of [...ropeGaps[x], [HZ1 + 0.3, HZ1 + 0.3]]) { if (a - z0 > 0.3) g.add('paint', ...railing([x, FL, z0], [x, FL, a], { step: 2.0 })); z0 = b; }
+      }
       g.add('paint', ...railing([HX0 - 1.2, FL, HZ0 - 1.25], [HX1 + 1.0, FL, HZ0 - 1.25], { step: 2.0 }), ...railing([HX0 - 1.2, FL, HZ1 + 0.25], [HX1 + 1.0, FL, HZ1 + 0.25], { step: 2.0 }));
       // service-crane floor hatch frame (J526A3000: service area 3575 x 2000 next to the main transformer)
       const [hz, hx] = P('serviceHatch'); const hcz = 7.5, hcx = -36.3;
       g.add('paint', boxMinMax([hcx - hx / 2 - 0.08, FL, hcz - hz / 2 - 0.08], [hcx + hx / 2 + 0.08, FL + 0.06, hcz - hz / 2]), boxMinMax([hcx - hx / 2 - 0.08, FL, hcz + hz / 2], [hcx + hx / 2 + 0.08, FL + 0.06, hcz + hz / 2 + 0.08]),
         boxMinMax([hcx - hx / 2 - 0.08, FL, hcz - hz / 2], [hcx - hx / 2, FL + 0.06, hcz + hz / 2]), boxMinMax([hcx + hx / 2, FL, hcz - hz / 2], [hcx + hx / 2 + 0.08, FL + 0.06, hcz + hz / 2]));
     });
-  S.position('machinery-house.service-crane', { parentKey: MH, sub: '151', category: 'component', label: 'Machinery-house service crane', modes: ['technical'], prov: 'approximate-location', sources: [src('J526A3000', 1, 'service crane area and runway'), src('J526A1600', null, 'service crane sheet not detailed')] },
+  S.position('machinery-house.service-crane', { parentKey: MH, sub: '151', category: 'component', label: 'Machinery-house service crane (10 t)', modes: ['technical'], prov: 'approximate-location', sources: [src('J526A3000', 1, 'service crane area and runway'), src('J526A1600', 1, 'main data list: 10 t, 6/12 m/min, 57.5 m lift; span 9740, runway 16000; 7509 kg; runway and bridge shapes simplified (U1-C65)')] },
     (g) => {
       for (const x of [HX0 + 0.5, HX1 - 0.5]) g.add('machinery', boxMinMax([x - 0.15, WALL - 0.75, HZ0 + 0.3], [x + 0.15, WALL - 0.45, HZ1 - 0.3]));
       g.add('machinery', boxMinMax([HX0 + 0.5, WALL - 1.05, 7.3], [HX1 - 0.5, WALL - 0.75, 7.7]), boxMinMax([-36.7, WALL - 1.6, 7.1], [-35.9, WALL - 1.05, 7.9]));
@@ -493,12 +610,27 @@ export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
   }
   // U1 round 2 (U1-C16): emergency drive drawn as a small motor and reducer on a frame on top of the main hoist reducer
   // (the P03 marker point); J526A1400 not read in detail, so position and sizes are approximate.
-  S.hotspot('emergency.drive.main', { parentKey: MH, sub: '161', point: [HXD + 0.8, FL + 2.6, HZ], radius: 0.5, label: 'Emergency hoist drive (37 kW motor and FH220 reducer; position approximate)', sources: [src('J526A0300', 1, 'emergency mechanism data: 37 kW, FH220 reducer'), src('J526A1400', null, 'emergency drive sheet not detailed')] },
+  S.hotspot('emergency.drive.main', { parentKey: MH, sub: '161', point: [HXD + 0.8, FL + 2.6, HZ], radius: 0.5, label: 'Emergency hoist drive (37 kW motor and FH220 reducer; position approximate)', sources: [src('J526A0300', 1, 'emergency mechanism data: 37 kW, FH220 reducer'), src('J526A1400', 1, 'emergency device main data: 37 kW, 1480 rpm, ratio 30.852; main hoist chain 17/35, 2.35 m/min at 65 t; boom hoist chain 17/25, 76.47 min; stored on top of the main hoist / boom hoist reducer when not in use (U1-C65)')] },
     (g) => {
       g.add('machinery', boxMinMax([HXD + 0.05, FL + 2.0, HZ - 0.38], [HXD + 1.85, FL + 2.1, HZ + 0.38])); // mounting frame on the reducer casing
       reducer(g, [HXD + 0.15, FL + 2.1, HZ - 0.28], [HXD + 0.85, FL + 2.75, HZ + 0.28]);
       g.add('machinery', cyl([HXD + 1.35, FL + 2.38, HZ], 'x', 0.24, 0.85, 16), cyl([HXD + 1.86, FL + 2.38, HZ], 'x', 0.21, 0.18, 16), box([HXD + 1.35, FL + 2.66, HZ], [0.26, 0.12, 0.22]));
       g.add('machinery', cyl([HXD + 0.9, FL + 2.38, HZ], 'x', 0.06, 0.12, 8)); // coupling
+    });
+  // U1-C65: wire rope re-reeving device (J526A1500; manual ch. 1.6.3 "mounted over the main hoist"): two driving re-reeving
+  // machines WRR04A-J526A (take-up / feed reels with motor 5.5 kW and reducer i = 187) on supports J526A1501 either side of the
+  // main hoist; reel size and height approximate.
+  S.position('auxiliary.rope-reeving.machinery-house', { parentKey: MH, sub: '151', classificationNote: 'Rope re-reeving device (maintenance equipment): 151 auxiliary equipment proposed; Admin to confirm', category: 'component', modes: TECH, label: 'Wire rope re-reeving device (2 driving reels, 5.5 kW)', prov: 'approximate-location', sources: [src('J526A1500', 1, 'rope re-reeving system 4930 kg: driving re-reeving machines WRR04A-J526A x 2 (2020.8 kg), guide sheaves WRRA02 x 2, re-reeving rollers WRRA01a x 4, platform J526A1502, supports J526A1501; main data motor 5.5 kW 1500 rpm, reducer XWEJC5.5-8190B-187 (i = 187), drum 8.02 rpm; supports 3992 either side of the centreline; reels drawn above the main hoist, size and height approximate')] },
+    (g) => {
+      const rR = P('reReevingDrumDia') / 2; const x = HXD - 1.15; const y = FL + 3.1; // between the drums and the landside wall, above the drums
+      for (const s of [1, -1]) {
+        const z = HZ + s * (P('reReevingSpacingZ') / 2 + 0.1);
+        g.add('drum', cyl([x, y, z], 'z', rR, 0.9, 22), cyl([x, y, z - 0.47], 'z', rR + 0.08, 0.04, 22), cyl([x, y, z + 0.47], 'z', rR + 0.08, 0.04, 22));
+        g.add('rope', cyl([x, y, z], 'z', rR + 0.03, 0.6, 22));
+        g.add('machinery', boxMinMax([x - 0.25, y - 0.3, z + s * 0.55 - 0.2], [x + 0.25, y + 0.3, z + s * 0.55 + 0.2]), cyl([x, y, z + s * 0.95], 'z', 0.18, 0.4, 14)); // reducer and 5.5 kW motor
+        for (const dz of [-0.5, 0.5]) for (const [xa, xb] of [[x - rR - 0.12, x - rR], [x + rR, x + rR + 0.12]]) g.add('machinery', boxMinMax([xa, y - 0.15, z + dz - 0.06], [xb, WALL - 0.05, z + dz + 0.06])); // U1-C66: hangers from the wall and roof (J526A1501 supports), clear of the drum ropes below
+        g.add('machinery', boxMinMax([x - rR - 0.15, y - 0.25, z - 0.55], [x + rR + 0.15, y - 0.15, z + 0.55])); // platform frame
+      }
     });
 
   // Trolley drive (02/021): rope-towed trolley, drive in the house (J526A04 / J526A0400). U1 repair: plan re-read.
@@ -647,6 +779,8 @@ export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
       g.add('paint', boxMinMax([XEQ_L - 0.36, RT + 0.17, -(ZEQ + 0.36)], [XE0, RT + 0.24, ZEQ + 0.36]), boxMinMax([XE1, RT + 0.17, -(ZEQ + 0.36)], [XEQ_W + 0.36, RT + 0.24, ZEQ + 0.36]));
       // cab hanger posts from the landside end beam down to the cab hanger frame
       for (const z of [-0.8, 0.8]) g.add('paint', boxMinMax([XB0 - 0.17, G_BOT + 0.27, z - 0.07], [XB0 - 0.03, RT + 0.05, z + 0.07]));
+      // U1-C66: posts carrying the catenary rope end clamps at both trolley ends, on the catenary rope lanes
+      for (const x of [XF0, XF1]) for (const z of [-ZCAT, ZCAT]) g.add('paint', boxMinMax([x - 0.08, RT + 0.05, z - 0.07], [x + 0.08, yCatTop - 0.055, z + 0.07]));
     });
   for (const [corner, xw, s] of [['ls-a', XAX_LS, 1], ['ls-b', XAX_LS, -1], ['ws-a', XAX_WS, 1], ['ws-b', XAX_WS, -1]]) {
     // one wheel per corner (keys ending .1 kept; the P03 '.2' wheels did not exist and were removed in U1 round 3)
@@ -681,13 +815,16 @@ export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
   {
     const xR = XT + P('spreaderCableReelX'); const yR = RT - P('spreaderCableReelCentreBelowRail'); const rR = P('spreaderCableReelDia') / 2;
     const yHBtop = P('liftAboveRail') + 1.0 + 0.12 + 0.55; // headblock beam top (display pose, see the headblock below)
-    S.position('trolley.spreader-cable-reel', { parentKey: T_, sub: '014', category: 'component', label: 'Spreader cable reel and drive (size approximate)', prov: 'approximate-location', sources: [...trSrc('item 11 spreader cable reel arrangement (1245 kg), hidden outline in the centre body of the side view; reel diameter and drive scaled or estimated'), src('J526A1200', 1, 'item 7 cable attachment on the headblock')] },
+    // U1-C65: drum re-read from the Cavotec reel manual (SC-121216-ME2a): vertical monospiral VM922-38G, inner dia 900, outer
+    // dia 2200, 38 compartment width, so the reel is a narrow wheel; drive module T5.1 with two 5.5 kW motors beside it.
+    S.position('trolley.spreader-cable-reel', { parentKey: T_, sub: '014', category: 'component', label: 'Spreader cable reel (Cavotec T5.1, monospiral dia 2200) and drive', prov: 'approximate-location', sources: [...trSrc('item 11 spreader cable reel arrangement (1245 kg), hidden outline in the centre body of the side view; position scaled'), src('Cavotec SC-121216-ME2a', 1, 'reel T5.1.NCC(2x5kW).4 VM922-38G KV26/4S/FC/R + BD5000N: drum inner dia 900, outer dia 2200, width 38; 2 x 5.5 kW; drive module and motor layout simplified'), src('J526A1200', 1, 'item 7 cable attachment on the headblock')] },
       (g) => {
-        g.add('drum', cyl([xR, yR, 0], 'z', rR * 0.56, 0.62, 24));
-        for (const z of [-0.33, 0.33]) g.add('drum', cyl([xR, yR, z], 'z', rR, 0.035, 32)); // reel flanges
+        g.add('drum', cyl([xR, yR, 0], 'z', 0.45, 0.1, 24)); // monospiral core, inner dia 900
+        for (const z of [-0.05, 0.05]) g.add('drum', cyl([xR, yR, z], 'z', rR, 0.02, 32)); // full-wheel flanges, outer dia 2200
         g.add('drum', cyl([xR, yR, 0], 'z', 0.07, 1.2, 10)); // axle
         g.add('machinery', box([xR, yR, -0.72], [0.45, 0.45, 0.24]), cyl([xR, yR, -1.0], 'z', 0.17, 0.32, 14)); // reducer and motor
-        g.add('rope', tube([xR - rR * 0.56, yR, 0], [XT, yHBtop + 0.5, 0], 0.035, 8)); // spreader cable down to the headblock
+        g.add('rope', cyl([xR, yR, 0], 'z', 0.62, 0.04, 24)); // wound cable layers (dia 34.2 Tratosmart 30 x 2.5)
+        g.add('rope', tube([xR - 0.62, yR, 0], [XT, yHBtop + 0.5, 0], 0.035, 8)); // spreader cable down to the headblock
       });
   }
   // Operator cab (14/141), remodelled in the U1 repair from J526A3100 (trolley operator's cab, 1:20): 3000 long,
@@ -764,9 +901,9 @@ export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
     });
   // U1 round 2 (U1-C16): the trim/list/skew hydraulic power unit is drawn as a tank, motor-pump and accumulators on the
   // tail platform beside the anti-snag/TLS device (J526A1000 does not locate the power unit: position approximate).
-  S.hotspot('trolley.skew-system.main', { parentKey: BR, sub: '111', modes: ['overall', 'technical'], point: [XTAIL + 3.5, G_TOP + 0.6, -1.3], radius: 0.45, label: 'Trim/list/skew hydraulic power unit (position approximate; J526A1000 device at the girder tail)', sources: [src('J526A1000', 1, 'anti-snag and L/S/T device at the girder tail (GA item 7); cylinders 200/140 x 1400; hydraulic power unit not located')] },
+  S.hotspot('trolley.skew-system.main', { parentKey: BR, sub: '111', modes: ['overall', 'technical'], point: [XTAIL + 3.5, G_TOP + 0.6, -0.45], radius: 0.45, label: 'Trim/list/skew hydraulic power unit (position approximate; J526A1000 device at the girder tail)', sources: [src('J526A1000', 1, 'anti-snag and L/S/T device at the girder tail (GA item 7); cylinders 200/140 x 1400; hydraulic power unit not located')] },
     (g) => {
-      const x0 = XTAIL + 2.8, x1 = XTAIL + 4.2, z0 = -1.7, z1 = -0.9;
+      const x0 = XTAIL + 2.8, x1 = XTAIL + 4.2, z0 = -0.85, z1 = -0.05; // U1-C66: between the centreline and the trolley-rope lane, clear of the catenary rope lane
       g.add('lamp', boxMinMax([x0, G_TOP, z0], [x1, G_TOP + 0.75, z1])); // oil tank
       g.add('lamp', cyl([x0 + 0.45, G_TOP + 0.98, (z0 + z1) / 2], 'x', 0.18, 0.6, 14), cyl([x0 + 0.95, G_TOP + 0.98, (z0 + z1) / 2], 'x', 0.13, 0.35, 12)); // motor and pump
       for (const x of [x1 - 0.35, x1 - 0.15]) g.add('steel', cyl([x, G_TOP + 1.1, z1 - 0.2], 'y', 0.09, 0.7, 12)); // accumulators
@@ -796,10 +933,10 @@ export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
         g.add('lamp', tube([XLC - 0.12, YLC + 0.26, zb], [XLC - 0.7, G_TOP + 0.35, zb], 0.02, 6)); // signal cable to the boom deck
       }
     });
-  S.hotspot('trolley.tension.main', { parentKey: BR, sub: '022', modes: ['overall', 'technical'], point: [xTT, yTT, 0], radius: 0.45, label: 'Trolley rope tensioning cylinders (position approximate; tensioners at the girder-tail end)', sources: [s00('trolley rope reeving diagram: tensioners at the tail end'), src('J526A2100', null, 'trolley reeving sheet not detailed')] },
+  S.hotspot('trolley.tension.main', { parentKey: BR, sub: '022', modes: ['overall', 'technical'], point: [xTT, yTT, 0], radius: 0.45, label: 'Trolley rope tensioning cylinders (position approximate; tensioners at the girder-tail end)', sources: [s00('trolley rope reeving diagram: tensioners at the tail end'), src('J526A2100', 3, 'J526A2103 tension device, 2 per crane, 937.3 kg each: cylinder dia 140 / rod 100 / stroke 600, working 25 MPa, test 37.5 MPa; limit switches XCKJ10541H29C x 2; 1050 to the girder centreline; cylinder layout still simplified (U1-C65)')] },
     (g) => {
       for (const s of [1, -1]) {
-        const z = s * P('trolleyRopeLaneZ'); // U1 round 3: on the trolley rope lanes (J526A2100 C-C)
+        const z = s * (P('trolleyRopeLaneZ') + 0.17); // U1 round 3: on the trolley rope lanes (J526A2100 C-C); U1-C66: beside the sheave, not through it
         g.add('steel', tube([XTAIL + 0.15, yTT, z], [xTT - 0.25, yTT, z], 0.08, 12)); // cylinder barrel anchored at the end stop
         g.add('steel', tube([xTT - 0.25, yTT, z], [xTT + 0.05, yTT, z], 0.045, 10)); // rod to the sheave carriage
         g.add('lamp', boxMinMax([xTT - 0.12, yTT - 0.15, z - 0.1], [xTT + 0.12, yTT + 0.15, z + 0.1])); // carriage block on the sheave axle
@@ -900,38 +1037,51 @@ export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
   // around the two horizontal equalizer sheaves (U-turn to the other lane) and back; likewise at the landside end via
   // the girder-tail tension device (J526A2100 Detail I, Detail III, A-A, C-C; J526A0200 E-E).
   const arcPts = (cx, cy, r, a0, a1, z0, z1, n = 8) => { const out = []; for (let k = 0; k <= n; k++) { const t = k / n; const a = a0 + (a1 - a0) * t; out.push([cx + r * Math.cos(a), cy + r * Math.sin(a), z0 + (z1 - z0) * t]); } return out; };
-  S.position('hoist.rope.set.main', { sub: '015', positionKind: 'quantityLot', uom: 'rope', category: 'ropeSet', label: 'Main hoist rope set (4 ropes, 8 falls; path simplified away from the trolley)', prov: 'estimated', sources: [s00('main hoist rope reeving diagram: 4 ropes from 2 drums over the girder-tail sheaves, trolley and headblock to the boom tip'), src('J526A0200', 1, 'main hoist rope reeving sketch and side view: each rope loops once between a trolley shaft (2 sheaves) and one headblock sheave'), src('J526A0300', 1, 'IWRC 6xWS(36) dia 31.5'), src('J526A1000', 1, 'tail sheaves on the anti-snag levers'), src('J526A2000', null, 'boom-tip anchors (Detail I); path simplified')] },
+  // U1-C66 rope paths: every free run is a straight line tangent to the sheaves it joins and every wrap is an arc of the
+  // sheave's rope-centre radius (no chords across sheaves, no rope through structure). Ropes leave the house through the
+  // end-wall openings above the floor and return under the house floor.
+  const ropeExitY = FL + 0.25; // rope openings in the house end walls, above the walkway gratings
+  S.position('hoist.rope.set.main', { sub: '015', positionKind: 'quantityLot', uom: 'rope', category: 'ropeSet', label: 'Main hoist rope set (4 ropes, 8 falls; path simplified away from the trolley)', prov: 'estimated', sources: [s00('main hoist rope reeving diagram: 4 ropes from 2 drums over the girder-tail sheaves, trolley and headblock to the boom tip'), src('J526A0200', 1, 'main hoist rope reeving sketch and side view: each rope loops once between a trolley shaft (2 sheaves) and one headblock sheave'), src('J526A0300', 1, 'IWRC 6xWS(36) dia 31.5'), src('J526A1000', 1, 'tail sheaves on the anti-snag levers, one per rope (U1-C66)'), src('J526A2000', null, 'boom-tip anchors (Detail I); path simplified')] },
     (g) => {
       const rr = rTG + RT2; const rh = P('headblockSheaveDia') / 2 - 0.05 + RT2; const yTop = yTSh + rr;
+      const tX = XTIP - 0.9, tY = G_TOP + 0.6, tR = 0.6; // boom-tip hoist sheaves (rope centre on the sheave rim)
       for (const s of [1, -1]) {
         const zr = s * ZR; const zD = HZ + s * (DSPAN - DL / 2);
-        // [tail offset, shaft x, lanes (in, out), headblock sheave x, tip offset]
-        for (const [dzT, xs, lanes, xh, dzTip] of [[-0.15, XT - SO, LANE_LS, XT - HSP, -0.15], [0.15, XT + SO, LANE_WS, XT + HSP, 0.15]]) {
-          const zT = zr + s * dzT; const zIn = s * (ZH + lanes[0]); const zOut = s * (ZH + lanes[1]); const zTip = zr + s * dzTip;
-          // drum -> girder-tail sheaves -> trolley shaft top
-          poly(g, [[HXD - 0.3, yDrum - 0.55, zD + s * dzT * 4], [HX0 - 0.4, G_TOP + 0.5, zT], [xTS[1], yTS + rTS, zT], [xTS[0], yTS + rTS, zT], [xTS[0] - rTS, yTS, zT], [xTS[0], yTS - rTS, zT], [xs, yTop, zIn]]);
-          // over sheave 1 and down its +X side (the rope arrives heading +X), around the headblock sheave, up the -X side
-          // and over sheave 2 (landside loop: inner side down, outer side up; waterside loop: outer side down, inner side up)
-          const down = arcPts(xs, yTSh, rr, Math.PI / 2, 0, zIn, zIn, 6); // top -> +X side
+        // [tail offset (tail sheave index), shaft x, lanes (in, out), headblock sheave x]
+        for (const [dzT, iT, xs, lanes, xh] of [[-0.15, 1, XT - SO, LANE_LS, XT - HSP], [0.15, 0, XT + SO, LANE_WS, XT + HSP]]) {
+          const zT = zr + s * dzT; const zIn = s * (ZH + lanes[0]); const zOut = s * (ZH + lanes[1]);
+          // drum -> end-wall opening -> over the top of its own tail sheave, around the landside half -> under the house to the trolley
+          const xS = xTS[iT]; const pE = [HX0 - 0.4, ropeExitY];
+          const aIn = tanFrom(pE[0], pE[1], xS, yTS, rTS, 1), aOut = tanFrom(xs, yTop, xS, yTS, rTS, -1) + 2 * Math.PI;
+          poly(g, [[HXD - 0.3, yDrum - 0.55, zD + s * dzT * 4], [pE[0], pE[1], zT], ...ARC(xS, yTS, rTS, aIn, aOut, zT, 14), [xs, yTop, zIn]]);
+          // over trolley sheave 1, around the headblock sheave, over trolley sheave 2 (unchanged from U1 round 3)
+          const down = arcPts(xs, yTSh, rr, Math.PI / 2, 0, zIn, zIn, 6);
           const hbIn = [xh + rh, yHS, zr], hbOut = [xh - rh, yHS, zr];
-          const under = arcPts(xh, yHS, rh, 0, -Math.PI, zr, zr, 10); // +X side -> under -> -X side
-          const up = arcPts(xs, yTSh, rr, Math.PI, Math.PI / 2, zOut, zOut, 6); // -X side -> top
+          const under = arcPts(xh, yHS, rh, 0, -Math.PI, zr, zr, 10);
+          const up = arcPts(xs, yTSh, rr, Math.PI, Math.PI / 2, zOut, zOut, 6);
           poly(g, [...down, hbIn], RT2); poly(g, under, RT2); poly(g, [hbOut, ...up], RT2);
-          // out to the boom-tip sheaves
-          poly(g, [[xs, yTop, zOut], [XTIP - 0.9, G_TOP + 1.2, zTip], [XTIP - 0.3, G_TOP + 0.6, zTip]]);
+          // out to its boom-tip sheave: tangent onto the top, around the seaside quarter to the equalising cross-over
+          const zTip = zr + s * dzT; const aT = tanFrom(xs, yTop, tX, tY, tR, -1);
+          poly(g, [[xs, yTop, zOut], ...ARC(tX, tY, tR, aT, 0, zTip, 8)]);
         }
       }
       for (const dz of [-0.15, 0.15]) g.add('rope', tube([XTIP - 0.3, G_TOP + 0.6, -ZR + dz], [XTIP - 0.3, G_TOP + 0.6, ZR + dz], R, 6)); // equalising cross-over at the tip (simplified)
     });
   S.position('trolley.rope.set.main', { sub: '024', positionKind: 'quantityLot', uom: 'rope', category: 'ropeSet', label: 'Trolley rope set (2 ropes; path simplified away from the trolley)', prov: 'estimated', sources: [s00('trolley rope reeving diagram: drum to the boom-tip and girder-tail sheaves, back to both ends of the trolley'), src('J526A2100', 1, 'ropes B1 (landside) and B2 (waterside) dia 25; sheave unit and tension device 1050 either side of the boom centreline'), src('J526A0200', 1, 'equalizer sheaves at both trolley ends (E-E); trolley rope about 310 above the rail (scaled)'), src('J526A0400', 1, 'rope dia 25')] },
     (g) => {
-      const tipX = XTIP - 0.9, tipY = G_TOP + 0.6, rTip = P('trolleyTipSheaveDia') / 2 - 0.04 + RT2; const rE = P('trolleyEqualizerSheaveDia') / 2 - 0.045 + 0.025;
+      const rTp = P('trolleyTipSheaveDia') / 2, rTip = rTp - 0.04 + RT2; const tipX = XTIP - 0.9, tipY = yTR + rTip; // sheave bottom = return-run height
+      const rE = P('trolleyEqualizerSheaveDia') / 2 - 0.045 + 0.025;
       const zP = P('trolleyRopePassingLaneZ'); const rT = 0.035; // passing run 950 from the centreline (over the trolley), return run 1050
+      // passing run: house opening -> lane change over the last 3 m -> tangent onto the sheave top -> half wrap -> level return run
+      const run = (pE, cx, cy, r, sign, aEnd, xEq, z, zp) => {
+        const a0 = tanFrom(pE[0], pE[1], cx, cy, r, sign); const t = onC(cx, cy, r, a0, z);
+        const k = 3 / Math.hypot(t[0] - pE[0], t[1] - pE[1]); const m = [t[0] + (pE[0] - t[0]) * k, t[1] + (pE[1] - t[1]) * k, zp];
+        return [[pE[0], pE[1], zp], m, ...ARC(cx, cy, r, a0, aEnd, z, 14), [xEq, yTR, z]];
+      };
       for (const t of [1, -1]) {
         const z = t * ZTR;
-        const yApp = tipY + rTip - 0.02; // passing run reaches the sheave-unit top just before the tip
-        poly(g, [[TXD + 0.3, yT - 0.4, TDZ + 0.9], [HX1 + 0.4, G_TOP + 0.6, t * zP], [tipX - 3, yApp, t * zP], [tipX, tipY + rTip, z], [tipX + rTip, tipY, z], [tipX, tipY - rTip, z], [XEQ_W, yTR, z]], rT);
-        poly(g, [[TXD - 0.3, yT - 0.4, TDZ - 0.9], [HX0 - 0.4, G_TOP + 0.6, t * zP], [xTT + 3, yTT + rTT - 0.02, t * zP], [xTT, yTT + rTT, z], [xTT - rTT, yTT, z], [xTT, yTT - rTT, z], [XEQ_L, yTR, z]], rT);
+        poly(g, [[TXD + 0.3, yT - 0.4, TDZ + 0.9], ...run([HX1 + 0.4, ropeExitY], tipX, tipY, rTip, -1, -Math.PI / 2, XEQ_W, z, t * zP)], rT);
+        poly(g, [[TXD - 0.3, yT - 0.4, TDZ - 0.9], ...run([HX0 - 0.4, ropeExitY], xTT, yTT, rTT, 1, 1.5 * Math.PI, XEQ_L, z, t * zP)], rT);
       }
       // U-turns around the equalizer sheaves: landside end on their +X (inboard) side, waterside end on their -X side
       for (const [xe, dir] of [[XEQ_L, 1], [XEQ_W, -1]]) {
@@ -941,35 +1091,63 @@ export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
         poly(g, pts, RT2); // starts at (xe, +1050) where the incoming run ends, ends at (xe, -1050)
       }
     });
+  // U1-C65 / U1-C66: catenary trolley ropes (J526A2200 p1 reeving sketch; J526A1500 names a catenary tow rope and a hold-back
+  // rope). Landside lane: rope clamp at the tail -> over both tensioner sheaves, around the landside one -> under the house ->
+  // around the seaside half of the landside catenary trolley sheave -> main trolley landside end. Seaside lane: main trolley
+  // seaside end -> over the seaside catenary trolley sheave -> around the boom-tip sheave -> back to a clamp on the seaside
+  // catenary trolley. The multi-part reeving (ropes B1-B8) is simplified to these runs, 1500 either side of the centreline.
+  S.position('trolley.catenary-rope.set.main', { sub: '024', positionKind: 'quantityLot', uom: 'rope', category: 'ropeSet', label: 'Catenary trolley rope set (2 lanes; path simplified)', prov: 'estimated', sources: [src('J526A2200', 1, 'catenary trolley reeving system sketch (ropes B1-B8 between the catenary trolleys, the main trolley, the boom-tip sheaves and the tail tensioners); runs simplified'), src('J526A2200', 2, 'J526A2201 boom-tip sheaves 1500 from the centreline'), src('J526A2200', 3, 'J526A2203 tail tensioners 1500 from the centreline'), src('J526A1500', 1, 'catenary tow rope and catenary hold back rope')] },
+    (g) => {
+      const xL = P('catenaryLandsideX'), xW = P('catenaryWatersideX'); const rc = rCS + RC_R, rn = rTN + RC_R, rt = rCT + RC_R;
+      const clamp = (x, y, z) => g.add('rope', box([x, y, z], [0.24, 0.11, 0.11]));
+      for (const s of [1, -1]) {
+        const z = s * ZCAT;
+        poly(g, [[xTA, yTN + rn, z], [xTN, yTN + rn, z], ...ARC(xTNL, yTN, rn, Math.PI / 2, 1.5 * Math.PI, z, 12), [xTN, yCatBot, z], ...ARC(xL, yCSC, rc, -Math.PI / 2, Math.PI / 2, z, 14), [XF0, yCatTop, z]], RC_R);
+        poly(g, [[XF1, yCatTop, z], [xW, yCatTop, z], ...ARC(xCT, yCT, rt, Math.PI / 2, -Math.PI / 2, z, 14), [xW + 0.45, yCatBot, z]], RC_R);
+        clamp(xTA, yTN + rn, z); clamp(XF0, yCatTop, z); clamp(XF1, yCatTop, z); clamp(xW + 0.45, yCatBot, z);
+      }
+    });
   // U1 round 2 (U1-C14): boom hoist reeving re-read from J526A2300 p1. Drum -> guide sheave on the apex platform ->
   // fall-sheave groups under the apex cantilever -> falls to TWO boom sheave blocks: B-B at Z2 (28000 from the
   // waterside rail, sheave 1350 above the girder top, 1425 from the boom centreline) and C-C at Z3 (62500, 1200,
   // 1690). Fall counts per side (4 inner, 3 outer) follow the View A sheave groups; paths simplified.
+  // U1-C66: the drum rope is tangent to the guide sheave and wraps over it, the run to each fall group is the common tangent
+  // of the two sheaves, and every fall is tangent to its apex and boom-block sheaves (alternate falls on the two sides).
   const yBI = G_TOP + P('forestayInnerBracket'), yBO = G_TOP + P('forestayOuterBracket'); const zBI = P('boomBlockInnerZ'), zBO = P('boomBlockOuterZ');
   S.position('boom.rope.set.main', { sub: '033', positionKind: 'quantityLot', uom: 'rope', category: 'ropeSet', label: 'Boom hoist rope set (simplified path)', prov: 'estimated', sources: [src('J526A2300', 1, 'drum -> apex guide sheave -> falls between the apex sheave groups and the boom blocks at B-B (Z2) and C-C (Z3); falls per side simplified to 4 + 3'), s00('boom hoist rope reeving diagram'), src('J526A0500', 1, 'rope dia 35.5')] },
     (g) => {
+      const rB = P('boomBlockSheaveDia') / 2;
       for (const s of [1, -1]) {
-        const zg = s * ZGS;
-        // drum to the landside side of the guide sheave, wrap over the top, down the waterside to the fall groups
-        const arc = []; for (let k = 0; k <= 8; k++) { const a = Math.PI - (Math.PI * 0.75) * (k / 8); arc.push([xGS + rGS * Math.cos(a), yGS + rGS * Math.sin(a), zg]); }
-        poly(g, [[BXD, yB + 0.77, BDZ + s * 1.7], ...arc]);
-        const last = arc[arc.length - 1];
-        poly(g, [last, [xFG, yFG + rFG, s * ZFI]]); poly(g, [last, [xFG, yFG + rFG, s * ZFO]]);
-        for (let k = 0; k < 4; k++) { const dz = (k - 1.5) * 0.17; g.add('rope', tube([xFG + rFG * 0.6, yFG - rFG * 0.6, s * ZFI + dz], [XZ2, yBI + 0.25, s * zBI + dz], R * 0.9, 6)); }
-        for (let k = 0; k < 3; k++) { const dz = (k - 1) * 0.17; g.add('rope', tube([xFG + rFG * 0.6, yFG - rFG * 0.6, s * ZFO + dz], [XZ3, yBO + 0.25, s * zBO + dz], R * 0.9, 6)); }
+        const zg = s * ZGS; const pD = [BXD, yB + 0.77, BDZ + s * 1.7];
+        const a0 = tanFrom(pD[0], pD[1], xGS, yGS, rGS, -1);
+        const nGF = [1, -1].map((sg) => tanOuter(xGS, yGS, rGS, xFG, yFG, rFG, sg)).find((n) => Math.cos(n) > 0); // seaside common tangent
+        let aEnd = nGF; while (aEnd > a0) aEnd -= 2 * Math.PI;
+        poly(g, [pD, ...ARC(xGS, yGS, rGS, a0, aEnd, zg, 14)]);
+        const last = onC(xGS, yGS, rGS, nGF, zg);
+        for (const zf of [s * ZFI, s * ZFO]) poly(g, [last, onC(xFG, yFG, rFG, nGF, zf)]);
+        for (const [x, y, zb, zfg, nF] of [[XZ2, yBI, zBI, ZFI, 4], [XZ3, yBO, zBO, ZFO, 3]]) {
+          const u = Math.atan2(y - yFG, x - xFG);
+          for (let k = 0; k < nF; k++) {
+            const dz = (k - (nF - 1) / 2) * 0.17; const n = u + (k % 2 ? -1 : 1) * Math.PI / 2;
+            g.add('rope', tube(onC(xFG, yFG, rFG, n, s * zfg + dz), onC(x, y, rB, n, s * zb + dz), R * 0.9, 6));
+          }
+        }
       }
     });
+  // U1-C66: the cross-beam moved to the seaside of the sheaves (above the trolley path) so the falls, arriving from the apex
+  // landside and above, do not pass through it, and the bracket posts stand on the outer part of the girder top, clear of the trolley rail.
   S.position('boom.sheave.boom-block', { parentKey: B_, sub: '031', category: 'component', label: 'Boom hoist sheave blocks on the boom (Z2 and Z3)', prov: 'estimated', sources: [src('J526A2300', 1, 'sections B-B (28000, 1350, 1425 to the boom centreline) and C-C (62500, 1200, 1690); cross-beam and side plates simplified'), s00('boom hoist rope reeving diagram')] },
     (g) => {
       for (const [x, y, zb, nS] of [[XZ2, yBI, zBI, 4], [XZ3, yBO, zBO, 3]]) {
-        const w = 0.17; const rB = P('boomBlockSheaveDia') / 2;
+        const w = 0.17; const rB = P('boomBlockSheaveDia') / 2; const xb = x + rB + 0.3; const zp = ZG + 0.42; const yb0 = y + rB * 0.4, yb1 = y + rB + 0.7;
         for (const s of [1, -1]) {
           const z0 = s * zb - ((nS - 1) * w) / 2;
           for (let k = 0; k < nS; k++) g.add('steel', ...sheave([x, y, z0 + k * w], 'z', 2 * rB, 0.1));
-          for (const dz of [-(nS * w) / 2 - 0.05, (nS * w) / 2 + 0.05]) g.add('paint', boxMinMax([x - rB - 0.1, y - 0.15, s * zb + dz - 0.03], [x + rB + 0.1, y + rB + 0.45, s * zb + dz + 0.03]));
+          g.add('steel', cyl([x, y, s * zb], 'z', 0.07, nS * w + 0.2, 10)); // shaft
+          for (const dz of [-(nS * w) / 2 - 0.05, (nS * w) / 2 + 0.05]) g.add('paint', boxMinMax([x - rB - 0.1, y - 0.15, s * zb + dz - 0.03], [xb + 0.15, yb1, s * zb + dz + 0.03])); // side plates to the cross-beam
         }
-        g.add('paint', boxMinMax([x - 0.3, y + rB + 0.35, -ZG - 0.3], [x + 0.3, y + rB + 0.7, ZG + 0.3])); // cross-beam between the girder brackets
-        for (const s of [1, -1]) g.add('paint', boxMinMax([x - 0.3, G_TOP, s * ZG - 0.3], [x + 0.3, y + rB + 0.7, s * ZG + 0.3])); // bracket posts
+        g.add('paint', boxMinMax([xb - 0.15, yb0, -zp - 0.18], [xb + 0.15, yb1, zp + 0.18])); // cross-beam seaside of the sheaves, above the trolley path
+        for (const s of [1, -1]) g.add('paint', boxMinMax([xb - 0.15, G_TOP, s * zp - 0.18], [xb + 0.15, yb1, s * zp + 0.18])); // bracket posts outboard of the rail
       }
     });
 
@@ -1016,6 +1194,10 @@ export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
   S.container('container.access', { label: 'Stairs and elevator (landside leg B)', prov: 'drawing-derived', sources: [src('J526A5100', 1, 'elevator location plan and landings 6500 / 15615 / 47845 / 53430'), s00('landside end view stair')] });
   const AC = 'container.access';
   const ZLB = -ZL;
+  // U1-C67: the elevator car door line and the landing in front of it (J526A5100 C-C; note 2: every elevator landing is flush
+  // with the stair platform of that level). At the four elevator levels the stair tower's outer landing is extended out to this
+  // line and the elevator landing continues it on the seaside, as one platform with one outer handrail.
+  const zDoor = -ZL - LEG[1] / 2 - P('elevatorCarFromLegFace') - P('elevatorCar')[2] - 0.12; const zE0 = zDoor - P('elevatorLandingDepthZ');
   S.position('access.stair.landside-leg-b', { parentKey: AC, sub: '151', category: 'structural', label: 'Stair tower, landside leg B', prov: 'estimated', sources: [src('J526A5000', 1, 'View P: switch-back flights outboard of leg B with landings A 6500, B 15615, C 47845 and 53430; side view: stair on the landside face of the leg'), s00('landside end view: zig-zag stair outside leg B up to 53430')] },
     (g) => {
       // U1 repair: the P03 flights ran along X across the leg; J526A5000 View P shows them running along Z outboard of
@@ -1036,14 +1218,17 @@ export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
           const f = stairFlight([x, ya, zStart], [x, yb, out ? zOut + 0.5 : zIn - 0.5], fw);
           g.add('grating', ...f.grating); g.add('paint', ...f.paint);
           const zl = out ? zOut : zIn - 0.5; // landing at the top of this flight
-          g.add('grating', boxMinMax([xBack, yb - 0.06, out ? zOut : zIn - 0.5], [xFace - 0.05, yb, out ? zOut + 0.5 : zIn]));
-          // outer landing rail; left open at the elevator landing levels, where the elevator landing platform joins (U1 round 2)
           const elevLevel = lv.some((v) => Math.abs(v - yb) < 0.05);
-          if (out) g.add('paint', ...(elevLevel ? [] : railing([xBack, yb, zl], [xFace - 0.05, yb, zl], { step: 0.9 })), ...railing([xBack, yb, zl], [xBack, yb, zl + 0.5], { step: 0.5, mid: false }));
+          const zl0 = out && elevLevel ? Math.min(zOut, zE0) : zl; // U1-C67: extended to the elevator door line at the elevator levels
+          g.add('grating', boxMinMax([xBack, yb - 0.06, out ? zl0 : zIn - 0.5], [xFace - 0.05, yb, out ? zOut + 0.5 : zIn]));
+          if (out && elevLevel) g.add('paint', boxMinMax([xBack, yb - 0.3, zl0], [xFace - 0.05, yb - 0.06, zl0 + 0.12]), boxMinMax([xBack, yb - 0.3, zl0], [xBack + 0.12, yb - 0.06, zOut + 0.5])); // edge beams of the extension
+          // outer landing rail (at the elevator levels along the extended edge; it continues on the elevator landing)
+          if (out) g.add('paint', ...railing([xBack, yb, zl0], [xFace - 0.05, yb, zl0], { step: 0.9 }), ...railing([xBack, yb, zl0], [xBack, yb, zl + 0.5], { step: 0.5, mid: false }));
         }
       }
       // corner posts of the tower and tie-backs to the leg
-      for (const x of [xBack, xFace - 0.05]) g.add('paint', boxMinMax([x - 0.06, 0, zOut - 0.06], [x + 0.06, lv[3] + 1.1, zOut + 0.06]));
+      // U1-C67: one outer corner post on the landside edge; the seaside one stood in the passage to the elevator landings
+      g.add('paint', boxMinMax([xBack - 0.06, 0, zOut - 0.06], [xBack + 0.06, lv[3] + 1.1, zOut + 0.06]));
       for (const y of lv) g.add('paint', boxMinMax([xBack, y - 0.25, zOut], [xFace - 0.05, y - 0.1, zIn]));
     });
   // U1 round 2 (U1-C16): elevator corrected from J526A5100 p1. "Location of the elevator" (plan) puts it outboard of
@@ -1062,13 +1247,14 @@ export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
       for (let y = yF + 1.5; y < yMT; y += 1.5) g.add('steel', boxMinMax([xC - 0.32, y - 0.03, zM0 + 0.02], [xC + 0.32, y + 0.03, zM1 - 0.02])); // mast lacing
       for (let y = yF + 3.0; y < yMT - 0.5; y += P('elevatorTieSpacing')) g.add('paint', boxMinMax([xC - 0.08, y - 0.08, zM1 - 0.05], [xC + 0.08, y + 0.08, LEGF + 0.15])); // ties to the leg (supports 1-3)
       g.add('paint', boxMinMax([xC - 0.45, yMT - 0.08, zM0 - 0.1], [xC + 0.45, yMT, zM1])); // top frame (item 2)
-      // landing platforms in front of the car door, joined to the stair-tower platforms on the landside
-      const zL1 = zC0 - 0.05, zL0 = zL1 - P('elevatorLandingDepthZ'); const xL0 = XLS - 0.665 - P('stairTowerDepthX'), xL1 = xC + hwC + 0.15;
+      // U1-C67: landing in front of the car door, continuing the stair-tower landing of the same level on its seaside (flush,
+      // same depth, one outer handrail); before, a separate platform overlapped the stair landing and its flights.
+      const zL1 = zDoor - 0.02, zL0 = zE0; const xL0 = XLS - 0.665 - 0.05, xL1 = xC + hwC + 0.15;
       for (const y of lv) {
-        g.add('grating', boxMinMax([xL0, y - 0.08, zL0], [xL1, y, zL1]));
-        g.add('paint', boxMinMax([xL0, y - 0.3, zL0], [xL1, y - 0.08, zL0 + 0.12]), boxMinMax([xL1 - 0.12, y - 0.3, zL0], [xL1, y - 0.08, zL1])); // edge beams
-        g.add('paint', ...railing([xL0, y, zL0], [xL1, y, zL0], { step: 1.2 }), ...railing([xL1, y, zL0], [xL1, y, zC1 + 0.05], { step: 1.0 }));
-        g.add('paint', boxMinMax([xL0, y - 0.3, zL0], [xL0 + 0.12, y - 0.08, zL1])); // support to the stair tower
+        g.add('grating', boxMinMax([xL0, y - 0.06, zL0], [xL1, y, zL1]));
+        g.add('paint', boxMinMax([xL0, y - 0.3, zL0], [xL1, y - 0.06, zL0 + 0.12]), boxMinMax([xL1 - 0.12, y - 0.3, zL0], [xL1, y - 0.06, zL1])); // edge beams
+        g.add('paint', ...railing([xL0, y, zL0], [xL1, y, zL0], { step: 0.75 }), ...railing([xL1, y, zL0], [xL1, y, zC1 + 0.05], { step: 1.0 }));
+        g.add('paint', boxMinMax([xL1 - 0.1, y - 0.3, zL1 - 0.1], [xL1 - 0.02, y - 0.06, zM1])); // tie to the mast frame
       }
     });
   S.position('access.elevator.car', { parentKey: AC, sub: '153', category: 'component', label: 'Elevator car and drive unit (shown at the first landing)', prov: 'measured', sources: [src('J526A5100', 1, 'SC40, 400 kg / 4 persons, 0.7 m/s, 11 kW; car 1000 x 1000 x 2150 inside; door on the outer face (C-C); first landing 6500; wall, roof and drive-unit sizes estimated')] },

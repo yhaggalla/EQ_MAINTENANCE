@@ -1,0 +1,50 @@
+{
+  "base": "http://127.0.0.1:5312/index.html",
+  "browser": "Chrome/156.0.8078.48",
+  "results": [
+    {
+      "name": "Unscoped Add still opens an empty equipment chooser",
+      "pass": true
+    },
+    {
+      "name": "Registered selected part offers Update condition instead of empty Add",
+      "pass": true
+    },
+    {
+      "name": "Invalid condition leaves the record unchanged and shows validation",
+      "pass": true
+    },
+    {
+      "name": "Saving Original refreshes the selected 3D card immediately without navigation",
+      "pass": true
+    },
+    {
+      "name": "Saving replacement refreshes brand, date, prediction and history on the same part",
+      "pass": true
+    },
+    {
+      "name": "Cancel and legacy Add entry preserve or update the exact registered target",
+      "pass": true
+    },
+    {
+      "name": "Flat mode and Admin update the existing record without duplicate registration",
+      "pass": true
+    },
+    {
+      "name": "New selected part can still be added and appears immediately inside its isolated area",
+      "pass": true
+    },
+    {
+      "name": "Area summaries and Jobs show the same newly saved spare record",
+      "pass": true
+    },
+    {
+      "name": "Management has no Add/Update action and direct mutation remains refused",
+      "pass": true
+    },
+    {
+      "name": "No browser errors",
+      "pass": true
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+PASS 01 shared model and single viewport
+PASS 02 tree selection and all three panels survive switches
+PASS 03 fixed side drag, pan, zoom and aspect ratio
+PASS 04 scene label clicks drill down through tree and panel in both views
+PASS 05 technical isolation, labels, markers and reset retain Flat
+PASS 06 equipment-specific identity, direct URL and refresh
+PASS 07 legacy P03 route resolves exact semantic key into shared page
+PASS 08 phone, landscape and keyboard switch
+PASS 09 context loss recovery and lifecycle disposal
+PASS 10 actual model load failure preserves records and retry succeeds
+PASS 11 actual WebGL unavailable
+11/11 PASS
+exit 0

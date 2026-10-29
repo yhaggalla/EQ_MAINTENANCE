@@ -1,0 +1,151 @@
+{
+  "base": "HEAD",
+  "baseAsset": {
+    "sha256": "01fb0ae0a2c66029928bb6b8be9f31229e68ae9ed27f03aeddc6801993531b9a",
+    "bytes": 2570288,
+    "nodes": 178
+  },
+  "revised": {
+    "revision": 7,
+    "sha256": "5471b1a14c4a6770e9ef20f1ba19e2d8fab49249c9d983c1412e9acf95abcb14",
+    "bytes": 3378192,
+    "nodes": 188
+  },
+  "summary": {
+    "added": 10,
+    "removed": 0,
+    "changed": 11,
+    "identityChanges": 0
+  },
+  "note": "Draft v1 revised in place (no binding active). Keys, kinds, classification and instancing of existing nodes are unchanged unless listed; bounds changes are geometry corrections.",
+  "added": [
+    {
+      "key": "container.trolley-runway",
+      "kind": "container",
+      "sub": null,
+      "label": "Trolley rails and catenary trolleys"
+    },
+    {
+      "key": "trolley.rail.girder",
+      "kind": "position",
+      "sub": "021",
+      "label": "Trolley rails on the girder (A and B, A75, 60.2 m)"
+    },
+    {
+      "key": "trolley.rail.boom",
+      "kind": "position",
+      "sub": "021",
+      "label": "Trolley rails on the boom (A and B, A75, 74.6 m)"
+    },
+    {
+      "key": "trolley.rail.hinge-joint",
+      "kind": "position",
+      "sub": "021",
+      "label": "Trolley rail joint at the boom hinge (short rails, gap 6 +/- 2)"
+    },
+    {
+      "key": "trolley.catenary.landside",
+      "kind": "position",
+      "sub": "021",
+      "label": "Landside catenary trolley (on the girder / boom rails)"
+    },
+    {
+      "key": "trolley.catenary.waterside",
+      "kind": "position",
+      "sub": "021",
+      "label": "Seaside catenary trolley (on the boom rails)"
+    },
+    {
+      "key": "reeving.sheave.catenary-boom-tip",
+      "kind": "position",
+      "sub": "021",
+      "label": "Boom-tip catenary rope sheaves (2 sets, dia 500)"
+    },
+    {
+      "key": "trolley.catenary.tensioner",
+      "kind": "position",
+      "sub": "022",
+      "label": "Catenary rope tensioners (2 sets, cylinder stroke 600)"
+    },
+    {
+      "key": "auxiliary.rope-reeving.machinery-house",
+      "kind": "position",
+      "sub": "151",
+      "label": "Wire rope re-reeving device (2 driving reels, 5.5 kW)"
+    },
+    {
+      "key": "trolley.catenary-rope.set.main",
+      "kind": "position",
+      "sub": "024",
+      "label": "Catenary trolley rope set (2 lanes; path simplified)"
+    }
+  ],
+  "removed": [],
+  "changed": [
+    {
+      "key": "container.girder",
+      "boundsChanged": true
+    },
+    {
+      "key": "structure.girder.rear.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "reeving.anti-snag-tls.device",
+      "boundsChanged": true
+    },
+    {
+      "key": "reeving.sheave.girder-tail",
+      "boundsChanged": true
+    },
+    {
+      "key": "reeving.sheave.trolley-tail",
+      "boundsChanged": true
+    },
+    {
+      "key": "machinery-house.service-crane",
+      "label": [
+        "Machinery-house service crane",
+        "Machinery-house service crane (10 t)"
+      ]
+    },
+    {
+      "key": "container.trolley",
+      "boundsChanged": true
+    },
+    {
+      "key": "trolley.spreader-cable-reel",
+      "boundsChanged": true,
+      "label": [
+        "Spreader cable reel and drive (size approximate)",
+        "Spreader cable reel (Cavotec T5.1, monospiral dia 2200) and drive"
+      ]
+    },
+    {
+      "key": "trolley.tension.main",
+      "boundsChanged": true,
+      "hotspot": [
+        [
+          -60.1,
+          52.86999999999999,
+          0
+        ],
+        [
+          -60.1,
+          52.88499999999999,
+          0
+        ],
+        "simplified-part",
+        "simplified-part"
+      ]
+    },
+    {
+      "key": "hoist.rope.set.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "trolley.rope.set.main",
+      "boundsChanged": true
+    }
+  ]
+}

@@ -80,6 +80,26 @@ function candidates(s, nodes, work) {
   return eq.mains.filter(m => s.mode !== 'overall' || ['01', '02', '03', '04', '06', '14'].includes(m.code)).map(m => label(m.id, m.code + ' ' + EQ.defLabel(m.code), nodes.filter(n => n.classification.main === m.code),
     { main: m.id }, 1, m.id === sel.main)).filter(x => x.keys.length);
 }
+// U1-C66 label modes. Key parts: the overview labels (key assemblies, or the parts of an isolated area) plus the selected part.
+// Selection: the selected part with its related labels. Selected only: just the selected part or mechanism. Never all hidden.
+function labelCandidates(s, nodes, work) {
+  const mode = EQ.eqUI.labelMode || 'key'; const { eq, sel } = s;
+  if (mode === 'selection') return candidates(s, nodes, work);
+  const part = EQ.pos(sel.part), sub = eq.subs.find(x => x.id === sel.sub), main = eq.mains.find(m => m.id === sel.main);
+  let own = null;
+  if (part) {
+    const n = nodes.find(x => x.key === part.key);
+    if (n) own = { id: n.key, text: n.label, keys: [n.key], next: { key: n.key }, tier: 3, allowHidden: true, priority: 100, selected: true,
+      work: EQ.eqUI.showWork ? work.get(n.key) || 0 : 0, badge: n.kind === 'hotspot' || n.provenance.kind === 'approximate-location' ? 'Approx.' : null };
+  } else if (sub || main) {
+    const ns = nodes.filter(n => sub ? n.classification.sub === sub.code : n.classification.main === main.code);
+    if (ns.length) own = { id: (sub || main).id, text: sub ? sub.code + ' ' + EQ.defLabel(sub.code) : main.code + ' ' + EQ.defLabel(main.code), keys: ns.map(n => n.key),
+      next: sub ? { main: sub.mainId, sub: sub.id } : { main: main.id }, tier: sub ? 2 : 1, allowHidden: true, priority: 100, selected: true, work: 0 };
+  }
+  if (mode === 'selected') return own ? [own] : [];
+  const overview = candidates({ ...s, sel: {} }, nodes, work).filter(c => !own || c.id !== own.id);
+  return own ? [own, ...overview] : overview;
+}
 function side(s) {
   const aspect = Math.max(1, s.host.clientWidth) / Math.max(1, s.host.clientHeight);
   const b = s.viewer.craneBox, size = b.getSize(new THREE.Vector3()), c = b.getCenter(new THREE.Vector3());
@@ -121,7 +141,7 @@ function update(s) {
   const work = new Map();
   ps.forEach(p => { const count = EQ.openCount(eq.id, { level: 'part', id: p.id }); if (count) work.set(p.key, count); });
   v.setWorkMarkers(EQ.eqUI.showWork ? work : new Map());
-  v.setLabels(EQ.eqUI.labels); v.setLabelCandidates(candidates(s, iso ? nodes.filter(n => descendants(n, iso)) : nodes, work));
+  v.setLabels(true); v.setLabelCandidates(labelCandidates(s, iso ? nodes.filter(n => descendants(n, iso)) : nodes, work));
 }
 function render(eq, sel, q, mode) {
   if (!eligible(eq)) return h('div', { class: 'panel panel-pad' }, 'No reviewed model binding is available for this equipment. Use the mechanism tree and records.');
@@ -152,7 +172,9 @@ function render(eq, sel, q, mode) {
     h('div', { class: 'vp-tools' },
       h('div', { class: 'vp-display-tools' },
         h('label', { class: 'check', title: 'Show open-work markers' }, h('input', { type: 'checkbox', 'aria-label': 'Open-work markers', checked: EQ.eqUI.showWork || null, 'data-fk': 'work', onChange: e => { EQ.eqUI.showWork = e.target.checked; EQ.rerender(); } }), 'Open work'),
-        btn('labels', EQ.eqUI.labels ? 'Labels: ' + (!sel.main && !q.container ? mode === 'overall' ? 'key parts' : 'all' : 'selection') : 'Labels: off', () => { EQ.eqUI.labels = !EQ.eqUI.labels; EQ.rerender(); }, EQ.eqUI.labels, 'Toggle labels')),
+        h('div', { class: 'seg label-seg', role: 'group', 'aria-label': 'Labels' }, h('span', { class: 'label-seg-title', 'aria-hidden': 'true' }, 'Labels'),
+          [['key', 'Key parts', 'Key assemblies (Overall) or the parts of an area, plus the selected part'], ['selection', 'Selection', 'The selected part with its related parts'], ['selected', 'Selected only', 'Only the selected part']]
+            .map(([m, t, tip]) => btn('labels-' + m, t, () => { EQ.eqUI.labelMode = m; EQ.rerender(); }, (EQ.eqUI.labelMode || 'key') === m, tip)))),
       h('div', { class: 'vp-camera-tools', role: 'group', 'aria-label': 'Camera controls' },
         btn('fit', 'Fit', () => { if (s.ready) { const v = s.viewer; if (!v.selected.size && !v.selContainer) resetCamera(s); else v.fitKeys(v.selContainer ? [v.selContainer] : [...v.selected]); } }, null, 'Fit selection'),
         btn('zoom-out', '−', () => zoom(s, 0.8), null, 'Zoom out'),

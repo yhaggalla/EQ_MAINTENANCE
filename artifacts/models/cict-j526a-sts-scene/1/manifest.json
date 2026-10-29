@@ -3,8 +3,8 @@
   "modelCode": "cict-j526a-sts-scene",
   "equipmentModelCode": "CICT-J526A-STS",
   "version": 1,
-  "revision": 6,
-  "revisionNote": "U1 round 7 (2026-10-23): 013 load cells moved from the in-line position about 2.6 m inboard to the boom tip end, in-line on the horizontal cross-over of the main hoist ropes at the very end of the boom (user reference image, U1-C27; closes U-36; points estimated). Previous: U1 round 6 (2026-10-23): 013 load cell moved from the boom-tip rope-end anchor pins to in-line load cells in the horizontal main hoist ropes at the boom tip (user answer to U-23, U1-C25; point estimated); the J526A2000 Detail I rope-end anchors stay in reeving.sheave.boom-tip. Previous: U1 round 3 (2026-10-22): trolley rebuilt from J526A0200 / J526A2100 (4 wheels instead of 8, four sheave shafts with two sheaves each, open frame and centre body, trolley-rope equalizer sheaves, spreader cable reel, main hoist and trolley rope paths on the trolley); headblock re-read from J526A1200 and spreader remodelled (STS45 drawing still not supplied; ISO 1161 corner positions, DT1500F cradle spacing). Previous: U1 round 2 (2026-10-22): load cells at the trolley sheave shafts, girder-tail platforms and stairs, apex platform and boom-hoist sheave arrangement, floodlight fittings on the boom and girder, elevator position/car/landings and every location marker drawn as a simplified part (J526A0200, J526A2300, J526A5000, J526A5100). Previous: U1 repair (2026-10-21): back-reach area, CICT logo, stair tower orientation, cab remodel, reeving paths and machinery-house layout re-checked against J526A00, J526A1000, J526A3000, J526A3100, J526A5000, J526A7100. Draft v1 revised in place: no equipment binding is active.",
+  "revision": 7,
+  "revisionNote": "U1-C65 (2026-10-29): trolley rails (A75, rubber pads, clips, hinge-joint short rails, end stops; J526A0104) and the catenary trolley system (landside and seaside catenary trolleys, boom-tip catenary sheaves, girder-tail catenary rope tensioners, catenary ropes; J526A2200 set) added in container.trolley-runway; rope re-reeving device added in the machinery house (J526A1500); anti-snag tail sheave (J526A1000), trolley rope tension-device sheave (J526A2103) and spreader cable reel (Cavotec SC-121216-ME2a) diameters corrected to measured values. Previous: U1 round 7 (2026-10-23): 013 load cells moved from the in-line position about 2.6 m inboard to the boom tip end, in-line on the horizontal cross-over of the main hoist ropes at the very end of the boom (user reference image, U1-C27; closes U-36; points estimated). Previous: U1 round 6 (2026-10-23): 013 load cell moved from the boom-tip rope-end anchor pins to in-line load cells in the horizontal main hoist ropes at the boom tip (user answer to U-23, U1-C25; point estimated); the J526A2000 Detail I rope-end anchors stay in reeving.sheave.boom-tip. Previous: U1 round 3 (2026-10-22): trolley rebuilt from J526A0200 / J526A2100 (4 wheels instead of 8, four sheave shafts with two sheaves each, open frame and centre body, trolley-rope equalizer sheaves, spreader cable reel, main hoist and trolley rope paths on the trolley); headblock re-read from J526A1200 and spreader remodelled (STS45 drawing still not supplied; ISO 1161 corner positions, DT1500F cradle spacing). Previous: U1 round 2 (2026-10-22): load cells at the trolley sheave shafts, girder-tail platforms and stairs, apex platform and boom-hoist sheave arrangement, floodlight fittings on the boom and girder, elevator position/car/landings and every location marker drawn as a simplified part (J526A0200, J526A2300, J526A5000, J526A5100). Previous: U1 repair (2026-10-21): back-reach area, CICT logo, stair tower orientation, cab remodel, reeving paths and machinery-house layout re-checked against J526A00, J526A1000, J526A3000, J526A3100, J526A5000, J526A7100. Draft v1 revised in place: no equipment binding is active.",
   "status": "draft",
   "statusNote": "P03 prototype, revised in the U1 repair while still a draft with no active binding. Not assigned to any equipment; bindings are made by Admin per equipment (DATA_CONTRACT s10.5).",
   "units": "m",
@@ -18,7 +18,7 @@
   "generator": {
     "name": "eq-model-generator",
     "version": "1.0.0",
-    "sourceCommit": "5580b109e188d61c40617f51a348073624d50ec2",
+    "sourceCommit": "4218b3d557cf6530d34b27d6ba4f06994679fc4e",
     "sourceDirty": true,
     "three": "0.186.1",
     "node": "v24.15.0"
@@ -29,26 +29,26 @@
   },
   "asset": {
     "file": "scene.glb",
-    "sha256": "01fb0ae0a2c66029928bb6b8be9f31229e68ae9ed27f03aeddc6801993531b9a",
-    "bytes": 2570288,
-    "triangles": 54674,
-    "drawCallsEstimate": 196,
+    "sha256": "403d9f1cc2b590e6d229d32857f62e42add9a83b0583257392596036c03d700b",
+    "bytes": 3708020,
+    "triangles": 77186,
+    "drawCallsEstimate": 213,
     "overallMode": {
-      "triangles": 48094,
-      "drawCallsEstimate": 147,
-      "meshObjects": 93
+      "triangles": 69646,
+      "drawCallsEstimate": 161,
+      "meshObjects": 101
     },
     "technicalMode": {
-      "triangles": 54672,
-      "drawCallsEstimate": 195,
-      "meshObjects": 123
+      "triangles": 77184,
+      "drawCallsEstimate": 212,
+      "meshObjects": 132
     }
   },
   "budgets": {
     "trianglesMax": 150000,
-    "drawCallsMax": 200,
+    "drawCallsMax": 230,
     "assetBytesMax": 8388608,
-    "source": "QC_3D_MODELLING_BRIEF s6 (provisional)"
+    "source": "QC_3D_MODELLING_BRIEF s6 (provisional); draw calls raised from 200 to 230 by the user for U1-C65 (D-213)"
   },
   "bounds": {
     "min": [
@@ -1146,7 +1146,7 @@
           -4.62
         ],
         "max": [
-          -0.299999,
+          -0.3,
           55.080002,
           4.62
         ]
@@ -1201,8 +1201,8 @@
           -3.695
         ],
         "max": [
-          -0.299999,
-          52.799999,
+          -0.3,
+          52.299999,
           3.695
         ]
       },
@@ -1425,7 +1425,7 @@
           -3.4
         ],
         "max": [
-          -54.482845,
+          -54.532845,
           55,
           3.4
         ]
@@ -1435,7 +1435,7 @@
     {
       "key": "reeving.sheave.girder-tail",
       "kind": "position",
-      "label": "Main hoist rope tail sheaves (girder tail)",
+      "label": "Main hoist rope tail sheaves (girder tail, one per rope)",
       "parentKey": "container.back-reach",
       "classification": {
         "main": "01",
@@ -1457,12 +1457,12 @@
       "uom": "ea",
       "category": "component",
       "provenance": {
-        "kind": "estimated",
+        "kind": "drawing-derived",
         "sources": [
           {
             "drawing": "J526A1000",
             "pdfPage": 1,
-            "note": "two sheaves per lever, 2200 apart; diameter scaled"
+            "note": "sheaves dia 1000 (B-B) on the levers, 2200 apart; U1-C66: one sheave per hoist rope, 4 in total (ZPMC mechanical manual 1.3.1.4: four cylinders attached to the four hoist ropes by turning sheaves)"
           },
           {
             "drawing": "J526A00",
@@ -1471,18 +1471,18 @@
           }
         ]
       },
-      "qualifier": "Estimated geometry",
+      "qualifier": null,
       "hotspot": null,
       "bounds": {
         "min": [
-          -58.599998,
+          -58.596355,
           52.650002,
-          -2.928
+          -3.2
         ],
         "max": [
-          -55.299999,
-          53.75,
-          2.928
+          -55.403645,
+          53.650002,
+          3.2
         ]
       },
       "cameraHint": null
@@ -1536,7 +1536,7 @@
         ],
         "max": [
           -58.5,
-          53.27,
+          53.560001,
           1.35
         ]
       },
@@ -1794,12 +1794,12 @@
         "min": [
           0.3,
           50.5,
-          -3.695
+          -3.75
         ],
         "max": [
           75.900002,
           53.650002,
-          3.695
+          3.75
         ]
       },
       "cameraHint": null
@@ -1892,14 +1892,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -0.45493,
-          53.541164,
-          2.99883
+          -0.453733,
+          53.541168,
+          3.323651
         ],
         "max": [
-          28.104931,
+          28.103733,
           80.648834,
-          3.62517
+          3.720349
         ]
       },
       "cameraHint": null
@@ -1942,14 +1942,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -0.43467,
+          -0.434035,
           53.30743,
-          2.974571
+          3.298872
         ],
         "max": [
-          62.584671,
+          62.584034,
           81.03257,
-          3.64943
+          3.745128
         ]
       },
       "cameraHint": null
@@ -2042,14 +2042,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -0.45493,
-          53.541164,
-          -3.62517
+          -0.453733,
+          53.541168,
+          -3.720349
         ],
         "max": [
-          28.104931,
+          28.103733,
           80.648834,
-          -2.99883
+          -3.323651
         ]
       },
       "cameraHint": null
@@ -2092,14 +2092,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -0.43467,
+          -0.434035,
           53.30743,
-          -3.64943
+          -3.745128
         ],
         "max": [
-          62.584671,
+          62.584034,
           81.03257,
-          -2.974571
+          -3.298872
         ]
       },
       "cameraHint": null
@@ -2158,7 +2158,7 @@
         ],
         "max": [
           75.800003,
-          53.5,
+          53.551998,
           3
         ]
       },
@@ -2223,6 +2223,423 @@
           66.309998,
           50.5,
           3.886985
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "container.trolley-runway",
+      "kind": "container",
+      "label": "Trolley rails and catenary trolleys",
+      "parentKey": null,
+      "classification": null,
+      "classificationNote": null,
+      "gltfNodeNames": [
+        "container.trolley-runway"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 10,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": null,
+      "uom": null,
+      "category": null,
+      "provenance": {
+        "kind": "drawing-derived",
+        "sources": [
+          {
+            "drawing": "J526A0100",
+            "pdfPage": 44,
+            "note": "J526A0104 trolley rail"
+          },
+          {
+            "drawing": "J526A2200",
+            "pdfPage": 1,
+            "note": "catenary trolley rope reeving system"
+          }
+        ]
+      },
+      "qualifier": null,
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          -60.465,
+          52.299999,
+          -3.345
+        ],
+        "max": [
+          74.864998,
+          53.588501,
+          3.345
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "trolley.rail.girder",
+      "kind": "position",
+      "label": "Trolley rails on the girder (A and B, A75, 60.2 m)",
+      "parentKey": "container.trolley-runway",
+      "classification": {
+        "main": "02",
+        "sub": "021"
+      },
+      "classificationNote": "Trolley rails: 021 trolley mechanism (\"roller\") proposed; Admin to confirm",
+      "gltfNodeNames": [
+        "trolley.rail.girder"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "measured",
+        "sources": [
+          {
+            "drawing": "J526A0100",
+            "pdfPage": 44,
+            "note": "J526A0104 trolley rail: item 3 A75 rail 2 off, 60200 from the hinge joint to the tail end, 6300 +/-3 gauge; ZGD190 rubber pad (item 5) 8 x 190; YB33c clip pairs (item 9) at 600; end stop (item 8) 250 beyond the rail end; clip and pad shapes simplified"
+          }
+        ]
+      },
+      "qualifier": null,
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          -60.465,
+          52.299999,
+          -3.325
+        ],
+        "max": [
+          -1.5,
+          52.577499,
+          3.325
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "trolley.rail.boom",
+      "kind": "position",
+      "label": "Trolley rails on the boom (A and B, A75, 74.6 m)",
+      "parentKey": "container.trolley-runway",
+      "classification": {
+        "main": "02",
+        "sub": "021"
+      },
+      "classificationNote": "Trolley rails: 021 trolley mechanism (\"roller\") proposed; Admin to confirm",
+      "gltfNodeNames": [
+        "trolley.rail.boom"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "measured",
+        "sources": [
+          {
+            "drawing": "J526A0100",
+            "pdfPage": 44,
+            "note": "J526A0104 trolley rail: item 2 A75 rail 2 off, 74600 from the hinge joint toward the boom tip, 6300 +/-3 gauge; ZGD190 rubber pad (item 6) 8 x 190; YB33c clip pairs at 600; end stop (item 8) 250 beyond the rail end; clip and pad shapes simplified"
+          }
+        ]
+      },
+      "qualifier": null,
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          1.500001,
+          52.299999,
+          -3.325
+        ],
+        "max": [
+          74.864998,
+          52.577499,
+          3.325
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "trolley.rail.hinge-joint",
+      "kind": "position",
+      "label": "Trolley rail joint at the boom hinge (short rails, gap 6 +/- 2)",
+      "parentKey": "container.trolley-runway",
+      "classification": {
+        "main": "02",
+        "sub": "021"
+      },
+      "classificationNote": "Rail joint at the boom hinge: 021 proposed; Admin to confirm",
+      "gltfNodeNames": [
+        "trolley.rail.hinge-joint"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "measured",
+        "sources": [
+          {
+            "drawing": "J526A0100",
+            "pdfPage": 44,
+            "note": "J526A0104 trolley rail: short rails J526A010401 (item 1, 4 off, 1500) either side of the boom hinge centreline; joint gap 6 +/- 2 (Detail IV); fix blocks J526A010402 (item 12) and YB55c / YB1313a clips (items 10 / 11) at the joint; steel pads -7.5 x 190 x 800 (item 4)"
+          }
+        ]
+      },
+      "qualifier": null,
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          -1.5,
+          52.299999,
+          -3.345
+        ],
+        "max": [
+          1.5,
+          52.419998,
+          3.345
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "trolley.catenary.landside",
+      "kind": "position",
+      "label": "Landside catenary trolley (on the girder / boom rails)",
+      "parentKey": "container.trolley-runway",
+      "classification": {
+        "main": "02",
+        "sub": "021"
+      },
+      "classificationNote": "Catenary trolley: 021 trolley mechanism proposed (the 022 description names the \"cate trolley\" rope tension); Admin to confirm",
+      "gltfNodeNames": [
+        "trolley.catenary.landside"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "drawing-derived",
+        "sources": [
+          {
+            "drawing": "J526A2200",
+            "pdfPage": 4,
+            "note": "J526A220400: landside catenary trolley 1781.3 kg: wheel assemblies J526A220401 x 4 (dia 320, 1050 pitch), rollers AJR01b x 4, guide idlers (items 3, 5, 6), sheave assemblies J526A220403 x 2, slap blocks UHMWPE; frame 4960, gauge 6300 +/-3; roller and idler heights follow the rope runs (U1-C66)"
+          },
+          {
+            "drawing": "J526A2200",
+            "pdfPage": 1,
+            "note": "catenary trolley rope reeving system; display position = outreach position, scaled"
+          }
+        ]
+      },
+      "qualifier": null,
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          0.525,
+          52.419998,
+          -3.32
+        ],
+        "max": [
+          2.075,
+          53.588501,
+          3.32
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "trolley.catenary.waterside",
+      "kind": "position",
+      "label": "Seaside catenary trolley (on the boom rails)",
+      "parentKey": "container.trolley-runway",
+      "classification": {
+        "main": "02",
+        "sub": "021"
+      },
+      "classificationNote": "Catenary trolley: 021 trolley mechanism proposed; Admin to confirm",
+      "gltfNodeNames": [
+        "trolley.catenary.waterside"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "drawing-derived",
+        "sources": [
+          {
+            "drawing": "J526A2200",
+            "pdfPage": 5,
+            "note": "J526A220500: seaside catenary trolley 1680.2 kg: wheel assemblies J526A220401 x 4, rollers AJR01b x 4, guide idlers J526A220501 / 220404 / 220405, sheave assemblies J526A220403 x 2; 5350 over the roller boxes, 1168.5 high, gauge 6300 +/-3; roller and idler heights follow the rope runs (U1-C66)"
+          },
+          {
+            "drawing": "J526A2200",
+            "pdfPage": 1,
+            "note": "display position = outreach position between the main trolley and the boom tip, scaled"
+          }
+        ]
+      },
+      "qualifier": null,
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          73.125,
+          52.419998,
+          -3.32
+        ],
+        "max": [
+          74.675003,
+          53.588501,
+          3.32
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "reeving.sheave.catenary-boom-tip",
+      "kind": "position",
+      "label": "Boom-tip catenary rope sheaves (2 sets, dia 500)",
+      "parentKey": "container.trolley-runway",
+      "classification": {
+        "main": "02",
+        "sub": "021"
+      },
+      "classificationNote": "Catenary rope sheaves: 021 proposed; Admin to confirm",
+      "gltfNodeNames": [
+        "reeving.sheave.catenary-boom-tip"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "drawing-derived",
+        "sources": [
+          {
+            "drawing": "J526A2200",
+            "pdfPage": 2,
+            "note": "J526A2201 sheave assembly, 2 per crane, 137.5 kg: sheave ZT2-013022 dia 500 / 550, bearings NJ2214EC x 2, shaft dia 70, support J526A220101, sheave cover; 1500 either side of the boom centreline, installed symmetrically; position along the tip scaled"
+          }
+        ]
+      },
+      "qualifier": null,
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          74.277802,
+          52.599998,
+          -1.64
+        ],
+        "max": [
+          74.822205,
+          53.252998,
+          1.64
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "trolley.catenary.tensioner",
+      "kind": "position",
+      "label": "Catenary rope tensioners (2 sets, cylinder stroke 600)",
+      "parentKey": "container.back-reach",
+      "classification": {
+        "main": "02",
+        "sub": "022"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [
+        "trolley.catenary.tensioner"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "drawing-derived",
+        "sources": [
+          {
+            "drawing": "J526A2200",
+            "pdfPage": 3,
+            "note": "J526A2203 catenary trolley rope tensioner device, 2 per crane, 395 kg: support J526A220301, tension cylinder (item 2, stroke 600), sheave assembly ZT2-013022 dia 500, adjustable limit switch supports, limit switches B4 x 2; 1500 either side of the girder centreline"
+          },
+          {
+            "drawing": "J526A2200",
+            "pdfPage": 1,
+            "note": "Detail A at the girder tail: 1294 (stroke 600), 1723, 749, initial position; position along the tail and rope end clamp simplified"
+          }
+        ]
+      },
+      "qualifier": null,
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          -60.619999,
+          52.299999,
+          -1.65
+        ],
+        "max": [
+          -58.669998,
+          53.549999,
+          1.705
         ]
       },
       "cameraHint": null
@@ -2954,7 +3371,7 @@
     {
       "key": "machinery-house.service-crane",
       "kind": "position",
-      "label": "Machinery-house service crane",
+      "label": "Machinery-house service crane (10 t)",
       "parentKey": "container.machinery-house",
       "classification": {
         "main": "15",
@@ -2984,8 +3401,8 @@
           },
           {
             "drawing": "J526A1600",
-            "pdfPage": null,
-            "note": "service crane sheet not detailed"
+            "pdfPage": 1,
+            "note": "main data list: 10 t, 6/12 m/min, 57.5 m lift; span 9740, runway 16000; 7509 kg; runway and bridge shapes simplified (U1-C65)"
           }
         ]
       },
@@ -3579,8 +3996,8 @@
           },
           {
             "drawing": "J526A1400",
-            "pdfPage": null,
-            "note": "emergency drive sheet not detailed"
+            "pdfPage": 1,
+            "note": "emergency device main data: 37 kW, 1480 rpm, ratio 30.852; main hoist chain 17/35, 2.35 m/min at 65 t; boom hoist chain 17/25, 76.47 min; stored on top of the main hoist / boom hoist reducer when not in use (U1-C65)"
           }
         ]
       },
@@ -3604,6 +4021,55 @@
           -38.349998,
           55.75,
           1.23
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "auxiliary.rope-reeving.machinery-house",
+      "kind": "position",
+      "label": "Wire rope re-reeving device (2 driving reels, 5.5 kW)",
+      "parentKey": "container.machinery-house",
+      "classification": {
+        "main": "15",
+        "sub": "151"
+      },
+      "classificationNote": "Rope re-reeving device (maintenance equipment): 151 auxiliary equipment proposed; Admin to confirm",
+      "gltfNodeNames": [
+        "auxiliary.rope-reeving.machinery-house"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "approximate-location",
+        "sources": [
+          {
+            "drawing": "J526A1500",
+            "pdfPage": 1,
+            "note": "rope re-reeving system 4930 kg: driving re-reeving machines WRR04A-J526A x 2 (2020.8 kg), guide sheaves WRRA02 x 2, re-reeving rollers WRRA01a x 4, platform J526A1502, supports J526A1501; main data motor 5.5 kW 1500 rpm, reducer XWEJC5.5-8190B-187 (i = 187), drum 8.02 rpm; supports 3992 either side of the centreline; reels drawn above the main hoist, size and height approximate"
+          }
+        ]
+      },
+      "qualifier": "Location approximate / simplified representation",
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          -42.049999,
+          55.57,
+          -2.396
+        ],
+        "max": [
+          -40.849998,
+          58.049999,
+          4.096
         ]
       },
       "cameraHint": null
@@ -4652,7 +5118,7 @@
       "bounds": {
         "min": [
           63.575001,
-          47.168888,
+          47.167599,
           -3.36
         ],
         "max": [
@@ -4712,7 +5178,7 @@
         ],
         "max": [
           72.660004,
-          53.099998,
+          53.216,
           3.3
         ]
       },
@@ -5131,7 +5597,7 @@
     {
       "key": "trolley.spreader-cable-reel",
       "kind": "position",
-      "label": "Spreader cable reel and drive (size approximate)",
+      "label": "Spreader cable reel (Cavotec T5.1, monospiral dia 2200) and drive",
       "parentKey": "container.trolley",
       "classification": {
         "main": "01",
@@ -5158,12 +5624,17 @@
           {
             "drawing": "J526A0200",
             "pdfPage": 1,
-            "note": "item 11 spreader cable reel arrangement (1245 kg), hidden outline in the centre body of the side view; reel diameter and drive scaled or estimated"
+            "note": "item 11 spreader cable reel arrangement (1245 kg), hidden outline in the centre body of the side view; position scaled"
           },
           {
             "drawing": "J526A0200",
             "pdfPage": 2,
             "note": "subsidiary list"
+          },
+          {
+            "drawing": "Cavotec SC-121216-ME2a",
+            "pdfPage": 1,
+            "note": "reel T5.1.NCC(2x5kW).4 VM922-38G KV26/4S/FC/R + BD5000N: drum inner dia 900, outer dia 2200, width 38; 2 x 5.5 kW; drive module and motor layout simplified"
           },
           {
             "drawing": "J526A1200",
@@ -5176,13 +5647,13 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          69.5,
-          47.168888,
+          69.199997,
+          47.167599,
           -1.16
         ],
         "max": [
-          71.099998,
-          52.619999,
+          71.400002,
+          52.919998,
           0.6
         ]
       },
@@ -5455,21 +5926,21 @@
         "point": [
           -57.5,
           52.9,
-          -1.3
+          -0.45
         ],
         "radius": 0.45,
         "representation": "simplified-part"
       },
       "bounds": {
         "min": [
-          -58.626328,
+          -58.624031,
           52.299999,
-          -2.026059
+          -2.02146
         ],
         "max": [
-          -56.77367,
+          -56.77597,
           53.75,
-          2.014361
+          2.017655
         ]
       },
       "cameraHint": null
@@ -5570,8 +6041,8 @@
           },
           {
             "drawing": "J526A2100",
-            "pdfPage": null,
-            "note": "trolley reeving sheet not detailed"
+            "pdfPage": 3,
+            "note": "J526A2103 tension device, 2 per crane, 937.3 kg each: cylinder dia 140 / rod 100 / stroke 600, working 25 MPa, test 37.5 MPa; limit switches XCKJ10541H29C x 2; 1050 to the girder centreline; cylinder layout still simplified (U1-C65)"
           }
         ]
       },
@@ -5579,7 +6050,7 @@
       "hotspot": {
         "point": [
           -60.1,
-          52.86999999999999,
+          53.144999999999996,
           0
         ],
         "radius": 0.45,
@@ -5588,13 +6059,13 @@
       "bounds": {
         "min": [
           -60.849998,
-          52.720001,
-          -1.15
+          52.799999,
+          -1.32
         ],
         "max": [
           -58.849998,
-          53.25,
-          1.15
+          53.294998,
+          1.32
         ]
       },
       "cameraHint": null
@@ -6188,7 +6659,7 @@
           {
             "drawing": "J526A1000",
             "pdfPage": 1,
-            "note": "tail sheaves on the anti-snag levers"
+            "note": "tail sheaves on the anti-snag levers, one per rope (U1-C66)"
           },
           {
             "drawing": "J526A2000",
@@ -6201,14 +6672,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -58.630619,
+          -58.643044,
           46.580627,
           -2.8
         ],
         "max": [
           75.643303,
-          53.793301,
-          3.890744
+          53.693123,
+          3.888295
         ]
       },
       "cameraHint": null
@@ -6266,14 +6737,79 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -60.521435,
-          52.43969,
+          -60.545132,
+          52.698002,
           -1.085
         ],
         "max": [
-          75.428436,
-          53.434864,
-          1.903716
+          75.437126,
+          53.590809,
+          1.903797
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "trolley.catenary-rope.set.main",
+      "kind": "position",
+      "label": "Catenary trolley rope set (2 lanes; path simplified)",
+      "parentKey": null,
+      "classification": {
+        "main": "02",
+        "sub": "024"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [
+        "trolley.catenary-rope.set.main"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "quantityLot",
+      "uom": "rope",
+      "category": "ropeSet",
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "drawing": "J526A2200",
+            "pdfPage": 1,
+            "note": "catenary trolley reeving system sketch (ropes B1-B8 between the catenary trolleys, the main trolley, the boom-tip sheaves and the tail tensioners); runs simplified"
+          },
+          {
+            "drawing": "J526A2200",
+            "pdfPage": 2,
+            "note": "J526A2201 boom-tip sheaves 1500 from the centreline"
+          },
+          {
+            "drawing": "J526A2200",
+            "pdfPage": 3,
+            "note": "J526A2203 tail tensioners 1500 from the centreline"
+          },
+          {
+            "drawing": "J526A1500",
+            "pdfPage": 1,
+            "note": "catenary tow rope and catenary hold back rope"
+          }
+        ]
+      },
+      "qualifier": "Estimated geometry",
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          -60.275051,
+          52.630001,
+          -1.555
+        ],
+        "max": [
+          74.890121,
+          53.326,
+          1.555
         ]
       },
       "cameraHint": null
@@ -6326,13 +6862,13 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -32.789337,
-          53.713894,
+          -32.789501,
+          53.095768,
           -2.364997
         ],
         "max": [
-          62.515263,
-          82.580116,
+          62.671738,
+          82.583221,
           2.679996
         ]
       },
@@ -6383,12 +6919,12 @@
         "min": [
           27.5,
           52.299999,
-          -3.45
+          -3.75
         ],
         "max": [
-          63,
+          63.349998,
           54.75,
-          3.45
+          3.75
         ]
       },
       "cameraHint": null
@@ -9422,7 +9958,7 @@
         "min": [
           -32.630001,
           -0.070292,
-          -14.215
+          -14.165
         ],
         "max": [
           -29.155001,
@@ -9477,10 +10013,10 @@
         "min": [
           -32.630001,
           -0.070292,
-          -13.36
+          -14.165
         ],
         "max": [
-          -30.655001,
+          -30.690001,
           54.555,
           -7.315389
         ]
@@ -9525,9 +10061,9 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -32.59,
+          -30.74,
           0.9,
-          -14.215
+          -14.165
         ],
         "max": [
           -29.264999,

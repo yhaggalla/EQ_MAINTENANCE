@@ -4,7 +4,7 @@ window.EQ = window.EQ || {};
 (function (EQ) {
   const h = EQ.h, icon = EQ.icon;
   EQ.views = EQ.views || {};
-  const ui = (EQ.eqUI = { treeFilter: '', panelSearch: new Map(), showWork: true, inclCancelled: false, container: null, labels: true });
+  const ui = (EQ.eqUI = { treeFilter: '', panelSearch: new Map(), showWork: true, inclCancelled: false, container: null, labelMode: 'key' }); // U1-C66: label mode key | selection | selected
   const HOUSE_KEYS = EQ.HOUSE_KEYS; // preview.js (U1 round 2 adds the drive cabinets and the emergency drive)
   const PARAM_MAIN = { '01': ['main-hoist-motor-power', 'hoist-speed-65t', 'hoist-speed-50t', 'hoist-speed-empty'], '02': ['trolley-speed', 'trolley-motor-power'], '03': ['boom-hoist-motor-power', 'boom-hoisting-time'], '04': ['gantry-speed', 'gantry-motor-power', 'rail-type'], '05': ['supply-voltage', 'supply-frequency'], '12': ['supply-voltage', 'supply-frequency'] };
 
@@ -27,7 +27,12 @@ window.EQ = window.EQ || {};
   }
 
   function select(eq, sel, extra) {
-    EQ.nav('/eq/equipment/' + eq.id, { ...EQ.route.query, panel: 'spareParts', area: EQ.qc?.selectionArea(eq, sel) || '', main: sel.main || '', sub: sel.sub || '', part: sel.part || '', container: '', ...(extra || {}) });
+    // U1-C66: a selected part gets its own label only (Selected only) and opens in Technical, where every part is shown;
+    // a mechanism shows its parts (Selection); the whole equipment or an area shows the key parts.
+    extra = { ...(extra || {}) };
+    if (sel.part && (extra.mode || EQ.route.query.mode) !== 'technical') extra.mode = 'technical';
+    ui.labelMode = sel.part ? 'selected' : sel.main || sel.sub ? 'selection' : 'key';
+    EQ.nav('/eq/equipment/' + eq.id, { ...EQ.route.query, panel: 'spareParts', area: EQ.qc?.selectionArea(eq, sel) || '', main: sel.main || '', sub: sel.sub || '', part: sel.part || '', container: '', ...extra });
   }
 
   // ---------------------------------------------------------------- tree
@@ -147,7 +152,7 @@ window.EQ = window.EQ || {};
   /** U1 round 2 (U1-C10/C11): Reset returns to the whole-equipment state with labels: no selection, container or
    *  isolation, labels on, the tree folded back to its initial state, full view. Mode and panel tab are kept. */
   function fullReset(eq, q) {
-    ui.labels = true; ui.container = null; ui.treeFilter = '';
+    ui.labelMode = 'key'; ui.container = null; ui.treeFilter = '';
     [...EQ.state.expanded].filter((k) => k.startsWith(eq.id + ':')).forEach((k) => EQ.state.expanded.delete(k));
     EQ.eqUI.treeFocus = 'root'; ui.treeSelSig = null; EQ.eqUI.lastSig = null; EQ.eqUI.hadSel = true;
     EQ.nav('/eq/equipment/' + eq.id, { ...q, main: '', sub: '', part: '', container: '', iso: '', area: '', view: q.view === '3d' ? '3d' : 'flat' });
@@ -212,6 +217,14 @@ window.EQ = window.EQ || {};
       p.code === 'total-lift-height' ? h('span', { class: 'small' }, 'Total lift height, not overall crane height.') : null,
       conflict && !resolved && EQ.perm.admin() ? h('div', null, h('button', { type: 'button', class: 'btn-sm', onClick: () => EQ.dlg.resolveParam(p) }, 'Resolve with a reason')) : null);
   }
+  // U1-C65: drawing / manual component data (js/component-specs.js) for an isolated area and for its parts.
+  function specSections(groups) {
+    if (!groups.length) return [];
+    return [h('p', { class: 'small muted', style: 'margin:0' }, EQ.componentSpecs.note), ...groups.map((g) => h('div', { class: 'sec spec-group', 'data-spec-group': g.title },
+      h('h3', null, g.title),
+      h('dl', { class: 'kv' }, g.rows.map(([k, v, s]) => [h('dt', null, k), h('dd', null, v, s ? h('span', { class: 'spec-src' }, s) : null)])),
+      h('p', { class: 'spec-src', style: 'margin:0' }, 'Source: ' + g.src)))];
+  }
   function technicalTab(eq, sel, q) {
     const box = h('div', { class: 'stack' });
     const kv = (rows) => h('dl', { class: 'kv' }, rows.filter(Boolean).map(([k, v]) => [h('dt', null, k), h('dd', null, v)]));
@@ -222,6 +235,7 @@ window.EQ = window.EQ || {};
         ['Equipment', eq.code], ['Main / sub', m.code + ' ' + m.name + ' / ' + s.code + ' ' + (s.name || '')], ['Position ID', h('span', { class: 'mono' }, p.id)],
         ['Semantic key', h('span', { class: 'mono' }, p.key)], ['Kind', p.kind === 'serialized' ? 'Serialized (1 ea)' : 'Quantity-bearing (' + p.uom + ')'], ['State', p.state === 'active' ? 'Active (confirmed by Admin)' : p.state],
         ['Installed now', (function () { const ev = EQ.state.D.events.filter((x) => x.positionId === p.id && !x.voided).slice(-1)[0]; return ev ? ev.installed.desc + (ev.installed.serial ? ' (serial ' + ev.installed.serial + ')' : ' (serial unknown)') : 'Unknown: nothing recorded (not evidence the item is original)'; })()], ['Geometry provenance', p.prov === 'approximate-location' ? h('span', null, h('span', { class: 'tag' }, 'Location approximate'), ' simplified representation') : p.prov], ['Source references', p.src]])));
+      if (EQ.verified(eq) && eq.modelCode === 'CICT-J526A-STS') specSections(EQ.componentSpecs.forPart(p.key)).forEach((el) => box.appendChild(el));
     } else if (sel.sub) {
       const s = EQ.subDef(eq.subs.find((x) => x.id === sel.sub).code);
       box.appendChild(h('div', { class: 'sec' }, h('h3', null, s.code + ' ' + (s.name || 'Reserved')), kv([['Main', EQ.mainDef(s.main).code + ' ' + EQ.mainDef(s.main).name], ['Original label', s.sourceName || '(blank in the source)'], ['Description', s.description || 'No description in the source']])));
@@ -246,6 +260,7 @@ window.EQ = window.EQ || {};
     const ps = EQ.qc?.containerPositions(eq, EQ.route.query.container) || EQ.positionsOf(eq.id).filter((p) => p.state === 'active' && HOUSE_KEYS.includes(p.key));
     const groups = {};
     ps.forEach((p) => { const s = eq.subs.find((x) => x.id === p.subId); const m = EQ.mainDef(eq.mains.find((x) => x.id === p.mainId).code); (groups[m.code + ' ' + m.name] = groups[m.code + ' ' + m.name] || []).push([p, s]); });
+    if (EQ.verified(eq) && eq.modelCode === 'CICT-J526A-STS') specSections(EQ.componentSpecs.forArea(EQ.route.query.container)).forEach((el) => box.appendChild(el));
     box.appendChild(h('p', { class: 'small muted', style: 'margin:0' }, EQ.plural(ps.length, 'included part position')));
     Object.entries(groups).forEach(([g, items]) => box.appendChild(h('div', { class: 'sec' }, h('h3', null, g), h('ul', { class: 'tl' }, items.map(([p]) => h('li', { 'data-panel-search-item': '' }, h('a', { href: '#', onClick: (e) => { e.preventDefault(); select(eq, { main: p.mainId, sub: p.subId, part: p.id }, { mode: 'technical' }); } }, p.name), h('span', { class: 'when' }, p.prov === 'approximate-location' ? 'Location approximate / simplified representation' : p.prov)))))));
     return box;
@@ -273,6 +288,8 @@ window.EQ = window.EQ || {};
     if (S.data === 'loading') { page.appendChild(h('div', { 'aria-busy': 'true', role: 'status' }, h('span', { class: 'sr-only' }, 'Loading equipment'), h('div', { class: 'skeleton', style: 'height:4rem;margin-bottom:.7rem' }), h('div', { class: 'detail-grid' }, h('div', { class: 'skeleton', style: 'height:26rem' }), h('div', { class: 'skeleton', style: 'height:26rem' }), h('div', { class: 'skeleton', style: 'height:26rem' })))); return page; }
     if (S.data === 'error') { page.appendChild(h('div', { class: 'notice error', role: 'alert' }, icon('wifi-off'), h('div', null, h('p', null, h('strong', null, 'This equipment could not be loaded. '), 'No data is shown and nothing is assumed Ready.'), h('div', { class: 'actions' }, h('button', { type: 'button', class: 'btn-sm', onClick: () => EQ.refresh(true) }, 'Retry'), h('a', { href: '#/eq/fleet' }, 'Back to the fleet'))))); return page; }
 
+    // U1-C66: a page opened on a part / mechanism link starts in the same label mode as selecting it
+    if (!ui.labelInit) { ui.labelInit = true; ui.labelMode = q.part || q.pkey ? 'selected' : q.main || q.sub ? 'selection' : 'key'; }
     EQ.qc?.prepare(eq);
     const sel = resolveSel(eq, q);
     const mode = q.mode === 'technical' ? 'technical' : 'overall';

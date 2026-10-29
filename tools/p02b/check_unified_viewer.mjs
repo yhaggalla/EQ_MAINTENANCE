@@ -72,12 +72,13 @@ try {
   await step('05 technical isolation, labels, markers and reset retain Flat', async () => {
     await b.setValue('[data-fk="isolate-area"]', 'machinery-house'); await b.wait(500);
     assert(await ev(`EQ.qc.session.viewer.mode==='technical'&&EQ.qc.session.viewer.isolate==='container.machinery-house'`), 'isolation');
-    await click('labels'); await click('work');
-    assert(await ev('!EQ.qc.session.viewer.labelsOn&&EQ.qc.session.viewer.work.size===0'), 'toggle controls');
+    // U1-C66: the on/off label toggle became three label modes; Selected only with nothing selected shows no labels
+    await click('labels-selected'); await click('work');
+    assert(await ev('EQ.eqUI.labelMode==="selected"&&!document.querySelector(".qc-label")&&EQ.qc.session.viewer.work.size===0'), 'toggle controls');
     await click('view-3d'); await click('view-flat');
-    assert(await ev('!EQ.qc.session.viewer.labelsOn&&EQ.qc.session.viewer.isolate!==null'), 'mode switch changed display settings');
+    assert(await ev('EQ.eqUI.labelMode==="selected"&&!document.querySelector(".qc-label")&&EQ.qc.session.viewer.isolate!==null'), 'mode switch changed display settings');
     await click('reset'); await b.wait(300);
-    assert(await ev(`EQ.qc.session.viewer.camera.isOrthographicCamera&&EQ.qc.session.viewer.labelsOn&&!EQ.route.query.part&&!EQ.qc.session.viewer.isolate`), 'Reset lost Flat');
+    assert(await ev(`EQ.qc.session.viewer.camera.isOrthographicCamera&&EQ.eqUI.labelMode==="key"&&!!document.querySelector(".qc-label")&&!EQ.route.query.part&&!EQ.qc.session.viewer.isolate`), 'Reset lost Flat');
   });
   await step('06 equipment-specific identity, direct URL and refresh', async () => {
     await go('02', 'view=flat&mode=technical&part=pp-q02-007&panel=technical');

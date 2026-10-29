@@ -517,6 +517,7 @@ export class QcViewer {
         const ln = document.createElementNS('http://www.w3.org/2000/svg', 'line');
         const ex = Math.min(Math.max(a.x, r.x), r.x + lw), ey = r.y + (a.y > r.y ? lh : 0);
         ln.setAttribute('x1', a.x); ln.setAttribute('y1', a.y); ln.setAttribute('x2', ex); ln.setAttribute('y2', ey);
+        if (c.selected) ln.setAttribute('class', 'sel'); // U1-C66: the selected label's leader matches its highlight
         svg.appendChild(ln);
         const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle'); dot.setAttribute('cx', a.x); dot.setAttribute('cy', a.y); dot.setAttribute('r', 2.5); svg.appendChild(dot);
       }
