@@ -232,6 +232,28 @@
       "kind": "measured",
       "confidence": "medium",
       "note": ""
+    },
+    "wheelSprocketPitchDiameter": {
+      "value": 938.3,
+      "unit": "mm",
+      "document": "M14",
+      "pdfPage": 17,
+      "figure": "Table 2-5",
+      "endpoints": "58-tooth wheel sprocket pitch circle",
+      "kind": "drawing-derived",
+      "confidence": "high",
+      "note": "Derived from pitch 50.80 mm and 58 teeth; tooth form not modelled."
+    },
+    "driveSprocketPitchDiameter": {
+      "value": 276.5,
+      "unit": "mm",
+      "document": "M14",
+      "pdfPage": 17,
+      "figure": "Table 2-5",
+      "endpoints": "17-tooth reducer output sprocket pitch circle",
+      "kind": "drawing-derived",
+      "confidence": "high",
+      "note": "Derived from pitch 50.80 mm and 17 teeth; tooth form not modelled."
     }
   },
   "estimates": {
@@ -259,8 +281,37 @@
     "drumCentreY": 28870,
     "drumCentreZ": 0,
     "motorCentreZ": 1565,
-    "sheaveDiameter": 720,
+    "sheaveDiameter": 840,
+    "guideSheaveDiameter": 840,
     "sheaveWidth": 100,
+    "turningJack": {
+      "offsetX": 850,
+      "bodyRadius": 150,
+      "rodRadius": 90,
+      "bodyBottomY": 1300,
+      "padTopY": 360,
+      "padThickness": 60,
+      "padSize": 620,
+      "bracketWidth": 420
+    },
+    "reeving": {
+      "grooveX": [
+        172.5,
+        517.5,
+        862.5,
+        1207.5
+      ],
+      "endSheaveX": 1780,
+      "endSheaveZ": 2640,
+      "sideSheaveZ": 2100,
+      "ropeTerminalZ": 2690,
+      "endRopeX": 600,
+      "endRopeY": 2050,
+      "sideRopeZ": 300,
+      "sideRopeY": 1900,
+      "sidePinX": 600,
+      "pinY": 1460
+    },
     "cabCentreX": 2200,
     "cabCentreZ": 0,
     "cabFloor": 24850,
@@ -354,6 +405,72 @@
       "pdfPage": 21,
       "figure": "Fig 2-2 / JL28606 item 11",
       "note": "Trolley floodlight shown; exact fitting shape/other crane lighting locations unavailable."
+    },
+    "frameDetail": {
+      "document": "M14",
+      "pdfPage": 22,
+      "figure": "Pic 2-3 gantry frame",
+      "note": "Girders, rails, buffers, tapered legs, brace bar and sill beam with end lugs. The buffer support doubles as the lifting ear. Rail fixing by clips or welding; clip pitch, joint plates and gussets estimated."
+    },
+    "bogieDetail": {
+      "document": "M14",
+      "pdfPage": 24,
+      "figure": "Fig 2-5 / 2-6 eight-wheel drive and idle bogies; p23",
+      "note": "Labelled lock-pin cylinder, equalizer, drive device, slewing bearing, small/large sprockets, driven/driving wheels, guard, steering cylinder, anti-collision switch, link rod and protective frame. Shapes and offsets scaled estimates."
+    },
+    "gantryChain": {
+      "document": "M14",
+      "pdfPage": 17,
+      "figure": "Table 2-5; Fig 2-5 p24",
+      "note": "Double-strand bush roller chain 160SW pitch 50.80 mm, ratio 58/17. Sprocket pitch circles derived; tooth form, chain path and guard plates simplified."
+    },
+    "hoistDrive": {
+      "document": "M14",
+      "pdfPage": 25,
+      "figure": "Fig 2-10 hoist driving mechanism; p26 switches",
+      "note": "Motor, high-speed coupling, reducer with oil indicator/breather, two high-speed brakes, drum coupling and bearing seat. Motor encoder plus overspeed and cam limit switches on the drum shaft end (p26). Casings estimated."
+    },
+    "trolleyItems": {
+      "document": "M14",
+      "pdfPage": 21,
+      "figure": "JL28606 item list (items 7, 9, 10, 11, 12, 13); p38 anchor/guide/buffer text",
+      "note": "Over-height limit, trolley anchor devices (two per p38), side rollers, centralized lubrication, spreader cable reel and trolley connect box are listed; their exact shapes and mounting points are estimated."
+    },
+    "gaItems": {
+      "document": "M14",
+      "pdfPage": 20,
+      "figure": "JL28600 item list (items 5, 10, 12, 13)",
+      "note": "Name plate arrangement, limit switch assembly, hydraulic station and GPS/RCMS support are listed on the general arrangement; positions read approximately from the views, fittings estimated."
+    },
+    "safety": {
+      "document": "M14",
+      "pdfPage": 14,
+      "figure": "section 2.1.2 main features; p23",
+      "note": "Wind speed indicator, anti-collision device on four corners, lighting and signal apparatus and gantry-travel alarm are stated. Device models and mounting positions are not given; locations estimated."
+    },
+    "eroom": {
+      "document": "M14",
+      "pdfPage": 36,
+      "figure": "Fig 2-42 E-room; Fig 2-43/2-44 energy chain",
+      "note": "E-room on sill with platform/guard rail and two air conditionings; leg-mounted lamp visible. Stainless steel chain guide and L bracket with floating connection. Dimensions estimated from photographs."
+    },
+    "jacking": {
+      "document": "M13",
+      "pdfPage": 19,
+      "figure": "section 8.1-8.2 gantry traveling; M14 p66 tyre inspection; user statement 4 November 2026",
+      "note": "Each tyred wheel is rotated about its centre by 16° and 90° under non-operational conditions (M13 p19), and turning tyres without the jack-up device wears them (M14 p66). The user confirmed four jacks per RTG for turning. No jack drawing, rating, stroke or mounting was supplied: position between the two tyres of each bogie, size and retracted pose are estimates."
+    },
+    "reeving": {
+      "document": "M14",
+      "pdfPage": 27,
+      "figure": "Fig 2-14 8 ropes reeving; p26 text; JL28606 front/side views p21",
+      "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 horizontal guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes and positions read from the trolley views; groove assignment, sheave shaft coordinates and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
+    },
+    "busbar": {
+      "document": "PHOTO:IMG_20171109_140808.jpg / IMG_20171109_141902.jpg / IMG_20171109_141914.jpg; M14",
+      "pdfPage": 12,
+      "figure": "User site photographs; Table 2-1 supply types",
+      "note": "Photographs show a DZD-230 self-connecting busbar power collector fitted to the crane. M14 Table 2-1 lists low-voltage contact-bus supply as a type, while the original project option was diesel generator + lithium battery. Retrofit status, side and geometry are photo-estimated."
     }
   }
 }

@@ -1,18 +1,18 @@
 {
-  "date": "2026-10-22T16:11:26.484Z",
-  "assetSha256": "57a22e9c31cf59a2c9d550fc70dff09472ca6b1eaa478ae22aa4d19f31b49f55",
+  "date": "2026-11-04T18:01:28.379Z",
+  "assetSha256": "23e953714365db4c783a927423913c13a8b63078063e8490ac09dbbec4b0c1b1",
   "conditions": "Local HTTP loopback; cold new browser context, bundled local assets; headless Chrome with D3D11; no real host, LAN or production test",
   "results": [
     {
       "name": "Initial load, integrity, paused demand rendering",
       "result": "PASS",
       "data": {
-        "triangles": 88176,
-        "drawCalls": 131,
-        "geometries": 130,
+        "triangles": 121304,
+        "drawCalls": 330,
+        "geometries": 321,
         "textures": 2,
         "frameCount": 3,
-        "loadMs": 161.40000000037253,
+        "loadMs": 259.2999999988824,
         "playing": false,
         "viewport": [
           1035,
@@ -20,10 +20,10 @@
         ],
         "dpr": 1,
         "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
-        "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+        "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
         "logicalProcessors": 12,
         "reducedMotion": false,
-        "wholePageReadyMs": 670,
+        "wholePageReadyMs": 908,
         "idleFrames": 0
       }
     },
@@ -56,7 +56,7 @@
           "h": 21.2,
           "cabinX": 9.25,
           "suspendedY": 21.2,
-          "maxRopeEndErrorM": 3.552713678800501e-15
+          "maxRopeEndErrorM": 1.7763568394002505e-15
         },
         "atMin": {
           "x": -9.25,
@@ -69,12 +69,12 @@
       "result": "PASS",
       "data": {
         "before": {
-          "x": 3.505556333333332,
-          "h": 10.16611136666667
+          "x": 3.505633333333331,
+          "h": 10.166136666666665
         },
         "after": {
-          "x": 3.6417063333333313,
-          "h": 10.210846366666669
+          "x": 3.640422999999998,
+          "h": 10.210424699999995
         }
       }
     },
@@ -90,14 +90,14 @@
       "name": "Measured animation FPS, 8-second sample",
       "result": "PASS",
       "data": {
-        "fps": 60.04693897933107,
-        "elapsedMs": 8010.399999999441,
-        "triangles": 88176,
-        "drawCalls": 131,
-        "geometries": 131,
+        "fps": 60.049187900278696,
+        "elapsedMs": 8010.0999999996275,
+        "triangles": 121304,
+        "drawCalls": 330,
+        "geometries": 324,
         "textures": 2,
-        "frameCount": 573,
-        "loadMs": 161.40000000037253,
+        "frameCount": 575,
+        "loadMs": 259.2999999988824,
         "playing": true,
         "viewport": [
           1035,
@@ -105,7 +105,7 @@
         ],
         "dpr": 1,
         "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
-        "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+        "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
         "logicalProcessors": 12,
         "reducedMotion": false
       }
@@ -114,8 +114,8 @@
       "name": "Measured orbit FPS, 8-second demand-render sample",
       "result": "PASS",
       "data": {
-        "fps": 60.06718533411452,
-        "elapsedMs": 8007.700000000186
+        "fps": 60.08444300097993,
+        "elapsedMs": 8005.399999999256
       }
     },
     {
@@ -131,12 +131,12 @@
             "canvas": 1,
             "labels": 1,
             "stats": {
-              "triangles": 88176,
-              "drawCalls": 132,
-              "geometries": 131,
+              "triangles": 121304,
+              "drawCalls": 331,
+              "geometries": 322,
               "textures": 2,
               "frameCount": 3,
-              "loadMs": 93,
+              "loadMs": 128.60000000149012,
               "playing": false,
               "viewport": [
                 1035,
@@ -144,7 +144,7 @@
               ],
               "dpr": 1,
               "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
-              "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+              "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
               "logicalProcessors": 12,
               "reducedMotion": false
             }
@@ -153,12 +153,12 @@
             "canvas": 1,
             "labels": 1,
             "stats": {
-              "triangles": 88176,
-              "drawCalls": 132,
-              "geometries": 131,
+              "triangles": 121304,
+              "drawCalls": 331,
+              "geometries": 322,
               "textures": 2,
               "frameCount": 3,
-              "loadMs": 88.09999999962747,
+              "loadMs": 129.59999999962747,
               "playing": false,
               "viewport": [
                 1035,
@@ -166,7 +166,7 @@
               ],
               "dpr": 1,
               "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
-              "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+              "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
               "logicalProcessors": 12,
               "reducedMotion": false
             }
@@ -175,12 +175,12 @@
             "canvas": 1,
             "labels": 1,
             "stats": {
-              "triangles": 88176,
-              "drawCalls": 132,
-              "geometries": 131,
+              "triangles": 121304,
+              "drawCalls": 331,
+              "geometries": 322,
               "textures": 2,
               "frameCount": 3,
-              "loadMs": 85.5,
+              "loadMs": 141.5,
               "playing": false,
               "viewport": [
                 1035,
@@ -188,7 +188,7 @@
               ],
               "dpr": 1,
               "gpu": "ANGLE (Intel, Intel(R) UHD Graphics 630 (0x00003E9B) Direct3D11 vs_5_0 ps_5_0, D3D11)",
-              "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+              "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
               "logicalProcessors": 12,
               "reducedMotion": false
             }

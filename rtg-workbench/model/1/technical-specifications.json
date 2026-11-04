@@ -28,6 +28,15 @@
         "pdfPage": 21
       },
       "qualifier": "Mounting and fitting dimensions estimated"
+    },
+    {
+      "label": "Leg floodlights / travel beacons",
+      "value": "4 leg lamps · 2 gantry-travel beacons · travel alarm horn",
+      "source": {
+        "document": "M14",
+        "pdfPage": 14
+      },
+      "qualifier": "Signal apparatus stated; positions estimated"
     }
   ],
   "14": [
@@ -104,6 +113,24 @@
         "pdfPage": 34
       },
       "qualifier": "Vendor details not supplied"
+    },
+    {
+      "label": "Sensors / positioning",
+      "value": "Wind speed indicator · GPS / RCMS support mast",
+      "source": {
+        "document": "M14",
+        "pdfPage": 14
+      },
+      "qualifier": "GA item 13; mounting estimated"
+    },
+    {
+      "label": "E-room air conditioning",
+      "value": "Two units",
+      "source": {
+        "document": "M14",
+        "pdfPage": 36
+      },
+      "qualifier": "Second unit location estimated"
     }
   ],
   "equipment": [
@@ -163,12 +190,21 @@
     },
     {
       "label": "Appearance",
-      "value": "Neutral inspection finish",
+      "value": "Photo-referenced CICT red / white / yellow finish",
       "source": {
         "document": "M14",
         "pdfPage": 20
       },
-      "qualifier": "No approved fleet paint or artwork supplied"
+      "qualifier": "User photographs; no measured paint codes"
+    },
+    {
+      "label": "Model breakdown",
+      "value": "300 selectable parts · 291 positions + 9 qualified area markers",
+      "source": {
+        "document": "M14",
+        "pdfPage": 20
+      },
+      "qualifier": "Granularity is a modelling choice; Admin confirms real maintainable positions"
     }
   ],
   "01": [
@@ -237,21 +273,66 @@
     },
     {
       "label": "Sheaves",
-      "value": "12 on trolley; no headblock sheaves in eight-rope variant",
+      "value": "12 on trolley: 8 fall + 4 horizontal guides; none on headblock",
       "source": {
         "document": "M14",
         "pdfPage": 27
       },
-      "qualifier": "Topology corroborated M13 p193; axes and tangencies assumed"
+      "qualifier": "Count and topology from Fig 2-14; shaft coordinates and Ø840 pitch diameter estimated"
     },
     {
       "label": "Horizontal guide sheaves",
-      "value": "Four staggered guide positions; Ø1.0 m display envelope",
+      "value": "4 · turn the end-pair leads 90° from the drum to their fall sheaves",
       "source": {
         "document": "M14",
-        "pdfPage": 21
+        "pdfPage": 27
       },
-      "qualifier": "Visually estimated from plan; original JL2860603 required"
+      "qualifier": "Positions follow the drum grooves; plan circles ≈ Ø0.87 m; original JL2860603 required"
+    },
+    {
+      "label": "Rope terminations",
+      "value": "Pairs join through turnbuckles at the 4 headblock edge midpoints · four isosceles triangles",
+      "source": {
+        "document": "M14",
+        "pdfPage": 26
+      },
+      "qualifier": "Manual nominal"
+    },
+    {
+      "label": "Drum leads",
+      "value": "4 leave the drum bottom toward +Z, 4 leave the top toward −Z so all wind in together",
+      "source": {
+        "document": "M14",
+        "pdfPage": 26
+      },
+      "qualifier": "Groove assignment estimated; follows from one drum rotation direction"
+    },
+    {
+      "label": "Modelled free rope lengths at 5 m lift",
+      "value": "Side pairs 23.81 m × 4 · end pairs 24.54 m × 2 and 26.06 m × 2",
+      "source": {
+        "document": "M14",
+        "pdfPage": 16
+      },
+      "qualifier": "Same 4 + 2 + 2 grouping and order as the manual lengths 42.3 × 4, 43.5 × 2, 44.9 × 2; dead wraps and drum storage not modelled"
+    },
+    {
+      "label": "Drum-shaft switches",
+      "value": "Overspeed protection switch + cam limit switch",
+      "source": {
+        "document": "M14",
+        "pdfPage": 26
+      },
+      "qualifier": "Manual nominal"
+    },
+    {
+      "label": "Motor encoder",
+      "value": "Pulse encoder on hoist motor",
+      "source": {
+        "document": "M14",
+        "pdfPage": 26
+      },
+      "qualifier": "Mounting envelope estimated"
     }
   ],
   "02": [
@@ -335,6 +416,24 @@
         "pdfPage": 36
       },
       "qualifier": "Project chain choice; U path, anchors and section assumed"
+    },
+    {
+      "label": "Trolley anchor devices",
+      "value": "2 · storm anchor pins on both sides of frame",
+      "source": {
+        "document": "M14",
+        "pdfPage": 38
+      },
+      "qualifier": "Manual nominal"
+    },
+    {
+      "label": "Listed trolley auxiliaries",
+      "value": "Over-height limit · central lubrication · spreader cable reel · connect box",
+      "source": {
+        "document": "M14",
+        "pdfPage": 21
+      },
+      "qualifier": "JL28606 item list; shapes and positions estimated"
     }
   ],
   "04": [
@@ -409,6 +508,33 @@
         "pdfPage": 17
       },
       "qualifier": "Manual nominal"
+    },
+    {
+      "label": "Sprocket pitch diameters",
+      "value": "17 T ≈ 276.5 mm · 58 T ≈ 938.3 mm",
+      "source": {
+        "document": "M14",
+        "pdfPage": 17
+      },
+      "qualifier": "Derived from 50.8 mm pitch; tooth form not modelled"
+    },
+    {
+      "label": "Turning jacks",
+      "value": "4 · one hydraulic jacking cylinder per bogie lifts the crane so tyres turn 16° / 90° unloaded",
+      "source": {
+        "document": "M13",
+        "pdfPage": 19
+      },
+      "qualifier": "User-confirmed count (4 Nov 2026); M13 p19 turning, M14 p66 jack-up device. Rating, stroke and mounting not supplied: Ø300 body, pad 300 mm above ground, between the two tyres, estimated"
+    },
+    {
+      "label": "Steering / safety parts",
+      "value": "Slewing bearing per wheel · lock-pin cylinders · corner anti-collision switches",
+      "source": {
+        "document": "M14",
+        "pdfPage": 24
+      },
+      "qualifier": "Fig 2-5/2-6 labels; offsets estimated"
     }
   ],
   "06": [
@@ -494,6 +620,15 @@
         "pdfPage": 14
       },
       "qualifier": "Approximate envelope; vendor layout required"
+    },
+    {
+      "label": "Exhaust / radiator / fuel tank",
+      "value": "Represented envelopes on power room",
+      "source": {
+        "document": "M14",
+        "pdfPage": 14
+      },
+      "qualifier": "Vendor layout not supplied; locations estimated"
     }
   ],
   "05": [
@@ -505,6 +640,15 @@
         "pdfPage": 36
       },
       "qualifier": "Exact identities and cabinet layout unavailable"
+    },
+    {
+      "label": "Busbar power collector",
+      "value": "DZD-230 self-connecting collector arm (photographed)",
+      "source": {
+        "document": "M14",
+        "pdfPage": 12
+      },
+      "qualifier": "User photos 2017; project option was diesel + battery; retrofit status and side unconfirmed"
     }
   ],
   "07": [

@@ -2,6 +2,8 @@
 
 An isolated, editable ZP12-1874 RTG model, interactive browser demo and reusable EQ viewer adapter. **This task writes only inside `rtg-workbench`.** Unrelated QC/U1 and prompt-pack changes occurred during the run and were preserved; the baseline comparison records them. The two RTG source PDFs remain unchanged. Geometry is provisional where manuals are incomplete or inconsistent; assumptions are documented and shown in the technical sheet.
 
+**Revision 2 (4 November 2026):** the model is broken down into **300 selectable parts**, reviewed against both manuals and the supplied photographs. The same model version path (`model/1/`) was updated in place. It is still standalone and is **not** integrated into the EQ application. See `HANDOVER.md` for what changed.
+
 ## Open the delivered result
 
 - Main workbench: **http://127.0.0.1:5314/**
@@ -49,7 +51,7 @@ Browser verification requires Playwright and installed Chrome/Edge. The test hel
 
 | Path | Purpose |
 |---|---|
-| `model/1/scene.glb` | Versioned binary model; 121 semantic nodes |
+| `model/1/scene.glb` | Versioned binary model; 300 selectable parts (291 positions + 9 qualified area markers) in 15 spatial containers |
 | `model/1/manifest.json` | Draft v1 manifest, bounds, provenance and motion envelope |
 | `model/1/checksums.json` | SHA-256/size for seven generated outputs |
 | `model/1/parameters.json`, `geometry-parameters.json`, `technical-specifications.json` | Dimension table, construction provenance and host-readable technical values |

@@ -21,10 +21,11 @@ export function addAppearance(B,{S,G,R,E}){
   const rect=(key,c,face,w,h,color,offset=0)=>polygon(key,c,face,[[-w/2,-h/2],[w/2,-h/2],[w/2,h/2],[-w/2,h/2]],color,offset);
   const text=(key,c,face,value,w,h,color,offset=3)=>{const g=new T.ShapeGeometry(font.generateShapes(value,100),3);g.computeBoundingBox();const b=g.boundingBox,size=b.getSize(new T.Vector3()),s=Math.min(w/size.x,h/size.y),a=g.attributes.position;for(let i=0;i<a.count;i++){const p=point(c,face,(a.getX(i)-(b.min.x+b.max.x)/2)*s,(a.getY(i)-(b.min.y+b.max.y)/2)*s,offset);a.setXYZ(i,...p.map(v=>v/1000));}g.computeVertexNormals();finish(key,'painted-lettering',{centre:c,face,text:value,width:w,height:h,color,offset,artwork:'Photo-readable lettering; reconstructed with bundled vector font'},g,color);};
   for(const side of[-1,1]){
-    const face=side>0?'front':'rear',key=`structure.girder.${side>0?'front':'rear'}`,z=side*(G+E.girderWidth/2+8),at=x=>[side*x,beamY,z];
-    rect(key,at(-7600),face,2300,880,'#f5f5e9');text(key,at(-7600),face,'40.5t',2100,690,'#111820');
+    const face=side>0?'front':'rear',id=side>0?'front':'rear',z=side*(G+E.girderWidth/2+8),at=x=>[side*x,beamY,z];
+    const capacity=`auxiliary.nameplate.capacity.${id}`,maker=`auxiliary.nameplate.maker.${id}`,key=`auxiliary.flag.${id}`;
+    rect(capacity,at(-7600),face,2300,880,'#f5f5e9');text(capacity,at(-7600),face,'40.5t',2100,690,'#111820');
     rect(key,at(4800),face,1400,1300,'#f7f7ef');
-    rect(key,at(9400),face,1550,820,'#f5f5e9');text(key,[side*9400,beamY+60,z],face,'ZPMC',1370,420,'#277763');
+    rect(maker,at(9400),face,1550,820,'#f5f5e9');text(maker,[side*9400,beamY+60,z],face,'ZPMC',1370,420,'#277763');
     // The PNG is embedded unchanged; UVs reference it through a flag-shaped display mesh.
     const data=JSON.parse(fs.readFileSync(new URL('./artwork/cict-flag.mesh.json',import.meta.url),'utf8')),c=at(4800),width=1400,height=1400;
     const shape=new T.Shape(data.outline.map(([x,y])=>new T.Vector2(x,data.height-y))),g=new T.ShapeGeometry(shape),a=g.attributes.position,uv=[];
@@ -36,11 +37,11 @@ export function addAppearance(B,{S,G,R,E}){
   function hazard(key,c,face,w,h){rect(key,c,face,w,h,'#f6bf26');const pitch=430;for(let x=-w/2-h;x<w/2+h;x+=pitch){let p=[[x,-h/2],[x+pitch*.5,-h/2],[x+pitch*.5+h,h/2],[x+h,h/2]];for(const[axis,limit,above]of[[0,-w/2,true],[0,w/2,false],[1,-h/2,true],[1,h/2,false]])p=clip(p,axis,limit,above);if(p.length>=3)polygon(key,c,face,p,'#171b20',3);}}
   // User's annotated view requests matching guards for both tyres of every equalizer.
   for(const sx of[-1,1])for(const sz of[-1,1])for(const pair of[-1,1]){
-    const id=`${sx<0?'left':'right'}.${sz<0?'rear':'front'}`,key=`gantry.equalizer.${id}`,wheelZ=sz*3950+pair*1400,z=wheelZ+pair*970,c=[sx*S,870,z];
+    const id=`${sx<0?'left':'right'}.${sz<0?'rear':'front'}`,key=`gantry.guard.${id}.${pair===sz?'outer':'inner'}`,wheelZ=sz*3950+pair*1400,z=wheelZ+pair*970,c=[sx*S,870,z];
     hazard(key,c,pair>0?'front':'rear',1390,850);
     for(const dx of[-680,680])B.beam(key,[sx*S+dx,1300,z],[sx*S+dx,2380,wheelZ],50,70,'structure');
     for(const dx of[-1,1])hazard(key,[sx*S+dx*695,870,wheelZ],dx>0?'right':'left',1860,850);
   }
   // Red suspension frame and yellow spreader are visible in all supplied overview photos.
-  for(const n of B.nodes){if(n.key.startsWith('structure.')||n.key.startsWith('spreader.')||n.key.startsWith('headblock.')||n.key.startsWith('gantry.equalizer.')||n.enclosure)n.appearanceSource={kind:'estimated',photos:appearance.sourcePhotos,paintSpec:'unavailable',note:'Photo-referenced paint; does not change mechanical provenance or equipment identity'};}
+  for(const n of B.nodes){if(n.key.startsWith('structure.')||n.key.startsWith('spreader.')||n.key.startsWith('headblock.')||n.key.startsWith('gantry.equalizer.')||n.key.startsWith('gantry.guard.')||n.key.startsWith('auxiliary.nameplate.')||n.key.startsWith('auxiliary.flag.')||n.enclosure)n.appearanceSource={kind:'estimated',photos:appearance.sourcePhotos,paintSpec:'unavailable',note:'Photo-referenced paint; does not change mechanical provenance or equipment identity'};}
 }

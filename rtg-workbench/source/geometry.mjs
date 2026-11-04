@@ -15,6 +15,8 @@ export const mats = {
   cictFlag:new T.MeshStandardMaterial({color:'#ffffff',roughness:.72,metalness:0}),
 };
 Object.entries(mats).forEach(([k,m])=>m.name=k);
+// Machined / bright steel keeps the inspection metal finish; other "metal" requests take the owning paint.
+const METAL_PREFIXES=['trolley.rail.','trolley.rail-clips.','trolley.wheel.','trolley.wheel-bearing.','gantry.tyre.','gantry.rim.','gantry.sprocket.','gantry.slew-bearing.','gantry.equalizer-pin.','gantry.lock-cylinder.','gantry.steering.','gantry.steer-link.','gantry.turning-jack.','hoist.','reeving.','trolley-drive.','headblock.rope-socket.','headblock.adjustment.','headblock.connector.','headblock.skew-cylinder.','electrical.busbar.'];
 function clean(g) { for(const k of Object.keys(g.attributes)) if(!['position','normal','color','uv'].includes(k))g.deleteAttribute(k); if(!g.index)g.setIndex(Array.from({length:g.attributes.position.count},(_,i)=>i));g.clearGroups();return g; }
 export class Builder {
   constructor(){this.root=new T.Group();this.root.name='rtg-zp12-1874';this.nodes=[];this.objects=new Map();this.recipes=[];this.pending=new Map();}
@@ -29,7 +31,7 @@ export class Builder {
     // Vertex colours keep paint, lettering and safety stripes in the owning assembly's batch.
     // Glass and rubber retain their separate optical properties; no runtime decal dependency.
     if(material==='structure'&&(k.startsWith('spreader.')||k.startsWith('headblock.')))material='yellow';
-    if(material==='metal'&&!k.startsWith('trolley.rail.')&&!k.startsWith('gantry.tyre.')&&!k.startsWith('hoist.')&&!k.startsWith('reeving.')&&!k.startsWith('trolley.wheel.'))material=k.startsWith('spreader.')||k.startsWith('headblock.')?'yellow':'structure';
+    if(material==='metal'&&!METAL_PREFIXES.some(p=>k.startsWith(p)))material=k.startsWith('spreader.')||k.startsWith('headblock.')?'yellow':'structure';
     if(!['glass','marker','rubber','cictFlag'].includes(material)&&!g.attributes.color){
       const color=mats[material]?.color??new T.Color(material),values=new Float32Array(g.attributes.position.count*3);
       for(let i=0;i<values.length;i+=3){values[i]=color.r;values[i+1]=color.g;values[i+2]=color.b;}
@@ -46,6 +48,7 @@ export class Builder {
     const A=V(a),B=V(b),g=new T.BoxGeometry(w/1000,A.distanceTo(B),d/1000);g.applyQuaternion(new T.Quaternion().setFromUnitVectors(new T.Vector3(0,1,0),B.clone().sub(A).normalize()));g.translate(...A.add(B).multiplyScalar(.5).toArray());return this.put(k,'beam',{a,b,width:w,depth:d},g,mat);
   }
   tube(k,a,b,r,mat='metal',segments=12){const A=V(a),B=V(b),g=new T.CylinderGeometry(r/1000,r/1000,A.distanceTo(B),segments);g.applyQuaternion(new T.Quaternion().setFromUnitVectors(new T.Vector3(0,1,0),B.clone().sub(A).normalize()));g.translate(...A.add(B).multiplyScalar(.5).toArray());return this.put(k,'cylinder',{a,b,radius:r,radialSegments:segments},g,mat);}
+  cone(k,a,b,r1,r2,mat='dark',segments=16){const A=V(a),B=V(b),g=new T.CylinderGeometry(r2/1000,r1/1000,A.distanceTo(B),segments);g.applyQuaternion(new T.Quaternion().setFromUnitVectors(new T.Vector3(0,1,0),B.clone().sub(A).normalize()));g.translate(...A.add(B).multiplyScalar(.5).toArray());return this.put(k,'cone',{a,b,radiusA:r1,radiusB:r2,radialSegments:segments},g,mat);}
   cyl(k,c,axis,r,len,mat='metal',seg=24){const a=[...c],b=[...c],i={x:0,y:1,z:2}[axis];a[i]-=len/2;b[i]+=len/2;return this.tube(k,a,b,r,mat,seg);}
   ring(k,c,axis,r,t,mat='dark',seg=32){const g=new T.TorusGeometry(r/1000,t/1000,6,seg);if(axis==='x')g.rotateY(Math.PI/2);if(axis==='y')g.rotateX(Math.PI/2);g.translate(...c.map(x=>x/1000));return this.put(k,'ring',{centre:c,axis,radius:r,tubeRadius:t,segments:seg},g,mat);}
   poly(k,pts,thickness,centreX,mat='structure'){
