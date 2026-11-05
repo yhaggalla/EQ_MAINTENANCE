@@ -1,8 +1,8 @@
 {
-  "date": "2026-11-05T07:21:20.199Z",
+  "date": "2026-11-05T07:36:52.147Z",
   "base": "http://127.0.0.1:5312/index.html",
-  "passed": 15,
-  "total": 15,
+  "passed": 17,
+  "total": 17,
   "results": [
     {
       "name": "J1 Bare EQ Jobs link opens Spare parts condition, listed first",
@@ -21,15 +21,19 @@
       "pass": true
     },
     {
+      "name": "J5 Jobs flag chips filter the register and keep whole-selection counts",
+      "pass": true
+    },
+    {
       "name": "H1 Every registered card offers History beside Update condition",
       "pass": true
     },
     {
-      "name": "H2 History opens the gearbox history over the model stage, keeping the 3D session and the URL",
+      "name": "H2 History opens a floating gearbox history over the model (model visible beside it), keeping the 3D session and the URL",
       "pass": true
     },
     {
-      "name": "H3 Gearbox A (Original) shows the commissioning period, facts and the full register change log",
+      "name": "H3 Gearbox A (Original): compact stats, commissioning period, no edge strips and the full register change log",
       "pass": true
     },
     {
@@ -45,7 +49,7 @@
       "pass": true
     },
     {
-      "name": "H7 Close button, a second History click, selecting a part and Reset all close it",
+      "name": "H7 Stays open across Flat/3D and Technical; Close, a second History click, selecting a part and Reset close it",
       "pass": true
     },
     {
@@ -58,6 +62,10 @@
     },
     {
       "name": "H10 Phone: History in the Details drawer closes the drawer, shows the history over the viewer, Close returns to Details",
+      "pass": true
+    },
+    {
+      "name": "H12 Crane-view flag chips filter the cards, combine with search and survive a re-render",
       "pass": true
     },
     {

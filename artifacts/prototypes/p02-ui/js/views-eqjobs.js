@@ -132,13 +132,16 @@ window.EQ = window.EQ || {};
   const histOpen = new Set();
   function sparePart(page, q, setQ) {
     const rows = spareRows(q);
-    const c = EQ.spares.counts(rows);
+    const all = q.flag ? spareRows({ ...q, flag: '' }) : rows; // U1-C69: chip counts stay those of the whole selection
+    const c = EQ.spares.counts(all);
+    const flagChip = (v, text, n, cls) => h('button', { type: 'button', class: 'tag spare-flag' + (cls ? ' ' + cls : ''), 'data-fk': 'jflag-' + (v || 'all'), 'aria-pressed': String((q.flag || '') === v),
+      disabled: v && !n ? true : null, title: v ? 'Show only ' + text + ' parts' : 'Show all registered parts', onClick: () => setQ({ flag: v && q.flag === v ? '' : v }) }, n + ' ' + text);
     const sc = scopeFromQ(q);
     page.appendChild(h('div', { class: 'row between', style: 'margin:.2rem 0 .5rem' }, h('h2', null, 'Major spare parts: condition register'), h('div', { class: 'row' },
       EQ.access.has('export.excel') ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'export-spare', onClick: () => { const r = EQ.eqExport('spare', q); if (r.ok) { EQ.downloadCsv('spare-part-register.csv', r.columns, r.rows); EQ.toast('Exported ' + r.rows.length + ' register row(s)', 'Prototype stand-in: CSV, not the server-generated .xlsx.'); } } }, icon('download'), 'Export') : null,
       EQ.perm.write() ? h('button', { type: 'button', class: 'primary', 'data-fk': 'add-spare', onClick: () => addSpareDialog({ equipmentId: q.equipment || '', main: q.main || '', sub: q.sub || '', part: q.part || '' }) }, icon('plus'), 'Add spare part') : null)));
     page.appendChild(h('div', { class: 'row', role: 'group', 'aria-label': 'Register summary' },
-      h('span', { class: 'tag' }, rows.length + ' registered'), h('span', { class: 'tag ' + (c.overdue ? 'red' : '') }, c.overdue + ' overdue'), h('span', { class: 'tag ' + (c.dueSoon ? 'gold' : '') }, c.dueSoon + ' due soon'),
+      h('div', { class: 'row spare-flags', role: 'group', 'aria-label': 'Filter by flag' }, flagChip('', 'registered', all.length), flagChip('overdue', 'overdue', c.overdue, c.overdue ? 'red' : ''), flagChip('dueSoon', 'due soon', c.dueSoon, c.dueSoon ? 'gold' : '')),
       sc ? h('span', { class: 'tag dashed' }, 'Scoped to the selection from the crane view ', h('a', { href: '#/eq/jobs/spare-parts?' + new URLSearchParams(Object.fromEntries(SHARED.filter((k) => q[k]).map((k) => [k, q[k]]))).toString() }, 'clear')) : null,
       h('label', { class: 'field', style: 'display:flex;gap:.4rem;align-items:center;margin-left:auto' }, h('span', { class: 'label', style: 'margin:0' }, 'Flag'), h('select', { 'data-fk': 'flt-flag', 'aria-label': 'Filter by flag', onChange: (e) => setQ({ flag: e.target.value }) }, [['', 'All'], ['overdue', 'Overdue'], ['dueSoon', 'Due soon'], ['notRecorded', 'Condition not recorded']].map(([v, l]) => h('option', { value: v, selected: (q.flag || '') === v ? true : null }, l))))));
     page.appendChild(h('div', { class: 'notice info' }, icon('info'), h('div', { class: 'stack', style: 'gap:.3rem' },

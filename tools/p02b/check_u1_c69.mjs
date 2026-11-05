@@ -1,5 +1,5 @@
-// U1-C69: History on crane-view Spare part status cards (replacement history over the viewer) and Spare parts condition
-// as the first/default EQ Jobs tab. Usage: node tools/p02b/check_u1_c69.mjs [base] [output folder]
+// U1-C69: History on crane-view Spare part status cards (floating replacement-history panel over the model), flag chips that
+// filter the spare parts, and Spare parts condition as the first/default EQ Jobs tab. Usage: node tools/p02b/check_u1_c69.mjs [base] [output folder]
 import fs from 'node:fs';
 import { launch } from '../p03/cdp.mjs';
 const base = process.argv[2] || 'http://127.0.0.1:5312/index.html';
@@ -58,6 +58,17 @@ try {
     await b.click(`[data-fk="hist-${gb}"]`); await b.wait(250);
     const t = await ev(`document.querySelector('.hist-row')?.textContent||''`);
     assert(/History of Main hoist gearbox A/.test(t) && /Revision 1 · Original recorded/.test(t), t.slice(0, 160));
+    assert(!(await ev(`!!document.querySelector('.hist-row .tl')`)) && await ev(`!!document.querySelector('.hist-row .sp-log')`), 'change log still uses edge-strip timeline');
+  });
+  await step('J5 Jobs flag chips filter the register and keep whole-selection counts', async () => {
+    await ev(`EQ.nav('/eq/jobs/spare-parts',{})`); await b.wait(400);
+    const want = await ev(`EQ.spares.allRows(r=>r.flag==='overdue').length`), total = await ev(`EQ.spares.allRows().length`);
+    await b.click('[data-fk="jflag-overdue"]'); await b.wait(400);
+    const r = await ev(`({hash:location.hash,rows:document.querySelectorAll('.spare-table tbody tr[data-pos]').length,flags:[...document.querySelectorAll('.spare-table tbody tr[data-pos]')].every(t=>t.textContent.includes('Overdue')),
+      pressed:document.querySelector('[data-fk="jflag-overdue"]').getAttribute('aria-pressed'),all:document.querySelector('[data-fk="jflag-all"]').textContent,sel:document.querySelector('[data-fk="flt-flag"]').value})`);
+    assert(r.hash.includes('flag=overdue') && r.rows === want && want >= 1 && r.flags && r.pressed === 'true' && r.all === total + ' registered' && r.sel === 'overdue', JSON.stringify(r));
+    await b.click('[data-fk="jflag-overdue"]'); await b.wait(400);
+    assert(await ev(`!location.hash.includes('flag=')&&document.querySelectorAll('.spare-table tbody tr[data-pos]').length===${total}&&document.querySelector('[data-fk="jflag-all"]').getAttribute('aria-pressed')==='true'`), 'second press did not clear');
   });
 
   // ------------------------------------------------------------ crane view: History over the viewer
@@ -69,29 +80,31 @@ try {
     assert(r.length >= 8 && r.every((x) => JSON.stringify(x.btns) === JSON.stringify(['Update condition', 'History'])), JSON.stringify(r.slice(0, 3)));
     assert(!(await ev(`/Revision|History of/.test(document.querySelector('#tabpanel').textContent)`)), 'panel leaks history text');
   });
-  await step('H2 History opens the gearbox history over the model stage, keeping the 3D session and the URL', async () => {
+  await step('H2 History opens a floating gearbox history over the model (model visible beside it), keeping the 3D session and the URL', async () => {
     await ev(`window.c69=EQ.qc.session.viewer.renderer;window.c69Hash=location.hash`);
     await b.click(`[data-fk="spare-history-${gb}"]`); await b.wait(250);
     const r = await ev(`(()=>{const o=document.querySelector('.sp-history'),st=document.querySelector('.unified-qc-stage'),w=o?.parentElement;const a=o?.getBoundingClientRect(),s=st?.getBoundingClientRect();
-      return {inStage:!!w&&w.classList.contains('sp-history-stage')&&w.contains(st),cover:!!a&&Math.abs(a.top-s.top)<1&&Math.abs(a.height-s.height)<1&&Math.abs(a.width-s.width)<1,
+      return {inStage:!!w&&w.classList.contains('sp-history-stage')&&w.contains(st),cover:!!a&&a.top>=s.top&&a.bottom<=s.bottom&&a.right<=s.right&&s.right-a.right<20&&a.width<=380&&a.left-s.left>s.width*0.4&&document.elementFromPoint(s.left+40,s.top+s.height/2)?.tagName==='CANVAS',
         title:document.querySelector('#sp-history-title')?.textContent,focus:document.activeElement?.id,same:EQ.qc.session.viewer.renderer===c69&&location.hash===c69Hash,
         exp:document.querySelector('[data-fk="spare-history-${gb}"]').getAttribute('aria-expanded'),tool:!!document.querySelector('.unified-qc .vp-bar')&&!!document.querySelector('.unified-qc .vp-tools')}})()`);
-    assert(r.inStage && r.cover, 'overlay not over the stage ' + JSON.stringify(r));
+    assert(r.inStage && r.cover, 'not a floating panel over the stage with the model visible ' + JSON.stringify(r));
     assert(r.title === 'Main hoist gearbox A' && r.focus === 'sp-history-title', 'title/focus ' + JSON.stringify(r));
     assert(r.same && r.exp === 'true' && r.tool, 'viewer session/URL/state ' + JSON.stringify(r));
     await shot('02-crane-history-gearbox-a');
   });
-  await step('H3 Gearbox A (Original) shows the commissioning period, facts and the full register change log', async () => {
-    const r = await ev(`(()=>{const o=document.querySelector('.sp-history'),row=EQ.spares.row('${gb}');return {text:o.textContent,items:o.querySelectorAll('.sp-history-list > li').length,
-      log:o.querySelectorAll('.sp-history-log .tl > li').length,want:EQ.spares.history('${gb}').length,comm:EQ.fmtDate(row.commissionedOn),pred:EQ.fmtDate(row.predicted)}})()`);
-    assert(r.items === 1 && /Original \(as supplied\)/.test(r.text) && /Installed now/.test(r.text) && r.text.includes('In service ' + r.comm + ' to today'), r.text.slice(0, 300));
-    assert(/Synthetic Gears · SYN-GB-12 · serial SYN-G-0007/.test(r.text) && r.text.includes(r.pred) && /Replacements recorded0/.test(r.text), 'facts ' + r.text.slice(0, 400));
+  await step('H3 Gearbox A (Original): compact stats, commissioning period, no edge strips and the full register change log', async () => {
+    const r = await ev(`(()=>{const o=document.querySelector('.sp-history'),row=EQ.spares.row('${gb}');const li=o.querySelector('.sp-inst > li');return {text:o.textContent,items:o.querySelectorAll('.sp-inst > li').length,first:li?.textContent,
+      log:o.querySelectorAll('.sp-history-log .sp-log > li').length,want:EQ.spares.history('${gb}').length,comm:EQ.fmtDate(row.commissionedOn),pred:EQ.fmtDate(row.predicted),stats:o.querySelector('.sp-history-stats').textContent,
+      strips:[...o.querySelectorAll('li')].filter(x=>parseFloat(getComputedStyle(x).borderLeftWidth)>1).length}})()`);
+    assert(r.items === 1 && r.first.includes(r.comm + ' – present') && /Original · Current/.test(r.first) && /Synthetic Gears · SYN-GB-12 · S\/N SYN-G-0007/.test(r.first), r.text.slice(0, 300));
+    assert(r.stats.includes('In service since' + r.comm) && /Replacements0/.test(r.stats) && r.stats.includes(r.pred), 'stats ' + r.stats);
+    assert(r.strips === 0, 'coloured edge strips present: ' + r.strips);
     assert(r.log === r.want && r.want >= 1, 'change log ' + r.log + '/' + r.want);
   });
   await step('H4 Switching to another card shows that part; a job replacement links its special job', async () => {
     await b.click(`[data-fk="spare-history-${motor}"]`); await b.wait(250);
     const r = await ev(`(()=>{const o=document.querySelector('.sp-history');const evs=EQ.state.D.events.filter(e=>e.positionId==='${motor}'&&!e.voided);const j=evs.find(e=>e.jobId);
-      return {title:o.querySelector('h2').textContent,items:o.querySelectorAll('.sp-history-list > li').length,want:evs.length,link:j?o.querySelector('a[href="#/eq/jobs/special/'+j.jobId+'"]')?.textContent:null,num:j?EQ.job(j.jobId).number:null,
+      return {title:o.querySelector('h2').textContent,items:o.querySelectorAll('.sp-inst > li').length,want:evs.length,link:j?o.querySelector('a[href="#/eq/jobs/special/'+j.jobId+'"]')?.textContent:null,num:j?EQ.job(j.jobId).number:null,
         open:document.querySelectorAll('[aria-expanded="true"][data-fk^="spare-history-"]').length}})()`);
     assert(r.title === 'Main hoist motor A' && r.items === r.want && r.want >= 1 && r.open === 1, JSON.stringify(r));
     assert(r.num && r.link === r.num, 'job link ' + JSON.stringify(r));
@@ -103,10 +116,11 @@ try {
     const day = await ev(`EQ.shiftDay(EQ.todayColombo(),-20)`);
     await b.setValue('#sp-desc', 'Main hoist gearbox (C69 replacement)'); await b.setValue('#sp-brand', 'C69 Gears'); await b.setValue('#sp-model', 'C69-GB'); await b.setValue('#sp-serial', 'C69-001'); await b.setValue('#sp-date', day);
     await b.click('dialog button[type="submit"]'); await b.wait(400);
-    const r = await ev(`(()=>{const o=document.querySelector('.sp-history');const li=[...o.querySelectorAll('.sp-history-list > li')];return {dlg:!!document.querySelector('dialog[open]'),n:li.length,top:li[0]?.textContent,second:li[1]?.textContent,facts:o.querySelector('.sp-history-facts').textContent}})()`);
+    const r = await ev(`(()=>{const o=document.querySelector('.sp-history');const li=[...o.querySelectorAll('.sp-inst > li')];return {dlg:!!document.querySelector('dialog[open]'),n:li.length,top:li[0]?.textContent,second:li[1]?.textContent,facts:o.querySelector('.sp-history-stats').textContent}})()`);
+    const fd = await ev(`EQ.fmtDate(${JSON.stringify(day)})`);
     assert(!r.dlg && r.n === 2, JSON.stringify(r).slice(0, 300));
-    assert(/Replaced/.test(r.top) && /C69 Gears · C69-GB · serial C69-001/.test(r.top) && /Installed now/.test(r.top), 'top ' + r.top);
-    assert(/Original \(as supplied\)/.test(r.second) && /Removed/.test(r.second) && /Replacements recorded1/.test(r.facts), 'second ' + r.second);
+    assert(r.top.includes(fd + ' – present') && /C69 Gears · C69-GB · S\/N C69-001/.test(r.top) && /Current/.test(r.top), 'top ' + r.top);
+    assert(/Original/.test(r.second) && r.second.includes(' – ' + fd) && !/Current/.test(r.second) && /Replacements1/.test(r.facts), 'second ' + r.second);
     await shot('03-crane-history-after-replacement');
   });
   await step('H6 Escape closes the history and returns focus to its History button', async () => {
@@ -115,7 +129,7 @@ try {
     const r = await ev(`({open:!!document.querySelector('.sp-history'),wrap:!!document.querySelector('.sp-history-stage'),focus:document.activeElement?.dataset.fk,stageParent:document.querySelector('.unified-qc-stage')?.parentElement?.classList.contains('unified-qc')})`);
     assert(!r.open && !r.wrap && r.stageParent && r.focus === 'spare-history-' + gb, JSON.stringify(r));
   });
-  await step('H7 Close button, a second History click, selecting a part and Reset all close it', async () => {
+  await step('H7 Stays open across Flat/3D and Technical; Close, a second History click, selecting a part and Reset close it', async () => {
     await b.click(`[data-fk="spare-history-${gb}"]`); await b.wait(200);
     await b.click('[data-fk="sp-history-close"]'); await b.wait(200);
     assert(!(await ev(`!!document.querySelector('.sp-history')`)), 'Close button');
@@ -123,6 +137,9 @@ try {
     await b.click(`[data-fk="spare-history-${gb}"]`); await b.wait(200);
     assert(!(await ev(`!!document.querySelector('.sp-history')`)), 'toggle');
     await b.click(`[data-fk="spare-history-${gb}"]`); await b.wait(200);
+    await b.click('[data-fk="view-flat"]'); await b.wait(400); await b.click('[data-fk="mode-technical"]'); await b.wait(400);
+    assert(await ev(`!!document.querySelector('.sp-history')&&EQ.qc.session.viewer.camera.isOrthographicCamera`), 'Flat/Technical switch closed the floating history');
+    await b.click('[data-fk="view-3d"]'); await b.wait(400);
     await ev(`EQ.eqv.select(EQ.eq('${Q1}'),{main:EQ.pos('${motor}').mainId,sub:EQ.pos('${motor}').subId,part:'${motor}'})`); await b.wait(500);
     assert(!(await ev(`!!document.querySelector('.sp-history')`)), 'selection change kept the history open');
     await b.click('[data-fk="reset"]'); await b.wait(500); await waitPanel();
@@ -135,7 +152,7 @@ try {
     const r = await ev(`({h:document.querySelectorAll('[data-fk^="spare-history-"]').length,u:document.querySelectorAll('[data-fk^="update-spare-"]').length})`);
     assert(r.h >= 8 && r.u === 0, JSON.stringify(r));
     await b.click(`[data-fk="spare-history-${gb}"]`); await b.wait(250);
-    assert(await ev(`!!document.querySelector('.sp-history .sp-history-list')`), 'management history');
+    assert(await ev(`!!document.querySelector('.sp-history .sp-inst')`), 'management history');
     await ev(`EQ.setPersona('admin')`); await b.wait(150);
     const saved = await ev(`EQ.access.save([{role:'management',feature:'eq.jobs.view',on:false}],EQ.state.D.access.version,'C69 check').ok`);
     await ev(`EQ.setPersona('management')`); await ev(`EQ.nav('/eq/equipment/${Q1}',{view:'3d',panel:'spareParts'})`); await b.wait(300); await waitPanel();
@@ -147,7 +164,7 @@ try {
     const tyre = await pos('gantry.tyre.set.a', 'eq-rtg-demo-01');
     await b.click(`[data-fk="spare-history-${tyre}"]`); await b.wait(250);
     const r = await ev(`(()=>{const o=document.querySelector('.sp-history'),vp=o?.parentElement;return {host:!!vp&&vp.classList.contains('viewport')&&vp.classList.contains('sp-history-host'),title:o?.querySelector('h2').textContent,h:o?.getBoundingClientRect().height}})()`);
-    assert(r.host && r.h >= 300 && /Tyre/i.test(r.title || ''), JSON.stringify(r));
+    assert(r.host && r.h >= 150 && /Tyre/i.test(r.title || ''), JSON.stringify(r));
   });
   await step('H10 Phone: History in the Details drawer closes the drawer, shows the history over the viewer, Close returns to Details', async () => {
     await b.viewport(390, 844, true, 2);
@@ -161,6 +178,26 @@ try {
     await b.click('[data-fk="sp-history-close"]'); await b.wait(300);
     assert(await ev(`!document.querySelector('.sp-history')&&document.activeElement?.dataset.fk==='open-panel'`), 'phone focus return');
     await b.viewport(1500, 920);
+  });
+  await step('H12 Crane-view flag chips filter the cards, combine with search and survive a re-render', async () => {
+    await open('eqTeam', '/eq/equipment/' + Q1 + '?view=3d&panel=spareParts'); await waitPanel();
+    const want = await ev(`EQ.spares.rows('${Q1}').filter(r=>r.flag==='overdue').map(r=>r.posId).sort()`), total = await ev(`EQ.spares.rows('${Q1}').length`);
+    const vis = `[...document.querySelectorAll('#tabpanel li[data-pos]')].filter(li=>!li.hidden).map(li=>li.dataset.pos).sort()`;
+    await b.click('[data-fk="spare-flag-overdue"]'); await b.wait(150);
+    assert(JSON.stringify(await ev(vis)) === JSON.stringify(want) && want.length >= 1, 'overdue filter ' + JSON.stringify(await ev(vis)));
+    assert(await ev(`document.querySelector('[data-fk="spare-flag-overdue"]').getAttribute('aria-pressed')==='true'&&document.querySelector('[data-fk="spare-flag-all"]').textContent==='${total} registered'`), 'pressed state/count');
+    await shot('05-crane-chip-filter-overdue');
+    await b.click(`[data-fk="spare-history-${want[0]}"]`); await b.wait(300);
+    assert(JSON.stringify(await ev(vis)) === JSON.stringify(want), 'filter lost on re-render');
+    await b.click('[data-fk="sp-history-close"]'); await b.wait(200);
+    await b.setValue('#panel-search', 'no-such-part-xyz'); await b.wait(150);
+    assert((await ev(vis)).length === 0 && await ev(`!document.querySelector('#tabpanel .panel-search-empty').hidden`), 'search did not combine with the filter');
+    await b.setValue('#panel-search', ''); await b.wait(150);
+    await b.click('[data-fk="spare-flag-dueSoon"]'); await b.wait(150);
+    const ds = await ev(`EQ.spares.rows('${Q1}').filter(r=>r.flag==='dueSoon').map(r=>r.posId).sort()`);
+    assert(JSON.stringify(await ev(vis)) === JSON.stringify(ds), 'due soon filter');
+    await b.click('[data-fk="spare-flag-dueSoon"]'); await b.wait(150);
+    assert((await ev(vis)).length === total && await ev(`document.querySelector('[data-fk="spare-flag-all"]').getAttribute('aria-pressed')==='true'`), 'second press did not show all');
   });
   await step('H11 No script errors', async () => { const e = await errs(); assert(!e.length, JSON.stringify(e)); });
 } finally {

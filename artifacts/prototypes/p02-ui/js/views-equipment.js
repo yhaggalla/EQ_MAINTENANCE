@@ -162,8 +162,9 @@ window.EQ = window.EQ || {};
   EQ.fullReset = fullReset;
 
   // ---------------------------------------------------------------- U1-C69: spare-part replacement history over the viewer
-  // Opened by History on a Spare part status card; kept in memory only. Closed by Close/Escape, or when the selection, area or camera mode changes.
-  const spHistSig = (eq, q) => [eq.id, q.main, q.sub, q.part, q.container, q.area, q.iso, q.view, q.mode].map((v) => v || '').join('|');
+  // Opened by History on a Spare part status card; kept in memory only. Stays open across Flat/3D and Overall/Technical; closed by
+  // Close/Escape/Reset or when the selection, area or equipment changes.
+  const spHistSig = (eq, q) => [eq.id, q.main, q.sub, q.part, q.container, q.area, q.iso].map((v) => v || '').join('|');
   const focusLater = (sel) => setTimeout(() => { const el = document.querySelector(sel); if (el) { el.focus({ preventScroll: true }); el.scrollIntoView({ block: 'nearest' }); } }, 0);
   EQ.panelTabs.spareHistoryOpen = (posId) => ui.spHistory?.posId === posId;
   EQ.panelTabs.onSpareHistory = function openSpareHistory(eq, posId) {

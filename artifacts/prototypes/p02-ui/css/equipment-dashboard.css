@@ -169,28 +169,64 @@ body:has(.equipment-page) { background: var(--pa-page); }
 .equipment-page .label-seg > button { min-height: 32px; padding: 2px 9px; font-size: 12px; white-space: nowrap; }
 @media (max-width: 760px) { .equipment-page .label-seg > button { min-height: 44px; } }
 
-/* U1-C69: spare-part replacement history over the model stage (History on a Spare part status card; Close or Escape returns to the model) */
+/* U1-C69: spare-part replacement history, a floating panel over the model stage; the model stays visible and usable beside it.
+   Plain rows and dividers, no coloured edge strips. */
 .sp-history-stage { position: relative; }
 .sp-history-host { position: relative; min-height: 380px; }
-.sp-history { position: absolute; inset: 0; z-index: 5; overflow: auto; overscroll-behavior: contain; display: grid; align-content: start; gap: 12px; padding: 14px 16px 16px; background: #fff; color: var(--pa-ink, var(--ink)); }
-.sp-history-head { display: flex; align-items: start; justify-content: space-between; gap: 12px; }
-.sp-history-head h2 { margin: 0; font-size: 17px; line-height: 1.25; overflow-wrap: anywhere; }
-.sp-history-head .eyebrow { margin: 0 0 3px; font-size: 10px; letter-spacing: .06em; color: var(--pa-muted, var(--ink-muted)); }
-.sp-history-sub { margin: 3px 0 0; font-size: 12px; color: var(--pa-muted, var(--ink-muted)); }
-.sp-history-close { flex: none; }
-.sp-history-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(128px, 1fr)); gap: 8px; margin: 0; }
-.sp-history-item { display: block; margin-top: 3px; }
-.sp-history-facts > div { border: 1px solid var(--pa-line, var(--border)); border-radius: 9px; padding: 8px 10px; background: var(--pa-tile, #f7f8f4); }
-.sp-history-facts dt { font-size: 10.5px; font-weight: 600; color: var(--pa-muted, var(--ink-muted)); }
-.sp-history-facts dd { margin: 3px 0 0; font-size: 12.5px; font-weight: 600; overflow-wrap: anywhere; }
-.sp-history-list > li { border-radius: 10px; }
-.sp-history-list > li.current { border-left-color: var(--pa-ready, #2f8a57); }
-.sp-history-log { border: 1px solid var(--pa-line, var(--border)); border-radius: 9px; padding: 8px 10px; }
-.sp-history-log summary { cursor: pointer; font-size: 12.5px; font-weight: 650; }
-.sp-history-log[open] summary { margin-bottom: 8px; }
+.sp-history { position: absolute; top: 12px; right: 12px; max-height: calc(100% - 24px); z-index: 6; width: min(360px, calc(100% - 24px)); display: flex; flex-direction: column; overflow: hidden; background: #fff; color: var(--pa-ink); font-size: 12.5px; line-height: 1.4; border: 1px solid var(--pa-line); border-radius: 12px; box-shadow: 0 12px 32px rgb(27 39 51 / 18%), 0 2px 6px rgb(27 39 51 / 8%); }
+.sp-history-head { display: flex; align-items: start; gap: 8px; padding: 12px 8px 10px 14px; border-bottom: 1px solid var(--pa-line); }
+.sp-history-titles { flex: 1; min-width: 0; }
+.sp-history-kicker { margin: 0 0 1px; font-size: 10.5px; font-weight: 600; color: var(--pa-muted); }
+.sp-history-head h2 { margin: 0; font-size: 15px; line-height: 1.3; overflow-wrap: anywhere; }
+.sp-history-head h2:focus { outline: none; }
+.sp-history-sub { margin: 4px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; font-size: 11.5px; color: var(--pa-muted); }
+.sp-history .sp-history-close { flex: none; width: 30px; height: 30px; min-height: 30px; min-width: 30px; padding: 0; border: 0; border-radius: 7px; background: transparent; color: var(--pa-muted); }
+.sp-history .sp-history-close:hover:not(:disabled):not([aria-disabled="true"]) { background: #f1f2ee; color: var(--pa-ink); }
+.sp-history-close .icon { width: 16px; height: 16px; }
+.sp-history-body { flex: 1 1 auto; min-height: 0; overflow: auto; overscroll-behavior: contain; padding: 0 14px; }
+.sp-history-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px; margin: 0; padding: 12px 0; border-bottom: 1px solid var(--pa-line); }
+.sp-history-stats dt { font-size: 10.5px; color: var(--pa-muted); }
+.sp-history-stats dd { margin: 1px 0 0; font-size: 13px; font-weight: 650; }
+.sp-stat-sub { display: block; font-size: 11px; font-weight: 400; color: var(--pa-muted); }
+.sp-stat.overdue dd, .sp-stat.overdue .sp-stat-sub { color: #b42318; }
+.sp-stat.dueSoon .sp-stat-sub { color: #8a5a00; }
+.sp-history-sec h3, .sp-history-log summary { display: flex; align-items: center; gap: 6px; margin: 0; padding: 12px 0 2px; font-size: 11.5px; font-weight: 650; color: var(--pa-ink); }
+.sp-count { padding: 0 5px; border-radius: 4px; background: #f1f2ee; font-size: 10.5px; font-weight: 600; color: var(--pa-muted); }
+.sp-inst, .sp-log { list-style: none; margin: 0; padding: 0; }
+.sp-inst > li, .sp-log > li { display: grid; gap: 2px; padding: 9px 0; border-top: 1px solid var(--pa-line); }
+.sp-inst > li:first-child, .sp-log > li:first-child { border-top: 0; }
+.sp-inst p, .sp-log p { margin: 0; }
+.sp-inst-head, .sp-log-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 8px; }
+.sp-meta { font-size: 11px; color: var(--pa-muted); }
+.sp-state { flex: none; font-size: 10.5px; font-weight: 600; color: var(--pa-muted); }
+.sp-state.current { color: #1f7a45; }
+.sp-k { display: inline-block; min-width: 3.6em; color: var(--pa-muted); }
+.sp-history-log { border-top: 1px solid var(--pa-line); }
+.sp-history-log summary { cursor: pointer; padding-bottom: 12px; list-style: none; }
+.sp-history-log summary::-webkit-details-marker { display: none; }
+.sp-history-log summary::before { content: ''; width: 5px; height: 5px; margin: 0 3px 0 1px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(-45deg); transition: transform .15s; }
+.sp-history-log[open] summary::before { transform: rotate(45deg); }
+@media (prefers-reduced-motion: reduce) { .sp-history-log summary::before { transition: none; } }
+.sp-history-log[open] summary { padding-bottom: 2px; }
+.sp-history-log .sp-log { padding-bottom: 8px; }
+.sp-history-foot { padding: 8px 14px; border-top: 1px solid var(--pa-line); }
+.sp-history-foot a { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 650; color: var(--pa-ink-2); text-decoration: none; }
+.sp-history-foot a:hover { text-decoration: underline; }
+.sp-history-foot .icon { width: 13px; height: 13px; }
+.hist-row .sp-log { max-width: 70rem; }
 .side-panel .spare-actions { gap: 6px; }
+/* U1-C69: summary chips are filter toggles (crane panel and EQ Jobs > Spare parts condition) */
+.spare-flags { gap: 6px; }
+button.tag.spare-flag { --chip-bg: #e8eef3; --chip-fg: #2c4458; display: inline-flex; align-items: center; min-height: 26px; padding: 2px 9px; border: 1px solid transparent; border-radius: 6px; background: var(--chip-bg) !important; color: var(--chip-fg) !important; font-size: .72rem; font-weight: 750; letter-spacing: .02em; line-height: 1.3; cursor: pointer; }
+button.tag.spare-flag.red { --chip-bg: var(--danger-bg); --chip-fg: var(--danger); }
+button.tag.spare-flag.gold { --chip-bg: var(--gold-100); --chip-fg: #5d4100; }
+button.tag.spare-flag[aria-pressed="true"] { border-color: currentColor; box-shadow: inset 0 0 0 1px currentColor; }
+button.tag.spare-flag:hover:not(:disabled) { border-color: currentColor !important; }
+button.tag.spare-flag:disabled { cursor: default; opacity: .7; }
 @media (max-width: 700px) {
-  .sp-history { padding: 12px; }
-  .sp-history :is(button, .btn), .sp-history-log summary { min-height: 44px; }
-  .sp-history-log summary { display: flex; align-items: center; }
+  .sp-history { top: 8px; right: 8px; left: 8px; width: auto; max-height: calc(100% - 16px); }
+  .sp-history .sp-history-close { width: 44px; height: 44px; min-height: 44px; }
+  .sp-history-log summary, .sp-history-foot a { min-height: 44px; }
+  .sp-history-foot { padding-block: 0; }
+  button.tag.spare-flag { min-height: 44px; padding-inline: 12px; }
 }
