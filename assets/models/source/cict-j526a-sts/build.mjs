@@ -4,6 +4,9 @@
 // rail on the crane transverse centreline (landside rail at X = -30). 'a' = +Z side, 'b' = -Z side.
 // Every dimension comes from params.json (with provenance) or is declared here as an estimate in the node provenance.
 
+// U1-C70 (D-220): parts from the QC component workbook and the manual list, placed by tools/u1/import_qc_components.py.
+import { REFERENCE_COMPONENTS } from './reference-components.mjs';
+
 export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
   const { box, boxMinMax, tube, cyl, beam, taper, gableRoof, sheave, texturedQuad, stairFlight, railing } = kit;
   const src = (drawing, pdfPage, note) => ({ drawing, pdfPage, note });
@@ -46,6 +49,7 @@ export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
     lens: { color: '#fff4cf', roughness: 0.2, emissive: '#fff1b8', emissiveIntensity: 0.55, role: 'floodlight lens (pale, slightly emissive so the fitting reads as a light; not a live state)' },
     flipper: { color: '#e8742a', roughness: 0.6, metalness: 0.2, role: 'spreader flippers, orange (U1 photo 08_44_08 PM)' },
     panel: { color: '#2f6d8e', roughness: 0.5, role: 'cabinet name/indicator panel (neutral blue, not a status colour)' },
+    refPart: { color: '#6f7d8a', roughness: 0.5, metalness: 0.35, role: 'U1-C70 workbook / manual parts drawn as simple located shapes (neutral; not a vendor or status colour)' },
   });
   const S = new SceneBuilder(mats, 'cict-j526a-sts-scene');
 
@@ -1268,6 +1272,21 @@ export function buildCrane({ kit, SceneBuilder, Materials, P, THREE }) {
       g.add('machinery', boxMinMax([xC - 0.4, y0 + 0.4, zC1], [xC + 0.4, y0 + 1.9, zM0 - 0.05]));
       for (const y of [y0 + 0.75, y0 + 1.55]) g.add('machinery', cyl([xC + 0.62, y, (zC1 + zM0) / 2], 'x', 0.16, 0.45, 12));
     });
+
+  // ---------- U1-C70 (D-220): QC component workbook and manual-list parts not drawn above ----------
+  // Each part is one simple located shape (approximate location, Technical mode) on a shared unit prism. One instanced carrier per
+  // area keeps the draw-call budget and keeps area isolation working (the carrier sits in the area container).
+  {
+    const byParent = new Map();
+    for (const c of REFERENCE_COMPONENTS) { const k = c.parentKey || ''; if (!byParent.has(k)) byParent.set(k, []); byParent.get(k).push(c); }
+    for (const [pk, list] of [...byParent.entries()].sort((a, b) => a[0].localeCompare(b[0]))) {
+      S.instanced(`reference.${pk ? pk.slice('container.'.length) : 'crane'}.instanced`, { parentKey: pk || null, modes: ['technical'], prov: 'approximate-location' },
+        (g) => g.add('refPart', cyl([0, 0, 0], 'y', 0.5, 1, 12)),
+        list.map((c) => ({ key: c.key, label: c.label, sub: c.sub, parentKey: pk || null, category: c.category, positionKind: c.positionKind, uom: c.uom,
+          sources: c.sources, classificationNote: c.classificationNote,
+          matrix: new THREE.Matrix4().compose(new THREE.Vector3(...c.shape.c), new THREE.Quaternion(...c.shape.q), new THREE.Vector3(...c.shape.s)) })));
+    }
+  }
 
   return { builder: S, materials: mats, landmarks: {
     railGauge: XWS - XLS, outreach: OUT, backreach: BACK, hingeX: XHINGE, boomTipX: XTIP, girderTailX: XTAIL,

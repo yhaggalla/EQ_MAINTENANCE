@@ -217,7 +217,7 @@ if (manifest.decals.length) {
 fs.writeFileSync(path.join(outDir, 'provenance.md'), lines.join('\n') + '\n');
 
 // ---------- checksums ----------
-const files = [path.join(srcDir, 'params.json'), path.join(srcDir, 'build.mjs'), ...embeddedTextures.map((t) => path.join(repo, t.file)), path.join(here, 'generate.mjs'), path.join(here, 'lib', 'kit.mjs'), path.join(here, 'lib', 'scene-builder.mjs'), path.join(here, 'package-lock.json'), path.join(outDir, 'scene.glb'), path.join(outDir, 'manifest.json'), path.join(outDir, 'provenance.md'), path.join(outDir, 'landmarks.json')];
+const files = [path.join(srcDir, 'params.json'), path.join(srcDir, 'build.mjs'), ...(fs.existsSync(path.join(srcDir, 'reference-components.mjs')) ? [path.join(srcDir, 'reference-components.mjs')] : []), ...embeddedTextures.map((t) => path.join(repo, t.file)), path.join(here, 'generate.mjs'), path.join(here, 'lib', 'kit.mjs'), path.join(here, 'lib', 'scene-builder.mjs'), path.join(here, 'package-lock.json'), path.join(outDir, 'scene.glb'), path.join(outDir, 'manifest.json'), path.join(outDir, 'provenance.md'), path.join(outDir, 'landmarks.json')];
 fs.writeFileSync(path.join(outDir, 'checksums.json'), JSON.stringify(Object.fromEntries(files.map((f) => [rel(f), sha(fs.readFileSync(f))])), null, 2) + '\n');
 
 const failed = checks.filter((c) => !c.pass);

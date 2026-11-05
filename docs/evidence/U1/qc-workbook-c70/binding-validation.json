@@ -1,0 +1,141 @@
+{
+  "generatedFrom": "artifacts/models/cict-j526a-sts-scene/1/manifest.json",
+  "sha256": "c561ff4125b776f14477e9d596ec91d1124937dbd454c9de8dd4b8e281580053",
+  "synthetic": true,
+  "results": [
+    {
+      "id": "QC01-v1-exact-binding",
+      "rule": "B2,B3,B4,B5",
+      "pass": true,
+      "detail": {
+        "positions": 375,
+        "exactKey": 375,
+        "problems": [],
+        "newlyUnboundNodes": []
+      }
+    },
+    {
+      "id": "QC01-hotspots-to-sub-instances",
+      "rule": "B4 (hotspot)",
+      "pass": true,
+      "detail": "19 hotspots resolve to sub instances of QC01"
+    },
+    {
+      "id": "QC02-v1-exact-binding",
+      "rule": "B2,B3,B4,B5",
+      "pass": true,
+      "detail": {
+        "positions": 375,
+        "exactKey": 375,
+        "problems": [],
+        "newlyUnboundNodes": []
+      }
+    },
+    {
+      "id": "QC02-hotspots-to-sub-instances",
+      "rule": "B4 (hotspot)",
+      "pass": true,
+      "detail": "19 hotspots resolve to sub instances of QC02"
+    },
+    {
+      "id": "two-equipment-independent",
+      "rule": "B8 / HIS01",
+      "pass": true,
+      "detail": {
+        "nodeKey": "hoist.drive.motor.a",
+        "QC01": "pp-q01-056",
+        "QC02": "pp-q02-056",
+        "sharedPositionIds": 0
+      }
+    },
+    {
+      "id": "reordered-scene-same-identities",
+      "rule": "VIS05",
+      "pass": true,
+      "detail": {
+        "keyedNodes": 140,
+        "identicalResolutions": true,
+        "wouldBreakIfIndexBased": "124 of 140 nodes change index after reordering"
+      }
+    },
+    {
+      "id": "instanced-identity-via-map",
+      "rule": "DATA s10.3 instanceMaps",
+      "pass": true,
+      "detail": {
+        "carrier": "gantry.wheels.instanced",
+        "instanceId": 2,
+        "key": "gantry.wheel.ws-a.3",
+        "QC01": "pp-q01-104",
+        "QC02": "pp-q02-104"
+      }
+    },
+    {
+      "id": "v2-orphans-reported",
+      "rule": "B6",
+      "pass": true,
+      "detail": {
+        "orphans": [
+          {
+            "positionId": "pp-q01-056",
+            "previousNode": "hoist.drive.motor.a"
+          },
+          {
+            "positionId": "pp-q01-078",
+            "previousNode": "trolley.wheel.ls-a.1"
+          }
+        ],
+        "newlyUnboundNodes": [
+          "hoist.drive.motor-a",
+          "trolley.frame.extension"
+        ]
+      }
+    },
+    {
+      "id": "v2-no-fuzzy-match",
+      "rule": "B2",
+      "pass": true,
+      "detail": "renamed node with an identical label is NOT matched automatically"
+    },
+    {
+      "id": "v2-activation-refused-while-orphans",
+      "rule": "B6",
+      "pass": true,
+      "detail": {
+        "canActivate": false,
+        "unresolved": [
+          "pp-q01-056",
+          "pp-q01-078"
+        ]
+      }
+    },
+    {
+      "id": "v2-admin-repair-activates",
+      "rule": "B3,B6,B7",
+      "pass": true,
+      "detail": {
+        "changed": [
+          {
+            "positionId": "pp-q01-056",
+            "from": "hoist.drive.motor.a",
+            "to": "hoist.drive.motor-a"
+          }
+        ],
+        "noVisual": [
+          {
+            "positionId": "pp-q01-078",
+            "nodeKey": null,
+            "mode": "noVisual",
+            "note": "wheel removed from model v2 (simulated); reachable through the tree"
+          }
+        ],
+        "positionIdsUnchanged": true,
+        "note": "activation changes no position, installation, job or history row (B7): history stays on position IDs"
+      }
+    }
+  ],
+  "summary": {
+    "passed": 11,
+    "failed": 0
+  }
+}

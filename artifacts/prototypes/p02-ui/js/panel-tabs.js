@@ -42,7 +42,7 @@ window.EQ = window.EQ || {};
     return { shown, total: items.filter(({ nodes }) => nodes[0].dataset.statusMatch !== 'false').length, loading: !!body.querySelector('[aria-busy="true"]') };
   };
 
-  const scopeParams = (eq, scope) => (scope.level === 'equipment' || scope.level === 'area' ? { equipment: eq.id } : { equipment: eq.id, scope: scope.level, target: scope.id });
+  const scopeParams = (eq, scope) => (['equipment', 'area', 'group'].includes(scope.level) ? { equipment: eq.id } : { equipment: eq.id, scope: scope.level, target: scope.id });
   P.jobsLink = (eq, scope, tab) => {
     const qs = new URLSearchParams();
     if (tab === 'spareParts') { const p = scopeParams(eq, scope); qs.set('equipment', eq.id); if (scope.level === 'main') qs.set('main', scope.id); if (scope.level === 'sub') qs.set('sub', scope.id); if (scope.level === 'part') qs.set('part', scope.id); return P.base + '#/eq/jobs/spare-parts?' + qs.toString(); }
@@ -52,7 +52,7 @@ window.EQ = window.EQ || {};
   /** EQ Jobs links are offered only when the session holds eq.jobs.view (Repair-R02B finding 1, D-139): with the Jobs tab switched off
    *  the link would only lead to the 403 page, and the job records behind it are refused by the server anyway. */
   P.jobsAllowed = () => EQ.access.has('eq.jobs.view');
-  const openInJobs = (eq, scope, tab) => (P.jobsAllowed() ? h('a', { class: 'btn btn-sm', href: P.jobsLink(eq, scope, tab), 'data-fk': 'open-in-jobs-' + tab, ...ext() }, icon('ext'), scope.level === 'area' ? 'Open equipment in Jobs' : 'Open in Jobs')
+  const openInJobs = (eq, scope, tab) => (P.jobsAllowed() ? h('a', { class: 'btn btn-sm', href: P.jobsLink(eq, scope, tab), 'data-fk': 'open-in-jobs-' + tab, ...ext() }, icon('ext'), scope.level === 'area' || scope.level === 'group' ? 'Open equipment in Jobs' : 'Open in Jobs')
     : h('p', { class: 'small muted', style: 'margin:0', 'data-fk': 'jobs-tab-off-' + tab }, 'The EQ Jobs tab is not available for your role, so earlier work and job records are not shown.'));
 
   /** Current-state tab badges: eligible open special jobs and spare-part overdue / due-soon counts. */

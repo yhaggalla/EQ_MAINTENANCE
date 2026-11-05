@@ -87,7 +87,8 @@ window.EQ = window.EQ || {};
   const scoped = (eqId, scope, includeCancelled) => {
     const jobs = EQ.jobsOf(eqId, includeCancelled);
     // A physical area is a read filter over bound positions, never a new work/history owner.
-    const areaIds = scope.level === 'area' ? new Set((EQ.qc?.containerPositions(EQ.eq(eqId), scope.id) || []).map((p) => p.id)) : null;
+    const areaIds = scope.level === 'area' ? new Set((EQ.qc?.containerPositions(EQ.eq(eqId), scope.id) || []).map((p) => p.id))
+      : scope.level === 'group' ? new Set(EQ.qcTree?.positionIds(EQ.eq(eqId), scope.id) || []) : null; // U1-C70: a workbook group is a read filter too
     const inScope = (l) => {
       const p = EQ.pos(l.positionId);
       if (!p || p.equipmentId !== eqId) return false;

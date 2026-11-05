@@ -1,0 +1,159 @@
+{
+  "manifest": "artifacts/models/cict-j526a-sts-scene/1/manifest.json",
+  "status": "validated",
+  "counts": {
+    "nodes": 410,
+    "positions": 375,
+    "hotspots": 19,
+    "containers": 12,
+    "decorative": 4
+  },
+  "results": [
+    {
+      "id": "schema",
+      "pass": true,
+      "detail": "schemaVersion 1 with nodes and instanceMaps"
+    },
+    {
+      "id": "units",
+      "pass": true,
+      "detail": "units = m"
+    },
+    {
+      "id": "asset-sha256",
+      "pass": true,
+      "detail": "c561ff4125b776f14477e9d596ec91d1124937dbd454c9de8dd4b8e281580053"
+    },
+    {
+      "id": "asset-bytes",
+      "pass": true,
+      "detail": "3757348 bytes"
+    },
+    {
+      "id": "gltf-names-exactly-once",
+      "pass": true,
+      "detail": "140 names found once each"
+    },
+    {
+      "id": "glb-keys-in-manifest",
+      "pass": true,
+      "detail": "140 keyed GLB nodes all in manifest"
+    },
+    {
+      "id": "node-name-equals-key",
+      "pass": true,
+      "detail": "every keyed node is named by its key"
+    },
+    {
+      "id": "keys-unique",
+      "pass": true,
+      "detail": "410 unique keys"
+    },
+    {
+      "id": "keys-grammar",
+      "pass": true,
+      "detail": "grammar and container prefix rule satisfied"
+    },
+    {
+      "id": "parents-exist-no-cycles",
+      "pass": true,
+      "detail": {
+        "missingParent": [],
+        "cycles": []
+      }
+    },
+    {
+      "id": "parents-are-containers",
+      "pass": true,
+      "detail": "all parents are containers"
+    },
+    {
+      "id": "classification",
+      "pass": true,
+      "detail": "positions/hotspots carry an active catalogue sub under its main; containers/decorative carry none"
+    },
+    {
+      "id": "no-inactive-subcodes",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "id": "no-tyre-steer-diesel-on-qc",
+      "pass": true,
+      "detail": "no 043/044/045/09x nodes"
+    },
+    {
+      "id": "bounds-finite-nonempty",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "id": "thin-items-flagged",
+      "pass": true,
+      "detail": {
+        "note": "thin items use the 0.5 m minimum fit extent in the viewer",
+        "count": 258,
+        "examples": [
+          "gantry.rail.waterside",
+          "gantry.rail.landside",
+          "trolley.cable-system.main",
+          "boom.forestay.inner.a",
+          "boom.forestay.outer.a",
+          "boom.forestay.inner.b",
+          "boom.forestay.outer.b",
+          "trolley.rail.girder"
+        ]
+      }
+    },
+    {
+      "id": "hotspots-point-radius-qualifier",
+      "pass": true,
+      "detail": []
+    },
+    {
+      "id": "instance-maps",
+      "pass": true,
+      "detail": "270 instanced positions in 13 carriers"
+    },
+    {
+      "id": "no-external-uris",
+      "pass": true,
+      "detail": "buffers/images: [{\"byteLength\":3598556}][{\"name\":\"cict-logo\",\"mimeType\":\"image/png\",\"bufferView\""
+    },
+    {
+      "id": "decals-embedded-and-not-identities",
+      "pass": true,
+      "detail": "1 decal(s); embedded texture equals the source file"
+    },
+    {
+      "id": "plausible-gauge",
+      "pass": true,
+      "detail": "rail gauge 30.000 m"
+    },
+    {
+      "id": "overall-height-not-total-lift",
+      "pass": true,
+      "detail": "overall height 84.056 m (J526A00 apex marker 83.356; 63 m is total lift)"
+    },
+    {
+      "id": "budget-triangles",
+      "pass": true,
+      "detail": "87842 <= 150000"
+    },
+    {
+      "id": "budget-draw-calls",
+      "pass": true,
+      "detail": "224 (all modes) <= 230; overall 161, technical 223"
+    },
+    {
+      "id": "budget-asset-size",
+      "pass": true,
+      "detail": "3757348 <= 8388608"
+    },
+    {
+      "id": "landmarks-within-tolerance",
+      "pass": true,
+      "detail": []
+    }
+  ]
+}

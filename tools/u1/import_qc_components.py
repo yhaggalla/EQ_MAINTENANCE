@@ -1,0 +1,679 @@
+"""U1-C70: import the QC component workbook into the QC hierarchy (D-220).
+
+Reads documents/QC_Component__Auto_Update_for_Dashboard_FIXED (1).xlsx (read only):
+  * QC01 sheet (all 14 QC sheets share columns B:D; checked)  -> the "Excel items" (Major Assembly > Sub Assembly > Major Component)
+  * component sheets (location columns: LHS/RHS, back reach / boom end / trolley / head block, gate house / SAGT end)
+  * "QC ALL Components" (ZPMC mechanical manual hierarchy)     -> extra, non-Excel items where the system does not cover them
+and the current QC scene manifest (bounds of existing parts) to place new parts.
+
+User answers (5 November 2026): the QC tree follows the Excel names with the approved codes kept behind; QC01-QC14 list = Excel
+items, manual-list items not already covered are added as non-Excel items; LHS = gate house end when looking from the back reach to
+the sea (= model -Z, 'b' side), front catenary = the seaside one, numbering starts at the gate house end; oil-change rows are Excel
+items located at their reducer / hydraulic unit.
+
+Outputs (generated, do not edit by hand):
+  assets/reference/qc-component-hierarchy.json                   reference data (groups, sub groups, items, placement, coverage)
+  assets/models/source/cict-j526a-sts/reference-components.mjs   new located parts for the model build (instanced per area)
+  artifacts/prototypes/p02-ui/js/qc-hierarchy.js                 the same hierarchy for the prototype
+
+Run: python -I tools/u1/import_qc_components.py
+"""
+import hashlib
+import json
+import math
+import pathlib
+import re
+
+import openpyxl
+
+ROOT = pathlib.Path(__file__).resolve().parents[2]
+XLSX = ROOT / 'documents' / 'QC_Component__Auto_Update_for_Dashboard_FIXED (1).xlsx'
+MANIFEST = ROOT / 'artifacts' / 'models' / 'cict-j526a-sts-scene' / '1' / 'manifest.json'
+OUT_JSON = ROOT / 'assets' / 'reference' / 'qc-component-hierarchy.json'
+OUT_MODEL = ROOT / 'assets' / 'models' / 'source' / 'cict-j526a-sts' / 'reference-components.mjs'
+OUT_JS = ROOT / 'artifacts' / 'prototypes' / 'p02-ui' / 'js' / 'qc-hierarchy.js'
+XLSX_REL = XLSX.relative_to(ROOT).as_posix()
+
+# ------------------------------------------------------------------------------------------------ workbook
+wb = openpyxl.load_workbook(XLSX, data_only=True)
+qc_rows = []
+ma = sa = None
+for i, r in enumerate(wb['QC01'].iter_rows(min_row=5, max_row=140, values_only=True), start=5):
+    if r[1]: ma = r[1].strip()
+    if r[2]: sa = r[2].strip()
+    if r[3]: qc_rows.append({'row': i, 'major': ma, 'sub': sa, 'name': str(r[3]).strip()})
+base = [tuple(r[1:4]) for r in wb['QC01'].iter_rows(min_row=5, max_row=140, values_only=True)]
+for n in range(2, 15):
+    assert [tuple(r[1:4]) for r in wb['QC%02d' % n].iter_rows(min_row=5, max_row=140, values_only=True)] == base, 'QC%02d differs' % n
+assert len(qc_rows) == 136, len(qc_rows)
+
+def col(sheet, start, n, c):
+    return [str(r[c]).strip() if r[c] is not None else '' for r in wb[sheet].iter_rows(min_row=start, max_row=start + n - 1, values_only=True)]
+
+LOC = {
+    'trolleySheaves': col('Trolley Sheaves', 6, 4, 2),
+    'hoistSheaves': col('Hoist Sheaves', 6, 16, 3),
+    'catenarySheaves': col('Catenery Sheaves', 6, 8, 3),
+    'catenaryWheels': col('Catenery Wheel & Bearing', 126, 4, 4),
+    'catenaryBearings': col('Catenery Wheel & Bearing', 6, 4, 4),
+    'railCarpet': col('Rail Carpet', 5, 7, 3),
+}
+assert LOC['hoistSheaves'] == ['Back reach'] * 4 + ['Trolley'] * 8 + ['Head block'] * 4, LOC['hoistSheaves']
+assert LOC['trolleySheaves'] == ['back reach LHS', 'back reach RHS', 'Boom end LHS', 'Boom end RHS'], LOC['trolleySheaves']
+assert LOC['catenaryWheels'] == ['back gate house end', 'Front gate house end', 'Front SAGT end', 'Back SAGT end'], LOC['catenaryWheels']
+
+manual_rows = []
+cur = [None, None, None]
+for i, r in enumerate(wb['QC ALL Components'].iter_rows(min_row=4, values_only=True), start=4):
+    if not any(v is not None for v in r) or r[0] == 'QC': continue
+    if r[1]: cur = [r[1].strip(), None, None]
+    if r[2]: cur[1] = r[2].strip(); cur[2] = None
+    if r[3]: cur[2] = r[3].strip()
+    manual_rows.append({'row': i, 'major': cur[0], 'sub': cur[1], 'subSub': cur[2], 'component': (r[4] or '').strip() or None,
+                        'qty': (str(r[5]).strip() if r[5] is not None else None), 'spec': r[6], 'ref': r[7]})
+
+# ------------------------------------------------------------------------------------------------ names
+# Spelling only; the Excel text is kept as excelName and stays searchable.
+SPELL = [(r'\bCaternery\b', 'Catenary'), (r'\bCatenery\b', 'Catenary'), (r'\bGrder\b', 'Girder'), (r'\bhydlc\b', 'hydraulic'), (r'\s{2,}', ' ')]
+def clean(s):
+    t = s.strip()
+    for a, b in SPELL: t = re.sub(a, b, t)
+    return t[0].upper() + t[1:]
+
+# ------------------------------------------------------------------------------------------------ model bounds
+manifest = json.loads(MANIFEST.read_text(encoding='utf-8'))
+# parts generated by this script (carriers 'reference.<area>.instanced') are never anchors, so a rerun gives the same output
+NODES = {n['key']: n for n in manifest['nodes'] if not ((n.get('instancing') or {}).get('gltfNodeName') or '').startswith('reference.')}
+REF_KEYS = set()
+def bb(key):
+    b = NODES[key]['bounds']; return b['min'], b['max']
+def at(key, fx=0.5, fy=0.5, fz=0.5, d=(0, 0, 0)):
+    lo, hi = bb(key); return [round(lo[i] + f * (hi[i] - lo[i]) + d[i], 4) for i, f in enumerate((fx, fy, fz))]
+def parent(key):
+    n = NODES[key]; return n['key'] if n['kind'] == 'container' else n.get('parentKey')
+
+QX = {'x': [0, 0, -math.sin(math.pi / 4), math.cos(math.pi / 4)], 'y': [0, 0, 0, 1], 'z': [math.sin(math.pi / 4), 0, 0, math.cos(math.pi / 4)]}
+def q_from_y(d):  # quaternion rotating +Y onto unit vector d
+    y = (0.0, 1.0, 0.0); dot = sum(a * b for a, b in zip(y, d))
+    if dot > 0.999999: return [0, 0, 0, 1]
+    if dot < -0.999999: return [1, 0, 0, 0]
+    c = (y[1] * d[2] - y[2] * d[1], y[2] * d[0] - y[0] * d[2], y[0] * d[1] - y[1] * d[0])
+    w = 1 + dot; n = math.sqrt(sum(v * v for v in c) + w * w)
+    return [c[0] / n, c[1] / n, c[2] / n, w / n]
+def r4(v): return [round(x, 4) for x in v]
+
+# shapes on the shared unit prism (radius 0.5, height 1 along +Y): cyl along an axis, box-like prism, or a tube between two points
+def cyl(c, axis, r, length): return {'c': r4(c), 'q': r4(QX[axis]), 's': r4([2 * r, length, 2 * r])}
+def prism(c, sx, sy, sz): return {'c': r4(c), 'q': [0, 0, 0, 1], 's': r4([sx, sy, sz])}
+def tube(a, b, r):
+    d = [b[i] - a[i] for i in range(3)]; L = math.sqrt(sum(v * v for v in d)); u = [v / L for v in d]
+    return {'c': r4([(a[i] + b[i]) / 2 for i in range(3)]), 'q': r4(q_from_y(u)), 's': r4([2 * r, L, 2 * r])}
+
+# ------------------------------------------------------------------------------------------------ hierarchy skeleton
+GROUPS = [  # Excel Major Assemblies first (QC sheet order), then approved mechanisms that have no Excel group
+    ('g-trolley', 'Trolley'), ('g-main-hoist', 'Main Hoist'), ('g-catenary', 'Caternery'), ('g-gantry', 'Gantry'),
+    ('g-boom', 'Boom'), ('g-backreach', 'Backreach'), ('g-apex', 'Apex'), ('g-other', 'Other')]
+SYS_GROUPS = [('sys-05', '05'), ('sys-07', '07'), ('sys-08', '08'), ('sys-12', '12'), ('sys-13', '13'), ('sys-15', '15'), ('sys-16', '16')]
+EXCEL_SUB_ID = {
+    ('Trolley', 'Trolley Sheaves'): 'tr-sheaves', ('Trolley', 'Trolley Wheels'): 'tr-wheels', ('Trolley', 'Trolley Wheel Bearing'): 'tr-bearings',
+    ('Trolley', 'Trolley Drive Mechanism'): 'tr-drive', ('Trolley', 'Cabin'): 'tr-cabin',
+    ('Main Hoist', 'Hoist Sheaves'): 'mh-sheaves', ('Main Hoist', 'Hoist Drive Mechanism'): 'mh-drive', ('Main Hoist', 'Spreader Cable Reel'): 'mh-scr',
+    ('Main Hoist', 'Load Handling'): 'mh-load',
+    ('Caternery', 'Catenery Sheaves'): 'ca-sheaves', ('Caternery', 'Front Catenery'): 'ca-front', ('Caternery', 'Rear Catenery'): 'ca-rear', ('Caternery', 'Wire Rope'): 'ca-rope',
+    ('Gantry', 'Sea Side Wheel Brake'): 'gt-ss-brake', ('Gantry', 'Land Side Wheel Brake'): 'gt-ls-brake', ('Gantry', 'Gantry Cable Reel'): 'gt-gcr',
+    ('Boom', 'Boom Hoist'): 'bm-hoist', ('Boom', 'Boom and Grder'): 'bm-girder',
+    ('Backreach', 'Skew System'): 'br-skew', ('Backreach', 'Anti Snag System'): 'br-antisnag',
+    ('Apex', 'Safety System'): 'ap-safety', ('Apex', 'Other'): 'ap-other', ('Other', 'Oil Replacement'): 'ot-oil'}
+GROUP_OF_MAJOR = {name: gid for gid, name in GROUPS}
+# default approved sub code per Excel sub group (each item may override)
+SUB_CODE = {'tr-sheaves': '021', 'tr-wheels': '021', 'tr-bearings': '021', 'tr-drive': '021', 'tr-cabin': '141', 'mh-sheaves': '011', 'mh-drive': '011',
+            'mh-scr': '014', 'mh-load': '062', 'ca-sheaves': '021', 'ca-front': '021', 'ca-rear': '021', 'ca-rope': '024', 'gt-ss-brake': '041',
+            'gt-ls-brake': '041', 'gt-gcr': '042', 'bm-hoist': '031', 'bm-girder': '021', 'br-skew': '111', 'br-antisnag': '022', 'ap-safety': '151',
+            'ap-other': '031', 'ot-oil': None}
+# non-Excel sub groups: manual sub assemblies and approved sub mechanisms filed under an Excel group or kept as their own group
+EXTRA_SUBS = [  # (id, groupId, name, origin, code)
+    ('mh-limits', 'g-main-hoist', 'Main Hoist Travel Limits & Interlocks', 'manual', None),
+    ('sys-012', 'g-main-hoist', None, 'system', '012'), ('sys-013', 'g-main-hoist', None, 'system', '013'),
+    ('tr-frame', 'g-trolley', 'Trolley (Frame Assembly)', 'manual', None), ('tr-limits', 'g-trolley', 'Trolley Travel Limits & Interlocks', 'manual', None),
+    ('sys-021', 'g-trolley', None, 'system', '021'), ('sys-023', 'g-trolley', None, 'system', '023'),
+    ('sys-041', 'g-gantry', None, 'system', '041'), ('gt-buffers', 'g-gantry', 'Gantry Buffers', 'manual', None),
+    ('gt-stowage', 'g-gantry', 'Stowage Device', 'manual', None), ('gt-interlocks', 'g-gantry', 'Gantry Interlocks & Monitoring', 'manual', None),
+    ('gt-mcab', 'g-gantry', 'Gantry Maintenance Cab', 'manual', None),
+    ('bm-limits', 'g-boom', 'Boom Hoist Limits & Interlocks', 'manual', None), ('bm-collision', 'g-boom', 'Ship Collision Protection', 'manual', None),
+    ('br-platforms', 'g-backreach', 'Back-reach Platforms & Service Crane', 'system', None),
+    ('ap-structure', 'g-apex', 'A-frame & Backstays', 'system', None), ('ap-stowage', 'g-apex', 'Boom Stowage Device', 'manual', None),
+    ('ot-hydraulic', 'g-other', 'Hydraulic Systems', 'manual', None), ('sys-171', 'g-other', None, 'system', '171'),
+    ('sys-051', 'sys-05', None, 'system', '051'), ('sys-071', 'sys-07', None, 'system', '071'), ('sys-081', 'sys-08', None, 'system', '081'),
+    ('sys-121', 'sys-12', None, 'system', '121'), ('sys-131', 'sys-13', None, 'system', '131'),
+    ('sys-151', 'sys-15', None, 'system', '151'), ('sys-152', 'sys-15', None, 'system', '152'), ('sys-153', 'sys-15', None, 'system', '153'),
+    ('mx-maint', 'sys-15', 'Maintenance & Access Equipment', 'manual', None), ('sys-161', 'sys-16', None, 'system', '161')]
+# system parts (not in either list): sub group by approved code, with key overrides
+SYS_BY_CODE = {'011': 'mh-drive', '012': 'sys-012', '013': 'sys-013', '014': 'mh-scr', '015': 'mh-drive', '021': 'sys-021', '022': 'br-antisnag',
+               '023': 'sys-023', '024': 'tr-drive', '031': 'bm-hoist', '032': 'bm-hoist', '033': 'bm-hoist', '041': 'sys-041', '042': 'gt-gcr',
+               '051': 'sys-051', '061': 'mh-load', '062': 'mh-load', '071': 'sys-071', '081': 'sys-081', '111': 'br-skew', '121': 'sys-121',
+               '131': 'sys-131', '141': 'tr-cabin', '151': 'sys-151', '152': 'sys-152', '153': 'sys-153', '161': 'sys-161', '171': 'sys-171'}
+SYS_BY_KEY = {k: 'mh-sheaves' for k in ['reeving.sheave.boom-tip', 'reeving.sheave.girder-tail', 'trolley.sheave.set.a', 'trolley.sheave.set.b']}
+SYS_BY_KEY.update({'trolley.sheave.equalizer': 'tr-sheaves', 'reeving.sheave.trolley-tail': 'tr-sheaves', 'trolley.frame': 'tr-frame',
+                   'trolley.catenary.waterside': 'ca-front', 'trolley.catenary.landside': 'ca-rear', 'reeving.sheave.catenary-boom-tip': 'ca-sheaves'})
+SYS_BY_KEY.update({k: 'bm-girder' for k in ['trolley.rail.girder', 'trolley.rail.boom', 'boom.main.girder', 'boom.hinge.a', 'boom.hinge.b',
+                   'boom.forestay.inner.a', 'boom.forestay.inner.b', 'boom.forestay.outer.a', 'boom.forestay.outer.b', 'structure.girder.rear.main', 'structure.mast.main']})
+SYS_BY_KEY.update({k: 'ap-structure' for k in NODES if k.startswith('structure.a-frame.') or k.startswith('structure.backstay.')})
+SYS_BY_KEY['access.stair.a-frame'] = 'ap-structure'
+SYS_BY_KEY.update({k: 'br-platforms' for k in ['access.platform.girder-tail', 'auxiliary.service-crane.girder-tail', 'access.platform.festoon-cab-service']})
+
+# ------------------------------------------------------------------------------------------------ item builders
+items, new_parts, coverage, skipped, questions = [], [], [], [], []
+WB = lambda row, note=None: {'drawing': 'QC component workbook, QC01 row %d' % row, 'pdfPage': None, 'note': note}
+MAN = lambda ref, note=None: {'drawing': 'ZPMC mechanical manual ' + ref, 'pdfPage': None, 'note': note}
+SRC = lambda d, p, note: {'drawing': d, 'pdfPage': p, 'note': note}
+GATE = 'LHS / gate house end = model -Z (b side), user answer 5 Nov 2026'
+
+def excel_row(name, sub):
+    for r in qc_rows:
+        if r['name'] == name and r['sub'] == sub and not r.get('used'):
+            r['used'] = True; return r
+    raise KeyError((name, sub))
+
+def add_existing(row, key, sid, name=None, code=None, location=None, note=None):
+    assert key in NODES or key in FIXTURE_ONLY, key
+    items.append({'key': key, 'name': name or clean(row['name']), 'excelName': row['name'], 'subgroupId': sid, 'excel': True, 'origin': 'excel',
+                  'excelRow': row['row'], 'manualRef': None, 'location': location, 'code': code or (NODES[key]['classification']['sub'] if key in NODES else None),
+                  'binding': 'existing', 'note': note, **({'positionKind': NODES[key]['positionKind'], 'uom': NODES[key]['uom'], 'category': NODES[key]['category'], 'modelOnly': True,
+                  'source': '; '.join((x['drawing'] or '') + (' p' + str(x['pdfPage']) if x.get('pdfPage') else '') for x in NODES[key]['provenance']['sources'])} if key in NODES else {})})
+
+def add_new(key, label, sid, code, anchor, shapes, sources, *, row=None, manual=None, name=None, location=None, note=None, kind='serialized', uom='ea', category='component'):
+    assert key not in NODES and key not in REF_KEYS, key
+    REF_KEYS.add(key)
+    pk = parent(anchor) if anchor else None
+    excel = row is not None
+    items.append({'key': key, 'name': name or (clean(row['name']) if excel else label), 'excelName': row['name'] if excel else None, 'subgroupId': sid, 'excel': excel,
+                  'origin': 'excel' if excel else 'manual', 'excelRow': row['row'] if excel else None, 'manualRef': manual, 'location': location, 'code': code,
+                  'binding': 'new', 'note': note, 'positionKind': kind, 'uom': uom, 'category': category,
+                  'source': '; '.join(x['drawing'] + (': ' + x['note'] if x.get('note') else '') for x in sources)})
+    assert isinstance(shapes, dict), key
+    new_parts.append({'key': key, 'label': label, 'sub': code, 'parentKey': pk, 'anchor': anchor, 'shape': shapes,
+                      'positionKind': kind, 'uom': uom, 'category': category, 'sources': sources, 'classificationNote': note})
+
+FIXTURE_ONLY = {'hoist.drive.gearbox.a'}  # fixture positions without a model node (kept as they are)
+
+# =============================================================================================== Excel: Trolley
+r = [excel_row('Trolley Sheave %d' % i, 'Trolley Sheaves') for i in range(1, 5)]
+TT = 'reeving.sheave.trolley-tail'; BT = 'reeving.sheave.boom-tip'
+lo, hi = bb(TT); zt = 1.05  # trolley rope lanes 1050 either side of the centreline (J526A2100)
+for i, (anchor, x, z) in enumerate([(TT, (lo[0] + hi[0]) / 2, -zt), (TT, (lo[0] + hi[0]) / 2, zt), (BT, bb(BT)[0][0] + 1.8, -zt), (BT, bb(BT)[0][0] + 1.8, zt)]):
+    y = (bb(TT)[0][1] + bb(TT)[1][1]) / 2 if anchor == TT else bb(BT)[0][1] + 1.0
+    add_new('reeving.trolley-sheave.%d' % (i + 1), 'Trolley Sheave %d (%s)' % (i + 1, LOC['trolleySheaves'][i]), 'tr-sheaves', '021', anchor,
+            cyl([x, y, z], 'z', 0.42 if anchor == BT else 0.4, 0.16), [WB(r[i]['row'], 'location ' + LOC['trolleySheaves'][i]), SRC('J526A2100', 1, 'trolley rope sheaves at the girder tail and boom tip, lanes 1050 either side'), {'drawing': GATE, 'pdfPage': None, 'note': None}],
+            row=r[i], location=LOC['trolleySheaves'][i])
+# corner numbering of the sheet (catenary wheels): 1 back gate house, 2 front gate house, 3 front SAGT, 4 back SAGT
+CORNERS = [('ls', -1), ('ws', -1), ('ws', 1), ('ls', 1)]
+CORNER_TXT = ['back (landside), gate house end', 'front (seaside), gate house end', 'front (seaside), SAGT end', 'back (landside), SAGT end']
+for i, (xs, zs) in enumerate(CORNERS):
+    key = 'trolley.wheel.%s-%s.1' % (xs, 'a' if zs > 0 else 'b')
+    add_existing(excel_row('Trolley Wheel %d' % (i + 1), 'Trolley Wheels'), key, 'tr-wheels', location=CORNER_TXT[i],
+                 note='Numbered like the catenary wheels in the workbook (1 back gate house, 2 front gate house, 3 front SAGT, 4 back SAGT); to confirm')
+for i, (xs, zs) in enumerate(CORNERS):
+    wk = 'trolley.wheel.%s-%s.1' % (xs, 'a' if zs > 0 else 'b'); lo, hi = bb(wk)
+    c = [(lo[0] + hi[0]) / 2, (lo[1] + hi[1]) / 2 + 0.04, (lo[2] + hi[2]) / 2 + zs * 0.19]
+    row = excel_row('Trolley Wheel Bearing %d' % (i + 1), 'Trolley Wheel Bearing')
+    add_new('trolley.wheel-bearing.%d' % (i + 1), 'Trolley Wheel Bearing %d (%s)' % (i + 1, CORNER_TXT[i]), 'tr-bearings', '021', wk, cyl(c, 'z', 0.15, 0.1),
+            [WB(row['row']), SRC('ZT2-020935-00', 1, 'trolley wheel assembly: split pillow block and spherical aligning bearing per wheel (manual 1.3.3.6)')], row=row, location=CORNER_TXT[i])
+TM = 'trolley-drive.motor.main'
+row = excel_row('Trolley Motor Bearing', 'Trolley Drive Mechanism')
+add_new('trolley-drive.motor.bearing', 'Trolley Motor Bearing (non-drive end)', 'tr-drive', '021', TM, cyl(at(TM, 0.5, 0.5, 0, (0, 0, -0.06)), 'z', 0.2, 0.1),
+        [WB(row['row']), MAN('1.3.3.1 Table 1-4', 'trolley motor BDK-1KMU 275 kW')], row=row)
+add_existing(excel_row('Trolley Reducer', 'Trolley Drive Mechanism'), 'trolley-drive.reducer.main', 'tr-drive')
+add_existing(excel_row('Trolley Wire Rope', 'Trolley Drive Mechanism'), 'trolley.rope.set.main', 'tr-drive')
+add_existing(excel_row('Operator Seat', 'Cabin'), 'cabin.operator.seat', 'tr-cabin')
+
+# =============================================================================================== Excel: Main Hoist
+GT = 'reeving.sheave.girder-tail'; lo, hi = bb(GT)
+rope_z = [-2.75, -2.45, 2.45, 2.75]  # four hoist rope lanes (2600 +/- 150 either side), numbered from the gate house end (-Z)
+hs = [excel_row(n, 'Hoist Sheaves') for n in ['Sheave 01', 'Sheave 02', 'Sheave 03', 'Sheave 04']]
+for i in range(4):
+    add_new('reeving.hoist-sheave.back-reach.%d' % (i + 1), 'Hoist Sheave %02d - back reach (girder tail)' % (i + 1), 'mh-sheaves', '011', GT,
+            cyl([lo[0] + 0.9, (lo[1] + hi[1]) / 2, rope_z[i]], 'z', 0.5, 0.18), [WB(hs[i]['row'], 'location Back reach'), SRC('J526A1000', 1, 'hoist rope tail sheaves on the anti-snag levers, one per rope'), {'drawing': GATE, 'pdfPage': None, 'note': None}],
+            row=hs[i], name='Sheave %02d - Back reach' % (i + 1), location='Back reach')
+for n in range(1, 5):
+    for j, roman in enumerate(['i', 'ii']):
+        row = excel_row('Sheave %02d(%s)' % (n, roman), 'Hoist Sheaves')
+        sk = 'trolley.sheave.set.%s' % ('b' if n <= 2 else 'a'); lo, hi = bb(sk)
+        x = lo[0] + (0.25 if j == 0 else 0.75) * (hi[0] - lo[0]); z = (lo[2] if n in (1, 4) else hi[2]) if n <= 2 else (hi[2] if n == 4 else lo[2])
+        z = lo[2] + 0.1 if n == 1 else hi[2] - 0.1 if n == 2 else lo[2] + 0.1 if n == 3 else hi[2] - 0.1
+        add_new('trolley.hoist-sheave.%d-%s' % (n, roman), 'Hoist Sheave %02d(%s) - trolley (%s shaft)' % (n, roman, 'landside' if j == 0 else 'seaside'), 'mh-sheaves', '011', sk,
+                cyl([x, (lo[1] + hi[1]) / 2, z], 'z', 0.42, 0.1), [WB(row['row'], 'location Trolley'), SRC('J526A0200', 1, 'trolley main hoist sheaves: 2 shafts x 2 sheaves per rope side'), {'drawing': GATE, 'pdfPage': None, 'note': '(i) landside shaft, (ii) seaside shaft; to confirm'}],
+                row=row, name='Sheave %02d(%s) - Trolley' % (n, roman), location='Trolley')
+for n in range(1, 5):
+    row = excel_row('Sheave %02d' % n, 'Hoist Sheaves')  # second block of "Sheave 01..04" = head block
+    xs, zs = CORNERS[n - 1]; sk = 'headblock.sheave-box.%s' % ('a' if zs > 0 else 'b'); lo, hi = bb(sk)
+    x = lo[0] + (0.22 if xs == 'ls' else 0.78) * (hi[0] - lo[0])
+    add_new('headblock.hoist-sheave.%d' % n, 'Hoist Sheave %02d - head block (%s)' % (n, CORNER_TXT[n - 1]), 'mh-sheaves', '011', sk,
+            cyl([x, hi[1] + 0.05, (lo[2] + hi[2]) / 2], 'z', 0.45, 0.12), [WB(row['row'], 'location Head block'), SRC('J526A1200', 1, 'headblock hoist sheaves, one per corner'), {'drawing': GATE, 'pdfPage': None, 'note': 'corner numbering as the catenary wheels; to confirm'}],
+            row=row, name='Sheave %02d - Head block' % n, location='Head block')
+for n, side in [(1, 'b'), (2, 'a')]:
+    mk = 'hoist.drive.motor.%s' % side; row = excel_row('Hoist Motor %d Bearing' % n, 'Hoist Drive Mechanism'); lo, hi = bb(mk)
+    z = lo[2] - 0.06 if side == 'b' else hi[2] + 0.06
+    add_new('hoist.drive.motor-bearing.%d' % n, 'Hoist Motor %d Bearing (motor %s, non-drive end)' % (n, side.upper()), 'mh-drive', '011', mk, cyl(at(mk, 0.5, 0.5, 0.5, (0, 0, 0))[:2] + [z], 'z', 0.2, 0.1),
+            [WB(row['row']), MAN('1.3.1 Table 1-2', 'hoist motors BDK-1KMU 450 kW (2)'), {'drawing': GATE, 'pdfPage': None, 'note': 'motor 1 = gate house side'}], row=row)
+add_existing(excel_row('Hoist Reducer', 'Hoist Drive Mechanism'), 'hoist.drive.reducer.main', 'mh-drive')
+add_existing(excel_row('Hoist Wire Rope', 'Hoist Drive Mechanism'), 'hoist.rope.set.main', 'mh-drive')
+RD = 'hoist.drive.reducer.main'; row = excel_row('Hoist Reducer Bearing', 'Hoist Drive Mechanism')
+add_new('hoist.drive.reducer-bearing', 'Hoist Reducer Bearing (input side)', 'mh-drive', '011', RD, cyl(at(RD, 1, 0.45, 0.5, (0.05, 0, 0)), 'x', 0.16, 0.1),
+        [WB(row['row']), MAN('1.3.1 Table 1-2', 'reducer ML3PSF130E (SEW)')], row=row)
+for n, side in [(1, 'b'), (2, 'a')]:
+    mk, bk = 'hoist.drive.motor.%s' % side, 'hoist.drive.brake.hs.%s' % side; row = excel_row('Hoist Motor Coupling %d' % n, 'Hoist Drive Mechanism')
+    lo, hi = bb(mk); blo, bhi = bb(bk); z = (hi[2] + blo[2]) / 2 if side == 'b' else (lo[2] + bhi[2]) / 2
+    add_new('hoist.drive.motor-coupling.%d' % n, 'Hoist Motor Coupling %d (motor %s to reducer)' % (n, side.upper()), 'mh-drive', '011', mk, cyl([(lo[0] + hi[0]) / 2, (lo[1] + hi[1]) / 2, z], 'z', 0.24, 0.14),
+            [WB(row['row']), MAN('1.3.1 Table 1-2', 'high-speed coupling AFN SB160-900x80 with brake disc')], row=row)
+SCR = 'trolley.spreader-cable-reel'; lo, hi = bb(SCR)
+xR, yR = 69.2 + 1.1, None
+# reel centre from the reel geometry: the reel spans its full diameter in X (2200) and the drive is at -Z
+xR = (lo[0] + hi[0]) / 2; yR = lo[1] + 1.1
+row = excel_row('SCR Cable', 'Spreader Cable Reel')
+add_new('trolley.spreader-cable', 'SCR Cable (wound on the reel and down to the headblock)', 'mh-scr', '014', SCR, cyl([xR, yR, 0.0], 'z', 0.66, 0.05),
+        [WB(row['row']), SRC('SC-121216-ME2a', None, 'Cavotec T5.1 monospiral reel, Tratosmart cable 30 x 2.5')], row=row, kind='quantityLot', uom='cable')
+add_existing(excel_row('SCR Drum', 'Spreader Cable Reel'), SCR, 'mh-scr', note='Model node shows the drum with its drive module')
+row = excel_row('SCR Bollard Damper', 'Spreader Cable Reel')
+add_new('trolley.spreader-cable-reel.bollard-damper', 'SCR Bollard Damper (cable guide below the reel)', 'mh-scr', '014', SCR, prism([xR - 0.55, lo[1] + 0.12, 0.0], 0.3, 0.2, 0.3),
+        [WB(row['row']), SRC('SC-121216-ME2a', None, 'reel cable guide / bollard; position approximate')], row=row)
+for nm, key, dz in [('SCR Main Reducer Bearing', 'trolley.spreader-cable-reel.main-reducer-bearing', -0.58), ('SCR Pre Reducer Bearing', 'trolley.spreader-cable-reel.pre-reducer-bearing', -0.86)]:
+    row = excel_row(nm, 'Spreader Cable Reel')
+    add_new(key, nm + ' (reel drive)', 'mh-scr', '014', SCR, cyl([xR, yR + 0.26, dz], 'z', 0.12, 0.08), [WB(row['row']), SRC('SC-121216-ME2a', None, 'T5.1 drive module: main and pre reducer')], row=row)
+row = excel_row('Head Block Twist Lock', 'Load Handling')
+HBF = 'headblock.frame'
+tl = []
+for sk in ['headblock.sheave-box.a', 'headblock.sheave-box.b']:
+    blo, bhi = bb(sk)
+    for fx in (0.12, 0.88): tl.append(cyl([blo[0] + fx * (bhi[0] - blo[0]), blo[1] - 0.05, (blo[2] + bhi[2]) / 2], 'y', 0.09, 0.3))
+add_new('headblock.twistlocks', 'Head Block Twist Lock (T/L 01-04; marker at T/L 01)', 'mh-load', '062', HBF, tl[2], [WB(row['row'], 'one workbook row for 4 twist locks'), SRC('J526A1200', 1, 'twistlock housings under the sheave boxes')], row=row,
+        note='One Excel row covers the four headblock twist locks; the marker is at T/L 01 (gate house side, landside housing)')
+
+# =============================================================================================== Excel: Catenary
+CB = 'reeving.sheave.catenary-boom-tip'; CT = 'trolley.catenary.tensioner'; CW = 'trolley.catenary.waterside'; CL = 'trolley.catenary.landside'
+zc = 1.5
+cs = []
+for i in range(8):
+    row = excel_row('Catenary Sheave %02d' % (i + 1) if i else 'Catenary Sheave 01', 'Catenery Sheaves')
+    cs.append(row)
+spots = [(CT, -zc), (CT, zc), (CB, -zc), (CB, zc), (CW, -zc), (CW, zc), (CL, -zc), (CL, zc)]
+for i, (anc, z) in enumerate(spots):
+    lo, hi = bb(anc); c = [(lo[0] + hi[0]) / 2 + (0.25 if anc == CT else 0), hi[1] - 0.25, z]
+    add_new('reeving.catenary-sheave.%d' % (i + 1), 'Catenary Sheave %02d (%s)' % (i + 1, LOC['catenarySheaves'][i]), 'ca-sheaves', '021', anc, cyl(c, 'z', 0.25, 0.1),
+            [WB(cs[i]['row'], 'location ' + LOC['catenarySheaves'][i]), SRC('J526A2200', 1, 'catenary trolley reeving: tail, boom tip and catenary trolley sheaves'), {'drawing': GATE, 'pdfPage': None, 'note': 'Front catenary = seaside, Back = landside'}],
+            row=cs[i], location=LOC['catenarySheaves'][i])
+for prefix, anc, sid, word in [('Front', CW, 'ca-front', 'front (seaside)'), ('Rear', CL, 'ca-rear', 'rear (landside)')]:
+    lo, hi = bb(anc)
+    for kind in ['Wheel', 'Wheel Bearing']:
+        for i, (xs, zs) in enumerate(CORNERS):
+            row = excel_row('%s Caternery %s %d' % (prefix, kind, i + 1), '%s Catenery' % prefix)
+            x = lo[0] + 0.12 if xs == 'ls' else hi[0] - 0.12; z = (lo[2] + 0.12 if zs < 0 else hi[2] - 0.12) + (zs * 0.12 if kind != 'Wheel' else 0)
+            add_new('trolley.catenary-%s.%s.%d' % (prefix.lower(), 'wheel' if kind == 'Wheel' else 'bearing', i + 1),
+                    '%s Catenary %s %d (%s)' % (prefix, kind, i + 1, LOC['catenaryWheels'][i]), sid, '021', anc,
+                    cyl([x, lo[1] + 0.16, z], 'z', 0.15 if kind == 'Wheel' else 0.09, 0.08 if kind == 'Wheel' else 0.07),
+                    [WB(row['row'], 'location ' + LOC['catenaryWheels'][i]), SRC('J526A2200', 1, word + ' catenary trolley (J526A2204 / J526A2205)'), {'drawing': GATE, 'pdfPage': None, 'note': 'gate house end = -Z'}],
+                    row=row, location=LOC['catenaryWheels'][i])
+add_existing(excel_row('Caternery Rope', 'Wire Rope'), 'trolley.catenary-rope.set.main', 'ca-rope')
+
+# =============================================================================================== Excel: Gantry
+wheels = [n for n in NODES if n.startswith('gantry.wheel.') and not n.startswith('gantry.wheel-brake')]
+for side, txt, sid in [('ws', 'Sea Side', 'gt-ss-brake'), ('ls', 'Land Side', 'gt-ls-brake')]:
+    ws_ = []
+    for corner in ['b', 'a']:  # gate house end (-Z) first
+        ks = sorted([k for k in wheels if k.startswith('gantry.wheel.%s-%s.' % (side, corner))], key=lambda k: bb(k)[0][2])
+        assert len(ks) == 8, ks
+        for i in (1, 2, 5, 6):  # inner wheels of the gaps between sub-bogies 1-2 and 3-4 (J526A0600 elevation, 40 deg brakes)
+            ws_.append((ks[i], 1 if i in (1, 5) else -1))
+    for n, (wk, toward) in enumerate(ws_, start=1):
+        row = excel_row('%s Wheel Brake %d' % (txt, n), '%s Wheel Brake' % txt); lo, hi = bb(wk)
+        c = [(lo[0] + hi[0]) / 2 + (0.32 if side == 'ws' else -0.32), (lo[1] + hi[1]) / 2 + 0.18, (hi[2] + 0.12) if toward > 0 else (lo[2] - 0.12)]
+        add_new('gantry.wheel-brake.%s.%d' % (side, n), '%s Wheel Brake %d (JLQ115, numbered from the gate house end)' % (txt, n), sid, '041', wk, prism(c, 0.26, 0.42, 0.22),
+                [WB(row['row']), SRC('J526A0600', 1, 'wheel brake JLQ115.00-KH (115 kN), 4 per corner between the sub-bogies at 40 deg'), {'drawing': GATE, 'pdfPage': None, 'note': 'No.1 at the gate house end'}],
+                row=row, name='%s Wheel Brake %d' % (txt, n))
+GCR = 'gantry.cable-reel.main'; lo, hi = bb(GCR)
+row = excel_row('GCR Cable', 'Gantry Cable Reel')
+add_new('gantry.cable-reel.cable', 'GCR Cable (HV cable from the reel to the cable trench)', 'gt-gcr', '042', GCR,
+        tube([lo[0] + 0.45, lo[1] + 0.4, (lo[2] + hi[2]) / 2 - 1.2], [lo[0] + 0.45, 0.05, (lo[2] + hi[2]) / 2 - 1.2], 0.05),
+        [WB(row['row']), SRC('J526A4000', 1, 'high voltage cable reel; cable down to the quay cable trench (position approximate)')], row=row, kind='quantityLot', uom='cable')
+add_existing(excel_row('GCR Cable Reel', 'Gantry Cable Reel'), GCR, 'gt-gcr')
+
+# =============================================================================================== Excel: Boom
+BM = 'boom-hoist.motor.main'; row = excel_row('Boom Motor 1 Bearing', 'Boom Hoist')
+add_new('boom-hoist.motor.bearing', 'Boom Motor 1 Bearing (non-drive end)', 'bm-hoist', '031', BM, cyl(at(BM, 0.5, 0.5, 0, (0, 0, -0.06)), 'z', 0.2, 0.1),
+        [WB(row['row']), MAN('1.3.2.1 Table 1-3', 'boom hoist motor BDK-1KMU 375 kW')], row=row)
+BRD = 'boom-hoist.reducer.main'; row = excel_row('Boom Reducer Bearing', 'Boom Hoist')
+add_new('boom-hoist.reducer.bearing', 'Boom Reducer Bearing (input side)', 'bm-hoist', '031', BRD, cyl(at(BRD, 0, 0.45, 0.5, (-0.05, 0, 0)), 'x', 0.16, 0.1),
+        [WB(row['row']), MAN('1.3.2.1 Table 1-3', 'reducer ML4PSF120X (SEW)')], row=row)
+add_existing(excel_row('Boom Wire Rope', 'Boom Hoist'), 'boom.rope.set.main', 'bm-hoist')
+BB_ = 'boom-hoist.brake.hs.main'; row = excel_row('Boom Motor Coupling', 'Boom Hoist')
+add_new('boom-hoist.motor.coupling', 'Boom Motor Coupling (motor to reducer)', 'bm-hoist', '031', BM, cyl([at(BM)[0], at(BM)[1], (bb(BM)[1][2] + bb(BB_)[0][2]) / 2], 'z', 0.24, 0.14),
+        [WB(row['row']), MAN('1.3.2.1 Table 1-3', 'high-speed coupling AFN SB100-560x30 with brake disc')], row=row)
+HJ = 'trolley.rail.hinge-joint'; lo, hi = bb(HJ); XH = (lo[0] + hi[0]) / 2; ZR = 3.2; yP = lo[1] + 0.02
+rows = {n: excel_row(n, 'Boom and Grder') for n in ['Short Rail', 'Long Rail', 'Left Side Rest Plate', 'Right Side Rest Plate', 'Left Side Base Plate', 'Right Side Base Plate']}
+add_existing(rows['Short Rail'], HJ, 'bm-girder', note='Existing node = the short rails either side of the boom hinge (J526A010401). To confirm with the user')
+add_new('trolley.rail.long-rail', 'Long Rail (boom side of the hinge joint, marker on the left rail; interpretation to confirm)', 'bm-girder', '021', HJ,
+        prism([XH + 0.75, hi[1] - 0.05, -ZR], 1.4, 0.1, 0.09), [WB(rows['Long Rail']['row']), SRC('J526A0104', None, 'trolley rail joint at the boom hinge; long rail piece not identified on the sheets')],
+        row=rows['Long Rail'], note='Location to confirm with the user (D-220 open point)')
+for side, s in [('Left', -1), ('Right', 1)]:
+    add_new('trolley.rail.rest-plate.%s' % side.lower(), '%s Side Rest Plate (under the joint rail, boom side; to confirm)' % side, 'bm-girder', '021', HJ, prism([XH + 0.6, yP, s * ZR], 0.6, 0.04, 0.42),
+            [WB(rows['%s Side Rest Plate' % side]['row']), {'drawing': GATE, 'pdfPage': None, 'note': 'Left = -Z'}], row=rows['%s Side Rest Plate' % side], note='Location to confirm with the user')
+    add_new('trolley.rail.base-plate.%s' % side.lower(), '%s Side Base Plate (under the joint rail, girder side; to confirm)' % side, 'bm-girder', '021', HJ, prism([XH - 0.6, yP, s * ZR], 0.6, 0.04, 0.42),
+            [WB(rows['%s Side Base Plate' % side]['row']), {'drawing': GATE, 'pdfPage': None, 'note': 'Left = -Z'}], row=rows['%s Side Base Plate' % side], note='Location to confirm with the user')
+RG, RBm = 'trolley.rail.girder', 'trolley.rail.boom'
+girder_x0, boom_x1 = bb(RG)[0][0] + 0.3, bb(RBm)[1][0] - 0.3
+seg = [(girder_x0, 10), None, None, None, None, None, None]
+lens = [10, 20, 20, 20, 20, 20, 10]
+for side, s in [('Left', -1), ('Right', 1)]:
+    x = girder_x0
+    starts = []
+    for i, L in enumerate(lens):
+        if i == 3: x = bb(RBm)[0][0]  # carpets 4-7 on the boom
+        starts.append((x, L)); x += L
+    for i, (x0, L) in enumerate(starts):
+        row = excel_row('%s Side Rail Carpet No %d' % (side, i + 1), 'Boom and Grder')
+        anc = RG if i < 3 else RBm
+        add_new('trolley.rail.carpet.%s.%d' % (side.lower(), i + 1), '%s Side Rail Carpet No %d (%s)' % (side, i + 1, LOC['railCarpet'][i].split(' - ')[1]), 'bm-girder', '021', anc,
+                prism([x0 + L / 2, bb(anc)[0][1] + 0.13, s * ZR], L - 0.1, 0.03, 0.215),
+                [WB(row['row'], 'carpet ' + LOC['railCarpet'][i]), SRC('J526A0100', 44, 'J526A0104 ZGD190 rubber pad under the trolley rail'), {'drawing': GATE, 'pdfPage': None, 'note': 'Left = -Z; carpets 1-3 from the girder end, 4-7 from the hinge to the boom tip'}],
+                row=row, kind='quantityLot', uom='m', location=('%s side, ' % side) + LOC['railCarpet'][i])
+
+# =============================================================================================== Excel: Backreach
+AS = 'reeving.anti-snag-tls.device'; lo, hi = bb(AS)
+for n, (z) in enumerate([-3.25, -2.15, 2.15, 3.25], start=1):  # two cylinders per rope side, numbered from the gate house end
+    row = excel_row('TLS Hydraulic Cylinder %02d' % n, 'Skew System')
+    add_new('reeving.tls-cylinder.%d' % n, 'TLS Hydraulic Cylinder %02d (numbered from the gate house end)' % n, 'br-skew', '111', AS,
+            tube([lo[0] + 0.3, lo[1] + 2.25, z], [lo[0] + 2.4, lo[1] + 0.5, z], 0.115), [WB(row['row']), SRC('J526A1000', 1, 'TLS / snag cylinders 200/140 x 1400, 4 per crane'), {'drawing': GATE, 'pdfPage': None, 'note': None}], row=row)
+SK = 'trolley.skew-system.main'; lo, hi = bb(SK)
+row = excel_row('TLS Coupling Insert', 'Skew System')
+add_new('reeving.tls-pump.coupling-insert', 'TLS Coupling Insert (pump to motor)', 'br-skew', '111', SK, cyl([hi[0] + 0.12, (lo[1] + hi[1]) / 2, (lo[2] + hi[2]) / 2], 'x', 0.1, 0.1), [WB(row['row']), MAN('1.3.1.4; 5.5', 'multi-function hydraulic power unit')], row=row)
+row = excel_row('TLS Hydraulic Pump Motor', 'Skew System')
+add_new('reeving.tls-pump.motor', 'TLS Hydraulic Pump Motor', 'br-skew', '111', SK, cyl([hi[0] + 0.38, (lo[1] + hi[1]) / 2, (lo[2] + hi[2]) / 2], 'x', 0.17, 0.36), [WB(row['row']), MAN('5.5', 'multi-function power unit (TLS, snag, tension)')], row=row)
+TTn = 'trolley.tension.main'; lo, hi = bb(TTn)
+for n, s in [(1, -1), (2, 1)]:
+    row = excel_row('Trolley Rope Tensioning hydraulic cylinder %d' % n, 'Anti Snag System')
+    add_new('reeving.trolley-tension.cylinder.%d' % n, 'Trolley Rope Tensioning Hydraulic Cylinder %d (%s)' % (n, 'gate house side' if s < 0 else 'SAGT side'), 'br-antisnag', '022', TTn,
+            cyl([(lo[0] + hi[0]) / 2, (lo[1] + hi[1]) / 2, s * 1.05], 'x', 0.07, 1.1), [WB(row['row']), SRC('J526A2100', 3, 'J526A2103 tension device, 2 per crane: cylinder 140 / 100 x 600')], row=row)
+for n, s in [(1, -1), (2, 1)]:
+    row = excel_row('Caternery  Rope Tensioning hydraulic cylinder %d' % n, 'Anti Snag System')
+    lo, hi = bb(CT)
+    add_new('reeving.catenary-tension.cylinder.%d' % n, 'Catenary Rope Tensioning Hydraulic Cylinder %d (%s)' % (n, 'gate house side' if s < 0 else 'SAGT side'), 'br-antisnag', '022', CT,
+            tube([lo[0] + 0.2, lo[1] + 0.4, s * 1.79], [lo[0] + 0.95, lo[1] + 0.9, s * 1.79], 0.07), [WB(row['row']), SRC('J526A2200', 3, 'J526A2203 catenary rope tensioner: cylinder stroke 600, 2 per crane')], row=row)
+
+# =============================================================================================== Excel: Apex
+AH = 'structure.a-frame.head'; lo, hi = bb(AH)
+row = excel_row('Aircraft Safety Light', 'Safety System')
+add_new('auxiliary.apex.aircraft-light', 'Aircraft Safety Light (A-frame top)', 'ap-safety', '131', AH, cyl([(lo[0] + hi[0]) / 2 - 0.6, hi[1] + 0.2, 0.9], 'y', 0.15, 0.4),
+        [WB(row['row']), MAN('1.4.4 Fig.1-43', 'obstruction lights at the boom tip, girder rear end and A-frame top')], row=row)
+row = excel_row('Anemometer', 'Safety System')
+add_new('auxiliary.apex.anemometer', 'Anemometer (transducer on the A-frame top)', 'ap-safety', '151', AH, cyl([(lo[0] + hi[0]) / 2 - 0.6, hi[1] + 0.35, -0.9], 'y', 0.09, 0.7),
+        [WB(row['row']), MAN('1.3.4.2', 'anemometer transducer located on top of the A-frame; warning 25 m/s, alarm 28 m/s')], row=row)
+row = excel_row('Boom Hook Thruster', 'Other')
+add_new('boom.latch.hook-thruster', 'Boom Hook Thruster (boom latch at the A-frame)', 'ap-other', '031', AH, cyl([hi[0] + 0.35, lo[1] + 0.4, 0], 'y', 0.12, 0.5),
+        [WB(row['row'], 'no source sheet in the workbook'), SRC('J526A6200', None, 'boom stowage: latch hook at the A-frame front; thruster position approximate'), MAN('1.4.2 Fig.1-41', 'boom stowage pins / latch')], row=row,
+        note='Thruster of the boom latch hook; position approximate')
+
+# =============================================================================================== Excel: Other > Oil Replacement (located at the unit, user answer)
+DBK = 'hoist.emergency.brake.a'
+DHPU = 'machinery-house.disc-brake-hpu'
+oil = [('Hoist reducer oil change', 'hoist.drive.reducer.main', '011', (0.5, 0.05, 1.0), 'hoist.oil-point.reducer'),
+       ('Trolley reducer oil change', 'trolley-drive.reducer.main', '021', (0.5, 0.05, 1.0), 'trolley-drive.oil-point.reducer'),
+       ('Boom reducer oil change', 'boom-hoist.reducer.main', '031', (0.5, 0.05, 1.0), 'boom-hoist.oil-point.reducer'),
+       ('Gantry reducer oil change', None, '041', None, 'gantry.oil-point.reducers'),
+       ('Elevator reducer oil change', 'access.elevator.car', '153', (0.5, 0.95, 0.5), 'access.elevator.oil-point'),
+       ('Emergency brake hydlc system', None, '012', None, 'machinery-house.oil-point.disc-brake-hpu'),
+       ('service crane reducer', 'machinery-house.service-crane', '151', (0.5, 0.5, 0.5), 'machinery-house.oil-point.service-crane'),
+       ('GCR Oil replacement', 'gantry.cable-reel.main', '042', (1.0, 0.5, 0.5), 'gantry.oil-point.cable-reel'),
+       ('SCR oil replacement', 'trolley.spreader-cable-reel', '014', None, 'trolley.oil-point.spreader-cable-reel'),
+       ('TLS oil change', 'trolley.skew-system.main', '111', (0.5, 0.0, 0.5), 'reeving.oil-point.tls-power-unit'),
+       ('Anti creeper', None, '041', None, 'gantry.oil-point.anti-creeper')]
+OILSRC = lambda row: [WB(row['row'], 'Oil Replacement sheet: dates only'), {'drawing': 'User answer 5 Nov 2026', 'pdfPage': None, 'note': 'oil-change rows are placed at their reducer / hydraulic unit'}]
+for nm, anc, code, f, key in oil:
+    row = excel_row(nm, 'Oil Replacement')
+    label = clean(nm); excel_name = label
+    if key == 'gantry.oil-point.reducers':
+        wk = sorted([k for k in NODES if k.startswith('gantry.drive.ws-b.')])[0]; c = at(wk, 0.5, 0.1, 0.5, (0.35, 0, 0)); anc = wk; label += ' (16 gantry reducers; marker at drive WS-B 1)'
+    elif key == 'machinery-house.oil-point.disc-brake-hpu':
+        c = at(DBK, 1.0, 0.0, 0.5, (0.65, 0.05, -0.7)); anc = DBK; label += ' (disc brake hydraulic power unit)'
+    elif key == 'trolley.oil-point.spreader-cable-reel':
+        c = [xR, yR - 0.15, -0.72]; label += ' (reel drive reducer)'
+    elif key == 'gantry.oil-point.anti-creeper':
+        anc = 'structure.portal.waterside.sill-beam'; c = at(anc, 1.0, 0.1, 0.02, (0.25, 0, 0)); label += ' (rail clamp / anti-creep hydraulics, seaside gate house corner; to confirm)'
+    else:
+        c = at(anc, *f, d=(0, 0.0, 0.08 if f[2] == 1.0 else 0))
+    add_new(key, label + ' - oil change point', 'ot-oil', code, anc, cyl(c, 'y', 0.07, 0.16), OILSRC(row), row=row, name=excel_name, category='service', location=label[len(excel_name):].strip(' ()') or 'at the ' + (lambda t: t[:1].lower() + t[1:])(re.sub(r'\s*\(.*$', '', NODES[anc]['label'])),
+            note='Oil-change service point (Excel Oil Replacement row), located at the unit')
+
+assert all(r.get('used') for r in qc_rows), [r for r in qc_rows if not r.get('used')]
+
+# =============================================================================================== manual list (QC ALL Components)
+def cover(row_no, keys, why=None):
+    coverage.append({'manualRow': row_no, 'coveredBy': keys if isinstance(keys, list) else [keys], 'note': why})
+def skip(row_no, why): skipped.append({'manualRow': row_no, 'reason': why})
+UNIT_DESC = {  # one located part per physical unit of a manual multi-unit row (instanced parts carry one shape each)
+    'hoist.drive.drum-coupling': ['drum A', 'drum B'], 'hoist.drive.drum-bearing-seat': ['drum A', 'drum B'],
+    'reeving.tls-cylinder.transducers': ['cylinder 01', 'cylinder 02', 'cylinder 03', 'cylinder 04'], 'reeving.tls-cylinder.pressure-switches': ['cylinder 01', 'cylinder 02', 'cylinder 03', 'cylinder 04'],
+    'hoist.limit.motor-brake-switches': ['brake A', 'brake B'], 'hoist.limit.drum-brake-switches': ['drum brake A', 'drum brake B'], 'hoist.drive.motor-thermal-switches': ['motor A', 'motor B'],
+    'trolley.rope-clamp': ['landside, gate house side', 'landside, SAGT side', 'seaside, gate house side', 'seaside, SAGT side'],
+    'reeving.trolley-tension.proximity-switches': ['cylinder 1 retracted', 'cylinder 2 retracted', 'cylinder 1 extended', 'cylinder 2 extended'],
+    'trolley.buffers': ['landside, gate house side', 'landside, SAGT side', 'seaside, gate house side', 'seaside, SAGT side'],
+    'trolley.limit.boom-end-lever-switches': ['gate house side', 'SAGT side'], 'trolley.limit.proximity-switches': ['slowdown', 'stop'], 'cabin.access-gate.switches': ['gate house side', 'SAGT side'],
+    'cabin.monitors': ['1', '2', '3'], 'gantry.buffers': ['WS-A', 'WS-B', 'LS-A', 'LS-B'], 'gantry.buffer.limit-switches': ['WS-A', 'WS-B'], 'gantry.stowage-pins': ['seaside sill beam', 'landside sill beam'],
+    'gantry.stowage-pins.switches': ['seaside', 'landside'], 'gantry.obstacle-sensors': ['WS-A', 'WS-B', 'LS-A', 'LS-B'], 'headblock.connecting-pins': ['gate house side', 'SAGT side'],
+    'boom.stowage-pins': ['gate house side', 'SAGT side'], 'boom.stowage-pins.switches': ['gate house side', 'SAGT side'], 'boom.collision.trip-wires': ['gate house side', 'SAGT side'],
+    'boom.collision.switches': ['gate house side', 'SAGT side'], 'auxiliary.obstruction-lights': ['boom tip', 'girder rear end'], 'auxiliary.jib-cranes': ['boom tip', 'A-frame top']}
+UNIT_BASE = {  # singular name of one unit of a split row
+    'hoist.drive.drum-coupling': 'Drum coupling, main hoist', 'hoist.drive.drum-bearing-seat': 'Drum bearing seat, main hoist',
+    'reeving.tls-cylinder.transducers': 'Linear displacement transducer, TLS', 'reeving.tls-cylinder.pressure-switches': 'Pressure switch (snag), TLS',
+    'hoist.limit.motor-brake-switches': 'Brake released limit switch, hoist motor', 'hoist.limit.drum-brake-switches': 'Drum brake released limit switch, main hoist',
+    'hoist.drive.motor-thermal-switches': 'Motor thermal switch, hoist', 'trolley.rope-clamp': 'Rope clamp / screw rod block, trolley rope',
+    'reeving.trolley-tension.proximity-switches': 'Proximity switch, tension cylinder stroke', 'trolley.buffers': 'Pneumatic-hydraulic buffer, trolley',
+    'trolley.limit.boom-end-lever-switches': 'Lever-operated limit switch, trolley travel boom end', 'trolley.limit.proximity-switches': 'Proximity limit switch, trolley',
+    'cabin.access-gate.switches': 'Cab access gate proximity switch', 'cabin.monitors': 'Computer / TV monitor, cab', 'gantry.buffers': 'Gantry buffer',
+    'gantry.buffer.limit-switches': 'Buffer limit switch', 'gantry.stowage-pins': 'Gantry stowage pin / plate', 'gantry.stowage-pins.switches': 'Stow pin proximity switch',
+    'gantry.obstacle-sensors': 'Ultrasonic sensor and reflector', 'headblock.connecting-pins': 'Connecting pin and proximity switch, headblock',
+    'boom.stowage-pins': 'Boom stowage pin and socket', 'boom.stowage-pins.switches': 'Pin position limit switch, boom stowage', 'boom.collision.trip-wires': 'Ship collision trip wire',
+    'boom.collision.switches': 'Trip wire end proximity switch', 'auxiliary.obstruction-lights': 'Obstruction light', 'auxiliary.jib-cranes': 'Outdoor jib (sample) crane'}
+def man_new(row_no, key, label, sid, code, anchor, shapes, note=None, kind='serialized', uom='ea', category='component'):
+    mr = next(r for r in manual_rows if r['row'] == row_no)
+    man = {'row': row_no, 'ref': mr['ref'], 'qty': mr['qty'], 'spec': mr['spec'], 'manualName': mr['component'] or mr['subSub']}
+    base = re.sub(r'\s*\([^()]*\)\s*$', '', label)
+    if isinstance(shapes, list) and len(shapes) > 1:
+        desc = UNIT_DESC[key]; assert len(desc) == len(shapes), key
+        base = UNIT_BASE[key]
+        for i, (d, sh) in enumerate(zip(desc, shapes), start=1):
+            add_new('%s.%d' % (key, i), '%s - %s' % (base, d), sid, code, anchor, sh, [MAN(str(mr['ref']), (mr['spec'] or '') or None)], manual=man, name='%s - %s' % (base, d), note=note, kind=kind, uom=uom, category=category)
+        return
+    add_new(key, label, sid, code, anchor, shapes if not isinstance(shapes, list) else shapes[0], [MAN(str(mr['ref']), (mr['spec'] or '') or None)], manual=man, name=base, note=note, kind=kind, uom=uom, category=category)
+
+M = {r['row']: r for r in manual_rows}
+def find(text):
+    hits = [r['row'] for r in manual_rows if text.lower() in ((r['component'] or '') + ' ' + (r['subSub'] or '')).lower()]
+    assert hits, text
+    return hits
+mh_motor_a, mh_motor_b = bb('hoist.drive.motor.a'), bb('hoist.drive.motor.b')
+for r_ in manual_rows:
+    r_['label'] = r_['component'] or r_['subSub']
+
+# Boom
+cover(5, 'boom.main.girder'); cover(6, ['boom.forestay.inner.a', 'boom.forestay.inner.b']); cover(7, ['boom.forestay.outer.a', 'boom.forestay.outer.b'])
+# Main hoist drive
+cover(8, ['hoist.drive.motor.a', 'hoist.drive.motor.b']); cover(9, ['hoist.drive.brake.hs.a', 'hoist.drive.brake.hs.b']); cover(10, ['hoist.drive.motor-coupling.1', 'hoist.drive.motor-coupling.2'])
+cover(11, 'hoist.drive.reducer.main')
+DA, DB_ = bb('hoist.drive.drum.a'), bb('hoist.drive.drum.b')
+man_new(12, 'hoist.drive.drum-coupling', 'Drum couplings, main hoist (flexible gear, DC08B)', 'mh-drive', '011', 'hoist.drive.drum.a',
+        [cyl([(DA[0][0] + DA[1][0]) / 2, (DA[0][1] + DA[1][1]) / 2, DA[0][2] - 0.05], 'z', 0.3, 0.12), cyl([(DB_[0][0] + DB_[1][0]) / 2, (DB_[0][1] + DB_[1][1]) / 2, DB_[1][2] + 0.05], 'z', 0.3, 0.12)])
+cover(13, ['hoist.emergency.brake.a', 'hoist.emergency.brake.b']); cover(14, ['hoist.drive.drum.a', 'hoist.drive.drum.b'])
+man_new(15, 'hoist.drive.drum-bearing-seat', 'Drum bearing seats, main hoist', 'mh-drive', '011', 'hoist.drive.drum.a',
+        [prism([(DA[0][0] + DA[1][0]) / 2, DA[0][1] + 0.2, DA[1][2] + 0.0], 0.45, 0.4, 0.2), prism([(DB_[0][0] + DB_[1][0]) / 2, DB_[0][1] + 0.2, DB_[0][2] - 0.0], 0.45, 0.4, 0.2)])
+cover(16, 'emergency.drive.main')
+lsdrum = [(DA[0][0] + DA[1][0]) / 2 + 0.55, DA[1][1] - 0.15, DA[1][2] - 0.25]
+man_new(17, 'hoist.limit.cam-switch', 'Cam limit switch, main hoist drum end', 'mh-limits', '051', 'hoist.drive.drum.a', prism(lsdrum, 0.22, 0.2, 0.18))
+man_new(18, 'hoist.limit.over-speed-switch', 'Over-speed switch, main hoist drum end (trips at 110 %)', 'mh-limits', '051', 'hoist.drive.drum.a', prism([lsdrum[0], lsdrum[1] - 0.3, lsdrum[2]], 0.2, 0.18, 0.16))
+man_new(19, 'hoist.limit.drum-encoder', 'Encoder, main hoist drum end', 'mh-limits', '011', 'hoist.drive.drum.a', cyl([lsdrum[0], lsdrum[1] - 0.6, lsdrum[2]], 'z', 0.07, 0.12))
+man_new(20, 'hoist.drive.motor-absolute-encoder', 'Absolute encoder on the hoist motor', 'mh-limits', '011', 'hoist.drive.motor.a', cyl([(mh_motor_a[0][0] + mh_motor_a[1][0]) / 2, mh_motor_a[1][1] - 0.2, mh_motor_a[1][2] + 0.17], 'z', 0.07, 0.1))
+man_new(21, 'hoist.drive.motor-incremental-encoder', 'Incremental encoder, hoist motor shaft end (optional)', 'mh-limits', '011', 'hoist.drive.motor.b', cyl([(mh_motor_b[0][0] + mh_motor_b[1][0]) / 2, (mh_motor_b[0][1] + mh_motor_b[1][1]) / 2, mh_motor_b[0][2] - 0.17], 'z', 0.07, 0.1))
+cover(22, 'hoist.rope.set.main'); cover(23, 'hoist.loadcell.main'); cover(24, ['headblock.hoist-sheave.%d' % i for i in range(1, 5)]); cover(25, ['trolley.hoist-sheave.%d-%s' % (n, r) for n in range(1, 5) for r in ('i', 'ii')])
+cover(26, ['trolley.catenary.landside', 'trolley.catenary.waterside'], 'catenary trolleys carry the rope support rollers')
+cover(27, ['reeving.tls-cylinder.%d' % i for i in range(1, 5)])
+AS_ = bb(AS)
+man_new(28, 'reeving.tls-cylinder.transducers', 'Linear displacement transducers in the TLS cylinder rods (4)', 'br-skew', '111', AS, [cyl([AS_[0][0] + 2.0, AS_[0][1] + 0.75, z], 'x', 0.05, 0.3) for z in (-3.25, -2.15, 2.15, 3.25)])
+man_new(29, 'reeving.tls-cylinder.pressure-switches', 'Pressure switches, snag (4)', 'br-skew', '111', AS, [prism([AS_[0][0] + 0.55, AS_[0][1] + 2.6, z], 0.12, 0.12, 0.12) for z in (-3.25, -2.15, 2.15, 3.25)])
+cover(30, 'trolley.skew-system.main'); cover(31, ['reeving.hoist-sheave.back-reach.%d' % i for i in range(1, 5)], 'turning sheaves = hoist rope tail sheaves')
+TF = bb('trolley.frame')
+man_new(32, 'trolley.limit.weight-lever-switch', 'Weight-operated lever switch (bottom of trolley, hoist upper limit)', 'mh-limits', '051', 'trolley.frame', prism([(TF[0][0] + TF[1][0]) / 2 + 0.9, TF[0][1] - 0.1, 1.6], 0.2, 0.25, 0.15))
+HSA, HSB = bb('hoist.drive.brake.hs.a'), bb('hoist.drive.brake.hs.b')
+man_new(33, 'hoist.limit.motor-brake-switches', 'Brake released / manual-released limit switches, hoist motor brakes', 'mh-limits', '051', 'hoist.drive.brake.hs.a',
+        [prism([HSA[1][0] + 0.06, HSA[1][1] - 0.15, (HSA[0][2] + HSA[1][2]) / 2], 0.1, 0.12, 0.1), prism([HSB[1][0] + 0.06, HSB[1][1] - 0.15, (HSB[0][2] + HSB[1][2]) / 2], 0.1, 0.12, 0.1)])
+EA, EB = bb('hoist.emergency.brake.a'), bb('hoist.emergency.brake.b')
+man_new(34, 'hoist.limit.drum-brake-switches', 'Drum brake released limit switches, main hoist', 'mh-limits', '051', 'hoist.emergency.brake.a',
+        [prism([EA[1][0] + 0.06, EA[1][1] - 0.3, (EA[0][2] + EA[1][2]) / 2], 0.1, 0.12, 0.1), prism([EB[1][0] + 0.06, EB[1][1] - 0.3, (EB[0][2] + EB[1][2]) / 2], 0.1, 0.12, 0.1)])
+man_new(35, 'hoist.drive.motor-thermal-switches', 'Motor thermal switches (embedded, 2)', 'mh-limits', '051', 'hoist.drive.motor.a',
+        [cyl([(m[0][0] + m[1][0]) / 2, m[1][1] + 0.03, (m[0][2] + m[1][2]) / 2], 'y', 0.05, 0.06) for m in (mh_motor_a, mh_motor_b)])
+# Boom hoist
+cover(36, 'boom-hoist.motor.main'); cover(37, 'boom-hoist.brake.hs.main'); cover(38, 'boom-hoist.motor.coupling'); cover(39, 'boom-hoist.reducer.main')
+BD = bb('boom-hoist.drum.main')
+man_new(40, 'boom-hoist.drum-coupling', 'Drum coupling, boom hoist (flexible gear, DC10B)', 'bm-hoist', '031', 'boom-hoist.drum.main', cyl([(BD[0][0] + BD[1][0]) / 2, (BD[0][1] + BD[1][1]) / 2, BD[1][2] + 0.07], 'z', 0.32, 0.12))
+cover(41, 'boom-hoist.emergency.brake.main'); cover(42, 'boom-hoist.drum.main')
+man_new(43, 'boom-hoist.drum-bearing-seat', 'Bearing seat and limit switch, boom hoist drum', 'bm-hoist', '031', 'boom-hoist.drum.main', prism([(BD[0][0] + BD[1][0]) / 2, BD[0][1] + 0.2, BD[0][2] - 0.6], 0.45, 0.4, 0.2))
+BRD_ = bb(BRD)
+man_new(44, 'boom-hoist.emergency-drive', 'Boom hoist emergency drive (on top of the boom hoist reducer)', 'bm-hoist', '161', BRD, prism([(BRD_[0][0] + BRD_[1][0]) / 2, BRD_[1][1] + 0.25, (BRD_[0][2] + BRD_[1][2]) / 2], 0.6, 0.45, 0.45))
+cover(45, 'boom.rope.set.main'); cover(46, 'boom.sheave.apex')
+AP = bb('boom.sheave.apex')
+man_new(47, 'boom.sheave.apex-equalizer', 'Equalizer sheave on top of the A-frame (boom hoist)', 'bm-hoist', '031', 'boom.sheave.apex', cyl([AP[0][0] + 0.4, AP[1][1] + 0.05, 0.0], 'z', 0.4, 0.14))
+cover(48, 'boom.sheave.boom-block'); cover(49, 'boom.sheave.boom-block')
+AH_ = bb(AH)
+man_new(50, 'boom.limit.apex-lever-switch', 'Lever-operated limit switch, boom hoist (top of A-frame)', 'bm-limits', '051', AH, prism([AH_[1][0] - 0.2, AH_[1][1] - 0.6, 1.6], 0.18, 0.25, 0.15))
+man_new(51, 'boom-hoist.limit.multi-cam-switch', 'Multi-cam rotary limit switch, boom hoist', 'bm-limits', '051', 'boom-hoist.drum.main', prism([(BD[0][0] + BD[1][0]) / 2 + 0.7, BD[1][1] - 0.2, BD[0][2] - 0.25], 0.22, 0.2, 0.18))
+man_new(52, 'boom-hoist.limit.absolute-encoder', 'Absolute encoder, boom hoist', 'bm-limits', '031', 'boom-hoist.drum.main', cyl([(BD[0][0] + BD[1][0]) / 2 + 0.7, BD[1][1] - 0.55, BD[0][2] - 0.25], 'z', 0.07, 0.12))
+man_new(53, 'boom-hoist.limit.cam-switch', 'Cam limit switch, boom hoist drum end', 'bm-limits', '051', 'boom-hoist.drum.main', prism([(BD[0][0] + BD[1][0]) / 2 + 0.7, BD[1][1] - 0.85, BD[0][2] - 0.25], 0.2, 0.18, 0.16))
+man_new(54, 'boom.limit.stowage-switches', 'Mechanical limit switches, boom stowage', 'bm-limits', '051', AH, prism([AH_[1][0] + 0.15, AH_[0][1] + 0.15, -1.2], 0.15, 0.2, 0.15))
+# Trolley travel
+cover(55, 'trolley-drive.motor.main'); cover(56, 'trolley-drive.brake.main')
+TMb, TBr, TRd, TDr = bb(TM), bb('trolley-drive.brake.main'), bb('trolley-drive.reducer.main'), bb('trolley-drive.drum.main')
+man_new(57, 'trolley-drive.motor-coupling', 'Motor coupling (high speed), trolley drive', 'tr-drive', '021', TM, cyl([(TMb[0][0] + TMb[1][0]) / 2, (TMb[0][1] + TMb[1][1]) / 2, TBr[1][2] + 0.06], 'z', 0.22, 0.1))
+cover(58, 'trolley-drive.reducer.main')
+man_new(59, 'trolley-drive.drum-coupling', 'Drum coupling, trolley drive (flexible gear, DC05B)', 'tr-drive', '021', 'trolley-drive.drum.main', cyl([(TDr[0][0] + TDr[1][0]) / 2, (TDr[0][1] + TDr[1][1]) / 2, TDr[0][2] - 0.06], 'z', 0.28, 0.1))
+cover(63, 'trolley.rope.set.main'); cover(64, ['reeving.trolley-sheave.3', 'reeving.trolley-sheave.4']); cover(65, 'trolley.sheave.equalizer')
+man_new(66, 'trolley.rope-clamp', 'Rope clamp / screw rod blocks, trolley rope ends', 'tr-frame', '024', 'trolley.frame', [prism([TF[0][0] + 0.25, TF[1][1] - 0.15, z], 0.3, 0.18, 0.22) for z in (-1.05, 1.05)] + [prism([TF[1][0] - 0.25, TF[1][1] - 0.15, z], 0.3, 0.18, 0.22) for z in (-1.05, 1.05)])
+cover(67, ['reeving.trolley-tension.cylinder.1', 'reeving.trolley-tension.cylinder.2']); cover(68, 'reeving.sheave.trolley-tail'); cover(69, 'trolley.skew-system.main', 'multi-function hydraulic power unit (TLS, snag and tension)')
+TT_ = bb(TTn)
+man_new(70, 'reeving.trolley-tension.proximity-switches', 'Proximity switches, tension cylinder stroke limits (4)', 'br-antisnag', '051', TTn, [prism([TT_[0][0] + dx, TT_[1][1] + 0.08, z], 0.08, 0.08, 0.08) for dx in (0.3, 1.6) for z in (-1.05, 1.05)])
+cover(71, ['trolley.wheel.ls-a.1', 'trolley.wheel.ls-b.1', 'trolley.wheel.ws-a.1', 'trolley.wheel.ws-b.1'])
+cover(72, ['trolley.wheel-bearing.%d' % i for i in range(1, 5)]); cover(73, ['trolley.wheel-bearing.%d' % i for i in range(1, 5)], 'workbook tracks one bearing per wheel')
+cover(74, 'trolley.frame')
+man_new(75, 'trolley.buffers', 'Pneumatic-hydraulic buffers, trolley (4)', 'tr-frame', '021', 'trolley.frame', [cyl([x, TF[0][1] + 1.6, z], 'x', 0.11, 0.35) for x in (TF[0][0] + 0.1, TF[1][0] - 0.1) for z in (-2.2, 2.2)])
+BTIP = bb('boom.main.girder')
+man_new(76, 'trolley.limit.boom-end-lever-switches', 'Lever-operated limit switches, trolley travel (boom far end)', 'tr-limits', '051', 'boom.main.girder', [prism([BTIP[1][0] - 1.6, BTIP[1][1] - 0.2, z], 0.2, 0.25, 0.15) for z in (-3.0, 3.0)])
+man_new(77, 'trolley.limit.proximity-switches', 'Proximity limit switches, trolley slowdown / stop', 'tr-limits', '051', 'boom.main.girder', [prism([x, BTIP[1][1] - 0.15, -3.55], 0.12, 0.12, 0.12) for x in (BTIP[1][0] - 6.0, BTIP[1][0] - 3.0)])
+man_new(78, 'trolley-drive.limit.absolute-encoder', 'Absolute encoder, trolley drum shaft end', 'tr-limits', '021', 'trolley-drive.drum.main', cyl([(TDr[0][0] + TDr[1][0]) / 2, (TDr[0][1] + TDr[1][1]) / 2, TDr[1][2] + 0.08], 'z', 0.07, 0.12))
+man_new(79, 'trolley-drive.limit.incremental-encoder', 'Incremental encoder, trolley motor end', 'tr-limits', '021', TM, cyl([(TMb[0][0] + TMb[1][0]) / 2, (TMb[0][1] + TMb[1][1]) / 2, TMb[0][2] - 0.18], 'z', 0.07, 0.1))
+GR = bb('structure.girder.rear.main')
+man_new(80, 'trolley.limit.park-switch', 'Magnet-operated proximity switch, trolley park position', 'tr-limits', '051', 'structure.girder.rear.main', prism([-30.0, GR[1][1] + 0.1, -3.55], 0.12, 0.12, 0.12))
+CAB = bb('cabin.operator.main')
+man_new(81, 'cabin.access-gate.switches', 'Cab access gate proximity switches (2)', 'tr-limits', '051', 'cabin.operator.main', [prism([CAB[1][0] + 0.05, CAB[1][1] - 0.4, z], 0.08, 0.1, 0.08) for z in (-0.9, 0.9)])
+cover(82, 'cabin.operator.seat'); cover(83, 'cabin.operator.consoles')
+man_new(84, 'cabin.twistlock-panel', 'Twist-lock indicating panel (cab)', 'tr-cabin', '141', 'cabin.operator.main', prism([CAB[0][0] + 0.35, CAB[1][1] - 0.6, 0.0], 0.06, 0.3, 0.6))
+man_new(85, 'cabin.monitors', 'Computer / TV monitors in the cab (3)', 'tr-cabin', '141', 'cabin.operator.main', [prism([CAB[0][0] + 0.7, CAB[1][1] - 0.85, z], 0.05, 0.3, 0.4) for z in (-0.5, 0.0, 0.5)])
+man_new(86, 'cabin.floor-window-lighting', 'Floor window and cab lighting (dimmer)', 'tr-cabin', '141', 'cabin.operator.main', prism([(CAB[0][0] + CAB[1][0]) / 2 - 0.4, CAB[0][1] + 0.03, 0.0], 1.4, 0.03, 1.2))
+# Gantry
+cover(87, 'gantry.drive.*', 'gantry drive units (16)'); cover(88, 'gantry.drive.*', 'motor brake inside each drive unit'); cover(89, 'gantry.drive.*', 'coupling in each drive unit'); cover(90, 'gantry.drive.*', 'reducer in each drive unit'); cover(91, 'gantry.drive.*', 'pulse tachometer in each drive motor')
+cover(92, 'gantry.wheel.*', '32 gantry wheels'); cover(93, 'gantry.bogie.*', 'equalizer beams in the bogie sets')
+cover(94, ['gantry.wheel-brake.ws.%d' % i for i in range(1, 9)] + ['gantry.wheel-brake.ls.%d' % i for i in range(1, 9)], 'manual 1.3.4.1 calls the JLQ115 the rail brake; J526A0600 lists it as wheel brake, 4 per corner')
+bog = {c: bb('gantry.bogie.%s' % c) for c in ('ws-a', 'ws-b', 'ls-a', 'ls-b')}
+man_new(95, 'gantry.buffers', 'Gantry buffers (7/500BQD140-517, 700 kN, stroke 500)', 'gt-buffers', '041', 'gantry.bogie.ws-a',
+        [cyl([(b[0][0] + b[1][0]) / 2, 1.3, (b[1][2] + 0.3) if c.endswith('a') else (b[0][2] - 0.3)], 'z', 0.14, 0.6) for c, b in bog.items()])
+man_new(96, 'gantry.buffer.limit-switches', 'Buffer limit switches (proximity, 2)', 'gt-buffers', '051', 'gantry.bogie.ws-a', [prism([(bog[c][0][0] + bog[c][1][0]) / 2 + 0.3, 1.75, (bog[c][1][2] + 0.1) if c.endswith('a') else (bog[c][0][2] - 0.1)], 0.1, 0.1, 0.1) for c in ('ws-a', 'ws-b')])
+SW, SL = bb('structure.portal.waterside.sill-beam'), bb('structure.portal.landside.sill-beam')
+man_new(97, 'gantry.stowage-pins', 'Gantry stowage pins / plates (under the sea- and land-side sill beams)', 'gt-stowage', '041', 'structure.portal.waterside.sill-beam',
+        [cyl([(s[0][0] + s[1][0]) / 2, s[0][1] - 0.3, 0.0], 'y', 0.12, 0.6) for s in (SW, SL)])
+man_new(98, 'gantry.stowage-pins.switches', 'Stow pin proximity switches (2)', 'gt-stowage', '051', 'structure.portal.waterside.sill-beam', [prism([s[1][0] + 0.05, s[0][1] - 0.1, 0.35], 0.1, 0.1, 0.1) for s in (SW, SL)])
+cover(99, 'gantry.drive.*', 'motor brake limit switches on each drive unit')
+cover(100, ['gantry.wheel-brake.ws.%d' % i for i in range(1, 9)] + ['gantry.wheel-brake.ls.%d' % i for i in range(1, 9)], 'rail brake limit switches on the wheel brakes')
+man_new(101, 'gantry.obstacle-sensors', 'Ultrasonic sensors and reflectors (obstacle detection, small equalizer beam ends)', 'gt-interlocks', '051', 'gantry.bogie.ws-a',
+        [prism([(b[0][0] + b[1][0]) / 2, 0.55, (b[1][2] + 0.05) if c.endswith('a') else (b[0][2] - 0.05)], 0.12, 0.12, 0.1) for c, b in bog.items()])
+cover(102, 'auxiliary.apex.anemometer')
+LLB = bb('structure.portal.landside.leg.b')
+man_new(103, 'gantry.ground-control-station', 'Ground control station and CMS terminal (gantry maintenance cab)', 'gt-mcab', '051', 'structure.portal.landside.leg.b',
+        prism([LLB[1][0] + 0.6, 7.2, LLB[0][2] + 0.6], 0.9, 1.6, 0.8), note='Location approximate (landside leg B, beside the stair tower)')
+# Load handling
+cover(104, 'spreader.frame'); cover(105, 'headblock.frame'); cover(106, ['headblock.hoist-sheave.%d' % i for i in range(1, 5)])
+HB_ = bb(HBF)
+man_new(107, 'headblock.connecting-pins', 'Connecting pins and proximity switches (headblock to spreader)', 'mh-load', '062', HBF, [cyl([(HB_[0][0] + HB_[1][0]) / 2, HB_[0][1] - 0.02, z], 'y', 0.08, 0.2) for z in (-2.4, 2.4)])
+SP_ = bb('spreader.frame')
+man_new(108, 'spreader.over-height-adapter', 'Over-height adapter (attachment, shown beside the spreader)', 'mh-load', '061', 'spreader.frame', prism([SP_[0][0] - 1.6, SP_[0][1] + 0.4, 0.0], 0.5, 0.6, 6.0),
+        note='Attachment used when needed; drawn beside the spreader, not its stored position')
+man_new(109, 'spreader.hook-beam', 'Hook beam (75 t, attachment)', 'mh-load', '061', 'spreader.frame', prism([SP_[0][0] - 2.4, SP_[0][1] + 0.4, 0.0], 0.5, 0.5, 4.0), note='Attachment used when needed; drawn beside the spreader')
+man_new(110, 'spreader.hook-beam.hook', 'Swivel safety single hook (hook beam)', 'mh-load', '061', 'spreader.frame', cyl([SP_[0][0] - 2.4, SP_[0][1] - 0.15, 0.0], 'y', 0.12, 0.6))
+# Safety and protection
+man_new(111, 'boom.stowage-pins', 'Boom stowage pins and sockets (2 sets, maintenance position 80 deg)', 'ap-stowage', '031', AH, [cyl([AH_[1][0] + 0.1, AH_[0][1] + 0.5, z], 'x', 0.1, 0.5) for z in (-2.4, 2.4)])
+man_new(112, 'boom.stowage-pins.switches', 'Pin position limit switches, boom stowage', 'ap-stowage', '051', AH, [prism([AH_[1][0] + 0.15, AH_[0][1] + 0.8, z], 0.1, 0.1, 0.1) for z in (-2.4, 2.4)])
+man_new(113, 'boom.collision.trip-wires', 'Ship collision trip wires (stainless steel, each side of the boom)', 'bm-collision', '051', 'boom.main.girder',
+        [tube([BTIP[0][0] + 20, BTIP[0][1] - 0.15, s * 3.85], [BTIP[1][0] - 1.0, BTIP[0][1] - 0.15, s * 3.85], 0.02) for s in (-1, 1)], kind='quantityLot', uom='ea')
+man_new(114, 'boom.collision.switches', 'Proximity limit switches at the trip wire ends (2)', 'bm-collision', '051', 'boom.main.girder', [prism([BTIP[1][0] - 0.9, BTIP[0][1] - 0.15, s * 3.85], 0.1, 0.12, 0.1) for s in (-1, 1)])
+man_new(115, 'auxiliary.obstruction-lights', 'Obstruction lights at the boom tip and girder rear end', 'ap-safety', '131', 'boom.main.girder',
+        [cyl([BTIP[1][0] - 0.3, BTIP[1][1] + 0.2, 0.0], 'y', 0.13, 0.35), cyl([GR[0][0] + 0.3, GR[1][1] + 0.2, 0.0], 'y', 0.13, 0.35)], note='The A-frame top light is the Excel Aircraft Safety Light')
+cover(116, 'hoist.loadcell.main')
+# Cable and auxiliary
+cover(117, ['trolley.catenary.landside', 'trolley.catenary.waterside']); cover(118, 'reeving.sheave.catenary-boom-tip'); cover(119, 'gantry.cable-reel.main', 'cable reel drum, gearbox and motor')
+G_ = bb(GCR)
+man_new(120, 'gantry.cable-reel.coupling', 'Coupling, gantry cable reel drive', 'gt-gcr', '042', GCR, cyl([G_[1][0] + 0.15, (G_[0][1] + G_[1][1]) / 2 + 0.3, (G_[0][2] + G_[1][2]) / 2], 'x', 0.16, 0.12))
+man_new(121, 'gantry.cable-reel.slip-rings', 'High-voltage slip rings (slip ring cabinet)', 'gt-gcr', '121', GCR, prism([G_[0][0] - 0.1, (G_[0][1] + G_[1][1]) / 2, (G_[0][2] + G_[1][2]) / 2], 0.3, 0.7, 0.6))
+man_new(122, 'gantry.cable-reel.guide-roller', 'Guide roller device, gantry cable reel', 'gt-gcr', '042', GCR, cyl([(G_[0][0] + G_[1][0]) / 2, G_[0][1] + 0.15, (G_[0][2] + G_[1][2]) / 2 - 1.2], 'x', 0.12, 0.6))
+cover(123, 'trolley.cable-system.main')
+# Hydraulic systems
+man_new(124, 'gantry.rail-brake-hpu', 'Gantry rail brake hydraulic power unit', 'ot-hydraulic', '041', 'structure.portal.waterside.sill-beam', prism([SW[1][0] + 0.45, SW[0][1] + 0.4, -6.0], 0.6, 0.7, 0.9),
+        note='Location approximate (on the seaside sill beam)')
+man_new(125, DHPU, 'Hydraulic disc brake power unit (machine house)', 'ot-hydraulic', '012', DBK, prism(at(DBK, 1.0, 0.0, 0.5, (0.65, 0.35, -0.7)), 0.7, 0.7, 0.5),
+        note='Feeds the drum (emergency) brakes; position approximate')
+cover(126, 'trolley.skew-system.main')
+for rn in (127, 128, 129): skip(rn, 'generic hydraulic part types (pump, cylinder, valves) of every unit, not a separate located part')
+# Maintenance and access
+cover(130, 'machinery-house.service-crane')
+man_new(131, 'auxiliary.jib-cranes', 'Outdoor jib (sample) cranes at the boom tip and A-frame top (2)', 'mx-maint', '151', 'boom.main.girder',
+        [cyl([BTIP[1][0] - 2.0, BTIP[1][1] + 0.9, 2.9], 'y', 0.09, 1.8), cyl([AH_[0][0] + 0.4, AH_[1][1] - 0.1, 3.6], 'y', 0.09, 1.6)])
+cover(132, 'auxiliary.service-crane.girder-tail'); cover(133, 'auxiliary.rope-reeving.machinery-house')
+MHf = bb('structure.machinery-frame')
+man_new(134, 'machinery-house.tool-kits', 'Tool kits (2 sets)', 'mx-maint', '151', 'structure.machinery-frame', prism([-31.6, MHf[1][1] + 0.3, 7.8], 0.5, 0.4, 0.9))
+man_new(135, 'machinery-house.workbench', 'Workbench', 'mx-maint', '151', 'structure.machinery-frame', prism([-31.6, MHf[1][1] + 0.45, 6.6], 0.7, 0.85, 1.6))
+cover(136, 'access.elevator.car'); cover(137, ['access.stair.landside-leg-b', 'access.stair.a-frame'])
+covered_rows = {c['manualRow'] for c in coverage} | {s['manualRow'] for s in skipped} | {i['manualRef']['row'] for i in items if i.get('manualRef')}
+missing = [r['row'] for r in manual_rows if r['row'] not in covered_rows]
+assert not missing, [(m, M[m]['label']) for m in missing]
+
+questions = [
+    {'id': 'Q-C70-1', 'topic': 'Short Rail / Long Rail', 'text': 'Short Rail is mapped to the existing hinge-joint short rails; Long Rail is drawn on the boom side of the hinge joint. Which pieces do the workbook rows mean?'},
+    {'id': 'Q-C70-2', 'topic': 'Rest Plate / Base Plate', 'text': 'Left/Right Rest Plate and Base Plate are drawn under the hinge-joint rails (rest = boom side, base = girder side). Please confirm their actual location.'},
+    {'id': 'Q-C70-3', 'topic': 'Numbering', 'text': 'Trolley wheels/bearings and headblock sheaves use the catenary-wheel corner order (1 back gate house, 2 front gate house, 3 front SAGT, 4 back SAGT); trolley sheaves (i)/(ii) = landside/seaside shaft; TLS cylinders 01-04 from the gate house end. Please confirm.'},
+    {'id': 'Q-C70-4', 'topic': 'Anti creeper', 'text': 'The Anti creeper oil row is placed at the seaside gate-house corner sill beam (rail clamp / anti-creep hydraulics). Please confirm the unit.'},
+]
+
+# ------------------------------------------------------------------------------------------------ outputs
+cat = json.loads((ROOT / 'documents' / 'prompt-pack' / 'reference' / 'mechanisms-approved.json').read_text(encoding='utf-8'))
+catsub = {s['code']: s for s in cat['subMechanisms']}; catmain = {m['code']: m for m in cat['mainMechanisms']}
+groups = [{'id': gid, 'name': clean(nm), 'excelName': nm, 'excel': True, 'order': i, 'mainCode': None} for i, (gid, nm) in enumerate(GROUPS)]
+groups += [{'id': gid, 'name': catmain[c]['name'], 'excelName': None, 'excel': False, 'order': 100 + i, 'mainCode': c} for i, (gid, c) in enumerate(SYS_GROUPS)]
+subgroups = []
+for (major, sub), sid in EXCEL_SUB_ID.items():
+    subgroups.append({'id': sid, 'groupId': GROUP_OF_MAJOR[major], 'name': clean(sub), 'excelName': sub, 'excel': True, 'origin': 'excel', 'code': SUB_CODE[sid]})
+for sid, gid, nm, origin, code in EXTRA_SUBS:
+    subgroups.append({'id': sid, 'groupId': gid, 'name': nm or (code + ' ' + (catsub[code]['name'][:1].upper() + catsub[code]['name'][1:])), 'excelName': None, 'excel': False, 'origin': origin, 'code': code})
+sg_ids = {s['id'] for s in subgroups}
+assert all(i['subgroupId'] in sg_ids for i in items) and all(v in sg_ids for v in list(SYS_BY_CODE.values()) + list(SYS_BY_KEY.values()))
+for p in new_parts: assert p['sub'] in catsub and catsub[p['sub']]['active'], p
+source = {'file': XLSX_REL, 'sha256': hashlib.sha256(XLSX.read_bytes()).hexdigest(), 'excelSheet': 'QC01 (QC01-QC14 identical in B:D)', 'manualSheet': 'QC ALL Components',
+          'modelManifest': MANIFEST.relative_to(ROOT).as_posix(), 'excelRows': len(qc_rows), 'manualRows': len(manual_rows)}
+doc = {'schemaVersion': 1, 'change': 'U1-C70', 'decision': 'D-220', 'generatedBy': 'tools/u1/import_qc_components.py', 'appliesTo': {'equipmentType': 'QC', 'modelCode': 'CICT-J526A-STS'},
+       'source': source, 'orientation': {'gateHouseEnd': '-Z (b side)', 'sagtEnd': '+Z (a side)', 'lhs': 'gate house end, looking from the back reach to the sea', 'frontCatenary': 'seaside (waterside) catenary trolley'},
+       'nameNormalisation': [{'pattern': a, 'replacement': b} for a, b in SPELL[:4]],
+       'groups': groups, 'subgroups': subgroups, 'items': items, 'systemPlacement': {'byCode': SYS_BY_CODE, 'byKey': SYS_BY_KEY},
+       'manualCoverage': coverage, 'manualSkipped': skipped, 'openQuestions': questions,
+       'counts': {'excelItems': sum(1 for i in items if i['excel']), 'excelExisting': sum(1 for i in items if i['excel'] and i['binding'] == 'existing'),
+                  'excelNew': sum(1 for i in items if i['excel'] and i['binding'] == 'new'), 'manualNew': sum(1 for i in items if not i['excel']),
+                  'manualCovered': len(coverage), 'manualSkipped': len(skipped), 'newModelParts': len(new_parts)}}
+OUT_JSON.write_text(json.dumps(doc, indent=1, ensure_ascii=False) + '\n', encoding='utf-8')
+head = '// GENERATED by tools/u1/import_qc_components.py (U1-C70, D-220) from the QC component workbook and the ZPMC manual list. Do not edit.\n'
+OUT_MODEL.write_text(head + '// Each part is drawn on the shared unit prism (radius 0.5, height 1 along +Y): c = centre, q = quaternion, s = scale (metres).\n'
+                     + 'export const REFERENCE_COMPONENTS = ' + json.dumps(new_parts, indent=1, ensure_ascii=False) + ';\n', encoding='utf-8')
+js = {k: doc[k] for k in ('change', 'appliesTo', 'source', 'orientation', 'groups', 'subgroups', 'items', 'systemPlacement', 'openQuestions', 'counts')}
+OUT_JS.write_text('/* GENERATED by tools/u1/import_qc_components.py from assets/reference/qc-component-hierarchy.json (U1-C70, D-220). Do not edit. */\n'
+                  + 'window.EQ = window.EQ || {};\nEQ.qcHierarchy = ' + json.dumps(js, indent=1, ensure_ascii=False) + ';\n', encoding='utf-8')
+print(json.dumps(doc['counts']))

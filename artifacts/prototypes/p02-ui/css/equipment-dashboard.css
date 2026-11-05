@@ -230,3 +230,11 @@ button.tag.spare-flag:disabled { cursor: default; opacity: .7; }
   .sp-history-foot { padding-block: 0; }
   button.tag.spare-flag { min-height: 44px; padding-inline: 12px; }
 }
+
+/* U1-C70: QC tree follows the component workbook; parts not in the workbook are muted, and a tick shows workbook items only */
+.equipment-page .ti .ti-extra { color: var(--pa-muted); }
+.equipment-page [role="treeitem"][aria-selected="true"] > .ti .ti-extra { color: var(--pa-ink); }
+.equipment-page .tree-excel-only { display: flex; align-items: center; gap: 7px; margin: 9px 1px 0; font-size: 12px; font-weight: 600; color: var(--pa-ink); }
+.equipment-page .tree-excel-only input { width: 16px; height: 16px; margin: 0; }
+.equipment-page .tree-excel-only .tree-count { margin-left: auto; font-size: 10.5px; font-weight: 500; color: var(--pa-muted); }
+@media (max-width: 700px) { .equipment-page .tree-excel-only { min-height: 44px; } }

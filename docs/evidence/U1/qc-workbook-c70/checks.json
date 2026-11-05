@@ -1,0 +1,56 @@
+{
+  "date": "2026-11-05T09:25:39.596Z",
+  "base": "http://127.0.0.1:5312/index.html",
+  "passed": 12,
+  "total": 12,
+  "results": [
+    {
+      "name": "W1 Workbook data: 136 Excel items (QC01-QC14 list), all present as QC01 parts with the workbook names",
+      "pass": true
+    },
+    {
+      "name": "W2 Existing system parts take the workbook names; other system parts are kept",
+      "pass": true
+    },
+    {
+      "name": "W3 Tree: the 8 workbook assemblies first, then the approved mechanisms without a workbook group; RTG unchanged",
+      "pass": true
+    },
+    {
+      "name": "W4 \"Excel items only\" tick: only workbook parts and assemblies; untick restores all items",
+      "pass": true
+    },
+    {
+      "name": "W5 Sub assembly selection: URL, breadcrumb, panel, Technical tab and 3D highlight of its parts",
+      "pass": true
+    },
+    {
+      "name": "W6 Placement follows the workbook locations: LHS / gate house end = -Z, front catenary = seaside, numbering from the gate house end",
+      "pass": true
+    },
+    {
+      "name": "W7 Group scope: spare parts and special jobs are read through the group; jobs links stay equipment-wide",
+      "pass": true
+    },
+    {
+      "name": "W8 3D labels use the workbook names; a group label drills down; choosing an Area clears the group",
+      "pass": true
+    },
+    {
+      "name": "W9 Old mechanism links (main / sub / part) still open on the workbook tree",
+      "pass": true
+    },
+    {
+      "name": "W10 QC03 (draft positions) gets the workbook tree too; jobs keep the approved codes",
+      "pass": true
+    },
+    {
+      "name": "W11 Phone: tick in the Mechanisms drawer with a 44 px target, no page overflow",
+      "pass": true
+    },
+    {
+      "name": "W12 No script errors",
+      "pass": true
+    }
+  ]
+}

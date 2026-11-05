@@ -27,7 +27,7 @@ function prepare(eq) {
     const sub = eq.subs.find(s => s.code === n.classification.sub);
     if (!sub) continue;
     EQ.state.D.positions.push({ id: 'mp-' + eq.key + '-' + n.key.replaceAll('.', '_'), equipmentId: eq.id,
-      mainId: sub.mainId, subId: sub.id, key: n.key, name: n.label, kind: n.positionKind, uom: n.uom,
+      mainId: sub.mainId, subId: sub.id, key: n.key, name: EQ.qcTree ? EQ.qcTree.nameFor(n.key, n.label) : n.label, kind: n.positionKind, uom: n.uom,
       nominal: null, category: n.category, state: eq.positionState === 'draft' ? 'draft' : 'active',
       prov: n.provenance.kind, src: (n.provenance.sources || []).map(x => x.drawing + ' p' + x.pdfPage + (x.note ? ': ' + x.note : '')).join('; ') || n.provenance.kind });
   }
@@ -59,8 +59,34 @@ function pick(s, key) {
   }
   message(s, 'This shape has no active part binding. Use the mechanism tree.');
 }
+// U1-C70: QC labels follow the component workbook (assemblies > sub assemblies > parts, workbook names; 'Excel items only' honoured).
+function workbookCandidates(s, nodes, work) {
+  const { eq, sel, q } = s, T = EQ.qcTree, m = T.model(eq);
+  const byKey = new Map(nodes.map(n => [n.key, n])), xl = EQ.eqUI.excelOnly;
+  const keep = p => byKey.has(p.key) && (!xl || T.isExcel(p));
+  const part = EQ.pos(sel.part);
+  const partLabel = (p, selected) => { const n = byKey.get(p.key); return { id: n.key, text: p.name, keys: [n.key], next: { key: n.key }, tier: 3, allowHidden: true, priority: selected ? 100 : 50, selected,
+    work: EQ.eqUI.showWork ? work.get(n.key) || 0 : 0, badge: n.kind === 'hotspot' || n.provenance.kind === 'approximate-location' ? 'Approx.' : null }; };
+  const groupLabel = (id, text, ps, tier, selected) => ({ id, text, keys: ps.filter(keep).map(p => p.key), next: { grp: id }, tier, allowHidden: true, priority: selected ? 100 : 50, selected,
+    work: EQ.eqUI.showWork ? EQ.openCount(eq.id, { level: 'group', id }) : 0 });
+  const subOf = part ? T.pathOf(eq, part.id)[1] : T.kindOf(sel.grp) === 'subgroup' ? sel.grp : null;
+  if (subOf) {
+    const sg = m.groups.flatMap(g => g.subs).find(x => x.id === subOf);
+    // larger units first (landmarks); small sub-components get the remaining label room (placement keeps this order)
+    const vol = p => { const b = byKey.get(p.key).bounds; return [0, 1, 2].reduce((a, i) => a * Math.max(0.05, b.max[i] - b.min[i]), 1); };
+    const ls = (sg ? sg.positions : []).filter(keep).sort((a, b) => vol(b) - vol(a)).map(p => partLabel(p, p.id === part?.id));
+    if (ls.length) return ls;
+  }
+  if (sel.grp && T.kindOf(sel.grp) === 'group') {
+    const g = m.groups.find(x => x.id === sel.grp);
+    const ls = (g ? g.subs : []).map(sg => groupLabel(sg.id, sg.name, sg.positions, 2, false)).filter(x => x.keys.length);
+    if (ls.length) return ls;
+  }
+  return m.groups.filter(g => s.mode !== 'overall' || g.excel).map(g => groupLabel(g.id, (g.mainCode ? g.mainCode + ' ' : '') + g.name, g.subs.flatMap(x => x.positions), 1, g.id === sel.grp)).filter(x => x.keys.length);
+}
 function candidates(s, nodes, work) {
   const { eq, sel, q } = s;
+  if (!q.container && EQ.qcTree?.applies(eq)) return workbookCandidates(s, nodes, work);
   const main = eq.mains.find(m => m.id === sel.main), sub = eq.subs.find(x => x.id === sel.sub);
   const part = EQ.pos(sel.part);
   const label = (id, text, ns, next, tier, selected = false) => ({ id, text, keys: ns.map(n => n.key), next,
@@ -89,8 +115,12 @@ function labelCandidates(s, nodes, work) {
   let own = null;
   if (part) {
     const n = nodes.find(x => x.key === part.key);
-    if (n) own = { id: n.key, text: n.label, keys: [n.key], next: { key: n.key }, tier: 3, allowHidden: true, priority: 100, selected: true,
+    if (n) own = { id: n.key, text: EQ.qcTree?.applies(eq) ? part.name : n.label, keys: [n.key], next: { key: n.key }, tier: 3, allowHidden: true, priority: 100, selected: true,
       work: EQ.eqUI.showWork ? work.get(n.key) || 0 : 0, badge: n.kind === 'hotspot' || n.provenance.kind === 'approximate-location' ? 'Approx.' : null };
+  } else if (sel.grp && EQ.qcTree?.applies(eq)) {
+    const ids = new Set(EQ.qcTree.positionIds(eq, sel.grp, EQ.eqUI.excelOnly));
+    const ks = EQ.positionsOf(eq.id).filter(p => ids.has(p.id) && nodes.some(n => n.key === p.key)).map(p => p.key);
+    if (ks.length) own = { id: sel.grp, text: EQ.qcTree.label(sel.grp), keys: ks, next: { grp: sel.grp }, tier: EQ.qcTree.kindOf(sel.grp) === 'group' ? 1 : 2, allowHidden: true, priority: 100, selected: true, work: 0 };
   } else if (sub || main) {
     const ns = nodes.filter(n => sub ? n.classification.sub === sub.code : n.classification.main === main.code);
     if (ns.length) own = { id: (sub || main).id, text: sub ? sub.code + ' ' + EQ.defLabel(sub.code) : main.code + ' ' + EQ.defLabel(main.code), keys: ns.map(n => n.key),
@@ -125,7 +155,9 @@ function update(s) {
     (n.kind === 'hotspot' && eq.subs.some(x => x.code === n.classification.sub)));
   const main = eq.mains.find(m => m.id === sel.main), sub = eq.subs.find(x => x.id === sel.sub), part = EQ.pos(sel.part);
   const container = q.container ? 'container.' + q.container : null;
-  const keys = part ? (byKey.has(part.key) ? [part.key] : []) : nodes.filter(n => sub ? n.classification.sub === sub.code : main ? n.classification.main === main.code : false).map(n => n.key);
+  const grpIds = !part && sel.grp && EQ.qcTree ? new Set(EQ.qcTree.positionIds(eq, sel.grp).map(id => EQ.pos(id)?.key)) : null;
+  const keys = part ? (byKey.has(part.key) ? [part.key] : []) : grpIds ? nodes.filter(n => grpIds.has(n.key)).map(n => n.key)
+    : nodes.filter(n => sub ? n.classification.sub === sub.code : main ? n.classification.main === main.code : false).map(n => n.key);
   const sig = JSON.stringify([eq.id, keys, container, mode, iso]);
   v.setSelection(keys, { container, focus: false });
   message(s, '');
@@ -133,10 +165,10 @@ function update(s) {
     s.signature = sig;
     if (container || keys.length) {
       if (!v.fitKeys(container ? [container] : keys)) message(s, 'This selection has no visible representation in this mode. Use Technical mode or the tree.');
-    } else if (sel.part || sel.sub || sel.main) message(s, 'This selection has no visible representation. Its records remain available.');
+    } else if (sel.part || sel.sub || sel.main || sel.grp) message(s, 'This selection has no visible representation. Its records remain available.');
     else if (!iso) resetCamera(s);
   }
-  if ((sel.part || sel.sub || sel.main || container) && !v.boundsOf(container ? [container] : keys))
+  if ((sel.part || sel.sub || sel.main || sel.grp || container) && !v.boundsOf(container ? [container] : keys))
     message(s, 'This selection has no visible representation in this mode. Its records remain available; use Technical mode or the tree.');
   const work = new Map();
   ps.forEach(p => { const count = EQ.openCount(eq.id, { level: 'part', id: p.id }); if (count) work.set(p.key, count); });
@@ -165,7 +197,7 @@ function render(eq, sel, q, mode) {
         btn('mode-overall', 'Overall', () => nav({ mode: 'overall', iso: '', area: '', container: '' }), mode === 'overall'),
         btn('mode-technical', 'Technical', () => nav({ mode: 'technical' }), mode === 'technical')),
       h('label', { class: 'qc-area' }, h('span', null, 'Area'), h('select', { 'aria-label': 'Isolate area', 'data-fk': 'isolate-area',
-        onChange: e => nav({ area: e.target.value, container: e.target.value, main: '', sub: '', part: '', iso: '', ...(e.target.value ? { mode: 'technical' } : {}) }) },
+        onChange: e => nav({ area: e.target.value, container: e.target.value, main: '', sub: '', part: '', grp: '', iso: '', ...(e.target.value ? { mode: 'technical' } : {}) }) },
         h('option', { value: '', selected: !q.area && q.iso !== '1' }, 'Whole crane'),
         manifest.nodes.filter(n => n.kind === 'container').map(n => h('option', { value: n.key.slice(10), selected: (q.area || (q.iso === '1' ? 'machinery-house' : '')) === n.key.slice(10) }, n.label))))),
     s.host,

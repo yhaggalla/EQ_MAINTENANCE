@@ -31,8 +31,13 @@ window.EQ = window.EQ || {};
     // a mechanism shows its parts (Selection); the whole equipment or an area shows the key parts.
     extra = { ...(extra || {}) };
     if (sel.part && (extra.mode || EQ.route.query.mode) !== 'technical') extra.mode = 'technical';
-    ui.labelMode = sel.part ? 'selected' : sel.main || sel.sub ? 'selection' : 'key';
-    EQ.nav('/eq/equipment/' + eq.id, { ...EQ.route.query, panel: 'spareParts', area: EQ.qc?.selectionArea(eq, sel) || '', main: sel.main || '', sub: sel.sub || '', part: sel.part || '', container: '', ...extra });
+    // U1-C70: a workbook group keeps the camera mode like a mechanism (D-215), unless none of its parts is drawn in Overall
+    if (sel.grp && (extra.mode || EQ.route.query.mode) !== 'technical' && EQ.qc?.manifest) {
+      const keys = new Set(EQ.qcTree.positionIds(eq, sel.grp).map((id) => EQ.pos(id)?.key));
+      if (!EQ.qc.manifest.nodes.some((n) => keys.has(n.key) && n.modes.includes('overall'))) extra.mode = 'technical';
+    }
+    ui.labelMode = sel.part ? 'selected' : sel.main || sel.sub || sel.grp ? 'selection' : 'key';
+    EQ.nav('/eq/equipment/' + eq.id, { ...EQ.route.query, panel: 'spareParts', area: EQ.qc?.selectionArea(eq, sel) || '', main: sel.main || '', sub: sel.sub || '', part: sel.part || '', grp: sel.grp || '', container: '', ...extra });
   }
 
   // ---------------------------------------------------------------- tree
@@ -58,17 +63,45 @@ window.EQ = window.EQ || {};
     return nodes.map(prune).filter(Boolean);
   }
 
+  /** U1-C70: QC tree from the component workbook: assembly > sub assembly > part, workbook names; 'Excel items only' filter. */
+  function buildQcNodes(eq, filter) {
+    const T = EQ.qcTree, m = T.model(eq), f = filter.trim().toLowerCase();
+    const match = (t) => !f || t.toLowerCase().includes(f);
+    const scopeJobs = (id) => EQ.openCount(eq.id, { level: 'group', id });
+    const out = [];
+    for (const g of m.groups) {
+      const gNode = { id: g.id, kind: 'group', level: 2, code: g.mainCode || '', label: g.name, excel: g.excel, sel: { grp: g.id }, jobs: scopeJobs(g.id), children: [] };
+      for (const sg of g.subs) {
+        const parts = sg.positions.filter((p) => !ui.excelOnly || T.isExcel(p));
+        if (!parts.length) continue;
+        const sNode = { id: sg.id, kind: 'sub', level: 3, code: '', label: sg.name, excel: sg.excel, sel: { grp: sg.id }, jobs: scopeJobs(sg.id), children: [] };
+        parts.forEach((p) => { const it = T.item(p.key); sNode.children.push({ id: p.id, kind: 'part', level: 4, code: '', label: p.name, excel: !!it?.excel, search: (it?.excelName || '') + ' ' + (it?.location || ''), draft: p.state === 'draft', sel: { part: p.id }, jobs: EQ.openCount(eq.id, { level: 'part', id: p.id }), children: [] }); });
+        gNode.children.push(sNode);
+      }
+      if (gNode.children.length) out.push(gNode);
+    }
+    if (!f) return out;
+    const prune = (n) => { n.children = n.children.map(prune).filter(Boolean); return match(n.code + ' ' + n.label + ' ' + (n.search || '')) || n.children.length ? n : null; };
+    return out.map(prune).filter(Boolean);
+  }
+
   function treeView(eq, sel) {
-    const nodes = buildNodes(eq, ui.treeFilter);
+    const qcTree = EQ.qcTree?.applies(eq);
+    const nodes = qcTree ? buildQcNodes(eq, ui.treeFilter) : buildNodes(eq, ui.treeFilter);
     const exp = EQ.state.expanded;
-    const selId = sel.part || sel.sub || sel.main || 'root';
+    const selId = sel.part || sel.grp || sel.sub || sel.main || 'root';
     // expand ancestors of the selection only when the selection changes (U1 round 2, U1-C11): the P02/U1 code re-expanded
     // them on every render, so the fold icon of a selected mechanism could never collapse it
-    const selSig = eq.id + '|' + (sel.main || '') + '|' + (sel.sub || '') + '|' + (sel.part || '');
+    const selSig = eq.id + '|' + (sel.main || '') + '|' + (sel.sub || '') + '|' + (sel.part || '') + '|' + (sel.grp || '');
     if (ui.treeSelSig !== selSig) {
       ui.treeSelSig = selSig;
-      if (sel.main) exp.add(eq.id + ':' + sel.main);
-      if (sel.sub) exp.add(eq.id + ':' + sel.sub);
+      if (qcTree) {
+        const path = sel.part ? EQ.qcTree.pathOf(eq, sel.part) : sel.grp ? [EQ.qcTree.parentOf(sel.grp), sel.grp].filter(Boolean) : [];
+        path.forEach((id) => exp.add(eq.id + ':' + id));
+      } else {
+        if (sel.main) exp.add(eq.id + ':' + sel.main);
+        if (sel.sub) exp.add(eq.id + ':' + sel.sub);
+      }
     }
     const isOpen = (n) => ui.treeFilter ? true : exp.has(eq.id + ':' + n.id);
     const flat = [{ id: 'root', root: true, level: 1, children: [] }];
@@ -80,12 +113,12 @@ window.EQ = window.EQ || {};
     const li = (n) => {
       const open = n.children.length ? isOpen(n) : null;
       const row = h('div', { class: 'ti',
-        onClick: (e) => { EQ.eqUI.treeFocus = n.id; if (e.target.closest('.twist') && n.children.length) { toggle(n); return; } if (n.children.length && n.kind === 'main') exp.add(eq.id + ':' + n.id); select(eq, n.sel); } },
+        onClick: (e) => { EQ.eqUI.treeFocus = n.id; if (e.target.closest('.twist') && n.children.length) { toggle(n); return; } if (n.children.length && (n.kind === 'main' || n.kind === 'group')) exp.add(eq.id + ':' + n.id); select(eq, n.sel); } },
         h('span', { class: 'twist', 'aria-hidden': 'true', 'data-fk': 'tw-' + n.id, title: n.children.length ? (open ? 'Fold' : 'Unfold') : null }, n.children.length ? icon(open ? 'chevron-d' : 'chevron-r') : null),
         n.code ? h('span', { class: 'code' }, n.code) : null,
-        h('span', { class: 'grow' }, n.label, n.draft ? h('span', { class: 'tag dashed', style: 'margin-left:.3rem' }, 'draft') : null),
+        h('span', { class: 'grow' + (qcTree && !n.excel ? ' ti-extra' : '') }, n.label, n.draft ? h('span', { class: 'tag dashed', style: 'margin-left:.3rem' }, 'draft') : null),
         n.jobs ? h('span', { class: 'jobs' }, n.jobs + ' open') : null);
-      return h('li', { role: 'treeitem', tabindex: n.id === focusId ? '0' : '-1', 'aria-level': String(n.level), 'aria-selected': n.id === selId ? 'true' : 'false', 'aria-expanded': open == null ? null : String(open), 'aria-label': (n.code ? n.code + ' ' : '') + n.label + (n.jobs ? ', ' + n.jobs + ' open jobs' : '') + (n.draft ? ', draft' : ''), 'data-fk': 'ti-' + n.id, 'data-nid': n.id },
+      return h('li', { role: 'treeitem', tabindex: n.id === focusId ? '0' : '-1', 'aria-level': String(n.level), 'aria-selected': n.id === selId ? 'true' : 'false', 'aria-expanded': open == null ? null : String(open), 'aria-label': (n.code ? n.code + ' ' : '') + n.label + (qcTree && !n.excel ? ', not in the workbook' : '') + (n.jobs ? ', ' + n.jobs + ' open jobs' : '') + (n.draft ? ', draft' : ''), 'data-fk': 'ti-' + n.id, 'data-nid': n.id },
         row, n.children.length && open ? h('ul', { role: 'group' }, n.children.map(li)) : null);
     };
     function toggle(n) { const k = eq.id + ':' + n.id; if (exp.has(k)) exp.delete(k); else exp.add(k); EQ.rerender(); }
@@ -111,14 +144,21 @@ window.EQ = window.EQ || {};
 
   // ---------------------------------------------------------------- selection helpers
   function resolveSel(eq, q) {
-    const out = { main: null, sub: null, part: null, bad: null };
+    const out = { main: null, sub: null, part: null, grp: null, bad: null };
+    if (q.grp && !q.part && EQ.qcTree?.applies(eq)) { if (EQ.qcTree.isGroup(q.grp)) out.grp = q.grp; else out.bad = 'assembly'; return out; }
     if (q.part) { const p = EQ.pos(q.part); if (p && p.equipmentId === eq.id) { out.part = p.id; out.sub = p.subId; out.main = p.mainId; } else out.bad = 'part'; }
     else if (q.sub) { const s = eq.subs.find((x) => x.id === q.sub); if (s) { out.sub = s.id; out.main = s.mainId; } else out.bad = 'submechanism'; }
     else if (q.main) { const m = eq.mains.find((x) => x.id === q.main); if (m) out.main = m.id; else out.bad = 'main mechanism'; }
     return out;
   }
-  function scopeOf(sel) { return sel.part ? { level: 'part', id: sel.part } : sel.sub ? { level: 'sub', id: sel.sub } : sel.main ? { level: 'main', id: sel.main } : { level: 'equipment', id: null }; }
+  function scopeOf(sel) { return sel.part ? { level: 'part', id: sel.part } : sel.grp ? { level: 'group', id: sel.grp } : sel.sub ? { level: 'sub', id: sel.sub } : sel.main ? { level: 'main', id: sel.main } : { level: 'equipment', id: null }; }
   function crumbs(eq, sel, q) {
+    if (EQ.qcTree?.applies(eq) && (sel.part || sel.grp) && !q.container) { // U1-C70: workbook path
+      const path = sel.part ? EQ.qcTree.pathOf(eq, sel.part) : [EQ.qcTree.parentOf(sel.grp), sel.grp].filter(Boolean);
+      const items = [{ label: 'Whole equipment', sel: {} }, ...path.map((id) => ({ label: EQ.qcTree.label(id), sel: { grp: id }, cur: !sel.part && id === sel.grp }))];
+      if (sel.part) items.push({ label: EQ.pos(sel.part).name, cur: true });
+      return h('nav', { 'aria-label': 'Breadcrumb' }, h('ol', { class: 'breadcrumb' }, items.map((c) => h('li', null, c.cur ? h('span', { 'aria-current': 'page' }, c.label) : h('a', { href: '#', onClick: (e) => { e.preventDefault(); select(eq, c.sel); } }, c.label)))));
+    }
     if (!sel.main && !q.container) return null;
     const items = [{ label: 'Whole equipment', sel: {}, cur: false }];
     if (sel.main) { const m = eq.mains.find((x) => x.id === sel.main); items.push({ label: EQ.defLabel(m.code) + ' (' + m.code + ')', sel: { main: m.id }, cur: !sel.sub }); }
@@ -155,7 +195,7 @@ window.EQ = window.EQ || {};
     ui.labelMode = 'key'; ui.container = null; ui.treeFilter = ''; ui.spHistory = null; // U1-C69: Reset also closes a spare-part history
     [...EQ.state.expanded].filter((k) => k.startsWith(eq.id + ':')).forEach((k) => EQ.state.expanded.delete(k));
     EQ.eqUI.treeFocus = 'root'; ui.treeSelSig = null; EQ.eqUI.lastSig = null; EQ.eqUI.hadSel = true;
-    EQ.nav('/eq/equipment/' + eq.id, { ...q, main: '', sub: '', part: '', container: '', iso: '', area: '', view: q.view === '3d' ? '3d' : 'flat' });
+    EQ.nav('/eq/equipment/' + eq.id, { ...q, main: '', sub: '', part: '', grp: '', container: '', iso: '', area: '', view: q.view === '3d' ? '3d' : 'flat' });
     // U1-C34: Reset restores the full crane in the current camera mode.
     if (!EQ.qc) EQ.resetView();
   }
@@ -164,7 +204,7 @@ window.EQ = window.EQ || {};
   // ---------------------------------------------------------------- U1-C69: spare-part replacement history over the viewer
   // Opened by History on a Spare part status card; kept in memory only. Stays open across Flat/3D and Overall/Technical; closed by
   // Close/Escape/Reset or when the selection, area or equipment changes.
-  const spHistSig = (eq, q) => [eq.id, q.main, q.sub, q.part, q.container, q.area, q.iso].map((v) => v || '').join('|');
+  const spHistSig = (eq, q) => [eq.id, q.main, q.sub, q.part, q.grp, q.container, q.area, q.iso].map((v) => v || '').join('|');
   const focusLater = (sel) => setTimeout(() => { const el = document.querySelector(sel); if (el) { el.focus({ preventScroll: true }); el.scrollIntoView({ block: 'nearest' }); } }, 0);
   EQ.panelTabs.spareHistoryOpen = (posId) => ui.spHistory?.posId === posId;
   EQ.panelTabs.onSpareHistory = function openSpareHistory(eq, posId) {
@@ -221,6 +261,7 @@ window.EQ = window.EQ || {};
   }
   function scopeLabel(eq, sel) {
     if (sel.part) return EQ.pos(sel.part).name;
+    if (sel.grp) return EQ.qcTree.label(sel.grp);
     if (sel.sub) return EQ.defLabel(eq.subs.find((s) => s.id === sel.sub).code);
     if (sel.main) return EQ.defLabel(eq.mains.find((m) => m.id === sel.main).code);
     return eq.code + ' (whole equipment)';
@@ -271,6 +312,7 @@ window.EQ = window.EQ || {};
     const box = h('div', { class: 'stack' });
     const kv = (rows) => h('dl', { class: 'kv' }, rows.filter(Boolean).map(([k, v]) => [h('dt', null, k), h('dd', null, v)]));
     if (q.container) { return containerTab(eq); }
+    if (sel.grp) return groupTab(eq, sel.grp);
     if (sel.part) {
       const p = EQ.pos(sel.part), s = EQ.subDef(eq.subs.find((x) => x.id === p.subId).code), m = EQ.mainDef(s.main);
       box.appendChild(h('div', { class: 'sec' }, h('h3', null, p.name), kv([
@@ -296,6 +338,18 @@ window.EQ = window.EQ || {};
       fam ? h('div', null, params.length ? params.map((p) => paramRow(p, eq)) : h('p', { class: 'small muted' }, 'No source parameters are recorded for this mechanism.'))
         : h('div', { class: 'nonwork' }, h('strong', null, 'No family parameters'), eq.typeCode === 'QC' ? 'This equipment has no verified model association, so no drawing values are shown for it.' : 'No source parameters exist for ' + eq.typeCode + ' in the reference data.')));
     box.appendChild(h('div', { class: 'sec' }, h('h3', null, 'Drawings and photos'), h('ul', { class: 'lines', style: 'margin:0' }, (sel.part ? [EQ.pos(sel.part).src] : ['J526A00 p1 general arrangement', 'J526A0300 p1 main hoist drive']).map((t) => h('li', { 'data-panel-search-item': '' }, icon('file'), ' ' + t + ' ', h('span', { class: 'tag dashed', title: 'Reference only in this prototype; opening drawings requires sign-in.' }, 'Reference'))))));
+    return box;
+  }
+  /** U1-C70: Technical tab of a workbook assembly / sub assembly: its parts with workbook name, location and code. */
+  function groupTab(eq, id) {
+    const T = EQ.qcTree, m = T.model(eq), box = h('div', { class: 'stack' });
+    const subs = m.groups.flatMap((g) => g.subs.filter((s) => g.id === id || s.id === id));
+    box.appendChild(h('p', { class: 'small muted', style: 'margin:0' }, EQ.plural(subs.reduce((a, s) => a + s.positions.length, 0), 'part') + '. Names follow the QC component workbook; codes are the approved mechanism codes used for jobs.'));
+    subs.forEach((s) => box.appendChild(h('div', { class: 'sec' }, h('h3', null, s.name), h('ul', { class: 'tl' }, s.positions.map((p) => {
+      const it = T.item(p.key), code = eq.subs.find((x) => x.id === p.subId)?.code;
+      return h('li', { 'data-panel-search-item': '' }, h('a', { href: '#', onClick: (e) => { e.preventDefault(); select(eq, { main: p.mainId, sub: p.subId, part: p.id }, { mode: 'technical' }); } }, p.name),
+        h('span', { class: 'when' }, [it?.excel ? 'Workbook row ' + it.excelRow : it?.origin === 'manual' ? 'Manual list (' + (it.manualRef?.ref || '') + ')' : 'System part', it?.location, code ? code + ' ' + EQ.defLabel(code) : null].filter(Boolean).join(' · ')));
+    })))));
     return box;
   }
   function containerTab(eq) {
@@ -367,14 +421,17 @@ window.EQ = window.EQ || {};
 
     const treePanel = h('aside', { class: 'panel tree-panel' + (EQ.eqUI.drawer === 'tree' ? ' open' : ''), 'aria-label': 'Mechanisms' },
       h('div', { class: 'tp-head' }, h('div', { class: 'row between' }, h('h2', null, 'Mechanisms'), h('button', { type: 'button', class: 'btn-sm drawer-btns', 'aria-label': 'Close mechanisms', onClick: () => closeDrawer() }, icon('x'))),
-        h('div', { class: 'field', style: 'margin-top:.4rem' }, h('label', { for: 'tf', class: 'sr-only' }, 'Filter mechanisms'), h('input', { id: 'tf', type: 'search', 'data-fk': 'tf', placeholder: 'Filter mechanisms', value: ui.treeFilter, autocomplete: 'off', onInput: (e) => { ui.treeFilter = e.target.value; EQ.rerender(); } }))),
+        h('div', { class: 'field', style: 'margin-top:.4rem' }, h('label', { for: 'tf', class: 'sr-only' }, 'Filter mechanisms'), h('input', { id: 'tf', type: 'search', 'data-fk': 'tf', placeholder: 'Filter mechanisms', value: ui.treeFilter, autocomplete: 'off', onInput: (e) => { ui.treeFilter = e.target.value; EQ.rerender(); } })),
+        EQ.qcTree?.applies(eq) ? (() => { const c = EQ.qcTree.counts(eq); return h('label', { class: 'check tree-excel-only', title: 'Unticked: all ' + c.all + ' parts. Ticked: only the ' + c.excel + ' parts of the QC component workbook.' },
+          h('input', { type: 'checkbox', 'data-fk': 'excel-only', checked: ui.excelOnly ? true : null, onChange: (e) => { ui.excelOnly = e.target.checked; EQ.rerender(); } }),
+          'Excel items only', h('span', { class: 'tree-count' }, ui.excelOnly ? c.excel + ' of ' + c.all : c.all + ' parts')); })() : null),
       eq.mains.length ? treeView(eq, sel) : h('div', { class: 'panel-pad small muted' }, eq.assoc === 'verified' ? 'No applicable mechanisms are configured for this model.' : 'No mechanism instances: this equipment has no verified model association or instantiated template.'));
 
     const sum = EQ.panelTabs.summary(eq, scope);
     const nOf = { special: sum.special, spareParts: sum.spare.overdue + sum.spare.dueSoon };
     const nLabel = { special: 'open', spareParts: 'overdue or due soon' };
     const sideHead = h('div', { class: 'sp-head' },
-      h('div', { class: 'scope-context row between' + (scope.level === 'equipment' ? ' whole-equipment' : '') }, h('div', null, h('p', { class: 'eyebrow' }, sel.part ? 'Part position' : sel.sub ? 'Submechanism' : sel.main ? 'Main mechanism' : q.container ? 'Physical area' : 'Equipment'), h('h2', { 'data-fk': 'scope-title' }, q.container ? (EQ.qc?.containerName(q.container) || 'Physical area') : scopeLabel(eq, sel))), h('button', { type: 'button', class: 'btn-sm drawer-btns', 'aria-label': 'Close details', onClick: () => closeDrawer() }, icon('x'))),
+      h('div', { class: 'scope-context row between' + (scope.level === 'equipment' ? ' whole-equipment' : '') }, h('div', null, h('p', { class: 'eyebrow' }, sel.part ? 'Part position' : sel.grp ? (EQ.qcTree.kindOf(sel.grp) === 'group' ? 'Assembly' : 'Sub assembly') : sel.sub ? 'Submechanism' : sel.main ? 'Main mechanism' : q.container ? 'Physical area' : 'Equipment'), h('h2', { 'data-fk': 'scope-title' }, q.container ? (EQ.qc?.containerName(q.container) || 'Physical area') : scopeLabel(eq, sel))), h('button', { type: 'button', class: 'btn-sm drawer-btns', 'aria-label': 'Close details', onClick: () => closeDrawer() }, icon('x'))),
       h('div', { class: 'tabs three', role: 'tablist', 'aria-label': 'Current state of the selection' }, EQ.panelTabs.TABS.map(([k, long, short]) => {
         const n = nOf[k];
         return h('button', { type: 'button', role: 'tab', id: 'tab-' + k, 'aria-controls': 'tabpanel', 'aria-selected': panelTab === k ? 'true' : 'false', tabindex: panelTab === k ? '0' : '-1', 'aria-label': long + (n ? ', ' + n + ' ' + nLabel[k] : ''), 'data-fk': 'tab-' + k,

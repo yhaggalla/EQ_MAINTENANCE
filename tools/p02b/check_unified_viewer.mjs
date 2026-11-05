@@ -20,7 +20,7 @@ try {
     await b.screenshot(out + '/3d-desktop.png', { fullPage: true });
   });
   await step('02 tree selection and all three panels survive switches', async () => {
-    await click('ti-mi-q01-01'); await click('ti-si-q01-011'); await click('ti-pp-q01-007'); await b.wait(900);
+    await click('ti-g-main-hoist'); await click('ti-mh-drive'); await click('ti-pp-q01-007'); // U1-C70: workbook tree (Main Hoist > Hoist Drive Mechanism) await b.wait(900);
     for (const tab of ['spareParts', 'special', 'technical']) {
       await click('tab-' + tab); await b.wait(500);
       const before = await ev(`({part:EQ.route.query.part,text:document.querySelector('#tabpanel').textContent})`);
@@ -53,7 +53,7 @@ try {
   await step('04 scene label clicks drill down through tree and panel in both views', async () => {
     for (const view of ['3d', 'flat']) {
       await click('reset'); await click('view-' + view); await b.wait(900);
-      for (const wanted of ['mi-q01-01', 'si-q01-011', 'hoist.drive.motor.a']) {
+      for (const wanted of ['g-main-hoist', 'mh-drive', 'hoist.drive.motor.a']) { // U1-C70: assembly, sub assembly and part labels
         let rect;
         // Read placed labels after camera/DOM updates; wall-clock sleeps can sample an intermediate focus frame.
         for (let attempt = 0; attempt < 40; attempt++) {
@@ -91,8 +91,8 @@ try {
   await step('07 legacy P03 route resolves exact semantic key into shared page', async () => {
     await b.goto(new URL('qc/?eq=eq-qc-demo-02&part=pp-q02-049&view=side&panel=technical', base).href); await waitReady(); await b.wait(500);
     assert(await ev(`location.hash.includes('/eq/equipment/eq-qc-demo-02')&&EQ.route.query.view==='flat'&&EQ.pos(EQ.route.query.part).equipmentId==='eq-qc-demo-02'&&!EQ.route.query.pkey`), 'legacy route');
-    await click('ti-mi-q02-02');
-    assert(await ev(`EQ.route.query.main==='mi-q02-02'&&!EQ.route.query.part`), 'legacy part stuck');
+    await click('ti-g-trolley'); // U1-C70: workbook assembly in place of mechanism 02
+    assert(await ev(`EQ.route.query.grp==='g-trolley'&&!EQ.route.query.part`), 'legacy part stuck');
   });
   await step('08 phone, landscape and keyboard switch', async () => {
     await b.viewport(390, 844); await go('01', 'view=flat');

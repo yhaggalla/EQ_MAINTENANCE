@@ -20,10 +20,11 @@ await b.goto(base + '#/eq/equipment/eq-qc-demo-01?view=3d&mode=overall'); await 
 let s = await state();
 check('01 default: Key parts pressed, overview labels, no selected label', s.labelMode === 'key' && s.pressed.join() === 'labels-key' && s.count > 1 && s.sel.length === 0, s);
 // mechanism selection from the tree -> Selection
-await b.eval(`(()=>{const e=[...document.querySelectorAll('[role=treeitem] .ti')].find(x=>x.textContent.trim().startsWith('01'));e.click();return 1})()`); await b.wait(700);
-await b.eval(`(()=>{const e=[...document.querySelectorAll('[role=treeitem] .ti')].find(x=>/^\\s*011/.test(x.textContent));e.click();return 1})()`); await b.wait(900);
+// U1-C70: the QC tree follows the component workbook: Main Hoist > Hoist Drive Mechanism replace 01 > 011
+await b.eval(`(()=>{const e=[...document.querySelectorAll('[role=treeitem] .ti')].find(x=>x.textContent.trim().startsWith('Main Hoist'));e.click();return 1})()`); await b.wait(700);
+await b.eval(`(()=>{const e=[...document.querySelectorAll('[role=treeitem] .ti')].find(x=>x.textContent.trim().startsWith('Hoist Drive Mechanism'));e.click();return 1})()`); await b.wait(900);
 s = await state();
-check('02 sub-mechanism from the tree: Selection mode, mode unchanged (Overall)', s.labelMode === 'selection' && s.pressed.join() === 'labels-selection' && s.mode === 'overall', s);
+check('02 sub assembly from the tree: Selection mode, mode unchanged (Overall)', s.labelMode === 'selection' && s.pressed.join() === 'labels-selection' && s.mode === 'overall', s);
 // technical-only part from the tree while in Overall -> Technical, Selected only, one highlighted label, no hidden notice
 await b.eval(`(()=>{const e=[...document.querySelectorAll('[role=treeitem] .ti')].find(x=>x.textContent.trim()==='Main hoist motor A');e.click();return 1})()`); await b.wait(1200);
 s = await state();

@@ -44,8 +44,8 @@
     {
       "name": "overall height (apex head top)",
       "expected": 83.356,
-      "actual": 83.356003,
-      "deviationPct": 0,
+      "actual": 84.056001,
+      "deviationPct": 0.84,
       "tolerancePct": 1,
       "pass": true,
       "kind": "measured",
@@ -164,7 +164,7 @@
     {
       "name": "overall height is not the 63 m total lift",
       "expected": "!= 63",
-      "actual": 83.356003,
+      "actual": 84.056001,
       "pass": true,
       "kind": "invariant"
     }

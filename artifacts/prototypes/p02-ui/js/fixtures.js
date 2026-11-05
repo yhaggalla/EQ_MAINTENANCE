@@ -118,7 +118,7 @@ window.EQ = window.EQ || {};
     const D = {
       builtAt: new Date(now).toISOString(),
       models: [
-        { code: 'CICT-J526A-STS', typeCode: 'QC', name: 'CICT-J526A-STS (drawing family template v1)', status: 'draft', templateRevision: 4, applic: J526A, template: QC_T, sceneVersion: 'cict-j526a-sts-scene v1 (P03 placeholder, not generated yet)' },
+        { code: 'CICT-J526A-STS', typeCode: 'QC', name: 'CICT-J526A-STS (drawing family template v1)', status: 'draft', templateRevision: 4, applic: J526A, template: EQ.qcTree ? [...QC_T.map((r) => [r[0], r[1], EQ.qcTree.nameFor(r[0], r[2]), ...r.slice(3)]), ...EQ.qcTree.templateRows(QC_T.map((r) => r[0]))] : QC_T, sceneVersion: 'cict-j526a-sts-scene v1 (P03 placeholder, not generated yet)' },
         { code: 'RTG-MODEL-DEMO', typeCode: 'RTG', name: 'RTG-MODEL-DEMO (synthetic)', status: 'draft', templateRevision: 1, applic: RTGM, template: RTG_T, sceneVersion: null },
         { code: 'ES-MODEL-DEMO', typeCode: 'ES', name: 'ES-MODEL-DEMO (synthetic)', status: 'draft', templateRevision: 1, applic: ESM, template: ES_T, sceneVersion: null },
       ],
@@ -269,12 +269,12 @@ window.EQ = window.EQ || {};
     mainCodes.forEach((mc) => eq.mains.push({ id: 'mi-' + eq.key + '-' + mc, code: mc, state: 'active' }));
     subsApplicable.forEach((s) => eq.subs.push({ id: 'si-' + eq.key + '-' + s.code, code: s.code, mainId: 'mi-' + eq.key + '-' + s.main, state: 'active' }));
     let n = 0;
-    model.template.forEach(([key, sub, name, kind, uom, nominal, category, prov, src]) => {
+    model.template.forEach(([key, sub, name, kind, uom, nominal, category, prov, src, idStyle]) => {
       const si = eq.subs.find((x) => x.code === sub);
       if (!si) return; // not applicable to this model: no position
-      n += 1;
+      if (idStyle !== 'model') n += 1; // U1-C70: model-part rows use the model-binding id and leave the pp- numbering unchanged
       D.positions.push({
-        id: 'pp-' + eq.key + '-' + String(n).padStart(3, '0'), equipmentId: eq.id, mainId: si.mainId, subId: si.id,
+        id: idStyle === 'model' ? 'mp-' + eq.key + '-' + key.replaceAll('.', '_') : 'pp-' + eq.key + '-' + String(n).padStart(3, '0'), equipmentId: eq.id, mainId: si.mainId, subId: si.id,
         key, name, kind, uom, nominal, category, state: posState, prov, src,
       });
     });
