@@ -119,6 +119,22 @@ window.EQ = window.EQ || {};
   S$.allRows = (filter) => EQ.state.D.equipment.flatMap((e) => (e.lifecycle === 'active' ? S$.rows(e.id) : [])).filter((r) => !filter || filter(r));
   S$.counts = (rows) => ({ total: rows.length, overdue: rows.filter((r) => r.flag === 'overdue').length, dueSoon: rows.filter((r) => r.flag === 'dueSoon').length });
   S$.history = (posId) => Sd().history.filter((h) => h.posId === posId).sort((a, b) => b.rev - a.rev);
+  /** U1-C69: replacement history of one registered position for the crane-view History panel. It is the same register data as
+   *  EQ Jobs > Spare parts condition, so it needs eq.jobs.view like that tab (D-139). One period per non-voided installation,
+   *  newest first: it runs from its fitted date (an Original part from the commissioning date) to the next replacement or today. */
+  S$.replacementHistory = function replacementHistory(posId) {
+    const deny = EQ.access.srv('eq.jobs.view'); if (deny) return deny;
+    const pos = EQ.pos(posId); if (!pos || !Sd().designated[posId]) return fail(404, 'not_found', 'Not a major spare-part position.');
+    const row = S$.row(posId), today = EQ.todayColombo();
+    const evs = EQ.state.D.events.filter((e) => e.positionId === posId && !e.voided).sort((a, b) => a.seq - b.seq);
+    const periods = evs.map((e, i) => {
+      const original = e.kind === 'baselineRecorded', next = evs[i + 1];
+      const from = original ? row.commissionedOn : e.businessDate, to = next ? next.businessDate : null, end = to || today;
+      return { eventId: e.id, original, current: !next, from, to, months: from && end >= from ? monthsDiff(from, end) : null, installed: e.installed,
+        removedKnown: e.removedKnown, removedDesc: e.removedDesc, removedSerial: e.removedSerial, jobId: e.jobId, recordedUtc: e.recordedUtc, recordedBy: e.recordedBy };
+    }).reverse();
+    return { ok: true, row, periods, replacements: evs.filter((e) => e.kind !== 'baselineRecorded').length, changes: S$.history(posId) };
+  };
 
   // ---------------------------------------------------------------- register actions and Add spare part (eq.work, U1-C21); designation settings (admin.access)
   const nextRev = (posId) => Sd().history.filter((h) => h.posId === posId).length + 1;

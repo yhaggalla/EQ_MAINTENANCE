@@ -1,0 +1,68 @@
+{
+  "date": "2026-11-05T07:21:20.199Z",
+  "base": "http://127.0.0.1:5312/index.html",
+  "passed": 15,
+  "total": 15,
+  "results": [
+    {
+      "name": "J1 Bare EQ Jobs link opens Spare parts condition, listed first",
+      "pass": true
+    },
+    {
+      "name": "J2 Fleet > Jobs link and unknown tab land on Spare parts condition; other tabs and filters still work",
+      "pass": true
+    },
+    {
+      "name": "J3 Remembered Jobs route from before the change resolves to the new default; Daily work still redirects safely",
+      "pass": true
+    },
+    {
+      "name": "J4 Jobs register History expansion still lists revisions",
+      "pass": true
+    },
+    {
+      "name": "H1 Every registered card offers History beside Update condition",
+      "pass": true
+    },
+    {
+      "name": "H2 History opens the gearbox history over the model stage, keeping the 3D session and the URL",
+      "pass": true
+    },
+    {
+      "name": "H3 Gearbox A (Original) shows the commissioning period, facts and the full register change log",
+      "pass": true
+    },
+    {
+      "name": "H4 Switching to another card shows that part; a job replacement links its special job",
+      "pass": true
+    },
+    {
+      "name": "H5 A replacement saved while the history is open appears at the top; the earlier item is closed",
+      "pass": true
+    },
+    {
+      "name": "H6 Escape closes the history and returns focus to its History button",
+      "pass": true
+    },
+    {
+      "name": "H7 Close button, a second History click, selecting a part and Reset all close it",
+      "pass": true
+    },
+    {
+      "name": "H8 Management (read-only) sees History but no Update condition; without EQ Jobs access History is not offered",
+      "pass": true
+    },
+    {
+      "name": "H9 Other equipment types: RTG01 history lays over the viewport message",
+      "pass": true
+    },
+    {
+      "name": "H10 Phone: History in the Details drawer closes the drawer, shows the history over the viewer, Close returns to Details",
+      "pass": true
+    },
+    {
+      "name": "H11 No script errors",
+      "pass": true
+    }
+  ]
+}

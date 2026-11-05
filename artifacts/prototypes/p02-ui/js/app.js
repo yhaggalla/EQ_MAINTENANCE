@@ -32,7 +32,7 @@ window.EQ = window.EQ || {};
     if (a === 'equipment' && b) { if (q.get('panel') === 'history') q.set('panel', 'special'); return out('/eq/equipment/' + b); }
     if (a === 'jobs') return out(b ? '/eq/jobs/special/' + b : '/eq/jobs/special');
     if (a === 'admin' && (!b || !['eq', 'fac', 'access'].includes(b))) return out('/admin/eq/' + (b === 'bindings' ? 'scene-bindings' : b || 'equipment'));
-    if (a === 'eq' && b === 'jobs' && !r.segs[2]) return out('/eq/jobs/special');
+    if (a === 'eq' && b === 'jobs' && !r.segs[2]) return out('/eq/jobs/spare-parts'); // U1-C69: Spare parts condition is the default Jobs tab
     return null;
   }
   EQ.nav = (path, query, opts) => {
@@ -159,7 +159,7 @@ window.EQ = window.EQ || {};
       else if (r.name === 'eq') {
         const [, a, b, c] = r.segs;
         if (a === 'equipment' && b) { view = EQ.views.equipment(b, r.query); title = 'Equipment'; }
-        else if (a === 'jobs') { view = EQ.views.eqJobs(b || 'special', c, r.query); title = 'EQ Jobs'; }
+        else if (a === 'jobs') { view = EQ.views.eqJobs(b || 'spare-parts', c, r.query); title = 'EQ Jobs'; }
         else { view = EQ.views.fleet(r.query); title = 'Fleet'; }
       } else if (r.name === 'fac') {
         const [, a, b, c] = r.segs;
@@ -191,13 +191,13 @@ window.EQ = window.EQ || {};
   }
   function tabKey(path) {
     if (path.startsWith('/eq/fleet') || path.startsWith('/eq/equipment')) return '/eq/fleet';
-    if (path.startsWith('/eq/jobs')) return '/eq/jobs/special';
+    if (path.startsWith('/eq/jobs')) return '/eq/jobs/spare-parts';
     if (path.startsWith('/fac/dashboard')) return '/fac/dashboard';
     if (path.startsWith('/fac/jobs')) return '/fac/jobs';
     return null;
   }
   // last used tab per section (path only; same storage rule as the landing, D-90)
-  EQ.access.readLastSection = (sec) => { try { const v = localStorage.getItem(EQ.access.lastKey() + ':' + sec); return v && /^\/[a-z/-]*$/.test(v) && EQ.access.has(EQ.access.featureForRoute(v) || '') ? v : null; } catch (e) { return null; } };
+  EQ.access.readLastSection = (sec) => { try { const v = EQ.access.jobsDefault(localStorage.getItem(EQ.access.lastKey() + ':' + sec)); return v && /^\/[a-z/-]*$/.test(v) && EQ.access.has(EQ.access.featureForRoute(v) || '') ? v : null; } catch (e) { return null; } };
   EQ.access.writeLastSection = (path) => { try { localStorage.setItem(EQ.access.lastKey() + ':' + (path.startsWith('/fac') ? 'fac' : 'eq'), path); } catch (e) { /* ignore */ } };
 
   document.addEventListener('keydown', (e) => {

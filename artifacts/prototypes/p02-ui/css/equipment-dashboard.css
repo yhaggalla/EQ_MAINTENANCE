@@ -168,3 +168,29 @@ body:has(.equipment-page) { background: var(--pa-page); }
 .equipment-page .label-seg .label-seg-title { padding: 0 8px; font-size: 12px; font-weight: 600; color: var(--ink-muted); border-right: 1px solid var(--border-strong); align-self: stretch; display: flex; align-items: center; }
 .equipment-page .label-seg > button { min-height: 32px; padding: 2px 9px; font-size: 12px; white-space: nowrap; }
 @media (max-width: 760px) { .equipment-page .label-seg > button { min-height: 44px; } }
+
+/* U1-C69: spare-part replacement history over the model stage (History on a Spare part status card; Close or Escape returns to the model) */
+.sp-history-stage { position: relative; }
+.sp-history-host { position: relative; min-height: 380px; }
+.sp-history { position: absolute; inset: 0; z-index: 5; overflow: auto; overscroll-behavior: contain; display: grid; align-content: start; gap: 12px; padding: 14px 16px 16px; background: #fff; color: var(--pa-ink, var(--ink)); }
+.sp-history-head { display: flex; align-items: start; justify-content: space-between; gap: 12px; }
+.sp-history-head h2 { margin: 0; font-size: 17px; line-height: 1.25; overflow-wrap: anywhere; }
+.sp-history-head .eyebrow { margin: 0 0 3px; font-size: 10px; letter-spacing: .06em; color: var(--pa-muted, var(--ink-muted)); }
+.sp-history-sub { margin: 3px 0 0; font-size: 12px; color: var(--pa-muted, var(--ink-muted)); }
+.sp-history-close { flex: none; }
+.sp-history-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(128px, 1fr)); gap: 8px; margin: 0; }
+.sp-history-item { display: block; margin-top: 3px; }
+.sp-history-facts > div { border: 1px solid var(--pa-line, var(--border)); border-radius: 9px; padding: 8px 10px; background: var(--pa-tile, #f7f8f4); }
+.sp-history-facts dt { font-size: 10.5px; font-weight: 600; color: var(--pa-muted, var(--ink-muted)); }
+.sp-history-facts dd { margin: 3px 0 0; font-size: 12.5px; font-weight: 600; overflow-wrap: anywhere; }
+.sp-history-list > li { border-radius: 10px; }
+.sp-history-list > li.current { border-left-color: var(--pa-ready, #2f8a57); }
+.sp-history-log { border: 1px solid var(--pa-line, var(--border)); border-radius: 9px; padding: 8px 10px; }
+.sp-history-log summary { cursor: pointer; font-size: 12.5px; font-weight: 650; }
+.sp-history-log[open] summary { margin-bottom: 8px; }
+.side-panel .spare-actions { gap: 6px; }
+@media (max-width: 700px) {
+  .sp-history { padding: 12px; }
+  .sp-history :is(button, .btn), .sp-history-log summary { min-height: 44px; }
+  .sp-history-log summary { display: flex; align-items: center; }
+}

@@ -4,7 +4,7 @@
 
 **U1-C63 / SOW V2 revision 7 / prompt pack 2.3: documentation only; implementation awaits the user's confirmation. U1 remains IN PROGRESS / NOT COMPLETE / NOT APPROVED; P04/P05 Not started.** Read `docs/MANAGEMENT_SCOPE_REVISION_20261028.md` for all eight outcomes. This section and the revision-7 contracts supersede conflicting earlier descriptions throughout this file. Earlier dated reviews/addenda/evidence describe their snapshots and do not validate the new scope.
 
-Display EQ & FAC Asset Management with unchanged eq-maintenance technical paths/roles. Exactly Ready for OPS and Isolated are explicitly initialized and manually updated; values persist until another authorized manual action. Long term isolated EQ is the Isolated category, with no timer threshold. Remove Maintenance/Unreported current states, all CMMS/daily EQ work/sync/account/mapping/automatic/override dependencies, source selectors and equipment-card blinking. Crane tabs: Spare part status first/default, Projects/Special, Technical. Jobs: Projects/Special, EQ status, Spare parts condition. Fleet: Active, Ready percentage, Ready count, Long term isolated EQ count with one filtered active population; dash for zero denominator.
+Display EQ & FAC Asset Management with unchanged eq-maintenance technical paths/roles. Exactly Ready for OPS and Isolated are explicitly initialized and manually updated; values persist until another authorized manual action. Long term isolated EQ is the Isolated category, with no timer threshold. Remove Maintenance/Unreported current states, all CMMS/daily EQ work/sync/account/mapping/automatic/override dependencies, source selectors and equipment-card blinking. Crane tabs: Spare part status first/default, Projects/Special, Technical. Jobs: Spare parts condition first/default, Projects/Special, EQ status (U1-C69). Fleet: Active, Ready percentage, Ready count, Long term isolated EQ count with one filtered active population; dash for zero denominator.
 
 Preserve existing IDs and truthful legacy history; old/blank status values require explicit human review at implementation, never automatic conversion or guessed Ready/duration. Retain accepted EQ work/progress/shared-scope/replacement/spare/technical/Flat/3D behavior, roles/Access and all FAC cycles/progress/photos/moving/reduced-motion/TV rules. FAC and spare-part computed flags do not change EQ status. No external access, live database change or implementation is authorized by this revision.
 
@@ -446,7 +446,7 @@ Scene versions are registered only by `AdminCli register-scene-version` (no brow
 
 ### 4.16 Crane view current state (V2: S07, U1-C19, HIS06)
 
-The three ordered right-panel tabs (Spare part status first/default, Projects/Special, Technical) of the crane view (DATA s18.1, D-122). All `F:eq.fleet.view`. Common query: `scope=equipment|main|sub|part&targetId=` (targetId required unless `scope=equipment`; 422 `target_not_in_equipment`). Every response starts with the echo `{ equipmentId, scope, targetId, tab }` for the race guard (HIS05). No endpoint here returns installation events, status changes, corrections, job progress, register history or removed daily EQ work; `special` lists completed special jobs as the allowlisted projection only (U1-C23, D-155). Special jobs whose display switch is off (DATA J7) are in no response, count or badge here (U1-C26).
+The three ordered right-panel tabs (Spare part status first/default, Projects/Special, Technical) of the crane view (DATA s18.1, D-122). All `F:eq.fleet.view`. Common query: `scope=equipment|main|sub|part&targetId=` (targetId required unless `scope=equipment`; 422 `target_not_in_equipment`). Every response starts with the echo `{ equipmentId, scope, targetId, tab }` for the race guard (HIS05). No endpoint here returns installation events, status changes, corrections, job progress, register history or removed daily EQ work; `special` lists completed special jobs as the allowlisted projection only (U1-C23, D-155). Special jobs whose display switch is off (DATA J7) are in no response, count or badge here (U1-C26). U1-C69 / D-218: History on a Spare part status card calls the existing per-position spare-part history route (s4.17, `F:eq.jobs.view`) only when pressed; these current-state responses are unchanged.
 
 | Method and path | Response (after the echo) |
 | --- | --- |
@@ -486,7 +486,7 @@ type SparePartRow = { equipment: { id: Id; code: string; type: string }; positio
 
 ### 4.17 EQ Jobs tab (S08, S20, S21, S22; revision 7)
 
-Projects/Special, EQ status, Spare parts condition only. Keep special-work/spare routes and equipment/type/date/search filters under `F:eq.jobs.view`.
+Spare parts condition (first and default, U1-C69 / D-218), Projects/Special, EQ status only. Bare `#/eq/jobs` and the Jobs navigation open Spare parts condition. Keep special-work/spare routes and equipment/type/date/search filters under `F:eq.jobs.view`.
 
 - `GET /status-board?type=&q=` returns one current StatusSummary per active equipment; authorized Update action only, no source/mode filters or automatic controls.
 - `GET /status-changes?equipmentId=&type=&from=&to=&limit=&cursor=` returns truthful actor/time/status history, retaining labelled legacy events if present.

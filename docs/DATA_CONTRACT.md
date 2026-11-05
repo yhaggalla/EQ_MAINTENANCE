@@ -4,7 +4,7 @@
 
 **U1-C63 / SOW V2 revision 7 / prompt pack 2.3: documentation only; implementation awaits the user's confirmation. U1 remains IN PROGRESS / NOT COMPLETE / NOT APPROVED; P04/P05 Not started.** Read `docs/MANAGEMENT_SCOPE_REVISION_20261028.md` for all eight outcomes. This section and the revision-7 contracts supersede conflicting earlier descriptions throughout this file. Earlier dated reviews/addenda/evidence describe their snapshots and do not validate the new scope.
 
-Display EQ & FAC Asset Management with unchanged eq-maintenance technical paths/roles. Exactly Ready for OPS and Isolated are explicitly initialized and manually updated; values persist until another authorized manual action. Long term isolated EQ is the Isolated category, with no timer threshold. Remove Maintenance/Unreported current states, all CMMS/daily EQ work/sync/account/mapping/automatic/override dependencies, source selectors and equipment-card blinking. Crane tabs: Spare part status first/default, Projects/Special, Technical. Jobs: Projects/Special, EQ status, Spare parts condition. Fleet: Active, Ready percentage, Ready count, Long term isolated EQ count with one filtered active population; dash for zero denominator.
+Display EQ & FAC Asset Management with unchanged eq-maintenance technical paths/roles. Exactly Ready for OPS and Isolated are explicitly initialized and manually updated; values persist until another authorized manual action. Long term isolated EQ is the Isolated category, with no timer threshold. Remove Maintenance/Unreported current states, all CMMS/daily EQ work/sync/account/mapping/automatic/override dependencies, source selectors and equipment-card blinking. Crane tabs: Spare part status first/default, Projects/Special, Technical. Jobs: Spare parts condition first/default, Projects/Special, EQ status (U1-C69). Fleet: Active, Ready percentage, Ready count, Long term isolated EQ count with one filtered active population; dash for zero denominator.
 
 Preserve existing IDs and truthful legacy history; old/blank status values require explicit human review at implementation, never automatic conversion or guessed Ready/duration. Retain accepted EQ work/progress/shared-scope/replacement/spare/technical/Flat/3D behavior, roles/Access and all FAC cycles/progress/photos/moving/reduced-motion/TV rules. FAC and spare-part computed flags do not change EQ status. No external access, live database change or implementation is authorized by this revision.
 
@@ -804,7 +804,7 @@ No import or seed runs at host startup. Reference imports never create equipment
 | Section | Tab | View feature | Contents |
 | --- | --- | --- | --- |
 | EQ | Fleet | `eq.fleet.view` | Fleet overview; equipment detail (crane view) opens from it |
-| EQ | Jobs | `eq.jobs.view` | Revision 7 three tabs: Projects/Special; EQ status; Spare parts condition (s18.2) |
+| EQ | Jobs | `eq.jobs.view` | Revision 7 three tabs: Spare parts condition (first/default, U1-C69); Projects/Special; EQ status (s18.2) |
 | FAC | Dashboard | `fac.dashboard.view` | Moving management board (s18.4), TV mode |
 | FAC | Jobs | `fac.jobs.view` | My work, board/list, job detail (s18.5) |
 | (shared) | Admin | `admin.access` | EQ settings, FAC settings, Access |
@@ -1071,11 +1071,11 @@ Closed jobs show Completed. Flags Overdue and Due soon (s17.4) are shown on top 
 
 ### 18.1 Crane view current state (S07, U1-C63, HIS06)
 
-Three ordered panels: Spare part status first/default, Projects/Special, Technical, in Flat/3D. Remove Maintenance, daily jobs and automatic-source/sync state. Retain accepted scope-aware current spare register rows, eligible special-work summaries and technical specs, selection echo/late-response guards and permitted current-state allowlists. No progress/correction/installation/status history payload may leak from the Jobs-only scope; retain accepted completed-card summaries under existing U1 rules. Open in Jobs resolves the same stable equipment/target scope.
+Three ordered panels: Spare part status first/default, Projects/Special, Technical, in Flat/3D. Remove Maintenance, daily jobs and automatic-source/sync state. Retain accepted scope-aware current spare register rows, eligible special-work summaries and technical specs, selection echo/late-response guards and permitted current-state allowlists. No progress/correction/installation/status history payload may leak from the Jobs-only scope; retain accepted completed-card summaries under existing U1 rules. Open in Jobs resolves the same stable equipment/target scope. U1-C69 / D-218: each Spare part status card offers History, which on request shows that position's replacement history (installation periods and register revisions) over the viewer area. It is the Jobs register history of that one position, fetched separately under `eq.jobs.view`; without that feature History is not offered. The current-state tab payloads stay history-free.
 
 ### 18.2 EQ Jobs tab (S08)
 
-Exactly Projects/Special, EQ status, Spare parts condition. Shared equipment/type/date/search filters remain relevant to retained records. Work board/progress/cancellation/shared scope and spare-register/history rules remain. EQ status provides current manual value, since/duration, reason, actor, authorized update and append-only manual history. No Daily work/imported list/export, auto-source/mode/override field or control. Obsolete routes fall back to a permitted retained view without importing/loading deleted content.
+Exactly Spare parts condition (first and default, U1-C69 / D-218), Projects/Special, EQ status. Shared equipment/type/date/search filters remain relevant to retained records. Work board/progress/cancellation/shared scope and spare-register/history rules remain. EQ status provides current manual value, since/duration, reason, actor, authorized update and append-only manual history. No Daily work/imported list/export, auto-source/mode/override field or control. Obsolete routes fall back to a permitted retained view without importing/loading deleted content.
 
 ### 18.3 Fleet additions (S02, S03)
 

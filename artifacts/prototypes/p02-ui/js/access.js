@@ -71,7 +71,7 @@ window.EQ = window.EQ || {};
     const has = (f) => features.has(f);
     const eq = [];
     if (has('eq.fleet.view')) eq.push({ id: 'fleet', label: 'Fleet', path: '/eq/fleet', icon: 'home', feature: 'eq.fleet.view' });
-    if (has('eq.jobs.view')) eq.push({ id: 'jobs', label: 'Jobs', path: '/eq/jobs/special', icon: 'list', feature: 'eq.jobs.view' });
+    if (has('eq.jobs.view')) eq.push({ id: 'jobs', label: 'Jobs', path: '/eq/jobs/spare-parts', icon: 'list', feature: 'eq.jobs.view' }); // U1-C69
     const fac = [];
     if (has('fac.dashboard.view')) fac.push({ id: 'dashboard', label: 'FAC Dashboard', path: '/fac/dashboard', icon: 'board', feature: 'fac.dashboard.view' });
     if (has('fac.jobs.view')) fac.push({ id: 'jobs', label: 'FAC Jobs', path: '/fac/jobs', icon: 'list', feature: 'fac.jobs.view' });
@@ -136,11 +136,13 @@ window.EQ = window.EQ || {};
       const onlyFac = p.roles.length === 1 && p.roles[0] === 'facTeam';
       const pref = onlyFac ? '/fac/dashboard' : '/eq/fleet';
       if (permitted(pref)) return pref;
-      const order = ['/eq/fleet', '/eq/jobs/special', '/fac/dashboard', '/fac/jobs'];
+      const order = ['/eq/fleet', '/eq/jobs/spare-parts', '/fac/dashboard', '/fac/jobs'];
       return order.find(permitted) || (l.admin ? '/admin/access' : '/no-access');
     },
     lastKey: () => 'eq-maintenance:last-route:' + EQ.user().id,
-    readLast() { try { const v = localStorage.getItem(EQ.access.lastKey()); return v && /^\/[a-z/-]*$/.test(v) ? v : null; } catch (e) { return null; } },
+    /** U1-C69: before this change every Jobs visit was remembered as /eq/jobs/special; it now means the Jobs section, whose default tab is Spare parts condition. */
+    jobsDefault: (v) => (v === '/eq/jobs/special' ? '/eq/jobs/spare-parts' : v),
+    readLast() { try { const v = EQ.access.jobsDefault(localStorage.getItem(EQ.access.lastKey())); return v && /^\/[a-z/-]*$/.test(v) ? v : null; } catch (e) { return null; } },
     writeLast(path) { try { localStorage.setItem(EQ.access.lastKey(), path); } catch (e) { /* private window or blocked storage: role default is used */ } },
     clearLast() { try { Object.keys(localStorage).filter((k) => k.startsWith('eq-maintenance:last-route:')).forEach((k) => localStorage.removeItem(k)); } catch (e) { /* ignore */ } },
 

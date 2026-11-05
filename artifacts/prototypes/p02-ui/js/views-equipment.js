@@ -152,7 +152,7 @@ window.EQ = window.EQ || {};
   /** U1 round 2 (U1-C10/C11): Reset returns to the whole-equipment state with labels: no selection, container or
    *  isolation, labels on, the tree folded back to its initial state, full view. Mode and panel tab are kept. */
   function fullReset(eq, q) {
-    ui.labelMode = 'key'; ui.container = null; ui.treeFilter = '';
+    ui.labelMode = 'key'; ui.container = null; ui.treeFilter = ''; ui.spHistory = null; // U1-C69: Reset also closes a spare-part history
     [...EQ.state.expanded].filter((k) => k.startsWith(eq.id + ':')).forEach((k) => EQ.state.expanded.delete(k));
     EQ.eqUI.treeFocus = 'root'; ui.treeSelSig = null; EQ.eqUI.lastSig = null; EQ.eqUI.hadSel = true;
     EQ.nav('/eq/equipment/' + eq.id, { ...q, main: '', sub: '', part: '', container: '', iso: '', area: '', view: q.view === '3d' ? '3d' : 'flat' });
@@ -160,6 +160,33 @@ window.EQ = window.EQ || {};
     if (!EQ.qc) EQ.resetView();
   }
   EQ.fullReset = fullReset;
+
+  // ---------------------------------------------------------------- U1-C69: spare-part replacement history over the viewer
+  // Opened by History on a Spare part status card; kept in memory only. Closed by Close/Escape, or when the selection, area or camera mode changes.
+  const spHistSig = (eq, q) => [eq.id, q.main, q.sub, q.part, q.container, q.area, q.iso, q.view, q.mode].map((v) => v || '').join('|');
+  const focusLater = (sel) => setTimeout(() => { const el = document.querySelector(sel); if (el) { el.focus({ preventScroll: true }); el.scrollIntoView({ block: 'nearest' }); } }, 0);
+  EQ.panelTabs.spareHistoryOpen = (posId) => ui.spHistory?.posId === posId;
+  EQ.panelTabs.onSpareHistory = function openSpareHistory(eq, posId) {
+    if (ui.spHistory?.posId === posId) { closeSpareHistory(); return; }
+    ui.spHistory = { posId, sig: spHistSig(eq, EQ.route.query) };
+    if (EQ.eqUI.drawer === 'panel') EQ.eqUI.drawer = null; // phone/tablet: the Details drawer would cover the viewer
+    EQ.rerender(); focusLater('#sp-history-title');
+  };
+  function closeSpareHistory() {
+    const posId = ui.spHistory?.posId; ui.spHistory = null; EQ.rerender();
+    // back to the History button, or to Details when that button sits in the closed phone/tablet drawer
+    const btn = posId && document.querySelector('[data-fk="spare-history-' + posId + '"]'), drawer = btn?.closest('.side-panel');
+    if (btn) focusLater(drawer && !drawer.classList.contains('open') && getComputedStyle(drawer).position === 'fixed' ? '[data-fk="open-panel"]' : '[data-fk="spare-history-' + posId + '"]');
+  }
+  /** Lays the history over the model stage (QC) or the whole viewport (other types and viewer fallbacks), keeping the 3D session alive. */
+  function withSpareHistory(vp, eq) {
+    if (!ui.spHistory) return vp;
+    const overlay = EQ.panelTabs.spareHistory(eq, ui.spHistory.posId, closeSpareHistory);
+    const stage = vp.querySelector('.unified-qc-stage');
+    if (stage) { const wrap = h('div', { class: 'sp-history-stage' }); stage.replaceWith(wrap); wrap.append(stage, overlay); }
+    else { vp.classList.add('sp-history-host'); vp.appendChild(overlay); }
+    return vp;
+  }
 
   // ---------------------------------------------------------------- right panel
   const jobMini = (j, lines) => EQ.panelTabs.jobMini(j, lines); // shared with the P03 viewer panel
@@ -312,6 +339,8 @@ window.EQ = window.EQ || {};
     const panelTab = EQ.panelTabs.KEYS.includes(pq) ? pq : 'spareParts';
     const scope = q.container ? { level: 'area', id: q.container } : scopeOf(sel);
     const dur = EQ.inStatusFor(eq);
+    const sh = ui.spHistory;
+    if (sh && (sh.sig !== spHistSig(eq, q) || EQ.pos(sh.posId)?.equipmentId !== eq.id || !EQ.spares.isMajor(sh.posId) || !EQ.panelTabs.jobsAllowed())) ui.spHistory = null;
 
     if (S.data === 'stale') page.appendChild(h('div', { class: 'notice warn', role: 'status', style: 'margin-bottom:.6rem' }, icon('wifi-off'), h('p', null, h('strong', null, 'Showing last good data from ' + EQ.fmtTime(S.lastGoodAt) + '. '), 'The latest refresh failed; status and work lists may be out of date.')));
 
@@ -377,7 +406,7 @@ window.EQ = window.EQ || {};
     updateSearch();
     const side = h('aside', { class: 'panel side-panel' + (EQ.eqUI.drawer === 'panel' ? ' open' : ''), 'aria-label': 'Current state of the selection', 'data-tab': panelTab }, sideHead, sideBody);
 
-    page.appendChild(h('div', { class: 'detail-grid' }, treePanel, h('div', { class: 'stack' }, viewport(eq, sel, q, mode), eq.typeCode !== 'QC' ? rtgSummary(eq) : null), side));
+    page.appendChild(h('div', { class: 'detail-grid' }, treePanel, h('div', { class: 'stack' }, withSpareHistory(viewport(eq, sel, q, mode), eq), eq.typeCode !== 'QC' ? rtgSummary(eq) : null), side));
     page.appendChild(h('div', { class: 'scrim' + (EQ.eqUI.drawer ? ' on' : ''), onClick: () => closeDrawer() }));
     return page;
   };

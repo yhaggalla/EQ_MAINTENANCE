@@ -1,4 +1,4 @@
-/* U1-C63 EQ Jobs: Special/Projects | EQ status | Spare parts condition. No daily external work or automatic status.
+/* U1-C63 EQ Jobs: Spare parts condition (first/default, U1-C69) | Special/Projects | EQ status. No daily external work or automatic status.
    Shared filters (equipment, type, date range, search) are kept in the URL across
    the tabs. Work history lives here, not in the crane view: the scoped history (DATA s9) opens with equipment + scope + target ("Open in
    Jobs"). EQ Team and Admin add special jobs and spare parts here (U1-C21). Synthetic data only. */
@@ -8,7 +8,7 @@ window.EQ = window.EQ || {};
   EQ.views = EQ.views || {};
   const kit = () => EQ._dlg;
 
-  const PARTS = [['special', 'Special/Projects'], ['status', 'EQ status'], ['spare-parts', 'Spare parts condition']];
+  const PARTS = [['spare-parts', 'Spare parts condition'], ['special', 'Special/Projects'], ['status', 'EQ status']]; // U1-C69: Spare parts condition first and default
   const SHARED = ['equipment', 'type', 'from', 'to'];
   const fmtD = (iso) => EQ.fmtDate(iso);
 
@@ -47,7 +47,7 @@ window.EQ = window.EQ || {};
   EQ.views.eqJobs = function eqJobs(part, id, q) {
     const S = EQ.state;
     if (part === 'special' && id) return EQ.views.job(id);
-    if (!PARTS.some((p) => p[0] === part)) part = 'special';
+    if (!PARTS.some((p) => p[0] === part)) part = 'spare-parts';
     const page = h('div', { class: 'page eqjobs-page' });
     if (q.removed) page.appendChild(h('p', { class: 'notice info', role: 'status' }, 'That view has been removed. Projects and special work remain available here.'));
     const setQ = (patch, p2) => EQ.nav('/eq/jobs/' + (p2 || part), { ...q, ...patch });
@@ -166,19 +166,11 @@ window.EQ = window.EQ || {};
         if (open) {
           const hist = EQ.spares.history(r.posId);
           out.push(h('tr', { class: 'hist-row' }, h('td', { colspan: 9 }, h('div', { class: 'stack' }, h('strong', null, 'History of ' + r.pos.name + ' (' + r.eq.code + ')'),
-            hist.length ? h('ul', { class: 'tl' }, hist.map((x) => h('li', { class: 'status' }, h('div', { class: 'row between' }, h('strong', null, 'Revision ' + x.rev + ' · ' + ({ jobCompletion: 'Replacement special job completed', registerOriginal: 'Original recorded', registerReplacement: 'Replacement recorded', registerAmend: 'Current item amended', registerRemarks: 'Remarks edited', registerAdd: 'Added to the register', designation: 'Designation changed', correction: 'Admin correction' }[x.source] || x.source)), h('span', { class: 'when' }, EQ.fmtInstantShort(x.at) + ' by ' + EQ.userName(x.by))),
-              x.before ? h('span', { class: 'small' }, 'Before: ', h('s', null, fmtState(x.before))) : h('span', { class: 'small muted' }, 'Before: nothing recorded'), h('span', { class: 'small' }, 'After: ', h('strong', null, fmtState(x.after))), x.reason ? h('span', { class: 'when' }, 'Reason: ' + x.reason) : null, x.jobId ? h('span', { class: 'when' }, 'Job: ', h('a', { href: '#/eq/jobs/special/' + x.jobId }, (EQ.job(x.jobId) || {}).number || x.jobId)) : null))) : h('div', { class: 'nonwork' }, h('strong', null, 'No history'), 'Nothing has been recorded for this part.')))));
+            EQ.panelTabs.spareChangeLog(hist)))));
         }
         return out;
       })))));
   }
-  function fmtState(s) {
-    if (!s) return 'removed';
-    const des = s.typeId ? 'designated (' + (EQ.spares.typeOf(s.typeId) || {}).name + (s.lifeOverride != null ? ', ' + s.lifeOverride + ' months for this equipment' : ', part-type life') + ')' : null;
-    if (des && !('condition' in s)) return des;
-    return [des, s.condition ? s.condition : 'not recorded', s.replacedOn ? 'replaced ' + EQ.fmtDate(s.replacedOn) : null, s.brand, s.model, s.serial ? 'serial ' + s.serial : null, s.remarks ? 'remarks: ' + s.remarks : null].filter(Boolean).join(' · ');
-  }
-
   function spareDialog(r) {
     const K = kit();
     const hasHist = !!r.condition;

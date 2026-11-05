@@ -146,15 +146,23 @@ window.EQ = window.EQ || {};
     const rows = EQ.spares.rows(eq.id, scope.level === 'equipment' ? null : scope);
     const c = EQ.spares.counts(rows);
     const canUpdate = EQ.perm.write() && eq.lifecycle === 'active' && EQ.dlg?.spare;
+    // U1-C69: History opens the replacement history over the viewer (host page sets onSpareHistory); same permission as the Jobs register history.
+    const canHistory = !!P.onSpareHistory && P.jobsAllowed();
     if (scope.level === 'part' && !rows.length) box.appendChild(h('div', { class: 'nonwork' }, h('strong', null, 'Not a major spare part')));
     else if (!rows.length) box.appendChild(h('div', { class: 'nonwork' }, h('strong', null, 'No major spare parts in this selection')));
     else {
       box.appendChild(h('div', { class: 'row', role: 'group', 'aria-label': 'Spare part flags in this scope' }, tag(rows.length + ' registered'), tag(c.overdue + ' overdue', c.overdue ? 'red' : ''), tag(c.dueSoon + ' due soon', c.dueSoon ? 'gold' : '')));
       box.appendChild(h('ul', { class: 'tl' }, rows.map((r) => {
         const row = P.sparePartRow(r);
-        if (canUpdate) row.appendChild(h('div', { class: 'row' }, h('button', { type: 'button', class: 'btn-sm',
-          'data-fk': 'update-spare-' + r.posId, 'aria-label': 'Update condition for ' + r.pos.name,
-          onClick: () => EQ.dlg.spare(EQ.spares.row(r.posId)) }, icon('edit'), 'Update condition')));
+        const open = canHistory && P.spareHistoryOpen?.(r.posId);
+        const actions = [
+          canUpdate ? h('button', { type: 'button', class: 'btn-sm',
+            'data-fk': 'update-spare-' + r.posId, 'aria-label': 'Update condition for ' + r.pos.name,
+            onClick: () => EQ.dlg.spare(EQ.spares.row(r.posId)) }, icon('edit'), 'Update condition') : null,
+          canHistory ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'spare-history-' + r.posId, 'aria-label': 'Replacement history of ' + r.pos.name,
+            'aria-expanded': open ? 'true' : 'false', 'aria-controls': open ? 'sp-history' : null,
+            onClick: () => P.onSpareHistory(eq, r.posId) }, icon('history'), 'History') : null].filter(Boolean);
+        if (actions.length) row.appendChild(h('div', { class: 'row spare-actions' }, actions));
         return row;
       })));
     }
@@ -162,6 +170,53 @@ window.EQ = window.EQ || {};
     const selectedRegistered = scope.level === 'part' && rows.some((r) => r.posId === sel.part);
     const addSpare = !selectedRegistered && EQ.perm.write() && eq.lifecycle === 'active' && EQ.dlg && EQ.dlg.addSpare ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'add-spare', onClick: () => EQ.dlg.addSpare({ equipmentId: eq.id, main: sel.main || '', sub: sel.sub || '', part: sel.part || '' }) }, icon('plus'), 'Add spare part') : null;
     box.appendChild(h('div', { class: 'row' }, openInJobs(eq, scope, 'spareParts'), addSpare));
+    return box;
+  };
+
+  // ---------------------------------------------------------------- spare-part history (EQ Jobs register rows and the U1-C69 crane-view History panel)
+  P.SPARE_SOURCE = { jobCompletion: 'Replacement special job completed', registerOriginal: 'Original recorded', registerReplacement: 'Replacement recorded', registerAmend: 'Current item amended', registerRemarks: 'Remarks edited', registerAdd: 'Added to the register', designation: 'Designation changed', correction: 'Admin correction' };
+  P.spareState = function spareState(s) {
+    if (!s) return 'removed';
+    const des = s.typeId ? 'designated (' + (EQ.spares.typeOf(s.typeId) || {}).name + (s.lifeOverride != null ? ', ' + s.lifeOverride + ' months for this equipment' : ', part-type life') + ')' : null;
+    if (des && !('condition' in s)) return des;
+    return [des, s.condition ? s.condition : 'not recorded', s.replacedOn ? 'replaced ' + EQ.fmtDate(s.replacedOn) : null, s.brand, s.model, s.serial ? 'serial ' + s.serial : null, s.remarks ? 'remarks: ' + s.remarks : null].filter(Boolean).join(' · ');
+  };
+  const jobRef = (jobId) => { const num = (EQ.job(jobId) || {}).number || jobId; return P.jobsAllowed() ? h('a', { href: P.base + '#/eq/jobs/special/' + jobId, ...ext() }, num) : h('span', { class: 'mono' }, num); };
+  /** Register revisions, newest first (before/after values kept). */
+  P.spareChangeLog = (hist) => (hist.length ? h('ul', { class: 'tl' }, hist.map((x) => h('li', { class: 'status' }, h('div', { class: 'row between' }, h('strong', null, 'Revision ' + x.rev + ' · ' + (P.SPARE_SOURCE[x.source] || x.source)), h('span', { class: 'when' }, EQ.fmtInstantShort(x.at) + ' by ' + EQ.userName(x.by))),
+    x.before ? h('span', { class: 'small' }, 'Before: ', h('s', null, P.spareState(x.before))) : h('span', { class: 'small muted' }, 'Before: nothing recorded'), h('span', { class: 'small' }, 'After: ', h('strong', null, P.spareState(x.after))), x.reason ? h('span', { class: 'when' }, 'Reason: ' + x.reason) : null, x.jobId ? h('span', { class: 'when' }, 'Job: ', jobRef(x.jobId)) : null)))
+    : h('div', { class: 'nonwork' }, h('strong', null, 'No history'), 'Nothing has been recorded for this part.'));
+  const span = (m) => (m == null ? null : m < 12 ? EQ.plural(m, 'month') : Math.floor(m / 12) + ' yr' + (m % 12 ? ' ' + (m % 12) + ' mo' : ''));
+  /** U1-C69: replacement history of one registered part, shown over the viewer. onClose closes it (Close button or Escape). */
+  P.spareHistory = function spareHistory(eq, posId, onClose) {
+    const res = EQ.spares.replacementHistory(posId);
+    const close = h('button', { type: 'button', class: 'btn-sm sp-history-close', 'data-fk': 'sp-history-close', 'aria-label': 'Close replacement history', onClick: onClose }, icon('x'), 'Close');
+    const box = h('section', { class: 'sp-history', id: 'sp-history', 'aria-labelledby': 'sp-history-title', 'data-pos': posId,
+      onKeydown: (e) => { if (e.key === 'Escape' && !document.querySelector('dialog[open]')) { e.preventDefault(); e.stopPropagation(); onClose(); } } });
+    if (!res.ok) { box.append(h('header', { class: 'sp-history-head' }, h('h2', { id: 'sp-history-title', tabindex: '-1' }, 'Replacement history'), close), h('div', { class: 'notice error', role: 'alert' }, icon('alert'), h('p', null, res.message))); return box; }
+    const r = res.row;
+    const cond = r.condition === 'original' ? ['Original', ''] : r.condition === 'replaced' ? ['Replaced', 'green'] : ['Not recorded', 'dashed'];
+    const current = res.periods[0];
+    box.appendChild(h('header', { class: 'sp-history-head' },
+      h('div', null, h('p', { class: 'eyebrow' }, 'Replacement history · ' + eq.code), h('h2', { id: 'sp-history-title', tabindex: '-1' }, r.pos.name), h('p', { class: 'sp-history-sub' }, r.typeName + (r.mainCode ? ' · ' + r.mainCode + ' / ' + r.subCode : ''))),
+      close));
+    box.appendChild(h('dl', { class: 'sp-history-facts' },
+      h('div', null, h('dt', null, 'Installed now'), h('dd', null, tag(cond[0], cond[1]), r.condition ? h('span', { class: 'sp-history-item' }, [r.brand || 'Unknown brand', r.model].filter(Boolean).join(' · ')) : null)),
+      h('div', null, h('dt', null, 'In service since'), h('dd', null, current ? (current.from ? EQ.fmtDate(current.from) + (current.original ? ' (commissioning)' : '') : 'Commissioning date unknown') : '-')),
+      h('div', null, h('dt', null, 'Replacements recorded'), h('dd', null, String(res.replacements))),
+      h('div', null, h('dt', null, 'Expected life'), h('dd', null, r.lifeMonths != null ? r.lifeMonths + ' months' : 'Not set')),
+      h('div', null, h('dt', { title: 'Calendar estimate from expected life, not a condition assessment.' }, 'Next predicted replacement'), h('dd', null, r.predicted ? EQ.fmtDate(r.predicted) + (r.daysTo < 0 ? ' (' + Math.abs(r.daysTo) + ' d ago)' : ' (in ' + r.daysTo + ' d)') : r.why))));
+    const oldest = res.periods[res.periods.length - 1];
+    box.appendChild(res.periods.length ? h('ol', { class: 'tl sp-history-list', 'aria-label': 'Installations, newest first' }, res.periods.map((p) => h('li', { class: p.current ? 'current' : 'status', 'data-event': p.eventId },
+      h('div', { class: 'row between' }, h('strong', null, p.original ? 'Original (as supplied)' : 'Replaced ' + EQ.fmtDate(p.from)), p.current ? tag('Installed now', 'green') : tag('Removed ' + EQ.fmtDate(p.to))),
+      h('span', null, p.installed.desc),
+      h('span', { class: 'small' }, [p.installed.mfr || 'Unknown brand', p.installed.partNo || 'no part no.', p.installed.serial ? 'serial ' + p.installed.serial : 'serial unknown'].join(' · ')),
+      h('span', { class: 'small' }, p.from ? 'In service ' + EQ.fmtDate(p.from) + ' to ' + (p.to ? EQ.fmtDate(p.to) : 'today') + (p.months != null ? ' · ' + span(p.months) : '') : 'In service from commissioning (date unknown)' + (p.to ? ' to ' + EQ.fmtDate(p.to) : '')),
+      p === oldest && !p.original ? h('span', { class: 'small muted' }, 'Previous item: ' + (p.removedKnown ? (p.removedDesc || 'recorded') + (p.removedSerial ? ' (serial ' + p.removedSerial + ')' : '') : 'not recorded')) : null,
+      h('span', { class: 'when' }, p.jobId ? ['Special job ', jobRef(p.jobId), ' · '] : 'Register entry · ', 'recorded ' + EQ.fmtInstantShort(p.recordedUtc) + ' by ' + EQ.userName(p.recordedBy)))))
+      : h('div', { class: 'nonwork' }, h('strong', null, 'No installation recorded'), r.why));
+    box.appendChild(h('details', { class: 'sp-history-log' }, h('summary', null, 'Register change log ', h('span', { class: 'tag' }, String(res.changes.length))), P.spareChangeLog(res.changes)));
+    box.appendChild(h('div', { class: 'row' }, h('a', { class: 'btn btn-sm', href: P.jobsLink(eq, { level: 'part', id: posId }, 'spareParts'), 'data-fk': 'sp-history-jobs', ...ext() }, icon('ext'), 'Open in Jobs')));
     return box;
   };
 })(window.EQ);
