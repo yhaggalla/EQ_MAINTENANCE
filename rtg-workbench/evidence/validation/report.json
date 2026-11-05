@@ -1,5 +1,5 @@
 {
-  "assetSha256": "23e953714365db4c783a927423913c13a8b63078063e8490ac09dbbec4b0c1b1",
+  "assetSha256": "03f92de1ed54f0f04bde7e171144b3f6f7c2246fc81182340b6fa1736c7ff748",
   "checks": [
     {
       "name": "Checksum and size",
@@ -55,7 +55,7 @@
     }
   ],
   "metadataNodes": 315,
-  "recipes": 2953,
+  "recipes": 3424,
   "limitations": [
     "Standalone subset of documented v1 contract; existing QC validator is model-specific and not RTG-compatible",
     "Not a Khronos glTF Validator run; local structural checks and actual Three.js import executed",

@@ -285,14 +285,80 @@
     "guideSheaveDiameter": 840,
     "sheaveWidth": 100,
     "turningJack": {
-      "offsetX": 850,
-      "bodyRadius": 150,
-      "rodRadius": 90,
-      "bodyBottomY": 1300,
-      "padTopY": 360,
-      "padThickness": 60,
-      "padSize": 620,
-      "bracketWidth": 420
+      "sleeveSize": 380,
+      "sleeveBottomY": 1850,
+      "bodyRadius": 165,
+      "bodyBottomY": 1150,
+      "rodRadius": 85,
+      "footTopY": 220,
+      "footThickness": 50,
+      "footRadius": 300
+    },
+    "gantryDrive": {
+      "offsetX": 250,
+      "offsetZ": 800,
+      "reducerY": 2750,
+      "reducerHeight": 500,
+      "ladderX": 930,
+      "ladderZ": [
+        520,
+        970
+      ]
+    },
+    "trolleyDrive": {
+      "offsetZ": 430
+    },
+    "stair": {
+      "laneA": 1080,
+      "laneB": 1860,
+      "laneWidth": 760,
+      "xInner": 680,
+      "xOuter": 2260,
+      "xTop": 925,
+      "riser": 220,
+      "startZ": -1000,
+      "y": [
+        4440,
+        7800,
+        14800,
+        21800,
+        23200
+      ],
+      "z": [
+        [
+          5000,
+          6000
+        ],
+        [
+          2400,
+          3250
+        ],
+        [
+          -3700,
+          -2700
+        ],
+        [
+          2900,
+          3800
+        ],
+        [
+          4976,
+          5976
+        ],
+        [
+          200,
+          1200
+        ]
+      ]
+    },
+    "exhaust": {
+      "radius": 90,
+      "outletX": 600,
+      "outletZ": 1800,
+      "riseAboveRoof": 460,
+      "offsetX": 190,
+      "offsetZ": 330,
+      "topAboveRail": 1350
     },
     "reeving": {
       "grooveX": [
@@ -458,7 +524,7 @@
       "document": "M13",
       "pdfPage": 19,
       "figure": "section 8.1-8.2 gantry traveling; M14 p66 tyre inspection; user statement 4 November 2026",
-      "note": "Each tyred wheel is rotated about its centre by 16° and 90° under non-operational conditions (M13 p19), and turning tyres without the jack-up device wears them (M14 p66). The user confirmed four jacks per RTG for turning. No jack drawing, rating, stroke or mounting was supplied: position between the two tyres of each bogie, size and retracted pose are estimates."
+      "note": "Each tyred wheel is rotated about its centre by 16° and 90° under non-operational conditions (M13 p19), and turning tyres without the jack-up device wears them (M14 p66). The user confirmed four jacks per RTG for turning. Site photos WA-23/24/26 (5 November 2026) show one jack centred under each equalizer between the tyres, with a square sleeve, red barrel, chrome rod and ribbed swivel foot. No jack drawing, rating or stroke was supplied; proportions are scaled from the photos."
     },
     "reeving": {
       "document": "M14",
@@ -466,9 +532,37 @@
       "figure": "Fig 2-14 8 ropes reeving; p26 text; JL28606 front/side views p21",
       "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 horizontal guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes and positions read from the trolley views; groove assignment, sheave shaft coordinates and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
     },
+    "exhaust": {
+      "document": "M14",
+      "pdfPage": 14,
+      "figure": "section 2.1.2 diesel generator set; user statement 5 November 2026",
+      "note": "Diesel power room per M14. The user stated that the exhaust line is connected to the RTG leg and goes up to the top. Pipe size, clamp spacing, the leg face used and the exit height are estimated; the photos do not show the run clearly."
+    },
+    "sitePhotos": {
+      "document": "PHOTO",
+      "photo": "wa-24",
+      "pdfPage": null,
+      "figure": "User site photographs, 5 November 2026 (WA-01 … WA-28)",
+      "note": "Twenty-eight photographs of a CICT ZP12-1874 RTG. Used for shapes, positions and finishes the manuals do not give: turning jacks, drive platforms, trolley drives and cabinet, cable basket, chain portal, lamps and pipework. Scaled against known dimensions; perspective limits accuracy."
+    },
+    "cabInterior": {
+      "document": "PHOTO",
+      "photo": "wa-03",
+      "pdfPage": null,
+      "figure": "Cab interior photographs WA-02 / WA-03, 5 November 2026; M14 p34 Fig 2-35",
+      "note": "Seat with two armrest consoles (joystick, push-button grid, emergency stop), stainless HMI touchscreen cabinet, CCTV monitor, lower-window bar grille and blinds. M14 p34 confirms seat, paired consoles and AC. Positions and sizes scaled from wide-angle photos."
+    },
+    "nameplate": {
+      "document": "PHOTO",
+      "photo": "wa-01",
+      "pdfPage": null,
+      "figure": "Cab main-particular plate (WA-01)",
+      "note": "ZPMC plate: RC40.5t, ZP12-1874, licence TS2410724-2014, span 23.47 m, wheelbase 7.9 m, lift 21.2 m, max wheel load < 41 t, wheels 8/4 driven, CAT C7, generator TYFZ18000-280L-G, group class U8/Q3/A8, skew ±5°."
+    },
     "busbar": {
-      "document": "PHOTO:IMG_20171109_140808.jpg / IMG_20171109_141902.jpg / IMG_20171109_141914.jpg; M14",
-      "pdfPage": 12,
+      "document": "PHOTO",
+      "photo": "img-140808",
+      "pdfPage": null,
       "figure": "User site photographs; Table 2-1 supply types",
       "note": "Photographs show a DZD-230 self-connecting busbar power collector fitted to the crane. M14 Table 2-1 lists low-voltage contact-bus supply as a type, while the original project option was diesel generator + lithium battery. Retrofit status, side and geometry are photo-estimated."
     }

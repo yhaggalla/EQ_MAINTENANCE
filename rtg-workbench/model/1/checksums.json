@@ -2,32 +2,32 @@
   "algorithm": "sha256",
   "files": {
     "bindings.synthetic.json": {
-      "sha256": "05d46edaed21fbc0258f7b99c4c9cec05062808c10fb0245bba128fe795acfe2",
-      "bytes": 153787
+      "sha256": "074a7fa5e573657d30b6dbf4c249809fdeb04859eb4ec8e8d08ab64626bbf8f6",
+      "bytes": 153619
     },
     "catalogue.json": {
       "sha256": "22b3c6dbe2e9ff71b6deb25563c668de100ab114df7f319c486b00dda6451491",
       "bytes": 17643
     },
     "geometry-parameters.json": {
-      "sha256": "928f58a5fda3b7b4f062bd772ba2b99359d7a54fd9f09b93b8bb50e16522a9ab",
-      "bytes": 2851821
+      "sha256": "9c08f8cc180b265c3a47a445451c620cc77ff81d9d658193ed68d510dcf2fd88",
+      "bytes": 3387822
     },
     "manifest.json": {
-      "sha256": "f5d461e20388ea21a7806ef7aaac713dc871b3ab488f72afd7d7eb35f506b2ab",
-      "bytes": 444449
+      "sha256": "a6d26499e341fc2b8e24b68b277901b3510ed710b5bb5a990a52bce36094a00a",
+      "bytes": 448071
     },
     "parameters.json": {
-      "sha256": "2cb17dcbac14ab4c8ff25bb90c132df0c9847fe31a4e95554e3041444a127fa7",
-      "bytes": 17046
+      "sha256": "c3ede78a2ab562b0b42dab074cf60ec33e13ebffd6a10181cb3eaf8a59e25eea",
+      "bytes": 19918
     },
     "scene.glb": {
-      "sha256": "23e953714365db4c783a927423913c13a8b63078063e8490ac09dbbec4b0c1b1",
-      "bytes": 7417020
+      "sha256": "03f92de1ed54f0f04bde7e171144b3f6f7c2246fc81182340b6fa1736c7ff748",
+      "bytes": 8331644
     },
     "technical-specifications.json": {
-      "sha256": "99a14f8cfcba2da2cdcba0c1a30f38841ce25c18b6e7ad503ddb9778b8849201",
-      "bytes": 17503
+      "sha256": "4b226e39dba5bd5fd174ba36c8429baec7287892b1699ee09931fb880ac3f565",
+      "bytes": 22592
     }
   }
 }

@@ -1,0 +1,273 @@
+{
+  "note": "Downscaled copies (max 1000 px) of user-supplied site photographs, 5 November 2026; originals unchanged in RTG drawings/.",
+  "photos": [
+    {
+      "id": "img-140808",
+      "original": "IMG_20171109_140808.jpg",
+      "sha256": "f1636d4f15abfb4fee595fabb94ac512f6b38b5a5abeb11076e2cca2f435f033",
+      "bytes": 3403494,
+      "use": "Busbar power collector (2017)"
+    },
+    {
+      "id": "wa-01",
+      "original": "WhatsApp Image 2026-11-05 at 7.12.38 AM.jpeg",
+      "sha256": "c6fead4ed29fe1499180511cc3d64b14302eb06026909d1e713d0b88ab18cb8d",
+      "bytes": 262313,
+      "use": "Cab main-particular plate (nameplate data)"
+    },
+    {
+      "id": "wa-02",
+      "original": "WhatsApp Image 2026-11-05 at 7.12.39 AM (2).jpeg",
+      "sha256": "04213d1cd324b8d9b41f883b93e0e3c03741c4b22e7b03ffcab74cfbbd491cc5",
+      "bytes": 257937,
+      "use": "Cab interior: right console, HMI cabinet, CCTV monitor, lower-window grille"
+    },
+    {
+      "id": "wa-03",
+      "original": "WhatsApp Image 2026-11-05 at 7.12.40 AM.jpeg",
+      "sha256": "a4c76b67910c4025a2fcb362ec6c83b485a2a13a4e0d69af50285e68c1d7785d",
+      "bytes": 273579,
+      "use": "Cab interior: seat, both consoles, HMI, blinds"
+    },
+    {
+      "id": "wa-04",
+      "original": "WhatsApp Image 2026-11-05 at 7.12.42 AM.jpeg",
+      "sha256": "f887beba484c8b5bf5fc452a9b30843704a1bf28e096fd2e3420965f05e265b7",
+      "bytes": 274001,
+      "use": "Horizontal guide sheaves (yellow, red hub) and hoist motor"
+    },
+    {
+      "id": "wa-05",
+      "original": "WhatsApp Image 2026-11-05 at 7.12.46 AM (1).jpeg",
+      "sha256": "9e29c12f18069293bf6ab77f83d80539f862c442f8ed34884962449da073ef4c",
+      "bytes": 208725,
+      "use": "Hoist motor, fan unit and terminal box"
+    },
+    {
+      "id": "wa-06",
+      "original": "WhatsApp Image 2026-11-05 at 7.12.46 AM (2).jpeg",
+      "sha256": "220e86e4b061b8282b1e9217e20b620eda2e016ff9b35a9659a5537bb4afd3e0",
+      "bytes": 303891,
+      "use": "Guide sheaves, fall sheave in deck slot, drum rope clamps"
+    },
+    {
+      "id": "wa-07",
+      "original": "WhatsApp Image 2026-11-05 at 7.12.46 AM.jpeg",
+      "sha256": "4aafe96bd3d45613780b228215222f40a393d7a1dce770c62c5e14368c48a0e5",
+      "bytes": 300063,
+      "use": "Hoist motor and guide sheaves"
+    },
+    {
+      "id": "wa-11",
+      "original": "WhatsApp Image 2026-11-05 at 7.12.48 AM (2).jpeg",
+      "sha256": "9db5312235a52903c8ac061324e8bb333423cacec7623f59c13ccbbac2fac96e",
+      "bytes": 189514,
+      "use": "Energy-chain portal, trough, trolley drive fan cowl"
+    },
+    {
+      "id": "wa-13",
+      "original": "WhatsApp Image 2026-11-05 at 7.12.48 AM.jpeg",
+      "sha256": "d48bfc574e63ef8980cff0b483e7cdb22f73a8b403e40cb7845860bbabee05a6",
+      "bytes": 204137,
+      "use": "Trolley stainless cabinet, trolley drive, cab"
+    },
+    {
+      "id": "wa-15",
+      "original": "WhatsApp Image 2026-11-05 at 7.12.50 AM (1).jpeg",
+      "sha256": "d64d1666c5e282a30c5d72380389de1820782c319058187d654a053817889511",
+      "bytes": 318857,
+      "use": "Headblock cable basket and guide cage"
+    },
+    {
+      "id": "wa-17",
+      "original": "WhatsApp Image 2026-11-05 at 7.12.51 AM (1).jpeg",
+      "sha256": "c67efc3a916b5a5df1e675434a172e021c18304c982c709886e0bdb1d41b2d32",
+      "bytes": 265218,
+      "use": "Headblock basket from cab side"
+    },
+    {
+      "id": "wa-20",
+      "original": "WhatsApp Image 2026-11-05 at 7.12.52 AM (1).jpeg",
+      "sha256": "737aaae345b1ce63e12ad617e5817995928cd2beb7d902cbded5391496c33d91",
+      "bytes": 144561,
+      "use": "Drive platform, ladder and end guard"
+    },
+    {
+      "id": "wa-23",
+      "original": "WhatsApp Image 2026-11-05 at 7.12.53 AM (1).jpeg",
+      "sha256": "cfd4e9a1658863d528abefa6bfe1d74f5641226f62a8e329927df5aa15d7794e",
+      "bytes": 231524,
+      "use": "Bogies, turning jacks, sill pipework, rooms"
+    },
+    {
+      "id": "wa-24",
+      "original": "WhatsApp Image 2026-11-05 at 7.12.53 AM.jpeg",
+      "sha256": "7cbde19c945cd3463f74d48f76bce9bc6037c17dee636ade0091403fb8d3f2c6",
+      "bytes": 229185,
+      "use": "Bogie side view: turning jack, drive motor platform, ladder, rims"
+    },
+    {
+      "id": "wa-25",
+      "original": "WhatsApp Image 2026-11-05 at 7.12.54 AM (1).jpeg",
+      "sha256": "52ac83b03b7eba298604139ff594c96072acfd430b8ecc1a309d0d40076a14b8",
+      "bytes": 210067,
+      "use": "Leg LED floodlight, drive motor, chain case"
+    },
+    {
+      "id": "wa-26",
+      "original": "WhatsApp Image 2026-11-05 at 7.12.54 AM (2).jpeg",
+      "sha256": "d319c1bc9422c049b7fa1d6a0e9585fcad058253926a1680bc2d9300f6805ca8",
+      "bytes": 235223,
+      "use": "Turning jack foot, drive motor, chain case, leg lamp"
+    },
+    {
+      "id": "wa-27",
+      "original": "WhatsApp Image 2026-11-05 at 7.12.54 AM.jpeg",
+      "sha256": "a3ea4ca84493a42e54f44426472084d36db23ff02dae932138b345bdcf7aa296",
+      "bytes": 143868,
+      "use": "Room platform and leg tie bars"
+    }
+  ],
+  "allNewPhotos": [
+    {
+      "n": 1,
+      "original": "WhatsApp Image 2026-11-05 at 7.12.38 AM.jpeg",
+      "sha256": "c6fead4ed29fe1499180511cc3d64b14302eb06026909d1e713d0b88ab18cb8d"
+    },
+    {
+      "n": 2,
+      "original": "WhatsApp Image 2026-11-05 at 7.12.39 AM (2).jpeg",
+      "sha256": "04213d1cd324b8d9b41f883b93e0e3c03741c4b22e7b03ffcab74cfbbd491cc5"
+    },
+    {
+      "n": 3,
+      "original": "WhatsApp Image 2026-11-05 at 7.12.40 AM.jpeg",
+      "sha256": "a4c76b67910c4025a2fcb362ec6c83b485a2a13a4e0d69af50285e68c1d7785d"
+    },
+    {
+      "n": 4,
+      "original": "WhatsApp Image 2026-11-05 at 7.12.42 AM.jpeg",
+      "sha256": "f887beba484c8b5bf5fc452a9b30843704a1bf28e096fd2e3420965f05e265b7"
+    },
+    {
+      "n": 5,
+      "original": "WhatsApp Image 2026-11-05 at 7.12.46 AM (1).jpeg",
+      "sha256": "9e29c12f18069293bf6ab77f83d80539f862c442f8ed34884962449da073ef4c"
+    },
+    {
+      "n": 6,
+      "original": "WhatsApp Image 2026-11-05 at 7.12.46 AM (2).jpeg",
+      "sha256": "220e86e4b061b8282b1e9217e20b620eda2e016ff9b35a9659a5537bb4afd3e0"
+    },
+    {
+      "n": 7,
+      "original": "WhatsApp Image 2026-11-05 at 7.12.46 AM.jpeg",
+      "sha256": "4aafe96bd3d45613780b228215222f40a393d7a1dce770c62c5e14368c48a0e5"
+    },
+    {
+      "n": 8,
+      "original": "WhatsApp Image 2026-11-05 at 7.12.47 AM (1).jpeg",
+      "sha256": "ce834f17f96cf829319c0c3299cfb71304ea50709ffc52ee412421b4b9e9a69a"
+    },
+    {
+      "n": 9,
+      "original": "WhatsApp Image 2026-11-05 at 7.12.47 AM.jpeg",
+      "sha256": "b897bfb6d8124abf9d4694f822ee6bdbaab0b23f0cd0f19f79a24072e1ac0832"
+    },
+    {
+      "n": 10,
+      "original": "WhatsApp Image 2026-11-05 at 7.12.48 AM (1).jpeg",
+      "sha256": "5d1252b2255b41d7a2ff1d957761a3692cbf6fc87478036a170451a5db887c3c"
+    },
+    {
+      "n": 11,
+      "original": "WhatsApp Image 2026-11-05 at 7.12.48 AM (2).jpeg",
+      "sha256": "9db5312235a52903c8ac061324e8bb333423cacec7623f59c13ccbbac2fac96e"
+    },
+    {
+      "n": 12,
+      "original": "WhatsApp Image 2026-11-05 at 7.12.48 AM (3).jpeg",
+      "sha256": "796ead56682acafff68591f3a49e8fab038557e809c7ec0922e73e921120f8bb"
+    },
+    {
+      "n": 13,
+      "original": "WhatsApp Image 2026-11-05 at 7.12.48 AM.jpeg",
+      "sha256": "d48bfc574e63ef8980cff0b483e7cdb22f73a8b403e40cb7845860bbabee05a6"
+    },
+    {
+      "n": 14,
+      "original": "WhatsApp Image 2026-11-05 at 7.12.49 AM.jpeg",
+      "sha256": "45b15abc3a06a6b2c6a9d9d26baa2abad7a4a9f3d9bbafeefb71cc6ba699c287"
+    },
+    {
+      "n": 15,
+      "original": "WhatsApp Image 2026-11-05 at 7.12.50 AM (1).jpeg",
+      "sha256": "d64d1666c5e282a30c5d72380389de1820782c319058187d654a053817889511"
+    },
+    {
+      "n": 16,
+      "original": "WhatsApp Image 2026-11-05 at 7.12.50 AM.jpeg",
+      "sha256": "6f8e01c42128e8405657eebcc7666ace7ab077dffded7e8b8241384acb82adce"
+    },
+    {
+      "n": 17,
+      "original": "WhatsApp Image 2026-11-05 at 7.12.51 AM (1).jpeg",
+      "sha256": "c67efc3a916b5a5df1e675434a172e021c18304c982c709886e0bdb1d41b2d32"
+    },
+    {
+      "n": 18,
+      "original": "WhatsApp Image 2026-11-05 at 7.12.51 AM (2).jpeg",
+      "sha256": "0dbe3ea785acfb019b84a54ccf4ccc9570d1a302b3abe9e5a93682a491923437"
+    },
+    {
+      "n": 19,
+      "original": "WhatsApp Image 2026-11-05 at 7.12.51 AM.jpeg",
+      "sha256": "14ff7a6f68214b077613ef19c54e94e7c2b54e922e846ff20710c0ecc72c8a18"
+    },
+    {
+      "n": 20,
+      "original": "WhatsApp Image 2026-11-05 at 7.12.52 AM (1).jpeg",
+      "sha256": "737aaae345b1ce63e12ad617e5817995928cd2beb7d902cbded5391496c33d91"
+    },
+    {
+      "n": 21,
+      "original": "WhatsApp Image 2026-11-05 at 7.12.52 AM (2).jpeg",
+      "sha256": "a2f038a2f5ba82622bcceb8a829d8afa8394f6ecf5d620703d2fe9925f7e15a2"
+    },
+    {
+      "n": 22,
+      "original": "WhatsApp Image 2026-11-05 at 7.12.52 AM.jpeg",
+      "sha256": "ba41eef0b86023a791149b214af3c53342b6311617b518d373252fa3bf3acf65"
+    },
+    {
+      "n": 23,
+      "original": "WhatsApp Image 2026-11-05 at 7.12.53 AM (1).jpeg",
+      "sha256": "cfd4e9a1658863d528abefa6bfe1d74f5641226f62a8e329927df5aa15d7794e"
+    },
+    {
+      "n": 24,
+      "original": "WhatsApp Image 2026-11-05 at 7.12.53 AM.jpeg",
+      "sha256": "7cbde19c945cd3463f74d48f76bce9bc6037c17dee636ade0091403fb8d3f2c6"
+    },
+    {
+      "n": 25,
+      "original": "WhatsApp Image 2026-11-05 at 7.12.54 AM (1).jpeg",
+      "sha256": "52ac83b03b7eba298604139ff594c96072acfd430b8ecc1a309d0d40076a14b8"
+    },
+    {
+      "n": 26,
+      "original": "WhatsApp Image 2026-11-05 at 7.12.54 AM (2).jpeg",
+      "sha256": "d319c1bc9422c049b7fa1d6a0e9585fcad058253926a1680bc2d9300f6805ca8"
+    },
+    {
+      "n": 27,
+      "original": "WhatsApp Image 2026-11-05 at 7.12.54 AM.jpeg",
+      "sha256": "a3ea4ca84493a42e54f44426472084d36db23ff02dae932138b345bdcf7aa296"
+    },
+    {
+      "n": 28,
+      "original": "WhatsApp Image 2026-11-05 at 7.12.55 AM.jpeg",
+      "sha256": "99c83d1812fc0853263db0c25001ec6bfe38aff8745aedc13e9106283a247b82"
+    }
+  ]
+}

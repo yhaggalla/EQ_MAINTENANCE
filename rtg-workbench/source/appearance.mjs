@@ -22,7 +22,7 @@ export function addAppearance(B,{S,G,R,E}){
   const text=(key,c,face,value,w,h,color,offset=3)=>{const g=new T.ShapeGeometry(font.generateShapes(value,100),3);g.computeBoundingBox();const b=g.boundingBox,size=b.getSize(new T.Vector3()),s=Math.min(w/size.x,h/size.y),a=g.attributes.position;for(let i=0;i<a.count;i++){const p=point(c,face,(a.getX(i)-(b.min.x+b.max.x)/2)*s,(a.getY(i)-(b.min.y+b.max.y)/2)*s,offset);a.setXYZ(i,...p.map(v=>v/1000));}g.computeVertexNormals();finish(key,'painted-lettering',{centre:c,face,text:value,width:w,height:h,color,offset,artwork:'Photo-readable lettering; reconstructed with bundled vector font'},g,color);};
   for(const side of[-1,1]){
     const face=side>0?'front':'rear',id=side>0?'front':'rear',z=side*(G+E.girderWidth/2+8),at=x=>[side*x,beamY,z];
-    const capacity=`auxiliary.nameplate.capacity.${id}`,maker=`auxiliary.nameplate.maker.${id}`,key=`auxiliary.flag.${id}`;
+    const capacity=`auxiliary.nameplate.capacity.${id}`,maker=capacity,key=`auxiliary.flag.${id}`;
     rect(capacity,at(-7600),face,2300,880,'#f5f5e9');text(capacity,at(-7600),face,'40.5t',2100,690,'#111820');
     rect(key,at(4800),face,1400,1300,'#f7f7ef');
     rect(maker,at(9400),face,1550,820,'#f5f5e9');text(maker,[side*9400,beamY+60,z],face,'ZPMC',1370,420,'#277763');

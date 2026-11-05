@@ -37,6 +37,16 @@
         "pdfPage": 14
       },
       "qualifier": "Signal apparatus stated; positions estimated"
+    },
+    {
+      "label": "Leg floodlights",
+      "value": "Black LED panels low on each leg, facing gantry travel",
+      "source": {
+        "document": "PHOTO",
+        "photo": "wa-26",
+        "pdfPage": null
+      },
+      "qualifier": "Exact height scaled from photos"
     }
   ],
   "14": [
@@ -84,6 +94,16 @@
         "pdfPage": 34
       },
       "qualifier": "Simplified visible envelopes; exact vendor geometry unavailable"
+    },
+    {
+      "label": "Cab interior (site photos)",
+      "value": "Suspension seat · 2 armrest consoles with joystick, push-buttons, E-stop · HMI touchscreen cabinet · CCTV monitor · window bars · blinds",
+      "source": {
+        "document": "PHOTO",
+        "photo": "wa-03",
+        "pdfPage": null
+      },
+      "qualifier": "Shown in both view modes; sizes scaled from photos"
     }
   ],
   "15": [
@@ -205,6 +225,46 @@
         "pdfPage": 20
       },
       "qualifier": "Granularity is a modelling choice; Admin confirms real maintainable positions"
+    },
+    {
+      "label": "Nameplate",
+      "value": "RC40.5t · ZP12-1874 · licence TS2410724-2014",
+      "source": {
+        "document": "PHOTO",
+        "photo": "wa-01",
+        "pdfPage": null
+      },
+      "qualifier": "Cab main-particular plate"
+    },
+    {
+      "label": "Max wheel load",
+      "value": "< 41 t",
+      "source": {
+        "document": "PHOTO",
+        "photo": "wa-01",
+        "pdfPage": null
+      },
+      "qualifier": "Cab nameplate; not stated in the manuals"
+    },
+    {
+      "label": "Group class",
+      "value": "U8 / Q3 / A8",
+      "source": {
+        "document": "PHOTO",
+        "photo": "wa-01",
+        "pdfPage": null
+      },
+      "qualifier": "Cab nameplate"
+    },
+    {
+      "label": "Diesel / generator",
+      "value": "CAT C7 / TYFZ18000-280L-G",
+      "source": {
+        "document": "PHOTO",
+        "photo": "wa-01",
+        "pdfPage": null
+      },
+      "qualifier": "Cab nameplate confirms the engine model; power rating conflict C04 unchanged"
     }
   ],
   "01": [
@@ -333,6 +393,26 @@
         "pdfPage": 26
       },
       "qualifier": "Mounting envelope estimated"
+    },
+    {
+      "label": "Sheave finish",
+      "value": "Yellow, six lightening holes, red hub; guides lie flat on the deck",
+      "source": {
+        "document": "PHOTO",
+        "photo": "wa-04",
+        "pdfPage": null
+      },
+      "qualifier": "Read from site photograph"
+    },
+    {
+      "label": "Hoist motor finish",
+      "value": "Grey ribbed motor, cream forced-cooling unit, top terminal box",
+      "source": {
+        "document": "PHOTO",
+        "photo": "wa-05",
+        "pdfPage": null
+      },
+      "qualifier": "Read from site photograph"
     }
   ],
   "02": [
@@ -434,6 +514,36 @@
         "pdfPage": 21
       },
       "qualifier": "JL28606 item list; shapes and positions estimated"
+    },
+    {
+      "label": "Trolley gearmotor arrangement",
+      "value": "Shaft-mounted on the wheel axle; motor along X with red fan cowl",
+      "source": {
+        "document": "PHOTO",
+        "photo": "wa-11",
+        "pdfPage": null
+      },
+      "qualifier": "Orientation from photo; exact position under walkway estimated"
+    },
+    {
+      "label": "Trolley electrical cabinet",
+      "value": "Tall stainless cabinet on the trolley deck",
+      "source": {
+        "document": "PHOTO",
+        "photo": "wa-13",
+        "pdfPage": null
+      },
+      "qualifier": "Size scaled from photo"
+    },
+    {
+      "label": "Energy-chain moving end",
+      "value": "Portal over the girder walkway",
+      "source": {
+        "document": "PHOTO",
+        "photo": "wa-11",
+        "pdfPage": null
+      },
+      "qualifier": "Height and width scaled from photo"
     }
   ],
   "04": [
@@ -525,7 +635,7 @@
         "document": "M13",
         "pdfPage": 19
       },
-      "qualifier": "User-confirmed count (4 Nov 2026); M13 p19 turning, M14 p66 jack-up device. Rating, stroke and mounting not supplied: Ø300 body, pad 300 mm above ground, between the two tyres, estimated"
+      "qualifier": "User-confirmed count (4 Nov 2026); M13 p19 turning, M14 p66 jack-up device. Rating and stroke not supplied; position and proportions from site photos WA-23/24/26"
     },
     {
       "label": "Steering / safety parts",
@@ -535,6 +645,36 @@
         "pdfPage": 24
       },
       "qualifier": "Fig 2-5/2-6 labels; offsets estimated"
+    },
+    {
+      "label": "Turning jack layout",
+      "value": "1 per bogie, centred between the tyres under the equalizer; ribbed swivel foot",
+      "source": {
+        "document": "PHOTO",
+        "photo": "wa-24",
+        "pdfPage": null
+      },
+      "qualifier": "Rating and stroke not supplied; proportions scaled from photos"
+    },
+    {
+      "label": "Drive corner",
+      "value": "Vertical motor with red cover on the outer wheel; service platform with the ladder on the outboard side face",
+      "source": {
+        "document": "PHOTO",
+        "photo": "wa-24",
+        "pdfPage": null
+      },
+      "qualifier": "Ladder position confirmed by the user on marked photos, 5 Nov 2026; sizes scaled"
+    },
+    {
+      "label": "Steering hydraulics",
+      "value": "Pipe bundles along the sill faces with drops to each bogie",
+      "source": {
+        "document": "PHOTO",
+        "photo": "wa-23",
+        "pdfPage": null
+      },
+      "qualifier": "Routing simplified"
     }
   ],
   "06": [
@@ -573,6 +713,26 @@
         "pdfPage": 13
       },
       "qualifier": "Exact flipper, twistlock and telescope geometry unavailable"
+    },
+    {
+      "label": "Spreader drop cable",
+      "value": "Reel on the trolley → guide bellmouth → vertical drop through the cage into the basket; length follows the hoist",
+      "source": {
+        "document": "PHOTO",
+        "photo": "wa-15",
+        "pdfPage": null
+      },
+      "qualifier": "Routing on the trolley and cable size estimated"
+    },
+    {
+      "label": "Spreader cable basket",
+      "value": "Yellow bucket with cable coil and cone, converging guide cage above",
+      "source": {
+        "document": "PHOTO",
+        "photo": "wa-15",
+        "pdfPage": null
+      },
+      "qualifier": "Headblock marked ZPMC 12.5T; basket size scaled"
     }
   ],
   "09": [
@@ -629,6 +789,15 @@
         "pdfPage": 14
       },
       "qualifier": "Vendor layout not supplied; locations estimated"
+    },
+    {
+      "label": "Exhaust pipe route",
+      "value": "Roof outlet → front leg outboard face → past the girder end → rain cap above the cross walkway",
+      "source": {
+        "document": "M14",
+        "pdfPage": 14
+      },
+      "qualifier": "Routing per user, 5 Nov 2026; pipe size and clamps estimated"
     }
   ],
   "05": [

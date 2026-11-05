@@ -223,24 +223,6 @@
         "positionId": "RTG-SYNTHETIC-A/position/structure.brace.left"
       },
       {
-        "nodeKey": "structure.brace-clevis.left.rear",
-        "kind": "position",
-        "classification": {
-          "main": "15",
-          "sub": "151"
-        },
-        "positionId": "RTG-SYNTHETIC-A/position/structure.brace-clevis.left.rear"
-      },
-      {
-        "nodeKey": "structure.brace-clevis.left.front",
-        "kind": "position",
-        "classification": {
-          "main": "15",
-          "sub": "151"
-        },
-        "positionId": "RTG-SYNTHETIC-A/position/structure.brace-clevis.left.front"
-      },
-      {
         "nodeKey": "structure.sill.right",
         "kind": "position",
         "classification": {
@@ -313,24 +295,6 @@
         "positionId": "RTG-SYNTHETIC-A/position/structure.brace.right"
       },
       {
-        "nodeKey": "structure.brace-clevis.right.rear",
-        "kind": "position",
-        "classification": {
-          "main": "15",
-          "sub": "151"
-        },
-        "positionId": "RTG-SYNTHETIC-A/position/structure.brace-clevis.right.rear"
-      },
-      {
-        "nodeKey": "structure.brace-clevis.right.front",
-        "kind": "position",
-        "classification": {
-          "main": "15",
-          "sub": "151"
-        },
-        "positionId": "RTG-SYNTHETIC-A/position/structure.brace-clevis.right.front"
-      },
-      {
         "nodeKey": "auxiliary.nameplate.capacity.rear",
         "kind": "position",
         "classification": {
@@ -338,15 +302,6 @@
           "sub": "171"
         },
         "positionId": "RTG-SYNTHETIC-A/position/auxiliary.nameplate.capacity.rear"
-      },
-      {
-        "nodeKey": "auxiliary.nameplate.maker.rear",
-        "kind": "position",
-        "classification": {
-          "main": "17",
-          "sub": "171"
-        },
-        "positionId": "RTG-SYNTHETIC-A/position/auxiliary.nameplate.maker.rear"
       },
       {
         "nodeKey": "auxiliary.flag.rear",
@@ -365,15 +320,6 @@
           "sub": "171"
         },
         "positionId": "RTG-SYNTHETIC-A/position/auxiliary.nameplate.capacity.front"
-      },
-      {
-        "nodeKey": "auxiliary.nameplate.maker.front",
-        "kind": "position",
-        "classification": {
-          "main": "17",
-          "sub": "171"
-        },
-        "positionId": "RTG-SYNTHETIC-A/position/auxiliary.nameplate.maker.front"
       },
       {
         "nodeKey": "auxiliary.flag.front",
@@ -599,6 +545,15 @@
           "sub": "047"
         },
         "positionId": "RTG-SYNTHETIC-A/position/gantry.chain.left.rear"
+      },
+      {
+        "nodeKey": "access.drive-platform.left.rear",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/access.drive-platform.left.rear"
       },
       {
         "nodeKey": "gantry.sprocket.left.rear",
@@ -835,6 +790,15 @@
         "positionId": "RTG-SYNTHETIC-A/position/gantry.chain.left.front"
       },
       {
+        "nodeKey": "access.drive-platform.left.front",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/access.drive-platform.left.front"
+      },
+      {
         "nodeKey": "gantry.sprocket.left.front",
         "kind": "position",
         "classification": {
@@ -977,6 +941,15 @@
           "sub": "047"
         },
         "positionId": "RTG-SYNTHETIC-A/position/gantry.chain.right.rear"
+      },
+      {
+        "nodeKey": "access.drive-platform.right.rear",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/access.drive-platform.right.rear"
       },
       {
         "nodeKey": "gantry.sprocket.right.rear",
@@ -1211,6 +1184,15 @@
           "sub": "047"
         },
         "positionId": "RTG-SYNTHETIC-A/position/gantry.chain.right.front"
+      },
+      {
+        "nodeKey": "access.drive-platform.right.front",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/access.drive-platform.right.front"
       },
       {
         "nodeKey": "gantry.sprocket.right.front",
@@ -1951,6 +1933,15 @@
         "positionId": "RTG-SYNTHETIC-A/position/hoist.spreader-cable.basket"
       },
       {
+        "nodeKey": "hoist.spreader-cable.drop",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "014"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/hoist.spreader-cable.drop"
+      },
+      {
         "nodeKey": "headblock.junction-box.main",
         "kind": "position",
         "classification": {
@@ -2239,6 +2230,24 @@
         "positionId": "RTG-SYNTHETIC-A/position/cabin.console.right"
       },
       {
+        "nodeKey": "cabin.hmi.main",
+        "kind": "position",
+        "classification": {
+          "main": "05",
+          "sub": "051"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/cabin.hmi.main"
+      },
+      {
+        "nodeKey": "cabin.cctv.main",
+        "kind": "position",
+        "classification": {
+          "main": "13",
+          "sub": "131"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/cabin.cctv.main"
+      },
+      {
         "nodeKey": "cabin.wiper.main",
         "kind": "position",
         "classification": {
@@ -2293,15 +2302,6 @@
         "positionId": "RTG-SYNTHETIC-A/position/trolley-drive.chain-trough.main"
       },
       {
-        "nodeKey": "trolley-drive.chain-anchor.main",
-        "kind": "position",
-        "classification": {
-          "main": "02",
-          "sub": "023"
-        },
-        "positionId": "RTG-SYNTHETIC-A/position/trolley-drive.chain-anchor.main"
-      },
-      {
         "nodeKey": "trolley-drive.chain-bracket.main",
         "kind": "position",
         "classification": {
@@ -2320,15 +2320,6 @@
         "positionId": "RTG-SYNTHETIC-A/position/access.stair.flight-1"
       },
       {
-        "nodeKey": "access.stair.landing-1",
-        "kind": "position",
-        "classification": {
-          "main": "15",
-          "sub": "151"
-        },
-        "positionId": "RTG-SYNTHETIC-A/position/access.stair.landing-1"
-      },
-      {
         "nodeKey": "access.stair.flight-2",
         "kind": "position",
         "classification": {
@@ -2336,15 +2327,6 @@
           "sub": "151"
         },
         "positionId": "RTG-SYNTHETIC-A/position/access.stair.flight-2"
-      },
-      {
-        "nodeKey": "access.stair.landing-2",
-        "kind": "position",
-        "classification": {
-          "main": "15",
-          "sub": "151"
-        },
-        "positionId": "RTG-SYNTHETIC-A/position/access.stair.landing-2"
       },
       {
         "nodeKey": "access.stair.flight-3",
@@ -2356,15 +2338,6 @@
         "positionId": "RTG-SYNTHETIC-A/position/access.stair.flight-3"
       },
       {
-        "nodeKey": "access.stair.landing-3",
-        "kind": "position",
-        "classification": {
-          "main": "15",
-          "sub": "151"
-        },
-        "positionId": "RTG-SYNTHETIC-A/position/access.stair.landing-3"
-      },
-      {
         "nodeKey": "access.stair.flight-4",
         "kind": "position",
         "classification": {
@@ -2372,15 +2345,6 @@
           "sub": "151"
         },
         "positionId": "RTG-SYNTHETIC-A/position/access.stair.flight-4"
-      },
-      {
-        "nodeKey": "access.stair.landing-4",
-        "kind": "position",
-        "classification": {
-          "main": "15",
-          "sub": "151"
-        },
-        "positionId": "RTG-SYNTHETIC-A/position/access.stair.landing-4"
       },
       {
         "nodeKey": "access.stair.flight-5",
@@ -2392,15 +2356,6 @@
         "positionId": "RTG-SYNTHETIC-A/position/access.stair.flight-5"
       },
       {
-        "nodeKey": "access.stair.landing-5",
-        "kind": "position",
-        "classification": {
-          "main": "15",
-          "sub": "151"
-        },
-        "positionId": "RTG-SYNTHETIC-A/position/access.stair.landing-5"
-      },
-      {
         "nodeKey": "access.stair.flight-6",
         "kind": "position",
         "classification": {
@@ -2408,6 +2363,51 @@
           "sub": "151"
         },
         "positionId": "RTG-SYNTHETIC-A/position/access.stair.flight-6"
+      },
+      {
+        "nodeKey": "access.stair.landing-1",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/access.stair.landing-1"
+      },
+      {
+        "nodeKey": "access.stair.landing-2",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/access.stair.landing-2"
+      },
+      {
+        "nodeKey": "access.stair.landing-3",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/access.stair.landing-3"
+      },
+      {
+        "nodeKey": "access.stair.landing-4",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/access.stair.landing-4"
+      },
+      {
+        "nodeKey": "access.stair.landing-5",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-A/position/access.stair.landing-5"
       },
       {
         "nodeKey": "access.stair.landing-6",
@@ -2941,24 +2941,6 @@
         "positionId": "RTG-SYNTHETIC-B/position/structure.brace.left"
       },
       {
-        "nodeKey": "structure.brace-clevis.left.rear",
-        "kind": "position",
-        "classification": {
-          "main": "15",
-          "sub": "151"
-        },
-        "positionId": "RTG-SYNTHETIC-B/position/structure.brace-clevis.left.rear"
-      },
-      {
-        "nodeKey": "structure.brace-clevis.left.front",
-        "kind": "position",
-        "classification": {
-          "main": "15",
-          "sub": "151"
-        },
-        "positionId": "RTG-SYNTHETIC-B/position/structure.brace-clevis.left.front"
-      },
-      {
         "nodeKey": "structure.sill.right",
         "kind": "position",
         "classification": {
@@ -3031,24 +3013,6 @@
         "positionId": "RTG-SYNTHETIC-B/position/structure.brace.right"
       },
       {
-        "nodeKey": "structure.brace-clevis.right.rear",
-        "kind": "position",
-        "classification": {
-          "main": "15",
-          "sub": "151"
-        },
-        "positionId": "RTG-SYNTHETIC-B/position/structure.brace-clevis.right.rear"
-      },
-      {
-        "nodeKey": "structure.brace-clevis.right.front",
-        "kind": "position",
-        "classification": {
-          "main": "15",
-          "sub": "151"
-        },
-        "positionId": "RTG-SYNTHETIC-B/position/structure.brace-clevis.right.front"
-      },
-      {
         "nodeKey": "auxiliary.nameplate.capacity.rear",
         "kind": "position",
         "classification": {
@@ -3056,15 +3020,6 @@
           "sub": "171"
         },
         "positionId": "RTG-SYNTHETIC-B/position/auxiliary.nameplate.capacity.rear"
-      },
-      {
-        "nodeKey": "auxiliary.nameplate.maker.rear",
-        "kind": "position",
-        "classification": {
-          "main": "17",
-          "sub": "171"
-        },
-        "positionId": "RTG-SYNTHETIC-B/position/auxiliary.nameplate.maker.rear"
       },
       {
         "nodeKey": "auxiliary.flag.rear",
@@ -3083,15 +3038,6 @@
           "sub": "171"
         },
         "positionId": "RTG-SYNTHETIC-B/position/auxiliary.nameplate.capacity.front"
-      },
-      {
-        "nodeKey": "auxiliary.nameplate.maker.front",
-        "kind": "position",
-        "classification": {
-          "main": "17",
-          "sub": "171"
-        },
-        "positionId": "RTG-SYNTHETIC-B/position/auxiliary.nameplate.maker.front"
       },
       {
         "nodeKey": "auxiliary.flag.front",
@@ -3317,6 +3263,15 @@
           "sub": "047"
         },
         "positionId": "RTG-SYNTHETIC-B/position/gantry.chain.left.rear"
+      },
+      {
+        "nodeKey": "access.drive-platform.left.rear",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/access.drive-platform.left.rear"
       },
       {
         "nodeKey": "gantry.sprocket.left.rear",
@@ -3553,6 +3508,15 @@
         "positionId": "RTG-SYNTHETIC-B/position/gantry.chain.left.front"
       },
       {
+        "nodeKey": "access.drive-platform.left.front",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/access.drive-platform.left.front"
+      },
+      {
         "nodeKey": "gantry.sprocket.left.front",
         "kind": "position",
         "classification": {
@@ -3695,6 +3659,15 @@
           "sub": "047"
         },
         "positionId": "RTG-SYNTHETIC-B/position/gantry.chain.right.rear"
+      },
+      {
+        "nodeKey": "access.drive-platform.right.rear",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/access.drive-platform.right.rear"
       },
       {
         "nodeKey": "gantry.sprocket.right.rear",
@@ -3929,6 +3902,15 @@
           "sub": "047"
         },
         "positionId": "RTG-SYNTHETIC-B/position/gantry.chain.right.front"
+      },
+      {
+        "nodeKey": "access.drive-platform.right.front",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/access.drive-platform.right.front"
       },
       {
         "nodeKey": "gantry.sprocket.right.front",
@@ -4669,6 +4651,15 @@
         "positionId": "RTG-SYNTHETIC-B/position/hoist.spreader-cable.basket"
       },
       {
+        "nodeKey": "hoist.spreader-cable.drop",
+        "kind": "position",
+        "classification": {
+          "main": "01",
+          "sub": "014"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/hoist.spreader-cable.drop"
+      },
+      {
         "nodeKey": "headblock.junction-box.main",
         "kind": "position",
         "classification": {
@@ -4957,6 +4948,24 @@
         "positionId": "RTG-SYNTHETIC-B/position/cabin.console.right"
       },
       {
+        "nodeKey": "cabin.hmi.main",
+        "kind": "position",
+        "classification": {
+          "main": "05",
+          "sub": "051"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/cabin.hmi.main"
+      },
+      {
+        "nodeKey": "cabin.cctv.main",
+        "kind": "position",
+        "classification": {
+          "main": "13",
+          "sub": "131"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/cabin.cctv.main"
+      },
+      {
         "nodeKey": "cabin.wiper.main",
         "kind": "position",
         "classification": {
@@ -5011,15 +5020,6 @@
         "positionId": "RTG-SYNTHETIC-B/position/trolley-drive.chain-trough.main"
       },
       {
-        "nodeKey": "trolley-drive.chain-anchor.main",
-        "kind": "position",
-        "classification": {
-          "main": "02",
-          "sub": "023"
-        },
-        "positionId": "RTG-SYNTHETIC-B/position/trolley-drive.chain-anchor.main"
-      },
-      {
         "nodeKey": "trolley-drive.chain-bracket.main",
         "kind": "position",
         "classification": {
@@ -5038,15 +5038,6 @@
         "positionId": "RTG-SYNTHETIC-B/position/access.stair.flight-1"
       },
       {
-        "nodeKey": "access.stair.landing-1",
-        "kind": "position",
-        "classification": {
-          "main": "15",
-          "sub": "151"
-        },
-        "positionId": "RTG-SYNTHETIC-B/position/access.stair.landing-1"
-      },
-      {
         "nodeKey": "access.stair.flight-2",
         "kind": "position",
         "classification": {
@@ -5054,15 +5045,6 @@
           "sub": "151"
         },
         "positionId": "RTG-SYNTHETIC-B/position/access.stair.flight-2"
-      },
-      {
-        "nodeKey": "access.stair.landing-2",
-        "kind": "position",
-        "classification": {
-          "main": "15",
-          "sub": "151"
-        },
-        "positionId": "RTG-SYNTHETIC-B/position/access.stair.landing-2"
       },
       {
         "nodeKey": "access.stair.flight-3",
@@ -5074,15 +5056,6 @@
         "positionId": "RTG-SYNTHETIC-B/position/access.stair.flight-3"
       },
       {
-        "nodeKey": "access.stair.landing-3",
-        "kind": "position",
-        "classification": {
-          "main": "15",
-          "sub": "151"
-        },
-        "positionId": "RTG-SYNTHETIC-B/position/access.stair.landing-3"
-      },
-      {
         "nodeKey": "access.stair.flight-4",
         "kind": "position",
         "classification": {
@@ -5090,15 +5063,6 @@
           "sub": "151"
         },
         "positionId": "RTG-SYNTHETIC-B/position/access.stair.flight-4"
-      },
-      {
-        "nodeKey": "access.stair.landing-4",
-        "kind": "position",
-        "classification": {
-          "main": "15",
-          "sub": "151"
-        },
-        "positionId": "RTG-SYNTHETIC-B/position/access.stair.landing-4"
       },
       {
         "nodeKey": "access.stair.flight-5",
@@ -5110,15 +5074,6 @@
         "positionId": "RTG-SYNTHETIC-B/position/access.stair.flight-5"
       },
       {
-        "nodeKey": "access.stair.landing-5",
-        "kind": "position",
-        "classification": {
-          "main": "15",
-          "sub": "151"
-        },
-        "positionId": "RTG-SYNTHETIC-B/position/access.stair.landing-5"
-      },
-      {
         "nodeKey": "access.stair.flight-6",
         "kind": "position",
         "classification": {
@@ -5126,6 +5081,51 @@
           "sub": "151"
         },
         "positionId": "RTG-SYNTHETIC-B/position/access.stair.flight-6"
+      },
+      {
+        "nodeKey": "access.stair.landing-1",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/access.stair.landing-1"
+      },
+      {
+        "nodeKey": "access.stair.landing-2",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/access.stair.landing-2"
+      },
+      {
+        "nodeKey": "access.stair.landing-3",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/access.stair.landing-3"
+      },
+      {
+        "nodeKey": "access.stair.landing-4",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/access.stair.landing-4"
+      },
+      {
+        "nodeKey": "access.stair.landing-5",
+        "kind": "position",
+        "classification": {
+          "main": "15",
+          "sub": "151"
+        },
+        "positionId": "RTG-SYNTHETIC-B/position/access.stair.landing-5"
       },
       {
         "nodeKey": "access.stair.landing-6",

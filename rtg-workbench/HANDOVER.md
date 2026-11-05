@@ -3,6 +3,72 @@
 The separate RTG package is complete for local review, including the subsequent CICT appearance update. It includes an editable deterministic model, versioned GLB/manifest, source audit, interactive viewer, typed integration adapter, independent host example, drawing comparisons and executed validation evidence. Model geometry remains provisional where the two mechanical manuals omit or contradict dimensions.
 
 
+## Revision 2.7 — cab interior from site photos (5 November 2026)
+
+The user reported that the cab looked empty. The seat and consoles existed but showed only in Technical mode. From cab photos WA-02/03, the interior is now visible in both modes:
+
+- **Seat:** a black high-back suspension seat facing the spreader.
+- **Consoles:** two stainless armrest consoles, each with a joystick and a grid of green, red, white and yellow push-buttons. The right console also has the red emergency stop.
+- **New parts:** `cabin.hmi.main`, a stainless cabinet with HMI touchscreen and louvres at the rear corner, and `cabin.cctv.main`, a CCTV monitor hung from the front ceiling plus a small indicator panel.
+- **Cab shell additions:** protective bars over the lower front glazing, rolled lilac blinds, a dark floor mat and the main-particular plate.
+
+To keep exactly 300 parts, each girder's ZPMC maker sign is now part of its capacity-sign part. Sizes and positions are scaled from wide-angle photos. The GLB is 8.33 MB, about 57 KB under the 8 MiB budget, so further detail will need geometry savings elsewhere.
+
+## Revision 2.6 — stair-side staircase rebuilt (5 November 2026)
+
+The user marked the upper staircase areas for adjustment. The faults were:
+
+- Turning flights shared one plane, so they cut through each other and their handrails crossed the landings.
+- The upper flights were 60°+ ladders.
+- The 24.8 m landing floated 1.3 m outside the leg with no support.
+- The top landing sat inside the girder end and the cross walkway, whose handrail ran down its centre.
+
+The staircase is now a switchback on the GA route:
+
+- **Route:** ground → 4.44 m beyond the front sill → 7.8 m over the E-room platform → 14.8 m at the rear leg → 21.8 m at the front leg → 23.2 m cantilever landing beyond the front leg → the top walkway.
+- **Lanes:** two 760 mm lanes side by side, so a flight that turns 180° never shares a plane with the next one.
+- **Upper flights:** the long flights are about 50°, and the two upper flights match them, replacing the earlier 60°+ ladders.
+- **Supports:** each landing has a frame and is braced to the nearest leg; the 7.8 m landing is posted to the E-room platform and the 23.2 m landing is cantilevered from the front leg.
+- **Handrails:** only open where a flight or walkway connects.
+- **Top landing:** sits outboard of the girder end and joins the cross walkway. That walkway's handrail moved from its centreline to its outer edge, with an opening at the stair.
+
+Landing elevations 7.8, 14.8 and 21.8 m follow the GA. Lane offsets, the 23.2 m landing position and the bracing are estimates (SOURCE_AUDIT C20). The 4.44 → 7.8 m flight is still steep (~62°) because the GA places both landings at the front leg. Still 300 parts.
+
+## Revision 2.5 — exhaust pipe routed up the leg (5 November 2026)
+
+The user pointed out that the short exhaust stack on the power-room roof was wrong: the exhaust line connects to the RTG leg and goes up to the top. `auxiliary.exhaust.main` is now a Ø180 pipe. It leaves a roof outlet, crosses to the front −X leg, and climbs that leg's outboard face with clamps about every 3 m. It passes outside the girder end and rises through a sleeve in the cross walkway to a rain cap about 1.4 m above the rail level. The route stays off the girder sides, so it clears the trolley, fall sheaves, ropes and the chain trough at every travel position. The leg used, pipe size, clamp spacing and exit height are estimates; please confirm them on site. Still 300 parts.
+
+## Revision 2.4 — ladder positions and spreader drop cable (5 November 2026)
+
+The user marked the ladder positions on site photos and the model, said they were all wrong, and pointed out that the spreader drop cable was missing.
+
+- **Drive-platform ladders (4):** they now climb the outboard side face at the outer end of each driven wheel, from the wheel guard to the platform, as in the marked photos (WA-20/23/24). Before, they were on the bogie end face. Each platform gained an outboard deck strip to receive its ladder, and the handrails were reshaped so they leave the ladder opening clear.
+- **Power-room access:** the free-standing ground ladder beside the −X front bogie is removed, because no photo shows one there. `access.ladder.power-room` is now a ladder from the front −X drive platform up to a landing at the leg end, at room-platform level, joined by a walkway to the power-room platform. This route is an estimate based on the stacked leg-end platforms in WA-20/21; please confirm it on site.
+- **Spreader drop cable:** new part `hoist.spreader-cable.drop`. It runs from the spreader cable reel along the trolley to a guide bellmouth under the trolley, then hangs vertically through the guide cage onto the cone in the headblock basket. The hanging span is driven by the hoist motion (viewer role `drop-cable`), so it stays attached at every lift height. To keep 300 parts, the energy chain's fixed-end anchor became part of the guide trough.
+- **Motor cable:** the gantry-motor cable previously ended in mid-air beyond the sill. It now runs over the equalizer to the sill end face, and the terminal box faces the bogie centre.
+
+## Revision 2.3 — site-photo adjustments (5 November 2026)
+
+The user added 28 new site photographs of a CICT RTG to `RTG drawings/` and asked for the model to be adjusted to them. The originals are unchanged. Downscaled copies of the 15 photos used, plus the 2017 busbar photo, are in `evidence/sources/PHOTOS/` with a SHA-256 register of all 28 originals. Parts whose shape comes from a photo now cite it, and the demo shows that photo as the part's source evidence. Still 300 parts, still standalone.
+
+- **Turning jacks (WA-23/24/26):** each jack is now centred under its equalizer, between the two tyres. It has a square guide sleeve, red barrel, chrome rod and a ribbed swivel foot about 0.2 m above the ground.
+- **Drive corners (WA-20/24/25/26):** the drive now stands outboard at the outer end of the driven wheel and steers with it. The vertical grey motor has a red top cover, and the chain case is red. A service platform with handrail and a red end ladder were added: `access.drive-platform.*`, four parts. To keep 300 parts, the brace end clevises became geometry of their brace bars.
+- **Wheels:** black rims with red hub caps, and a red cover on each driven sprocket.
+- **Sheaves (WA-04/06/07):** all twelve are yellow with six lightening holes, rim flanges and a red hub.
+- **Hoist motor (WA-05):** grey ribbed body, cream forced-cooling unit, and a top terminal box with power cables.
+- **Trolley:**
+  - The gearmotors are shaft-mounted on the wheel axle, with the motor along X and a red fan cowl, under the walkway deck (WA-11/13).
+  - The connect box is now a tall stainless electrical cabinet (WA-05/13).
+  - The energy chain's moving end hangs from a portal over the girder walkway (WA-11).
+- **Headblock (WA-15/17):** the cable basket is a yellow bucket with a cable coil, a centre cone and a converging guide cage above.
+- **Frame and rooms:**
+  - The leg floodlights moved from 19.5 m to black LED panels at about 6.2 m, facing the travel direction (WA-25/26).
+  - Steering hydraulic pipework runs along the outer sill faces, with drops to each bogie (WA-23/24/27).
+  - The power room got two protective tie bars between the legs (WA-27).
+- **Technical sheet:** it now includes the cab nameplate (WA-01): RC40.5t, ZP12-1874, licence TS2410724-2014, max wheel load under 41 t, group class U8/Q3/A8, CAT C7 and generator TYFZ18000-280L-G.
+- **Size:** to stay within the 8 MiB GLB budget, drum groove rings and sheave detail use fewer segments.
+- **Not changed:** the fleet number "06" in the photos is not adopted as an identity. Sign positions are unchanged because the photos disagree on them. Proportions read from wide-angle photos are approximate; see SOURCE_AUDIT C17.
+
 ## Revision 2.2 — turning jacks and full-model review (4 November 2026)
 
 - **Turning jacks:** the user reported that the jack system was missing: an RTG needs four jacks to turn its wheels. There is now one hydraulic jacking cylinder per bogie, `gantry.turning-jack.*` (four in all). Each sits on a sill bracket between the two tyres, inboard of the steering cylinder, and is shown retracted. Its body, rod, pad and hoses are modelled; rating, stroke and mounting are estimated because no jack drawing was supplied (SOURCE_AUDIT C16). To keep exactly 300 parts, the four welded sill-end lifting lugs are now part of their sill beams.
@@ -91,12 +157,12 @@ Verified/manual values and assumptions are separate in the technical sheet and `
 | TypeScript | Strict adapter declarations and React bridge example passed; actual React runtime was not exercised |
 | Visual review | Five source/model registrations and three detail views captured; remaining differences explicitly classified as provisional |
 
-On local headless Chrome 156 using Intel UHD Graphics 630 / ANGLE D3D11, a 1,035 × 648 render viewport at DPR 1 measured **60.05 FPS animation** and **60.08 FPS orbit** over separate eight-second samples (revision 2.2). Initial overview used 121,304 triangles and 330 draw calls, with 259 ms model load. These measurements describe this local test, not a production performance guarantee. Repeated reloads retained one canvas/label layer; final disposal removed renderer resources, listeners and animation callbacks.
+On local headless Chrome 156 using Intel UHD Graphics 630 / ANGLE D3D11, a 1,035 × 648 render viewport at DPR 1 measured **59.97 FPS animation** and **60.01 FPS orbit** over separate eight-second samples (revision 2.7). Initial overview used 138,500 triangles and 334 draw calls, with 220 ms model load. These measurements describe this local test, not a production performance guarantee. Repeated reloads retained one canvas/label layer; final disposal removed renderer resources, listeners and animation callbacks.
 
-The GLB is 7,417,020 bytes, including the original CICT artwork. Its SHA-256 is:
+The GLB is 8,331,644 bytes, including the original CICT artwork. Its SHA-256 is:
 
 ```text
-23e953714365db4c783a927423913c13a8b63078063e8490ac09dbbec4b0c1b1
+03f92de1ed54f0f04bde7e171144b3f6f7c2246fc81182340b6fa1736c7ff748
 ```
 
 Evidence: `evidence/validation/report.json`, `accuracy.json`, `reproducibility.json`, `typecheck.json`; `evidence/browser/results.json`, `host-results.json`; `evidence/comparisons/alignment.json`; and `evidence/appearance/results.json`. GLB verification used local structural checks and Three.js import, not the official Khronos validator. Node geometry validation verifies embedded PNG bytes and uses a texture placeholder; the browser decodes and renders the real embedded artwork, verified at 1,254 × 1,254 pixels on both girder faces.

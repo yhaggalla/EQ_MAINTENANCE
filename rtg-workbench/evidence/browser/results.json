@@ -1,18 +1,18 @@
 {
-  "date": "2026-11-04T18:01:28.379Z",
-  "assetSha256": "23e953714365db4c783a927423913c13a8b63078063e8490ac09dbbec4b0c1b1",
+  "date": "2026-11-05T03:09:50.073Z",
+  "assetSha256": "03f92de1ed54f0f04bde7e171144b3f6f7c2246fc81182340b6fa1736c7ff748",
   "conditions": "Local HTTP loopback; cold new browser context, bundled local assets; headless Chrome with D3D11; no real host, LAN or production test",
   "results": [
     {
       "name": "Initial load, integrity, paused demand rendering",
       "result": "PASS",
       "data": {
-        "triangles": 121304,
-        "drawCalls": 330,
-        "geometries": 321,
+        "triangles": 138500,
+        "drawCalls": 334,
+        "geometries": 325,
         "textures": 2,
         "frameCount": 3,
-        "loadMs": 259.2999999988824,
+        "loadMs": 220.1000000005588,
         "playing": false,
         "viewport": [
           1035,
@@ -23,7 +23,7 @@
         "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
         "logicalProcessors": 12,
         "reducedMotion": false,
-        "wholePageReadyMs": 908,
+        "wholePageReadyMs": 767,
         "idleFrames": 0
       }
     },
@@ -69,12 +69,12 @@
       "result": "PASS",
       "data": {
         "before": {
-          "x": 3.505633333333331,
-          "h": 10.166136666666665
+          "x": 3.5058666666666647,
+          "h": 10.166213333333332
         },
         "after": {
-          "x": 3.640422999999998,
-          "h": 10.210424699999995
+          "x": 3.6418229999999987,
+          "h": 10.2108847
         }
       }
     },
@@ -90,14 +90,14 @@
       "name": "Measured animation FPS, 8-second sample",
       "result": "PASS",
       "data": {
-        "fps": 60.049187900278696,
-        "elapsedMs": 8010.0999999996275,
-        "triangles": 121304,
-        "drawCalls": 330,
-        "geometries": 324,
+        "fps": 59.96851652882097,
+        "elapsedMs": 8004.200000000186,
+        "triangles": 138500,
+        "drawCalls": 334,
+        "geometries": 325,
         "textures": 2,
-        "frameCount": 575,
-        "loadMs": 259.2999999988824,
+        "frameCount": 571,
+        "loadMs": 220.1000000005588,
         "playing": true,
         "viewport": [
           1035,
@@ -114,8 +114,8 @@
       "name": "Measured orbit FPS, 8-second demand-render sample",
       "result": "PASS",
       "data": {
-        "fps": 60.08444300097993,
-        "elapsedMs": 8005.399999999256
+        "fps": 60.01472294658984,
+        "elapsedMs": 8014.6999999994405
       }
     },
     {
@@ -131,12 +131,12 @@
             "canvas": 1,
             "labels": 1,
             "stats": {
-              "triangles": 121304,
-              "drawCalls": 331,
-              "geometries": 322,
+              "triangles": 138500,
+              "drawCalls": 335,
+              "geometries": 326,
               "textures": 2,
               "frameCount": 3,
-              "loadMs": 128.60000000149012,
+              "loadMs": 139.20000000018626,
               "playing": false,
               "viewport": [
                 1035,
@@ -153,12 +153,12 @@
             "canvas": 1,
             "labels": 1,
             "stats": {
-              "triangles": 121304,
-              "drawCalls": 331,
-              "geometries": 322,
+              "triangles": 138500,
+              "drawCalls": 335,
+              "geometries": 326,
               "textures": 2,
               "frameCount": 3,
-              "loadMs": 129.59999999962747,
+              "loadMs": 135,
               "playing": false,
               "viewport": [
                 1035,
@@ -175,12 +175,12 @@
             "canvas": 1,
             "labels": 1,
             "stats": {
-              "triangles": 121304,
-              "drawCalls": 331,
-              "geometries": 322,
+              "triangles": 138500,
+              "drawCalls": 335,
+              "geometries": 326,
               "textures": 2,
               "frameCount": 3,
-              "loadMs": 141.5,
+              "loadMs": 136,
               "playing": false,
               "viewport": [
                 1035,

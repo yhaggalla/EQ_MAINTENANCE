@@ -42,9 +42,23 @@ export const estimates = {
   // Rope-centre pitch diameters: 30 × rope Ø, the drum rule stated on p25; plan circles read ≈ Ø0.87 m.
   // Reeving layout read from JL28606 front/side views (vertical end-pair ropes ≈ ±2.65 m in Z, side diagonals from
   // ≈ ±2.35 m in X) and constrained by the trolley frame: fall sheaves sit inside the end beams and crane girders.
-  // Four turning jacks (user, 4 November 2026; M13 p19, M14 p66). No jack drawing supplied: rated for a quarter of
-  // the crane weight with margin (manual uses 50 t jacks at the wheels), Ø300 body, Ø180 rod, pad 300 mm above ground.
-  turningJack: { offsetX: 850, bodyRadius: 150, rodRadius: 90, bodyBottomY: 1300, padTopY: 360, padThickness: 60, padSize: 620, bracketWidth: 420 },
+  // Turning jacks (user, 4 November 2026; site photos WA-23/24/26, 5 November 2026): one per bogie, centred under the
+  // equalizer between the tyres. Proportions scaled from the photos against the Ø1860 tyre; not a vendor drawing.
+  turningJack: { sleeveSize: 380, sleeveBottomY: 1850, bodyRadius: 165, bodyBottomY: 1150, rodRadius: 85, footTopY: 220, footThickness: 50, footRadius: 300 },
+  // Gantry drive at the outer end of each driven wheel (WA-20/24/25/26): offsets from the wheel centre, reducer centre
+  // height; the platform deck sits at the reducer top. Scaled from the photos.
+  // Side ladder on the outboard face (WA-20/23/24): plane offset ladderX outward; rails at ladderZ from the wheel centre.
+  gantryDrive: { offsetX: 250, offsetZ: 800, reducerY: 2750, reducerHeight: 500, ladderX: 930, ladderZ: [520, 970] },
+  // Trolley gearmotor centre outboard of the trolley rail plane (WA-11/13); motor axis along X under the walkway deck.
+  trolleyDrive: { offsetZ: 430 },
+  // Stair-side switchback (JL28600 side view; user review 5 November 2026). x values are offsets outboard of the +X leg
+  // centre plane; lanes A/B are side by side so turning flights never share a plane. Landing deck tops y and z ranges
+  // [near, far]: 1 sill level beyond the front sill end, 2 over the E-room platform, 3 rear leg, 4 front leg (straight),
+  // 5 cantilevered beyond the front leg, 6 top landing joining the cross walkway. Elevations 7.8/14.8/21.8 m follow the GA.
+  stair: { laneA: 1080, laneB: 1860, laneWidth: 760, xInner: 680, xOuter: 2260, xTop: 925, riser: 220, startZ: -1000,
+    y: [4440, 7800, 14800, 21800, 23200], z: [[5000, 6000], [2400, 3250], [-3700, -2700], [2900, 3800], [4976, 5976], [200, 1200]] },
+  // Exhaust pipe (user, 5 November 2026): roof outlet, then up the front leg's outboard face to above the cross walkway.
+  exhaust: { radius: 90, outletX: 600, outletZ: 1800, riseAboveRoof: 460, offsetX: 190, offsetZ: 330, topAboveRail: 1350 },
   reeving: {
     grooveX: [172.5, 517.5, 862.5, 1207.5],  // ± eight groove-group centres on the 2.9 m drum, 345 mm pitch
     endSheaveX: 1780, endSheaveZ: 2640,      // end-pair fall sheaves (shaft along Z), inside end beams / girders
@@ -84,7 +98,11 @@ export const sources = {
   gaItems: { document:'M14', pdfPage:20, figure:'JL28600 item list (items 5, 10, 12, 13)', note:'Name plate arrangement, limit switch assembly, hydraulic station and GPS/RCMS support are listed on the general arrangement; positions read approximately from the views, fittings estimated.' },
   safety: { document:'M14', pdfPage:14, figure:'section 2.1.2 main features; p23', note:'Wind speed indicator, anti-collision device on four corners, lighting and signal apparatus and gantry-travel alarm are stated. Device models and mounting positions are not given; locations estimated.' },
   eroom: { document:'M14', pdfPage:36, figure:'Fig 2-42 E-room; Fig 2-43/2-44 energy chain', note:'E-room on sill with platform/guard rail and two air conditionings; leg-mounted lamp visible. Stainless steel chain guide and L bracket with floating connection. Dimensions estimated from photographs.' },
-  jacking: { document:'M13', pdfPage:19, figure:'section 8.1-8.2 gantry traveling; M14 p66 tyre inspection; user statement 4 November 2026', note:'Each tyred wheel is rotated about its centre by 16° and 90° under non-operational conditions (M13 p19), and turning tyres without the jack-up device wears them (M14 p66). The user confirmed four jacks per RTG for turning. No jack drawing, rating, stroke or mounting was supplied: position between the two tyres of each bogie, size and retracted pose are estimates.' },
+  jacking: { document:'M13', pdfPage:19, figure:'section 8.1-8.2 gantry traveling; M14 p66 tyre inspection; user statement 4 November 2026', note:'Each tyred wheel is rotated about its centre by 16° and 90° under non-operational conditions (M13 p19), and turning tyres without the jack-up device wears them (M14 p66). The user confirmed four jacks per RTG for turning. Site photos WA-23/24/26 (5 November 2026) show one jack centred under each equalizer between the tyres, with a square sleeve, red barrel, chrome rod and ribbed swivel foot. No jack drawing, rating or stroke was supplied; proportions are scaled from the photos.' },
   reeving: { document:'M14', pdfPage:27, figure:'Fig 2-14 8 ropes reeving; p26 text; JL28606 front/side views p21', note:'Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 horizontal guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes and positions read from the trolley views; groove assignment, sheave shaft coordinates and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together.' },
-  busbar: { document:'PHOTO:IMG_20171109_140808.jpg / IMG_20171109_141902.jpg / IMG_20171109_141914.jpg; M14', pdfPage:12, figure:'User site photographs; Table 2-1 supply types', note:'Photographs show a DZD-230 self-connecting busbar power collector fitted to the crane. M14 Table 2-1 lists low-voltage contact-bus supply as a type, while the original project option was diesel generator + lithium battery. Retrofit status, side and geometry are photo-estimated.' },
+  exhaust: { document:'M14', pdfPage:14, figure:'section 2.1.2 diesel generator set; user statement 5 November 2026', note:'Diesel power room per M14. The user stated that the exhaust line is connected to the RTG leg and goes up to the top. Pipe size, clamp spacing, the leg face used and the exit height are estimated; the photos do not show the run clearly.' },
+  sitePhotos: { document:'PHOTO', photo:'wa-24', pdfPage:null, figure:'User site photographs, 5 November 2026 (WA-01 … WA-28)', note:'Twenty-eight photographs of a CICT ZP12-1874 RTG. Used for shapes, positions and finishes the manuals do not give: turning jacks, drive platforms, trolley drives and cabinet, cable basket, chain portal, lamps and pipework. Scaled against known dimensions; perspective limits accuracy.' },
+  cabInterior: { document:'PHOTO', photo:'wa-03', pdfPage:null, figure:'Cab interior photographs WA-02 / WA-03, 5 November 2026; M14 p34 Fig 2-35', note:'Seat with two armrest consoles (joystick, push-button grid, emergency stop), stainless HMI touchscreen cabinet, CCTV monitor, lower-window bar grille and blinds. M14 p34 confirms seat, paired consoles and AC. Positions and sizes scaled from wide-angle photos.' },
+  nameplate: { document:'PHOTO', photo:'wa-01', pdfPage:null, figure:'Cab main-particular plate (WA-01)', note:'ZPMC plate: RC40.5t, ZP12-1874, licence TS2410724-2014, span 23.47 m, wheelbase 7.9 m, lift 21.2 m, max wheel load < 41 t, wheels 8/4 driven, CAT C7, generator TYFZ18000-280L-G, group class U8/Q3/A8, skew ±5°.' },
+  busbar: { document:'PHOTO', photo:'img-140808', pdfPage:null, figure:'User site photographs; Table 2-1 supply types', note:'Photographs show a DZD-230 self-connecting busbar power collector fitted to the crane. M14 Table 2-1 lists low-voltage contact-bus supply as a type, while the original project option was diesel generator + lithium battery. Retrofit status, side and geometry are photo-estimated.' },
 };
