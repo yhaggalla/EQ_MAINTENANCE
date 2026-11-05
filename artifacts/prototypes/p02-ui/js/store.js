@@ -660,6 +660,21 @@ window.EQ = window.EQ || {};
   /** Drawing-derived parameters plus the Admin-entered specification rows (U1-C22). */
   EQ.allParams = () => EQ.sourceParams.concat((S.D && S.D.specAdded) || []);
   EQ.paramDef = (code) => EQ.allParams().find((x) => x.code === code);
+  /** U1-C68: source references of one observation (document, PDF page, locator), as text. */
+  EQ.refText = (o) => (o.refs || [{ document: o.drawing, page: o.page, locator: o.locator }])
+    .map((s) => s.document + (s.page ? ' p' + s.page : '') + (s.locator ? ' (' + s.locator + ')' : '')).join('; ');
+  /** U1-C68: effective model-scope value (DATA s3.8): Admin value -> the single observed value -> unresolved conflict. */
+  EQ.paramEffective = (p) => {
+    const res = S.D && S.D.resolved && S.D.resolved[p.code];
+    const values = [...new Set((p.observations || []).map((o) => String(o.value)))];
+    if (res) return { state: 'decided', value: res.value, decision: res, conflict: values.length > 1 };
+    if (values.length === 1) return { state: 'observed', value: p.observations[0].value };
+    return values.length ? { state: 'conflict', values } : { state: 'unset' };
+  };
+  /** U1-C68: component parameter groups (assets/reference/qc-component-parameters.json) for an area, part keys or a sub. */
+  EQ.paramGroupsFor = ({ area, keys } = {}) => (EQ.paramGroups || [])
+    .filter((g) => (area && g.areas.includes(area)) || (keys && keys.some((k) => g.nodeKeys.includes(k))))
+    .sort((a, b) => a.sortOrder - b.sortOrder);
 
   function inTarget(job, pos) {
     if (job.level === 'equipment') return true;

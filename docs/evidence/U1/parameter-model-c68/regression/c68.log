@@ -1,0 +1,15 @@
+PASS 01 reference data: 27 groups, every group code defined, every reference registered, no observation-less parameter, old dataset retired
+PASS 02 area groups come from the parameter model (machinery house: 9 groups)
+PASS 03 existing parameter reused with all its sources (450 kW: J526A00, J526A0300, manual table 1-2)
+PASS 04 differing sources are an unresolved conflict with both values (10 t J526A1600 / 12 t manual 1.6.1); EQ Team cannot resolve
+PASS 05 technical search finds component rows (SB315 drum brakes)
+PASS 06 part shows the groups linked to its model key (seaside catenary trolley)
+PASS 07 sub-mechanism 011 shows the groups of its parts
+PASS 08 U-02 trolley motor stays an open conflict with three observations (275 J526A00, 270 J526A0400, 275 manual)
+PASS 09 Admin sees Resolve with a reason on the conflict row
+PASS 10 decision recorded with reason; row shows the chosen value, Resolved by Admin and both observations
+PASS 11 Admin page (fresh load; prototype decisions are in memory): reference list unchanged (20), conflicts filter lists the three open conflicts, group and all filters
+PASS 12 Management sees the conflict but no Resolve control
+PASS 13 no browser errors
+13/13 PASS
+exit 0

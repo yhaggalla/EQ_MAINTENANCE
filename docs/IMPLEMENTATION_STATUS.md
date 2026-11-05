@@ -1,5 +1,7 @@
 # Implementation status
 
+29 October 2026 U1-C68 / D-217: component technical data folded into the parameter model: `assets/reference/qc-component-parameters.json` (26 sources, 220 definitions, 231 sourced observations, 27 groups) merged by `tools/p02/build_catalog.py`; existing codes reused; conflicts resolvable by Admin; `js/component-specs.js` removed; DATA/API contracts and SOURCE_MAP updated. Checks: C68 13/13, C63 model 55/55, R02B round-2 PASS, C50 49/49, C35 11/11, unified viewer 11/11, flat isolation 19/19, C66 14/14, C63 browser 68/68; C51 fails at check 20 as on HEAD (pre-existing C63 storage guard in the Node harness). Evidence `docs/evidence/U1/parameter-model-c68/REPORT.md`. U1 IN PROGRESS / NOT APPROVED.
+
 29 October 2026 U1-C67 / D-216: elevator landings merged with the stair-tower landings into one flush platform per level (J526A5100 note 2); girder end diaphragm made flush so the tail stairs are clear. Checks: validate 26/26, bindings 11/11, unified viewer 11/11, flat isolation 19/19, C66 14/14, C63 browser 68/68. Evidence `docs/evidence/U1/access-c67/REPORT.md`. U1 IN PROGRESS / NOT APPROVED.
 
 29 October 2026 U1-C66 follow-up / D-215: viewer labels now have three modes (Key parts default, Selection, Selected only); selecting a part sets Selected only and switches Overall to Technical. Checks: C66 14/14, unified viewer 11/11 (step 05 updated to the modes), flat isolation 19/19, C35 11/11, C63 browser 68/68. Evidence `docs/evidence/U1/label-modes-c66/REPORT.md`. U1 IN PROGRESS / NOT APPROVED.

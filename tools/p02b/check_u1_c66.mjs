@@ -10,7 +10,7 @@ await b.viewport(1600, 1000);
 const results = []; let n = 0;
 const check = (name, ok, detail) => { results.push({ name, ok: !!ok, detail }); console.log((ok ? 'PASS ' : 'FAIL ') + name + (ok ? '' : ' ' + JSON.stringify(detail))); n++; };
 const ev = (x) => b.eval(x);
-const ready = async () => { for (let i = 0; i < 60; i++) { await b.wait(200); if (await ev('!!EQ.qc?.session?.ready')) break; } await b.wait(900); };
+const ready = async () => { for (let i = 0; i < 60; i++) { await b.wait(200); if (await ev('!!window.EQ?.qc?.session?.ready')) break; } await b.wait(900); };
 const state = () => ev(`(()=>{const ls=[...document.querySelectorAll('.qc-label')];const pressed=[...document.querySelectorAll('.label-seg button[aria-pressed="true"]')].map(x=>x.dataset.fk);
   const note=[...document.querySelectorAll('.qc-notice')].find(x=>!x.hidden);return {mode:EQ.route.query.mode||'overall',viewerMode:EQ.qc.session.viewer.mode,labelMode:EQ.eqUI.labelMode,pressed,
   count:ls.length,sel:ls.filter(x=>x.classList.contains('sel')).map(x=>x.textContent),part:EQ.route.query.part||'',notice:note?note.textContent:''}})()`);

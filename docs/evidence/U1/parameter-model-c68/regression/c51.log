@@ -1,0 +1,13 @@
+{"passed":19,"failed":0,"last":{"name":"Open shared work blocks retirement of a member","pass":true}}
+file:///F:/CODEX/EQ_MAINTENANCE/tools/p02b/check_u1_c51.mjs:53
+  check('New QC automatically joins existing shared progress', E.jobsOf(extra.id).find(j => j.id === job.id)?.progressPercent === 40 && E.currentSpecial(extra.id, scope).jobs.some(r => r.job.id === job.id));
+                                                                              ^
+
+TypeError: Cannot read properties of undefined (reading 'id')
+    at file:///F:/CODEX/EQ_MAINTENANCE/tools/p02b/check_u1_c51.mjs:53:79
+    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)
+    at async node:internal/modules/esm/loader:639:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.15.0
+exit 1

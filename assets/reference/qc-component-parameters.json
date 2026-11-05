@@ -1,0 +1,5587 @@
+{
+ "schemaVersion": 1,
+ "equipmentModelCode": "CICT-J526A-STS",
+ "description": "Component technical parameters for the CICT-J526A-STS family (U1-C68): supplementary to documents/prompt-pack/reference/major-parameters.json and imported with it by import-parameters (DATA_CONTRACT s3.8, s8). Observations are source facts with document, PDF page and locator; values describe the drawing family, not one crane. Differing observations are unresolved conflicts until Admin records a value with a reason.",
+ "sources": {
+  "J526A00": {
+   "title": "General arrangement (structure parameters)",
+   "kind": "sourceDrawing",
+   "file": "Drawings and manuals/As-bulit drawing/J526A00（structure parameters）.pdf"
+  },
+  "J526A0100": {
+   "title": "General structure (p44: J526A0104 trolley rail)",
+   "kind": "sourceDrawing",
+   "file": "Drawings and manuals/As-bulit drawing/J526A0100.pdf"
+  },
+  "J526A0200": {
+   "title": "Trolley",
+   "kind": "sourceDrawing",
+   "file": "Drawings and manuals/As-bulit drawing/J526A0200.pdf"
+  },
+  "J526A0300": {
+   "title": "Main hoist device",
+   "kind": "sourceDrawing",
+   "file": "Drawings and manuals/As-bulit drawing/J526A0300.pdf"
+  },
+  "J526A0400": {
+   "title": "Trolley drive mechanism (title block J526A04)",
+   "kind": "sourceDrawing",
+   "file": "Drawings and manuals/As-bulit drawing/J526A0400.pdf"
+  },
+  "J526A0500": {
+   "title": "Boom hoist device (title block J526A05)",
+   "kind": "sourceDrawing",
+   "file": "Drawings and manuals/As-bulit drawing/J526A0500.pdf"
+  },
+  "J526A1000": {
+   "title": "Anti-snag and T/L/S device",
+   "kind": "sourceDrawing",
+   "file": "Drawings and manuals/As-bulit drawing/J526A1000.pdf"
+  },
+  "J526A1200": {
+   "title": "Headblock",
+   "kind": "sourceDrawing",
+   "file": "Drawings and manuals/As-bulit drawing/J526A1200.pdf"
+  },
+  "J526A1300": {
+   "title": "Cargo beam",
+   "kind": "sourceDrawing",
+   "file": "Drawings and manuals/As-bulit drawing/J526A1300.pdf"
+  },
+  "J526A1400": {
+   "title": "Emergency system",
+   "kind": "sourceDrawing",
+   "file": "Drawings and manuals/As-bulit drawing/J526A1400.pdf"
+  },
+  "J526A1500": {
+   "title": "Rope re-reeving system",
+   "kind": "sourceDrawing",
+   "file": "Drawings and manuals/As-bulit drawing/J526A1500.pdf"
+  },
+  "J526A1600": {
+   "title": "Machinery house service crane",
+   "kind": "sourceDrawing",
+   "file": "Drawings and manuals/As-bulit drawing/J526A1600.pdf"
+  },
+  "J526A2100": {
+   "title": "Trolley reeving (p3: J526A2103 tension device)",
+   "kind": "sourceDrawing",
+   "file": "Drawings and manuals/As-bulit drawing/J526A2100.pdf"
+  },
+  "J526A2200": {
+   "title": "Catenary trolley rope reeving (p2 J526A2201, p3 J526A2203, p4 J526A220400, p5 J526A220500)",
+   "kind": "sourceDrawing",
+   "file": "Drawings and manuals/As-bulit drawing/J526A2200.pdf"
+  },
+  "J526A3000": {
+   "title": "Machinery house",
+   "kind": "sourceDrawing",
+   "file": "Drawings and manuals/As-bulit drawing/J526A3000.pdf"
+  },
+  "J526A3100": {
+   "title": "Operator's cabin",
+   "kind": "sourceDrawing",
+   "file": "Drawings and manuals/As-bulit drawing/J526A3100.pdf"
+  },
+  "J526A7000": {
+   "title": "Air compressor system",
+   "kind": "sourceDrawing",
+   "file": "Drawings and manuals/As-bulit drawing/J526A7000.pdf"
+  },
+  "J526A7100": {
+   "title": "Service crane outside of machinery house",
+   "kind": "sourceDrawing",
+   "file": "Drawings and manuals/As-bulit drawing/J526A7100.pdf"
+  },
+  "DT1500F": {
+   "title": "Spreader trailer",
+   "kind": "sourceDrawing",
+   "file": "Drawings and manuals/As-bulit drawing/DT1500F.pdf"
+  },
+  "ZT2-015022": {
+   "title": "Trolley wheel 630 x 75",
+   "kind": "sourceDrawing",
+   "file": "Drawings and manuals/As-bulit drawing/ZT2-015022 - Trolley wheel.pdf"
+  },
+  "ZT2-013069": {
+   "title": "Main hoist sheave assembly A2-900 (file Sheave.pdf)",
+   "kind": "sourceDrawing",
+   "file": "Drawings and manuals/As-bulit drawing/Sheave.pdf"
+  },
+  "ZPMC-MM-CH1": {
+   "title": "Maintenance Manual for CICT 12 STS Cranes (mechanical), ch.1 Brief introduction",
+   "kind": "sourceManual",
+   "file": "Drawings and manuals/Mechanical manual/2 Chapter 1 Brief introduction-ok.pdf",
+   "note": "Chapter 1 names its example crane as KICT; its tables agree with the J526A drawings where cross-checked"
+  },
+  "ZPMC-MM-CH2": {
+   "title": "Maintenance Manual for CICT 12 STS Cranes (mechanical), ch.2 Crane maintenance instructions",
+   "kind": "sourceManual",
+   "file": "Drawings and manuals/Mechanical manual/3 Chapter2  Crane maintenance instructions.pdf"
+  },
+  "ZPMC-MM-CH4": {
+   "title": "Maintenance Manual for CICT 12 STS Cranes (mechanical), ch.4 Wire rope",
+   "kind": "sourceManual",
+   "file": "Drawings and manuals/Mechanical manual/5 chapter 4  Wire rope.pdf"
+  },
+  "ZPMC-MM-CH5": {
+   "title": "Maintenance Manual for CICT 12 STS Cranes (mechanical), ch.5 Hydraulic system",
+   "kind": "sourceManual",
+   "file": "Drawings and manuals/Mechanical manual/6 Chapter5 Maintenance Instruction of Hydraulic System.pdf"
+  },
+  "CAVOTEC-SC-121216-ME2a": {
+   "title": "Cavotec instruction manual, motorised cable reel T5.1 (spreader cable reel)",
+   "kind": "sourceManual",
+   "file": "Drawings and manuals/Cavotec manual for QC/SC-121216-ME2a - Manual T5.1 NCC(2x5kW).4 VM922-38G KV26-4S-FC-R + BD5000N.pdf"
+  }
+ },
+ "groups": [
+  {
+   "code": "machinery-house",
+   "title": "Machinery house",
+   "sortOrder": 10,
+   "parameterCodes": [
+    "machinery-house-size",
+    "machinery-house-structure-weight",
+    "machinery-house-main-transformer",
+    "machinery-house-auxiliary-transformer",
+    "machinery-house-hv-switchgear",
+    "machinery-house-outdoor-a-c-units",
+    "machinery-house-service-hatch",
+    "machinery-house-fittings",
+    "machinery-house-fire-extinguishers",
+    "machinery-house-main-drives-inside"
+   ],
+   "areas": [
+    "machinery-house"
+   ],
+   "nodeKeys": [
+    "structure.machinery-frame"
+   ]
+  },
+  {
+   "code": "main-hoist",
+   "title": "Main hoist drive",
+   "sortOrder": 20,
+   "parameterCodes": [
+    "main-hoist-motor-power",
+    "hoist-speed-65t",
+    "hoist-speed-empty",
+    "lift-height-above-rail",
+    "lift-height-below-rail",
+    "main-hoist-motors",
+    "main-hoist-reducer",
+    "main-hoist-high-speed-brake",
+    "main-hoist-low-speed-brake",
+    "main-hoist-high-speed-coupling",
+    "main-hoist-drum-coupling",
+    "main-hoist-wire-rope",
+    "main-hoist-drum",
+    "main-hoist-dead-wraps",
+    "main-hoist-alignment",
+    "main-hoist-limit-devices",
+    "main-hoist-gear-oil"
+   ],
+   "areas": [
+    "machinery-house"
+   ],
+   "nodeKeys": [
+    "hoist.drive.reducer.main",
+    "hoist.drive.drum.a",
+    "hoist.drive.motor.a",
+    "hoist.drive.brake.hs.a",
+    "hoist.emergency.brake.a",
+    "hoist.drive.drum.b",
+    "hoist.drive.motor.b",
+    "hoist.drive.brake.hs.b",
+    "hoist.emergency.brake.b"
+   ]
+  },
+  {
+   "code": "boom-hoist",
+   "title": "Boom hoist drive",
+   "sortOrder": 30,
+   "parameterCodes": [
+    "boom-hoist-motor-power",
+    "boom-hoisting-time",
+    "boom-hoist-motor",
+    "boom-hoist-reducer",
+    "boom-hoist-motor-coupling",
+    "boom-hoist-drum-coupling",
+    "boom-hoist-wire-rope",
+    "boom-hoist-motor-brake",
+    "boom-hoist-drum-brake",
+    "boom-hoist-drum",
+    "boom-hoist-assembly-weight",
+    "boom-hoist-boom-positions",
+    "boom-hoist-gear-oil"
+   ],
+   "areas": [
+    "machinery-house"
+   ],
+   "nodeKeys": [
+    "boom-hoist.drum.main",
+    "boom-hoist.reducer.main",
+    "boom-hoist.motor.main",
+    "boom-hoist.brake.hs.main",
+    "boom-hoist.emergency.brake.main"
+   ]
+  },
+  {
+   "code": "trolley-drive",
+   "title": "Trolley drive (rope towed)",
+   "sortOrder": 40,
+   "parameterCodes": [
+    "trolley-motor-power",
+    "trolley-speed",
+    "trolley-drive-motor",
+    "trolley-drive-gear-box",
+    "trolley-drive-high-speed-brake",
+    "trolley-drive-high-speed-coupling",
+    "trolley-drive-drum-coupling",
+    "trolley-drive-wire-rope",
+    "trolley-drive-drum",
+    "trolley-drive-dead-wraps",
+    "trolley-drive-assembly-weight",
+    "trolley-drive-gear-oil"
+   ],
+   "areas": [
+    "machinery-house"
+   ],
+   "nodeKeys": [
+    "trolley-drive.drum.main",
+    "trolley-drive.reducer.main",
+    "trolley-drive.brake.main",
+    "trolley-drive.motor.main"
+   ]
+  },
+  {
+   "code": "emergency-drives",
+   "title": "Emergency drives",
+   "sortOrder": 50,
+   "parameterCodes": [
+    "emergency-drives-hoist-boom-emergency-motor",
+    "emergency-drives-hoist-boom-emergency-reducer",
+    "emergency-drives-main-hoist-emergency",
+    "emergency-drives-boom-hoist-emergency",
+    "emergency-drives-trolley-emergency-motor",
+    "emergency-drives-trolley-emergency-reducer",
+    "emergency-drives-use",
+    "emergency-drives-shore-power",
+    "emergency-drives-system-weight",
+    "emergency-drives-gear-oil"
+   ],
+   "areas": [
+    "machinery-house"
+   ],
+   "nodeKeys": [
+    "emergency.drive.main"
+   ]
+  },
+  {
+   "code": "rope-re-reeving",
+   "title": "Wire rope re-reeving device",
+   "sortOrder": 60,
+   "parameterCodes": [
+    "rope-re-reeving-driving-machines",
+    "rope-re-reeving-motor",
+    "rope-re-reeving-reducer",
+    "rope-re-reeving-drum-speed",
+    "rope-re-reeving-other-parts",
+    "rope-re-reeving-ropes-served",
+    "rope-re-reeving-system-weight",
+    "rope-re-reeving-lubrication"
+   ],
+   "areas": [
+    "machinery-house"
+   ],
+   "nodeKeys": [
+    "auxiliary.rope-reeving.machinery-house"
+   ]
+  },
+  {
+   "code": "mh-service-crane",
+   "title": "Machinery-house service crane",
+   "sortOrder": 70,
+   "parameterCodes": [
+    "mh-service-crane-capacity",
+    "mh-service-crane-power-supply",
+    "mh-service-crane-hoisting",
+    "mh-service-crane-hoist-rope",
+    "mh-service-crane-traverse",
+    "mh-service-crane-long-travel",
+    "mh-service-crane-max-wheel-load",
+    "mh-service-crane-span-runway",
+    "mh-service-crane-weight"
+   ],
+   "areas": [
+    "machinery-house"
+   ],
+   "nodeKeys": [
+    "machinery-house.service-crane"
+   ]
+  },
+  {
+   "code": "compressed-air",
+   "title": "Compressed-air system",
+   "sortOrder": 80,
+   "parameterCodes": [
+    "compressed-air-main-pipe",
+    "compressed-air-outlets",
+    "compressed-air-leak-test",
+    "compressed-air-hose",
+    "compressed-air-system-weight",
+    "compressed-air-compressor-model"
+   ],
+   "areas": [
+    "machinery-house"
+   ],
+   "nodeKeys": [
+    "auxiliary.compressor"
+   ]
+  },
+  {
+   "code": "disc-brake-hydraulics",
+   "title": "Disc-brake hydraulic unit",
+   "sortOrder": 90,
+   "parameterCodes": [
+    "disc-brake-hydraulics-systems",
+    "disc-brake-hydraulics-brake-principle",
+    "disc-brake-hydraulics-manual-release",
+    "disc-brake-hydraulics-pressure-control"
+   ],
+   "areas": [
+    "machinery-house"
+   ],
+   "nodeKeys": []
+  },
+  {
+   "code": "spreader",
+   "title": "Spreader",
+   "sortOrder": 100,
+   "parameterCodes": [
+    "swl-under-spreader",
+    "spreader-type",
+    "spreader-rated-load",
+    "spreader-twin-20-gap",
+    "spreader-trim-list-skew",
+    "spreader-operating-modes",
+    "spreader-slack-rope-protection",
+    "spreader-spreader-cable",
+    "spreader-routine-checks",
+    "spreader-spreader-trailer",
+    "spreader-over-height-adapter"
+   ],
+   "areas": [
+    "headblock-spreader"
+   ],
+   "nodeKeys": [
+    "spreader.frame",
+    "spreader.twistlock.a-ws",
+    "spreader.twistlock.a-ls",
+    "spreader.twistlock.b-ws",
+    "spreader.twistlock.b-ls"
+   ]
+  },
+  {
+   "code": "headblock",
+   "title": "Headblock",
+   "sortOrder": 110,
+   "parameterCodes": [
+    "headblock-weight",
+    "headblock-main-dimensions",
+    "headblock-sheaves",
+    "headblock-sheave-bearings",
+    "headblock-twistlocks",
+    "headblock-electrical",
+    "headblock-sheave-guard",
+    "headblock-bolt-torques",
+    "headblock-rope-groove",
+    "headblock-connection"
+   ],
+   "areas": [
+    "headblock-spreader"
+   ],
+   "nodeKeys": [
+    "headblock.frame",
+    "headblock.sheave-box.a",
+    "headblock.sheave-box.b"
+   ]
+  },
+  {
+   "code": "cargo-beam",
+   "title": "Cargo beam (hook beam)",
+   "sortOrder": 120,
+   "parameterCodes": [
+    "swl-under-cargo-beam",
+    "cargo-beam-dimensions",
+    "cargo-beam-hook",
+    "cargo-beam-weight"
+   ],
+   "areas": [
+    "headblock-spreader"
+   ],
+   "nodeKeys": []
+  },
+  {
+   "code": "trolley",
+   "title": "Trolley",
+   "sortOrder": 130,
+   "parameterCodes": [
+    "trolley-speed",
+    "trolley-acceleration-time",
+    "trolley-type",
+    "trolley-weight",
+    "trolley-rail-gauge-wheel-base",
+    "trolley-wheels",
+    "trolley-main-hoist-sheaves",
+    "trolley-rope-equalizer-sheaves",
+    "trolley-buffers",
+    "trolley-rope-clamp-bolts",
+    "trolley-interlocks",
+    "trolley-hoist-over-travel",
+    "trolley-lubrication"
+   ],
+   "areas": [
+    "trolley"
+   ],
+   "nodeKeys": [
+    "trolley.frame",
+    "trolley.wheel.ls-a.1",
+    "trolley.wheel.ls-b.1",
+    "trolley.wheel.ws-a.1",
+    "trolley.wheel.ws-b.1"
+   ]
+  },
+  {
+   "code": "trolley-wheel",
+   "title": "Trolley wheel",
+   "sortOrder": 140,
+   "parameterCodes": [
+    "trolley-wheel-size",
+    "trolley-wheel-hub",
+    "trolley-wheel-material",
+    "trolley-wheel-hardness",
+    "trolley-wheel-inspection",
+    "trolley-wheel-wear-limits",
+    "trolley-wheel-running"
+   ],
+   "areas": [
+    "trolley"
+   ],
+   "nodeKeys": [
+    "trolley.wheel.ls-a.1",
+    "trolley.wheel.ls-b.1",
+    "trolley.wheel.ws-a.1",
+    "trolley.wheel.ws-b.1"
+   ]
+  },
+  {
+   "code": "trolley-sheaves",
+   "title": "Trolley sheaves",
+   "sortOrder": 150,
+   "parameterCodes": [
+    "trolley-sheaves-main-hoist-sheave",
+    "trolley-sheaves-bearings",
+    "trolley-sheaves-seals",
+    "trolley-sheaves-groove-wear-limits",
+    "trolley-sheaves-drum-groove-limit",
+    "trolley-sheaves-rope-support-rollers"
+   ],
+   "areas": [
+    "trolley"
+   ],
+   "nodeKeys": [
+    "trolley.sheave.set.a",
+    "trolley.sheave.set.b",
+    "trolley.sheave.equalizer"
+   ]
+  },
+  {
+   "code": "spreader-cable-reel",
+   "title": "Spreader cable reel",
+   "sortOrder": 160,
+   "parameterCodes": [
+    "spreader-cable-reel-reel-type",
+    "spreader-cable-reel-drum",
+    "spreader-cable-reel-cable-duty",
+    "spreader-cable-reel-motors",
+    "spreader-cable-reel-torque-unit",
+    "spreader-cable-reel-pre-reducer",
+    "spreader-cable-reel-brake",
+    "spreader-cable-reel-encoder",
+    "spreader-cable-reel-drive",
+    "spreader-cable-reel-collector",
+    "spreader-cable-reel-limit-switch",
+    "spreader-cable-reel-damper",
+    "spreader-cable-reel-cable",
+    "spreader-cable-reel-interlock",
+    "spreader-cable-reel-arrangement-weight"
+   ],
+   "areas": [
+    "trolley"
+   ],
+   "nodeKeys": [
+    "trolley.spreader-cable-reel"
+   ]
+  },
+  {
+   "code": "operator-cab",
+   "title": "Operator cab",
+   "sortOrder": 170,
+   "parameterCodes": [
+    "operator-cab-size",
+    "operator-cab-windows",
+    "operator-cab-door",
+    "operator-cab-controls"
+   ],
+   "areas": [
+    "trolley"
+   ],
+   "nodeKeys": [
+    "cabin.operator.main",
+    "cabin.operator.seat",
+    "cabin.operator.consoles",
+    "cabin.air-conditioning"
+   ]
+  },
+  {
+   "code": "trolley-rails",
+   "title": "Trolley rails",
+   "sortOrder": 180,
+   "parameterCodes": [
+    "trolley-rails-rail",
+    "trolley-rails-gauge",
+    "trolley-rails-girder-rails",
+    "trolley-rails-boom-rails",
+    "trolley-rails-hinge-joint",
+    "trolley-rails-rubber-pads",
+    "trolley-rails-steel-pads",
+    "trolley-rails-clips",
+    "trolley-rails-fix-blocks",
+    "trolley-rails-end-stops",
+    "trolley-rails-assembly-weight"
+   ],
+   "areas": [
+    "trolley-runway"
+   ],
+   "nodeKeys": [
+    "trolley.rail.girder",
+    "trolley.rail.boom",
+    "trolley.rail.hinge-joint"
+   ]
+  },
+  {
+   "code": "trolley-rail-fixing",
+   "title": "Rail fixing and joints",
+   "sortOrder": 190,
+   "parameterCodes": [
+    "trolley-rail-fixing-clip-tightening",
+    "trolley-rail-fixing-clip-installation",
+    "trolley-rail-fixing-re-tightening",
+    "trolley-rail-fixing-rail-welds",
+    "trolley-rail-fixing-joint-at-the-hinge",
+    "trolley-rail-fixing-joint-gap"
+   ],
+   "areas": [
+    "trolley-runway"
+   ],
+   "nodeKeys": [
+    "trolley.rail.girder",
+    "trolley.rail.boom",
+    "trolley.rail.hinge-joint"
+   ]
+  },
+  {
+   "code": "trolley-rail-tolerances",
+   "title": "Rail tolerances and inspection",
+   "sortOrder": 200,
+   "parameterCodes": [
+    "trolley-rail-tolerances-centre-distance",
+    "trolley-rail-tolerances-cross-level",
+    "trolley-rail-tolerances-lateral-deviation",
+    "trolley-rail-tolerances-slope",
+    "trolley-rail-tolerances-boom-girder-rail",
+    "trolley-rail-tolerances-levelness",
+    "trolley-rail-tolerances-annual-inspection",
+    "trolley-rail-tolerances-rail-damage-limit",
+    "trolley-rail-tolerances-typical-failures"
+   ],
+   "areas": [
+    "trolley-runway"
+   ],
+   "nodeKeys": [
+    "trolley.rail.girder",
+    "trolley.rail.boom",
+    "trolley.rail.hinge-joint"
+   ]
+  },
+  {
+   "code": "catenary-trolleys",
+   "title": "Catenary trolleys",
+   "sortOrder": 210,
+   "parameterCodes": [
+    "catenary-trolleys-purpose",
+    "catenary-trolleys-quantity",
+    "catenary-trolleys-wheels",
+    "catenary-trolleys-rope-supports",
+    "catenary-trolleys-slap-blocks",
+    "catenary-trolleys-gauge",
+    "catenary-trolleys-wheel-alignment",
+    "catenary-trolleys-roller-clearance",
+    "catenary-trolleys-travel",
+    "catenary-trolleys-system-weight",
+    "catenary-trolleys-lubrication"
+   ],
+   "areas": [
+    "trolley-runway"
+   ],
+   "nodeKeys": [
+    "trolley.catenary.landside",
+    "trolley.catenary.waterside",
+    "trolley.catenary-rope.set.main"
+   ]
+  },
+  {
+   "code": "catenary-ropes",
+   "title": "Catenary ropes, sheaves and tensioners",
+   "sortOrder": 220,
+   "parameterCodes": [
+    "catenary-ropes-boom-tip-sheaves",
+    "catenary-ropes-tail-tensioners",
+    "catenary-ropes-tension-pressure",
+    "catenary-ropes-reeving",
+    "catenary-ropes-re-reeving"
+   ],
+   "areas": [
+    "trolley-runway",
+    "back-reach"
+   ],
+   "nodeKeys": [
+    "reeving.sheave.catenary-boom-tip",
+    "trolley.catenary.tensioner",
+    "trolley.catenary-rope.set.main"
+   ]
+  },
+  {
+   "code": "anti-snag-tls",
+   "title": "Anti-snag and trim / list / skew device",
+   "sortOrder": 230,
+   "parameterCodes": [
+    "anti-snag-tls-cylinders",
+    "anti-snag-tls-snag-load",
+    "anti-snag-tls-cylinder-positions",
+    "anti-snag-tls-stroke-use",
+    "anti-snag-tls-angles",
+    "anti-snag-tls-tail-sheaves",
+    "anti-snag-tls-snag-response",
+    "anti-snag-tls-position-sensing",
+    "anti-snag-tls-bolt-torques",
+    "anti-snag-tls-installation"
+   ],
+   "areas": [
+    "back-reach"
+   ],
+   "nodeKeys": [
+    "reeving.anti-snag-tls.device",
+    "reeving.sheave.girder-tail"
+   ]
+  },
+  {
+   "code": "trolley-rope-tension",
+   "title": "Trolley rope tension device",
+   "sortOrder": 240,
+   "parameterCodes": [
+    "trolley-rope-tension-quantity",
+    "trolley-rope-tension-cylinder",
+    "trolley-rope-tension-sheave",
+    "trolley-rope-tension-limit-switches",
+    "trolley-rope-tension-function",
+    "trolley-rope-tension-rope-adjustment"
+   ],
+   "areas": [
+    "back-reach"
+   ],
+   "nodeKeys": [
+    "reeving.sheave.trolley-tail"
+   ]
+  },
+  {
+   "code": "multi-function-hydraulics",
+   "title": "Multi-function hydraulic unit",
+   "sortOrder": 250,
+   "parameterCodes": [
+    "multi-function-hydraulics-location",
+    "multi-function-hydraulics-circuits",
+    "multi-function-hydraulics-rope-tension-valves",
+    "multi-function-hydraulics-t-l-s-valves",
+    "multi-function-hydraulics-snag-manifold"
+   ],
+   "areas": [
+    "back-reach"
+   ],
+   "nodeKeys": []
+  },
+  {
+   "code": "tail-service-crane",
+   "title": "Outdoor service crane (girder tail)",
+   "sortOrder": 260,
+   "parameterCodes": [
+    "tail-service-crane-hoist",
+    "tail-service-crane-frame",
+    "tail-service-crane-use"
+   ],
+   "areas": [
+    "back-reach"
+   ],
+   "nodeKeys": [
+    "auxiliary.service-crane.girder-tail"
+   ]
+  },
+  {
+   "code": "wire-ropes",
+   "title": "Wire ropes",
+   "sortOrder": 270,
+   "parameterCodes": [
+    "wire-ropes-main-hoist",
+    "wire-ropes-trolley",
+    "wire-ropes-boom-hoist",
+    "wire-ropes-re-adjust",
+    "wire-ropes-rope-clips",
+    "wire-ropes-lay-length"
+   ],
+   "areas": [],
+   "nodeKeys": [
+    "hoist.rope.set.main",
+    "trolley.rope.set.main",
+    "boom.rope.set.main"
+   ]
+  }
+ ],
+ "definitions": [
+  {
+   "code": "lift-height-below-rail",
+   "label": "Lift height below rail",
+   "unit": "m",
+   "dataType": "number",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "mh-service-crane-capacity",
+   "label": "Machinery-house service crane capacity",
+   "unit": "t",
+   "dataType": "number",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-acceleration-time",
+   "label": "Trolley acceleration time",
+   "unit": "s",
+   "dataType": "number",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "machinery-house-size",
+   "label": "Size",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "machinery-house-structure-weight",
+   "label": "Structure weight",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "machinery-house-main-transformer",
+   "label": "Main transformer",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "machinery-house-auxiliary-transformer",
+   "label": "Auxiliary transformer",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "machinery-house-hv-switchgear",
+   "label": "HV switchgear",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "machinery-house-outdoor-a-c-units",
+   "label": "Outdoor A/C units",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "machinery-house-service-hatch",
+   "label": "Service hatch",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "machinery-house-fittings",
+   "label": "Fittings",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "machinery-house-fire-extinguishers",
+   "label": "Fire extinguishers",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "machinery-house-main-drives-inside",
+   "label": "Main drives inside",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "main-hoist-motors",
+   "label": "Motors",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "main-hoist-reducer",
+   "label": "Reducer",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "main-hoist-high-speed-brake",
+   "label": "High-speed brake",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "main-hoist-low-speed-brake",
+   "label": "Low-speed (drum) brake",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "main-hoist-high-speed-coupling",
+   "label": "High-speed coupling",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "main-hoist-drum-coupling",
+   "label": "Drum coupling",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "main-hoist-wire-rope",
+   "label": "Wire rope",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "main-hoist-drum",
+   "label": "Drum",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "main-hoist-dead-wraps",
+   "label": "Dead wraps",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "main-hoist-alignment",
+   "label": "Alignment",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "main-hoist-limit-devices",
+   "label": "Limit devices",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "main-hoist-gear-oil",
+   "label": "Gear oil",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "boom-hoist-motor",
+   "label": "Motor",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "boom-hoist-reducer",
+   "label": "Reducer",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "boom-hoist-motor-coupling",
+   "label": "Motor coupling",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "boom-hoist-drum-coupling",
+   "label": "Drum coupling",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "boom-hoist-wire-rope",
+   "label": "Wire rope",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "boom-hoist-motor-brake",
+   "label": "Motor brake",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "boom-hoist-drum-brake",
+   "label": "Drum brake",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "boom-hoist-drum",
+   "label": "Drum",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "boom-hoist-assembly-weight",
+   "label": "Assembly weight",
+   "unit": "kg",
+   "dataType": "number",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "boom-hoist-boom-positions",
+   "label": "Boom positions",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "boom-hoist-gear-oil",
+   "label": "Gear oil",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-drive-motor",
+   "label": "Motor",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-drive-gear-box",
+   "label": "Gear box",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-drive-high-speed-brake",
+   "label": "High-speed brake",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-drive-high-speed-coupling",
+   "label": "High-speed coupling",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-drive-drum-coupling",
+   "label": "Drum coupling",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-drive-wire-rope",
+   "label": "Wire rope",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-drive-drum",
+   "label": "Drum",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-drive-dead-wraps",
+   "label": "Dead wraps",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-drive-assembly-weight",
+   "label": "Assembly weight",
+   "unit": "kg",
+   "dataType": "number",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-drive-gear-oil",
+   "label": "Gear oil",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "emergency-drives-hoist-boom-emergency-motor",
+   "label": "Hoist / boom emergency motor",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "emergency-drives-hoist-boom-emergency-reducer",
+   "label": "Hoist / boom emergency reducer",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "emergency-drives-main-hoist-emergency",
+   "label": "Main hoist emergency",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "emergency-drives-boom-hoist-emergency",
+   "label": "Boom hoist emergency",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "emergency-drives-trolley-emergency-motor",
+   "label": "Trolley emergency motor",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "emergency-drives-trolley-emergency-reducer",
+   "label": "Trolley emergency reducer",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "emergency-drives-use",
+   "label": "Use",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "emergency-drives-shore-power",
+   "label": "Shore power",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "emergency-drives-system-weight",
+   "label": "System weight",
+   "unit": "kg",
+   "dataType": "number",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "emergency-drives-gear-oil",
+   "label": "Gear oil",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "rope-re-reeving-driving-machines",
+   "label": "Driving machines",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "rope-re-reeving-motor",
+   "label": "Motor",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "rope-re-reeving-reducer",
+   "label": "Reducer",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "rope-re-reeving-drum-speed",
+   "label": "Drum speed",
+   "unit": "rpm",
+   "dataType": "number",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "rope-re-reeving-other-parts",
+   "label": "Other parts",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "rope-re-reeving-ropes-served",
+   "label": "Ropes served",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "rope-re-reeving-system-weight",
+   "label": "System weight",
+   "unit": "kg",
+   "dataType": "number",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "rope-re-reeving-lubrication",
+   "label": "Lubrication",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "mh-service-crane-power-supply",
+   "label": "Power supply",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "mh-service-crane-hoisting",
+   "label": "Hoisting",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "mh-service-crane-hoist-rope",
+   "label": "Hoist rope",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "mh-service-crane-traverse",
+   "label": "Traverse",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "mh-service-crane-long-travel",
+   "label": "Long travel",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "mh-service-crane-max-wheel-load",
+   "label": "Max wheel load",
+   "unit": "kN",
+   "dataType": "number",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "mh-service-crane-span-runway",
+   "label": "Span / runway",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "mh-service-crane-weight",
+   "label": "Weight",
+   "unit": "kg",
+   "dataType": "number",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "compressed-air-main-pipe",
+   "label": "Main pipe",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "compressed-air-outlets",
+   "label": "Outlets",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "compressed-air-leak-test",
+   "label": "Leak test",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "compressed-air-hose",
+   "label": "Hose",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "compressed-air-system-weight",
+   "label": "System weight",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "compressed-air-compressor-model",
+   "label": "Compressor model",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "disc-brake-hydraulics-systems",
+   "label": "Systems",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "disc-brake-hydraulics-brake-principle",
+   "label": "Brake principle",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "disc-brake-hydraulics-manual-release",
+   "label": "Manual release",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "disc-brake-hydraulics-pressure-control",
+   "label": "Pressure control",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "spreader-type",
+   "label": "Type",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "spreader-rated-load",
+   "label": "Rated load",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "spreader-twin-20-gap",
+   "label": "Twin-20 gap",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "spreader-trim-list-skew",
+   "label": "Trim / list / skew",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "spreader-operating-modes",
+   "label": "Operating modes",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "spreader-slack-rope-protection",
+   "label": "Slack-rope protection",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "spreader-spreader-cable",
+   "label": "Spreader cable",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "spreader-routine-checks",
+   "label": "Routine checks",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "spreader-spreader-trailer",
+   "label": "Spreader trailer",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "spreader-over-height-adapter",
+   "label": "Over-height adapter",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "headblock-weight",
+   "label": "Weight",
+   "unit": "kg",
+   "dataType": "number",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "headblock-main-dimensions",
+   "label": "Main dimensions",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "headblock-sheaves",
+   "label": "Sheaves",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "headblock-sheave-bearings",
+   "label": "Sheave bearings",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "headblock-twistlocks",
+   "label": "Twistlocks",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "headblock-electrical",
+   "label": "Electrical",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "headblock-sheave-guard",
+   "label": "Sheave guard",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "headblock-bolt-torques",
+   "label": "Bolt torques",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "headblock-rope-groove",
+   "label": "Rope groove",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "headblock-connection",
+   "label": "Connection",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "cargo-beam-dimensions",
+   "label": "Dimensions",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "cargo-beam-hook",
+   "label": "Hook",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "cargo-beam-weight",
+   "label": "Weight",
+   "unit": "kg",
+   "dataType": "number",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-type",
+   "label": "Type",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-weight",
+   "label": "Weight",
+   "unit": "t",
+   "dataType": "number",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rail-gauge-wheel-base",
+   "label": "Rail gauge / wheel base",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-wheels",
+   "label": "Wheels",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-main-hoist-sheaves",
+   "label": "Main hoist sheaves",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rope-equalizer-sheaves",
+   "label": "Rope equalizer sheaves",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-buffers",
+   "label": "Buffers",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rope-clamp-bolts",
+   "label": "Rope clamp bolts",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-interlocks",
+   "label": "Interlocks",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-hoist-over-travel",
+   "label": "Hoist over-travel",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-lubrication",
+   "label": "Lubrication",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-wheel-size",
+   "label": "Size",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-wheel-hub",
+   "label": "Hub",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-wheel-material",
+   "label": "Material",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-wheel-hardness",
+   "label": "Hardness",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-wheel-inspection",
+   "label": "Inspection",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-wheel-wear-limits",
+   "label": "Wear limits",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-wheel-running",
+   "label": "Running",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-sheaves-main-hoist-sheave",
+   "label": "Main hoist sheave",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-sheaves-bearings",
+   "label": "Bearings",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-sheaves-seals",
+   "label": "Seals",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-sheaves-groove-wear-limits",
+   "label": "Groove wear limits",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-sheaves-drum-groove-limit",
+   "label": "Drum groove limit",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-sheaves-rope-support-rollers",
+   "label": "Rope support rollers",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "spreader-cable-reel-reel-type",
+   "label": "Reel type",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "spreader-cable-reel-drum",
+   "label": "Drum",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "spreader-cable-reel-cable-duty",
+   "label": "Cable duty",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "spreader-cable-reel-motors",
+   "label": "Motors",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "spreader-cable-reel-torque-unit",
+   "label": "Torque unit",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "spreader-cable-reel-pre-reducer",
+   "label": "Pre-reducer",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "spreader-cable-reel-brake",
+   "label": "Brake",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "spreader-cable-reel-encoder",
+   "label": "Encoder",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "spreader-cable-reel-drive",
+   "label": "Drive",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "spreader-cable-reel-collector",
+   "label": "Collector",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "spreader-cable-reel-limit-switch",
+   "label": "Limit switch",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "spreader-cable-reel-damper",
+   "label": "Damper",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "spreader-cable-reel-cable",
+   "label": "Cable",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "spreader-cable-reel-interlock",
+   "label": "Interlock",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "spreader-cable-reel-arrangement-weight",
+   "label": "Arrangement weight",
+   "unit": "kg",
+   "dataType": "number",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "operator-cab-size",
+   "label": "Size",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "operator-cab-windows",
+   "label": "Windows",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "operator-cab-door",
+   "label": "Door",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "operator-cab-controls",
+   "label": "Controls",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rails-rail",
+   "label": "Rail",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rails-gauge",
+   "label": "Gauge",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rails-girder-rails",
+   "label": "Girder rails",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rails-boom-rails",
+   "label": "Boom rails",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rails-hinge-joint",
+   "label": "Hinge joint",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rails-rubber-pads",
+   "label": "Rubber pads",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rails-steel-pads",
+   "label": "Steel pads",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rails-clips",
+   "label": "Clips",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rails-fix-blocks",
+   "label": "Fix blocks",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rails-end-stops",
+   "label": "End stops",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rails-assembly-weight",
+   "label": "Assembly weight",
+   "unit": "kg",
+   "dataType": "number",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rail-fixing-clip-tightening",
+   "label": "Clip tightening (k = 0.2)",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rail-fixing-clip-installation",
+   "label": "Clip installation",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rail-fixing-re-tightening",
+   "label": "Re-tightening",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rail-fixing-rail-welds",
+   "label": "Rail welds",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rail-fixing-joint-at-the-hinge",
+   "label": "Joint at the hinge",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rail-fixing-joint-gap",
+   "label": "Joint gap (maintenance)",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rail-tolerances-centre-distance",
+   "label": "Centre distance",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rail-tolerances-cross-level",
+   "label": "Cross level",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rail-tolerances-lateral-deviation",
+   "label": "Lateral deviation",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rail-tolerances-slope",
+   "label": "Slope",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rail-tolerances-boom-girder-rail",
+   "label": "Boom / girder rail",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rail-tolerances-levelness",
+   "label": "Levelness",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rail-tolerances-annual-inspection",
+   "label": "Annual inspection",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rail-tolerances-rail-damage-limit",
+   "label": "Rail damage limit",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rail-tolerances-typical-failures",
+   "label": "Typical failures",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "catenary-trolleys-purpose",
+   "label": "Purpose",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "catenary-trolleys-quantity",
+   "label": "Quantity",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "catenary-trolleys-wheels",
+   "label": "Wheels",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "catenary-trolleys-rope-supports",
+   "label": "Rope supports",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "catenary-trolleys-slap-blocks",
+   "label": "Slap blocks",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "catenary-trolleys-gauge",
+   "label": "Gauge",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "catenary-trolleys-wheel-alignment",
+   "label": "Wheel alignment",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "catenary-trolleys-roller-clearance",
+   "label": "Roller clearance",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "catenary-trolleys-travel",
+   "label": "Travel",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "catenary-trolleys-system-weight",
+   "label": "System weight",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "catenary-trolleys-lubrication",
+   "label": "Lubrication",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "catenary-ropes-boom-tip-sheaves",
+   "label": "Boom-tip sheaves",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "catenary-ropes-tail-tensioners",
+   "label": "Tail tensioners",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "catenary-ropes-tension-pressure",
+   "label": "Tension pressure",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "catenary-ropes-reeving",
+   "label": "Reeving",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "catenary-ropes-re-reeving",
+   "label": "Re-reeving",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "anti-snag-tls-cylinders",
+   "label": "Cylinders",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "anti-snag-tls-snag-load",
+   "label": "Snag load",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "anti-snag-tls-cylinder-positions",
+   "label": "Cylinder positions",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "anti-snag-tls-stroke-use",
+   "label": "Stroke use",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "anti-snag-tls-angles",
+   "label": "Angles",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "anti-snag-tls-tail-sheaves",
+   "label": "Tail sheaves",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "anti-snag-tls-snag-response",
+   "label": "Snag response",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "anti-snag-tls-position-sensing",
+   "label": "Position sensing",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "anti-snag-tls-bolt-torques",
+   "label": "Bolt torques (k = 0.145)",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "anti-snag-tls-installation",
+   "label": "Installation",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rope-tension-quantity",
+   "label": "Quantity",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rope-tension-cylinder",
+   "label": "Cylinder",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rope-tension-sheave",
+   "label": "Sheave",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rope-tension-limit-switches",
+   "label": "Limit switches",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rope-tension-function",
+   "label": "Function",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "trolley-rope-tension-rope-adjustment",
+   "label": "Rope adjustment",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "multi-function-hydraulics-location",
+   "label": "Location",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "multi-function-hydraulics-circuits",
+   "label": "Circuits",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "multi-function-hydraulics-rope-tension-valves",
+   "label": "Rope tension valves",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "multi-function-hydraulics-t-l-s-valves",
+   "label": "T/L/S valves",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "multi-function-hydraulics-snag-manifold",
+   "label": "Snag manifold",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "tail-service-crane-hoist",
+   "label": "Hoist",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "tail-service-crane-frame",
+   "label": "Frame",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "tail-service-crane-use",
+   "label": "Use",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "wire-ropes-main-hoist",
+   "label": "Main hoist",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "wire-ropes-trolley",
+   "label": "Trolley",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "wire-ropes-boom-hoist",
+   "label": "Boom hoist",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "wire-ropes-re-adjust",
+   "label": "Re-adjust",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "wire-ropes-rope-clips",
+   "label": "Rope clips",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  },
+  {
+   "code": "wire-ropes-lay-length",
+   "label": "Lay length",
+   "unit": null,
+   "dataType": "text",
+   "use": "technical",
+   "condition": null
+  }
+ ],
+ "observations": [
+  {
+   "parameterCode": "lift-height-below-rail",
+   "value": 18,
+   "sources": [
+    {
+     "document": "J526A0300",
+     "page": 1,
+     "locator": "main data"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "mh-service-crane-capacity",
+   "value": 10,
+   "sources": [
+    {
+     "document": "J526A1600",
+     "page": 1,
+     "locator": "main data list"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "mh-service-crane-capacity",
+   "value": 12,
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 29,
+     "locator": "1.6.1"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "trolley-acceleration-time",
+   "value": 5,
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 3,
+     "locator": "table 1-1"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "main-hoist-motor-power",
+   "value": 450,
+   "sources": [
+    {
+     "document": "J526A0300",
+     "page": 1,
+     "locator": "main data"
+    },
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 5,
+     "locator": "table 1-2"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "hoist-speed-65t",
+   "value": 75,
+   "sources": [
+    {
+     "document": "J526A0300",
+     "page": 1,
+     "locator": "main data: full load"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "hoist-speed-empty",
+   "value": 180,
+   "sources": [
+    {
+     "document": "J526A0300",
+     "page": 1,
+     "locator": "main data: empty spreader"
+    },
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 3,
+     "locator": "table 1-1"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "lift-height-above-rail",
+   "value": 45,
+   "sources": [
+    {
+     "document": "J526A0300",
+     "page": 1,
+     "locator": "main data"
+    },
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 3,
+     "locator": "table 1-1"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "boom-hoist-motor-power",
+   "value": 375,
+   "sources": [
+    {
+     "document": "J526A0500",
+     "page": 1,
+     "locator": "main data"
+    },
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 13,
+     "locator": "table 1-3"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "boom-hoisting-time",
+   "value": 5,
+   "sources": [
+    {
+     "document": "J526A0500",
+     "page": 1,
+     "locator": "main data: 0-80 deg single, <= 5 min"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-speed",
+   "value": 244,
+   "sources": [
+    {
+     "document": "J526A0400",
+     "page": 1,
+     "locator": "main data"
+    },
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 3,
+     "locator": "table 1-1"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-motor-power",
+   "value": 275,
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 3,
+     "locator": "table 1-1"
+    },
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 18,
+     "locator": "table 1-4"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "swl-under-spreader",
+   "value": 65,
+   "sources": [
+    {
+     "document": "J526A0300",
+     "page": 1,
+     "locator": "main data: twin"
+    },
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 3,
+     "locator": "table 1-1"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "swl-under-cargo-beam",
+   "value": 75,
+   "sources": [
+    {
+     "document": "J526A0300",
+     "page": 1,
+     "locator": "main data"
+    },
+    {
+     "document": "J526A1300",
+     "page": 1,
+     "locator": "SWL 75T"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "machinery-house-size",
+   "value": "18200 x 10500 (11500 with the 1000 seaside walkway); walls 5100 high",
+   "sources": [
+    {
+     "document": "J526A3000",
+     "page": 1,
+     "locator": null
+    },
+    {
+     "document": "J526A3000",
+     "page": 2,
+     "locator": "subsidiary list"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "machinery-house-structure-weight",
+   "value": "33368 kg per set (house structure 23587 kg, electrical room 2425 kg)",
+   "sources": [
+    {
+     "document": "J526A3000",
+     "page": 2,
+     "locator": "subsidiary list"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "machinery-house-main-transformer",
+   "value": "2200 W x 1450 D x 2294 H",
+   "sources": [
+    {
+     "document": "J526A3000",
+     "page": 1,
+     "locator": null
+    },
+    {
+     "document": "J526A3000",
+     "page": 2,
+     "locator": "subsidiary list"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "machinery-house-auxiliary-transformer",
+   "value": "1500 W x 1200 D x 1650 H",
+   "sources": [
+    {
+     "document": "J526A3000",
+     "page": 1,
+     "locator": null
+    },
+    {
+     "document": "J526A3000",
+     "page": 2,
+     "locator": "subsidiary list"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "machinery-house-hv-switchgear",
+   "value": "1950 W x 1500 D x 2300 H",
+   "sources": [
+    {
+     "document": "J526A3000",
+     "page": 1,
+     "locator": null
+    },
+    {
+     "document": "J526A3000",
+     "page": 2,
+     "locator": "subsidiary list"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "machinery-house-outdoor-a-c-units",
+   "value": "7 (B1-B7) outside the electrical-room end wall",
+   "sources": [
+    {
+     "document": "J526A3000",
+     "page": 1,
+     "locator": null
+    },
+    {
+     "document": "J526A3000",
+     "page": 2,
+     "locator": "subsidiary list"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "machinery-house-service-hatch",
+   "value": "3575 x 2000 floor opening for the service crane",
+   "sources": [
+    {
+     "document": "J526A3000",
+     "page": 1,
+     "locator": null
+    },
+    {
+     "document": "J526A3000",
+     "page": 2,
+     "locator": "subsidiary list"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "machinery-house-fittings",
+   "value": "Exhaust fans 2; tool lockers LK120/40 2; work bench WB150/75; welding machine ZEXI-500 (380 V, 25 m cable); rubber mat 22 m2",
+   "sources": [
+    {
+     "document": "J526A3000",
+     "page": 2,
+     "locator": "subsidiary list"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "machinery-house-fire-extinguishers",
+   "value": "CO2 MTZ2 x 2 and MTZ5 x 3, with supports",
+   "sources": [
+    {
+     "document": "J526A3000",
+     "page": 2,
+     "locator": "subsidiary list"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "machinery-house-main-drives-inside",
+   "value": "Main hoist, boom hoist and trolley drive (gantry drives are on the bogies)",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 5,
+     "locator": "1.3"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "main-hoist-motors",
+   "value": "Yaskawa BDK-1KMU, 2 motors, 750 / 1800 rpm",
+   "sources": [
+    {
+     "document": "J526A0300",
+     "page": 1,
+     "locator": "main data"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "main-hoist-reducer",
+   "value": "SEW ML3PSF130E-1600, ratio 18.551; rated output 2 x 212.6 kNm",
+   "sources": [
+    {
+     "document": "J526A0300",
+     "page": 1,
+     "locator": "main data"
+    },
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 5,
+     "locator": "table 1-2"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "main-hoist-high-speed-brake",
+   "value": "ZPMC YP41-Ed4500-80-900x30, rated and set 23000 Nm, disc dia 900",
+   "sources": [
+    {
+     "document": "J526A0300",
+     "page": 1,
+     "locator": "main data"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "main-hoist-low-speed-brake",
+   "value": "ZPMC SB315, 2 x 254520 Nm, disc dia 2300",
+   "sources": [
+    {
+     "document": "J526A0300",
+     "page": 1,
+     "locator": "main data"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "main-hoist-high-speed-coupling",
+   "value": "KTR AFN SB160-900x30, 19200 Nm rated, 38400 Nm braking",
+   "sources": [
+    {
+     "document": "J526A0300",
+     "page": 1,
+     "locator": "main data"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "main-hoist-drum-coupling",
+   "value": "ZPMC DC08B, 315 kNm",
+   "sources": [
+    {
+     "document": "J526A0300",
+     "page": 1,
+     "locator": "main data"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "main-hoist-wire-rope",
+   "value": "IWRC 6xWS(36)-B dia 31.5, breaking strength 672 kN",
+   "sources": [
+    {
+     "document": "J526A0300",
+     "page": 1,
+     "locator": "main data"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "main-hoist-drum",
+   "value": "Dia 1180, length 3616; 4208 from the reducer centre to the drum end",
+   "sources": [
+    {
+     "document": "J526A0300",
+     "page": 1,
+     "locator": "main data"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "main-hoist-dead-wraps",
+   "value": "2 clamped + 3 unclamped full wraps at the lowest spreader position; 1 empty groove at the highest",
+   "sources": [
+    {
+     "document": "J526A0300",
+     "page": 1,
+     "locator": "note 7"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "main-hoist-alignment",
+   "value": "Motor / reducer angle < 2 deg, radial < 0.05 mm; drum / reducer angle < 10 min",
+   "sources": [
+    {
+     "document": "J526A0300",
+     "page": 1,
+     "locator": "notes 1-2"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "main-hoist-limit-devices",
+   "value": "Cam limit switch, encoder and over-speed switch (110 %) at the drum end; brake released / hand-release switches",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 8,
+     "locator": "1.3.1.2"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "main-hoist-gear-oil",
+   "value": "Hoist reducer: first change 500-800 h, then yearly; drum couplings and bearings Shell Alvania EP2",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH2",
+     "page": 24,
+     "locator": "table 2-13"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "boom-hoist-motor",
+   "value": "Yaskawa BDK-1KMU, 1750 rpm",
+   "sources": [
+    {
+     "document": "J526A0500",
+     "page": 1,
+     "locator": "main data"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "boom-hoist-reducer",
+   "value": "SEW ML4PSF120X, ratio 100.56",
+   "sources": [
+    {
+     "document": "J526A0500",
+     "page": 1,
+     "locator": "main data"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "boom-hoist-motor-coupling",
+   "value": "KTR AFN SB100-560x30, 4950 Nm",
+   "sources": [
+    {
+     "document": "J526A0500",
+     "page": 1,
+     "locator": "main data"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "boom-hoist-drum-coupling",
+   "value": "ZPMC DC10B, 560 kNm",
+   "sources": [
+    {
+     "document": "J526A0500",
+     "page": 1,
+     "locator": "main data"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "boom-hoist-wire-rope",
+   "value": "IWRC 6xP.WS(36) dia 35.5-B (Toyko), breaking strength 975 kN",
+   "sources": [
+    {
+     "document": "J526A0500",
+     "page": 1,
+     "locator": "main data"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "boom-hoist-motor-brake",
+   "value": "ZPMC YP31-ED2000-560x30, 5750 Nm brake / 5100 Nm setting",
+   "sources": [
+    {
+     "document": "J526A0500",
+     "page": 1,
+     "locator": "main data"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "boom-hoist-drum-brake",
+   "value": "ZPMC SB315-2300x36, 2 x 254.52 kNm",
+   "sources": [
+    {
+     "document": "J526A0500",
+     "page": 1,
+     "locator": "main data"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "boom-hoist-drum",
+   "value": "Dia 1530",
+   "sources": [
+    {
+     "document": "J526A0500",
+     "page": 1,
+     "locator": "main data"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "boom-hoist-assembly-weight",
+   "value": 24644,
+   "sources": [
+    {
+     "document": "J526A0500",
+     "page": 1,
+     "locator": "title block"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "boom-hoist-boom-positions",
+   "value": "Level (working) and 80 deg maintenance, latched by 2 stowage pins",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 27,
+     "locator": "1.4.2"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "boom-hoist-gear-oil",
+   "value": "Boom hoist reducer: first change 500-800 h, then yearly",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH2",
+     "page": 24,
+     "locator": "table 2-13"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "trolley-drive-motor",
+   "value": "Yaskawa BDK-1KMU, 1750 rpm",
+   "sources": [
+    {
+     "document": "J526A0400",
+     "page": 1,
+     "locator": "main data"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-drive-gear-box",
+   "value": "ZPMC FH955.21.A6A-00, ratio 20.702",
+   "sources": [
+    {
+     "document": "J526A0400",
+     "page": 1,
+     "locator": "main data"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-drive-high-speed-brake",
+   "value": "ZPMC YP31-1250-560X30, 3550 Nm brake / 2800 Nm setting",
+   "sources": [
+    {
+     "document": "J526A0400",
+     "page": 1,
+     "locator": "main data"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-drive-high-speed-coupling",
+   "value": "ZPMC MLPK10-560x30, 5000 Nm",
+   "sources": [
+    {
+     "document": "J526A0400",
+     "page": 1,
+     "locator": "main data"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-drive-drum-coupling",
+   "value": "ZPMC DC05B, 90 kNm",
+   "sources": [
+    {
+     "document": "J526A0400",
+     "page": 1,
+     "locator": "main data"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-drive-wire-rope",
+   "value": "Dia 25",
+   "sources": [
+    {
+     "document": "J526A0400",
+     "page": 1,
+     "locator": "main data"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-drive-drum",
+   "value": "Dia 920; 54 x 28 = 1512 grooved length each rope",
+   "sources": [
+    {
+     "document": "J526A0400",
+     "page": 1,
+     "locator": "main data"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-drive-dead-wraps",
+   "value": "2 clamped + 3 unclamped full wraps at outreach / backreach; 2 empty grooves between the two ropes",
+   "sources": [
+    {
+     "document": "J526A0400",
+     "page": 1,
+     "locator": "note 7"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-drive-assembly-weight",
+   "value": 10059,
+   "sources": [
+    {
+     "document": "J526A0400",
+     "page": 1,
+     "locator": "title block"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-drive-gear-oil",
+   "value": "VG320; first change 400 h, then 5000 h or 2 years",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH2",
+     "page": 24,
+     "locator": "table 2-13"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "emergency-drives-hoist-boom-emergency-motor",
+   "value": "37 kW, 1480 rpm",
+   "sources": [
+    {
+     "document": "J526A1400",
+     "page": 1,
+     "locator": "emergency device main data"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "emergency-drives-hoist-boom-emergency-reducer",
+   "value": "FH220.31.G1A-00, ratio 30.852",
+   "sources": [
+    {
+     "document": "J526A1400",
+     "page": 1,
+     "locator": "emergency device main data"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "emergency-drives-main-hoist-emergency",
+   "value": "Chain wheels 17 / 35; 2.35 m/min at 65 t",
+   "sources": [
+    {
+     "document": "J526A1400",
+     "page": 1,
+     "locator": "emergency device main data"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "emergency-drives-boom-hoist-emergency",
+   "value": "Chain wheels 17 / 25; boom hoist time 76.47 min",
+   "sources": [
+    {
+     "document": "J526A1400",
+     "page": 1,
+     "locator": "emergency device main data"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "emergency-drives-trolley-emergency-motor",
+   "value": "5 kW, 1500 rpm",
+   "sources": [
+    {
+     "document": "J526A1400",
+     "page": 1,
+     "locator": "emergency device main data"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "emergency-drives-trolley-emergency-reducer",
+   "value": "FNS165.40.G1A-00, ratio 39.988; chain wheels 15 / 20; 3.93 m/min",
+   "sources": [
+    {
+     "document": "J526A1400",
+     "page": 1,
+     "locator": "emergency device main data"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "emergency-drives-use",
+   "value": "When not in use, kept on top of the main hoist and boom hoist reducers; moved to the boom hoist and chained to the drive when needed; chains kept in the steel bucket (B24)",
+   "sources": [
+    {
+     "document": "J526A1400",
+     "page": 1,
+     "locator": "technology requirement"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "emergency-drives-shore-power",
+   "value": "Can run on shore power if HV power is lost",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 6,
+     "locator": "1.3.1"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "emergency-drives-system-weight",
+   "value": 1286.4,
+   "sources": [
+    {
+     "document": "J526A1400",
+     "page": 1,
+     "locator": "emergency device main data"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "emergency-drives-gear-oil",
+   "value": "Emergency reducers VG220; first change 400 h, then 5000 h or 2 years",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH2",
+     "page": 24,
+     "locator": "table 2-13"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "rope-re-reeving-driving-machines",
+   "value": "WRR04A-J526A x 2 (2020.8 kg); feed and take-up reels",
+   "sources": [
+    {
+     "document": "J526A1500",
+     "page": 1,
+     "locator": "main data and list"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "rope-re-reeving-motor",
+   "value": "5.5 kW, 1500 rpm",
+   "sources": [
+    {
+     "document": "J526A1500",
+     "page": 1,
+     "locator": "main data and list"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "rope-re-reeving-reducer",
+   "value": "XWEJC5.5-8190B-187, ratio 187, 5.5 kW",
+   "sources": [
+    {
+     "document": "J526A1500",
+     "page": 1,
+     "locator": "main data and list"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "rope-re-reeving-drum-speed",
+   "value": 8.02,
+   "sources": [
+    {
+     "document": "J526A1500",
+     "page": 1,
+     "locator": "main data and list"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "rope-re-reeving-other-parts",
+   "value": "Guide sheaves WRRA02 x 2, re-reeving rollers WRRA01a x 4, platform J526A1502, supports J526A1501, special sheaves ZYHCK1-2.5 x 2",
+   "sources": [
+    {
+     "document": "J526A1500",
+     "page": 1,
+     "locator": "main data and list"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "rope-re-reeving-ropes-served",
+   "value": "Main hoist, boom hoist, trolley and catenary trolley ropes",
+   "sources": [
+    {
+     "document": "J526A1500",
+     "page": 1,
+     "locator": "main data and list"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "rope-re-reeving-system-weight",
+   "value": 4930,
+   "sources": [
+    {
+     "document": "J526A1500",
+     "page": 1,
+     "locator": "main data and list"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "rope-re-reeving-lubrication",
+   "value": "Reducer VG220, replace every 4 years; drum sliding bearings and roller bearings Alvania EP2",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH2",
+     "page": 24,
+     "locator": "table 2-13"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "mh-service-crane-power-supply",
+   "value": "3 phase 400 V 50 Hz",
+   "sources": [
+    {
+     "document": "J526A1600",
+     "page": 1,
+     "locator": "main data list"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "mh-service-crane-hoisting",
+   "value": "6 / 12 m/min, 57.5 m lift; motor QADEJ200L8-4, 8 / 14 kW x 2, 740 / 1480 rpm; ratio 75.35 (QBL120D)",
+   "sources": [
+    {
+     "document": "J526A1600",
+     "page": 1,
+     "locator": "main data list"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "mh-service-crane-hoist-rope",
+   "value": "18x19+FC-16-1770, 243 m; drum dia 400",
+   "sources": [
+    {
+     "document": "J526A1600",
+     "page": 1,
+     "locator": "main data list"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "mh-service-crane-traverse",
+   "value": "12.4 m/min; wheel dia 200; MQAEJ80M4A 0.55 kW x 2, 1400 rpm; ratio 71 (QS06-71-A)",
+   "sources": [
+    {
+     "document": "J526A1600",
+     "page": 1,
+     "locator": "main data list"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "mh-service-crane-long-travel",
+   "value": "13.8 m/min; wheel dia 250; MQAEJ80M4B 0.75 kW x 2, 1405 rpm; ratio 80 (QS08-80-A)",
+   "sources": [
+    {
+     "document": "J526A1600",
+     "page": 1,
+     "locator": "main data list"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "mh-service-crane-max-wheel-load",
+   "value": 92.2,
+   "sources": [
+    {
+     "document": "J526A1600",
+     "page": 1,
+     "locator": "main data list"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "mh-service-crane-span-runway",
+   "value": "Span 9740 +/-2; runway 16000",
+   "sources": [
+    {
+     "document": "J526A1600",
+     "page": 1,
+     "locator": "main data list"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "mh-service-crane-weight",
+   "value": 7509,
+   "sources": [
+    {
+     "document": "J526A1600",
+     "page": 1,
+     "locator": "main data list"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "compressed-air-main-pipe",
+   "value": "DN25 galvanised, laid at 0.8-1 % slope with a drain valve at the lowest point",
+   "sources": [
+    {
+     "document": "J526A7000",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "compressed-air-outlets",
+   "value": "1 boom tip; 2 boom hoist sheaves on the boom; 3 A-frame; 4 boom hinge; 5 trolley stowed position; 6 machinery house; 7 backreach area; 8 landside and 9 seaside at dock level",
+   "sources": [
+    {
+     "document": "J526A7000",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "compressed-air-leak-test",
+   "value": "Pressure drop no more than 0.05-0.1 MPa after 2 h",
+   "sources": [
+    {
+     "document": "J526A7000",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "compressed-air-hose",
+   "value": "Flexible link F at the boom / girder joint; hose reel and blow gun at the compressor",
+   "sources": [
+    {
+     "document": "J526A7000",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "compressed-air-system-weight",
+   "value": "About 1420 kg (item 1 ACS-5 assembly at outlet E, 380 kg)",
+   "sources": [
+    {
+     "document": "J526A7000",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "compressed-air-compressor-model",
+   "value": "Not given on the sheet",
+   "sources": [
+    {
+     "document": "J526A7000",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "disc-brake-hydraulics-systems",
+   "value": "One unit for the main hoist and boom hoist emergency (drum) disc brakes",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH5",
+     "page": 18,
+     "locator": "5.4"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "disc-brake-hydraulics-brake-principle",
+   "value": "Spring applied, hydraulically released; air vented through the test coupling",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH5",
+     "page": 18,
+     "locator": "5.4"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "disc-brake-hydraulics-manual-release",
+   "value": "Close the shut-off valves, open the bypass and pump the hand pump to working pressure",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH5",
+     "page": 18,
+     "locator": "5.4"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "disc-brake-hydraulics-pressure-control",
+   "value": "Relief valve for overload; pressure relay; shut-off valve open only when changing oil or adjusting",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH5",
+     "page": 18,
+     "locator": "5.4"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "spreader-type",
+   "value": "Single 20 / 40 / 45 ft and twin-20 ft telescopic spreader (STS45 on the model; its drawing and manual are not supplied)",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 3,
+     "locator": "table 1-1"
+    },
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 32,
+     "locator": "1.8"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "spreader-rated-load",
+   "value": "50 t in single 40 ft mode; twin-20 2 x 32.5 t",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 3,
+     "locator": "table 1-1"
+    },
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 32,
+     "locator": "1.8.1"
+    },
+    {
+     "document": "J526A0300",
+     "page": 1,
+     "locator": "main data"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "spreader-twin-20-gap",
+   "value": "Two 20 ft containers up to 1.6 m apart",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 3,
+     "locator": "table 1-1"
+    },
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 32,
+     "locator": "1.8"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "spreader-trim-list-skew",
+   "value": "+/-5 deg / +/-3 deg / +/-5 deg (done by the back-reach cylinders)",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 3,
+     "locator": "table 1-1"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "spreader-operating-modes",
+   "value": "Container, cargo (hook beam) and reeve",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 8,
+     "locator": "1.3.1.2"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "spreader-slack-rope-protection",
+   "value": "Lowering stops when all landed proximity switches at the twistlocks are made",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 8,
+     "locator": "1.3.1.2"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "spreader-spreader-cable",
+   "value": "Tratos Tratosmart 0.6 / 1 kV, 30 x 2.5 mm2, dia 34.2, 1.60 kg/m, allowable tension 1125 N",
+   "sources": [
+    {
+     "document": "CAVOTEC-SC-121216-ME2a",
+     "page": 7,
+     "locator": "section 1 specifications"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "spreader-routine-checks",
+   "value": "Headblock lock pins, weld cracks, telescopic slide lubrication, twistlock and locknut condition, limit plates and signals, cable damage, twistlock head wear, guide plates, hydraulic leaks and tank level",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH2",
+     "page": 36,
+     "locator": "2.7.9"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "spreader-spreader-trailer",
+   "value": "DT1500F; cradles 1300 apart",
+   "sources": [
+    {
+     "document": "DT1500F",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "spreader-over-height-adapter",
+   "value": "Self-latching, for open-top and flat-rack loads",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 33,
+     "locator": "1.8.3"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "headblock-weight",
+   "value": 3250,
+   "sources": [
+    {
+     "document": "J526A1200",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "headblock-main-dimensions",
+   "value": "Sheave span 5200 +/-2; overall 5440 (5521 over the guards); width 2090; height 1670",
+   "sources": [
+    {
+     "document": "J526A1200",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "headblock-sheaves",
+   "value": "4 x ZT2-013069, dia 1000 / groove dia 900 (165 kg each), 1010 +/-0.5 apart in each box",
+   "sources": [
+    {
+     "document": "J526A1200",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "headblock-sheave-bearings",
+   "value": "SKF NJ232EC, 160 x 290 x 48, 8 off",
+   "sources": [
+    {
+     "document": "J526A1200",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "headblock-twistlocks",
+   "value": "Twistlock mechanism J526A1205 x 2; twistlocks dia 140 at 950 +/-0.5",
+   "sources": [
+    {
+     "document": "J526A1200",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "headblock-electrical",
+   "value": "Junction box D00100, socket box DH0100A, cable attachment (Cavotec), slack-rope limit switches x 2",
+   "sources": [
+    {
+     "document": "J526A1200",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "headblock-sheave-guard",
+   "value": "3 mm clearance between guard and sheave after assembly",
+   "sources": [
+    {
+     "document": "J526A1200",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "headblock-bolt-torques",
+   "value": "M16 10.9 (B13) 260 Nm; M8 (B8) 5 Nm; B1 / B2 25 Nm",
+   "sources": [
+    {
+     "document": "J526A1200",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "headblock-rope-groove",
+   "value": "Radius 17 for rope dia 31.5-32",
+   "sources": [
+    {
+     "document": "ZT2-013069",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "headblock-connection",
+   "value": "Pins to the spreader or hook beam, engagement monitored by proximity switches",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 32,
+     "locator": "1.8.2"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "cargo-beam-dimensions",
+   "value": "Length 5480; pin span 5200 +/-2; width 1230 (pins 950 +/-1); height 1532",
+   "sources": [
+    {
+     "document": "J526A1300",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "cargo-beam-hook",
+   "value": "Hook assembly B00200 (450 kg), swivel single hook, Tr125x14 thread",
+   "sources": [
+    {
+     "document": "J526A1300",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "cargo-beam-weight",
+   "value": 2650,
+   "sources": [
+    {
+     "document": "J526A1300",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-type",
+   "value": "Rope-towed trolley with operator cab on the landside",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 24,
+     "locator": "1.3.3.7"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "trolley-weight",
+   "value": 24,
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 3,
+     "locator": "table 1-1"
+    },
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 23,
+     "locator": "1.3.3.6"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "trolley-rail-gauge-wheel-base",
+   "value": "6.3 m / 4.44 m (axles 2370 + 2070 from the hoist centre)",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 3,
+     "locator": "table 1-1"
+    },
+    {
+     "document": "J526A0200",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-wheels",
+   "value": "4 x dia 630, one per corner, spherical bearing in split pillow blocks",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 3,
+     "locator": "table 1-1"
+    },
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 23,
+     "locator": "1.3.3.6"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "trolley-main-hoist-sheaves",
+   "value": "8 on 4 shafts, dia 1000 / groove dia 900",
+   "sources": [
+    {
+     "document": "J526A0200",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-rope-equalizer-sheaves",
+   "value": "4 x dia 640 / 550",
+   "sources": [
+    {
+     "document": "J526A0200",
+     "page": 1,
+     "locator": "section E-E"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-buffers",
+   "value": "4 pneumatic-hydraulic buffers BQD140, 400 long",
+   "sources": [
+    {
+     "document": "J526A0200",
+     "page": 1,
+     "locator": null
+    },
+    {
+     "document": "J526A0200",
+     "page": 2,
+     "locator": "subsidiary list"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-rope-clamp-bolts",
+   "value": "M24 8.8, 420 Nm (also rope clips on the drum)",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH4",
+     "page": 41,
+     "locator": "table 4-12"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "trolley-interlocks",
+   "value": "Cab access gates (portal and trolley), trolley rope tension limits, boom position, park position, sill-beam protection",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 20,
+     "locator": "1.3.3.3-1.3.3.4"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "trolley-hoist-over-travel",
+   "value": "Weight-operated lever switch under the trolley frame with the cam switch",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 10,
+     "locator": "1.3.1.3"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "trolley-lubrication",
+   "value": "Wheel bearings 4, hoist sheave bearings 8, towed sheave bearings 4, hoist and trolley rope rollers 8 each: Shell Alvania EP2",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH2",
+     "page": 24,
+     "locator": "table 2-13"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "trolley-wheel-size",
+   "value": "630 x 75 (tread dia 630, flange dia 680, tread width 100 for the 75 rail head)",
+   "sources": [
+    {
+     "document": "ZT2-015022",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-wheel-hub",
+   "value": "Bore dia 270 J7; hub width 166 +/-0.1; rim 152 +/-0.1",
+   "sources": [
+    {
+     "document": "ZT2-015022",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-wheel-material",
+   "value": "42CrMo, 296.5 kg",
+   "sources": [
+    {
+     "document": "ZT2-015022",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-wheel-hardness",
+   "value": "Tread HRC 50-56; hardened depth >= 15 mm, >= HRC 35 at 15 mm",
+   "sources": [
+    {
+     "document": "ZT2-015022",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-wheel-inspection",
+   "value": "UT to ASTM A504-C; forging to GB12361-90 / GB12362-90",
+   "sources": [
+    {
+     "document": "ZT2-015022",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-wheel-wear-limits",
+   "value": "Replace at tread dia 615; flange height 25 -> 32.5; flange width 26 -> 18.5; tread width 100 -> 115",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH2",
+     "page": 36,
+     "locator": "table 2-18"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "trolley-wheel-running",
+   "value": "No flange riding (it triples travel resistance); check trolley rope length agreement if seen",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH2",
+     "page": 35,
+     "locator": "2.7.7"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "trolley-sheaves-main-hoist-sheave",
+   "value": "A2-900-dia-160-alpha: dia 1000, groove dia 900, groove radius 17 for rope dia 31.5-32, 212.2 kg",
+   "sources": [
+    {
+     "document": "ZT2-013069",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-sheaves-bearings",
+   "value": "NJ232E / NJ232EC (SKF / FAG), 160 x 290 x 48, 2 per sheave",
+   "sources": [
+    {
+     "document": "ZT2-013069",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-sheaves-seals",
+   "value": "Oil seal PD180 x 210 x 15, 2 per sheave",
+   "sources": [
+    {
+     "document": "ZT2-013069",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-sheaves-groove-wear-limits",
+   "value": "Replace when flange wear >= 10 % or groove wear >= 15 % of the rope diameter, or rope lay marks appear",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH2",
+     "page": 36,
+     "locator": "2.7.8"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "trolley-sheaves-drum-groove-limit",
+   "value": "20 % of the rope diameter",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH2",
+     "page": 36,
+     "locator": "2.7.8.2"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "trolley-sheaves-rope-support-rollers",
+   "value": "Replace the roller ring at 60 % wear of its thickness",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH2",
+     "page": 36,
+     "locator": "2.7.8.3"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "spreader-cable-reel-reel-type",
+   "value": "T5.1.NCC(2X5kW).4 VM922-38G KV26/4S/FC/R + BD5000N (works order 121216)",
+   "sources": [
+    {
+     "document": "CAVOTEC-SC-121216-ME2a",
+     "page": 7,
+     "locator": "section 1 specifications, manual pp.1-3"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "spreader-cable-reel-drum",
+   "value": "VM922-38G vertical monospiral, inner dia 900, outer dia 2200, width 38, 244 kg",
+   "sources": [
+    {
+     "document": "CAVOTEC-SC-121216-ME2a",
+     "page": 7,
+     "locator": "section 1 specifications, manual pp.1-3"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "spreader-cable-reel-cable-duty",
+   "value": "Reeling length 63 m, 3 dead turns, 180 m/min, 0.50 m/s2, 100 % ED, 0-50 C",
+   "sources": [
+    {
+     "document": "CAVOTEC-SC-121216-ME2a",
+     "page": 7,
+     "locator": "section 1 specifications, manual pp.1-3"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "spreader-cable-reel-motors",
+   "value": "2 x V112ML4, 5.5 kW, 380 V 50 Hz, 1400 rpm, IP65 (motor 1 with brake and encoder)",
+   "sources": [
+    {
+     "document": "CAVOTEC-SC-121216-ME2a",
+     "page": 7,
+     "locator": "section 1 specifications, manual pp.1-3"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "spreader-cable-reel-torque-unit",
+   "value": "T5.0, 3-stage bevel-planetary, ratio 1:21.2; Shell Spirax ASX 75W90, 5 l",
+   "sources": [
+    {
+     "document": "CAVOTEC-SC-121216-ME2a",
+     "page": 7,
+     "locator": "section 1 specifications, manual pp.1-3"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "spreader-cable-reel-pre-reducer",
+   "value": "T5.1 spur, ratio 1:1.5; Roloil Tixoplex-MS grease 0.5 kg",
+   "sources": [
+    {
+     "document": "CAVOTEC-SC-121216-ME2a",
+     "page": 7,
+     "locator": "section 1 specifications, manual pp.1-3"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "spreader-cable-reel-brake",
+   "value": "Intorq BFK458-14, 205 V DC; setting 32.7 Nm (range 25-80)",
+   "sources": [
+    {
+     "document": "CAVOTEC-SC-121216-ME2a",
+     "page": 7,
+     "locator": "section 1 specifications, manual pp.1-3"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "spreader-cable-reel-encoder",
+   "value": "Heidenhain ERN 430, 1024 ppr, HTL",
+   "sources": [
+    {
+     "document": "CAVOTEC-SC-121216-ME2a",
+     "page": 7,
+     "locator": "section 1 specifications, manual pp.1-3"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "spreader-cable-reel-drive",
+   "value": "Vacon NXP0031 (15 kW) with encoder and Profibus boards; braking resistor 20 ohm 2 kW",
+   "sources": [
+    {
+     "document": "CAVOTEC-SC-121216-ME2a",
+     "page": 7,
+     "locator": "section 1 specifications, manual pp.1-3"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "spreader-cable-reel-collector",
+   "value": "KV26/4S/R: 26 x 30 A power rings and 4 silvered control rings, 500 V, IP55",
+   "sources": [
+    {
+     "document": "CAVOTEC-SC-121216-ME2a",
+     "page": 7,
+     "locator": "section 1 specifications, manual pp.1-3"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "spreader-cable-reel-limit-switch",
+   "value": "Stromag 29MB 192/492, ratio 1:30.35, belt driven",
+   "sources": [
+    {
+     "document": "CAVOTEC-SC-121216-ME2a",
+     "page": 7,
+     "locator": "section 1 specifications, manual pp.1-3"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "spreader-cable-reel-damper",
+   "value": "Bollard damper BD5000N, 2 springs 5000 N, 150 kg",
+   "sources": [
+    {
+     "document": "CAVOTEC-SC-121216-ME2a",
+     "page": 7,
+     "locator": "section 1 specifications, manual pp.1-3"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "spreader-cable-reel-cable",
+   "value": "Tratosmart 0.6 / 1 kV 30 x 2.5, dia 34.2, 1.60 kg/m, allowable tension 1125 N",
+   "sources": [
+    {
+     "document": "CAVOTEC-SC-121216-ME2a",
+     "page": 7,
+     "locator": "section 1 specifications, manual pp.1-3"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "spreader-cable-reel-interlock",
+   "value": "Hoist inhibited with wrong tension or position, or manual mode at the trolley station",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 8,
+     "locator": "1.3.1.2"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "spreader-cable-reel-arrangement-weight",
+   "value": 1245,
+   "sources": [
+    {
+     "document": "J526A0200",
+     "page": 2,
+     "locator": "item 11"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "operator-cab-size",
+   "value": "3000 long, 2200 wide, 2673 floor to roof",
+   "sources": [
+    {
+     "document": "J526A3100",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "operator-cab-windows",
+   "value": "Front floor window 826; sloping front glass with 310 visor",
+   "sources": [
+    {
+     "document": "J526A3100",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "operator-cab-door",
+   "value": "1900 hinged door on the walkway side; walkway 900",
+   "sources": [
+    {
+     "document": "J526A3100",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "operator-cab-controls",
+   "value": "Left and right consoles, auxiliary panel, twistlock indicating panel and monitors",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 24,
+     "locator": "1.3.3.7"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "trolley-rails-rail",
+   "value": "A75 crane rail: head 75, height 85, foot 200",
+   "sources": [
+    {
+     "document": "J526A0100",
+     "page": 44,
+     "locator": "J526A0104 trolley rail"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-rails-gauge",
+   "value": "6300 +/-3",
+   "sources": [
+    {
+     "document": "J526A0100",
+     "page": 44,
+     "locator": "J526A0104 trolley rail"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-rails-girder-rails",
+   "value": "2 x 60200 (A75-59002 plus joint pieces); clips 97 x 600",
+   "sources": [
+    {
+     "document": "J526A0100",
+     "page": 44,
+     "locator": "J526A0104 trolley rail"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-rails-boom-rails",
+   "value": "2 x 74600 (A75-72942); clips 121 x 600",
+   "sources": [
+    {
+     "document": "J526A0100",
+     "page": 44,
+     "locator": "J526A0104 trolley rail"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-rails-hinge-joint",
+   "value": "Short rails J526A010401 x 4 (1500) at the boom hinge; joint gap 6 +/-2",
+   "sources": [
+    {
+     "document": "J526A0100",
+     "page": 44,
+     "locator": "J526A0104 trolley rail"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-rails-rubber-pads",
+   "value": "ZGD190 8 x 190: 59782 long (girder) and 73722 long (boom), 2 each",
+   "sources": [
+    {
+     "document": "J526A0100",
+     "page": 44,
+     "locator": "J526A0104 trolley rail"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-rails-steel-pads",
+   "value": "-7.5 x 190 x 800 Q235, 4 off",
+   "sources": [
+    {
+     "document": "J526A0100",
+     "page": 44,
+     "locator": "J526A0104 trolley rail"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-rails-clips",
+   "value": "ZPMC YB33c-A75 x 900, YB55c-A75 x 28, YB1313a-A75 x 8",
+   "sources": [
+    {
+     "document": "J526A0100",
+     "page": 44,
+     "locator": "J526A0104 trolley rail"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-rails-fix-blocks",
+   "value": "J526A010402 x 16 (A709-50-2)",
+   "sources": [
+    {
+     "document": "J526A0100",
+     "page": 44,
+     "locator": "J526A0104 trolley rail"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-rails-end-stops",
+   "value": "-30 x 250 x 275 Q345B, 4 off, 250 beyond the rail ends",
+   "sources": [
+    {
+     "document": "J526A0100",
+     "page": 44,
+     "locator": "J526A0104 trolley rail"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-rails-assembly-weight",
+   "value": 17918.4,
+   "sources": [
+    {
+     "document": "J526A0100",
+     "page": 44,
+     "locator": "J526A0104 trolley rail"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-rail-fixing-clip-tightening",
+   "value": "Nut M16 66 kN / 200 Nm; nut M20 105 kN / 440 Nm; bolt M16 56 kN / 150 Nm",
+   "sources": [
+    {
+     "document": "J526A0100",
+     "page": 44,
+     "locator": "J526A0104 technical requirement"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-rail-fixing-clip-installation",
+   "value": "Base welded all round (4 mm fillet, low-hydrogen); bolt turned 90 deg into the base and nut started by hand; clip tapped against the rail, nuts to 150 Nm",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH2",
+     "page": 34,
+     "locator": "2.7.6.3"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "trolley-rail-fixing-re-tightening",
+   "value": "If a nut is loosened, check the bolt head position before tightening again",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH2",
+     "page": 34,
+     "locator": "2.7.6.3"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "trolley-rail-fixing-rail-welds",
+   "value": "Preheat and keep warm 150 mm each side; heat-treat after welding; grind the upper surface",
+   "sources": [
+    {
+     "document": "J526A0100",
+     "page": 44,
+     "locator": "J526A0104 technical requirement"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-rail-fixing-joint-at-the-hinge",
+   "value": "Gap 6 +/-2; height difference <= 0.5 mm; centreline difference <= 0.5 mm",
+   "sources": [
+    {
+     "document": "J526A0100",
+     "page": 44,
+     "locator": "J526A0104 technical requirement"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-rail-fixing-joint-gap",
+   "value": "<= 6 mm, no contact in summer; deviation <= 0.5 mm",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH2",
+     "page": 32,
+     "locator": "table 2-15"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "trolley-rail-tolerances-centre-distance",
+   "value": "Within +/-3 mm of nominal (installation); span +/-5 (maintenance)",
+   "sources": [
+    {
+     "document": "J526A0100",
+     "page": 44,
+     "locator": "J526A0104 notes"
+    },
+    {
+     "document": "ZPMC-MM-CH2",
+     "page": 32,
+     "locator": "table 2-16"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-rail-tolerances-cross-level",
+   "value": "<= 0.15 % of the rail centre distance, max 10 mm (drawing); <= 9.6 mm (manual)",
+   "sources": [
+    {
+     "document": "J526A0100",
+     "page": 44,
+     "locator": "J526A0104 notes"
+    },
+    {
+     "document": "ZPMC-MM-CH2",
+     "page": 32,
+     "locator": "table 2-16"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-rail-tolerances-lateral-deviation",
+   "value": "+/-10 mm per rail; curvature <= 1 mm in 2 m (drawing); lateral straightness <= 4 mm (manual)",
+   "sources": [
+    {
+     "document": "J526A0100",
+     "page": 44,
+     "locator": "J526A0104 notes"
+    },
+    {
+     "document": "ZPMC-MM-CH2",
+     "page": 32,
+     "locator": "table 2-16"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-rail-tolerances-slope",
+   "value": "< 1/200 (unloaded, no camber zone; full load in the camber zone)",
+   "sources": [
+    {
+     "document": "J526A0100",
+     "page": 44,
+     "locator": "J526A0104 notes"
+    },
+    {
+     "document": "ZPMC-MM-CH2",
+     "page": 32,
+     "locator": "table 2-16"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-rail-tolerances-boom-girder-rail",
+   "value": "Height difference <= 1 mm; centre difference 0-0.5 mm",
+   "sources": [
+    {
+     "document": "J526A0100",
+     "page": 44,
+     "locator": "J526A0104 notes"
+    },
+    {
+     "document": "ZPMC-MM-CH2",
+     "page": 32,
+     "locator": "table 2-16"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-rail-tolerances-levelness",
+   "value": "0.1 % of span, <= 6.4 mm",
+   "sources": [
+    {
+     "document": "J526A0100",
+     "page": 44,
+     "locator": "J526A0104 notes"
+    },
+    {
+     "document": "ZPMC-MM-CH2",
+     "page": 32,
+     "locator": "table 2-16"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-rail-tolerances-annual-inspection",
+   "value": "Measure level, straightness and span, record them and check for cracks; repair or replace when out of tolerance",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH2",
+     "page": 30,
+     "locator": "2.7.6.1"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "trolley-rail-tolerances-rail-damage-limit",
+   "value": "No more than 3 defects over 3 cm2 and deeper than 30 % of the rail thickness",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH2",
+     "page": 35,
+     "locator": "2.7.7"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "trolley-rail-tolerances-typical-failures",
+   "value": "Loose or broken clip bolts, elongated holes, rotated clips, head wear or flattening, edge wear, deformation at joints",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH2",
+     "page": 33,
+     "locator": "2.7.6.2"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "catenary-trolleys-purpose",
+   "value": "Support the main hoist and trolley ropes and reduce sag and bouncing",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 28,
+     "locator": "1.5.1"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "catenary-trolleys-quantity",
+   "value": "2: landside J526A220400 (1781.3 kg) and seaside J526A220500 (1680.2 kg)",
+   "sources": [
+    {
+     "document": "J526A2200",
+     "page": 1,
+     "locator": null
+    },
+    {
+     "document": "J526A2200",
+     "page": 4,
+     "locator": "J526A220400"
+    },
+    {
+     "document": "J526A2200",
+     "page": 5,
+     "locator": "J526A220500"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "catenary-trolleys-wheels",
+   "value": "4 per trolley, wheel assembly J526A220401 (56.7 kg), dia 320 / tread dia 260, on the A75 trolley rail; 1050 apart on each rail",
+   "sources": [
+    {
+     "document": "J526A2200",
+     "page": 1,
+     "locator": null
+    },
+    {
+     "document": "J526A2200",
+     "page": 4,
+     "locator": "J526A220400"
+    },
+    {
+     "document": "J526A2200",
+     "page": 5,
+     "locator": "J526A220500"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "catenary-trolleys-rope-supports",
+   "value": "Main-hoist rope roller boxes (1168.5 high); rollers AJR01b x 4; guide idlers (2) and (3); sheave assemblies J526A220403 x 2 (dia 516)",
+   "sources": [
+    {
+     "document": "J526A2200",
+     "page": 1,
+     "locator": null
+    },
+    {
+     "document": "J526A2200",
+     "page": 4,
+     "locator": "J526A220400"
+    },
+    {
+     "document": "J526A2200",
+     "page": 5,
+     "locator": "J526A220500"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "catenary-trolleys-slap-blocks",
+   "value": "UHMWPE, 2 per trolley",
+   "sources": [
+    {
+     "document": "J526A2200",
+     "page": 1,
+     "locator": null
+    },
+    {
+     "document": "J526A2200",
+     "page": 4,
+     "locator": "J526A220400"
+    },
+    {
+     "document": "J526A2200",
+     "page": 5,
+     "locator": "J526A220500"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "catenary-trolleys-gauge",
+   "value": "6300 +/-3",
+   "sources": [
+    {
+     "document": "J526A2200",
+     "page": 1,
+     "locator": null
+    },
+    {
+     "document": "J526A2200",
+     "page": 4,
+     "locator": "J526A220400"
+    },
+    {
+     "document": "J526A2200",
+     "page": 5,
+     "locator": "J526A220500"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "catenary-trolleys-wheel-alignment",
+   "value": "Axle inclination +0.52 / -0.26 mm; bore angular deviation <= 0.52 mm; wheels on one rail within 2 mm of the axis",
+   "sources": [
+    {
+     "document": "J526A2200",
+     "page": 1,
+     "locator": null
+    },
+    {
+     "document": "J526A2200",
+     "page": 4,
+     "locator": "J526A220400"
+    },
+    {
+     "document": "J526A2200",
+     "page": 5,
+     "locator": "J526A220500"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "catenary-trolleys-roller-clearance",
+   "value": "5-8 mm between the roller top and the rail support plate underside, max 10 mm",
+   "sources": [
+    {
+     "document": "J526A2200",
+     "page": 1,
+     "locator": null
+    },
+    {
+     "document": "J526A2200",
+     "page": 4,
+     "locator": "J526A220400"
+    },
+    {
+     "document": "J526A2200",
+     "page": 5,
+     "locator": "J526A220500"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "catenary-trolleys-travel",
+   "value": "Each catenary trolley travels 60000 between its backreach and outreach positions",
+   "sources": [
+    {
+     "document": "J526A2200",
+     "page": 1,
+     "locator": null
+    },
+    {
+     "document": "J526A2200",
+     "page": 4,
+     "locator": "J526A220400"
+    },
+    {
+     "document": "J526A2200",
+     "page": 5,
+     "locator": "J526A220500"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "catenary-trolleys-system-weight",
+   "value": "5985.1 kg (complete catenary trolley rope reeving system)",
+   "sources": [
+    {
+     "document": "J526A2200",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "catenary-trolleys-lubrication",
+   "value": "Wheel bearings 4 + 4, support roller bearings 8 per set, sheave bearings 2 + 2: Shell Alvania EP2",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH2",
+     "page": 24,
+     "locator": "table 2-13"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "catenary-ropes-boom-tip-sheaves",
+   "value": "J526A2201, 2 sets, 137.5 kg: sheave ZT2-013022 dia 500 (550 flange), bearings NJ2214EC 70 x 125 x 31 x 2, shaft dia 70; 1500 from the boom centreline",
+   "sources": [
+    {
+     "document": "J526A2200",
+     "page": 1,
+     "locator": null
+    },
+    {
+     "document": "J526A2200",
+     "page": 2,
+     "locator": "J526A2201"
+    },
+    {
+     "document": "J526A2200",
+     "page": 3,
+     "locator": "J526A2203"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "catenary-ropes-tail-tensioners",
+   "value": "J526A2203, 2 sets, 395 kg: tension cylinder stroke 600 (1123 closed), sheave ZT2-013022 dia 500, bearings NJ2214EC, 2 limit switches",
+   "sources": [
+    {
+     "document": "J526A2200",
+     "page": 1,
+     "locator": null
+    },
+    {
+     "document": "J526A2200",
+     "page": 2,
+     "locator": "J526A2201"
+    },
+    {
+     "document": "J526A2200",
+     "page": 3,
+     "locator": "J526A2203"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "catenary-ropes-tension-pressure",
+   "value": "Rope tension relief 15 MPa; dual relief 10 MPa, dropped to 6.5 MPa while the boom rises",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH5",
+     "page": 25,
+     "locator": "5.5.1"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "catenary-ropes-reeving",
+   "value": "Ropes B1-B8 between the tail tensioners, the landside catenary trolley, the main trolley, the seaside catenary trolley and the boom-tip sheaves; rope clamp torque 88 Nm",
+   "sources": [
+    {
+     "document": "J526A2200",
+     "page": 1,
+     "locator": "catenary trolley reeving sketch"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "catenary-ropes-re-reeving",
+   "value": "Trolley to park, boom level, maintenance mode; release tension pressure; pull through with the re-reeving device; adjust so the catenary wheels do not rub the rail side",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH4",
+     "page": 46,
+     "locator": "4.5.5"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "anti-snag-tls-cylinders",
+   "value": "4 (one per hoist rope), bore 200, rod 140, stroke 1400, working pressure 250 bar",
+   "sources": [
+    {
+     "document": "J526A1000",
+     "page": 1,
+     "locator": "main parameter"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "anti-snag-tls-snag-load",
+   "value": "20 t < F <= 25 t on a main hoist rope",
+   "sources": [
+    {
+     "document": "J526A1000",
+     "page": 1,
+     "locator": "main parameter"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "anti-snag-tls-cylinder-positions",
+   "value": "Max stroke 2512, normal operation 2212, min stroke 1112 (side-view positions)",
+   "sources": [
+    {
+     "document": "J526A1000",
+     "page": 1,
+     "locator": "main parameter"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "anti-snag-tls-stroke-use",
+   "value": "0-650 snag protection; 650-1400 trim / list / skew and rope length compensation; home >= 375",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 11,
+     "locator": "1.3.1.4"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "anti-snag-tls-angles",
+   "value": "Trim +/-5 deg, list +/-3 deg, skew +/-5 deg",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 3,
+     "locator": "table 1-1"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "anti-snag-tls-tail-sheaves",
+   "value": "Dia 1000, 2 per lever, 2200 apart; overall device 3754",
+   "sources": [
+    {
+     "document": "J526A1000",
+     "page": 1,
+     "locator": "main parameter"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "anti-snag-tls-snag-response",
+   "value": "Pressure relay stops the crane, relief and logic valves dump the cylinder in about 0.5 s; reset with the SNAG RESET key in the electrical room",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH5",
+     "page": 27,
+     "locator": "5.5.2"
+    },
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 11,
+     "locator": "1.3.1.4"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "anti-snag-tls-position-sensing",
+   "value": "Linear transducer inside each cylinder rod to the PLC",
+   "sources": [
+    {
+     "document": "J526A1000",
+     "page": 1,
+     "locator": "main parameter"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "anti-snag-tls-bolt-torques",
+   "value": "M24 8.8 530 Nm; M24 10.9 800 Nm; M30 10.9 1535 Nm",
+   "sources": [
+    {
+     "document": "J526A1000",
+     "page": 1,
+     "locator": "main parameter"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "anti-snag-tls-installation",
+   "value": "Pry-bar gap 1-2 mm with shims; grease the sliding block faces",
+   "sources": [
+    {
+     "document": "J526A1000",
+     "page": 1,
+     "locator": "main parameter"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-rope-tension-quantity",
+   "value": "2 per crane, 937.3 kg each; 1050 from the girder centreline",
+   "sources": [
+    {
+     "document": "J526A2100",
+     "page": 3,
+     "locator": "J526A2103 tension device"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-rope-tension-cylinder",
+   "value": "Dia 140, rod 100, stroke 600; working 25 MPa, test 37.5 MPa",
+   "sources": [
+    {
+     "document": "J526A2100",
+     "page": 3,
+     "locator": "J526A2103 tension device"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-rope-tension-sheave",
+   "value": "ZT2-013047 A2-750-dia25-230: dia 830 / groove dia 750; bearing NJ226EC 130 x 230 x 40",
+   "sources": [
+    {
+     "document": "J526A2100",
+     "page": 3,
+     "locator": "J526A2103 tension device"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-rope-tension-limit-switches",
+   "value": "XCKJ10541H29C x 2 (proximity switches at both cylinder end strokes stop the trolley)",
+   "sources": [
+    {
+     "document": "J526A2100",
+     "page": 3,
+     "locator": "J526A2103 tension device"
+    },
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 20,
+     "locator": "1.3.3.3"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "trolley-rope-tension-function",
+   "value": "Retracts as the boom rises; extends to take up new-rope stretch; normal position with the sheave arm almost vertical",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 22,
+     "locator": "1.3.3.5"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "trolley-rope-tension-rope-adjustment",
+   "value": "Adjust the rope length when a limit switch trips at normal pressure, or when stretch exceeds 150 mm",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 22,
+     "locator": "1.3.3.5"
+    },
+    {
+     "document": "ZPMC-MM-CH4",
+     "page": 49,
+     "locator": "4.6"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "multi-function-hydraulics-location",
+   "value": "On the back girder",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH5",
+     "page": 21,
+     "locator": "5.5"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "multi-function-hydraulics-circuits",
+   "value": "Trim / list / skew with snag protection, and rope tension",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH5",
+     "page": 21,
+     "locator": "5.5"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "multi-function-hydraulics-rope-tension-valves",
+   "value": "Relief 15 MPa; dual relief 10 / 6.5 MPa switched by S10 while the boom rises",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH5",
+     "page": 21,
+     "locator": "5.5"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "multi-function-hydraulics-t-l-s-valves",
+   "value": "Proportional direction valve, pressure compensator and counterbalance valve; closed-loop position control from the cylinder sensors",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH5",
+     "page": 21,
+     "locator": "5.5"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "multi-function-hydraulics-snag-manifold",
+   "value": "On each snag cylinder: logic valve, pilot valve, relief valve 19, pressure relays 27A-D; shut-off valve 16 normally open",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH5",
+     "page": 21,
+     "locator": "5.5"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "tail-service-crane-hoist",
+   "value": "HSZ1 1 t hand-chain / man-hold lift",
+   "sources": [
+    {
+     "document": "J526A7100",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "tail-service-crane-frame",
+   "value": "6050 wide, 2780 high, runway 1540 beyond the girder end",
+   "sources": [
+    {
+     "document": "J526A7100",
+     "page": 1,
+     "locator": null
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "tail-service-crane-use",
+   "value": "TLS cylinders and sheaves at the tail, trolley sheaves and wheels",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH1",
+     "page": 29,
+     "locator": "1.6.2"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "wire-ropes-main-hoist",
+   "value": "IWRC 6xWS(36)-B dia 31.5, 672 kN; 4 ropes, 8 falls",
+   "sources": [
+    {
+     "document": "J526A0300",
+     "page": 1,
+     "locator": "main data"
+    },
+    {
+     "document": "J526A0400",
+     "page": 1,
+     "locator": "main data"
+    },
+    {
+     "document": "J526A0500",
+     "page": 1,
+     "locator": "main data"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "wire-ropes-trolley",
+   "value": "Dia 25, 2 ropes",
+   "sources": [
+    {
+     "document": "J526A0300",
+     "page": 1,
+     "locator": "main data"
+    },
+    {
+     "document": "J526A0400",
+     "page": 1,
+     "locator": "main data"
+    },
+    {
+     "document": "J526A0500",
+     "page": 1,
+     "locator": "main data"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "wire-ropes-boom-hoist",
+   "value": "IWRC 6xP.WS(36) dia 35.5-B, 975 kN",
+   "sources": [
+    {
+     "document": "J526A0300",
+     "page": 1,
+     "locator": "main data"
+    },
+    {
+     "document": "J526A0400",
+     "page": 1,
+     "locator": "main data"
+    },
+    {
+     "document": "J526A0500",
+     "page": 1,
+     "locator": "main data"
+    }
+   ],
+   "verification": "visually_read_from_drawing"
+  },
+  {
+   "parameterCode": "wire-ropes-re-adjust",
+   "value": "When stretch exceeds 150 mm, a tension arm sensor or the A-frame sensor trips, or empty boom drum grooves appear",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH4",
+     "page": 49,
+     "locator": "4.6"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "wire-ropes-rope-clips",
+   "value": "M24 8.8 on the drum and trolley clamp 420 Nm",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH4",
+     "page": 41,
+     "locator": "table 4-12"
+    }
+   ],
+   "verification": "read_from_manual"
+  },
+  {
+   "parameterCode": "wire-ropes-lay-length",
+   "value": "Usually 6.2-8.2 x rope diameter",
+   "sources": [
+    {
+     "document": "ZPMC-MM-CH4",
+     "page": 3,
+     "locator": "4.2 lay length"
+    }
+   ],
+   "verification": "read_from_manual"
+  }
+ ]
+}

@@ -1,0 +1,11 @@
+PASS F1-reopened-hidden-history
+PASS F1-current-job-allowlist
+PASS F1-position-allowlist
+PASS F1-source-history-preserved
+PASS F1-reference-isolation
+PASS F2-filtered-numerator-denominator
+PASS F2-empty-population
+PASS F2-unfiltered-regression
+PASS F2-completion-window-scope
+PASS F2-nonempty-mode-pic-and-combined
+exit 0

@@ -234,16 +234,30 @@ window.EQ = window.EQ || {};
         h('tbody', null, keys.map((k) => { const pa = EQ.positionsOf(a.id).find((p) => p.key === k), pb = EQ.positionsOf(b.id).find((p) => p.key === k); const n = (p) => S.D.events.filter((e) => e.positionId === p.id).length; return h('tr', null, h('th', { scope: 'row', class: 'mono' }, k), h('td', { class: 'mono' }, pa.id), h('td', null, String(n(pa))), h('td', { class: 'mono' }, pb.id), h('td', null, String(n(pb)))); })))));
   }
 
+  // U1-C68: 240+ parameters after the component reference import; the table is filtered (reference / a component group /
+  // Admin-entered / unresolved conflicts / all). The filter is a view preference only.
+  let paramFilter = 'reference';
   function parametersSection() {
     const S = EQ.state;
     const ph = S.D.paramHistory || {};
-    const rows = EQ.allParams().flatMap((p) => {
+    const inGroup = new Set((EQ.paramGroups || []).flatMap((g) => g.parameterCodes));
+    const isConflict = (p) => new Set(p.observations.map((o) => String(o.value))).size > 1;
+    const grp = (EQ.paramGroups || []).find((g) => 'group:' + g.code === paramFilter);
+    const shown = EQ.allParams().filter((p) => paramFilter === 'all' ? true : paramFilter === 'reference' ? p.origin !== 'componentReference' && p.origin !== 'admin'
+      : paramFilter === 'admin' ? p.origin === 'admin' : paramFilter === 'conflicts' ? isConflict(p) && !(S.D.resolved && S.D.resolved[p.code]) : grp ? grp.parameterCodes.includes(p.code) : true);
+    const filterBar = h('label', { class: 'row', style: 'gap:.5rem;align-items:center' }, h('span', { class: 'small' }, 'Show'),
+      h('select', { 'data-fk': 'param-filter', 'aria-label': 'Parameters to show', onChange: (e) => { paramFilter = e.target.value; EQ.rerender(); } },
+        [['reference', 'Major and family parameters (J526A00)'], ['conflicts', 'Unresolved source conflicts'], ['admin', 'Admin-entered specifications'], ['all', 'All parameters (' + EQ.allParams().length + ')']]
+          .map(([v, t]) => h('option', { value: v, selected: paramFilter === v ? true : null }, t)),
+        h('optgroup', { label: 'Component groups' }, (EQ.paramGroups || []).map((g) => h('option', { value: 'group:' + g.code, selected: paramFilter === 'group:' + g.code ? true : null }, g.title)))),
+      h('span', { class: 'small muted', role: 'status' }, EQ.plural(shown.length, 'parameter') + (inGroup.size ? '' : '')));
+    const rows = shown.flatMap((p) => {
       const conflict = new Set(p.observations.map((o) => o.value)).size > 1; const res = S.D.resolved && S.D.resolved[p.code];
       const admin = p.origin === 'admin'; const earlier = ph[p.code] || [];
       const unit = p.unit ? ' ' + p.unit : '';
       const out = [h('tr', { 'data-param': p.code },
         h('th', { scope: 'row' }, p.label + (p.motorCount ? ' (x' + p.motorCount + ')' : ''), admin ? h('div', null, h('span', { class: 'tag gold' }, 'Admin-entered')) : null),
-        h('td', null, admin ? h('span', { class: 'small muted' }, 'No drawing observation') : p.observations.map((o) => h('div', null, (p.operator ? p.operator + ' ' : '') + o.value + unit + ' ', h('span', { class: 'small muted' }, o.drawing + ' p' + o.page + (o.supplementary ? ' (suppl.)' : ''))))),
+        h('td', null, admin ? h('span', { class: 'small muted' }, 'No drawing observation') : p.observations.map((o) => h('div', null, (p.operator ? p.operator + ' ' : '') + o.value + unit + ' ', h('span', { class: 'small muted' }, EQ.refText(o) + (o.supplementary ? ' (suppl.)' : ''))))),
         h('td', { class: 'small' }, p.condition || ''), h('td', null, p.use + (p.mainCode ? ' · main ' + p.mainCode : '')),
         h('td', null, conflict && !res ? h('span', { class: 'tag red' }, 'Unresolved conflict') : res ? h('span', { class: 'tag green' }, (res.basis === 'adminEntered' ? 'Admin value: ' : 'Resolved: ') + res.value + unit) : h('span', { class: 'tag' }, 'Read from drawing'),
           res && res.source ? h('div', { class: 'small muted' }, 'Source: ' + res.source) : null),
@@ -260,6 +274,7 @@ window.EQ = window.EQ || {};
     return h('div', { class: 'stack' },
       h('div', { class: 'row between' }, h('h2', null, 'Source specifications'), h('button', { type: 'button', class: 'primary', 'data-fk': 'spec-add', onClick: () => specDialog(null) }, icon('plus'), 'Add specification')),
       h('div', { class: 'notice info' }, icon('info'), h('div', { class: 'stack', style: 'gap:.3rem' }, h('p', null, h('strong', null, "Drawing values: "), "Original observations are preserved. A decision applies to this model only and needs a reason."), h('p', null, h('strong', null, "Admin values: "), "Added separately and labelled Admin-entered. Earlier values remain in history."), h('p', null, h('strong', null, "Model: "), "CICT-J526A-STS reference values do not verify an association with a real crane."))),
+      filterBar,
       h('div', { class: 'panel table-wrap' }, h('table', null, h('caption', { class: 'sr-only' }, 'Source parameters'),
         h('thead', null, h('tr', null, ['Parameter', 'Observations', 'Condition', 'Use', 'State', 'Action'].map((c) => h('th', { scope: 'col' }, c)))),
         h('tbody', null, rows))));
@@ -269,7 +284,7 @@ window.EQ = window.EQ || {};
     const res = EQ.state.D.resolved && EQ.state.D.resolved[p.code];
     return adminForm({
       title: (p.origin === 'admin' ? 'New value - ' : res ? 'Change value - ' : 'Set value - ') + p.label,
-      intro: (p.observations.length ? 'Drawing observation: ' + p.observations.map((o) => o.value + (p.unit ? ' ' + p.unit : '') + ' (' + o.drawing + ' p' + o.page + ')').join('; ') + '. It stays visible beside the chosen value. ' : '') + (res ? 'Current value ' + res.value + (p.unit ? ' ' + p.unit : '') + ' is kept as an earlier value. ' : '') + 'The value applies to the CICT-J526A-STS model scope.',
+      intro: (p.observations.length ? 'Drawing observation: ' + p.observations.map((o) => o.value + (p.unit ? ' ' + p.unit : '') + ' (' + EQ.refText(o) + ')').join('; ') + '. It stays visible beside the chosen value. ' : '') + (res ? 'Current value ' + res.value + (p.unit ? ' ' + p.unit : '') + ' is kept as an earlier value. ' : '') + 'The value applies to the CICT-J526A-STS model scope.',
       init: { value: '', source: '', reason: '' },
       fields: (st, errors) => [
         K().field('pv-value', 'Value' + (p.unit ? ' (' + p.unit + ')' : ''), K().input(st, 'value', { maxlength: 100 }), { required: true, error: errors.value }),

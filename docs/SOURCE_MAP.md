@@ -163,6 +163,10 @@ All 20 entries were compared with the J526A00 p1 particulars table (crop `artifa
 | boom-hoist-rope | dia 35.5 mm, breaking strength 975 kN (J526A0500 p1) | New, technical |
 | trolley-rope | dia 25 mm (J526A0400 p1) | New, technical |
 
+### 5.4 Component parameters from the supplied drawings and manuals (U1-C65 / U1-C68)
+
+`assets/reference/qc-component-parameters.json` registers 26 source documents under `Drawings and manuals/` (J526A0100 p44 = J526A0104 trolley rail, J526A0200-J526A7100 sheets, DT1500F, ZT2-015022, Sheave.pdf = ZT2-013069, ZPMC mechanical manual chapters 1, 2, 4 and 5, Cavotec SC-121216-ME2a) and records 220 component definitions and 231 observations in 27 groups, each observation with document, PDF page and locator. The manual cover reads "Maintenance Manual for CICT 12 STS Cranes"; chapter 1 names its example crane as KICT, and its tables are cited only as manual observations beside the drawings. Conflicts recorded: U-02 trolley motor (275 J526A00 and manual, 270 J526A0400) and machinery-house service crane capacity (10 t J526A1600, 12 t manual 1.6.1). Generated into the prototype by `tools/p02/build_catalog.py`, which validates codes, references, files and model keys.
+
 ## 6 Model-family assumptions
 
 1. The initial template is named `CICT-J526A-STS`, model version 1 (P03). It represents the ZPMC J526A drawing family for the original "CICT 12 STS cranes" (cover, subsidiary list "1 for 12 cranes"). It is not assigned to any equipment item until Admin records a verified association (SRC06).

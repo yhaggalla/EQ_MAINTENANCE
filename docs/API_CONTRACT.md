@@ -358,6 +358,7 @@ There is no endpoint that accepts a file path or URL to fetch; source drawings e
 | --- | --- | --- |
 | `GET /equipment/{equipmentId}/parameters?use=major|technical|all` | `F:eq.fleet.view` | Effective parameters for the equipment (S14, SRC05, SRC06) |
 | `GET /equipment-models/{modelId}/parameters` | `F:eq.fleet.view` | Family-level observations and values (reference view) |
+| `GET /equipment/{equipmentId}/parameter-groups?area=&node=&subId=` (U1-C68) | `F:eq.fleet.view` | Component parameter groups for an isolated area, a part (semantic key) or a sub-mechanism: `[{ code, title, parameters: [effective value, state observed / decided / conflict, observations with references (documentNumber, pdfPage, locator)] }]`; empty without a verified model (SRC06) |
 
 Response item:
 

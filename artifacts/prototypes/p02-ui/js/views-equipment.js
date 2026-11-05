@@ -217,13 +217,27 @@ window.EQ = window.EQ || {};
       p.code === 'total-lift-height' ? h('span', { class: 'small' }, 'Total lift height, not overall crane height.') : null,
       conflict && !resolved && EQ.perm.admin() ? h('div', null, h('button', { type: 'button', class: 'btn-sm', onClick: () => EQ.dlg.resolveParam(p) }, 'Resolve with a reason')) : null);
   }
-  // U1-C65: drawing / manual component data (js/component-specs.js) for an isolated area and for its parts.
-  function specSections(groups) {
-    if (!groups.length) return [];
-    return [h('p', { class: 'small muted', style: 'margin:0' }, EQ.componentSpecs.note), ...groups.map((g) => h('div', { class: 'sec spec-group', 'data-spec-group': g.title },
-      h('h3', null, g.title),
-      h('dl', { class: 'kv' }, g.rows.map(([k, v, s]) => [h('dt', null, k), h('dd', null, v, s ? h('span', { class: 'spec-src' }, s) : null)])),
-      h('p', { class: 'spec-src', style: 'margin:0' }, 'Source: ' + g.src)))];
+  // U1-C68: component parameter groups from the parameter model (assets/reference/qc-component-parameters.json merged into
+  // EQ.sourceParams): each row is a ParameterDefinition with its observations and any Admin decision; conflicts stay visible.
+  const GROUP_NOTE = 'Drawing and manual values for the CICT-J526A-STS family, not measurements of this crane. Each value shows its source.';
+  function groupRow(p) {
+    const e = EQ.paramEffective(p); const unit = p.unit ? ' ' + p.unit : '';
+    const fmt = (v) => (p.operator ? p.operator + ' ' : '') + v + unit;
+    const refs = [...new Set(p.observations.map((o) => EQ.refText(o)))].join('; ');
+    const dd = e.state === 'conflict'
+      ? h('dd', { 'data-param': p.code }, h('span', { class: 'tag red' }, 'Unresolved source conflict'),
+        h('ul', { class: 'lines', style: 'margin:.2rem 0 0' }, p.observations.map((o) => h('li', null, fmt(o.value), h('span', { class: 'spec-src' }, EQ.refText(o))))),
+        EQ.perm.admin() ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'resolve-' + p.code, onClick: () => EQ.dlg.resolveParam(p) }, 'Resolve with a reason') : null)
+      : e.state === 'decided'
+        ? h('dd', { 'data-param': p.code }, fmt(e.value), ' ', h('span', { class: 'tag' }, e.conflict ? 'Resolved by Admin' : 'Admin value'),
+          h('span', { class: 'spec-src' }, e.decision.reason + (e.decision.source ? '; source ' + e.decision.source : '') + ' | observed: ' + p.observations.map((o) => fmt(o.value) + ' (' + EQ.refText(o) + ')').join('; ')))
+        : h('dd', { 'data-param': p.code }, e.state === 'observed' ? fmt(e.value) : 'Not set', refs ? h('span', { class: 'spec-src' }, refs) : null);
+    return [h('dt', null, p.label, p.condition ? h('span', { class: 'spec-src' }, p.condition) : null), dd];
+  }
+  function groupSections(eq, groups) {
+    if (!groups.length || !(EQ.verified(eq) && eq.modelCode === 'CICT-J526A-STS')) return [];
+    return [h('p', { class: 'small muted', style: 'margin:0' }, GROUP_NOTE), ...groups.map((g) => h('div', { class: 'sec spec-group', 'data-spec-group': g.title, 'data-group': g.code },
+      h('h3', null, g.title), h('dl', { class: 'kv' }, g.parameterCodes.map((c) => EQ.paramDef(c)).filter(Boolean).map(groupRow))))];
   }
   function technicalTab(eq, sel, q) {
     const box = h('div', { class: 'stack' });
@@ -235,10 +249,11 @@ window.EQ = window.EQ || {};
         ['Equipment', eq.code], ['Main / sub', m.code + ' ' + m.name + ' / ' + s.code + ' ' + (s.name || '')], ['Position ID', h('span', { class: 'mono' }, p.id)],
         ['Semantic key', h('span', { class: 'mono' }, p.key)], ['Kind', p.kind === 'serialized' ? 'Serialized (1 ea)' : 'Quantity-bearing (' + p.uom + ')'], ['State', p.state === 'active' ? 'Active (confirmed by Admin)' : p.state],
         ['Installed now', (function () { const ev = EQ.state.D.events.filter((x) => x.positionId === p.id && !x.voided).slice(-1)[0]; return ev ? ev.installed.desc + (ev.installed.serial ? ' (serial ' + ev.installed.serial + ')' : ' (serial unknown)') : 'Unknown: nothing recorded (not evidence the item is original)'; })()], ['Geometry provenance', p.prov === 'approximate-location' ? h('span', null, h('span', { class: 'tag' }, 'Location approximate'), ' simplified representation') : p.prov], ['Source references', p.src]])));
-      if (EQ.verified(eq) && eq.modelCode === 'CICT-J526A-STS') specSections(EQ.componentSpecs.forPart(p.key)).forEach((el) => box.appendChild(el));
+      groupSections(eq, EQ.paramGroupsFor({ keys: [p.key] })).forEach((el) => box.appendChild(el));
     } else if (sel.sub) {
       const s = EQ.subDef(eq.subs.find((x) => x.id === sel.sub).code);
       box.appendChild(h('div', { class: 'sec' }, h('h3', null, s.code + ' ' + (s.name || 'Reserved')), kv([['Main', EQ.mainDef(s.main).code + ' ' + EQ.mainDef(s.main).name], ['Original label', s.sourceName || '(blank in the source)'], ['Description', s.description || 'No description in the source']])));
+      groupSections(eq, EQ.paramGroupsFor({ keys: EQ.positionsOf(eq.id).filter((x) => x.subId === sel.sub).map((x) => x.key) })).forEach((el) => box.appendChild(el)); // U1-C68: groups of its parts
     } else if (sel.main) {
       const m = EQ.mainDef(eq.mains.find((x) => x.id === sel.main).code);
       box.appendChild(h('div', { class: 'sec' }, h('h3', null, m.code + ' ' + m.name), h('p', { class: 'small muted', style: 'margin:0', 'data-panel-search-item': '' }, EQ.catalog.subs.filter((x) => x.main === m.code).map((x) => x.code + ' ' + (x.name || 'reserved') + (x.active ? '' : ' (inactive)')).join('; '))));
@@ -260,7 +275,7 @@ window.EQ = window.EQ || {};
     const ps = EQ.qc?.containerPositions(eq, EQ.route.query.container) || EQ.positionsOf(eq.id).filter((p) => p.state === 'active' && HOUSE_KEYS.includes(p.key));
     const groups = {};
     ps.forEach((p) => { const s = eq.subs.find((x) => x.id === p.subId); const m = EQ.mainDef(eq.mains.find((x) => x.id === p.mainId).code); (groups[m.code + ' ' + m.name] = groups[m.code + ' ' + m.name] || []).push([p, s]); });
-    if (EQ.verified(eq) && eq.modelCode === 'CICT-J526A-STS') specSections(EQ.componentSpecs.forArea(EQ.route.query.container)).forEach((el) => box.appendChild(el));
+    groupSections(eq, EQ.paramGroupsFor({ area: EQ.route.query.container })).forEach((el) => box.appendChild(el));
     box.appendChild(h('p', { class: 'small muted', style: 'margin:0' }, EQ.plural(ps.length, 'included part position')));
     Object.entries(groups).forEach(([g, items]) => box.appendChild(h('div', { class: 'sec' }, h('h3', null, g), h('ul', { class: 'tl' }, items.map(([p]) => h('li', { 'data-panel-search-item': '' }, h('a', { href: '#', onClick: (e) => { e.preventDefault(); select(eq, { main: p.mainId, sub: p.subId, part: p.id }, { mode: 'technical' }); } }, p.name), h('span', { class: 'when' }, p.prov === 'approximate-location' ? 'Location approximate / simplified representation' : p.prov)))))));
     return box;

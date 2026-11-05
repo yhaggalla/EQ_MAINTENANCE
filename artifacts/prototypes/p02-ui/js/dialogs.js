@@ -399,8 +399,8 @@ window.EQ = window.EQ || {};
         return {
           title: 'Resolve source conflict - ' + p.label,
           body: [h('div', { class: 'notice warn' }, icon('alert'), h('p', null, "Original observations stay visible. Your decision applies to this model only; past work and model history stay unchanged.")),
-            h('ul', { style: 'margin:0;padding-left:1.1rem' }, p.observations.map((o) => h('li', null, o.value + ' ' + p.unit + ' - ' + o.drawing + ' p' + o.page + (o.supplementary ? ' (supplementary observation, U-02)' : '')))),
-            field('rp-val', 'Chosen value (' + p.unit + ')', input(st, 'value', { inputmode: 'decimal' }), { required: true, error: verr }),
+            h('ul', { style: 'margin:0;padding-left:1.1rem' }, p.observations.map((o) => h('li', null, o.value + (p.unit ? ' ' + p.unit : '') + ' - ' + EQ.refText(o) + (o.supplementary ? ' (supplementary observation)' : '')))), // U1-C68: document, page and locator
+            field('rp-val', 'Chosen value' + (p.unit ? ' (' + p.unit + ')' : ''), input(st, 'value', p.dataType === 'text' ? {} : { inputmode: 'decimal' }), { required: true, error: verr }),
             field('rp-reason', 'Reason / technical decision reference', area(st, 'reason', { rows: 2 }), { required: true, error: err })],
           foot: footButtons(api, 'Record decision', () => {
             verr = st.value.trim() ? null : 'Enter the chosen value.';

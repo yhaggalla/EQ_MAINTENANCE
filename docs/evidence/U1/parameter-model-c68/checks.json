@@ -1,0 +1,142 @@
+{
+ "base": "http://127.0.0.1:5312/index.html",
+ "results": [
+  {
+   "name": "01 reference data: 27 groups, every group code defined, every reference registered, no observation-less parameter, old dataset retired",
+   "ok": true,
+   "detail": {
+    "groups": 27,
+    "sources": 26,
+    "params": 240,
+    "missing": [],
+    "badRefs": 0,
+    "noObs": [],
+    "legacy": "undefined"
+   }
+  },
+  {
+   "name": "02 area groups come from the parameter model (machinery house: 9 groups)",
+   "ok": true,
+   "detail": [
+    "machinery-house",
+    "main-hoist",
+    "boom-hoist",
+    "trolley-drive",
+    "emergency-drives",
+    "rope-re-reeving",
+    "mh-service-crane",
+    "compressed-air",
+    "disc-brake-hydraulics"
+   ]
+  },
+  {
+   "name": "03 existing parameter reused with all its sources (450 kW: J526A00, J526A0300, manual table 1-2)",
+   "ok": true,
+   "detail": {
+    "text": "450 kWJ526A00 p1; J526A0300 p1 (main data); ZPMC-MM-CH1 p5 (table 1-2)",
+    "conflict": false,
+    "btn": false
+   }
+  },
+  {
+   "name": "04 differing sources are an unresolved conflict with both values (10 t J526A1600 / 12 t manual 1.6.1); EQ Team cannot resolve",
+   "ok": true,
+   "detail": {
+    "text": "Unresolved source conflict10 tJ526A1600 p1 (main data list)12 tZPMC-MM-CH1 p29 (1.6.1)",
+    "conflict": true,
+    "btn": false
+   }
+  },
+  {
+   "name": "05 technical search finds component rows (SB315 drum brakes)",
+   "ok": true,
+   "detail": [
+    "main-hoist-low-speed-brake",
+    "boom-hoist-drum-brake"
+   ]
+  },
+  {
+   "name": "06 part shows the groups linked to its model key (seaside catenary trolley)",
+   "ok": true,
+   "detail": [
+    "catenary-trolleys"
+   ]
+  },
+  {
+   "name": "07 sub-mechanism 011 shows the groups of its parts",
+   "ok": true,
+   "detail": [
+    "main-hoist",
+    "anti-snag-tls"
+   ]
+  },
+  {
+   "name": "08 U-02 trolley motor stays an open conflict with three observations (275 J526A00, 270 J526A0400, 275 manual)",
+   "ok": true,
+   "detail": {
+    "obs": [
+     "275@J526A00",
+     "270@J526A0400",
+     "275@ZPMC-MM-CH1"
+    ],
+    "conflict": "conflict"
+   }
+  },
+  {
+   "name": "09 Admin sees Resolve with a reason on the conflict row",
+   "ok": true,
+   "detail": {
+    "text": "Unresolved source conflict10 tJ526A1600 p1 (main data list)12 tZPMC-MM-CH1 p29 (1.6.1)Resolve with a reason",
+    "conflict": true,
+    "btn": true
+   }
+  },
+  {
+   "name": "10 decision recorded with reason; row shows the chosen value, Resolved by Admin and both observations",
+   "ok": true,
+   "detail": {
+    "res": {
+     "value": "10",
+     "reason": "J526A1600 main data list is the as-built sheet; manual 1.6.1 text superseded",
+     "source": null,
+     "basis": "resolvedConflict",
+     "by": "u-admin",
+     "at": "2026-10-29T08:54:50.474Z"
+    },
+    "r": {
+     "text": "10 t Resolved by AdminJ526A1600 main data list is the as-built sheet; manual 1.6.1 text superseded | observed: 10 t (J526A1600 p1 (main data list)); 12 t (ZPMC-MM-CH1 p29 (1.6.1))",
+     "conflict": false,
+     "btn": false
+    }
+   }
+  },
+  {
+   "name": "11 Admin page (fresh load; prototype decisions are in memory): reference list unchanged (20), conflicts filter lists the three open conflicts, group and all filters",
+   "ok": true,
+   "detail": {
+    "def": 20,
+    "conf": [
+     "gantry-speed",
+     "mh-service-crane-capacity",
+     "trolley-motor-power"
+    ],
+    "grp": 11,
+    "all": 240
+   }
+  },
+  {
+   "name": "12 Management sees the conflict but no Resolve control",
+   "ok": true,
+   "detail": {
+    "text": "Unresolved source conflict10 tJ526A1600 p1 (main data list)12 tZPMC-MM-CH1 p29 (1.6.1)",
+    "conflict": true,
+    "btn": false
+   }
+  },
+  {
+   "name": "13 no browser errors",
+   "ok": true,
+   "detail": []
+  }
+ ]
+}

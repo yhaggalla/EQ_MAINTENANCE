@@ -1,0 +1,2 @@
+{"passed":49,"failed":0,"last":{"name":"Crane current-state projection excludes progress fields/history","pass":true}}
+exit 0
