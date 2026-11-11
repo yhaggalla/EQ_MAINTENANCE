@@ -1,0 +1,61 @@
+{
+  "passed": 5,
+  "total": 5,
+  "results": [
+    {
+      "name": "Revision 10 loads with verified checksum and no missing nodes",
+      "pass": true,
+      "detail": {
+        "missing": [],
+        "checksum": true,
+        "revision": 10
+      }
+    },
+    {
+      "name": "Optional attachments hidden and fitted assemblies visible in both modes",
+      "pass": true,
+      "detail": [
+        {
+          "mode": "overall",
+          "hidden": true,
+          "fitted": true
+        },
+        {
+          "mode": "technical",
+          "hidden": true,
+          "fitted": true
+        }
+      ]
+    },
+    {
+      "name": "Optional attachment retains selection and explains its absent geometry",
+      "pass": true,
+      "detail": {
+        "selected": [
+          "spreader.over-height-adapter"
+        ],
+        "notice": "Optional attachment; not fitted in this displayed spreader arrangement. Its records remain available.",
+        "part": "pp-q01-246"
+      }
+    },
+    {
+      "name": "Actual sheave rim click resolves to its individual component",
+      "pass": true,
+      "detail": {
+        "selected": [
+          "headblock.hoist-sheave.4"
+        ],
+        "hit": {
+          "key": "headblock.hoist-sheave.4",
+          "nodeKind": "position",
+          "viaInstance": true
+        }
+      }
+    },
+    {
+      "name": "No browser or resource errors",
+      "pass": true,
+      "detail": []
+    }
+  ]
+}

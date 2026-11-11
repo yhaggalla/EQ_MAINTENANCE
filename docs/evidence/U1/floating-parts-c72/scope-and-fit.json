@@ -1,0 +1,73 @@
+{
+  "baseline": "tmp/floating-c72-before",
+  "revision": 10,
+  "passed": 7,
+  "total": 7,
+  "results": [
+    {
+      "name": "All component identities and classifications retained; only two area parents corrected",
+      "pass": true,
+      "detail": {
+        "nodes": 410,
+        "positions": 375
+      }
+    },
+    {
+      "name": "Eight fitted trolley sheaves and four fitted headblock sheaves at drawing datums",
+      "pass": true
+    },
+    {
+      "name": "Four buffers meet the outer bogies at the 27 metre envelope",
+      "pass": true
+    },
+    {
+      "name": "Trip wires span the drawing brackets and small fittings meet their assemblies",
+      "pass": true
+    },
+    {
+      "name": "Optional attachments keep records and have no display mode",
+      "pass": true
+    },
+    {
+      "name": "All geometry outside the explicitly repaired assemblies is byte-identical",
+      "pass": true,
+      "detail": {
+        "unchangedMeshes": 130,
+        "allowedMeshChanges": [
+          "reference.girder.instanced",
+          "boom.main.girder",
+          "reference.boom.instanced",
+          "reference.a-frame.instanced",
+          "trolley.sheave.set.a",
+          "trolley.sheave.set.b",
+          "trolley.spreader-cable-reel",
+          "trolley.hoist-sheaves.instanced",
+          "trolley.spreader-cable",
+          "reference.trolley.instanced",
+          "headblock.sheave-box.a",
+          "headblock.sheave-box.b",
+          "headblock.hoist-sheaves.instanced",
+          "reference.unfitted-attachments.instanced",
+          "reference.headblock-spreader.instanced",
+          "gantry.bogie.ws-a",
+          "gantry.bogie.ws-b",
+          "gantry.bogie.ls-a",
+          "gantry.bogie.ls-b",
+          "gantry.cable-reel.main",
+          "gantry.buffers.instanced",
+          "reference.gantry.instanced",
+          "reference.portal.instanced",
+          "gantry.mounted-housings.instanced"
+        ]
+      }
+    },
+    {
+      "name": "C71 back-reach records and every hoist rope vertex remain unchanged",
+      "pass": true,
+      "detail": {
+        "unchangedBackreachRecords": 41,
+        "ropeMeshes": 4
+      }
+    }
+  ]
+}

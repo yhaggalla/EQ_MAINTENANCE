@@ -1,0 +1,536 @@
+{
+  "base": "HEAD",
+  "baseAsset": {
+    "sha256": "c561ff4125b776f14477e9d596ec91d1124937dbd454c9de8dd4b8e281580053",
+    "bytes": 3757348,
+    "nodes": 410
+  },
+  "revised": {
+    "revision": 9,
+    "sha256": "4ca051abd0154e743fb6fb853df00a4dbdc20b2a58d0bdb2fe20c679192ddba5",
+    "bytes": 3817548,
+    "nodes": 410
+  },
+  "summary": {
+    "added": 0,
+    "removed": 0,
+    "changed": 35,
+    "identityChanges": 29
+  },
+  "note": "Draft v1 revised in place (no binding active). Keys, kinds, classification and instancing of existing nodes are unchanged unless listed; bounds changes are geometry corrections.",
+  "added": [],
+  "removed": [],
+  "changed": [
+    {
+      "key": "container.girder",
+      "boundsChanged": true
+    },
+    {
+      "key": "container.back-reach",
+      "boundsChanged": true
+    },
+    {
+      "key": "reeving.anti-snag-tls.device",
+      "boundsChanged": true,
+      "label": [
+        "Anti-snag and trim/list/skew device (cylinders and levers)",
+        "Anti-snag / TLS fixed supports and four pendulum levers"
+      ]
+    },
+    {
+      "key": "reeving.sheave.girder-tail",
+      "boundsChanged": true,
+      "label": [
+        "Main hoist rope tail sheaves (girder tail, one per rope)",
+        "Main hoist rope tail sheave axles (four independent TLS levers)"
+      ]
+    },
+    {
+      "key": "trolley.skew-system.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.rope.set.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "reeving.hoist-sheave.back-reach.1",
+      "instancing": [
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 2
+        },
+        {
+          "gltfNodeName": "reeving.tls-sheaves.instanced",
+          "index": 0
+        }
+      ],
+      "boundsChanged": true,
+      "modes": [
+        [
+          "technical"
+        ],
+        [
+          "overall",
+          "technical"
+        ]
+      ]
+    },
+    {
+      "key": "reeving.hoist-sheave.back-reach.2",
+      "instancing": [
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 3
+        },
+        {
+          "gltfNodeName": "reeving.tls-sheaves.instanced",
+          "index": 1
+        }
+      ],
+      "boundsChanged": true,
+      "modes": [
+        [
+          "technical"
+        ],
+        [
+          "overall",
+          "technical"
+        ]
+      ]
+    },
+    {
+      "key": "reeving.hoist-sheave.back-reach.3",
+      "instancing": [
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 4
+        },
+        {
+          "gltfNodeName": "reeving.tls-sheaves.instanced",
+          "index": 2
+        }
+      ],
+      "boundsChanged": true,
+      "modes": [
+        [
+          "technical"
+        ],
+        [
+          "overall",
+          "technical"
+        ]
+      ]
+    },
+    {
+      "key": "reeving.hoist-sheave.back-reach.4",
+      "instancing": [
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 5
+        },
+        {
+          "gltfNodeName": "reeving.tls-sheaves.instanced",
+          "index": 3
+        }
+      ],
+      "boundsChanged": true,
+      "modes": [
+        [
+          "technical"
+        ],
+        [
+          "overall",
+          "technical"
+        ]
+      ]
+    },
+    {
+      "key": "reeving.catenary-sheave.1",
+      "instancing": [
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 6
+        },
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 2
+        }
+      ]
+    },
+    {
+      "key": "reeving.catenary-sheave.2",
+      "instancing": [
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 7
+        },
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 3
+        }
+      ]
+    },
+    {
+      "key": "reeving.tls-cylinder.1",
+      "instancing": [
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 8
+        },
+        {
+          "gltfNodeName": "reeving.tls-cylinders.instanced",
+          "index": 0
+        }
+      ],
+      "boundsChanged": true,
+      "modes": [
+        [
+          "technical"
+        ],
+        [
+          "overall",
+          "technical"
+        ]
+      ]
+    },
+    {
+      "key": "reeving.tls-cylinder.2",
+      "instancing": [
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 9
+        },
+        {
+          "gltfNodeName": "reeving.tls-cylinders.instanced",
+          "index": 1
+        }
+      ],
+      "boundsChanged": true,
+      "modes": [
+        [
+          "technical"
+        ],
+        [
+          "overall",
+          "technical"
+        ]
+      ]
+    },
+    {
+      "key": "reeving.tls-cylinder.3",
+      "instancing": [
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 10
+        },
+        {
+          "gltfNodeName": "reeving.tls-cylinders.instanced",
+          "index": 2
+        }
+      ],
+      "boundsChanged": true,
+      "modes": [
+        [
+          "technical"
+        ],
+        [
+          "overall",
+          "technical"
+        ]
+      ]
+    },
+    {
+      "key": "reeving.tls-cylinder.4",
+      "instancing": [
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 11
+        },
+        {
+          "gltfNodeName": "reeving.tls-cylinders.instanced",
+          "index": 3
+        }
+      ],
+      "boundsChanged": true,
+      "modes": [
+        [
+          "technical"
+        ],
+        [
+          "overall",
+          "technical"
+        ]
+      ]
+    },
+    {
+      "key": "reeving.tls-pump.coupling-insert",
+      "instancing": [
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 12
+        },
+        null
+      ],
+      "boundsChanged": true,
+      "modes": [
+        [
+          "technical"
+        ],
+        [
+          "overall",
+          "technical"
+        ]
+      ]
+    },
+    {
+      "key": "reeving.tls-pump.motor",
+      "instancing": [
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 13
+        },
+        null
+      ],
+      "boundsChanged": true,
+      "modes": [
+        [
+          "technical"
+        ],
+        [
+          "overall",
+          "technical"
+        ]
+      ]
+    },
+    {
+      "key": "reeving.trolley-tension.cylinder.1",
+      "instancing": [
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 14
+        },
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 4
+        }
+      ]
+    },
+    {
+      "key": "reeving.trolley-tension.cylinder.2",
+      "instancing": [
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 15
+        },
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 5
+        }
+      ]
+    },
+    {
+      "key": "reeving.catenary-tension.cylinder.1",
+      "instancing": [
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 16
+        },
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 6
+        }
+      ]
+    },
+    {
+      "key": "reeving.catenary-tension.cylinder.2",
+      "instancing": [
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 17
+        },
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 7
+        }
+      ]
+    },
+    {
+      "key": "reeving.oil-point.tls-power-unit",
+      "instancing": [
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 18
+        },
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 8
+        }
+      ]
+    },
+    {
+      "key": "reeving.tls-cylinder.transducers.1",
+      "instancing": [
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 19
+        },
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 9
+        }
+      ],
+      "boundsChanged": true
+    },
+    {
+      "key": "reeving.tls-cylinder.transducers.2",
+      "instancing": [
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 20
+        },
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 10
+        }
+      ],
+      "boundsChanged": true
+    },
+    {
+      "key": "reeving.tls-cylinder.transducers.3",
+      "instancing": [
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 21
+        },
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 11
+        }
+      ],
+      "boundsChanged": true
+    },
+    {
+      "key": "reeving.tls-cylinder.transducers.4",
+      "instancing": [
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 22
+        },
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 12
+        }
+      ],
+      "boundsChanged": true
+    },
+    {
+      "key": "reeving.tls-cylinder.pressure-switches.1",
+      "instancing": [
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 23
+        },
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 13
+        }
+      ],
+      "boundsChanged": true
+    },
+    {
+      "key": "reeving.tls-cylinder.pressure-switches.2",
+      "instancing": [
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 24
+        },
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 14
+        }
+      ],
+      "boundsChanged": true
+    },
+    {
+      "key": "reeving.tls-cylinder.pressure-switches.3",
+      "instancing": [
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 25
+        },
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 15
+        }
+      ],
+      "boundsChanged": true
+    },
+    {
+      "key": "reeving.tls-cylinder.pressure-switches.4",
+      "instancing": [
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 26
+        },
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 16
+        }
+      ],
+      "boundsChanged": true
+    },
+    {
+      "key": "reeving.trolley-tension.proximity-switches.1",
+      "instancing": [
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 27
+        },
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 17
+        }
+      ]
+    },
+    {
+      "key": "reeving.trolley-tension.proximity-switches.2",
+      "instancing": [
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 28
+        },
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 18
+        }
+      ]
+    },
+    {
+      "key": "reeving.trolley-tension.proximity-switches.3",
+      "instancing": [
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 29
+        },
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 19
+        }
+      ]
+    },
+    {
+      "key": "reeving.trolley-tension.proximity-switches.4",
+      "instancing": [
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 30
+        },
+        {
+          "gltfNodeName": "reference.back-reach.instanced",
+          "index": 20
+        }
+      ]
+    }
+  ]
+}

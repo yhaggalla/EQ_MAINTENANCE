@@ -1,0 +1,51 @@
+{
+  "sources": [
+    {
+      "path": "Drawings and manuals/As-bulit drawing/J526A3100.pdf",
+      "sha256": "ad5b03d3670e5956fc70f8ddadc366cd8b8e5a5adff7d288ced7d990d5ae93d6",
+      "reviewedPages": [
+        1
+      ]
+    },
+    {
+      "path": "Drawings and manuals/As-bulit drawing/J526A0200.pdf",
+      "sha256": "f5418e335b514fadf57c5d2970863766e7d0668df626c5da9c34946cfe5f0503",
+      "reviewedPages": [
+        1
+      ]
+    }
+  ],
+  "render": "PyMuPDF, page 1; enlarged crops at Matrix(3,3). Source PDFs read only.",
+  "clips": {
+    "front": [
+      395,
+      125,
+      625,
+      405
+    ],
+    "side-a": [
+      780,
+      60,
+      1140,
+      395
+    ],
+    "side-b": [
+      45,
+      75,
+      370,
+      405
+    ],
+    "plan": [
+      400,
+      440,
+      785,
+      825
+    ],
+    "rear-panels": [
+      90,
+      450,
+      285,
+      650
+    ]
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "passed": 6,
+  "total": 6,
+  "results": [
+    {
+      "name": "Revision 12 loads with verified checksum and no missing geometry",
+      "pass": true,
+      "detail": {
+        "missing": [],
+        "checksum": true,
+        "revision": 12
+      }
+    },
+    {
+      "name": "Physical pick retains cabin.operator.seat",
+      "pass": true,
+      "detail": {
+        "key": "cabin.operator.seat",
+        "nodeKind": "position"
+      }
+    },
+    {
+      "name": "Physical pick retains cabin.operator.consoles",
+      "pass": true,
+      "detail": {
+        "key": "cabin.operator.consoles",
+        "nodeKind": "position"
+      }
+    },
+    {
+      "name": "Physical pick retains cabin.monitors.2",
+      "pass": true,
+      "detail": {
+        "key": "cabin.monitors.2",
+        "nodeKind": "position",
+        "viaInstance": true
+      }
+    },
+    {
+      "name": "Cabin, instruments and opposite busbar visible in both modes",
+      "pass": true,
+      "detail": [
+        {
+          "mode": "overall",
+          "visible": true
+        },
+        {
+          "mode": "technical",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "name": "No browser or resource errors",
+      "pass": true,
+      "detail": []
+    }
+  ]
+}

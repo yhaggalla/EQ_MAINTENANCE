@@ -1,0 +1,92 @@
+{
+  "passed": 8,
+  "total": 8,
+  "results": [
+    {
+      "name": "Viewer loads and verifies checksum with no missing nodes",
+      "pass": true,
+      "detail": {
+        "ready": true,
+        "missing": [],
+        "checksum": true
+      }
+    },
+    {
+      "name": "Actual mesh click selects TLS cylinder 1",
+      "pass": true,
+      "detail": {
+        "selected": [
+          "reeving.tls-cylinder.1"
+        ],
+        "part": "pp-q01-144",
+        "position": "pp-q01-144"
+      }
+    },
+    {
+      "name": "Actual mesh click selects TLS cylinder 2",
+      "pass": true,
+      "detail": {
+        "selected": [
+          "reeving.tls-cylinder.2"
+        ],
+        "part": "pp-q01-145",
+        "position": "pp-q01-145"
+      }
+    },
+    {
+      "name": "Actual mesh click selects TLS cylinder 3",
+      "pass": true,
+      "detail": {
+        "selected": [
+          "reeving.tls-cylinder.3"
+        ],
+        "part": "pp-q01-146",
+        "position": "pp-q01-146"
+      }
+    },
+    {
+      "name": "Actual mesh click selects TLS cylinder 4",
+      "pass": true,
+      "detail": {
+        "selected": [
+          "reeving.tls-cylinder.4"
+        ],
+        "part": "pp-q01-147",
+        "position": "pp-q01-147"
+      }
+    },
+    {
+      "name": "QC02 retains a different equipment-specific cylinder identity",
+      "pass": true,
+      "detail": {
+        "selected": [
+          "reeving.tls-cylinder.1"
+        ],
+        "id": "pp-q02-144"
+      }
+    },
+    {
+      "name": "Corrected parts remain visible in Overall mode",
+      "pass": true,
+      "detail": [
+        {
+          "k": "reeving.tls-cylinder.1",
+          "visible": true
+        },
+        {
+          "k": "reeving.hoist-sheave.back-reach.4",
+          "visible": true
+        },
+        {
+          "k": "reeving.tls-pump.motor",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "name": "No browser script or resource errors",
+      "pass": true,
+      "detail": []
+    }
+  ]
+}

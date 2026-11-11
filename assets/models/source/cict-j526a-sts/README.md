@@ -6,7 +6,14 @@ Editable source of the QC model for the ZPMC J526A drawing family ("Sri Lanka CI
 | --- | --- |
 | `params.json` | Every dimension used by the model, in millimetres, each with its kind (measured / drawing-derived / estimated / approximate-location), source sheet and note |
 | `build.mjs` | Scene definition: assemblies, semantic node keys, classification, containers, hotspots, instanced positions and provenance. Edit this to change geometry |
+| `cabin.mjs` | U1-C74 cabin shell, suspension, access, seat, controls and instrument geometry from J526A3100; detailed profiles/instrument layouts remain simplified |
 | `../../../../tools/model-generator/` | Generic pipeline (kit, scene builder, exporter, validator); three.js pinned at 0.186.1 with a lockfile |
+
+## Current local model
+
+Draft v1 revision **13** is the current QC asset in [artifacts/models](../../../../artifacts/models/cict-j526a-sts-scene/1/manifest.json). C74 rebuilt the cabin and moved the busbar to +Z; C75 moved the cabin entrance to -Z and added the fixed boarding route at the third elevator/stair landing. Edit `cabin.mjs` for the door, gate and moving platform, `build.mjs` for the fixed walkway, and `params.json` for the provisional `cabinHomeRearX` and source notes. The trolley and cabin still display at outreach.
+
+Run the generator and validation below from the repo root. For C75, run `node tools/u1/check_cabin_c75.mjs` with the saved revision 12 GLB and manifest in `tmp/cabin-c75-before`, and `node tools/u1/capture_cabin_c75.mjs` with the P02 server on port 5312. Revision 13 uses 230 of the 230 allowed draw calls. See the [evidence](../../../../docs/evidence/U1/cabin-c75/REPORT.md) and [handover](../../../../docs/HANDOVER.md). U1 remains unapproved.
 
 ## Coordinate system
 
@@ -71,3 +78,15 @@ Revised in place (manifest `revision: 6`; no equipment binding is active). `node
 Revised in place (manifest `revision: 7`; no equipment binding is active). `node tools/u1/model_diff.mjs --out docs/evidence/U1/qc-technical-c65/model-revision-diff.json` against revision 6: 10 added, 0 removed, 11 changed, 0 identity changes. New container `container.trolley-runway` (trolley rails and catenary trolleys) with `trolley.rail.girder`, `trolley.rail.boom`, `trolley.rail.hinge-joint` (J526A0104: A75 rails, ZGD190 pads, clip pairs at 600, hinge-joint short rails, end stops), `trolley.catenary.landside` / `.waterside`, `reeving.sheave.catenary-boom-tip` and `trolley.catenary-rope.set.main` (J526A2200 set); `trolley.catenary.tensioner` in `container.back-reach` (J526A2203); `auxiliary.rope-reeving.machinery-house` (J526A1500, location approximate). The rail strips moved out of the girder and boom nodes. Measured values replace three estimates: `antiSnagSheaveDia` 1000 (J526A1000 B-B), `trolleyTailSheaveDia` 830 (J526A2103), `spreaderCableReelDia` 2200 (Cavotec SC-121216-ME2a). New parameters are marked "U1-C65" in `params.json`. The provisional draw-call budget is 230 by the user's decision D-213 (213 used); triangles 70154.
 
 U1-C66 (29 October 2026, still revision 7, regenerated in place): rope paths rebuilt with tangent runs and arc wraps (`ARC`, `tanFrom`, `tanOuter` in `build.mjs`); one boom-tip hoist sheave per rope lane and one anti-snag tail sheave per hoist rope; trolley-rope tip and tail sheaves level with the return run; catenary trolley supports at the rope heights; catenary tensioner, house rope openings, boom-block cross-beam and forestay brackets adjusted. `model_diff.mjs` against Git HEAD (C65 + C66): 10 added, 0 removed, 21 changed, 0 identity changes. Evidence `docs/evidence/U1/rope-paths-c66/REPORT.md`.
+
+## Revision 9 of draft v1 (U1-C71, 5 November 2026)
+
+Back-reach TLS correction from J526A1000: four pendulum levers, near-horizontal cylinders in the normal pose, and four sheaves in transverse pairs. `backreach.mjs` reads the new `tls*` parameters; `build.mjs` overrides the corresponding C70 reference proxies at generation time. Cylinder/sensor positions and the power-pack motor/coupling follow the corrected geometry. Original rope runs are spliced at X=-54 m to preserve geometry outside the back reach. 410 stable semantic keys, no classification/parent/kind changes; only back-reach render carriers are remapped. Exact mounting elevation, fork profiles and power-pack location remain estimated. Report: `docs/evidence/U1/backreach-c71/REPORT.md`. Scope check: `node tools/u1/check_backreach_c71.mjs <baseline-dir>`; browser captures/picking: `node tools/u1/capture_backreach_c71.mjs`. U1 remains NOT APPROVED.
+
+## Revision 10 of draft v1 (U1-C72, 6 November 2026)
+
+`fitted-components.mjs` replaces duplicate workbook proxies with individually keyed physical trolley/headblock sheaves, gantry buffers and the spreader cable, then corrects accessory datums and area parents. `build.mjs` retains shafts/frames and adds drawing-derived trip-wire brackets and approximate gantry mounts. Optional interchangeable attachments remain registered but have `modes: []` in this assembled-crane configuration; the viewer explains their absence. All 410 semantic keys retained. C71 back-reach geometry/records and all four rope meshes are unchanged. 228/230 draw calls; 90,130 triangles. Source and fit qualifications, checks and captures: `docs/evidence/U1/floating-parts-c72/REPORT.md`. Baseline regression: `node tools/u1/check_floating_c72.mjs tmp/floating-c72-before`. U1 NOT APPROVED.
+
+## Revision 11 of draft v1 (U1-C73, 9 November 2026)
+
+User-confirmed arrangement: busbar under the boom and power/communication slipring connection attached to the cabin. `build.mjs` replaces the generic rear-girder festoon sample, retaining `trolley.cable-system.main` (023) in `container.trolley-runway`. Six new placement parameters are explicitly estimated; dimensions and conductor count are not verified installation facts. All other geometry remains byte-identical. Model/binding/scope/browser checks: 44/44 PASS; 228/230 draw calls. Evidence `docs/evidence/U1/busbar-c73/REPORT.md`. U1 NOT APPROVED.

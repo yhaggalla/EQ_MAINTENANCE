@@ -158,8 +158,11 @@ function update(s) {
     } else if (sel.part || sel.sub || sel.main || sel.grp) message(s, 'This selection has no visible representation. Its records remain available.');
     else if (!iso) v.resetView();
   }
-  if ((sel.part || sel.sub || sel.main || sel.grp || container) && !v.boundsOf(container ? [container] : keys))
-    message(s, 'This selection has no visible representation in this mode. Its records remain available; use Technical mode or the tree.');
+  if ((sel.part || sel.sub || sel.main || sel.grp || container) && !v.boundsOf(container ? [container] : keys)) {
+    const node = part && manifest.nodes.find(n => n.key === part.key);
+    message(s, node?.modes.length === 0 ? node.qualifier || 'This part is not fitted in the displayed arrangement. Its records remain available.'
+      : 'This selection has no visible representation in this mode. Its records remain available; use Technical mode or the tree.');
+  }
   const work = new Map();
   ps.forEach(p => { const count = EQ.openCount(eq.id, { level: 'part', id: p.id }); if (count) work.set(p.key, count); });
   v.setWorkMarkers(EQ.eqUI.showWork ? work : new Map());

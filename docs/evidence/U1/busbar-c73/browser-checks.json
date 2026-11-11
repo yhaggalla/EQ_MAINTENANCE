@@ -1,0 +1,42 @@
+{
+  "passed": 4,
+  "total": 4,
+  "results": [
+    {
+      "name": "Revision 11 loads with verified checksum and no missing geometry",
+      "pass": true,
+      "detail": {
+        "missing": [],
+        "checksum": true,
+        "revision": 11
+      }
+    },
+    {
+      "name": "Busbar connection remains visible in both viewing modes",
+      "pass": true,
+      "detail": [
+        {
+          "mode": "overall",
+          "visible": true
+        },
+        {
+          "mode": "technical",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "name": "Actual contact-shoe mouse pick resolves to the retained identity",
+      "pass": true,
+      "detail": {
+        "key": "trolley.cable-system.main",
+        "nodeKind": "hotspot"
+      }
+    },
+    {
+      "name": "No browser or resource errors",
+      "pass": true,
+      "detail": []
+    }
+  ]
+}

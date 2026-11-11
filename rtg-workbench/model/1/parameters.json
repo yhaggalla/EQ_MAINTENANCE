@@ -367,16 +367,26 @@
         862.5,
         1207.5
       ],
-      "endSheaveX": 1780,
-      "endSheaveZ": 2640,
+      "endSheaveX": 1850,
+      "endSheaveZ": 2690,
+      "fallCentreY": 28000,
+      "sideSheaveX": 600,
       "sideSheaveZ": 2100,
       "ropeTerminalZ": 2690,
-      "endRopeX": 600,
-      "endRopeY": 2050,
-      "sideRopeZ": 300,
-      "sideRopeY": 1900,
+      "endLinkLength": 840,
+      "sideLinkLength": 550,
       "sidePinX": 600,
       "pinY": 1460
+    },
+    "spreaderCable": {
+      "diameter": 44,
+      "guideTopY": 27720,
+      "guideExitY": 27460,
+      "basketBaseY": 1325,
+      "basketRadius": 420,
+      "basketHeight": 420,
+      "cageTopY": 2650,
+      "coilRadius": 325
     },
     "cabCentreX": 2200,
     "cabCentreZ": 0,
@@ -428,7 +438,7 @@
       "document": "M14",
       "pdfPage": 27,
       "figure": "Fig 2-14; JL2860603 listed p21",
-      "note": "Eight routes, twelve trolley sheaves, four paired edge terminations. Exact sheave-axis coordinates and drum departure tangencies unresolved; schematic paths."
+      "note": "Eight routes, twelve trolley sheaves, four paired edge terminations. Sheave axes and guide inclinations are estimates; routes use geometric tangencies and small direct-lead fleet angles."
     },
     "spreader": {
       "document": "M14",
@@ -530,7 +540,7 @@
       "document": "M14",
       "pdfPage": 27,
       "figure": "Fig 2-14 8 ropes reeving; p26 text; JL28606 front/side views p21",
-      "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 horizontal guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes and positions read from the trolley views; groove assignment, sheave shaft coordinates and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
+      "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 deck guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes follow the trolley views. WA-04/06/08 place guides near the deck; their inclinations are derived to meet drum tangents. Groove assignment, shaft coordinates, link lengths and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
     },
     "exhaust": {
       "document": "M14",
@@ -544,6 +554,13 @@
       "pdfPage": null,
       "figure": "User site photographs, 5 November 2026 (WA-01 … WA-28)",
       "note": "Twenty-eight photographs of a CICT ZP12-1874 RTG. Used for shapes, positions and finishes the manuals do not give: turning jacks, drive platforms, trolley drives and cabinet, cable basket, chain portal, lamps and pipework. Scaled against known dimensions; perspective limits accuracy."
+    },
+    "cableFeed": {
+      "document": "PHOTO",
+      "photo": "wa-15",
+      "pdfPage": null,
+      "figure": "WA-08 cable guide beside drum; WA-15/17 basket; WA-19 trolley underside; M14 p21 SCF1 item",
+      "note": "Fixed trolley feed and hanging cable entering an open headblock storage basket through its guide cage. The large outboard motorised reel was not supported by the photos. Compact guide envelope, under-deck supply route and cable diameter are estimates; SCF1 vendor internals unavailable. Legacy reel node key retained for binding continuity."
     },
     "cabInterior": {
       "document": "PHOTO",

@@ -126,6 +126,20 @@
       "sha256": "a3ea4ca84493a42e54f44426472084d36db23ff02dae932138b345bdcf7aa296",
       "bytes": 143868,
       "use": "Room platform and leg tie bars"
+    },
+    {
+      "id": "wa-08",
+      "original": "WhatsApp Image 2026-11-05 at 7.12.47 AM (1).jpeg",
+      "sha256": "ce834f17f96cf829319c0c3299cfb71304ea50709ffc52ee412421b4b9e9a69a",
+      "bytes": 241184,
+      "use": "Drum winding/clamp groups and compact red cable guide near deck"
+    },
+    {
+      "id": "wa-19",
+      "original": "WhatsApp Image 2026-11-05 at 7.12.51 AM.jpeg",
+      "sha256": "14ff7a6f68214b077613ef19c54e94e7c2b54e922e846ff20710c0ecc72c8a18",
+      "bytes": 294573,
+      "use": "Trolley underside cable runs and hanging cable feed"
     }
   ],
   "allNewPhotos": [

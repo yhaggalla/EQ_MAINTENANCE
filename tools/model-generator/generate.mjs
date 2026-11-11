@@ -69,7 +69,7 @@ function meshStats(filterMode) {
   let tris = 0, prims = 0, meshes = 0;
   root.traverse((o) => {
     if (!o.isMesh) return;
-    const modes = (o.userData.modes || 'overall,technical').split(',');
+    const modes = (o.userData.modes ?? 'overall,technical').split(',');
     if (filterMode && !modes.includes(filterMode)) return;
     const idx = o.geometry.index ? o.geometry.index.count : o.geometry.attributes.position.count;
     const inst = o.isInstancedMesh ? o.count : 1;
@@ -188,7 +188,7 @@ chk('trolley wheels on the girder rail', bOf('trolley.wheel.ws-a.1').min[1], P('
 chk('lift above rail: spreader underside', bOf('spreader.frame').min[1], P('liftAboveRail'), 'measured', 1, 'display position at upper limit');
 chk('tie-beam clearance', bOf('structure.portal.tie-beam.a').min[1], P('portalTieBeamUnderside'), 'measured', 1, '12500');
 chk('leg centre spacing (end view)', cx(bOf('structure.portal.landside.leg.a'), 2) - cx(bOf('structure.portal.landside.leg.b'), 2), P('legCentreSpacing'), 'measured', 1, '20400');
-chk('gantry overall length (end view)', bOf('gantry.bogie.ws-a').max[2] - bOf('gantry.bogie.ws-b').min[2], P('bogieOverall'), 'measured', 1, '27000 (buffers to buffers)');
+chk('gantry overall length (end view)', bOf('gantry.buffers.1').max[2] - bOf('gantry.buffers.2').min[2], P('bogieOverall'), 'measured', 1, '27000 (buffers to buffers; individual buffer nodes since C72)');
 // Measured on the house shell (walls, roof, roof railings). The container bounds also include the external walkways
 // and A/C platform added in the U1 repair, which are not part of the 18200 house length.
 const houseShell = new THREE.Box3().setFromObject(S.objects.get('container.machinery-house').children.find((c) => c.userData.shellOf === 'container.machinery-house'));
@@ -217,7 +217,7 @@ if (manifest.decals.length) {
 fs.writeFileSync(path.join(outDir, 'provenance.md'), lines.join('\n') + '\n');
 
 // ---------- checksums ----------
-const files = [path.join(srcDir, 'params.json'), path.join(srcDir, 'build.mjs'), ...(fs.existsSync(path.join(srcDir, 'reference-components.mjs')) ? [path.join(srcDir, 'reference-components.mjs')] : []), ...embeddedTextures.map((t) => path.join(repo, t.file)), path.join(here, 'generate.mjs'), path.join(here, 'lib', 'kit.mjs'), path.join(here, 'lib', 'scene-builder.mjs'), path.join(here, 'package-lock.json'), path.join(outDir, 'scene.glb'), path.join(outDir, 'manifest.json'), path.join(outDir, 'provenance.md'), path.join(outDir, 'landmarks.json')];
+const files = [path.join(srcDir, 'params.json'), path.join(srcDir, 'build.mjs'), ...['reference-components.mjs', 'backreach.mjs', 'fitted-components.mjs', 'cabin.mjs'].filter(f => fs.existsSync(path.join(srcDir, f))).map(f => path.join(srcDir, f)), ...embeddedTextures.map((t) => path.join(repo, t.file)), path.join(here, 'generate.mjs'), path.join(here, 'lib', 'kit.mjs'), path.join(here, 'lib', 'scene-builder.mjs'), path.join(here, 'package-lock.json'), path.join(outDir, 'scene.glb'), path.join(outDir, 'manifest.json'), path.join(outDir, 'provenance.md'), path.join(outDir, 'landmarks.json')];
 fs.writeFileSync(path.join(outDir, 'checksums.json'), JSON.stringify(Object.fromEntries(files.map((f) => [rel(f), sha(fs.readFileSync(f))])), null, 2) + '\n');
 
 const failed = checks.filter((c) => !c.pass);

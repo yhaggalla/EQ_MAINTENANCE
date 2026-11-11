@@ -7,6 +7,29 @@ export function ropeTangent(centre,lower,radius){
   const v=new T.Vector3().crossVectors(axis,u).normalize();
   return c.addScaledVector(u,radius*radius/d).addScaledVector(v,radius*Math.sqrt(Math.max(0,1-radius*radius/(d*d))));
 }
+/** A rigid socket/turnbuckle pivots at the headblock pin and stays collinear with its loaded rope. */
+export function ropeConnection(data,height){
+  const pin=new T.Vector3(...(data.headblockPin||data.endOffset));pin.y+=height;
+  const a=ropeTangent(data.sheaveCentre,pin.toArray(),data.sheaveRadius),direction=a.clone().sub(pin).normalize();
+  const b=pin.clone().addScaledVector(direction,data.socketLength||0);
+  return{a,b,pin,direction};
+}
+/** A fall-sheave wrap ends at the moving tangent, rather than extending past it at low lift. */
+export function ropeWrapGeometry(data,height,existing){
+  const c=new T.Vector3(...data.sheaveCentre),u=new T.Vector3(...data.planeOut),up=new T.Vector3(0,1,0),axis=new T.Vector3().crossVectors(u,up);
+  const tangent=ropeConnection(data,height).a.sub(c);
+  const to=Math.atan2(tangent.y,tangent.dot(u)),segments=24,radial=6;
+  const g=existing||new T.TorusGeometry(data.sheaveRadius,data.ropeRadius,radial,segments);
+  if(!existing){const a=g.index.array;for(let i=0;i<a.length;i+=3)[a[i+1],a[i+2]]=[a[i+2],a[i+1]];}
+  const p=g.attributes.position,n=g.attributes.normal;
+  for(let j=0;j<=radial;j++)for(let i=0;i<=segments;i++){
+    const t=data.arrivalAngle+(to-data.arrivalAngle)*i/segments,ph=j/radial*Math.PI*2;
+    const normal=u.clone().multiplyScalar(Math.cos(t)*Math.cos(ph)).addScaledVector(up,Math.sin(t)*Math.cos(ph)).addScaledVector(axis,Math.sin(ph));
+    const point=c.clone().addScaledVector(u,Math.cos(t)*data.sheaveRadius).addScaledVector(up,Math.sin(t)*data.sheaveRadius).addScaledVector(normal,data.ropeRadius),k=j*(segments+1)+i;
+    p.setXYZ(k,...point.toArray());n.setXYZ(k,...normal.toArray());
+  }
+  p.needsUpdate=true;n.needsUpdate=true;g.computeBoundingBox();g.computeBoundingSphere();return g;
+}
 /** Constant-length U carrier: fixed lower anchor x=0; moving upper anchor x=trolleyX. */
 const link=new T.BoxGeometry(.105,.075,.32);link.deleteAttribute('uv');link.clearGroups();
 export function chainGeometry(trolleyX,y,z,existing){

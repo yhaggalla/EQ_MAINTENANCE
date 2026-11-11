@@ -1,7 +1,7 @@
 import * as T from 'three';
 import {Builder,mats} from './geometry.mjs';
 import {dimensions as D,estimates as E,sources} from './parameters.mjs';
-import {ropeTangent,chainGeometry} from '../viewer/kinematics.mjs';
+import {ropeConnection,ropeWrapGeometry,chainGeometry} from '../viewer/kinematics.mjs';
 import {addAppearance} from './appearance.mjs';
 
 // Revision 2: 300 selectable parts (position + qualified hotspot nodes). Spatial containers are extra.
@@ -46,7 +46,7 @@ export function buildModel(){
       B.loft(leg,[x,E.sillTop,sz*Z],[x,legTop,sz*G],E.legBottomWidthX,E.legBottomWidthZ,E.legTopWidthX,E.legTopWidthZ);
       const foot=part(`structure.leg-foot.${id}`,`${title(side)} ${end} leg-to-sill flange joint`,frame,'151','frameDetail');B.box(foot,[x,E.sillTop+70,sz*Z],[950,100,1000]);
       for(const dx of[-1,1])for(const dz of[-1,1])B.box(foot,[x+dx*390,E.sillTop+270,sz*Z+dz*430],[30,300,140]);
-      const head=part(`structure.leg-head.${id}`,`${title(side)} ${end} leg-to-girder knee joint`,frame,'151','frameDetail');B.box(head,[x,legTop-40,sz*G],[1300,80,1000]);
+      const head=part(`structure.leg-head.${id}`,`${title(side)} ${end} leg-to-girder knee joint`,frame,'151','frameDetail');B.box(head,[x,legTop-40,sz*G],[1300,80,E.girderWidth]);
       for(const dx of[-1,1])B.beam(head,[x+dx*560,legTop-950,sz*G],[x+dx*640,legTop-80,sz*G],40,780);
       // Sill-end lifting lugs are welded to the sill beam, so they belong to that part (frees 4 parts for the jacks).
       B.box(sill,[x,E.sillTop-E.sillDepth/2,sz*(E.sillLength/2+30)],[320,380,60]);B.ring(sill,[x,E.sillTop-E.sillDepth/2,sz*(E.sillLength/2+62)],'z',85,26,'dark',24);
@@ -97,7 +97,7 @@ export function buildModel(){
       const guard=part(`gantry.guard.${wheelid}`,`${wl} tyre protective frame`,bogie,'041','bogieDetail');
       // Open rail outline; its long side is inboard, the outboard side carries the striped plate beside the chain drive.
       B.rail(guard,[[xout(650),1100,wz-930],[x-sx*650,1100,wz-930],[x-sx*650,1100,wz+930],[xout(650),1100,wz+930]],550);
-      const tyre=part(`gantry.tyre.${wheelid}`,`${wl} tyre 21.00-35`,bogie,'044','gantry','position',{userData:{motionRole:'gantry-wheel',radius:P('tyreDiameter')/2000}});
+      const tyre=part(`gantry.tyre.${wheelid}`,`${wl} tyre 21.00-35`,bogie,'044','gantry',{userData:{motionRole:'gantry-wheel',radius:P('tyreDiameter')/2000}});
       B.objects.get(tyre).position.set(x/1000,P('tyreDiameter')/2000,wz/1000);B.tyre(tyre,P('tyreDiameter'),E.tyreWidth);
       const rim=part(`gantry.rim.${wheelid}`,`${wl} rim, hub and wheel studs`,bogie,'044','gantry');B.objects.get(rim).position.set(x/1000,P('tyreDiameter')/2000,wz/1000);
       B.cyl(rim,[0,0,0],'x',E.tyreRimDiameter/2,E.tyreWidth+30,'dark',40);for(const s of[-1,1]){B.cyl(rim,[s*310,0,0],'x',210,65,'structure',32);for(let i=0;i<10;i++)B.cyl(rim,[s*348,310*Math.cos(i*Math.PI/5),310*Math.sin(i*Math.PI/5)],'x',26,38,'metal',6);}
@@ -140,7 +140,7 @@ export function buildModel(){
   for(const[sz,id]of ENDS){const k=part(`access.trolley.walkway.${id}`,`Trolley ${id} walkway and handrail`,trolley,'151','trolley');B.box(k,[0,fy+245,sz*3700],[5600,65,700],'dark');B.rail(k,[[-2800,fy+280,sz*3700],[2800,fy+280,sz*3700]]);}
   for(const[sx,side]of SIDES){const k=part(`access.trolley.walkway.${side}`,`Trolley ${side} end walkway and handrail`,trolley,'151','trolley');B.box(k,[sx*2800,fy+245,0],[700,65,7400],'dark');B.rail(k,[[sx*2800,fy+280,-3700],[sx*2800,fy+280,3700]]);}
   for(const[sx,side]of SIDES)for(const[sz,end]of ENDS){
-    const wid=`${side}.${end}`,k=part(`trolley.wheel.${wid}`,`Trolley wheel Ø500 · ${words(wid)}`,trolley,'021','trolley','position',{userData:{motionRole:'trolley-wheel',radius:.25}});
+    const wid=`${side}.${end}`,k=part(`trolley.wheel.${wid}`,`Trolley wheel Ø500 · ${words(wid)}`,trolley,'021','trolley',{userData:{motionRole:'trolley-wheel',radius:.25}});
     B.objects.get(k).position.set(sx*P('trolleyBase')/2000,fy/1000,sz*G/1000);B.cyl(k,[0,0,0],'z',250,150,'metal',32);B.cyl(k,[0,0,0],'z',100,330,'dark');for(const dz of[-1,1])B.cyl(k,[0,0,dz*80],'z',265,12,'metal',32);
     const brg=part(`trolley.wheel-bearing.${wid}`,`Trolley wheel bearing housings · ${words(wid)}`,trolley,'021','trolley');for(const dz of[-1,1])B.box(brg,[sx*2025,fy,sz*G+dz*220],[320,300,110],'dark');
     const guide=part(`trolley.guide.${wid}`,`Side guide rollers · ${words(wid)}`,trolley,'021','trolleyItems');for(const dx of[-160,160]){B.cyl(guide,[sx*2025+dx,R-20,sz*(G+140)],'y',80,100,'dark');B.box(guide,[sx*2025+dx,R+95,sz*(G+120)],[100,80,350]);B.cyl(guide,[sx*2025+dx,R+40,sz*(G+140)],'y',22,140,'metal',8);}
@@ -159,83 +159,106 @@ export function buildModel(){
 
   // ── Hoist machinery (Fig 2-10) ──
   const hoist=B.container('container.hoist','Hoist machinery and reeving',trolley,'hoist');const dy=E.drumCentreY,mz=E.motorCentreZ;
-  const drum=part('hoist.drum.main','Hoist drum Ø1200 · eight groove groups',hoist,'011','hoist','position',{userData:{motionRole:'drum'}});B.objects.get(drum).position.set(0,dy/1000,0);
-  B.cyl(drum,[0,0,0],'x',P('drumDiameter')/2,E.drumLength,'dark',64);for(const x of[-1480,1480])B.cyl(drum,[x,0,0],'x',690,50,'metal',48);for(const g of E.reeving.grooveX)for(const sg of[-1,1])for(let w=0;w<6;w++)B.ring(drum,[sg*g+(w-2.5)*30,0,0],'x',606,8,'metal',32);
+  const drum=part('hoist.drum.main','Hoist drum Ø1200 · eight groove groups',hoist,'011','hoist',{userData:{motionRole:'drum'}});B.objects.get(drum).position.set(0,dy/1000,0);
+  B.cyl(drum,[0,0,0],'x',P('drumDiameter')/2,E.drumLength,'dark',64);for(const x of[-1480,1480])B.cyl(drum,[x,0,0],'x',690,50,'#3d4245',48);
   const coupling=part('hoist.drum-coupling.main','Drum coupling to reducer',hoist,'011','hoistDrive');B.cyl(coupling,[1515,dy,0],'x',360,60,'metal',40);for(let i=0;i<12;i++){const a=i*Math.PI/6;B.cyl(coupling,[1515,dy+300*Math.cos(a),300*Math.sin(a)],'x',18,90,'dark',6);}
   const bearing=part('hoist.drum-bearing.main','Drum bearing seat (non-drive end)',hoist,'011','hoistDrive');B.box(bearing,[-1640,fy+500,0],[240,550,650]);B.cyl(bearing,[-1640,dy,0],'x',250,200,'metal',32);B.box(bearing,[-1640,fy+260,0],[500,80,850]);
-  const base=part('hoist.machinery-base.main','Hoist machinery base plates',hoist,'011','hoistDrive');B.box(base,[300,28420,mz],[1500,180,850]);B.box(base,[1770,28375,675],[700,90,2050]);
+  const base=part('hoist.machinery-base.main','Hoist machinery base plates',hoist,'011','hoistDrive');B.box(base,[300,28470,mz],[1500,80,850]);B.box(base,[1770,28375,675],[700,90,2050]);
   const reducer=part('hoist.reducer.main','Hoist reducer SEW ML4PSF140E · casing',hoist,'011','hoist');B.box(reducer,[1770,dy,750],[550,900,2100]);B.box(reducer,[1770,dy+80,750],[620,70,2150],'metal');for(const z of[mz])B.cyl(reducer,[1410,dy,z],'x',210,300);
   const oil=part('hoist.reducer-oil.main','Reducer oil level indicator, drain valve and breather',hoist,'011','hoistDrive');B.cyl(oil,[1770,dy-250,-330],'z',45,60,'glass',16);B.cyl(oil,[1770,dy-430,-330],'z',25,80,'metal',8);B.cyl(oil,[1770,dy+515,300],'y',50,120,'metal',12);
   const motor=part('hoist.motor.main','Hoist motor 180 kW · YASKAWA',hoist,'011','hoist');B.cyl(motor,[300,dy,mz],'x',360,1300,'#a3abb0',32);for(let i=0;i<10;i++)B.ring(motor,[-300+i*120,dy,mz],'x',364,16,'#c9ced2');B.box(motor,[600,dy+460,mz],[420,200,380],'#c9ced2');for(let i=0;i<3;i++)B.tube(motor,[480+i*110,dy+560,mz+150],[430+i*110,fy+400,mz+520],22,'dark',8);for(const s of[-1,1])B.box(motor,[300,dy-300,mz+s*300],[1100,120,80],'dark');
   const fan=part('hoist.motor-fan.main','Hoist motor cooling fan with filter',hoist,'011','hoistDrive');B.cyl(fan,[-460,dy,mz],'x',400,220,'#e8e4da',32);for(const r of[120,240,350])B.ring(fan,[-575,dy,mz],'x',r,10,'metal',24);
   const enc=part('hoist.encoder.main','Hoist motor pulse encoder',hoist,'011','hoistDrive');B.cyl(enc,[-630,dy,mz],'x',95,100,'dark',16);B.box(enc,[-630,dy+120,mz],[60,60,60],'dark');
   const hsc=part('hoist.hs-coupling.main','High-speed couplings and shafts',hoist,'011','hoistDrive');for(const[a,b]of[[950,1495],[2045,2450]]){B.tube(hsc,[a,dy,mz],[b,dy,mz],75,'metal');B.cyl(hsc,[a+90,dy,mz],'x',150,110,'metal',24);}
-  for(const[x,id]of[[1100,'a'],[2300,'b']]){const k=part(`hoist.brake.${id}`,`Hoist high-speed disc brake ${id.toUpperCase()}`,hoist,'011','hoist');B.cyl(k,[x,dy,mz],'x',315,40,'metal');for(const z of[-1,1])B.box(k,[x,dy-50,mz+z*270],[350,460,180],'dark');B.box(k,[x,28460,mz],[500,260,800]);}
+  for(const[x,id]of[[1100,'a'],[2300,'b']]){const k=part(`hoist.brake.${id}`,`Hoist high-speed disc brake ${id.toUpperCase()}`,hoist,'011','hoist');B.cyl(k,[x,dy,mz],'x',315,40,'metal');for(const z of[-1,1])B.box(k,[x,dy-50,mz+z*270],[350,460,180],'dark');B.box(k,[x,28510,mz],[500,160,800]);}
   for(const[name,label,dz]of[['overspeed-switch','Hoist overspeed protection switch',220],['cam-limit','Hoist cam limit switch',-220]]){const k=part(`hoist.${name}.main`,label,hoist,'011','hoistDrive');B.box(k,[-1900,dy,dz],[260,240,240],'dark');B.tube(k,[-1760,dy,0],[-1770,dy,dz],20,'metal',6);B.box(k,[-1900,dy+150,dz],[120,60,120],'#f0a020');}
-  const reel=part('hoist.spreader-cable.reel','Spreader cable reel (SCF1)',hoist,'014','trolleyItems');B.cyl(reel,[2350,28950,-1200],'z',420,360,'dark',40);for(const dz of[-1,1])B.cyl(reel,[2350,28950,-1200+dz*190],'z',470,20,'metal',40);B.box(reel,[2400,fy+380,-1200],[300,200,500],'dark');
+  // Keep the historic key for EQ bindings, but replace the unsupported outboard spool with the photo-backed feed.
+  const CF=E.spreaderCable,reel=part('hoist.spreader-cable.reel','Spreader cable feed and bellmouth (SCF1 envelope)',hoist,'014','cableFeed');
+  const guideProfile=[[70,CF.guideTopY],[70,CF.guideTopY-100],[145,CF.guideExitY],[160,CF.guideExitY],[85,CF.guideTopY-100],[85,CF.guideTopY],[70,CF.guideTopY]].map(([r,y])=>new T.Vector2(r/1000,y/1000));
+  B.put(reel,'hollow-cable-bellmouth',{profile:guideProfile.map(v=>[v.x*1000,v.y*1000]),openingDiameter:140},new T.LatheGeometry(guideProfile,24),'structure');
+  for(const sx of[-1,1]){B.beam(reel,[sx*1640,fy+220,-180],[sx*200,CF.guideTopY-60,-180],60,60);B.box(reel,[sx*200,CF.guideTopY-60,0],[70,50,420]);}B.box(reel,[0,CF.guideTopY+130,-160],[240,220,200],'dark');
 
   // ── Eight-rope reeving (M14 p26–27, Fig 2-14; JL28606 front/side views) ──
   // One end of each rope is clamped on the drum; the rope passes round the trolley sheaves (8 fall + 4 horizontal
   // guides = 12) and two ropes a group join, through turnbuckles, at the midpoints of the headblock's four edges,
-  // forming four isosceles triangles. End pairs hang in the X-Y planes z = ±endSheaveZ (seen edge-on in the front
-  // view); side pairs hang in the Y-Z planes of their drum grooves. Leads to +Z leave the drum bottom and leads to
-  // −Z leave the drum top, so all eight ropes wind in together. The four end-pair leads turn 90° on the horizontal
-  // guides. Every straight lead is tangent to the circles it joins and lies in the plane of the sheave it enters.
+  // forming four isosceles triangles. WA-04/06/08 show the guides at deck level, slightly inclined to the leads;
+  // they are not horizontal discs suspended at drum-top height. Direct leads retain a small estimated fleet angle.
   const suspended=B.container('container.suspended','Headblock + spreader',trolley,'spreader',{userData:{motionRole:'suspended'}});B.objects.get(suspended).position.y=E.hoistHome/1000;
-  const RV=E.reeving,rr=P('ropeDiameter')/2,Rd=P('drumDiameter')/2+rr,Rs=E.sheaveDiameter/2,Rg=E.guideSheaveDiameter/2,yBot=dy-Rd,yTop=dy+Rd,Yf=yBot-Rs;
+  const RV=E.reeving,rr=P('ropeDiameter')/2,Rd=P('drumDiameter')/2+rr,Rs=E.sheaveDiameter/2,Rg=E.guideSheaveDiameter/2,Yf=RV.fallCentreY;
   const add=(a,b,k=1)=>a.map((v,j)=>v+k*b[j]),dot=(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2],dist=(a,b)=>Math.hypot(a[0]-b[0],a[1]-b[1],a[2]-b[2]);
   const ropeLine=(k,pts)=>{for(let i=0;i<pts.length-1;i++)B.tube(k,pts[i],pts[i+1],rr,'dark',6);};
   const arc=(c,a,b,from,to,r,steps)=>Array.from({length:steps+1},(_,s)=>{const t=from+(to-from)*s/steps;return c.map((v,j)=>v+r*(Math.cos(t)*a[j]+Math.sin(t)*b[j]));});
-  // Direct tangent between circle/point 1 and circle 2 in a vertical plane, both wrapped clockwise in the local
-  // (u outward, v up) frame. Returns the two tangent points in local coordinates.
-  const tangentCW=(D,r1,S,r2)=>{const w=[S[0]-D[0],S[1]-D[1]],L=Math.hypot(...w),phi=Math.atan2(w[1],w[0])+Math.asin((r2-r1)/L),n=[Math.sin(phi),-Math.cos(phi)];return[[D[0]-r1*n[0],D[1]-r1*n[1]],[S[0]-r2*n[0],S[1]-r2*n[1]]];};
   // Site photos WA-04/06/07: yellow sheaves with six lightening holes, rim flanges and a red hub.
-  const sheaveFinish=(k,C,axle,Rp)=>{const ax={x:[1,0,0],y:[0,1,0],z:[0,0,1]}[axle],u=axle==='y'?[1,0,0]:[0,1,0],v=axle==='z'?[1,0,0]:[0,0,1];B.cyl(k,C,axle,Rp-rr,90,'#e2b32a',40);for(const d of[-1,1])B.ring(k,add(C,ax.map(w=>w*d*52)),axle,Rp+10,30,'#d4a51f',28);B.cyl(k,C,axle,170,120,'structure',24);for(let i=0;i<6;i++){const a=i*Math.PI/3;B.cyl(k,C.map((w,j)=>w+0.55*Rp*(Math.cos(a)*u[j]+Math.sin(a)*v[j])),axle,0.16*Rp,96,'dark',10);}};
+  const sheaveFinish=(k,C,axis,Rp)=>{const ax=Array.isArray(axis)?axis:{x:[1,0,0],y:[0,1,0],z:[0,0,1]}[axis],av=new T.Vector3(...ax),u=new T.Vector3(Math.abs(ax[1])>.7?1:0,Math.abs(ax[1])>.7?0:1,0).projectOnPlane(av).normalize(),v=new T.Vector3().crossVectors(av,u),q=new T.Quaternion().setFromUnitVectors(new T.Vector3(0,0,1),av);
+    B.tube(k,add(C,ax,-35),add(C,ax,35),Rp-rr,'#e2b32a',32);
+    for(const d of[-1,1]){const g=new T.TorusGeometry((Rp+6)/1000,.014,6,28);g.applyQuaternion(q);g.translate(...add(C,ax,d*35).map(w=>w/1000));B.put(k,'sheave-flange',{centre:C,axis:ax,pitchRadius:Rp,offset:d*35},g,'#d4a51f');}
+    B.tube(k,add(C,ax,-60),add(C,ax,60),150,'structure',24);
+    for(let i=0;i<6;i++){const a=i*Math.PI/3,cc=add(C,u.clone().multiplyScalar(Math.cos(a)*.55*Rp).addScaledVector(v,Math.sin(a)*.55*Rp).toArray());B.tube(k,add(cc,ax,-37),add(cc,ax,37),.16*Rp,'dark',8);}
+  };
   const ropesDef=[];
-  for(const[sz,endId]of[[1,'front'],[-1,'rear']])for(const[sx,side]of SIDES)ropesDef.push({pair:'end',sz,sx,label:`${endId} (${sz>0?'+':'−'}Z) end pair, ${side} fall`,xg:sx*(sz>0?RV.grooveX[3]:RV.grooveX[0]),C:[sx*RV.endSheaveX,Yf,sz*RV.endSheaveZ],e1:[sx,0,0],end:[sx*RV.endRopeX,RV.endRopeY,sz*RV.ropeTerminalZ],pin:[0,RV.pinY,sz*RV.ropeTerminalZ]});
-  for(const[sx,side]of[[1,'right'],[-1,'left']])for(const[sz,endId]of[[1,'front'],[-1,'rear']]){const xg=sx*(sx*sz>0?RV.grooveX[1]:RV.grooveX[2]);ropesDef.push({pair:'side',sz,sx,label:`${side} (${sx>0?'+':'−'}X) side pair, ${endId} fall`,xg,C:[xg,Yf,sz*RV.sideSheaveZ],e1:[0,0,sz],end:[xg,RV.sideRopeY,sz*RV.sideRopeZ],pin:[sx*RV.sidePinX,RV.pinY,0]});}
+  for(const[sz,endId]of[[1,'front'],[-1,'rear']])for(const[sx,side]of SIDES)ropesDef.push({pair:'end',sz,sx,label:`${endId} (${sz>0?'+':'−'}Z) end pair, ${side} fall`,xg:sx*(sz>0?RV.grooveX[3]:RV.grooveX[0]),C:[sx*RV.endSheaveX,Yf,sz*RV.endSheaveZ],e1:[sx,0,0],pin:[0,RV.pinY,sz*RV.ropeTerminalZ]});
+  for(const[sx,side]of[[1,'right'],[-1,'left']])for(const[sz,endId]of[[1,'front'],[-1,'rear']]){const xg=sx*(sx*sz>0?RV.grooveX[1]:RV.grooveX[2]);ropesDef.push({pair:'side',sz,sx,label:`${side} (${sx>0?'+':'−'}X) side pair, ${endId} fall`,xg,C:[sx*RV.sideSheaveX,Yf,sz*RV.sideSheaveZ],e1:[0,0,sz],pin:[sx*RV.sidePinX,RV.pinY,0]});}
   const ropeLengths=[];
   ropesDef.forEach((r,i)=>{
-    const n=i+1,top=r.sz<0,yLead=top?yTop:yBot,Y=[0,1,0],toLocal=p=>[dot(add(p,r.C,-1),r.e1),p[1]-r.C[1]],to3=([u,v])=>[r.C[0]+u*r.e1[0],r.C[1]+v,r.C[2]+u*r.e1[2]],ang=([u,v])=>Math.atan2(v,u);
+    const n=i+1,top=r.sz<0,Y=[0,1,0],toLocal=p=>[dot(add(p,r.C,-1),r.e1),p[1]-r.C[1]],to3=([u,v])=>[r.C[0]+u*r.e1[0],r.C[1]+v,r.C[2]+u*r.e1[2]],ang=([u,v])=>Math.atan2(v,u);
     const axle=r.e1[0]?'z':'x',fall=part(`reeving.sheave.fall-${n}`,`Fall sheave ${n} · ${r.label}`,hoist,'015','reeving');
     sheaveFinish(fall,r.C,axle,Rs);B.cyl(fall,r.C,axle,90,250,'metal',16);
     // Fork plates carry the shaft to the trolley end beam (end pairs) or trolley girder (side pairs).
     for(const d of[-1,1]){if(axle==='z')B.box(fall,[r.C[0]+r.sx*270,Yf,r.C[2]+d*80],[540,280,16],'dark');else B.box(fall,[r.C[0]+d*80,Yf,r.C[2]+r.sz*445],[16,280,890],'dark');}
     const k=part(`reeving.rope.route-${n}`,`Hoist rope ${n} · ${r.label}`,hoist,'015','reeving');
-    const pts=[];let thetaArr,lead=0;
+    const pts=[];let thetaArr,lead=0,guideData=null;
     if(r.pair==='end'){
-      const gk=part(`reeving.sheave.guide-${n}`,`Horizontal guide sheave ${n} · ${r.sz>0?'front':'rear'} end, ${r.sx>0?'right':'left'}`,hoist,'015','reeving');
-      const Cg=[r.xg+r.sx*Rg,yLead,r.sz*(RV.endSheaveZ-Rg)];sheaveFinish(gk,Cg,'y',Rg);
-      if(top){B.cyl(gk,add(Cg,[0,95,0]),'y',60,100,'metal',12);B.box(gk,[Cg[0],Cg[1]+150,r.sz*2700],[140,120,1000],'dark');B.box(gk,[Cg[0],(fy+250+Cg[1]+210)/2,r.sz*3150],[140,Cg[1]+210-(fy+250),140],'dark');}
-      else{B.cyl(gk,add(Cg,[0,-150,0]),'y',60,220,'metal',12);B.box(gk,[Cg[0],fy+150,r.sz*1950],[200,80,600],'dark');}
-      pts.push([r.xg,yLead,0],[r.xg,yLead,Cg[2]]);pts.push(...arc(Cg,[-r.sx,0,0],[0,0,r.sz],0,Math.PI/2,Rg,10).slice(1));lead+=Math.abs(Cg[2])+Rg*Math.PI/2;
-      const exit=pts.at(-1);
-      if(top){const[,T2]=tangentCW(toLocal(exit),0,[0,0],Rs);thetaArr=ang(T2);pts.push(to3(T2));lead+=dist(exit,to3(T2));}
-      else{thetaArr=Math.PI/2;pts.push(to3([0,Rs]));lead+=dist(exit,to3([0,Rs]));}
-    }else if(top){const[T1,T2]=tangentCW(toLocal([r.xg,dy,0]),Rd,[0,0],Rs);thetaArr=ang(T2);pts.push(to3(T1),to3(T2));lead+=dist(to3(T1),to3(T2));}
-    else{thetaArr=Math.PI/2;pts.push([r.xg,yLead,0],to3([0,Rs]));lead+=Math.abs(r.C[2]);}
-    // Static wrap on the fall sheave runs to the departure at maximum lift; lower poses leave earlier in the same groove.
-    const endAt=h=>[r.end[0]/1000,(r.end[1]+h)/1000,r.end[2]/1000],dep=h=>ang(toLocal(ropeTangent(r.C.map(v=>v/1000),endAt(h),Rs/1000).toArray().map(v=>v*1000)));
-    const thetaMax=dep(P('lift')),wrap=arc(r.C,r.e1,Y,thetaArr,thetaMax,Rs,Math.max(4,Math.ceil((thetaArr-thetaMax)/(Math.PI/16))));pts.push(...wrap.slice(1));ropeLine(k,pts);
-    const centre=r.C.map(v=>v/1000),home=endAt(E.hoistHome),a=ropeTangent(centre,home,Rs/1000),b=new T.Vector3(...home),mesh=new T.Mesh(new T.CylinderGeometry(rr/1000,rr/1000,1,6),mats.dark);
-    mesh.name=k+'--moving-span';mesh.userData={motionRole:'rope-span',sheaveCentre:centre,sheaveRadius:Rs/1000,start:a.toArray(),endOffset:r.end.map(v=>v/1000)};mesh.position.copy(a).add(b).multiplyScalar(.5);mesh.quaternion.setFromUnitVectors(new T.Vector3(0,1,0),b.clone().sub(a).normalize());mesh.scale.y=a.distanceTo(b);B.objects.get(k).add(mesh);
+      const gk=part(`reeving.sheave.guide-${n}`,`Deck guide sheave ${n} · ${r.sz>0?'front':'rear'} end, ${r.sx>0?'right':'left'}`,hoist,'015','reeving');
+      // Solve guide tilt so the drum lead and the quarter-turn guide share one plane; exit is horizontal to the fall.
+      const yOut=Yf+Rs,beta=Math.atan2(dy-yOut,RV.endSheaveZ)+Math.asin((top?Rd:-Rd)/Math.hypot(dy-yOut,RV.endSheaveZ)),cs=Math.cos(beta),sn=Math.sin(beta),u=[-r.sx,0,0],v=[0,-sn,r.sz*cs],normal=[0,cs,r.sz*sn];
+      const Cg=[r.xg+r.sx*Rg,yOut+Rg*sn,r.sz*(RV.endSheaveZ-Rg*cs)];sheaveFinish(gk,Cg,normal,Rg);
+      const mountX=Cg[0]+r.sx*(top?250:-300),bearingPoint=add(Cg,normal,-70),mountTop=[mountX,bearingPoint[1],bearingPoint[2]];
+      B.tube(gk,add(Cg,normal,-80),add(Cg,normal,95),60,'metal',12);B.box(gk,[mountX,fy+200,Cg[2]],[180,90,300],'structure');B.beam(gk,[mountX,fy+245,Cg[2]],mountTop,80,80);B.beam(gk,mountTop,bearingPoint,70,70);
+      const drumExit=[r.xg,dy+(top?1:-1)*Rd*cs,r.sz*(top?1:-1)*Rd*sn],entry=add(Cg,u,Rg),guideArc=arc(Cg,u,v,0,Math.PI/2,Rg,12),exit=guideArc.at(-1);
+      pts.push(drumExit,entry,...guideArc.slice(1),to3([0,Rs]));thetaArr=Math.PI/2;lead=dist(drumExit,entry)+Rg*Math.PI/2+dist(exit,to3([0,Rs]));
+      guideData={centre:Cg,normal,entry,exit,tiltDegrees:beta*180/Math.PI};
+    }else{
+      // Direct leads use the appropriate common tangent; their small axial fleet angle is explicitly retained.
+      const w=[Math.abs(r.C[2]),Yf-dy],L=Math.hypot(...w),a=Math.atan2(w[1],w[0]),delta=top?(Rs-Rd)/L:(Rs+Rd)/L;
+      const phi=a+Math.asin(delta),normal=[-Math.sin(phi),Math.cos(phi)],sign=top?1:-1;
+      const T1=[sign*Rd*normal[0],dy+sign*Rd*normal[1]],T2=[w[0]+Rs*normal[0],Yf+Rs*normal[1]];
+      pts.push([r.xg,T1[1],r.sz*T1[0]],[r.C[0],T2[1],r.sz*T2[0]]);thetaArr=ang(toLocal(pts[1]));lead=dist(...pts);
+    }
+    // Wound rope and clamp groups, rather than bright decorative rings (WA-06/08). Pitch/turn count remain estimated.
+    const phase=Math.atan2(pts[0][2],pts[0][1]-dy),wind=new T.Curve();wind.getPoint=t=>new T.Vector3((r.xg+(t-.5)*300)/1000,Rd/1000*Math.cos((t-.5)*20*Math.PI+phase),Rd/1000*Math.sin((t-.5)*20*Math.PI+phase));
+    B.put(drum,'rope-winding',{grooveCentre:r.xg,turns:10,pitch:30,ropeDiameter:2*rr,phase},new T.TubeGeometry(wind,180,rr/1000,4,false),'#44494c');
+    for(const dx of[-105,-35,35,105]){B.box(drum,[r.xg+dx,Rd+18,0],[45,26,65],'#262b2e');B.cyl(drum,[r.xg+dx,Rd+40,0],'y',12,20,'metal',6);}
+    ropeLine(k,pts);
+    // Separate dynamic wrap follows the actual tangent at every lift; no extra arc beyond the departure.
+    const socketLength=(r.pair==='end'?RV.endLinkLength:RV.sideLinkLength)/1000,routeData={sheaveCentre:r.C.map(v=>v/1000),sheaveRadius:Rs/1000,ropeRadius:rr/1000,planeOut:r.e1,arrivalAngle:thetaArr,headblockPin:r.pin.map(v=>v/1000),socketLength},home=ropeConnection(routeData,E.hoistHome/1000),{a,b}=home;
+    r.end=b.toArray().map((v,j)=>v*1000-(j===1?E.hoistHome:0));routeData.endOffset=r.end.map(v=>v/1000);
+    const dep=h=>ang(toLocal(ropeConnection(routeData,h/1000).a.toArray().map(v=>v*1000)));
+    const wrapData={...routeData,motionRole:'rope-wrap'},wrapMesh=new T.Mesh(ropeWrapGeometry(wrapData,E.hoistHome/1000),mats.dark);wrapMesh.name=k+'--moving-wrap';wrapMesh.userData=wrapData;B.objects.get(k).add(wrapMesh);
+    const mesh=new T.Mesh(new T.CylinderGeometry(rr/1000,rr/1000,1,6),mats.dark);
+    mesh.name=k+'--moving-span';mesh.userData={...routeData,motionRole:'rope-span',start:a.toArray()};mesh.position.copy(a).add(b).multiplyScalar(.5);mesh.quaternion.setFromUnitVectors(new T.Vector3(0,1,0),b.clone().sub(a).normalize());mesh.scale.y=a.distanceTo(b);B.objects.get(k).add(mesh);
     const freeLength=(lead+Rs*(thetaArr-dep(E.hoistHome))+a.distanceTo(b)*1000)/1000;ropeLengths.push({rope:n,pair:r.pair,lead:top?'drum top':'drum bottom',freeLengthAtHomeM:Number(freeLength.toFixed(3))});
-    B.recipes.push({nodeKey:k,primitive:'dynamic-rope-span',parameters:{pair:r.pair,drumGrooveX:r.xg,drumLead:top?'top':'bottom',fallSheaveCentre:r.C,lowerOffset:r.end,headblockPin:r.pin,diameter:P('ropeDiameter'),freeLengthAtHomeM:Number(freeLength.toFixed(3))},authoringUnits:'mm',provenance:{kind:'estimated',sources:[sources.reeving]},confidence:'medium',endpoints:'Drum tangent → (horizontal guide) → fall-sheave tangent; moving span tangent to the fall sheave and attached to the headblock socket'});
-    const socket=part(`headblock.rope-socket.${n}`,`Rope ${n} socket and turnbuckle · ${r.label}`,suspended,'015','reeving');
-    const dir=add(r.pin,r.end,-1),L=Math.hypot(...dir),u=dir.map(v=>v/L),s1=add(r.end,u,230),s2=add(r.pin,u,-70),mid=add(s1,u,(L-300)/2);
-    B.tube(socket,r.end,s1,45,'metal',12);B.tube(socket,s1,s2,30,'metal',10);B.tube(socket,add(mid,u,-110),add(mid,u,110),55,'dark',12);
+    B.recipes.push({nodeKey:k,primitive:'dynamic-rope-span',parameters:{pair:r.pair,drumGrooveX:r.xg,drumLead:top?'top':'bottom',drumExit:pts[0],leadPoints:pts,guide:guideData,fallSheaveCentre:r.C,planeOut:r.e1,arrivalAngle:thetaArr,lowerOffset:r.end,headblockPin:r.pin,socketLength:socketLength*1000,diameter:P('ropeDiameter'),freeLengthAtHomeM:Number(freeLength.toFixed(3))},authoringUnits:'mm',provenance:{kind:'estimated',sources:[sources.reeving]},confidence:'medium',endpoints:'Drum tangent → inclined deck guide where needed → fall sheave; dynamic wrap and free span meet at the same tangent. Direct leads have an estimated axial fleet angle.'});
+    const socket=part(`headblock.rope-socket.${n}`,`Rope ${n} socket and turnbuckle · ${r.label}`,suspended,'015','reeving',{userData:{...routeData,motionRole:'rope-socket'}}),L=socketLength*1000;
+    B.objects.get(socket).position.set(...routeData.headblockPin);B.objects.get(socket).quaternion.setFromUnitVectors(new T.Vector3(0,1,0),home.direction);
+    B.tube(socket,[0,35,0],[0,L-200,0],30,'metal',10);B.tube(socket,[0,L-200,0],[0,L,0],45,'metal',12);B.tube(socket,[0,L*.35,0],[0,L*.35+180,0],55,'dark',12);
   });
 
   // ── Headblock and Bromma electric telescopic spreader (Fig 2-18; p13) ──
   const hb=part('headblock.frame.main','Headblock frame',suspended,'062','spreader');for(const x of[-RV.sidePinX,RV.sidePinX])B.box(hb,[x,1150,0],[230,350,5380]);for(const z of[-2500,0,2500])B.box(hb,[0,1150,z],[1200,350,220]);
-  const basket=part('hoist.spreader-cable.basket','Spreader cable storage basket and guide cage',suspended,'014','sitePhotos');{const bc='#e7b52d',b0=1325,bh=420,br=420;B.cyl(basket,[0,b0+bh/2,0],'y',br,bh,bc,40);B.ring(basket,[0,b0+bh,0],'y',br-15,18,bc,40);B.ring(basket,[0,b0+bh-30,0],'y',br-110,45,'dark',40);B.cone(basket,[0,b0+bh,0],[0,b0+bh+380,0],260,40,'dark',24);for(let i=0;i<6;i++){const a=i*Math.PI/3;B.tube(basket,[(br-40)*Math.cos(a),b0+bh,(br-40)*Math.sin(a)],[130*Math.cos(a),2650,130*Math.sin(a)],14,bc,6);}B.ring(basket,[0,2650,0],'y',140,18,bc,24);B.ring(basket,[0,2150,0],'y',262,12,bc,24);}
-  // Spreader drop cable (user, 5 November 2026; WA-15/17): from the motorised reel along the trolley to a guide bellmouth
-  // above the headblock, then a moving vertical span through the guide cage into the basket. The span follows the hoist.
-  {const k=part('hoist.spreader-cable.drop','Spreader drop cable · reel to headblock basket (moving)',hoist,'014','sitePhotos'),cr=22,gy=28050,path=[[2350,28530,-1200],[600,28530,-1200],[0,28150,0],[0,gy,0]];
-  for(let i=0;i<path.length-1;i++)B.tube(k,path[i],path[i+1],cr,'dark',8);B.cone(k,[0,gy,0],[0,gy-260,0],70,160,'#b9bfc3',16);
-  const top=[0,gy-260,0],end=[0,2140,0],a=new T.Vector3(...top.map(v=>v/1000)),b=new T.Vector3(0,(end[1]+E.hoistHome)/1000,0),mesh=new T.Mesh(new T.CylinderGeometry(cr/1000,cr/1000,1,8),mats.dark);
+  const basket=part('hoist.spreader-cable.basket','Spreader cable storage basket and guide cage',suspended,'014','cableFeed');{const bc='#e7b52d',b0=CF.basketBaseY,bh=CF.basketHeight,br=CF.basketRadius,cr=CF.diameter/2;
+    // Open basket: thin wall and floor, with the cable visibly coiled around the centre cone (WA-15/17).
+    const profile=[[br,b0],[br,b0+bh],[br-18,b0+bh],[br-18,b0+18],[0,b0+18],[0,b0],[br,b0]].map(([r,y])=>new T.Vector2(r/1000,y/1000));B.put(basket,'open-cable-basket',{radius:br,height:bh,base:b0,wall:18},new T.LatheGeometry(profile,32),bc);
+    B.ring(basket,[0,b0+bh,0],'y',br-9,12,bc,32);B.cone(basket,[0,b0+18,0],[0,2120,0],250,35,'#49453d',24);
+    const coil=new T.Curve();coil.getPoint=t=>{const a=t*10*Math.PI;return new T.Vector3(CF.coilRadius/1000*Math.cos(a),(b0+50+t*230)/1000,CF.coilRadius/1000*Math.sin(a));};B.put(basket,'stored-cable-coil',{turns:5,radius:CF.coilRadius,diameter:CF.diameter,qualifier:'Indicative stored turns; storage volume not simulated'},new T.TubeGeometry(coil,100,cr/1000,5,false),'#252b30');
+    const feed=new T.CatmullRomCurve3([[0,CF.cageTopY,0],[15,2350,5],[90,2080,70],[210,1900,150],[300,1720,125],[CF.coilRadius,1605,0]].map(p=>new T.Vector3(...p.map(v=>v/1000))));B.put(basket,'cable-basket-entry',{from:[0,CF.cageTopY,0],diameter:CF.diameter},new T.TubeGeometry(feed,32,cr/1000,6,false),'#252b30');
+    for(let i=0;i<6;i++){const a=i*Math.PI/3;B.tube(basket,[(br-25)*Math.cos(a),b0+bh,(br-25)*Math.sin(a)],[130*Math.cos(a),CF.cageTopY,130*Math.sin(a)],14,bc,6);}B.ring(basket,[0,CF.cageTopY,0],'y',140,18,bc,24);B.ring(basket,[0,2150,0],'y',262,12,bc,24);B.ring(basket,[0,CF.cageTopY,0],'y',65,20,'dark',16);
+  }
+  // Fixed supply route runs beneath the trolley, clear of the hoist drum, then down the open guide to the basket.
+  {const k=part('hoist.spreader-cable.drop','Spreader drop cable · fixed feed to headblock basket',hoist,'014','cableFeed'),cr=CF.diameter/2,path=[[-2225,28284,-1400],[-2225,27900,-1400],[-2120,27600,-1250],[-800,27600,-1250],[-400,27600,-1100],[-250,27600,-500],[-180,27900,-200],[0,27920,-60],[0,CF.guideTopY,0],[0,CF.guideExitY,0]];
+  const fixedCurve=new T.CatmullRomCurve3(path.map(p=>new T.Vector3(...p.map(v=>v/1000))));B.put(k,'fixed-spreader-cable',{path,diameter:2*cr},new T.TubeGeometry(fixedCurve,96,cr/1000,6,false),'#252b30');
+  const top=[0,CF.guideExitY,0],end=[0,CF.cageTopY,0],a=new T.Vector3(...top.map(v=>v/1000)),b=new T.Vector3(0,(end[1]+E.hoistHome)/1000,0),mesh=new T.Mesh(new T.CylinderGeometry(cr/1000,cr/1000,1,8),mats.dark);
   mesh.name=k+'--moving-span';mesh.userData={motionRole:'drop-cable',start:a.toArray(),endOffset:end.map(v=>v/1000)};mesh.position.copy(a).add(b).multiplyScalar(.5);mesh.scale.y=a.distanceTo(b);B.objects.get(k).add(mesh);
-  B.recipes.push({nodeKey:k,primitive:'dynamic-drop-cable',parameters:{reel:[2350,28950,-1200],guide:top,lowerOffset:end,diameter:2*cr},authoringUnits:'mm',provenance:{kind:'estimated',sources:[sources.sitePhotos]},confidence:'low',endpoints:'Fixed run from reel to guide bellmouth; vertical moving span ends at the headblock guide cone'});}
+  B.recipes.push({nodeKey:k,primitive:'dynamic-drop-cable',parameters:{guide:top,lowerOffset:end,diameter:2*cr},authoringUnits:'mm',provenance:{kind:'estimated',sources:[sources.cableFeed]},confidence:'low',endpoints:'Under-deck fixed supply through the hollow bellmouth; moving span joins the cable at the basket cage eye. Cable storage turns are illustrative.'});}
   const hjb=part('headblock.junction-box.main','Headblock junction box',suspended,'062','spreader');B.box(hjb,[0,1550,1100],[600,450,400],'dark');
   for(const[sz,id]of ENDS){const z=sz*2000,k=part(`headblock.skew-cylinder.${id}`,`Headblock ${id} skew / shift cylinder`,suspended,'111','spreader');const a=[-RV.sidePinX,1470,z],b=[RV.sidePinX,1470,z-sz*700],m=a.map((v,j)=>v+(b[j]-v)*.6);B.tube(k,a,m,65,'dark',16);B.tube(k,m,b,32,'metal',10);}
   const adjust=part('headblock.adjustment.main','Headblock edge-midpoint rope pins and brackets',suspended,'062','reeving');
@@ -256,7 +279,7 @@ export function buildModel(){
 
   // ── Operator cabin under the trolley ──
   const cab=B.container('container.cabin','Operator cabin',trolley,'cabin',{enclosure:true});const cx=E.cabCentreX,cy=E.cabFloor,hangTop=fy-455;
-  const shell=part('cabin.shell.main','Cab shell, glazing and roof',cab,'141','cabin','position',{enclosure:true});
+  const shell=part('cabin.shell.main','Cab shell, glazing and roof',cab,'141','cabin',{enclosure:true});
   B.box(shell,[cx+350,cy+40,0],[1700,80,2000],'white');B.box(shell,[cx+50,cy+2200,0],[2450,100,2100],'white');
   const profile=[[-550,0],[-1000,230],[-1200,1120],[-1000,2200],[1200,2200],[1200,0]];
   for(const z of[-1000,1000]){const pts=profile.map(([x,y])=>[cx+x,cy+y,z]);for(let i=0;i<pts.length;i++)B.beam(shell,pts[i],pts[(i+1)%pts.length],65,65,'white');B.panel(shell,pts,'glass');B.box(shell,[cx,cy+1120,z],[2300,65,65],'white');B.beam(shell,[cx+350,cy,z],[cx+350,cy+2200,z],65,65,'white');}

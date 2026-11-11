@@ -1,0 +1,10 @@
+{
+  "pass": true,
+  "revision": 13,
+  "identities": 410,
+  "unchangedMeshes": 151,
+  "busbar": "byte-identical",
+  "TLSAndRopes": "byte-identical",
+  "entranceSide": "-Z elevator side",
+  "homeStation": "estimated; current cabin display remains at outreach"
+}

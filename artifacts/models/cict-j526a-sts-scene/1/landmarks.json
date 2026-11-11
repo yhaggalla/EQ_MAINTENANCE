@@ -139,7 +139,7 @@
       "tolerancePct": 1,
       "pass": true,
       "kind": "measured",
-      "note": "27000 (buffers to buffers)"
+      "note": "27000 (buffers to buffers; individual buffer nodes since C72)"
     },
     {
       "name": "machinery house length along rails (shell)",

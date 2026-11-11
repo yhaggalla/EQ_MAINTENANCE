@@ -20,17 +20,17 @@
   },
   "asset": {
     "file": "scene.glb",
-    "sha256": "03f92de1ed54f0f04bde7e171144b3f6f7c2246fc81182340b6fa1736c7ff748",
-    "bytes": 8331644,
-    "triangles": 138386,
-    "drawCallsEstimate": 330,
+    "sha256": "c1869fff7ba76dc143150cffe503510798c64a8e916398105c28e3ed415a004e",
+    "bytes": 8186328,
+    "triangles": 134626,
+    "drawCallsEstimate": 338,
     "overallMode": {
-      "triangles": 138314,
-      "drawCallsEstimate": 324
+      "triangles": 134554,
+      "drawCallsEstimate": 332
     },
     "technicalMode": {
-      "triangles": 138386,
-      "drawCallsEstimate": 330
+      "triangles": 134626,
+      "drawCallsEstimate": 338
     }
   },
   "bounds": {
@@ -1161,12 +1161,12 @@
         "min": [
           -12.394915580749512,
           24.672168731689453,
-          -3.700000047683716
+          -3.6500000953674316
         ],
         "max": [
           -11.07508373260498,
           25.624000549316406,
-          -2.700000047683716
+          -2.75
         ]
       }
     },
@@ -1338,12 +1338,12 @@
         "min": [
           -12.394915580749512,
           24.672168731689453,
-          2.700000047683716
+          2.75
         ],
         "max": [
           -11.07508373260498,
           25.624000549316406,
-          3.700000047683716
+          3.6500000953674316
         ]
       }
     },
@@ -1633,12 +1633,12 @@
         "min": [
           11.07508373260498,
           24.672168731689453,
-          -3.700000047683716
+          -3.6500000953674316
         ],
         "max": [
           12.394915580749512,
           25.624000549316406,
-          -2.700000047683716
+          -2.75
         ]
       }
     },
@@ -1810,12 +1810,12 @@
         "min": [
           11.07508373260498,
           24.672168731689453,
-          2.700000047683716
+          2.75
         ],
         "max": [
           12.394915580749512,
           25.624000549316406,
-          3.700000047683716
+          3.6500000953674316
         ]
       }
     },
@@ -3086,14 +3086,6 @@
       }
     },
     {
-      "0": "p",
-      "1": "o",
-      "2": "s",
-      "3": "i",
-      "4": "t",
-      "5": "i",
-      "6": "o",
-      "7": "n",
       "key": "gantry.tyre.left.rear.outer",
       "kind": "position",
       "label": "Left rear outer tyre 21.00-35",
@@ -3606,14 +3598,6 @@
       }
     },
     {
-      "0": "p",
-      "1": "o",
-      "2": "s",
-      "3": "i",
-      "4": "t",
-      "5": "i",
-      "6": "o",
-      "7": "n",
       "key": "gantry.tyre.left.rear.inner",
       "kind": "position",
       "label": "Left rear inner tyre 21.00-35",
@@ -4179,14 +4163,6 @@
       }
     },
     {
-      "0": "p",
-      "1": "o",
-      "2": "s",
-      "3": "i",
-      "4": "t",
-      "5": "i",
-      "6": "o",
-      "7": "n",
       "key": "gantry.tyre.left.front.inner",
       "kind": "position",
       "label": "Left front inner tyre 21.00-35",
@@ -4426,14 +4402,6 @@
       }
     },
     {
-      "0": "p",
-      "1": "o",
-      "2": "s",
-      "3": "i",
-      "4": "t",
-      "5": "i",
-      "6": "o",
-      "7": "n",
       "key": "gantry.tyre.left.front.outer",
       "kind": "position",
       "label": "Left front outer tyre 21.00-35",
@@ -5272,14 +5240,6 @@
       }
     },
     {
-      "0": "p",
-      "1": "o",
-      "2": "s",
-      "3": "i",
-      "4": "t",
-      "5": "i",
-      "6": "o",
-      "7": "n",
       "key": "gantry.tyre.right.rear.outer",
       "kind": "position",
       "label": "Right rear outer tyre 21.00-35",
@@ -5792,14 +5752,6 @@
       }
     },
     {
-      "0": "p",
-      "1": "o",
-      "2": "s",
-      "3": "i",
-      "4": "t",
-      "5": "i",
-      "6": "o",
-      "7": "n",
       "key": "gantry.tyre.right.rear.inner",
       "kind": "position",
       "label": "Right rear inner tyre 21.00-35",
@@ -6365,14 +6317,6 @@
       }
     },
     {
-      "0": "p",
-      "1": "o",
-      "2": "s",
-      "3": "i",
-      "4": "t",
-      "5": "i",
-      "6": "o",
-      "7": "n",
       "key": "gantry.tyre.right.front.inner",
       "kind": "position",
       "label": "Right front inner tyre 21.00-35",
@@ -6612,14 +6556,6 @@
       }
     },
     {
-      "0": "p",
-      "1": "o",
-      "2": "s",
-      "3": "i",
-      "4": "t",
-      "5": "i",
-      "6": "o",
-      "7": "n",
       "key": "gantry.tyre.right.front.outer",
       "kind": "position",
       "label": "Right front outer tyre 21.00-35",
@@ -7565,14 +7501,6 @@
       }
     },
     {
-      "0": "p",
-      "1": "o",
-      "2": "s",
-      "3": "i",
-      "4": "t",
-      "5": "i",
-      "6": "o",
-      "7": "n",
       "key": "trolley.wheel.left.rear",
       "kind": "position",
       "label": "Trolley wheel Ø500 · left rear",
@@ -7800,14 +7728,6 @@
       }
     },
     {
-      "0": "p",
-      "1": "o",
-      "2": "s",
-      "3": "i",
-      "4": "t",
-      "5": "i",
-      "6": "o",
-      "7": "n",
       "key": "trolley.wheel.left.front",
       "kind": "position",
       "label": "Trolley wheel Ø500 · left front",
@@ -7943,14 +7863,6 @@
       }
     },
     {
-      "0": "p",
-      "1": "o",
-      "2": "s",
-      "3": "i",
-      "4": "t",
-      "5": "i",
-      "6": "o",
-      "7": "n",
       "key": "trolley.wheel.right.rear",
       "kind": "position",
       "label": "Trolley wheel Ø500 · right rear",
@@ -8086,14 +7998,6 @@
       }
     },
     {
-      "0": "p",
-      "1": "o",
-      "2": "s",
-      "3": "i",
-      "4": "t",
-      "5": "i",
-      "6": "o",
-      "7": "n",
       "key": "trolley.wheel.right.front",
       "kind": "position",
       "label": "Trolley wheel Ø500 · right front",
@@ -8667,26 +8571,18 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          -2.319999933242798,
-          6.8985222002942805,
-          -3.2200000286102295
+          -2.390000104904175,
+          7.004637240928739,
+          -2.990000009536743
         ],
         "max": [
-          2.819999933242798,
-          29.694000244140625,
+          2.549999952316284,
+          29.559999997615815,
           2.990000009536743
         ]
       }
     },
     {
-      "0": "p",
-      "1": "o",
-      "2": "s",
-      "3": "i",
-      "4": "t",
-      "5": "i",
-      "6": "o",
-      "7": "n",
       "key": "hoist.drum.main",
       "kind": "position",
       "label": "Hoist drum Ø1200 · eight groove groups",
@@ -9171,7 +9067,7 @@
       "bounds": {
         "min": [
           0.8500000238418579,
-          28.329999923706055,
+          28.43000030517578,
           1.1649999618530273
         ],
         "max": [
@@ -9216,7 +9112,7 @@
       "bounds": {
         "min": [
           2.049999952316284,
-          28.329999923706055,
+          28.43000030517578,
           1.1649999618530273
         ],
         "max": [
@@ -9319,7 +9215,7 @@
     {
       "key": "hoist.spreader-cable.reel",
       "kind": "position",
-      "label": "Spreader cable reel (SCF1)",
+      "label": "Spreader cable feed and bellmouth (SCF1 envelope)",
       "parentKey": "container.hoist",
       "classification": {
         "main": "01",
@@ -9339,10 +9235,11 @@
         "kind": "estimated",
         "sources": [
           {
-            "document": "M14",
-            "pdfPage": 21,
-            "figure": "JL28606 item list (items 7, 9, 10, 11, 12, 13); p38 anchor/guide/buffer text",
-            "note": "Over-height limit, trolley anchor devices (two per p38), side rollers, centralized lubrication, spreader cable reel and trolley connect box are listed; their exact shapes and mounting points are estimated."
+            "document": "PHOTO",
+            "photo": "wa-15",
+            "pdfPage": null,
+            "figure": "WA-08 cable guide beside drum; WA-15/17 basket; WA-19 trolley underside; M14 p21 SCF1 item",
+            "note": "Fixed trolley feed and hanging cable entering an open headblock storage basket through its guide cage. The large outboard motorised reel was not supported by the photos. Compact guide envelope, under-deck supply route and cable diameter are estimates; SCF1 vendor internals unavailable. Legacy reel node key retained for binding continuity."
           }
         ]
       },
@@ -9350,14 +9247,14 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          1.8799999952316284,
-          28.284000396728516,
-          -1.4500000476837158
+          -1.6509407758712769,
+          27.459999084472656,
+          -0.25999999046325684
         ],
         "max": [
-          2.819999933242798,
-          29.420000076293945,
-          -0.949999988079071
+          1.6509407758712769,
+          28.251934051513672,
+          0.20999999344348907
         ]
       }
     },
@@ -9398,7 +9295,7 @@
         ],
         "max": [
           1.2799999713897705,
-          7.66558837890625,
+          7.667320489883423,
           3.25
         ]
       }
@@ -9429,7 +9326,7 @@
             "document": "M14",
             "pdfPage": 27,
             "figure": "Fig 2-14 8 ropes reeving; p26 text; JL28606 front/side views p21",
-            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 horizontal guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes and positions read from the trolley views; groove assignment, sheave shaft coordinates and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
+            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 deck guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes follow the trolley views. WA-04/06/08 place guides near the deck; their inclinations are derived to meet drum tangents. Groove assignment, shaft coordinates, link lengths and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
           }
         ]
       },
@@ -9437,14 +9334,14 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          -2.319999933242798,
-          27.375999450683594,
-          2.515000104904175
+          -2.390000104904175,
+          27.559999465942383,
+          2.565000057220459
         ],
         "max": [
-          -1.3199999332427979,
-          28.29599952697754,
-          2.765000104904175
+          -1.409999966621399,
+          28.440000534057617,
+          2.815000057220459
         ]
       }
     },
@@ -9474,7 +9371,7 @@
             "document": "M14",
             "pdfPage": 27,
             "figure": "Fig 2-14 8 ropes reeving; p26 text; JL28606 front/side views p21",
-            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 horizontal guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes and positions read from the trolley views; groove assignment, sheave shaft coordinates and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
+            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 deck guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes follow the trolley views. WA-04/06/08 place guides near the deck; their inclinations are derived to meet drum tangents. Groove assignment, shaft coordinates, link lengths and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
           }
         ]
       },
@@ -9482,21 +9379,21 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          -2.211749315261841,
-          7.049023431906543,
-          -1.4305114426349519e-8
+          -2.283740997314453,
+          7.294092540793569,
+          0.03676854446530342
         ],
         "max": [
-          -0.5867723396888846,
-          28.270000457763672,
-          2.704974021223079
+          -0.07606810246185702,
+          28.43400001525879,
+          2.7040000004321336
         ]
       }
     },
     {
       "key": "reeving.sheave.guide-1",
       "kind": "position",
-      "label": "Horizontal guide sheave 1 · front end, left",
+      "label": "Deck guide sheave 1 · front end, left",
       "parentKey": "container.hoist",
       "classification": {
         "main": "01",
@@ -9519,7 +9416,7 @@
             "document": "M14",
             "pdfPage": 27,
             "figure": "Fig 2-14 8 ropes reeving; p26 text; JL28606 front/side views p21",
-            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 horizontal guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes and positions read from the trolley views; groove assignment, sheave shaft coordinates and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
+            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 deck guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes follow the trolley views. WA-04/06/08 place guides near the deck; their inclinations are derived to meet drum tangents. Groove assignment, shaft coordinates, link lengths and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
           }
         ]
       },
@@ -9527,14 +9424,14 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          -2.0875000953674316,
-          27.996000289916992,
-          1.649999976158142
+          -2.067500114440918,
+          28.159000396728516,
+          1.829471468925476
         ],
         "max": [
-          -1.1675000190734863,
-          28.333980560302734,
-          2.680000066757202
+          -1.1875,
+          28.492759704589844,
+          2.7121071815490723
         ]
       }
     },
@@ -9564,7 +9461,7 @@
             "document": "M14",
             "pdfPage": 27,
             "figure": "Fig 2-14 8 ropes reeving; p26 text; JL28606 front/side views p21",
-            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 horizontal guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes and positions read from the trolley views; groove assignment, sheave shaft coordinates and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
+            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 deck guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes follow the trolley views. WA-04/06/08 place guides near the deck; their inclinations are derived to meet drum tangents. Groove assignment, shaft coordinates, link lengths and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
           }
         ]
       },
@@ -9586,14 +9483,14 @@
       },
       "bounds": {
         "min": [
-          -0.6315513253211975,
-          6.488736033439636,
-          2.634999990463257
+          -0.1428220346194202,
+          6.4890367188511675,
+          2.635000000298023
         ],
         "max": [
-          -0.02990693598985672,
-          7.082086086273193,
-          2.744999885559082
+          0.05102458956510181,
+          7.301134622833286,
+          2.7449999997019767
         ]
       }
     },
@@ -9623,7 +9520,7 @@
             "document": "M14",
             "pdfPage": 27,
             "figure": "Fig 2-14 8 ropes reeving; p26 text; JL28606 front/side views p21",
-            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 horizontal guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes and positions read from the trolley views; groove assignment, sheave shaft coordinates and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
+            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 deck guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes follow the trolley views. WA-04/06/08 place guides near the deck; their inclinations are derived to meet drum tangents. Groove assignment, shaft coordinates, link lengths and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
           }
         ]
       },
@@ -9631,14 +9528,14 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          1.3199999332427979,
-          27.375999450683594,
-          2.515000104904175
+          1.409999966621399,
+          27.559999465942383,
+          2.565000057220459
         ],
         "max": [
-          2.319999933242798,
-          28.29599952697754,
-          2.765000104904175
+          2.390000104904175,
+          28.440000534057617,
+          2.815000057220459
         ]
       }
     },
@@ -9668,7 +9565,7 @@
             "document": "M14",
             "pdfPage": 27,
             "figure": "Fig 2-14 8 ropes reeving; p26 text; JL28606 front/side views p21",
-            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 horizontal guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes and positions read from the trolley views; groove assignment, sheave shaft coordinates and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
+            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 deck guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes follow the trolley views. WA-04/06/08 place guides near the deck; their inclinations are derived to meet drum tangents. Groove assignment, shaft coordinates, link lengths and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
           }
         ]
       },
@@ -9676,21 +9573,21 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          0.5867723396888846,
-          7.049023431906543,
-          -1.4305114426349519e-8
+          0.07606810246185702,
+          7.294092540793569,
+          0.03676854446530342
         ],
         "max": [
-          2.211749315261841,
-          28.270000457763672,
-          2.704974021223079
+          2.283740997314453,
+          28.43400001525879,
+          2.7040000004321336
         ]
       }
     },
     {
       "key": "reeving.sheave.guide-2",
       "kind": "position",
-      "label": "Horizontal guide sheave 2 · front end, right",
+      "label": "Deck guide sheave 2 · front end, right",
       "parentKey": "container.hoist",
       "classification": {
         "main": "01",
@@ -9713,7 +9610,7 @@
             "document": "M14",
             "pdfPage": 27,
             "figure": "Fig 2-14 8 ropes reeving; p26 text; JL28606 front/side views p21",
-            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 horizontal guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes and positions read from the trolley views; groove assignment, sheave shaft coordinates and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
+            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 deck guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes follow the trolley views. WA-04/06/08 place guides near the deck; their inclinations are derived to meet drum tangents. Groove assignment, shaft coordinates, link lengths and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
           }
         ]
       },
@@ -9721,14 +9618,14 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          1.1675000190734863,
-          27.996000289916992,
-          1.649999976158142
+          1.1875,
+          28.159000396728516,
+          1.829471468925476
         ],
         "max": [
-          2.0875000953674316,
-          28.333980560302734,
-          2.680000066757202
+          2.067500114440918,
+          28.492759704589844,
+          2.7121071815490723
         ]
       }
     },
@@ -9758,7 +9655,7 @@
             "document": "M14",
             "pdfPage": 27,
             "figure": "Fig 2-14 8 ropes reeving; p26 text; JL28606 front/side views p21",
-            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 horizontal guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes and positions read from the trolley views; groove assignment, sheave shaft coordinates and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
+            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 deck guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes follow the trolley views. WA-04/06/08 place guides near the deck; their inclinations are derived to meet drum tangents. Groove assignment, shaft coordinates, link lengths and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
           }
         ]
       },
@@ -9780,14 +9677,14 @@
       },
       "bounds": {
         "min": [
-          0.02990693598985672,
-          6.488736033439636,
-          2.634999990463257
+          -0.05102458956510181,
+          6.4890367188511675,
+          2.635000000298023
         ],
         "max": [
-          0.6315513253211975,
-          7.082086086273193,
-          2.744999885559082
+          0.1428220346194202,
+          7.301134622833286,
+          2.7449999997019767
         ]
       }
     },
@@ -9817,7 +9714,7 @@
             "document": "M14",
             "pdfPage": 27,
             "figure": "Fig 2-14 8 ropes reeving; p26 text; JL28606 front/side views p21",
-            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 horizontal guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes and positions read from the trolley views; groove assignment, sheave shaft coordinates and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
+            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 deck guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes follow the trolley views. WA-04/06/08 place guides near the deck; their inclinations are derived to meet drum tangents. Groove assignment, shaft coordinates, link lengths and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
           }
         ]
       },
@@ -9825,14 +9722,14 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          -2.319999933242798,
-          27.375999450683594,
-          -2.765000104904175
+          -2.390000104904175,
+          27.559999465942383,
+          -2.815000057220459
         ],
         "max": [
-          -1.3199999332427979,
-          28.29599952697754,
-          -2.515000104904175
+          -1.409999966621399,
+          28.440000534057617,
+          -2.565000057220459
         ]
       }
     },
@@ -9862,7 +9759,7 @@
             "document": "M14",
             "pdfPage": 27,
             "figure": "Fig 2-14 8 ropes reeving; p26 text; JL28606 front/side views p21",
-            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 horizontal guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes and positions read from the trolley views; groove assignment, sheave shaft coordinates and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
+            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 deck guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes follow the trolley views. WA-04/06/08 place guides near the deck; their inclinations are derived to meet drum tangents. Groove assignment, shaft coordinates, link lengths and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
           }
         ]
       },
@@ -9870,21 +9767,21 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          -2.211609902731553,
-          7.049023431906543,
-          -2.704974021223079
+          -2.283740997314453,
+          7.294092540793569,
+          -2.7040000004321336
         ],
         "max": [
-          -0.15990275144577026,
-          29.49799919128418,
-          1.4305114426349519e-8
+          -0.07606810246185702,
+          29.450166702270508,
+          -0.22967830300331116
         ]
       }
     },
     {
       "key": "reeving.sheave.guide-3",
       "kind": "position",
-      "label": "Horizontal guide sheave 3 · rear end, left",
+      "label": "Deck guide sheave 3 · rear end, left",
       "parentKey": "container.hoist",
       "classification": {
         "main": "01",
@@ -9907,7 +9804,7 @@
             "document": "M14",
             "pdfPage": 27,
             "figure": "Fig 2-14 8 ropes reeving; p26 text; JL28606 front/side views p21",
-            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 horizontal guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes and positions read from the trolley views; groove assignment, sheave shaft coordinates and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
+            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 deck guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes follow the trolley views. WA-04/06/08 place guides near the deck; their inclinations are derived to meet drum tangents. Groove assignment, shaft coordinates, link lengths and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
           }
         ]
       },
@@ -9915,14 +9812,14 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          -1.0525000095367432,
-          28.253999710083008,
-          -3.2200000286102295
+          -1.0325000286102295,
+          28.159000396728516,
+          -2.721874475479126
         ],
         "max": [
-          -0.13249999284744263,
-          29.694000244140625,
-          -1.7599999904632568
+          -0.1525000035762787,
+          28.790061950683594,
+          -1.8821063041687012
         ]
       }
     },
@@ -9952,7 +9849,7 @@
             "document": "M14",
             "pdfPage": 27,
             "figure": "Fig 2-14 8 ropes reeving; p26 text; JL28606 front/side views p21",
-            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 horizontal guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes and positions read from the trolley views; groove assignment, sheave shaft coordinates and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
+            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 deck guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes follow the trolley views. WA-04/06/08 place guides near the deck; their inclinations are derived to meet drum tangents. Groove assignment, shaft coordinates, link lengths and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
           }
         ]
       },
@@ -9974,14 +9871,14 @@
       },
       "bounds": {
         "min": [
-          -0.6315513253211975,
-          6.488736033439636,
-          -2.744999885559082
+          -0.1428220346194202,
+          6.4890367188511675,
+          -2.7449999997019767
         ],
         "max": [
-          -0.02990693598985672,
-          7.082086086273193,
-          -2.634999990463257
+          0.05102458956510181,
+          7.301134622833286,
+          -2.635000000298023
         ]
       }
     },
@@ -10011,7 +9908,7 @@
             "document": "M14",
             "pdfPage": 27,
             "figure": "Fig 2-14 8 ropes reeving; p26 text; JL28606 front/side views p21",
-            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 horizontal guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes and positions read from the trolley views; groove assignment, sheave shaft coordinates and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
+            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 deck guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes follow the trolley views. WA-04/06/08 place guides near the deck; their inclinations are derived to meet drum tangents. Groove assignment, shaft coordinates, link lengths and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
           }
         ]
       },
@@ -10019,14 +9916,14 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          1.3199999332427979,
-          27.375999450683594,
-          -2.765000104904175
+          1.409999966621399,
+          27.559999465942383,
+          -2.815000057220459
         ],
         "max": [
-          2.319999933242798,
-          28.29599952697754,
-          -2.515000104904175
+          2.390000104904175,
+          28.440000534057617,
+          -2.565000057220459
         ]
       }
     },
@@ -10056,7 +9953,7 @@
             "document": "M14",
             "pdfPage": 27,
             "figure": "Fig 2-14 8 ropes reeving; p26 text; JL28606 front/side views p21",
-            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 horizontal guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes and positions read from the trolley views; groove assignment, sheave shaft coordinates and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
+            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 deck guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes follow the trolley views. WA-04/06/08 place guides near the deck; their inclinations are derived to meet drum tangents. Groove assignment, shaft coordinates, link lengths and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
           }
         ]
       },
@@ -10064,21 +9961,21 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          0.15990275144577026,
-          7.049023431906543,
-          -2.704974021223079
+          0.07606810246185702,
+          7.294092540793569,
+          -2.7040000004321336
         ],
         "max": [
-          2.211609902731553,
-          29.49799919128418,
-          1.4305114426349519e-8
+          2.283740997314453,
+          29.450166702270508,
+          -0.22967830300331116
         ]
       }
     },
     {
       "key": "reeving.sheave.guide-4",
       "kind": "position",
-      "label": "Horizontal guide sheave 4 · rear end, right",
+      "label": "Deck guide sheave 4 · rear end, right",
       "parentKey": "container.hoist",
       "classification": {
         "main": "01",
@@ -10101,7 +9998,7 @@
             "document": "M14",
             "pdfPage": 27,
             "figure": "Fig 2-14 8 ropes reeving; p26 text; JL28606 front/side views p21",
-            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 horizontal guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes and positions read from the trolley views; groove assignment, sheave shaft coordinates and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
+            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 deck guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes follow the trolley views. WA-04/06/08 place guides near the deck; their inclinations are derived to meet drum tangents. Groove assignment, shaft coordinates, link lengths and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
           }
         ]
       },
@@ -10109,14 +10006,14 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          0.13249999284744263,
-          28.253999710083008,
-          -3.2200000286102295
+          0.1525000035762787,
+          28.159000396728516,
+          -2.721874475479126
         ],
         "max": [
-          1.0525000095367432,
-          29.694000244140625,
-          -1.7599999904632568
+          1.0325000286102295,
+          28.790061950683594,
+          -1.8821063041687012
         ]
       }
     },
@@ -10146,7 +10043,7 @@
             "document": "M14",
             "pdfPage": 27,
             "figure": "Fig 2-14 8 ropes reeving; p26 text; JL28606 front/side views p21",
-            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 horizontal guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes and positions read from the trolley views; groove assignment, sheave shaft coordinates and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
+            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 deck guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes follow the trolley views. WA-04/06/08 place guides near the deck; their inclinations are derived to meet drum tangents. Groove assignment, shaft coordinates, link lengths and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
           }
         ]
       },
@@ -10168,14 +10065,14 @@
       },
       "bounds": {
         "min": [
-          0.02990693598985672,
-          6.488736033439636,
-          -2.744999885559082
+          -0.05102458956510181,
+          6.4890367188511675,
+          -2.7449999997019767
         ],
         "max": [
-          0.6315513253211975,
-          7.082086086273193,
-          -2.634999990463257
+          0.1428220346194202,
+          7.301134622833286,
+          -2.635000000298023
         ]
       }
     },
@@ -10205,7 +10102,7 @@
             "document": "M14",
             "pdfPage": 27,
             "figure": "Fig 2-14 8 ropes reeving; p26 text; JL28606 front/side views p21",
-            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 horizontal guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes and positions read from the trolley views; groove assignment, sheave shaft coordinates and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
+            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 deck guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes follow the trolley views. WA-04/06/08 place guides near the deck; their inclinations are derived to meet drum tangents. Groove assignment, shaft coordinates, link lengths and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
           }
         ]
       },
@@ -10213,13 +10110,13 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          0.39250001311302185,
-          27.375999450683594,
-          1.6399999856948853
+          0.4749999940395355,
+          27.559999465942383,
+          1.659999966621399
         ],
         "max": [
-          0.6424999833106995,
-          28.29599952697754,
+          0.7250000238418579,
+          28.440000534057617,
           2.990000009536743
         ]
       }
@@ -10250,7 +10147,7 @@
             "document": "M14",
             "pdfPage": 27,
             "figure": "Fig 2-14 8 ropes reeving; p26 text; JL28606 front/side views p21",
-            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 horizontal guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes and positions read from the trolley views; groove assignment, sheave shaft coordinates and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
+            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 deck guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes follow the trolley views. WA-04/06/08 place guides near the deck; their inclinations are derived to meet drum tangents. Groove assignment, shaft coordinates, link lengths and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
           }
         ]
       },
@@ -10258,14 +10155,14 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          0.5053756237030029,
-          6.8985222002942805,
-          4.7683716530855236e-8
+          0.5051312446594238,
+          7.004637240928739,
+          0.04762142524123192
         ],
         "max": [
-          0.5296243558824062,
-          28.270000457763672,
-          2.5326733589172363
+          0.6123687624931335,
+          28.433992385864258,
+          2.5337963104248047
         ]
       }
     },
@@ -10295,7 +10192,7 @@
             "document": "M14",
             "pdfPage": 27,
             "figure": "Fig 2-14 8 ropes reeving; p26 text; JL28606 front/side views p21",
-            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 horizontal guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes and positions read from the trolley views; groove assignment, sheave shaft coordinates and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
+            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 deck guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes follow the trolley views. WA-04/06/08 place guides near the deck; their inclinations are derived to meet drum tangents. Groove assignment, shaft coordinates, link lengths and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
           }
         ]
       },
@@ -10317,14 +10214,14 @@
       },
       "bounds": {
         "min": [
-          0.47305670380592346,
-          6.494141101837158,
-          -0.001350916805677116
+          0.5450000002980232,
+          6.488364237814761,
+          -0.05055504488838855
         ],
         "max": [
-          0.6421569585800171,
-          6.925139665603638,
-          0.3372915983200073
+          0.6549999997019768,
+          7.0126640040889905,
+          0.1186079377884467
         ]
       }
     },
@@ -10354,7 +10251,7 @@
             "document": "M14",
             "pdfPage": 27,
             "figure": "Fig 2-14 8 ropes reeving; p26 text; JL28606 front/side views p21",
-            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 horizontal guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes and positions read from the trolley views; groove assignment, sheave shaft coordinates and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
+            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 deck guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes follow the trolley views. WA-04/06/08 place guides near the deck; their inclinations are derived to meet drum tangents. Groove assignment, shaft coordinates, link lengths and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
           }
         ]
       },
@@ -10362,14 +10259,14 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          0.737500011920929,
-          27.375999450683594,
+          0.4749999940395355,
+          27.559999465942383,
           -2.990000009536743
         ],
         "max": [
-          0.987500011920929,
-          28.29599952697754,
-          -1.6399999856948853
+          0.7250000238418579,
+          28.440000534057617,
+          -1.659999966621399
         ]
       }
     },
@@ -10399,7 +10296,7 @@
             "document": "M14",
             "pdfPage": 27,
             "figure": "Fig 2-14 8 ropes reeving; p26 text; JL28606 front/side views p21",
-            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 horizontal guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes and positions read from the trolley views; groove assignment, sheave shaft coordinates and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
+            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 deck guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes follow the trolley views. WA-04/06/08 place guides near the deck; their inclinations are derived to meet drum tangents. Groove assignment, shaft coordinates, link lengths and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
           }
         ]
       },
@@ -10407,14 +10304,14 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          0.8503756441175938,
-          6.8985222002942805,
-          -2.5327513217926025
+          0.5868623852729797,
+          7.004637240928739,
+          -2.5339455604553223
         ],
         "max": [
-          0.8746243715286255,
-          29.408477783203125,
-          -0.28607821419037527
+          0.8756375908851624,
+          29.427467346191406,
+          -0.05007640145793224
         ]
       }
     },
@@ -10444,7 +10341,7 @@
             "document": "M14",
             "pdfPage": 27,
             "figure": "Fig 2-14 8 ropes reeving; p26 text; JL28606 front/side views p21",
-            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 horizontal guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes and positions read from the trolley views; groove assignment, sheave shaft coordinates and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
+            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 deck guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes follow the trolley views. WA-04/06/08 place guides near the deck; their inclinations are derived to meet drum tangents. Groove assignment, shaft coordinates, link lengths and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
           }
         ]
       },
@@ -10466,14 +10363,14 @@
       },
       "bounds": {
         "min": [
-          0.5994099378585815,
-          6.491816282272339,
-          -0.33882778882980347
+          0.5450000002980232,
+          6.488364237814761,
+          -0.1186079377884467
         ],
         "max": [
-          0.9016386866569519,
-          6.929639458656311,
-          -0.0065393513068556786
+          0.6549999997019768,
+          7.0126640040889905,
+          0.05055504488838855
         ]
       }
     },
@@ -10503,7 +10400,7 @@
             "document": "M14",
             "pdfPage": 27,
             "figure": "Fig 2-14 8 ropes reeving; p26 text; JL28606 front/side views p21",
-            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 horizontal guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes and positions read from the trolley views; groove assignment, sheave shaft coordinates and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
+            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 deck guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes follow the trolley views. WA-04/06/08 place guides near the deck; their inclinations are derived to meet drum tangents. Groove assignment, shaft coordinates, link lengths and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
           }
         ]
       },
@@ -10511,13 +10408,13 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          -0.987500011920929,
-          27.375999450683594,
-          1.6399999856948853
+          -0.7250000238418579,
+          27.559999465942383,
+          1.659999966621399
         ],
         "max": [
-          -0.737500011920929,
-          28.29599952697754,
+          -0.4749999940395355,
+          28.440000534057617,
           2.990000009536743
         ]
       }
@@ -10548,7 +10445,7 @@
             "document": "M14",
             "pdfPage": 27,
             "figure": "Fig 2-14 8 ropes reeving; p26 text; JL28606 front/side views p21",
-            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 horizontal guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes and positions read from the trolley views; groove assignment, sheave shaft coordinates and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
+            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 deck guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes follow the trolley views. WA-04/06/08 place guides near the deck; their inclinations are derived to meet drum tangents. Groove assignment, shaft coordinates, link lengths and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
           }
         ]
       },
@@ -10556,14 +10453,14 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          -0.8746243715286255,
-          6.8985222002942805,
-          4.7683716530855236e-8
+          -0.8752633929252625,
+          7.004637240928739,
+          0.04666632041335106
         ],
         "max": [
-          -0.8503756441175938,
-          28.270000457763672,
-          2.5326733589172363
+          -0.5872365832328796,
+          28.433992385864258,
+          2.5337963104248047
         ]
       }
     },
@@ -10593,7 +10490,7 @@
             "document": "M14",
             "pdfPage": 27,
             "figure": "Fig 2-14 8 ropes reeving; p26 text; JL28606 front/side views p21",
-            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 horizontal guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes and positions read from the trolley views; groove assignment, sheave shaft coordinates and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
+            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 deck guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes follow the trolley views. WA-04/06/08 place guides near the deck; their inclinations are derived to meet drum tangents. Groove assignment, shaft coordinates, link lengths and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
           }
         ]
       },
@@ -10615,14 +10512,14 @@
       },
       "bounds": {
         "min": [
-          -0.9016386866569519,
-          6.491816282272339,
-          0.0065393513068556786
+          -0.6549999997019768,
+          6.488364237814761,
+          -0.05055504488838855
         ],
         "max": [
-          -0.5994099378585815,
-          6.929639458656311,
-          0.33882778882980347
+          -0.5450000002980232,
+          7.0126640040889905,
+          0.1186079377884467
         ]
       }
     },
@@ -10652,7 +10549,7 @@
             "document": "M14",
             "pdfPage": 27,
             "figure": "Fig 2-14 8 ropes reeving; p26 text; JL28606 front/side views p21",
-            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 horizontal guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes and positions read from the trolley views; groove assignment, sheave shaft coordinates and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
+            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 deck guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes follow the trolley views. WA-04/06/08 place guides near the deck; their inclinations are derived to meet drum tangents. Groove assignment, shaft coordinates, link lengths and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
           }
         ]
       },
@@ -10660,14 +10557,14 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          -0.6424999833106995,
-          27.375999450683594,
+          -0.7250000238418579,
+          27.559999465942383,
           -2.990000009536743
         ],
         "max": [
-          -0.39250001311302185,
-          28.29599952697754,
-          -1.6399999856948853
+          -0.4749999940395355,
+          28.440000534057617,
+          -1.659999966621399
         ]
       }
     },
@@ -10697,7 +10594,7 @@
             "document": "M14",
             "pdfPage": 27,
             "figure": "Fig 2-14 8 ropes reeving; p26 text; JL28606 front/side views p21",
-            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 horizontal guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes and positions read from the trolley views; groove assignment, sheave shaft coordinates and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
+            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 deck guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes follow the trolley views. WA-04/06/08 place guides near the deck; their inclinations are derived to meet drum tangents. Groove assignment, shaft coordinates, link lengths and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
           }
         ]
       },
@@ -10705,14 +10602,14 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          -0.5296243558824062,
-          6.8985222002942805,
-          -2.5327513217926025
+          -0.6125131845474243,
+          7.004637240928739,
+          -2.5339455604553223
         ],
         "max": [
-          -0.5053756237030029,
-          29.408477783203125,
-          -0.28607821419037527
+          -0.5049868226051331,
+          29.427541732788086,
+          -0.05007640145793224
         ]
       }
     },
@@ -10742,7 +10639,7 @@
             "document": "M14",
             "pdfPage": 27,
             "figure": "Fig 2-14 8 ropes reeving; p26 text; JL28606 front/side views p21",
-            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 horizontal guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes and positions read from the trolley views; groove assignment, sheave shaft coordinates and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
+            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 deck guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes follow the trolley views. WA-04/06/08 place guides near the deck; their inclinations are derived to meet drum tangents. Groove assignment, shaft coordinates, link lengths and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
           }
         ]
       },
@@ -10764,14 +10661,14 @@
       },
       "bounds": {
         "min": [
-          -0.6421569585800171,
-          6.494141101837158,
-          -0.3372915983200073
+          -0.6549999997019768,
+          6.488364237814761,
+          -0.1186079377884467
         ],
         "max": [
-          -0.47305670380592346,
-          6.925139665603638,
-          0.001350916805677116
+          -0.5450000002980232,
+          7.0126640040889905,
+          0.05055504488838855
         ]
       }
     },
@@ -10858,10 +10755,10 @@
         "sources": [
           {
             "document": "PHOTO",
-            "photo": "wa-24",
+            "photo": "wa-15",
             "pdfPage": null,
-            "figure": "User site photographs, 5 November 2026 (WA-01 … WA-28)",
-            "note": "Twenty-eight photographs of a CICT ZP12-1874 RTG. Used for shapes, positions and finishes the manuals do not give: turning jacks, drive platforms, trolley drives and cabinet, cable basket, chain portal, lamps and pipework. Scaled against known dimensions; perspective limits accuracy."
+            "figure": "WA-08 cable guide beside drum; WA-15/17 basket; WA-19 trolley underside; M14 p21 SCF1 item",
+            "note": "Fixed trolley feed and hanging cable entering an open headblock storage basket through its guide cage. The large outboard motorised reel was not supported by the photos. Compact guide envelope, under-deck supply route and cable diameter are estimates; SCF1 vendor internals unavailable. Legacy reel node key retained for binding continuity."
           }
         ]
       },
@@ -10875,7 +10772,7 @@
         ],
         "max": [
           0.4230000078678131,
-          7.66558837890625,
+          7.667320489883423,
           0.4230000078678131
         ]
       }
@@ -10883,7 +10780,7 @@
     {
       "key": "hoist.spreader-cable.drop",
       "kind": "position",
-      "label": "Spreader drop cable · reel to headblock basket (moving)",
+      "label": "Spreader drop cable · fixed feed to headblock basket",
       "parentKey": "container.hoist",
       "classification": {
         "main": "01",
@@ -10904,10 +10801,10 @@
         "sources": [
           {
             "document": "PHOTO",
-            "photo": "wa-24",
+            "photo": "wa-15",
             "pdfPage": null,
-            "figure": "User site photographs, 5 November 2026 (WA-01 … WA-28)",
-            "note": "Twenty-eight photographs of a CICT ZP12-1874 RTG. Used for shapes, positions and finishes the manuals do not give: turning jacks, drive platforms, trolley drives and cabinet, cable basket, chain portal, lamps and pipework. Scaled against known dimensions; perspective limits accuracy."
+            "figure": "WA-08 cable guide beside drum; WA-15/17 basket; WA-19 trolley underside; M14 p21 SCF1 item",
+            "note": "Fixed trolley feed and hanging cable entering an open headblock storage basket through its guide cage. The large outboard motorised reel was not supported by the photos. Compact guide envelope, under-deck supply route and cable diameter are estimates; SCF1 vendor internals unavailable. Legacy reel node key retained for binding continuity."
           }
         ]
       },
@@ -10915,14 +10812,14 @@
       "cameraHint": null,
       "bounds": {
         "min": [
-          -0.1599999964237213,
-          7.140000000000001,
-          -1.222000002861023
+          -2.2552919387817383,
+          7.649999999999999,
+          -1.4308983087539673
         ],
         "max": [
-          2.3499999046325684,
-          28.552000045776367,
-          0.1599999964237213
+          0.03412806615233421,
+          28.28400421142578,
+          0.024714196100831032
         ]
       }
     },
@@ -11129,7 +11026,7 @@
             "document": "M14",
             "pdfPage": 27,
             "figure": "Fig 2-14 8 ropes reeving; p26 text; JL28606 front/side views p21",
-            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 horizontal guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes and positions read from the trolley views; groove assignment, sheave shaft coordinates and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
+            "note": "Topology from the text and Fig 2-14: ropes clamped on the drum, 12 trolley sheaves (8 fall + 4 deck guides), pairs joined through turnbuckles at the four headblock edge midpoints as four isosceles triangles. Fall planes follow the trolley views. WA-04/06/08 place guides near the deck; their inclinations are derived to meet drum tangents. Groove assignment, shaft coordinates, link lengths and diameters are estimates. Top/bottom drum leads follow from all ropes winding in together."
           }
         ]
       },
@@ -12282,14 +12179,6 @@
       }
     },
     {
-      "0": "p",
-      "1": "o",
-      "2": "s",
-      "3": "i",
-      "4": "t",
-      "5": "i",
-      "6": "o",
-      "7": "n",
       "key": "cabin.shell.main",
       "kind": "position",
       "label": "Cab shell, glazing and roof",
@@ -12321,6 +12210,21 @@
       },
       "qualifier": "Provisional geometry; see source dimensions",
       "cameraHint": null,
+      "enclosure": true,
+      "appearanceSource": {
+        "kind": "estimated",
+        "photos": [
+          "maxresdefault.jpg",
+          "images.jpg",
+          "images (1).jpg",
+          "story-11.webp",
+          "IMG_20171109_140808.jpg",
+          "IMG_20171109_141902.jpg",
+          "IMG_20171109_141914.jpg"
+        ],
+        "paintSpec": "unavailable",
+        "note": "Photo-referenced paint; does not change mechanical provenance or equipment identity"
+      },
       "bounds": {
         "min": [
           0.9674999713897705,

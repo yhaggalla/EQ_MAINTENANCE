@@ -3,8 +3,8 @@
   "modelCode": "cict-j526a-sts-scene",
   "equipmentModelCode": "CICT-J526A-STS",
   "version": 1,
-  "revision": 8,
-  "revisionNote": "U1-C70 (2026-11-05): 222 parts from the QC component workbook (QC01-QC14 list) and the ZPMC manual list (QC ALL Components) that the drawing-based model did not draw, placed from the workbook locations (LHS = gate house end = -Z, front catenary = seaside), the drawings and the manual, as simple located shapes in one instanced carrier per area (Technical mode, approximate location; D-220). Previous: U1-C65 (2026-10-29): trolley rails (A75, rubber pads, clips, hinge-joint short rails, end stops; J526A0104) and the catenary trolley system (landside and seaside catenary trolleys, boom-tip catenary sheaves, girder-tail catenary rope tensioners, catenary ropes; J526A2200 set) added in container.trolley-runway; rope re-reeving device added in the machinery house (J526A1500); anti-snag tail sheave (J526A1000), trolley rope tension-device sheave (J526A2103) and spreader cable reel (Cavotec SC-121216-ME2a) diameters corrected to measured values. Previous: U1 round 7 (2026-10-23): 013 load cells moved from the in-line position about 2.6 m inboard to the boom tip end, in-line on the horizontal cross-over of the main hoist ropes at the very end of the boom (user reference image, U1-C27; closes U-36; points estimated). Previous: U1 round 6 (2026-10-23): 013 load cell moved from the boom-tip rope-end anchor pins to in-line load cells in the horizontal main hoist ropes at the boom tip (user answer to U-23, U1-C25; point estimated); the J526A2000 Detail I rope-end anchors stay in reeving.sheave.boom-tip. Previous: U1 round 3 (2026-10-22): trolley rebuilt from J526A0200 / J526A2100 (4 wheels instead of 8, four sheave shafts with two sheaves each, open frame and centre body, trolley-rope equalizer sheaves, spreader cable reel, main hoist and trolley rope paths on the trolley); headblock re-read from J526A1200 and spreader remodelled (STS45 drawing still not supplied; ISO 1161 corner positions, DT1500F cradle spacing). Previous: U1 round 2 (2026-10-22): load cells at the trolley sheave shafts, girder-tail platforms and stairs, apex platform and boom-hoist sheave arrangement, floodlight fittings on the boom and girder, elevator position/car/landings and every location marker drawn as a simplified part (J526A0200, J526A2300, J526A5000, J526A5100). Previous: U1 repair (2026-10-21): back-reach area, CICT logo, stair tower orientation, cab remodel, reeving paths and machinery-house layout re-checked against J526A00, J526A1000, J526A3000, J526A3100, J526A5000, J526A7100. Draft v1 revised in place: no equipment binding is active.",
+  "revision": 13,
+  "revisionNote": "U1-C75: cabin entrance mirrored to elevator (-Z) side, distinct boarding gate and fixed third-landing home access added. Exact home station/route offsets provisional. Prior: U1-C74 (2026-11-09): busbar and cabin connection moved to opposite (+Z) girder as requested; cabin rebuilt from J526A3100 with raked glazing, rising floor window, rear cabinets, suspended chair, twin joysticks, panels and attached instruments. All existing keys retained. Prior: U1-C73 (2026-11-09): user-confirmed busbar beneath the boom, with the power/communication slipring connection carried by the cabin. Removes the generic fixed-girder festoon loops; preserves the existing 023 identity. Dimensions and mounting details remain estimated. Previous: U1-C72 (2026-11-06): floating-part repair; single physical trolley/headblock sheaves and gantry buffers, reel-datum accessories, mounted trip wires and sensors; optional attachments retained as records but absent from displayed arrangement. C71 TLS geometry preserved. Previous: U1-C71 (2026-11-05): back-reach TLS rebuilt from J526A1000 normal-operation pose. Four cylinders and sheaves in transverse pairs; stable component keys retained; rope edits confined to the tail. Mounting datum and fabrication profiles remain estimated. Previous: U1-C70 (2026-11-05): 222 parts from the QC component workbook (QC01-QC14 list) and the ZPMC manual list (QC ALL Components) that the drawing-based model did not draw, placed from the workbook locations (LHS = gate house end = -Z, front catenary = seaside), the drawings and the manual, as simple located shapes in one instanced carrier per area (Technical mode, approximate location; D-220). Previous: U1-C65 (2026-10-29): trolley rails (A75, rubber pads, clips, hinge-joint short rails, end stops; J526A0104) and the catenary trolley system (landside and seaside catenary trolleys, boom-tip catenary sheaves, girder-tail catenary rope tensioners, catenary ropes; J526A2200 set) added in container.trolley-runway; rope re-reeving device added in the machinery house (J526A1500); anti-snag tail sheave (J526A1000), trolley rope tension-device sheave (J526A2103) and spreader cable reel (Cavotec SC-121216-ME2a) diameters corrected to measured values. Previous: U1 round 7 (2026-10-23): 013 load cells moved from the in-line position about 2.6 m inboard to the boom tip end, in-line on the horizontal cross-over of the main hoist ropes at the very end of the boom (user reference image, U1-C27; closes U-36; points estimated). Previous: U1 round 6 (2026-10-23): 013 load cell moved from the boom-tip rope-end anchor pins to in-line load cells in the horizontal main hoist ropes at the boom tip (user answer to U-23, U1-C25; point estimated); the J526A2000 Detail I rope-end anchors stay in reeving.sheave.boom-tip. Previous: U1 round 3 (2026-10-22): trolley rebuilt from J526A0200 / J526A2100 (4 wheels instead of 8, four sheave shafts with two sheaves each, open frame and centre body, trolley-rope equalizer sheaves, spreader cable reel, main hoist and trolley rope paths on the trolley); headblock re-read from J526A1200 and spreader remodelled (STS45 drawing still not supplied; ISO 1161 corner positions, DT1500F cradle spacing). Previous: U1 round 2 (2026-10-22): load cells at the trolley sheave shafts, girder-tail platforms and stairs, apex platform and boom-hoist sheave arrangement, floodlight fittings on the boom and girder, elevator position/car/landings and every location marker drawn as a simplified part (J526A0200, J526A2300, J526A5000, J526A5100). Previous: U1 repair (2026-10-21): back-reach area, CICT logo, stair tower orientation, cab remodel, reeving paths and machinery-house layout re-checked against J526A00, J526A1000, J526A3000, J526A3100, J526A5000, J526A7100. Draft v1 revised in place: no equipment binding is active.",
   "status": "draft",
   "statusNote": "P03 prototype, revised in the U1 repair while still a draft with no active binding. Not assigned to any equipment; bindings are made by Admin per equipment (DATA_CONTRACT s10.5).",
   "units": "m",
@@ -18,10 +18,10 @@
   "generator": {
     "name": "eq-model-generator",
     "version": "1.0.0",
-    "sourceCommit": "5b891c1f0250a185f0b9389d31181d8a241607c5",
+    "sourceCommit": "8c792d16346d50616d3e804b9160f4ba49415885",
     "sourceDirty": true,
     "three": "0.186.1",
-    "node": "v22.23.4"
+    "node": "v24.15.0"
   },
   "source": {
     "params": "assets/models/source/cict-j526a-sts/params.json",
@@ -29,19 +29,19 @@
   },
   "asset": {
     "file": "scene.glb",
-    "sha256": "c561ff4125b776f14477e9d596ec91d1124937dbd454c9de8dd4b8e281580053",
-    "bytes": 3757348,
-    "triangles": 87842,
-    "drawCallsEstimate": 224,
+    "sha256": "7cc263ed0510912230c48f75d89b3f066148a3fe0440046d12ea201c7e66b273",
+    "bytes": 3910668,
+    "triangles": 92490,
+    "drawCallsEstimate": 230,
     "overallMode": {
-      "triangles": 69646,
-      "drawCallsEstimate": 161,
-      "meshObjects": 101
+      "triangles": 76838,
+      "drawCallsEstimate": 167,
+      "meshObjects": 112
     },
     "technicalMode": {
-      "triangles": 87840,
-      "drawCallsEstimate": 223,
-      "meshObjects": 143
+      "triangles": 92452,
+      "drawCallsEstimate": 228,
+      "meshObjects": 154
     }
   },
   "budgets": {
@@ -279,7 +279,7 @@
           -12.4
         ],
         "max": [
-          1.415,
+          1.255,
           55.110001,
           12.4
         ]
@@ -1147,7 +1147,7 @@
         ],
         "max": [
           -0.3,
-          55.080002,
+          56.355,
           4.62
         ]
       },
@@ -1209,68 +1209,6 @@
       "cameraHint": null
     },
     {
-      "key": "trolley.cable-system.main",
-      "kind": "hotspot",
-      "label": "Trolley cable transport / sliding-contact system (representative festoon carriages; location approximate)",
-      "parentKey": "container.girder",
-      "classification": {
-        "main": "02",
-        "sub": "023"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [
-        "trolley.cable-system.main"
-      ],
-      "instancing": null,
-      "pickable": true,
-      "pickPriority": 60,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": null,
-      "uom": null,
-      "category": null,
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "J526A00",
-            "pdfPage": 2,
-            "note": "item J526A4100 slip-contact system listed; drawing not supplied (U-10)"
-          },
-          {
-            "drawing": "J526A00",
-            "pdfPage": 1,
-            "note": "item 15 catenary trolley rope reeving diagram (cable trolleys)"
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": {
-        "point": [
-          -20,
-          49.7,
-          -3.15
-        ],
-        "radius": 0.7,
-        "representation": "simplified-part"
-      },
-      "bounds": {
-        "min": [
-          -24.5,
-          48.850883,
-          -3.35
-        ],
-        "max": [
-          -15.5,
-          50.5,
-          -2.95
-        ]
-      },
-      "cameraHint": null
-    },
-    {
       "key": "container.back-reach",
       "kind": "container",
       "label": "Back-reach area (girder tail)",
@@ -1316,7 +1254,7 @@
         ],
         "max": [
           -51.974998,
-          55.080002,
+          56.355,
           4.62
         ]
       },
@@ -1380,13 +1318,13 @@
     {
       "key": "reeving.anti-snag-tls.device",
       "kind": "position",
-      "label": "Anti-snag and trim/list/skew device (cylinders and levers)",
+      "label": "Anti-snag / TLS fixed supports and four pendulum levers",
       "parentKey": "container.back-reach",
       "classification": {
         "main": "11",
         "sub": "111"
       },
-      "classificationNote": "J526A1000 anti-snag and trim/list/skew device (hydraulic cylinders acting on the hoist-rope tail sheaves): 111 Skew system proposed; Admin to confirm",
+      "classificationNote": "J526A1000 anti-snag and trim/list/skew device: 111 Skew system proposed; Admin to confirm",
       "gltfNodeNames": [
         "reeving.anti-snag-tls.device"
       ],
@@ -1407,27 +1345,32 @@
           {
             "drawing": "J526A1000",
             "pdfPage": 1,
-            "note": "overall 3754; cylinders bore 200 / rod 140 / stroke 1400; lever arms carrying the rope sheaves; frame shape simplified"
+            "note": "U1-C71: normal operation, pivot height 3055, pry bar 3504, rod eye radius 2565, cylinder pin span 2212; four sheaves across Z in pairs 605 apart at +/-2450. The 2200 dimension is lever travel, not longitudinal sheave spacing."
+          },
+          {
+            "drawing": "J526A1000",
+            "pdfPage": 2,
+            "note": "four pry bars and four hydraulic cylinders, two main supports"
           },
           {
             "drawing": "J526A00",
             "pdfPage": 1,
-            "note": "item 7 at the girder tail"
+            "note": "item 7 at the girder tail; exact mounting datum qualified in params.json"
           }
         ]
       },
-      "qualifier": null,
+      "qualifier": "Drawing-derived mechanism; mounting datum and plate profiles estimated",
       "hotspot": null,
       "bounds": {
         "min": [
-          -59.200001,
+          -62.466496,
           52.299999,
-          -3.4
+          -3.0805
         ],
         "max": [
-          -54.532845,
-          55,
-          3.4
+          -59.23452,
+          56.355,
+          3.0805
         ]
       },
       "cameraHint": null
@@ -1435,7 +1378,7 @@
     {
       "key": "reeving.sheave.girder-tail",
       "kind": "position",
-      "label": "Main hoist rope tail sheaves (girder tail, one per rope)",
+      "label": "Main hoist rope tail sheave axles (four independent TLS levers)",
       "parentKey": "container.back-reach",
       "classification": {
         "main": "01",
@@ -1462,7 +1405,7 @@
           {
             "drawing": "J526A1000",
             "pdfPage": 1,
-            "note": "sheaves dia 1000 (B-B) on the levers, 2200 apart; U1-C66: one sheave per hoist rope, 4 in total (ZPMC mechanical manual 1.3.1.4: four cylinders attached to the four hoist ropes by turning sheaves)"
+            "note": "U1-C71: four sheaves dia 1000 (B-B), two transverse pairs 605 apart with pair centres +/-2450. The four individually selectable sheaves carry the rims; this retained assembly key carries their axles."
           },
           {
             "drawing": "J526A00",
@@ -1475,14 +1418,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -58.596355,
-          52.650002,
-          -3.2
+          -62.411823,
+          52.750984,
+          -2.9625
         ],
         "max": [
-          -55.403645,
-          53.650002,
-          3.2
+          -62.27182,
+          52.890987,
+          2.9625
         ]
       },
       "cameraHint": null
@@ -1737,14 +1680,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -60.830001,
-          50.289998,
-          -3.9
+          -0.8,
+          50.068016,
+          -5.524822
         ],
         "max": [
           75.900002,
-          84.055997,
-          3.9
+          81.03257,
+          5.524822
         ]
       },
       "cameraHint": null
@@ -1785,6 +1728,11 @@
             "drawing": "J526A00",
             "pdfPage": 1,
             "note": "70000 outreach"
+          },
+          {
+            "drawing": "J526A6300",
+            "pdfPage": 1,
+            "note": "C72: anti-collision wire supports at 69600 spacing; sections A-A/B-B, 1800 outboard and 400 below the girder. Rear datum and member sections estimated."
           }
         ]
       },
@@ -1793,13 +1741,13 @@
       "bounds": {
         "min": [
           0.3,
-          50.5,
-          -3.75
+          50.068016,
+          -5.524822
         ],
         "max": [
           75.900002,
           53.650002,
-          3.75
+          5.524822
         ]
       },
       "cameraHint": null
@@ -2268,7 +2216,7 @@
       "bounds": {
         "min": [
           -60.465,
-          52.299999,
+          49.1507,
           -3.41
         ],
         "max": [
@@ -5119,11 +5067,11 @@
         "min": [
           63.575001,
           47.167599,
-          -3.390002
+          -3.525
         ],
         "max": [
           72.734996,
-          53.299999,
+          53.544998,
           3.390002
         ]
       },
@@ -5467,13 +5415,13 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          68.599998,
-          52.299999,
+          68.949997,
+          52.650002,
           2.205
         ],
         "max": [
-          71.400002,
-          53.299999,
+          71.050003,
+          52.950001,
           2.995
         ]
       },
@@ -5522,13 +5470,13 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          68.599998,
-          52.299999,
+          68.949997,
+          52.650002,
           -2.995
         ],
         "max": [
-          71.400002,
-          53.299999,
+          71.050003,
+          52.950001,
           -2.205
         ]
       },
@@ -5648,7 +5596,7 @@
       "bounds": {
         "min": [
           69.199997,
-          47.167599,
+          50.720001,
           -1.16
         ],
         "max": [
@@ -5687,24 +5635,24 @@
         "kind": "drawing-derived",
         "sources": [
           {
+            "drawing": "User correction 2026-11-09",
+            "pdfPage": null,
+            "note": "C75: cabin entrance and home boarding interface are on the elevator (-Z) side; supersedes C74 side interpretation."
+          },
+          {
             "drawing": "J526A3100",
             "pdfPage": 1,
-            "note": "3000 x 2200 x 2673; windows, floor window 826, visor 310, door 1900, walkway 900, 4 dampers; frame members simplified"
+            "note": "U1-C74: plan 3000 x 2200; C-C 2400 internal height and rear cabinets; B-B 2673 mounting top, 2100 x 1940 mounting pitch; A-A sloping front/floor glazing; 900 rear and 850 side walkway. Sections, instruments and seat profile simplified."
           },
           {
             "drawing": "J526A0200",
             "pdfPage": 1,
-            "note": "cab 2500 landside of the hoist centre"
+            "note": "cab 2500 landside of hoist centre; existing display pose retained"
           },
           {
             "drawing": "J526A00",
             "pdfPage": 1,
-            "note": "cab floor about 47.8 m in the side view at the outreach position"
-          },
-          {
-            "drawing": "site photo 09_14_34 PM",
-            "pdfPage": null,
-            "note": "light cab with blue-tinted glazing hanging under the trolley (AI-processed appearance reference, not a dimension source)"
+            "note": "cab floor about 47.8 m at outreach display pose, estimated"
           }
         ]
       },
@@ -5713,13 +5661,81 @@
       "bounds": {
         "min": [
           63.575001,
-          47.560001,
-          -1.275
+          47.599998,
+          -3.525
         ],
         "max": [
-          68.139999,
-          50.77,
-          1.275
+          68.184998,
+          53.544998,
+          1.16
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "trolley.cable-system.main",
+      "kind": "hotspot",
+      "label": "Boom busbar and cabin power / communication slipring connection",
+      "parentKey": "container.trolley-runway",
+      "classification": {
+        "main": "02",
+        "sub": "023"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [
+        "trolley.cable-system.main"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 60,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": null,
+      "uom": null,
+      "category": null,
+      "provenance": {
+        "kind": "approximate-location",
+        "sources": [
+          {
+            "drawing": "User confirmation 2026-11-09",
+            "pdfPage": null,
+            "note": "Busbar runs under the boom; power and communication slipring connection is with the cabin. Supersedes the generic festoon representation. C74: user requests the opposite (+Z) boom girder; connection mirrored with the busbar."
+          },
+          {
+            "drawing": "J526A00",
+            "pdfPage": 2,
+            "note": "item 22 J526A4100 slip contact system; detail sheet not supplied (U-10)"
+          },
+          {
+            "drawing": "ZPMC mechanical manual chapter 1",
+            "pdfPage": 29,
+            "note": "section 1.5.3, Figure 1-48: power/control cable carrying system travelling with the trolley; figure does not establish the model dimensions"
+          }
+        ]
+      },
+      "qualifier": "Arrangement confirmed by user; opposite girder side confirmed; dimensions and mounting details approximate",
+      "hotspot": {
+        "point": [
+          65.95,
+          49.599999999999994,
+          1.2200000000000002
+        ],
+        "radius": 0.7,
+        "representation": "simplified-part"
+      },
+      "bounds": {
+        "min": [
+          0.255,
+          49.1507,
+          1.08
+        ],
+        "max": [
+          71.945,
+          50.5,
+          3.295
         ]
       },
       "cameraHint": null
@@ -5727,7 +5743,7 @@
     {
       "key": "cabin.operator.seat",
       "kind": "position",
-      "label": "Operator seat (tip-up chair)",
+      "label": "Operator seat with suspension, headrest and footrest",
       "parentKey": "container.trolley",
       "classification": {
         "main": "14",
@@ -5749,27 +5765,27 @@
       "uom": "ea",
       "category": "component",
       "provenance": {
-        "kind": "estimated",
+        "kind": "drawing-derived",
         "sources": [
           {
             "drawing": "J526A3100",
             "pdfPage": 1,
-            "note": "item 10 tip-up chair installation (ZT2-031511) facing the front and floor windows; size estimated"
+            "note": "U1-C74: item 10 chair installation, A-A/B-B and plan; faces front/floor windows. Cushion and suspension profiles scaled, not vendor fabrication geometry."
           }
         ]
       },
-      "qualifier": "Estimated geometry",
+      "qualifier": null,
       "hotspot": null,
       "bounds": {
         "min": [
-          65.760002,
-          47.900002,
-          -0.28
+          65.754997,
+          47.810001,
+          -0.37
         ],
         "max": [
-          66.529999,
-          49.259998,
-          0.28
+          66.769997,
+          49.305,
+          0.37
         ]
       },
       "cameraHint": null
@@ -5777,7 +5793,7 @@
     {
       "key": "cabin.operator.consoles",
       "kind": "position",
-      "label": "Operator control consoles and joysticks",
+      "label": "Twin joystick consoles, rear control cabinets and auxiliary panel",
       "parentKey": "container.trolley",
       "classification": {
         "main": "14",
@@ -5799,27 +5815,27 @@
       "uom": "ea",
       "category": "component",
       "provenance": {
-        "kind": "approximate-location",
+        "kind": "drawing-derived",
         "sources": [
           {
             "drawing": "J526A3100",
             "pdfPage": 1,
-            "note": "auxiliary control station and seat consoles; vendor shapes not established"
+            "note": "U1-C74: plan twin seat consoles; C-C 600 x 1800 reel panel and 1400 x 2000 CAB/spreader panel, 400/405 depth; B-B auxiliary station. Controls and screen faces illustrative, not live status."
           }
         ]
       },
-      "qualifier": "Location approximate / simplified representation",
+      "qualifier": null,
       "hotspot": null,
       "bounds": {
         "min": [
-          64.599998,
-          47.900002,
-          -1
+          64.540001,
+          47.814999,
+          -1.02
         ],
         "max": [
-          66.599998,
-          49.200001,
-          0.6
+          67.239998,
+          50.220001,
+          1.075
         ]
       },
       "cameraHint": null
@@ -5868,7 +5884,7 @@
         "point": [
           64,
           48.11,
-          0.75
+          0.65
         ],
         "radius": 0.4,
         "representation": "simplified-part"
@@ -5877,12 +5893,12 @@
         "min": [
           63.849998,
           47.799999,
-          0.35
+          0.25
         ],
         "max": [
           64.400002,
           48.445,
-          1.17
+          1.07
         ]
       },
       "cameraHint": null
@@ -5933,14 +5949,14 @@
       },
       "bounds": {
         "min": [
-          -58.624031,
+          -59.364147,
           52.299999,
-          -2.02146
+          -2.764625
         ],
         "max": [
-          -56.77597,
+          -56.785854,
           53.75,
-          2.017655
+          2.76331
         ]
       },
       "cameraHint": null
@@ -6116,7 +6132,7 @@
         ],
         "max": [
           71.317062,
-          48.089992,
+          47.814999,
           6.3125
         ]
       },
@@ -6216,7 +6232,7 @@
         ],
         "max": [
           71.044998,
-          47.59,
+          47.169998,
           2.8
         ]
       },
@@ -6266,7 +6282,7 @@
         ],
         "max": [
           71.044998,
-          47.59,
+          47.169998,
           -2.4
         ]
       },
@@ -6672,13 +6688,13 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -58.643044,
+          -62.884693,
           46.580627,
-          -2.8
+          -2.8025
         ],
         "max": [
           75.643303,
-          53.693123,
+          53.63763,
           3.888295
         ]
       },
@@ -6974,9 +6990,9 @@
           -15.221
         ],
         "max": [
-          1.660002,
+          1.540002,
           10.785,
-          14.099997
+          13.5
         ]
       },
       "cameraHint": null
@@ -7026,7 +7042,7 @@
         "max": [
           0.36,
           3.7,
-          13.5
+          12.88
         ]
       },
       "cameraHint": null
@@ -7129,7 +7145,7 @@
         "min": [
           -0.36,
           0.25,
-          -13.5
+          -12.88
         ],
         "max": [
           0.36,
@@ -7242,7 +7258,7 @@
         "max": [
           -29.639999,
           3.7,
-          13.5
+          12.88
         ]
       },
       "cameraHint": null
@@ -7345,7 +7361,7 @@
         "min": [
           -30.360001,
           0.25,
-          -13.5
+          -12.88
         ],
         "max": [
           -29.639999,
@@ -9896,7 +9912,7 @@
           {
             "drawing": "J526A4000",
             "pdfPage": null,
-            "note": "reel sheet not detailed"
+            "note": "reel sheet not detailed; C72 guide support and upper cable route are simplified, not fabrication dimensions"
           }
         ]
       },
@@ -9963,7 +9979,7 @@
         "max": [
           -29.155001,
           56.43,
-          -7.315389
+          -3.118789
         ]
       },
       "cameraHint": null
@@ -9998,7 +10014,7 @@
           {
             "drawing": "J526A5000",
             "pdfPage": 1,
-            "note": "View P: switch-back flights outboard of leg B with landings A 6500, B 15615, C 47845 and 53430; side view: stair on the landside face of the leg"
+            "note": "C75 adds elevator-side cabin home boarding access at third landing; exact home station and route offsets estimated. View P: switch-back flights outboard of leg B with landings A 6500, B 15615, C 47845 and 53430; side view: stair on the landside face of the leg"
           },
           {
             "drawing": "J526A00",
@@ -10016,9 +10032,9 @@
           -14.165
         ],
         "max": [
-          -30.690001,
+          -29.975,
           54.555,
-          -7.315389
+          -3.118789
         ]
       },
       "cameraHint": null
@@ -10119,6 +10135,2263 @@
           -29.155001,
           9.975,
           -11.69
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "trolley.hoist-sheave.1-i",
+      "kind": "position",
+      "label": "Hoist Sheave 01(i) - trolley (landside shaft)",
+      "parentKey": "container.trolley",
+      "classification": {
+        "main": "01",
+        "sub": "011"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [],
+      "instancing": {
+        "gltfNodeName": "trolley.hoist-sheaves.instanced",
+        "index": 0
+      },
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "drawing-derived",
+        "sources": [
+          {
+            "drawing": "QC component workbook, QC01 row 25",
+            "pdfPage": null,
+            "note": "location Trolley"
+          },
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 1,
+            "note": "trolley main hoist sheaves: 2 shafts x 2 sheaves per rope side"
+          },
+          {
+            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
+            "pdfPage": null,
+            "note": "(i) landside shaft, (ii) seaside shaft; to confirm"
+          },
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 1,
+            "note": "U1-C72: Owns one of the eight existing dia 1000 sheaves on four shafts; no duplicate proxy. Shaft height scaled; workbook numbering retained."
+          }
+        ]
+      },
+      "qualifier": null,
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          68.599998,
+          52.299999,
+          -2.6985
+        ],
+        "max": [
+          69.599998,
+          53.299999,
+          -2.5865
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "trolley.hoist-sheave.1-ii",
+      "kind": "position",
+      "label": "Hoist Sheave 01(ii) - trolley (seaside shaft)",
+      "parentKey": "container.trolley",
+      "classification": {
+        "main": "01",
+        "sub": "011"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [],
+      "instancing": {
+        "gltfNodeName": "trolley.hoist-sheaves.instanced",
+        "index": 1
+      },
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "drawing-derived",
+        "sources": [
+          {
+            "drawing": "QC component workbook, QC01 row 26",
+            "pdfPage": null,
+            "note": "location Trolley"
+          },
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 1,
+            "note": "trolley main hoist sheaves: 2 shafts x 2 sheaves per rope side"
+          },
+          {
+            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
+            "pdfPage": null,
+            "note": "(i) landside shaft, (ii) seaside shaft; to confirm"
+          },
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 1,
+            "note": "U1-C72: Owns one of the eight existing dia 1000 sheaves on four shafts; no duplicate proxy. Shaft height scaled; workbook numbering retained."
+          }
+        ]
+      },
+      "qualifier": null,
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          70.400002,
+          52.299999,
+          -2.7785
+        ],
+        "max": [
+          71.400002,
+          53.299999,
+          -2.6665
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "trolley.hoist-sheave.2-i",
+      "kind": "position",
+      "label": "Hoist Sheave 02(i) - trolley (landside shaft)",
+      "parentKey": "container.trolley",
+      "classification": {
+        "main": "01",
+        "sub": "011"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [],
+      "instancing": {
+        "gltfNodeName": "trolley.hoist-sheaves.instanced",
+        "index": 2
+      },
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "drawing-derived",
+        "sources": [
+          {
+            "drawing": "QC component workbook, QC01 row 27",
+            "pdfPage": null,
+            "note": "location Trolley"
+          },
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 1,
+            "note": "trolley main hoist sheaves: 2 shafts x 2 sheaves per rope side"
+          },
+          {
+            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
+            "pdfPage": null,
+            "note": "(i) landside shaft, (ii) seaside shaft; to confirm"
+          },
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 1,
+            "note": "U1-C72: Owns one of the eight existing dia 1000 sheaves on four shafts; no duplicate proxy. Shaft height scaled; workbook numbering retained."
+          }
+        ]
+      },
+      "qualifier": null,
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          68.599998,
+          52.299999,
+          -2.5335
+        ],
+        "max": [
+          69.599998,
+          53.299999,
+          -2.4215
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "trolley.hoist-sheave.2-ii",
+      "kind": "position",
+      "label": "Hoist Sheave 02(ii) - trolley (seaside shaft)",
+      "parentKey": "container.trolley",
+      "classification": {
+        "main": "01",
+        "sub": "011"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [],
+      "instancing": {
+        "gltfNodeName": "trolley.hoist-sheaves.instanced",
+        "index": 3
+      },
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "drawing-derived",
+        "sources": [
+          {
+            "drawing": "QC component workbook, QC01 row 28",
+            "pdfPage": null,
+            "note": "location Trolley"
+          },
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 1,
+            "note": "trolley main hoist sheaves: 2 shafts x 2 sheaves per rope side"
+          },
+          {
+            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
+            "pdfPage": null,
+            "note": "(i) landside shaft, (ii) seaside shaft; to confirm"
+          },
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 1,
+            "note": "U1-C72: Owns one of the eight existing dia 1000 sheaves on four shafts; no duplicate proxy. Shaft height scaled; workbook numbering retained."
+          }
+        ]
+      },
+      "qualifier": null,
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          70.400002,
+          52.299999,
+          -2.6135
+        ],
+        "max": [
+          71.400002,
+          53.299999,
+          -2.5015
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "trolley.hoist-sheave.3-i",
+      "kind": "position",
+      "label": "Hoist Sheave 03(i) - trolley (landside shaft)",
+      "parentKey": "container.trolley",
+      "classification": {
+        "main": "01",
+        "sub": "011"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [],
+      "instancing": {
+        "gltfNodeName": "trolley.hoist-sheaves.instanced",
+        "index": 4
+      },
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "drawing-derived",
+        "sources": [
+          {
+            "drawing": "QC component workbook, QC01 row 29",
+            "pdfPage": null,
+            "note": "location Trolley"
+          },
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 1,
+            "note": "trolley main hoist sheaves: 2 shafts x 2 sheaves per rope side"
+          },
+          {
+            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
+            "pdfPage": null,
+            "note": "(i) landside shaft, (ii) seaside shaft; to confirm"
+          },
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 1,
+            "note": "U1-C72: Owns one of the eight existing dia 1000 sheaves on four shafts; no duplicate proxy. Shaft height scaled; workbook numbering retained."
+          }
+        ]
+      },
+      "qualifier": null,
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          68.599998,
+          52.299999,
+          2.4215
+        ],
+        "max": [
+          69.599998,
+          53.299999,
+          2.5335
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "trolley.hoist-sheave.3-ii",
+      "kind": "position",
+      "label": "Hoist Sheave 03(ii) - trolley (seaside shaft)",
+      "parentKey": "container.trolley",
+      "classification": {
+        "main": "01",
+        "sub": "011"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [],
+      "instancing": {
+        "gltfNodeName": "trolley.hoist-sheaves.instanced",
+        "index": 5
+      },
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "drawing-derived",
+        "sources": [
+          {
+            "drawing": "QC component workbook, QC01 row 30",
+            "pdfPage": null,
+            "note": "location Trolley"
+          },
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 1,
+            "note": "trolley main hoist sheaves: 2 shafts x 2 sheaves per rope side"
+          },
+          {
+            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
+            "pdfPage": null,
+            "note": "(i) landside shaft, (ii) seaside shaft; to confirm"
+          },
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 1,
+            "note": "U1-C72: Owns one of the eight existing dia 1000 sheaves on four shafts; no duplicate proxy. Shaft height scaled; workbook numbering retained."
+          }
+        ]
+      },
+      "qualifier": null,
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          70.400002,
+          52.299999,
+          2.5015
+        ],
+        "max": [
+          71.400002,
+          53.299999,
+          2.6135
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "trolley.hoist-sheave.4-i",
+      "kind": "position",
+      "label": "Hoist Sheave 04(i) - trolley (landside shaft)",
+      "parentKey": "container.trolley",
+      "classification": {
+        "main": "01",
+        "sub": "011"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [],
+      "instancing": {
+        "gltfNodeName": "trolley.hoist-sheaves.instanced",
+        "index": 6
+      },
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "drawing-derived",
+        "sources": [
+          {
+            "drawing": "QC component workbook, QC01 row 31",
+            "pdfPage": null,
+            "note": "location Trolley"
+          },
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 1,
+            "note": "trolley main hoist sheaves: 2 shafts x 2 sheaves per rope side"
+          },
+          {
+            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
+            "pdfPage": null,
+            "note": "(i) landside shaft, (ii) seaside shaft; to confirm"
+          },
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 1,
+            "note": "U1-C72: Owns one of the eight existing dia 1000 sheaves on four shafts; no duplicate proxy. Shaft height scaled; workbook numbering retained."
+          }
+        ]
+      },
+      "qualifier": null,
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          68.599998,
+          52.299999,
+          2.5865
+        ],
+        "max": [
+          69.599998,
+          53.299999,
+          2.6985
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "trolley.hoist-sheave.4-ii",
+      "kind": "position",
+      "label": "Hoist Sheave 04(ii) - trolley (seaside shaft)",
+      "parentKey": "container.trolley",
+      "classification": {
+        "main": "01",
+        "sub": "011"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [],
+      "instancing": {
+        "gltfNodeName": "trolley.hoist-sheaves.instanced",
+        "index": 7
+      },
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "drawing-derived",
+        "sources": [
+          {
+            "drawing": "QC component workbook, QC01 row 32",
+            "pdfPage": null,
+            "note": "location Trolley"
+          },
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 1,
+            "note": "trolley main hoist sheaves: 2 shafts x 2 sheaves per rope side"
+          },
+          {
+            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
+            "pdfPage": null,
+            "note": "(i) landside shaft, (ii) seaside shaft; to confirm"
+          },
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 1,
+            "note": "U1-C72: Owns one of the eight existing dia 1000 sheaves on four shafts; no duplicate proxy. Shaft height scaled; workbook numbering retained."
+          }
+        ]
+      },
+      "qualifier": null,
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          70.400002,
+          52.299999,
+          2.6665
+        ],
+        "max": [
+          71.400002,
+          53.299999,
+          2.7785
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "headblock.hoist-sheave.1",
+      "kind": "position",
+      "label": "Hoist Sheave 01 - head block (back (landside), gate house end)",
+      "parentKey": "container.headblock-spreader",
+      "classification": {
+        "main": "01",
+        "sub": "011"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [],
+      "instancing": {
+        "gltfNodeName": "headblock.hoist-sheaves.instanced",
+        "index": 0
+      },
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "drawing-derived",
+        "sources": [
+          {
+            "drawing": "QC component workbook, QC01 row 33",
+            "pdfPage": null,
+            "note": "location Head block"
+          },
+          {
+            "drawing": "J526A1200",
+            "pdfPage": 1,
+            "note": "headblock hoist sheaves, one per corner"
+          },
+          {
+            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
+            "pdfPage": null,
+            "note": "corner numbering as the catenary wheels; to confirm"
+          },
+          {
+            "drawing": "J526A1200",
+            "pdfPage": 1,
+            "note": "U1-C72: Owns one existing dia 1000 sheave; 1010 pitch, 970 above base, two sheaves per box; no duplicate proxy."
+          }
+        ]
+      },
+      "qualifier": null,
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          68.995003,
+          46.59,
+          -2.68
+        ],
+        "max": [
+          69.995003,
+          47.59,
+          -2.52
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "headblock.hoist-sheave.2",
+      "kind": "position",
+      "label": "Hoist Sheave 02 - head block (front (seaside), gate house end)",
+      "parentKey": "container.headblock-spreader",
+      "classification": {
+        "main": "01",
+        "sub": "011"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [],
+      "instancing": {
+        "gltfNodeName": "headblock.hoist-sheaves.instanced",
+        "index": 1
+      },
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "drawing-derived",
+        "sources": [
+          {
+            "drawing": "QC component workbook, QC01 row 34",
+            "pdfPage": null,
+            "note": "location Head block"
+          },
+          {
+            "drawing": "J526A1200",
+            "pdfPage": 1,
+            "note": "headblock hoist sheaves, one per corner"
+          },
+          {
+            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
+            "pdfPage": null,
+            "note": "corner numbering as the catenary wheels; to confirm"
+          },
+          {
+            "drawing": "J526A1200",
+            "pdfPage": 1,
+            "note": "U1-C72: Owns one existing dia 1000 sheave; 1010 pitch, 970 above base, two sheaves per box; no duplicate proxy."
+          }
+        ]
+      },
+      "qualifier": null,
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          70.004997,
+          46.59,
+          -2.68
+        ],
+        "max": [
+          71.004997,
+          47.59,
+          -2.52
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "headblock.hoist-sheave.3",
+      "kind": "position",
+      "label": "Hoist Sheave 03 - head block (front (seaside), SAGT end)",
+      "parentKey": "container.headblock-spreader",
+      "classification": {
+        "main": "01",
+        "sub": "011"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [],
+      "instancing": {
+        "gltfNodeName": "headblock.hoist-sheaves.instanced",
+        "index": 2
+      },
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "drawing-derived",
+        "sources": [
+          {
+            "drawing": "QC component workbook, QC01 row 35",
+            "pdfPage": null,
+            "note": "location Head block"
+          },
+          {
+            "drawing": "J526A1200",
+            "pdfPage": 1,
+            "note": "headblock hoist sheaves, one per corner"
+          },
+          {
+            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
+            "pdfPage": null,
+            "note": "corner numbering as the catenary wheels; to confirm"
+          },
+          {
+            "drawing": "J526A1200",
+            "pdfPage": 1,
+            "note": "U1-C72: Owns one existing dia 1000 sheave; 1010 pitch, 970 above base, two sheaves per box; no duplicate proxy."
+          }
+        ]
+      },
+      "qualifier": null,
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          70.004997,
+          46.59,
+          2.52
+        ],
+        "max": [
+          71.004997,
+          47.59,
+          2.68
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "headblock.hoist-sheave.4",
+      "kind": "position",
+      "label": "Hoist Sheave 04 - head block (back (landside), SAGT end)",
+      "parentKey": "container.headblock-spreader",
+      "classification": {
+        "main": "01",
+        "sub": "011"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [],
+      "instancing": {
+        "gltfNodeName": "headblock.hoist-sheaves.instanced",
+        "index": 3
+      },
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "drawing-derived",
+        "sources": [
+          {
+            "drawing": "QC component workbook, QC01 row 36",
+            "pdfPage": null,
+            "note": "location Head block"
+          },
+          {
+            "drawing": "J526A1200",
+            "pdfPage": 1,
+            "note": "headblock hoist sheaves, one per corner"
+          },
+          {
+            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
+            "pdfPage": null,
+            "note": "corner numbering as the catenary wheels; to confirm"
+          },
+          {
+            "drawing": "J526A1200",
+            "pdfPage": 1,
+            "note": "U1-C72: Owns one existing dia 1000 sheave; 1010 pitch, 970 above base, two sheaves per box; no duplicate proxy."
+          }
+        ]
+      },
+      "qualifier": null,
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          68.995003,
+          46.59,
+          2.52
+        ],
+        "max": [
+          69.995003,
+          47.59,
+          2.68
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "gantry.buffers.1",
+      "kind": "position",
+      "label": "Gantry buffer - WS-A",
+      "parentKey": "container.gantry",
+      "classification": {
+        "main": "04",
+        "sub": "041"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [],
+      "instancing": {
+        "gltfNodeName": "gantry.buffers.instanced",
+        "index": 0
+      },
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "drawing-derived",
+        "sources": [
+          {
+            "drawing": "ZPMC mechanical manual 1.3.4.1 Table 1-5",
+            "pdfPage": null,
+            "note": "7/500BQD140-517, 700 kN, stroke 500 mm"
+          },
+          {
+            "drawing": "J526A0600",
+            "pdfPage": 1,
+            "note": "U1-C72: Buffer replaces the old bogie buffer solid; centre 1310 above rail, mounted to the outer equalizer. Envelope simplified."
+          }
+        ]
+      },
+      "qualifier": null,
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          -0.18,
+          1.13,
+          12.85
+        ],
+        "max": [
+          0.18,
+          1.49,
+          13.5
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "gantry.buffers.2",
+      "kind": "position",
+      "label": "Gantry buffer - WS-B",
+      "parentKey": "container.gantry",
+      "classification": {
+        "main": "04",
+        "sub": "041"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [],
+      "instancing": {
+        "gltfNodeName": "gantry.buffers.instanced",
+        "index": 1
+      },
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "drawing-derived",
+        "sources": [
+          {
+            "drawing": "ZPMC mechanical manual 1.3.4.1 Table 1-5",
+            "pdfPage": null,
+            "note": "7/500BQD140-517, 700 kN, stroke 500 mm"
+          },
+          {
+            "drawing": "J526A0600",
+            "pdfPage": 1,
+            "note": "U1-C72: Buffer replaces the old bogie buffer solid; centre 1310 above rail, mounted to the outer equalizer. Envelope simplified."
+          }
+        ]
+      },
+      "qualifier": null,
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          -0.18,
+          1.13,
+          -13.5
+        ],
+        "max": [
+          0.18,
+          1.49,
+          -12.85
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "gantry.buffers.3",
+      "kind": "position",
+      "label": "Gantry buffer - LS-A",
+      "parentKey": "container.gantry",
+      "classification": {
+        "main": "04",
+        "sub": "041"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [],
+      "instancing": {
+        "gltfNodeName": "gantry.buffers.instanced",
+        "index": 2
+      },
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "drawing-derived",
+        "sources": [
+          {
+            "drawing": "ZPMC mechanical manual 1.3.4.1 Table 1-5",
+            "pdfPage": null,
+            "note": "7/500BQD140-517, 700 kN, stroke 500 mm"
+          },
+          {
+            "drawing": "J526A0600",
+            "pdfPage": 1,
+            "note": "U1-C72: Buffer replaces the old bogie buffer solid; centre 1310 above rail, mounted to the outer equalizer. Envelope simplified."
+          }
+        ]
+      },
+      "qualifier": null,
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          -30.18,
+          1.13,
+          12.85
+        ],
+        "max": [
+          -29.82,
+          1.49,
+          13.5
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "gantry.buffers.4",
+      "kind": "position",
+      "label": "Gantry buffer - LS-B",
+      "parentKey": "container.gantry",
+      "classification": {
+        "main": "04",
+        "sub": "041"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [],
+      "instancing": {
+        "gltfNodeName": "gantry.buffers.instanced",
+        "index": 3
+      },
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "drawing-derived",
+        "sources": [
+          {
+            "drawing": "ZPMC mechanical manual 1.3.4.1 Table 1-5",
+            "pdfPage": null,
+            "note": "7/500BQD140-517, 700 kN, stroke 500 mm"
+          },
+          {
+            "drawing": "J526A0600",
+            "pdfPage": 1,
+            "note": "U1-C72: Buffer replaces the old bogie buffer solid; centre 1310 above rail, mounted to the outer equalizer. Envelope simplified."
+          }
+        ]
+      },
+      "qualifier": null,
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          -30.18,
+          1.13,
+          -13.5
+        ],
+        "max": [
+          -29.82,
+          1.49,
+          -12.85
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "spreader.over-height-adapter",
+      "kind": "position",
+      "label": "Over-height adapter (attachment, shown beside the spreader)",
+      "parentKey": "container.headblock-spreader",
+      "classification": {
+        "main": "06",
+        "sub": "061"
+      },
+      "classificationNote": "Attachment used when needed; drawn beside the spreader, not its stored position",
+      "gltfNodeNames": [],
+      "instancing": {
+        "gltfNodeName": "reference.unfitted-attachments.instanced",
+        "index": 0
+      },
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "drawing": "ZPMC mechanical manual 1.8.3 Fig.1-63",
+            "pdfPage": null,
+            "note": null
+          }
+        ]
+      },
+      "qualifier": "Optional attachment; not fitted in this displayed spreader arrangement. Its records remain available.",
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          66.93,
+          45.100002,
+          -3
+        ],
+        "max": [
+          67.43,
+          45.700002,
+          3
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "spreader.hook-beam",
+      "kind": "position",
+      "label": "Hook beam (75 t, attachment)",
+      "parentKey": "container.headblock-spreader",
+      "classification": {
+        "main": "06",
+        "sub": "061"
+      },
+      "classificationNote": "Attachment used when needed; drawn beside the spreader",
+      "gltfNodeNames": [],
+      "instancing": {
+        "gltfNodeName": "reference.unfitted-attachments.instanced",
+        "index": 1
+      },
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "drawing": "ZPMC mechanical manual 1.8.4 Fig.1-64",
+            "pdfPage": null,
+            "note": "75 t rated"
+          }
+        ]
+      },
+      "qualifier": "Optional attachment; not fitted in this displayed spreader arrangement. Its records remain available.",
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          66.129997,
+          45.150002,
+          -2
+        ],
+        "max": [
+          66.629997,
+          45.650002,
+          2
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "spreader.hook-beam.hook",
+      "kind": "position",
+      "label": "Swivel safety single hook (hook beam)",
+      "parentKey": "container.headblock-spreader",
+      "classification": {
+        "main": "06",
+        "sub": "061"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [],
+      "instancing": {
+        "gltfNodeName": "reference.unfitted-attachments.instanced",
+        "index": 2
+      },
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "drawing": "ZPMC mechanical manual 1.8.4",
+            "pdfPage": null,
+            "note": null
+          }
+        ]
+      },
+      "qualifier": "Optional attachment; not fitted in this displayed spreader arrangement. Its records remain available.",
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          66.259997,
+          44.549998,
+          -0.12
+        ],
+        "max": [
+          66.499997,
+          45.149998,
+          0.12
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "trolley.spreader-cable",
+      "kind": "position",
+      "label": "SCR Cable (wound on the reel and down to the headblock)",
+      "parentKey": "container.trolley",
+      "classification": {
+        "main": "01",
+        "sub": "014"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [
+        "trolley.spreader-cable"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "quantityLot",
+      "uom": "cable",
+      "category": "component",
+      "provenance": {
+        "kind": "approximate-location",
+        "sources": [
+          {
+            "drawing": "QC component workbook, QC01 row 44",
+            "pdfPage": null,
+            "note": null
+          },
+          {
+            "drawing": "SC-121216-ME2a",
+            "pdfPage": null,
+            "note": "Cavotec T5.1 monospiral reel, Tratosmart cable 30 x 2.5"
+          },
+          {
+            "drawing": "Cavotec SC-121216-ME2a",
+            "pdfPage": 1,
+            "note": "U1-C72: Wound cable and descending run share the existing reel datum; the floating duplicate disc is removed."
+          }
+        ]
+      },
+      "qualifier": "Location approximate / simplified representation",
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          69.645081,
+          47.167599,
+          -0.035
+        ],
+        "max": [
+          70.919998,
+          52.439999,
+          0.035
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "gantry.rail-brake-hpu",
+      "kind": "position",
+      "label": "Gantry rail brake hydraulic power unit",
+      "parentKey": "container.portal",
+      "classification": {
+        "main": "04",
+        "sub": "041"
+      },
+      "classificationNote": "Location approximate (on the seaside sill beam)",
+      "gltfNodeNames": [],
+      "instancing": {
+        "gltfNodeName": "gantry.mounted-housings.instanced",
+        "index": 0
+      },
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "approximate-location",
+        "sources": [
+          {
+            "drawing": "ZPMC mechanical manual 5.3",
+            "pdfPage": null,
+            "note": "See Ch.5 § 5.3"
+          },
+          {
+            "drawing": "J526A0100",
+            "pdfPage": 1,
+            "note": "U1-C72: Housing attached to the adjacent sill/leg face; mounting position and envelope approximate."
+          }
+        ]
+      },
+      "qualifier": "Location approximate / simplified representation",
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          0.655,
+          3.75,
+          -6.45
+        ],
+        "max": [
+          1.255,
+          4.45,
+          -5.55
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "gantry.ground-control-station",
+      "kind": "position",
+      "label": "Ground control station and CMS terminal (gantry maintenance cab)",
+      "parentKey": "container.portal",
+      "classification": {
+        "main": "05",
+        "sub": "051"
+      },
+      "classificationNote": "Location approximate (landside leg B, beside the stair tower)",
+      "gltfNodeNames": [],
+      "instancing": {
+        "gltfNodeName": "gantry.mounted-housings.instanced",
+        "index": 1
+      },
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "approximate-location",
+        "sources": [
+          {
+            "drawing": "ZPMC mechanical manual 1.3.4.3 Fig.1-38",
+            "pdfPage": null,
+            "note": "Electronic lock"
+          },
+          {
+            "drawing": "J526A0100",
+            "pdfPage": 1,
+            "note": "U1-C72: Housing attached to the adjacent sill/leg face; mounting position and envelope approximate."
+          }
+        ]
+      },
+      "qualifier": "Location approximate / simplified representation",
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          -29.339999,
+          6.4,
+          -11.25
+        ],
+        "max": [
+          -28.439999,
+          8,
+          -10.45
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "cabin.monitors.1",
+      "kind": "position",
+      "label": "Computer / TV monitor, cab - 1",
+      "parentKey": "container.trolley",
+      "classification": {
+        "main": "14",
+        "sub": "141"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [],
+      "instancing": {
+        "gltfNodeName": "cabin.mounted-instruments.instanced",
+        "index": 0
+      },
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "drawing": "ZPMC mechanical manual 1.3.3.7",
+            "pdfPage": null,
+            "note": null
+          },
+          {
+            "drawing": "J526A3100",
+            "pdfPage": 1,
+            "note": "U1-C74: rectangular cabin equipment mounted inside the shell; indicator at front floor, lighting at floor-window edge; monitor count from manual list, positions estimated"
+          }
+        ]
+      },
+      "qualifier": "Cabin-mounted equipment; detailed shape and instrument layout approximate",
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          67.007798,
+          49.779998,
+          -0.895
+        ],
+        "max": [
+          67.109998,
+          50.059998,
+          -0.465
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "cabin.monitors.2",
+      "kind": "position",
+      "label": "Computer / TV monitor, cab - 2",
+      "parentKey": "container.trolley",
+      "classification": {
+        "main": "14",
+        "sub": "141"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [],
+      "instancing": {
+        "gltfNodeName": "cabin.mounted-instruments.instanced",
+        "index": 1
+      },
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "drawing": "ZPMC mechanical manual 1.3.3.7",
+            "pdfPage": null,
+            "note": null
+          },
+          {
+            "drawing": "J526A3100",
+            "pdfPage": 1,
+            "note": "U1-C74: rectangular cabin equipment mounted inside the shell; indicator at front floor, lighting at floor-window edge; monitor count from manual list, positions estimated"
+          }
+        ]
+      },
+      "qualifier": "Cabin-mounted equipment; detailed shape and instrument layout approximate",
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          67.007798,
+          49.779998,
+          -0.215
+        ],
+        "max": [
+          67.109998,
+          50.059998,
+          0.215
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "cabin.monitors.3",
+      "kind": "position",
+      "label": "Computer / TV monitor, cab - 3",
+      "parentKey": "container.trolley",
+      "classification": {
+        "main": "14",
+        "sub": "141"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [],
+      "instancing": {
+        "gltfNodeName": "cabin.mounted-instruments.instanced",
+        "index": 2
+      },
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "drawing": "ZPMC mechanical manual 1.3.3.7",
+            "pdfPage": null,
+            "note": null
+          },
+          {
+            "drawing": "J526A3100",
+            "pdfPage": 1,
+            "note": "U1-C74: rectangular cabin equipment mounted inside the shell; indicator at front floor, lighting at floor-window edge; monitor count from manual list, positions estimated"
+          }
+        ]
+      },
+      "qualifier": "Cabin-mounted equipment; detailed shape and instrument layout approximate",
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          67.007798,
+          49.779998,
+          0.465
+        ],
+        "max": [
+          67.109998,
+          50.059998,
+          0.895
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "cabin.twistlock-panel",
+      "kind": "position",
+      "label": "Twist-lock indicating panel (cab)",
+      "parentKey": "container.trolley",
+      "classification": {
+        "main": "14",
+        "sub": "141"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [],
+      "instancing": {
+        "gltfNodeName": "cabin.mounted-instruments.instanced",
+        "index": 3
+      },
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "drawing": "ZPMC mechanical manual 1.3.3.7",
+            "pdfPage": null,
+            "note": null
+          },
+          {
+            "drawing": "J526A3100",
+            "pdfPage": 1,
+            "note": "U1-C74: rectangular cabin equipment mounted inside the shell; indicator at front floor, lighting at floor-window edge; monitor count from manual list, positions estimated"
+          }
+        ]
+      },
+      "qualifier": "Cabin-mounted equipment; detailed shape and instrument layout approximate",
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          67.157799,
+          48.089998,
+          -0.25
+        ],
+        "max": [
+          67.259999,
+          48.249998,
+          0.25
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "cabin.floor-window-lighting",
+      "kind": "position",
+      "label": "Floor window and cab lighting (dimmer)",
+      "parentKey": "container.trolley",
+      "classification": {
+        "main": "14",
+        "sub": "141"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [
+        "cabin.floor-window-lighting"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "drawing": "ZPMC mechanical manual 1.3.3.7",
+            "pdfPage": null,
+            "note": null
+          },
+          {
+            "drawing": "J526A3100",
+            "pdfPage": 1,
+            "note": "C74: linear fixture mounted at the front floor-window frame, replacing an unsupported flattened cylinder below the cabin; exact lamp section estimated"
+          }
+        ]
+      },
+      "qualifier": null,
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          67.239998,
+          48.0275,
+          -0.925
+        ],
+        "max": [
+          67.339996,
+          48.072498,
+          0.925
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "reeving.tls-cylinder.1",
+      "kind": "position",
+      "label": "TLS Hydraulic Cylinder 01 (numbered from the gate house end)",
+      "parentKey": "container.back-reach",
+      "classification": {
+        "main": "11",
+        "sub": "111"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [],
+      "instancing": {
+        "gltfNodeName": "reeving.tls-cylinders.instanced",
+        "index": 0
+      },
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "drawing-derived",
+        "sources": [
+          {
+            "drawing": "QC component workbook, QC01 row 117",
+            "pdfPage": null,
+            "note": null
+          },
+          {
+            "drawing": "J526A1000",
+            "pdfPage": 1,
+            "note": "TLS / snag cylinders 200/140 x 1400, 4 per crane"
+          },
+          {
+            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
+            "pdfPage": null,
+            "note": null
+          },
+          {
+            "drawing": "J526A1000",
+            "pdfPage": 1,
+            "note": "U1-C71 normal-operation geometry, ordered from gate house (-Z); see params.json"
+          }
+        ]
+      },
+      "qualifier": "Drawing-derived mechanism; mounting datum estimated",
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          -62.040754,
+          53.516866,
+          -2.9625
+        ],
+        "max": [
+          -58.351297,
+          54.37849,
+          -2.5425
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "reeving.tls-cylinder.2",
+      "kind": "position",
+      "label": "TLS Hydraulic Cylinder 02 (numbered from the gate house end)",
+      "parentKey": "container.back-reach",
+      "classification": {
+        "main": "11",
+        "sub": "111"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [],
+      "instancing": {
+        "gltfNodeName": "reeving.tls-cylinders.instanced",
+        "index": 1
+      },
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "drawing-derived",
+        "sources": [
+          {
+            "drawing": "QC component workbook, QC01 row 118",
+            "pdfPage": null,
+            "note": null
+          },
+          {
+            "drawing": "J526A1000",
+            "pdfPage": 1,
+            "note": "TLS / snag cylinders 200/140 x 1400, 4 per crane"
+          },
+          {
+            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
+            "pdfPage": null,
+            "note": null
+          },
+          {
+            "drawing": "J526A1000",
+            "pdfPage": 1,
+            "note": "U1-C71 normal-operation geometry, ordered from gate house (-Z); see params.json"
+          }
+        ]
+      },
+      "qualifier": "Drawing-derived mechanism; mounting datum estimated",
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          -62.040754,
+          53.516866,
+          -2.3575
+        ],
+        "max": [
+          -58.351297,
+          54.37849,
+          -1.9375
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "reeving.tls-cylinder.3",
+      "kind": "position",
+      "label": "TLS Hydraulic Cylinder 03 (numbered from the gate house end)",
+      "parentKey": "container.back-reach",
+      "classification": {
+        "main": "11",
+        "sub": "111"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [],
+      "instancing": {
+        "gltfNodeName": "reeving.tls-cylinders.instanced",
+        "index": 2
+      },
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "drawing-derived",
+        "sources": [
+          {
+            "drawing": "QC component workbook, QC01 row 119",
+            "pdfPage": null,
+            "note": null
+          },
+          {
+            "drawing": "J526A1000",
+            "pdfPage": 1,
+            "note": "TLS / snag cylinders 200/140 x 1400, 4 per crane"
+          },
+          {
+            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
+            "pdfPage": null,
+            "note": null
+          },
+          {
+            "drawing": "J526A1000",
+            "pdfPage": 1,
+            "note": "U1-C71 normal-operation geometry, ordered from gate house (-Z); see params.json"
+          }
+        ]
+      },
+      "qualifier": "Drawing-derived mechanism; mounting datum estimated",
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          -62.040754,
+          53.516866,
+          1.9375
+        ],
+        "max": [
+          -58.351297,
+          54.37849,
+          2.3575
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "reeving.tls-cylinder.4",
+      "kind": "position",
+      "label": "TLS Hydraulic Cylinder 04 (numbered from the gate house end)",
+      "parentKey": "container.back-reach",
+      "classification": {
+        "main": "11",
+        "sub": "111"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [],
+      "instancing": {
+        "gltfNodeName": "reeving.tls-cylinders.instanced",
+        "index": 3
+      },
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "drawing-derived",
+        "sources": [
+          {
+            "drawing": "QC component workbook, QC01 row 120",
+            "pdfPage": null,
+            "note": null
+          },
+          {
+            "drawing": "J526A1000",
+            "pdfPage": 1,
+            "note": "TLS / snag cylinders 200/140 x 1400, 4 per crane"
+          },
+          {
+            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
+            "pdfPage": null,
+            "note": null
+          },
+          {
+            "drawing": "J526A1000",
+            "pdfPage": 1,
+            "note": "U1-C71 normal-operation geometry, ordered from gate house (-Z); see params.json"
+          }
+        ]
+      },
+      "qualifier": "Drawing-derived mechanism; mounting datum estimated",
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          -62.040754,
+          53.516866,
+          2.5425
+        ],
+        "max": [
+          -58.351297,
+          54.37849,
+          2.9625
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "reeving.hoist-sheave.back-reach.1",
+      "kind": "position",
+      "label": "Hoist Sheave 01 - back reach (girder tail)",
+      "parentKey": "container.back-reach",
+      "classification": {
+        "main": "01",
+        "sub": "011"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [],
+      "instancing": {
+        "gltfNodeName": "reeving.tls-sheaves.instanced",
+        "index": 0
+      },
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "drawing-derived",
+        "sources": [
+          {
+            "drawing": "QC component workbook, QC01 row 21",
+            "pdfPage": null,
+            "note": "location Back reach"
+          },
+          {
+            "drawing": "J526A1000",
+            "pdfPage": 1,
+            "note": "hoist rope tail sheaves on the anti-snag levers, one per rope"
+          },
+          {
+            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
+            "pdfPage": null,
+            "note": null
+          },
+          {
+            "drawing": "J526A1000",
+            "pdfPage": 1,
+            "note": "U1-C71 normal-operation geometry, ordered from gate house (-Z); see params.json"
+          }
+        ]
+      },
+      "qualifier": "Drawing-derived mechanism; mounting datum estimated",
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          -62.84182,
+          52.320984,
+          -2.8805
+        ],
+        "max": [
+          -61.84182,
+          53.320984,
+          -2.6245
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "reeving.hoist-sheave.back-reach.2",
+      "kind": "position",
+      "label": "Hoist Sheave 02 - back reach (girder tail)",
+      "parentKey": "container.back-reach",
+      "classification": {
+        "main": "01",
+        "sub": "011"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [],
+      "instancing": {
+        "gltfNodeName": "reeving.tls-sheaves.instanced",
+        "index": 1
+      },
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "drawing-derived",
+        "sources": [
+          {
+            "drawing": "QC component workbook, QC01 row 22",
+            "pdfPage": null,
+            "note": "location Back reach"
+          },
+          {
+            "drawing": "J526A1000",
+            "pdfPage": 1,
+            "note": "hoist rope tail sheaves on the anti-snag levers, one per rope"
+          },
+          {
+            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
+            "pdfPage": null,
+            "note": null
+          },
+          {
+            "drawing": "J526A1000",
+            "pdfPage": 1,
+            "note": "U1-C71 normal-operation geometry, ordered from gate house (-Z); see params.json"
+          }
+        ]
+      },
+      "qualifier": "Drawing-derived mechanism; mounting datum estimated",
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          -62.84182,
+          52.320984,
+          -2.2755
+        ],
+        "max": [
+          -61.84182,
+          53.320984,
+          -2.0195
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "reeving.hoist-sheave.back-reach.3",
+      "kind": "position",
+      "label": "Hoist Sheave 03 - back reach (girder tail)",
+      "parentKey": "container.back-reach",
+      "classification": {
+        "main": "01",
+        "sub": "011"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [],
+      "instancing": {
+        "gltfNodeName": "reeving.tls-sheaves.instanced",
+        "index": 2
+      },
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "drawing-derived",
+        "sources": [
+          {
+            "drawing": "QC component workbook, QC01 row 23",
+            "pdfPage": null,
+            "note": "location Back reach"
+          },
+          {
+            "drawing": "J526A1000",
+            "pdfPage": 1,
+            "note": "hoist rope tail sheaves on the anti-snag levers, one per rope"
+          },
+          {
+            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
+            "pdfPage": null,
+            "note": null
+          },
+          {
+            "drawing": "J526A1000",
+            "pdfPage": 1,
+            "note": "U1-C71 normal-operation geometry, ordered from gate house (-Z); see params.json"
+          }
+        ]
+      },
+      "qualifier": "Drawing-derived mechanism; mounting datum estimated",
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          -62.84182,
+          52.320984,
+          2.0195
+        ],
+        "max": [
+          -61.84182,
+          53.320984,
+          2.2755
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "reeving.hoist-sheave.back-reach.4",
+      "kind": "position",
+      "label": "Hoist Sheave 04 - back reach (girder tail)",
+      "parentKey": "container.back-reach",
+      "classification": {
+        "main": "01",
+        "sub": "011"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [],
+      "instancing": {
+        "gltfNodeName": "reeving.tls-sheaves.instanced",
+        "index": 3
+      },
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "drawing-derived",
+        "sources": [
+          {
+            "drawing": "QC component workbook, QC01 row 24",
+            "pdfPage": null,
+            "note": "location Back reach"
+          },
+          {
+            "drawing": "J526A1000",
+            "pdfPage": 1,
+            "note": "hoist rope tail sheaves on the anti-snag levers, one per rope"
+          },
+          {
+            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
+            "pdfPage": null,
+            "note": null
+          },
+          {
+            "drawing": "J526A1000",
+            "pdfPage": 1,
+            "note": "U1-C71 normal-operation geometry, ordered from gate house (-Z); see params.json"
+          }
+        ]
+      },
+      "qualifier": "Drawing-derived mechanism; mounting datum estimated",
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          -62.84182,
+          52.320984,
+          2.6245
+        ],
+        "max": [
+          -61.84182,
+          53.320984,
+          2.8805
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "reeving.tls-pump.motor",
+      "kind": "position",
+      "label": "TLS Hydraulic Pump Motor",
+      "parentKey": "container.back-reach",
+      "classification": {
+        "main": "11",
+        "sub": "111"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [
+        "reeving.tls-pump.motor"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "approximate-location",
+        "sources": [
+          {
+            "drawing": "QC component workbook, QC01 row 122",
+            "pdfPage": null,
+            "note": null
+          },
+          {
+            "drawing": "ZPMC mechanical manual 5.5",
+            "pdfPage": null,
+            "note": "multi-function power unit (TLS, snag, tension)"
+          },
+          {
+            "drawing": "J526A1000",
+            "pdfPage": 1,
+            "note": "C71: motor/coupling located on the existing hydraulic power pack; pack location and motor envelope remain approximate"
+          }
+        ]
+      },
+      "qualifier": "Location approximate / simplified representation",
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          -58.049999,
+          53.102734,
+          -0.63
+        ],
+        "max": [
+          -57.450001,
+          53.457264,
+          -0.27
+        ]
+      },
+      "cameraHint": null
+    },
+    {
+      "key": "reeving.tls-pump.coupling-insert",
+      "kind": "position",
+      "label": "TLS Coupling Insert (pump to motor)",
+      "parentKey": "container.back-reach",
+      "classification": {
+        "main": "11",
+        "sub": "111"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [
+        "reeving.tls-pump.coupling-insert"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "approximate-location",
+        "sources": [
+          {
+            "drawing": "QC component workbook, QC01 row 121",
+            "pdfPage": null,
+            "note": null
+          },
+          {
+            "drawing": "ZPMC mechanical manual 1.3.1.4; 5.5",
+            "pdfPage": null,
+            "note": "multi-function hydraulic power unit"
+          },
+          {
+            "drawing": "J526A1000",
+            "pdfPage": 1,
+            "note": "C71: motor/coupling located on the existing hydraulic power pack; pack location and motor envelope remain approximate"
+          }
+        ]
+      },
+      "qualifier": "Location approximate / simplified representation",
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          -57.439999,
+          53.181519,
+          -0.55
+        ],
+        "max": [
+          -57.279999,
+          53.378479,
+          -0.35
         ]
       },
       "cameraHint": null
@@ -10644,6 +12917,61 @@
       "cameraHint": null
     },
     {
+      "key": "auxiliary.jib-cranes.2",
+      "kind": "position",
+      "label": "Outdoor jib (sample) crane - A-frame top",
+      "parentKey": "container.a-frame",
+      "classification": {
+        "main": "15",
+        "sub": "151"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [],
+      "instancing": {
+        "gltfNodeName": "reference.a-frame.instanced",
+        "index": 10
+      },
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "component",
+      "provenance": {
+        "kind": "approximate-location",
+        "sources": [
+          {
+            "drawing": "ZPMC mechanical manual 1.6.2 Fig.1-51",
+            "pdfPage": null,
+            "note": null
+          },
+          {
+            "drawing": "J526A5000",
+            "pdfPage": 1,
+            "note": "U1-C72: Mast base seated on the apex platform; parent corrected to A-frame; envelope/location approximate."
+          }
+        ]
+      },
+      "qualifier": "Location approximate / simplified representation",
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          0.81,
+          81.089999,
+          4.434
+        ],
+        "max": [
+          0.99,
+          82.689999,
+          4.614
+        ]
+      },
+      "cameraHint": null
+    },
+    {
       "key": "access.elevator.oil-point",
       "kind": "position",
       "label": "Elevator reducer oil change - oil change point",
@@ -10819,246 +13147,6 @@
       "cameraHint": null
     },
     {
-      "key": "reeving.hoist-sheave.back-reach.1",
-      "kind": "position",
-      "label": "Hoist Sheave 01 - back reach (girder tail)",
-      "parentKey": "container.back-reach",
-      "classification": {
-        "main": "01",
-        "sub": "011"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.back-reach.instanced",
-        "index": 2
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "QC component workbook, QC01 row 21",
-            "pdfPage": null,
-            "note": "location Back reach"
-          },
-          {
-            "drawing": "J526A1000",
-            "pdfPage": 1,
-            "note": "hoist rope tail sheaves on the anti-snag levers, one per rope"
-          },
-          {
-            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
-            "pdfPage": null,
-            "note": null
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          -58.1964,
-          52.650009,
-          -2.840008
-        ],
-        "max": [
-          -57.1964,
-          53.649994,
-          -2.659992
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "reeving.hoist-sheave.back-reach.2",
-      "kind": "position",
-      "label": "Hoist Sheave 02 - back reach (girder tail)",
-      "parentKey": "container.back-reach",
-      "classification": {
-        "main": "01",
-        "sub": "011"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.back-reach.instanced",
-        "index": 3
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "QC component workbook, QC01 row 22",
-            "pdfPage": null,
-            "note": "location Back reach"
-          },
-          {
-            "drawing": "J526A1000",
-            "pdfPage": 1,
-            "note": "hoist rope tail sheaves on the anti-snag levers, one per rope"
-          },
-          {
-            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
-            "pdfPage": null,
-            "note": null
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          -58.1964,
-          52.650009,
-          -2.540008
-        ],
-        "max": [
-          -57.1964,
-          53.649994,
-          -2.359992
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "reeving.hoist-sheave.back-reach.3",
-      "kind": "position",
-      "label": "Hoist Sheave 03 - back reach (girder tail)",
-      "parentKey": "container.back-reach",
-      "classification": {
-        "main": "01",
-        "sub": "011"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.back-reach.instanced",
-        "index": 4
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "QC component workbook, QC01 row 23",
-            "pdfPage": null,
-            "note": "location Back reach"
-          },
-          {
-            "drawing": "J526A1000",
-            "pdfPage": 1,
-            "note": "hoist rope tail sheaves on the anti-snag levers, one per rope"
-          },
-          {
-            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
-            "pdfPage": null,
-            "note": null
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          -58.1964,
-          52.650009,
-          2.359992
-        ],
-        "max": [
-          -57.1964,
-          53.649994,
-          2.540008
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "reeving.hoist-sheave.back-reach.4",
-      "kind": "position",
-      "label": "Hoist Sheave 04 - back reach (girder tail)",
-      "parentKey": "container.back-reach",
-      "classification": {
-        "main": "01",
-        "sub": "011"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.back-reach.instanced",
-        "index": 5
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "QC component workbook, QC01 row 24",
-            "pdfPage": null,
-            "note": "location Back reach"
-          },
-          {
-            "drawing": "J526A1000",
-            "pdfPage": 1,
-            "note": "hoist rope tail sheaves on the anti-snag levers, one per rope"
-          },
-          {
-            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
-            "pdfPage": null,
-            "note": null
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          -58.1964,
-          52.650009,
-          2.659992
-        ],
-        "max": [
-          -57.1964,
-          53.649994,
-          2.840008
-        ]
-      },
-      "cameraHint": null
-    },
-    {
       "key": "reeving.catenary-sheave.1",
       "kind": "position",
       "label": "Catenary Sheave 01 (back reach LHS)",
@@ -11071,7 +13159,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.back-reach.instanced",
-        "index": 6
+        "index": 2
       },
       "pickable": true,
       "pickPriority": 50,
@@ -11131,7 +13219,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.back-reach.instanced",
-        "index": 7
+        "index": 3
       },
       "pickable": true,
       "pickPriority": 50,
@@ -11179,356 +13267,6 @@
       "cameraHint": null
     },
     {
-      "key": "reeving.tls-cylinder.1",
-      "kind": "position",
-      "label": "TLS Hydraulic Cylinder 01 (numbered from the gate house end)",
-      "parentKey": "container.back-reach",
-      "classification": {
-        "main": "11",
-        "sub": "111"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.back-reach.instanced",
-        "index": 8
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "QC component workbook, QC01 row 117",
-            "pdfPage": null,
-            "note": null
-          },
-          {
-            "drawing": "J526A1000",
-            "pdfPage": 1,
-            "note": "TLS / snag cylinders 200/140 x 1400, 4 per crane"
-          },
-          {
-            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
-            "pdfPage": null,
-            "note": null
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          -58.973752,
-          52.711587,
-          -3.365
-        ],
-        "max": [
-          -56.726245,
-          54.638411,
-          -3.135
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "reeving.tls-cylinder.2",
-      "kind": "position",
-      "label": "TLS Hydraulic Cylinder 02 (numbered from the gate house end)",
-      "parentKey": "container.back-reach",
-      "classification": {
-        "main": "11",
-        "sub": "111"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.back-reach.instanced",
-        "index": 9
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "QC component workbook, QC01 row 118",
-            "pdfPage": null,
-            "note": null
-          },
-          {
-            "drawing": "J526A1000",
-            "pdfPage": 1,
-            "note": "TLS / snag cylinders 200/140 x 1400, 4 per crane"
-          },
-          {
-            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
-            "pdfPage": null,
-            "note": null
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          -58.973752,
-          52.711587,
-          -2.265
-        ],
-        "max": [
-          -56.726245,
-          54.638411,
-          -2.035
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "reeving.tls-cylinder.3",
-      "kind": "position",
-      "label": "TLS Hydraulic Cylinder 03 (numbered from the gate house end)",
-      "parentKey": "container.back-reach",
-      "classification": {
-        "main": "11",
-        "sub": "111"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.back-reach.instanced",
-        "index": 10
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "QC component workbook, QC01 row 119",
-            "pdfPage": null,
-            "note": null
-          },
-          {
-            "drawing": "J526A1000",
-            "pdfPage": 1,
-            "note": "TLS / snag cylinders 200/140 x 1400, 4 per crane"
-          },
-          {
-            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
-            "pdfPage": null,
-            "note": null
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          -58.973752,
-          52.711587,
-          2.035
-        ],
-        "max": [
-          -56.726245,
-          54.638411,
-          2.265
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "reeving.tls-cylinder.4",
-      "kind": "position",
-      "label": "TLS Hydraulic Cylinder 04 (numbered from the gate house end)",
-      "parentKey": "container.back-reach",
-      "classification": {
-        "main": "11",
-        "sub": "111"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.back-reach.instanced",
-        "index": 11
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "QC component workbook, QC01 row 120",
-            "pdfPage": null,
-            "note": null
-          },
-          {
-            "drawing": "J526A1000",
-            "pdfPage": 1,
-            "note": "TLS / snag cylinders 200/140 x 1400, 4 per crane"
-          },
-          {
-            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
-            "pdfPage": null,
-            "note": null
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          -58.973752,
-          52.711587,
-          3.135
-        ],
-        "max": [
-          -56.726245,
-          54.638411,
-          3.365
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "reeving.tls-pump.coupling-insert",
-      "kind": "position",
-      "label": "TLS Coupling Insert (pump to motor)",
-      "parentKey": "container.back-reach",
-      "classification": {
-        "main": "11",
-        "sub": "111"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.back-reach.instanced",
-        "index": 12
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "QC component workbook, QC01 row 121",
-            "pdfPage": null,
-            "note": null
-          },
-          {
-            "drawing": "ZPMC mechanical manual 1.3.1.4; 5.5",
-            "pdfPage": null,
-            "note": "multi-function hydraulic power unit"
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          -56.705999,
-          52.925002,
-          -0.1019
-        ],
-        "max": [
-          -56.605997,
-          53.125001,
-          0.0981
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "reeving.tls-pump.motor",
-      "kind": "position",
-      "label": "TLS Hydraulic Pump Motor",
-      "parentKey": "container.back-reach",
-      "classification": {
-        "main": "11",
-        "sub": "111"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.back-reach.instanced",
-        "index": 13
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "QC component workbook, QC01 row 122",
-            "pdfPage": null,
-            "note": null
-          },
-          {
-            "drawing": "ZPMC mechanical manual 5.5",
-            "pdfPage": null,
-            "note": "multi-function power unit (TLS, snag, tension)"
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          -56.576,
-          52.855001,
-          -0.1719
-        ],
-        "max": [
-          -56.216,
-          53.195002,
-          0.1681
-        ]
-      },
-      "cameraHint": null
-    },
-    {
       "key": "reeving.trolley-tension.cylinder.1",
       "kind": "position",
       "label": "Trolley Rope Tensioning Hydraulic Cylinder 1 (gate house side)",
@@ -11541,7 +13279,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.back-reach.instanced",
-        "index": 14
+        "index": 4
       },
       "pickable": true,
       "pickPriority": 50,
@@ -11596,7 +13334,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.back-reach.instanced",
-        "index": 15
+        "index": 5
       },
       "pickable": true,
       "pickPriority": 50,
@@ -11651,7 +13389,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.back-reach.instanced",
-        "index": 16
+        "index": 6
       },
       "pickable": true,
       "pickPriority": 50,
@@ -11706,7 +13444,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.back-reach.instanced",
-        "index": 17
+        "index": 7
       },
       "pickable": true,
       "pickPriority": 50,
@@ -11761,7 +13499,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.back-reach.instanced",
-        "index": 18
+        "index": 8
       },
       "pickable": true,
       "pickPriority": 50,
@@ -11816,7 +13554,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.back-reach.instanced",
-        "index": 19
+        "index": 9
       },
       "pickable": true,
       "pickPriority": 50,
@@ -11834,6 +13572,11 @@
             "drawing": "ZPMC mechanical manual 1.3.1.4",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "J526A1000",
+            "pdfPage": 1,
+            "note": "U1-C71 sensor follows its corrected cylinder; small sensor shape and attachment remain approximate"
           }
         ]
       },
@@ -11841,14 +13584,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -57.349999,
-          52.999997,
-          -3.3
+          -58.722378,
+          54.303357,
+          -2.8025
         ],
         "max": [
-          -57.050003,
-          53.100001,
-          -3.2
+          -58.422382,
+          54.403361,
+          -2.7025
         ]
       },
       "cameraHint": null
@@ -11866,7 +13609,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.back-reach.instanced",
-        "index": 20
+        "index": 10
       },
       "pickable": true,
       "pickPriority": 50,
@@ -11884,6 +13627,11 @@
             "drawing": "ZPMC mechanical manual 1.3.1.4",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "J526A1000",
+            "pdfPage": 1,
+            "note": "U1-C71 sensor follows its corrected cylinder; small sensor shape and attachment remain approximate"
           }
         ]
       },
@@ -11891,14 +13639,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -57.349999,
-          52.999997,
-          -2.2
+          -58.722378,
+          54.303357,
+          -2.1975
         ],
         "max": [
-          -57.050003,
-          53.100001,
-          -2.1
+          -58.422382,
+          54.403361,
+          -2.0975
         ]
       },
       "cameraHint": null
@@ -11916,7 +13664,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.back-reach.instanced",
-        "index": 21
+        "index": 11
       },
       "pickable": true,
       "pickPriority": 50,
@@ -11934,6 +13682,11 @@
             "drawing": "ZPMC mechanical manual 1.3.1.4",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "J526A1000",
+            "pdfPage": 1,
+            "note": "U1-C71 sensor follows its corrected cylinder; small sensor shape and attachment remain approximate"
           }
         ]
       },
@@ -11941,14 +13694,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -57.349999,
-          52.999997,
-          2.1
+          -58.722378,
+          54.303357,
+          2.0975
         ],
         "max": [
-          -57.050003,
-          53.100001,
-          2.2
+          -58.422382,
+          54.403361,
+          2.1975
         ]
       },
       "cameraHint": null
@@ -11966,7 +13719,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.back-reach.instanced",
-        "index": 22
+        "index": 12
       },
       "pickable": true,
       "pickPriority": 50,
@@ -11984,6 +13737,11 @@
             "drawing": "ZPMC mechanical manual 1.3.1.4",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "J526A1000",
+            "pdfPage": 1,
+            "note": "U1-C71 sensor follows its corrected cylinder; small sensor shape and attachment remain approximate"
           }
         ]
       },
@@ -11991,14 +13749,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -57.349999,
-          52.999997,
-          3.2
+          -58.722378,
+          54.303357,
+          2.7025
         ],
         "max": [
-          -57.050003,
-          53.100001,
-          3.3
+          -58.422382,
+          54.403361,
+          2.8025
         ]
       },
       "cameraHint": null
@@ -12016,7 +13774,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.back-reach.instanced",
-        "index": 23
+        "index": 13
       },
       "pickable": true,
       "pickPriority": 50,
@@ -12034,6 +13792,11 @@
             "drawing": "ZPMC mechanical manual 1.3.1.4",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "J526A1000",
+            "pdfPage": 1,
+            "note": "U1-C71 sensor follows its corrected cylinder; small sensor shape and attachment remain approximate"
           }
         ]
       },
@@ -12041,14 +13804,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -58.710002,
-          54.840002,
-          -3.31
+          -60.713225,
+          54.010358,
+          -2.8125
         ],
         "max": [
-          -58.590002,
-          54.960002,
-          -3.19
+          -60.593225,
+          54.130358,
+          -2.6925
         ]
       },
       "cameraHint": null
@@ -12066,7 +13829,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.back-reach.instanced",
-        "index": 24
+        "index": 14
       },
       "pickable": true,
       "pickPriority": 50,
@@ -12084,6 +13847,11 @@
             "drawing": "ZPMC mechanical manual 1.3.1.4",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "J526A1000",
+            "pdfPage": 1,
+            "note": "U1-C71 sensor follows its corrected cylinder; small sensor shape and attachment remain approximate"
           }
         ]
       },
@@ -12091,14 +13859,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -58.710002,
-          54.840002,
-          -2.21
+          -60.713225,
+          54.010358,
+          -2.2075
         ],
         "max": [
-          -58.590002,
-          54.960002,
-          -2.09
+          -60.593225,
+          54.130358,
+          -2.0875
         ]
       },
       "cameraHint": null
@@ -12116,7 +13884,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.back-reach.instanced",
-        "index": 25
+        "index": 15
       },
       "pickable": true,
       "pickPriority": 50,
@@ -12134,6 +13902,11 @@
             "drawing": "ZPMC mechanical manual 1.3.1.4",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "J526A1000",
+            "pdfPage": 1,
+            "note": "U1-C71 sensor follows its corrected cylinder; small sensor shape and attachment remain approximate"
           }
         ]
       },
@@ -12141,14 +13914,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -58.710002,
-          54.840002,
-          2.09
+          -60.713225,
+          54.010358,
+          2.0875
         ],
         "max": [
-          -58.590002,
-          54.960002,
-          2.21
+          -60.593225,
+          54.130358,
+          2.2075
         ]
       },
       "cameraHint": null
@@ -12166,7 +13939,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.back-reach.instanced",
-        "index": 26
+        "index": 16
       },
       "pickable": true,
       "pickPriority": 50,
@@ -12184,6 +13957,11 @@
             "drawing": "ZPMC mechanical manual 1.3.1.4",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "J526A1000",
+            "pdfPage": 1,
+            "note": "U1-C71 sensor follows its corrected cylinder; small sensor shape and attachment remain approximate"
           }
         ]
       },
@@ -12191,14 +13969,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -58.710002,
-          54.840002,
-          3.19
+          -60.713225,
+          54.010358,
+          2.6925
         ],
         "max": [
-          -58.590002,
-          54.960002,
-          3.31
+          -60.593225,
+          54.130358,
+          2.8125
         ]
       },
       "cameraHint": null
@@ -12216,7 +13994,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.back-reach.instanced",
-        "index": 27
+        "index": 17
       },
       "pickable": true,
       "pickPriority": 50,
@@ -12266,7 +14044,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.back-reach.instanced",
-        "index": 28
+        "index": 18
       },
       "pickable": true,
       "pickPriority": 50,
@@ -12316,7 +14094,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.back-reach.instanced",
-        "index": 29
+        "index": 19
       },
       "pickable": true,
       "pickPriority": 50,
@@ -12366,7 +14144,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.back-reach.instanced",
-        "index": 30
+        "index": 20
       },
       "pickable": true,
       "pickPriority": 50,
@@ -12554,6 +14332,11 @@
             "drawing": "ZPMC mechanical manual 1.3.3.4 Fig.1-24",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 1,
+            "note": "U1-C72: Switch base seated on the boom top beside the rail; exact switch location approximate."
           }
         ]
       },
@@ -12562,12 +14345,12 @@
       "bounds": {
         "min": [
           74.200003,
-          53.325001,
+          52.299999,
           -3.075
         ],
         "max": [
           74.400003,
-          53.575001,
+          52.549999,
           -2.925
         ]
       },
@@ -12604,6 +14387,11 @@
             "drawing": "ZPMC mechanical manual 1.3.3.4 Fig.1-24",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 1,
+            "note": "U1-C72: Switch base seated on the boom top beside the rail; exact switch location approximate."
           }
         ]
       },
@@ -12612,12 +14400,12 @@
       "bounds": {
         "min": [
           74.200003,
-          53.325001,
+          52.299999,
           2.925
         ],
         "max": [
           74.400003,
-          53.575001,
+          52.549999,
           3.075
         ]
       },
@@ -12654,6 +14442,11 @@
             "drawing": "ZPMC mechanical manual 1.3.3.4",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 1,
+            "note": "U1-C72: Proximity sensor seated on the girder top, clear of the running rail; exact location approximate."
           }
         ]
       },
@@ -12662,12 +14455,12 @@
       "bounds": {
         "min": [
           69.840002,
-          53.44,
+          52.300001,
           -3.61
         ],
         "max": [
           69.960002,
-          53.56,
+          52.420001,
           -3.49
         ]
       },
@@ -12704,6 +14497,11 @@
             "drawing": "ZPMC mechanical manual 1.3.3.4",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 1,
+            "note": "U1-C72: Proximity sensor seated on the girder top, clear of the running rail; exact location approximate."
           }
         ]
       },
@@ -12712,12 +14510,12 @@
       "bounds": {
         "min": [
           72.840002,
-          53.44,
+          52.300001,
           -3.61
         ],
         "max": [
           72.960002,
-          53.56,
+          52.420001,
           -3.49
         ]
       },
@@ -12754,6 +14552,11 @@
             "drawing": "ZPMC mechanical manual 1.4.3 Fig.1-42",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "J526A6300",
+            "pdfPage": 1,
+            "note": "U1-C72: 69600 support spacing; 1800 outboard of the girder outer face, 400 below the girder underside. Longitudinal datum estimated; dia 5 wire exaggerated to dia 20 for visibility."
           }
         ]
       },
@@ -12761,14 +14564,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          20.300521,
-          50.329475,
-          -3.87
+          0.900669,
+          50.089331,
+          -5.505
         ],
         "max": [
-          74.899475,
-          50.370522,
-          -3.83
+          70.499333,
+          50.110666,
+          -5.485
         ]
       },
       "cameraHint": null
@@ -12804,6 +14607,11 @@
             "drawing": "ZPMC mechanical manual 1.4.3 Fig.1-42",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "J526A6300",
+            "pdfPage": 1,
+            "note": "U1-C72: 69600 support spacing; 1800 outboard of the girder outer face, 400 below the girder underside. Longitudinal datum estimated; dia 5 wire exaggerated to dia 20 for visibility."
           }
         ]
       },
@@ -12811,14 +14619,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          20.300521,
-          50.329475,
-          3.83
+          0.900669,
+          50.089331,
+          5.485
         ],
         "max": [
-          74.899475,
-          50.370522,
-          3.87
+          70.499333,
+          50.110666,
+          5.505
         ]
       },
       "cameraHint": null
@@ -12854,6 +14662,11 @@
             "drawing": "ZPMC mechanical manual 1.4.3",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "J526A6300",
+            "pdfPage": 1,
+            "note": "U1-C72: Switch on the rear support upright; not at an unsupported cable end. Small envelope simplified."
           }
         ]
       },
@@ -12861,14 +14674,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          74.95,
-          50.289998,
-          -3.9
+          0.85,
+          52.67,
+          -3.795
         ],
         "max": [
-          75.05,
-          50.409998,
-          -3.8
+          0.95,
+          52.79,
+          -3.695
         ]
       },
       "cameraHint": null
@@ -12904,6 +14717,11 @@
             "drawing": "ZPMC mechanical manual 1.4.3",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "J526A6300",
+            "pdfPage": 1,
+            "note": "U1-C72: Switch on the rear support upright; not at an unsupported cable end. Small envelope simplified."
           }
         ]
       },
@@ -12911,14 +14729,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          74.95,
-          50.289998,
-          3.8
+          0.85,
+          52.67,
+          3.695
         ],
         "max": [
-          75.05,
-          50.409998,
-          3.9
+          0.95,
+          52.79,
+          3.795
         ]
       },
       "cameraHint": null
@@ -12954,6 +14772,11 @@
             "drawing": "ZPMC mechanical manual 1.4.4 Fig.1-43",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "J526A0100",
+            "pdfPage": 1,
+            "note": "U1-C72: Light base seated on the boom-end girder; exact mounting detail approximate."
           }
         ]
       },
@@ -12961,28 +14784,28 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          75.469998,
-          53.674998,
-          -0.13
+          75.37,
+          52.299998,
+          3.02
         ],
         "max": [
-          75.729998,
-          54.024998,
-          0.13
+          75.63,
+          52.649998,
+          3.28
         ]
       },
       "cameraHint": null
     },
     {
-      "key": "auxiliary.obstruction-lights.2",
+      "key": "auxiliary.jib-cranes.1",
       "kind": "position",
-      "label": "Obstruction light - girder rear end",
+      "label": "Outdoor jib (sample) crane - boom tip",
       "parentKey": "container.boom",
       "classification": {
-        "main": "13",
-        "sub": "131"
+        "main": "15",
+        "sub": "151"
       },
-      "classificationNote": "The A-frame top light is the Excel Aircraft Safety Light",
+      "classificationNote": null,
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.boom.instanced",
@@ -13001,59 +14824,14 @@
         "kind": "approximate-location",
         "sources": [
           {
-            "drawing": "ZPMC mechanical manual 1.4.4 Fig.1-43",
-            "pdfPage": null,
-            "note": null
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          -60.830001,
-          52.325,
-          -0.13
-        ],
-        "max": [
-          -60.570001,
-          52.675,
-          0.13
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "auxiliary.jib-cranes.1",
-      "kind": "position",
-      "label": "Outdoor jib (sample) crane - boom tip",
-      "parentKey": "container.boom",
-      "classification": {
-        "main": "15",
-        "sub": "151"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.boom.instanced",
-        "index": 12
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
             "drawing": "ZPMC mechanical manual 1.6.2 Fig.1-51",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "J526A0100",
+            "pdfPage": 1,
+            "note": "U1-C72: Mast base seated on the boom girder; small jib envelope/location remain approximate."
           }
         ]
       },
@@ -13062,63 +14840,13 @@
       "bounds": {
         "min": [
           73.810002,
-          53.649999,
+          52.300001,
           2.81
         ],
         "max": [
           73.990002,
-          55.449999,
+          54.100001,
           2.99
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "auxiliary.jib-cranes.2",
-      "kind": "position",
-      "label": "Outdoor jib (sample) crane - A-frame top",
-      "parentKey": "container.boom",
-      "classification": {
-        "main": "15",
-        "sub": "151"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.boom.instanced",
-        "index": 13
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "ZPMC mechanical manual 1.6.2 Fig.1-51",
-            "pdfPage": null,
-            "note": null
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          -3.615,
-          82.455997,
-          3.51
-        ],
-        "max": [
-          -3.435,
-          84.055997,
-          3.69
         ]
       },
       "cameraHint": null
@@ -14249,13 +15977,13 @@
       "cameraHint": null
     },
     {
-      "key": "gantry.buffers.1",
+      "key": "gantry.buffer.limit-switches.1",
       "kind": "position",
-      "label": "Gantry buffer - WS-A",
+      "label": "Buffer limit switch - WS-A",
       "parentKey": "container.gantry",
       "classification": {
-        "main": "04",
-        "sub": "041"
+        "main": "05",
+        "sub": "051"
       },
       "classificationNote": null,
       "gltfNodeNames": [],
@@ -14276,9 +16004,14 @@
         "kind": "approximate-location",
         "sources": [
           {
-            "drawing": "ZPMC mechanical manual 1.3.4.1 Table 1-5",
+            "drawing": "ZPMC mechanical manual 1.3.4.2 Fig.1-36",
             "pdfPage": null,
-            "note": "7/500BQD140-517, 700 kN, stroke 500 mm"
+            "note": null
+          },
+          {
+            "drawing": "J526A0600",
+            "pdfPage": 1,
+            "note": "U1-C72: Switch at the outer equalizer, with its base on the frame; exact location approximate."
           }
         ]
       },
@@ -14286,26 +16019,26 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -0.14,
-          1.159997,
-          13.500003
+          0.25,
+          1.7,
+          -12.6
         ],
         "max": [
-          0.14,
-          1.440003,
-          14.099997
+          0.35,
+          1.8,
+          -12.5
         ]
       },
       "cameraHint": null
     },
     {
-      "key": "gantry.buffers.2",
+      "key": "gantry.buffer.limit-switches.2",
       "kind": "position",
-      "label": "Gantry buffer - WS-B",
+      "label": "Buffer limit switch - WS-B",
       "parentKey": "container.gantry",
       "classification": {
-        "main": "04",
-        "sub": "041"
+        "main": "05",
+        "sub": "051"
       },
       "classificationNote": null,
       "gltfNodeNames": [],
@@ -14326,9 +16059,14 @@
         "kind": "approximate-location",
         "sources": [
           {
-            "drawing": "ZPMC mechanical manual 1.3.4.1 Table 1-5",
+            "drawing": "ZPMC mechanical manual 1.3.4.2 Fig.1-36",
             "pdfPage": null,
-            "note": "7/500BQD140-517, 700 kN, stroke 500 mm"
+            "note": null
+          },
+          {
+            "drawing": "J526A0600",
+            "pdfPage": 1,
+            "note": "U1-C72: Switch at the outer equalizer, with its base on the frame; exact location approximate."
           }
         ]
       },
@@ -14336,26 +16074,26 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -0.14,
-          1.159997,
-          -14.099997
+          0.25,
+          1.7,
+          12.5
         ],
         "max": [
-          0.14,
-          1.440003,
-          -13.500003
+          0.35,
+          1.8,
+          12.6
         ]
       },
       "cameraHint": null
     },
     {
-      "key": "gantry.buffers.3",
+      "key": "gantry.obstacle-sensors.1",
       "kind": "position",
-      "label": "Gantry buffer - LS-A",
+      "label": "Ultrasonic sensor and reflector - WS-A",
       "parentKey": "container.gantry",
       "classification": {
-        "main": "04",
-        "sub": "041"
+        "main": "05",
+        "sub": "051"
       },
       "classificationNote": null,
       "gltfNodeNames": [],
@@ -14376,9 +16114,14 @@
         "kind": "approximate-location",
         "sources": [
           {
-            "drawing": "ZPMC mechanical manual 1.3.4.1 Table 1-5",
+            "drawing": "ZPMC mechanical manual 1.3.4.2",
             "pdfPage": null,
-            "note": "7/500BQD140-517, 700 kN, stroke 500 mm"
+            "note": "On small equalizer beam end"
+          },
+          {
+            "drawing": "J526A0600",
+            "pdfPage": 1,
+            "note": "U1-C72: Obstacle sensor fixed to the outer sub-bogie side plate; envelope and location approximate."
           }
         ]
       },
@@ -14386,26 +16129,26 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -30.14,
-          1.159997,
-          13.500003
+          0.3,
+          0.49,
+          12.4
         ],
         "max": [
-          -29.86,
-          1.440003,
-          14.099997
+          0.42,
+          0.61,
+          12.5
         ]
       },
       "cameraHint": null
     },
     {
-      "key": "gantry.buffers.4",
+      "key": "gantry.obstacle-sensors.2",
       "kind": "position",
-      "label": "Gantry buffer - LS-B",
+      "label": "Ultrasonic sensor and reflector - WS-B",
       "parentKey": "container.gantry",
       "classification": {
-        "main": "04",
-        "sub": "041"
+        "main": "05",
+        "sub": "051"
       },
       "classificationNote": null,
       "gltfNodeNames": [],
@@ -14426,9 +16169,14 @@
         "kind": "approximate-location",
         "sources": [
           {
-            "drawing": "ZPMC mechanical manual 1.3.4.1 Table 1-5",
+            "drawing": "ZPMC mechanical manual 1.3.4.2",
             "pdfPage": null,
-            "note": "7/500BQD140-517, 700 kN, stroke 500 mm"
+            "note": "On small equalizer beam end"
+          },
+          {
+            "drawing": "J526A0600",
+            "pdfPage": 1,
+            "note": "U1-C72: Obstacle sensor fixed to the outer sub-bogie side plate; envelope and location approximate."
           }
         ]
       },
@@ -14436,22 +16184,22 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -30.14,
-          1.159997,
-          -14.099997
+          0.3,
+          0.49,
+          -12.5
         ],
         "max": [
-          -29.86,
-          1.440003,
-          -13.500003
+          0.42,
+          0.61,
+          -12.4
         ]
       },
       "cameraHint": null
     },
     {
-      "key": "gantry.buffer.limit-switches.1",
+      "key": "gantry.obstacle-sensors.3",
       "kind": "position",
-      "label": "Buffer limit switch - WS-A",
+      "label": "Ultrasonic sensor and reflector - LS-A",
       "parentKey": "container.gantry",
       "classification": {
         "main": "05",
@@ -14476,9 +16224,14 @@
         "kind": "approximate-location",
         "sources": [
           {
-            "drawing": "ZPMC mechanical manual 1.3.4.2 Fig.1-36",
+            "drawing": "ZPMC mechanical manual 1.3.4.2",
             "pdfPage": null,
-            "note": null
+            "note": "On small equalizer beam end"
+          },
+          {
+            "drawing": "J526A0600",
+            "pdfPage": 1,
+            "note": "U1-C72: Obstacle sensor fixed to the outer sub-bogie side plate; envelope and location approximate."
           }
         ]
       },
@@ -14486,22 +16239,22 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          0.25,
-          1.7,
-          13.55
+          -29.699999,
+          0.49,
+          12.4
         ],
         "max": [
-          0.35,
-          1.8,
-          13.65
+          -29.579999,
+          0.61,
+          12.5
         ]
       },
       "cameraHint": null
     },
     {
-      "key": "gantry.buffer.limit-switches.2",
+      "key": "gantry.obstacle-sensors.4",
       "kind": "position",
-      "label": "Buffer limit switch - WS-B",
+      "label": "Ultrasonic sensor and reflector - LS-B",
       "parentKey": "container.gantry",
       "classification": {
         "main": "05",
@@ -14526,9 +16279,14 @@
         "kind": "approximate-location",
         "sources": [
           {
-            "drawing": "ZPMC mechanical manual 1.3.4.2 Fig.1-36",
+            "drawing": "ZPMC mechanical manual 1.3.4.2",
             "pdfPage": null,
-            "note": null
+            "note": "On small equalizer beam end"
+          },
+          {
+            "drawing": "J526A0600",
+            "pdfPage": 1,
+            "note": "U1-C72: Obstacle sensor fixed to the outer sub-bogie side plate; envelope and location approximate."
           }
         ]
       },
@@ -14536,26 +16294,26 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          0.25,
-          1.7,
-          -13.65
+          -29.699999,
+          0.49,
+          -12.5
         ],
         "max": [
-          0.35,
-          1.8,
-          -13.55
+          -29.579999,
+          0.61,
+          -12.4
         ]
       },
       "cameraHint": null
     },
     {
-      "key": "gantry.obstacle-sensors.1",
+      "key": "gantry.cable-reel.coupling",
       "kind": "position",
-      "label": "Ultrasonic sensor and reflector - WS-A",
+      "label": "Coupling, gantry cable reel drive",
       "parentKey": "container.gantry",
       "classification": {
-        "main": "05",
-        "sub": "051"
+        "main": "04",
+        "sub": "042"
       },
       "classificationNote": null,
       "gltfNodeNames": [],
@@ -14576,9 +16334,14 @@
         "kind": "approximate-location",
         "sources": [
           {
-            "drawing": "ZPMC mechanical manual 1.3.4.2",
+            "drawing": "ZPMC mechanical manual 1.5.2",
             "pdfPage": null,
-            "note": "On small equalizer beam end"
+            "note": null
+          },
+          {
+            "drawing": "J526A00",
+            "pdfPage": 1,
+            "note": "U1-C72: Coupling meets the reel shaft at its centre; envelope approximate."
           }
         ]
       },
@@ -14586,26 +16349,26 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -0.06,
-          0.49,
-          13.5
+          1.419998,
+          7.725002,
+          -12.481
         ],
         "max": [
-          0.06,
-          0.61,
-          13.6
+          1.540002,
+          8.044998,
+          -12.161
         ]
       },
       "cameraHint": null
     },
     {
-      "key": "gantry.obstacle-sensors.2",
+      "key": "gantry.cable-reel.slip-rings",
       "kind": "position",
-      "label": "Ultrasonic sensor and reflector - WS-B",
+      "label": "High-voltage slip rings (slip ring cabinet)",
       "parentKey": "container.gantry",
       "classification": {
-        "main": "05",
-        "sub": "051"
+        "main": "12",
+        "sub": "121"
       },
       "classificationNote": null,
       "gltfNodeNames": [],
@@ -14626,209 +16389,14 @@
         "kind": "approximate-location",
         "sources": [
           {
-            "drawing": "ZPMC mechanical manual 1.3.4.2",
-            "pdfPage": null,
-            "note": "On small equalizer beam end"
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          -0.06,
-          0.49,
-          -13.6
-        ],
-        "max": [
-          0.06,
-          0.61,
-          -13.5
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "gantry.obstacle-sensors.3",
-      "kind": "position",
-      "label": "Ultrasonic sensor and reflector - LS-A",
-      "parentKey": "container.gantry",
-      "classification": {
-        "main": "05",
-        "sub": "051"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.gantry.instanced",
-        "index": 27
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "ZPMC mechanical manual 1.3.4.2",
-            "pdfPage": null,
-            "note": "On small equalizer beam end"
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          -30.06,
-          0.49,
-          13.5
-        ],
-        "max": [
-          -29.94,
-          0.61,
-          13.6
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "gantry.obstacle-sensors.4",
-      "kind": "position",
-      "label": "Ultrasonic sensor and reflector - LS-B",
-      "parentKey": "container.gantry",
-      "classification": {
-        "main": "05",
-        "sub": "051"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.gantry.instanced",
-        "index": 28
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "ZPMC mechanical manual 1.3.4.2",
-            "pdfPage": null,
-            "note": "On small equalizer beam end"
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          -30.06,
-          0.49,
-          -13.6
-        ],
-        "max": [
-          -29.94,
-          0.61,
-          -13.5
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "gantry.cable-reel.coupling",
-      "kind": "position",
-      "label": "Coupling, gantry cable reel drive",
-      "parentKey": "container.gantry",
-      "classification": {
-        "main": "04",
-        "sub": "042"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.gantry.instanced",
-        "index": 29
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "ZPMC mechanical manual 1.5.2",
-            "pdfPage": null,
-            "note": null
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          1.539998,
-          7.382502,
-          -12.481
-        ],
-        "max": [
-          1.660002,
-          7.702498,
-          -12.161
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "gantry.cable-reel.slip-rings",
-      "kind": "position",
-      "label": "High-voltage slip rings (slip ring cabinet)",
-      "parentKey": "container.gantry",
-      "classification": {
-        "main": "12",
-        "sub": "121"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.gantry.instanced",
-        "index": 30
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
             "drawing": "ZPMC mechanical manual 1.5.2 Fig.1-47",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "J526A00",
+            "pdfPage": 1,
+            "note": "U1-C72: Slip-ring assembly seated on the inboard shaft; envelope approximate."
           }
         ]
       },
@@ -14837,12 +16405,12 @@
       "bounds": {
         "min": [
           -0.05,
-          6.8925,
+          7.535,
           -12.621
         ],
         "max": [
           0.25,
-          7.5925,
+          8.235,
           -12.021
         ]
       },
@@ -14861,7 +16429,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.gantry.instanced",
-        "index": 31
+        "index": 27
       },
       "pickable": true,
       "pickPriority": 50,
@@ -14949,78 +16517,18 @@
       "cameraHint": null
     },
     {
-      "key": "headblock.hoist-sheave.1",
+      "key": "auxiliary.obstruction-lights.2",
       "kind": "position",
-      "label": "Hoist Sheave 01 - head block (back (landside), gate house end)",
-      "parentKey": "container.headblock-spreader",
+      "label": "Obstruction light - girder rear end",
+      "parentKey": "container.girder",
       "classification": {
-        "main": "01",
-        "sub": "011"
+        "main": "13",
+        "sub": "131"
       },
-      "classificationNote": null,
+      "classificationNote": "The A-frame top light is the Excel Aircraft Safety Light",
       "gltfNodeNames": [],
       "instancing": {
-        "gltfNodeName": "reference.headblock-spreader.instanced",
-        "index": 0
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "QC component workbook, QC01 row 33",
-            "pdfPage": null,
-            "note": "location Head block"
-          },
-          {
-            "drawing": "J526A1200",
-            "pdfPage": 1,
-            "note": "headblock hoist sheaves, one per corner"
-          },
-          {
-            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
-            "pdfPage": null,
-            "note": "corner numbering as the catenary wheels; to confirm"
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          68.964803,
-          47.190007,
-          -2.660007
-        ],
-        "max": [
-          69.864803,
-          48.089992,
-          -2.539992
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "headblock.hoist-sheave.2",
-      "kind": "position",
-      "label": "Hoist Sheave 02 - head block (front (seaside), gate house end)",
-      "parentKey": "container.headblock-spreader",
-      "classification": {
-        "main": "01",
-        "sub": "011"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.headblock-spreader.instanced",
+        "gltfNodeName": "reference.girder.instanced",
         "index": 1
       },
       "pickable": true,
@@ -15036,19 +16544,14 @@
         "kind": "approximate-location",
         "sources": [
           {
-            "drawing": "QC component workbook, QC01 row 34",
+            "drawing": "ZPMC mechanical manual 1.4.4 Fig.1-43",
             "pdfPage": null,
-            "note": "location Head block"
+            "note": null
           },
           {
-            "drawing": "J526A1200",
+            "drawing": "J526A0100",
             "pdfPage": 1,
-            "note": "headblock hoist sheaves, one per corner"
-          },
-          {
-            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
-            "pdfPage": null,
-            "note": "corner numbering as the catenary wheels; to confirm"
+            "note": "U1-C72: Light base seated on the rear end diaphragm; parent corrected to girder."
           }
         ]
       },
@@ -15056,134 +16559,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          70.135197,
-          47.190007,
-          -2.660007
+          -60.830001,
+          52.299998,
+          -0.13
         ],
         "max": [
-          71.035197,
-          48.089992,
-          -2.539992
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "headblock.hoist-sheave.3",
-      "kind": "position",
-      "label": "Hoist Sheave 03 - head block (front (seaside), SAGT end)",
-      "parentKey": "container.headblock-spreader",
-      "classification": {
-        "main": "01",
-        "sub": "011"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.headblock-spreader.instanced",
-        "index": 2
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "QC component workbook, QC01 row 35",
-            "pdfPage": null,
-            "note": "location Head block"
-          },
-          {
-            "drawing": "J526A1200",
-            "pdfPage": 1,
-            "note": "headblock hoist sheaves, one per corner"
-          },
-          {
-            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
-            "pdfPage": null,
-            "note": "corner numbering as the catenary wheels; to confirm"
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          70.135197,
-          47.190007,
-          2.539992
-        ],
-        "max": [
-          71.035197,
-          48.089992,
-          2.660007
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "headblock.hoist-sheave.4",
-      "kind": "position",
-      "label": "Hoist Sheave 04 - head block (back (landside), SAGT end)",
-      "parentKey": "container.headblock-spreader",
-      "classification": {
-        "main": "01",
-        "sub": "011"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.headblock-spreader.instanced",
-        "index": 3
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "QC component workbook, QC01 row 36",
-            "pdfPage": null,
-            "note": "location Head block"
-          },
-          {
-            "drawing": "J526A1200",
-            "pdfPage": 1,
-            "note": "headblock hoist sheaves, one per corner"
-          },
-          {
-            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
-            "pdfPage": null,
-            "note": "corner numbering as the catenary wheels; to confirm"
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          68.964803,
-          47.190007,
-          2.539992
-        ],
-        "max": [
-          69.864803,
-          48.089992,
-          2.660007
+          -60.570001,
+          52.649998,
+          0.13
         ]
       },
       "cameraHint": null
@@ -15201,7 +16584,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.headblock-spreader.instanced",
-        "index": 4
+        "index": 0
       },
       "pickable": true,
       "pickPriority": 50,
@@ -15256,7 +16639,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.headblock-spreader.instanced",
-        "index": 5
+        "index": 1
       },
       "pickable": true,
       "pickPriority": 50,
@@ -15306,7 +16689,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.headblock-spreader.instanced",
-        "index": 6
+        "index": 2
       },
       "pickable": true,
       "pickPriority": 50,
@@ -15339,156 +16722,6 @@
           70.08,
           46.250002,
           2.48
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "spreader.over-height-adapter",
-      "kind": "position",
-      "label": "Over-height adapter (attachment, shown beside the spreader)",
-      "parentKey": "container.headblock-spreader",
-      "classification": {
-        "main": "06",
-        "sub": "061"
-      },
-      "classificationNote": "Attachment used when needed; drawn beside the spreader, not its stored position",
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.headblock-spreader.instanced",
-        "index": 7
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "ZPMC mechanical manual 1.8.3 Fig.1-63",
-            "pdfPage": null,
-            "note": null
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          66.93,
-          45.100002,
-          -3
-        ],
-        "max": [
-          67.43,
-          45.700002,
-          3
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "spreader.hook-beam",
-      "kind": "position",
-      "label": "Hook beam (75 t, attachment)",
-      "parentKey": "container.headblock-spreader",
-      "classification": {
-        "main": "06",
-        "sub": "061"
-      },
-      "classificationNote": "Attachment used when needed; drawn beside the spreader",
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.headblock-spreader.instanced",
-        "index": 8
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "ZPMC mechanical manual 1.8.4 Fig.1-64",
-            "pdfPage": null,
-            "note": "75 t rated"
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          66.129997,
-          45.150002,
-          -2
-        ],
-        "max": [
-          66.629997,
-          45.650002,
-          2
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "spreader.hook-beam.hook",
-      "kind": "position",
-      "label": "Swivel safety single hook (hook beam)",
-      "parentKey": "container.headblock-spreader",
-      "classification": {
-        "main": "06",
-        "sub": "061"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.headblock-spreader.instanced",
-        "index": 9
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "ZPMC mechanical manual 1.8.4",
-            "pdfPage": null,
-            "note": null
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          66.259997,
-          44.549998,
-          -0.12
-        ],
-        "max": [
-          66.499997,
-          45.149998,
-          0.12
         ]
       },
       "cameraHint": null
@@ -17929,106 +19162,6 @@
       "cameraHint": null
     },
     {
-      "key": "gantry.ground-control-station",
-      "kind": "position",
-      "label": "Ground control station and CMS terminal (gantry maintenance cab)",
-      "parentKey": "container.portal",
-      "classification": {
-        "main": "05",
-        "sub": "051"
-      },
-      "classificationNote": "Location approximate (landside leg B, beside the stair tower)",
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.portal.instanced",
-        "index": 5
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "ZPMC mechanical manual 1.3.4.3 Fig.1-38",
-            "pdfPage": null,
-            "note": "Electronic lock"
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          -27.95,
-          6.4,
-          -11.25
-        ],
-        "max": [
-          -27.05,
-          8,
-          -10.45
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "gantry.rail-brake-hpu",
-      "kind": "position",
-      "label": "Gantry rail brake hydraulic power unit",
-      "parentKey": "container.portal",
-      "classification": {
-        "main": "04",
-        "sub": "041"
-      },
-      "classificationNote": "Location approximate (on the seaside sill beam)",
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.portal.instanced",
-        "index": 6
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "ZPMC mechanical manual 5.3",
-            "pdfPage": null,
-            "note": "See Ch.5 § 5.3"
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          0.815,
-          3.75,
-          -6.45
-        ],
-        "max": [
-          1.415,
-          4.45,
-          -5.55
-        ]
-      },
-      "cameraHint": null
-    },
-    {
       "key": "trolley.wheel-bearing.1",
       "kind": "position",
       "label": "Trolley Wheel Bearing 1 (back (landside), gate house end)",
@@ -18249,541 +19382,6 @@
       "cameraHint": null
     },
     {
-      "key": "trolley.hoist-sheave.1-i",
-      "kind": "position",
-      "label": "Hoist Sheave 01(i) - trolley (landside shaft)",
-      "parentKey": "container.trolley",
-      "classification": {
-        "main": "01",
-        "sub": "011"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.trolley.instanced",
-        "index": 4
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "QC component workbook, QC01 row 25",
-            "pdfPage": null,
-            "note": "location Trolley"
-          },
-          {
-            "drawing": "J526A0200",
-            "pdfPage": 1,
-            "note": "trolley main hoist sheaves: 2 shafts x 2 sheaves per rope side"
-          },
-          {
-            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
-            "pdfPage": null,
-            "note": "(i) landside shaft, (ii) seaside shaft; to confirm"
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          68.880003,
-          52.380006,
-          -2.945007
-        ],
-        "max": [
-          69.720003,
-          53.219992,
-          -2.844993
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "trolley.hoist-sheave.1-ii",
-      "kind": "position",
-      "label": "Hoist Sheave 01(ii) - trolley (seaside shaft)",
-      "parentKey": "container.trolley",
-      "classification": {
-        "main": "01",
-        "sub": "011"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.trolley.instanced",
-        "index": 5
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "QC component workbook, QC01 row 26",
-            "pdfPage": null,
-            "note": "location Trolley"
-          },
-          {
-            "drawing": "J526A0200",
-            "pdfPage": 1,
-            "note": "trolley main hoist sheaves: 2 shafts x 2 sheaves per rope side"
-          },
-          {
-            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
-            "pdfPage": null,
-            "note": "(i) landside shaft, (ii) seaside shaft; to confirm"
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          70.279997,
-          52.380006,
-          -2.945007
-        ],
-        "max": [
-          71.119997,
-          53.219992,
-          -2.844993
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "trolley.hoist-sheave.2-i",
-      "kind": "position",
-      "label": "Hoist Sheave 02(i) - trolley (landside shaft)",
-      "parentKey": "container.trolley",
-      "classification": {
-        "main": "01",
-        "sub": "011"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.trolley.instanced",
-        "index": 6
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "QC component workbook, QC01 row 27",
-            "pdfPage": null,
-            "note": "location Trolley"
-          },
-          {
-            "drawing": "J526A0200",
-            "pdfPage": 1,
-            "note": "trolley main hoist sheaves: 2 shafts x 2 sheaves per rope side"
-          },
-          {
-            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
-            "pdfPage": null,
-            "note": "(i) landside shaft, (ii) seaside shaft; to confirm"
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          68.880003,
-          52.380006,
-          -2.355007
-        ],
-        "max": [
-          69.720003,
-          53.219992,
-          -2.254993
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "trolley.hoist-sheave.2-ii",
-      "kind": "position",
-      "label": "Hoist Sheave 02(ii) - trolley (seaside shaft)",
-      "parentKey": "container.trolley",
-      "classification": {
-        "main": "01",
-        "sub": "011"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.trolley.instanced",
-        "index": 7
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "QC component workbook, QC01 row 28",
-            "pdfPage": null,
-            "note": "location Trolley"
-          },
-          {
-            "drawing": "J526A0200",
-            "pdfPage": 1,
-            "note": "trolley main hoist sheaves: 2 shafts x 2 sheaves per rope side"
-          },
-          {
-            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
-            "pdfPage": null,
-            "note": "(i) landside shaft, (ii) seaside shaft; to confirm"
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          70.279997,
-          52.380006,
-          -2.355007
-        ],
-        "max": [
-          71.119997,
-          53.219992,
-          -2.254993
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "trolley.hoist-sheave.3-i",
-      "kind": "position",
-      "label": "Hoist Sheave 03(i) - trolley (landside shaft)",
-      "parentKey": "container.trolley",
-      "classification": {
-        "main": "01",
-        "sub": "011"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.trolley.instanced",
-        "index": 8
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "QC component workbook, QC01 row 29",
-            "pdfPage": null,
-            "note": "location Trolley"
-          },
-          {
-            "drawing": "J526A0200",
-            "pdfPage": 1,
-            "note": "trolley main hoist sheaves: 2 shafts x 2 sheaves per rope side"
-          },
-          {
-            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
-            "pdfPage": null,
-            "note": "(i) landside shaft, (ii) seaside shaft; to confirm"
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          68.880003,
-          52.380006,
-          2.254993
-        ],
-        "max": [
-          69.720003,
-          53.219992,
-          2.355007
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "trolley.hoist-sheave.3-ii",
-      "kind": "position",
-      "label": "Hoist Sheave 03(ii) - trolley (seaside shaft)",
-      "parentKey": "container.trolley",
-      "classification": {
-        "main": "01",
-        "sub": "011"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.trolley.instanced",
-        "index": 9
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "QC component workbook, QC01 row 30",
-            "pdfPage": null,
-            "note": "location Trolley"
-          },
-          {
-            "drawing": "J526A0200",
-            "pdfPage": 1,
-            "note": "trolley main hoist sheaves: 2 shafts x 2 sheaves per rope side"
-          },
-          {
-            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
-            "pdfPage": null,
-            "note": "(i) landside shaft, (ii) seaside shaft; to confirm"
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          70.279997,
-          52.380006,
-          2.254993
-        ],
-        "max": [
-          71.119997,
-          53.219992,
-          2.355007
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "trolley.hoist-sheave.4-i",
-      "kind": "position",
-      "label": "Hoist Sheave 04(i) - trolley (landside shaft)",
-      "parentKey": "container.trolley",
-      "classification": {
-        "main": "01",
-        "sub": "011"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.trolley.instanced",
-        "index": 10
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "QC component workbook, QC01 row 31",
-            "pdfPage": null,
-            "note": "location Trolley"
-          },
-          {
-            "drawing": "J526A0200",
-            "pdfPage": 1,
-            "note": "trolley main hoist sheaves: 2 shafts x 2 sheaves per rope side"
-          },
-          {
-            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
-            "pdfPage": null,
-            "note": "(i) landside shaft, (ii) seaside shaft; to confirm"
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          68.880003,
-          52.380006,
-          2.844993
-        ],
-        "max": [
-          69.720003,
-          53.219992,
-          2.945007
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "trolley.hoist-sheave.4-ii",
-      "kind": "position",
-      "label": "Hoist Sheave 04(ii) - trolley (seaside shaft)",
-      "parentKey": "container.trolley",
-      "classification": {
-        "main": "01",
-        "sub": "011"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.trolley.instanced",
-        "index": 11
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "QC component workbook, QC01 row 32",
-            "pdfPage": null,
-            "note": "location Trolley"
-          },
-          {
-            "drawing": "J526A0200",
-            "pdfPage": 1,
-            "note": "trolley main hoist sheaves: 2 shafts x 2 sheaves per rope side"
-          },
-          {
-            "drawing": "LHS / gate house end = model -Z (b side), user answer 5 Nov 2026",
-            "pdfPage": null,
-            "note": "(i) landside shaft, (ii) seaside shaft; to confirm"
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          70.279997,
-          52.380006,
-          2.844993
-        ],
-        "max": [
-          71.119997,
-          53.219992,
-          2.945007
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "trolley.spreader-cable",
-      "kind": "position",
-      "label": "SCR Cable (wound on the reel and down to the headblock)",
-      "parentKey": "container.trolley",
-      "classification": {
-        "main": "01",
-        "sub": "014"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.trolley.instanced",
-        "index": 12
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "quantityLot",
-      "uom": "cable",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "QC component workbook, QC01 row 44",
-            "pdfPage": null,
-            "note": null
-          },
-          {
-            "drawing": "SC-121216-ME2a",
-            "pdfPage": null,
-            "note": "Cavotec T5.1 monospiral reel, Tratosmart cable 30 x 2.5"
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          69.640003,
-          47.607613,
-          -0.025012
-        ],
-        "max": [
-          70.960003,
-          48.927589,
-          0.025012
-        ]
-      },
-      "cameraHint": null
-    },
-    {
       "key": "trolley.spreader-cable-reel.bollard-damper",
       "kind": "position",
       "label": "SCR Bollard Damper (cable guide below the reel)",
@@ -18796,7 +19394,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.trolley.instanced",
-        "index": 13
+        "index": 4
       },
       "pickable": true,
       "pickPriority": 50,
@@ -18819,6 +19417,11 @@
             "drawing": "SC-121216-ME2a",
             "pdfPage": null,
             "note": "reel cable guide / bollard; position approximate"
+          },
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 1,
+            "note": "U1-C72: Damper on the descending cable below the reel; location/envelope approximate."
           }
         ]
       },
@@ -18826,13 +19429,13 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          69.6,
-          47.187601,
+          69.580003,
+          50.999998,
           -0.15
         ],
         "max": [
-          69.9,
-          47.387601,
+          69.880003,
+          51.199998,
           0.15
         ]
       },
@@ -18851,7 +19454,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.trolley.instanced",
-        "index": 14
+        "index": 5
       },
       "pickable": true,
       "pickPriority": 50,
@@ -18874,6 +19477,11 @@
             "drawing": "SC-121216-ME2a",
             "pdfPage": null,
             "note": "T5.1 drive module: main and pre reducer"
+          },
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 1,
+            "note": "U1-C72: Bearing on the reel drive, using its centre datum; detailed bearing envelope approximate."
           }
         ]
       },
@@ -18882,12 +19490,12 @@
       "bounds": {
         "min": [
           70.180003,
-          48.407601,
+          51.700001,
           -0.620002
         ],
         "max": [
           70.420003,
-          48.647598,
+          51.939998,
           -0.539998
         ]
       },
@@ -18906,7 +19514,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.trolley.instanced",
-        "index": 15
+        "index": 6
       },
       "pickable": true,
       "pickPriority": 50,
@@ -18929,6 +19537,11 @@
             "drawing": "SC-121216-ME2a",
             "pdfPage": null,
             "note": "T5.1 drive module: main and pre reducer"
+          },
+          {
+            "drawing": "J526A0200",
+            "pdfPage": 1,
+            "note": "U1-C72: Bearing on the reel drive, using its centre datum; detailed bearing envelope approximate."
           }
         ]
       },
@@ -18937,12 +19550,12 @@
       "bounds": {
         "min": [
           70.180003,
-          48.407601,
+          51.700001,
           -0.900002
         ],
         "max": [
           70.420003,
-          48.647598,
+          51.939998,
           -0.819998
         ]
       },
@@ -18961,7 +19574,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.trolley.instanced",
-        "index": 16
+        "index": 7
       },
       "pickable": true,
       "pickPriority": 50,
@@ -19016,7 +19629,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.trolley.instanced",
-        "index": 17
+        "index": 8
       },
       "pickable": true,
       "pickPriority": 50,
@@ -19066,7 +19679,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.trolley.instanced",
-        "index": 18
+        "index": 9
       },
       "pickable": true,
       "pickPriority": 50,
@@ -19084,6 +19697,11 @@
             "drawing": "ZPMC mechanical manual 1.3.3.2; 1.3.3.6 Fig.1-30",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "J526A2100",
+            "pdfPage": 1,
+            "note": "U1-C72: Clamp aligned with the trolley rope at the equalizer, rather than hovering above it; envelope simplified."
           }
         ]
       },
@@ -19091,13 +19709,13 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          67.140001,
-          52.976002,
+          67.290002,
+          52.64,
           -1.16
         ],
         "max": [
-          67.440001,
-          53.156002,
+          67.590002,
+          52.82,
           -0.94
         ]
       },
@@ -19116,7 +19734,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.trolley.instanced",
-        "index": 19
+        "index": 10
       },
       "pickable": true,
       "pickPriority": 50,
@@ -19134,6 +19752,11 @@
             "drawing": "ZPMC mechanical manual 1.3.3.2; 1.3.3.6 Fig.1-30",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "J526A2100",
+            "pdfPage": 1,
+            "note": "U1-C72: Clamp aligned with the trolley rope at the equalizer, rather than hovering above it; envelope simplified."
           }
         ]
       },
@@ -19141,13 +19764,13 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          67.140001,
-          52.976002,
+          67.290002,
+          52.64,
           0.94
         ],
         "max": [
-          67.440001,
-          53.156002,
+          67.590002,
+          52.82,
           1.16
         ]
       },
@@ -19166,7 +19789,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.trolley.instanced",
-        "index": 20
+        "index": 11
       },
       "pickable": true,
       "pickPriority": 50,
@@ -19184,6 +19807,11 @@
             "drawing": "ZPMC mechanical manual 1.3.3.2; 1.3.3.6 Fig.1-30",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "J526A2100",
+            "pdfPage": 1,
+            "note": "U1-C72: Clamp aligned with the trolley rope at the equalizer, rather than hovering above it; envelope simplified."
           }
         ]
       },
@@ -19191,13 +19819,13 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          72.260004,
-          52.976002,
+          72.110002,
+          52.64,
           -1.16
         ],
         "max": [
-          72.560004,
-          53.156002,
+          72.410002,
+          52.82,
           -0.94
         ]
       },
@@ -19216,7 +19844,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.trolley.instanced",
-        "index": 21
+        "index": 12
       },
       "pickable": true,
       "pickPriority": 50,
@@ -19234,6 +19862,11 @@
             "drawing": "ZPMC mechanical manual 1.3.3.2; 1.3.3.6 Fig.1-30",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "J526A2100",
+            "pdfPage": 1,
+            "note": "U1-C72: Clamp aligned with the trolley rope at the equalizer, rather than hovering above it; envelope simplified."
           }
         ]
       },
@@ -19241,13 +19874,13 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          72.260004,
-          52.976002,
+          72.110002,
+          52.64,
           0.94
         ],
         "max": [
-          72.560004,
-          53.156002,
+          72.410002,
+          52.82,
           1.16
         ]
       },
@@ -19266,7 +19899,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.trolley.instanced",
-        "index": 22
+        "index": 13
       },
       "pickable": true,
       "pickPriority": 50,
@@ -19316,7 +19949,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.trolley.instanced",
-        "index": 23
+        "index": 14
       },
       "pickable": true,
       "pickPriority": 50,
@@ -19366,7 +19999,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.trolley.instanced",
-        "index": 24
+        "index": 15
       },
       "pickable": true,
       "pickPriority": 50,
@@ -19416,7 +20049,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.trolley.instanced",
-        "index": 25
+        "index": 16
       },
       "pickable": true,
       "pickPriority": 50,
@@ -19466,7 +20099,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.trolley.instanced",
-        "index": 26
+        "index": 17
       },
       "pickable": true,
       "pickPriority": 50,
@@ -19484,6 +20117,11 @@
             "drawing": "ZPMC mechanical manual 1.3.3.3",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "J526A3100",
+            "pdfPage": 1,
+            "note": "U1-C72: C74: mounted on the side-door jamb, replacing an unsupported proxy outside the cab; switch dimensions/location approximate."
           }
         ]
       },
@@ -19491,14 +20129,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          68.150002,
-          50.319999,
-          -0.94
+          64.979997,
+          48.869998,
+          -1.195
         ],
         "max": [
-          68.230002,
-          50.419999,
-          -0.86
+          65.059997,
+          48.969998,
+          -1.115
         ]
       },
       "cameraHint": null
@@ -19516,7 +20154,7 @@
       "gltfNodeNames": [],
       "instancing": {
         "gltfNodeName": "reference.trolley.instanced",
-        "index": 27
+        "index": 18
       },
       "pickable": true,
       "pickPriority": 50,
@@ -19534,56 +20172,11 @@
             "drawing": "ZPMC mechanical manual 1.3.3.3",
             "pdfPage": null,
             "note": null
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          68.150002,
-          50.319999,
-          0.86
-        ],
-        "max": [
-          68.230002,
-          50.419999,
-          0.94
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "cabin.twistlock-panel",
-      "kind": "position",
-      "label": "Twist-lock indicating panel (cab)",
-      "parentKey": "container.trolley",
-      "classification": {
-        "main": "14",
-        "sub": "141"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.trolley.instanced",
-        "index": 28
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
+          },
           {
-            "drawing": "ZPMC mechanical manual 1.3.3.7",
-            "pdfPage": null,
-            "note": null
+            "drawing": "J526A3100",
+            "pdfPage": 1,
+            "note": "U1-C72: C74: mounted on the side-door jamb, replacing an unsupported proxy outside the cab; switch dimensions/location approximate."
           }
         ]
       },
@@ -19591,214 +20184,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          63.894999,
-          50.019998,
-          -0.3
+          64.979997,
+          49.02,
+          -1.195
         ],
         "max": [
-          63.954999,
-          50.319998,
-          0.3
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "cabin.monitors.1",
-      "kind": "position",
-      "label": "Computer / TV monitor, cab - 1",
-      "parentKey": "container.trolley",
-      "classification": {
-        "main": "14",
-        "sub": "141"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.trolley.instanced",
-        "index": 29
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "ZPMC mechanical manual 1.3.3.7",
-            "pdfPage": null,
-            "note": null
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          64.250002,
-          49.769998,
-          -0.7
-        ],
-        "max": [
-          64.300002,
-          50.069998,
-          -0.3
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "cabin.monitors.2",
-      "kind": "position",
-      "label": "Computer / TV monitor, cab - 2",
-      "parentKey": "container.trolley",
-      "classification": {
-        "main": "14",
-        "sub": "141"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.trolley.instanced",
-        "index": 30
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "ZPMC mechanical manual 1.3.3.7",
-            "pdfPage": null,
-            "note": null
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          64.250002,
-          49.769998,
-          -0.2
-        ],
-        "max": [
-          64.300002,
-          50.069998,
-          0.2
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "cabin.monitors.3",
-      "kind": "position",
-      "label": "Computer / TV monitor, cab - 3",
-      "parentKey": "container.trolley",
-      "classification": {
-        "main": "14",
-        "sub": "141"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.trolley.instanced",
-        "index": 31
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "ZPMC mechanical manual 1.3.3.7",
-            "pdfPage": null,
-            "note": null
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          64.250002,
-          49.769998,
-          0.3
-        ],
-        "max": [
-          64.300002,
-          50.069998,
-          0.7
-        ]
-      },
-      "cameraHint": null
-    },
-    {
-      "key": "cabin.floor-window-lighting",
-      "kind": "position",
-      "label": "Floor window and cab lighting (dimmer)",
-      "parentKey": "container.trolley",
-      "classification": {
-        "main": "14",
-        "sub": "141"
-      },
-      "classificationNote": null,
-      "gltfNodeNames": [],
-      "instancing": {
-        "gltfNodeName": "reference.trolley.instanced",
-        "index": 32
-      },
-      "pickable": true,
-      "pickPriority": 50,
-      "modes": [
-        "technical"
-      ],
-      "enclosure": false,
-      "positionKind": "serialized",
-      "uom": "ea",
-      "category": "component",
-      "provenance": {
-        "kind": "approximate-location",
-        "sources": [
-          {
-            "drawing": "ZPMC mechanical manual 1.3.3.7",
-            "pdfPage": null,
-            "note": null
-          }
-        ]
-      },
-      "qualifier": "Location approximate / simplified representation",
-      "hotspot": null,
-      "bounds": {
-        "min": [
-          64.757497,
-          47.575,
-          -0.6
-        ],
-        "max": [
-          66.157497,
-          47.605,
-          0.6
+          65.059997,
+          49.12,
+          -1.115
         ]
       },
       "cameraHint": null
@@ -22299,6 +22692,79 @@
       ]
     },
     {
+      "gltfNodeName": "trolley.hoist-sheaves.instanced",
+      "instanceKeys": [
+        "trolley.hoist-sheave.1-i",
+        "trolley.hoist-sheave.1-ii",
+        "trolley.hoist-sheave.2-i",
+        "trolley.hoist-sheave.2-ii",
+        "trolley.hoist-sheave.3-i",
+        "trolley.hoist-sheave.3-ii",
+        "trolley.hoist-sheave.4-i",
+        "trolley.hoist-sheave.4-ii"
+      ]
+    },
+    {
+      "gltfNodeName": "headblock.hoist-sheaves.instanced",
+      "instanceKeys": [
+        "headblock.hoist-sheave.1",
+        "headblock.hoist-sheave.2",
+        "headblock.hoist-sheave.3",
+        "headblock.hoist-sheave.4"
+      ]
+    },
+    {
+      "gltfNodeName": "gantry.buffers.instanced",
+      "instanceKeys": [
+        "gantry.buffers.1",
+        "gantry.buffers.2",
+        "gantry.buffers.3",
+        "gantry.buffers.4"
+      ]
+    },
+    {
+      "gltfNodeName": "reference.unfitted-attachments.instanced",
+      "instanceKeys": [
+        "spreader.over-height-adapter",
+        "spreader.hook-beam",
+        "spreader.hook-beam.hook"
+      ]
+    },
+    {
+      "gltfNodeName": "gantry.mounted-housings.instanced",
+      "instanceKeys": [
+        "gantry.rail-brake-hpu",
+        "gantry.ground-control-station"
+      ]
+    },
+    {
+      "gltfNodeName": "cabin.mounted-instruments.instanced",
+      "instanceKeys": [
+        "cabin.monitors.1",
+        "cabin.monitors.2",
+        "cabin.monitors.3",
+        "cabin.twistlock-panel"
+      ]
+    },
+    {
+      "gltfNodeName": "reeving.tls-cylinders.instanced",
+      "instanceKeys": [
+        "reeving.tls-cylinder.1",
+        "reeving.tls-cylinder.2",
+        "reeving.tls-cylinder.3",
+        "reeving.tls-cylinder.4"
+      ]
+    },
+    {
+      "gltfNodeName": "reeving.tls-sheaves.instanced",
+      "instanceKeys": [
+        "reeving.hoist-sheave.back-reach.1",
+        "reeving.hoist-sheave.back-reach.2",
+        "reeving.hoist-sheave.back-reach.3",
+        "reeving.hoist-sheave.back-reach.4"
+      ]
+    },
+    {
       "gltfNodeName": "reference.a-frame.instanced",
       "instanceKeys": [
         "auxiliary.apex.aircraft-light",
@@ -22310,7 +22776,8 @@
         "boom.stowage-pins.1",
         "boom.stowage-pins.2",
         "boom.stowage-pins.switches.1",
-        "boom.stowage-pins.switches.2"
+        "boom.stowage-pins.switches.2",
+        "auxiliary.jib-cranes.2"
       ]
     },
     {
@@ -22324,18 +22791,8 @@
       "instanceKeys": [
         "reeving.trolley-sheave.1",
         "reeving.trolley-sheave.2",
-        "reeving.hoist-sheave.back-reach.1",
-        "reeving.hoist-sheave.back-reach.2",
-        "reeving.hoist-sheave.back-reach.3",
-        "reeving.hoist-sheave.back-reach.4",
         "reeving.catenary-sheave.1",
         "reeving.catenary-sheave.2",
-        "reeving.tls-cylinder.1",
-        "reeving.tls-cylinder.2",
-        "reeving.tls-cylinder.3",
-        "reeving.tls-cylinder.4",
-        "reeving.tls-pump.coupling-insert",
-        "reeving.tls-pump.motor",
         "reeving.trolley-tension.cylinder.1",
         "reeving.trolley-tension.cylinder.2",
         "reeving.catenary-tension.cylinder.1",
@@ -22369,9 +22826,7 @@
         "boom.collision.switches.1",
         "boom.collision.switches.2",
         "auxiliary.obstruction-lights.1",
-        "auxiliary.obstruction-lights.2",
-        "auxiliary.jib-cranes.1",
-        "auxiliary.jib-cranes.2"
+        "auxiliary.jib-cranes.1"
       ]
     },
     {
@@ -22396,10 +22851,6 @@
         "gantry.cable-reel.cable",
         "gantry.oil-point.reducers",
         "gantry.oil-point.cable-reel",
-        "gantry.buffers.1",
-        "gantry.buffers.2",
-        "gantry.buffers.3",
-        "gantry.buffers.4",
         "gantry.buffer.limit-switches.1",
         "gantry.buffer.limit-switches.2",
         "gantry.obstacle-sensors.1",
@@ -22414,22 +22865,16 @@
     {
       "gltfNodeName": "reference.girder.instanced",
       "instanceKeys": [
-        "trolley.limit.park-switch"
+        "trolley.limit.park-switch",
+        "auxiliary.obstruction-lights.2"
       ]
     },
     {
       "gltfNodeName": "reference.headblock-spreader.instanced",
       "instanceKeys": [
-        "headblock.hoist-sheave.1",
-        "headblock.hoist-sheave.2",
-        "headblock.hoist-sheave.3",
-        "headblock.hoist-sheave.4",
         "headblock.twistlocks",
         "headblock.connecting-pins.1",
-        "headblock.connecting-pins.2",
-        "spreader.over-height-adapter",
-        "spreader.hook-beam",
-        "spreader.hook-beam.hook"
+        "headblock.connecting-pins.2"
       ]
     },
     {
@@ -22486,9 +22931,7 @@
         "gantry.stowage-pins.1",
         "gantry.stowage-pins.2",
         "gantry.stowage-pins.switches.1",
-        "gantry.stowage-pins.switches.2",
-        "gantry.ground-control-station",
-        "gantry.rail-brake-hpu"
+        "gantry.stowage-pins.switches.2"
       ]
     },
     {
@@ -22498,15 +22941,6 @@
         "trolley.wheel-bearing.2",
         "trolley.wheel-bearing.3",
         "trolley.wheel-bearing.4",
-        "trolley.hoist-sheave.1-i",
-        "trolley.hoist-sheave.1-ii",
-        "trolley.hoist-sheave.2-i",
-        "trolley.hoist-sheave.2-ii",
-        "trolley.hoist-sheave.3-i",
-        "trolley.hoist-sheave.3-ii",
-        "trolley.hoist-sheave.4-i",
-        "trolley.hoist-sheave.4-ii",
-        "trolley.spreader-cable",
         "trolley.spreader-cable-reel.bollard-damper",
         "trolley.spreader-cable-reel.main-reducer-bearing",
         "trolley.spreader-cable-reel.pre-reducer-bearing",
@@ -22521,12 +22955,7 @@
         "trolley.buffers.3",
         "trolley.buffers.4",
         "cabin.access-gate.switches.1",
-        "cabin.access-gate.switches.2",
-        "cabin.twistlock-panel",
-        "cabin.monitors.1",
-        "cabin.monitors.2",
-        "cabin.monitors.3",
-        "cabin.floor-window-lighting"
+        "cabin.access-gate.switches.2"
       ]
     },
     {

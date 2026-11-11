@@ -4,6 +4,8 @@ An isolated, editable ZP12-1874 RTG model, interactive browser demo and reusable
 
 **Revision 2 (4 November 2026):** the model is broken down into **300 selectable parts**, reviewed against both manuals and the supplied photographs. The same model version path (`model/1/`) was updated in place. It is still standalone and is **not** integrated into the EQ application. See `HANDOVER.md` for what changed.
 
+**Latest revision 2.8 (5 November 2026):** corrected the highlighted spreader cable feed, deck guide sheaves, moving rope wraps and pivoted rope sockets. The headblock basket is open with visible stored cable. All 300 part identities are retained. Details and limits: `evidence/rope-review/REVIEW.md`.
+
 ## Open the delivered result
 
 - Main workbench: **http://127.0.0.1:5314/**
@@ -37,6 +39,7 @@ In a second terminal, from this folder:
 
 ```powershell
 npm run test:browser
+node tools/check-reeving.mjs
 node tools/host-check.mjs
 node tools/capture-comparisons.mjs
 node tools/capture-appearance.mjs

@@ -1,0 +1,33 @@
+{
+  "algorithm": "sha256",
+  "files": {
+    "bindings.synthetic.json": {
+      "sha256": "074a7fa5e573657d30b6dbf4c249809fdeb04859eb4ec8e8d08ab64626bbf8f6",
+      "bytes": 153619
+    },
+    "catalogue.json": {
+      "sha256": "22b3c6dbe2e9ff71b6deb25563c668de100ab114df7f319c486b00dda6451491",
+      "bytes": 17643
+    },
+    "geometry-parameters.json": {
+      "sha256": "f380e37b801fca5fe20bb1281ada9dd7686160ad1d23f97358848f5e57c18687",
+      "bytes": 3376285
+    },
+    "manifest.json": {
+      "sha256": "30e99cd35327e046694f5f258a9cd13209cb79950d50d03d6b3aa0e06ca5051c",
+      "bytes": 449303
+    },
+    "parameters.json": {
+      "sha256": "d7b0cdba5c5b4ec6b711bab782142c461d8bfae0b9fd2c06c2eefcdae1661726",
+      "bytes": 20841
+    },
+    "scene.glb": {
+      "sha256": "c1869fff7ba76dc143150cffe503510798c64a8e916398105c28e3ed415a004e",
+      "bytes": 8186328
+    },
+    "technical-specifications.json": {
+      "sha256": "9a9c4cb7497935f299db3288f2da4cec26c99fca57e2286eef3ceb5bcc712438",
+      "bytes": 22675
+    }
+  }
+}

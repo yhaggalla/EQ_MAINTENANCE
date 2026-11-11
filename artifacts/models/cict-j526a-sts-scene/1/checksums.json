@@ -1,14 +1,17 @@
 {
-  "assets/models/source/cict-j526a-sts/params.json": "0a08025899eb3e2fdf1ae1c506b8478bc8f1ab58d1c7135bb9fbcbbe9673d5c0",
-  "assets/models/source/cict-j526a-sts/build.mjs": "69348d56d34ebe6d11abec71679963efa9a5cdc54fa29520ad9673546baf753a",
-  "assets/models/source/cict-j526a-sts/reference-components.mjs": "8ffe4c6f03c886b870fd9f98bace49cd742b66ca8982a6d35f4d95051beed301",
+  "assets/models/source/cict-j526a-sts/params.json": "5f8d39b43bae7965deadad072dcee84dec799309885fa8dfdf822fb2c8bb99d4",
+  "assets/models/source/cict-j526a-sts/build.mjs": "fd5a14a87d04c24a27f5728fc0da02d84eba544e9d1a16c0ceb241946ba65864",
+  "assets/models/source/cict-j526a-sts/reference-components.mjs": "1a3420afcb83291cde5a4c3d2eff3a9bca50adef865ab995291ef163d3f5405e",
+  "assets/models/source/cict-j526a-sts/backreach.mjs": "f503fe3ae138f62c0f4ec4d47fbed1e0eee5dc1de9b7e8f6b54f1014cb134f11",
+  "assets/models/source/cict-j526a-sts/fitted-components.mjs": "3ad1ce30a19cb4166566a1cded151383b5e591bce5a3f60d3227261d27e948e2",
+  "assets/models/source/cict-j526a-sts/cabin.mjs": "5c23d221484b9ece6ca9343a6edba7d4918e796cdc7ef14a457e5d69a339af95",
   "assets/models/source/cict-j526a-sts/textures/cict-logo.png": "d7af90fbb0a7f2bff38d199f9ebf5c812d14493d3953f33580b968661eeb9965",
-  "tools/model-generator/generate.mjs": "aabe92fd0da0cd3ae4bf3c47a808bc527f0cf548de909eab0e339d106315d4b3",
+  "tools/model-generator/generate.mjs": "3eef91ea4176cce2b9006ffecc33748ac6145b54fe5fae4c785666d57e4e3800",
   "tools/model-generator/lib/kit.mjs": "e8fa3960c9f0cefc3ad4b9691d6617ae24192336e43f5382e4b7b7c2fe688025",
   "tools/model-generator/lib/scene-builder.mjs": "815f8dc731facaa71810f492e570e6d105b1db482cac0da11d1ba6846d68f7f3",
   "tools/model-generator/package-lock.json": "13c35ee69b0c30a86d2f99086f4fb50b84b4a11a67f51f3cbd6e7aa9ba840849",
-  "artifacts/models/cict-j526a-sts-scene/1/scene.glb": "c561ff4125b776f14477e9d596ec91d1124937dbd454c9de8dd4b8e281580053",
-  "artifacts/models/cict-j526a-sts-scene/1/manifest.json": "1ac9dcbac3ee7641b51f52cd7f887af341695e2625933a63f610973dabbde2bc",
-  "artifacts/models/cict-j526a-sts-scene/1/provenance.md": "86c5358b35402508fee9998e5855d7b782b45f666995a160770af3468b33c85a",
-  "artifacts/models/cict-j526a-sts-scene/1/landmarks.json": "88a927b84e563e75457c1d27a499f3999346b57c73c8a948a6e9cf462c4b5919"
+  "artifacts/models/cict-j526a-sts-scene/1/scene.glb": "7cc263ed0510912230c48f75d89b3f066148a3fe0440046d12ea201c7e66b273",
+  "artifacts/models/cict-j526a-sts-scene/1/manifest.json": "b804f4b26f0fa85e0c7e80fb1d50251cd57efdf9865c2bd84e7307e190a21edc",
+  "artifacts/models/cict-j526a-sts-scene/1/provenance.md": "5d18dc19e957e6cd559a0b7d1dcec312461440f4f66bb13f0f4bb4f44795944c",
+  "artifacts/models/cict-j526a-sts-scene/1/landmarks.json": "3bfb9558cc0f922769a0b125fe673cf00c146b2f1c845ba1e3c970a5ace16627"
 }

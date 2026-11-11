@@ -1,0 +1,17 @@
+{
+  "result": "PASS",
+  "assetSha256": "c1869fff7ba76dc143150cffe503510798c64a8e916398105c28e3ed415a004e",
+  "semanticKeysAndClassificationsUnchanged": 315,
+  "pdfs": [
+    {
+      "file": "RTG drawings\\user manual (mechanical part).pdf",
+      "sha256": "c1bb5305a98b2516ab85da4fdec89dd2403ab7d6c91c3afe0774a2d9e32c0d85"
+    },
+    {
+      "file": "RTG drawings\\user manual for CICT 40 RTGs (mechanical).pdf",
+      "sha256": "962f3de6afb7e7b80eae34eafc6265b84fc0be867121a88c8d8e9ba8c10f08c5"
+    }
+  ],
+  "sitePhotoOriginalsUnchanged": 28,
+  "scope": "All writes in rtg-workbench. Pre-existing modified QC workbook preserved; no EQ app edits."
+}

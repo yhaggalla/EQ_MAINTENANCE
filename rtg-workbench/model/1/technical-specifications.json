@@ -333,7 +333,7 @@
     },
     {
       "label": "Sheaves",
-      "value": "12 on trolley: 8 fall + 4 horizontal guides; none on headblock",
+      "value": "12 on trolley: 8 fall + 4 deck guides; none on headblock",
       "source": {
         "document": "M14",
         "pdfPage": 27
@@ -341,13 +341,13 @@
       "qualifier": "Count and topology from Fig 2-14; shaft coordinates and Ø840 pitch diameter estimated"
     },
     {
-      "label": "Horizontal guide sheaves",
+      "label": "Deck guide sheaves",
       "value": "4 · turn the end-pair leads 90° from the drum to their fall sheaves",
       "source": {
         "document": "M14",
         "pdfPage": 27
       },
-      "qualifier": "Positions follow the drum grooves; plan circles ≈ Ø0.87 m; original JL2860603 required"
+      "qualifier": "Low mounted and inclined to the rope leads, following WA-04/06/08. Inclinations and shaft coordinates estimated; original JL2860603 required"
     },
     {
       "label": "Rope terminations",
@@ -368,13 +368,13 @@
       "qualifier": "Groove assignment estimated; follows from one drum rotation direction"
     },
     {
-      "label": "Modelled free rope lengths at 5 m lift",
-      "value": "Side pairs 23.81 m × 4 · end pairs 24.54 m × 2 and 26.06 m × 2",
+      "label": "Rope motion",
+      "value": "Sheave wraps follow the tangent; socket links pivot at the four headblock pins",
       "source": {
         "document": "M14",
-        "pdfPage": 16
+        "pdfPage": 27
       },
-      "qualifier": "Same 4 + 2 + 2 grouping and order as the manual lengths 42.3 × 4, 43.5 × 2, 44.9 × 2; dead wraps and drum storage not modelled"
+      "qualifier": "Drum rotation follows average free-rope shortening. Illustrated winding and basket coils do not solve exact storage or groove payout"
     },
     {
       "label": "Drum-shaft switches",
@@ -396,7 +396,7 @@
     },
     {
       "label": "Sheave finish",
-      "value": "Yellow, six lightening holes, red hub; guides lie flat on the deck",
+      "value": "Yellow, six lightening holes, red hub; guides sit low over the deck",
       "source": {
         "document": "PHOTO",
         "photo": "wa-04",
@@ -716,13 +716,13 @@
     },
     {
       "label": "Spreader drop cable",
-      "value": "Reel on the trolley → guide bellmouth → vertical drop through the cage into the basket; length follows the hoist",
+      "value": "Under-deck supply → compact fixed bellmouth → moving vertical drop → basket guide eye and stored coils",
       "source": {
         "document": "PHOTO",
         "photo": "wa-15",
         "pdfPage": null
       },
-      "qualifier": "Routing on the trolley and cable size estimated"
+      "qualifier": "Visible basket/feed arrangement from photos; exact SCF1 internals, under-deck routing and cable size estimated"
     },
     {
       "label": "Spreader cable basket",

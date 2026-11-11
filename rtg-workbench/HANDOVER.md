@@ -3,6 +3,14 @@
 The separate RTG package is complete for local review, including the subsequent CICT appearance update. It includes an editable deterministic model, versioned GLB/manifest, source audit, interactive viewer, typed integration adapter, independent host example, drawing comparisons and executed validation evidence. Model geometry remains provisional where the two mechanical manuals omit or contradict dimensions.
 
 
+## Revision 2.8 - highlighted rope/cable assembly corrected (5 November 2026)
+
+The highlighted spreader cable previously crossed the drum and came from a large outboard spool that was not supported by the photos. It now passes beneath the trolley through a compact hollow bellmouth into the headblock basket. The basket is open, with a centre cone, guide eye and visible stored cable.
+
+The four deck guide sheaves are lowered and inclined to their incoming leads. All eight fall-sheave wraps follow the changing tangent, and the eight socket/turnbuckle assemblies pivot into line with their ropes. Drum windings and clamps follow the photographs. A motion metadata bug affecting drum and trolley-wheel rotation was also repaired. Targeted clearance checks found and resolved contacts with machinery bases, guide supports and oversized leg-head plates.
+
+Same 300 selectable parts and stable keys. The legacy reel key now labels the fixed cable-feed envelope. Vendor internals, exact sheave coordinates, direct-lead fleet angles and cable storage remain estimates. See `evidence/rope-review/REVIEW.md` and `checks.json`. Earlier revision entries below are historical; their fixed-wrap, motorised side-reel and static-socket descriptions are superseded.
+
 ## Revision 2.7 — cab interior from site photos (5 November 2026)
 
 The user reported that the cab looked empty. The seat and consoles existed but showed only in Technical mode. From cab photos WA-02/03, the interior is now visible in both modes:
@@ -143,26 +151,27 @@ The trolley uses the manual's 6,400 mm rail gauge, four 500 mm wheels and two di
 
 The cabin now has the detailed drawing's sloping front, glazing, suspension, access landing and internal controls. Its vertical mounting position favors the detailed trolley drawing over the small general arrangement. Staggered guide positions, staircase orientation and the moving energy-chain clearance were corrected through visual review. Five calibrated orthographic source/model overlays are supplied in `evidence/comparisons/`.
 
-Verified/manual values and assumptions are separate in the technical sheet and `SOURCE_AUDIT.md`. The selected rope diameter is 28 mm from the 2014 manual, with the older 29 mm conflict retained. Rail elevation, cabin mounting, some section sizes and sheave diameters remain estimates. Since revision 2.1 the rope leads are tangent-continuous and follow the documented 8-rope topology; groove assignment, sheave shaft coordinates, vendor internals, machinery handedness and issued drawing dimensions remain unresolved. Steering, telescope and skew animation are disabled where reliable pivots or limits are unavailable. `COVERAGE.md` and `COMPARISON_REVIEW.md` record these limits. Passing dimensional checks does not establish complete drawing equivalence or manufacturing suitability.
+Verified/manual values and assumptions are separate in the technical sheet and `SOURCE_AUDIT.md`. The selected rope diameter is 28 mm from the 2014 manual, with the older 29 mm conflict retained. Rail elevation, cabin mounting, some section sizes and sheave diameters remain estimates. Revision 2.8 preserves the documented eight-rope topology, uses inclined guide planes, dynamic wraps and pivoted sockets; direct leads retain estimated fleet angles; groove assignment, sheave shaft coordinates, vendor internals, machinery handedness and issued drawing dimensions remain unresolved. Steering, telescope and skew animation are disabled where reliable pivots or limits are unavailable. `COVERAGE.md` and `COMPARISON_REVIEW.md` record these limits. Passing dimensional checks does not establish complete drawing equivalence or manufacturing suitability.
 
 ## Executed evidence
 
 | Check | Result and boundary |
 |---|---|
-| Asset and contract validation | 13 checks passed (adds the eight-rope reeving topology check); 315 semantic nodes including exactly 300 selectable parts, construction provenance and unchanged embedded flag bytes checked against the exported asset and approved catalogue snapshot |
+| Asset and contract validation | 14 checks passed (includes reeving topology and exported motion roles); 315 semantic nodes including exactly 300 selectable parts, construction provenance and unchanged embedded flag bytes checked against the exported asset and approved catalogue snapshot |
 | Dimensions | 20 exported-geometry measurements passed (adds both derived sprocket pitch diameters); source confidence remains separate from numerical export accuracy |
 | Deterministic rebuild | Two consecutive builds produced identical hashes for all seven generated outputs |
 | Browser behavior | 24 checks passed, no page errors; selection, tree, visibility, coupled motion, A/B identity isolation, fallbacks, mobile layout and disposal |
 | Independent host | Import/mount, host loader, controlled selection, isolated histories and cleanup passed |
 | TypeScript | Strict adapter declarations and React bridge example passed; actual React runtime was not exercised |
+| Rope/cable geometry | 15 lift/travel poses: attached sockets, live wraps, fall tangency and cable endpoints; targeted surface scans passed. See `evidence/rope-review/checks.json` for scope |
 | Visual review | Five source/model registrations and three detail views captured; remaining differences explicitly classified as provisional |
 
-On local headless Chrome 156 using Intel UHD Graphics 630 / ANGLE D3D11, a 1,035 × 648 render viewport at DPR 1 measured **59.97 FPS animation** and **60.01 FPS orbit** over separate eight-second samples (revision 2.7). Initial overview used 138,500 triangles and 334 draw calls, with 220 ms model load. These measurements describe this local test, not a production performance guarantee. Repeated reloads retained one canvas/label layer; final disposal removed renderer resources, listeners and animation callbacks.
+On local headless Chrome 156 using Intel UHD Graphics 630 / ANGLE D3D11, a 1,035 × 648 render viewport at DPR 1 measured **59.98 FPS animation** and **60.04 FPS orbit** over separate eight-second samples (revision 2.8). The sampled view used 134,740 triangles and 342 draw calls, with 298 ms model load. These measurements describe this local test, not a production performance guarantee. Repeated reloads retained one canvas/label layer; final disposal removed renderer resources, listeners and animation callbacks. The reload test now waits for a completed render before comparing GPU geometry counts, rather than assuming 160 ms is sufficient.
 
-The GLB is 8,331,644 bytes, including the original CICT artwork. Its SHA-256 is:
+The GLB is 8,186,328 bytes, including the original CICT artwork. Its SHA-256 is:
 
 ```text
-03f92de1ed54f0f04bde7e171144b3f6f7c2246fc81182340b6fa1736c7ff748
+c1869fff7ba76dc143150cffe503510798c64a8e916398105c28e3ed415a004e
 ```
 
 Evidence: `evidence/validation/report.json`, `accuracy.json`, `reproducibility.json`, `typecheck.json`; `evidence/browser/results.json`, `host-results.json`; `evidence/comparisons/alignment.json`; and `evidence/appearance/results.json`. GLB verification used local structural checks and Three.js import, not the official Khronos validator. Node geometry validation verifies embedded PNG bytes and uses a texture placeholder; the browser decodes and renders the real embedded artwork, verified at 1,254 × 1,254 pixels on both girder faces.

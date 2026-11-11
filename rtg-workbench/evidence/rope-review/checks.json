@@ -1,0 +1,205 @@
+{
+  "spans": 8,
+  "wraps": 8,
+  "sockets": 8,
+  "maxSocketJoinErrorM": 2.1027303334132947e-14,
+  "maxWrapJoinErrorM": 7.963838106422697e-7,
+  "maxTangentDot": 1.6264767310758543e-14,
+  "maxOutOfPlaneM": 0,
+  "maxCableJoinErrorM": 3.552713678800501e-15,
+  "poses": [
+    {
+      "x": -9.25,
+      "h": 1,
+      "drumRotation": -6.63202929418094,
+      "trolleyWheelRotation": 37
+    },
+    {
+      "x": 0,
+      "h": 1,
+      "drumRotation": -6.63202929418094,
+      "trolleyWheelRotation": 0
+    },
+    {
+      "x": 9.25,
+      "h": 1,
+      "drumRotation": -6.63202929418094,
+      "trolleyWheelRotation": -37
+    },
+    {
+      "x": -9.25,
+      "h": 5,
+      "drumRotation": 0,
+      "trolleyWheelRotation": 37
+    },
+    {
+      "x": 0,
+      "h": 5,
+      "drumRotation": 0,
+      "trolleyWheelRotation": 0
+    },
+    {
+      "x": 9.25,
+      "h": 5,
+      "drumRotation": 0,
+      "trolleyWheelRotation": -37
+    },
+    {
+      "x": -9.25,
+      "h": 12,
+      "drumRotation": 11.56072956040548,
+      "trolleyWheelRotation": 37
+    },
+    {
+      "x": 0,
+      "h": 12,
+      "drumRotation": 11.56072956040548,
+      "trolleyWheelRotation": 0
+    },
+    {
+      "x": 9.25,
+      "h": 12,
+      "drumRotation": 11.56072956040548,
+      "trolleyWheelRotation": -37
+    },
+    {
+      "x": -9.25,
+      "h": 18,
+      "drumRotation": 21.335747031991527,
+      "trolleyWheelRotation": 37
+    },
+    {
+      "x": 0,
+      "h": 18,
+      "drumRotation": 21.335747031991527,
+      "trolleyWheelRotation": 0
+    },
+    {
+      "x": 9.25,
+      "h": 18,
+      "drumRotation": 21.335747031991527,
+      "trolleyWheelRotation": -37
+    },
+    {
+      "x": -9.25,
+      "h": 21.2,
+      "drumRotation": 26.357075065245315,
+      "trolleyWheelRotation": 37
+    },
+    {
+      "x": 0,
+      "h": 21.2,
+      "drumRotation": 26.357075065245315,
+      "trolleyWheelRotation": 0
+    },
+    {
+      "x": 9.25,
+      "h": 21.2,
+      "drumRotation": 26.357075065245315,
+      "trolleyWheelRotation": -37
+    }
+  ],
+  "clashes": [],
+  "minimumCableDrumClearanceM": 0.28820777182743507,
+  "assetSha256": "c1869fff7ba76dc143150cffe503510798c64a8e916398105c28e3ed415a004e",
+  "guideEstimates": [
+    {
+      "node": "reeving.rope.route-1",
+      "centre": [
+        -1627.5,
+        28394.26200192969,
+        2270.7893662425386
+      ],
+      "normal": [
+        0,
+        0.9981205565653847,
+        -0.06128094778645977
+      ],
+      "entry": [
+        -1207.5,
+        28394.26200192969,
+        2270.7893662425386
+      ],
+      "exit": [
+        -1627.5,
+        28420,
+        2690
+      ],
+      "tiltDegrees": -3.5133409905175017
+    },
+    {
+      "node": "reeving.rope.route-2",
+      "centre": [
+        1627.5,
+        28394.26200192969,
+        2270.7893662425386
+      ],
+      "normal": [
+        0,
+        0.9981205565653847,
+        -0.06128094778645977
+      ],
+      "entry": [
+        1207.5,
+        28394.26200192969,
+        2270.7893662425386
+      ],
+      "exit": [
+        1627.5,
+        28420,
+        2690
+      ],
+      "tiltDegrees": -3.5133409905175017
+    },
+    {
+      "node": "reeving.rope.route-3",
+      "centre": [
+        -592.5,
+        28580.774840367027,
+        -2301.9903986948816
+      ],
+      "normal": [
+        0,
+        0.9238323840598056,
+        -0.3827972389691125
+      ],
+      "entry": [
+        -172.5,
+        28580.774840367027,
+        -2301.9903986948816
+      ],
+      "exit": [
+        -592.5,
+        28420,
+        -2690
+      ],
+      "tiltDegrees": 22.50705806789954
+    },
+    {
+      "node": "reeving.rope.route-4",
+      "centre": [
+        592.5,
+        28580.774840367027,
+        -2301.9903986948816
+      ],
+      "normal": [
+        0,
+        0.9238323840598056,
+        -0.3827972389691125
+      ],
+      "entry": [
+        172.5,
+        28580.774840367027,
+        -2301.9903986948816
+      ],
+      "exit": [
+        592.5,
+        28420,
+        -2690
+      ],
+      "tiltDegrees": 22.50705806789954
+    }
+  ],
+  "scope": "15 lift/travel poses; centreline and four radial rays vs exported geometry. Intentional own rope/assigned sheave/socket/feed contact surfaces excluded; other sheaves included. Not a solid interference or certified rigging analysis.",
+  "errors": []
+}

@@ -1,0 +1,46 @@
+{
+  "baseline": "tmp/busbar-c73-before",
+  "revision": 11,
+  "passed": 3,
+  "total": 3,
+  "results": [
+    {
+      "name": "Every identity and classification retained; only the system area parent changes",
+      "pass": true,
+      "detail": {
+        "nodes": 410,
+        "positions": 375
+      }
+    },
+    {
+      "name": "Busbar is under the boom, connection datum follows the cabin, old rear-girder sample is absent",
+      "pass": true,
+      "detail": {
+        "bounds": {
+          "min": [
+            0.255,
+            49.423698,
+            -3.295
+          ],
+          "max": [
+            71.945,
+            50.5,
+            -1.08
+          ]
+        },
+        "connection": [
+          65.5,
+          49.873,
+          -1.2200000000000002
+        ]
+      }
+    },
+    {
+      "name": "Only the identified cable-system mesh changes; TLS, cabin, all other assemblies and ropes are byte-identical",
+      "pass": true,
+      "detail": {
+        "unchangedMeshes": 153
+      }
+    }
+  ]
+}

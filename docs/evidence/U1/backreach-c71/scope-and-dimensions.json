@@ -1,0 +1,68 @@
+{
+  "baseline": "tmp/backreach-c71-before",
+  "revision": 9,
+  "passed": 6,
+  "total": 6,
+  "results": [
+    {
+      "name": "J526A1000 normal pose dimensions",
+      "pass": true,
+      "detail": {
+        "pivot": [
+          -61.645,
+          56.254999999999995
+        ],
+        "rodEye": [
+          -61.891821663562816,
+          53.701903044066654
+        ],
+        "sheave": [
+          -62.34182166356282,
+          52.820985502478244
+        ],
+        "lanes": [
+          -2.7525000000000004,
+          -2.1475,
+          2.1475,
+          2.7525000000000004
+        ]
+      }
+    },
+    {
+      "name": "All 410 semantic identities, kinds, parents and classifications retained",
+      "pass": true,
+      "detail": {
+        "nodes": 410,
+        "remappedInstanceIndices": 29
+      }
+    },
+    {
+      "name": "Only back-reach records and the hoist-rope bounds change",
+      "pass": true,
+      "detail": {
+        "unchangedRecords": 367
+      }
+    },
+    {
+      "name": "Every unrelated mesh and instance transform is byte-identical",
+      "pass": true,
+      "detail": {
+        "unchangedMeshes": 139
+      }
+    },
+    {
+      "name": "Hoist-rope vertices beyond the back reach remain unchanged",
+      "pass": true,
+      "detail": {
+        "beforeVertices": 5680,
+        "afterVertices": 5680,
+        "toleranceMetres": 0.00003,
+        "boundaryX": -54
+      }
+    },
+    {
+      "name": "Four physical cylinders and sheaves replace their old proxies",
+      "pass": true
+    }
+  ]
+}

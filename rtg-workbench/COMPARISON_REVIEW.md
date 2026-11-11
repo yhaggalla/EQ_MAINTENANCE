@@ -15,3 +15,8 @@ Only **one uniform scale and a translation** are applied. No source stretching, 
 The overlays exposed real errors and were used to correct the model. They also show why this package is not described as an exact replica. Numeric export checks pass for the explicit dimension table; visual equivalence for all shapes, internals and relative positions is **not** established. Original issued JL28600/JL28606/JL2860603 and vendor drawings are needed to remove those qualifications.
 
 The detailed screenshots `trolley-detail.png`, `cabin-detail.png` and `cabin-cutaway.png` use the photo-referenced CICT finish without selection paint. The previous neutral inspection finish was replaced after the user supplied appearance photographs. The ordinary interactive screenshots include real selection/status overlays, which can change apparent colours. The source PDF remains accessible separately from the demonstration.
+
+
+## Revision 2.8 rope and cable detail review (5 November 2026)
+
+`evidence/rope-review/` compares the supplied photographs and drawing crops with new top, underside, sheave, feed and basket views. The former large side spool and across-drum cable are removed. Guides sit lower and incline to their leads; fall wraps and sockets follow the moving rope lines. The new open basket makes the stored cable visible. The five registered drawing comparisons retain their original datum method; exact guide mounting and machinery handedness remain qualified. See `evidence/rope-review/REVIEW.md` for source observations and the limits of the 15-pose geometric checks.

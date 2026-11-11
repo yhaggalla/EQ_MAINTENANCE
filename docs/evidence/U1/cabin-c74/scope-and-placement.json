@@ -1,0 +1,91 @@
+{
+  "baseline": "tmp/cabin-c74-before",
+  "revision": 12,
+  "passed": 6,
+  "total": 6,
+  "results": [
+    {
+      "name": "All 410 identities, classifications and parents retained",
+      "pass": true,
+      "detail": {
+        "identities": 410,
+        "positions": 375
+      }
+    },
+    {
+      "name": "Busbar and cabin connection are entirely on the opposite (+Z) side beneath the boom",
+      "pass": true,
+      "detail": {
+        "oldSide": {
+          "min": [
+            0.255,
+            49.423698,
+            -3.295
+          ],
+          "max": [
+            71.945,
+            50.5,
+            -1.08
+          ]
+        },
+        "newSide": {
+          "min": [
+            0.255,
+            49.1507,
+            1.08
+          ],
+          "max": [
+            71.945,
+            50.5,
+            3.295
+          ]
+        },
+        "connection": [
+          65.95,
+          49.599999999999994,
+          1.2200000000000002
+        ]
+      }
+    },
+    {
+      "name": "Non-cabin mesh geometry and transforms remain byte-identical, including TLS and every rope",
+      "pass": true,
+      "detail": {
+        "byteIdenticalCompleteMeshes": 148,
+        "sharedCarrierBaseGeometry": "unchanged"
+      }
+    },
+    {
+      "name": "Unaffected shared-carrier instances retain their transforms and bounds",
+      "pass": true,
+      "detail": {
+        "unchangedTrolleyInstances": 17
+      }
+    },
+    {
+      "name": "Seat, consoles, screens and lighting fit within the cab envelope and mount above its floor",
+      "pass": true,
+      "detail": {
+        "floorLight": {
+          "min": [
+            67.239998,
+            48.0275,
+            -0.925
+          ],
+          "max": [
+            67.339996,
+            48.072498,
+            0.925
+          ]
+        }
+      }
+    },
+    {
+      "name": "Cabin mounting dimensions follow J526A3100 and source module is included in checksums",
+      "pass": true,
+      "detail": {
+        "drawing": "J526A3100 p1 A-A, B-B, C-C and plan"
+      }
+    }
+  ]
+}

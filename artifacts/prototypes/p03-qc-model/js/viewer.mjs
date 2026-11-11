@@ -119,7 +119,7 @@ export class QcViewer {
     const tech = mode === 'technical';
     this.root.traverse((o) => {
       const modes = o.userData.modes;
-      if (modes) o.visible = modes.split(',').includes(mode) && this._isoVisible(o);
+      if (typeof modes === 'string') o.visible = modes.split(',').includes(mode) && this._isoVisible(o);
       else if (o.userData.shellOf) o.visible = this._isoVisible(o);
     });
     for (const [key, shell] of this.shells) {

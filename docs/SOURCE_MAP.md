@@ -171,6 +171,16 @@ All 20 entries were compared with the J526A00 p1 particulars table (crop `artifa
 
 `documents/QC_Component__Auto_Update_for_Dashboard_FIXED (1).xlsx` (added by the user 5 November 2026; read only). QC01-QC14 sheets: one identical list of 8 Major Assemblies, 23 Sub Assemblies and 136 Major Components (columns B:D; replacement dates/brands in G:K are formula results and are not imported). Component sheets give locations used for placement: Trolley Sheaves (back reach / boom end, LHS / RHS), Hoist Sheaves (4 back reach, 8 trolley, 4 head block), Catenary Sheaves (back reach, boom end, front / back catenary, LHS / RHS), Catenary Wheel & Bearing (back / front, gate house / SAGT end), Rail Carpet (left / right 1-7, back reach 10 + 20 + 20 m, boom 20 + 20 + 20 + 10 m). "QC ALL Components": ZPMC mechanical manual 2011 hierarchy with manual references. J526A0600 (rendered and read visually): wheel brake JLQ115.00-KH, 115 kN, four per corner between the sub-bogies at 40 degrees. Generated reference: `assets/reference/qc-component-hierarchy.json`.
 
+### 5.6 Cabin and boarding access (U1-C74/C75)
+
+| Source | Applied to draft v1 revision 13 | Qualification |
+| --- | --- | --- |
+| J526A3100 p1 and J526A0200 p1 | Cabin plan, enclosure and mounting dimensions, glazing, seat and cabinet arrangement, and cabin-to-trolley relationship | Controls, monitor placement and fitting profiles are simplified or estimated. |
+| User correction, 9 November 2026 (D-225) | Cabin entrance and home boarding face the elevator at landside leg B (-Z). | Supersedes C74 entrance orientation; +Z boom busbar retained per D-224. |
+| J526A5100 p1 and J526A5000 p1; J526A5008 detail (PDF p9) | Elevator side and third landing at 47,845 mm; context for the fixed boarding route. | The detail shows girder-end access. It does not give a dimensioned cabin home stop. Walkway offsets, supports and `cabinHomeRearX=-30000` remain estimates. |
+
+See the [cabin reconstruction report](evidence/U1/cabin-c74/REPORT.md) and the [elevator-side access report](evidence/U1/cabin-c75/REPORT.md). The displayed trolley and cabin remain at outreach.
+
 ## 6 Model-family assumptions
 
 1. The initial template is named `CICT-J526A-STS`, model version 1 (P03). It represents the ZPMC J526A drawing family for the original "CICT 12 STS cranes" (cover, subsidiary list "1 for 12 cranes"). It is not assigned to any equipment item until Admin records a verified association (SRC06).

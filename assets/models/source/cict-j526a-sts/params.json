@@ -576,10 +576,9 @@
       "note": "+/-0.5 m"
     },
     "cabinBodyHeight": {
-      "mm": 2673,
+      "mm": 2400,
       "kind": "measured",
-      "source": "J526A3100 p1 section B-B (2673 floor to roof)",
-      "note": "P03 value 2400 replaced in the U1 repair"
+      "source": "U1-C74: J526A3100 p1 C-C, 2400 floor to ceiling; 2673 in B-B is mounting top, not body height."
     },
     "mainHoistDriveZ": {
       "mm": 850,
@@ -746,8 +745,8 @@
     },
     "antiSnagSheaveSpacing": {
       "mm": 2200,
-      "kind": "measured",
-      "source": "J526A1000 p1 side view (2200)"
+      "kind": "estimated",
+      "source": "Legacy pre-C71 placement only, retained to splice the unchanged rope runs: J526A1000 2200 is lever travel, NOT sheave spacing"
     },
     "antiSnagFromTail": {
       "mm": 1800,
@@ -815,9 +814,9 @@
       "source": "J526A3100 p1 section B-B: operator seat about 1.2-1.3 m behind the front window"
     },
     "cabDoorHeight": {
-      "mm": 1900,
-      "kind": "measured",
-      "source": "J526A3100 p1 section A-A (1900 hinged door)"
+      "mm": 2000,
+      "kind": "estimated",
+      "source": "U1-C74: J526A3100 p1 A-A, hinged side door scaled at about 2000. The old 1900 is the longitudinal floor-break dimension, not the door height."
     },
     "cabFloorWindowLength": {
       "mm": 826,
@@ -1268,8 +1267,168 @@
       "mm": 3992,
       "kind": "measured",
       "source": "J526A1500 machine-house plan: 3992 either side of the centreline to the support frames J526A1501 (U1-C65 (2026-10-29))"
+    },
+    "tlsMountAboveDeck": {
+      "mm": 900,
+      "kind": "estimated",
+      "source": "J526A7100 Detail C / J526A00 tail arrangement: raised local support datum; exact mounting elevation unresolved, preserves clearance above existing girder and local rope return"
+    },
+    "tlsAnchorFromTail": {
+      "mm": 1300,
+      "kind": "estimated",
+      "source": "J526A7100 Detail C / J526A1000: local cylinder trunnion inboard of the girder tail; scaled mounting position"
+    },
+    "tlsAnchorHeight": {
+      "mm": 800,
+      "kind": "measured",
+      "source": "J526A1000 p1: cylinder trunnion 800 above local mounting girder"
+    },
+    "tlsPivotHeight": {
+      "mm": 3055,
+      "kind": "measured",
+      "source": "J526A1000 p1: upper pry-bar pivot 3055 above local mounting girder"
+    },
+    "tlsPivotToAnchorX": {
+      "mm": 1945,
+      "kind": "measured",
+      "source": "J526A1000 p1: horizontal pivot-to-cylinder-trunnion distance"
+    },
+    "tlsPivotToRodEye": {
+      "mm": 2565,
+      "kind": "measured",
+      "source": "J526A1000 p1: upper pivot to cylinder rod eye"
+    },
+    "tlsLeverLength": {
+      "mm": 3504,
+      "kind": "measured",
+      "source": "J526A1000 p1: upper pivot to sheave axle"
+    },
+    "tlsCylinderNormalLength": {
+      "mm": 2212,
+      "kind": "measured",
+      "source": "J526A1000 p1: normal operation rod-eye to trunnion span; 1112 minimum and 2512 maximum"
+    },
+    "tlsPairCentreZ": {
+      "mm": 2450,
+      "kind": "measured",
+      "source": "J526A1000 p1 end view: paired assembly centre 2450 from crane centreline"
+    },
+    "tlsPairSpacing": {
+      "mm": 605,
+      "kind": "measured",
+      "source": "J526A1000 p1 end view and plan: paired cylinder/sheave centres 605 apart"
+    },
+    "tlsSupportHalfWidth": {
+      "mm": 560.5,
+      "kind": "measured",
+      "source": "J526A1000 p1 end view: fixed support half width"
+    },
+    "tlsRodDiameter": {
+      "mm": 140,
+      "kind": "measured",
+      "source": "J526A1000 main parameters: piston rod dia 140"
+    },
+    "tlsBarrelOuterDiameter": {
+      "mm": 270,
+      "kind": "estimated",
+      "source": "J526A1000 p1 cylinder envelope scaled; 200 is internal bore, not outside diameter"
+    },
+    "tlsExposedRod": {
+      "mm": 1100,
+      "kind": "drawing-derived",
+      "source": "J526A1000 p1 normal operation: 2212 minus 1112 minimum pin span"
+    },
+    "tlsCylinderBodyEnd": {
+      "mm": 3500,
+      "kind": "estimated",
+      "source": "J526A1000 p1 normal operation: cylinder end beyond the trunnion, scaled envelope"
+    },
+    "tlsForkOffsetX": {
+      "mm": 450,
+      "kind": "estimated",
+      "source": "J526A1000 p1 normal-operation side view: sheave fork offset toward tail from rod-eye, scaled; fabricated pry-bar profile simplified"
+    },
+    "collisionWireSpan": {
+      "mm": 69600,
+      "kind": "measured",
+      "source": "J526A6300 p1 plan: 69600 between wire supports"
+    },
+    "collisionWireOutboard": {
+      "mm": 1800,
+      "kind": "measured",
+      "source": "J526A6300 p1 A-A/B-B: 1800 from outer girder face to wire"
+    },
+    "collisionRearSupportFromHinge": {
+      "mm": 900,
+      "kind": "estimated",
+      "source": "J526A6300 p1 side/plan aligned with J526A0100; rear datum relative to hinge scaled, not dimensioned"
+    },
+    "busbarStartFromHinge": {
+      "mm": 300,
+      "kind": "estimated",
+      "source": "U1-C73: user confirms topology on 2026-11-09; Representative start inside the boom hinge line; not a drawing dimension"
+    },
+    "busbarEndInset": {
+      "mm": 4000,
+      "kind": "estimated",
+      "source": "U1-C73: user confirms topology on 2026-11-09; Representative end at the end of the straight boom-girder underside; not a drawing dimension"
+    },
+    "busbarDrop": {
+      "mm": 300,
+      "kind": "estimated",
+      "source": "U1-C73: user confirms topology on 2026-11-09; Channel centre below the boom girder underside; not a drawing dimension"
+    },
+    "busbarSupportPitch": {
+      "mm": 3500,
+      "kind": "estimated",
+      "source": "U1-C73: user confirms topology on 2026-11-09; Simplified support spacing; not a drawing dimension"
+    },
+    "busbarCabConnectionFromRear": {
+      "mm": 1450,
+      "kind": "estimated",
+      "source": "U1-C74: estimated connection position on the fixed side upright forward of the cab door; opposite (+Z) girder side explicitly requested by user."
+    },
+    "busbarCabConnectionBelowRoof": {
+      "mm": 600,
+      "kind": "estimated",
+      "source": "U1-C73: user confirms topology on 2026-11-09; Connection arm datum below the cabin roof; not a drawing dimension"
+    },
+    "cabMountTopHeight": {
+      "mm": 2673,
+      "kind": "measured",
+      "source": "U1-C74: J526A3100 p1 B-B floor to top mounting interface"
+    },
+    "cabMountPitchX": {
+      "mm": 2100,
+      "kind": "measured",
+      "source": "U1-C74: J526A3100 p1 B-B mounting longitudinal pitch"
+    },
+    "cabMountPitchZ": {
+      "mm": 1940,
+      "kind": "measured",
+      "source": "U1-C74: J526A3100 p1 front view mounting transverse pitch"
+    },
+    "cabPlatformSpanZ": {
+      "mm": 4600,
+      "kind": "measured",
+      "source": "U1-C74: J526A3100 p1 plan rear platform overall width"
+    },
+    "cabSideWalkwayWidth": {
+      "mm": 850,
+      "kind": "measured",
+      "source": "U1-C74: J526A3100 p1 plan side return width"
+    },
+    "cabSideWalkwayLength": {
+      "mm": 1445,
+      "kind": "measured",
+      "source": "U1-C74: J526A3100 p1 plan side return length"
+    },
+    "cabinHomeRearX": {
+      "mm": -30000,
+      "kind": "estimated",
+      "source": "C75 user confirms home/entrance on elevator side; representative rear-face station at landside rail, pending exact stop dimension. J526A5100 third landing 47845. Not an as-built stopping coordinate."
     }
   },
-  "revision": 8,
-  "revisionNote": "U1-C70 (2026-11-05): 222 parts from the QC component workbook (QC01-QC14 list) and the ZPMC manual list (QC ALL Components) that the drawing-based model did not draw, placed from the workbook locations (LHS = gate house end = -Z, front catenary = seaside), the drawings and the manual, as simple located shapes in one instanced carrier per area (Technical mode, approximate location; D-220). Previous: U1-C65 (2026-10-29): trolley rails (A75, rubber pads, clips, hinge-joint short rails, end stops; J526A0104) and the catenary trolley system (landside and seaside catenary trolleys, boom-tip catenary sheaves, girder-tail catenary rope tensioners, catenary ropes; J526A2200 set) added in container.trolley-runway; rope re-reeving device added in the machinery house (J526A1500); anti-snag tail sheave (J526A1000), trolley rope tension-device sheave (J526A2103) and spreader cable reel (Cavotec SC-121216-ME2a) diameters corrected to measured values. Previous: U1 round 7 (2026-10-23): 013 load cells moved from the in-line position about 2.6 m inboard to the boom tip end, in-line on the horizontal cross-over of the main hoist ropes at the very end of the boom (user reference image, U1-C27; closes U-36; points estimated). Previous: U1 round 6 (2026-10-23): 013 load cell moved from the boom-tip rope-end anchor pins to in-line load cells in the horizontal main hoist ropes at the boom tip (user answer to U-23, U1-C25; point estimated); the J526A2000 Detail I rope-end anchors stay in reeving.sheave.boom-tip. Previous: U1 round 3 (2026-10-22): trolley rebuilt from J526A0200 / J526A2100 (4 wheels instead of 8, four sheave shafts with two sheaves each, open frame and centre body, trolley-rope equalizer sheaves, spreader cable reel, main hoist and trolley rope paths on the trolley); headblock re-read from J526A1200 and spreader remodelled (STS45 drawing still not supplied; ISO 1161 corner positions, DT1500F cradle spacing). Previous: U1 round 2 (2026-10-22): load cells at the trolley sheave shafts, girder-tail platforms and stairs, apex platform and boom-hoist sheave arrangement, floodlight fittings on the boom and girder, elevator position/car/landings and every location marker drawn as a simplified part (J526A0200, J526A2300, J526A5000, J526A5100). Previous: U1 repair (2026-10-21): back-reach area, CICT logo, stair tower orientation, cab remodel, reeving paths and machinery-house layout re-checked against J526A00, J526A1000, J526A3000, J526A3100, J526A5000, J526A7100. Draft v1 revised in place: no equipment binding is active."
+  "revision": 13,
+  "revisionNote": "U1-C75: cabin entrance mirrored to elevator (-Z) side, distinct boarding gate and fixed third-landing home access added. Exact home station/route offsets provisional. Prior: U1-C74 (2026-11-09): busbar and cabin connection moved to opposite (+Z) girder as requested; cabin rebuilt from J526A3100 with raked glazing, rising floor window, rear cabinets, suspended chair, twin joysticks, panels and attached instruments. All existing keys retained. Prior: U1-C73 (2026-11-09): user-confirmed busbar beneath the boom, with the power/communication slipring connection carried by the cabin. Removes the generic fixed-girder festoon loops; preserves the existing 023 identity. Dimensions and mounting details remain estimated. Previous: U1-C72 (2026-11-06): floating-part repair; single physical trolley/headblock sheaves and gantry buffers, reel-datum accessories, mounted trip wires and sensors; optional attachments retained as records but absent from displayed arrangement. C71 TLS geometry preserved. Previous: U1-C71 (2026-11-05): back-reach TLS rebuilt from J526A1000 normal-operation pose. Four cylinders and sheaves in transverse pairs; stable component keys retained; rope edits confined to the tail. Mounting datum and fabrication profiles remain estimated. Previous: U1-C70 (2026-11-05): 222 parts from the QC component workbook (QC01-QC14 list) and the ZPMC manual list (QC ALL Components) that the drawing-based model did not draw, placed from the workbook locations (LHS = gate house end = -Z, front catenary = seaside), the drawings and the manual, as simple located shapes in one instanced carrier per area (Technical mode, approximate location; D-220). Previous: U1-C65 (2026-10-29): trolley rails (A75, rubber pads, clips, hinge-joint short rails, end stops; J526A0104) and the catenary trolley system (landside and seaside catenary trolleys, boom-tip catenary sheaves, girder-tail catenary rope tensioners, catenary ropes; J526A2200 set) added in container.trolley-runway; rope re-reeving device added in the machinery house (J526A1500); anti-snag tail sheave (J526A1000), trolley rope tension-device sheave (J526A2103) and spreader cable reel (Cavotec SC-121216-ME2a) diameters corrected to measured values. Previous: U1 round 7 (2026-10-23): 013 load cells moved from the in-line position about 2.6 m inboard to the boom tip end, in-line on the horizontal cross-over of the main hoist ropes at the very end of the boom (user reference image, U1-C27; closes U-36; points estimated). Previous: U1 round 6 (2026-10-23): 013 load cell moved from the boom-tip rope-end anchor pins to in-line load cells in the horizontal main hoist ropes at the boom tip (user answer to U-23, U1-C25; point estimated); the J526A2000 Detail I rope-end anchors stay in reeving.sheave.boom-tip. Previous: U1 round 3 (2026-10-22): trolley rebuilt from J526A0200 / J526A2100 (4 wheels instead of 8, four sheave shafts with two sheaves each, open frame and centre body, trolley-rope equalizer sheaves, spreader cable reel, main hoist and trolley rope paths on the trolley); headblock re-read from J526A1200 and spreader remodelled (STS45 drawing still not supplied; ISO 1161 corner positions, DT1500F cradle spacing). Previous: U1 round 2 (2026-10-22): load cells at the trolley sheave shafts, girder-tail platforms and stairs, apex platform and boom-hoist sheave arrangement, floodlight fittings on the boom and girder, elevator position/car/landings and every location marker drawn as a simplified part (J526A0200, J526A2300, J526A5000, J526A5100). Previous: U1 repair (2026-10-21): back-reach area, CICT logo, stair tower orientation, cab remodel, reeving paths and machinery-house layout re-checked against J526A00, J526A1000, J526A3000, J526A3100, J526A5000, J526A7100. Draft v1 revised in place: no equipment binding is active."
 }
