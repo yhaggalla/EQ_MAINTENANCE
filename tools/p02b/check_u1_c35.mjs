@@ -53,10 +53,10 @@ try {
     await b.setValue('#sp-brand','CANCELLED');await b.key('Escape');
     assert(before===await ev('JSON.stringify(EQ.state.D.spare)+JSON.stringify(EQ.state.D.events)'),'cancel changed data');
   });
-  await step('Flat mode and Admin update the existing record without duplicate registration',async()=>{
+  await step('A legacy view link loads 3D; Admin updates the existing record without duplicate registration',async()=>{
     await ev(`EQ.state.role='admin';EQ.access.refreshSession('C35');`);await select(frame,'flat');await click(update);await click('#sp-act-amend');
     await b.setValue('#sp-brand','C35 Admin Amendment');await b.setValue('#sp-reason','Correct brand');await save();
-    assert(await ev(`EQ.qc.session.viewer.camera.isOrthographicCamera&&document.querySelector('#tabpanel').textContent.includes('C35 Admin Amendment')&&EQ.spares.rows('eq-qc-demo-01',{level:'part',id:${JSON.stringify(frame)}}).length===1&&EQ.spares.history(${JSON.stringify(frame)}).length===3`),'Flat/admin refresh or duplicate row');
+    assert(await ev(`EQ.qc.session.viewer.camera.isPerspectiveCamera&&document.querySelector('#tabpanel').textContent.includes('C35 Admin Amendment')&&EQ.spares.rows('eq-qc-demo-01',{level:'part',id:${JSON.stringify(frame)}}).length===1&&EQ.spares.history(${JSON.stringify(frame)}).length===3`),'3D/admin refresh or duplicate row');
   });
   await step('New selected part can still be added and appears immediately inside its isolated area',async()=>{
     free=await ev(`EQ.qc.containerPositions(EQ.eq('eq-qc-demo-01'),'machinery-house').find(p=>!EQ.spares.isMajor(p.id)).id`);

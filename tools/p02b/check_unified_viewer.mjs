@@ -19,87 +19,91 @@ try {
     assert(await ev(`EQ.qc.manifest.nodes.filter(n=>n.kind==='position').every(n=>EQ.positionsOf('eq-qc-demo-01').some(p=>p.key===n.key))`), 'model position omitted from shared tree');
     await b.screenshot(out + '/3d-desktop.png', { fullPage: true });
   });
-  await step('02 tree selection and all three panels survive switches', async () => {
-    await click('ti-g-main-hoist'); await click('ti-mh-drive'); await click('ti-pp-q01-007'); // U1-C70: workbook tree (Main Hoist > Hoist Drive Mechanism) await b.wait(900);
+  await step('02 tree selection and all three panels survive display mode changes', async () => {
+    await click('open-tree');
+    await click('excel-only');
+    await click('ti-g-main-hoist'); await click('ti-mh-drive'); await click('ti-pp-q01-007');
     for (const tab of ['spareParts', 'special', 'technical']) {
+      await click('mode-technical');
       await click('tab-' + tab); await b.wait(500);
       const before = await ev(`({part:EQ.route.query.part,text:document.querySelector('#tabpanel').textContent})`);
-      await click('view-flat'); await b.wait(500);
-      const same = await ev(`({part:EQ.route.query.part,text:document.querySelector('#tabpanel').textContent,same:EQ.qc.session.viewer===savedViewer&&EQ.qc.session.viewer.root===savedRoot,flat:EQ.qc.session.viewer.camera.isOrthographicCamera&&!EQ.qc.session.viewer.controls.enableRotate})`);
-      assert(before.part === same.part && before.text === same.text && same.same && same.flat, 'selection/panel/model mismatch: ' + tab);
-      await click('view-3d'); await b.wait(400);
-      assert(await ev(`EQ.qc.session.viewer.camera.isPerspectiveCamera&&EQ.qc.session.viewer.controls.enableRotate&&EQ.route.query.part==='pp-q01-007'`), '3D restore');
+      await click('mode-overall'); await b.wait(500);
+      const same = await ev(`({part:EQ.route.query.part,text:document.querySelector('#tabpanel').textContent,same:EQ.qc.session.viewer===savedViewer&&EQ.qc.session.viewer.root===savedRoot,perspective:EQ.qc.session.viewer.camera.isPerspectiveCamera&&EQ.qc.session.viewer.controls.enableRotate})`);
+      assert(before.part === 'pp-q01-007' && before.part === same.part && before.text === same.text && same.same && same.perspective, 'selection/panel/model mismatch: ' + tab);
     }
+    await click('close-tree');
   });
-  await step('03 fixed side drag, pan, zoom and aspect ratio', async () => {
-    await click('view-flat'); await click('reset'); await b.wait(300);
-    const before = await ev(`(()=>{const v=EQ.qc.session.viewer;return {q:v.camera.quaternion.toArray(),zoom:v.camera.zoom,r:v.renderer.domElement.getBoundingClientRect().toJSON()}})()`);
+  await step('03 3D orbit, pan, zoom and aspect ratio', async () => {
+    await click('reset'); await b.wait(700);
+    const distance = 'EQ.qc.session.viewer.camera.position.distanceTo(EQ.qc.session.viewer.controls.target)';
+    const before = await ev(`(()=>{const v=EQ.qc.session.viewer;return {q:v.camera.quaternion.toArray(),r:v.renderer.domElement.getBoundingClientRect().toJSON()}})()`);
     const { x, y, width, height } = before.r;
     await b.send('Input.dispatchMouseEvent', { type: 'mousePressed', x: x + width/2, y: y + height/2, button: 'left', clickCount: 1 });
     await b.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: x + width/2 + 70, y: y + height/2 + 30, button: 'left', buttons: 1 });
     await b.send('Input.dispatchMouseEvent', { type: 'mouseReleased', x: x + width/2 + 70, y: y + height/2 + 30, button: 'left' });
-    assert(JSON.stringify(before.q) === JSON.stringify(await ev('EQ.qc.session.viewer.camera.quaternion.toArray()')), 'Flat rotated');
+    assert(JSON.stringify(before.q) !== JSON.stringify(await ev('EQ.qc.session.viewer.camera.quaternion.toArray()')), 'orbit did not rotate');
+    const beforeZoom = await ev(distance);
     await click('zoom-in');
-    assert(await ev('EQ.qc.session.viewer.camera.zoom') > before.zoom, 'zoom control');
+    assert(await ev(distance) < beforeZoom, 'zoom control');
     const pos = await ev('EQ.qc.session.viewer.camera.position.toArray()');
     await b.send('Input.dispatchMouseEvent', { type: 'mousePressed', x: x + width/2, y: y + height/2, button: 'right', clickCount: 1 });
     await b.send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: x + width/2 + 70, y: y + height/2 + 30, button: 'right', buttons: 2 });
     await b.send('Input.dispatchMouseEvent', { type: 'mouseReleased', x: x + width/2 + 70, y: y + height/2 + 30, button: 'right' });
     assert(JSON.stringify(pos) !== JSON.stringify(await ev('EQ.qc.session.viewer.camera.position.toArray()')), 'pan control');
-    await click('reset'); await b.screenshot(out + '/flat-desktop.png', { fullPage: true });
+    await click('reset');
     await b.viewport(1366, 768); await b.wait(400);
-    assert(await ev(`(()=>{const v=EQ.qc.session.viewer;return Math.abs((v.ortho.right-v.ortho.left)/(v.ortho.top-v.ortho.bottom)-v.host.clientWidth/v.host.clientHeight)<0.01})()`), 'distorted side view after resize');
+    assert(await ev(`(()=>{const v=EQ.qc.session.viewer;return Math.abs(v.camera.aspect-v.host.clientWidth/v.host.clientHeight)<0.01})()`), 'distorted view after resize');
   });
-  await step('04 scene label clicks drill down through tree and panel in both views', async () => {
-    for (const view of ['3d', 'flat']) {
-      await click('reset'); await click('view-' + view); await b.wait(900);
-      for (const wanted of ['g-main-hoist', 'mh-drive', 'hoist.drive.motor.a']) { // U1-C70: assembly, sub assembly and part labels
-        let rect;
-        // Read placed labels after camera/DOM updates; wall-clock sleeps can sample an intermediate focus frame.
-        for (let attempt = 0; attempt < 40; attempt++) {
-          rect = await ev(`(()=>{const v=EQ.qc.session.viewer;if(v._tween)return null;const p=v._placedLabels.find(p=>p.c.id===${JSON.stringify(wanted)});if(!p)return null;const r=v.renderer.domElement.getBoundingClientRect();return {x:r.x+p.r.x+p.r.w/2,y:r.y+p.r.y+p.r.h/2}})()`);
-          if (rect) break;
-          await b.wait(150);
-        }
-        assert(rect, 'label missing ' + wanted + ' in ' + view);
-        await b.send('Input.dispatchMouseEvent', { type: 'mousePressed', ...rect, button: 'left', clickCount: 1 });
-        await b.send('Input.dispatchMouseEvent', { type: 'mouseReleased', ...rect, button: 'left', clickCount: 1 });
-        await b.wait(900);
+  await step('04 scene label clicks drill down through tree and panel', async () => {
+    await click('reset'); await b.wait(900);
+    for (const wanted of ['g-main-hoist', 'mh-drive', 'hoist.drive.motor.a']) {
+      let rect;
+      // Read placed labels after camera/DOM updates; wall-clock sleeps can sample an intermediate focus frame.
+      for (let attempt = 0; attempt < 40; attempt++) {
+        rect = await ev(`(()=>{const v=EQ.qc.session.viewer;if(v._tween)return null;const p=v._placedLabels.find(p=>p.c.id===${JSON.stringify(wanted)});if(!p)return null;const r=v.renderer.domElement.getBoundingClientRect();return {x:r.x+p.r.x+p.r.w/2,y:r.y+p.r.y+p.r.h/2}})()`);
+        if (rect) break;
+        await b.wait(150);
       }
-      assert(await ev(`EQ.route.query.part==='pp-q01-007'&&document.querySelector('[data-fk="ti-pp-q01-007"]').getAttribute('aria-selected')==='true'`), 'scene/tree selection mismatch');
+      assert(rect, 'label missing ' + wanted);
+      await b.send('Input.dispatchMouseEvent', { type: 'mousePressed', ...rect, button: 'left', clickCount: 1 });
+      await b.send('Input.dispatchMouseEvent', { type: 'mouseReleased', ...rect, button: 'left', clickCount: 1 });
+      await b.wait(900);
     }
+    assert(await ev(`EQ.route.query.part==='pp-q01-007'&&document.querySelector('[data-fk="ti-pp-q01-007"]').getAttribute('aria-selected')==='true'`), 'scene/tree selection mismatch');
   });
-  await step('05 technical isolation, labels, markers and reset retain Flat', async () => {
+  await step('05 technical isolation, labels, markers and reset retain 3D', async () => {
     await b.setValue('[data-fk="isolate-area"]', 'machinery-house'); await b.wait(500);
     assert(await ev(`EQ.qc.session.viewer.mode==='technical'&&EQ.qc.session.viewer.isolate==='container.machinery-house'`), 'isolation');
     // U1-C66: the on/off label toggle became three label modes; Selected only with nothing selected shows no labels
     await click('labels-selected'); await click('work');
     assert(await ev('EQ.eqUI.labelMode==="selected"&&!document.querySelector(".qc-label")&&EQ.qc.session.viewer.work.size===0'), 'toggle controls');
-    await click('view-3d'); await click('view-flat');
-    assert(await ev('EQ.eqUI.labelMode==="selected"&&!document.querySelector(".qc-label")&&EQ.qc.session.viewer.isolate!==null'), 'mode switch changed display settings');
+    await click('open-tree'); await click('close-tree');
+    assert(await ev('EQ.eqUI.labelMode==="selected"&&!document.querySelector(".qc-label")&&EQ.qc.session.viewer.isolate!==null'), 'tree toggle changed display settings');
     await click('reset'); await b.wait(300);
-    assert(await ev(`EQ.qc.session.viewer.camera.isOrthographicCamera&&EQ.eqUI.labelMode==="key"&&!!document.querySelector(".qc-label")&&!EQ.route.query.part&&!EQ.qc.session.viewer.isolate`), 'Reset lost Flat');
+    assert(await ev(`EQ.qc.session.viewer.camera.isPerspectiveCamera&&EQ.eqUI.labelMode==="key"&&!!document.querySelector(".qc-label")&&!EQ.route.query.part&&!EQ.qc.session.viewer.isolate`), 'Reset lost 3D');
   });
   await step('06 equipment-specific identity, direct URL and refresh', async () => {
     await go('02', 'view=flat&mode=technical&part=pp-q02-007&panel=technical');
-    assert(await ev(`EQ.qc.session.viewer.camera.isOrthographicCamera&&document.querySelector('#tabpanel').textContent.includes('pp-q02-007')&&!document.querySelector('#tabpanel').textContent.includes('pp-q01-007')`), 'equipment isolation');
+    assert(await ev(`EQ.qc.session.viewer.camera.isPerspectiveCamera&&document.querySelector('#tabpanel').textContent.includes('pp-q02-007')&&!document.querySelector('#tabpanel').textContent.includes('pp-q01-007')`), 'equipment isolation');
     await b.send('Page.reload'); await waitReady();
-    assert(await ev(`EQ.route.query.part==='pp-q02-007'&&EQ.route.query.view==='flat'`), 'reload');
+    assert(await ev(`EQ.route.query.part==='pp-q02-007'&&EQ.qc.session.viewer.camera.isPerspectiveCamera`), 'reload');
     await go('01', 'view=flat&part=pp-q02-007');
     assert(await ev(`document.querySelector('main').textContent.includes('does not belong')&&!EQ.qc.session.viewer.selected.size`), 'cross-equipment part accepted');
   });
   await step('07 legacy P03 route resolves exact semantic key into shared page', async () => {
     await b.goto(new URL('qc/?eq=eq-qc-demo-02&part=pp-q02-049&view=side&panel=technical', base).href); await waitReady(); await b.wait(500);
-    assert(await ev(`location.hash.includes('/eq/equipment/eq-qc-demo-02')&&EQ.route.query.view==='flat'&&EQ.pos(EQ.route.query.part).equipmentId==='eq-qc-demo-02'&&!EQ.route.query.pkey`), 'legacy route');
+    assert(await ev(`location.hash.includes('/eq/equipment/eq-qc-demo-02')&&EQ.qc.session.viewer.camera.isPerspectiveCamera&&EQ.pos(EQ.route.query.part).equipmentId==='eq-qc-demo-02'&&!EQ.route.query.pkey`), 'legacy route');
+    await click('open-tree');
     await click('ti-g-trolley'); // U1-C70: workbook assembly in place of mechanism 02
     assert(await ev(`EQ.route.query.grp==='g-trolley'&&!EQ.route.query.part`), 'legacy part stuck');
   });
-  await step('08 phone, landscape and keyboard switch', async () => {
-    await b.viewport(390, 844); await go('01', 'view=flat');
+  await step('08 phone, landscape and keyboard tree disclosure', async () => {
+    await b.viewport(390, 844); await go('01');
     assert(await ev('document.scrollingElement.scrollWidth<=innerWidth'), 'phone horizontal overflow');
-    await b.screenshot(out + '/flat-phone.png', { fullPage: true });
-    await ev(`document.querySelector('[data-fk="view-3d"]').focus()`); await b.key('Enter'); await b.wait(300);
-    assert(await ev(`document.querySelector('[data-fk="view-3d"]').getAttribute('aria-pressed')==='true'&&EQ.qc.session.viewer.camera.isPerspectiveCamera`), 'keyboard activation');
+    await b.screenshot(out + '/3d-phone.png', { fullPage: true });
+    await ev(`document.querySelector('[data-fk="open-tree"]').focus()`); await b.key('Enter'); await b.wait(300);
+    assert(await ev(`document.querySelector('[data-fk="open-tree"]').getAttribute('aria-expanded')==='true'&&EQ.qc.session.viewer.camera.isPerspectiveCamera`), 'keyboard activation');
+    await b.key('Escape');
     await b.viewport(844, 390); await b.wait(300);
     assert(await ev('document.scrollingElement.scrollWidth<=innerWidth'), 'landscape overflow');
   });
@@ -112,10 +116,12 @@ try {
   });
   await step('10 actual model load failure preserves records and retry succeeds', async () => {
     await b.send('Network.enable'); await b.send('Network.setBlockedURLs', { urls: ['*scene.glb'] });
-    await b.viewport(1600, 1100); await b.goto(base + '#/eq/equipment/eq-qc-demo-01'); await b.wait(1600);
-    assert(await ev(`document.querySelector('.qc-notice')?.textContent.includes('could not be loaded')&&!!document.querySelector('[role=tree]')`), 'load fallback');
+    await b.viewport(1600, 1100); await b.goto(base + '#/eq/equipment/eq-qc-demo-01');
+    for (let i = 0; i < 80; i++) { if (await ev(`!!document.querySelector('.qc-notice button') || !!window.EQ?.qc?.session?.ready`)) break; await b.wait(150); }
+    const notice = await ev(`document.querySelector('.qc-notice')?.textContent`);
+    assert(notice?.includes('could not be loaded') && await ev(`!!document.querySelector('[data-fk="open-tree"]') && !!document.querySelector('#tabpanel')`), 'load fallback: ' + notice);
     await b.send('Network.setBlockedURLs', { urls: [] }); await b.click('.qc-notice button'); await waitReady();
-    b.clearEvents(); await click('view-flat'); await b.wait(400);
+    b.clearEvents(); await click('mode-technical'); await b.wait(400);
     assert(!b.errors().length, 'browser error: ' + b.errors().join(';'));
   });
 } finally { await b.close(); }

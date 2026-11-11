@@ -150,6 +150,7 @@ window.EQ = window.EQ || {};
       const wy = window.scrollY;
       const firstRender = lastPath === null;
       const pathChanged = lastPath !== r.path.split('/').slice(0, 4).join('/');
+      if (pathChanged && EQ.eqUI) { EQ.eqUI.drawer = null; EQ.eqUI.drawerOpener = null; }
 
       const L = EQ.access.layout();
       const feat = EQ.access.featureForRoute(r.path);

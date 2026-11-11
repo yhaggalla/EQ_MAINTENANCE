@@ -1,4 +1,4 @@
-// One geometry, renderer and selection contract for 3D and fixed-side Flat modes.
+// Interactive 3D crane view with Overall and Technical display modes.
 // Prototype bindings only. Existing position IDs and work records are never remapped.
 import * as THREE from 'three';
 import { QcViewer, webglAvailable } from '../qc/js/viewer.mjs';
@@ -130,19 +130,9 @@ function labelCandidates(s, nodes, work) {
   const overview = candidates({ ...s, sel: {} }, nodes, work).filter(c => !own || c.id !== own.id);
   return own ? [own, ...overview] : overview;
 }
-function side(s) {
-  const aspect = Math.max(1, s.host.clientWidth) / Math.max(1, s.host.clientHeight);
-  const b = s.viewer.craneBox, size = b.getSize(new THREE.Vector3()), c = b.getCenter(new THREE.Vector3());
-  const height = Math.max(size.y + 6, size.x / aspect) * 1.08;
-  s.viewer.useOrtho('side', { cx: c.x, cy: c.y - 2, w: height * aspect, h: height });
-}
-function resetCamera(s) { if (s.q.view !== '3d') side(s); else s.viewer.resetView(); }
 function update(s) {
   if (!s.ready) return;
   const v = s.viewer, { eq, sel, q, mode } = s;
-  const flat = q.view !== '3d';
-  const cameraChanged = s.flat !== flat;
-  if (cameraChanged) { if (flat) side(s); else v.useOrtho(null); s.flat = flat; }
   const area = q.area || (q.iso === '1' ? 'machinery-house' : '');
   const iso = manifest.nodes.some(n => n.kind === 'container' && n.key === 'container.' + area) ? 'container.' + area : null;
   s.context && (s.context.visible = !iso);
@@ -161,12 +151,12 @@ function update(s) {
   const sig = JSON.stringify([eq.id, keys, container, mode, iso]);
   v.setSelection(keys, { container, focus: false });
   message(s, '');
-  if (sig !== s.signature || cameraChanged) {
+  if (sig !== s.signature) {
     s.signature = sig;
     if (container || keys.length) {
       if (!v.fitKeys(container ? [container] : keys)) message(s, 'This selection has no visible representation in this mode. Use Technical mode or the tree.');
     } else if (sel.part || sel.sub || sel.main || sel.grp) message(s, 'This selection has no visible representation. Its records remain available.');
-    else if (!iso) resetCamera(s);
+    else if (!iso) v.resetView();
   }
   if ((sel.part || sel.sub || sel.main || sel.grp || container) && !v.boundsOf(container ? [container] : keys))
     message(s, 'This selection has no visible representation in this mode. Its records remain available; use Technical mode or the tree.');
@@ -190,9 +180,6 @@ function render(eq, sel, q, mode) {
     'aria-pressed': pressed == null ? null : String(pressed), onClick: action }, text);
   const box = h('section', { class: 'panel unified-qc', 'aria-label': 'Crane viewer' },
     h('div', { class: 'vp-bar' },
-      h('div', { class: 'seg camera-seg', role: 'group', 'aria-label': 'Camera view' },
-        btn('view-flat', 'Flat', () => nav({ view: 'flat' }), q.view !== '3d'),
-        btn('view-3d', '3D', () => nav({ view: '3d' }), q.view === '3d')),
       h('div', { class: 'seg', role: 'group', 'aria-label': 'Display mode' },
         btn('mode-overall', 'Overall', () => nav({ mode: 'overall', iso: '', area: '', container: '' }), mode === 'overall'),
         btn('mode-technical', 'Technical', () => nav({ mode: 'technical' }), mode === 'technical')),
@@ -208,14 +195,14 @@ function render(eq, sel, q, mode) {
           [['key', 'Key parts', 'Key assemblies (Overall) or the parts of an area, plus the selected part'], ['selection', 'Selection', 'The selected part with its related parts'], ['selected', 'Selected only', 'Only the selected part']]
             .map(([m, t, tip]) => btn('labels-' + m, t, () => { EQ.eqUI.labelMode = m; EQ.rerender(); }, (EQ.eqUI.labelMode || 'key') === m, tip)))),
       h('div', { class: 'vp-camera-tools', role: 'group', 'aria-label': 'Camera controls' },
-        btn('fit', 'Fit', () => { if (s.ready) { const v = s.viewer; if (!v.selected.size && !v.selContainer) resetCamera(s); else v.fitKeys(v.selContainer ? [v.selContainer] : [...v.selected]); } }, null, 'Fit selection'),
+        btn('fit', 'Fit', () => { if (s.ready) { const v = s.viewer; if (!v.selected.size && !v.selContainer) v.resetView(); else v.fitKeys(v.selContainer ? [v.selContainer] : [...v.selected]); } }, null, 'Fit selection'),
         btn('zoom-out', '−', () => zoom(s, 0.8), null, 'Zoom out'),
         btn('zoom-in', '+', () => zoom(s, 1.25), null, 'Zoom in'),
         btn('reset', 'Reset', () => { s.signature = null; EQ.fullReset(eq, q); }, null, 'Reset view'))),
     h('div', { class: 'vp-bottom' },
       h('details', { class: 'vp-legend' }, h('summary', null, 'Legend and model information'),
-        h('p', { class: 'panel-pad small' }, 'Red: crane paint, independent of status. Blue: selected part. Purple number: open work. Approx.: representative part or approximate location. Overall shows key assemblies; choose Technical or a mechanism to see more labels. Both views use the same drawing-derived model (draft revision ' + manifest.revision + '), with synthetic equipment bindings. Yard/rail level: 0 m; sea level: -5 m (user-specified display context).' )),
-      h('span', { class: 'vp-camera-hint' }, q.view !== '3d' ? 'Fixed side · right-drag to pan · scroll to zoom' : 'Drag to rotate · right-drag to pan · scroll to zoom')),
+        h('p', { class: 'panel-pad small' }, 'Red: crane paint, independent of status. Blue: selected part. Purple number: open work. Approx.: representative part or approximate location. Overall shows key assemblies; choose Technical or a mechanism to see more labels. Drawing-derived model (draft revision ' + manifest.revision + ') with synthetic equipment bindings. Yard/rail level: 0 m; sea level: -5 m (user-specified display context).' )),
+      h('span', { class: 'vp-camera-hint' }, 'Drag to rotate · right-drag to pan · scroll to zoom')),
     );
   requestAnimationFrame(() => { if (session === s && s.host.isConnected) start(s); });
   return box;
@@ -231,7 +218,7 @@ async function start(s) {
       onResize: () => {
         if (!s.ready) return;
         const v = s.viewer, keys = v.selContainer ? [v.selContainer] : v.selected.size ? [...v.selected] : v.isolate ? [v.isolate] : [];
-        if (keys.length) v.fitKeys(keys); else if (!s.sel.main && !s.sel.sub && !s.sel.part) resetCamera(s);
+        if (keys.length) v.fitKeys(keys); else if (!s.sel.main && !s.sel.sub && !s.sel.part) v.resetView();
       },
       onLabel: c => {
         // A hidden technical label must reveal the internals when selected.
@@ -292,8 +279,7 @@ function retry(s, text) {
 function zoom(s, scale) {
   if (!s.ready) return;
   const v = s.viewer; v.cancelTransition();
-  if (v.camera === v.ortho) { v.camera.zoom = Math.max(0.25, Math.min(120, v.camera.zoom * scale)); v.camera.updateProjectionMatrix(); }
-  else v.camera.position.sub(v.controls.target).multiplyScalar(1 / scale).add(v.controls.target);
+  v.camera.position.sub(v.controls.target).multiplyScalar(1 / scale).add(v.controls.target);
   v.controls.update(); v.requestRender();
 }
 EQ.qc = { prepare, render,

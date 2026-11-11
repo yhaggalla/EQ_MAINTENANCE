@@ -6,7 +6,11 @@ const out=process.argv[3]||'docs/evidence/U1/asset-management-c63';
 fs.mkdirSync(out+'/screenshots',{recursive:true});
 const b=await launch({port:9452,gpu:'swiftshader'}),checks=[];
 const ev=x=>b.eval(x),check=(name,pass,detail)=>{checks.push({name,pass:!!pass,detail});if(!pass)throw Error(name+': '+JSON.stringify(detail));};
-const go=async(route,role='eqTeam')=>{await b.goto(base+'?role='+role+'#'+route);await b.wait(350);};
+const go=async(route,role='eqTeam')=>{
+  await b.goto(base+'?role='+role+'#'+route);
+  for(let n=0;n<60;n++){if(await ev('!!window.EQ?.state?.D && !!document.querySelector("main")')){await b.wait(350);return;}await b.wait(150);}
+  throw Error('Prototype did not initialize: '+route);
+};
 const shot=async name=>{await ev('scrollTo(0,0)');await b.screenshot(out+'/screenshots/'+name+'.png',{fullPage:true});};
 const layout=()=>ev(`({overflow:document.documentElement.scrollWidth-innerWidth,kpis:[...document.querySelectorAll('[data-kpi]')].map(e=>({key:e.dataset.kpi,clip:e.scrollWidth>e.clientWidth+1||e.scrollHeight>e.clientHeight+1})),pageScroll:document.scrollingElement.scrollHeight-innerHeight})`);
 const reconcile=()=>ev(`(()=>{const type=EQ.route.query.type,needle=EQ.fleetUI.q.toLowerCase();const active=EQ.state.D.equipment.filter(e=>e.lifecycle==='active'&&(!type||type==='all'||e.typeCode===type)&&(!needle||(e.code+' '+e.name+' '+(e.modelCode||'')).toLowerCase().includes(needle)));const counts={total:active.length,readyForOps:active.filter(e=>e.status==='readyForOps').length,isolated:active.filter(e=>e.status==='isolated').length};return {counts,actual:['total','readyForOps','isolated'].every(k=>Number(document.querySelector('[data-kpi='+k+'] .n')?.textContent)===counts[k]),types:['total','readyForOps','isolated'].every(k=>[...document.querySelectorAll('[data-kpi='+k+'] [data-eq-type]')].every(el=>Number(el.querySelector('b').textContent)===active.filter(e=>e.typeCode===el.dataset.eqType&&(k==='total'||e.status===k)).length)),share:document.querySelector('[data-kpi=share] .n')?.textContent,wantedShare:active.length?Math.round(counts.readyForOps/active.length*100)+' %':'—'}})()`);
@@ -50,10 +54,10 @@ try {
   for(const selection of selections) {
     for(const tab of ['spareParts','special','technical']) {
       await ev(`EQ.nav('/eq/equipment/eq-qc-demo-01',${JSON.stringify({...selection,panel:tab,view:'flat'})})`);await b.wait(650);
-      const flat=await ev(`({text:document.querySelector('#tabpanel').textContent,echo:document.querySelector('#tabpanel [data-echo]')?.dataset.echo})`);
-      await b.click('[data-fk=view-3d]');await b.wait(650);
+      const legacy=await ev(`({text:document.querySelector('#tabpanel').textContent,echo:document.querySelector('#tabpanel [data-echo]')?.dataset.echo})`);
+      await ev(`EQ.nav('/eq/equipment/eq-qc-demo-01',${JSON.stringify({...selection,panel:tab})})`);await b.wait(650);
       const three=await ev(`({text:document.querySelector('#tabpanel').textContent,echo:document.querySelector('#tabpanel [data-echo]')?.dataset.echo})`);
-      check('AM09 Flat/3D parity '+JSON.stringify(selection)+' '+tab,flat.text===three.text&&flat.echo===three.echo,{echo:flat.echo});
+      check('AM09 Legacy link preserves 3D record scope '+JSON.stringify(selection)+' '+tab,legacy.text===three.text&&legacy.echo===three.echo,{echo:legacy.echo});
     }
   }
   await go('/eq/equipment/eq-qc-demo-01?view=3d');await b.wait(1500);await shot('crane-3d-default');
@@ -89,7 +93,9 @@ try {
   await b.send('Emulation.setEmulatedMedia',{features:[{name:'prefers-reduced-motion',value:'reduce'}]});await go('/fac/dashboard','management');
   check('AM03 retained FAC reduced-motion screen renders',await ev(`document.body.textContent.includes('Electrical')&&matchMedia('(prefers-reduced-motion: reduce)').matches`));await shot('fac-reduced-motion');
   const requests=b.events.filter(e=>e.method==='Network.requestWillBeSent').map(e=>e.params.request.url);
-  check('AM02 zero external CMMS/runtime traffic',requests.every(url=>/^(http:\/\/127\.0\.0\.1:5312\/|data:|blob:|about:)/.test(url))&&!requests.some(url=>/cmms\.js|zmms\.lk/.test(url)),requests.filter(url=>!/^(http:\/\/127\.0\.0\.1:5312\/|data:|blob:|about:)/.test(url)));
+  const sameOrigin=new URL('/',base).href;
+  const unexpected=[...new Set(requests.filter(url=>!(url.startsWith(sameOrigin)||/^(data:|blob:|about:)/.test(url))||/cmms\.js|zmms\.lk/.test(url)))];
+  check('AM02 zero external CMMS/runtime traffic',unexpected.length===0,unexpected);
   check('No browser console errors',b.errors().length===0,b.errors());
 } finally {
   fs.writeFileSync(out+'/browser-checks.json',JSON.stringify({boundary:'Local synthetic prototype browser checks; persona simulation, browser-local manual status, software WebGL',browser:b.browser,checks},null,2));

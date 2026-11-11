@@ -1,5 +1,7 @@
 # CICT EQ & FAC Asset Management - P02 / P02B interface prototype
 
+**Equipment page update (11 November 2026):** QC opens directly in interactive 3D; old Flat links keep their equipment and selection. The Mechanisms panel starts collapsed. Where the component workbook applies, Excel items only is checked by default and can be unchecked. Spare part cards offer Specs for original parts and History for replaced parts; the floating card shows current specs and, when applicable, physical replacement changes. Full register revisions stay in EQ Jobs.
+
 ## Current U1-C63 implementation 28 October 2026
 
 EQ & FAC Asset Management implements SOW V2 revision 7 in this synthetic prototype. CMMS/daily EQ work/automatic-status integration and equipment-card blinking are removed. Fleet has four responsive KPIs. Operational status is explicitly Ready for OPS or Isolated (category Long term isolated EQ); three crane tabs start with Spare part status; EQ Jobs has no Daily work.

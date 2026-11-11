@@ -1,10 +1,10 @@
-/* Equipment detail: mechanism tree (ARIA tree), shared model viewport (3D / Flat / fallbacks), breadcrumb, Overall/Technical,
+/* Equipment detail: mechanism tree (ARIA tree), 3D model viewport with fallbacks, breadcrumb, Overall/Technical,
    right-side current-state panel. The URL is the single selection model; tree, breadcrumb and scene all call select(). */
 window.EQ = window.EQ || {};
 (function (EQ) {
   const h = EQ.h, icon = EQ.icon;
   EQ.views = EQ.views || {};
-  const ui = (EQ.eqUI = { treeFilter: '', panelSearch: new Map(), showWork: true, inclCancelled: false, container: null, labelMode: 'key' }); // U1-C66: label mode key | selection | selected
+  const ui = (EQ.eqUI = { treeFilter: '', excelOnly: true, panelSearch: new Map(), showWork: true, inclCancelled: false, container: null, labelMode: 'key' }); // U1-C66: label mode key | selection | selected
   const HOUSE_KEYS = EQ.HOUSE_KEYS; // preview.js (U1 round 2 adds the drive cabinets and the emergency drive)
   const PARAM_MAIN = { '01': ['main-hoist-motor-power', 'hoist-speed-65t', 'hoist-speed-50t', 'hoist-speed-empty'], '02': ['trolley-speed', 'trolley-motor-power'], '03': ['boom-hoist-motor-power', 'boom-hoisting-time'], '04': ['gantry-speed', 'gantry-motor-power', 'rail-type'], '05': ['supply-voltage', 'supply-frequency'], '12': ['supply-voltage', 'supply-frequency'] };
 
@@ -195,14 +195,14 @@ window.EQ = window.EQ || {};
     ui.labelMode = 'key'; ui.container = null; ui.treeFilter = ''; ui.spHistory = null; // U1-C69: Reset also closes a spare-part history
     [...EQ.state.expanded].filter((k) => k.startsWith(eq.id + ':')).forEach((k) => EQ.state.expanded.delete(k));
     EQ.eqUI.treeFocus = 'root'; ui.treeSelSig = null; EQ.eqUI.lastSig = null; EQ.eqUI.hadSel = true;
-    EQ.nav('/eq/equipment/' + eq.id, { ...q, main: '', sub: '', part: '', grp: '', container: '', iso: '', area: '', view: q.view === '3d' ? '3d' : 'flat' });
+    EQ.nav('/eq/equipment/' + eq.id, { ...q, main: '', sub: '', part: '', grp: '', container: '', iso: '', area: '', view: '' });
     // U1-C34: Reset restores the full crane in the current camera mode.
     if (!EQ.qc) EQ.resetView();
   }
   EQ.fullReset = fullReset;
 
   // ---------------------------------------------------------------- U1-C69: spare-part replacement history over the viewer
-  // Opened by History on a Spare part status card; kept in memory only. Stays open across Flat/3D and Overall/Technical; closed by
+  // Opened from a Spare part status card; kept in memory only. Stays open across Overall/Technical; closed by
   // Close/Escape/Reset or when the selection, area or equipment changes.
   const spHistSig = (eq, q) => [eq.id, q.main, q.sub, q.part, q.grp, q.container, q.area, q.iso].map((v) => v || '').join('|');
   const focusLater = (sel) => setTimeout(() => { const el = document.querySelector(sel); if (el) { el.focus({ preventScroll: true }); el.scrollIntoView({ block: 'nearest' }); } }, 0);
@@ -382,7 +382,7 @@ window.EQ = window.EQ || {};
     const eq = EQ.eq(id);
     const page = h('div', { class: 'page equipment-page' });
     if (!eq) { page.appendChild(h('div', { class: 'panel panel-pad' }, h('div', { class: 'notice error', role: 'alert' }, icon('alert'), h('p', null, 'No equipment with this link exists (404). It may have been mistyped or removed.')), h('p', null, h('a', { href: '#/eq/fleet' }, 'Back to the fleet')))); return page; }
-    if (S.data === 'loading') { page.appendChild(h('div', { 'aria-busy': 'true', role: 'status' }, h('span', { class: 'sr-only' }, 'Loading equipment'), h('div', { class: 'skeleton', style: 'height:4rem;margin-bottom:.7rem' }), h('div', { class: 'detail-grid' }, h('div', { class: 'skeleton', style: 'height:26rem' }), h('div', { class: 'skeleton', style: 'height:26rem' }), h('div', { class: 'skeleton', style: 'height:26rem' })))); return page; }
+    if (S.data === 'loading') { page.appendChild(h('div', { 'aria-busy': 'true', role: 'status' }, h('span', { class: 'sr-only' }, 'Loading equipment'), h('div', { class: 'skeleton', style: 'height:4rem;margin-bottom:.7rem' }), h('div', { class: 'detail-grid' }, h('div', { class: 'skeleton', style: 'height:26rem' }), h('div', { class: 'skeleton', style: 'height:26rem' })))); return page; }
     if (S.data === 'error') { page.appendChild(h('div', { class: 'notice error', role: 'alert' }, icon('wifi-off'), h('div', null, h('p', null, h('strong', null, 'This equipment could not be loaded. '), 'No data is shown and nothing is assumed Ready.'), h('div', { class: 'actions' }, h('button', { type: 'button', class: 'btn-sm', onClick: () => EQ.refresh(true) }, 'Retry'), h('a', { href: '#/eq/fleet' }, 'Back to the fleet'))))); return page; }
 
     // U1-C66: a page opened on a part / mechanism link starts in the same label mode as selecting it
@@ -411,16 +411,20 @@ window.EQ = window.EQ || {};
         EQ.perm.write() && eq.lifecycle === 'active' ? [h('button', { type: 'button', 'data-fk': 'set-status', onClick: () => EQ.dlg.status(eq) }, icon('refresh'), 'Update status'), h('button', { type: 'button', class: 'primary', 'data-fk': 'add-job', onClick: () => EQ.dlg.jobForm({ equipmentId: eq.id }) }, icon('plus'), 'Add special job')]
           : h('span', { class: 'tag gold' }, EQ.perm.write() ? 'Retired: no new jobs or status changes' : 'Read-only'))));
 
-    const breadcrumb = crumbs(eq, sel, q);
-    page.appendChild(h('div', { class: 'toolbar' + (breadcrumb ? '' : ' drawer-btns') }, breadcrumb,
-      h('div', { class: 'drawer-btns', style: 'margin-left:auto' },
-        h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'open-tree', 'aria-expanded': EQ.eqUI.drawer === 'tree' ? 'true' : 'false', onClick: () => { EQ.eqUI.drawer = 'tree'; EQ.eqUI.drawerOpener = 'open-tree'; EQ.rerender(); } }, icon('tree'), 'Mechanisms'),
-        h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'open-panel', 'aria-expanded': EQ.eqUI.drawer === 'panel' ? 'true' : 'false', onClick: () => { EQ.eqUI.drawer = 'panel'; EQ.eqUI.drawerOpener = 'open-panel'; EQ.rerender(); } }, icon('panel'), 'Details'))));
+    const treeOpen = ui.drawer === 'tree';
+    page.appendChild(h('div', { class: 'toolbar equipment-tools' },
+      h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'open-tree', 'aria-controls': 'equipment-mechanisms', 'aria-expanded': String(treeOpen), onClick: () => {
+        if (treeOpen) { closeDrawer(); return; }
+        ui.drawer = 'tree'; ui.drawerOpener = 'open-tree'; EQ.rerender();
+        document.querySelector('#equipment-mechanisms [data-fk="close-tree"]')?.focus({ preventScroll: true });
+      } }, icon(treeOpen ? 'chevron-d' : 'chevron-r'), 'Mechanisms'),
+      crumbs(eq, sel, q),
+      h('button', { type: 'button', class: 'btn-sm drawer-btns', 'data-fk': 'open-panel', 'aria-expanded': ui.drawer === 'panel' ? 'true' : 'false', onClick: () => { ui.drawer = 'panel'; ui.drawerOpener = 'open-panel'; EQ.rerender(); } }, icon('panel'), 'Details')));
     if (sel.bad) page.appendChild(h('div', { class: 'notice warn', role: 'status', style: 'margin-bottom:.6rem' }, icon('alert'), h('p', null, 'The link selects a ' + sel.bad + ' that does not belong to ' + eq.code + ' (422 target_not_in_equipment). Showing the whole equipment instead.')));
     if (eq.positionState === 'draft') page.appendChild(h('div', { class: 'notice info', style: 'margin-bottom:.6rem' }, icon('info'), h('p', null, 'The positions of ' + eq.code + ' are drafts derived from its model template. No work can target them until an Admin reviews and confirms them.', EQ.perm.admin() ? ' ' : '', EQ.perm.admin() ? h('a', { href: '#/admin/eq/positions?equipment=' + eq.id }, 'Review positions') : null)));
 
-    const treePanel = h('aside', { class: 'panel tree-panel' + (EQ.eqUI.drawer === 'tree' ? ' open' : ''), 'aria-label': 'Mechanisms' },
-      h('div', { class: 'tp-head' }, h('div', { class: 'row between' }, h('h2', null, 'Mechanisms'), h('button', { type: 'button', class: 'btn-sm drawer-btns', 'aria-label': 'Close mechanisms', onClick: () => closeDrawer() }, icon('x'))),
+    const treePanel = h('aside', { id: 'equipment-mechanisms', class: 'panel tree-panel' + (treeOpen ? ' open' : ''), hidden: !treeOpen, 'aria-label': 'Mechanisms' },
+      h('div', { class: 'tp-head' }, h('div', { class: 'row between' }, h('h2', null, 'Mechanisms'), h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'close-tree', 'aria-label': 'Collapse mechanisms', onClick: () => closeDrawer() }, icon('x'))),
         h('div', { class: 'field', style: 'margin-top:.4rem' }, h('label', { for: 'tf', class: 'sr-only' }, 'Filter mechanisms'), h('input', { id: 'tf', type: 'search', 'data-fk': 'tf', placeholder: 'Filter mechanisms', value: ui.treeFilter, autocomplete: 'off', onInput: (e) => { ui.treeFilter = e.target.value; EQ.rerender(); } })),
         EQ.qcTree?.applies(eq) ? (() => { const c = EQ.qcTree.counts(eq); return h('label', { class: 'check tree-excel-only', title: 'Unticked: all ' + c.all + ' parts. Ticked: only the ' + c.excel + ' parts of the QC component workbook.' },
           h('input', { type: 'checkbox', 'data-fk': 'excel-only', checked: ui.excelOnly ? true : null, onChange: (e) => { ui.excelOnly = e.target.checked; EQ.rerender(); } }),
@@ -464,7 +468,7 @@ window.EQ = window.EQ || {};
     updateSearch();
     const side = h('aside', { class: 'panel side-panel' + (EQ.eqUI.drawer === 'panel' ? ' open' : ''), 'aria-label': 'Current state of the selection', 'data-tab': panelTab }, sideHead, sideBody);
 
-    page.appendChild(h('div', { class: 'detail-grid' }, treePanel, h('div', { class: 'stack' }, withSpareHistory(viewport(eq, sel, q, mode), eq), eq.typeCode !== 'QC' ? rtgSummary(eq) : null), side));
+    page.appendChild(h('div', { class: 'detail-grid' + (treeOpen ? ' tree-expanded' : '') }, treePanel, h('div', { class: 'stack' }, withSpareHistory(viewport(eq, sel, q, mode), eq), eq.typeCode !== 'QC' ? rtgSummary(eq) : null), side));
     page.appendChild(h('div', { class: 'scrim' + (EQ.eqUI.drawer ? ' on' : ''), onClick: () => closeDrawer() }));
     return page;
   };

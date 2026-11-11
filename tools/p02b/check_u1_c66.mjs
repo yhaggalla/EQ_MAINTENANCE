@@ -21,6 +21,8 @@ let s = await state();
 check('01 default: Key parts pressed, overview labels, no selected label', s.labelMode === 'key' && s.pressed.join() === 'labels-key' && s.count > 1 && s.sel.length === 0, s);
 // mechanism selection from the tree -> Selection
 // U1-C70: the QC tree follows the component workbook: Main Hoist > Hoist Drive Mechanism replace 01 > 011
+await click('[data-fk="open-tree"]');
+await click('[data-fk="excel-only"]');
 await b.eval(`(()=>{const e=[...document.querySelectorAll('[role=treeitem] .ti')].find(x=>x.textContent.trim().startsWith('Main Hoist'));e.click();return 1})()`); await b.wait(700);
 await b.eval(`(()=>{const e=[...document.querySelectorAll('[role=treeitem] .ti')].find(x=>x.textContent.trim().startsWith('Hoist Drive Mechanism'));e.click();return 1})()`); await b.wait(900);
 s = await state();
@@ -39,8 +41,8 @@ check('06 Key parts with a selection: overview labels plus the selected label', 
 await b.screenshot(out + '/key-parts-with-selection.png');
 await click('[data-fk="labels-selected"]'); s = await state();
 check('07 back to Selected only: one label', s.count === 1 && s.sel.length === 1, s);
-await click('[data-fk="view-flat"]'); s = await state();
-check('08 camera switch keeps the label mode and the part', s.labelMode === 'selected' && s.count === 1 && s.part === 'pp-q01-007', s);
+await click('[data-fk="close-tree"]'); s = await state();
+check('08 collapsing the tree keeps the label mode and the part', s.labelMode === 'selected' && s.count === 1 && s.part === 'pp-q01-007', s);
 // picking a visible part in Overall from a label of the scene also opens Technical
 await b.goto(base + '#/eq/equipment/eq-qc-demo-01?view=3d&mode=overall'); await ready();
 await b.eval(`(()=>{const eq=EQ.eq('eq-qc-demo-01');const p=EQ.positionsOf(eq.id).find(x=>x.key==='trolley.wheel.ws-a.1');EQ.eqv.select(eq,{main:p.mainId,sub:p.subId,part:p.id});return 1})()`); await b.wait(1200);

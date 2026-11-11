@@ -27,7 +27,7 @@ const cx = (key) => `((b)=>(b.min[0]+b.max[0])/2)(${node(key)}.bounds)`;
 
 try {
   await b.viewport(1500, 950);
-  await open('/eq/equipment/' + Q1 + '?view=3d&panel=spareParts'); await ready();
+  await open('/eq/equipment/' + Q1); await ready();
 
   await step('W1 Workbook data: 136 Excel items (QC01-QC14 list), all present as QC01 parts with the workbook names', async () => {
     const r = await ev(`(()=>{const H=EQ.qcHierarchy,eq=EQ.eq('${Q1}');const ex=H.items.filter(i=>i.excel);const ps=EQ.positionsOf(eq.id);
@@ -41,16 +41,26 @@ try {
     assert(r.red === 'Hoist Reducer' && r.w1 === 'Trolley Wheel 1' && r.gcr === 'GCR Cable Reel' && r.rope === 'Hoist Wire Rope' && r.seat === 'Operator Seat' && r.motor === 'Main hoist motor A' && r.legs, JSON.stringify(r));
   });
   await step('W3 Tree: the 8 workbook assemblies first, then the approved mechanisms without a workbook group; RTG unchanged', async () => {
+    await pick('[data-fk="open-tree"]');
+    await pick('[data-fk="excel-only"]');
     const t = await tops();
     assert(JSON.stringify(t.slice(0, 8)) === JSON.stringify(['g-trolley', 'g-main-hoist', 'g-catenary', 'g-gantry', 'g-boom', 'g-backreach', 'g-apex', 'g-other']) && t.slice(8).every((x) => /^sys-\d\d$/.test(x)), JSON.stringify(t));
     assert(await ev(`document.querySelector('[data-fk="ti-g-catenary"]').textContent.includes('Catenary')&&!!document.querySelector('[data-fk="excel-only"]')`), 'Catenary spelling / tick');
     await shot('01-tree-all-items');
     await open('/eq/equipment/eq-rtg-demo-01'); await b.wait(400);
+    await pick('[data-fk="open-tree"]');
     assert(await ev(`!document.querySelector('[data-fk="excel-only"]')&&[...document.querySelectorAll('[role=tree] > li > ul > li')].every(li=>/^mi-/.test(li.dataset.nid))`), 'RTG tree changed');
   });
-  await step('W4 "Excel items only" tick: only workbook parts and assemblies; untick restores all items', async () => {
-    await open('/eq/equipment/' + Q1 + '?view=3d&panel=spareParts'); await ready();
-    await pick('[data-fk="excel-only"]');
+  await step('W4 3D and Excel-only are the defaults; the tree expands, filters and collapses', async () => {
+    await open('/eq/equipment/' + Q1); await ready();
+    const width = () => ev(`document.querySelector('.unified-qc-stage').clientWidth`);
+    const wide = await width();
+    assert(await ev(`EQ.qc.session.viewer.camera.isPerspectiveCamera && EQ.qc.session.viewer.controls.enableRotate &&
+      !document.querySelector('[data-fk="view-flat"],[data-fk="view-3d"]') && document.querySelector('#equipment-mechanisms').hidden &&
+      document.querySelector('[data-fk="open-tree"]').getAttribute('aria-expanded')==='false'`), 'wrong initial viewer or sidebar state');
+    await pick('[data-fk="open-tree"]');
+    assert(await width() < wide && await ev(`document.querySelector('[data-fk="excel-only"]').checked &&
+      document.querySelector('[data-fk="open-tree"]').getAttribute('aria-expanded')==='true'`), 'tree did not open with workbook filter');
     await pick('[data-fk="ti-g-main-hoist"] > .ti'); await pick('[data-fk="ti-mh-drive"] > .ti');
     const r = await ev(`(()=>{const parts=[...document.querySelectorAll('[role=treeitem][aria-level="4"]')].map(li=>EQ.pos(li.dataset.nid));return {tops:[...document.querySelectorAll('[role=tree] > li > ul > li')].map(li=>li.dataset.nid),
       n:parts.length,allExcel:parts.every(p=>EQ.qcTree.isExcel(p)),count:document.querySelector('.tree-excel-only .tree-count').textContent,labels:[...document.querySelectorAll('.qc-label')].map(x=>x.textContent)}})()`);
@@ -59,6 +69,10 @@ try {
     await shot('02-excel-only-hoist-drive');
     await pick('[data-fk="excel-only"]');
     assert((await tops()).length === 15, 'untick did not restore all assemblies');
+    await pick('[data-fk="open-tree"]');
+    assert(await width() === wide && await ev(`document.querySelector('#equipment-mechanisms').hidden &&
+      document.activeElement.dataset.fk==='open-tree'`), 'collapsed tree still occupies space or loses focus');
+    await pick('[data-fk="open-tree"]');
   });
   await step('W5 Sub assembly selection: URL, breadcrumb, panel, Technical tab and 3D highlight of its parts', async () => {
     await ev(`EQ.eqv.select(EQ.eq('${Q1}'),{grp:'tr-bearings'})`); await b.wait(1200);
@@ -103,8 +117,10 @@ try {
   });
   await step('W9 Old mechanism links (main / sub / part) still open on the workbook tree', async () => {
     await open('/eq/equipment/' + Q1 + '?view=flat&main=mi-q01-01&sub=si-q01-011&part=pp-q01-007&panel=spareParts'); await ready();
-    const r = await ev(`({part:EQ.route.query.part,sel:document.querySelector('[data-fk="ti-pp-q01-007"]')?.getAttribute('aria-selected'),crumb:document.querySelector('.breadcrumb')?.textContent,title:document.querySelector('[data-fk="scope-title"]').textContent})`);
-    assert(r.part === 'pp-q01-007' && r.sel === 'true' && r.crumb === 'Whole equipmentMain HoistHoist Drive MechanismMain hoist motor A' && r.title === 'Main hoist motor A', JSON.stringify(r));
+    await pick('[data-fk="open-tree"]');
+    if (await ev(`!EQ.qcTree.isExcel(EQ.pos('pp-q01-007'))`)) await pick('[data-fk="excel-only"]');
+    const r = await ev(`({part:EQ.route.query.part,perspective:EQ.qc.session.viewer.camera.isPerspectiveCamera,sel:document.querySelector('[data-fk="ti-pp-q01-007"]')?.getAttribute('aria-selected'),crumb:document.querySelector('.breadcrumb')?.textContent,title:document.querySelector('[data-fk="scope-title"]').textContent})`);
+    assert(r.perspective && r.part === 'pp-q01-007' && r.sel === 'true' && r.crumb === 'Whole equipmentMain HoistHoist Drive MechanismMain hoist motor A' && r.title === 'Main hoist motor A', JSON.stringify(r));
   });
   await step('W10 QC03 (draft positions) gets the workbook tree too; jobs keep the approved codes', async () => {
     await open('/eq/equipment/eq-qc-demo-03'); await b.wait(500);
@@ -115,10 +131,12 @@ try {
   await step('W11 Phone: tick in the Mechanisms drawer with a 44 px target, no page overflow', async () => {
     await b.viewport(390, 844, true, 2);
     await open('/eq/equipment/' + Q1 + '?view=3d'); await ready();
-    await pick('[data-fk="open-tree"]');
+    await ev(`document.querySelector('[data-fk="open-tree"]').focus()`); await b.key('Enter'); await b.wait(350);
     const r = await ev(`(()=>{const t=document.querySelector('.tree-excel-only');const rr=t.getBoundingClientRect();return {h:rr.height,vis:rr.width>0&&rr.right<=innerWidth,sw:document.documentElement.scrollWidth<=innerWidth}})()`);
     assert(r.h >= 44 && r.vis && r.sw, JSON.stringify(r));
     await shot('05-phone-tree');
+    await b.key('Escape');
+    assert(await ev(`document.querySelector('#equipment-mechanisms').hidden && document.activeElement.dataset.fk==='open-tree'`), 'Escape did not close the tree and return focus');
     await b.viewport(1500, 950);
   });
   await step('W12 No script errors', async () => { const e = await ev('window.__errs||[]'); assert(!e.length, JSON.stringify(e)); });
