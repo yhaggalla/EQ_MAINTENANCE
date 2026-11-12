@@ -46,6 +46,8 @@ window.EQ = window.EQ || {};
     'refresh': '<path d="M20 11a8 8 0 0 0-14-4L4 9M4 5v4h4M4 13a8 8 0 0 0 14 4l2-2M20 19v-4h-4"/>',
     'edit': '<path d="m4 20 1-4L16.5 4.5a2 2 0 0 1 3 3L8 19z"/>',
     'list': '<path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/>',
+    'list-expand': '<path d="M4 7h10M4 12h8M4 17h10m3-9 4 4-4 4"/>',
+    'list-collapse': '<path d="M4 7h10M4 12h8M4 17h10m7-9-4 4 4 4"/>',
     'tree': '<path d="M4 5h6M4 12h6M4 19h6M10 5v14M10 12h4m-4 7h4M14 9h6v6h-6zM14 16h6v4h-6z"/>',
     'panel': '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M15 4v16"/>',
     'home': '<path d="m4 11 8-7 8 7v9h-5v-6H9v6H4z"/>',

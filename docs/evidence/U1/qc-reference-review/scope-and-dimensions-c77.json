@@ -1,0 +1,180 @@
+{
+  "baseline": "tmp/qc-rev14-final",
+  "revision": 15,
+  "passed": 15,
+  "failed": 0,
+  "changedMeshes": [
+    "access.walkway.girder-boom",
+    "auxiliary.air-conditioning.electrical-room",
+    "auxiliary.air-conditioning.outdoor-units",
+    "auxiliary.compressor",
+    "auxiliary.rope-reeving.machinery-house",
+    "boom-hoist.brake.hs.main",
+    "boom-hoist.drum.main",
+    "boom-hoist.emergency.brake.main",
+    "boom-hoist.motor.main",
+    "boom-hoist.reducer.main",
+    "boom.latch.frame",
+    "boom.rope.set.main",
+    "container.electrical-room.shell",
+    "container.machinery-house.logo-cict",
+    "container.machinery-house.shell",
+    "container.portal.zpmc-plate",
+    "electrical.cabinets.lineup",
+    "electrical.control-power.main",
+    "electrical.drives.main",
+    "electrical.hv.aux-transformer",
+    "electrical.hv.main-transformer",
+    "electrical.hv.switchgear",
+    "electrical.plc.main",
+    "emergency.drive.main",
+    "hoist.drive.brake.hs.a",
+    "hoist.drive.brake.hs.b",
+    "hoist.drive.drum.a",
+    "hoist.drive.drum.b",
+    "hoist.drive.motor.a",
+    "hoist.drive.motor.b",
+    "hoist.drive.reducer.main",
+    "hoist.emergency.brake.a",
+    "hoist.emergency.brake.b",
+    "hoist.rope.set.main",
+    "machinery-house.service-crane",
+    "reference.a-frame.instanced",
+    "reference.machinery-house.instanced",
+    "structure.a-frame.head",
+    "structure.machinery-frame",
+    "structure.portal.landside.leg.a",
+    "structure.portal.landside.leg.b",
+    "structure.portal.landside.upper-beam",
+    "structure.portal.waterside.upper-beam",
+    "trolley-drive.brake.main",
+    "trolley-drive.drum.main",
+    "trolley-drive.motor.main",
+    "trolley-drive.reducer.main",
+    "trolley.rope.set.main"
+  ],
+  "results": [
+    {
+      "name": "All 410 revision 14 keys kept with their kind, classification, parent and position kind",
+      "pass": true
+    },
+    {
+      "name": "One key added: boom.latch.frame (031, A-frame)",
+      "pass": true,
+      "detail": [
+        "boom.latch.frame"
+      ]
+    },
+    {
+      "name": "Instance maps keep their carriers and key order",
+      "pass": true,
+      "detail": "21 maps"
+    },
+    {
+      "name": "Only the meshes named in the C77 record changed; no mesh removed",
+      "pass": true,
+      "detail": {
+        "changed": 48,
+        "unchanged": 112,
+        "unexpected": [],
+        "removed": []
+      }
+    },
+    {
+      "name": "Everything else from C71-C76 is byte-identical (TLS, busbar, cabin, trolley, headblock, spreader, gantry, stairs, A-frame legs, crane-number decal)",
+      "pass": true,
+      "detail": "80 meshes"
+    },
+    {
+      "name": "D10 house seaside wall = -30000 - 1330 / 2 - 1200 = -31865; depth 10500",
+      "pass": true,
+      "detail": [
+        -42.364999999999995,
+        -31.865
+      ]
+    },
+    {
+      "name": "Every house part stays inside the house and its walkways",
+      "pass": true,
+      "detail": {
+        "parts": 74,
+        "outside": []
+      }
+    },
+    {
+      "name": "House contents moved with the wall (-265) and stay symmetric about the crane centreline",
+      "pass": true,
+      "detail": [
+        -41.249969,
+        -40.98497
+      ]
+    },
+    {
+      "name": "Upper portal beams 1330 wide; landside beam zone 3350 (J526A010100)",
+      "pass": true,
+      "detail": [
+        -2.665,
+        -1.335,
+        -30.665001,
+        -29.334999,
+        49.700001,
+        54.25
+      ]
+    },
+    {
+      "name": "Boom latch hooks 5750 apart, 2700 from the A-frame centre, 850 above the latch platform (J526A62)",
+      "pass": true,
+      "detail": [
+        0.7,
+        63.049999,
+        -2.875,
+        2.875
+      ]
+    },
+    {
+      "name": "No latch part is left at the apex",
+      "pass": true,
+      "detail": "all below 66 m"
+    },
+    {
+      "name": "Four decals (CICT logo, markings, ZPMC plate, crane number) with four embedded textures",
+      "pass": true,
+      "detail": [
+        "container.portal.markings",
+        "container.portal.zpmc-plate",
+        "container.portal.crane-number",
+        "container.machinery-house.logo-cict"
+      ]
+    },
+    {
+      "name": "Floating-part finder: no detached piece at 30 mm (run with --out docs/evidence/U1/qc-reference-review/floating-after-rev15.json)",
+      "pass": true,
+      "detail": {
+        "model": "artifacts/models/cict-j526a-sts-scene/1",
+        "revision": 15,
+        "eps": 0.03,
+        "pieces": 4175,
+        "triangleBoxes": 1572340,
+        "islands": 0,
+        "islandKeys": 0
+      }
+    },
+    {
+      "name": "Budgets: triangles, draw calls (350) and asset size",
+      "pass": true,
+      "detail": {
+        "triangles": 96102,
+        "drawCalls": 237,
+        "bytes": 4214372
+      }
+    },
+    {
+      "name": "Revision 15 against the saved revision 14",
+      "pass": true,
+      "detail": [
+        14,
+        15
+      ]
+    }
+  ]
+}

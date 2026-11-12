@@ -10,6 +10,10 @@ const waitReady = async () => { for (let i = 0; i < 80; i++) { if (await ev('!!w
 const go = async (id = '01', q = '') => { await b.goto(base + '?role=management#/eq/equipment/eq-qc-demo-' + id + '?' + q); await waitReady(); await b.wait(800); };
 const step = async (id, fn) => { try { await fn(); results.push({ id, pass: true }); console.log('PASS ' + id); } catch (e) { results.push({ id, pass: false, error: e.message }); console.log('FAIL ' + id + ': ' + e.message); } };
 const assert = (ok, message) => { if (!ok) throw Error(message); };
+// U1-C77 check repair: the panel query and the canvas resize finish at variable times under software WebGL (0.3-1.1 s measured),
+// so the steps wait for the condition (up to 5 s) instead of a fixed delay. The assertions are unchanged.
+const until = async (expr, ms = 5000) => { const t0 = Date.now(); while (Date.now() - t0 < ms) { if (await ev(expr)) return true; await b.wait(100); } return false; };
+const panelLoaded = () => until(`!document.querySelector('#tabpanel [aria-busy="true"]') && !/Loading /.test(document.querySelector('#tabpanel')?.textContent || 'Loading ')`);
 const click = fk => b.click('[data-fk="' + fk + '"]' + (fk.startsWith('ti-') ? ' > .ti' : ''));
 try {
   await b.viewport(1600, 1100);
@@ -25,9 +29,9 @@ try {
     await click('ti-g-main-hoist'); await click('ti-mh-drive'); await click('ti-pp-q01-007');
     for (const tab of ['spareParts', 'special', 'technical']) {
       await click('mode-technical');
-      await click('tab-' + tab); await b.wait(500);
+      await click('tab-' + tab); await panelLoaded(); await b.wait(150);
       const before = await ev(`({part:EQ.route.query.part,text:document.querySelector('#tabpanel').textContent})`);
-      await click('mode-overall'); await b.wait(500);
+      await click('mode-overall'); await panelLoaded(); await b.wait(150);
       const same = await ev(`({part:EQ.route.query.part,text:document.querySelector('#tabpanel').textContent,same:EQ.qc.session.viewer===savedViewer&&EQ.qc.session.viewer.root===savedRoot,perspective:EQ.qc.session.viewer.camera.isPerspectiveCamera&&EQ.qc.session.viewer.controls.enableRotate})`);
       assert(before.part === 'pp-q01-007' && before.part === same.part && before.text === same.text && same.same && same.perspective, 'selection/panel/model mismatch: ' + tab);
     }
@@ -51,7 +55,7 @@ try {
     await b.send('Input.dispatchMouseEvent', { type: 'mouseReleased', x: x + width/2 + 70, y: y + height/2 + 30, button: 'right' });
     assert(JSON.stringify(pos) !== JSON.stringify(await ev('EQ.qc.session.viewer.camera.position.toArray()')), 'pan control');
     await click('reset');
-    await b.viewport(1366, 768); await b.wait(400);
+    await b.viewport(1366, 768); await until(`(()=>{const v=EQ.qc.session.viewer;return Math.abs(v.camera.aspect-v.host.clientWidth/v.host.clientHeight)<0.01})()`);
     assert(await ev(`(()=>{const v=EQ.qc.session.viewer;return Math.abs(v.camera.aspect-v.host.clientWidth/v.host.clientHeight)<0.01})()`), 'distorted view after resize');
   });
   await step('04 scene label clicks drill down through tree and panel', async () => {

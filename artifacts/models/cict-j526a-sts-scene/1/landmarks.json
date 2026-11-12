@@ -44,12 +44,12 @@
     {
       "name": "overall height (apex head top)",
       "expected": 83.356,
-      "actual": 84.056001,
-      "deviationPct": 0.84,
+      "actual": 83.356003,
+      "deviationPct": 0,
       "tolerancePct": 1,
       "pass": true,
       "kind": "measured",
-      "note": "J526A00 marker 83356; NOT the 63 m total lift"
+      "note": "J526A00 marker 83356, measured on the A-frame head (U1-C76; the aircraft light and anemometer stand above it); NOT the 63 m total lift"
     },
     {
       "name": "A-frame structural top",

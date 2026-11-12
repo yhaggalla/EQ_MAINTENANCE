@@ -58,6 +58,13 @@ try {
     assert(await ev(`EQ.qc.session.viewer.camera.isPerspectiveCamera && EQ.qc.session.viewer.controls.enableRotate &&
       !document.querySelector('[data-fk="view-flat"],[data-fk="view-3d"]') && document.querySelector('#equipment-mechanisms').hidden &&
       document.querySelector('[data-fk="open-tree"]').getAttribute('aria-expanded')==='false'`), 'wrong initial viewer or sidebar state');
+    assert(await ev(`(() => {
+      const rect = (selector) => document.querySelector(selector).getBoundingClientRect();
+      const button = rect('[data-fk="open-tree"]'), viewer = rect('.unified-qc');
+      return button.right <= viewer.left && Math.abs(button.top - viewer.top) < 2 &&
+        Math.abs(viewer.top - rect('.side-panel').top) < 2 && viewer.top - rect('.eq-summary').bottom < 20;
+    })()`), 'mechanisms button should align with the top of the viewer, directly below the equipment summary');
+    await shot('00-mechanisms-beside-viewer');
     await pick('[data-fk="open-tree"]');
     assert(await width() < wide && await ev(`document.querySelector('[data-fk="excel-only"]').checked &&
       document.querySelector('[data-fk="open-tree"]').getAttribute('aria-expanded')==='true'`), 'tree did not open with workbook filter');

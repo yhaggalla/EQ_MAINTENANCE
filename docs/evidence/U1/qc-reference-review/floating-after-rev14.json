@@ -1,0 +1,12 @@
+{
+  "summary": {
+    "model": "artifacts/models/cict-j526a-sts-scene/1",
+    "revision": 14,
+    "eps": 0.03,
+    "pieces": 4135,
+    "triangleBoxes": 1568916,
+    "islands": 0,
+    "islandKeys": 0
+  },
+  "islands": []
+}

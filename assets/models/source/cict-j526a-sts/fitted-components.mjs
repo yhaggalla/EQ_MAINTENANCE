@@ -70,8 +70,9 @@ export function fitComponents({ S, kit, THREE, P, components, context: C }) {
   move('auxiliary.obstruction-lights.1', [C.XTIP - .4, C.G_TOP + .175, C.ZG], 'J526A0100', 'Light base seated on the boom-end girder; exact mounting detail approximate.');
   move('auxiliary.obstruction-lights.2', [C.XTAIL + .3, C.G_TOP + .175, 0], 'J526A0100', 'Light base seated on the rear end diaphragm; parent corrected to girder.', { parentKey: 'container.girder' });
   const zR = -(C.ZL + P('cableReelOffsetFromLeg')), gY = P('cableReelCentreHeight');
-  move('gantry.cable-reel.coupling', [1.48, gY, zR], 'J526A00', 'Coupling meets the reel shaft at its centre; envelope approximate.');
-  move('gantry.cable-reel.slip-rings', [.1, gY, zR], 'J526A00', 'Slip-ring assembly seated on the inboard shaft; envelope approximate.');
+  const xReel = P('cableReelPlaneFromRail'); // U1-C76 (D4): accessories follow the reel plane (was X = 1.0)
+  move('gantry.cable-reel.coupling', [xReel + .48, gY, zR], 'J526A00', 'Coupling meets the reel shaft at its centre; envelope approximate.');
+  move('gantry.cable-reel.slip-rings', [xReel - .9, gY, zR], 'J526A00', 'Slip-ring assembly seated on the inboard shaft; envelope approximate.');
   // These are rectangular housings, not elliptical discs. Their back faces meet the sill/leg faces.
   const housings = [['gantry.rail-brake-hpu', [.955, 4.1, -6]], ['gantry.ground-control-station', [-28.89, 7.2, -10.85]]].map(([key, c]) => {
     special.add(key); const part = metadata(key, 'J526A0100', 'Housing attached to the adjacent sill/leg face; mounting position and envelope approximate.');

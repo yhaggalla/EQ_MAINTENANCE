@@ -104,13 +104,15 @@ export function validate(dir) {
     else if (gn[0].extras?.nodeKey || gn[0].extras?.decalOf !== d.container) decalIssues.push(d.gltfNodeName + ' must carry decalOf and no nodeKey');
     if (mKeys.has(d.gltfNodeName)) decalIssues.push(d.gltfNodeName + ' must not be a manifest node');
     for (const t of d.textures || []) {
-      const img = (gltf.images || []).find((im) => im.bufferView !== undefined && im.mimeType === 'image/png');
+      // U1-C76: more than one texture can be embedded (CICT logo, portal markings); each declared texture must equal
+      // one embedded PNG and its source file (the earlier check compared every texture with the first image only).
+      const imgs = (gltf.images || []).filter((im) => im.bufferView !== undefined && im.mimeType === 'image/png');
       const srcSha = crypto.createHash('sha256').update(fs.readFileSync(path.join(repo, t.file))).digest('hex');
-      if (!img) decalIssues.push('no embedded PNG image');
+      if (!imgs.length) decalIssues.push('no embedded PNG image');
       else {
-        const bv = gltf.bufferViews[img.bufferView]; const jsonLen = glbBuf.readUInt32LE(12); const binStart = 20 + jsonLen + 8;
-        const emb = crypto.createHash('sha256').update(glbBuf.subarray(binStart + (bv.byteOffset || 0), binStart + (bv.byteOffset || 0) + bv.byteLength)).digest('hex');
-        if (emb !== t.sha256 || srcSha !== t.sha256) decalIssues.push(`texture sha mismatch embedded ${emb.slice(0, 12)} source ${srcSha.slice(0, 12)} manifest ${t.sha256.slice(0, 12)}`);
+        const jsonLen = glbBuf.readUInt32LE(12); const binStart = 20 + jsonLen + 8;
+        const embs = imgs.map((img) => { const bv = gltf.bufferViews[img.bufferView]; return crypto.createHash('sha256').update(glbBuf.subarray(binStart + (bv.byteOffset || 0), binStart + (bv.byteOffset || 0) + bv.byteLength)).digest('hex'); });
+        if (!embs.includes(t.sha256) || srcSha !== t.sha256) decalIssues.push(`texture sha mismatch embedded ${embs.map((e) => e.slice(0, 12)).join('/')} source ${srcSha.slice(0, 12)} manifest ${t.sha256.slice(0, 12)}`);
       }
     }
   }

@@ -161,7 +161,7 @@ const manifest = {
   generator: { name: pkg.name, version: pkg.version, sourceCommit: commit, sourceDirty: dirty, three: threePkg.version, node: process.version },
   source: { params: rel(path.join(srcDir, 'params.json')), definition: rel(path.join(srcDir, 'build.mjs')) },
   asset: { file: 'scene.glb', sha256: sha(glb), bytes: glb.length, triangles: statsAll.triangles, drawCallsEstimate: statsAll.drawCallsEstimate, overallMode: statsOverall, technicalMode: statsTech },
-  budgets: { trianglesMax: 150000, drawCallsMax: 230, assetBytesMax: 8 * 1024 * 1024, source: 'QC_3D_MODELLING_BRIEF s6 (provisional); draw calls raised from 200 to 230 by the user for U1-C65 (D-213)' },
+  budgets: { trianglesMax: 150000, drawCallsMax: 350, assetBytesMax: 8 * 1024 * 1024, source: 'QC_3D_MODELLING_BRIEF s6 (provisional); draw calls raised from 200 to 230 by the user for U1-C65 (D-213) and from 230 to 350 by the user for U1-C76 (D-226)' },
   bounds: toB(overall),
   landmarks,
   nodes: S.nodes,
@@ -179,7 +179,7 @@ chk('rail gauge (rail centrelines)', cx(bOf('gantry.rail.waterside'), 0) - cx(bO
 chk('outreach: hoist centre at outreach limit from waterside rail', cx(bOf('headblock.frame'), 0) - cx(bOf('gantry.rail.waterside'), 0), P('outreach'), 'measured', 1, 'display position at outreach limit');
 chk('backreach + tail: girder end from landside rail', cx(bOf('gantry.rail.landside'), 0) - bOf('structure.girder.rear.main').min[0], P('backreach') + P('girderTailBeyondBackreach'), 'measured', 1, 'J526A0100 20000 + 11000');
 chk('boom tip X from hinge line', bOf('boom.main.girder').max[0] - P('hingeX'), P('boomLength'), 'measured', 1, 'J526A0100 75900');
-chk('overall height (apex head top)', manifest.bounds.max[1], P('apexMarker'), 'measured', 1, 'J526A00 marker 83356; NOT the 63 m total lift');
+chk('overall height (apex head top)', bOf('structure.a-frame.head').max[1], P('apexMarker'), 'measured', 1, 'J526A00 marker 83356, measured on the A-frame head (U1-C76; the aircraft light and anemometer stand above it); NOT the 63 m total lift');
 chk('A-frame structural top', bOf('structure.a-frame.head').min[1] + 1.4, P('portalTopWaterside') + P('aFrameHeight'), 'drawing-derived', 1, '5000 + 49000 + 25640');
 chk('waterside portal top', bOf('structure.portal.waterside.upper-beam').max[1], P('portalTopWaterside'), 'drawing-derived', 1, '5000 + 49000');
 chk('landside portal top', bOf('structure.portal.landside.upper-beam').max[1], P('portalTopLandside'), 'drawing-derived', 1, '5000 + 49250 (U-05)');

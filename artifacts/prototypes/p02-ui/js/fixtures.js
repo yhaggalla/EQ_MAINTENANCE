@@ -220,9 +220,18 @@ window.EQ = window.EQ || {};
     function addLine(job, posKey, item, o) {
       const p = posByKey(eqByKey(D.equipment.find((e) => e.id === job.equipmentId).key).key, posKey);
       const evs = D.events.filter((e) => e.positionId === p.id && !e.voided);
+      if (o.original && !evs.length) {
+        const baseline = { id: 'ev-base-' + p.id, positionId: p.id, seq: 1, kind: 'baselineRecorded', businessDate: null, jobId: null, lineId: null,
+          removedFromEventId: null, removedKnown: false, removedDesc: null, removedSerial: null,
+          installed: { ...o.original, qty: o.qty || 1, uom: p.uom }, recordedUtc: o.recordedUtc || ago(24 * 9), recordedBy: job.createdBy, voided: false };
+        D.events.push(baseline);
+        evs.push(baseline);
+      }
       const prev = evs[evs.length - 1];
-      const line = { id: 'ln-' + job.id + '-' + p.id, jobId: job.id, positionId: p.id, mode: 'full', removedKnown: !!o.removedDesc, removedDesc: o.removedDesc || null, removedSerial: o.removedSerial || null, item, qty: o.qty || 1, uom: p.uom, replacedOn: o.on, note: o.note || null, state: 'committed' };
-      const ev = { id: 'ev-' + line.id, positionId: p.id, seq: evs.length + 1, kind: 'replacement', businessDate: o.on, jobId: job.id, lineId: line.id, removedFromEventId: prev ? prev.id : null, removedDesc: o.removedDesc || null, removedSerial: o.removedSerial || null, removedKnown: !!o.removedDesc, installed: { ...item, qty: o.qty || 1, uom: p.uom }, recordedUtc: o.recordedUtc || ago(24 * 9), recordedBy: job.createdBy, voided: false };
+      const removedDesc = o.removedDesc || o.original?.desc || null;
+      const removedSerial = o.removedSerial || o.original?.serial || null;
+      const line = { id: 'ln-' + job.id + '-' + p.id, jobId: job.id, positionId: p.id, mode: 'full', removedKnown: !!removedDesc, removedDesc, removedSerial, item, qty: o.qty || 1, uom: p.uom, replacedOn: o.on, note: o.note || null, state: 'committed' };
+      const ev = { id: 'ev-' + line.id, positionId: p.id, seq: evs.length + 1, kind: 'replacement', businessDate: o.on, jobId: job.id, lineId: line.id, removedFromEventId: prev ? prev.id : null, removedDesc, removedSerial, removedKnown: line.removedKnown, installed: { ...item, qty: line.qty, uom: p.uom }, recordedUtc: o.recordedUtc || ago(24 * 9), recordedBy: job.createdBy, voided: false };
       line.eventId = ev.id;
       job.lines.push(line); D.events.push(ev);
       return ev;
@@ -230,9 +239,11 @@ window.EQ = window.EQ || {};
 
     // QC01
     const j101 = addJob('101', 'q01', ['part', 'hoist.drive.motor.a'], { kind: 'replacement', title: 'Replace main hoist motor A', description: 'Synthetic example job.', status: 'completed', planned: '2026-08-10', completedOn: '2026-08-12', note: 'Motor replaced and alignment checked (synthetic).', completedHoursAgo: 24 * 70 });
-    addLine(j101, 'hoist.drive.motor.a', { desc: 'Main hoist motor, 450 kW class (synthetic item)', mfr: 'Synthetic Motors Ltd', partNo: 'SYN-HM-450', serial: 'SYN-0001' }, { on: '2026-08-12', removedDesc: null, recordedUtc: ago(24 * 70) });
+    addLine(j101, 'hoist.drive.motor.a', { desc: 'Main hoist motor, 450 kW class (synthetic item)', mfr: 'Synthetic Motors Ltd', partNo: 'SYN-HM-450', serial: 'SYN-0001' }, { on: '2026-08-12', recordedUtc: ago(24 * 70),
+      original: { desc: 'Original main hoist motor (demo)', mfr: 'Demo Motors', partNo: 'DEMO-HM-A', serial: 'DEMO-QC01-M01' } });
     const j102 = addJob('102', 'q01', ['part', 'hoist.rope.set.main'], { kind: 'replacement', title: 'Replace main hoist rope set', status: 'completed', planned: '2026-05-01', completedOn: '2026-05-03', note: 'Full set renewed (synthetic).', completedHoursAgo: 24 * 170 });
-    addLine(j102, 'hoist.rope.set.main', { desc: 'Steel rope, hoist (synthetic item)', mfr: 'Synthetic Ropes', partNo: 'SYN-RP-48', serial: null }, { on: '2026-05-03', qty: 4, recordedUtc: ago(24 * 170) });
+    addLine(j102, 'hoist.rope.set.main', { desc: 'Steel rope, hoist (synthetic item)', mfr: 'Synthetic Ropes', partNo: 'SYN-RP-48', serial: null }, { on: '2026-05-03', qty: 4, recordedUtc: ago(24 * 170),
+      original: { desc: 'Original hoist wire rope set (demo)', mfr: 'Demo Wire Ropes', partNo: 'DEMO-WR-A', serial: 'DEMO-QC01-R01' } });
     addJob('103', 'q01', ['sub', '021'], { kind: 'repair', title: 'Trolley wheel bearing lubrication and inspection', status: 'completed', planned: '2026-09-01', completedOn: '2026-09-02', note: 'Lubricated; no defects noted (synthetic).', completedHoursAgo: 24 * 48, by: 'u-eq-b' });
     addJob('104', 'q01', ['part', 'hoist.drive.motor.b'], { kind: 'replacement', title: 'Replace main hoist motor B', description: 'Motor B to be swapped for a refurbished unit (synthetic).', status: 'current', planned: '2026-10-20', priority: 'high', responsible: 'Synthetic fitter team', createdHoursAgo: 24 * 4, startedHoursAgo: 52, version: 3 });
     addJob('105', 'q01', ['sub', '021'], { kind: 'repair', title: 'Inspect trolley wheel wear', status: 'pending', planned: '2026-10-28', by: 'u-eq-b', createdHoursAgo: 24 * 2 });
@@ -240,13 +251,15 @@ window.EQ = window.EQ || {};
     addJob('107', 'q01', ['part', 'boom.rope.set.main'], { kind: 'replacement', title: 'Boom rope set replacement (planned)', status: 'pending', planned: '2026-12-02', by: 'u-admin', createdHoursAgo: 24 * 8 });
     // QC02 (same template, different history)
     const j201 = addJob('201', 'q02', ['part', 'hoist.drive.motor.a'], { kind: 'replacement', title: 'Replace main hoist motor A', status: 'completed', planned: '2026-02-03', completedOn: '2026-02-04', note: 'Replaced (synthetic).', completedHoursAgo: 24 * 260 });
-    addLine(j201, 'hoist.drive.motor.a', { desc: 'Main hoist motor, 450 kW class (synthetic item)', mfr: 'Synthetic Motors Ltd', partNo: 'SYN-HM-450', serial: 'SYN-0009' }, { on: '2026-02-04', recordedUtc: ago(24 * 260) });
+    addLine(j201, 'hoist.drive.motor.a', { desc: 'Main hoist motor, 450 kW class (synthetic item)', mfr: 'Synthetic Motors Ltd', partNo: 'SYN-HM-450', serial: 'SYN-0009' }, { on: '2026-02-04', recordedUtc: ago(24 * 260),
+      original: { desc: 'Original main hoist motor (demo)', mfr: 'Demo Motors', partNo: 'DEMO-HM-A', serial: 'DEMO-QC02-M01' } });
     const j202 = addJob('202', 'q02', ['part', 'hoist.drive.motor.a'], { kind: 'replacement', title: 'Replace main hoist motor A (second time)', status: 'completed', planned: '2026-09-28', completedOn: '2026-09-30', note: 'Replaced after winding fault (synthetic).', completedHoursAgo: 24 * 21, by: 'u-eq-b' });
     addLine(j202, 'hoist.drive.motor.a', { desc: 'Main hoist motor, 450 kW class (synthetic item)', mfr: 'Synthetic Motors Ltd', partNo: 'SYN-HM-450', serial: 'SYN-0017' }, { on: '2026-09-30', removedDesc: 'Main hoist motor, 450 kW class (synthetic item)', removedSerial: 'SYN-0009', recordedUtc: ago(24 * 21) });
     j202.corrections.push({ n: 1, reason: 'Serial transcribed incorrectly from the nameplate photo.', by: 'u-admin', at: ago(24 * 19), items: [{ field: 'Installed serial (line at hoist motor A)', before: 'SYN-0016', after: 'SYN-0017' }] });
     j202.events.push({ kind: 'corrected', at: ago(24 * 19), by: 'u-admin', note: 'Correction 1 - serial number (prior value kept in the correction record)' });
     const j203 = addJob('203', 'q02', ['part', 'trolley.wheel.position.a'], { kind: 'replacement', title: 'Replace trolley wheel at position A', status: 'completed', planned: '2026-07-20', completedOn: '2026-07-22', note: 'Wheel replaced; rail contact checked (synthetic).', completedHoursAgo: 24 * 90 });
-    addLine(j203, 'trolley.wheel.position.a', { desc: 'Trolley wheel (synthetic item)', mfr: 'Synthetic Wheels', partNo: 'SYN-TW-310', serial: 'SYN-W-0310' }, { on: '2026-07-22', recordedUtc: ago(24 * 90) });
+    addLine(j203, 'trolley.wheel.position.a', { desc: 'Trolley wheel (synthetic item)', mfr: 'Synthetic Wheels', partNo: 'SYN-TW-310', serial: 'SYN-W-0310' }, { on: '2026-07-22', recordedUtc: ago(24 * 90),
+      original: { desc: 'Original trolley wheel (demo)', mfr: 'Demo Wheels', partNo: 'DEMO-TW-A', serial: 'DEMO-QC02-W01' } });
     addJob('204', 'q02', ['sub', '041'], { kind: 'repair', title: 'Gantry bogie alignment check', status: 'completed', planned: '2026-08-17', completedOn: '2026-08-18', note: 'Within limits (synthetic).', completedHoursAgo: 24 * 64 });
     addJob('205', 'q02', ['part', 'electrical.plc.main'], { kind: 'repair', title: 'Replace PLC cabinet fan', status: 'pending', planned: '2026-10-25', cancelled: true, cancelReason: 'Duplicate of work already covered by EQJ-2026-000204 scope.', cancelledBy: 'u-eq-a', createdHoursAgo: 24 * 12 });
     addJob('206', 'q02', ['main', '01'], { kind: 'repair', title: 'Hoist brake adjustment', status: 'current', planned: '2026-10-21', by: 'u-eq-b', createdHoursAgo: 24 * 3, startedHoursAgo: 6 });
@@ -254,7 +267,8 @@ window.EQ = window.EQ || {};
     addJob('401', 'q04', ['equipment'], { kind: 'repair', title: 'Investigate hoist overload trip', status: 'current', planned: '2026-10-21', createdHoursAgo: 5, startedHoursAgo: 4 });
     addJob('601', 'q06', ['equipment'], { kind: 'repair', title: 'Scheduled overhaul', status: 'current', planned: '2026-10-12', by: 'u-eq-b', createdHoursAgo: 24 * 9, startedHoursAgo: 24 * 9 });
     const j701 = addJob('701', 'r01', ['part', 'gantry.tyre.set.a'], { kind: 'replacement', title: 'Replace tyre set A', status: 'completed', planned: '2026-09-10', completedOn: '2026-09-12', note: 'Four tyres replaced (synthetic).', completedHoursAgo: 24 * 38 });
-    addLine(j701, 'gantry.tyre.set.a', { desc: 'Tyre (synthetic item)', mfr: 'Synthetic Tyres', partNo: 'SYN-TY-1', serial: null }, { on: '2026-09-12', qty: 4, recordedUtc: ago(24 * 38) });
+    addLine(j701, 'gantry.tyre.set.a', { desc: 'Tyre (synthetic item)', mfr: 'Synthetic Tyres', partNo: 'SYN-TY-1', serial: null }, { on: '2026-09-12', qty: 4, recordedUtc: ago(24 * 38),
+      original: { desc: 'Original gantry tyre set (demo)', mfr: 'Demo Tyres', partNo: 'DEMO-TY-A', serial: 'DEMO-RTG01-T01' } });
     addJob('702', 'r01', ['equipment'], { kind: 'repair', title: 'Quarterly structural walk-down', status: 'pending', planned: '2026-11-03', by: 'u-eq-b' });
     addJob('703', 'r03', ['equipment'], { kind: 'repair', title: 'Engine fault diagnosis', status: 'current', planned: '2026-10-21', createdHoursAgo: 8, startedHoursAgo: 7 });
     addJob('801', 'e04', ['equipment'], { kind: 'repair', title: 'Locate and repair hydraulic leak', status: 'current', planned: '2026-10-20', by: 'u-eq-b', createdHoursAgo: 30, startedHoursAgo: 29 });

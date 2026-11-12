@@ -131,8 +131,19 @@ window.EQ = window.EQ || {};
     const periods = evs.map((e, i) => {
       const original = e.kind === 'baselineRecorded', next = evs[i + 1];
       const from = original ? row.commissionedOn : e.businessDate, to = next ? next.businessDate : null, end = to || today;
+      const previous = evs[i - 1];
+      const linked = previous && previous.id === e.removedFromEventId ? previous.installed : null;
+      const removedSerial = e.removedKnown ? e.removedSerial : null;
+      // A conflicting serial means the recorded installation cannot supply the removed item's specs.
+      const priorSpecs = linked?.serial && removedSerial && linked.serial !== removedSerial ? null : linked;
+      const removed = {
+        desc: (e.removedKnown && e.removedDesc) || priorSpecs?.desc,
+        mfr: priorSpecs?.mfr,
+        partNo: priorSpecs?.partNo,
+        serial: removedSerial || priorSpecs?.serial,
+      };
       return { eventId: e.id, original, current: !next, from, to, months: from && end >= from ? monthsDiff(from, end) : null, installed: e.installed,
-        removedKnown: e.removedKnown, removedDesc: e.removedDesc, removedSerial: e.removedSerial, jobId: e.jobId, recordedUtc: e.recordedUtc, recordedBy: e.recordedBy };
+        removed: Object.values(removed).some(Boolean) ? removed : null, jobId: e.jobId, recordedUtc: e.recordedUtc, recordedBy: e.recordedBy };
     }).reverse();
     return { ok: true, row, periods, replacements: evs.filter((e) => e.kind !== 'baselineRecorded').length, changes: S$.history(posId) };
   };

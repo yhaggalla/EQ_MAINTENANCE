@@ -1,0 +1,78 @@
+[
+  {
+    "name": "3D default, rotation enabled (Flat mode removed)",
+    "pass": true
+  },
+  {
+    "name": "Yard/sea levels differ by 5 m",
+    "pass": true
+  },
+  {
+    "name": "Full crane is framed: inside the view and at least 80% of the limiting dimension",
+    "pass": true
+  },
+  {
+    "name": "Isolate portal",
+    "pass": true
+  },
+  {
+    "name": "Isolate girder",
+    "pass": true
+  },
+  {
+    "name": "Isolate back-reach",
+    "pass": true
+  },
+  {
+    "name": "Isolate boom",
+    "pass": true
+  },
+  {
+    "name": "Isolate trolley-runway",
+    "pass": true
+  },
+  {
+    "name": "Isolate a-frame",
+    "pass": true
+  },
+  {
+    "name": "Isolate machinery-house",
+    "pass": true
+  },
+  {
+    "name": "Isolate electrical-room",
+    "pass": true
+  },
+  {
+    "name": "Isolate trolley",
+    "pass": true
+  },
+  {
+    "name": "Isolate headblock-spreader",
+    "pass": true
+  },
+  {
+    "name": "Isolate gantry",
+    "pass": true
+  },
+  {
+    "name": "Isolate access",
+    "pass": true
+  },
+  {
+    "name": "Part records retain area isolation",
+    "pass": true
+  },
+  {
+    "name": "Reset restores whole crane in 3D and its environment",
+    "pass": true
+  },
+  {
+    "name": "Dropdown fits phone width",
+    "pass": true
+  },
+  {
+    "name": "No browser errors",
+    "pass": true
+  }
+]

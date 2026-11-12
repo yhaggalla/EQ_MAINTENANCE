@@ -1,6 +1,6 @@
 # CICT EQ & FAC Asset Management - P02 / P02B interface prototype
 
-**Equipment page update (11 November 2026):** QC opens directly in interactive 3D; old Flat links keep their equipment and selection. The Mechanisms panel starts collapsed. Where the component workbook applies, Excel items only is checked by default and can be unchecked. Spare part cards offer Specs for original parts and History for replaced parts; the floating card shows current specs and, when applicable, physical replacement changes. Full register revisions stay in EQ Jobs.
+**Equipment page update (11 November 2026):** QC opens directly in interactive 3D; old Flat links keep their equipment and selection. The Mechanisms panel starts collapsed. Where the component workbook applies, Excel items only is checked by default and can be unchecked. Replaced spare part cards offer History, which lists previous spares with their recorded specs and removal dates. Full register revisions stay in EQ Jobs.
 
 **Current QC model (draft v1 revision 13):** The elevator-side cabin door and fixed boarding access are visible in the [local QC01 technical 3D view](http://127.0.0.1:5312/index.html#/eq/equipment/eq-qc-demo-01?view=3d&mode=technical&motion=off) served by `node artifacts/prototypes/p02-ui/serve.mjs 5312`. The cabin is displayed at outreach; the home stop is approximate. See the [QC handover](../../../docs/HANDOVER.md) and [revision 13 evidence](../../../docs/evidence/U1/cabin-c75/REPORT.md).
 

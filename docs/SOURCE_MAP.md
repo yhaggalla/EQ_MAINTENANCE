@@ -178,6 +178,7 @@ All 20 entries were compared with the J526A00 p1 particulars table (crop `artifa
 | J526A3100 p1 and J526A0200 p1 | Cabin plan, enclosure and mounting dimensions, glazing, seat and cabinet arrangement, and cabin-to-trolley relationship | Controls, monitor placement and fitting profiles are simplified or estimated. |
 | User correction, 9 November 2026 (D-225) | Cabin entrance and home boarding face the elevator at landside leg B (-Z). | Supersedes C74 entrance orientation; +Z boom busbar retained per D-224. |
 | J526A5100 p1 and J526A5000 p1; J526A5008 detail (PDF p9) | Elevator side and third landing at 47,845 mm; context for the fixed boarding route. | The detail shows girder-end access. It does not give a dimensioned cabin home stop. Walkway offsets, supports and `cabinHomeRearX=-30000` remain estimates. |
+| J526A00 p1 side view (U1-C76, D-226) | Printed 7250 from the landside rail to the hoist centre at the parked trolley position; with the 2500 + 3000 cabin offsets of J526A0200 the cabin rear face is -28250 (`cabinHomeRearX`, revision 14) | Supersedes the provisional -30000 above. Walkway offsets and supports remain estimated; site confirmation optional. |
 
 See the [cabin reconstruction report](evidence/U1/cabin-c74/REPORT.md) and the [elevator-side access report](evidence/U1/cabin-c75/REPORT.md). The displayed trolley and cabin remain at outreach.
 

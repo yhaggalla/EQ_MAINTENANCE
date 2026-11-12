@@ -3,8 +3,8 @@
   "modelCode": "cict-j526a-sts-scene",
   "equipmentModelCode": "CICT-J526A-STS",
   "version": 1,
-  "revision": 13,
-  "revisionNote": "U1-C75: cabin entrance mirrored to elevator (-Z) side, distinct boarding gate and fixed third-landing home access added. Exact home station/route offsets provisional. Prior: U1-C74 (2026-11-09): busbar and cabin connection moved to opposite (+Z) girder as requested; cabin rebuilt from J526A3100 with raked glazing, rising floor window, rear cabinets, suspended chair, twin joysticks, panels and attached instruments. All existing keys retained. Prior: U1-C73 (2026-11-09): user-confirmed busbar beneath the boom, with the power/communication slipring connection carried by the cabin. Removes the generic fixed-girder festoon loops; preserves the existing 023 identity. Dimensions and mounting details remain estimated. Previous: U1-C72 (2026-11-06): floating-part repair; single physical trolley/headblock sheaves and gantry buffers, reel-datum accessories, mounted trip wires and sensors; optional attachments retained as records but absent from displayed arrangement. C71 TLS geometry preserved. Previous: U1-C71 (2026-11-05): back-reach TLS rebuilt from J526A1000 normal-operation pose. Four cylinders and sheaves in transverse pairs; stable component keys retained; rope edits confined to the tail. Mounting datum and fabrication profiles remain estimated. Previous: U1-C70 (2026-11-05): 222 parts from the QC component workbook (QC01-QC14 list) and the ZPMC manual list (QC ALL Components) that the drawing-based model did not draw, placed from the workbook locations (LHS = gate house end = -Z, front catenary = seaside), the drawings and the manual, as simple located shapes in one instanced carrier per area (Technical mode, approximate location; D-220). Previous: U1-C65 (2026-10-29): trolley rails (A75, rubber pads, clips, hinge-joint short rails, end stops; J526A0104) and the catenary trolley system (landside and seaside catenary trolleys, boom-tip catenary sheaves, girder-tail catenary rope tensioners, catenary ropes; J526A2200 set) added in container.trolley-runway; rope re-reeving device added in the machinery house (J526A1500); anti-snag tail sheave (J526A1000), trolley rope tension-device sheave (J526A2103) and spreader cable reel (Cavotec SC-121216-ME2a) diameters corrected to measured values. Previous: U1 round 7 (2026-10-23): 013 load cells moved from the in-line position about 2.6 m inboard to the boom tip end, in-line on the horizontal cross-over of the main hoist ropes at the very end of the boom (user reference image, U1-C27; closes U-36; points estimated). Previous: U1 round 6 (2026-10-23): 013 load cell moved from the boom-tip rope-end anchor pins to in-line load cells in the horizontal main hoist ropes at the boom tip (user answer to U-23, U1-C25; point estimated); the J526A2000 Detail I rope-end anchors stay in reeving.sheave.boom-tip. Previous: U1 round 3 (2026-10-22): trolley rebuilt from J526A0200 / J526A2100 (4 wheels instead of 8, four sheave shafts with two sheaves each, open frame and centre body, trolley-rope equalizer sheaves, spreader cable reel, main hoist and trolley rope paths on the trolley); headblock re-read from J526A1200 and spreader remodelled (STS45 drawing still not supplied; ISO 1161 corner positions, DT1500F cradle spacing). Previous: U1 round 2 (2026-10-22): load cells at the trolley sheave shafts, girder-tail platforms and stairs, apex platform and boom-hoist sheave arrangement, floodlight fittings on the boom and girder, elevator position/car/landings and every location marker drawn as a simplified part (J526A0200, J526A2300, J526A5000, J526A5100). Previous: U1 repair (2026-10-21): back-reach area, CICT logo, stair tower orientation, cab remodel, reeving paths and machinery-house layout re-checked against J526A00, J526A1000, J526A3000, J526A3100, J526A5000, J526A7100. Draft v1 revised in place: no equipment binding is active.",
+  "revision": 15,
+  "revisionNote": "U1-C77 (2026-11-12): follow-up to the reference review. Boom latch (stowage device) rebuilt from J526A62: two hook levers 5750 apart, hooks 2700 from the A-frame centre and 850 above a latch platform between the A-frame legs (new key boom.latch.frame; platform elevation about 62.2 m scaled from J526A00, the apex placement is withdrawn). Machinery house seaside wall at -31865 from the printed 1200 and the 1330 beam width (D10); house contents moved with it. Portal upper beams 1330 wide, landside beam zone 3350 (J526A010100). ZPMC plate decal from the user-supplied artwork (documents/zpmc flag.jpg, cleaned and enlarged) replaces the plain panel. Prior: U1-C76 (2026-11-12): reference review against the as-built drawings and photos (docs/evidence/U1/qc-reference-review/REPORT.md). Machinery house centred from J526A3000 (walls -9.2 .. +9.0; main hoist on the crane centreline; house and contents moved toward -Z); roof pitch from sections A-A / B-B; cabin home position from the printed 7250 parked-trolley dimension (J526A00); gantry cable reel dia 5600 in the 1225 plane (J526A4000); A-frame stair flights run along the rails beside leg A; walkway steps over the portal upper beams; haunched portal and sill corners; white portal markings (generated lettering, plain panel for the ZPMC plate) as a decal, with the crane number on a separate decal that the viewer fills for the selected crane; parts that touched nothing attached or seated (floating-part sweep). All existing keys retained. Draw-call budget 350 by the user. Prior: U1-C75: cabin entrance mirrored to elevator (-Z) side, distinct boarding gate and fixed third-landing home access added. Exact home station/route offsets provisional. Prior: U1-C74 (2026-11-09): busbar and cabin connection moved to opposite (+Z) girder as requested; cabin rebuilt from J526A3100 with raked glazing, rising floor window, rear cabinets, suspended chair, twin joysticks, panels and attached instruments. All existing keys retained. Prior: U1-C73 (2026-11-09): user-confirmed busbar beneath the boom, with the power/communication slipring connection carried by the cabin. Removes the generic fixed-girder festoon loops; preserves the existing 023 identity. Dimensions and mounting details remain estimated. Previous: U1-C72 (2026-11-06): floating-part repair; single physical trolley/headblock sheaves and gantry buffers, reel-datum accessories, mounted trip wires and sensors; optional attachments retained as records but absent from displayed arrangement. C71 TLS geometry preserved. Previous: U1-C71 (2026-11-05): back-reach TLS rebuilt from J526A1000 normal-operation pose. Four cylinders and sheaves in transverse pairs; stable component keys retained; rope edits confined to the tail. Mounting datum and fabrication profiles remain estimated. Previous: U1-C70 (2026-11-05): 222 parts from the QC component workbook (QC01-QC14 list) and the ZPMC manual list (QC ALL Components) that the drawing-based model did not draw, placed from the workbook locations (LHS = gate house end = -Z, front catenary = seaside), the drawings and the manual, as simple located shapes in one instanced carrier per area (Technical mode, approximate location; D-220). Previous: U1-C65 (2026-10-29): trolley rails (A75, rubber pads, clips, hinge-joint short rails, end stops; J526A0104) and the catenary trolley system (landside and seaside catenary trolleys, boom-tip catenary sheaves, girder-tail catenary rope tensioners, catenary ropes; J526A2200 set) added in container.trolley-runway; rope re-reeving device added in the machinery house (J526A1500); anti-snag tail sheave (J526A1000), trolley rope tension-device sheave (J526A2103) and spreader cable reel (Cavotec SC-121216-ME2a) diameters corrected to measured values. Previous: U1 round 7 (2026-10-23): 013 load cells moved from the in-line position about 2.6 m inboard to the boom tip end, in-line on the horizontal cross-over of the main hoist ropes at the very end of the boom (user reference image, U1-C27; closes U-36; points estimated). Previous: U1 round 6 (2026-10-23): 013 load cell moved from the boom-tip rope-end anchor pins to in-line load cells in the horizontal main hoist ropes at the boom tip (user answer to U-23, U1-C25; point estimated); the J526A2000 Detail I rope-end anchors stay in reeving.sheave.boom-tip. Previous: U1 round 3 (2026-10-22): trolley rebuilt from J526A0200 / J526A2100 (4 wheels instead of 8, four sheave shafts with two sheaves each, open frame and centre body, trolley-rope equalizer sheaves, spreader cable reel, main hoist and trolley rope paths on the trolley); headblock re-read from J526A1200 and spreader remodelled (STS45 drawing still not supplied; ISO 1161 corner positions, DT1500F cradle spacing). Previous: U1 round 2 (2026-10-22): load cells at the trolley sheave shafts, girder-tail platforms and stairs, apex platform and boom-hoist sheave arrangement, floodlight fittings on the boom and girder, elevator position/car/landings and every location marker drawn as a simplified part (J526A0200, J526A2300, J526A5000, J526A5100). Previous: U1 repair (2026-10-21): back-reach area, CICT logo, stair tower orientation, cab remodel, reeving paths and machinery-house layout re-checked against J526A00, J526A1000, J526A3000, J526A3100, J526A5000, J526A7100. Draft v1 revised in place: no equipment binding is active.",
   "status": "draft",
   "statusNote": "P03 prototype, revised in the U1 repair while still a draft with no active binding. Not assigned to any equipment; bindings are made by Admin per equipment (DATA_CONTRACT s10.5).",
   "units": "m",
@@ -18,7 +18,7 @@
   "generator": {
     "name": "eq-model-generator",
     "version": "1.0.0",
-    "sourceCommit": "8c792d16346d50616d3e804b9160f4ba49415885",
+    "sourceCommit": "7608d7a40a93c4f80daea81f27ccab1f8ca89ec3",
     "sourceDirty": true,
     "three": "0.186.1",
     "node": "v24.15.0"
@@ -29,26 +29,26 @@
   },
   "asset": {
     "file": "scene.glb",
-    "sha256": "7cc263ed0510912230c48f75d89b3f066148a3fe0440046d12ea201c7e66b273",
-    "bytes": 3910668,
-    "triangles": 92490,
-    "drawCallsEstimate": 230,
+    "sha256": "d977177df95b0bedf64c73fa8fad5f9dc9b7ae2a199d4db0f4b7618977ff7323",
+    "bytes": 4214372,
+    "triangles": 96102,
+    "drawCallsEstimate": 237,
     "overallMode": {
-      "triangles": 76838,
-      "drawCallsEstimate": 167,
-      "meshObjects": 112
+      "triangles": 80366,
+      "drawCallsEstimate": 174,
+      "meshObjects": 116
     },
     "technicalMode": {
-      "triangles": 92452,
-      "drawCallsEstimate": 228,
-      "meshObjects": 154
+      "triangles": 96064,
+      "drawCallsEstimate": 235,
+      "meshObjects": 158
     }
   },
   "budgets": {
     "trianglesMax": 150000,
-    "drawCallsMax": 230,
+    "drawCallsMax": 350,
     "assetBytesMax": 8388608,
-    "source": "QC_3D_MODELLING_BRIEF s6 (provisional); draw calls raised from 200 to 230 by the user for U1-C65 (D-213)"
+    "source": "QC_3D_MODELLING_BRIEF s6 (provisional); draw calls raised from 200 to 230 by the user for U1-C65 (D-213) and from 230 to 350 by the user for U1-C76 (D-226)"
   },
   "bounds": {
     "min": [
@@ -81,12 +81,12 @@
     "tieBeamUnderside": 12.5,
     "machineryHouse": {
       "x": [
-        -42.1,
-        -31.6
+        -42.364999999999995,
+        -31.865
       ],
       "z": [
-        -8.25,
-        9.95
+        -9.2,
+        9
       ],
       "floor": 53,
       "eaves": 58.1
@@ -274,14 +274,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -30.799999,
+          -30.700001,
           3.1,
-          -12.4
+          -12.425
         ],
         "max": [
           1.255,
-          55.110001,
-          12.4
+          55.224998,
+          12.425
         ]
       },
       "cameraHint": null
@@ -335,7 +335,7 @@
         ],
         "max": [
           0.665,
-          6.3,
+          7.3,
           10.525
         ]
       },
@@ -472,6 +472,11 @@
             "drawing": "J526A0100",
             "pdfPage": 1,
             "note": "view B: 5000 + 49000 to top; depth 2850"
+          },
+          {
+            "drawing": "J526A0100",
+            "pdfPage": 3,
+            "note": "J526A010100 sections C-C / D-D: box 1330 wide (U1-C77)"
           }
         ]
       },
@@ -479,12 +484,12 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -2.8,
-          51.150002,
+          -2.665,
+          49.950001,
           -11.45
         ],
         "max": [
-          -1.2,
+          -1.335,
           54,
           11.45
         ]
@@ -540,7 +545,7 @@
         ],
         "max": [
           -29.334999,
-          6.3,
+          7.3,
           10.525
         ]
       },
@@ -590,7 +595,7 @@
         ],
         "max": [
           -28.1,
-          51.400002,
+          50.900002,
           11.45
         ]
       },
@@ -640,7 +645,7 @@
         ],
         "max": [
           -28.1,
-          51.400002,
+          50.900002,
           -8.95
         ]
       },
@@ -676,7 +681,12 @@
           {
             "drawing": "J526A0100",
             "pdfPage": 1,
-            "note": "view A: 5000 + 49250 to top (U-05)"
+            "note": "view A: 5000 + 49250 to top (U-05); 3350"
+          },
+          {
+            "drawing": "J526A0100",
+            "pdfPage": 3,
+            "note": "J526A010100 sections C-C / D-D: box 1330 wide (U1-C77)"
           }
         ]
       },
@@ -684,12 +694,12 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -30.799999,
-          51.400002,
+          -30.665001,
+          49.700001,
           -11.45
         ],
         "max": [
-          -29.200001,
+          -29.334999,
           54.25,
           11.45
         ]
@@ -1041,12 +1051,12 @@
         "min": [
           -4.2,
           54,
-          -12.4
+          -12.425
         ],
         "max": [
           0.2,
-          55.110001,
-          12.4
+          55.224998,
+          12.425
         ]
       },
       "cameraHint": null
@@ -1633,14 +1643,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -60.999996,
+          -61,
           52.200001,
-          -4.605
+          -6.215687
         ],
         "max": [
           74.900002,
-          53.41,
-          4.605
+          55.424999,
+          6.215687
         ]
       },
       "cameraHint": null
@@ -2637,9 +2647,9 @@
           -10.780364
         ],
         "max": [
-          1.795,
+          1.325,
           84.056001,
-          11.754625
+          10.780364
         ]
       },
       "cameraHint": null
@@ -3105,6 +3115,61 @@
       "cameraHint": null
     },
     {
+      "key": "boom.latch.frame",
+      "kind": "position",
+      "label": "Boom latch platform, supports and hook levers (boom stowage device)",
+      "parentKey": "container.a-frame",
+      "classification": {
+        "main": "03",
+        "sub": "031"
+      },
+      "classificationNote": null,
+      "gltfNodeNames": [
+        "boom.latch.frame"
+      ],
+      "instancing": null,
+      "pickable": true,
+      "pickPriority": 50,
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "enclosure": false,
+      "positionKind": "serialized",
+      "uom": "ea",
+      "category": "structural",
+      "provenance": {
+        "kind": "drawing-derived",
+        "sources": [
+          {
+            "drawing": "J526A6200",
+            "pdfPage": 1,
+            "note": "J526A62: hook spacing 5750, 2700 to the pylon centre, hook centre 850 above the platform, lever 1900 / 1300, balancing box 340 x 540; hook, support and thruster shapes simplified"
+          },
+          {
+            "drawing": "J526A00",
+            "pdfPage": 1,
+            "note": "side view: braced platform on the A-frame at about 62.2 m; elevation scaled, not printed"
+          }
+        ]
+      },
+      "qualifier": null,
+      "hotspot": null,
+      "bounds": {
+        "min": [
+          -2.67,
+          60.5,
+          -8.140753
+        ],
+        "max": [
+          1.1,
+          63.325001,
+          8.140753
+        ]
+      },
+      "cameraHint": null
+    },
+    {
       "key": "boom.sheave.apex",
       "kind": "position",
       "label": "Apex boom-hoist sheaves (guide sheaves and fall-sheave groups)",
@@ -3189,7 +3254,7 @@
           {
             "drawing": "J526A00",
             "pdfPage": 1,
-            "note": "waterside end view: zig-zag stair beside A-frame leg A"
+            "note": "waterside end view: zig-zag stair beside A-frame leg A, flights along the rails; side view: stair about 0.7-2.2 m landside of the A-frame centreline (U1-C76)"
           },
           {
             "drawing": "J526A5000",
@@ -3202,14 +3267,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -5.425,
-          53.977684,
-          4.719375
+          -4.47,
+          53.965263,
+          2.775
         ],
         "max": [
-          -1.375,
-          82.214996,
-          11.754625
+          -2.575,
+          82.104561,
+          8.225
         ]
       },
       "cameraHint": null
@@ -3249,14 +3314,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -43.325001,
+          -43.59,
           52.299999,
-          -9.575
+          -10.525
         ],
         "max": [
-          -30.575001,
-          59.358646,
-          10.275
+          -30.84,
+          59.224998,
+          9.325
         ]
       },
       "cameraHint": null
@@ -3304,14 +3369,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -43.325001,
+          -43.59,
           52.299999,
-          -9.575
+          -10.525
         ],
         "max": [
-          -30.575001,
+          -30.84,
           54.125,
-          10.275
+          9.325
         ]
       },
       "cameraHint": null
@@ -3358,14 +3423,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -41.75,
+          -42.014999,
           56.5,
-          -7.95
+          -8.900001
         ],
         "max": [
-          -31.950001,
+          -32.215,
           57.650002,
-          9.650001
+          8.7
         ]
       },
       "cameraHint": null
@@ -3413,14 +3478,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -41.419998,
+          -41.685001,
           53,
-          -9.03
+          -9.98
         ],
         "max": [
-          -32.279999,
+          -32.544998,
           53.66,
-          -8.63
+          -9.58
         ]
       },
       "cameraHint": null
@@ -3467,14 +3532,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -41,
+          -41.264999,
           53,
-          0.38
+          -0.47
         ],
         "max": [
-          -38.099998,
+          -38.365002,
           55,
-          1.32
+          0.47
         ]
       },
       "cameraHint": null
@@ -3521,14 +3586,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -40.98497,
+          -41.249969,
           53.25,
-          1.442
+          0.592
         ],
         "max": [
-          -39.615032,
+          -39.880032,
           54.630001,
-          5.058
+          4.208
         ]
       },
       "cameraHint": null
@@ -3575,14 +3640,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -39.200001,
+          -39.465,
           53,
-          1.675
+          0.825
         ],
         "max": [
-          -38.200001,
+          -38.465,
           54.294998,
-          3.9
+          3.05
         ]
       },
       "cameraHint": null
@@ -3629,14 +3694,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -39.14542,
+          -39.410419,
           53,
-          1.39
+          0.54
         ],
         "max": [
-          -38.254406,
+          -38.519405,
           54.634998,
-          1.91
+          1.06
         ]
       },
       "cameraHint": null
@@ -3683,14 +3748,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -41.438293,
+          -41.703293,
           52.790001,
-          4.898
+          4.048
         ],
         "max": [
-          -39.161705,
+          -39.426704,
           55.564999,
-          5.418
+          4.568
         ]
       },
       "cameraHint": null
@@ -3737,14 +3802,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -40.98497,
+          -41.249969,
           53.25,
-          -3.358
+          -4.208
         ],
         "max": [
-          -39.615032,
+          -39.880032,
           54.630001,
-          0.258
+          -0.592
         ]
       },
       "cameraHint": null
@@ -3791,14 +3856,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -39.200001,
+          -39.465,
           53,
-          -2.2
+          -3.05
         ],
         "max": [
-          -38.200001,
+          -38.465,
           54.294998,
-          0.025
+          -0.825
         ]
       },
       "cameraHint": null
@@ -3845,14 +3910,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -39.14542,
+          -39.410419,
           53,
-          -0.21
+          -1.06
         ],
         "max": [
-          -38.254406,
+          -38.519405,
           54.634998,
-          0.31
+          -0.54
         ]
       },
       "cameraHint": null
@@ -3899,14 +3964,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -41.438293,
+          -41.703293,
           52.790001,
-          -3.718
+          -4.568
         ],
         "max": [
-          -39.161705,
+          -39.426704,
           55.564999,
-          -3.198
+          -4.048
         ]
       },
       "cameraHint": null
@@ -3952,23 +4017,23 @@
       "qualifier": "Location approximate / simplified representation",
       "hotspot": {
         "point": [
-          -39.5,
+          -39.765,
           55.6,
-          0.85
+          0
         ],
         "radius": 0.5,
         "representation": "simplified-part"
       },
       "bounds": {
         "min": [
-          -40.25,
+          -40.514999,
           55,
-          0.47
+          -0.38
         ],
         "max": [
-          -38.349998,
+          -38.615002,
           55.75,
-          1.23
+          0.38
         ]
       },
       "cameraHint": null
@@ -4010,14 +4075,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -42.049999,
+          -42.314999,
           55.57,
-          -2.396
+          -3.246
         ],
         "max": [
-          -40.849998,
+          -41.115002,
           58.049999,
-          4.096
+          3.246
         ]
       },
       "cameraHint": null
@@ -4064,14 +4129,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -37.005917,
+          -37.270916,
           53.240002,
-          -0.78
+          -1.63
         ],
         "max": [
-          -35.894085,
+          -36.159084,
           54.360001,
-          2.72
+          1.87
         ]
       },
       "cameraHint": null
@@ -4118,14 +4183,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -37.450001,
+          -37.715,
           53,
-          -1.6
+          -2.45
         ],
         "max": [
-          -35.450001,
+          -35.715,
           54.400002,
-          -0.74
+          -1.59
         ]
       },
       "cameraHint": null
@@ -4172,14 +4237,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -36.196438,
+          -36.461437,
           53,
-          -2.21
+          -3.06
         ],
         "max": [
-          -35.484406,
+          -35.749405,
           54.625,
-          -1.69
+          -2.54
         ]
       },
       "cameraHint": null
@@ -4226,14 +4291,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -36.299999,
+          -36.564999,
           53,
-          -3.88
+          -4.73
         ],
         "max": [
-          -35.400002,
+          -35.665001,
           54.337502,
-          -1.855
+          -2.705
         ]
       },
       "cameraHint": null
@@ -4280,14 +4345,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -33.618694,
+          -33.883694,
           53.134998,
-          -2.47
+          -3.32
         ],
         "max": [
-          -31.901306,
+          -32.166306,
           54.865002,
-          4.33
+          3.48
         ]
       },
       "cameraHint": null
@@ -4334,14 +4399,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -34.900002,
+          -35.165001,
           53,
-          4.47
+          3.62
         ],
         "max": [
-          -32.310001,
+          -32.575001,
           55.099998,
-          5.49
+          4.64
         ]
       },
       "cameraHint": null
@@ -4388,14 +4453,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -34.849998,
+          -35.115002,
           53,
-          2.25
+          1.4
         ],
         "max": [
-          -33.950001,
+          -34.215,
           54.287498,
-          4.375
+          3.525
         ]
       },
       "cameraHint": null
@@ -4442,14 +4507,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -34.795929,
+          -35.060928,
           53,
-          3.99
+          3.14
         ],
         "max": [
-          -33.994404,
+          -34.259403,
           54.625,
-          4.51
+          3.66
         ]
       },
       "cameraHint": null
@@ -4496,14 +4561,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -33.799313,
+          -34.064312,
           52.950001,
-          -2.85
+          -3.7
         ],
         "max": [
-          -31.720688,
+          -31.985687,
           55.525002,
-          -2.33
+          -3.18
         ]
       },
       "cameraHint": null
@@ -4545,14 +4610,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -39.575001,
+          -39.84,
           53,
-          7.2
+          6.35
         ],
         "max": [
-          -38.125,
+          -38.389999,
           55.414001,
-          9.4
+          8.55
         ]
       },
       "cameraHint": null
@@ -4594,14 +4659,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -33.5,
+          -33.764999,
           53,
-          6.15
+          5.3
         ],
         "max": [
-          -32.299999,
+          -32.564999,
           54.77,
-          7.65
+          6.8
         ]
       },
       "cameraHint": null
@@ -4643,14 +4708,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -33.700001,
+          -33.965,
           53,
-          7.825
+          6.975
         ],
         "max": [
-          -32.200001,
+          -32.465,
           55.419998,
-          9.775
+          8.925
         ]
       },
       "cameraHint": null
@@ -4690,14 +4755,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -42.099998,
+          -42.365002,
           53,
-          -7.72
+          -8.67
         ],
         "max": [
-          -31.6,
+          -31.865,
           58.099998,
-          -4.9
+          -5.85
         ]
       },
       "cameraHint": null
@@ -4736,14 +4801,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -40.900002,
+          -41.165001,
           53,
-          -7.7
+          -8.65
         ],
         "max": [
-          -33.400002,
+          -33.665001,
           55.200001,
-          -5.35
+          -6.3
         ]
       },
       "cameraHint": null
@@ -4784,23 +4849,23 @@
       "qualifier": "Location approximate / simplified representation",
       "hotspot": {
         "point": [
-          -37,
+          -37.265,
           54.1,
-          -5.65
+          -6.6
         ],
         "radius": 0.5,
         "representation": "simplified-part"
       },
       "bounds": {
         "min": [
-          -38.220001,
+          -38.485001,
           53,
-          -6.01
+          -6.96
         ],
         "max": [
-          -35.779999,
+          -36.044998,
           55.240002,
-          -5.33
+          -6.28
         ]
       },
       "cameraHint": null
@@ -4841,23 +4906,23 @@
       "qualifier": "Location approximate / simplified representation",
       "hotspot": {
         "point": [
-          -35,
+          -35.265,
           54.1,
-          -7.4
+          -8.35
         ],
         "radius": 0.5,
         "representation": "simplified-part"
       },
       "bounds": {
         "min": [
-          -35.419998,
+          -35.685001,
           53,
-          -7.72
+          -8.67
         ],
         "max": [
-          -34.580002,
+          -34.845001,
           55.240002,
-          -7.04
+          -7.99
         ]
       },
       "cameraHint": null
@@ -4898,23 +4963,23 @@
       "qualifier": "Location approximate / simplified representation",
       "hotspot": {
         "point": [
-          -39.4,
+          -39.66499999999999,
           54.1,
-          -7.4
+          -8.35
         ],
         "radius": 0.5,
         "representation": "simplified-part"
       },
       "bounds": {
         "min": [
-          -39.82,
+          -40.084999,
           53,
-          -7.72
+          -8.67
         ],
         "max": [
-          -38.98,
+          -39.244999,
           55.240002,
-          -7.04
+          -7.99
         ]
       },
       "cameraHint": null
@@ -4955,23 +5020,23 @@
       "qualifier": "Location approximate / simplified representation",
       "hotspot": {
         "point": [
-          -41.85,
+          -42.114999999999995,
           57.15,
-          -6.55
+          -7.499999999999999
         ],
         "radius": 0.45,
         "representation": "simplified-part"
       },
       "bounds": {
         "min": [
-          -42,
+          -42.264999,
           56.900002,
-          -7.05
+          -8
         ],
         "max": [
-          -41.700001,
+          -41.965,
           57.349998,
-          -6.05
+          -7
         ]
       },
       "cameraHint": null
@@ -5018,14 +5083,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -33,
+          -33.264999,
           53,
-          -4.65
+          -5.6
         ],
         "max": [
-          -32,
+          -32.264999,
           54.599998,
-          -3.75
+          -4.7
         ]
       },
       "cameraHint": null
@@ -5070,7 +5135,7 @@
           -3.525
         ],
         "max": [
-          72.734996,
+          72.660004,
           53.544998,
           3.390002
         ]
@@ -6688,14 +6753,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -62.884693,
+          -62.884697,
           46.580627,
-          -2.8025
+          -3.049087
         ],
         "max": [
           75.643303,
-          53.63763,
-          3.888295
+          53.63649,
+          3.049087
         ]
       },
       "cameraHint": null
@@ -6759,8 +6824,8 @@
         ],
         "max": [
           75.437126,
-          53.590809,
-          1.903797
+          53.590805,
+          1.085
         ]
       },
       "cameraHint": null
@@ -6878,14 +6943,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -32.789501,
+          -33.054123,
           53.095768,
           -2.364997
         ],
         "max": [
           62.671738,
           82.583221,
-          2.679996
+          2.364997
         ]
       },
       "cameraHint": null
@@ -6987,11 +7052,11 @@
         "min": [
           -30.814986,
           0,
-          -15.221
+          -15.121
         ],
         "max": [
-          1.540002,
-          10.785,
+          1.765002,
+          10.685,
           13.5
         ]
       },
@@ -9902,32 +9967,32 @@
       "uom": "ea",
       "category": "component",
       "provenance": {
-        "kind": "estimated",
+        "kind": "drawing-derived",
         "sources": [
           {
             "drawing": "J526A00",
             "pdfPage": 1,
-            "note": "waterside end view item 21: centre 7885 above rail, 2121 outboard of the leg; diameter scaled"
+            "note": "waterside end view item 21: centre 7885 above rail, 2121 outboard of the leg; side view 1225(1065)"
           },
           {
             "drawing": "J526A4000",
-            "pdfPage": null,
-            "note": "reel sheet not detailed; C72 guide support and upper cable route are simplified, not fabrication dimensions"
+            "pdfPage": 1,
+            "note": "U1-C76: view A reel dia 5600, reel plane 1225 seaside of the rail centreline on odd cranes (1065 even); disc width, hub, guide support and upper cable route are simplified, not fabrication dimensions"
           }
         ]
       },
-      "qualifier": "Estimated geometry",
+      "qualifier": null,
       "hotspot": null,
       "bounds": {
         "min": [
-          0.2,
+          0.325,
           3.7,
-          -15.221
+          -15.121
         ],
         "max": [
-          1.45,
-          10.785,
-          -9.421
+          1.625,
+          10.685,
+          -9.521
         ]
       },
       "cameraHint": null
@@ -9977,7 +10042,7 @@
           -14.165
         ],
         "max": [
-          -29.155001,
+          -28.225,
           56.43,
           -3.118789
         ]
@@ -10032,7 +10097,7 @@
           -14.165
         ],
         "max": [
-          -29.975,
+          -28.225,
           54.555,
           -3.118789
         ]
@@ -12432,6 +12497,11 @@
             "drawing": "ZPMC mechanical manual 1.4.4 Fig.1-43",
             "pdfPage": null,
             "note": "obstruction lights at the boom tip, girder rear end and A-frame top"
+          },
+          {
+            "drawing": "U1-C76 floating-part sweep",
+            "pdfPage": null,
+            "note": "seated on the landside top rail of the apex guard frame; location approximate"
           }
         ]
       },
@@ -12439,12 +12509,12 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -2.05,
+          -2.85,
           83.356,
           0.75
         ],
         "max": [
-          -1.75,
+          -2.55,
           83.756,
           1.05
         ]
@@ -12487,6 +12557,11 @@
             "drawing": "ZPMC mechanical manual 1.3.4.2",
             "pdfPage": null,
             "note": "anemometer transducer located on top of the A-frame; warning 25 m/s, alarm 28 m/s"
+          },
+          {
+            "drawing": "U1-C76 floating-part sweep",
+            "pdfPage": null,
+            "note": "seated on the landside top rail of the apex guard frame; location approximate"
           }
         ]
       },
@@ -12494,12 +12569,12 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -1.99,
+          -2.79,
           83.356001,
           -0.99
         ],
         "max": [
-          -1.81,
+          -2.61,
           84.056001,
           -0.81
         ]
@@ -12547,6 +12622,11 @@
             "drawing": "ZPMC mechanical manual 1.4.2 Fig.1-41",
             "pdfPage": null,
             "note": "boom stowage pins / latch"
+          },
+          {
+            "drawing": "U1-C76 floating-part sweep",
+            "pdfPage": null,
+            "note": "seated on the latch platform under the hook lever (J526A62 thruster B7; one keyed part, two fitted); location approximate"
           }
         ]
       },
@@ -12554,14 +12634,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          1.555,
-          78.389999,
-          -0.12
+          -0.32,
+          62.200001,
+          2.755
         ],
         "max": [
-          1.795,
-          78.889999,
-          0.12
+          -0.08,
+          62.700001,
+          2.995
         ]
       },
       "cameraHint": null
@@ -12647,6 +12727,11 @@
             "drawing": "ZPMC mechanical manual 1.3.2.4",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "U1-C76 floating-part sweep",
+            "pdfPage": null,
+            "note": "seated on the apex platform handrail; location approximate"
           }
         ]
       },
@@ -12655,12 +12740,12 @@
       "bounds": {
         "min": [
           1.035,
-          82.630997,
+          82.200996,
           1.525
         ],
         "max": [
           1.215,
-          82.880997,
+          82.450996,
           1.675
         ]
       },
@@ -12697,6 +12782,11 @@
             "drawing": "ZPMC mechanical manual 1.3.2.4 Fig.1-20",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "U1-C76 floating-part sweep",
+            "pdfPage": null,
+            "note": "seated on the latch platform beside the lever support (J526A62 limit switch support, item 3); location approximate"
           }
         ]
       },
@@ -12704,14 +12794,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          1.4,
-          78.289999,
-          -1.275
+          -0.975,
+          62.199999,
+          -2.45
         ],
         "max": [
-          1.55,
-          78.489999,
-          -1.125
+          -0.825,
+          62.399999,
+          -2.3
         ]
       },
       "cameraHint": null
@@ -12747,6 +12837,11 @@
             "drawing": "ZPMC mechanical manual 1.4.2 Fig.1-41",
             "pdfPage": null,
             "note": "Maintenance position 80°"
+          },
+          {
+            "drawing": "U1-C76 floating-part sweep",
+            "pdfPage": null,
+            "note": "seated at the latch hook shaft, gate-house side (J526A62: hooks 5750 apart, 2700 from the pylon centre); location approximate"
           }
         ]
       },
@@ -12754,14 +12849,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          1.175003,
-          78.639995,
-          -2.5
+          0.450003,
+          62.949996,
+          -2.975
         ],
         "max": [
-          1.674997,
-          78.840001,
-          -2.3
+          0.949997,
+          63.150002,
+          -2.775
         ]
       },
       "cameraHint": null
@@ -12797,6 +12892,11 @@
             "drawing": "ZPMC mechanical manual 1.4.2 Fig.1-41",
             "pdfPage": null,
             "note": "Maintenance position 80°"
+          },
+          {
+            "drawing": "U1-C76 floating-part sweep",
+            "pdfPage": null,
+            "note": "seated at the latch hook shaft, SAGT side (J526A62); location approximate"
           }
         ]
       },
@@ -12804,14 +12904,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          1.175003,
-          78.639995,
-          2.3
+          0.450003,
+          62.949996,
+          2.775
         ],
         "max": [
-          1.674997,
-          78.840001,
-          2.5
+          0.949997,
+          63.150002,
+          2.975
         ]
       },
       "cameraHint": null
@@ -12847,6 +12947,11 @@
             "drawing": "ZPMC mechanical manual 1.4.2",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "U1-C76 floating-part sweep",
+            "pdfPage": null,
+            "note": "seated on the hook lever at its stowage pin; location approximate"
           }
         ]
       },
@@ -12854,14 +12959,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          1.425,
-          78.990001,
-          -2.45
+          0.4,
+          63.150001,
+          -2.925
         ],
         "max": [
-          1.525,
-          79.090001,
-          -2.35
+          0.5,
+          63.250001,
+          -2.825
         ]
       },
       "cameraHint": null
@@ -12897,6 +13002,11 @@
             "drawing": "ZPMC mechanical manual 1.4.2",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "U1-C76 floating-part sweep",
+            "pdfPage": null,
+            "note": "seated on the hook lever at its stowage pin; location approximate"
           }
         ]
       },
@@ -12904,14 +13014,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          1.425,
-          78.990001,
-          2.35
+          0.4,
+          63.150001,
+          2.825
         ],
         "max": [
-          1.525,
-          79.090001,
-          2.45
+          0.5,
+          63.250001,
+          2.925
         ]
       },
       "cameraHint": null
@@ -13007,6 +13117,11 @@
             "drawing": "User answer 5 Nov 2026",
             "pdfPage": null,
             "note": "oil-change rows are placed at their reducer / hydraulic unit"
+          },
+          {
+            "drawing": "U1-C76 floating-part sweep",
+            "pdfPage": null,
+            "note": "seated on the elevator car roof; location approximate"
           }
         ]
       },
@@ -13015,12 +13130,12 @@
       "bounds": {
         "min": [
           -29.940001,
-          9.7137,
+          8.9537,
           -12.5
         ],
         "max": [
           -29.800001,
-          9.8737,
+          9.1137,
           -12.36
         ]
       },
@@ -15854,12 +15969,12 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          0.6,
+          1.175,
           0.05,
           -13.571
         ],
         "max": [
-          0.7,
+          1.275,
           4.1,
           -13.471
         ]
@@ -15964,12 +16079,12 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          1.38,
+          1.605,
           7.1625,
           -12.391
         ],
         "max": [
-          1.52,
+          1.745,
           7.3225,
           -12.251
         ]
@@ -16349,12 +16464,12 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          1.419998,
+          1.644998,
           7.725002,
           -12.481
         ],
         "max": [
-          1.540002,
+          1.765002,
           8.044998,
           -12.161
         ]
@@ -16404,12 +16519,12 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -0.05,
+          0.175,
           7.535,
           -12.621
         ],
         "max": [
-          0.25,
+          0.475,
           8.235,
           -12.021
         ]
@@ -16454,12 +16569,12 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          0.525003,
+          1.100003,
           3.729996,
           -13.641
         ],
         "max": [
-          1.124997,
+          1.699997,
           3.970003,
           -13.401
         ]
@@ -16769,14 +16884,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -36.049998,
+          -36.315002,
           53.468803,
-          -3.990003
+          -4.840003
         ],
         "max": [
-          -35.649998,
+          -35.915002,
           53.868797,
-          -3.889997
+          -4.739997
         ]
       },
       "cameraHint": null
@@ -16829,14 +16944,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -38.900001,
+          -39.165,
           53.447502,
-          -2.310003
+          -3.160003
         ],
         "max": [
-          -38.500001,
+          -38.765,
           53.847496,
-          -2.209997
+          -3.059997
         ]
       },
       "cameraHint": null
@@ -16889,14 +17004,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -38.900001,
+          -39.165,
           53.447502,
-          3.909997
+          3.059997
         ],
         "max": [
-          -38.500001,
+          -38.765,
           53.847496,
-          4.010003
+          3.160003
         ]
       },
       "cameraHint": null
@@ -16944,14 +17059,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -38.100001,
+          -38.365001,
           53.740004,
-          0.69
+          -0.16
         ],
         "max": [
-          -37.999997,
+          -38.264997,
           54.059999,
-          1.01
+          0.16
         ]
       },
       "cameraHint": null
@@ -16999,14 +17114,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -38.940001,
+          -39.205,
           53.407502,
-          -0.162503
+          -1.012503
         ],
         "max": [
-          -38.460001,
+          -38.725,
           53.887496,
-          -0.022497
+          -0.872497
         ]
       },
       "cameraHint": null
@@ -17054,14 +17169,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -38.940001,
+          -39.205,
           53.407502,
-          1.722497
+          0.872497
         ],
         "max": [
-          -38.460001,
+          -38.725,
           53.887496,
-          1.862503
+          1.012503
         ]
       },
       "cameraHint": null
@@ -17109,14 +17224,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -34.600002,
+          -34.865001,
           53.443703,
-          2.139997
+          1.289997
         ],
         "max": [
-          -34.200002,
+          -34.465001,
           53.843697,
-          2.240003
+          1.390003
         ]
       },
       "cameraHint": null
@@ -17164,14 +17279,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -35.000003,
+          -35.265002,
           53.785002,
-          4.82
+          3.97
         ],
         "max": [
-          -34.899999,
+          -35.164998,
           54.104998,
-          5.14
+          4.29
         ]
       },
       "cameraHint": null
@@ -17219,14 +17334,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -34.640002,
+          -34.905001,
           53.403703,
-          4.112497
+          3.262497
         ],
         "max": [
-          -34.160002,
+          -34.425001,
           53.883696,
-          4.252503
+          3.402503
         ]
       },
       "cameraHint": null
@@ -17274,14 +17389,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -39.619999,
+          -39.884999,
           53.019998,
-          1.33
+          0.48
         ],
         "max": [
-          -39.479999,
+          -39.744999,
           53.179998,
-          1.47
+          0.62
         ]
       },
       "cameraHint": null
@@ -17329,14 +17444,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -36.520001,
+          -36.785,
           52.99,
-          -0.73
+          -1.58
         ],
         "max": [
-          -36.380001,
+          -36.645,
           53.15,
-          -0.59
+          -1.44
         ]
       },
       "cameraHint": null
@@ -17384,14 +17499,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -33.675,
+          -33.939999,
           53.025,
-          5.5
+          4.65
         ],
         "max": [
-          -33.535,
+          -33.799999,
           53.185,
-          5.64
+          4.79
         ]
       },
       "cameraHint": null
@@ -17439,14 +17554,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -38.5817,
+          -38.846699,
           52.76,
-          4.388
+          3.538
         ],
         "max": [
-          -38.4417,
+          -38.706699,
           52.92,
-          4.528
+          3.678
         ]
       },
       "cameraHint": null
@@ -17487,6 +17602,11 @@
             "drawing": "User answer 5 Nov 2026",
             "pdfPage": null,
             "note": "oil-change rows are placed at their reducer / hydraulic unit"
+          },
+          {
+            "drawing": "U1-C76 floating-part sweep",
+            "pdfPage": null,
+            "note": "seated on the service-crane hoist; location approximate"
           }
         ]
       },
@@ -17494,14 +17614,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -36.919998,
-          56.995001,
-          0.78
+          -36.634999,
+          57.050001,
+          6.58
         ],
         "max": [
-          -36.779998,
-          57.155001,
-          0.92
+          -36.494999,
+          57.210001,
+          6.72
         ]
       },
       "cameraHint": null
@@ -17544,14 +17664,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -40.599999,
+          -40.864999,
           53.640003,
-          1.331995
+          0.481995
         ],
         "max": [
-          -39.999999,
+          -40.264999,
           54.239994,
-          1.452005
+          0.602005
         ]
       },
       "cameraHint": null
@@ -17594,14 +17714,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -40.599999,
+          -40.864999,
           53.640003,
-          0.247995
+          -0.602005
         ],
         "max": [
-          -39.999999,
+          -40.264999,
           54.239994,
-          0.368005
+          -0.481995
         ]
       },
       "cameraHint": null
@@ -17644,14 +17764,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -40.524999,
+          -40.789999,
           53.250001,
-          4.958
+          4.108
         ],
         "max": [
-          -40.074999,
+          -40.339999,
           53.650001,
-          5.158
+          4.308
         ]
       },
       "cameraHint": null
@@ -17694,14 +17814,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -40.524999,
+          -40.789999,
           53.250001,
-          -3.458
+          -4.308
         ],
         "max": [
-          -40.074999,
+          -40.339999,
           53.650001,
-          -3.258
+          -4.108
         ]
       },
       "cameraHint": null
@@ -17744,14 +17864,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -39.86,
+          -40.124999,
           54.38,
-          4.718
+          3.868
         ],
         "max": [
-          -39.64,
+          -39.904999,
           54.58,
-          4.898
+          4.048
         ]
       },
       "cameraHint": null
@@ -17794,14 +17914,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -39.85,
+          -40.114999,
           54.09,
-          4.728
+          3.878
         ],
         "max": [
-          -39.65,
+          -39.914999,
           54.27,
-          4.888
+          4.038
         ]
       },
       "cameraHint": null
@@ -17844,14 +17964,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -39.82,
+          -40.084999,
           53.810001,
-          4.748
+          3.898
         ],
         "max": [
-          -39.68,
+          -39.944999,
           53.950001,
-          4.868
+          4.018
         ]
       },
       "cameraHint": null
@@ -17887,6 +18007,11 @@
             "drawing": "ZPMC mechanical manual 1.3.1.3",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "U1-C76 floating-part sweep",
+            "pdfPage": null,
+            "note": "seated on the motor non-drive end; location approximate"
           }
         ]
       },
@@ -17894,14 +18019,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -38.770001,
+          -39.035,
           54.025002,
-          4.02
+          3.04
         ],
         "max": [
-          -38.630001,
+          -38.895,
           54.165001,
-          4.120001
+          3.14
         ]
       },
       "cameraHint": null
@@ -17944,14 +18069,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -38.770001,
+          -39.035,
           53.577499,
-          -2.42
+          -3.27
         ],
         "max": [
-          -38.630001,
+          -38.895,
           53.717499,
-          -2.32
+          -3.17
         ]
       },
       "cameraHint": null
@@ -17994,14 +18119,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -38.244401,
+          -38.5094,
           54.425001,
-          1.6
+          0.75
         ],
         "max": [
-          -38.144401,
+          -38.4094,
           54.545001,
-          1.7
+          0.85
         ]
       },
       "cameraHint": null
@@ -18044,14 +18169,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -38.244401,
+          -38.5094,
           54.425001,
-          0
+          -0.85
         ],
         "max": [
-          -38.144401,
+          -38.4094,
           54.545001,
-          0.1
+          -0.75
         ]
       },
       "cameraHint": null
@@ -18087,6 +18212,11 @@
             "drawing": "ZPMC mechanical manual 1.3.1.2",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "U1-C76 floating-part sweep",
+            "pdfPage": null,
+            "note": "seated on the drum-brake thruster; location approximate"
           }
         ]
       },
@@ -18094,14 +18224,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -39.1517,
+          -39.576699,
           55.204999,
-          5.108
+          4.258
         ],
         "max": [
-          -39.0517,
+          -39.476699,
           55.324999,
-          5.208
+          4.358
         ]
       },
       "cameraHint": null
@@ -18137,6 +18267,11 @@
             "drawing": "ZPMC mechanical manual 1.3.1.2",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "U1-C76 floating-part sweep",
+            "pdfPage": null,
+            "note": "seated on the drum-brake thruster; location approximate"
           }
         ]
       },
@@ -18144,14 +18279,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -39.1517,
+          -39.576699,
           55.204999,
-          -3.508
+          -4.358
         ],
         "max": [
-          -39.0517,
+          -39.476699,
           55.324999,
-          -3.408
+          -4.258
         ]
       },
       "cameraHint": null
@@ -18194,14 +18329,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -38.750001,
+          -39.015,
           54.295001,
-          2.7375
+          1.8875
         ],
         "max": [
-          -38.650001,
+          -38.915,
           54.355001,
-          2.8375
+          1.9875
         ]
       },
       "cameraHint": null
@@ -18244,14 +18379,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -38.750001,
+          -39.015,
           54.295001,
-          -1.1375
+          -1.9875
         ],
         "max": [
-          -38.650001,
+          -38.915,
           54.355001,
-          -1.0375
+          -1.8875
         ]
       },
       "cameraHint": null
@@ -18294,14 +18429,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -33.079998,
+          -33.345002,
           53.680005,
-          4.339995
+          3.489995
         ],
         "max": [
-          -32.439998,
+          -32.705002,
           54.319995,
-          4.460005
+          3.610005
         ]
       },
       "cameraHint": null
@@ -18337,6 +18472,11 @@
             "drawing": "ZPMC mechanical manual 1.3.2.1 Fig.1-7",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "U1-C76 floating-part sweep",
+            "pdfPage": null,
+            "note": "seated pedestal from the floor to the drum shaft; location approximate"
           }
         ]
       },
@@ -18344,14 +18484,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -32.984998,
-          53.134999,
-          -3.17
+          -33.250002,
+          53.000001,
+          -4.02
         ],
         "max": [
-          -32.534998,
-          53.534999,
-          -2.97
+          -32.800002,
+          53.900001,
+          -3.82
         ]
       },
       "cameraHint": null
@@ -18394,14 +18534,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -33.905,
+          -34.169999,
           55.124998,
-          4.755
+          3.905
         ],
         "max": [
-          -33.305,
+          -33.569999,
           55.574998,
-          5.205
+          4.355
         ]
       },
       "cameraHint": null
@@ -18444,14 +18584,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -32.170001,
+          -32.435001,
           54.565001,
-          -2.81
+          -3.66
         ],
         "max": [
-          -31.950001,
+          -32.215001,
           54.765001,
-          -2.63
+          -3.48
         ]
       },
       "cameraHint": null
@@ -18494,14 +18634,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -32.130001,
+          -32.395001,
           54.244999,
-          -2.78
+          -3.63
         ],
         "max": [
-          -31.990001,
+          -32.255001,
           54.384998,
-          -2.66
+          -3.51
         ]
       },
       "cameraHint": null
@@ -18544,14 +18684,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -32.160001,
+          -32.425001,
           53.924999,
-          -2.8
+          -3.65
         ],
         "max": [
-          -31.960001,
+          -32.225001,
           54.104999,
-          -2.64
+          -3.49
         ]
       },
       "cameraHint": null
@@ -18594,14 +18734,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -36.069998,
+          -36.335002,
           53.448804,
-          -1.680003
+          -2.530003
         ],
         "max": [
-          -35.629998,
+          -35.895002,
           53.888797,
-          -1.579997
+          -2.429997
         ]
       },
       "cameraHint": null
@@ -18644,14 +18784,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -36.730001,
+          -36.995,
           53.520004,
-          -0.890004
+          -1.740004
         ],
         "max": [
-          -36.170001,
+          -36.435,
           54.079995,
-          -0.789996
+          -1.639996
         ]
       },
       "cameraHint": null
@@ -18694,14 +18834,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -36.520001,
+          -36.785,
           53.729999,
-          2.74
+          1.89
         ],
         "max": [
-          -36.380001,
+          -36.645,
           53.869999,
-          2.86
+          2.01
         ]
       },
       "cameraHint": null
@@ -18744,14 +18884,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -35.919998,
+          -36.185002,
           53.598801,
-          -4.11
+          -4.96
         ],
         "max": [
-          -35.779998,
+          -36.045002,
           53.7388,
-          -4.01
+          -4.859999
         ]
       },
       "cameraHint": null
@@ -18794,14 +18934,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -38.8617,
+          -39.126699,
           52.789999,
-          4.208
+          3.358
         ],
         "max": [
-          -38.1617,
+          -38.426699,
           53.489999,
-          4.708
+          3.858
         ]
       },
       "cameraHint": null
@@ -18844,14 +18984,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -31.85,
+          -32.115,
           54.224999,
-          7.35
+          6.5
         ],
         "max": [
-          -31.35,
+          -31.615,
           54.624999,
-          8.25
+          7.4
         ]
       },
       "cameraHint": null
@@ -18894,14 +19034,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          -31.95,
+          -32.215,
           54.150001,
-          5.8
+          4.95
         ],
         "max": [
-          -31.25,
+          -31.515,
           55.000001,
-          7.4
+          6.55
         ]
       },
       "cameraHint": null
@@ -18942,6 +19082,11 @@
             "drawing": "User answer 5 Nov 2026",
             "pdfPage": null,
             "note": "oil-change rows are placed at their reducer / hydraulic unit"
+          },
+          {
+            "drawing": "U1-C76 floating-part sweep",
+            "pdfPage": null,
+            "note": "seated on the sill-beam face; location approximate"
           }
         ]
       },
@@ -18949,12 +19094,12 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          0.845,
+          0.655,
           3.88,
           -10.174
         ],
         "max": [
-          0.985,
+          0.795,
           4.04,
           -10.034
         ]
@@ -19597,6 +19742,11 @@
             "drawing": "User answer 5 Nov 2026",
             "pdfPage": null,
             "note": "oil-change rows are placed at their reducer / hydraulic unit"
+          },
+          {
+            "drawing": "U1-C76 floating-part sweep",
+            "pdfPage": null,
+            "note": "seated on the spreader cable reel drive; location approximate"
           }
         ]
       },
@@ -19605,12 +19755,12 @@
       "bounds": {
         "min": [
           70.230003,
-          48.037599,
+          51.94,
           -0.79
         ],
         "max": [
           70.370003,
-          48.197599,
+          52.1,
           -0.65
         ]
       },
@@ -19647,6 +19797,11 @@
             "drawing": "ZPMC mechanical manual 1.3.1.3 Fig.1-8",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "U1-C76 floating-part sweep",
+            "pdfPage": null,
+            "note": "seated under the trolley frame; location approximate"
           }
         ]
       },
@@ -19655,13 +19810,13 @@
       "bounds": {
         "min": [
           70.65,
-          50.544998,
-          1.525
+          51.205002,
+          1.395
         ],
         "max": [
           70.85,
-          50.794998,
-          1.675
+          51.455002,
+          1.545
         ]
       },
       "cameraHint": null
@@ -19917,6 +20072,11 @@
             "drawing": "ZPMC mechanical manual 1.3.3.6",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "U1-C76 floating-part sweep",
+            "pdfPage": null,
+            "note": "seated on its buffer tube of the trolley frame (the keyed buffer was a second cylinder below it); location approximate"
           }
         ]
       },
@@ -19924,14 +20084,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          66.965001,
-          52.259998,
-          -2.31
+          67.064999,
+          52.659999,
+          -2.15
         ],
         "max": [
-          67.314998,
-          52.48,
-          -2.09
+          67.414997,
+          52.880002,
+          -1.93
         ]
       },
       "cameraHint": null
@@ -19967,6 +20127,11 @@
             "drawing": "ZPMC mechanical manual 1.3.3.6",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "U1-C76 floating-part sweep",
+            "pdfPage": null,
+            "note": "seated on its buffer tube of the trolley frame (the keyed buffer was a second cylinder below it); location approximate"
           }
         ]
       },
@@ -19974,14 +20139,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          66.965001,
-          52.259998,
-          2.09
+          67.064999,
+          52.659999,
+          1.93
         ],
         "max": [
-          67.314998,
-          52.48,
-          2.31
+          67.414997,
+          52.880002,
+          2.15
         ]
       },
       "cameraHint": null
@@ -20017,6 +20182,11 @@
             "drawing": "ZPMC mechanical manual 1.3.3.6",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "U1-C76 floating-part sweep",
+            "pdfPage": null,
+            "note": "seated on its buffer tube of the trolley frame (the keyed buffer was a second cylinder below it); location approximate"
           }
         ]
       },
@@ -20024,14 +20194,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          72.384999,
-          52.259998,
-          -2.31
+          72.285,
+          52.659999,
+          -2.15
         ],
         "max": [
-          72.734996,
-          52.48,
-          -2.09
+          72.634998,
+          52.880002,
+          -1.93
         ]
       },
       "cameraHint": null
@@ -20067,6 +20237,11 @@
             "drawing": "ZPMC mechanical manual 1.3.3.6",
             "pdfPage": null,
             "note": null
+          },
+          {
+            "drawing": "U1-C76 floating-part sweep",
+            "pdfPage": null,
+            "note": "seated on its buffer tube of the trolley frame (the keyed buffer was a second cylinder below it); location approximate"
           }
         ]
       },
@@ -20074,14 +20249,14 @@
       "hotspot": null,
       "bounds": {
         "min": [
-          72.384999,
-          52.259998,
-          2.09
+          72.285,
+          52.659999,
+          1.93
         ],
         "max": [
-          72.734996,
-          52.48,
-          2.31
+          72.634998,
+          52.880002,
+          2.15
         ]
       },
       "cameraHint": null
@@ -23007,6 +23182,154 @@
   ],
   "decals": [
     {
+      "container": "container.portal",
+      "gltfNodeName": "container.portal.markings",
+      "label": "Portal markings (SWL and no-smoking lettering; placement approximate)",
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "drawing": "cover.pdf photo / documents/images2.jpg",
+            "pdfPage": null,
+            "note": "crane 01: lettering band on the tie beams; sizes scaled from the photo"
+          },
+          {
+            "drawing": "J526A00",
+            "pdfPage": 1,
+            "note": "side view item 32 nameplate beam; particulars SWL 65t under spreader, 75t under cargo beam"
+          }
+        ]
+      },
+      "note": "Visual marks only; not a maintenance position. Lettering is generated; the ZPMC plate and the crane number are separate decals. The crane number is a separate decal filled by the viewer.",
+      "textures": [
+        {
+          "material": "markings",
+          "file": "assets/models/source/cict-j526a-sts/textures/portal-markings.png",
+          "sha256": "32556f5c34e945a354d804d88077215120cdbe205d3504afac74e4158747a9e5",
+          "bytes": 31593
+        },
+        {
+          "material": "zpmcPlate",
+          "file": "assets/models/source/cict-j526a-sts/textures/zpmc-plate.png",
+          "sha256": "0dfa9430e860fb6f6cdaef80e277ea739dad11dafbc84599b6563cf7d6be747b",
+          "bytes": 70453
+        },
+        {
+          "material": "craneNumber",
+          "file": "assets/models/source/cict-j526a-sts/textures/portal-number-blank.png",
+          "sha256": "e8e08937872edf7bb8c23c8dfae5f367d0372c1587bcb6910d64c35a502b18d1",
+          "bytes": 444
+        },
+        {
+          "material": "logo",
+          "file": "assets/models/source/cict-j526a-sts/textures/cict-logo.png",
+          "sha256": "d7af90fbb0a7f2bff38d199f9ebf5c812d14493d3953f33580b968661eeb9965",
+          "bytes": 23398
+        }
+      ]
+    },
+    {
+      "container": "container.portal",
+      "gltfNodeName": "container.portal.zpmc-plate",
+      "label": "ZPMC plate (maker mark on the portal tie beams; placement approximate)",
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "drawing": "documents/zpmc flag.jpg",
+            "pdfPage": null,
+            "note": "artwork supplied by the user 12 Nov 2026; cleaned and enlarged, not redrawn"
+          },
+          {
+            "drawing": "cover.pdf photo / documents/images2.jpg",
+            "pdfPage": null,
+            "note": "white ZPMC plate at the landside end of the lettering band; size and position scaled"
+          }
+        ]
+      },
+      "note": "Visual mark only; not a maintenance position.",
+      "textures": [
+        {
+          "material": "markings",
+          "file": "assets/models/source/cict-j526a-sts/textures/portal-markings.png",
+          "sha256": "32556f5c34e945a354d804d88077215120cdbe205d3504afac74e4158747a9e5",
+          "bytes": 31593
+        },
+        {
+          "material": "zpmcPlate",
+          "file": "assets/models/source/cict-j526a-sts/textures/zpmc-plate.png",
+          "sha256": "0dfa9430e860fb6f6cdaef80e277ea739dad11dafbc84599b6563cf7d6be747b",
+          "bytes": 70453
+        },
+        {
+          "material": "craneNumber",
+          "file": "assets/models/source/cict-j526a-sts/textures/portal-number-blank.png",
+          "sha256": "e8e08937872edf7bb8c23c8dfae5f367d0372c1587bcb6910d64c35a502b18d1",
+          "bytes": 444
+        },
+        {
+          "material": "logo",
+          "file": "assets/models/source/cict-j526a-sts/textures/cict-logo.png",
+          "sha256": "d7af90fbb0a7f2bff38d199f9ebf5c812d14493d3953f33580b968661eeb9965",
+          "bytes": 23398
+        }
+      ]
+    },
+    {
+      "container": "container.portal",
+      "gltfNodeName": "container.portal.crane-number",
+      "label": "Crane number (drawn by the viewer for the selected crane; placement approximate)",
+      "modes": [
+        "overall",
+        "technical"
+      ],
+      "provenance": {
+        "kind": "estimated",
+        "sources": [
+          {
+            "drawing": "cover.pdf photo / documents/images2.jpg",
+            "pdfPage": null,
+            "note": "crane number on the tie-beam lettering band and on the waterside legs; sizes and positions scaled from the photo"
+          }
+        ]
+      },
+      "note": "Visual mark only; not a maintenance position. The model holds a blank placeholder; the number comes from the selected equipment code at run time.",
+      "textures": [
+        {
+          "material": "markings",
+          "file": "assets/models/source/cict-j526a-sts/textures/portal-markings.png",
+          "sha256": "32556f5c34e945a354d804d88077215120cdbe205d3504afac74e4158747a9e5",
+          "bytes": 31593
+        },
+        {
+          "material": "zpmcPlate",
+          "file": "assets/models/source/cict-j526a-sts/textures/zpmc-plate.png",
+          "sha256": "0dfa9430e860fb6f6cdaef80e277ea739dad11dafbc84599b6563cf7d6be747b",
+          "bytes": 70453
+        },
+        {
+          "material": "craneNumber",
+          "file": "assets/models/source/cict-j526a-sts/textures/portal-number-blank.png",
+          "sha256": "e8e08937872edf7bb8c23c8dfae5f367d0372c1587bcb6910d64c35a502b18d1",
+          "bytes": 444
+        },
+        {
+          "material": "logo",
+          "file": "assets/models/source/cict-j526a-sts/textures/cict-logo.png",
+          "sha256": "d7af90fbb0a7f2bff38d199f9ebf5c812d14493d3953f33580b968661eeb9965",
+          "bytes": 23398
+        }
+      ]
+    },
+    {
       "container": "container.machinery-house",
       "gltfNodeName": "container.machinery-house.logo-cict",
       "label": "CICT logo (machinery-house end wall facing -Z; placement approximate)",
@@ -23030,6 +23353,24 @@
       },
       "note": "Visual identity mark only; not a maintenance position. The opposite end wall is not shown in the photos and carries no logo here.",
       "textures": [
+        {
+          "material": "markings",
+          "file": "assets/models/source/cict-j526a-sts/textures/portal-markings.png",
+          "sha256": "32556f5c34e945a354d804d88077215120cdbe205d3504afac74e4158747a9e5",
+          "bytes": 31593
+        },
+        {
+          "material": "zpmcPlate",
+          "file": "assets/models/source/cict-j526a-sts/textures/zpmc-plate.png",
+          "sha256": "0dfa9430e860fb6f6cdaef80e277ea739dad11dafbc84599b6563cf7d6be747b",
+          "bytes": 70453
+        },
+        {
+          "material": "craneNumber",
+          "file": "assets/models/source/cict-j526a-sts/textures/portal-number-blank.png",
+          "sha256": "e8e08937872edf7bb8c23c8dfae5f367d0372c1587bcb6910d64c35a502b18d1",
+          "bytes": 444
+        },
         {
           "material": "logo",
           "file": "assets/models/source/cict-j526a-sts/textures/cict-logo.png",

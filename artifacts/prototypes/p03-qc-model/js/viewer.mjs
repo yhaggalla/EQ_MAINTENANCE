@@ -91,6 +91,20 @@ export class QcViewer {
     return { checksumVerified: this.checksumVerified };
   }
 
+  /** U1-C76: draw the selected crane's number on the crane-number decal (blank in the model). text '' clears it. */
+  setCraneNumber(text) {
+    if (!this.root) return false;
+    let mesh = null; this.root.traverse((o) => { if (o.isMesh && o.userData?.decalRole === 'crane-number') mesh = o; });
+    if (!mesh) return false;
+    const c = document.createElement('canvas'); c.width = 256; c.height = 160; const g = c.getContext('2d');
+    g.clearRect(0, 0, 256, 160);
+    if (text) { g.fillStyle = '#ffffff'; g.font = 'bold 118px Arial, Helvetica, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(String(text).slice(0, 2), 128, 86); }
+    const tex = new THREE.CanvasTexture(c); tex.flipY = false; tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4;
+    const mat = mesh.userData._baseMat || mesh.material; mat.map?.dispose?.(); mat.map = tex; mat.alphaTest = 0.5; mat.needsUpdate = true;
+    this.craneNumber = text || ''; this.requestRender?.();
+    return true;
+  }
+
   _index() {
     const m = this.manifest;
     this.nodeByKey = new Map(m.nodes.map((n) => [n.key, n]));

@@ -232,6 +232,7 @@ async function start(s) {
     });
     await s.viewer.load(BASE + 'scene.glb', manifest, { signal: s.abort.signal });
     if (session !== s) { s.viewer.dispose(); return; }
+    s.viewer.setCraneNumber?.((String(s.eq.code || '').match(/(\d{1,2})$/) || [])[1]?.padStart(2, '0') || ''); // U1-C76: portal marking shows the selected crane's number
     addContext(s); s.ready = true; update(s);
   } catch (e) { if (session === s && e.name !== 'AbortError') retry(s, 'The model could not be loaded. Records remain available.'); }
 }

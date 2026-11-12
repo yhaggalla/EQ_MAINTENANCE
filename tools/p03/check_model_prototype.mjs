@@ -5,6 +5,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { launch } from './cdp.mjs';
+// U1-C77 check repair: the standalone P03 page was replaced by a redirect to the shared equipment viewer (U1-C32). This check drives
+// that retired page (window.__qc), so it reports SUPERSEDED and stops instead of failing on a missing hook. The live coverage is
+// tools/p02b/check_unified_viewer.mjs (model load, selection, context loss, load failure, WebGL unavailable).
+{ const page = fs.readFileSync(new URL('../../artifacts/prototypes/p03-qc-model/index.html', import.meta.url), 'utf8');
+  if (page.includes('Compatibility entry for saved P03 links')) { console.log('SUPERSEDED: the P03 standalone page redirects to the shared viewer; run tools/p02b/check_unified_viewer.mjs'); process.exit(0); } }
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const repo = path.resolve(here, '..', '..');

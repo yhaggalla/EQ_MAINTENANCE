@@ -83,7 +83,7 @@ export class SceneBuilder {
   containerDecal(containerKey, name, o, build) {
     const ng = new NodeGeom(); build(ng);
     const mesh = ng.build(containerKey + '.' + name, this.materials);
-    mesh.userData = { decalOf: containerKey, modes: (o.modes || ['overall', 'technical']).join(','), label: o.label || null, provenance: o.prov || null, note: o.note || null };
+    mesh.userData = { decalOf: containerKey, modes: (o.modes || ['overall', 'technical']).join(','), label: o.label || null, provenance: o.prov || null, note: o.note || null, ...(o.role ? { decalRole: o.role } : {}) }; // U1-C76: role lets the viewer find a decal it fills at run time
     this.objects.get(containerKey).add(mesh);
     (this.decals ||= []).push({ container: containerKey, gltfNodeName: mesh.name, label: o.label || null, modes: o.modes || ['overall', 'technical'], provenance: { kind: o.prov || 'estimated', sources: o.sources || [] }, note: o.note || null });
     return mesh;

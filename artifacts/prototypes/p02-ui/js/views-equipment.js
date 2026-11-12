@@ -412,14 +412,8 @@ window.EQ = window.EQ || {};
           : h('span', { class: 'tag gold' }, EQ.perm.write() ? 'Retired: no new jobs or status changes' : 'Read-only'))));
 
     const treeOpen = ui.drawer === 'tree';
-    page.appendChild(h('div', { class: 'toolbar equipment-tools' },
-      h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'open-tree', 'aria-controls': 'equipment-mechanisms', 'aria-expanded': String(treeOpen), onClick: () => {
-        if (treeOpen) { closeDrawer(); return; }
-        ui.drawer = 'tree'; ui.drawerOpener = 'open-tree'; EQ.rerender();
-        document.querySelector('#equipment-mechanisms [data-fk="close-tree"]')?.focus({ preventScroll: true });
-      } }, icon(treeOpen ? 'chevron-d' : 'chevron-r'), 'Mechanisms'),
-      crumbs(eq, sel, q),
-      h('button', { type: 'button', class: 'btn-sm drawer-btns', 'data-fk': 'open-panel', 'aria-expanded': ui.drawer === 'panel' ? 'true' : 'false', onClick: () => { ui.drawer = 'panel'; ui.drawerOpener = 'open-panel'; EQ.rerender(); } }, icon('panel'), 'Details')));
+    const breadcrumb = crumbs(eq, sel, q);
+    if (breadcrumb) page.appendChild(h('div', { class: 'toolbar' }, breadcrumb));
     if (sel.bad) page.appendChild(h('div', { class: 'notice warn', role: 'status', style: 'margin-bottom:.6rem' }, icon('alert'), h('p', null, 'The link selects a ' + sel.bad + ' that does not belong to ' + eq.code + ' (422 target_not_in_equipment). Showing the whole equipment instead.')));
     if (eq.positionState === 'draft') page.appendChild(h('div', { class: 'notice info', style: 'margin-bottom:.6rem' }, icon('info'), h('p', null, 'The positions of ' + eq.code + ' are drafts derived from its model template. No work can target them until an Admin reviews and confirms them.', EQ.perm.admin() ? ' ' : '', EQ.perm.admin() ? h('a', { href: '#/admin/eq/positions?equipment=' + eq.id }, 'Review positions') : null)));
 
@@ -430,6 +424,15 @@ window.EQ = window.EQ || {};
           h('input', { type: 'checkbox', 'data-fk': 'excel-only', checked: ui.excelOnly ? true : null, onChange: (e) => { ui.excelOnly = e.target.checked; EQ.rerender(); } }),
           'Excel items only', h('span', { class: 'tree-count' }, ui.excelOnly ? c.excel + ' of ' + c.all : c.all + ' parts')); })() : null),
       eq.mains.length ? treeView(eq, sel) : h('div', { class: 'panel-pad small muted' }, eq.assoc === 'verified' ? 'No applicable mechanisms are configured for this model.' : 'No mechanism instances: this equipment has no verified model association or instantiated template.'));
+    const mechanismRail = h('div', { class: 'mechanism-rail' },
+      h('div', { class: 'row between mechanism-controls' },
+        h('button', { type: 'button', class: 'mechanism-toggle', 'data-fk': 'open-tree', title: 'Mechanisms', 'aria-label': 'Mechanisms', 'aria-controls': 'equipment-mechanisms', 'aria-expanded': String(treeOpen), onClick: () => {
+          if (treeOpen) { closeDrawer(); return; }
+          ui.drawer = 'tree'; ui.drawerOpener = 'open-tree'; EQ.rerender();
+          document.querySelector('#equipment-mechanisms [data-fk="close-tree"]')?.focus({ preventScroll: true });
+        } }, icon(treeOpen ? 'list-collapse' : 'list-expand')),
+        h('button', { type: 'button', class: 'btn-sm drawer-btns', 'data-fk': 'open-panel', 'aria-expanded': ui.drawer === 'panel' ? 'true' : 'false', onClick: () => { ui.drawer = 'panel'; ui.drawerOpener = 'open-panel'; EQ.rerender(); } }, icon('panel'), 'Details')),
+      treePanel);
 
     const sum = EQ.panelTabs.summary(eq, scope);
     const nOf = { special: sum.special, spareParts: sum.spare.overdue + sum.spare.dueSoon };
@@ -468,7 +471,7 @@ window.EQ = window.EQ || {};
     updateSearch();
     const side = h('aside', { class: 'panel side-panel' + (EQ.eqUI.drawer === 'panel' ? ' open' : ''), 'aria-label': 'Current state of the selection', 'data-tab': panelTab }, sideHead, sideBody);
 
-    page.appendChild(h('div', { class: 'detail-grid' + (treeOpen ? ' tree-expanded' : '') }, treePanel, h('div', { class: 'stack' }, withSpareHistory(viewport(eq, sel, q, mode), eq), eq.typeCode !== 'QC' ? rtgSummary(eq) : null), side));
+    page.appendChild(h('div', { class: 'detail-grid equipment-workspace' + (treeOpen ? ' tree-expanded' : '') }, mechanismRail, h('div', { class: 'stack' }, withSpareHistory(viewport(eq, sel, q, mode), eq), eq.typeCode !== 'QC' ? rtgSummary(eq) : null), side));
     page.appendChild(h('div', { class: 'scrim' + (EQ.eqUI.drawer ? ' on' : ''), onClick: () => closeDrawer() }));
     return page;
   };

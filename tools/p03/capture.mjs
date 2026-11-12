@@ -57,6 +57,8 @@ for (const [name, q] of persp) {
   const f = path.join(outModel, `model-${name}.png`); await b.screenshot(f); log.push({ view: name, file: path.relative(repo, f).split(path.sep).join('/') });
 }
 // 3 UI walkthrough
+// U1-C77 check repair: the standalone P03 page now redirects to the shared equipment viewer, so its walkthrough is skipped there.
+if (fs.readFileSync(path.join(repo, 'artifacts/prototypes/p03-qc-model/index.html'), 'utf8').includes('Compatibility entry for saved P03 links')) { console.log('P03 UI walkthrough skipped: the standalone page redirects to the shared viewer'); await b.close(); fs.writeFileSync(logFile, JSON.stringify({ gpu, browser: b.browser, items: log }, null, 2) + '\n'); console.log(log.length + ' captures'); process.exit(0); }
 async function page(q, w = 1920, h = 1080) { await b.viewport(w, h); await b.goto(BASE + q); await waitFor('!!(window.__qcTiming || window.__qcFallback)'); await sleep(1100); }
 const shot = async (name, note) => { const f = path.join(outShots, name + '.png'); await b.screenshot(f); log.push({ ui: name, note, file: path.relative(repo, f).split(path.sep).join('/') }); };
 const id = (k) => b.eval(`window.__qc.binding().get(${JSON.stringify(k)})?.positionId`);

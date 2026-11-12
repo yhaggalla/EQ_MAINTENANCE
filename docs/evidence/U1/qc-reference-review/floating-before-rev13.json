@@ -1,0 +1,1005 @@
+{
+  "summary": {
+    "model": "tmp/qc-review-before-model",
+    "revision": 13,
+    "eps": 0.03,
+    "pieces": 3893,
+    "triangleBoxes": 1579996,
+    "islands": 32,
+    "islandKeys": 29
+  },
+  "islands": [
+    {
+      "keys": [
+        {
+          "key": "auxiliary.apex.aircraft-light",
+          "pieces": 1,
+          "parent": "container.a-frame",
+          "label": "Aircraft Safety Light (A-frame top)"
+        }
+      ],
+      "bounds": {
+        "min": [
+          -2.05,
+          83.356,
+          0.75
+        ],
+        "max": [
+          -1.75,
+          83.756,
+          1.05
+        ]
+      },
+      "nearest": {
+        "gap": 0.58,
+        "to": "structure.a-frame.head",
+        "move": [
+          -0.58,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "keys": [
+        {
+          "key": "auxiliary.apex.anemometer",
+          "pieces": 1,
+          "parent": "container.a-frame",
+          "label": "Anemometer (transducer on the A-frame top)"
+        }
+      ],
+      "bounds": {
+        "min": [
+          -1.99,
+          83.356,
+          -0.99
+        ],
+        "max": [
+          -1.81,
+          84.056,
+          -0.81
+        ]
+      },
+      "nearest": {
+        "gap": 0.64,
+        "to": "structure.a-frame.head",
+        "move": [
+          -0.64,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "keys": [
+        {
+          "key": "boom.latch.hook-thruster",
+          "pieces": 1,
+          "parent": "container.a-frame",
+          "label": "Boom Hook Thruster (boom latch at the A-frame)"
+        }
+      ],
+      "bounds": {
+        "min": [
+          1.555,
+          78.39,
+          -0.12
+        ],
+        "max": [
+          1.795,
+          78.89,
+          0.12
+        ]
+      },
+      "nearest": {
+        "gap": 0.887,
+        "to": "boom.rope.set.main",
+        "move": [
+          0,
+          0,
+          0.887
+        ]
+      }
+    },
+    {
+      "keys": [
+        {
+          "key": "boom.limit.apex-lever-switch",
+          "pieces": 1,
+          "parent": "container.a-frame",
+          "label": "Lever-operated limit switch, boom hoist (top of A-frame)"
+        }
+      ],
+      "bounds": {
+        "min": [
+          1.035,
+          82.631,
+          1.525
+        ],
+        "max": [
+          1.215,
+          82.881,
+          1.675
+        ]
+      },
+      "nearest": {
+        "gap": 0.416,
+        "to": "structure.a-frame.head",
+        "move": [
+          0,
+          -0.416,
+          0
+        ]
+      }
+    },
+    {
+      "keys": [
+        {
+          "key": "boom.sheave.apex-equalizer",
+          "pieces": 1,
+          "parent": "container.a-frame",
+          "label": "Equalizer sheave on top of the A-frame (boom hoist)"
+        }
+      ],
+      "bounds": {
+        "min": [
+          -2.6,
+          82.19,
+          -0.07
+        ],
+        "max": [
+          -1.8,
+          82.99,
+          0.07
+        ]
+      },
+      "nearest": {
+        "gap": 0.292,
+        "to": "structure.a-frame.head",
+        "move": [
+          -0.084,
+          0.28,
+          0
+        ]
+      }
+    },
+    {
+      "keys": [
+        {
+          "key": "boom.stowage-pins.1",
+          "pieces": 1,
+          "parent": "container.a-frame",
+          "label": "Boom stowage pin and socket - gate house side"
+        }
+      ],
+      "bounds": {
+        "min": [
+          1.175,
+          78.64,
+          -2.5
+        ],
+        "max": [
+          1.675,
+          78.84,
+          -2.3
+        ]
+      },
+      "nearest": {
+        "gap": 0.119,
+        "to": "boom.rope.set.main",
+        "move": [
+          0,
+          0,
+          0.119
+        ]
+      }
+    },
+    {
+      "keys": [
+        {
+          "key": "boom.stowage-pins.2",
+          "pieces": 1,
+          "parent": "container.a-frame",
+          "label": "Boom stowage pin and socket - SAGT side"
+        }
+      ],
+      "bounds": {
+        "min": [
+          1.175,
+          78.64,
+          2.3
+        ],
+        "max": [
+          1.675,
+          78.84,
+          2.5
+        ]
+      },
+      "nearest": {
+        "gap": 0.119,
+        "to": "boom.rope.set.main",
+        "move": [
+          0,
+          0,
+          -0.119
+        ]
+      }
+    },
+    {
+      "keys": [
+        {
+          "key": "boom.stowage-pins.switches.1",
+          "pieces": 1,
+          "parent": "container.a-frame",
+          "label": "Pin position limit switch, boom stowage - gate house side"
+        }
+      ],
+      "bounds": {
+        "min": [
+          1.425,
+          78.99,
+          -2.45
+        ],
+        "max": [
+          1.525,
+          79.09,
+          -2.35
+        ]
+      },
+      "nearest": {
+        "gap": 0.15,
+        "to": "boom.stowage-pins.1",
+        "move": [
+          0,
+          -0.15,
+          0
+        ]
+      }
+    },
+    {
+      "keys": [
+        {
+          "key": "boom.stowage-pins.switches.2",
+          "pieces": 1,
+          "parent": "container.a-frame",
+          "label": "Pin position limit switch, boom stowage - SAGT side"
+        }
+      ],
+      "bounds": {
+        "min": [
+          1.425,
+          78.99,
+          2.35
+        ],
+        "max": [
+          1.525,
+          79.09,
+          2.45
+        ]
+      },
+      "nearest": {
+        "gap": 0.15,
+        "to": "boom.stowage-pins.2",
+        "move": [
+          0,
+          -0.15,
+          0
+        ]
+      }
+    },
+    {
+      "keys": [
+        {
+          "key": "access.elevator.oil-point",
+          "pieces": 1,
+          "parent": "container.access",
+          "label": "Elevator reducer oil change - oil change point"
+        }
+      ],
+      "bounds": {
+        "min": [
+          -29.94,
+          9.714,
+          -12.5
+        ],
+        "max": [
+          -29.8,
+          9.874,
+          -12.36
+        ]
+      },
+      "nearest": {
+        "gap": 0.335,
+        "to": "access.elevator.car",
+        "move": [
+          0.335,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "keys": [
+        {
+          "key": "auxiliary.service-crane.girder-tail",
+          "pieces": 2,
+          "parent": "container.back-reach",
+          "label": "Outdoor service crane at the girder tail (1 t man-hold lift)"
+        }
+      ],
+      "bounds": {
+        "min": [
+          -62.34,
+          53.43,
+          -0.35
+        ],
+        "max": [
+          -61.74,
+          54.78,
+          0.35
+        ]
+      },
+      "nearest": {
+        "gap": 0.674,
+        "to": "access.platform.girder-tail",
+        "move": [
+          0,
+          -0.512,
+          0.437
+        ]
+      }
+    },
+    {
+      "keys": [
+        {
+          "key": "spreader.frame",
+          "pieces": 1,
+          "parent": "container.headblock-spreader",
+          "label": "Spreader (STS45 telescopic, 40 ft setting)"
+        }
+      ],
+      "bounds": {
+        "min": [
+          69.62,
+          45.27,
+          -1.7
+        ],
+        "max": [
+          70.38,
+          46,
+          -0.6
+        ]
+      },
+      "nearest": {
+        "gap": 0.06,
+        "to": "spreader.frame",
+        "move": [
+          0.06,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "keys": [
+        {
+          "key": "boom-hoist.drum-bearing-seat",
+          "pieces": 1,
+          "parent": "container.machinery-house",
+          "label": "Bearing seat and limit switch, boom hoist drum"
+        }
+      ],
+      "bounds": {
+        "min": [
+          -32.985,
+          53.135,
+          -3.17
+        ],
+        "max": [
+          -32.535,
+          53.535,
+          -2.97
+        ]
+      },
+      "nearest": {
+        "gap": 0.135,
+        "to": "structure.machinery-frame",
+        "move": [
+          0,
+          -0.135,
+          0
+        ]
+      }
+    },
+    {
+      "keys": [
+        {
+          "key": "boom-hoist.emergency.brake.main",
+          "pieces": 1,
+          "parent": "container.machinery-house",
+          "label": "Boom hoist drum (emergency) brake"
+        }
+      ],
+      "bounds": {
+        "min": [
+          -32.006,
+          55.075,
+          -2.68
+        ],
+        "max": [
+          -31.834,
+          55.525,
+          -2.5
+        ]
+      },
+      "nearest": {
+        "gap": 0.134,
+        "to": "container.machinery-house.shell",
+        "move": [
+          0.134,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "keys": [
+        {
+          "key": "hoist.drive.motor-absolute-encoder",
+          "pieces": 1,
+          "parent": "container.machinery-house",
+          "label": "Absolute encoder on the hoist motor"
+        }
+      ],
+      "bounds": {
+        "min": [
+          -38.77,
+          54.025,
+          4.02
+        ],
+        "max": [
+          -38.63,
+          54.165,
+          4.12
+        ]
+      },
+      "nearest": {
+        "gap": 0.12,
+        "to": "hoist.drive.motor.a",
+        "move": [
+          0,
+          0,
+          -0.12
+        ]
+      }
+    },
+    {
+      "keys": [
+        {
+          "key": "hoist.emergency.brake.a",
+          "pieces": 1,
+          "parent": "container.machinery-house",
+          "label": "Main hoist drum (emergency) brake A"
+        }
+      ],
+      "bounds": {
+        "min": [
+          -39.466,
+          55.115,
+          5.068
+        ],
+        "max": [
+          -39.294,
+          55.565,
+          5.248
+        ]
+      },
+      "nearest": {
+        "gap": 0.143,
+        "to": "hoist.limit.drum-brake-switches.1",
+        "move": [
+          0.143,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "keys": [
+        {
+          "key": "hoist.emergency.brake.b",
+          "pieces": 1,
+          "parent": "container.machinery-house",
+          "label": "Main hoist drum (emergency) brake B"
+        }
+      ],
+      "bounds": {
+        "min": [
+          -39.466,
+          55.115,
+          -3.548
+        ],
+        "max": [
+          -39.294,
+          55.565,
+          -3.368
+        ]
+      },
+      "nearest": {
+        "gap": 0.143,
+        "to": "hoist.limit.drum-brake-switches.2",
+        "move": [
+          0.143,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "keys": [
+        {
+          "key": "hoist.limit.drum-brake-switches.1",
+          "pieces": 1,
+          "parent": "container.machinery-house",
+          "label": "Drum brake released limit switch, main hoist - drum brake A"
+        }
+      ],
+      "bounds": {
+        "min": [
+          -39.152,
+          55.205,
+          5.108
+        ],
+        "max": [
+          -39.052,
+          55.325,
+          5.208
+        ]
+      },
+      "nearest": {
+        "gap": 0.143,
+        "to": "hoist.emergency.brake.a",
+        "move": [
+          -0.143,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "keys": [
+        {
+          "key": "hoist.limit.drum-brake-switches.2",
+          "pieces": 1,
+          "parent": "container.machinery-house",
+          "label": "Drum brake released limit switch, main hoist - drum brake B"
+        }
+      ],
+      "bounds": {
+        "min": [
+          -39.152,
+          55.205,
+          -3.508
+        ],
+        "max": [
+          -39.052,
+          55.325,
+          -3.408
+        ]
+      },
+      "nearest": {
+        "gap": 0.143,
+        "to": "hoist.emergency.brake.b",
+        "move": [
+          -0.143,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "keys": [
+        {
+          "key": "machinery-house.oil-point.service-crane",
+          "pieces": 1,
+          "parent": "container.machinery-house",
+          "label": "Service crane reducer - oil change point"
+        }
+      ],
+      "bounds": {
+        "min": [
+          -36.92,
+          56.995,
+          0.78
+        ],
+        "max": [
+          -36.78,
+          57.155,
+          0.92
+        ]
+      },
+      "nearest": {
+        "gap": 1.888,
+        "to": "container.machinery-house.shell",
+        "move": [
+          0.611,
+          1.786,
+          0
+        ]
+      }
+    },
+    {
+      "keys": [
+        {
+          "key": "access.platform.portal-top",
+          "pieces": 1,
+          "parent": "container.portal",
+          "label": "Portal-top platform and handrails (waterside)"
+        }
+      ],
+      "bounds": {
+        "min": [
+          0.12,
+          55.05,
+          -12.4
+        ],
+        "max": [
+          0.18,
+          55.11,
+          12.4
+        ]
+      },
+      "nearest": {
+        "gap": 0.95,
+        "to": "access.platform.portal-top",
+        "move": [
+          0,
+          -0.95,
+          0
+        ]
+      }
+    },
+    {
+      "keys": [
+        {
+          "key": "gantry.oil-point.anti-creeper",
+          "pieces": 1,
+          "parent": "container.portal",
+          "label": "Anti creeper (rail clamp / anti-creep hydraulics, seaside gate house corner; to confirm) - oil change point"
+        }
+      ],
+      "bounds": {
+        "min": [
+          0.845,
+          3.88,
+          -10.174
+        ],
+        "max": [
+          0.985,
+          4.04,
+          -10.034
+        ]
+      },
+      "nearest": {
+        "gap": 0.18,
+        "to": "structure.portal.waterside.sill-beam",
+        "move": [
+          -0.18,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "keys": [
+        {
+          "key": "trolley.buffers.1",
+          "pieces": 1,
+          "parent": "container.trolley",
+          "label": "Pneumatic-hydraulic buffer, trolley - landside, gate house side"
+        }
+      ],
+      "bounds": {
+        "min": [
+          66.965,
+          52.26,
+          -2.31
+        ],
+        "max": [
+          67.315,
+          52.48,
+          -2.09
+        ]
+      },
+      "nearest": {
+        "gap": 0.125,
+        "to": "trolley.frame",
+        "move": [
+          0.125,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "keys": [
+        {
+          "key": "trolley.buffers.2",
+          "pieces": 1,
+          "parent": "container.trolley",
+          "label": "Pneumatic-hydraulic buffer, trolley - landside, SAGT side"
+        }
+      ],
+      "bounds": {
+        "min": [
+          66.965,
+          52.26,
+          2.09
+        ],
+        "max": [
+          67.315,
+          52.48,
+          2.31
+        ]
+      },
+      "nearest": {
+        "gap": 0.125,
+        "to": "trolley.frame",
+        "move": [
+          0.125,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "keys": [
+        {
+          "key": "trolley.buffers.3",
+          "pieces": 1,
+          "parent": "container.trolley",
+          "label": "Pneumatic-hydraulic buffer, trolley - seaside, gate house side"
+        }
+      ],
+      "bounds": {
+        "min": [
+          72.385,
+          52.26,
+          -2.31
+        ],
+        "max": [
+          72.735,
+          52.48,
+          -2.09
+        ]
+      },
+      "nearest": {
+        "gap": 0.125,
+        "to": "trolley.frame",
+        "move": [
+          -0.125,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "keys": [
+        {
+          "key": "trolley.buffers.4",
+          "pieces": 1,
+          "parent": "container.trolley",
+          "label": "Pneumatic-hydraulic buffer, trolley - seaside, SAGT side"
+        }
+      ],
+      "bounds": {
+        "min": [
+          72.385,
+          52.26,
+          2.09
+        ],
+        "max": [
+          72.735,
+          52.48,
+          2.31
+        ]
+      },
+      "nearest": {
+        "gap": 0.125,
+        "to": "trolley.frame",
+        "move": [
+          -0.125,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "keys": [
+        {
+          "key": "trolley.frame",
+          "pieces": 1,
+          "parent": "container.trolley",
+          "label": "Trolley frame"
+        }
+      ],
+      "bounds": {
+        "min": [
+          67.04,
+          52.614,
+          1.88
+        ],
+        "max": [
+          67.44,
+          52.926,
+          2.2
+        ]
+      },
+      "nearest": {
+        "gap": 0.125,
+        "to": "trolley.frame",
+        "move": [
+          0,
+          0,
+          0.125
+        ]
+      }
+    },
+    {
+      "keys": [
+        {
+          "key": "trolley.frame",
+          "pieces": 1,
+          "parent": "container.trolley",
+          "label": "Trolley frame"
+        }
+      ],
+      "bounds": {
+        "min": [
+          72.26,
+          52.614,
+          1.88
+        ],
+        "max": [
+          72.66,
+          52.926,
+          2.2
+        ]
+      },
+      "nearest": {
+        "gap": 0.125,
+        "to": "trolley.frame",
+        "move": [
+          0,
+          0,
+          0.125
+        ]
+      }
+    },
+    {
+      "keys": [
+        {
+          "key": "trolley.frame",
+          "pieces": 1,
+          "parent": "container.trolley",
+          "label": "Trolley frame"
+        }
+      ],
+      "bounds": {
+        "min": [
+          67.04,
+          52.614,
+          -2.2
+        ],
+        "max": [
+          67.44,
+          52.926,
+          -1.88
+        ]
+      },
+      "nearest": {
+        "gap": 0.125,
+        "to": "trolley.frame",
+        "move": [
+          0,
+          0,
+          -0.125
+        ]
+      }
+    },
+    {
+      "keys": [
+        {
+          "key": "trolley.frame",
+          "pieces": 1,
+          "parent": "container.trolley",
+          "label": "Trolley frame"
+        }
+      ],
+      "bounds": {
+        "min": [
+          72.26,
+          52.614,
+          -2.2
+        ],
+        "max": [
+          72.66,
+          52.926,
+          -1.88
+        ]
+      },
+      "nearest": {
+        "gap": 0.125,
+        "to": "trolley.frame",
+        "move": [
+          0,
+          0,
+          -0.125
+        ]
+      }
+    },
+    {
+      "keys": [
+        {
+          "key": "trolley.limit.weight-lever-switch",
+          "pieces": 1,
+          "parent": "container.trolley",
+          "label": "Weight-operated lever switch (bottom of trolley, hoist upper limit)"
+        }
+      ],
+      "bounds": {
+        "min": [
+          70.65,
+          50.545,
+          1.525
+        ],
+        "max": [
+          70.85,
+          50.795,
+          1.675
+        ]
+      },
+      "nearest": {
+        "gap": 0.647,
+        "to": "trolley.frame",
+        "move": [
+          0,
+          0.635,
+          -0.125
+        ]
+      }
+    },
+    {
+      "keys": [
+        {
+          "key": "trolley.oil-point.spreader-cable-reel",
+          "pieces": 1,
+          "parent": "container.trolley",
+          "label": "SCR oil replacement (reel drive reducer) - oil change point"
+        }
+      ],
+      "bounds": {
+        "min": [
+          70.23,
+          48.038,
+          -0.79
+        ],
+        "max": [
+          70.37,
+          48.198,
+          -0.65
+        ]
+      },
+      "nearest": {
+        "gap": 0.286,
+        "to": "headblock.frame",
+        "move": [
+          0.18,
+          -0.223,
+          0
+        ]
+      }
+    }
+  ]
+}

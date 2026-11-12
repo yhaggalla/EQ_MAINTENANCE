@@ -22,9 +22,17 @@ body:has(.equipment-page) { background: var(--pa-page); }
 .equipment-page .eq-summary .actions { gap: 8px; }
 .equipment-page .eq-summary .actions :is(button,.btn) { min-height: 36px; padding: 5px 11px; font-size: 12px; font-weight: 650; }
 .equipment-page .eq-status-source { font-weight: 600; }
-.equipment-page .detail-grid { grid-template-columns: minmax(0,1fr) 400px; gap: 14px; }
-.equipment-page .detail-grid.tree-expanded { grid-template-columns: 228px minmax(0,1fr) 400px; }
-.equipment-page .equipment-tools [data-fk="open-panel"] { margin-left: auto; }
+.equipment-page .detail-grid {
+  --details-width: 400px;
+  --expanded-tree-width: 228px;
+  grid-template-columns: minmax(0,1fr) var(--details-width);
+  gap: 14px;
+}
+.equipment-page .equipment-workspace { grid-template-columns: var(--tree-width, max-content) minmax(0,1fr) var(--details-width); }
+.equipment-page .equipment-workspace.tree-expanded { --tree-width: var(--expanded-tree-width); }
+.equipment-page .mechanism-controls button { white-space: nowrap; }
+.equipment-page .mechanism-toggle { width: 36px; min-height: 36px; padding: 0; justify-content: center; }
+.equipment-page .mechanism-toggle .icon { width: 18px; height: 18px; }
 .equipment-page .tree-panel .tp-head { padding: 15px 13px 11px; border: 0; }
 .equipment-page .tp-head h2 { font-size: 15px; }
 .equipment-page .tp-head input { height: 35px; min-height: 35px; padding: 6px 10px; font-size: 12px; }
@@ -115,16 +123,20 @@ body:has(.equipment-page) { background: var(--pa-page); }
 .equipment-page .special-footer .icon { width: 13px; height: 13px; }
 .equipment-page .panel-search-empty { padding: 12px; margin: 0; background: white; border: 1px solid var(--pa-line); border-radius: 9px; }
 @media(min-width:1280px) { .equipment-page .scope-context.whole-equipment { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; } }
+@media(min-width:1280px) {
+  .equipment-page .mechanism-rail { position: sticky; top: 4.3rem; }
+  .equipment-page .mechanism-rail .tree-panel { position: static; margin-top: 8px; max-height: calc(100vh - 5rem - 44px); }
+}
 @media(min-width:1280px) and (max-width:1450px) {
-  .equipment-page .detail-grid { grid-template-columns: minmax(0,1fr) 360px; }
-  .equipment-page .detail-grid.tree-expanded { grid-template-columns: 205px minmax(0,1fr) 360px; }
+  .equipment-page .detail-grid { --details-width: 360px; --expanded-tree-width: 205px; }
   .equipment-page .unified-qc .vp-bar { gap: 8px; padding: 9px; }
   .equipment-page .unified-qc .seg button { padding-inline: 9px; }
   .equipment-page .unified-qc .qc-area { flex-basis: 170px; }
 }
 @media(max-width:1279px) {
-  .equipment-page .detail-grid, .equipment-page .detail-grid.tree-expanded { grid-template-columns: minmax(0,1fr); }
-  .equipment-page .equipment-tools button, .equipment-page [data-fk="close-tree"] { min-height: 44px; }
+  .equipment-page .detail-grid { grid-template-columns: minmax(0,1fr); }
+  .equipment-page .mechanism-controls button, .equipment-page [data-fk="close-tree"] { min-height: 44px; }
+  .equipment-page .mechanism-toggle { min-width: 44px; }
   .equipment-page [data-fk="close-tree"] { min-width: 44px; }
   .equipment-page .side-panel { width: min(410px,94vw); background: var(--pa-page); padding: 10px; }
   .equipment-page .tree-panel { width: min(380px,94vw); border-radius: 0; }
@@ -188,9 +200,7 @@ body:has(.equipment-page) { background: var(--pa-page); }
 .sp-history-close .icon { width: 16px; height: 16px; }
 .sp-history-body { flex: 1 1 auto; min-height: 0; overflow: auto; overscroll-behavior: contain; padding: 0 14px; }
 .sp-history-sec { padding: 10px 0; overflow-wrap: anywhere; }
-.sp-history-sec + .sp-history-sec { border-top: 1px solid var(--pa-line); }
 .sp-history-sec h3 { margin: 0 0 4px; font-size: 12px; font-weight: 650; }
-.sp-spec-desc { margin: 0 0 6px; }
 .sp-specs { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 3px 12px; margin: 0; }
 .sp-specs dt { color: var(--pa-muted); }
 .sp-specs dd { margin: 0; }

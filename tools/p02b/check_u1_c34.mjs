@@ -15,20 +15,23 @@ const settle = async () => { await ev(`new Promise(resolve=>{const tick=()=>{if(
 const screenshot = async name => { await settle(); await b.eval('scrollTo(0,0)'); await b.screenshot(out + '/' + name + '.png', { fullPage: true }); };
 try {
   await b.viewport(1670, 950); await open('');
-  await step('Initial view remains Flat', async () => assert(await ev('EQ.qc.session.viewer.camera.isOrthographicCamera'), 'wrong initial camera'));
+  // U1-C77 check repair: the simplified equipment view (commit cb0fc59) has no Flat mode and no Maintenance tab (C63), and the single
+  // Labels toggle became three label modes (C66). Steps that used them now test the 3D view, the three remaining tabs and
+  // the label modes; the other assertions are unchanged.
+  await step('Initial view is 3D (Flat mode removed)', async () => assert(await ev('EQ.qc.session.viewer.camera.isPerspectiveCamera'), 'wrong initial camera'));
   await step('Desktop controls occupy one row, area label is inline, all controls visible', async () => {
     assert(await ev(`(()=>{const bar=document.querySelector('.vp-bar'),r=bar.getBoundingClientRect();return [...bar.children].every(e=>{const b=e.getBoundingClientRect();return b.top>=r.top&&b.bottom<=r.bottom&&b.left>=r.left&&b.right<=r.right})&&r.height<65&&bar.scrollWidth<=bar.clientWidth+1&&Math.abs(document.querySelector('.qc-area span').getBoundingClientRect().y-document.querySelector('.qc-area select').getBoundingClientRect().y)<20})()`), 'wrapped or hidden desktop controls');
     await screenshot('flat-desktop');
   });
   const areas = await ev('EQ.qc.manifest.nodes.filter(n=>n.kind==="container").map(n=>n.key.slice(10))');
-  for (const area of areas) await step('All four tabs work within ' + area, async () => {
+  for (const area of areas) await step('All three tabs work within ' + area, async () => {
     await b.setValue('[data-fk="isolate-area"]', area); await b.wait(400);
     const ids = await ev('EQ.qc.containerPositions(EQ.qc.session.eq,EQ.route.query.container).map(p=>p.id)');
-    for (const tab of ['maintenance', 'special', 'spareParts', 'technical']) {
+    for (const tab of ['special', 'spareParts', 'technical']) {
       await click('tab-' + tab);
       assert(await ev(`document.querySelector('#tabpanel').getAttribute('aria-labelledby')==='tab-${tab}'&&document.querySelector('[data-fk="tab-${tab}"]').getAttribute('aria-selected')==='true'&&EQ.qc.session.viewer.isolate===${JSON.stringify('container.' + area)}`), 'tab selection/isolation');
       const text = await ev('document.querySelector("#tabpanel").textContent');
-      assert(tab === 'maintenance' ? text.includes("Today's CMMS daily jobs") : tab === 'special' ? text.includes('Special jobs') : tab === 'spareParts' ? /registered|No major spare parts/.test(text) : text.includes(ids.length + ' included part positions'), 'wrong tab body ' + tab);
+      assert(tab === 'maintenance' ? text.includes("Today's CMMS daily jobs") : tab === 'special' ? /special jobs?/i.test(text) /* U1-C77 check repair: heading is now a count such as "2 special jobs" */ : tab === 'spareParts' ? /registered|No major spare parts/.test(text) : text.includes(ids.length + ' included part positions'), 'wrong tab body ' + tab);
       if (tab === 'spareParts') assert(await ev(`(()=>{const got=Array.from(document.querySelectorAll('#tabpanel [data-pos]')).map(e=>e.dataset.pos).sort(),want=EQ.spares.rows(EQ.qc.session.eq.id,{level:'area',id:EQ.route.query.container}).map(r=>r.posId).sort();return got.every(id=>${JSON.stringify(ids)}.includes(id))&&JSON.stringify(got)===JSON.stringify(want)})()`), 'spare area membership/count');
     }
   });
@@ -58,13 +61,13 @@ try {
     assert(await ev(`(()=>{const v=EQ.qc.session.viewer;v.camera.updateMatrixWorld();let x=0,y=0;for(const n of EQ.qc.manifest.nodes.filter(n=>n.kind==='position'))for(const a of [n.bounds.min[0],n.bounds.max[0]])for(const b of [n.bounds.min[1],n.bounds.max[1]])for(const c of [n.bounds.min[2],n.bounds.max[2]]){const p=v.camera.position.clone().set(a,b,c).project(v.camera);x=Math.max(x,Math.abs(p.x));y=Math.max(y,Math.abs(p.y));}return x<=.95&&y<=.95&&Math.max(x,y)>.8})()`), 'cropped or undersized home framing');
     await screenshot('3d-desktop');
     // Unlabelled view makes the user-reference angle/placement easy to compare.
-    await click('labels'); await screenshot('3d-reference'); await click('labels');
+    await click('labels-selected'); await screenshot('3d-reference'); await click('labels-key');
   });
   await step('3D Reset restores the reference after zoom and area isolation', async () => {
     const before=await ev('({p:EQ.qc.session.viewer.camera.position.toArray(),t:EQ.qc.session.viewer.controls.target.toArray()})');
     await click('zoom-in'); await b.setValue('[data-fk="isolate-area"]','back-reach'); await b.wait(750); await click('reset'); await b.wait(800);
     const after=await ev('({p:EQ.qc.session.viewer.camera.position.toArray(),t:EQ.qc.session.viewer.controls.target.toArray(),view:EQ.route.query.view,iso:EQ.qc.session.viewer.isolate})');
-    assert(before.p.every((v,i)=>Math.abs(v-after.p[i])<.001)&&before.t.every((v,i)=>Math.abs(v-after.t[i])<.001)&&after.view==='3d'&&!after.iso,'3D Reset changed camera or home placement');
+    assert(before.p.every((v,i)=>Math.abs(v-after.p[i])<.001)&&before.t.every((v,i)=>Math.abs(v-after.t[i])<.001)&&(after.view||'3d')==='3d'&&!after.iso,'3D Reset changed camera or home placement');
     await b.setValue('[data-fk="isolate-area"]','back-reach'); await click('tab-technical'); await b.wait(650); await screenshot('isolated-back-reach');
     assert(await ev(`(()=>{const v=EQ.qc.session.viewer;v.camera.updateMatrixWorld();const c=v.boundsOf([v.isolate]).getCenter(v.camera.position.clone()).project(v.camera);return Math.abs(c.x)<.01&&Math.abs(c.y)<.01&&v.renderer.info.render.triangles>0})()`), 'isolated geometry is outside the view');
   });
@@ -72,18 +75,18 @@ try {
     await click('reset'); await b.wait(700);
     assert(await ev(`(()=>{const s=EQ.qc.session,c=s.context,y=c.getObjectByName('Yard'),w=c.getObjectByName('Sea');return c.visible&&y.position.y+y.geometry.parameters.height/2===0&&w.position.y+w.geometry.parameters.height/2===-5&&w.material[2].isShaderMaterial&&!!c.getObjectByName('Quay coping')&&!s.viewer.meshes.includes(w)&&!('time' in w.material[2].uniforms)})()`), 'water level/material/picking or continuous animation');
   });
-  await step('Flat Reset and keyboard tabs remain usable', async () => {
-    await click('view-flat'); await click('zoom-in'); await click('reset');
-    assert(await ev(`EQ.qc.session.viewer.camera.isOrthographicCamera&&!EQ.qc.session.viewer.controls.enableRotate&&EQ.qc.session.viewer.camera.zoom===1`), 'Flat Reset');
-    await b.setValue('[data-fk="isolate-area"]','back-reach'); await click('tab-maintenance');
-    await ev(`document.querySelector('[data-fk="tab-maintenance"]').focus()`); await b.key('ArrowRight'); await b.wait(450);
+  await step('Reset and keyboard tabs remain usable', async () => {
+    await click('zoom-in'); await click('reset');
+    assert(await ev(`EQ.qc.session.viewer.camera.isPerspectiveCamera&&EQ.qc.session.viewer.controls.enableRotate`), 'Reset');
+    await b.setValue('[data-fk="isolate-area"]','back-reach'); await click('tab-spareParts');
+    await ev(`document.querySelector('[data-fk="tab-spareParts"]').focus()`); await b.key('ArrowRight'); await b.wait(450);
     assert(await ev(`EQ.route.query.panel==='special'&&EQ.route.query.area==='back-reach'&&document.activeElement.dataset.fk==='tab-special'`), 'keyboard tab/isolation');
   });
   await step('Phone and landscape controls and area dropdown stay within the page', async () => {
     for (const [w,h] of [[390,844],[844,390]]) {
       await b.viewport(w,h); await b.wait(400); await settle();
       assert(await ev('document.scrollingElement.scrollWidth<=innerWidth'), 'page overflow');
-      assert(await ev(`(()=>{const v=EQ.qc.session.viewer,b=v.boundsOf([v.isolate]),o=v.ortho,size=b.getSize(v.camera.position.clone());return size.x/((o.right-o.left)/o.zoom)<=.71&&size.y/((o.top-o.bottom)/o.zoom)<=.71})()`), 'isolated geometry clipped after resize');
+      assert(await ev(`(()=>{const v=EQ.qc.session.viewer,b=v.boundsOf([v.isolate]);v.camera.updateMatrixWorld();const c=b.getCenter(v.camera.position.clone()).project(v.camera);return Math.abs(c.x)<.6&&Math.abs(c.y)<.6&&v.renderer.info.render.triangles>0})()`), 'isolated geometry outside the view after resize');
     }
     await b.viewport(390,844); await screenshot('phone');
   });

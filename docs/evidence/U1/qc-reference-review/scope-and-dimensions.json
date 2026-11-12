@@ -1,0 +1,234 @@
+{
+  "baseline": "tmp/qc-review-before-model",
+  "revision": 14,
+  "passed": 19,
+  "failed": 0,
+  "changedMeshes": [
+    "access.platform.portal-top",
+    "access.stair.a-frame",
+    "access.stair.landside-leg-b",
+    "access.walkway.girder-boom",
+    "auxiliary.air-conditioning.electrical-room",
+    "auxiliary.air-conditioning.outdoor-units",
+    "auxiliary.compressor",
+    "auxiliary.rope-reeving.machinery-house",
+    "auxiliary.service-crane.girder-tail",
+    "boom-hoist.brake.hs.main",
+    "boom-hoist.drum.main",
+    "boom-hoist.emergency.brake.main",
+    "boom-hoist.motor.main",
+    "boom-hoist.reducer.main",
+    "boom.rope.set.main",
+    "container.electrical-room.shell",
+    "container.machinery-house.logo-cict",
+    "container.machinery-house.shell",
+    "container.portal.crane-number",
+    "container.portal.markings",
+    "electrical.cabinets.lineup",
+    "electrical.control-power.main",
+    "electrical.drives.main",
+    "electrical.hv.aux-transformer",
+    "electrical.hv.main-transformer",
+    "electrical.hv.switchgear",
+    "electrical.plc.main",
+    "emergency.drive.main",
+    "gantry.cable-reel.main",
+    "hoist.drive.brake.hs.a",
+    "hoist.drive.brake.hs.b",
+    "hoist.drive.drum.a",
+    "hoist.drive.drum.b",
+    "hoist.drive.motor.a",
+    "hoist.drive.motor.b",
+    "hoist.drive.reducer.main",
+    "hoist.emergency.brake.a",
+    "hoist.emergency.brake.b",
+    "hoist.rope.set.main",
+    "machinery-house.service-crane",
+    "reference.a-frame.instanced",
+    "reference.access.instanced",
+    "reference.gantry.instanced",
+    "reference.machinery-house.instanced",
+    "reference.portal.instanced",
+    "reference.trolley.instanced",
+    "spreader.frame",
+    "structure.a-frame.head",
+    "structure.machinery-frame",
+    "structure.portal.landside.sill-beam",
+    "structure.portal.landside.upper-beam",
+    "structure.portal.waterside.sill-beam",
+    "structure.portal.waterside.upper-beam",
+    "trolley-drive.brake.main",
+    "trolley-drive.drum.main",
+    "trolley-drive.motor.main",
+    "trolley-drive.reducer.main",
+    "trolley.frame",
+    "trolley.rope.set.main"
+  ],
+  "results": [
+    {
+      "name": "All 410 keys, kinds, classifications, parents and position kinds retained",
+      "pass": true,
+      "detail": "410 nodes"
+    },
+    {
+      "name": "Instance maps keep their carriers and key order",
+      "pass": true,
+      "detail": "21 maps"
+    },
+    {
+      "name": "Only the meshes named in the C76 report changed; no mesh removed",
+      "pass": true,
+      "detail": {
+        "changed": 59,
+        "unchanged": 99,
+        "unexpected": [],
+        "removed": []
+      }
+    },
+    {
+      "name": "C71-C75 subjects are byte-identical (TLS / back reach, busbar, cabin, trolley sheaves, headblock, load cells)",
+      "pass": true,
+      "detail": "33 meshes"
+    },
+    {
+      "name": "Rope vertices outside the machinery house are unchanged (boom-hoist rope: beyond the A-frame)",
+      "pass": true,
+      "detail": {
+        "hoist.rope.set.main": 0,
+        "trolley.rope.set.main": 0,
+        "boom.rope.set.main": 0,
+        "trolley.catenary-rope.set.main": 0
+      }
+    },
+    {
+      "name": "D1 house walls -9.2 .. +9.0 (J526A3000 9200 + 9000)",
+      "pass": true,
+      "detail": [
+        -9.2,
+        9
+      ]
+    },
+    {
+      "name": "D1 main hoist drums symmetric about the crane centreline",
+      "pass": true,
+      "detail": [
+        0.592,
+        4.208,
+        -4.208,
+        -0.592
+      ]
+    },
+    {
+      "name": "D1 every house part stays inside the house and its walkways",
+      "pass": true,
+      "detail": {
+        "parts": 74,
+        "outside": []
+      }
+    },
+    {
+      "name": "D2 roof ridge about eaves + 450",
+      "pass": true,
+      "detail": {
+        "eaves": 58.1,
+        "ridgeTop": 58.60980224609375
+      }
+    },
+    {
+      "name": "D3 cabin home rear face from the printed 7250",
+      "pass": true,
+      "detail": -28250
+    },
+    {
+      "name": "D3 fixed boarding walkway ends at the home position",
+      "pass": true,
+      "detail": -28.225
+    },
+    {
+      "name": "D4 gantry reel dia 5600 in the 1225 plane, centre 7885",
+      "pass": true,
+      "detail": {
+        "min": [
+          0.325,
+          3.7,
+          -15.121
+        ],
+        "max": [
+          1.625,
+          10.685,
+          -9.521
+        ]
+      }
+    },
+    {
+      "name": "D5 three decals (CICT logo, portal markings, crane number placeholder) with three embedded textures",
+      "pass": true,
+      "detail": [
+        "container.portal.markings",
+        "container.portal.crane-number",
+        "container.machinery-house.logo-cict"
+      ]
+    },
+    {
+      "name": "D7 A-frame stair beside leg A: within 2.5 m landside of the A-frame line, flights along Z",
+      "pass": true,
+      "detail": {
+        "min": [
+          -4.47,
+          53.965263,
+          2.775
+        ],
+        "max": [
+          -2.575,
+          82.104561,
+          8.225
+        ]
+      }
+    },
+    {
+      "name": "D8 girder / boom walkway deck no longer passes through the portal upper beams and steps over them",
+      "pass": true,
+      "detail": {
+        "maxY": 55.42499923706055
+      }
+    },
+    {
+      "name": "D9 haunches under the upper beams and on the sill beams",
+      "pass": true,
+      "detail": [
+        49.950001,
+        7.3
+      ]
+    },
+    {
+      "name": "Budgets: triangles, draw calls (350, D-226) and asset size",
+      "pass": true,
+      "detail": {
+        "triangles": 95490,
+        "drawCalls": 232,
+        "bytes": 4109872
+      }
+    },
+    {
+      "name": "Floating-part finder (tools/u1/find_floating_parts.mjs --out .../floating-after-rev14.json): no detached piece at 30 mm",
+      "pass": true,
+      "detail": {
+        "model": "artifacts/models/cict-j526a-sts-scene/1",
+        "revision": 14,
+        "eps": 0.03,
+        "pieces": 4135,
+        "triangleBoxes": 1568916,
+        "islands": 0,
+        "islandKeys": 0
+      }
+    },
+    {
+      "name": "Revision 14 against the saved revision 13",
+      "pass": true,
+      "detail": [
+        13,
+        14
+      ]
+    }
+  ]
+}

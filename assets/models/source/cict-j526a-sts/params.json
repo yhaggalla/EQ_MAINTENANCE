@@ -286,15 +286,16 @@
       "source": "J526A3000 p1 sections A-A/B-B (5100)"
     },
     "machineryHouseRoofRise": {
-      "mm": 1200,
+      "mm": 450,
       "kind": "estimated",
-      "source": "J526A3000 p1 sections A-A/B-B gable, scaled; J526A00 p1 side view roof ridge about 59.2 m"
+      "source": "J526A3000 p1 sections A-A / B-B: shallow two-pitch roof, rise scaled about 400-500 over the 10500 span (about 5 degrees), handrail on the roof",
+      "note": "U1-C76 (2026-11-12): replaces 1200 scaled from the J526A00 side view, whose upper line is the roof handrail (review item D2)."
     },
     "machineryHouseSeasideWallX": {
-      "mm": -31600,
-      "kind": "estimated",
-      "source": "J526A00 p1 side view and J526A0100 p1 plan (machinery frame item 7), scaled",
-      "note": "+/-0.5 m"
+      "mm": -31865,
+      "kind": "drawing-derived",
+      "source": "J526A3000 p1 sections A-A / B-B: house wall (1200) landside of the landside upper sill beam; J526A010100 section D-D: beam 1330 wide on the landside rail line. -30000 - 665 - 1200 = -31865",
+      "note": "U1-C77 (2026-11-12): replaces the scaled -31600 (review item D10)."
     },
     "machineryHouseFloorElevation": {
       "mm": 53000,
@@ -303,9 +304,10 @@
       "note": "+/-0.5 m"
     },
     "machineryHouseCentreZ": {
-      "mm": 850,
-      "kind": "estimated",
-      "source": "J526A3000 p1 plan: 9200 / 9000 split is offset from the girder centreline; scaled"
+      "mm": -100,
+      "kind": "drawing-derived",
+      "source": "J526A3000 p1 plan: 9200 + 9000 = 18200 split at section line C on the crane centreline (girders (6300) centred under it); electrical room and A/C units on the 9200 side (-Z). Centre = (9000 - 9200) / 2 = -100. J526A00 p1 landside end view and plan draw the house centred.",
+      "note": "U1-C76 (2026-11-12): replaces the +850 scaled estimate (review item D1)."
     },
     "mainHoistDrumDia": {
       "mm": 1180,
@@ -348,15 +350,16 @@
       "source": "J526A0300 p1 B-B (dia 900)"
     },
     "mainHoistDriveX": {
-      "mm": -40300,
+      "mm": -40565,
       "kind": "approximate-location",
-      "source": "J526A3000 p1 plan, scaled (drum axis)"
+      "source": "J526A3000 p1 plan, scaled (drum axis)",
+      "note": "U1-C77 (2026-11-12): X moved by -265 with the house wall (D10); position inside the house unchanged."
     },
     "trolleyDriveX": {
-      "mm": -36450,
+      "mm": -36715,
       "kind": "approximate-location",
       "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; trolley drum and reducer axis (middle row)",
-      "note": "P03 value -35800 replaced in the U1 repair"
+      "note": "P03 value -35800 replaced in the U1 repair U1-C77 (2026-11-12): X moved by -265 with the house wall (D10); position inside the house unchanged."
     },
     "trolleyDriveDrumDia": {
       "mm": 920,
@@ -364,10 +367,10 @@
       "source": "J526A0400 (J526A04) p1 (drum dia 920)"
     },
     "boomHoistX": {
-      "mm": -32760,
+      "mm": -33025,
       "kind": "approximate-location",
       "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; boom-hoist drum axis (top row)",
-      "note": "P03 value -33100 replaced in the U1 repair"
+      "note": "P03 value -33100 replaced in the U1 repair U1-C77 (2026-11-12): X moved by -265 with the house wall (D10); position inside the house unchanged."
     },
     "boomHoistDrumDia": {
       "mm": 1530,
@@ -541,9 +544,10 @@
       "source": "J526A00 p1 waterside end view (2121)"
     },
     "cableReelDia": {
-      "mm": 5800,
-      "kind": "estimated",
-      "source": "J526A00 p1 waterside end view, scaled; J526A4000 not read in detail"
+      "mm": 5600,
+      "kind": "measured",
+      "source": "J526A4000 p1 view A (5600)",
+      "note": "U1-C76 (2026-11-12): replaces 5800 scaled from the J526A00 end view (review item D4)."
     },
     "elevatorLandings": {
       "mm": [
@@ -581,9 +585,10 @@
       "source": "U1-C74: J526A3100 p1 C-C, 2400 floor to ceiling; 2673 in B-B is mounting top, not body height."
     },
     "mainHoistDriveZ": {
-      "mm": 850,
+      "mm": 0,
       "kind": "approximate-location",
-      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; centre of the main hoist reducer along Z"
+      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; centre of the main hoist reducer along Z",
+      "note": "U1-C76 (2026-11-12): Z moved by -850 with the machinery house correction: the main hoist reducer is on the crane centreline (J526A3000 p1 plan section line C; rope lanes symmetric), previously drawn 850 off it."
     },
     "mainHoistMotorZOffset": {
       "mm": 1950,
@@ -601,29 +606,34 @@
       "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; two-section boom-hoist drum"
     },
     "boomHoistDrumCentreZ": {
-      "mm": 930,
+      "mm": 80,
       "kind": "approximate-location",
-      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; boom-hoist drum centre along Z"
+      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; boom-hoist drum centre along Z",
+      "note": "U1-C76 (2026-11-12): Z moved by -850 with the machinery house correction: the main hoist reducer is on the crane centreline (J526A3000 p1 plan section line C; rope lanes symmetric), previously drawn 850 off it."
     },
     "boomHoistMotorX": {
-      "mm": -34400,
+      "mm": -34665,
       "kind": "approximate-location",
-      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; boom-hoist motor landside of the drum axis (P03 had it seaside)"
+      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; boom-hoist motor landside of the drum axis (P03 had it seaside)",
+      "note": "U1-C77 (2026-11-12): X moved by -265 with the house wall (D10); position inside the house unchanged."
     },
     "boomHoistMotorZ": {
-      "mm": 3300,
+      "mm": 2450,
       "kind": "approximate-location",
-      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; boom-hoist motor centre along Z"
+      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; boom-hoist motor centre along Z",
+      "note": "U1-C76 (2026-11-12): Z moved by -850 with the machinery house correction: the main hoist reducer is on the crane centreline (J526A3000 p1 plan section line C; rope lanes symmetric), previously drawn 850 off it."
     },
     "boomHoistReducerZ": {
-      "mm": 4980,
+      "mm": 4130,
       "kind": "approximate-location",
-      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; boom-hoist reducer at the +Z end of the drum"
+      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; boom-hoist reducer at the +Z end of the drum",
+      "note": "U1-C76 (2026-11-12): Z moved by -850 with the machinery house correction: the main hoist reducer is on the crane centreline (J526A3000 p1 plan section line C; rope lanes symmetric), previously drawn 850 off it."
     },
     "trolleyDriveDrumCentreZ": {
-      "mm": 970,
+      "mm": 120,
       "kind": "approximate-location",
-      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; trolley drum centre along Z"
+      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; trolley drum centre along Z",
+      "note": "U1-C76 (2026-11-12): Z moved by -850 with the machinery house correction: the main hoist reducer is on the crane centreline (J526A3000 p1 plan section line C; rope lanes symmetric), previously drawn 850 off it."
     },
     "trolleyDriveDrumLength": {
       "mm": 3500,
@@ -631,43 +641,49 @@
       "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; trolley drum length (scaled)"
     },
     "trolleyDriveMotorX": {
-      "mm": -35850,
+      "mm": -36115,
       "kind": "approximate-location",
-      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; trolley motor and brake seaside of the drum axis"
+      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; trolley motor and brake seaside of the drum axis",
+      "note": "U1-C77 (2026-11-12): X moved by -265 with the house wall (D10); position inside the house unchanged."
     },
     "trolleyDriveMotorZ": {
-      "mm": -2880,
+      "mm": -3730,
       "kind": "approximate-location",
-      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; "
+      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; ",
+      "note": "U1-C76 (2026-11-12): Z moved by -850 with the machinery house correction: the main hoist reducer is on the crane centreline (J526A3000 p1 plan section line C; rope lanes symmetric), previously drawn 850 off it."
     },
     "trolleyDriveReducerZ": {
-      "mm": -1170,
+      "mm": -2020,
       "kind": "approximate-location",
-      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; "
+      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; ",
+      "note": "U1-C76 (2026-11-12): Z moved by -850 with the machinery house correction: the main hoist reducer is on the crane centreline (J526A3000 p1 plan section line C; rope lanes symmetric), previously drawn 850 off it."
     },
     "mainTransformerPos": {
       "mm": [
-        -38850,
-        8300
+        -39115,
+        7450
       ],
       "kind": "approximate-location",
-      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; Main Trans. (X, Z) centre"
+      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; Main Trans. (X, Z) centre",
+      "note": "U1-C76 (2026-11-12): Z moved by -850 with the machinery house correction: the main hoist reducer is on the crane centreline (J526A3000 p1 plan section line C; rope lanes symmetric), previously drawn 850 off it. U1-C77 (2026-11-12): X moved by -265 with the house wall (D10)."
     },
     "auxTransformerPos": {
       "mm": [
-        -32900,
-        6900
+        -33165,
+        6050
       ],
       "kind": "approximate-location",
-      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; Aux. Trans. (X, Z) centre"
+      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; Aux. Trans. (X, Z) centre",
+      "note": "U1-C76 (2026-11-12): Z moved by -850 with the machinery house correction: the main hoist reducer is on the crane centreline (J526A3000 p1 plan section line C; rope lanes symmetric), previously drawn 850 off it. U1-C77 (2026-11-12): X moved by -265 with the house wall (D10)."
     },
     "switchgearPos": {
       "mm": [
-        -32950,
-        8800
+        -33215,
+        7950
       ],
       "kind": "approximate-location",
-      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; Switch gear (X, Z) centre"
+      "source": "J526A3000 p1 plan (seaside up), scaled at about 15.5 mm per pixel at 200 dpi; Switch gear (X, Z) centre",
+      "note": "U1-C76 (2026-11-12): Z moved by -850 with the machinery house correction: the main hoist reducer is on the crane centreline (J526A3000 p1 plan section line C; rope lanes symmetric), previously drawn 850 off it. U1-C77 (2026-11-12): X moved by -265 with the house wall (D10)."
     },
     "serviceHatch": {
       "mm": [
@@ -1424,11 +1440,157 @@
       "source": "U1-C74: J526A3100 p1 plan side return length"
     },
     "cabinHomeRearX": {
-      "mm": -30000,
+      "mm": -28250,
+      "kind": "drawing-derived",
+      "source": "J526A00 p1 side view 7250 (trolleyParkFromLandsideRail) with J526A0200 p1 2500 hoist centre to cabin and 3000 cabin length: -30000 + 7250 - 2500 - 3000 = -28250. Elevator-side boarding is the user decision C75; J526A5100 third landing 47845.",
+      "note": "U1-C76 (2026-11-12): replaces the provisional -30000 (review item D3). The displayed trolley and cabin stay at outreach."
+    },
+    "trolleyParkFromLandsideRail": {
+      "mm": 7250,
+      "kind": "measured",
+      "source": "J526A00 p1 side view: 7250 from the landside rail to the hoist centre with the trolley at its parked position (cabin item 18 drawn there)",
+      "note": "U1-C76 (2026-11-12): new (review item D3)."
+    },
+    "cableReelPlaneFromRail": {
+      "mm": 1225,
+      "kind": "measured",
+      "source": "J526A4000 p1 view A and table; J526A00 p1 side view 1225(1065): reel and cable-pit plane seaside of the waterside rail centreline, 1225 on cranes 01, 03, 05, 07, 09, 11 and 1065 on cranes 02, 04, 06, 08, 10, 12",
+      "note": "U1-C76 (2026-11-12): new; the odd-crane value is modelled (review item D4)."
+    },
+    "cableReelDiscWidth": {
+      "mm": 300,
       "kind": "estimated",
-      "source": "C75 user confirms home/entrance on elevator side; representative rear-face station at landside rail, pending exact stop dimension. J526A5100 third landing 47845. Not an as-built stopping coordinate."
+      "source": "J526A4000 p1 view A: monospiral reel disc, width scaled about 250-350",
+      "note": "U1-C76 (2026-11-12): new; the drum was drawn 900 thick."
+    },
+    "aFrameStairFromMast": {
+      "mm": 1450,
+      "kind": "estimated",
+      "source": "J526A00 p1 side view: A-frame stair flights about 0.7-2.2 m landside of the A-frame centreline, scaled",
+      "note": "U1-C76 (2026-11-12): new (review item D7)."
+    },
+    "aFrameStairCentreZ": {
+      "mm": 5500,
+      "kind": "estimated",
+      "source": "J526A00 p1 waterside end view: zig-zag flights running along the rails between about 3.4 and 7.6 m from the crane centreline on side a, scaled",
+      "note": "U1-C76 (2026-11-12): new (review item D7)."
+    },
+    "aFrameStairRunZ": {
+      "mm": 3600,
+      "kind": "estimated",
+      "source": "J526A00 p1 waterside end view: flight run along the rails, scaled",
+      "note": "U1-C76 (2026-11-12): new (review item D7)."
+    },
+    "portalCrossingStairRun": {
+      "mm": 2000,
+      "kind": "estimated",
+      "source": "J526A00 p1 side view: walkway stepping up over the portal upper beams at the boom hinge and at the landside leg top; flight run scaled",
+      "note": "U1-C76 (2026-11-12): new (review item D8)."
+    },
+    "portalHaunch": {
+      "mm": [
+        1500,
+        1200
+      ],
+      "kind": "estimated",
+      "source": "J526A00 p1 end views: haunched inner corners between the legs and the upper portal beams (run along the beam x drop down the leg), scaled",
+      "note": "U1-C76 (2026-11-12): new (review item D9)."
+    },
+    "sillHaunch": {
+      "mm": [
+        1200,
+        1000
+      ],
+      "kind": "estimated",
+      "source": "J526A00 p1 end views: haunched inner corners between the legs and the sill beams (run x rise), scaled",
+      "note": "U1-C76 (2026-11-12): new (review item D9)."
+    },
+    "portalMarkingStrip": {
+      "mm": [
+        25600,
+        2000
+      ],
+      "kind": "estimated",
+      "source": "cover.pdf photo and documents/images2.jpg (crane 01): white lettering band on the outer face of each portal tie beam; J526A00 p1 side view item 32 nameplate beam. Length x height of the band scaled from the photo",
+      "note": "U1-C76 (2026-11-12): new (review item D5, user answer: text plus a plain white panel in place of the ZPMC plate). SWL 65t / 75t from J526A00 p1 particulars."
+    },
+    "portalLegMarking": {
+      "mm": [
+        1600,
+        1000,
+        30000
+      ],
+      "kind": "estimated",
+      "source": "cover.pdf photo: crane number on the waterside legs at about mid-height; width x height x elevation scaled",
+      "note": "U1-C76 (2026-11-12): new (review item D5)."
+    },
+    "portalBeamNumber": {
+      "mm": [
+        2400,
+        1500,
+        -10300,
+        -15050
+      ],
+      "kind": "estimated",
+      "source": "cover.pdf photo and documents/images2.jpg: crane number on the tie-beam lettering band between the no-smoking text and the SWL lines; width x height and its X centre on the -Z and +Z faces, scaled",
+      "note": "U1-C76 (2026-11-12): new. The number itself is drawn by the viewer for the selected crane (user answer); the model carries a blank placeholder."
+    },
+    "portalUpperBeamWidth": {
+      "mm": 1330,
+      "kind": "measured",
+      "source": "J526A010100 (J526A0100 p3) sections C-C (waterside upper beam) and D-D (landside portal): 1330 wide",
+      "note": "U1-C77 (2026-11-12): new; the beams were drawn 1600 wide."
+    },
+    "portalUpperBeamDepthLandside": {
+      "mm": 3350,
+      "kind": "measured",
+      "source": "J526A010100 (J526A0100 p3) view A (3350, where view B prints 2850 for the waterside); section D-D box 2500 (2550)",
+      "note": "U1-C77 (2026-11-12): new; the landside beam used the waterside 2850."
+    },
+    "boomLatchHookSpacing": {
+      "mm": 5750,
+      "kind": "measured",
+      "source": "J526A62 (J526A6200 p1) option list: A, hook spacing 5750",
+      "note": "U1-C77 (2026-11-12): new."
+    },
+    "boomLatchFromPylon": {
+      "mm": 2700,
+      "kind": "measured",
+      "source": "J526A62 (J526A6200 p1) option list: B, distance to the pylon (A-frame) centre 2700",
+      "note": "U1-C77 (2026-11-12): new."
+    },
+    "boomLatchHookAbovePlatform": {
+      "mm": 850,
+      "kind": "measured",
+      "source": "J526A62 (J526A6200 p1) option list: h, hook centre 850 above the upper surface of the safety latch platform",
+      "note": "U1-C77 (2026-11-12): new."
+    },
+    "boomLatchLever": {
+      "mm": [
+        1900,
+        1300
+      ],
+      "kind": "measured",
+      "source": "J526A62 (J526A6200 p1): lever L1 = 1900 (hook shaft to support), L2 = 1300 (support to balancing box); balancing box 340 x 540",
+      "note": "U1-C77 (2026-11-12): new."
+    },
+    "boomLatchPlatformElevation": {
+      "mm": 62200,
+      "kind": "estimated",
+      "source": "J526A00 p1 side view: braced platform on the waterside of the A-frame at about 62.2 m, scaled (1000 dpi crop). J526A62 does not give the platform elevation",
+      "note": "U1-C77 (2026-11-12): new. The latch parts were at the apex (about 78.6 m), a placement not supported by any sheet; this elevation is the reading of the GA, to be confirmed."
+    },
+    "zpmcPlate": {
+      "mm": [
+        3600,
+        1410,
+        -25250
+      ],
+      "kind": "estimated",
+      "source": "cover.pdf photo and documents/images2.jpg: white ZPMC plate at the landside end of the tie-beam lettering band; width x height x X centre scaled",
+      "note": "U1-C77 (2026-11-12): new; artwork from documents/zpmc flag.jpg supplied by the user on 12 Nov 2026."
     }
   },
-  "revision": 13,
-  "revisionNote": "U1-C75: cabin entrance mirrored to elevator (-Z) side, distinct boarding gate and fixed third-landing home access added. Exact home station/route offsets provisional. Prior: U1-C74 (2026-11-09): busbar and cabin connection moved to opposite (+Z) girder as requested; cabin rebuilt from J526A3100 with raked glazing, rising floor window, rear cabinets, suspended chair, twin joysticks, panels and attached instruments. All existing keys retained. Prior: U1-C73 (2026-11-09): user-confirmed busbar beneath the boom, with the power/communication slipring connection carried by the cabin. Removes the generic fixed-girder festoon loops; preserves the existing 023 identity. Dimensions and mounting details remain estimated. Previous: U1-C72 (2026-11-06): floating-part repair; single physical trolley/headblock sheaves and gantry buffers, reel-datum accessories, mounted trip wires and sensors; optional attachments retained as records but absent from displayed arrangement. C71 TLS geometry preserved. Previous: U1-C71 (2026-11-05): back-reach TLS rebuilt from J526A1000 normal-operation pose. Four cylinders and sheaves in transverse pairs; stable component keys retained; rope edits confined to the tail. Mounting datum and fabrication profiles remain estimated. Previous: U1-C70 (2026-11-05): 222 parts from the QC component workbook (QC01-QC14 list) and the ZPMC manual list (QC ALL Components) that the drawing-based model did not draw, placed from the workbook locations (LHS = gate house end = -Z, front catenary = seaside), the drawings and the manual, as simple located shapes in one instanced carrier per area (Technical mode, approximate location; D-220). Previous: U1-C65 (2026-10-29): trolley rails (A75, rubber pads, clips, hinge-joint short rails, end stops; J526A0104) and the catenary trolley system (landside and seaside catenary trolleys, boom-tip catenary sheaves, girder-tail catenary rope tensioners, catenary ropes; J526A2200 set) added in container.trolley-runway; rope re-reeving device added in the machinery house (J526A1500); anti-snag tail sheave (J526A1000), trolley rope tension-device sheave (J526A2103) and spreader cable reel (Cavotec SC-121216-ME2a) diameters corrected to measured values. Previous: U1 round 7 (2026-10-23): 013 load cells moved from the in-line position about 2.6 m inboard to the boom tip end, in-line on the horizontal cross-over of the main hoist ropes at the very end of the boom (user reference image, U1-C27; closes U-36; points estimated). Previous: U1 round 6 (2026-10-23): 013 load cell moved from the boom-tip rope-end anchor pins to in-line load cells in the horizontal main hoist ropes at the boom tip (user answer to U-23, U1-C25; point estimated); the J526A2000 Detail I rope-end anchors stay in reeving.sheave.boom-tip. Previous: U1 round 3 (2026-10-22): trolley rebuilt from J526A0200 / J526A2100 (4 wheels instead of 8, four sheave shafts with two sheaves each, open frame and centre body, trolley-rope equalizer sheaves, spreader cable reel, main hoist and trolley rope paths on the trolley); headblock re-read from J526A1200 and spreader remodelled (STS45 drawing still not supplied; ISO 1161 corner positions, DT1500F cradle spacing). Previous: U1 round 2 (2026-10-22): load cells at the trolley sheave shafts, girder-tail platforms and stairs, apex platform and boom-hoist sheave arrangement, floodlight fittings on the boom and girder, elevator position/car/landings and every location marker drawn as a simplified part (J526A0200, J526A2300, J526A5000, J526A5100). Previous: U1 repair (2026-10-21): back-reach area, CICT logo, stair tower orientation, cab remodel, reeving paths and machinery-house layout re-checked against J526A00, J526A1000, J526A3000, J526A3100, J526A5000, J526A7100. Draft v1 revised in place: no equipment binding is active."
+  "revision": 15,
+  "revisionNote": "U1-C77 (2026-11-12): follow-up to the reference review. Boom latch (stowage device) rebuilt from J526A62: two hook levers 5750 apart, hooks 2700 from the A-frame centre and 850 above a latch platform between the A-frame legs (new key boom.latch.frame; platform elevation about 62.2 m scaled from J526A00, the apex placement is withdrawn). Machinery house seaside wall at -31865 from the printed 1200 and the 1330 beam width (D10); house contents moved with it. Portal upper beams 1330 wide, landside beam zone 3350 (J526A010100). ZPMC plate decal from the user-supplied artwork (documents/zpmc flag.jpg, cleaned and enlarged) replaces the plain panel. Prior: U1-C76 (2026-11-12): reference review against the as-built drawings and photos (docs/evidence/U1/qc-reference-review/REPORT.md). Machinery house centred from J526A3000 (walls -9.2 .. +9.0; main hoist on the crane centreline; house and contents moved toward -Z); roof pitch from sections A-A / B-B; cabin home position from the printed 7250 parked-trolley dimension (J526A00); gantry cable reel dia 5600 in the 1225 plane (J526A4000); A-frame stair flights run along the rails beside leg A; walkway steps over the portal upper beams; haunched portal and sill corners; white portal markings (generated lettering, plain panel for the ZPMC plate) as a decal, with the crane number on a separate decal that the viewer fills for the selected crane; parts that touched nothing attached or seated (floating-part sweep). All existing keys retained. Draw-call budget 350 by the user. Prior: U1-C75: cabin entrance mirrored to elevator (-Z) side, distinct boarding gate and fixed third-landing home access added. Exact home station/route offsets provisional. Prior: U1-C74 (2026-11-09): busbar and cabin connection moved to opposite (+Z) girder as requested; cabin rebuilt from J526A3100 with raked glazing, rising floor window, rear cabinets, suspended chair, twin joysticks, panels and attached instruments. All existing keys retained. Prior: U1-C73 (2026-11-09): user-confirmed busbar beneath the boom, with the power/communication slipring connection carried by the cabin. Removes the generic fixed-girder festoon loops; preserves the existing 023 identity. Dimensions and mounting details remain estimated. Previous: U1-C72 (2026-11-06): floating-part repair; single physical trolley/headblock sheaves and gantry buffers, reel-datum accessories, mounted trip wires and sensors; optional attachments retained as records but absent from displayed arrangement. C71 TLS geometry preserved. Previous: U1-C71 (2026-11-05): back-reach TLS rebuilt from J526A1000 normal-operation pose. Four cylinders and sheaves in transverse pairs; stable component keys retained; rope edits confined to the tail. Mounting datum and fabrication profiles remain estimated. Previous: U1-C70 (2026-11-05): 222 parts from the QC component workbook (QC01-QC14 list) and the ZPMC manual list (QC ALL Components) that the drawing-based model did not draw, placed from the workbook locations (LHS = gate house end = -Z, front catenary = seaside), the drawings and the manual, as simple located shapes in one instanced carrier per area (Technical mode, approximate location; D-220). Previous: U1-C65 (2026-10-29): trolley rails (A75, rubber pads, clips, hinge-joint short rails, end stops; J526A0104) and the catenary trolley system (landside and seaside catenary trolleys, boom-tip catenary sheaves, girder-tail catenary rope tensioners, catenary ropes; J526A2200 set) added in container.trolley-runway; rope re-reeving device added in the machinery house (J526A1500); anti-snag tail sheave (J526A1000), trolley rope tension-device sheave (J526A2103) and spreader cable reel (Cavotec SC-121216-ME2a) diameters corrected to measured values. Previous: U1 round 7 (2026-10-23): 013 load cells moved from the in-line position about 2.6 m inboard to the boom tip end, in-line on the horizontal cross-over of the main hoist ropes at the very end of the boom (user reference image, U1-C27; closes U-36; points estimated). Previous: U1 round 6 (2026-10-23): 013 load cell moved from the boom-tip rope-end anchor pins to in-line load cells in the horizontal main hoist ropes at the boom tip (user answer to U-23, U1-C25; point estimated); the J526A2000 Detail I rope-end anchors stay in reeving.sheave.boom-tip. Previous: U1 round 3 (2026-10-22): trolley rebuilt from J526A0200 / J526A2100 (4 wheels instead of 8, four sheave shafts with two sheaves each, open frame and centre body, trolley-rope equalizer sheaves, spreader cable reel, main hoist and trolley rope paths on the trolley); headblock re-read from J526A1200 and spreader remodelled (STS45 drawing still not supplied; ISO 1161 corner positions, DT1500F cradle spacing). Previous: U1 round 2 (2026-10-22): load cells at the trolley sheave shafts, girder-tail platforms and stairs, apex platform and boom-hoist sheave arrangement, floodlight fittings on the boom and girder, elevator position/car/landings and every location marker drawn as a simplified part (J526A0200, J526A2300, J526A5000, J526A5100). Previous: U1 repair (2026-10-21): back-reach area, CICT logo, stair tower orientation, cab remodel, reeving paths and machinery-house layout re-checked against J526A00, J526A1000, J526A3000, J526A3100, J526A5000, J526A7100. Draft v1 revised in place: no equipment binding is active."
 }

@@ -1,6 +1,32 @@
 # Handover
 
-## Current QC handover — 11 November 2026
+## Current QC handover — 12 November 2026 (revision 15)
+
+The local QC prototype uses **CICT-J526A-STS draft v1, revision 15** (U1-C77 / D-227, on top of U1-C76 / D-226). 411 model identities: the 410 of revision 13 are kept and `boom.latch.frame` is added.
+
+**C77:** boom latch rebuilt from J526A62 on a latch platform between the A-frame legs (platform elevation 62.2 m is scaled from J526A00 and estimated); house seaside wall -31865 (D10 closed) with the house contents moved -265; portal upper beams 1330 wide; ZPMC plate decal from `documents/zpmc flag.jpg`; crane number drawn by the viewer for the selected crane. 237 of 350 draw calls; 96 102 triangles; 4 214 372 bytes.
+
+**Checks (all on revision 15):** validate 26/26, bindings 11/11, `node tools/u1/check_reference_c77.mjs` 15/15 (needs the saved revision 14 in `tmp/qc-rev14-final`), `node tools/u1/find_floating_parts.mjs` 0 islands, `check_unified_viewer.mjs http://127.0.0.1:5312/ <out>` 11/11 three times, `check_flat_isolation.mjs` 19/19, `check_u1_c34.mjs` 22/22. The browser checks were repaired in C77 (condition waits; 3D-only view; three tabs). The two `tools/p03` browser checks now print SUPERSEDED because the standalone P03 page is a redirect; that is not a pass. `check_reference_c76.mjs` and the C71-C75 scope checks are per-revision and fail on later revisions. `check_unified_viewer` still defaults to port 5324, and the p02b checks overwrite older evidence folders unless an output folder is passed.
+
+**Open:** latch platform elevation and hook direction (U-38); the aligned drawing overlays in `docs/evidence/U1/qc-reference-review/after/model-*.png` are revision 14 (the preview servers were stopped by the system for low memory before a retake). Report: [qc-reference-review](evidence/U1/qc-reference-review/REPORT.md). Committed on `main` at the user's request; not pushed.
+
+**Checkpoint:** U1 remains in progress and unapproved; P04/P05 have not started.
+
+## 12 November 2026 U1-C76 handover (revision 14; superseded by the entry above)
+
+The local QC prototype uses **CICT-J526A-STS draft v1, revision 14** (U1-C76 / D-226). It is the result of a reference review against the as-built drawings and photos, plus a floating-part sweep the user asked for. All 410 model identities, kinds, classifications and parents are preserved; TLS, busbar, cabin, trolley sheaves, headblock and load cells are byte-identical to revision 13.
+
+**What changed:** machinery house centred from J526A3000 (walls -9.2 .. +9.0, main hoist on the crane centreline, contents moved with it); roof rise 450; cabin home rear face -28250 from the printed 7250 on J526A00 (the fixed boarding walkway ends there; the trolley and cabin are still displayed at outreach); gantry cable reel dia 5600 in the 1225 plane (J526A4000); white portal markings as a decal (generated lettering, plain panel for the ZPMC plate) with the crane number on a separate decal that the viewer fills from the selected equipment code (`QcViewer.setCraneNumber`, called in `qc-viewer.mjs`); A-frame stair flights along the rails beside leg A; walkway steps over the portal upper beams; portal and sill haunches. 33 detached pieces found in revision 13 are attached or seated (0 found now at 30 mm). Draw-call budget is 350 by the user's decision (232 used); 95 490 triangles; 4 109 872 bytes. The overall-height landmark is now measured on the A-frame head (83.356).
+
+**Verified on the final build:** captures retaken into `docs/evidence/U1/qc-reference-review/after/` (aligned views, close-ups, viewer shots with the crane number on QC01 and QC02) and looked at. To reproduce: both servers running, then `node tools/p03/capture.mjs --u1 --model-dir docs/evidence/U1/qc-reference-review/after --shots-dir tmp/qc-review-after-ui --log tmp/qc-review-after-capture-log.json` (its last UI step fails on `window.__qc`, after the model captures); the close-up scripts used were scratch files in `tmp/`.
+
+**Checks:** validate 26/26, bindings 11/11, key diff 0 added / 0 removed / 0 identity changes, `node tools/u1/check_reference_c76.mjs` 19/19 (needs the saved revision 13 in `tmp/qc-review-before-model`), `node tools/u1/find_floating_parts.mjs` 0 islands. Known check state, all recorded in the report: `check_unified_viewer` gave 11/11 and 10/11 on consecutive runs of the final build (timing-dependent steps with fixed waits); `check_flat_isolation`, `check_u1_c34` and both `tools/p03` browser checks fail identically on revision 13 (UI drift, `window.__qc` gone); the C71-C75 scope checks compare with their own baselines and fail on any later revision. Note that `check_unified_viewer` defaults to port 5324 and that these checks overwrite older evidence folders unless an output folder is passed.
+
+**Open points:** house seaside wall X (D10) is unchanged; a bare GLB shows no crane number by design (U-38); `tools/p03/alignment.json` and `compose_comparisons.py` still point at `As-bulit drawing/` in the repo root (now `Drawings and manuals/As-bulit drawing/`). Report: [qc-reference-review](evidence/U1/qc-reference-review/REPORT.md). Nothing is committed.
+
+**Checkpoint:** U1 remains in progress and unapproved; P04/P05 have not started.
+
+## 11 November 2026 U1-C75 handover (superseded by the entry above)
 
 The local QC prototype uses **CICT-J526A-STS draft v1, revision 13** (U1-C75 / D-225, implemented 9 November). The cabin door, gate and boarding platform face the elevator at landside leg B (-Z). The fixed walkway starts at the third elevator/stair landing. The boom busbar and cabin connection remain on +Z. Revision 13 retains the cabin interior from C74 and the earlier TLS and fitted-part corrections. All 410 model identities, classifications and parents are preserved.
 

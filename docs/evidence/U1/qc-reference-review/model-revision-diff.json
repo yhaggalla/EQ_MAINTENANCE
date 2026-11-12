@@ -1,0 +1,570 @@
+{
+  "base": "HEAD",
+  "baseAsset": {
+    "sha256": "7cc263ed0510912230c48f75d89b3f066148a3fe0440046d12ea201c7e66b273",
+    "bytes": 3910668,
+    "nodes": 410
+  },
+  "revised": {
+    "revision": 15,
+    "sha256": "d977177df95b0bedf64c73fa8fad5f9dc9b7ae2a199d4db0f4b7618977ff7323",
+    "bytes": 4214372,
+    "nodes": 411
+  },
+  "summary": {
+    "added": 1,
+    "removed": 0,
+    "changed": 117,
+    "identityChanges": 0
+  },
+  "note": "Draft v1 revised in place (no binding active). Keys, kinds, classification and instancing of existing nodes are unchanged unless listed; bounds changes are geometry corrections.",
+  "added": [
+    {
+      "key": "boom.latch.frame",
+      "kind": "position",
+      "sub": "031",
+      "label": "Boom latch platform, supports and hook levers (boom stowage device)"
+    }
+  ],
+  "removed": [],
+  "changed": [
+    {
+      "key": "container.portal",
+      "boundsChanged": true
+    },
+    {
+      "key": "structure.portal.waterside.sill-beam",
+      "boundsChanged": true
+    },
+    {
+      "key": "structure.portal.waterside.upper-beam",
+      "boundsChanged": true
+    },
+    {
+      "key": "structure.portal.landside.sill-beam",
+      "boundsChanged": true
+    },
+    {
+      "key": "structure.portal.landside.leg.a",
+      "boundsChanged": true
+    },
+    {
+      "key": "structure.portal.landside.leg.b",
+      "boundsChanged": true
+    },
+    {
+      "key": "structure.portal.landside.upper-beam",
+      "boundsChanged": true
+    },
+    {
+      "key": "access.platform.portal-top",
+      "boundsChanged": true
+    },
+    {
+      "key": "access.walkway.girder-boom",
+      "boundsChanged": true
+    },
+    {
+      "key": "container.a-frame",
+      "boundsChanged": true
+    },
+    {
+      "key": "access.stair.a-frame",
+      "boundsChanged": true
+    },
+    {
+      "key": "container.machinery-house",
+      "boundsChanged": true
+    },
+    {
+      "key": "structure.machinery-frame",
+      "boundsChanged": true
+    },
+    {
+      "key": "machinery-house.service-crane",
+      "boundsChanged": true
+    },
+    {
+      "key": "auxiliary.air-conditioning.outdoor-units",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.drive.reducer.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.drive.drum.a",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.drive.motor.a",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.drive.brake.hs.a",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.emergency.brake.a",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.drive.drum.b",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.drive.motor.b",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.drive.brake.hs.b",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.emergency.brake.b",
+      "boundsChanged": true
+    },
+    {
+      "key": "emergency.drive.main",
+      "boundsChanged": true,
+      "hotspot": [
+        [
+          -39.5,
+          55.6,
+          0.85
+        ],
+        [
+          -39.765,
+          55.6,
+          0
+        ],
+        "simplified-part",
+        "simplified-part"
+      ]
+    },
+    {
+      "key": "auxiliary.rope-reeving.machinery-house",
+      "boundsChanged": true
+    },
+    {
+      "key": "trolley-drive.drum.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "trolley-drive.reducer.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "trolley-drive.brake.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "trolley-drive.motor.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom-hoist.drum.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom-hoist.reducer.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom-hoist.motor.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom-hoist.brake.hs.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom-hoist.emergency.brake.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "electrical.hv.main-transformer",
+      "boundsChanged": true
+    },
+    {
+      "key": "electrical.hv.aux-transformer",
+      "boundsChanged": true
+    },
+    {
+      "key": "electrical.hv.switchgear",
+      "boundsChanged": true
+    },
+    {
+      "key": "container.electrical-room",
+      "boundsChanged": true
+    },
+    {
+      "key": "electrical.cabinets.lineup",
+      "boundsChanged": true
+    },
+    {
+      "key": "electrical.drives.main",
+      "boundsChanged": true,
+      "hotspot": [
+        [
+          -37,
+          54.1,
+          -5.65
+        ],
+        [
+          -37.265,
+          54.1,
+          -6.6
+        ],
+        "simplified-part",
+        "simplified-part"
+      ]
+    },
+    {
+      "key": "electrical.plc.main",
+      "boundsChanged": true,
+      "hotspot": [
+        [
+          -35,
+          54.1,
+          -7.4
+        ],
+        [
+          -35.265,
+          54.1,
+          -8.35
+        ],
+        "simplified-part",
+        "simplified-part"
+      ]
+    },
+    {
+      "key": "electrical.control-power.main",
+      "boundsChanged": true,
+      "hotspot": [
+        [
+          -39.4,
+          54.1,
+          -7.4
+        ],
+        [
+          -39.66499999999999,
+          54.1,
+          -8.35
+        ],
+        "simplified-part",
+        "simplified-part"
+      ]
+    },
+    {
+      "key": "auxiliary.air-conditioning.electrical-room",
+      "boundsChanged": true,
+      "hotspot": [
+        [
+          -41.85,
+          57.15,
+          -6.55
+        ],
+        [
+          -42.114999999999995,
+          57.15,
+          -7.499999999999999
+        ],
+        "simplified-part",
+        "simplified-part"
+      ]
+    },
+    {
+      "key": "auxiliary.compressor",
+      "boundsChanged": true
+    },
+    {
+      "key": "container.trolley",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.rope.set.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "trolley.rope.set.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom.rope.set.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "container.gantry",
+      "boundsChanged": true
+    },
+    {
+      "key": "gantry.cable-reel.main",
+      "boundsChanged": true
+    },
+    {
+      "key": "container.access",
+      "boundsChanged": true
+    },
+    {
+      "key": "access.stair.landside-leg-b",
+      "boundsChanged": true
+    },
+    {
+      "key": "auxiliary.apex.aircraft-light",
+      "boundsChanged": true
+    },
+    {
+      "key": "auxiliary.apex.anemometer",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom.latch.hook-thruster",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom.limit.apex-lever-switch",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom.limit.stowage-switches",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom.stowage-pins.1",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom.stowage-pins.2",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom.stowage-pins.switches.1",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom.stowage-pins.switches.2",
+      "boundsChanged": true
+    },
+    {
+      "key": "access.elevator.oil-point",
+      "boundsChanged": true
+    },
+    {
+      "key": "gantry.cable-reel.cable",
+      "boundsChanged": true
+    },
+    {
+      "key": "gantry.oil-point.cable-reel",
+      "boundsChanged": true
+    },
+    {
+      "key": "gantry.cable-reel.coupling",
+      "boundsChanged": true
+    },
+    {
+      "key": "gantry.cable-reel.slip-rings",
+      "boundsChanged": true
+    },
+    {
+      "key": "gantry.cable-reel.guide-roller",
+      "boundsChanged": true
+    },
+    {
+      "key": "trolley-drive.motor.bearing",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.drive.motor-bearing.1",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.drive.motor-bearing.2",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.drive.reducer-bearing",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.drive.motor-coupling.1",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.drive.motor-coupling.2",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom-hoist.motor.bearing",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom-hoist.reducer.bearing",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom-hoist.motor.coupling",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.oil-point.reducer",
+      "boundsChanged": true
+    },
+    {
+      "key": "trolley-drive.oil-point.reducer",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom-hoist.oil-point.reducer",
+      "boundsChanged": true
+    },
+    {
+      "key": "machinery-house.oil-point.disc-brake-hpu",
+      "boundsChanged": true
+    },
+    {
+      "key": "machinery-house.oil-point.service-crane",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.drive.drum-coupling.1",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.drive.drum-coupling.2",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.drive.drum-bearing-seat.1",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.drive.drum-bearing-seat.2",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.limit.cam-switch",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.limit.over-speed-switch",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.limit.drum-encoder",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.drive.motor-absolute-encoder",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.drive.motor-incremental-encoder",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.limit.motor-brake-switches.1",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.limit.motor-brake-switches.2",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.limit.drum-brake-switches.1",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.limit.drum-brake-switches.2",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.drive.motor-thermal-switches.1",
+      "boundsChanged": true
+    },
+    {
+      "key": "hoist.drive.motor-thermal-switches.2",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom-hoist.drum-coupling",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom-hoist.drum-bearing-seat",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom-hoist.emergency-drive",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom-hoist.limit.multi-cam-switch",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom-hoist.limit.absolute-encoder",
+      "boundsChanged": true
+    },
+    {
+      "key": "boom-hoist.limit.cam-switch",
+      "boundsChanged": true
+    },
+    {
+      "key": "trolley-drive.motor-coupling",
+      "boundsChanged": true
+    },
+    {
+      "key": "trolley-drive.drum-coupling",
+      "boundsChanged": true
+    },
+    {
+      "key": "trolley-drive.limit.absolute-encoder",
+      "boundsChanged": true
+    },
+    {
+      "key": "trolley-drive.limit.incremental-encoder",
+      "boundsChanged": true
+    },
+    {
+      "key": "machinery-house.disc-brake-hpu",
+      "boundsChanged": true
+    },
+    {
+      "key": "machinery-house.tool-kits",
+      "boundsChanged": true
+    },
+    {
+      "key": "machinery-house.workbench",
+      "boundsChanged": true
+    },
+    {
+      "key": "gantry.oil-point.anti-creeper",
+      "boundsChanged": true
+    },
+    {
+      "key": "trolley.oil-point.spreader-cable-reel",
+      "boundsChanged": true
+    },
+    {
+      "key": "trolley.limit.weight-lever-switch",
+      "boundsChanged": true
+    },
+    {
+      "key": "trolley.buffers.1",
+      "boundsChanged": true
+    },
+    {
+      "key": "trolley.buffers.2",
+      "boundsChanged": true
+    },
+    {
+      "key": "trolley.buffers.3",
+      "boundsChanged": true
+    },
+    {
+      "key": "trolley.buffers.4",
+      "boundsChanged": true
+    }
+  ]
+}
