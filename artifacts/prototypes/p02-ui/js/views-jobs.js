@@ -39,40 +39,65 @@ window.EQ = window.EQ || {};
     const id = 'vis-' + o.id;
     const note = 'Show ' + o.name + ' on ' + o.where + ' for everyone. Turn off to hide it; ' + o.hiddenNote + '. Shared setting; changes are audited.' + (o.canSet ? '' : ' Read-only for your role.');
     const help = h('span', { class: 'vis-help', role: 'tooltip', id: id + '-note' }, note);
-    if (!o.canSet) return h('span', { class: 'vis-switch vis-state', tabindex: '0', 'data-fk': 'vis-state-' + o.id, 'aria-describedby': id + '-note' }, 'Show: ', h('strong', null, o.shown ? 'On' : 'Off'), help);
-    return h('label', { class: 'check vis-switch', for: id },
+    // o.eye (U1-C79, EQ job cards): an eye icon replaces the word "Show"; the switch and its tooltip are unchanged.
+    const word = o.eye ? icon('eye') : h('span', null, 'Show');
+    if (!o.canSet) return h('span', { class: 'vis-switch vis-state' + (o.eye ? ' vis-eye' : ''), tabindex: '0', 'data-fk': 'vis-state-' + o.id, 'aria-describedby': id + '-note' }, o.eye ? word : 'Show: ', h('strong', null, o.shown ? 'On' : 'Off'), help);
+    return h('label', { class: 'check vis-switch' + (o.eye ? ' vis-eye' : ''), for: id },
       h('input', { type: 'checkbox', role: 'switch', id, 'data-fk': id, checked: o.shown ? true : null, 'aria-label': 'Show ' + o.name, 'aria-describedby': id + '-note',
         onChange: (e) => { const r = o.onChange(e.target.checked); if (!r.ok) { e.target.checked = o.shown; EQ.toast(r.message); } else EQ.toast((e.target.checked ? 'Shown on ' : 'Hidden from ') + o.where + ': ' + o.name, 'Shared setting; audited. Prototype: in memory only.'); } }),
-      h('span', null, 'Show'), help);
+      word, help);
   };
-  const jobSwitch = (j) => EQ.displaySwitch({ id: j.id, shown: EQ.shownOnDashboard(j), canSet: EQ.perm.write(), where: 'the crane view (flat and 3D), its labels and the fleet cards', name: j.number, hiddenNote: 'it stays in Jobs, history and exports',
+  const jobSwitch = (j, eye) => EQ.displaySwitch({ id: j.id, eye, shown: EQ.shownOnDashboard(j), canSet: EQ.perm.write(), where: 'the crane view (flat and 3D), its labels and the fleet cards', name: j.number, hiddenNote: 'it stays in Jobs, history and exports',
     onChange: (show) => EQ.api.setJobVisibility(j.id, { show, version: j.version }) });
-  const hiddenTag = (j) => (EQ.shownOnDashboard(j) ? null : h('span', { class: 'tag dashed', 'data-fk': 'hidden-tag', style: 'margin-left:.25rem', title: 'Not shown on the crane view (flat and 3D) or the fleet cards (U1-C26)' }, 'Hidden from dashboard / 3D'));
+  const hiddenTag = (j) => (EQ.shownOnDashboard(j) ? null : h('span', { class: 'tag dashed', 'data-fk': 'hidden-tag', style: 'margin-left:.25rem', title: 'Hidden from the crane view (flat and 3D) and the fleet cards; it stays in Jobs, history and exports (U1-C26)' }, 'Hidden'));
 
-  function progressSummary(job) {
+  /** compact (U1-C79 cards): one line; the update date and the latest note move to the tooltip. */
+  function progressSummary(job, compact) {
     const p = EQ.jobProgress(job), known = p.percent != null;
-    return h('div', { class: 'eq-job-progress' + (p.percent === 100 ? ' is-complete' : ''), 'data-progress': known ? p.percent : 'unknown' },
-      h('div', { class: 'prog' }, h('span', { class: 'bar', role: 'progressbar', 'aria-label': job.title + ' progress', 'aria-valuemin': 0, 'aria-valuemax': 100, 'aria-valuenow': known ? p.percent : null, 'aria-valuetext': known ? p.percent + ' percent' : 'Not recorded' }, h('i', { style: 'width:' + (known ? p.percent : 0) + '%' })), h('span', { class: 'qty' }, known ? p.percent + ' %' : 'Not updated')),
-      p.workDate ? h('span', { class: 'small muted' }, 'Updated ' + EQ.fmtDate(p.workDate)) : null,
-      p.note ? h('p', { class: 'eq-progress-note small', title: p.note }, p.note) : null);
+    const tip = compact ? [p.workDate ? 'Updated ' + EQ.fmtDate(p.workDate) : 'Progress not updated yet', p.note].filter(Boolean).join(' · ') : null;
+    return h('div', { class: 'eq-job-progress' + (p.percent === 100 ? ' is-complete' : '') + (compact ? ' compact' : ''), 'data-progress': known ? p.percent : 'unknown', title: tip },
+      h('div', { class: 'prog' }, h('span', { class: 'bar', role: 'progressbar', 'aria-label': job.title + ' progress', 'aria-valuemin': 0, 'aria-valuemax': 100, 'aria-valuenow': known ? p.percent : null, 'aria-valuetext': known ? p.percent + ' percent' : 'Not recorded' }, h('i', { style: 'width:' + (known ? p.percent : 0) + '%' })), h('span', { class: 'qty' }, known ? p.percent + ' %' : '—')),
+      !compact && p.workDate ? h('span', { class: 'small muted' }, 'Updated ' + EQ.fmtDate(p.workDate)) : null,
+      !compact && p.note ? h('p', { class: 'eq-progress-note small', title: p.note }, p.note) : null);
   }
+
+  /** U1-C79 compact card actions: one main button (Update progress) and a "more" menu for the rest; same EQ.api / dialog paths. */
+  function cardActions(j) {
+    const w = EQ.perm.write(), a = EQ.perm.admin();
+    const live = !j.isCancelled && j.workStatus !== 'completed';
+    const item = (label, fk, onClick, extra) => h('button', { type: 'button', role: 'menuitem', 'data-fk': fk, onClick: (e) => { e.target.closest('details')?.removeAttribute('open'); onClick(); }, ...(extra || {}) }, label);
+    const items = [];
+    if (live && w) {
+      items.push(item([icon('edit'), 'Edit details'], 'job-edit-' + j.id, () => EQ.dlg.jobForm({ job: j })));
+      if (j.workStatus === 'pending') items.push(item([icon('play'), 'Start'], 'job-start-' + j.id, () => { const r = EQ.api.moveJob(j.id, 'current'); EQ.toast(r.ok ? 'Started ' + j.number : r.message, 'Prototype: in memory only.'); }));
+      else items.push(item([icon('history'), 'Return to Pending'], 'job-pending-' + j.id, () => { const r = EQ.api.moveJob(j.id, 'pending'); EQ.toast(r.ok ? j.number + ' returned to Pending' : r.message, 'Prototype: in memory only.'); }));
+      items.push(item([icon('check-circle'), 'Complete...'], 'job-complete-' + j.id, () => EQ.dlg.complete(j)));
+      const c = EQ.perm.cancel(j);
+      items.push(item([icon('cancel'), 'Cancel...'], 'job-cancel-' + j.id, () => { if (c.ok) EQ.dlg.cancel(j); }, { class: 'danger', 'aria-disabled': c.ok ? null : 'true', title: c.ok ? null : 'Cancel unavailable: ' + c.why }));
+    }
+    if (j.workStatus === 'completed' && !j.isCancelled && a) items.push(item([icon('refresh'), 'Reopen (Admin)...'], 'job-reopen-' + j.id, () => EQ.dlg.reason({ title: 'Reopen ' + j.number, message: 'Reopening makes the job Current again. Committed installations stay committed and are never undone by reopening.', confirm: 'Reopen job', onSubmit: (r) => EQ.api.reopenJob(j.id, r) })));
+    const menu = items.length ? h('details', { class: 'more-menu' }, h('summary', { class: 'btn btn-sm', 'data-fk': 'job-more-' + j.id, title: 'More actions', 'aria-label': 'More actions for ' + j.number }, icon('more')),
+      h('div', { class: 'menu', role: 'menu', 'aria-label': 'Actions for ' + j.number }, items)) : null;
+    // a job without a main action (completed: Admin Reopen only) keeps its menu in the card header, so no row is spent on it
+    const primary = live && w ? h('button', { type: 'button', class: 'btn-sm primary', 'data-fk': 'job-progress-' + j.id, onClick: () => EQ.dlg.jobProgress(j) }, icon('plus'), 'Update progress') : null;
+    return primary ? { row: h('div', { class: 'acts' }, primary, menu), head: null } : { row: null, head: menu };
+  }
+  // one open "more" menu at a time; a click elsewhere closes it
+  document.addEventListener('click', (e) => { document.querySelectorAll('details.more-menu[open]').forEach((d) => { if (!d.contains(e.target)) d.removeAttribute('open'); }); });
 
   function card(j) {
     const eq = EQ.eq(j.equipmentId);
-    const ctx = {};
-    const acts = actions(j, ctx, true);
-    return h('article', { class: 'job' + (j.isCancelled ? ' cancelled' : ''), 'aria-label': j.number + ' ' + j.title },
-      h('div', { class: 'job-top' }, h('h3', null, h('a', { class: 'job-name', href: '#/eq/jobs/special/' + j.id }, j.title)), h('div', { class: 'job-marks' }, h('span', { class: 'tag' }, KIND[j.kind]), statusTag(j), j.priority === 'high' ? h('span', { class: 'tag gold' }, 'High priority') : null, jobSwitch(j))),
-      hiddenTag(j),
-      h('div', { class: 'meta' }, h('span', null, EQ.isFleetJob(j) ? EQ.jobEquipmentLabel(j) : h('a', { href: '#/eq/equipment/' + eq.id }, eq.code)), h('span', null, EQ.targetLabel(j))),
-      h('div', { class: 'meta' },
-        j.workStatus === 'completed' ? h('span', null, 'Completed ' + EQ.fmtDate(j.completedOn)) : h('span', null, j.plannedOn ? 'Planned ' + EQ.fmtDate(j.plannedOn) : 'No planned date'),
-        j.responsible ? h('span', null, 'Responsible: ' + j.responsible) : null, h('span', null, 'Created by ' + (j.createdBy === EQ.user().id ? 'you' : EQ.userName(j.createdBy))),
-        j.lines.length ? h('span', null, EQ.plural(j.lines.length, 'replacement line')) : null),
-      j.isCancelled ? h('div', { class: 'meta' }, h('span', null, 'Cancelled by ' + EQ.userName(j.cancelledBy) + ' at ' + EQ.fmtInstantShort(j.cancelledUtc) + '. Reason: ' + j.cancelReason)) : null,
-      progressSummary(j),
-      h('div', { class: 'acts' }, acts),
-      ctx.why ? h('div', { class: 'why sr-only', id: 'why-' + j.id }, 'Cancel unavailable: ' + ctx.why) : null);
+    const done = j.workStatus === 'completed';
+    const acts = cardActions(j);
+    const info = [j.number, KIND[j.kind] + ' job', 'Created by ' + (j.createdBy === EQ.user().id ? 'you' : EQ.userName(j.createdBy)), j.responsible ? 'Responsible: ' + j.responsible : null, j.lines.length ? EQ.plural(j.lines.length, 'replacement line') : null].filter(Boolean).join(' · ');
+    return h('article', { class: 'job compact' + (j.isCancelled ? ' cancelled' : ''), 'aria-label': j.number + ' ' + j.title, 'data-job': j.id },
+      h('div', { class: 'job-top' }, h('h3', null, h('a', { class: 'job-name', href: '#/eq/jobs/special/' + j.id, title: info }, j.title)),
+        h('div', { class: 'job-marks' }, h('span', { class: 'tag', title: KIND[j.kind] + ' job' }, KIND[j.kind]), j.isCancelled || j.reopenCount ? statusTag(j) : null, j.priority === 'high' ? h('span', { class: 'tag gold', title: 'High priority' }, 'High') : null, hiddenTag(j), jobSwitch(j, true), acts.head)),
+      h('div', { class: 'meta' }, h('span', null, EQ.isFleetJob(j) ? EQ.jobEquipmentLabel(j) : h('a', { href: '#/eq/equipment/' + eq.id }, eq.code)), h('span', { class: 'target' }, EQ.targetLabel(j)),
+        h('span', { class: 'when' }, done ? 'Done ' + EQ.fmtDate(j.completedOn) : j.plannedOn ? 'Planned ' + EQ.fmtDate(j.plannedOn) : 'No planned date')),
+      j.isCancelled ? h('div', { class: 'meta', title: 'Cancelled by ' + EQ.userName(j.cancelledBy) + ' at ' + EQ.fmtInstantShort(j.cancelledUtc) }, h('span', null, 'Reason: ' + j.cancelReason)) : null,
+      progressSummary(j, true),
+      acts.row);
   }
 
   function filtered(q) {
@@ -84,46 +109,47 @@ window.EQ = window.EQ || {};
     if (q.type) list = list.filter((j) => (j.equipmentTypeCode || EQ.eq(j.equipmentId).typeCode) === q.type);
     if (q.kind) list = list.filter((j) => j.kind === q.kind);
     if (q.main) list = list.filter((j) => { const m = j.mainId && EQ.eq(j.equipmentId).mains.find((x) => x.id === j.mainId); return m && m.code === q.main; });
-    const df = q.dateField === 'completed' ? 'completedOn' : 'plannedOn';
-    if (q.from && q.dateField) list = list.filter((j) => j[df] && j[df] >= q.from);
-    if (q.to && q.dateField) list = list.filter((j) => j[df] && j[df] <= q.to);
+    if (q.prio === 'high') list = list.filter((j) => j.priority === 'high');
+    // U1-C79: one date range - planned date for Pending/Current (and cancelled) jobs, completion date for Completed jobs
+    if (q.from || q.to) list = list.filter((j) => { const d = j.workStatus === 'completed' && !j.isCancelled ? j.completedOn : j.plannedOn; return d && (!q.from || d >= q.from) && (!q.to || d <= q.to); });
     if (ui.q) list = list.filter((j) => (j.number + ' ' + j.title + ' ' + EQ.jobEquipmentLabel(j) + ' ' + EQ.jobEquipment(j).map((e) => e.code).join(' ')).toLowerCase().includes(ui.q.toLowerCase()));
     return list;
   }
 
   EQ.specialJobs = filtered;
 
-  /** Special jobs board (SOW V2 s4.3): used inside the EQ Jobs tab; the page header, the shared filters (equipment, type, date range,
-   *  search) and the data-state banners are provided by the EQ Jobs wrapper (views-eqjobs.js). */
-  EQ.specialBoard = function specialBoard(q, toolbarActions) {
-    const S = EQ.state;
-    const page = h('div', { class: 'special-board stack' });
+  /** Special jobs board (SOW V2 s4.3) inside the EQ Jobs tab (views-eqjobs.js places the parts). U1-C79: returns
+   *  { tiles, fields, body } - Fleet-style status tiles (they replace the Board/Tabs layout and the Include cancelled box),
+   *  the board's own filter fields for the shared filter bar, and the Pending / Current / Completed columns. */
+  EQ.specialBoard = function specialBoard(q) {
     const setQ = (patch) => EQ.nav('/eq/jobs/special', { ...q, ...patch });
-    const mainsUsed = EQ.catalog.mains;
-    const sel = (id, label, key, options, any) => { const s = h('select', { id, 'data-fk': id, onChange: (e) => setQ({ [key]: e.target.value }) }, h('option', { value: '' }, any), options.map(([v, l]) => h('option', { value: v, selected: q[key] === v ? true : null }, l))); return h('div', { class: 'field' }, h('label', { for: id }, label), s); };
-    page.appendChild(h('form', { class: 'panel filters', role: 'search', 'aria-label': 'Special job filters', onSubmit: (e) => e.preventDefault() },
-      sel('flt-kind', 'Kind', 'kind', Object.entries(KIND), 'All kinds'),
-      sel('flt-main', 'Main mechanism', 'main', mainsUsed.map((m) => [m.code, m.code + ' ' + m.name]), 'All mechanisms'),
-      sel('flt-df', 'Apply date range to', 'dateField', [['planned', 'Planned date'], ['completed', 'Completion date']], 'Not applied to special jobs'),
-      h('label', { class: 'check', style: 'min-height:2.5rem', title: 'Cancelled jobs are hidden unless this is checked.' }, h('input', { type: 'checkbox', checked: q.includeCancelled === '1' ? true : null, 'data-fk': 'flt-canc', onChange: (e) => setQ({ includeCancelled: e.target.checked ? '1' : '' }) }), 'Include cancelled'),
-      h('div', { class: 'field' }, h('span', { class: 'label', id: 'jl' }, 'Layout'), h('div', { class: 'seg', role: 'group', 'aria-labelledby': 'jl' }, ['board', 'tabs'].map((v) => h('button', { type: 'button', 'aria-pressed': (q.layout || 'board') === v ? 'true' : 'false', 'data-fk': 'jl-' + v, onClick: () => setQ({ layout: v }) }, v === 'board' ? 'Board' : 'Tabs')))), toolbarActions));
-
     const list = filtered(q);
-    if (!Array.isArray(list)) { EQ.access.refreshSession('403 ' + list.code); setTimeout(() => EQ.rerender(), 0); return EQ.views.forbidden('eq.jobs.view', '/eq/jobs/special', list.code); }
+    if (!Array.isArray(list)) { EQ.access.refreshSession('403 ' + list.code); setTimeout(() => EQ.rerender(), 0); return { tiles: h('div'), fields: null, body: EQ.views.forbidden('eq.jobs.view', '/eq/jobs/special', list.code) }; }
+    const sel = (id, label, key, options, any) => h('div', { class: 'field' }, h('label', { for: id }, label), h('select', { id, 'data-fk': id, onChange: (e) => setQ({ [key]: e.target.value }) }, h('option', { value: '' }, any), options.map(([v, l]) => h('option', { value: v, selected: q[key] === v ? true : null }, l))));
+    const fields = [sel('flt-kind', 'Kind', 'kind', Object.entries(KIND), 'All kinds'),
+      sel('flt-main', 'Mechanism', 'main', EQ.catalog.mains.map((m) => [m.code, m.code + ' ' + m.name]), 'All mechanisms'),
+      ...EQ.jobsDateFields(q, setQ, 'Pending and Current jobs: planned date. Completed jobs: completion date.')];
+
     const cols = ['pending', 'current', 'completed'];
+    const ws = cols.includes(q.ws) ? q.ws : '';
     const by = (s) => list.filter((j) => !j.isCancelled && j.workStatus === s).sort((a, b) => (s === 'completed' ? EQ.cmp(b.completedOn || '', a.completedOn || '') : EQ.cmp(a.plannedOn || '9999', b.plannedOn || '9999')));
-    const layout = q.layout || 'board';
-    const tab = ui.tab;
-    const column = (s) => h('section', { class: 'panel col', id: 'col-' + s, 'aria-labelledby': 'colh-' + s, hidden: layout === 'tabs' && tab !== s ? true : null },
-      h('header', null, h('h2', { id: 'colh-' + s }, STAT[s]), h('span', { class: 'tag' }, String(by(s).length))),
+    const noPrio = q.prio ? filtered({ ...q, prio: '' }) : list;
+    const high = noPrio.filter((j) => !j.isCancelled && j.workStatus !== 'completed' && j.priority === 'high').length;
+    const cancN = (q.includeCancelled === '1' ? list : filtered({ ...q, includeCancelled: '1' })).filter((j) => j.isCancelled).length;
+    const MARK = { pending: 'clock', current: 'wrench', completed: 'check-circle' };
+    const tiles = EQ.jobsTiles('Special job counts (select to filter)', [
+      ...cols.map((s) => ({ k: s, n: by(s).length, text: STAT[s], icon: MARK[s], fk: 'jws-' + s, pressed: ws === s, title: 'Show only ' + STAT[s] + ' jobs', onClick: () => setQ({ ws: ws === s ? '' : s }) })),
+      { k: 'high', n: high, text: 'High priority (open)', icon: 'alert', fk: 'jprio-high', pressed: q.prio === 'high', title: 'Show only high-priority jobs', onClick: () => setQ({ prio: q.prio === 'high' ? '' : 'high' }) },
+      { k: 'cancelled', n: cancN, text: 'Cancelled', icon: 'cancel', fk: 'flt-canc', pressed: q.includeCancelled === '1', title: 'Cancelled jobs are hidden; select to list them below the board', onClick: () => setQ({ includeCancelled: q.includeCancelled === '1' ? '' : '1' }) }]);
+
+    const body = h('div', { class: 'special-board stack' });
+    const column = (s) => h('section', { class: 'panel col', id: 'col-' + s, 'aria-labelledby': 'colh-' + s },
+      h('header', null, h('h2', { id: 'colh-' + s }, STAT[s]), h('span', { class: 'g-n' }, String(by(s).length))),
       h('div', { class: 'col-body' }, by(s).length ? by(s).map(card) : h('p', { class: 'muted small', style: 'margin:0' }, 'No ' + STAT[s].toLowerCase() + ' jobs match these filters.')));
-    if (layout === 'tabs') {
-      page.appendChild(h('div', { class: 'tabs', role: 'tablist', 'aria-label': 'Work status', style: 'margin:0 0 .5rem' }, cols.map((s) => h('button', { type: 'button', role: 'tab', 'aria-selected': tab === s ? 'true' : 'false', 'aria-controls': 'col-' + s, 'data-fk': 'jt-' + s, onClick: () => { ui.tab = s; EQ.rerender(); } }, STAT[s] + ' (' + by(s).length + ')'))));
-      page.appendChild(h('div', null, cols.map(column)));
-    } else page.appendChild(h('div', { class: 'board' }, cols.map(column)));
+    body.appendChild(h('div', { class: 'board' + (ws ? ' one' : '') }, (ws ? [ws] : cols).map(column)));
     const canc = list.filter((j) => j.isCancelled);
-    if (q.includeCancelled === '1') page.appendChild(h('section', { class: 'panel col', style: 'margin-top:.7rem', 'aria-labelledby': 'colh-c' }, h('header', null, h('h2', { id: 'colh-c' }, 'Cancelled'), h('span', { class: 'tag' }, String(canc.length))), h('div', { class: 'col-body' }, canc.length ? canc.map(card) : h('p', { class: 'muted small', style: 'margin:0' }, 'No cancelled jobs match.'))));
-    return page;
+    if (q.includeCancelled === '1') body.appendChild(h('section', { class: 'panel col', 'aria-labelledby': 'colh-c' }, h('header', null, h('h2', { id: 'colh-c' }, 'Cancelled'), h('span', { class: 'g-n' }, String(canc.length))), h('div', { class: 'col-body' }, canc.length ? canc.map(card) : h('p', { class: 'muted small', style: 'margin:0' }, 'No cancelled jobs match.'))));
+    return { tiles, fields, body };
   };
 
   EQ.views.job = function job(id) {

@@ -393,7 +393,6 @@ window.EQ = window.EQ || {};
     const pq = q.panel === 'history' ? 'special' : q.panel;
     const panelTab = EQ.panelTabs.KEYS.includes(pq) ? pq : 'spareParts';
     const scope = q.container ? { level: 'area', id: q.container } : scopeOf(sel);
-    const dur = EQ.inStatusFor(eq);
     const sh = ui.spHistory;
     if (sh && (sh.sig !== spHistSig(eq, q) || EQ.pos(sh.posId)?.equipmentId !== eq.id || !EQ.spares.isMajor(sh.posId) || !EQ.panelTabs.jobsAllowed())) ui.spHistory = null;
 
@@ -401,11 +400,8 @@ window.EQ = window.EQ || {};
 
     page.appendChild(h('header', { class: 'panel eq-head eq-summary' },
       h('div', { class: 'eq-identity' }, h('h1', null, eq.code, h('span', { class: 'eq-type-name' }, eq.typeCode === 'QC' ? 'Quay crane' : eq.typeCode), EQ.statusBadge(eq.status), eq.lifecycle === 'retired' ? h('span', { class: 'tag' }, 'Retired') : null)),
-      h('div', { class: 'facts' },
-        h('span', { title: dur != null ? 'In ' + EQ.STATUS[eq.status].label + ' for ' + EQ.duration(dur) : '' }, dur != null ? 'Since ' + EQ.fmtInstantShort(eq.statusSince) : 'No status reported yet'),
-        eq.statusReason ? h('span', null, 'Reason: ' + eq.statusReason) : null,
-        h('span', null, EQ.verified(eq) ? eq.modelCode + ' · verified model' : 'No verified model association'),
-        EQ.panelTabs.jobsAllowed() ? h('a', { href: '#/eq/jobs/special?equipment=' + eq.id }, EQ.plural(EQ.openCount(eq.id, { level: 'equipment', id: null }), 'open special job')) : h('span', null, EQ.plural(EQ.openCount(eq.id, { level: 'equipment', id: null }), 'open special job'))),
+      // U1-C78 follow-up: status-since, model association and open special job count removed from the header (user instruction); the reason stays.
+      eq.statusReason ? h('div', { class: 'facts', title: 'Reason: ' + eq.statusReason }, h('span', null, 'Reason: ' + eq.statusReason)) : null,
       h('div', { class: 'actions' },
         h('a', { class: 'btn', href: '#/eq/fleet', 'data-fk': 'back-to-fleet' }, icon('home'), 'Fleet'),
         EQ.perm.write() && eq.lifecycle === 'active' ? [h('button', { type: 'button', 'data-fk': 'set-status', onClick: () => EQ.dlg.status(eq) }, icon('refresh'), 'Update status'), h('button', { type: 'button', class: 'primary', 'data-fk': 'add-job', onClick: () => EQ.dlg.jobForm({ equipmentId: eq.id }) }, icon('plus'), 'Add special job')]
@@ -434,16 +430,13 @@ window.EQ = window.EQ || {};
         h('button', { type: 'button', class: 'btn-sm drawer-btns', 'data-fk': 'open-panel', 'aria-expanded': ui.drawer === 'panel' ? 'true' : 'false', onClick: () => { ui.drawer = 'panel'; ui.drawerOpener = 'open-panel'; EQ.rerender(); } }, icon('panel'), 'Details')),
       treePanel);
 
-    const sum = EQ.panelTabs.summary(eq, scope);
-    const nOf = { special: sum.special, spareParts: sum.spare.overdue + sum.spare.dueSoon };
-    const nLabel = { special: 'open', spareParts: 'overdue or due soon' };
+    // U1-C78: plain tab names; the counts stay inside each tab (filters), not on the tabs.
     const sideHead = h('div', { class: 'sp-head' },
       h('div', { class: 'scope-context row between' + (scope.level === 'equipment' ? ' whole-equipment' : '') }, h('div', null, h('p', { class: 'eyebrow' }, sel.part ? 'Part position' : sel.grp ? (EQ.qcTree.kindOf(sel.grp) === 'group' ? 'Assembly' : 'Sub assembly') : sel.sub ? 'Submechanism' : sel.main ? 'Main mechanism' : q.container ? 'Physical area' : 'Equipment'), h('h2', { 'data-fk': 'scope-title' }, q.container ? (EQ.qc?.containerName(q.container) || 'Physical area') : scopeLabel(eq, sel))), h('button', { type: 'button', class: 'btn-sm drawer-btns', 'aria-label': 'Close details', onClick: () => closeDrawer() }, icon('x'))),
       h('div', { class: 'tabs three', role: 'tablist', 'aria-label': 'Current state of the selection' }, EQ.panelTabs.TABS.map(([k, long, short]) => {
-        const n = nOf[k];
-        return h('button', { type: 'button', role: 'tab', id: 'tab-' + k, 'aria-controls': 'tabpanel', 'aria-selected': panelTab === k ? 'true' : 'false', tabindex: panelTab === k ? '0' : '-1', 'aria-label': long + (n ? ', ' + n + ' ' + nLabel[k] : ''), 'data-fk': 'tab-' + k,
+        return h('button', { type: 'button', role: 'tab', id: 'tab-' + k, 'aria-controls': 'tabpanel', 'aria-selected': panelTab === k ? 'true' : 'false', tabindex: panelTab === k ? '0' : '-1', 'data-fk': 'tab-' + k,
           onKeydown: (e) => { const keys = EQ.panelTabs.KEYS; const i = keys.indexOf(k); const j = e.key === 'ArrowRight' ? (i + 1) % keys.length : e.key === 'ArrowLeft' ? (i + keys.length - 1) % keys.length : e.key === 'Home' ? 0 : e.key === 'End' ? keys.length - 1 : -1; if (j >= 0) { e.preventDefault(); EQ.nav('/eq/equipment/' + eq.id, { ...q, panel: keys[j] }); setTimeout(() => document.querySelector('[data-fk="tab-' + keys[j] + '"]')?.focus(), 0); } },
-          onClick: () => EQ.nav('/eq/equipment/' + eq.id, { ...q, panel: k }) }, h('span', { class: 'lbl-long' }, long === 'Projects/Special' ? ['Projects/', h('wbr'), 'Special'] : long), n && panelTab !== 'special' ? h('span', { class: 'tab-n', 'aria-hidden': 'true' }, String(n)) : null);
+          onClick: () => EQ.nav('/eq/equipment/' + eq.id, { ...q, panel: k }) }, h('span', { class: 'lbl-long' }, long === 'Projects/Special' ? ['Projects/', h('wbr'), 'Special'] : long));
       })));
     const sideBody = h('div', { class: 'sp-body', role: 'tabpanel', id: 'tabpanel', 'aria-labelledby': 'tab-' + panelTab }, tabBody(eq, sel, scope, q, panelTab));
     const searchKey = eq.id + '|' + scope.level + '|' + (scope.id || '') + '|' + panelTab;

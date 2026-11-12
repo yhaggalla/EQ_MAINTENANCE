@@ -43,134 +43,190 @@ window.EQ = window.EQ || {};
   }
   function scopeFromQ(q) { return q.part ? { level: 'part', id: q.part } : q.sub ? { level: 'sub', id: q.sub } : q.main ? { level: 'main', id: q.main } : null; }
 
-  // ---------------------------------------------------------------- page
+  // ---------------------------------------------------------------- page (U1-C79: Fleet-style layout - tiles, one filter bar, groups)
+  const TYPES = ['QC', 'RTG', 'ES'];
+  const TYPE_LABEL = { QC: 'Quay cranes (QC)', RTG: 'Rubber-tyred gantry cranes (RTG)', ES: 'ES equipment' };
+  const TIP = {
+    'spare-parts': 'Major spare parts per equipment: condition, fitted date and the predicted replacement date.',
+    special: 'Projects and special work entered manually for equipment, a mechanism or a part.',
+    status: 'Manual Ready for OPS / Isolated status of every active equipment, with its history.',
+  };
+
+  /** Fleet-style KPI tiles. defs: [{ k, n, text, icon, title, pressed, onClick, fk }] - a tile with onClick is a filter button. */
+  function tiles(label, defs) {
+    return h('div', { class: 'count-strip kpi-row jobs-kpis', role: 'group', 'aria-label': label }, defs.map((d) => {
+      const kids = [h('span', { class: 'k-top' }, h('span', { class: 'n' }, String(d.n))), h('span', { class: 'lbl' }, icon(d.icon, 'k-label-icon'), h('span', null, d.text))];
+      if (!d.onClick) return h('div', { class: 'count-card kpi kpi-' + d.k, 'data-kpi': d.k, title: d.title }, ...kids);
+      return h('button', { type: 'button', class: 'count-card kpi kpi-' + d.k, 'data-kpi': d.k, 'data-fk': d.fk, 'aria-pressed': d.pressed ? 'true' : 'false', title: d.title,
+        'aria-label': d.text + ': ' + d.n + (d.pressed ? ', filter on' : ''), onClick: d.onClick }, ...kids);
+    }));
+  }
+  EQ.jobsTiles = tiles;
+
+  /** The one filter bar of every Jobs tab: type, equipment, tab fields, search, clear, then the tab actions on the right. */
+  function filterBar(q, part, setQ, o) {
+    const S = EQ.state;
+    const type = TYPES.includes(q.type) ? q.type : '';
+    const search = h('input', { type: 'search', id: 'jq', 'data-fk': 'jq', value: EQ.jobsUI.q, placeholder: o.placeholder, autocomplete: 'off' });
+    search.addEventListener('input', () => { EQ.jobsUI.q = search.value; EQ.rerender(); });
+    const eqs = S.D.equipment.filter((e) => !type || e.typeCode === type);
+    const active = Object.keys(q).some((k) => q[k] && !['removed'].includes(k)) || !!EQ.jobsUI.q;
+    return h('form', { class: 'panel filters jobs-filters', role: 'search', 'aria-label': 'EQ Jobs filters', onSubmit: (e) => e.preventDefault() },
+      h('div', { class: 'field' }, h('span', { class: 'label', id: 'jtl' }, 'Type'), h('div', { class: 'seg', role: 'group', 'aria-labelledby': 'jtl' },
+        ['', ...TYPES].map((t) => h('button', { type: 'button', 'aria-pressed': type === t ? 'true' : 'false', 'data-fk': 'jtype-' + (t || 'all'),
+          onClick: () => setQ({ type: t, equipment: t && q.equipment && EQ.eq(q.equipment)?.typeCode !== t ? '' : q.equipment || '' }) }, t || 'All')))),
+      h('div', { class: 'field' }, h('label', { for: 'flt-eq' }, 'Equipment'), h('select', { id: 'flt-eq', 'data-fk': 'flt-eq', onChange: (e) => setQ({ equipment: e.target.value }) },
+        h('option', { value: '' }, 'All equipment'), eqs.map((e) => h('option', { value: e.id, selected: q.equipment === e.id ? true : null }, e.code)))),
+      o.fields || null,
+      h('div', { class: 'field grow' }, h('label', { for: 'jq' }, 'Search'), search),
+      active ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'clear-filters', title: 'Clear all filters on this tab', onClick: () => { EQ.jobsUI.q = ''; EQ.nav('/eq/jobs/' + part, {}); } }, icon('x'), 'Clear') : null,
+      o.actions ? h('div', { class: 'jobs-toolbar-actions' }, o.actions) : null);
+  }
+  EQ.jobsDateFields = (q, setQ, tip) => [
+    h('div', { class: 'field', title: tip }, h('label', { for: 'flt-from' }, 'From'), h('input', { type: 'date', id: 'flt-from', 'data-fk': 'flt-from', value: q.from || '', onChange: (e) => setQ({ from: e.target.value }) })),
+    h('div', { class: 'field', title: tip }, h('label', { for: 'flt-to' }, 'To'), h('input', { type: 'date', id: 'flt-to', 'data-fk': 'flt-to', value: q.to || '', onChange: (e) => setQ({ to: e.target.value }) }))];
+  const exportBtn = (fk, kind, q, file, what) => (EQ.access.has('export.excel') ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': fk, title: 'Download the rows shown as a spreadsheet', onClick: () => { const r = EQ.eqExport(kind, q); if (r.ok) { EQ.downloadCsv(file, r.columns, r.rows); EQ.toast('Exported ' + r.rows.length + ' ' + what, 'Prototype stand-in: CSV, not the server-generated .xlsx.'); } } }, icon('download'), 'Export') : null);
+
   EQ.views.eqJobs = function eqJobs(part, id, q) {
     const S = EQ.state;
     if (part === 'special' && id) return EQ.views.job(id);
     if (!PARTS.some((p) => p[0] === part)) part = 'spare-parts';
-    const page = h('div', { class: 'page eqjobs-page' });
+    const page = h('div', { class: 'page eqjobs-page pa' });
     if (q.removed) page.appendChild(h('p', { class: 'notice info', role: 'status' }, 'That view has been removed. Projects and special work remain available here.'));
-    const setQ = (patch, p2) => EQ.nav('/eq/jobs/' + (p2 || part), { ...q, ...patch });
+    const setQ = (patch, p2) => EQ.nav('/eq/jobs/' + (p2 || part), { ...q, ...patch, removed: '' });
     const keepShared = Object.fromEntries(SHARED.filter((k) => q[k]).map((k) => [k, q[k]]));
     page.appendChild(h('h1', { class: 'sr-only' }, 'EQ Jobs'));
-    page.appendChild(h('nav', { class: 'subtabs', 'aria-label': 'EQ Jobs parts' }, PARTS.map(([k, label]) => h('a', { href: '#/eq/jobs/' + k + (Object.keys(keepShared).length ? '?' + new URLSearchParams(keepShared).toString() : ''), 'aria-current': k === part ? 'page' : null, 'data-fk': 'jp-' + k, title: k === 'special' ? 'Projects and special work entered manually for equipment, a mechanism or a part.' : null }, label))));
+    page.appendChild(h('nav', { class: 'subtabs', 'aria-label': 'EQ Jobs parts' }, PARTS.map(([k, label]) => h('a', { href: '#/eq/jobs/' + k + (Object.keys(keepShared).length ? '?' + new URLSearchParams(keepShared).toString() : ''), 'aria-current': k === part ? 'page' : null, 'data-fk': 'jp-' + k, title: TIP[k] }, label))));
 
-    if (S.data === 'loading') { page.appendChild(h('div', { 'aria-busy': 'true', role: 'status', class: 'board' }, [1, 2, 3].map(() => h('div', { class: 'skeleton', style: 'height:16rem' })))); return page; }
+    if (S.data === 'loading') { page.appendChild(h('div', { 'aria-busy': 'true', role: 'status' }, h('div', { class: 'count-strip kpi-row jobs-kpis' }, [1, 2, 3, 4].map(() => h('div', { class: 'skeleton', style: 'height:4.4rem' }))), h('div', { class: 'skeleton', style: 'height:16rem;margin-top:.6rem' }))); return page; }
     if (S.data === 'error') { page.appendChild(h('div', { class: 'notice error', role: 'alert' }, icon('wifi-off'), h('div', null, h('p', null, h('strong', null, 'Jobs could not be loaded. '), 'Nothing is shown as completed or pending without data.'), h('div', { class: 'actions' }, h('button', { type: 'button', class: 'btn-sm', onClick: () => EQ.refresh(true) }, 'Retry'))))); return page; }
     if (S.data === 'stale') page.appendChild(h('div', { class: 'notice warn', role: 'status', style: 'margin-bottom:.6rem' }, icon('wifi-off'), h('p', null, 'Showing last good data from ' + EQ.fmtTime(S.lastGoodAt) + '; the latest refresh failed.')));
     if (S.data === 'empty') { page.appendChild(h('div', { class: 'panel empty' }, icon('list'), h('h2', null, 'No jobs yet'), h('p', null, "Register equipment and add jobs to start. Earlier work can be entered with its original completion date; no history is imported."))); return page; }
 
-    // shared filters
-    const search = h('input', { type: 'search', id: 'jq', 'data-fk': 'jq', value: EQ.jobsUI.q, placeholder: 'Number, title, equipment or part', autocomplete: 'off' });
-    search.addEventListener('input', () => { EQ.jobsUI.q = search.value; EQ.rerender(); });
-    const selF = (id, label, key, options, any) => { const s = h('select', { id, 'data-fk': id, onChange: (e) => setQ({ [key]: e.target.value }) }, h('option', { value: '' }, any), options.map(([v, l]) => h('option', { value: v, selected: q[key] === v ? true : null }, l))); return h('div', { class: 'field' }, h('label', { for: id }, label), s); };
-    page.appendChild(h('form', { class: 'panel filters', role: 'search', 'aria-label': 'Shared EQ Jobs filters', onSubmit: (e) => e.preventDefault() },
-      selF('flt-eq', 'Equipment', 'equipment', S.D.equipment.map((e) => [e.id, e.code]), 'All equipment'),
-      selF('flt-type', 'Type', 'type', [['QC', 'QC'], ['RTG', 'RTG'], ['ES', 'ES']], 'All types'),
-      h('div', { class: 'field' }, h('label', { for: 'flt-from' }, 'From'), h('input', { type: 'date', id: 'flt-from', 'data-fk': 'flt-from', value: q.from || '', onChange: (e) => setQ({ from: e.target.value }) })),
-      h('div', { class: 'field' }, h('label', { for: 'flt-to' }, 'To'), h('input', { type: 'date', id: 'flt-to', 'data-fk': 'flt-to', value: q.to || '', onChange: (e) => setQ({ to: e.target.value }) })),
-      h('div', { class: 'field grow' }, h('label', { for: 'jq' }, 'Search'), search),
-      h('button', { type: 'button', class: 'btn-sm', onClick: () => { EQ.jobsUI.q = ''; EQ.nav('/eq/jobs/' + part, {}); } }, 'Clear filters')));
-
     if (part === 'special') special(page, q, setQ);
-    else if (part === 'status') statusPart(page, q);
+    else if (part === 'status') statusPart(page, q, setQ);
     else sparePart(page, q, setQ);
     return page;
   };
 
-  // ---------------------------------------------------------------- tab 1: Special/Projects (manual, SOW V2 s4.3)
+  // ---------------------------------------------------------------- Special/Projects (manual, SOW V2 s4.3)
   function special(page, q, setQ) {
-    const toolbarActions = h('div', { class: 'jobs-toolbar-actions' },
-      EQ.access.has('export.excel') ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'export-special', onClick: () => { const r = EQ.eqExport('special', q); if (r.ok) { EQ.downloadCsv('eq-special-jobs.csv', r.columns, r.rows); EQ.toast('Exported ' + r.rows.length + ' special job(s)', 'Prototype stand-in: CSV, not the server-generated .xlsx.'); } } }, icon('download'), 'Export') : null,
-      EQ.perm.write() ? h('button', { type: 'button', class: 'primary', 'data-fk': 'add-job', onClick: () => EQ.dlg.jobForm({ equipmentId: q.equipment || '', equipmentTypeCode: q.type || '' }) }, icon('plus'), 'Add special job') : h('span', { class: 'tag gold' }, 'Read-only'));
+    const actions = [exportBtn('export-special', 'special', q, 'eq-special-jobs.csv', 'special job(s)'),
+      EQ.perm.write() ? h('button', { type: 'button', class: 'btn-sm primary', 'data-fk': 'add-job', onClick: () => EQ.dlg.jobForm({ equipmentId: q.equipment || '', equipmentTypeCode: q.type || '' }) }, icon('plus'), 'Add special job') : h('span', { class: 'tag gold', title: 'Your role can view jobs but not change them' }, 'Read-only')];
+    const board = EQ.specialBoard(q);
+    page.appendChild(board.tiles);
+    page.appendChild(filterBar(q, 'special', setQ, { placeholder: 'Number, title, equipment or part', fields: board.fields, actions }));
     // scoped history (Open in Jobs from the crane view)
-    if (q.equipment && EQ.eq(q.equipment)) {
+    if (q.equipment && EQ.eq(q.equipment) && q.scope) {
       const eq = EQ.eq(q.equipment);
-      const sc = q.scope && q.target ? { level: q.scope, id: q.target } : { level: 'equipment', id: null };
+      const sc = q.target ? { level: q.scope, id: q.target } : { level: 'equipment', id: null };
       const valid = sc.level === 'equipment' || (sc.level === 'part' && EQ.pos(sc.id) && EQ.pos(sc.id).equipmentId === eq.id) || (sc.level === 'sub' && eq.subs.some((s) => s.id === sc.id)) || (sc.level === 'main' && eq.mains.some((m) => m.id === sc.id));
-      if (q.scope) {
-        if (!valid) page.appendChild(h('div', { class: 'notice warn', role: 'status' }, icon('alert'), h('p', null, 'The link selects a target that does not belong to ' + eq.code + ' (422 target_not_in_equipment). Showing the equipment only.')));
-        else {
-          const sel = sc.level === 'part' ? EQ.eqv.resolveSel(eq, { part: sc.id }) : sc.level === 'sub' ? EQ.eqv.resolveSel(eq, { sub: sc.id }) : EQ.eqv.resolveSel(eq, { main: sc.id });
-          page.appendChild(h('section', { class: 'panel panel-pad stack', 'aria-labelledby': 'sh-h', style: 'margin-bottom:.8rem' },
-            h('div', { class: 'row between' }, h('h2', { id: 'sh-h' }, 'History of ' + EQ.eqv.scopeLabel(eq, sel)), h('div', { class: 'row' },
-              EQ.perm.write() && eq.lifecycle === 'active' ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'add-job-scope', onClick: () => EQ.dlg.jobForm({ equipmentId: eq.id, prefill: sel }) }, icon('plus'), 'Add special job here') : null,
-              h('a', { class: 'btn btn-sm', href: '#/eq/jobs/special?' + new URLSearchParams({ ...Object.fromEntries(SHARED.filter((k) => q[k]).map((k) => [k, q[k]])), equipment: eq.id }).toString(), 'data-fk': 'clear-scope' }, icon('x'), 'Clear scope'))),
-            EQ.eqv.historyTab(eq, sel, sc)));
-        }
+      if (!valid) page.appendChild(h('div', { class: 'notice warn', role: 'status' }, icon('alert'), h('p', null, 'The link selects a target that does not belong to ' + eq.code + ' (422 target_not_in_equipment). Showing the equipment only.')));
+      else {
+        const sel = sc.level === 'part' ? EQ.eqv.resolveSel(eq, { part: sc.id }) : sc.level === 'sub' ? EQ.eqv.resolveSel(eq, { sub: sc.id }) : EQ.eqv.resolveSel(eq, { main: sc.id });
+        page.appendChild(h('section', { class: 'panel panel-pad stack', 'aria-labelledby': 'sh-h', style: 'margin-bottom:.6rem' },
+          h('div', { class: 'row between' }, h('h2', { id: 'sh-h' }, 'History of ' + EQ.eqv.scopeLabel(eq, sel)), h('div', { class: 'row' },
+            EQ.perm.write() && eq.lifecycle === 'active' ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'add-job-scope', onClick: () => EQ.dlg.jobForm({ equipmentId: eq.id, prefill: sel }) }, icon('plus'), 'Add special job here') : null,
+            h('a', { class: 'btn btn-sm', href: '#/eq/jobs/special?' + new URLSearchParams({ ...Object.fromEntries(SHARED.filter((k) => q[k]).map((k) => [k, q[k]])), equipment: eq.id }).toString(), 'data-fk': 'clear-scope' }, icon('x'), 'Clear scope'))),
+          EQ.eqv.historyTab(eq, sel, sc)));
       }
     }
-    page.appendChild(EQ.specialBoard(q, toolbarActions));
+    page.appendChild(board.body);
   }
 
-  // ---------------------------------------------------------------- manual EQ status
-  function statusPart(page, q) {
+  // ---------------------------------------------------------------- manual EQ status: Fleet-style groups, Isolated first
+  let histOpenStatus = false;
+  function statusPart(page, q, setQ) {
     const needle = (EQ.jobsUI.q || '').toLowerCase();
-    const list = eqList(q).filter(e => e.lifecycle === 'active' && (!needle || (e.code + ' ' + e.name + ' ' + EQ.statusLabel(e.status) + ' ' + (e.statusReason || '')).toLowerCase().includes(needle)));
-    page.appendChild(h('div', { class: 'row between', style: 'margin:.2rem 0 .5rem' }, h('h2', null, 'EQ status')));
+    const stat = ['readyForOps', 'isolated'].includes(q.status) ? q.status : '';
+    const base = eqList(q).filter((e) => e.lifecycle === 'active' && (!needle || (e.code + ' ' + e.name + ' ' + EQ.statusLabel(e.status) + ' ' + (e.statusReason || '')).toLowerCase().includes(needle)));
+    const counts = EQ.fleetCounts(base);
+    page.appendChild(tiles('Status counts (select to filter)', ['readyForOps', 'isolated'].map((k) => ({ k, n: counts[k], text: EQ.STATUS[k].category || EQ.STATUS[k].label, icon: EQ.STATUS[k].icon || (k === 'isolated' ? 'octagon-x' : 'check-circle'),
+      fk: 'jst-' + k, pressed: stat === k, title: 'Show only ' + EQ.STATUS[k].label + ' equipment. Status is set manually by the EQ Team or an Admin.', onClick: () => setQ({ status: stat === k ? '' : k }) }))));
+    page.appendChild(filterBar(q, 'status', setQ, { placeholder: 'Code, name, status or reason', fields: EQ.jobsDateFields(q, setQ, 'Applies to the status history only') }));
     if (EQ.manual.warning) page.appendChild(h('div', { class: 'notice warn', role: 'status' }, EQ.manual.warning));
-    page.appendChild(h('div', { class: 'panel table-wrap' }, h('table', { class: 'status-board' },
-      h('caption', { class: 'sr-only' }, 'Manual EQ status, one row per active equipment'),
-      h('thead', null, h('tr', null, ['Equipment','Status','Since','Duration','Reason','Updated by','Actions'].map(c => h('th', { scope: 'col' }, c)))),
-      h('tbody', null, list.map(e => h('tr', { 'data-eq': e.id },
-        h('th', { scope: 'row' }, h('a', { href: '#/eq/equipment/' + e.id }, e.code)), h('td', null, EQ.statusBadge(e.status)),
-        h('td', null, EQ.fmtInstantShort(e.statusSince)), h('td', null, EQ.duration(EQ.inStatusFor(e) || 0)), h('td', null, e.statusReason || '—'), h('td', null, EQ.userName(e.statusBy)),
-        h('td', null, EQ.perm.write() ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'correct-' + e.id, onClick: () => EQ.dlg.status(e) }, 'Update status') : h('span', { class: 'small muted' }, 'Read-only'))))))));
-    const ids = new Set(list.map(e => e.id)), from = q.from || '0000-01-01', to = q.to || '9999-12-31';
-    const hist = EQ.state.D.statusChanges.filter(c => ids.has(c.equipmentId) && EQ.todayOf(c.at) >= from && EQ.todayOf(c.at) <= to).sort((a,b) => EQ.cmp(b.at,a.at));
-    page.appendChild(h('section', { class: 'panel panel-pad stack', style: 'margin-top:1rem', 'aria-labelledby': 'sth-h' }, h('h2', { id: 'sth-h' }, 'Status history ', h('span', { class: 'tag' }, String(hist.length))),
-      hist.length ? h('div', { class: 'table-wrap' }, h('table', null, h('caption', { class: 'sr-only' }, 'Recorded manual status and labelled legacy events'), h('thead', null, h('tr', null, ['When','Equipment','Change','By','Reason','Related job'].map(c => h('th', { scope: 'col' }, c)))),
-        h('tbody', null, hist.map(c => h('tr', { 'data-sc': c.id }, h('td', null, EQ.fmtInstantShort(c.at)), h('th', { scope: 'row' }, EQ.eq(c.equipmentId).code),
-          h('td', null, c.prev ? EQ.statusLabel(c.prev) + ' → ' : 'First: ', EQ.statusBadge(c.status), c.legacy ? h('span', { class: 'tag', style: 'margin-left:.3rem' }, 'Legacy event') : null),
+    const list = base.filter((e) => !stat || EQ.statusKey(e.status) === stat);
+    const order = (e) => (EQ.statusKey(e.status) === 'isolated' ? 0 : 1);
+    const types = TYPES.filter((t) => list.some((e) => e.typeCode === t));
+    if (!types.length) page.appendChild(h('div', { class: 'panel empty' }, icon('search'), h('p', null, 'No equipment matches these filters.')));
+    types.forEach((t) => {
+      const rows = list.filter((e) => e.typeCode === t).sort((a, b) => order(a) - order(b) || EQ.cmp(a.code, b.code));
+      const c = EQ.fleetCounts(base.filter((e) => e.typeCode === t));
+      page.appendChild(h('section', { class: 'fleet-group g-' + t.toLowerCase(), 'aria-labelledby': 'sg-' + t },
+        h('header', null, h('span', { class: 'g-art', 'aria-hidden': 'true' }, EQ.fleetArt(t)), h('h2', { id: 'sg-' + t }, TYPE_LABEL[t]), h('span', { class: 'g-n' }, String(rows.length)),
+          h('span', { class: 'mini-counts' }, [['readyForOps', 'check-circle'], ['isolated', 'octagon-x']].map(([k, ic]) => h('span', { class: 'badge st-' + k, title: EQ.STATUS[k].label + ': ' + c[k] }, icon(ic), String(c[k]))))),
+        h('div', { class: 'panel table-wrap' }, h('table', { class: 'status-board' },
+          h('caption', { class: 'sr-only' }, 'Manual status of ' + TYPE_LABEL[t] + ', Isolated first'),
+          h('thead', null, h('tr', null, ['Equipment', 'Status', 'In status', 'Reason', 'Updated by', ''].map((col, i) => h('th', { scope: 'col', class: i === 5 ? 'act-col' : null }, col || h('span', { class: 'sr-only' }, 'Actions'))))),
+          h('tbody', null, rows.map((e) => h('tr', { 'data-eq': e.id, class: EQ.statusKey(e.status) === 'isolated' ? 'iso-row' : null },
+            h('th', { scope: 'row' }, h('a', { href: '#/eq/equipment/' + e.id, title: e.name }, e.code)), h('td', null, EQ.statusBadge(e.status)),
+            h('td', { title: 'Since ' + EQ.fmtInstantShort(e.statusSince) }, EQ.duration(EQ.inStatusFor(e) || 0)), h('td', { class: 'reason' }, e.statusReason || '—'), h('td', { class: 'small muted' }, EQ.userName(e.statusBy)),
+            h('td', { class: 'act-col' }, EQ.perm.write() ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'correct-' + e.id, onClick: () => EQ.dlg.status(e) }, icon('edit'), 'Update') : null))))))));
+    });
+    const ids = new Set(base.map((e) => e.id)), from = q.from || '0000-01-01', to = q.to || '9999-12-31';
+    const hist = EQ.state.D.statusChanges.filter((c) => ids.has(c.equipmentId) && EQ.todayOf(c.at) >= from && EQ.todayOf(c.at) <= to).sort((a, b) => EQ.cmp(b.at, a.at));
+    const det = h('details', { class: 'panel status-hist', open: histOpenStatus ? true : null, 'data-fk': 'status-history' },
+      h('summary', null, h('h2', { id: 'sth-h' }, 'Status history'), h('span', { class: 'g-n' }, String(hist.length))),
+      hist.length ? h('div', { class: 'table-wrap' }, h('table', null, h('caption', { class: 'sr-only' }, 'Recorded manual status and labelled legacy events'), h('thead', null, h('tr', null, ['When', 'Equipment', 'Change', 'By', 'Reason', 'Related job'].map((c) => h('th', { scope: 'col' }, c)))),
+        h('tbody', null, hist.map((c) => h('tr', { 'data-sc': c.id }, h('td', null, EQ.fmtInstantShort(c.at)), h('th', { scope: 'row' }, EQ.eq(c.equipmentId).code),
+          h('td', null, c.prev ? EQ.statusLabel(c.prev) + ' → ' : 'First: ', EQ.statusBadge(c.status), c.legacy ? h('span', { class: 'tag', style: 'margin-left:.3rem', title: 'Recorded before manual status was introduced' }, 'Legacy') : null),
           h('td', null, c.by ? EQ.userName(c.by) : 'Recorded legacy source'), h('td', null, c.reason || '—'), h('td', null, c.relatedJobId && EQ.job(c.relatedJobId) ? h('a', { href: '#/eq/jobs/special/' + c.relatedJobId }, EQ.job(c.relatedJobId).number) : '—'))))))
-        : h('div', { class: 'nonwork' }, 'No status changes in this selection.')));
+        : h('p', { class: 'muted small', style: 'margin:.5rem .8rem' }, 'No status changes in this selection.'));
+    det.addEventListener('toggle', () => { histOpenStatus = det.open; });
+    page.appendChild(det);
   }
   EQ.todayOf = (iso) => new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Colombo' }).format(new Date(iso));
 
-  // ---------------------------------------------------------------- tab 4: spare parts condition
+  // ---------------------------------------------------------------- Spare parts condition: compact table grouped by equipment
   const FLAGS = { overdue: ['Overdue', 'red'], dueSoon: ['Due soon', 'gold'] };
   const histOpen = new Set();
+  const RULE = 'Next replacement = fitted date + expected life (Original parts count from the commissioning date). No date or life: no estimate. Calendar estimate only, not a condition assessment.';
   function sparePart(page, q, setQ) {
     const rows = spareRows(q);
-    const all = q.flag ? spareRows({ ...q, flag: '' }) : rows; // U1-C69: chip counts stay those of the whole selection
-    const c = EQ.spares.counts(all);
-    const flagChip = (v, text, n, cls) => h('button', { type: 'button', class: 'tag spare-flag' + (cls ? ' ' + cls : ''), 'data-fk': 'jflag-' + (v || 'all'), 'aria-pressed': String((q.flag || '') === v),
-      disabled: v && !n ? true : null, title: v ? 'Show only ' + text + ' parts' : 'Show all registered parts', onClick: () => setQ({ flag: v && q.flag === v ? '' : v }) }, n + ' ' + text);
+    const all = q.flag ? spareRows({ ...q, flag: '' }) : rows; // U1-C69: tile counts stay those of the whole selection
+    const c = EQ.spares.counts(all), notRec = all.filter((r) => !r.condition).length;
+    const pick = (v) => () => setQ({ flag: v && q.flag === v ? '' : v });
+    page.appendChild(tiles('Spare-part flags (select to filter)', [
+      { k: 'registered', n: all.length, text: 'Registered', icon: 'list', fk: 'jflag-all', pressed: !q.flag, title: 'Show all registered major spare parts', onClick: pick('') },
+      { k: 'overdue', n: c.overdue, text: 'Overdue', icon: 'alert', fk: 'jflag-overdue', pressed: q.flag === 'overdue', title: 'Next predicted replacement date has passed. ' + RULE, onClick: pick('overdue') },
+      { k: 'dueSoon', n: c.dueSoon, text: 'Due soon', icon: 'clock', fk: 'jflag-dueSoon', pressed: q.flag === 'dueSoon', title: 'Replacement predicted within ' + EQ.state.D.spare.dueSoonDays + ' days (Admin setting). ' + RULE, onClick: pick('dueSoon') },
+      { k: 'notRecorded', n: notRec, text: 'Not recorded', icon: 'dashed', fk: 'jflag-notRecorded', pressed: q.flag === 'notRecorded', title: 'Condition not recorded yet, so there is no replacement estimate', onClick: pick('notRecorded') }]));
     const sc = scopeFromQ(q);
-    page.appendChild(h('div', { class: 'row between', style: 'margin:.2rem 0 .5rem' }, h('h2', null, 'Major spare parts: condition register'), h('div', { class: 'row' },
-      EQ.access.has('export.excel') ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'export-spare', onClick: () => { const r = EQ.eqExport('spare', q); if (r.ok) { EQ.downloadCsv('spare-part-register.csv', r.columns, r.rows); EQ.toast('Exported ' + r.rows.length + ' register row(s)', 'Prototype stand-in: CSV, not the server-generated .xlsx.'); } } }, icon('download'), 'Export') : null,
-      EQ.perm.write() ? h('button', { type: 'button', class: 'primary', 'data-fk': 'add-spare', onClick: () => addSpareDialog({ equipmentId: q.equipment || '', main: q.main || '', sub: q.sub || '', part: q.part || '' }) }, icon('plus'), 'Add spare part') : null)));
-    page.appendChild(h('div', { class: 'row', role: 'group', 'aria-label': 'Register summary' },
-      h('div', { class: 'row spare-flags', role: 'group', 'aria-label': 'Filter by flag' }, flagChip('', 'registered', all.length), flagChip('overdue', 'overdue', c.overdue, c.overdue ? 'red' : ''), flagChip('dueSoon', 'due soon', c.dueSoon, c.dueSoon ? 'gold' : '')),
-      sc ? h('span', { class: 'tag dashed' }, 'Scoped to the selection from the crane view ', h('a', { href: '#/eq/jobs/spare-parts?' + new URLSearchParams(Object.fromEntries(SHARED.filter((k) => q[k]).map((k) => [k, q[k]]))).toString() }, 'clear')) : null,
-      h('label', { class: 'field', style: 'display:flex;gap:.4rem;align-items:center;margin-left:auto' }, h('span', { class: 'label', style: 'margin:0' }, 'Flag'), h('select', { 'data-fk': 'flt-flag', 'aria-label': 'Filter by flag', onChange: (e) => setQ({ flag: e.target.value }) }, [['', 'All'], ['overdue', 'Overdue'], ['dueSoon', 'Due soon'], ['notRecorded', 'Condition not recorded']].map(([v, l]) => h('option', { value: v, selected: (q.flag || '') === v ? true : null }, l))))));
-    page.appendChild(h('div', { class: 'notice info' }, icon('info'), h('div', { class: 'stack', style: 'gap:.3rem' },
-      h('p', null, h('strong', null, 'Replacement estimate: '), 'Fitted date + expected life in months. Original parts use the commissioning date.'),
-      h('p', null, h('strong', null, 'Missing date or life: '), 'No estimate is shown.'),
-      h('p', null, h('strong', null, 'Due soon: '), 'Within ' + EQ.state.D.spare.dueSoonDays + ' days (Admin setting). Calendar estimate only; not a condition assessment.'))));
+    page.appendChild(filterBar(q, 'spare-parts', setQ, { placeholder: 'Part, part type or equipment',
+      fields: sc ? h('span', { class: 'tag dashed', title: 'Opened from the crane view selection' }, 'Scoped selection ', h('a', { href: '#/eq/jobs/spare-parts?' + new URLSearchParams(Object.fromEntries(SHARED.filter((k) => q[k]).map((k) => [k, q[k]]))).toString() }, 'clear')) : null,
+      actions: [exportBtn('export-spare', 'spare', q, 'spare-part-register.csv', 'register row(s)'),
+        EQ.perm.write() ? h('button', { type: 'button', class: 'btn-sm primary', 'data-fk': 'add-spare', onClick: () => addSpareDialog({ equipmentId: q.equipment || '', main: q.main || '', sub: q.sub || '', part: q.part || '' }) }, icon('plus'), 'Add spare part') : null] }));
     if (!rows.length) { page.appendChild(h('div', { class: 'panel empty' }, icon('cube'), h('p', null, 'No major spare parts match. ' + (EQ.perm.write() ? 'Use Add spare part to register one.' : 'The EQ Team or an Admin adds them.')))); return; }
-    page.appendChild(h('div', { class: 'panel table-wrap' }, h('table', { class: 'spare-table' },
-      h('caption', { class: 'sr-only' }, 'Spare-part condition register'),
-      h('thead', null, h('tr', null, ['Equipment / part', 'Condition', 'Brand · model · serial', 'Replaced', 'Expected life', 'Next predicted replacement', 'Flag', 'Remarks', 'Actions'].map((c2) => h('th', { scope: 'col' }, c2)))),
-      h('tbody', null, rows.flatMap((r) => {
-        const open = histOpen.has(r.posId);
-        const main = h('tr', { class: r.flag === 'overdue' ? 'overdue-row' : '', 'data-pos': r.posId },
-          h('th', { scope: 'row' }, h('a', { href: '#/eq/equipment/' + r.equipmentId + '?main=' + r.pos.mainId + '&sub=' + r.pos.subId + '&part=' + r.posId + '&panel=spareParts' }, r.eq.code), h('div', null, r.pos.name), h('div', { class: 'small muted' }, r.typeName + ' · ' + r.mainCode + '/' + r.subCode)),
-          h('td', null, r.condition ? h('span', { class: 'tag ' + (r.condition === 'replaced' ? 'green' : '') }, r.condition === 'replaced' ? 'Replaced' : 'Original') : h('span', { class: 'tag dashed' }, 'Not recorded')),
-          h('td', null, r.condition ? [r.brand || 'Unknown brand', h('div', { class: 'small muted' }, (r.model || 'no part no.') + ' · ' + (r.serial || 'serial unknown'))] : '-'),
-          h('td', null, r.replacedOn ? fmtD(r.replacedOn) : r.condition === 'original' ? 'Original' : '-'),
-          h('td', null, r.lifeMonths != null ? r.lifeMonths + ' mo' : 'Not set', r.lifeSource === 'override' ? h('div', { class: 'small muted' }, 'equipment override') : null),
-          h('td', null, r.predicted ? [fmtD(r.predicted), h('div', { class: 'small muted' }, r.daysTo < 0 ? Math.abs(r.daysTo) + ' d ago' : 'in ' + r.daysTo + ' d')] : h('span', { class: 'small muted' }, r.why)),
-          h('td', null, r.flag ? h('span', { class: 'tag ' + FLAGS[r.flag][1] }, icon(r.flag === 'overdue' ? 'alert' : 'clock'), ' ' + FLAGS[r.flag][0]) : '-'),
-          h('td', null, r.remarks || '-'),
-          h('td', null, h('div', { class: 'row' }, h('button', { type: 'button', class: 'btn-sm', 'aria-expanded': open ? 'true' : 'false', 'data-fk': 'hist-' + r.posId, onClick: () => { if (open) histOpen.delete(r.posId); else histOpen.add(r.posId); EQ.rerender(); } }, icon('history'), 'History'),
-            EQ.perm.write() ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'cond-' + r.posId, onClick: () => spareDialog(r) }, icon('edit'), 'Update...') : null)));
-        const out = [main];
-        if (open) {
-          const hist = EQ.spares.history(r.posId);
-          out.push(h('tr', { class: 'hist-row' }, h('td', { colspan: 9 }, h('div', { class: 'stack' }, h('strong', null, 'History of ' + r.pos.name + ' (' + r.eq.code + ')'),
-            EQ.panelTabs.spareChangeLog(hist)))));
-        }
+    const w = EQ.perm.write(), COLS = 8;
+    const groups = [];
+    rows.forEach((r) => { const g = groups[groups.length - 1]; if (g && g.eq.id === r.equipmentId) g.rows.push(r); else groups.push({ eq: r.eq, rows: [r] }); });
+    const head = [['Part', null], ['Condition', null], ['Brand · model', 'Serial number on hover'], ['Fitted', 'Replacement date; Original parts count from the commissioning date'], ['Life', 'Expected life in months (* = equipment override)'], ['Next replacement', RULE], ['Flag', null], ['', null]];
+    page.appendChild(h('div', { class: 'panel table-wrap' }, h('table', { class: 'spare-table compact' },
+      h('caption', { class: 'sr-only' }, 'Spare-part condition register, grouped by equipment'),
+      h('thead', null, h('tr', null, head.map(([t, tip], i) => h('th', { scope: 'col', title: tip, class: i === 7 ? 'act-col' : null }, t || h('span', { class: 'sr-only' }, 'Actions'))))),
+      h('tbody', null, groups.flatMap((g) => {
+        const gc = EQ.spares.counts(g.rows);
+        const out = [h('tr', { class: 'grp-row' }, h('th', { colspan: COLS, scope: 'colgroup' }, h('span', { class: 'g-art', 'aria-hidden': 'true' }, EQ.fleetArt(g.eq.typeCode)),
+          h('a', { href: '#/eq/equipment/' + g.eq.id, class: 'grp-code' }, g.eq.code), h('span', { class: 'g-n', title: 'Registered major spare parts shown' }, String(g.rows.length)),
+          gc.overdue ? h('span', { class: 'grp-flag over', title: gc.overdue + ' overdue' }, icon('alert'), String(gc.overdue)) : null,
+          gc.dueSoon ? h('span', { class: 'grp-flag soon', title: gc.dueSoon + ' due soon' }, icon('clock'), String(gc.dueSoon)) : null))];
+        g.rows.forEach((r) => {
+          const open = histOpen.has(r.posId);
+          const tipPart = [r.typeName, r.mainCode + '/' + r.subCode, r.remarks ? 'Remarks: ' + r.remarks : null].filter(Boolean).join(' · ');
+          out.push(h('tr', { class: r.flag === 'overdue' ? 'overdue-row' : '', 'data-pos': r.posId },
+            h('th', { scope: 'row', title: tipPart }, h('a', { href: '#/eq/equipment/' + r.equipmentId + '?main=' + r.pos.mainId + '&sub=' + r.pos.subId + '&part=' + r.posId + '&panel=spareParts' }, r.pos.name),
+              r.remarks ? h('span', { class: 'rem-ic', tabindex: '0', role: 'img', 'aria-label': 'Remarks: ' + r.remarks, title: r.remarks }, icon('file')) : null),
+            h('td', null, r.condition ? h('span', { class: 'tag ' + (r.condition === 'replaced' ? 'green' : '') }, r.condition === 'replaced' ? 'Replaced' : 'Original') : h('span', { class: 'tag dashed' }, 'Not recorded')),
+            h('td', { title: r.condition ? 'Serial: ' + (r.serial || 'unknown') + (r.desc ? ' · ' + r.desc : '') : null }, r.condition ? [r.brand || 'Unknown brand', r.model ? h('span', { class: 'muted' }, ' · ' + r.model) : null] : '—'),
+            h('td', { title: r.condition === 'original' ? (r.commissionedOn ? 'Commissioned ' + fmtD(r.commissionedOn) : 'Commissioning date unknown') : null }, r.replacedOn ? fmtD(r.replacedOn) : r.condition === 'original' ? 'Original' : '—'),
+            h('td', { title: r.lifeSource === 'override' ? 'Equipment override of the part-type default' : r.lifeMonths == null ? 'Expected life not set (Admin > EQ > Spare parts)' : 'Part-type default' }, r.lifeMonths != null ? r.lifeMonths + ' mo' + (r.lifeSource === 'override' ? '*' : '') : '—'),
+            h('td', { title: r.predicted ? null : r.why }, r.predicted ? [fmtD(r.predicted), h('span', { class: 'small muted' }, ' · ' + (r.daysTo < 0 ? Math.abs(r.daysTo) + ' d ago' : 'in ' + r.daysTo + ' d'))] : h('span', { class: 'muted' }, '—')),
+            h('td', null, r.flag ? h('span', { class: 'tag ' + FLAGS[r.flag][1] }, icon(r.flag === 'overdue' ? 'alert' : 'clock'), ' ' + FLAGS[r.flag][0]) : null),
+            h('td', { class: 'act-col' }, h('div', { class: 'row-acts' },
+              h('button', { type: 'button', class: 'btn-sm icon-btn', 'aria-expanded': open ? 'true' : 'false', 'data-fk': 'hist-' + r.posId, title: (open ? 'Hide' : 'Show') + ' change history', onClick: () => { if (open) histOpen.delete(r.posId); else histOpen.add(r.posId); EQ.rerender(); } }, icon('history'), h('span', { class: 'sr-only' }, 'History')),
+              w ? h('button', { type: 'button', class: 'btn-sm icon-btn', 'data-fk': 'cond-' + r.posId, title: 'Update condition (replacement, amendment or remarks)', onClick: () => spareDialog(r) }, icon('edit'), h('span', { class: 'sr-only' }, 'Update condition')) : null))));
+          if (open) out.push(h('tr', { class: 'hist-row' }, h('td', { colspan: COLS }, h('div', { class: 'stack' }, h('strong', null, 'History of ' + r.pos.name + ' (' + r.eq.code + ')'), EQ.panelTabs.spareChangeLog(EQ.spares.history(r.posId))))));
+        });
         return out;
       })))));
   }

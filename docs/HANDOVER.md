@@ -1,5 +1,9 @@
 # Handover
 
+## EQ Jobs layout — 12 November 2026 (U1-C79 / D-229)
+
+EQ Jobs now follows the EQ Fleet layout (UX_SPEC 16.1): `views-eqjobs.js` (tiles, shared filter bar, spare table grouped by equipment, EQ status groups), `views-jobs.js` (`EQ.specialBoard(q)` returns `{ tiles, fields, body }`; compact cards with a `details.more-menu`; `EQ.displaySwitch({ eye: true })`), styles at the end of `css/jobs.css` (scoped `.pa.eqjobs-page`). New hooks: `jflag-dueSoon`, `jflag-notRecorded`, `jws-<status>`, `jprio-high`, `flt-canc` (now a tile), `jst-<status>`, `jtype-<type>`, `job-more-<id>`, `job-edit/start/pending/complete/cancel/reopen-<id>`, `status-history`. Removed: `flt-flag`, `flt-df`, `jl-*`, `jt-*`.
+
 ## Current QC handover — 12 November 2026 (revision 15)
 
 The local QC prototype uses **CICT-J526A-STS draft v1, revision 15** (U1-C77 / D-227, on top of U1-C76 / D-226). 411 model identities: the 410 of revision 13 are kept and `boom.latch.frame` is added.

@@ -43,3 +43,103 @@
   .fc-top { gap: .4rem; }
   .fc-name { overflow-wrap: anywhere; }
 }
+
+/* ---------------------------------------------------------------- U1-C79: EQ Jobs matches the EQ Fleet layout
+   (.pa tokens from eq-fleet.css): KPI tiles that filter, one filter bar, equipment-type / equipment groups, compact rows and
+   cards; explanations live in tooltips. Scoped to .eqjobs-page, so FAC Jobs is unchanged. */
+body[data-page="eq-jobs"] { background: var(--pa-page); }
+.pa.eqjobs-page .subtabs { margin-bottom: .55rem; }
+.pa.eqjobs-page .jobs-kpis { grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); margin-bottom: .55rem; }
+.pa.eqjobs-page .count-card.kpi { min-height: 3.9rem; }
+.pa.eqjobs-page .kpi-overdue .k-label-icon, .pa.eqjobs-page .kpi-cancelled .k-label-icon { color: #9c344d; }
+.pa.eqjobs-page .kpi-dueSoon .k-label-icon, .pa.eqjobs-page .kpi-high .k-label-icon, .pa.eqjobs-page .kpi-current .k-label-icon { color: #8a5a00; }
+.pa.eqjobs-page .kpi-completed .k-label-icon, .pa.eqjobs-page .kpi-readyForOps .k-label-icon { color: #32624e; }
+.pa.eqjobs-page .kpi-overdue:not([aria-pressed="true"]) .n { color: #9c344d; }
+.pa.eqjobs-page .jobs-filters { display: flex; flex-wrap: wrap; align-items: flex-end; gap: .35rem .7rem; }
+.pa.eqjobs-page .jobs-filters .field { margin: 0; }
+.pa.eqjobs-page .jobs-filters .field.grow { flex: 1 1 12rem; }
+.pa.eqjobs-page .jobs-filters :is(select, input[type="date"], input[type="search"]) { min-height: 2.1rem; padding-block: .2rem; font-size: .85rem; }
+.pa.eqjobs-page .jobs-filters .seg button { min-height: 2.1rem; padding: .15rem .65rem; font-size: .82rem; }
+.pa.eqjobs-page .jobs-filters label, .pa.eqjobs-page .jobs-filters .label { font-size: .74rem; margin-bottom: .1rem; }
+.pa.eqjobs-page .jobs-toolbar-actions { margin-left: auto; }
+.pa.eqjobs-page .jobs-toolbar-actions .btn-sm.primary { background: var(--pa-ink); border-color: var(--pa-ink); color: #fff; }
+.pa.eqjobs-page .g-n { min-width: 1.5rem; padding: 0 .4rem; border-radius: 99px; background: #e7e8e3; color: var(--pa-ink-2); font-size: .74rem; font-weight: 750; text-align: center; }
+.pa.eqjobs-page .table-wrap { background: var(--pa-card); }
+.pa.eqjobs-page th[title], .pa.eqjobs-page td[title] { cursor: help; }
+.pa.eqjobs-page .act-col { width: 1%; white-space: nowrap; text-align: right; }
+
+/* spare parts: one-line rows grouped by equipment */
+.spare-table.compact { font-size: .84rem; }
+.spare-table.compact :is(th, td) { padding: .32rem .55rem; vertical-align: middle; }
+.spare-table.compact tbody td, .spare-table.compact tbody th[scope="row"] { white-space: nowrap; }
+.spare-table.compact tbody th[scope="row"] { font-weight: 600; }
+.spare-table.compact tbody th[scope="row"] a { color: var(--pa-ink); }
+.spare-table.compact .tag { font-size: .72rem; padding-block: .05rem; }
+.spare-table .grp-row th { padding: .45rem .55rem .3rem; background: #f6f6f2; border-top: 1px solid var(--pa-line-strong); text-align: left; }
+.spare-table .grp-row th > * { vertical-align: middle; margin-right: .45rem; }
+.spare-table .grp-row .g-art { display: inline-grid; place-items: end center; width: 2.3rem; height: 1.45rem; }
+.spare-table .grp-row .g-art .eq-art { width: 100%; height: 100%; }
+.spare-table .grp-row .grp-code { font-size: .95rem; font-weight: 750; color: var(--pa-ink); }
+.spare-table .grp-flag { display: inline-flex; align-items: center; gap: .2rem; padding: 0 .4rem; border-radius: 99px; font-size: .74rem; font-weight: 700; }
+.spare-table .grp-flag .icon { width: 13px; height: 13px; }
+.spare-table .grp-flag.over { background: var(--pa-break-soft); color: #9c344d; }
+.spare-table .grp-flag.soon { background: var(--pa-maint-soft); color: #7a5200; }
+.spare-table .rem-ic { display: inline-flex; margin-left: .3rem; color: var(--pa-muted); cursor: help; vertical-align: middle; }
+.spare-table .rem-ic .icon { width: 14px; height: 14px; }
+.row-acts { display: inline-flex; gap: .25rem; }
+.pa.eqjobs-page .icon-btn { width: 2rem; min-height: 2rem; padding: 0; justify-content: center; }
+.pa.eqjobs-page .icon-btn[aria-expanded="true"] { background: var(--pa-ink); color: #fff; border-color: var(--pa-ink); }
+
+/* EQ status: Isolated rows first and tinted */
+.pa.eqjobs-page .status-board { font-size: .84rem; }
+.pa.eqjobs-page .status-board :is(th, td) { padding: .3rem .55rem; vertical-align: middle; }
+.pa.eqjobs-page .status-board .reason { max-width: 32rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pa.eqjobs-page .status-board tr.iso-row > * { background: #fff5f6; }
+.pa.eqjobs-page .status-board .btn-sm { min-height: 1.9rem; padding: .1rem .55rem; }
+.pa.eqjobs-page .fleet-group { margin-bottom: .6rem; }
+.pa.eqjobs-page .status-hist { padding: 0; }
+.pa.eqjobs-page .status-hist > summary { display: flex; align-items: center; gap: .5rem; padding: .55rem .8rem; cursor: pointer; }
+.pa.eqjobs-page .status-hist > summary::before { content: "\25B8"; color: var(--pa-muted); }
+.pa.eqjobs-page .status-hist[open] > summary::before { content: "\25BE"; }
+.pa.eqjobs-page .status-hist > summary h2 { display: inline; font-size: .95rem; margin: 0; }
+.pa.eqjobs-page .status-hist[open] > summary { border-bottom: 1px solid var(--pa-line); }
+
+/* special jobs: compact cards with one main action and a "more" menu */
+.pa.eqjobs-page .special-board .col { border-color: var(--pa-line); border-radius: var(--pa-radius); box-shadow: var(--pa-shadow); }
+.pa.eqjobs-page .special-board .col > header { padding: .45rem .75rem; }
+.pa.eqjobs-page .special-board .col > header h2 { font-size: .95rem; margin: 0; }
+.pa.eqjobs-page .special-board .col-body { gap: .4rem; padding: .45rem; min-height: 3rem; }
+.pa.eqjobs-page .board.one { grid-template-columns: minmax(0, 1fr); }
+.pa.eqjobs-page .board.one .col-body { grid-template-columns: repeat(auto-fill, minmax(21rem, 1fr)); }
+.pa.eqjobs-page .job.compact { gap: .2rem; padding: .45rem .6rem; border-color: var(--pa-line); border-radius: .55rem; }
+.pa.eqjobs-page .job.compact h3 { font-size: .88rem; }
+.pa.eqjobs-page .job.compact .job-name { color: var(--pa-ink); }
+.pa.eqjobs-page .job.compact .job-marks .tag { font-size: .7rem; padding-block: 0; }
+.pa.eqjobs-page .job.compact .meta { gap: .1rem .6rem; font-size: .76rem; }
+.pa.eqjobs-page .job.compact .meta .when { margin-left: auto; }
+.pa.eqjobs-page .eq-job-progress.compact { display: block; cursor: help; }
+.pa.eqjobs-page .eq-job-progress.compact .prog { margin: 0; }
+.pa.eqjobs-page .job.compact .acts { overflow: visible; flex-wrap: nowrap; margin-top: .1rem; }
+.pa.eqjobs-page .job.compact .acts > .btn-sm.primary { background: var(--pa-ink); border-color: var(--pa-ink); color: #fff; }
+.vis-eye { gap: .2rem; padding: 0 .1rem; min-height: 1.6rem; color: var(--pa-muted); }
+.vis-eye .icon { width: 16px; height: 16px; }
+.more-menu { position: relative; }
+.more-menu > summary { list-style: none; display: inline-flex; align-items: center; justify-content: center; width: 2rem; min-height: 32px; padding: 0; cursor: pointer; }
+.more-menu > summary::-webkit-details-marker { display: none; }
+.more-menu[open] > summary { background: var(--pa-ink); color: #fff; border-color: var(--pa-ink); }
+.more-menu .menu { position: absolute; z-index: 60; top: calc(100% + .25rem); left: 0; display: grid; min-width: 12rem; padding: .25rem; background: #fff; border: 1px solid var(--pa-line-strong); border-radius: .5rem; box-shadow: var(--pa-shadow-hover); }
+.more-menu .menu > button { display: flex; align-items: center; gap: .45rem; justify-content: flex-start; min-height: 2.1rem; padding: .3rem .6rem; border: 0; border-radius: .35rem; background: transparent; color: var(--pa-ink); font-size: .84rem; font-weight: 600; text-align: left; }
+.more-menu .menu > button:hover, .more-menu .menu > button:focus-visible { background: #f1f2ee; }
+.more-menu .menu > button.danger { color: #9c344d; }
+.more-menu .menu > button[aria-disabled="true"] { opacity: .5; cursor: not-allowed; }
+@media (max-width: 767px) {
+  .pa.eqjobs-page .jobs-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pa.eqjobs-page .jobs-filters { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pa.eqjobs-page .jobs-filters .field:first-child, .pa.eqjobs-page .jobs-filters .grow, .pa.eqjobs-page .jobs-filters .jobs-toolbar-actions { grid-column: 1 / -1; }
+  .pa.eqjobs-page .icon-btn, .more-menu > summary { width: 44px; min-height: 44px; }
+  .pa.eqjobs-page .board.one .col-body { grid-template-columns: minmax(0, 1fr); }
+  .pa.eqjobs-page .status-board .reason { max-width: 12rem; }
+}
+.pa.eqjobs-page .table-wrap { position: relative; } /* keeps the hidden column labels inside the scroll box */
+.pa.eqjobs-page .job.compact .job-marks .more-menu > summary { width: 1.7rem; min-height: 1.6rem; }
+.pa.eqjobs-page .job.compact .job-marks .more-menu .menu { left: auto; right: 0; }

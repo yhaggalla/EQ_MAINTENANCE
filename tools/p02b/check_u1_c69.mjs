@@ -65,8 +65,8 @@ try {
     const want = await ev(`EQ.spares.allRows(r=>r.flag==='overdue').length`), total = await ev(`EQ.spares.allRows().length`);
     await b.click('[data-fk="jflag-overdue"]'); await b.wait(400);
     const r = await ev(`({hash:location.hash,rows:document.querySelectorAll('.spare-table tbody tr[data-pos]').length,flags:[...document.querySelectorAll('.spare-table tbody tr[data-pos]')].every(t=>t.textContent.includes('Overdue')),
-      pressed:document.querySelector('[data-fk="jflag-overdue"]').getAttribute('aria-pressed'),all:document.querySelector('[data-fk="jflag-all"]').textContent,sel:document.querySelector('[data-fk="flt-flag"]').value})`);
-    assert(r.hash.includes('flag=overdue') && r.rows === want && want >= 1 && r.flags && r.pressed === 'true' && r.all === total + ' registered' && r.sel === 'overdue', JSON.stringify(r));
+      pressed:document.querySelector('[data-fk="jflag-overdue"]').getAttribute('aria-pressed'),all:document.querySelector('[data-fk="jflag-all"] .n').textContent,sel:!document.querySelector('[data-fk="flt-flag"]')})`);
+    assert(r.hash.includes('flag=overdue') && r.rows === want && want >= 1 && r.flags && r.pressed === 'true' && r.all === String(total) && r.sel /* U1-C79: tiles replace chips + Flag dropdown */, JSON.stringify(r));
     await b.click('[data-fk="jflag-overdue"]'); await b.wait(400);
     assert(await ev(`!location.hash.includes('flag=')&&document.querySelectorAll('.spare-table tbody tr[data-pos]').length===${total}&&document.querySelector('[data-fk="jflag-all"]').getAttribute('aria-pressed')==='true'`), 'second press did not clear');
   });

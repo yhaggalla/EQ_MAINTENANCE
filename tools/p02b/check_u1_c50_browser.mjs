@@ -19,7 +19,7 @@ try{
  check('Correcting percentage after validation keeps keyboard focus',await b.eval(`document.activeElement.id==='ep-percent'&&document.querySelector('#ep-percent').value==='35'&&!document.querySelector('#err-summary')`));
  await b.setValue('#ep-note','Inspection underway; wear measurements recorded.');
  await b.screenshot(out+'/update-progress.png');await submit();
- check('Saving partial progress updates the card and moves Pending to Current',await b.eval(`(()=>{const j=EQ.job(window.c50Id),a=document.querySelector('.job-name[href="#/eq/jobs/special/'+j.id+'"]'),c=a.closest('.job');return !document.querySelector('dialog[open]')&&j.progressPercent===35&&j.workStatus==='current'&&c.closest('#col-current')&&c.querySelector('.eq-job-progress').dataset.progress==='35'&&c.textContent.includes('wear measurements recorded')})()`));
+ check('Saving partial progress updates the card and moves Pending to Current',await b.eval(`(()=>{const j=EQ.job(window.c50Id),a=document.querySelector('.job-name[href="#/eq/jobs/special/'+j.id+'"]'),c=a.closest('.job');return !document.querySelector('dialog[open]')&&j.progressPercent===35&&j.workStatus==='current'&&c.closest('#col-current')&&c.querySelector('.eq-job-progress').dataset.progress==='35'&&(c.textContent+c.querySelector('.eq-job-progress').title).includes('wear measurements recorded')})()`));
  check('Partial update keeps equipment operational status',await b.eval(`window.c50Status===JSON.stringify(EQ.state.D.equipment.map(e=>[e.id,e.status]))`));
  await b.eval(`document.getElementById('toasts')?.replaceChildren()`);await b.screenshot(out+'/cards-partial.png');
  await b.eval(`document.querySelector('.job-name[href="#/eq/jobs/special/'+window.c50Id+'"]').focus()`);await b.key('Enter');await b.wait(120);
@@ -47,13 +47,14 @@ try{
  await b.eval(`EQ.api.updateJobProgress(window.c50Race,{version:EQ.job(window.c50Race).version,key:'concurrent-user',percent:20,workDate:EQ.todayColombo(),note:'Another user saved first'})`);await submit();
  check('Stale form preserves server progress and reports conflict',await b.eval(`EQ.job(window.c50Race).progressPercent===20&&document.querySelector('dialog').textContent.includes('This job changed')&&document.querySelector('#ep-note').value==='My unsaved note'`));await close();
  await b.eval(`window.c50Literal=EQ.state.D.jobs.find(j=>j.workStatus==='current'&&!j.isCancelled);EQ.api.updateJobProgress(window.c50Literal.id,{version:window.c50Literal.version,key:'literal-note',percent:25,workDate:EQ.todayColombo(),note:'<img src=x onerror=alert(1)>'})`);
- check('Progress note is rendered as safe text',await b.eval(`(()=>{const c=document.querySelector('.job-name[href="#/eq/jobs/special/'+window.c50Literal.id+'"]').closest('.job');return c.querySelector('.eq-progress-note').textContent==='<img src=x onerror=alert(1)>'&&!c.querySelector('.eq-progress-note img')})()`));
+ check('Progress note is rendered as safe text',await b.eval(`(()=>{const c=document.querySelector('.job-name[href="#/eq/jobs/special/'+window.c50Literal.id+'"]').closest('.job');return c.querySelector('.eq-job-progress').title.endsWith('<img src=x onerror=alert(1)>')&&!c.querySelector('.eq-job-progress img')})()`));
  await b.eval(`EQ.refresh(true)`);await b.wait(100);
  check('Refresh retains progress in this prototype session',await b.eval(`EQ.job(window.c50Literal.id).progressPercent===25`));
  await b.eval(`EQ.api.updateJobProgress(window.c50Literal.id,{version:window.c50Literal.version,key:'readable-capture',percent:25,workDate:EQ.todayColombo(),note:'Replacement work started; preparation complete.'})`);
  await b.eval(`document.getElementById('toasts')?.replaceChildren()`);
  await b.screenshot(out+'/cards-after-progress.png');
- await nav({layout:'tabs'});await b.viewport(375,812,true);await b.wait(120);
+ await nav({ws:'current'}); // U1-C79: status tiles replace the Board/Tabs layout
+await b.viewport(375,812,true);await b.wait(120);
  check('Phone/Tabs fit and show progress without wrapping action buttons',await b.eval(`document.documentElement.scrollWidth<=innerWidth+1&&[...document.querySelectorAll('.job .acts')].filter(a=>a.getBoundingClientRect().width).every(a=>new Set([...a.children].map(x=>Math.round(x.getBoundingClientRect().top))).size<=1)&&!!document.querySelector('.eq-job-progress')`));
  await b.screenshot(out+'/phone.png',{fullPage:true});
  for(const role of ['management','facTeam']){await b.eval(`EQ.setPersona(${JSON.stringify(role)})`);check(role+' sees progress but cannot update',await b.eval(`!!document.querySelector('.eq-job-progress')&&!document.querySelector('[data-fk^="job-progress-"]')`));}

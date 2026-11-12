@@ -277,7 +277,6 @@ function renderToolbar() {
 // Maintenance (today's CMMS daily jobs), Projects/Special (open special jobs in the selection), Technical (specification summary of the
 // selected area) and Spare parts (register condition within the selection). No work history is shown here; the scoped history is in the
 // EQ Jobs tab of the P02 prototype ("Open in Jobs"). Same tabs and same data as the flat view (U1-C08 parity).
-const TAB_ARIA = { special: 'open', spareParts: 'overdue or due soon' };
 function scopeTitle() {
   const ii = I(); const e = eqObj();
   if (state.container) return ['Spatial group', nodeOf('container.' + state.container)?.label || 'Container'];
@@ -292,15 +291,12 @@ function renderInfo() {
   $('#info-head').replaceChildren(el('p', { class: 'eyebrow' }, kind), el('h3', { 'data-fk': 'scope-title' }, title));
   const ds = currentDataScope(); const eq2 = E2();
   const scope = ds.scope || { level: 'equipment', id: null };
-  const sum = EQ.panelTabs.summary(eq2, scope);
-  const nOf = { special: ds.scope ? sum.special : 0, spareParts: ds.scope ? sum.spare.overdue + sum.spare.dueSoon : 0 };
   const tabs = $('#info-tabs');
   tabs.replaceChildren(...EQ.panelTabs.TABS.map(([k, long]) => {
-    const n = nOf[k];
-    return el('button', { type: 'button', role: 'tab', id: 'ptab-' + k, 'aria-controls': 'info', 'aria-selected': state.panel === k ? 'true' : 'false', tabindex: state.panel === k ? '0' : '-1', 'data-tab': k, 'aria-label': long + (n ? ', ' + n + ' ' + TAB_ARIA[k] : ''),
+    return el('button', { type: 'button', role: 'tab', id: 'ptab-' + k, 'aria-controls': 'info', 'aria-selected': state.panel === k ? 'true' : 'false', tabindex: state.panel === k ? '0' : '-1', 'data-tab': k,
       onclick: () => setPanel(k),
       onkeydown: (ev) => { const keys = EQ.panelTabs.KEYS; const i = keys.indexOf(k); const j = ev.key === 'ArrowRight' ? (i + 1) % keys.length : ev.key === 'ArrowLeft' ? (i + keys.length - 1) % keys.length : ev.key === 'Home' ? 0 : ev.key === 'End' ? keys.length - 1 : -1; if (j >= 0) { ev.preventDefault(); setPanel(keys[j], true); } } },
-      long === 'Projects/Special' ? ['Projects/', document.createElement('wbr'), 'Special'] : long, n ? el('span', { class: 'tab-n', 'aria-hidden': 'true' }, String(n)) : null);
+      long === 'Projects/Special' ? ['Projects/', document.createElement('wbr'), 'Special'] : long);
   }));
   box.setAttribute('aria-labelledby', 'ptab-' + state.panel);
   box.dataset.tab = state.panel; box.dataset.echo = [state.eq, state.panel, scope.level, scope.id || ''].join('|');

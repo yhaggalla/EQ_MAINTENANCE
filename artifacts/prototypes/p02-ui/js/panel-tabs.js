@@ -52,7 +52,9 @@ window.EQ = window.EQ || {};
   /** EQ Jobs links are offered only when the session holds eq.jobs.view (Repair-R02B finding 1, D-139): with the Jobs tab switched off
    *  the link would only lead to the 403 page, and the job records behind it are refused by the server anyway. */
   P.jobsAllowed = () => EQ.access.has('eq.jobs.view');
-  const openInJobs = (eq, scope, tab) => (P.jobsAllowed() ? h('a', { class: 'btn btn-sm', href: P.jobsLink(eq, scope, tab), 'data-fk': 'open-in-jobs-' + tab, ...ext() }, icon('ext'), scope.level === 'area' || scope.level === 'group' ? 'Open equipment in Jobs' : 'Open in Jobs')
+  /** U1-C78 follow-up: the Management view has no "Open in Jobs" / "View in Jobs" buttons in the crane-view right panel (user instruction). */
+  P.managementView = () => { const r = EQ.PERSONAS?.[EQ.state?.role]?.roles || []; return r.length > 0 && r.every((x) => x === 'management'); };
+  const openInJobs = (eq, scope, tab) => (P.managementView() ? null : P.jobsAllowed() ? h('a', { class: 'btn btn-sm', href: P.jobsLink(eq, scope, tab), 'data-fk': 'open-in-jobs-' + tab, ...ext() }, icon('ext'), scope.level === 'area' || scope.level === 'group' ? 'Open equipment in Jobs' : 'Open in Jobs')
     : h('p', { class: 'small muted', style: 'margin:0', 'data-fk': 'jobs-tab-off-' + tab }, 'The EQ Jobs tab is not available for your role, so earlier work and job records are not shown.'));
 
   /** Current-state tab badges: eligible open special jobs and spare-part overdue / due-soon counts. */
@@ -64,7 +66,6 @@ window.EQ = window.EQ || {};
     return { special: open, spare: c };
   };
 
-  const tag = (t, cls, title) => h('span', { class: 'tag' + (cls ? ' ' + cls : ''), title }, t);
 
 
   /** One job card. opts.current: crane-view use (current-state summary only, API s4.16): no correction history, and the job title is a
@@ -78,7 +79,7 @@ window.EQ = window.EQ || {};
       const title = P.jobsAllowed() ? h('a', { class: 'current-job-title', href: P.base + '#/eq/jobs/special/' + j.id, title: j.number + ' · Open job details', ...ext() }, j.title)
         : h('strong', { class: 'current-job-title', title: j.number }, j.title);
       return h('li', { class: 'eq-current-card', 'data-current-job': j.workStatus, 'data-panel-search-item': '', 'data-job-number': j.number, 'aria-label': j.number + ' ' + j.title },
-        h('div', { class: 'current-job-head' }, title, h('span', { class: 'current-job-status ' + (j.workStatus === 'completed' ? 'completed' : 'open') }, j.workStatus === 'completed' ? icon('check-circle') : null, state)),
+        h('div', { class: 'current-job-head' }, title, h('span', { class: 'current-job-status ' + (j.workStatus === 'completed' ? 'completed' : j.workStatus === 'current' ? 'current' : 'open') }, h('span', { class: 'sp-dot', 'aria-hidden': 'true' }), state)),
         h('p', { class: 'current-job-meta', title: fullTarget }, h('span', { class: 'current-job-kind' }, EQ.JOB_KIND[j.kind]), ' · ' + target),
         h('p', { class: 'current-job-date' }, icon('clock'), j.workStatus === 'completed' ? 'Completed ' + EQ.fmtDate(j.completedOn) : j.plannedOn ? 'Planned ' + EQ.fmtDate(j.plannedOn) : 'No planned date'),
         lines && lines.length ? h('ul', { class: 'current-matching' }, lines.map(l => h('li', null, icon('wrench'), EQ.pos(l.positionId).name))) : null);
@@ -120,31 +121,46 @@ window.EQ = window.EQ || {};
     })) : h('div', { class: 'nonwork' }, h('strong', null, 'No special jobs')));
     if (cs.moreCompleted) box.appendChild(h('p', { class: 'small muted', 'data-fk': 'more-completed' }, 'Only the ' + EQ.CURRENT_COMPLETED_LIMIT + ' most recent completed jobs are listed here; the rest are in Jobs.'));
     box.appendChild(h('div', { class: 'special-footer' }, h('span', { class: 'special-result', role: 'status', 'aria-live': 'polite' }, EQ.plural(list.length, 'special job')),
-      P.jobsAllowed() ? h('a', { href: P.jobsLink(eq, scope, 'special'), 'data-fk': 'open-in-jobs-special', ...ext() }, 'View in Jobs', icon('ext')) : null));
+      P.jobsAllowed() && !P.managementView() ? h('a', { href: P.jobsLink(eq, scope, 'special'), 'data-fk': 'open-in-jobs-special', ...ext() }, 'View in Jobs', icon('ext')) : null));
     // Keep the selected-scope add action; the header's Add action always starts at whole equipment.
     if (scope.level !== 'equipment' && EQ.perm.write() && eq.lifecycle === 'active' && EQ.dlg?.jobForm) box.appendChild(h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'add-for-sel', onClick: () => EQ.dlg.jobForm({ equipmentId: eq.id, prefill: sel }) }, icon('plus'), 'Add special job here'));
     return box;
   };
 
-  const FLAG = { overdue: ['Overdue', 'red'], dueSoon: ['Due soon', 'gold'] };
-  const spareFilters = new Map();
+  // U1-C78: one line per spare part (name + status); a line opens to the full record. One line is open at a time.
+  /** Status word and class of one register row: the flag first, then whether a due date can be predicted at all. */
+  P.spareStatus = (r) => (r.flag === 'overdue' ? ['Overdue', 'overdue'] : r.flag === 'dueSoon' ? ['Due soon', 'due-soon']
+    : !r.condition ? ['Not recorded', 'none'] : r.predicted ? ['OK', 'ok'] : ['No due date', 'none']);
+  const RANK = { overdue: 0, dueSoon: 1 };
+  const spareFilters = new Map(), spareOpen = new Map();
   P.sparePartRow = function sparePartRow(r, o) {
     o = o || {};
-    const cond = r.condition === 'original' ? ['Original', ''] : r.condition === 'replaced' ? ['Replaced', 'green'] : ['Not recorded', 'dashed'];
-    return h('li', { class: r.flag === 'overdue' ? 'open overdue' : r.flag === 'dueSoon' ? 'open' : '', 'data-pos': r.posId, 'data-panel-search-item': '' },
-      h('div', { class: 'row between' }, h('strong', null, r.pos.name), h('span', null, tag(cond[0], cond[1]), r.flag ? [' ', tag(FLAG[r.flag][0], FLAG[r.flag][1])] : null)),
-      h('span', { class: 'when' }, r.typeName + (r.mainCode ? ' · ' + r.mainCode + ' / ' + r.subCode : '')),
-      r.condition ? h('dl', { class: 'kv' },
-        h('dt', null, 'Brand'), h('dd', null, r.brand || 'Unknown'), h('dt', null, 'Model / part no.'), h('dd', null, r.model || 'Unknown'), h('dt', null, 'Serial'), h('dd', null, r.serial || 'Unknown'),
-        h('dt', null, 'Replaced'), h('dd', null, r.replacedOn ? EQ.fmtDate(r.replacedOn) : r.condition === 'original' ? 'Not replaced (Original)' : 'Unknown'),
-        h('dt', null, 'Expected life'), h('dd', null, r.lifeMonths != null ? r.lifeMonths + ' months (' + (r.lifeSource === 'override' ? 'set for this equipment' : 'part type default') + ')' : 'Not set'),
-        h('dt', { title: 'Calendar estimate from expected life, not a condition assessment.' }, 'Next predicted replacement'), h('dd', null, r.predicted ? EQ.fmtDate(r.predicted) + (r.daysTo != null ? (r.daysTo < 0 ? ' (' + Math.abs(r.daysTo) + ' d ago)' : ' (in ' + r.daysTo + ' d)') : '') : r.why))
-        : h('span', { class: 'small muted' }, r.why),
-      r.remarks ? h('span', { class: 'small' }, 'Remarks: ' + r.remarks) : null);
+    const [word, cls] = P.spareStatus(r);
+    const id = 'spd-' + r.posId;
+    const cond = r.condition === 'original' ? 'Original' : r.condition === 'replaced' ? 'Replaced' : 'Not recorded';
+    const kv = (k, v, title) => [h('dt', title ? { title } : null, k), h('dd', null, v)];
+    return h('li', { class: 'sp-row' + (o.open ? ' is-open' : ''), 'data-pos': r.posId, 'data-flag': r.flag || 'none', 'data-panel-search-item': '' },
+      h('button', { type: 'button', class: 'sp-line', 'data-fk': 'spare-line-' + r.posId, 'aria-expanded': String(!!o.open), 'aria-controls': id, onClick: o.onToggle },
+        h('strong', { class: 'sp-line-name' }, r.pos.name),
+        h('span', { class: 'sp-state ' + cls }, h('span', { class: 'sp-dot', 'aria-hidden': 'true' }), word),
+        icon('chevron-r', 'sp-chev')),
+      h('div', { class: 'sp-detail', id, hidden: o.open ? null : true },
+        r.typeName || r.mainCode ? h('p', { class: 'sp-detail-meta' }, [r.typeName, r.mainCode ? r.mainCode + ' / ' + r.subCode : null].filter(Boolean).join(' · ')) : null,
+        r.condition ? h('dl', { class: 'kv' },
+          kv('Condition', cond), kv('Brand', r.brand || 'Unknown'), kv('Model / part no.', r.model || 'Unknown'), kv('Serial', r.serial || 'Unknown'),
+          kv('Replaced', r.replacedOn ? EQ.fmtDate(r.replacedOn) : r.condition === 'original' ? 'Not replaced (Original)' : 'Unknown'),
+          kv('Expected life', r.lifeMonths != null ? r.lifeMonths + ' months (' + (r.lifeSource === 'override' ? 'set for this equipment' : 'part type default') + ')' : 'Not set'),
+          kv('Next predicted replacement', r.predicted ? EQ.fmtDate(r.predicted) + (r.daysTo != null ? (r.daysTo < 0 ? ' (' + Math.abs(r.daysTo) + ' d ago)' : ' (in ' + r.daysTo + ' d)') : '') : r.why,
+            'Calendar estimate from expected life, not a condition assessment.'))
+          : h('p', { class: 'sp-detail-meta' }, r.why),
+        r.remarks ? h('p', { class: 'sp-remarks' }, 'Remarks: ' + r.remarks) : null,
+        o.actions && o.actions.length ? h('div', { class: 'row spare-actions' }, o.actions) : null));
   };
   P.spare = function spare(eq, sel, scope) {
     const box = h('div', { class: 'stack' });
-    const rows = EQ.spares.rows(eq.id, scope.level === 'equipment' ? null : scope);
+    // U1-C78: Overdue first, then Due soon, then the register order.
+    const rows = EQ.spares.rows(eq.id, scope.level === 'equipment' ? null : scope)
+      .map((r, i) => [r, i]).sort((a, b) => (RANK[a[0].flag] ?? 2) - (RANK[b[0].flag] ?? 2) || a[1] - b[1]).map(([r]) => r);
     const c = EQ.spares.counts(rows);
     const canUpdate = EQ.perm.write() && eq.lifecycle === 'active' && EQ.dlg?.spare;
     // U1-C69: History opens the replacement history over the viewer (host page sets onSpareHistory); same permission as the Jobs register history.
@@ -168,11 +184,23 @@ window.EQ = window.EQ || {};
         onClick: () => apply(v !== 'all' && flag === v ? 'all' : v) }, n + ' ' + text);
       const chips = h('div', { class: 'row spare-flags', role: 'group', 'aria-label': 'Filter spare parts by flag' }, chip('all', 'registered', rows.length), chip('overdue', 'overdue', c.overdue, c.overdue ? 'red' : ''), chip('dueSoon', 'due soon', c.dueSoon, c.dueSoon ? 'gold' : ''));
       box.appendChild(chips);
-      const list = h('ul', { class: 'tl' });
+      // U1-C78: the part selected in the 3D model (or tree) opens its own line; otherwise the line last opened here stays open.
+      const selPos = sel.part || (scope.level === 'part' ? scope.id : null);
+      const histPos = rows.find((r) => P.spareHistoryOpen?.(r.posId))?.posId;
+      let openPos = histPos || (spareOpen.has(fkey) ? spareOpen.get(fkey) : rows.some((r) => r.posId === selPos) ? selPos : '');
+      if (histPos) spareOpen.set(fkey, histPos); // the line stays open after the history closes, so focus returns to its History button
+      const toggle = (posId) => {
+        openPos = openPos === posId ? '' : posId; spareOpen.set(fkey, openPos);
+        list.querySelectorAll('li[data-pos]').forEach((li) => {
+          const on = li.dataset.pos === openPos;
+          li.classList.toggle('is-open', on);
+          li.querySelector('.sp-line').setAttribute('aria-expanded', String(on));
+          li.querySelector('.sp-detail').hidden = !on;
+        });
+      };
+      const list = h('ul', { class: 'sp-lines', 'aria-label': 'Spare parts' });
       box.appendChild(list);
       list.append(...rows.map((r) => {
-        const row = P.sparePartRow(r);
-        row.dataset.flag = r.flag || 'none'; row.dataset.statusMatch = String(match(row.dataset.flag, flag)); row.hidden = !match(row.dataset.flag, flag);
         const showHistory = canHistory && r.condition === 'replaced';
         const open = showHistory && P.spareHistoryOpen?.(r.posId);
         const actions = [
@@ -182,14 +210,16 @@ window.EQ = window.EQ || {};
           showHistory ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'spare-history-' + r.posId, 'aria-label': 'Replacement history of ' + r.pos.name,
             'aria-expanded': open ? 'true' : 'false', 'aria-controls': open ? 'sp-history' : null,
             onClick: () => P.onSpareHistory(eq, r.posId) }, icon('history'), 'History') : null].filter(Boolean);
-        if (actions.length) row.appendChild(h('div', { class: 'row spare-actions' }, actions));
+        const row = P.sparePartRow(r, { open: r.posId === openPos, onToggle: () => toggle(r.posId), actions });
+        row.dataset.statusMatch = String(match(row.dataset.flag, flag)); row.hidden = !match(row.dataset.flag, flag);
         return row;
       }));
     }
     // U1-C21: EQ Team and Admin add a spare part, pre-filled with the equipment and the selection (a part is pre-selected when it can be added)
     const selectedRegistered = scope.level === 'part' && rows.some((r) => r.posId === sel.part);
     const addSpare = !selectedRegistered && EQ.perm.write() && eq.lifecycle === 'active' && EQ.dlg && EQ.dlg.addSpare ? h('button', { type: 'button', class: 'btn-sm', 'data-fk': 'add-spare', onClick: () => EQ.dlg.addSpare({ equipmentId: eq.id, main: sel.main || '', sub: sel.sub || '', part: sel.part || '' }) }, icon('plus'), 'Add spare part') : null;
-    box.appendChild(h('div', { class: 'row' }, openInJobs(eq, scope, 'spareParts'), addSpare));
+    const jobsBtn = openInJobs(eq, scope, 'spareParts');
+    if (jobsBtn || addSpare) box.appendChild(h('div', { class: 'row' }, jobsBtn, addSpare));
     return box;
   };
 
@@ -218,10 +248,13 @@ window.EQ = window.EQ || {};
       onKeydown: (e) => { if (e.key === 'Escape' && !document.querySelector('dialog[open]')) { e.preventDefault(); e.stopPropagation(); onClose(); } } });
     if (!res.ok) { box.append(h('header', { class: 'sp-history-head' }, h('div', { class: 'sp-history-titles' }, h('h2', { id: 'sp-history-title', tabindex: '-1' }, 'Replacement history')), close), h('div', { class: 'sp-history-body' }, h('p', { class: 'notice error', role: 'alert' }, res.message))); return box; }
     const r = res.row;
-    const cond = r.condition === 'original' ? ['Original', ''] : r.condition === 'replaced' ? ['Replaced', 'green'] : ['Not recorded', 'dashed'];
+    // U1-C78: same plain style as the spare-part lines: condition as text, status as a dot and a word.
+    const cond = r.condition === 'original' ? 'Original' : r.condition === 'replaced' ? 'Replaced' : 'Not recorded';
+    const [word, cls] = P.spareStatus(r);
     box.appendChild(h('header', { class: 'sp-history-head' },
       h('div', { class: 'sp-history-titles' }, h('h2', { id: 'sp-history-title', tabindex: '-1' }, r.pos.name),
-        h('p', { class: 'sp-history-sub' }, h('span', null, eq.code + ' · ' + r.typeName + (r.mainCode ? ' · ' + r.mainCode + '/' + r.subCode : '')), tag(cond[0], cond[1]))),
+        h('p', { class: 'sp-history-sub' }, h('span', null, [eq.code, r.typeName, r.mainCode ? r.mainCode + '/' + r.subCode : null, cond].filter(Boolean).join(' · ')),
+          h('span', { class: 'sp-state ' + cls }, h('span', { class: 'sp-dot', 'aria-hidden': 'true' }), word))),
       close));
     const changes = res.periods.filter((p) => !p.original);
     const previousSpare = (p) => {

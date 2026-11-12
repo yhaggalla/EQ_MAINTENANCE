@@ -149,7 +149,7 @@ try {
         current:{ok:cs.ok, open:cs.ok?cs.openJobs.length:-1, listed:cs.ok?cs.jobs.length:-1, listsCompleted:cs.ok&&cs.openJobs.some(r=>r.job.workStatus==='completed'||r.job.isCancelled), listsCancelled:cs.ok&&cs.jobs.some(r=>r.job.isCancelled), jobKeys:cs.ok?[...new Set(cs.jobs.map(r=>JSON.stringify(Object.keys(r.job).sort())))]:[], counts:cs.counts, openInJobs:cs.openInJobs,
           reopened:cs.openJobs.find(r=>r.job.id==='job-101'), sourceHistoryKept:!!EQ.job('job-101').completedOn&&!!EQ.job('job-101').completionNote&&EQ.job('job-101').events.some(e=>e.kind==='reopened')}};})()`);
     // the record and board views themselves refuse to render data when the server read is refused (independent of the route gate)
-    const rec = await ev(`EQ.views.job('job-101').textContent`); const board = await ev(`EQ.specialBoard({}).textContent`);
+    const rec = await ev(`EQ.views.job('job-101').textContent`); const board = await ev(`EQ.specialBoard({}).body.textContent`);
     await ev(`EQ.nav('/eq/jobs/special/job-101',{})`); await b.wait(500); const route = await text('main');
     await ev(`EQ.access.refreshSession('60 s poll'); EQ.rerender()`); await b.wait(300);
     const panel = {};
